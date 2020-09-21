@@ -4,7 +4,6 @@
   "limit": 25,
   "formBase": "User",
   "showSearchForm": true,
-  "showCreateButton": true,
   "disableSimpleSearch": false,
   "simpleSearchFields": "",
   "searchFilters": [

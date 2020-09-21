@@ -139,7 +139,6 @@ EntityBrowserApp.propTypes = {
   simpleSearchFields: PropTypes.string,
   initialKey: PropTypes.string,
   nullBusinessUnit: PropTypes.bool,
-  showCreateButton: PropTypes.bool,
   memoryHistory: PropTypes.bool
 }
 

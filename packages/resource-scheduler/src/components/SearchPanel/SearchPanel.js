@@ -50,7 +50,6 @@ class SearchPanel extends React.PureComponent {
             formName={calendarType.formBase}
             limit={15}
             showSearchForm={true}
-            showCreateButton={false}
             selectable={true}
             selection={this.props.requestedCalendars ? this.props.requestedCalendars[calendarType.name] || [] : []}
             onSelectChange={this.handleSelect(calendarType.name)}
