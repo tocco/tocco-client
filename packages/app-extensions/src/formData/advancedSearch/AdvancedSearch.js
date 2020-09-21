@@ -21,6 +21,7 @@ const AdvancedSearch = props =>
       selectionStyle={props.multi ? 'multi' : 'single'}
       selectOnRowClick={true}
       disableSelectionController={true}
+      showActions={false}
     />
     <div className="advanced-search-button-wrapper">
       <Button look="raised" onClick={props.onOkClick}>
