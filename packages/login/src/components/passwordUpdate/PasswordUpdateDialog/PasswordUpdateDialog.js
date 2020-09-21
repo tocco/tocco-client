@@ -86,6 +86,7 @@ const PasswordUpdateDialog = ({
     <form onSubmit={handleSubmit}>
       {showOldPasswordField === true
         && <PasswordInput
+          tabIndex={1}
           label={msg('client.login.passwordUpdate.oldPassword')}
           name="oldPassword"
           value={password.oldPassword}
@@ -97,6 +98,7 @@ const PasswordUpdateDialog = ({
           }
         />}
       <PasswordInput
+        tabIndex={2}
         label={msg('client.login.passwordUpdate.newPassword')}
         name="newPassword"
         value={password.newPassword}
@@ -113,6 +115,7 @@ const PasswordUpdateDialog = ({
         />
       </StyledValidationRulesWrapper>
       <PasswordInput
+        tabIndex={3}
         label={msg('client.login.passwordUpdate.newPasswordRepeat')}
         name="newPasswordRepeat"
         value={password.newPasswordRepeat}
