@@ -49,7 +49,9 @@ const typeHandlers = type => {
     case 'time':
       return (path, value, comp) => `${path} ${comp} time:"${moment(value, 'HH:mm').format('HH:mm:ss.sss')}"`
     case 'string':
-      return (path, value, comp) => `${path} ${comp} "${value}"`
+      return (path, value) => `${path} ~= "${value}"`
+    case 'boolean':
+      return (path, value) => value === false ? null : `${path} == ${value}`
     default:
       return (path, value, comp) => `${path} ${comp} ${value}`
   }

@@ -11,10 +11,14 @@ describe('entity-list', () => {
               lastname: 'Griffin',
               cool: true
             }
+            const formFields = {
+              firstname: 'string',
+              lastname: 'string',
+              cool: 'boolean'
+            }
 
-            const expectedResult = {tql: 'firstname == "Robihoe" and lastname == "Griffin" and cool == "true"'}
-
-            const result = getFetchOptionsFromSearchForm(searchFormValues)
+            const expectedResult = {tql: 'firstname ~= "Robihoe" and lastname ~= "Griffin" and cool == true'}
+            const result = getFetchOptionsFromSearchForm(searchFormValues, formFields)
             expect(result).to.eql(expectedResult)
           })
 
@@ -24,7 +28,7 @@ describe('entity-list', () => {
               lastname: null
             }
 
-            const expectedResult = {tql: 'firstname == "Robihoe"'}
+            const expectedResult = {tql: 'firstname ~= "Robihoe"'}
 
             const result = getFetchOptionsFromSearchForm(searchFormValues)
             expect(result).to.eql(expectedResult)
