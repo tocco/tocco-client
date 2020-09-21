@@ -1,3 +1,9 @@
+0.3.18
+- Use recaptcha v2
+- Add tabindex for password update dialog
+- Entity list: Add support for `clickable` attribute
+- Menu entry to edit columns and reset
+
 0.3.17
 - Adjust gutter height in admin search form
 - Style error view
