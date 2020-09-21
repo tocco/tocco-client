@@ -1,3 +1,7 @@
+0.2.14
+- Use recaptcha v2
+- Add tabindex for password update dialog
+
 0.2.13
 - Style input fields according to material design
 - Change Stated and Editablevalue colors for more contrast/readability
