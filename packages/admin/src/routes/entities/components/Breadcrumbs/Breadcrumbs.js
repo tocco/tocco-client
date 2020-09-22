@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import {Icon, Typography} from 'tocco-ui'
 import {Helmet} from 'react-helmet'
 
-import {StyledBreadcumbs, StyledBreadcrumbsLink, StyledBreadcrumbsTitle} from './StyledBreadcrumbs'
+import {
+  StyledBreadcumbs,
+  StyledBreadcrumbsLink,
+  StyledBreadcrumbsTitle
+} from './StyledBreadcrumbs'
 
 const getTitle = breadcrumbsInfo =>
   breadcrumbsInfo
@@ -18,7 +22,7 @@ const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
     ...(currentViewTitle ? [{display: currentViewTitle}] : [])
   ]
 
-  if (breadcrumbs.length === 0) { return null }
+  if (breadcrumbs.length === 0) return null
 
   return <StyledBreadcumbs>
     <Helmet defer={false}>
@@ -31,7 +35,7 @@ const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
         return <Typography.Span key={`breadcrumbItem-${idx}`}>
           <Comp
             neutral="true"
-            {...(idx === breadcrumbsInfo.length - 1 && {active: 'true'})}
+            {...(idx === breadcrumbs.length - 1 && {active: 'true'})}
             to={`/e/${b.path}`}
           >
             {b.type === 'list' && <Icon icon="list-ul" />}  {display}
@@ -42,7 +46,8 @@ const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
           [prev,
             <Typography.Span key={'icon' + idx}> <Icon icon="angle-right"/> </Typography.Span>,
             curr]
-        )}  </div>
+        )}
+    </div>
   </StyledBreadcumbs>
 }
 
