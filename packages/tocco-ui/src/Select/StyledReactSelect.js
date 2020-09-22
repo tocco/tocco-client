@@ -79,10 +79,13 @@ const reactSelectStyles = outerTheme => {
     indicatorsContainer: (base, state) => ({
       ...base,
       'alignSelf': 'flex-end',
-      '> span': {
-        marginRight: `${space2}`
+      '> *': {
+        padding: '0 !important;', // resets react-select padding
+        marginRight: space2
       },
-      '> span:last-child': {marginRight: `-${space2}`}
+      '> :last-child': {
+        marginRight: `-${space2}`
+      }
     }),
     input: (base, state) => ({
       margin: `0 ${space2} 0 0`,
