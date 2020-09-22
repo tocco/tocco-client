@@ -200,11 +200,8 @@ FormBuilder.propTypes = {
   customActions: PropTypes.objectOf(PropTypes.func)
 }
 
-const updateIgnoreProps = ['formValues']
-
 const areEqual = (prevProps, nextProps) => {
   const diff = Object.keys(js.difference(prevProps, nextProps))
-    .filter(key => !updateIgnoreProps.includes(key))
   return diff.length === 0
 }
 
