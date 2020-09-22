@@ -137,7 +137,7 @@ export const getOrderByString = sortingArray => sortingArray && sortingArray.len
 export const getManualQuery = (selection, listState) => ({
   ...new window.nice2.netui.ManualQuery(),
   entityName: selection.entityName,
-  queryWhere: selection.query.tql,
+  queryWhere: selection.query.where,
   queryOrderBy: getOrderByString(listState.sorting)
 })
 

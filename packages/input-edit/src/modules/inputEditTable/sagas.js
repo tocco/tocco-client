@@ -64,7 +64,7 @@ export function* loadData({newSorting, newSearchQueries, newPage}) {
     limit: recordsPerPage,
     sorting,
     page: currentPage,
-    tql: searchQueries.join(' and '),
+    where: searchQueries.join(' and '),
     paths: paths
   })
   const response = yield call(rest.requestSaga, 'inputEdit/data/search', {

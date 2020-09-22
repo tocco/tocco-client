@@ -242,7 +242,7 @@ export const defaultEntityTransformer = json => (json.data)
  * - sorting {Array} Array of objects containing a field and order String. e.g. [{field: 'firstname', order: 'asc'}]
  * - page {Number} Current page, needed to calculate offset. Default is undefined which means no offset.
  * - paths {Array} Paths that should be returned
- * - tql {String} TQL query
+ * - where {String} TQL query
  * - relations {String} Relations that should be returned
  * - filters {Array} List of filter names to be applied
  * - constriction {String} Id of the constriction that should be applied
@@ -256,7 +256,7 @@ export const buildRequestQuery = ({
   sorting,
   page,
   paths,
-  tql,
+  where,
   relations,
   filter,
   keys,
@@ -271,7 +271,7 @@ export const buildRequestQuery = ({
     ...(sorting ? {sort: sorting.map(s => `${s.field} ${s.order}`).join(', ')} : {}),
     ...(page && limit ? {offset: (page - 1) * limit} : {}),
     ...(paths ? {paths} : {}),
-    ...(tql ? {where: tql} : {}),
+    ...(where ? {where} : {}),
     ...(Array.isArray(relations) ? {relations: relations.length === 0 ? '!' : relations} : {}),
     ...(filter ? {filter} : {}),
     ...(keys ? {keys} : {}),
