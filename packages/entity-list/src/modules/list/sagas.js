@@ -103,12 +103,12 @@ export function* getBasicQuery(regardSelection = true) {
 
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
   const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters, searchFormSearchFilter)
-  const tql = yield call(getTql, inputTql, searchFormFetchOptions.tql)
+  const where = yield call(getTql, inputTql, searchFormFetchOptions.tql)
 
   return {
     ..._omit(searchFormFetchOptions, ['filters', 'tql']),
     ...(filter && filter.length > 0 ? {filter} : {}),
-    ...(tql ? {tql} : {}),
+    ...(where ? {where} : {}),
     ...(list.constriction && {constriction: list.constriction})
   }
 }

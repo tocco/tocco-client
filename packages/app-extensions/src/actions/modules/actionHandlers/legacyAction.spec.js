@@ -174,7 +174,7 @@ describe('app-extensions', () => {
                 entityName: 'User',
                 type: 'QUERY',
                 query: {
-                  tql: 'firstname == "Hans"',
+                  where: 'firstname == "Hans"',
                   filter: ['active_persons']
                 }
               }
