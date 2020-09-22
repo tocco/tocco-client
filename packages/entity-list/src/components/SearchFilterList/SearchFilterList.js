@@ -1,7 +1,7 @@
 /* stylelint-disable no-descending-specificity */
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography, Button, theme, StyledSpan} from 'tocco-ui'
+import {Typography, Button, theme, StyledSpan, scale} from 'tocco-ui'
 import styled from 'styled-components'
 import {FormattedMessage} from 'react-intl'
 
@@ -11,16 +11,18 @@ const SearchFilterListWrapper = styled.div`
 `
 
 const StyledSpanSearchFilter = styled(StyledSpan)`
-  width: 95%;
+  width: 90%;
 `
 
 const StyledButton = styled(Button)`
   && {
     display: none;
     background-color: transparent;
-    margin-left: auto;
     border: 0;
-    padding: 0;
+    flex: 1;
+    height: auto;
+    border-radius: 0;
+    padding: 0 ${scale.space(-1)} 0 0;
 
     &:hover * {
       color: ${theme.color('secondary')};
@@ -31,10 +33,11 @@ const StyledButton = styled(Button)`
 export const StyledSearchFilterButton = styled.div`
   border-radius: ${theme.radii('medium')};
   display: flex;
-  padding: .3rem 1rem;
+  padding: .3rem 0 .3rem 1rem;
   margin-bottom: .2rem;
   background-color: ${({active}) => active && theme.color('secondary')};
-  align-items: center;
+  align-items: stretch;
+  justify-content: space-between;
 
   && {
     * {
@@ -42,7 +45,8 @@ export const StyledSearchFilterButton = styled.div`
     }
     ${({active}) => active && `
       ${StyledButton} {
-        display: block;
+        display: flex;
+        justify-content: flex-end;
       }
       `
     }
@@ -51,6 +55,7 @@ export const StyledSearchFilterButton = styled.div`
   :hover {
     ${StyledButton} {
       display: flex;
+      justify-content: flex-end;
     }
     background-color: ${theme.color('secondaryLight')};
 
@@ -69,7 +74,7 @@ const SearchFilterButton = ({setActive, active, label}) =>
         setActive(false)
         e.stopPropagation()
       }}
-      icon="plus"
+      icon={active ? 'minus' : 'plus'}
       dense />
   </StyledSearchFilterButton>
 
