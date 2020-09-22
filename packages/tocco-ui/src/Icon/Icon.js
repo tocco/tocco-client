@@ -13,9 +13,7 @@ const iconLibsFactories = {
 export const Icon = props => {
   const iconMap = mapping[props.icon]
 
-  if (!iconMap) {
-    return null
-  }
+  if (!iconMap) return null
 
   const iconFactory = iconLibsFactories[iconMap.lib]
   return iconFactory ? iconFactory(iconMap, props) : null
