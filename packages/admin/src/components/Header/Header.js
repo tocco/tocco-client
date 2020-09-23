@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {MenuItem, ButtonMenu, BallMenu} from 'tocco-ui'
+import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'
 
@@ -13,6 +13,10 @@ import AboutTocco from '../AboutTocco'
 
 const StyledBallMenuWrapper = styled.span`
   margin-top: 2px;
+
+  ${StyledBall} {
+    font-size: ${scale.font(1)};
+  }
 `
 
 const Header = ({
@@ -55,7 +59,7 @@ const Header = ({
           <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
         </ButtonMenu>
         <StyledBallMenuWrapper>
-          <BallMenu buttonProps={{icon: 'info'}}>
+          <BallMenu buttonProps={{icon: 'question-circle'}}>
             {niceVersion && <MenuItem onClick={() => {
               window.open(
                   `https://${niceVersion.replace('.', '')}.docs.tocco.ch/de/`,
