@@ -1,3 +1,9 @@
+0.3.20
+- Display search filter button only on hover - else hide
+- Change help menu icon
+- Hide action in advanced search
+- Fix remote field
+
 0.3.19
 - Handle strings in search with "like" and add boolean handler
 - Expand search filter list button area for better UX
