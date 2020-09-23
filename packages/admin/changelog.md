@@ -1,3 +1,7 @@
+0.3.19
+- Handle strings in search with "like" and add boolean handler
+- Expand search filter list button area for better UX
+
 0.3.18
 - Use recaptcha v2
 - Add tabindex for password update dialog
