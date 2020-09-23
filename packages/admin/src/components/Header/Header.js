@@ -77,7 +77,7 @@ const Header = ({
               <FormattedMessage id="client.admin.menu.restDoc"/>
             </MenuItem>
             <MenuItem onClick={() => {
-              openModalComponent('about', 'client.admin.menu.aboutToccoTitle', null, () => <AboutTocco/>, true)
+              openModalComponent('about', null, null, () => <AboutTocco/>, true)
             }}>
               <FormattedMessage id="client.admin.menu.aboutToccoTitle"/>
             </MenuItem>
