@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {queryString as queryStringUtil} from 'tocco-util'
+import {queryString as queryStringUtil, js} from 'tocco-util'
 import {intlShape} from 'react-intl'
 import _get from 'lodash/get'
 
@@ -56,4 +56,9 @@ ActionView.propTypes = {
   match: PropTypes.object
 }
 
-export default ActionView
+const areEqual = (prevProps, nextProps) => {
+  const diff = Object.keys(js.difference(prevProps, nextProps))
+  return diff.length === 0
+}
+
+export default React.memo(ActionView, areEqual)
