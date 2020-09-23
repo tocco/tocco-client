@@ -1,3 +1,7 @@
+0.3.6
+- Entity list: Add support for `clickable` attribute
+- Handle strings in search with "like" and add boolean handler
+
 0.3.5
 - Remove obsolete default searchfield styling and height in nested layout containers
 - Change Stated and Editablevalue colors for more contrast/readability
