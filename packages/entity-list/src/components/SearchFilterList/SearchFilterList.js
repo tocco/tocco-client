@@ -43,13 +43,6 @@ export const StyledSearchFilterButton = styled.div`
     * {
       color: ${({active}) => active && theme.color('paper')};
     }
-    ${({active}) => active && `
-      ${StyledButton} {
-        display: flex;
-        justify-content: flex-end;
-      }
-      `
-    }
   }
 
   :hover {
