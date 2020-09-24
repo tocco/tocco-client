@@ -1,3 +1,8 @@
+0.3.21
+- Remove about tocco modal title
+- Form builder refactoring
+- Fix action query selection bug
+
 0.3.20
 - Display search filter button only on hover - else hide
 - Change help menu icon
