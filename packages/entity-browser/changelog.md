@@ -1,4 +1,4 @@
-0.10.12
+0.10.13
 - Entity list: Add support for `clickable` attribute
 - Columns edit menu
 - Handle strings in search with "like" and add boolean handler
