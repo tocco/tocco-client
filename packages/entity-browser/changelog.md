@@ -1,3 +1,11 @@
+0.10.12
+- Entity list: Add support for `clickable` attribute
+- Columns edit menu
+- Handle strings in search with "like" and add boolean handler
+- Hide action in advanced search
+- Fix action selection bug
+- Refactor form builder
+
 0.10.11
 - Table component
 - Added button to reset all preferences
