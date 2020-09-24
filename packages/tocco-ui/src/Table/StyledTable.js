@@ -20,6 +20,7 @@ export const StyledTableCell = styled.td`
   border-bottom: 1px solid ${borderColor};
   align-content: center;
   max-height: 23px;
+  box-sizing: content-box;
 `
 
 export const StyledDnD = styled.div`
