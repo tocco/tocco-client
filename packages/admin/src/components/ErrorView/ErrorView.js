@@ -7,7 +7,6 @@ import styled from 'styled-components'
 const StyledErrorView = styled.div`
   width: 50vw;
   max-width: 650px;
-  background-color: ${theme.color('paper')};
   padding: ${scale.space(1)};
   text-align: center;
   margin: 20vh auto auto;
@@ -19,7 +18,7 @@ const StyledErrorView = styled.div`
 
 const StyledIconWrapper = styled.span`
   color: ${theme.color('signal.danger.text')};
-  font-size: ${scale.font(23)};
+  font-size: ${scale.font(13.4)};
 `
 
 const ErrorView = ({message, technicalReason}) => {
