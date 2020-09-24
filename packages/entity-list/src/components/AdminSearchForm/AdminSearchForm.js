@@ -10,7 +10,7 @@ import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import SearchFilterList from '../SearchFilterList'
 
 const SEARCH_FILTER_BUTTON_HEIGHT = 28
-const SEARCH_FILTER_PADDING = 15
+const SEARCH_FILTER_PADDING = 5
 const MAX_HEIGHT_THRESHOLD = 30
 const MAX_SIZE_SEARCH_FILTER = 25
 
@@ -37,7 +37,7 @@ const AdminSearchForm = ({resetSearch, theme, intl, searchFilters}) => {
       ? searchFilters.length * SEARCH_FILTER_BUTTON_HEIGHT + SEARCH_FILTER_PADDING
       : SEARCH_FILTER_BUTTON_HEIGHT
     const splitWrapperHeight = splitWrapperEl.current.clientHeight
-    const searchFilterHeightPercentage = Math.ceil(100 / (splitWrapperHeight / searchFilterHeight))
+    const searchFilterHeightPercentage = Math.floor(100 / (splitWrapperHeight / searchFilterHeight))
 
     if (!searchFilterExpanded && searchFilterHeightPercentage > MAX_HEIGHT_THRESHOLD) {
       setShowExpandSearchFilter(true)
