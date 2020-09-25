@@ -10,7 +10,9 @@ import ErrorBox from '../ErrorBox'
 import SaveButton from './SaveButton'
 
 const StyledForm = styled.form`
-  display: block;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `
 
 const DetailForm = props => {
