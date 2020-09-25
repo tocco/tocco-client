@@ -8,6 +8,7 @@ const declareStylesIfNestedCorrectly = ({isNestedCorrectly}) => {
 
       &:last-child {
         margin-bottom: 0;
+        flex: 1;
       }
     `
   } else {

@@ -20,14 +20,13 @@ const fadeInAnimation = css`
 `
 
 const StyledLoadMask = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  height: 100%;
   ${props => !props.isInitialized && css`
     && {
-      display: flex;
       flex-flow: column nowrap;
-      height: 100%;
       justify-content: center;
       align-items: center;
       padding: ${scale.space(-1)};
