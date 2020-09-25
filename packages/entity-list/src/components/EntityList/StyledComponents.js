@@ -26,4 +26,5 @@ export const SearchGrid = styled.div`
 
 export const ListGrid = styled.div`
   grid-area: list;
+  display: flex;
 `
