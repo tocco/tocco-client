@@ -9,8 +9,11 @@ import ThemeWrapper from './ThemeWrapper'
 import keyDown from '../keyDown'
 
 const StyledApp = styled.div`
-  display: contents;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 `
+
 const App = ({store, initIntlPromise, name, content, theme}) => {
   const wrapperCallback = useCallback(node => {
     if (node) {
