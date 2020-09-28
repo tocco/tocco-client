@@ -161,10 +161,18 @@ describe('app-extensions', () => {
         test('should call fetch', () => {
           const response = {display: 'Test'}
 
-          return expectSaga(helpers.fetchDisplay, 'User', 'update', 1)
+          return expectSaga(helpers.fetchDisplay, 'User', '1')
             .provide([
               [matchers.call.fn(requestSaga), {body: response}]
             ])
+            .returns('Test')
+            .run()
+        })
+
+        test('should serve display from cache if already loaded', () => {
+          cache.add('display', 'User.1', 'Test')
+
+          return expectSaga(helpers.fetchDisplay, 'User', '1')
             .returns('Test')
             .run()
         })
