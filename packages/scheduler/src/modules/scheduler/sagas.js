@@ -23,7 +23,7 @@ export function* onDateRangeChange({payload}) {
 
 export function* onCalendarRemove({payload}) {
   yield put(actions.setIsLoading(true))
-  yield put(externalEvents.fireExternalEvent('onCalendarRemove', {id: payload.id, calendarType: payload.calendarType}))
+  yield put(externalEvents.fireExternalEvent('onCalendarRemove', {id: payload.id, entityModel: payload.entityModel}))
 }
 
 export function* onCalendarRemoveAll() {

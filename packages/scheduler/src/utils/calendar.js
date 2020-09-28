@@ -9,7 +9,8 @@ export const getResources = calendars => {
     title: calendar.label,
     id: getResourceId(calendar.key, calendar.model),
     entityKey: calendar.key,
-    calendarType: calendar.calendarType
+    calendarType: calendar.calendarType,
+    entityModel: calendar.model
   }))
 }
 

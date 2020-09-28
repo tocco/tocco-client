@@ -117,7 +117,7 @@ const FullCalendar = ({
     checkbox.checked = 'checked'
     checkbox.className = 'remove-resource-checkbox'
     checkbox.onclick = () => {
-      onCalendarRemove(renderInfo.resource.extendedProps.entityKey, renderInfo.resource.extendedProps.calendarType)
+      onCalendarRemove(renderInfo.resource.extendedProps.entityKey, renderInfo.resource.extendedProps.entityModel)
     }
     element.prepend(checkbox)
   }

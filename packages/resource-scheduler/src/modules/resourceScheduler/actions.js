@@ -55,10 +55,10 @@ export const setDateRange = dateRange => ({
   }
 })
 
-export const removeRequestedCalendar = (calendarType, id) => ({
+export const removeRequestedCalendar = (entityModel, id) => ({
   type: REMOVE_REQUESTED_CALENDAR,
   payload: {
-    calendarType,
+    entityModel,
     id
   }
 })
