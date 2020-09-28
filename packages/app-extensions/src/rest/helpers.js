@@ -35,12 +35,19 @@ export function* fetchEntity(entityName, key, query, transformer = json => json)
  * @param key {String} key of the entity
  */
 export function* fetchDisplay(entityName, key) {
+  const cachedDisplay = cache.get('display', `${entityName}.${key}`)
+  if (cachedDisplay) {
+    return cachedDisplay
+  }
   const options = {
     method: 'GET'
   }
 
-  const resp = yield call(requestSaga, `entity/${entityName}/${key}/display`, options)
-  return resp.body.display
+  const resp = yield call(requestSaga, `entities/2.0/${entityName}/${key}/display`, options)
+  const display = resp.body.display
+  cache.add('display', `${entityName}.${key}`, display)
+
+  return display
 }
 
 /**
