@@ -27,11 +27,11 @@ const StyledBreadcrumbs = styled.div`
   grid-area: breadcrumbs;
 `
 
-const EntitiesRoute = ({match, history, loadCurrentViewInfo}) => {
+const EntitiesRoute = ({match, history, loadCurrentRoute}) => {
   const location = history.location
 
   useEffect(() => {
-    loadCurrentViewInfo(location)
+    loadCurrentRoute(location)
   }, [location])
 
   return <StyledWrapper>
@@ -55,7 +55,7 @@ const EntitiesRoute = ({match, history, loadCurrentViewInfo}) => {
 }
 
 EntitiesRoute.propTypes = {
-  loadCurrentViewInfo: PropTypes.func.isRequired,
+  loadCurrentRoute: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired
 }
