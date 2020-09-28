@@ -2,29 +2,6 @@ import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
-export const cacheModel = (state, {payload: {entity, model}}) => (
-  {
-    ...state,
-    modelCache: {
-      ...state.modelCache,
-      [entity]: model
-    }
-  }
-)
-
-export const cacheDisplay = (state, {payload: {entity, key, display}}) => (
-  {
-    ...state,
-    displayCache: {
-      ...state.displayCache,
-      [entity]: {
-        ...state.displayCache[entity],
-        [key]: display
-      }
-    }
-  }
-)
-
 export const setCurrentViewInfo = (state, {payload: {location, currentViewInfo}}) => ({
   ...state,
   currentViewInfos: {
@@ -34,8 +11,6 @@ export const setCurrentViewInfo = (state, {payload: {location, currentViewInfo}}
 })
 
 const ACTION_HANDLERS = {
-  [actions.CACHE_MODEL]: cacheModel,
-  [actions.CACHE_DISPLAY]: cacheDisplay,
   [actions.SET_CURRENT_VIEW_INFO]: setCurrentViewInfo,
   [actions.SET_BREADCRUMBS_INFO]: reducerUtil.singleTransferReducer('breadcrumbsInfo'),
   [actions.SET_RELATIONS]: reducerUtil.singleTransferReducer('relations'),
@@ -44,8 +19,6 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  modelCache: {},
-  displayCache: {},
   currentViewInfos: {},
   breadcrumbsInfo: [],
   relations: null,
