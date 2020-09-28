@@ -12,7 +12,7 @@ import {
 
 const mapActionCreators = {
   onDateRangeChange: ({dateRange}) => setDateRange(dateRange),
-  onCalendarRemove: ({calendarType, id}) => removeRequestedCalendar(calendarType, id),
+  onCalendarRemove: ({entityModel, id}) => removeRequestedCalendar(entityModel, id),
   onCalendarRemoveAll: removeAllCalendars,
   onEventClick: ({model, key}) => onEventClick(model, key),
   onRefresh

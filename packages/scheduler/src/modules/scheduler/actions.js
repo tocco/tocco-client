@@ -25,11 +25,11 @@ export const onCalendarRemoveAll = () => ({
   type: ON_CALENDARS_REMOVE_ALL
 })
 
-export const onCalendarRemove = (id, calendarType) => ({
+export const onCalendarRemove = (id, entityModel) => ({
   type: ON_CALENDAR_REMOVE,
   payload: {
     id,
-    calendarType
+    entityModel
   }
 })
 
