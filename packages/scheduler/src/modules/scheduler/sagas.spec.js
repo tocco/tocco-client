@@ -37,10 +37,10 @@ describe('scheduler', () => {
       describe('onCalendarRemove', () => {
         test('should call externalEvent onCalendarRemove', () => {
           const entityId = '99'
-          const calendarType = 'lecturer'
+          const entityModel = 'User'
 
-          return expectSaga(sagas.onCalendarRemove, actions.onCalendarRemove(entityId, calendarType))
-            .put(externalEvents.fireExternalEvent('onCalendarRemove', {id: entityId, calendarType}))
+          return expectSaga(sagas.onCalendarRemove, actions.onCalendarRemove(entityId, entityModel))
+            .put(externalEvents.fireExternalEvent('onCalendarRemove', {id: entityId, entityModel}))
             .run()
         })
       })

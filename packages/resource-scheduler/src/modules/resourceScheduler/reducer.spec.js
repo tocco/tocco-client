@@ -34,16 +34,36 @@ describe('resource-scheduler', () => {
             const stateBefore = {
               requestedCalendars: {
                 lecturer: ['1', '3', '4', '5']
-              }
+              },
+              calendarTypes: [
+                {
+                  targetEntity: 'User',
+                  name: 'lecturer'
+                },
+                {
+                  targetEntity: 'Appliance',
+                  name: 'appiance'
+                }
+              ]
             }
 
             const expectedStateAfter = {
               requestedCalendars: {
                 lecturer: ['1', '4', '5']
-              }
+              },
+              calendarTypes: [
+                {
+                  targetEntity: 'User',
+                  name: 'lecturer'
+                },
+                {
+                  targetEntity: 'Appliance',
+                  name: 'appiance'
+                }
+              ]
             }
 
-            expect(reducer(stateBefore, actions.removeRequestedCalendar('lecturer', '3')))
+            expect(reducer(stateBefore, actions.removeRequestedCalendar('User', '3')))
               .to.deep.equal(expectedStateAfter)
           })
 
@@ -51,14 +71,34 @@ describe('resource-scheduler', () => {
             const stateBefore = {
               requestedCalendars: {
                 lecturer: ['3']
-              }
+              },
+              calendarTypes: [
+                {
+                  targetEntity: 'User',
+                  name: 'lecturer'
+                },
+                {
+                  targetEntity: 'Appliance',
+                  name: 'appiance'
+                }
+              ]
             }
 
             const expectedStateAfter = {
-              requestedCalendars: {}
+              requestedCalendars: {},
+              calendarTypes: [
+                {
+                  targetEntity: 'User',
+                  name: 'lecturer'
+                },
+                {
+                  targetEntity: 'Appliance',
+                  name: 'appiance'
+                }
+              ]
             }
 
-            expect(reducer(stateBefore, actions.removeRequestedCalendar('lecturer', '3')))
+            expect(reducer(stateBefore, actions.removeRequestedCalendar('User', '3')))
               .to.deep.equal(expectedStateAfter)
           })
         })
