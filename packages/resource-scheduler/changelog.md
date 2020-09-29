@@ -1,3 +1,8 @@
+0.3.7
+- Change div to flex item for proper display in old client
+- Change flex properties for proper display in old client
+- Set box sizing on td to prevent overwrite in external context
+
 0.3.6
 - Entity list: Add support for `clickable` attribute
 - Handle strings in search with "like" and add boolean handler
