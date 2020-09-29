@@ -1,3 +1,11 @@
+0.3.22
+- Change div to flex item for proper display in old client
+- Change flex properties for proper display in old client
+- Adjust search filter area height to have minimal padding at bottom when expanded
+- Set box sizing on td to prevent overwrite in external context
+- Change error view background and icon size
+- Admin loadCurrentViewInfo refactoring
+
 0.3.21
 - Remove about tocco modal title
 - Form builder refactoring
