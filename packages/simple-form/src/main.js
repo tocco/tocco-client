@@ -1,10 +1,11 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, externalEvents, formData, notifier, actionEmitter} from 'tocco-app-extensions'
+import {appFactory, externalEvents, formData, notifier, actionEmitter, form} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
+import {setFieldDefinitions} from './modules/simpleForm/actions'
 import FormContainer from './containers/FormContainer'
 const packageName = 'simple-form'
 
@@ -31,7 +32,9 @@ const initApp = (id, input, events = {}, publicPath) => {
     {
       input,
       events,
-      actions: [],
+      actions: [
+        setFieldDefinitions(form.getFieldDefinitions(input.form))
+      ],
       publicPath,
       textResourceModules: ['component', 'common']
     }

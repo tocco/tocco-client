@@ -2,6 +2,7 @@ import formErrorsUtil from './formErrors'
 import FormBuilder from './FormBuilder'
 import {getFieldId, getFieldDefinitions, getDefaultValues, getUsedPaths} from './formDefinition'
 import syncValidation from './syncValidation'
+import {asyncValidation, submitValidation} from './asyncValidation'
 import {
   formValuesToFlattenEntity,
   entityToFormValues,
@@ -34,5 +35,7 @@ export default {
   layoutTypes,
   scopes,
   validators,
-  transformInputValues
+  transformInputValues,
+  asyncValidation,
+  submitValidation
 }

@@ -12,7 +12,6 @@ import {
   updateEntity,
   createEntity
 } from '../../util/api/entities'
-import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
 import rootSaga, * as sagas from './sagas'
 
@@ -211,7 +210,7 @@ describe('entity-detail', () => {
                 },
                 [select(sagas.formInitialValueSelector, 'detailForm'), initialValues],
                 [select(sagas.entityDetailSelector), {entityModel, mode}],
-                [matchers.call.fn(submitValidate), null]
+                [matchers.call.fn(form.submitValidation), null]
               ])
 
               .put.like({action: {type: formActions.startSubmit().type}})

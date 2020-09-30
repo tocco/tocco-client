@@ -1,6 +1,8 @@
 import reducer from './reducer'
 
-const INITIAL_STATE = {}
+const INITIAL_STATE = {
+  fieldDefinitions: null
+}
 
 describe('simple-form', () => {
   describe('modules', () => {

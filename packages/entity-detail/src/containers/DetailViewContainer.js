@@ -21,6 +21,7 @@ const mapStateToProps = (state, props) => {
     entityName: state.entityDetail.entityName,
     entityId: state.entityDetail.entityId,
     entityModel: state.entityDetail.entityModel,
+    fieldDefinitions: state.entityDetail.fieldDefinitions,
     mode: state.entityDetail.mode,
     formInitialValues: getFormInitialValues('detailForm')(state)
   }
