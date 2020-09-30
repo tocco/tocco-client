@@ -7,7 +7,6 @@ import {LoadMask} from 'tocco-ui'
 
 import modes from '../../util/modes'
 import DetailFormContainer from '../../containers/DetailFormContainer'
-import {asyncValidate, AsyncValidationException} from '../../util/detailView/asyncValidation'
 
 class DetailView extends React.Component {
   componentWillUnmount() {
@@ -15,22 +14,16 @@ class DetailView extends React.Component {
   }
 
   handledAsyncValidate = formValues =>
-    asyncValidate(
+    form.asyncValidation(
       formValues,
       this.props.mode === modes.CREATE ? {} : this.props.formInitialValues,
-      this.props.entityModel,
+      this.props.fieldDefinitions,
       this.props.mode
-    ).catch(error => {
-      if (error instanceof AsyncValidationException) {
-        throw error.errors
-      } else {
-        this.props.logError('client.common.unexpectedError', 'client.entity-detail.validationError', error)
-      }
-    })
+    )
 
   getSyncValidation = () => {
-    if (!this.validateSingleton && !_isEmpty(this.props.entityModel)) {
-      this.validateSingleton = form.syncValidation(this.props.entityModel)
+    if (!this.validateSingleton && !_isEmpty(this.props.fieldDefinitions)) {
+      this.validateSingleton = form.syncValidation(this.props.fieldDefinitions)
     }
     return this.validateSingleton
   }
@@ -64,6 +57,13 @@ DetailView.propTypes = {
   unloadDetailView: PropTypes.func.isRequired,
   logError: PropTypes.func.isRequired,
   entityModel: PropTypes.object.isRequired,
+  fieldDefinitions: PropTypes.arrayOf(
+    PropTypes.shape({
+      path: PropTypes.string,
+      id: PropTypes.string,
+      validation: PropTypes.object
+    })
+  ).isRequired,
   entityName: PropTypes.string.isRequired,
   entityId: PropTypes.string,
   formInitialValues: PropTypes.shape({

@@ -13,7 +13,6 @@ import {
   updateEntity,
   createEntity
 } from '../../util/api/entities'
-import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
 
 export const formInitialValueSelector = (state, formId) => state.form[formId].initial
@@ -97,7 +96,7 @@ export function* createFormSubmit(entity) {
 
 export function* touchAllFields() {
   const {fieldDefinitions} = yield select(entityDetailSelector)
-  yield put(formActions.touch(FORM_ID, ...(fieldDefinitions.map(f => form.transformFieldName(f.path)))))
+  yield put(formActions.touch(FORM_ID, ...(fieldDefinitions.map(f => form.transformFieldName(f.path || f.id)))))
 }
 
 export function* handleSubmitError(error) {
@@ -121,11 +120,11 @@ export function* handleSubmitError(error) {
 export function* getEntityForSubmit() {
   const formValues = yield select(getFormValues(FORM_ID))
   const initialFormValues = yield select(formInitialValueSelector, FORM_ID)
-  const {entityModel, mode} = yield select(entityDetailSelector)
+  const {mode} = yield select(entityDetailSelector)
   const initialValues = mode === modes.CREATE ? {} : initialFormValues
   yield put(formActions.startSubmit(FORM_ID))
 
-  yield call(submitValidate, formValues, initialValues, entityModel, mode)
+  yield call(form.submitValidation, formValues, initialValues, mode)
   const dirtyFields = yield call(form.getDirtyFields, initialValues, formValues, mode === modes.CREATE)
   const flattenEntity = yield call(form.formValuesToFlattenEntity, formValues)
   return yield call(api.toEntity, flattenEntity, dirtyFields)

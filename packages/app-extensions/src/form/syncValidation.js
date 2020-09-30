@@ -1,65 +1,31 @@
-import _forOwn from 'lodash/forOwn'
+import _has from 'lodash/has'
 import _get from 'lodash/get'
 
 import validators from './validators'
 import formErrors from './formErrors'
 
-export default entityModel =>
-  values => (
-    validate(
-      values,
-      entityModel
-    )
-  )
-
-const validate = (values, entityModel) => {
+export default fieldDefinitions => values => {
   let errors = {}
 
-  errors = validateModel(values, entityModel, errors)
-  errors = validateTypes(values, entityModel, errors)
-  return errors
-}
+  fieldDefinitions.forEach(fieldDefinition => {
+    const value = values[fieldDefinition.path]
 
-const validateTypes = (values, entityModel, errors) => {
-  _forOwn(values, (value, key) => {
-    if (value) {
-      const type = _get(entityModel, `paths.${key}.type`)
-      const typeValidator = validators.syncValidators[type]
-      if (typeValidator) {
-        const fieldModel = entityModel[key]
-        const validatorError = typeValidator(value, fieldModel)
-        if (validatorError) {
-          errors = formErrors.addErrors(errors, key, validatorError)
+    if (validators.valueDefined(value)) {
+      Object.keys(validators.syncValidators).forEach(syncValidatorKey => {
+        if (_has(fieldDefinition, ['validation', ...syncValidatorKey.split('.')])) {
+          const validatorValue = _get(fieldDefinition, ['validation', ...syncValidatorKey.split('.')])
+          const validator = validators.syncValidators[syncValidatorKey]
+          const validatorErrors = validator(value, validatorValue)
+          if (validatorErrors) {
+            errors = formErrors.addErrors(errors, fieldDefinition.path, validatorErrors)
+          }
         }
+      })
+    } else {
+      if (fieldDefinition.validation && fieldDefinition.validation.mandatory) {
+        errors = formErrors.addErrors(errors, fieldDefinition.path, validators.mandatoryError)
       }
     }
-  })
-
-  return errors
-}
-
-const validateModel = (values, entityModel, errors) => {
-  const getValidatorValue = (fieldModel, selector) => {
-    if (fieldModel.validation) {
-      return fieldModel.validation[selector]
-    }
-  }
-
-  const getValueSelector = fieldModel => fieldModel.type === 'relation' ? fieldModel.relationName : fieldModel.fieldName
-
-  _forOwn(entityModel.paths, fieldModel => {
-    const valueSelector = getValueSelector(fieldModel)
-    const fieldValue = values[valueSelector]
-
-    _forOwn(validators.modelValidators, (validator, name) => {
-      const validatorValue = getValidatorValue(fieldModel, name)
-      if (validatorValue) {
-        const validatorErrors = validator(fieldValue, validatorValue)
-        if (validatorErrors) {
-          errors = formErrors.addErrors(errors, valueSelector, validatorErrors)
-        }
-      }
-    })
   })
 
   return errors
