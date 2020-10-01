@@ -9,11 +9,11 @@ export default {
     relationEntities: formField.id,
     tooltips: formField.targetEntity
   }),
-  getOptions: ({formField, modelField, formData}) => ({
+  getOptions: ({formField, formData}) => ({
     options: _get(formData, ['relationEntities', formField.id, 'data'], []),
     isLoading: _get(formData, ['relationEntities', formField.id, 'isLoading'], false),
     tooltips: _get(formData.tooltips, formField.targetEntity, null),
-    loadTooltip: id => formData.loadTooltip(modelField.targetEntity, id),
+    loadTooltip: id => formData.loadTooltip(formField.targetEntity, id),
     noResultsText: formData.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'}),
     fetchOptions: () => formData.loadRelationEntities(formField.id, formField.targetEntity, {
       forceReload: false,

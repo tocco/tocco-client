@@ -1,5 +1,5 @@
 export default {
-  getOptions: ({modelField}) => ({
+  getOptions: () => ({
     allowNegative: true
   })
 }

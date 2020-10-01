@@ -65,11 +65,6 @@ const FormBuilder = props => {
     const fieldName = formDefinitionField.path || formDefinitionField.id
     const entityField = _get(entity, 'paths.' + fieldName.split('.').join('.value.paths.'))
 
-    const modelSelector = formDefinitionField.path
-      ? formDefinitionField.path.split('.')[0]
-      : formDefinitionField.id
-    const modelField = model.paths[modelSelector]
-
     const shouldRenderField = (formDefinitionField, entityField) => {
       if (!modeFitsScope(mode, formDefinitionField.scopes)) {
         return false
@@ -113,7 +108,6 @@ const FormBuilder = props => {
         component={ReduxFormFieldAdapter}
         formDefinitionField={formDefinitionField}
         entityField={entityField}
-        modelField={modelField}
         fieldMappingType={fieldMappingType}
         format={null}
       />

@@ -57,7 +57,6 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
   try {
     const {
       formDefinitionField,
-      modelField,
       entityField,
       id,
       value,
@@ -83,7 +82,7 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
       || !_get(entityField, 'writable', true)
     )
 
-    const mandatory = !readOnly && _get(modelField, 'validation.mandatory', false)
+    const mandatory = !readOnly && _get(formDefinitionField, 'validation.mandatory', false)
     const hasValue = value !== null && value !== undefined && (value.length === undefined || value.length > 0)
     const isDisplay = displayFieldAsDisplayOnly(value, componentType, dataType, parentReadOnly)
 
@@ -93,7 +92,7 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
     const typeEditable = field.editableTypeConfigs[type]
 
     if (typeEditable && typeEditable.dataContainerProps) {
-      requestedFromData = typeEditable.dataContainerProps({formField: formDefinitionField, modelField, formName})
+      requestedFromData = typeEditable.dataContainerProps({formField: formDefinitionField, formName})
     }
 
     const fixLabel = typeEditable && typeEditable.fixLabel && typeEditable.fixLabel()
@@ -120,7 +119,6 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
             fieldMappingType={isDisplay ? 'readOnly' : fieldMappingType}
             formName={formName}
             formField={formDefinitionField}
-            modelField={modelField}
             value={value}
             info={{id, readOnly, mandatory}}
             events={events}
@@ -140,7 +138,6 @@ const ValueField = ({
   fieldMappingType,
   formName,
   formField,
-  modelField,
   value,
   info,
   events,
@@ -154,7 +151,6 @@ const ValueField = ({
     return value
       .map((v, idx) => <Field
         formField={formField}
-        modelField={modelField}
         formName={formName}
         value={v}
         info={info}
@@ -167,7 +163,6 @@ const ValueField = ({
 
   return <Field
     formField={formField}
-    modelField={modelField}
     formName={formName}
     value={value}
     info={info}
@@ -183,6 +178,5 @@ ValueField.propTypes = {
   formField: PropTypes.object,
   formName: PropTypes.string,
   info: PropTypes.object,
-  modelField: PropTypes.object,
   value: PropTypes.any
 }
