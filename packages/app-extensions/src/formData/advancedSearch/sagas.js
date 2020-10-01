@@ -19,10 +19,10 @@ export default function* sagas(config) {
 
 export function* openAdvancedSearch(config, {payload}) {
   const {listApp} = config
-  const {formName, formField, modelField, value} = payload
+  const {formName, formField, value} = payload
 
-  const {multi, targetEntity: entity} = modelField
-  const {id: fieldId, label, formBase: fieldFormBase} = formField
+  const {id: fieldId, label, formBase: fieldFormBase, targetEntity: entity, dataType} = formField
+  const multi = dataType === 'multi-remote-field'
   const remoteFieldFormName = fieldFormBase || entity
   const listFormDefinition = yield call(rest.fetchForm, remoteFieldFormName, 'remotefield')
   const answerChannel = yield call(channel)

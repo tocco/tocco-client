@@ -1,8 +1,8 @@
 
 export default {
-  getOptions: ({modelField, formField, formData}) => ({
+  getOptions: ({formField, formData}) => ({
     linkFactory: formData.linkFactory && formData.linkFactory.detail
-      ? (key, content) => formData.linkFactory.detail(formField.targetEntity, modelField.relationName, key, content)
+      ? (key, content) => formData.linkFactory.detail(formField.targetEntity, formField.relationName, key, content)
       : null
   })
 

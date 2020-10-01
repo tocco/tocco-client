@@ -1,6 +1,8 @@
+import _get from 'lodash/get'
+
 export default {
-  getOptions: ({modelField}) => ({
-    customPhoneRegex: modelField.customPhoneRegex,
-    defaultCountry: modelField.defaultCountry
+  getOptions: ({formField}) => ({
+    customPhoneRegex: _get(formField, 'validation.phone.customRegex', null),
+    defaultCountry: _get(formField, 'validation.phone.defaultRegion', null)
   })
 }

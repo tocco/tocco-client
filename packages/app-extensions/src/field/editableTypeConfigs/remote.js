@@ -7,12 +7,12 @@ const settings = {
 }
 
 export default {
-  dataContainerProps: ({formField, modelField}) => ({
+  dataContainerProps: ({formField}) => ({
     relationEntities: formField.id,
     tooltips: formField.targetEntity,
     linkFactory: true
   }),
-  getOptions: ({formField, modelField, formName, formData}) => ({
+  getOptions: ({formField, formName, formData}) => ({
     options: _get(formData, ['relationEntities', formField.id, 'data'], []),
     moreOptionsAvailable: _get(formData, ['relationEntities', formField.id, 'moreEntitiesAvailable'], false),
     isLoading: _get(formData, ['relationEntities', formField.id, 'isLoading'], false),
@@ -28,7 +28,7 @@ export default {
       forceReload: true,
       formBase: formField.formBase
     }),
-    openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, modelField, value),
+    openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
     tooltips: _get(formData.tooltips, formField.targetEntity, null),
     loadTooltip: id => formData.loadTooltip(formField.targetEntity, id),
     noResultsText: formData.intl.formatMessage(
@@ -38,7 +38,7 @@ export default {
       {id: 'client.component.remoteselect.moreOptionsAvailableText'}
     ),
     valueLinkFactory: formData.linkFactory && formData.linkFactory.detail
-      ? (key, content) => formData.linkFactory.detail(formField.targetEntity, modelField.relationName, key, content)
+      ? (key, content) => formData.linkFactory.detail(formField.targetEntity, formField.relationName, key, content)
       : null
   })
 

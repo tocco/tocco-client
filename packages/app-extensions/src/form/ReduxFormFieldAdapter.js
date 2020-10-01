@@ -15,7 +15,6 @@ const ReduxFormFieldAdapter = props => {
     id,
     formDefinitionField,
     entityField,
-    modelField,
     parentReadOnly,
     formName
   } = props
@@ -24,7 +23,6 @@ const ReduxFormFieldAdapter = props => {
 
   const fomFieldData = {
     formDefinitionField,
-    modelField,
     id,
     formName,
     value: input.value,
@@ -61,7 +59,6 @@ ReduxFormFieldAdapter.propTypes = {
   }).isRequired,
   formDefinitionField: PropTypes.object.isRequired,
   entityField: PropTypes.object,
-  modelField: PropTypes.object,
   parentReadOnly: PropTypes.bool,
   fieldMappingType: PropTypes.string.isRequired
 }

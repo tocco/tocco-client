@@ -29,12 +29,11 @@ describe('app-extensions', () => {
         describe('openAdvancedSearch', () => {
           test('should prompt a modal and spawn close saga', () => {
             const ListApp = () => <div>ListApp</div>
-            const formField = {id: 'relRemote'}
-            const modelField = {targetEntity: 'User', multi: true}
+            const formField = {id: 'relRemote', dataType: 'multi-remote-field', targetEntity: 'User'}
             const value = []
             const formName = 'searchForm'
 
-            const action = advancedSearchActions.openAdvancedSearch(formName, formField, modelField, value)
+            const action = advancedSearchActions.openAdvancedSearch(formName, formField, value)
             const config = {ListApp}
             return expectSaga(sagas.openAdvancedSearch, config, action)
               .provide([
