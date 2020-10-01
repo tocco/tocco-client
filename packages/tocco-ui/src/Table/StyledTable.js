@@ -62,14 +62,11 @@ export const StyledTableHeaderCell = styled.th`
     }
     `
   }
-  &#header-cell-navigation-column {
-    ${StyledDnD} {
-      justify-content: center;
-    }
-
+  ${({isResizing, sortable, fixedPosition}) => !isResizing && !sortable && !fixedPosition && `
     &:hover {
-      background-color: ${theme.color('paper')};
+      background-color: transparent;
     }
+    `
   }
 `
 
