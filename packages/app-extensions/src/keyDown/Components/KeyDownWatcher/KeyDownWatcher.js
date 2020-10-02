@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import _pick from 'lodash/pick'
 const StyledDiv = styled.div`
-  display: contents;
+  display: block;
 
   :focus {
     outline: none;
