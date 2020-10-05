@@ -30,11 +30,11 @@ const EntityList = ({
   const PositioningContainer = searchFormPosition === 'left' ? LeftPositioning : TopPositioning
 
   return (
-    <PositioningContainer>
+    <PositioningContainer searchFormType={searchFormType}>
       <SearchGrid>
         <SearchViewContainer/>
       </SearchGrid>
-      <ListGrid>
+      <ListGrid searchFormType={searchFormType}>
         <List/>
       </ListGrid>
     </PositioningContainer>

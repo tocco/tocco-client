@@ -39,14 +39,13 @@ const BasicSearchForm = ({
   }
 
   const isHidden = (preselectedSearchFields, name) => {
-    if (!preselectedSearchFields) {
-      return false
-    }
+    if (!preselectedSearchFields) return false
     const field = preselectedSearchFields.find(f => f.id === name)
     return field && field.hidden
   }
 
-  const shouldRenderField = (preselectedSearchFields,
+  const shouldRenderField = (
+    preselectedSearchFields,
     disableSimpleSearch,
     showExtendedSearchForm,
     simpleSearchFields) => name => (
@@ -65,37 +64,35 @@ const BasicSearchForm = ({
   const fields = form.getFieldDefinitions(searchFormDefinition)
   const hasExtendedOnlySearchFields = !fields.every(field => simpleSearchFields.includes(field.id))
 
-  return (
-    <StyledBasicSearchForm>
-      <form onSubmit={handleSubmit}>
-        <form.FormBuilder
-          entity={entity}
-          model={entityModel}
-          formName={formName}
-          formDefinition={searchFormDefinition}
-          formValues={formValues}
-          fieldMappingType="search"
-          beforeRenderField={shouldRenderField(
-            preselectedSearchFields,
-            disableSimpleSearch,
-            showExtendedSearchForm,
-            simpleSearchFields)
-          }
-          mode="search"
-        />
-        {hasExtendedOnlySearchFields && !disableSimpleSearch
-          && <StyledSearchFormButtons>
-            <Ball
-              data-cy="extend-search-button"
-              icon={`chevron-${showExtendedSearchForm ? 'up' : 'down'}`}
-              onClick={toggleExtendedSearchForm}
-              title={msg('client.entity-list.extendedSearch')}
-            />
-          </StyledSearchFormButtons>
+  return <StyledBasicSearchForm disableSimpleSearch={disableSimpleSearch}>
+    <form onSubmit={handleSubmit}>
+      {hasExtendedOnlySearchFields && !disableSimpleSearch
+        && <StyledSearchFormButtons>
+          <Ball
+            data-cy="extend-search-button"
+            icon={`chevron-${showExtendedSearchForm ? 'up' : 'down'}`}
+            onClick={toggleExtendedSearchForm}
+            title={msg('client.entity-list.extendedSearch')}
+          />
+        </StyledSearchFormButtons>
+      }
+      <form.FormBuilder
+        entity={entity}
+        model={entityModel}
+        formName={formName}
+        formDefinition={searchFormDefinition}
+        formValues={formValues}
+        fieldMappingType="search"
+        beforeRenderField={shouldRenderField(
+          preselectedSearchFields,
+          disableSimpleSearch,
+          showExtendedSearchForm,
+          simpleSearchFields)
         }
-      </form>
-    </StyledBasicSearchForm>
-  )
+        mode="search"
+      />
+    </form>
+  </StyledBasicSearchForm>
 }
 
 BasicSearchForm.propTypes = {

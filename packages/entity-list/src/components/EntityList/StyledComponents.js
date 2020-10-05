@@ -7,7 +7,19 @@ export const TopPositioning = styled.div`
   grid-template-areas:
     'search'
     'list';
-  grid-auto-rows: auto 1fr;
+  grid-auto-rows: auto minmax(400px, 1fr);
+  /* safari only fix to ensure proper height in modal */
+  @media not all and (min-resolution: .001dpcm)
+    { @supports (-webkit-appearance:none) and (stroke-color: transparent) {
+      grid-auto-rows: auto 1fr;
+    }
+  }
+
+  /* remove bottom space in modal */
+  ${({searchFormType}) => searchFormType !== 'simple' && `
+    margin-bottom: -25px;
+  `
+  }
 `
 
 export const LeftPositioning = styled.div`
@@ -27,4 +39,14 @@ export const SearchGrid = styled.div`
 export const ListGrid = styled.div`
   grid-area: list;
   display: flex;
+
+  /* safari only fix to ensure proper height in modal */
+  ${({searchFormType}) => searchFormType !== 'simple' && `
+    @media not all and (min-resolution: .001dpcm)
+    { @supports (-webkit-appearance:none) and (stroke-color: transparent) {
+      height: -webkit-fit-content;
+      }
+    }
+  `
+  }
 `

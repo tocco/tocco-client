@@ -1,11 +1,19 @@
 import styled from 'styled-components'
-import {StyledLayoutBox} from 'tocco-ui/src/Layout'
+import {StyledLayoutBox, StyledScrollbar} from 'tocco-ui/src/Layout'
 
 const StyledBasicSearchForm = styled.div`
+  ${StyledScrollbar}
+
   && {
     ${StyledLayoutBox} {
       padding-bottom: 0;
     }
+  }
+  ${({disableSimpleSearch}) => !disableSimpleSearch && `
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: .5rem;
+  `
   }
 `
 
