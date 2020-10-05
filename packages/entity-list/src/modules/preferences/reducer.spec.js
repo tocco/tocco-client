@@ -3,7 +3,7 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   positions: null,
-  sorting: [],
+  sorting: null,
   columns: {}
 }
 
@@ -44,7 +44,7 @@ describe('entity-list', () => {
             field: 'field',
             order: 'order'
           }
-          expect(reducer({sorting: previousSorting}, actions.resetSorting()).sorting).to.be.empty
+          expect(reducer({sorting: previousSorting}, actions.resetSorting()).sorting).to.be.null
         })
 
         test('should clear column preferences', () => {
