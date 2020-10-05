@@ -33,10 +33,6 @@ export function* loadPreferences() {
   const preferences = yield call(rest.fetchUserPreferences, `${formName}*`)
   yield put(setPositions(util.getPositions(preferences)))
   yield put(setSorting(util.getSorting(preferences)))
-  const {initialized} = yield select(listSagas.listSelector)
-  if (initialized) {
-    yield call(listSagas.setSorting)
-  }
   yield put(setColumns(util.getColumns(preferences)))
 }
 

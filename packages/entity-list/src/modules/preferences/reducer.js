@@ -24,7 +24,7 @@ const ACTION_HANDLERS = {
 
 const initialState = {
   positions: null,
-  sorting: [],
+  sorting: null,
   columns: {}
 }
 

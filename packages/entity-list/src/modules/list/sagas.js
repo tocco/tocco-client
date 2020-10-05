@@ -12,6 +12,7 @@ import * as selectionActions from '../selection/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
 import {getSorting, getSelectable, getClickable, getEndpoint, getConstriction, getFields} from '../../util/api/forms'
 import {entitiesListTransformer} from '../../util/api/entities'
+import * as preferencesActions from '../preferences/actions'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -249,12 +250,22 @@ export function* displayEntity(page) {
   yield put(actions.setEntities(entities))
 }
 
+function* getPreferencesSorting() {
+  const preferences = yield select(preferencesSelector)
+  if (!preferences.sorting) {
+    const {payload} = yield take(preferencesActions.SET_SORTING)
+    return payload.sorting
+  } else {
+    return preferences.sorting
+  }
+}
+
 export const FALLBACK_SORTING_FIELD = 'update_timestamp'
 export function* setSorting() {
   const {formDefinition, entityModel} = yield select(listSelector)
   const tableSorting = yield call(getSorting, formDefinition)
-  const {sorting: preferencesSorting} = yield select(preferencesSelector)
-  if (preferencesSorting.length > 0) {
+  const preferencesSorting = yield call(getPreferencesSorting)
+  if (preferencesSorting && preferencesSorting.length > 0) {
     yield put(actions.setSorting(preferencesSorting))
   } else if (tableSorting.length > 0) {
     yield put(actions.setSorting(tableSorting))

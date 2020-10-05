@@ -51,7 +51,6 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadPreferences)
               .provide([
                 [select(entityListSelector), {formName: 'User'}],
-                [select(listSelector), {initialized: false}],
                 [matchers.call.fn(rest.fetchUserPreferences), preferences]
               ])
               .put.actionType(actions.SET_POSITIONS)
