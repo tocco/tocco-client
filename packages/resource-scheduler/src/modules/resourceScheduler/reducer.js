@@ -15,38 +15,18 @@ const removeRequestedCalendar = (state, {payload}) => {
   const {id, entityModel} = payload
 
   const typesToRemove = state.calendarTypes.filter(type => type.targetEntity === entityModel).map(type => type.name)
-  const adjustedTypeKeys = typesToRemove
-    .reduce((acc, calendarType) => {
-      const arr = state.requestedCalendars[calendarType]
-      if (!arr) {
-        return acc
-      }
-
-      const index = arr.indexOf(id)
-      if (index < 0) {
-        return acc
-      }
-
-      const newKeys = [
-        ...arr.slice(0, index),
-        ...arr.slice(index + 1)
-      ]
-
-      if (newKeys.length > 0) {
-        return {
-          ...acc,
-          [calendarType]: newKeys
-        }
-      } else {
-        return acc
-      }
-    }, {})
-
   return {
     ...state,
     requestedCalendars: {
-      ...(_omit(state.requestedCalendars, typesToRemove)),
-      ...adjustedTypeKeys
+      ...Object.keys(state.requestedCalendars).reduce((acc, calendarType) => {
+        const adjustedValue = state.requestedCalendars[calendarType]
+          .filter(key => !typesToRemove.includes(calendarType) || key !== id)
+
+        return {
+          ...acc,
+          ...(adjustedValue.length > 0 && {[calendarType]: adjustedValue})
+        }
+      }, {})
     }
   }
 }
