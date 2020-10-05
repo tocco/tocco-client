@@ -15,11 +15,12 @@ export const StyledCloseButton = styled.button`
   opacity: .8;  // reset
   outline: none;
   position: sticky;
-  top: ${basePadding}px;  // reset
-  left: 100%;  // reset
+  top: ${basePadding};  // reset
   padding-right: 0;
   width: auto;  // reset
   z-index: 2;
+  display: flex;
+  align-self: flex-end;
 
   &:hover {
     opacity: 1;
