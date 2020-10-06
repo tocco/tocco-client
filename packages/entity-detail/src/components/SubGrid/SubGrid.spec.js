@@ -9,9 +9,10 @@ describe('entity-detail', () => {
     describe('SubGrid', () => {
       const testProps = {
         detailFormName: 'User',
-        gridName: 'relFoo',
-        modelField: {targetEntity: 'Foo'},
-        relationName: 'relFoo',
+        formField: {
+          path: 'relFoo',
+          targetEntity: 'Foo'
+        },
         navigateToCreate: () => {},
         showSubGridsCreateButton: false,
         dispatchEmittedAction: () => {},

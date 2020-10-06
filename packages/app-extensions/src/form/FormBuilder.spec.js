@@ -29,18 +29,6 @@ const testData = {
       }
     }
   },
-  model: {
-    paths: {
-      fistname: {
-        fieldName: 'firstname',
-        type: 'string'
-      },
-      lastname: {
-        fieldName: 'lastname',
-        type: 'string'
-      }
-    }
-  },
   formName: 'detail',
   formValues: {
     firstname: 'Fist Name',
@@ -139,26 +127,26 @@ describe('app-extensions', () => {
   describe('form', () => {
     describe('formBuilder', () => {
       test('should render layout boxes and Fields', () => {
-        const {entity, model, formName, formDefinition, formValues} = testData
-        const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
+        const {entity, formName, formDefinition, formValues} = testData
+        const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Layout.Box)).to.have.length(3)
         expect(wrapper.find(Field)).to.have.length(3)
       })
 
       test('should not render field if beforeRenderField returns false', () => {
-        const {entity, model, formName, formDefinition, formValues} = testData
+        const {entity, formName, formDefinition, formValues} = testData
 
         const beforeRenderField = name => name !== 'lastname'
 
-        const props = {entity, model, formName, formDefinition, formValues, beforeRenderField, formFieldMapping: {}}
+        const props = {entity, formName, formDefinition, formValues, beforeRenderField, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Layout.Box)).to.have.length(3)
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
       test('should not render none readable fields', () => {
-        const {entity, model, formName, formDefinition, formValues} = testData
+        const {entity, formName, formDefinition, formValues} = testData
 
         entity.paths.lastname = {
           type: 'field',
@@ -170,7 +158,7 @@ describe('app-extensions', () => {
           }
         }
 
-        const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
+        const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
 
         expect(wrapper.find(Field)).to.have.length(2)
@@ -179,43 +167,43 @@ describe('app-extensions', () => {
       test(
         'should not require an entity (should not check readable flag in this case)',
         () => {
-          const {model, formName, formDefinition, formValues} = testData
+          const {formName, formDefinition, formValues} = testData
           const entity = null
-          const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
+          const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
           const wrapper = shallow(<FormBuilder {...props}/>)
           expect(wrapper.find(Field)).to.have.length(3)
         }
       )
 
       test('should not render empty values in readonly form', () => {
-        const {entity, model, formName, formDefinition} = testData
+        const {entity, formName, formDefinition} = testData
         const formDefinitionReadOnly = {...formDefinition, readonly: true}
         const formValues = {lastname: undefined}
-        const props = {entity, model, formName, formValues, formFieldMapping: {}}
+        const props = {entity, formName, formValues, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props} formDefinition={formDefinitionReadOnly}/>)
         expect(wrapper.find(Field)).to.have.length(0)
       })
 
       test('should render fields with matching scope', () => {
-        const {model, formName, formDefinition, formValues} = testData
+        const {formName, formDefinition, formValues} = testData
         const entity = null
-        const props = {entity, model, formName, formDefinition, formValues, mode: 'create', formFieldMapping: {}}
+        const props = {entity, formName, formDefinition, formValues, mode: 'create', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(3)
       })
 
       test('should NOT render fields with unmatching scope', () => {
-        const {model, formName, formDefinition, formValues} = testData
+        const {formName, formDefinition, formValues} = testData
         const entity = null
-        const props = {entity, model, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
+        const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
       test('should render children of readonly layouts to readonly', () => {
-        const {model, formName, formDefinition, formValues} = testData
+        const {formName, formDefinition, formValues} = testData
         const entity = null
-        const props = {entity, model, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
+        const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         const field = wrapper.findWhere(e => e.props().id === 'input-detail-not-readonly-field')
         expect(field).to.have.length(1)
@@ -282,8 +270,8 @@ describe('app-extensions', () => {
           ]
         }
 
-        const {model, formName, formValues} = testData
-        const props = {entity, model, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
+        const {formName, formValues} = testData
+        const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
 
         expect(wrapper.find(Field).first().props().entityField).to.equal(

@@ -2,12 +2,10 @@ import React from 'react'
 
 import SubGridContainer from '../../../containers/SubGridContainer'
 
-export default (formField, modelField, key) => (
+export default (formField, key) => (
   <SubGridContainer
     key={key}
-    gridName={formField.id}
-    relationName={formField.id}
-    modelField={modelField}
+    formField={formField}
     showSearchForm={formField.showSearchForm}
     limit={formField.limit || undefined}
   />

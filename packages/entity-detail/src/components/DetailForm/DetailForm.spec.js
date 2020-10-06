@@ -115,7 +115,6 @@ describe('entity-detail', () => {
                   submitForm={EMPTY_FUNC}
                   formDefinition={formDefinition}
                   entity={entity}
-                  entityModel={{paths: {}}}
                   logError={EMPTY_FUNC}
                   loadRelationEntities={EMPTY_FUNC}
                   uploadDocument={EMPTY_FUNC}

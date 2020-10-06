@@ -31,7 +31,6 @@ class Form extends React.Component {
     <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
       <form.FormBuilder
         entity={undefined}
-        model={this.props.model}
         formName={this.props.form}
         formDefinition={this.props.formDefinition}
         formValues={this.props.formValues}
@@ -64,7 +63,6 @@ Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   formDefinition: PropTypes.object.isRequired,
-  model: PropTypes.object.isRequired,
   submitting: PropTypes.bool.isRequired,
   cancelText: PropTypes.string,
   submitText: PropTypes.string,
