@@ -29,6 +29,10 @@ const FormBuilder = props => {
     customActions
   } = props
 
+  if (!formValues) {
+    return null
+  }
+
   const modeFitsScope = (mode, scopes) => (
     !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
   )
@@ -86,15 +90,14 @@ const FormBuilder = props => {
         }
       }
 
-      if (entityField) {
-        const isReadable = _get(entityField, 'value.readable', true)
-        if (!isReadable) {
-          return false
-        }
-      }
+      const readOnly = (
+        parentReadOnly
+        || formDefinition.readonly
+        || (entityField && entityField.writable === false)
+        || formDefinitionField.readonly || formDefinitionField.componentType === 'display'
+      )
 
-      return !(formDefinition.readonly
-        && hasEmptyValue(transformFieldName(fieldName), formValues))
+      return !(readOnly && hasEmptyValue(transformFieldName(fieldName), formValues))
     }
 
     if (shouldRenderField(formDefinitionField, entityField)) {
