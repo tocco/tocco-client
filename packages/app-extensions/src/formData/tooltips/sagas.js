@@ -18,8 +18,7 @@ export function* loadToolTip({payload: {entity, id}}) {
     const tooltip = yield select(tooltipSelector, entity, id)
 
     if (tooltip == null) {
-      const response = yield call(rest.requestSaga, `entity/${entity}/${id}/display/tooltip`, {})
-      const {display} = response.body
+      const display = yield call(rest.fetchDisplay, entity, id, 'tooltip')
       yield put(tooltipActions.setToolTip(entity, id, display))
     }
   }

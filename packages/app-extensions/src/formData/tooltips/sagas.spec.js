@@ -31,7 +31,7 @@ describe('app-extensions', () => {
             )
               .provide([
                 [select(sagas.tooltipSelector, entity, id), null],
-                [matchers.call.fn(rest.requestSaga), {body: {display: tooltip}}]
+                [matchers.call.fn(rest.fetchDisplay), tooltip]
               ])
               .put(tooltipActions.setToolTip(entity, id, tooltip))
               .run()

@@ -159,7 +159,19 @@ describe('app-extensions', () => {
 
       describe('fetchDisplay', () => {
         test('should call fetch', () => {
-          const response = {display: 'Test'}
+          const response = {
+            data: [
+              {
+                model: 'User',
+                values: [
+                  {
+                    key: '1',
+                    display: 'Test'
+                  }
+                ]
+              }
+            ]
+          }
 
           return expectSaga(helpers.fetchDisplay, 'User', '1')
             .provide([

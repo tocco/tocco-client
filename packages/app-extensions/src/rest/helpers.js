@@ -2,6 +2,7 @@ import _reduce from 'lodash/reduce'
 import _isObject from 'lodash/isObject'
 import {call} from 'redux-saga/effects'
 import {cache} from 'tocco-util'
+import _get from 'lodash/get'
 
 import {requestSaga} from './rest'
 
@@ -33,21 +34,10 @@ export function* fetchEntity(entityName, key, query, transformer = json => json)
  *
  * @param entityName {String} Name of the entity
  * @param key {String} key of the entity
+ * @param type {String} type of the display, default display if none passed
  */
-export function* fetchDisplay(entityName, key) {
-  const cachedDisplay = cache.get('display', `${entityName}.${key}`)
-  if (cachedDisplay) {
-    return cachedDisplay
-  }
-  const options = {
-    method: 'GET'
-  }
-
-  const resp = yield call(requestSaga, `entities/2.0/${entityName}/${key}/display`, options)
-  const display = resp.body.display
-  cache.add('display', `${entityName}.${key}`, display)
-
-  return display
+export function* fetchDisplay(entityName, key, type) {
+  return _get(yield fetchDisplays({[entityName]: [key]}, type), `${entityName}.${key}`, null)
 }
 
 /**
@@ -76,20 +66,54 @@ export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExp
  * Helper to fetch the default-display of an entities.
  *
  * @param request {Object} Object containing model and keys of desired entities e.g. {User: ["123"], Gender: ["1", "2"]}
+ * @param type {String} type of the display, default display if none passed
  */
-export function* fetchDisplays(request) {
-  const options = {
-    method: 'POST',
-    body: {data: Object.keys(request).map(model => ({model, keys: request[model]}))}
-  }
-  const response = yield call(requestSaga, 'entities/2.0/displays', options)
+export function* fetchDisplays(request, type) {
+  const currentDisplays = Object.entries(request).map(([model, keys]) => ({
+    model,
+    keys: keys.filter(key => cache.get('display', `${model}.${key}`) === undefined),
+    displays: keys.map(key => ({key, display: cache.get('display', `${model}.${key}`)}))
+      .filter(value => value.display !== undefined)
+  }))
 
-  return response.body.data.reduce((acc, value) => (
-    {
-      ...acc,
-      [value.model]: value.values.reduce((acc, value) => ({...acc, [value.key]: value.display}), {})
+  const loadedDisplays = yield loadDisplays(currentDisplays, type)
+
+  return currentDisplays.reduce((acc, {model, displays}) => ({
+    ...acc,
+    [model]: {
+      ...acc[model],
+      ...(displays.reduce((acc, {key, display}) => ({
+        ...acc,
+        [key]: display
+      }), {}))
     }
-  ), {})
+  }), loadedDisplays)
+}
+
+function* loadDisplays(currentDisplays, type) {
+  const keysToLoad = currentDisplays.filter(({keys}) => keys.length > 0).map(({model, keys}) => ({model, keys}))
+  if (keysToLoad.length > 0) {
+    const options = {
+      method: 'POST',
+      body: {data: keysToLoad}
+    }
+    const response = yield call(requestSaga, `entities/2.0/displays${type ? `/${type}` : ''}`, options)
+
+    const loadedDisplays = response.body.data.reduce((acc, value) => (
+      {
+        ...acc,
+        [value.model]: value.values.reduce((acc, value) => ({...acc, [value.key]: value.display}), {})
+      }
+    ), {})
+    Object.entries(loadedDisplays).forEach(([entityName, values]) => {
+      Object.entries(values).forEach(([key, display]) => {
+        cache.add('display', `${entityName}.${key}`, display)
+      })
+    })
+    return loadedDisplays
+  } else {
+    return {}
+  }
 }
 
 /**
