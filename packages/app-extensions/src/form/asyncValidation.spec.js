@@ -104,8 +104,22 @@ describe('app-extensions', () => {
             errors: {}
           })
 
-          const values = {firstname: ''}
+          const values = {phone_mobile: '+41444005555'}
           await asyncValidation(values, mockData.initialValues, mockData.fieldDefinitions, mockData.mode)
+        })
+
+        test('should throw an error if async locale error exists', async() => {
+          fetchMock.patch('*', {
+            valid: true,
+            errors: {}
+          })
+
+          const values = {phone_mobile: '....1234'}
+          try {
+            await asyncValidation(values, mockData.initialValues, mockData.fieldDefinitions, mockData.mode)
+          } catch (error) {
+            expect(error).to.have.property('phone_mobile')
+          }
         })
 
         test('should throw an Error if not valid with backend request', async() => {

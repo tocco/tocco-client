@@ -69,7 +69,7 @@ export const postPointValidator = (value, limit) =>
     : null
 
 export const prePointValidator = (value, limit) =>
-  value.toString().split('.')[0].length > limit
+  limit > 0 && value.toString().split('.')[0].length > limit
     ? {
       prePoint: [
         <FormattedMessage

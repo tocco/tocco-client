@@ -17,16 +17,16 @@ const localeValidation = async(values, fieldDefinitions) => {
   for (const fieldDefinition of fieldDefinitions) {
     const value = values[fieldDefinition.path]
     if (validators.valueDefined(value)) {
-      Object.keys(validators.asyncValidators).forEach(asyncValidatorKey => {
+      for (const asyncValidatorKey in validators.asyncValidators) {
         if (_has(fieldDefinition, ['validation', asyncValidatorKey])) {
           const validatorValue = _get(fieldDefinition, ['validation', asyncValidatorKey])
           const validator = validators.asyncValidators[asyncValidatorKey]
-          const validatorErrors = validator(value, validatorValue)
+          const validatorErrors = await validator(value, validatorValue)
           if (validatorErrors) {
             errors = formErrors.addErrors(errors, fieldDefinition.path, validatorErrors)
           }
         }
-      })
+      }
     }
   }
   return errors

@@ -4,6 +4,7 @@ import {FormattedMessage} from 'react-intl'
 export const valueDefined = value => !(
   value === null
   || value === undefined
+  || value === ''
   || (Array.isArray(value) && value.length === 0)
   || (typeof value === 'object' && Object.keys(value).length === 0)
 )

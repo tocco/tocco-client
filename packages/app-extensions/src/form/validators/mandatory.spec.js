@@ -26,6 +26,7 @@ describe('app-extensions', () => {
             const undefinedValues = [
               null,
               undefined,
+              '',
               [],
               {}
             ]

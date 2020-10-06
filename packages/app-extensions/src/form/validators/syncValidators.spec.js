@@ -180,6 +180,10 @@ describe('app-extensions', () => {
             })
           })
 
+          test('should ignore negative limits', () => {
+            expect(prePointValidator(22, -1)).to.be.null
+          })
+
           test('should return an error invalid values', () => {
             const invalidValues = [
               1000,
