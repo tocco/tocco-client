@@ -40,9 +40,8 @@ export class Upload extends React.Component {
     } else {
       if (this.state.isUploading) {
         return <UploadProgress file={this.state.previewFile} text={props.textResources.uploading} {...props}/>
-      } else {
-        return <UploadInput {...props} text={props.textResources.upload} onDrop={this.onDrop.bind(this)}/>
       }
+      return <UploadInput {...props} onDrop={this.onDrop.bind(this)}/>
     }
   }
 
@@ -77,7 +76,6 @@ Upload.propTypes = {
    * Allows to overwrite texts of the component
    */
   textResources: PropTypes.shape({
-    upload: PropTypes.string,
     uploading: PropTypes.string,
     delete: PropTypes.string,
     download: PropTypes.string

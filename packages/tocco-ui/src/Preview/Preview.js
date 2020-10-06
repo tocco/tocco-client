@@ -1,67 +1,71 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useState} from 'react'
 
 import Icon from '../Icon'
 import Link from '../Link'
-import Typography from '../Typography'
 import StyledPreview from './StyledPreview'
 import {validateCssDimension} from '../utilStyles'
 
 /**
  * Use <Preview> to display a preview of any kind of file. Provide URLs to thumbnail and file.
  */
-class Preview extends React.Component {
-  state = {
+const Preview = ({
+  onClick,
+  thumbnailUrl,
+  alt,
+  srcUrl,
+  fileName,
+  downloadOnClick,
+  caption,
+  maxDimensionX,
+  maxDimensionY
+}) => {
+  const [isLoaded, setIsLoaded] = useState({
     loaded: false
-  }
+  })
 
-  handleOnClick = () => {
-    if (typeof this.props.onClick === 'function') {
-      this.props.onClick(this.props.srcUrl, this.props.thumbnailUrl)
+  const handleOnClick = () => {
+    if (typeof onClick === 'function') {
+      onClick(srcUrl, thumbnailUrl)
     }
   }
 
-  handleOnLoad = () => this.setState({loaded: Math.random()})
+  const handleOnLoad = () => setIsLoaded({loaded: Math.random()})
 
-  render() {
-    const image = this.props.thumbnailUrl ? (
-      <img
-        alt={this.props.alt}
-        src={this.props.thumbnailUrl}
-        onClick={this.handleOnClick}
-        onLoad={this.handleOnLoad}
-        data-image-in-cache={this.state.loaded}
-      />
-    ) : (
-      <Icon
-        icon="file-alt"
-      />
-    )
+  const image = thumbnailUrl ? (
+    <img
+      alt={alt}
+      src={thumbnailUrl}
+      onClick={handleOnClick}
+      onLoad={handleOnLoad}
+      data-image-in-cache={isLoaded}
+    />
+  ) : (
+    <Icon
+      icon="file-alt"
+    />
+  )
 
-    const imageWrapper = this.props.downloadOnClick && this.props.srcUrl && !this.props.onClick ? (
-      <Link
-        alt={this.props.fileName || this.props.alt}
-        download={this.props.fileName || this.props.caption}
-        href={this.props.srcUrl}
-        label={image}
-      />
-    ) : (
-      image
-    )
+  const imageWrapper = downloadOnClick && srcUrl && !onClick ? (
+    <Link
+      alt={fileName || alt}
+      download={fileName || caption}
+      href={srcUrl}
+      label={image}
+    />
+  ) : (
+    image
+  )
 
-    const interactive = ((this.props.downloadOnClick && this.props.srcUrl) || this.props.onClick)
+  const interactive = ((downloadOnClick && srcUrl) || onClick)
 
-    return (
-      <StyledPreview
-        interactive={interactive}
-        maxDimensionX={this.props.maxDimensionX}
-        maxDimensionY={this.props.maxDimensionY}
-      >
-        {imageWrapper}
-        {this.props.caption && <Typography.Figcaption>{this.props.caption}</Typography.Figcaption>}
-      </StyledPreview>
-    )
-  }
+  return <StyledPreview
+    interactive={interactive}
+    maxDimensionX={maxDimensionX}
+    maxDimensionY={maxDimensionY}
+  >
+    {imageWrapper}
+  </StyledPreview>
 }
 
 Preview.propTypes = {

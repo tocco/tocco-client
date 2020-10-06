@@ -30,7 +30,6 @@ const UploadInput = props => {
           position={design.position.PREPEND}
         />
       </IconWrapper>
-      {props.text || 'drag and drop or click'}
     </Dropzone>
   </StyledUploadInput>
 }
