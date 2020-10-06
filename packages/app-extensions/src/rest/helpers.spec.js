@@ -300,6 +300,78 @@ describe('app-extensions', () => {
             .returns(expectedResult)
             .run()
         })
+
+        test('should only load uncached displays and combine results', () => {
+          cache.add('display', 'Gender.1', 'Male')
+
+          const request = {
+            Gender: ['1', '2']
+          }
+
+          const expectedOptions = {
+            method: 'POST',
+            body: {
+              data: [
+                {
+                  model: 'Gender',
+                  keys:
+                    ['2']
+                }
+              ]
+            }
+          }
+
+          const responseFake = {
+            body: {
+              data: [
+                {
+                  model: 'Gender',
+                  values: [
+                    {
+                      key: '2',
+                      display: 'Female'
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+
+          const expectedResult = {
+            Gender: {
+              1: 'Male',
+              2: 'Female'
+            }
+          }
+
+          return expectSaga(helpers.fetchDisplays, request)
+            .provide([
+              [matchers.call.fn(requestSaga), responseFake]
+            ])
+            .call(requestSaga, 'entities/2.0/displays', expectedOptions)
+            .returns(expectedResult)
+            .run()
+        })
+
+        test('should not request anything if all displays are cached', () => {
+          cache.add('display', 'Gender.1', 'Male')
+          cache.add('display', 'Gender.2', 'Female')
+
+          const request = {
+            Gender: ['1', '2']
+          }
+
+          const expectedResult = {
+            Gender: {
+              1: 'Male',
+              2: 'Female'
+            }
+          }
+
+          return expectSaga(helpers.fetchDisplays, request)
+            .returns(expectedResult)
+            .run()
+        })
       })
 
       describe('fetchEntityCount', () => {
