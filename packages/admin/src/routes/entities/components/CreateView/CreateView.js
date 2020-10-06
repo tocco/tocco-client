@@ -46,15 +46,14 @@ const CreateView = props => {
   const mode = 'create'
 
   if (!currentViewInfo) return null
-
-  const {model, reverseRelation, key} = currentViewInfo
+  const {model, reverseRelation, parentKey} = currentViewInfo
   const entityName = model.name
 
   const isMultiReverseRelation = _get(model, `paths.${reverseRelation}.multi`, false)
 
   const defaultValues = [
-    ...((reverseRelation && key)
-      ? [{id: reverseRelation, value: isMultiReverseRelation ? [key] : key}]
+    ...((reverseRelation && parentKey)
+      ? [{id: reverseRelation, value: isMultiReverseRelation ? [parentKey] : parentKey}]
       : []
     )
   ]
