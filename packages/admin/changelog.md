@@ -1,3 +1,12 @@
+0.3.23
+- Narrow left panel width of input edit
+- Improve UX of list and search view within modal
+- Build fields without model (refactoring)
+- Hide readonly fields without value
+- Style column picker dialog inside modal
+- Fix overflow of column picker in case of long texts and change ok button look
+- Remove all usages of old display endpoints (refactoring)
+
 0.3.22
 - Change div to flex item for proper display in old client
 - Change flex properties for proper display in old client
