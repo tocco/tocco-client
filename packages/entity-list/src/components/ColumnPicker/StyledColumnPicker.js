@@ -6,7 +6,7 @@ export const StyledUl = styled.ul`
   padding-left: ${scale.space(-0.5)};
   margin-bottom: -${scale.space(0)};
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 `
 
 export const StyledCheckbox = styled.input`
