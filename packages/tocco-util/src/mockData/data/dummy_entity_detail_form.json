@@ -46,7 +46,13 @@
                         "id": "label",
                         "componentType": "field",
                         "dataType": "string",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "length" : {
+                            "toIncluding" : 255
+                          },
+                          "mandatory": true
+                        }
                       }
                     ]
                   },
@@ -61,7 +67,17 @@
                         "id": "sorting",
                         "componentType": "field",
                         "dataType": "integer",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "decimalDigits": {
+                            "prePointDigits": -1,
+                            "postPointDigits": 0
+                          },
+                          "numberRange": {
+                            "fromIncluding": -2147483648,
+                            "toIncluding": 2147483647
+                          }
+                        }
                       }
                     ]
                   },
@@ -76,7 +92,8 @@
                         "id": "active",
                         "componentType": "field",
                         "dataType": "boolean",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   },
@@ -91,7 +108,8 @@
                         "id": "empty",
                         "componentType": "field",
                         "dataType": "string",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   }
@@ -108,7 +126,8 @@
                     "id": "empty",
                     "dataType": "string",
                     "children": [ ],
-                    "label": "!!SHOULD NOT BE SHOWN!!"
+                    "label": "!!SHOULD NOT BE SHOWN!!",
+                    "validation": {}
                   }
                 ],
                 "label": "Stammdaten"

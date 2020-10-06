@@ -25,7 +25,8 @@
                 "id": "txtFulltext",
                 "componentType": "fulltext-search",
                 "dataType": "fulltext-search",
-                "label": null
+                "label": null,
+                "validation": null
               }
             ]
           },
@@ -41,7 +42,8 @@
                 "path": "relUser",
                 "dataType": "fulltext-search",
                 "defaultValue": null,
-                "minChars": null
+                "minChars": null,
+                "validation": null
               }
             ],
             "readonly": false,
@@ -59,7 +61,8 @@
                 "id": "label",
                 "componentType": "field",
                 "dataType": "string",
-                "label": null
+                "label": null,
+                "validation": {}
               }
             ]
           },
@@ -74,7 +77,8 @@
                 "id": "active",
                 "componentType": "field",
                 "dataType": "boolean",
-                "label": null
+                "label": null,
+                "validation": {}
               }
             ]
           }

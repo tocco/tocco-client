@@ -50,7 +50,8 @@
                 "id": "label",
                 "componentType": "field",
                 "path": "label",
-                "dataType": "string"
+                "dataType": "string",
+                "validation": {}
               }
             ],
             "label": "Label"
@@ -65,7 +66,8 @@
                 "componentType": "field",
                 "path": "active",
                 "dataType": "boolean",
-                "label": null
+                "label": null,
+                "validation": {}
               },
               {
                 "id": "subaction",
@@ -91,6 +93,7 @@
                 "componentType": "field",
                 "path": "doc",
                 "dataType": "document",
+                "validation": {},
                 "defaultValue": null
               }
             ],

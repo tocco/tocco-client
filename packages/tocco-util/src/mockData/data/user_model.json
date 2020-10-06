@@ -15,108 +15,67 @@
     {
       "fieldName": "firstname",
       "type": "string",
-      "validation": {
-        "mandatory": true,
-        "minLength": 3
-      }
+      "validation": {}
     },
     {
       "fieldName": "lastname",
       "type": "string",
-      "validation": {
-        "mandatory": true
-      }
+      "validation": {}
     },
     {
       "fieldName": "licence_plate",
       "type": "long",
-      "validation": {
-        "mandatory": true,
-        "numberRange": {
-          "fromIncluding": -9223372036854776000,
-          "toIncluding": 9223372036854776000
-        }
-      }
+      "validation": {}
     },
     {
       "fieldName": "email",
       "type": "email",
-      "validation": {
-        "mandatory": true,
-        "email": true
-      }
+      "validation": {}
     },
     {
       "fieldName": "version",
       "type": "version",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "create_timestamp",
       "type": "createts",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "update_timestamp",
       "type": "updatets",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "create_user",
       "type": "createuser",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "update_user",
       "type": "updateuser",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "user_nr",
       "type": "counter",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "callname",
       "type": "string",
-      "validation": {
-        "mandatory": true,
-        "maxLength": 10
-      }
+      "validation": {}
     },
     {
       "fieldName": "birthdate",
       "type": "birthdate",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "age",
       "type": "integer",
-      "validation": {
-        "mandatory": true,
-        "decimalDigits": {
-          "prePointDigits": -1,
-          "postPointDigits": 0
-        },
-        "numberRange": {
-          "fromIncluding": -2147483648,
-          "toIncluding": 2147483648
-        }
-      }
+      "validation": {}
     },
     {
       "fieldName": "phone_company",
@@ -125,8 +84,7 @@
     },
     {
       "fieldName": "phone_custom",
-      "type": "phone",
-      "customPhoneRegex": "^\\d{3}$"
+      "type": "phone"
     },
     {
       "fieldName": "preview_picture",
@@ -136,41 +94,28 @@
     {
       "fieldName": "website",
       "type": "url",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "date_time",
       "type": "datetime",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "time",
       "type": "time",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "duration",
       "type": "duration",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "decimal",
       "type": "decimal",
       "defaultValue": null,
-      "validation": {
-        "decimalDigits": {
-          "prePointDigits": 7,
-          "postPointDigits": 2
-        }
-      }
+      "validation": {}
     },
     {
       "fieldName": "longitude",
@@ -186,53 +131,42 @@
       "fieldName": "moneyamount",
       "type": "moneyamount",
       "defaultValue": null,
-      "validation": {
-        "decimalDigits": {
-          "prePointDigits": 12,
-          "postPointDigits": 2
-        }
-      }
+      "validation": {}
     },
     {
       "fieldName": "publish",
       "type": "boolean",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "address_c",
       "type": "string",
       "defaultValue": null,
-      "validation": { }
+      "validation": {}
     },
     {
       "fieldName": "zip_c",
       "type": "postcode",
       "defaultValue": null,
-      "validation": {
-        "mandatory": true
-      }
+      "validation": {}
     },
     {
       "fieldName": "city_c",
       "type": "string",
       "defaultValue": null,
-      "validation": {
-        "mandatory": true
-      }
+      "validation": {}
     },
     {
       "fieldName": "canton",
       "type": "string",
       "defaultValue": null,
-      "validation": { }
+      "validation": {}
     },
     {
       "fieldName": "district",
       "type": "string",
       "defaultValue": null,
-      "validation": { }
+      "validation": {}
     }
   ],
   "relations": [
@@ -241,35 +175,28 @@
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
       "multi": false,
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "relationName": "relSingle_entity2",
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
       "multi": false,
-      "validation": {
-        "mandatory": true
-      }
+      "validation": {}
     },
     {
       "relationName": "relMulti_entity1",
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
       "multi": true,
-      "validation": {
-      }
+      "validation": {}
     },
     {
       "relationName": "relMulti_entity2",
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
       "multi": true,
-      "validation": {
-        "mandatory": true
-      }
+      "validation": {}
     },
     {
       "relationName": "relUser",
@@ -294,9 +221,7 @@
       "targetEntity": "Country",
       "reverseRelationName": "relUser_c",
       "multi": false,
-      "validation": {
-        "mandatory": true
-      },
+      "validation": {},
       "defaultValues": {
         "display": "Switzerland",
         "key": "1"

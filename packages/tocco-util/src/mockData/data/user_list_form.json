@@ -197,7 +197,8 @@
                 "label": null,
                 "path": "user_nr",
                 "dataType": "counter",
-                "componentType": "field"
+                "componentType": "field",
+                "validation": {}
               }
             ]
           },
@@ -213,6 +214,7 @@
                 "label": null,
                 "path": "firstname",
                 "dataType": "string",
+                "validation": {},
                 "componentType": "field"
               }
             ],
@@ -229,6 +231,7 @@
                 "componentType": "field",
                 "path": "lastname",
                 "dataType": "string",
+                "validation": {},
                 "label": null
               }
             ],
@@ -246,6 +249,7 @@
                 "componentType": "field",
                 "path": "email",
                 "label": null,
+                "validation": {},
                 "dataType": "email"
               }
             ],
@@ -262,7 +266,8 @@
                 "componentType": "field",
                 "path": "birthdate",
                 "label": null,
-                "dataType": "birthdate"
+                "dataType": "birthdate",
+                "validation": {}
               }
             ],
             "label": "Geburi",
@@ -279,7 +284,8 @@
                 "componentType": "field",
                 "path": "salary",
                 "label": null,
-                "dataType": "moneyamount"
+                "dataType": "moneyamount",
+                "validation": {}
               }
             ],
             "label": "Lohn",
@@ -295,7 +301,8 @@
                 "componentType": "field",
                 "path": "time",
                 "label": null,
-                "dataType": "time"
+                "dataType": "time",
+                "validation": {}
               }
             ],
             "label": "Time",
@@ -311,6 +318,7 @@
                 "componentType": "field",
                 "path": "licence_plate",
                 "dataType": "long",
+                "validation": {},
                 "label": null
               }
             ],
@@ -328,6 +336,7 @@
                 "componentType": "field",
                 "path": "relSingle_entity2",
                 "dataType": "single-select-box",
+                "validation": {},
                 "label": null
               }
             ],
@@ -345,6 +354,7 @@
                 "componentType": "field",
                 "path": "phone_company",
                 "dataType": "phone",
+                "validation": {},
                 "label": null
               }
             ],
@@ -362,7 +372,8 @@
                 "componentType": "field",
                 "path": "publish",
                 "dataType": "boolean",
-                "label": null
+                "label": null,
+                "validation": {}
               }
             ],
             "label": "Publiziert",
@@ -379,6 +390,7 @@
                 "componentType": "field",
                 "path": "website",
                 "dataType": "url",
+                "validation": {},
                 "label": null
               }
             ],
@@ -396,6 +408,7 @@
                 "componentType": "field",
                 "path": "firstname",
                 "dataType": "string",
+                "validation": {},
                 "label": null
               },
               {
@@ -403,6 +416,7 @@
                 "componentType": "field",
                 "path": "firstname",
                 "dataType": "string",
+                "validation": {},
                 "label": null
               }
             ],
@@ -420,6 +434,7 @@
                 "componentType": "field",
                 "path": "relMulti_entity2",
                 "dataType": "multi-select-box",
+                "validation": {},
                 "label": null
               }
             ],
@@ -436,7 +451,8 @@
                 "label": null,
                 "componentType": "field",
                 "path": "relMulti_entity1.relPayment_status",
-                "dataType": "single-select-box"
+                "dataType": "single-select-box",
+                "validation": {}
               }
             ],
             "readonly": false,
@@ -453,7 +469,8 @@
                 "label": null,
                 "componentType": "field",
                 "path": "relMulti_entity1.relPayment_status.unique_id",
-                "dataType": "identifier"
+                "dataType": "identifier",
+                "validation": {}
               }
             ],
             "readonly": false,

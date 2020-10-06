@@ -15,64 +15,47 @@
     {
       "fieldName": "label",
       "type": "string",
-      "validation": {
-        "mandatory": true
-      }
+      "validation": {}
     },
     {
       "fieldName": "sorting",
       "type": "number",
-      "validation": {
-      }
+      "validation": {}
     },
     {
       "fieldName": "active",
       "type": "boolean",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "empty",
       "type": "string",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "version",
       "type": "version",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "create_timestamp",
       "type": "createts",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "update_timestamp",
       "type": "updatets",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "create_user",
       "type": "createuser",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     },
     {
       "fieldName": "update_user",
       "type": "updateuser",
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     }
   ],
   "relations": [

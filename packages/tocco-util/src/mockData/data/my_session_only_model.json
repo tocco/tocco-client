@@ -4,10 +4,7 @@
   "fields": [
     {
       "fieldName": "myString",
-      "validation": {
-        "mandatory": true,
-        "minLength": 3
-      }
+      "validation": {}
     }
   ],
   "relations": [
@@ -16,18 +13,14 @@
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
       "multi": true,
-      "validation": {
-        "mandatory": true
-      }
+      "validation": {}
     },
     {
       "relationName": "relRemote_entity",
       "targetEntity": "User",
       "reverseRelationName": "relUser2",
       "multi": false,
-      "validation": {
-        "mandatory": false
-      }
+      "validation": {}
     }
   ]
 }
