@@ -27,7 +27,7 @@ const ColumnPicker = ({columns, onOk, intl}) => {
       onSearch={setSearchTerm}/>
     <StyledUl>{items}</StyledUl>
     <StyledButtonWrapper>
-      <Button onClick={() => onOk(selectedColumns)}>
+      <Button onClick={() => onOk(selectedColumns)} look={'raised'}>
         {intl.formatMessage({id: 'client.entity-list.preferences.columns.okButton'})}
       </Button>
     </StyledButtonWrapper>
