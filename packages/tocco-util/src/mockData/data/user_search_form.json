@@ -24,7 +24,8 @@
                 "id": "txtFulltext",
                 "label": null,
                 "componentType": "fulltext-search",
-                "dataType": "fulltext-search"
+                "dataType": "fulltext-search",
+                "validation": null
               }
             ],
             "readonly": false,
@@ -60,7 +61,10 @@
                 "id": "relAddress_user.relAddress",
                 "label": null,
                 "componentType": "field",
-                "dataType": "fulltext-search"
+                "dataType": "fulltext-search",
+                "validation": {
+                  "mandatory": true
+                }
               }
             ],
             "readonly": false,
@@ -76,7 +80,8 @@
                 "id": "relSingle_entity2",
                 "dataType": "single-select-box",
                 "componentType": "field",
-                "label": null
+                "label": null,
+                "validation": {}
               }
             ],
             "readonly": false,
@@ -92,7 +97,8 @@
                 "id": "relMulti_entity2",
                 "dataType": "multi-select-box",
                 "componentType": "field",
-                "label": null
+                "label": null,
+                "validation": {}
               }
             ],
             "readonly": false,
@@ -110,7 +116,8 @@
                 "componentType": "field",
                 "path": "birthdate",
                 "dataType": "birthdate",
-                "defaultValue": null
+                "defaultValue": null,
+                "validation": {}
               }
             ],
             "readonly": false,
@@ -126,7 +133,8 @@
                 "id": "user_nr",
                 "dataType": "number",
                 "componentType": "field",
-                "label": null
+                "label": null,
+                "validation": {}
               }
             ],
             "readonly": false,
@@ -144,7 +152,8 @@
                 "id": "relChildren",
                 "dataType": "multi-remote-field",
                 "componentType": "field",
-                "label": null
+                "label": null,
+                "validation": {}
               }
             ]
           },
@@ -157,7 +166,8 @@
                 "id": "relSingle_entity1.relUser",
                 "dataType": "string",
                 "componentType": "field",
-                "label": null
+                "label": null,
+                "validation": {}
               }
             ],
             "readonly": false,

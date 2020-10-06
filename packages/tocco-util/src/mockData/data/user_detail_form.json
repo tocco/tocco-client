@@ -7,56 +7,62 @@
   "form": {
     "id": "User_detail",
     "componentType": "form",
-    "hidden": false,
-    "readonly": false,
     "children": [
       {
-        "id": "save",
-        "label": "Speichern",
-        "componentType": "action",
-        "children": [ ],
-        "actionType": "custom",
-        "icon": null,
-        "minSelection": null,
-        "maxSelection": null,
-        "showConfirmMessage": false,
-        "confirmationMessageText": null,
-        "runInBackgroundTask": false,
-        "formDataEntityModel": null,
-        "formDataTitle": null,
-        "formDataMessage": null,
-        "endpoint": null,
-        "appId": null,
-        "properties": { }
-      },
-      {
-        "componentType": "action",
-        "actionType": "custom",
-        "id": "new",
-        "icon": "plus",
-        "label": "New"
-      },
-      {
-        "componentType": "action-group",
-        "actionType": "group",
-        "label": "Reports",
+        "id": "main-action-bar",
+        "label": null,
+        "componentType": "action-bar",
         "children": [
           {
-            "id": "sample_report",
-            "label": "Sample Report",
-            "componentType": "report",
-            "children": [],
-            "actionType": "report",
-            "icon": "file-pdf",
-            "minSelection": null,
-            "maxSelection": null,
-            "showConfirmMessage": false,
-            "confirmationMessageText": null,
-            "runInBackgroundTask": false,
-            "formDataEntityModel": null,
-            "formDataTitle": null,
-            "formDataMessage": null,
-            "reportId": "sample_report"
+            "id": "save",
+            "label": "Save",
+            "componentType": "action",
+            "actionType": "custom"
+          },
+          {
+            "id": "createcopy",
+            "label": "New",
+            "componentType": "action-group",
+            "children": [
+              {
+                "id": "new",
+                "label": "New",
+                "componentType": "action",
+                "actionType": "custom",
+                "icon": "application_add"
+              }
+            ],
+            "defaultAction": {
+              "id": "new",
+              "label": "New",
+              "componentType": "action",
+              "children": [ ],
+              "actionType": "custom"
+            }
+          },
+          {
+            "componentType": "action-group",
+            "actionType": "group",
+            "label": "Reports",
+            "children": [
+              {
+                "id": "sample_report",
+                "label": "Sample Report",
+                "componentType": "report",
+                "children": [],
+                "actionType": "report",
+                "icon": "file-pdf",
+                "minSelection": null,
+                "maxSelection": null,
+                "showConfirmMessage": false,
+                "confirmationMessageText": null,
+                "runInBackgroundTask": false,
+                "formDataEntityModel": null,
+                "formDataTitle": null,
+                "formDataMessage": null,
+                "reportId": "sample_report"
+              }
+            ]
           }
         ]
       },
@@ -89,7 +95,8 @@
                         "componentType": "field",
                         "path": "user_nr",
                         "dataType": "counter",
-                        "label": null
+                        "label": null,
+                        "validation": { }
                       }
                     ]
                   },
@@ -105,6 +112,12 @@
                         "componentType": "field",
                         "path": "firstname",
                         "defaultValue": "Homer",
+                        "validation": {
+                          "length" : {
+                            "toIncluding" : 255
+                          },
+                          "mandatory": true
+                        },
                         "label": null
                       }
                     ]
@@ -120,7 +133,13 @@
                         "dataType": "string",
                         "componentType": "field",
                         "path": "lastname",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "length" : {
+                            "toIncluding" : 255
+                          },
+                          "mandatory": true
+                        }
                       }
                     ]
                   },
@@ -135,7 +154,8 @@
                         "dataType": "birthdate",
                         "componentType": "field",
                         "path": "birthdate",
-                        "label": null
+                        "label": null,
+                        "validation": { }
                       }
                     ]
                   },
@@ -150,14 +170,24 @@
                         "dataType": "integer",
                         "componentType": "field",
                         "path": "age",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "decimalDigits": {
+                            "prePointDigits": -1,
+                            "postPointDigits": 0
+                          },
+                          "numberRange": {
+                            "fromIncluding": 1,
+                            "toIncluding": 150
+                          }
+                        }
                       }
                     ]
                   },
                   {
                     "componentType": "field-set",
                     "hidden": false,
-                    "label": "Required Callname",
+                    "label": "Callname (only letters)",
                     "scopes": [],
                     "children": [
                       {
@@ -165,7 +195,15 @@
                         "dataType": "string",
                         "componentType": "field",
                         "path": "callname",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "length" : {
+                            "toIncluding" : 255
+                          },
+                          "regex" : {
+                            "pattern" : "^[A-Za-z]$"
+                          }
+                        }
                       }
                     ]
                   },
@@ -180,22 +218,12 @@
                         "dataType": "text",
                         "componentType": "field",
                         "path": "address",
-                        "label": null
-                      }
-                    ]
-                  },
-                  {
-                    "componentType": "field-set",
-                    "label": "Licence Plate",
-                    "scopes": [],
-                    "hidden": false,
-                    "children": [
-                      {
-                        "id": "licence_plate",
-                        "componentType": "field",
-                        "dataType": "long",
-                        "path": "licence_plate",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "length" : {
+                            "toIncluding" : 104857600
+                          }
+                        }
                       }
                     ]
                   },
@@ -230,7 +258,8 @@
                         "dataType": "document",
                         "componentType": "field",
                         "path": "preview_picture",
-                        "label": null
+                        "label": null,
+                        "validation": { }
                       }
                     ]
                   },
@@ -245,8 +274,8 @@
                         "id": "firstname",
                         "dataType": "string",
                         "componentType": "field",
-                        "path": "firstname",
-                        "label": null
+                        "label": null,
+                        "path": "firstname"
                       }
                     ]
                   },
@@ -319,6 +348,8 @@
                     "id": "relDummySubGrid",
                     "path": "relDummySubGrid",
                     "componentType": "sub-table",
+                    "targetEntity": "Dummy_entity",
+                    "reverseRelation": "relUser",
                     "showSearchForm": true,
                     "readonly": true,
                     "children": [ ],
@@ -348,7 +379,8 @@
                         "componentType": "field",
                         "dataType": "string",
                         "path": "notreadable",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   }
@@ -380,7 +412,13 @@
                         "componentType": "field",
                         "dataType": "email",
                         "path": "email",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "length": {
+                            "toIncluding": 255
+                          },
+                          "email": true
+                        }
                       }
                     ]
                   },
@@ -395,7 +433,13 @@
                         "componentType": "field",
                         "dataType": "phone",
                         "path": "phone_company",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "phone": {
+                            "defaultRegion": "CH",
+                            "customRegex": ""
+                          }
+                        }
                       }
                     ]
                   },
@@ -410,7 +454,13 @@
                         "componentType": "field",
                         "dataType": "phone",
                         "path": "phone_custom",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "phone": {
+                            "defaultRegion": "",
+                            "customRegex":  "^\\d{3}$"
+                          }
+                        }
                       }
                     ]
                   },
@@ -425,7 +475,13 @@
                         "componentType": "field",
                         "dataType": "url",
                         "path": "website",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "length": {
+                            "toIncluding": 2000
+                          },
+                          "url": true
+                        }
                       }
                     ]
                   },
@@ -440,7 +496,8 @@
                         "componentType": "field",
                         "dataType": "datetime",
                         "path": "date_time",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   },
@@ -455,7 +512,12 @@
                         "path": "time",
                         "componentType": "field",
                         "dataType": "time",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "length": {
+                            "toIncluding": 104857600
+                          }
+                        }
                       }
                     ]
                   },
@@ -470,7 +532,17 @@
                         "componentType": "field",
                         "dataType": "duration",
                         "path": "duration",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "decimalDigits": {
+                            "prePointDigits": -1,
+                            "postPointDigits": 0
+                          },
+                          "numberRange": {
+                            "fromIncluding": -9223372036854776000,
+                            "toIncluding": 9223372036854776000
+                          }
+                        }
                       }
                     ]
                   },
@@ -485,7 +557,13 @@
                         "componentType": "field",
                         "dataType": "decimal",
                         "path": "decimal",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "decimalDigits": {
+                            "prePointDigits": 7,
+                            "postPointDigits": 2
+                          }
+                        }
                       }
                     ]
                   },
@@ -500,7 +578,13 @@
                         "componentType": "field",
                         "dataType": "moneyamount",
                         "path": "moneyamount",
-                        "label": null
+                        "label": null,
+                        "validation": {
+                          "decimalDigits": {
+                            "prePointDigits": 12,
+                            "postPointDigits": 2
+                          }
+                        }
                       }
                     ]
                   },
@@ -515,7 +599,8 @@
                         "componentType": "field",
                         "dataType": "longitude",
                         "path": "longitude",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   },
@@ -530,7 +615,8 @@
                         "componentType": "field",
                         "dataType": "latitude",
                         "path": "latitude",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   },
@@ -545,7 +631,8 @@
                         "componentType": "field",
                         "dataType": "boolean",
                         "path": "publish",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   },
@@ -560,7 +647,8 @@
                         "componentType": "field",
                         "dataType": "boolean",
                         "path": "relSingle_entity2.active",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   }
@@ -584,7 +672,8 @@
                         "componentType": "field",
                         "dataType": "string",
                         "path": "address_c",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   },
@@ -599,6 +688,7 @@
                         "componentType": "",
                         "path": null,
                         "dataType": "location",
+                        "validation": null,
                         "defaultValue": null,
                         "locationMapping": {
                           "postcode": "zip_c",
@@ -633,7 +723,9 @@
                         "defaultValue": {
                           "display": "Switzerland",
                           "key": "1"
-                        }
+                        },
+                        "targetEntity": "Country",
+                        "relationName": "relCountry_c"
                       }
                     ],
                     "readonly": false,
@@ -651,7 +743,8 @@
                         "componentType": "field",
                         "dataType": "string",
                         "path": "canton_c",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   },
@@ -666,7 +759,8 @@
                         "componentType": "field",
                         "dataType": "string",
                         "path": "district_c",
-                        "label": null
+                        "label": null,
+                        "validation": {}
                       }
                     ]
                   }
@@ -691,10 +785,13 @@
                         "dataType": "multi-select-box",
                         "path": "relMulti_entity1",
                         "label": null,
+                        "validation": {},
                         "defaultValue": [
                           {"display": "User 0", "key": "0"},
                           {"display": "User 2", "key": "2"}
-                        ]
+                        ],
+                        "relationName": "relMulti_entity1",
+                        "targetEntity": "Dummy_entity"
                       }
                     ]
                   },
@@ -709,7 +806,10 @@
                         "componentType": "field",
                         "dataType": "multi-select-box",
                         "path": "relMulti_entity2",
-                        "label": null
+                        "label": null,
+                        "validation": {},
+                        "relationName": "relMulti_entity2",
+                        "targetEntity": "Dummy_entity"
                       }
                     ]
                   },
@@ -725,7 +825,10 @@
                         "dataType": "single-select-box",
                         "path": "relSingle_entity1",
                         "label": null,
-                        "defaultValue": {"display": "User 0", "key": "0"}
+                        "validation": {},
+                        "defaultValue": {"display": "User 0", "key": "0"},
+                        "relationName": "relSingle_entity1",
+                        "targetEntity": "Dummy_entity"
                       }
                     ]
                   },
@@ -740,7 +843,10 @@
                         "componentType": "field",
                         "dataType": "single-select-box",
                         "path": "relSingle_entity2",
-                        "label": null
+                        "label": null,
+                        "validation": {},
+                        "relationName": "relSingle_entity2",
+                        "targetEntity": "Dummy_entity"
                       }
                     ]
                   },
@@ -756,7 +862,10 @@
                         "dataType": "single-remote-field",
                         "path": "relUser",
                         "label": null,
-                        "formBase": "User_withconstriction"
+                        "formBase": "User_withconstriction",
+                        "validation": {},
+                        "relationName": "relUser",
+                        "targetEntity": "User"
                       }
                     ]
                   },
@@ -772,7 +881,9 @@
                         "dataType": "multi-remote-field",
                         "path": "relChildren",
                         "label": null,
-                        "formBase": "User_small"
+                        "formBase": "User_small",
+                        "relationName": "relChildren",
+                        "targetEntity": "User"
                       }
                     ]
                   }

@@ -37,7 +37,11 @@
                     "dataType": "string",
                     "componentType": "field",
                     "defaultValue": "Test",
-                    "label": null
+                    "label": null,
+                    "validation": {
+                      "mandatory": true,
+                      "minLength": 3
+                    }
                   }
                 ]
               },
@@ -53,7 +57,8 @@
                     "dataType": "integer",
                     "componentType": "field",
                     "defaultValue": 99,
-                    "label": null
+                    "label": null,
+                    "validation": {}
                   }
                 ]
               },
@@ -69,7 +74,8 @@
                     "dataType": "boolean",
                     "componentType": "field",
                     "defaultValue": true,
-                    "label": null
+                    "label": null,
+                    "validation": {}
                   }
                 ]
               },
@@ -84,7 +90,10 @@
                     "id": "relMulti_entity",
                     "dataType": "multi-select-box",
                     "componentType": "field",
-                    "label": null
+                    "label": null,
+                    "validation": {
+                      "mandatory": true
+                    }
                   }
                 ]
               },
@@ -100,7 +109,10 @@
                     "dataType": "single-remote-field",
                     "componentType": "field",
                     "label": null,
-                    "formBase": "User_small"
+                    "formBase": "User_small",
+                    "validation": {
+                      "mandatory": true
+                    }
                   }
                 ]
               },
@@ -114,7 +126,8 @@
                     "id": "file",
                     "dataType": "document",
                     "componentType": "field",
-                    "label": null
+                    "label": null,
+                    "validation": {}
                   }
                 ]
               }
