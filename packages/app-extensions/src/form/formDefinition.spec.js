@@ -9,12 +9,14 @@ const testField1 = {
   dataType: 'string',
   defaultValue: undefined
 }
+
 const testField2 = {
   id: 'lastname',
   componentType: 'field',
   path: 'lastname',
   dataType: 'string',
-  defaultValue: 'SomeLastname'
+  defaultValue: 'SomeLastname',
+  readonly: true
 }
 
 const testField3 = {
@@ -32,19 +34,28 @@ const testDisplay = {
 
 const testFormDefinition = {
   id: 'fromX',
+  readonly: false,
   children: [
     {
       componentType: 'layout',
       layoutType: 'vertical-box',
       id: 'box 1',
+      readonly: false,
       children: [
         {
           componentType: 'layout',
           layoutType: 'horizontal-box',
           id: 'box 2',
+          readonly: false,
           children: [
-            testField1,
-            testField2,
+            {
+              readonly: false,
+              children: [testField1]
+            },
+            {
+              readonly: true,
+              children: [testField2]
+            },
             testDisplay,
             {
               name: 'relAffiliation',
@@ -69,11 +80,39 @@ describe('app-extensions', () => {
       describe('getFieldDefinitions', () => {
         test('should return an array of fields', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
-          expect(fields).to.eql([testField1, testField2, testDisplay, testField3])
+          expect(fields).to.eql([
+            {
+              ...testField1,
+              readonly: false
+            },
+            {
+              ...testField2,
+              readonly: true
+            },
+            {
+              ...testDisplay,
+              readonly: false
+            },
+            {
+              ...testField3,
+              readonly: false
+            }
+          ])
         })
 
         test('should return an empty array in case of no fields', () => {
-          const fields = formDefinition.getFieldDefinitions({id: 'fromX', children: []})
+          const fields = formDefinition.getFieldDefinitions({
+            id: 'fromX',
+            children: []
+          })
+          expect(fields).to.eql([])
+        })
+
+        test('should return readonly attribute', () => {
+          const fields = formDefinition.getFieldDefinitions({
+            id: 'fromX',
+            children: []
+          })
           expect(fields).to.eql([])
         })
       })

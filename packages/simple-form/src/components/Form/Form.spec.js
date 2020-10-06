@@ -85,6 +85,11 @@ describe('simple-form', () => {
             }
           }))
 
+          const formValues = {
+            lastname: 'lastname',
+            firstname: 'firstname'
+          }
+
           const wrapper = intlEnzyme.mountWithIntl(
             <Provider store={store}>
               <Form
@@ -94,6 +99,7 @@ describe('simple-form', () => {
                 onCancel={EMPTY_FUNC}
                 formDefinition={formDefinition}
                 intl={IntlStub}
+                formValues={formValues}
                 uploadDocument={EMPTY_FUNC}
                 openAdvancedSearch={EMPTY_FUNC}
                 loadTooltip={EMPTY_FUNC}

@@ -105,15 +105,6 @@
         "version": 1,
         "paths": {}
       }
-    },
-    "notreadable": {
-      "type": "field",
-      "value": {
-        "value": "test",
-        "type": "string",
-        "readable": false,
-        "writable": false
-      }
     }
   }
 }

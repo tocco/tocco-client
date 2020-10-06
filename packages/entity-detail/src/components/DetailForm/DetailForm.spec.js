@@ -23,13 +23,13 @@ describe('entity-detail', () => {
                 id: 'box1',
                 componentType: 'layout',
                 layoutType: 'vertical-box',
-                readonly: true,
+                readonly: false,
                 children: [
                   {
                     id: 'box1',
                     componentType: 'layout',
                     layoutType: 'horizontal-box',
-                    readonly: true,
+                    readonly: false,
                     children: [
                       {
                         id: 'user_information',
@@ -46,6 +46,7 @@ describe('entity-detail', () => {
                             children: [
                               {
                                 id: 'firstname',
+                                path: 'firstname',
                                 componentType: 'field',
                                 dataType: 'string',
                                 label: null
@@ -58,9 +59,11 @@ describe('entity-detail', () => {
                             label: 'Nachname',
                             scopes: [],
                             hidden: false,
+                            readonly: false,
                             children: [
                               {
                                 id: 'lastname',
+                                path: 'lastname',
                                 componentType: 'field',
                                 dataType: 'string',
                                 label: null
@@ -81,20 +84,19 @@ describe('entity-detail', () => {
             model: 'User',
             paths: {
               firstname: {
-                type: 'field',
-                value: {
-                  value: 'Firstname 6',
-                  type: 'string'
-                }
+                type: 'string',
+                value: 'Firstname 6'
               },
               lastname: {
-                type: 'field',
-                value: {
-                  value: 'Lastname 997',
-                  type: 'string'
-                }
+                type: 'string',
+                value: 'Lastname 997'
               }
             }
+          }
+
+          const formValues = {
+            firstname: 'Firstname 6',
+            lastname: 'Lastname 997'
           }
 
           const store = createStore(() => ({
@@ -115,6 +117,7 @@ describe('entity-detail', () => {
                   submitForm={EMPTY_FUNC}
                   formDefinition={formDefinition}
                   entity={entity}
+                  formValues={formValues}
                   logError={EMPTY_FUNC}
                   loadRelationEntities={EMPTY_FUNC}
                   uploadDocument={EMPTY_FUNC}

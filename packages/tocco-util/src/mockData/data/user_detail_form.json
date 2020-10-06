@@ -375,10 +375,24 @@
                     "readonly": true,
                     "children": [
                       {
-                        "id": "notreadable",
+                        "id": "notwriteable",
                         "componentType": "field",
                         "dataType": "string",
-                        "path": "notreadable",
+                        "path": "notwriteable",
+                        "label": null,
+                        "validation": {}
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "hidden": false,
+                    "label": "HTML Display",
+                    "readonly": false,
+                    "children": [
+                      {
+                        "id": "empty_display",
+                        "componentType": "display",
                         "label": null,
                         "validation": {}
                       }

@@ -31,8 +31,9 @@ const testData = {
   },
   formName: 'detail',
   formValues: {
-    firstname: 'Fist Name',
-    lastname: 'Last Name'
+    'firstname': 'Fist Name',
+    'lastname': 'Last Name',
+    'not-readonly-field': 'test'
   },
   formDefinition: {
     id: 'UserSearch_detail',
@@ -145,25 +146,6 @@ describe('app-extensions', () => {
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
-      test('should not render none readable fields', () => {
-        const {entity, formName, formDefinition, formValues} = testData
-
-        entity.paths.lastname = {
-          type: 'field',
-          value: {
-            value: 'Last Name',
-            type: 'string',
-            readable: false,
-            writable: true
-          }
-        }
-
-        const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
-
-        expect(wrapper.find(Field)).to.have.length(2)
-      })
-
       test(
         'should not require an entity (should not check readable flag in this case)',
         () => {
@@ -224,7 +206,7 @@ describe('app-extensions', () => {
                 paths: {
                   relOrder_debitor_status: {
                     type: 'entity',
-                    writable: false,
+                    writable: true,
                     value: {
                       _links: null,
                       key: '2',
@@ -247,14 +229,14 @@ describe('app-extensions', () => {
               id: 'user_information',
               componentType: 'layout',
               layoutType: 'vertical-box',
-              readonly: true,
+              readonly: false,
               children: [
                 {
                   id: 'Order_debitor_status',
                   componentType: 'field-set',
                   label: 'Status',
                   hidden: false,
-                  readonly: true,
+                  readonly: false,
                   children: [
                     {
                       id: 'Order_debitor_status', // does not match path by intention (-> should use path to get data)

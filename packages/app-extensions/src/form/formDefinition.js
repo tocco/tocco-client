@@ -6,7 +6,7 @@ export const getFieldId = (formName, fieldName) => (
 )
 
 export const getFieldDefinitions = formDefinition => {
-  return getFieldsOfChildren(formDefinition.children)
+  return getFieldsOfChildren(formDefinition)
 }
 
 const validFieldTypes = [
@@ -14,18 +14,21 @@ const validFieldTypes = [
   componentTypes.DISPLAY
 ]
 
-const getFieldsOfChildren = children => {
+const getFieldsOfChildren = definition => {
   const result = []
 
-  for (let i = 0; i < children.length; i++) {
-    if (children[i].children) {
-      result.push(...getFieldsOfChildren(children[i].children))
+  for (let i = 0; i < definition.children.length; i++) {
+    if (definition.children[i].children) {
+      result.push(...getFieldsOfChildren(definition.children[i]))
     }
 
-    const componentType = children[i].componentType
+    const componentType = definition.children[i].componentType
 
     if (validFieldTypes.includes(componentType)) {
-      result.push(children[i])
+      result.push({
+        ...definition.children[i],
+        readonly: definition.readonly
+      })
     }
   }
 

@@ -88,7 +88,7 @@ const createDisplayExpressionResponse = () =>
         {
           key: key.toString(),
           displayExpressions: paths.reduce((acc, path) => (
-            {...acc, [path]: `<i class="far fa-check"></i><b>bold</b> <i>${key}</i>`}
+            {...acc, [path]: path.includes('empty') ? '' : `<i class="far fa-check"></i><b>bold</b> <i>${key}</i>`}
           ), {})
         }))
     }
