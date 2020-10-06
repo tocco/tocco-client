@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-const declareInteraction = props => {
-  if (props.interactive) {
+const declareInteraction = ({interactive}) => {
+  if (interactive) {
     return `
       &:hover,
       &:focus {
@@ -17,14 +17,15 @@ const StyledPreview = styled.figure`
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+    margin: revert; //reset css overwrite
 
     > * {
       flex: 1 1 auto;
     }
 
     img {
-      max-width: ${props => props.maxDimensionX || '100%'};
-      max-height: ${props => props.maxDimensionY || '100%'};
+      max-width: ${({maxDimensionX}) => maxDimensionX || '100%'};
+      max-height: ${({maxDimensionY}) => maxDimensionY || '100%'};
       ${props => declareInteraction(props)}
     }
 
