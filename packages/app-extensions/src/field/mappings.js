@@ -67,7 +67,6 @@ const readOnlyMapping = {
   'data-amount': formattedValueFactory('number'),
   'date': formattedValueFactory('date'),
   'datetime': formattedValueFactory('datetime'),
-  'time': formattedValueFactory('time'),
   'decimal': formattedValueFactory('decimal'),
   'display': formattedValueFactory('html'),
   'description': formattedValueFactory('description'),
@@ -91,15 +90,19 @@ const readOnlyMapping = {
   'pulldown-date': formattedValueFactory('date'),
   'remote': formattedValueFactory('remote'),
   'search-filter': formattedValueFactory('search-filter'),
+  'serial': formattedValueFactory('string'),
   'single-remote-field': formattedValueFactory('remote'),
   'single-select-box': formattedValueFactory('single-select'),
   'sorting': formattedValueFactory('number'),
   'string': formattedValueFactory('string'),
   'text': formattedValueFactory('text'),
   'text-area': formattedValueFactory('text'),
+  'time': formattedValueFactory('time'),
+  'updatets': formattedValueFactory('datetime'),
   'upload': formattedValueFactory('document'),
   'url': formattedValueFactory('url'),
-  'uuid': formattedValueFactory('string')
+  'uuid': formattedValueFactory('string'),
+  'version': formattedValueFactory('string')
 }
 
 const listMapping = {
