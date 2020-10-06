@@ -66,7 +66,8 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
       error,
       submitting,
       parentReadOnly,
-      formName
+      formName,
+      mode
     } = data
 
     const {
@@ -82,7 +83,7 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
       || !_get(entityField, 'writable', true)
     )
 
-    const mandatory = !readOnly && _get(formDefinitionField, 'validation.mandatory', false)
+    const mandatory = !readOnly && _get(formDefinitionField, 'validation.mandatory', false) && mode !== 'search'
     const hasValue = value !== null && value !== undefined && (value.length === undefined || value.length > 0)
     const isDisplay = displayFieldAsDisplayOnly(value, componentType, dataType, parentReadOnly)
 

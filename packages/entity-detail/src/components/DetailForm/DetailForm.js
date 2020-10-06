@@ -27,7 +27,6 @@ const DetailForm = props => {
     submitForm,
     touchAllFields,
     entity,
-    entityModel,
     formDefinition,
     formValues,
     anyTouched
@@ -87,7 +86,6 @@ const DetailForm = props => {
   >
     <form.FormBuilder
       entity={entity}
-      model={entityModel}
       formName={props.form}
       formDefinition={formDefinition}
       formValues={formValues}
@@ -103,7 +101,6 @@ const DetailForm = props => {
 DetailForm.propTypes = {
   intl: intlShape.isRequired,
   mode: PropTypes.oneOf(['update', 'create']),
-  entityModel: PropTypes.object.isRequired,
   submitForm: PropTypes.func.isRequired,
   formDefinition: PropTypes.object.isRequired,
   entity: PropTypes.object.isRequired,

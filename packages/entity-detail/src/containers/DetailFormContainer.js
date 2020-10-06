@@ -34,7 +34,6 @@ const getFormGeneralErrors = formName =>
 const mapStateToProps = state => ({
   formDefinition: state.entityDetail.formDefinition,
   entity: state.entityDetail.entity,
-  entityModel: state.entityDetail.entityModel,
   formValues: getFormValues('detailForm')(state),
   formErrors: {
     ...getFormSyncErrors('detailForm')(state),

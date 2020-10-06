@@ -74,9 +74,6 @@ describe('simple-form', () => {
                 ]
               }]
           }
-          const model = {
-            paths: {}
-          }
 
           const store = createStore(() => ({
             formData: {
@@ -96,7 +93,6 @@ describe('simple-form', () => {
                 onSubmit={EMPTY_FUNC}
                 onCancel={EMPTY_FUNC}
                 formDefinition={formDefinition}
-                model={model}
                 intl={IntlStub}
                 uploadDocument={EMPTY_FUNC}
                 openAdvancedSearch={EMPTY_FUNC}

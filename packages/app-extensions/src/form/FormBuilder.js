@@ -20,7 +20,6 @@ const FormBuilder = props => {
   const {
     componentMapping,
     entity,
-    model,
     mode,
     beforeRenderField,
     formDefinition,
@@ -110,6 +109,7 @@ const FormBuilder = props => {
         entityField={entityField}
         fieldMappingType={fieldMappingType}
         format={null}
+        mode={mode}
       />
     }
 
@@ -117,7 +117,7 @@ const FormBuilder = props => {
   }
 
   const createAction = action => {
-    const model = _get(props, 'entity.model')
+    const entityName = _get(props, 'entity.model')
     const entityKey = _get(props, 'entity.key')
 
     return <div
@@ -126,7 +126,7 @@ const FormBuilder = props => {
     >
       <actions.Action
         definition={action}
-        selection={actions.getSingleEntitySelection(model, entityKey)}
+        selection={actions.getSingleEntitySelection(entityName, entityKey)}
         mode={mode}
         customActions={customActions}
       />
@@ -174,9 +174,8 @@ const FormBuilder = props => {
 
     const key = `custom-component-${field.id}-${field.layoutType}`
     const component = componentMapping[field.componentType]
-    const fieldName = field.id
-    const modelField = model.paths[fieldName]
-    return component(field, modelField, key)
+
+    return component(field, key)
   }
 
   return formTraverser(formDefinition.children, formDefinition.readonly)
@@ -184,7 +183,6 @@ const FormBuilder = props => {
 
 FormBuilder.propTypes = {
   entity: PropTypes.object,
-  model: PropTypes.object.isRequired,
   formName: PropTypes.string.isRequired,
   formDefinition: PropTypes.object.isRequired,
   formValues: PropTypes.object,

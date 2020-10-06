@@ -15,7 +15,6 @@ const REDUX_FORM_NAME = 'searchForm'
 const BasicSearchForm = ({
   disableSimpleSearch,
   entity,
-  entityModel,
   form: formName,
   formValues,
   intl,
@@ -26,7 +25,7 @@ const BasicSearchForm = ({
   simpleSearchFields,
   submitSearchForm
 }) => {
-  if (!searchFormDefinition.children || Object.keys(entityModel).length === 0) {
+  if (!searchFormDefinition.children) {
     return null
   }
 
@@ -78,7 +77,6 @@ const BasicSearchForm = ({
       }
       <form.FormBuilder
         entity={entity}
-        model={entityModel}
         formName={formName}
         formDefinition={searchFormDefinition}
         formValues={formValues}
@@ -97,10 +95,6 @@ const BasicSearchForm = ({
 
 BasicSearchForm.propTypes = {
   intl: intlShape.isRequired,
-  entityModel: PropTypes.shape({
-    paths: PropTypes.object,
-    name: PropTypes.string
-  }).isRequired,
   searchFormDefinition: PropTypes.shape({
     children: PropTypes.array
   }).isRequired,

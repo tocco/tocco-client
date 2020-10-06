@@ -54,7 +54,6 @@ describe('entity-list', () => {
       })
 
       test('should render needed components', () => {
-        const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
         const store = createStore(() => ({
@@ -73,7 +72,6 @@ describe('entity-list', () => {
               <MemoryRouter>
                 <SearchForm
                   initializeSearchForm={EMPTY_FUNC}
-                  entityModel={entityModel}
                   searchFormDefinition={searchFormDefinition}
                   setSearchInput={EMPTY_FUNC}
                   relationEntities={{}}

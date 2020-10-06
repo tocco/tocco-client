@@ -8,12 +8,12 @@ const StyledListApp = styled.div`
 `
 
 const SubGrid = props => {
-  const formBase = `${props.detailFormName}_${props.gridName}`
+  const formBase = `${props.detailFormName}_${props.formField.path}`
   return (
     <StyledListApp>
       <EntityListApp
         id={`${props.appId}-subgrid-${formBase}`}
-        entityName={props.modelField.targetEntity}
+        entityName={props.formField.targetEntity}
         formName={formBase}
         limit={props.limit}
         searchFormType={props.showSearchForm ? 'basic' : 'none'}
@@ -21,18 +21,18 @@ const SubGrid = props => {
           if (props.onRowClick) {
             props.onRowClick({
               id: e.id,
-              gridName: props.gridName,
-              relationName: props.relationName
+              gridName: props.formField.path,
+              relationName: props.formField.path
             })
           }
         }}
         onNavigateToCreate={() => {
-          props.navigateToCreate(props.relationName)
+          props.navigateToCreate(props.formField.path)
         }}
         emitAction={action => { props.dispatchEmittedAction(action) }}
         parent={{
           key: props.entityKey,
-          reverseRelationName: props.modelField.reverseRelationName,
+          reverseRelationName: props.formField.reverseRelation,
           model: props.entityName
         }}
       />
@@ -48,11 +48,10 @@ SubGrid.propTypes = {
   entityKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   entityName: PropTypes.string.isRequired,
   detailFormName: PropTypes.string.isRequired,
-  gridName: PropTypes.string.isRequired,
-  relationName: PropTypes.string.isRequired,
-  modelField: PropTypes.shape({
+  formField: PropTypes.shape({
+    path: PropTypes.string,
     targetEntity: PropTypes.string,
-    reverseRelationName: PropTypes.string
+    reverseRelation: PropTypes.string
   }).isRequired,
   onRowClick: PropTypes.func,
   navigateToCreate: PropTypes.func.isRequired,
