@@ -15,7 +15,7 @@ const sharedSplitPaneStyles = css`
 
 export const StyledPanelWrapperLeft = styled.div`
   && {
-    min-width: 350px;
+    min-width: 265px;
     width: 16%;
     margin-right: 1rem;
     ${sharedSplitPaneStyles}
