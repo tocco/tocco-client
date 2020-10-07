@@ -23,6 +23,7 @@ const UploadInput = props => {
       multiple={false}
       style={{position: 'relative'}}
       onDrop={onDrop}
+      title={props.text || 'drag and drop or click'}
     >
       <IconWrapper>
         <Icon

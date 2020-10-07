@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import _isEqual from 'lodash/isEqual'
 
 import View from './View'
@@ -9,46 +9,43 @@ import UploadInput from './UploadInput'
 /**
  * Component to upload files. If uploaded, the file will be displayed by the Preview component.
  */
-export class Upload extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {isUploading: false}
+export const Upload = props => {
+  const {
+    value,
+    textResources,
+    onUpload
+  } = props
+  const [preview, setPreview] = useState({isUploading: false})
+
+  const setUploadingState = file => {
+    setPreview({isUploading: true, previewFile: file})
   }
 
-  setUploadingState(file) {
-    this.setState({isUploading: true, previewFile: file})
+  const abortUploadingState = () => {
+    setPreview({isUploading: false, previewFile: null})
   }
 
-  abortUploadingState() {
-    this.setState({isUploading: false, previewFile: null})
+  const onDrop = file => {
+    setUploadingState(file)
+    onUpload(file)
   }
 
-  onDrop(file) {
-    this.setUploadingState(file)
-    this.props.onUpload(file)
-  }
-
-  componentDidUpdate(prevProps) {
-    if (!_isEqual(prevProps.value, this.props.value)) {
-      this.abortUploadingState()
+  useEffect(() => {
+    if (!_isEqual(value)) {
+      abortUploadingState()
     }
-  }
+  })
 
-  getContent(props) {
-    if (props.value && props.value.binaryLink) {
-      return <View {...props} deleteTitle={props.textResources.delete} downloadTitle={props.textResources.download} />
-    } else {
-      if (this.state.isUploading) {
-        return <UploadProgress file={this.state.previewFile} text={props.textResources.uploading} {...props}/>
-      }
-      return <UploadInput {...props} onDrop={this.onDrop.bind(this)}/>
+  const getContent = props => {
+    if (value && value.binaryLink) {
+      return <View {...props} deleteTitle={textResources.delete} downloadTitle={textResources.download} />
+    } else if (preview.isUploading) {
+      return <UploadProgress file={preview.previewFile} text={textResources.uploading} {...props}/>
     }
+    return <UploadInput {...props} onDrop={onDrop}/>
   }
 
-  render() {
-    const props = this.props
-    return this.getContent(props)
-  }
+  return getContent(props)
 }
 
 Upload.defaultProps = {
