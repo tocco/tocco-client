@@ -34,7 +34,7 @@ export const Upload = props => {
     if (!_isEqual(value)) {
       abortUploadingState()
     }
-  })
+  }, [value])
 
   const getContent = props => {
     if (value && value.binaryLink) {
