@@ -1,3 +1,6 @@
+0.3.24
+- Searchform bug fix
+
 0.3.23
 - Narrow left panel width of input edit
 - Improve UX of list and search view within modal
