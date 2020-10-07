@@ -29,10 +29,6 @@ const FormBuilder = props => {
     customActions
   } = props
 
-  if (!formValues) {
-    return null
-  }
-
   const modeFitsScope = (mode, scopes) => (
     !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
   )
@@ -82,7 +78,7 @@ const FormBuilder = props => {
       }
 
       const hasEmptyValue = (fieldName, formValues) => {
-        if (!Object.prototype.hasOwnProperty.call(formValues, fieldName)) {
+        if (!Object.prototype.hasOwnProperty.call(formValues || {}, fieldName)) {
           return true
         } else {
           const value = formValues[fieldName]
