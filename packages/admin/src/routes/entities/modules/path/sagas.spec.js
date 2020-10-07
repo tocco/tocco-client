@@ -243,6 +243,21 @@ describe('admin', () => {
 
                 expect(result).to.eql(expectedResult)
               })
+
+              test('should ignore actions', () => {
+                const routeInfo = [
+                  {type: 'list', model: mockData.userModel},
+                  {type: 'action', actionId: 'resourcescheduler'}
+                ]
+
+                const expectedResult = [
+                  {display: 'Person', path: 'User/list', type: 'list'}
+                ]
+
+                const result = sagas.deriveBreadcrumbs(routeInfo)
+
+                expect(result).to.eql(expectedResult)
+              })
             })
 
             describe('deriveCurrentViewInfo', () => {
