@@ -203,6 +203,43 @@ describe('admin', () => {
                   .run()
               })
 
+              test('should return create for relation path', () => {
+                const pathname = '/e/User/1226/relAddress_user/create'
+
+                const expectedResult = [
+                  {
+                    type: 'list',
+                    model: mockData.userModel
+
+                  },
+                  {
+                    type: 'detail',
+                    key: '1226',
+                    model: mockData.userModel,
+                    display: mockData.userDisplay
+                  },
+                  {
+                    type: 'list',
+                    model: mockData.addressModel,
+                    relationName: 'relAddress_user',
+                    parent: {
+                      type: 'detail',
+                      key: '1226',
+                      model: mockData.userModel,
+                      display: mockData.userDisplay
+                    }
+                  },
+                  {
+                    type: 'create',
+                    model: mockData.addressModel
+                  }]
+
+                return expectSaga(sagas.loadRouteInfo, pathname)
+                  .provide(modelDisplayProvider)
+                  .returns(expectedResult)
+                  .run()
+              })
+
               test('should return only action id for action route [1]', () => {
                 const pathname = '/e/action/input-edit'
                 const expectedResult = [{

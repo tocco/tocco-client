@@ -101,7 +101,13 @@ export function* loadRouteInfo(pathname) {
       }
     }
 
-    if (path.actionId) {
+    if (path.view === 'create') {
+      const parent = routeInfos[routeInfos.length - 1]
+      routeInfos.push({
+        type: 'create',
+        model: parent.model
+      })
+    } else if (path.actionId) {
       routeInfos.push({
         type: 'action',
         actionId: path.actionId
@@ -142,7 +148,7 @@ export const deriveBreadcrumbs = routeInfos => {
     path = (path ? path + '/' : '') + (routeInfo.key ? routeInfo.key : routeInfo.relationName || routeInfo.model.name)
     return {
       type: routeInfo.type,
-      display: routeInfo.type === 'list' ? routeInfo.model.label : routeInfo.display,
+      display: routeInfo.display || routeInfo.model.label,
       path: path + '/' + routeInfo.type
     }
   }).filter(e => e)
