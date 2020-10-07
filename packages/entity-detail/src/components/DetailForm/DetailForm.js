@@ -29,7 +29,8 @@ const DetailForm = props => {
     entity,
     formDefinition,
     formValues,
-    anyTouched
+    anyTouched,
+    form: formName
   } = props
 
   useEffect(() => {
@@ -45,9 +46,9 @@ const DetailForm = props => {
   const focusErrorFields = () => {
     const firstErrorField = form.formErrorsUtil.getFirstErrorField(formErrors)
     if (firstErrorField) {
-      const element = document.getElementById(form.getFieldId(form, firstErrorField))
+      const element = document.getElementById(form.getFieldId(formName, firstErrorField))
       if (element) {
-        document.getElementById(form.getFieldId(form, firstErrorField)).focus()
+        element.focus()
       }
     }
   }
