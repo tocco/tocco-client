@@ -11,7 +11,7 @@ export const StyledUl = styled.ul`
 
 export const StyledCheckbox = styled.input`
   vertical-align: top;
-  margin-right: ${scale.space(-1)};
+  margin-right: ${scale.space(-1)} !important; // Nice2 Reset
 
   &:hover {
     cursor: pointer;
