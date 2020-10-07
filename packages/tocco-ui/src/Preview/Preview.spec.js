@@ -20,7 +20,6 @@ describe('tocco-ui', () => {
       const figure = wrapper.find('figure')
       const a = wrapper.find('a')
       const img = wrapper.find('img')
-      const figcaption = wrapper.find('figcaption')
 
       expect(figure).to.have.length(1)
       expect(a).to.have.length(1)
@@ -30,8 +29,6 @@ describe('tocco-ui', () => {
       expect(img).to.have.length(1)
       expect(img).to.have.attr('alt', 'alternative text')
       expect(img).to.have.attr('src', '/link-to-thumbnail')
-      expect(figcaption).to.have.length(1)
-      expect(figcaption).to.have.text('caption text')
     })
 
     test('display image or icon depending on thumbnailUrl', () => {
@@ -55,33 +52,6 @@ describe('tocco-ui', () => {
       expect(wrapper.find('img')).to.have.length(0)
       expect(wrapper.find(Icon)).to.have.length(1)
       expect(wrapper.find(Icon).prop('icon')).to.deep.equal('file-alt')
-    })
-
-    test('add figcaption only if caption in provided', () => {
-      let wrapper = mount(
-        <Preview
-          alt="alt text"
-          caption="caption text"
-          srcUrl="/link-to-source"
-        />
-      )
-
-      let figcaption = wrapper.find('figcaption')
-
-      expect(figcaption).to.have.length(1)
-      expect(figcaption).to.have.text('caption text')
-
-      wrapper = shallow(
-        <Preview
-          alt="alt text"
-          caption=""
-          srcUrl="/link-to-source"
-        />
-      ).dive()
-
-      figcaption = wrapper.find('figcaption')
-
-      expect(figcaption).to.have.length(0)
     })
 
     test('link image if demanded and allowed', () => {
