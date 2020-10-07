@@ -136,13 +136,16 @@ export const deriveCurrentViewInfo = (pathname, routeInfo) => {
 export const deriveBreadcrumbs = routeInfos => {
   let path = ''
   return routeInfos.map(routeInfo => {
+    if (routeInfo.type === 'action') {
+      return null
+    }
     path = (path ? path + '/' : '') + (routeInfo.key ? routeInfo.key : routeInfo.relationName || routeInfo.model.name)
     return {
       type: routeInfo.type,
       display: routeInfo.type === 'list' ? routeInfo.model.label : routeInfo.display,
       path: path + '/' + routeInfo.type
     }
-  })
+  }).filter(e => e)
 }
 
 export function* initMultiRelations(model, key) {
