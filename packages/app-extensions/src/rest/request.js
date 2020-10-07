@@ -1,5 +1,3 @@
-import {consoleLogger} from 'tocco-util'
-
 const handleError = (response, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
   if (!response.ok
     && !acceptedStatusCodes.includes(response.status)
@@ -20,8 +18,7 @@ const extractBody = response => {
   return response.json()
     .then(body => ({...filteredResponse, body}))
     .catch(exception => {
-      consoleLogger.log('Unable to extract request body', exception, response)
-      return {...filteredResponse}
+      return {...filteredResponse, body: null}
     })
 }
 
