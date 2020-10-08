@@ -10,6 +10,7 @@ const StyledContainer = styled.div`
   width: 148px;
   height: 148px;
   position: relative;
+  align-self: center;
 `
 
 const StyledContent = styled.div`
