@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import {scale, theme} from 'tocco-ui'
 
+export const StyledColumnPickerWrapper = styled.div`
+  display: grid;
+  grid-template-columns: minmax(100%, 700px);
+`
+
 export const StyledUl = styled.ul`
   list-style-type: none;
   padding-left: ${scale.space(-0.5)};

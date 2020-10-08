@@ -3,7 +3,7 @@ import React, {useState, useMemo} from 'react'
 import {Button, SearchBox, Typography} from 'tocco-ui'
 import {intlShape} from 'react-intl'
 
-import {StyledCheckbox, StyledUl, StyledButtonWrapper} from './StyledColumnPicker'
+import {StyledCheckbox, StyledUl, StyledButtonWrapper, StyledColumnPickerWrapper} from './StyledColumnPicker'
 
 const ColumnPicker = ({columns, onOk, intl}) => {
   const [selectedColumns, setSelectedColumns] = useState({})
@@ -21,7 +21,7 @@ const ColumnPicker = ({columns, onOk, intl}) => {
       <Typography.Label for={column.id}>{column.label}</Typography.Label>
     </Typography.Li>), [columns, searchTerm, selectedColumns])
 
-  return <>
+  return <StyledColumnPickerWrapper>
     <SearchBox
       placeholder={intl.formatMessage({id: 'client.entity-list.preferences.columns.search'})}
       onSearch={setSearchTerm}/>
@@ -31,7 +31,7 @@ const ColumnPicker = ({columns, onOk, intl}) => {
         {intl.formatMessage({id: 'client.entity-list.preferences.columns.okButton'})}
       </Button>
     </StyledButtonWrapper>
-  </>
+  </StyledColumnPickerWrapper>
 }
 
 ColumnPicker.propTypes = {
