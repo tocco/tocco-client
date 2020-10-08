@@ -9,7 +9,6 @@ import {StyledLayoutBox} from 'tocco-ui/src/Layout'
 import {StyledTitleWrapper} from '../../components/TitleMessage'
 import {StyledCloseButton} from './ModalContent'
 
-const maxModalWidth = 700
 export const basePadding = scale.space(0.5)
 
 const StyledModalContent = styled.div.attrs(({isClosing}) => ({
@@ -22,8 +21,7 @@ const StyledModalContent = styled.div.attrs(({isClosing}) => ({
     border-radius: 0;           // reset: react-redux-toastr (confirm.scss)
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
     padding: 0 ${basePadding} ${basePadding}; // reset: react-redux-toastr (confirm.scss)
-    width: auto;
-    max-width: ${maxModalWidth}px;
+    width: fit-content;
     ${StyledScrollbar}
     margin: auto;
     left: 0;
@@ -44,8 +42,7 @@ const StyledModalContent = styled.div.attrs(({isClosing}) => ({
     }
 
     ${StyledTitleWrapper} {
-      width: 100%;
-      max-width: ${maxModalWidth}px;
+      width: auto;
     }
 
     .advanced-search-button-wrapper {
