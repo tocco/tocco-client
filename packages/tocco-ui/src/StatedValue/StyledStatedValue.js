@@ -108,14 +108,9 @@ const StyledStatedValueDescription = styled.p`
 
 const StyledStatedValueError = styled.div`
   &&& {
-    max-height: 0;
-    opacity: 0;
-    transition: all .5s ease-in-out;
-    transition-delay: .5s;
-    will-change: max-height, opacity;
-    ${({showError}) => showError && css`
-      max-height: 100px;
-      opacity: 1;
+    display: none;
+    ${({showError, focused}) => showError && !focused && css`
+      display: block;
     `};
 
     li {
