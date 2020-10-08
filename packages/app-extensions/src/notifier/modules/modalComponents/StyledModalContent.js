@@ -22,6 +22,7 @@ const StyledModalContent = styled.div.attrs(({isClosing}) => ({
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
     padding: 0 ${basePadding} ${basePadding}; // reset: react-redux-toastr (confirm.scss)
     width: fit-content;
+    min-width: 200px;
     ${StyledScrollbar}
     margin: auto;
     left: 0;
