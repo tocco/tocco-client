@@ -42,7 +42,7 @@ const StatedValue = props => {
     touched
   } = props
 
-  const showError = !immutable && touched && props.error && Object.keys(props.error).length > 0
+  const showError = !immutable && touched && error && Object.keys(error).length > 0
   const labelAlt = `${js.adjustedHTMLString(label)}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
   const signal = props.signal || detectSignal(dirty, showError)
 
@@ -70,7 +70,7 @@ const StatedValue = props => {
             </StyledStatedValueBox>
             {description
               && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
-            {<StyledStatedValueError showError={showError}>
+            {<StyledStatedValueError showError={showError} focused={focused}>
               <ErrorList error={error}/>
             </StyledStatedValueError>
             }
