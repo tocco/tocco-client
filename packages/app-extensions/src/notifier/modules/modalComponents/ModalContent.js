@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -31,43 +31,35 @@ export const StyledCloseButton = styled.button`
   }
 `
 
-export class ModalContent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {isClosing: false}
-    this.handleCloseClick = this.handleCloseClick.bind(this)
-  }
+const ModalContent = props => {
+  const {
+    closable,
+    message,
+    title,
+    close,
+    id
+  } = props
 
-  handleCloseClick() {
-    this.setState({isClosing: true})
+  const [isClosing, setIsClosing] = useState(false)
+
+  const handleCloseClick = () => {
+    setIsClosing(true)
     setTimeout(() => {
-      this.props.close(this.props.id)
+      close(id)
     }, 300) // Toastr fade out takes 300ms
   }
 
-  render() {
-    const {
-      closable,
-      message,
-      title
-    } = this.props
-
-    const {isClosing} = this.state
-
-    return (
-      <div className="rrt-confirm-holder">
-        <StyledModalContent isClosing={isClosing}>
-          {closable && <StyledCloseButton onClick={this.handleCloseClick} type="button">
+  return <div className="rrt-confirm-holder">
+    <StyledModalContent isClosing={isClosing}>
+      {closable && <StyledCloseButton onClick={handleCloseClick} type="button">
             ✕
-          </StyledCloseButton>}
-          <TitleMessage title={title} message={message} closable={closable}>
-            <this.props.component close={this.handleCloseClick}/>
-          </TitleMessage>
-        </StyledModalContent>
-        <div className={`shadow animated ${isClosing ? 'fadeOut' : 'fadeIn'}`} />
-      </div>
-    )
-  }
+      </StyledCloseButton>}
+      <TitleMessage title={title} message={message} closable={closable}>
+        <props.component close={handleCloseClick}/>
+      </TitleMessage>
+    </StyledModalContent>
+    <div className={`shadow animated ${isClosing ? 'fadeOut' : 'fadeIn'}`} />
+  </div>
 }
 
 ModalContent.propTypes = {
