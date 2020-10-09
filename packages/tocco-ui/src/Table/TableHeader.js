@@ -52,7 +52,6 @@ const TableHeader = ({columns, data, onColumnPositionChange, onSortingChange, ta
             })}
           >
             <StyledDnD
-              isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
               isDragged={dndState.currentlyDragging === column.id}
             >
               <SortingState column={column}/>
