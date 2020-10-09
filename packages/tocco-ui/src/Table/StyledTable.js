@@ -27,7 +27,6 @@ export const StyledDnD = styled.div`
   padding: ${basePadding};
   width: 100%;
   display: flex;
-  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? '3px solid ' + theme.colors.secondary : 'none'};
   opacity: ${({isDragged}) => isDragged ? 0.2 : 1};
   pointer-events: ${({isDraggedOver}) => isDraggedOver ? 'none' : 'auto'};
 `
@@ -44,6 +43,7 @@ export const StyledTableHeaderCell = styled.th`
   overflow: hidden;
   white-space: nowrap;
   display: flex;
+  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? '3px solid ' + theme.colors.secondary : 'none'};
   ${({isResizing, theme}) => isResizing && `
     background-color: ${lighten(0.25, theme.colors.secondaryLight)};
 
@@ -98,11 +98,7 @@ const selectionStyles = css`
 
 export const StyledSortingSpan = styled.span`
   height: 100%;
-  position: relative;
-  left: 8px;
-  top: 0;
-  display: flex;
-  align-items: center;
+  margin-right: 2px;
 `
 
 export const StyledFullRowProgress = styled.td`

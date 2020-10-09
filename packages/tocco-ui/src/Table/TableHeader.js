@@ -41,6 +41,7 @@ const TableHeader = ({columns, data, onColumnPositionChange, onSortingChange, ta
           resizingColumn={resizingColumn}
           isResizing={resizingColumn && column.id === resizingColumn.id}
           sortable={column.sorting && column.sorting.sortable}
+          isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
         >
           <StyledDraggable
             id={`header-cell-drop-${column.id}`}
@@ -54,8 +55,8 @@ const TableHeader = ({columns, data, onColumnPositionChange, onSortingChange, ta
               isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
               isDragged={dndState.currentlyDragging === column.id}
             >
-              <ThContent column={column} data={data}/>
               <SortingState column={column}/>
+              <ThContent column={column} data={data}/>
             </StyledDnD>
           </StyledDraggable>
           {column.resizable && <ResizingController column={column} startResize={startResize}/>}
