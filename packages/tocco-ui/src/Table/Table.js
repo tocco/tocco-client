@@ -12,6 +12,19 @@ import TableHeader from './TableHeader'
 import TableBody from './TableBody'
 
 const Table = props => {
+  const {
+    selection,
+    data,
+    onSelectionChange,
+    selectionStyle,
+    paginationInfo,
+    onColumnPositionChange,
+    onSortingChange,
+    dataLoadingInProgress,
+    onRowClick,
+    clickable,
+    onPageChange
+  } = props
   const [columns, setColumns] = useState(props.columns)
   const tableEl = useRef(null)
 
@@ -23,44 +36,44 @@ const Table = props => {
   }
 
   const {isSelected, selectionChange}
-    = useSelection(props.selection, props.data ? props.data.map(e => e.__key) : [], props.onSelectionChange)
+    = useSelection(selection, data ? data.map(e => e.__key) : [], onSelectionChange)
 
   useEffect(() => {
-    const selectionColumn = getSelectionCell(props.selectionStyle, props.columns, isSelected, selectionChange)
+    const selectionColumn = getSelectionCell(selectionStyle, props.columns, isSelected, selectionChange)
     setColumns([...(selectionColumn ? [selectionColumn] : []), ...props.columns])
-  }, [props.columns, props.selection])
+  }, [props.columns, selection])
 
-  const showPagination = props.paginationInfo
-    && (props.paginationInfo.totalCount - props.paginationInfo.recordsPerPage) > 0
+  const showPagination = paginationInfo
+    && (paginationInfo.totalCount - paginationInfo.recordsPerPage) > 0
 
   return <StyledTableWrapper>
     <StretchingTableContainer>
       <StyledTable ref={tableEl} columns={columns}>
         <TableHeader
           columns={columns}
-          data={props.data}
+          data={data}
           resizeCallback={resizeCallback}
-          onColumnPositionChange={props.onColumnPositionChange}
+          onColumnPositionChange={onColumnPositionChange}
           tableEl={tableEl}
-          onSortingChange={props.onSortingChange}
+          onSortingChange={onSortingChange}
         />
         <TableBody
           columns={columns}
-          data={props.data}
+          data={data}
           isSelected={isSelected}
           selectionChange={selectionChange}
-          dataLoadingInProgress={props.dataLoadingInProgress}
-          onRowClick={props.onRowClick}
-          clickable={props.clickable}
+          dataLoadingInProgress={dataLoadingInProgress}
+          onRowClick={onRowClick}
+          clickable={clickable}
         />
       </StyledTable>
     </StretchingTableContainer>
     {showPagination && <PaginationContainer>
       <Pagination
-        onPageChange={props.onPageChange}
-        currentPage={props.paginationInfo.currentPage}
-        totalCount={props.paginationInfo.totalCount}
-        recordsPerPage={props.paginationInfo.recordsPerPage}
+        onPageChange={onPageChange}
+        currentPage={paginationInfo.currentPage}
+        totalCount={paginationInfo.totalCount}
+        recordsPerPage={paginationInfo.recordsPerPage}
       />
     </PaginationContainer>}
   </StyledTableWrapper>

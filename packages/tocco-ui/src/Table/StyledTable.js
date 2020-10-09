@@ -43,7 +43,7 @@ export const StyledTableHeaderCell = styled.th`
   overflow: hidden;
   white-space: nowrap;
   display: flex;
-  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? '3px solid ' + theme.colors.secondary : 'none'};
+  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? `3px solid ${theme.colors.secondary}` : 'none'};
   ${({isResizing, theme}) => isResizing && `
     background-color: ${lighten(0.25, theme.colors.secondaryLight)};
 
