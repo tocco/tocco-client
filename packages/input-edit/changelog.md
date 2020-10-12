@@ -1,3 +1,16 @@
+0.3.6
+- Create new StyledLabel that fits with other elements
+- Handle strings in search with "like" and add boolean handler
+- Hide action in advanced search
+- Change div to flex item for proper display in old client
+- Change flex properties for proper display in old client
+- Set box sizing on td to prevent overwrite in external context
+- Narrow left panel width of input edit
+- Build fields without model (refactoring)
+- Hide readonly fields without value
+- Remove all usages of old display endpoints and use 'entities/2.0/displays'
+- Add min width to modal
+
 0.3.5
 - Table component
 - Style input fields according to material design
