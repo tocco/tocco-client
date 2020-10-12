@@ -31,10 +31,15 @@ storiesOf('Tocco-UI | Menu', module)
   )
   .add(
     'ButtonMenu with default',
-    () => <ButtonMenu label="Menu Button" onClick={action('clicked button')} buttonProps={{look: 'raised'}}>
-      {getMenuItems()}
-    </ButtonMenu>
-
+    () => <>
+      <ButtonMenu label="Menu Button" onClick={action('clicked button')} buttonProps={{look: 'raised'}}>
+        {getMenuItems()}
+      </ButtonMenu>
+      <br />
+      <ButtonMenu label="Menu Button Rasied" onClick={action('clicked button')}>
+        {getMenuItems()}
+      </ButtonMenu>
+    </>
   )
   .add(
     'BallMenu',

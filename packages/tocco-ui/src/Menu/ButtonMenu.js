@@ -2,10 +2,42 @@ import React, {useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import {Menu, Icon, Button, ButtonGroup} from '../'
+import {Menu, Icon, Button} from '../'
+import {StyledButtonGroup} from '../ButtonGroup'
+import {StyledButton} from '../Button'
+import {getInteractiveStyle} from '../utilStyles'
 
 const IconWrapper = styled.div`
   margin-left: 8px;
+`
+
+const StyledMenuButtonGroup = styled(StyledButtonGroup)`
+  ${props => {
+    const style = getInteractiveStyle(props)
+     return `
+      ${StyledButton}{
+        &:active,
+        &[aria-pressed='true'] {
+          background: ${style.activeBackgroundColor} !important;
+        }
+      }
+
+      &:focus,
+      &:hover {
+        > ${StyledButton} {
+          background: ${style.hoverBackgroundColor};
+          color: ${style.hoverFontColor};
+          :last-of-type {
+             ${style.border === 'none'
+                 ? `box-shadow: 1px 0 0 0 ${style.backgroundColor} inset;`
+                 : `box-shadow: ${style.border}, 2px 0 0 0 ${style.hoverFontColor} inset;`
+             }
+          }
+        }
+      }
+     `
+  }
+}
 `
 
 /**
@@ -40,10 +72,10 @@ const ButtonMenu = props => {
 
   if (props.onClick) {
     return <>
-      <ButtonGroup ref={referenceElement}>
+      <StyledMenuButtonGroup ref={referenceElement} {...props.buttonProps || {}}>
         <Button {...props.buttonProps || {}} onClick={props.onClick} label={props.label} data-cy={props['data-cy']}/>
         <Button icon={angleIcon} onClick={handleClick} {...props.buttonProps || {}} />
-      </ButtonGroup>
+      </StyledMenuButtonGroup>
       {getMenu}
     </>
   }

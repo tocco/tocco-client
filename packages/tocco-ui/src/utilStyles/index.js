@@ -23,8 +23,9 @@ import getTextOfChildren from './getTextOfChildren'
 import scale from './modularScale'
 import design from './designConstants'
 import {validateCssDimension} from './propTypesValidator'
-import interactiveStyling from './interactiveStyling'
+import interactiveStyling, {getInteractiveStyle} from './interactiveStyling'
 export {
+  getInteractiveStyle,
   interactiveStyling,
   assertObjectValuesMatchOtherObjectKeys,
   colorizeBorder,

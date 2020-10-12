@@ -26,7 +26,7 @@ const getHoverFontColor = (ink, look, theme, backgroundColor) => {
 
 const getBorder = (ink, look, theme) => {
   if (ink !== 'primary' && look === 'raised') {
-    return `0px 0px 0px 1px ${themeSelector.color('secondaryLight')({theme})} inset;`
+    return `0px 0px 0px 1px ${themeSelector.color('secondaryLight')({theme})} inset`
   }
   return 'none'
 }
@@ -48,13 +48,34 @@ const getMatchingFontColor = (color, theme) =>
     themeSelector.color('paper')({theme})
   )
 
-export default props => {
+export const getInteractiveStyle = props => {
   const {ink, look, theme} = props
   const backgroundColor = getBackgroundColor(ink, look, theme)
   const fontColor = getFontColor(ink, look, theme, backgroundColor)
   const border = getBorder(ink, look, theme)
   const hoverBackgroundColor = getHoverBackgroundColor(ink, look, theme)
   const hoverFontColor = getHoverFontColor(ink, look, theme, backgroundColor)
+  const activeBackgroundColor = lighten(0.1, hoverBackgroundColor)
+
+  return {
+    backgroundColor,
+    fontColor,
+    border,
+    hoverBackgroundColor,
+    hoverFontColor,
+    activeBackgroundColor
+  }
+}
+
+export default props => {
+  const {
+    backgroundColor,
+    fontColor,
+    border,
+    hoverBackgroundColor,
+    hoverFontColor,
+    activeBackgroundColor
+  } = getInteractiveStyle(props)
 
   return css`
   background: ${backgroundColor};
@@ -71,7 +92,7 @@ export default props => {
 
   &:active,
   &[aria-pressed='true'] {
-    background: ${lighten(0.1, hoverBackgroundColor)};
+    background: ${activeBackgroundColor};
   }
 
   &:disabled,

@@ -1,11 +1,10 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import {shallow, mount} from 'enzyme'
 
 import ButtonMenu from './ButtonMenu'
 import Menu from './Menu'
 import MenuItem from './MenuItem'
 import Button from '../Button'
-import ButtonGroup from '../ButtonGroup'
 import Icon from '../Icon'
 
 describe('tocco-ui', () => {
@@ -24,16 +23,13 @@ describe('tocco-ui', () => {
 
       test('should render a Buttongroup with default click handler', () => {
         const onClick = sinon.spy()
-        const wrapper = shallow(
+        const wrapper = mount(
           <ButtonMenu onClick={onClick} buttonProps={{icon: 'facebook'}}>
             <MenuItem>Test</MenuItem>
           </ButtonMenu>
         )
 
         expect(wrapper.find(Button)).to.have.length(2)
-        expect(wrapper.find(ButtonGroup)).to.have.length(1)
-        expect(wrapper.find(MenuItem)).to.have.length(1)
-
         wrapper.find(Button).first().simulate('click')
         expect(onClick).to.be.calledOnce
       })
