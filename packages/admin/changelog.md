@@ -1,3 +1,8 @@
+0.3.25
+- Initialize container size for correct display in modal
+- Add min width to modal
+- Center QR Code
+
 0.3.24
 - Searchform bug fix
 
