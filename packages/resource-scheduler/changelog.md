@@ -1,3 +1,12 @@
+0.3.8
+- Build fields without model (refactoring)
+- Hide readonly fields without value
+- Style column picker dialog inside modal
+- Fix overflow of column picker in case of long texts and change ok button look
+- Remove all usages of old display endpoints and use 'entities/2.0/displays'
+- Initialize container size for correct display in modal
+- Add min width to modal
+
 0.3.7
 - Change div to flex item for proper display in old client
 - Change flex properties for proper display in old client
