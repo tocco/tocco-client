@@ -35,7 +35,7 @@ describe('scheduler', () => {
           }
 
           const wrapper = enzymeUtil.mountEmbedded(<NavigationFullCalendar {...mockProps} />)
-          expect(wrapper.find(Button)).to.have.length(7)
+          expect(wrapper.find(Button)).to.have.length(8)
           wrapper.find('button').map(button => button.simulate('click'))
           expect(changeRange).to.have.property('callCount', 3)
           expect(changeView).to.have.property('callCount', 3)

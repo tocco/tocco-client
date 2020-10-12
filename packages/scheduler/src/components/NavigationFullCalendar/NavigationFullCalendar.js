@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
-import {Button, ButtonGroup, Icon, Typography, DatePicker} from 'tocco-ui'
+import {Button, ButtonGroup, Icon, Typography, DatePicker, ButtonMenu, MenuItem} from 'tocco-ui'
 
 import StyledNavigationFullCalendar from './StyledNavigationFullCalendar'
 
 const getButtonInkProps = (viewType, type) => (viewType === type) ? {ink: 'primary'} : {}
-
-const msg = (id, intl) => intl.formatMessage({id})
 
 const NavigationFullCalendar = props => {
   const {
@@ -24,6 +22,8 @@ const NavigationFullCalendar = props => {
     title,
     type
   } = props
+
+  const msg = id => intl.formatMessage({id})
 
   return (
     <StyledNavigationFullCalendar>
@@ -78,21 +78,17 @@ const NavigationFullCalendar = props => {
           >
             <FormattedMessage id="client.scheduler.day"/>
           </Button>
-
-          <Button
-            look="raised"
-            {...(getButtonInkProps('weekView', type))}
-            {...(getButtonInkProps('weekViewSimple', type))}
-            onClick={() => {
-              if (type !== 'weekViewSimple') {
-                changeView('weekViewSimple')
-              } else {
-                changeView('weekView')
-              }
+          <ButtonMenu
+            onClick={() => changeView('weekViewSimple')}
+            label={msg('client.scheduler.week')}
+            buttonProps={{
+              look: 'raised',
+              ...(getButtonInkProps('weekView', type)),
+              ...(getButtonInkProps('weekViewSimple', type))
             }}
           >
-            <FormattedMessage id="client.scheduler.week"/>
-          </Button>
+            <MenuItem onClick={() => changeView('weekView')}><FormattedMessage id="client.scheduler.week2"/></MenuItem>
+          </ButtonMenu>
 
           <Button
             look="raised"
