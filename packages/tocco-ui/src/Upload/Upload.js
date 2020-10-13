@@ -15,14 +15,17 @@ export const Upload = props => {
     textResources,
     onUpload
   } = props
-  const [preview, setPreview] = useState({isUploading: false})
+  const [states, setStates] = useState({
+    isUploading: false,
+    previewFile: null
+  })
 
   const setUploadingState = file => {
-    setPreview({isUploading: true, previewFile: file})
+    setStates({isUploading: true, previewFile: file})
   }
 
   const abortUploadingState = () => {
-    setPreview({isUploading: false, previewFile: null})
+    setStates({isUploading: false, previewFile: null})
   }
 
   const onDrop = file => {
@@ -36,16 +39,12 @@ export const Upload = props => {
     }
   }, [value])
 
-  const getContent = props => {
-    if (value && value.binaryLink) {
-      return <View {...props} deleteTitle={textResources.delete} downloadTitle={textResources.download} />
-    } else if (preview.isUploading) {
-      return <UploadProgress file={preview.previewFile} text={textResources.uploading} {...props}/>
-    }
-    return <UploadInput {...props} onDrop={onDrop}/>
+  if (value && value.binaryLink) {
+    return <View {...props} deleteTitle={textResources.delete} downloadTitle={textResources.download} />
+  } else if (states.isUploading) {
+    return <UploadProgress file={states.previewFile} text={textResources.uploading} {...props}/>
   }
-
-  return getContent(props)
+  return <UploadInput {...props} onDrop={onDrop}/>
 }
 
 Upload.defaultProps = {

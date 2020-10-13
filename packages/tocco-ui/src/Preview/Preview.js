@@ -20,9 +20,7 @@ const Preview = ({
   maxDimensionX,
   maxDimensionY
 }) => {
-  const [isLoaded, setIsLoaded] = useState({
-    loaded: false
-  })
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const handleOnClick = () => {
     if (typeof onClick === 'function') {
@@ -30,7 +28,7 @@ const Preview = ({
     }
   }
 
-  const handleOnLoad = () => setIsLoaded({loaded: Math.random()})
+  const handleOnLoad = () => setIsLoaded(Math.random())
 
   const image = thumbnailUrl ? (
     <img
