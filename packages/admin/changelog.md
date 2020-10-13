@@ -1,3 +1,12 @@
+0.3.26
+- Reset css overwrites of Upload and refactor Preview
+- Restrict urls in table to one line
+- Fix error field focus bug
+- Fix breadcrumbs action bug
+- Add create breadcrumbs
+- Adjust search filter height
+- Set min and max width for modal
+
 0.3.25
 - Initialize container size for correct display in modal
 - Add min width to modal
