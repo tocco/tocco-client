@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
+import {js} from 'tocco-util'
 
 import StyledTable, {PaginationContainer, StretchingTableContainer, StyledTableWrapper} from './StyledTable'
 import {Pagination} from '../'
@@ -120,4 +121,9 @@ Table.propTypes = {
   onRowClick: PropTypes.func
 }
 
-export default Table
+const areEqual = (prevProps, nextProps) => {
+  const diff = Object.keys(js.difference(prevProps, nextProps))
+  return diff.length === 0
+}
+
+export default React.memo(Table, areEqual)

@@ -48,7 +48,9 @@ describe('entity-list', () => {
         }
         const parent = {}
 
-        const wrapper = shallow(cellRenderer(field, entity, parent, {}, IntlStub))
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={getStore()}>{cellRenderer(field, entity, parent, {}, IntlStub)}</Provider>
+        )
         expect(wrapper.find(FormattedValue)).to.have.length(1)
         expect(wrapper.find(FormattedValue)).to.have.prop('type', 'html')
       })

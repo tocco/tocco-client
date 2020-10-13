@@ -17,20 +17,15 @@ export default (field, entity, parent, intl) => {
   }
 }
 
-const getDisplayExpression = (field, entity) => {
-  return <span key={field.id}>
-
-    <LazyDataCell
-      path={field.id}
-      entityKey={entity.__key}
-      type={'displayExpression'}
-      value={null}
-    >
-      <FormattedValue type="html" breakWords={false} value={entity[field.id]}/>
-    </LazyDataCell>
-
-  </span>
-}
+const getDisplayExpression = (field, entity) =>
+  <LazyDataCell
+    path={field.id}
+    entityKey={entity.__key}
+    type={'displayExpression'}
+    value={null}
+  >
+    <FormattedValue type="html" breakWords={false} value={entity[field.id]}/>
+  </LazyDataCell>
 
 const getAction = (field, entity, parent) =>
   <div onClick={e => { e.stopPropagation() }}>

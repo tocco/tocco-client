@@ -20,7 +20,8 @@ const props = {
       },
       {
         id: 'main-action-bar',
-        componentType: 'action-bar'
+        componentType: 'action-bar',
+        children: []
       }
     ]
   },

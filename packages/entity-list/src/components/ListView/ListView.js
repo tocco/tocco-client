@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useEffect, useMemo} from 'react'
 import {intlShape} from 'react-intl'
-import {actions, form} from 'tocco-app-extensions'
 import {LoadMask, theme} from 'tocco-ui'
+import {js} from 'tocco-util'
 import styled from 'styled-components'
 
 import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
-import {getColumnDefinition} from '../../util/api/forms'
+import {getColumnDefinition, getTable, getActionBar} from '../../util/api/forms'
 import TableContainer from '../../containers/TableContainer'
 import ActionContainer from '../../containers/ActionContainer'
 
@@ -42,69 +42,72 @@ const StyledListView = styled.div`
   height: 100%;
 `
 
-class ListView extends React.Component {
-  constructor(props) {
-    super(props)
-    this.props.initialize()
-  }
+const ListView = ({
+  dataLoadingInProgress,
+  formDefinition,
+  parent,
+  searchFormPosition,
+  showActions,
+  showSelectionController,
+  sorting,
+  columnDisplayPreferences,
+  initialize,
+  intl
+}) => {
+  useEffect(() => {
+    initialize()
+  }, [])
 
-  msg = (id, values = {}) => (this.props.intl.formatMessage({id}, values))
+  const msg = (id, values = {}) => intl.formatMessage({id}, values)
 
-  render() {
-    const {
-      dataLoadingInProgress,
-      formDefinition,
-      intl,
-      parent,
-      searchFormPosition,
-      showActions,
-      showSelectionController,
-      sorting,
-      columnDisplayPreferences
-    } = this.props
+  const List = useMemo(() => {
+    if (formDefinition) {
+      const table = getTable(formDefinition)
+      const columnsDefinitions = getColumnDefinition(table, sorting, parent, intl, columnDisplayPreferences)
 
-    return (
-      <LoadMask
-        required={[formDefinition]}
-        loadingText={this.msg('client.entity-list.loadingText')}
-      >
-        <StyledListView>
-          {
-            formDefinition && formDefinition.children.map(child => {
-              if (child.componentType === form.componentTypes.TABLE) {
-                return <ListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${child.id}`}>
-                  <TableContainer
-                    key={`table-${child.id}`}
-                    columnDefinitions={
-                      getColumnDefinition(child, sorting, parent, intl, columnDisplayPreferences)
-                    }
-                  />
-                </ListWrapper>
-              } else if (actions.isAction(child.componentType)) {
-                const content = [
-                  ...showSelectionController
-                    ? [<SelectionControllerContainer key="selectionController"/>] : [],
-                  ...showActions !== false
-                    ? [<ActionContainer
-                      key={`listAction-${child.id}`}
-                      definition={child}
-                      parent={parent}
-                      disabled={dataLoadingInProgress}
-                    />] : []
-                ]
+      return <ListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${table.id}`}>
+        <TableContainer
+          key={`table-${table.id}`}
+          columnDefinitions={columnsDefinitions}
+        />
+      </ListWrapper>
+    }
+  }, [formDefinition, sorting, columnDisplayPreferences])
 
-                if (content.length > 0) {
-                  return <ActionWrapper key={`listActionWrapper-${child.id}`}>
-                    {content}
-                  </ActionWrapper>
-                }
-              }
-            })
-          }
-        </StyledListView>
-      </LoadMask>
-    )
-  }
+  const ActionBar = useMemo(() => {
+    if (formDefinition) {
+      const actionBar = getActionBar(formDefinition)
+      const content = [
+        ...showSelectionController
+          ? [<SelectionControllerContainer key="selectionController"/>] : [],
+        ...showActions !== false
+          ? [<ActionContainer
+            key={`listAction-${actionBar.id}`}
+            definition={actionBar}
+            parent={parent}
+            disabled={dataLoadingInProgress}
+          />] : []
+      ]
+
+      if (content.length > 0) {
+        return <ActionWrapper key={`listActionWrapper-${actionBar.id}`}>
+          {content}
+        </ActionWrapper>
+      }
+    }
+  }, [dataLoadingInProgress, formDefinition])
+
+  return (
+    <LoadMask
+      required={[formDefinition]}
+      loadingText={msg('client.entity-list.loadingText')}
+    >
+      <StyledListView>
+        {ActionBar}
+        {List}
+      </StyledListView>
+    </LoadMask>
+  )
 }
 
 ListView.propTypes = {
@@ -132,4 +135,9 @@ ListView.propTypes = {
   columnDisplayPreferences: PropTypes.objectOf(PropTypes.bool)
 }
 
-export default ListView
+const areEqual = (prevProps, nextProps) => {
+  const diff = Object.keys(js.difference(prevProps, nextProps))
+  return diff.length === 0
+}
+
+export default React.memo(ListView, areEqual)
