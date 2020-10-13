@@ -4,8 +4,11 @@ import {api} from 'tocco-util'
 
 import cellRenderer from '../cellRenderer'
 
-const getTable = formDefinition =>
+export const getTable = formDefinition =>
   formDefinition.children.find(child => child.componentType === form.componentTypes.TABLE)
+
+export const getActionBar = formDefinition =>
+  formDefinition.children.find(child => child.componentType === form.componentTypes.ACTION_BAR)
 
 export const getSorting = formDefinition => {
   const table = getTable(formDefinition)
