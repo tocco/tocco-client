@@ -144,6 +144,10 @@ webpackConfig.module.rules = [
 
 webpackConfig.module.rules.push(
   {
+    test: /\.css$/i,
+    use: ['style-loader', 'css-loader']
+  },
+  {
     test: /\.woff(\?.*)?$/,
     use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff'
   },

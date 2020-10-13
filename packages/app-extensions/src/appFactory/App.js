@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import ThemeWrapper from './ThemeWrapper'
 import keyDown from '../keyDown'
-
+import './styles.css'
 const StyledApp = styled.div`
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import InjectFont from './Font'
+
 import {
   H1,
   H2,
@@ -152,6 +152,5 @@ export default {
   Sup,
   Time,
   U,
-  Var,
-  InjectFont
+  Var
 }
