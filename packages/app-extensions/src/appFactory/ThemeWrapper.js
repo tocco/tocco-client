@@ -1,7 +1,6 @@
 import {ThemeProvider, withTheme} from 'styled-components'
 import _merge from 'lodash/merge'
 import {ToccoTheme} from 'tocco-theme'
-import {Typography} from 'tocco-ui'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -12,7 +11,6 @@ class ThemeWrapper extends React.PureComponent {
 
     return <ThemeProvider theme={mergedTheme}>
       <React.Fragment>
-        {theme && <Typography.InjectFont />}
         {this.props.children}
       </React.Fragment>
     </ThemeProvider>
