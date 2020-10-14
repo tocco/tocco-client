@@ -11,6 +11,9 @@
       ]
     }
   },
+  "defaultValues": {
+    "textQuestion": "input default value!"
+  },
   "form":{
     "id": "Acceptor_detail",
    "componentType": "table",
@@ -41,10 +44,14 @@
                 "children": [
                   {
                     "id": "textQuestion",
+                    "path": "textQuestion",
                     "dataType": "string",
                     "componentType": "field",
                     "defaultValue": "Test",
-                    "label": null
+                    "label": null,
+                    "validation": {
+                      "mandatory": true
+                    }
                   }
                 ]
               },
@@ -57,26 +64,40 @@
                 "children": [
                   {
                     "id": "numberQuestion",
+                    "path": "numberQuestion",
                     "dataType": "integer",
                     "componentType": "field",
                     "defaultValue": 99,
-                    "label": null
+                    "label": null,
+                    "validation": {
+                      "decimalDigits": {
+                        "prePointDigits": -1,
+                        "postPointDigits": 0
+                      },
+                      "numberRange": {
+                        "fromIncluding": -2147483648,
+                        "toIncluding": 2147483647
+                      }
+                    }
                   }
                 ]
               },
               {
                 "componentType": "field-set",
                 "id": "booleanQuestion",
+                "path": "booleanQuestion",
                 "hidden": false,
                 "label": "Bool",
                 "scopes": [],
                 "children": [
                   {
                     "id": "booleanQuestion",
+                    "path": "booleanQuestion",
                     "dataType": "boolean",
                     "componentType": "field",
                     "defaultValue": true,
-                    "label": null
+                    "label": null,
+                    "validation": { }
                   }
                 ]
               },
@@ -89,9 +110,14 @@
                 "children": [
                   {
                     "id": "relMulti_entity",
+                    "path": "relMulti_entity",
                     "dataType": "multi-select-box",
                     "componentType": "field",
-                    "label": null
+                    "label": null,
+                    "validation": { },
+                    "defaultValue": null,
+                    "targetEntity": "Dummy_entity",
+                    "relationName": "relMulti_entity"
                   }
                 ]
               },
@@ -104,9 +130,14 @@
                 "children": [
                   {
                     "id": "relRemote_entity",
+                    "path": "relRemote_entity",
                     "dataType": "single-remote-field",
                     "componentType": "field",
-                    "label": null
+                    "label": null,
+                    "defaultValue": null,
+                    "validation": { },
+                    "targetEntity": "Dummy_entity",
+                    "relationName": "relMulti_entity"
                   }
                 ]
               },
@@ -119,9 +150,12 @@
                 "children": [
                   {
                     "id": "document",
+                    "path": "document",
                     "dataType": "document",
                     "componentType": "field",
-                    "label": null
+                    "label": null,
+                    "validation": { },
+                    "defaultValue": null
                   }
                 ]
               }
@@ -131,34 +165,6 @@
       }
     ],
     "label": null
-  },
-  "model": {
-    "paths": {
-      "textQuestion": {
-        "fieldName": "textQuestion",
-        "validation": {
-          "mandatory": true,
-          "minLength": 3
-        }
-      },
-      "relMulti_entity": {
-        "type": "relation",
-        "relationName": "relMulti_entity",
-        "targetEntity": "Dummy_entity",
-        "reverseRelationName": "relUser",
-        "multi": true,
-        "validation": {
-          "mandatory": true
-        }
-      },
-      "relRemote_entity": {
-        "type": "relation",
-        "relationName": "relRemote_entity",
-        "targetEntity": "Dummy_entity",
-        "reverseRelationName": "relUser2",
-        "multi": false
-      }
-    }
   },
   "mappingType": "search"
 }
