@@ -21,10 +21,10 @@ export default function* sagas() {
 }
 
 export function* initialize() {
-  const {form} = yield select(inputSelector)
+  const {form, defaultValues: inputDefaultValues} = yield select(inputSelector)
   const fieldDefinitions = yield call(formUtil.getFieldDefinitions, form)
-  const defaultValues = yield call(formUtil.getDefaultValues, fieldDefinitions)
-  yield put(formActions.initialize(FORM_ID, defaultValues))
+  const fromDefaultValues = yield call(formUtil.getDefaultValues, fieldDefinitions)
+  yield put(formActions.initialize(FORM_ID, {...fromDefaultValues, ...inputDefaultValues}))
 }
 
 export function* submit() {
