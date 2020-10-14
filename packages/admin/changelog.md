@@ -1,3 +1,7 @@
+0.3.27
+- List performance optimizations
+- Update style components
+
 0.3.26
 - Reset css overwrites of Upload and refactor Preview
 - Restrict urls in table to one line
