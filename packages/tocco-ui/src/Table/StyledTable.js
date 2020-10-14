@@ -28,7 +28,6 @@ export const StyledDnD = styled.div`
   width: 100%;
   display: flex;
   opacity: ${({isDragged}) => isDragged ? 0.2 : 1};
-  pointer-events: ${({isDraggedOver}) => isDraggedOver ? 'none' : 'auto'};
 `
 
 export const StyledTableHeaderCell = styled.th`
