@@ -8,8 +8,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => ({
-  form: state.inputEditSearch.form,
-  model: state.inputEditSearch.model
+  form: state.inputEditSearch.form
 })
 
 export default connect(mapStateToProps, mapActionCreators)(InputEditSearch)

@@ -20,18 +20,13 @@ describe('input-edit', () => {
       })
 
       describe('initialize', () => {
-        test('should load forms and model', () => {
-          const expectedModel = {
-          }
-          const expectedForm = {
-          }
+        test('should load forms', () => {
+          const expectedForm = {}
           return expectSaga(sagas.initialize)
             .provide([
-              [matchers.call.fn(rest.fetchModel), expectedModel],
               [matchers.call.fn(rest.fetchForm), expectedForm],
               [select(sagas.inputEditSelector), {validation: {valid: true}}]
             ])
-            .put(actions.setModel(expectedModel))
             .put(actions.setForm(expectedForm))
             .run()
         })

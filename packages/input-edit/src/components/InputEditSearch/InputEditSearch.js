@@ -4,11 +4,10 @@ import _debounce from 'lodash/debounce'
 import {tqlBuilder} from 'tocco-util'
 import PropTypes from 'prop-types'
 
-const InputEditSearch = ({form, model, setSearchFields}) => {
-  return form.children && model.paths
+const InputEditSearch = ({form, setSearchFields}) => {
+  return form.children
     ? <SimpleFormApp
       form={form}
-      model={model}
       onChange={_debounce(handleChange(form, setSearchFields), 500)}
       noButtons={true}
       validate={false}
@@ -49,7 +48,6 @@ const getFieldType = (path, form) => {
 
 InputEditSearch.propTypes = {
   form: PropTypes.object.isRequired,
-  model: PropTypes.object.isRequired,
   setSearchFields: PropTypes.func.isRequired
 }
 
