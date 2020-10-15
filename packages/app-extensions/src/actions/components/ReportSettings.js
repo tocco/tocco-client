@@ -4,11 +4,9 @@ import {Button} from 'tocco-ui'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {download} from 'tocco-util'
 
-import rest from '../../rest'
 import simpleFormConnector from '../containers/simpleFormConnector'
 import {
   getFormDataDefaults,
-  getModel,
   getFormDefinition,
   getGroupedValues,
   reportSettingsDefinitionPropType,
@@ -54,7 +52,6 @@ export class ReportSettings extends React.Component {
         <this.SimpleFormContainer
           listApp={this.props.listApp}
           form={getFormDefinition(settingsDefinition, intl)}
-          model={getModel(settingsDefinition)}
           noButtons
           onChange={({values, valid}) => { this.handleSettingsChange(values, valid) }}
           formData={getFormDataDefaults(settingsDefinition)}
@@ -63,7 +60,6 @@ export class ReportSettings extends React.Component {
         && <this.SimpleFormContainer
           listApp={this.props.listApp}
           form={settingsDefinition.customSettings.form.form}
-          model={rest.defaultModelTransformer(settingsDefinition.customSettings.entity)}
           noButtons
           onChange={({values, valid}) => { this.handleCustomSettingsChange(values, valid) }}
         />

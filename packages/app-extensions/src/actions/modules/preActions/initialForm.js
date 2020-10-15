@@ -1,6 +1,6 @@
 import React from 'react'
 import {channel} from 'redux-saga'
-import {call, put, take, all} from 'redux-saga/effects'
+import {call, put, take} from 'redux-saga/effects'
 
 import notifier from '../../../notifier'
 import rest from '../../../rest'
@@ -12,12 +12,7 @@ const shouldRun = actionDefinition => !!actionDefinition.formDataEntityModel
 
 export function* run(params, {formDataEntityModel, formDataTitle, formDataMessage}, selection, config) {
   const answerChannel = yield call(channel)
-
-  const [model, form] = yield all([
-    call(rest.fetchModel, formDataEntityModel),
-    call(rest.fetchForm, formDataEntityModel, 'create')
-  ])
-
+  const form = yield call(rest.fetchForm, formDataEntityModel, 'create')
   const id = new Date().valueOf()
   const onSend = ({values}) => answerChannel.put(formValues(values))
   const onCancel = () => answerChannel.put(formValues(null))
@@ -28,7 +23,6 @@ export function* run(params, {formDataEntityModel, formDataTitle, formDataMessag
       onSubmit={onSend}
       onCancel={onCancel}
       form={form}
-      model={model}
     />
   ))
 

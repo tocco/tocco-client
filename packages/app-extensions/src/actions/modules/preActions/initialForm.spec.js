@@ -38,7 +38,6 @@ describe('app-extensions', () => {
                     return effect.fn === channel ? channelMock : next()
                   }
                 },
-                [matchers.call.fn(rest.fetchModel), {}],
                 [matchers.call.fn(rest.fetchForm), {}]
                 ])
                 .put.like({action: {type: MODAL_COMPONENT}})
