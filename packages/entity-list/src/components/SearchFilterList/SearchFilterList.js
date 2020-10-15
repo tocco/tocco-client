@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {Typography} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
+import {searchFilterCompare} from './utils'
 import {
   SearchFilterListWrapper,
   StyledSpanSearchFilter,
@@ -40,11 +41,9 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
     </StyledMessageWrapper>
   }
 
-  const sortedFilterList = [...searchFilters]
-    .sort((a, b) => a.defaultFilter ? -1 : a.sorting - b.sorting)
-
   return <SearchFilterListWrapper>
-    {sortedFilterList
+    {[...searchFilters]
+      .sort(searchFilterCompare)
       .map(searchFilter =>
         <SearchFilterButton
           key={searchFilter.uniqueId}
@@ -55,7 +54,8 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
             executeSearch()
           }}
         />
-      )}
+      )
+    }
   </SearchFilterListWrapper>
 }
 
