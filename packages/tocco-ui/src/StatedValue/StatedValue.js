@@ -70,7 +70,7 @@ const StatedValue = props => {
             </StyledStatedValueBox>
             {description
               && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
-            {<StyledStatedValueError showError={showError} focused={focused}>
+            {showError && <StyledStatedValueError>
               <ErrorList error={error}/>
             </StyledStatedValueError>
             }
