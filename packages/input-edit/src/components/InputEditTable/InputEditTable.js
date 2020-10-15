@@ -19,7 +19,6 @@ const dataCellRenderer = (fieldDefinition, data) => {
     <Field
       type={dataType}
       formField={fieldDefinition}
-      modelField={{}}
       value={value}
       breakWords={false}
     />

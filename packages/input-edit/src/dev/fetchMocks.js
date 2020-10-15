@@ -57,11 +57,6 @@ export default function setupFetchMock(packageName, fetchMock) {
     require('./data/inputEditSearch')
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Input_data/model$'),
-    require('./data/inputDataModel')
-  )
-
   fetchMock.spy()
 }
 
