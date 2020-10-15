@@ -54,27 +54,6 @@ export const getFormDataDefaults = settingsDefinition => {
   }
 }
 
-export const getModel = settingsDefinition => {
-  const extractModelFields = name =>
-    (settingsDefinition[name] || []).reduce((result, field) => (
-      {
-        ...result,
-        [field.id]: {
-          ...(field.targetEntity ? {targetEntity: field.targetEntity} : {}),
-          ...(field.validation ? {validation: field.validation} : {}),
-          ...(field.multi ? {multi: field.multi} : {})
-        }
-      }
-    ), {})
-
-  return {
-    paths: {
-      ...extractModelFields(GROUP_GENERAL),
-      ...extractModelFields(GROUP_RECIPIENT)
-    }
-  }
-}
-
 export const getFormDefinition = (settingsDefinition, intl) => {
   const msg = id => intl.formatMessage({id})
 
@@ -88,7 +67,9 @@ export const getFormDefinition = (settingsDefinition, intl) => {
             defaultValue: field.defaultValue,
             id: field.id,
             label: field.label || field.description,
-            path: field.id
+            path: field.id,
+            ...(field.targetEntity ? {targetEntity: field.targetEntity} : {}),
+            ...(field.validation ? {validation: field.validation} : {})
           }
         ],
         componentType: 'field-set',

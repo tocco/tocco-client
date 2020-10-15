@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import {IntlStub} from 'tocco-test-util'
 
-import {getGroupedValues, getFormDataDefaults, getModel, getFormDefinition, transformValues} from './report'
+import {getGroupedValues, getFormDataDefaults, getFormDefinition, transformValues} from './report'
 describe('app-extensions', () => {
   describe('actions', () => {
     describe('utils', () => {
@@ -41,32 +41,6 @@ describe('app-extensions', () => {
                 b: options2
               }
             })
-          })
-        })
-
-        describe('getModel', () => {
-          test('should return a model', () => {
-            const settingsDefinition = {
-              generalSettings: [
-                {id: 'relSomething', type: 'multi-selext-box', targetEntity: 'User', validation: {mandatory: false}},
-                {id: 'shouldDo', type: 'boolean', validation: {mandatory: true}}
-              ],
-              recipientSettings: null
-            }
-
-            const expectedResult = {
-              paths: {
-                relSomething: {
-                  targetEntity: 'User',
-                  validation: {mandatory: false}
-                },
-                shouldDo: {
-                  validation: {mandatory: true}
-                }
-              }
-            }
-
-            expect(getModel(settingsDefinition)).to.eql(expectedResult)
           })
         })
 
