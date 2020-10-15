@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components'
+import styled, {css, keyframes} from 'styled-components'
 
 import {
   colorizeBorder,
@@ -106,17 +106,18 @@ const StyledStatedValueDescription = styled.p`
   }
 `
 
-const StyledStatedValueError = styled.div`
-  &&& {
-    display: none;
-    ${({showError, focused}) => showError && !focused && css`
-      display: block;
-    `};
-
-    li {
-      font-size: ${scale.font(-1)};
-    }
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
   }
+
+  to {
+    opacity: 1;
+  }
+`
+
+const StyledStatedValueError = styled.div`
+  animation: ${fadeIn} 500ms ease-in-out both;
 `
 
 const StyledStatedValueWrapper = styled.div`
