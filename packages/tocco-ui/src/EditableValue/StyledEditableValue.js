@@ -55,6 +55,16 @@ const StyledInputCss = css`
     -webkit-text-fill-color: ${theme.color('text')}; // Safari fix
     opacity: 1; // iOS fix
   }
+
+  /* remove indicators */
+  &[type='date'],
+  &[type='datetime-local'],
+  &[type='month'],
+  &[type='time'],
+  &[type='week'] {
+    appearance: none;
+    display: flex;
+  }
 `
 
 const StyledEditableControlCss = css`
