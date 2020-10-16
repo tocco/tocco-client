@@ -10,6 +10,7 @@ const calcViewportHeight = () => {
 calcViewportHeight()
 
 window.addEventListener('resize', () => calcViewportHeight())
+window.addEventListener('orientationchange', () => calcViewportHeight())
 
 export const StyledWrapper = styled.div`
   display: grid;
