@@ -7,12 +7,14 @@ const StyledMenuEntry = styled.div`
   ${declareFont()}
 
   && {
-    padding-left: ${props => props.level * 7}px;
+    padding-left: ${({level}) => level * 7}px;
     line-height: ${theme.lineHeight('light')};
   }
 `
 
 const StyledMenuEntryWrapper = styled.div`
+  margin-bottom: ${scale.space(0.6)};
+
   > div {
     margin-bottom: ${scale.space(0)};
   }

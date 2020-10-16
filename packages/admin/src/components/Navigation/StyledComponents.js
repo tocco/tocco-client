@@ -20,10 +20,6 @@ export const StyledMenuWrapper = styled.div`
   overflow: auto;
   padding: ${scale.space(0.6)} 0 0 ${scale.space(0.6)};
   ${StyledScrollbar}
-
-  & > div {
-    margin-bottom: ${scale.space(0.6)};
-  }
 `
 
 export const StyledMenuEntry = styled.span`
