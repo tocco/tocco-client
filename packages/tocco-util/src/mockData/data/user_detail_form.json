@@ -909,27 +909,6 @@
           }
         ],
         "label": null
-      },
-      {
-        "id": "a",
-        "componentType": "action-group",
-        "defaultAction": {
-          "actionType": "simple",
-          "icon": "cog",
-          "label": "Simple Action",
-          "endpoint": "actions/simpleAction"
-        },
-        "children": [
-          {
-            "id": "a1",
-            "componentType": "action",
-            "actionType": "simple",
-            "label": "Simple Action 2 (client question)",
-            "icon": "plus",
-            "endpoint": "actions/yesNoClientQuestion"
-          }
-
-        ]
       }
     ],
     "label": "##forms.User_detail:de_CH:nice2.optional.user"

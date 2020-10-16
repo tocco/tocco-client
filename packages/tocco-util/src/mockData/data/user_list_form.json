@@ -9,24 +9,25 @@
         "componentType": "action-bar",
         "children": [
           {
-            "componentType": "action",
-            "actionType": "custom",
-            "id": "new",
-            "icon": "plus",
-            "label": "New"
-          },
-          {
-            "componentType": "action",
-            "id": "simple",
-            "actionType": "simple",
-            "readonly": false,
-            "label": "Simple Action 1-5",
-            "icon": "cog",
-            "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
-            "showConfirmMessage": false,
-            "endpoint": "actions/simpleAction",
-            "minSelection": 1,
-            "maxSelection": 5
+            "id": "createcopy",
+            "label": "New",
+            "componentType": "action-group",
+            "children": [
+              {
+                "id": "new",
+                "label": "New",
+                "componentType": "action",
+                "actionType": "custom",
+                "icon": "application_add"
+              }
+            ],
+            "defaultAction": {
+              "id": "new",
+              "label": "New",
+              "componentType": "action",
+              "children": [ ],
+              "actionType": "custom"
+            }
           },
           {
             "componentType": "action-group",
@@ -36,43 +37,48 @@
             "children": [
               {
                 "componentType": "action",
+                "id": "simple",
                 "actionType": "simple",
                 "readonly": false,
-                "label": "Confirm Simple Action",
-                "icon": "cog",
-                "minSelection": 1,
-                "maxSelection": 1,
+                "label": "Simple Action",
+                "icon": null,
                 "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
-                "showConfirmMessage": true,
                 "endpoint": "actions/simpleAction"
               },
               {
                 "componentType": "action",
+                "id": "simple",
                 "actionType": "simple",
                 "readonly": false,
-                "label": "Simple Action (client questions)",
-                "icon": "cog",
-                "progressMsg": "Die Beispiel Aktion wird ausgeführt",
-                "showConfirmMessage": false,
-                "endpoint": "actions/yesNoClientQuestion"
+                "label": "Simple Action Abort (Select 1-5)",
+                "icon": null,
+                "endpoint": "actions/simpleActionAbort",
+                "minSelection": 1,
+                "maxSelection": 5
               },
               {
                 "componentType": "action",
                 "actionType": "simple",
                 "readonly": false,
-                "label": "Form data Simple Action",
-                "icon": "cog",
-                "showConfirmMessage": false,
-                "endpoint": "actions/simpleAction",
-                "formDataEntityModel": "MySessionOnly",
-                "formDataTitle": "Some Title",
-                "formDataMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+                "label": "Confirm Simple Action",
+                "icon": null,
+                "showConfirmMessage": true,
+                "endpoint": "actions/simpleActionConfirm"
+              },
+              {
+                "componentType": "action",
+                "actionType": "simple",
+                "readonly": false,
+                "label": "Form Simple Action",
+                "icon": null,
+                "showConfirmMessage": true,
+                "endpoint": "actions/simpleActionForm"
               },
               {
                 "componentType": "action",
                 "id": "merge",
                 "actionType": "custom",
-                "icon": "cog",
+                "icon": null,
                 "readonly": false,
                 "label": "Merge (custom action)",
                 "useLabel": true,
@@ -80,15 +86,11 @@
               },
               {
                 "componentType": "action",
-                "id": "div",
-                "actionType": "divider"
-              },
-              {
-                "componentType": "action",
                 "id": "delete",
-                "actionType": "delete",
-                "icon": "trash",
-                "label": "Delete"
+                "actionType": "custom",
+                "icon": null,
+                "label": "Delete",
+                "appId": "delete"
               },
               {
                 "componentType": "action",
@@ -101,9 +103,9 @@
                 "componentType": "action",
                 "id": "validate",
                 "actionType": "simple",
-                "label": "Validation Error Action",
+                "label": "Validation Error Simple Action",
                 "endpoint": "actions/validationError",
-                "icon": "cog"
+                "icon": null
               },
               {
                 "componentType": "action",

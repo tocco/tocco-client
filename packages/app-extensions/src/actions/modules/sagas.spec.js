@@ -4,7 +4,7 @@ import {takeEvery, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import actionHandlers from './actionHandlers'
-import preAction from './preActions'
+import prepare from './prepare'
 import rootSaga, * as sagas from './sagas'
 import remoteEvents from '../../remoteEvents'
 
@@ -42,7 +42,7 @@ describe('app-extensions', () => {
           test('should call preAction and call actionHandler if not abort', () => {
             return expectSaga(sagas.invokeAction, config, {payload})
               .provide([
-                [matchers.call.fn(preAction.run), {abort: false}]
+                [matchers.call.fn(prepare), {abort: false}]
               ])
               .call.like({fn: actionHandlers.simple})
               .run()
@@ -51,7 +51,7 @@ describe('app-extensions', () => {
           test('should call preAction and call actionHandler if abort returned', () => {
             return expectSaga(sagas.invokeAction, config, {payload})
               .provide([
-                [matchers.call.fn(preAction.run), {abort: true}]
+                [matchers.call.fn(prepare), {abort: true}]
               ])
               .not.call.like({fn: actionHandlers.simple})
               .run()
@@ -62,7 +62,7 @@ describe('app-extensions', () => {
             () => {
               return expectSaga(sagas.invokeAction, config, {payload})
                 .provide([
-                  [matchers.call.fn(preAction.run), {abort: false}],
+                  [matchers.call.fn(prepare), {abort: false}],
                   [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: true}]
                 ])
                 .put.like({action: {type: actions.ACTION_INVOKED}})
@@ -75,7 +75,7 @@ describe('app-extensions', () => {
             () => {
               return expectSaga(sagas.invokeAction, config, {payload})
                 .provide([
-                  [matchers.call.fn(preAction.run), {abort: false}],
+                  [matchers.call.fn(prepare), {abort: false}],
                   [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: false}]
                 ])
                 .not.put.like({action: {type: actions.ACTION_INVOKED}})
@@ -101,7 +101,7 @@ describe('app-extensions', () => {
               }
               return expectSaga(sagas.invokeAction, config, {payload})
                 .provide([
-                  [matchers.call.fn(preAction.run), {abort: false}],
+                  [matchers.call.fn(prepare), {abort: false}],
                   [matchers.call.fn(actionHandlers[payload.definition.actionType]), actionResponse]
                 ])
                 .put(remoteEvents.remoteEvent(remoteEvent1))
