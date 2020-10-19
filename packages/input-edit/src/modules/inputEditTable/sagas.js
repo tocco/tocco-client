@@ -1,13 +1,15 @@
-import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {all, call, put, select, takeEvery, takeLatest, take} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import {setTotalCount} from '../inputEditPagination/actions'
+import * as searchFormActions from '../inputEditSearch/actions'
 import {transformResponseData} from './utils'
 
 export const inputSelector = state => state.input
 export const inputEditSelector = state => state.inputEdit
 export const inputEditTableSelector = state => state.inputEditTable
+export const inputEditSearchSelector = state => state.inputEditSearch
 export const searchQueriesSelector = state => state.inputEditSearch.searchQueries
 export const inputEditPaginationSelector = state => state.inputEditPagination
 
@@ -35,6 +37,7 @@ export function* processDataForm(dataForm) {
 }
 
 export function* initialize() {
+  yield put(actions.setDataLoadingInProgress(true))
   const {selection, validation} = yield select(inputEditSelector)
   if (validation.valid) {
     const {actionProperties} = yield select(inputSelector)
@@ -47,6 +50,11 @@ export function* initialize() {
     ])
     yield put(actions.setEditForm({inputEditForm: editForm.body}))
     yield call(processDataForm, dataForm)
+
+    const {initialized: searchFormInitialized} = yield select(inputEditSearchSelector)
+    if (!searchFormInitialized) {
+      yield take(searchFormActions.SET_INITIALIZED)
+    }
     yield call(loadData, {})
   }
 }

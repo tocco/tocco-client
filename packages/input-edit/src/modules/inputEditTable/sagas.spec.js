@@ -4,6 +4,7 @@ import {all, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
+import * as searchActions from '../inputEditSearch/actions'
 import rootSaga, * as sagas from './sagas'
 import {transformResponseData} from './utils'
 
@@ -73,6 +74,7 @@ describe('input-edit', () => {
           return expectSaga(sagas.initialize)
             .provide([
               [select(sagas.inputSelector), {}],
+              [select(sagas.inputEditSearchSelector), {initialized: true}],
               [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}}],
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedEditForm
@@ -102,6 +104,7 @@ describe('input-edit', () => {
                   inputEditDataForm: 'PublicInput_edit_data'
                 }
               }],
+              [select(sagas.inputEditSearchSelector), {initialized: false}],
               [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}}],
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedEditForm
@@ -110,6 +113,7 @@ describe('input-edit', () => {
               [matchers.call.fn(rest.fetchForm), expectedDataForm],
               [matchers.call.fn(sagas.loadData), {}]
             ])
+            .dispatch(searchActions.initializeSearch(true))
             .call(rest.fetchForm, 'PublicInput_edit_data', 'list')
             .run()
         })

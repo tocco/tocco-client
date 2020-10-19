@@ -5,6 +5,7 @@ import * as actions from '../inputEditSearch/actions'
 import {loadData} from '../inputEditTable/sagas'
 
 export const inputEditSelector = state => state.inputEdit
+export const inputEditSearchSelector = state => state.inputEditSearch
 
 export default function* sagas() {
   yield all([
@@ -22,5 +23,10 @@ export function* initialize() {
 }
 
 export function* setSearchQueries({payload}) {
-  yield call(loadData, {newSearchQueries: payload.searchQueries})
+  const {initialized} = yield select(inputEditSearchSelector)
+  if (initialized) {
+    yield call(loadData, {newSearchQueries: payload.searchQueries})
+  } else {
+    yield put(actions.setInitialized(true))
+  }
 }
