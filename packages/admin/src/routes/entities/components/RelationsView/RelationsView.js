@@ -24,7 +24,8 @@ const RelationsView = ({
   relations,
   relationsInfo,
   persistViewInfo,
-  persistedViewInfo
+  persistedViewInfo,
+  emitAction
 }) => {
   const [selectedRelation, selectRelation] = useState(null)
 
@@ -138,6 +139,7 @@ const RelationsView = ({
           }}
           showActions={false}
           limit={15}
+          emitAction={emitAction}
         />
       </StyledPreviewBox>
       }
@@ -157,7 +159,8 @@ RelationsView.propTypes = {
   persistedViewInfo: PropTypes.shape({
     selectedRelation: PropTypes.string
   }),
-  persistViewInfo: PropTypes.func.isRequired
+  persistViewInfo: PropTypes.func.isRequired,
+  emitAction: PropTypes.func.isRequired
 }
 
 const updateIgnoreProps = ['persistedViewInfo']

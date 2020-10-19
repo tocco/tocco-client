@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-import {viewPersistor} from 'tocco-app-extensions'
+import {actionEmitter, viewPersistor} from 'tocco-app-extensions'
 
 import RelationsView from './RelationsView'
 
@@ -12,7 +12,8 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapActionCreators = {
-  persistViewInfo: viewPersistor.persistViewInfo
+  persistViewInfo: viewPersistor.persistViewInfo,
+  emitAction: action => actionEmitter.dispatchEmittedAction(action)
 }
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(RelationsView))
