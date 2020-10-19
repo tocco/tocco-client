@@ -1,3 +1,8 @@
+0.3.28
+- Change sort icon order and adjust table header styles to show marker on long columns when dragging
+- Reset date/time indicators on input fields
+- Fix search filter sorting
+
 0.3.27
 - List performance optimizations
 - Update style components
