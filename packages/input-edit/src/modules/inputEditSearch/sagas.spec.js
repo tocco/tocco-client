@@ -33,13 +33,25 @@ describe('input-edit', () => {
       })
 
       describe('setSearchQueries', () => {
-        test('should pass search queries to loadData', () => {
+        test('should pass search queries to loadData if initialized', () => {
           const expectedSearchQueries = []
           return expectSaga(sagas.setSearchQueries, {payload: {searchQueries: expectedSearchQueries}})
             .provide([
-              [matchers.call.fn(loadData)]
+              [matchers.call.fn(loadData)],
+              [select(sagas.inputEditSearchSelector), {initialized: true}]
             ])
             .call(loadData, {newSearchQueries: expectedSearchQueries})
+            .run()
+        })
+
+        test('should set initialized true on first call', () => {
+          const expectedSearchQueries = []
+          return expectSaga(sagas.setSearchQueries, {payload: {searchQueries: expectedSearchQueries}})
+            .provide([
+              [matchers.call.fn(loadData)],
+              [select(sagas.inputEditSearchSelector), {initialized: false}]
+            ])
+            .put(actions.setInitialized(true))
             .run()
         })
       })

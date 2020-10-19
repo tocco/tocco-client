@@ -110,6 +110,10 @@ const InputEditTable = ({
     }, []))
   }
 
+  if (columns.length === 0) {
+    return null
+  }
+
   return <StyledTableWrapper onKeyDown={arrowKeyHandler}>
     <Table
       dataLoadingInProgress={dataLoadingInProgress}
