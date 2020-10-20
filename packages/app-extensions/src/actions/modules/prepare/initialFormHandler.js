@@ -40,5 +40,5 @@ export function* handleInitialForm({formDefinition, defaultValues, formTitle, fo
 
   const response = yield take(answerChannel)
   yield put(notifier.removeModalComponent(id))
-  return {...(response.formValues ? {model: formDefinition.model, paths: response.formValues} : {})}
+  return response.formValues ? {model: formDefinition.model, paths: response.formValues} : null
 }
