@@ -17,7 +17,6 @@ export const TopPositioning = styled.div`
 
   /* remove bottom space and set width in modal */
   ${({searchFormType}) => searchFormType !== 'simple' && `
-    margin-bottom: -25px;
     grid-template-columns: minmax(100%, 700px);
   `
   }
