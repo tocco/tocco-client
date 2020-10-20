@@ -21,7 +21,7 @@ export default function* initialFormHandler(preparationResponse, params, definit
 
 export const formValues = formValues => ({formValues})
 
-export function* handleInitialForm({formDefinition, formData, formTitle, formMessage}, config) {
+export function* handleInitialForm({formDefinition, defaultValues, formTitle, formMessage}, config) {
   const answerChannel = yield call(channel)
 
   const id = new Date().valueOf()
@@ -34,11 +34,11 @@ export function* handleInitialForm({formDefinition, formData, formTitle, formMes
       listApp={config.listApp}
       onSubmit={onSend}
       onCancel={onCancel}
-      defaultValues={formData}
+      defaultValues={defaultValues}
     />
   ))
 
   const response = yield take(answerChannel)
   yield put(notifier.removeModalComponent(id))
-  return response.formValues
+  return {...(response.formValues ? {model: formDefinition.model, paths: response.formValues} : {})}
 }

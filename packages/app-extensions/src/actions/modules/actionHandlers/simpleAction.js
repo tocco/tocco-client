@@ -36,7 +36,8 @@ export function* invokeRequest(definition, selection, parent, params) {
         entity: selection.entityName,
         selection,
         parent,
-        ...params
+        ...params,
+        formProperties: definition.properties
       },
       acceptedErrorCodes: ['VALIDATION_FAILED']
     })
