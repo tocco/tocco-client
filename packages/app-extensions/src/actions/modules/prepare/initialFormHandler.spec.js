@@ -12,7 +12,7 @@ describe('app-extensions', () => {
           () => {
             const response = {
               initialFormValues: {
-                formDefinition: {},
+                formDefinition: {model: 'User'},
                 formData: {},
                 formTitle: 'title',
                 formMessage: 'message'
@@ -31,7 +31,7 @@ describe('app-extensions', () => {
               .dispatch(channelMock.put({formValues: {firstname: 'test'}}))
               .returns({
                 abort: false,
-                params: {formData: {firstname: 'test'}}
+                params: {formData: {model: 'User', paths: {firstname: 'test'}}}
               })
               .run()
           })
