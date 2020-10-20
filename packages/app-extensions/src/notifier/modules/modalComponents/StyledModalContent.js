@@ -49,6 +49,7 @@ const StyledModalContent = styled.div.attrs(({isClosing}) => ({
 
     .advanced-search-button-wrapper {
       position: sticky;
+      padding-top: 0;
       bottom: 0;
       transform: translateY(1.8rem);
     }
