@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {LoadMask} from 'tocco-ui'
 import {actions, notifier} from 'tocco-app-extensions'
 import {selection as selectionPropType} from 'tocco-util'
 
@@ -18,64 +17,52 @@ import InputEditInformation from '../InputEditInformation'
 
 const InputEdit = ({
   selection,
-  validation: {valid, message},
   handleNotifications,
-  checkSelection,
+  updateSelection,
   initializeTable,
   initializeSearch,
   initializeInformation,
-  actionDefinitions,
-  notify
+  actionDefinitions
 }) => {
   useEffect(() => {
-    checkSelection()
+    updateSelection()
   }, [selection])
   useEffect(() => {
     initializeTable()
     initializeSearch()
     initializeInformation()
-  }, [selection, valid])
+  }, [selection])
 
-  if (valid === false) {
-    notify('error', 'client.component.input-edit.error.title', message)
-  }
-
-  return <LoadMask required={[valid || message]}>
+  return <>
     {handleNotifications && <notifier.Notifier/>}
-    {valid
-      ? <StyledPaneWrapper>
-        <StyledPanelWrapperLeft>
-          <StyledLeftPane>
-            <StyledInputEditSearchWrapper>
-              <InputEditSearch/>
-            </StyledInputEditSearchWrapper>
-            <InputEditInformation/>
-          </StyledLeftPane>
-        </StyledPanelWrapperLeft>
-        <StyledPanelWrapperRight>
-          <StyledActionsWrapper>
-            {actionDefinitions.map(definition =>
-              <actions.Action
-                key={definition.id}
-                definition={definition}
-                selection={selection}/>
-            )}
-          </StyledActionsWrapper>
-          <InputEditTable/>
-        </StyledPanelWrapperRight>
-      </StyledPaneWrapper>
-      : null}
-  </LoadMask>
+    <StyledPaneWrapper>
+      <StyledPanelWrapperLeft>
+        <StyledLeftPane>
+          <StyledInputEditSearchWrapper>
+            <InputEditSearch/>
+          </StyledInputEditSearchWrapper>
+          <InputEditInformation/>
+        </StyledLeftPane>
+      </StyledPanelWrapperLeft>
+      <StyledPanelWrapperRight>
+        <StyledActionsWrapper>
+          {actionDefinitions.map(definition =>
+            <actions.Action
+              key={definition.id}
+              definition={definition}
+              selection={selection}/>
+          )}
+        </StyledActionsWrapper>
+        <InputEditTable/>
+      </StyledPanelWrapperRight>
+    </StyledPaneWrapper>
+  </>
 }
 
 InputEdit.propTypes = {
   selection: selectionPropType.propType.isRequired,
-  validation: PropTypes.shape({
-    valid: PropTypes.bool,
-    message: PropTypes.string
-  }).isRequired,
   handleNotifications: PropTypes.bool,
-  checkSelection: PropTypes.func.isRequired,
+  updateSelection: PropTypes.func.isRequired,
   initializeTable: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired,
   initializeInformation: PropTypes.func.isRequired,
