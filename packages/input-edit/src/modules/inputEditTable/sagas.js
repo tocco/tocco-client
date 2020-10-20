@@ -38,25 +38,23 @@ export function* processDataForm(dataForm) {
 
 export function* initialize() {
   yield put(actions.setDataLoadingInProgress(true))
-  const {selection, validation} = yield select(inputEditSelector)
-  if (validation.valid) {
-    const {actionProperties} = yield select(inputSelector)
-    const inputEditDataForm = actionProperties && actionProperties.inputEditDataForm
-      ? actionProperties.inputEditDataForm
-      : 'Input_edit_data'
-    const [editForm, dataForm] = yield all([
-      call(rest.requestSaga, 'inputEdit/form', {method: 'POST', body: selection}),
-      call(rest.fetchForm, inputEditDataForm, 'list')
-    ])
-    yield put(actions.setEditForm({inputEditForm: editForm.body}))
-    yield call(processDataForm, dataForm)
+  const {selection} = yield select(inputEditSelector)
+  const {actionProperties} = yield select(inputSelector)
+  const inputEditDataForm = actionProperties && actionProperties.inputEditDataForm
+    ? actionProperties.inputEditDataForm
+    : 'Input_edit_data'
+  const [editForm, dataForm] = yield all([
+    call(rest.requestSaga, 'inputEdit/form', {method: 'POST', body: selection}),
+    call(rest.fetchForm, inputEditDataForm, 'list')
+  ])
+  yield put(actions.setEditForm({inputEditForm: editForm.body}))
+  yield call(processDataForm, dataForm)
 
-    const {initialized: searchFormInitialized} = yield select(inputEditSearchSelector)
-    if (!searchFormInitialized) {
-      yield take(searchFormActions.SET_INITIALIZED)
-    }
-    yield call(loadData, {})
+  const {initialized: searchFormInitialized} = yield select(inputEditSearchSelector)
+  if (!searchFormInitialized) {
+    yield take(searchFormActions.SET_INITIALIZED)
   }
+  yield call(loadData, {})
 }
 
 export function* loadData({newSorting, newSearchQueries, newPage}) {

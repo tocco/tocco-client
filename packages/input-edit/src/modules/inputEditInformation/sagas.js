@@ -12,9 +12,7 @@ export default function* sagas() {
 }
 
 export function* initialize() {
-  const {selection, validation} = yield select(inputEditSelector)
-  if (validation.valid) {
-    const {body} = yield call(rest.requestSaga, 'inputEdit/information', {method: 'POST', body: selection})
-    yield put(actions.setInformation(body))
-  }
+  const {selection} = yield select(inputEditSelector)
+  const {body} = yield call(rest.requestSaga, 'inputEdit/information', {method: 'POST', body: selection})
+  yield put(actions.setInformation(body))
 }

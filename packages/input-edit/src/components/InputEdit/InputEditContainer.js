@@ -5,10 +5,10 @@ import InputEdit from './InputEdit'
 import {initializeTable} from '../../modules/inputEditTable/actions'
 import {initializeSearch} from '../../modules/inputEditSearch/actions'
 import {initializeInformation} from '../../modules/inputEditInformation/actions'
-import {checkSelection} from '../../modules/inputEdit/actions'
+import {updateSelection} from '../../modules/inputEdit/actions'
 
 const mapActionCreators = {
-  checkSelection,
+  updateSelection,
   initializeTable,
   initializeSearch,
   initializeInformation,
@@ -17,7 +17,6 @@ const mapActionCreators = {
 
 const mapStateToProps = state => ({
   selection: state.inputEdit.selection,
-  validation: state.inputEdit.validation,
   actionDefinitions: state.inputEditTable.actionDefinitions,
   handleNotifications: state.inputEdit.handleNotifications
 })

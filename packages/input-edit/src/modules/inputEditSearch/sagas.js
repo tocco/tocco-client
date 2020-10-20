@@ -15,11 +15,8 @@ export default function* sagas() {
 }
 
 export function* initialize() {
-  const {validation} = yield select(inputEditSelector)
-  if (validation.valid) {
-    const form = yield call(rest.fetchForm, 'Input_edit_data', 'search')
-    yield put(actions.setForm(form))
-  }
+  const form = yield call(rest.fetchForm, 'Input_edit_data', 'search')
+  yield put(actions.setForm(form))
 }
 
 export function* setSearchQueries({payload}) {
