@@ -166,7 +166,7 @@ export function* showNotification(type, titleResourceName, messageResourceName, 
     type,
     `client.entity-detail.${titleResourceName}`,
     `client.entity-detail.${messageResourceName}`,
-    'check',
+    null,
     duration
   ))
 }
