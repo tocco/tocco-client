@@ -37,8 +37,8 @@ describe('tocco-ui', () => {
 
     test('should detect condition dirty', () => {
       const wrapper = mount(<StatedValue dirty={true} label="Label"/>)
-      expect(wrapper.find(StyledStatedValueBox).prop('signal')).to.be.equal('warning')
-      expect(wrapper.find(StyledStatedValueLabel).prop('signal')).to.be.equal('warning')
+      expect(wrapper.find(StyledStatedValueBox).prop('signal')).to.be.equal('info')
+      expect(wrapper.find(StyledStatedValueLabel).prop('signal')).to.be.equal('info')
     })
 
     test('should not detect condition error if not touched', () => {

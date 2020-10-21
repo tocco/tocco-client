@@ -13,10 +13,12 @@ import {
 } from './StyledStatedValue'
 import {design} from '../utilStyles'
 
-const detectSignal = (dirty, hasError) => {
+const detectSignal = (dirty, hasError, mandatory, hasValue) => {
   if (hasError) {
     return design.condition.DANGER
   } else if (dirty) {
+    return design.condition.INFO
+  } else if (mandatory && !hasValue) {
     return design.condition.WARNING
   }
 }
@@ -44,7 +46,7 @@ const StatedValue = props => {
 
   const showError = !immutable && touched && error && Object.keys(error).length > 0
   const labelAlt = `${js.adjustedHTMLString(label)}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
-  const signal = props.signal || detectSignal(dirty, showError)
+  const signal = props.signal || detectSignal(dirty, showError, mandatory, hasValue)
 
   return (
     <FocusWithin>

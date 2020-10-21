@@ -13,7 +13,8 @@ const COLORS = {
   [design.condition.DANGER]: theme.color('signal.danger.text'),
   [design.condition.PRIMARY]: props => shadeColor(_get(props.theme, 'colors.primary'), 1),
   [design.condition.SUCCESS]: theme.color('signal.success.text'),
-  [design.condition.WARNING]: theme.color('signal.warning.text')
+  [design.condition.WARNING]: theme.color('signal.warning.text'),
+  [design.condition.INFO]: theme.color('signal.info.text')
 }
 
 const getColor = props => {
