@@ -4,6 +4,7 @@ import {actionEmitter} from 'tocco-app-extensions'
 
 import EntityDetail from '../components/EntityDetail'
 import {loadDetailParams, clearDetailParams, setFormTouched} from '../modules/actions'
+import Action from '../../../components/LazyAction/LazyAction'
 
 const mapActionCreators = {
   loadDetailParams,
@@ -17,7 +18,8 @@ const mapStateToProps = (state, props) => {
     appId: state.entityBrowser.appId,
     detailParams: state.detail.detailParams,
     formTouched: state.detail.formTouched,
-    locale: state.input.locale
+    locale: state.input.locale,
+    actionAppComponent: Action
   }
 }
 
