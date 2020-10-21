@@ -82,7 +82,7 @@ const initApp = (id, input, events, publicPath) => {
     {
       input,
       publicPath,
-      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
+      textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail']
     }
   )
 

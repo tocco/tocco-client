@@ -3,6 +3,8 @@ import EntityListApp from 'tocco-entity-list/src/main'
 import {actionEmitter, viewPersistor} from 'tocco-app-extensions'
 import {queryString as queryStringUtil} from 'tocco-util'
 
+import Action from '../../../components/LazyAction'
+
 const mapDispatchToProps = (dispatch, props) => ({
   emitAction: action => { dispatch(actionEmitter.dispatchEmittedAction(action)) },
   onStoreCreate: store => {
@@ -47,7 +49,8 @@ const mapStateToProps = (state, props) => ({
   },
   onNavigateToCreate: handleNavigateToCreate(props),
   onNavigateToAction: handleNavigateToAction(props),
-  searchFormPosition: 'top'
+  searchFormPosition: 'top',
+  actionAppComponent: Action
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntityListApp)
