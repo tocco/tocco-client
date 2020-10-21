@@ -12,7 +12,8 @@ const condition = {
   DANGER: 'danger',
   PRIMARY: 'primary',
   SUCCESS: 'success',
-  WARNING: 'warning'
+  WARNING: 'warning',
+  INFO: 'info'
 }
 
 const fallbackColors = {

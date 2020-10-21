@@ -10,7 +10,8 @@ const ICONS = {
   [design.condition.PRIMARY]: false,
   [design.condition.DANGER]: 'times',
   [design.condition.SUCCESS]: 'check',
-  [design.condition.WARNING]: 'exclamation-triangle'
+  [design.condition.WARNING]: 'exclamation-triangle',
+  [design.condition.INFO]: 'info'
 }
 
 const getIcon = props => {
