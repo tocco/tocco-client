@@ -1,3 +1,13 @@
+0.3.7
+- Reset css overwrites of Upload.js and refactor Preview.js
+- Restrict urls in table to one line
+- Set min and max width for modal
+- Change sort icon order and adjust table header styles to show marker on long columns when dragging
+- Reset date/time indicators on input fields
+- Remove stated value error animation, as it caused a wobble effect
+- Optimize initialization
+- Remove selection check
+
 0.3.6
 - Create new StyledLabel that fits with other elements
 - Handle strings in search with "like" and add boolean handler
