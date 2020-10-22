@@ -1,3 +1,10 @@
+0.3.29
+- Remove stated value error animation, as it caused a wobble effect
+- Extend actiom handling (precheck and initial forms with data)
+- Optimize input edit initialization
+- Fix relation columns edit bug
+
+
 0.3.28
 - Change sort icon order and adjust table header styles to show marker on long columns when dragging
 - Reset date/time indicators on input fields
