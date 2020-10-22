@@ -16,7 +16,8 @@ describe('entity-detail', () => {
         navigateToCreate: () => {},
         showSubGridsCreateButton: false,
         dispatchEmittedAction: () => {},
-        entityName: 'User'
+        entityName: 'User',
+        emitAction: () => {}
       }
 
       test('should render', () => {

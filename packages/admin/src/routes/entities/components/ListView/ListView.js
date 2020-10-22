@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
-import {queryString as queryStringUtil} from 'tocco-util'
+import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
 
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../../utils/routing'
@@ -10,7 +10,7 @@ import Action from '../Action/LazyAction'
 import {currentViewPropType} from '../../utils/propTypes'
 import ErrorView from '../../../../components/ErrorView'
 
-const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo, persistedViewInfo}) => {
+const ListView = ({match, history, currentViewInfo, emitAction}) => {
   if (currentViewInfo && currentViewInfo.error) {
     return <ErrorView technicalReason={currentViewInfo.error.message}/>
   }
@@ -72,9 +72,9 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
       onNavigateToCreate={handleNavigateToCreate}
       searchFormPosition="left"
       searchFormType="admin"
-      store={persistedViewInfo.store}
+      store={viewPersistor.viewInfoSelector(history.location.pathname).store}
       onStoreCreate={store => {
-        persistViewInfo(history.location.pathname, currentViewInfo.level, {store})
+        viewPersistor.persistViewInfo(history.location.pathname, {store}, currentViewInfo.level)
       }}
       onNavigateToAction={handleNavigateToAction}
       actionAppComponent={Action}
@@ -86,7 +86,6 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
 ListView.propTypes = {
   match: PropTypes.object.isRequired,
   emitAction: PropTypes.func.isRequired,
-  persistViewInfo: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   currentViewInfo: currentViewPropType,
   persistedViewInfo: PropTypes.shape({

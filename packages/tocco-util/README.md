@@ -28,8 +28,8 @@ Helper to load a route async.
 #### saga
 Helpers for sagas.
 
-#### storeStorage
-Simple singleton to get and set a store by id.
-
 #### units
 Helpers around unit conversion and calculators.
+
+#### viewPersistor
+Save information in an abject to persist view informations such as a store

@@ -6,6 +6,7 @@ import {BurgerButton, LoadMask} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import {withTheme} from 'styled-components'
 import {notifier} from 'tocco-app-extensions'
+import {viewPersistor} from 'tocco-util'
 
 import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
@@ -26,7 +27,6 @@ const Admin = ({
   baseRoute,
   confirm,
   loadPrincipal,
-  clearPersistedViews,
   loadServerSettings,
   theme
 }) => {
@@ -77,7 +77,7 @@ const Admin = ({
           outerContainerId={'outer-container'}>
           <Navigation onClick={() => {
             setMenuOpen(false)
-            clearPersistedViews()
+            viewPersistor.clearPersistedViews()
           }}/>
         </StyledMenu>
         <StyledContent id="page-wrap">
@@ -100,7 +100,6 @@ Admin.propTypes = {
   loggedIn: PropTypes.bool,
   menuOpen: PropTypes.bool,
   loadPrincipal: PropTypes.func.isRequired,
-  clearPersistedViews: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,
   initializeNavigation: PropTypes.func.isRequired,

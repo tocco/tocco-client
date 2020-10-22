@@ -1,4 +1,5 @@
-import {rest, viewPersistor} from 'tocco-app-extensions'
+import {rest} from 'tocco-app-extensions'
+import {viewPersistor} from 'tocco-util'
 import _pickBy from 'lodash/pickBy'
 import _omit from 'lodash/omit'
 import _pick from 'lodash/pick'
@@ -37,7 +38,7 @@ export function* loadRoute({payload: {location}}) {
       yield spawn(initMultiRelations, currentViewInfo.model, currentViewInfo.key)
     }
 
-    yield put(viewPersistor.clearPersistedViews(currentViewInfo.level + 1))
+    yield call(viewPersistor.clearPersistedViews, currentViewInfo.level + 1)
   }
 }
 
