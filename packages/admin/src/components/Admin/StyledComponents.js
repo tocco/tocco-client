@@ -2,26 +2,9 @@ import styled from 'styled-components'
 import SlideMenu from 'react-burger-menu/lib/menus/slide'
 import {theme} from 'tocco-ui'
 
-const calcViewportHeight = () => {
-  const vh = window.innerHeight * 0.01
-  document.documentElement.style.setProperty('--vh', `${vh}px`)
-}
-
-calcViewportHeight()
-
-window.addEventListener('resize', () => calcViewportHeight())
-
-window.addEventListener('orientationchange', function() {
-  // After orientationchange, add a one-time resize event
-  const afterOrientationChange = function() {
-    // POST-ORIENTATION CODE
-    calcViewportHeight()
-    // eslint-disable-next-line no-console
-    console.log('orientation change')
-    // Remove the resize event listener after it has executed
-    window.removeEventListener('resize', afterOrientationChange)
-  }
-  window.addEventListener('resize', afterOrientationChange)
+window.addEventListener('resize', () => {
+  document.querySelector(':root').style
+    .setProperty('--vh', window.innerHeight / 100 + 'px')
 })
 
 export const StyledWrapper = styled.div`
@@ -30,7 +13,7 @@ export const StyledWrapper = styled.div`
     'header header' auto
     'menu content' 1fr / auto 1fr;
   background-color: #fff;
-  height: calc(var(--vh, 1vh) * 100);
+  height: calc(100 * var(--vh));
 
   .bm-burger-button button:focus {
     outline: 0;
