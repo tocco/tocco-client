@@ -8,8 +8,7 @@ const mapStateToProps = (state, props) => ({
   appId: state.entityDetail.appId,
   entityKey: state.entityDetail.entity.key,
   entityName: state.entityDetail.entity.model,
-  detailFormName: state.entityDetail.formDefinition.id,
-  showSubGridsCreateButton: state.entityDetail.showSubGridCreateButton
+  detailFormName: state.entityDetail.formDefinition.id
 })
 
 const mapActionCreators = {
@@ -19,8 +18,7 @@ const mapActionCreators = {
     relationName: e.relationName
   }),
   navigateToCreate,
-  onNavigateToCreate: relationName => externalEvents.fireExternalEvent('onNavigateToCreate', relationName),
-  dispatchEmittedAction: actionEmitter.dispatchEmittedAction
+  emitAction: action => actionEmitter.dispatchEmittedAction(action)
 }
 
 export default connect(mapStateToProps, mapActionCreators)(SubGrid)

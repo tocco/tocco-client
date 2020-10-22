@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Icon, Typography} from 'tocco-ui'
-import {js} from 'tocco-util'
+import {js, viewPersistor} from 'tocco-util'
 import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
 
@@ -23,20 +23,19 @@ const RelationsView = ({
   currentViewInfo,
   relations,
   relationsInfo,
-  persistViewInfo,
-  persistedViewInfo,
   emitAction
 }) => {
   const [selectedRelation, selectRelation] = useState(null)
 
   useEffect(
     () => {
+      const persistedSelectedRelation = viewPersistor.viewInfoSelector(history.location.pathname).selectedRelation
       if (relations && relations.length > 0) {
         const queryRelation = queryString.parse(history.location.search).relation
         if (queryRelation) {
           selectRelation(relations.find(r => r.relationName === queryRelation))
-        } else if (persistedViewInfo.selectedRelation) {
-          selectRelation(relations.find(r => r.relationName === persistedViewInfo.selectedRelation))
+        } else if (persistedSelectedRelation) {
+          selectRelation(relations.find(r => r.relationName === persistedSelectedRelation))
         } else {
           selectRelation(relations[0])
         }
@@ -66,10 +65,10 @@ const RelationsView = ({
               history.replace({
                 search: '?relation=' + relation.relationName
               })
-              persistViewInfo(
-                currentViewInfo.location,
-                currentViewInfo.level,
-                {selectedRelation: relation.relationName}
+              viewPersistor.persistViewInfo(
+                currentViewInfo.pathname,
+                {selectedRelation: relation.relationName},
+                currentViewInfo.level
               )
             }}
           >
@@ -129,12 +128,12 @@ const RelationsView = ({
           }}
           searchFormType="simple"
           selectionStyle="none"
-          store={persistedViewInfo[`store-${selectedRelation.relationName}`]}
+          store={viewPersistor.viewInfoSelector(history.location.pathname)[`store-${selectedRelation.relationName}`]}
           onStoreCreate={store => {
-            persistViewInfo(
-              currentViewInfo.location,
-              currentViewInfo.level,
-              {[`store-${selectedRelation.relationName}`]: store}
+            viewPersistor.persistViewInfo(
+              currentViewInfo.pathname,
+              {[`store-${selectedRelation.relationName}`]: store},
+              currentViewInfo.level
             )
           }}
           showActions={false}
@@ -156,17 +155,11 @@ RelationsView.propTypes = {
     count: PropTypes.number,
     createPermission: PropTypes.bool
   })),
-  persistedViewInfo: PropTypes.shape({
-    selectedRelation: PropTypes.string
-  }),
-  persistViewInfo: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired
 }
 
-const updateIgnoreProps = ['persistedViewInfo']
-
 const areEqual = (prevProps, nextProps) => {
-  const diff = Object.keys(js.difference(prevProps, nextProps)).filter(key => !updateIgnoreProps.includes(key))
+  const diff = Object.keys(js.difference(prevProps, nextProps))
   return diff.length === 0
 }
 

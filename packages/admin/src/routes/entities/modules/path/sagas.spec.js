@@ -1,4 +1,5 @@
-import {rest, viewPersistor} from 'tocco-app-extensions'
+import {rest} from 'tocco-app-extensions'
+import {viewPersistor} from 'tocco-util'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
@@ -53,7 +54,7 @@ describe('admin', () => {
                   ])
                   .put(actions.setCurrentViewInfo(pathname, currentViewInfo))
                   .put(actions.setBreadcrumbsInfo(breadcrumbs))
-                  .put(viewPersistor.clearPersistedViews(2))
+                  .call(viewPersistor.clearPersistedViews, 2)
                   .spawn(initMultiRelations, currentViewInfo.model, currentViewInfo.key)
                   .run()
               })

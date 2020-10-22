@@ -1,15 +1,12 @@
 import {connect} from 'react-redux'
 import EntityListApp from 'tocco-entity-list/src/main'
-import {actionEmitter, viewPersistor} from 'tocco-app-extensions'
-import {queryString as queryStringUtil} from 'tocco-util'
+import {actionEmitter} from 'tocco-app-extensions'
+import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
 
 import Action from '../../../components/LazyAction'
 
 const mapDispatchToProps = (dispatch, props) => ({
-  emitAction: action => { dispatch(actionEmitter.dispatchEmittedAction(action)) },
-  onStoreCreate: store => {
-    dispatch(viewPersistor.persistViewInfo(props.router.history.location.pathname, 0, {store}))
-  }
+  emitAction: action => { dispatch(actionEmitter.dispatchEmittedAction(action)) }
 })
 
 const handleNavigateToCreate = props => relationName => {
@@ -34,7 +31,6 @@ const handleNavigateToAction = props => ({definition, selection}) => {
 
 const mapStateToProps = (state, props) => ({
   id: `${state.entityBrowser.appId}_entity-browser-list`,
-  store: viewPersistor.viewInfoSelector(state, props.router.history.location.pathname).store,
   locale: state.input.locale,
   entityName: state.entityBrowser.entityName,
   formName: state.entityBrowser.formBase,
@@ -50,7 +46,11 @@ const mapStateToProps = (state, props) => ({
   onNavigateToCreate: handleNavigateToCreate(props),
   onNavigateToAction: handleNavigateToAction(props),
   searchFormPosition: 'top',
-  actionAppComponent: Action
+  actionAppComponent: Action,
+  store: viewPersistor.viewInfoSelector(props.router.history.location.pathname).store,
+  onStoreCreate: store => {
+    viewPersistor.persistViewInfo(props.router.history.location.pathname, {store}, 0)
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntityListApp)

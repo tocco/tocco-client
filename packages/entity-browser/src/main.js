@@ -5,8 +5,7 @@ import {
   errorLogging,
   actionEmitter,
   externalEvents,
-  rest,
-  viewPersistor
+  rest
 } from 'tocco-app-extensions'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
@@ -66,7 +65,6 @@ const initApp = (id, input, events, publicPath) => {
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
   notifier.addToStore(store, true)
-  viewPersistor.addToStore(store)
 
   const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)

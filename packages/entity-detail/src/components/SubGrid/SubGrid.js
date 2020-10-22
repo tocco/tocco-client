@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
 import styled from 'styled-components'
+import {viewPersistor} from 'tocco-util'
 
 const StyledListApp = styled.div`
   width: 100%;
@@ -9,6 +10,7 @@ const StyledListApp = styled.div`
 
 const SubGrid = props => {
   const formBase = `${props.detailFormName}_${props.formField.path}`
+  const subgridPersistorId = `subgrid-${props.entityName}-${props.entityKey}-${props.formField.reverseRelation}`
   return (
     <StyledListApp>
       <EntityListApp
@@ -29,11 +31,15 @@ const SubGrid = props => {
         onNavigateToCreate={() => {
           props.navigateToCreate(props.formField.path)
         }}
-        emitAction={action => { props.dispatchEmittedAction(action) }}
         parent={{
           key: props.entityKey,
           reverseRelationName: props.formField.reverseRelation,
           model: props.entityName
+        }}
+        emitAction={props.emitAction}
+        store={viewPersistor.viewInfoSelector(subgridPersistorId).store}
+        onStoreCreate={store => {
+          viewPersistor.persistViewInfo(subgridPersistorId, {store})
         }}
       />
     </StyledListApp>
@@ -55,11 +61,11 @@ SubGrid.propTypes = {
   }).isRequired,
   onRowClick: PropTypes.func,
   navigateToCreate: PropTypes.func.isRequired,
-  dispatchEmittedAction: PropTypes.func.isRequired,
   showSubGridsCreateButton: PropTypes.bool,
   appId: PropTypes.string,
   showSearchForm: PropTypes.bool,
-  limit: PropTypes.number
+  limit: PropTypes.number,
+  emitAction: PropTypes.func.isRequired
 }
 
 export default SubGrid
