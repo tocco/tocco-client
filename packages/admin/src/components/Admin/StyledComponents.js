@@ -10,7 +10,19 @@ const calcViewportHeight = () => {
 calcViewportHeight()
 
 window.addEventListener('resize', () => calcViewportHeight())
-window.addEventListener('orientationchange', () => calcViewportHeight())
+
+window.addEventListener('orientationchange', function() {
+  // After orientationchange, add a one-time resize event
+  const afterOrientationChange = function() {
+    // POST-ORIENTATION CODE
+    calcViewportHeight()
+    // eslint-disable-next-line no-console
+    console.log('orientation change')
+    // Remove the resize event listener after it has executed
+    window.removeEventListener('resize', afterOrientationChange)
+  }
+  window.addEventListener('resize', afterOrientationChange)
+})
 
 export const StyledWrapper = styled.div`
   display: grid;
