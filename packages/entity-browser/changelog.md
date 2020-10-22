@@ -1,3 +1,15 @@
+0.10.16
+- Reset css overwrites of Upload.js and refactor Preview.js
+- Restrict urls in table to one line
+- Fix error field focus bug
+- Adjust search filter height
+- Set min and max width for modal
+- List performance optimizations
+- Change sort icon order and adjust table header styles to show marker on long columns when dragging
+- Reset date/time indicators on input fields
+- Remove stated value error animation, as it caused a wobble effect
+- Add delete and qr action
+
 0.10.15
 - Narrow left panel width of input edit
 - Improve UX of list and search view within modal
