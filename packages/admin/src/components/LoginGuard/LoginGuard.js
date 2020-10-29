@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 import {LoadMask} from 'tocco-ui'
 import {Helmet} from 'react-helmet'
 
+import favApple from './apple-touch-icon.png'
+import fav32 from './favicon-32x32.png'
+import fav16 from './favicon-16x16.png'
+import safariPinned from './safari-pinned-tab.svg'
 import Login from '../../components/Login'
 import Admin from '../Admin'
 
@@ -15,11 +19,11 @@ const LoginGuard = ({doSessionCheck, loggedIn}) => {
     <div>
       <Helmet defer={false}>
         <title>Tocco</title>
-        <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png"/>
-        <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png"/>
-        <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png"/>
-        <link rel="manifest" href="./site.webmanifest"/>
-        <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5"/>
+        <link rel="apple-touch-icon" sizes="180x180" href={favApple}/>
+        <link rel="icon" type="image/png" sizes="32x32" href={fav32}/>
+        <link rel="icon" type="image/png" sizes="16x16" href={fav16}/>
+        <link rel="manifest" href="manifest.json"/>
+        <link rel="mask-icon" href={safariPinned} color="#5bbad5"/>
         <meta name="msapplication-TileColor" content="#da532c"/>
         <meta name="theme-color" content="#ffffff"/>
       </Helmet>
