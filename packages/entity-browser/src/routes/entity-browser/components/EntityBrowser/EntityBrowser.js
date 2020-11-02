@@ -5,19 +5,14 @@ import {notifier} from 'tocco-app-extensions'
 import RouteWithSubRoutes from '../../../../components/RouteWithSubRoutes'
 import StyledEntityBrowser from './StyledEntityBrowser'
 
-class EntityBrowser extends React.Component {
-  render() {
-    return (
-      <StyledEntityBrowser>
-        <notifier.Notifier/>
-        {this.props.routes.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route} />
-        ))
-        }
-      </StyledEntityBrowser>
-    )
-  }
-}
+const EntityBrowser = ({routes}) =>
+  <StyledEntityBrowser>
+    <notifier.Notifier/>
+    {routes.map((route, i) => (
+      <RouteWithSubRoutes key={i} {...route} />
+    ))
+    }
+  </StyledEntityBrowser>
 
 EntityBrowser.propTypes = {
   routes: PropTypes.array.isRequired
