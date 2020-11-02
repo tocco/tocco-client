@@ -5,35 +5,35 @@ import {reduxForm, Field} from 'redux-form'
 import {form} from 'tocco-app-extensions'
 import {SearchBox} from 'tocco-ui'
 
-class FullTextSearchForm extends React.Component {
-  handleSubmit = e => {
+const FullTextSearchForm = props => {
+  const {submitSearchForm, intl} = props
+  const handleSubmit = e => {
     e.preventDefault()
     e.stopPropagation()
-    this.props.submitSearchForm()
+    submitSearchForm()
   }
 
-  msg = id => (this.props.intl.formatMessage({id}))
+  const msg = id => (intl.formatMessage({id}))
 
-  field = props =>
+  const field = ({input}) =>
     <SearchBox
-      value={props.input.value}
+      value={input.value}
       liveSearch={true}
-      onSearch={value => props.input.onChange(value)}
-      placeholder={this.msg('client.entity-list.fullTextPlaceholder')}
+      onSearch={value => input.onChange(value)}
+      placeholder={msg('client.entity-list.fullTextPlaceholder')}
     />
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <Field name="txtFulltext" component={this.field}/>
-      </form>
-    )
-  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <Field name="txtFulltext" component={field}/>
+    </form>
+  )
 }
 
 FullTextSearchForm.propTypes = {
   intl: intlShape.isRequired,
-  submitSearchForm: PropTypes.func.isRequired
+  submitSearchForm: PropTypes.func.isRequired,
+  input: PropTypes.string
 }
 
 export default reduxForm({
