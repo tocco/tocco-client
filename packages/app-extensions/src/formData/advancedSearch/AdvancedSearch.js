@@ -6,29 +6,42 @@ import uuid from 'uuid/v4'
 
 import {StyledAdvancedSearch} from './StyledAdvancedSearch'
 
-const AdvancedSearch = props =>
+const AdvancedSearch = ({
+  entityName,
+  formName,
+  listFormDefinition,
+  onSelectionChange,
+  selection,
+  emitAction,
+  multi,
+  onOkClick,
+  ListApp
+}) => (
   <StyledAdvancedSearch>
-    <props.ListApp
+    <ListApp
       id={`advancedSearch-${uuid()}`}
-      entityName={props.entityName}
-      formName={props.formName}
-      listFormDefinition={props.listFormDefinition}
+      entityName={entityName}
+      formName={formName}
+      listFormDefinition={listFormDefinition}
       limit={15}
       showSearchForm={true}
-      onSelectChange={selection => { props.onSelectionChange(selection) }}
-      selection={props.selection}
-      emitAction={props.emitAction}
-      selectionStyle={props.multi ? 'multi' : 'single'}
+      onSelectChange={selection => {
+        onSelectionChange(selection)
+      }}
+      selection={selection}
+      emitAction={emitAction}
+      selectionStyle={multi ? 'multi' : 'single'}
       selectOnRowClick={true}
       disableSelectionController={true}
       showActions={false}
     />
     <div className="advanced-search-button-wrapper">
-      <Button look="raised" onClick={props.onOkClick}>
+      <Button look="raised" onClick={onOkClick}>
         <FormattedMessage id="client.common.ok"/>
       </Button>
     </div>
   </StyledAdvancedSearch>
+)
 
 AdvancedSearch.propTypes = {
   ListApp: PropTypes.func.isRequired,
