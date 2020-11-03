@@ -6,14 +6,15 @@ import Ball from '../Ball'
 
 const DropdownIndicator = props => !props.immutable && <components.DropdownIndicator {...props}>
   <Ball
-    icon="chevron-down"
+    icon={props.isOpen ? 'chevron-up' : 'chevron-down'}
     tabIndex={-1}
   />
 </components.DropdownIndicator>
 
 DropdownIndicator.propTypes = {
   immutable: PropTypes.bool,
-  openMenu: PropTypes.func.isRequired
+  openMenu: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool
 }
 
 export default DropdownIndicator
