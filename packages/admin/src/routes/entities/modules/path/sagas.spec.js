@@ -203,6 +203,28 @@ describe('admin', () => {
                   .run()
               })
 
+              test('should return create', () => {
+                const pathname = '/e/User/create'
+
+                const expectedResult = [
+                  {
+                    type: 'list',
+                    model: mockData.userModel
+
+                  },
+                  {
+                    type: 'create',
+                    model: mockData.userModel,
+                    parent: undefined,
+                    relationName: undefined
+                  }]
+
+                return expectSaga(sagas.loadRouteInfo, pathname)
+                  .provide(modelDisplayProvider)
+                  .returns(expectedResult)
+                  .run()
+              })
+
               test('should return create for relation path', () => {
                 const pathname = '/e/User/1226/relAddress_user/create'
 
@@ -231,7 +253,14 @@ describe('admin', () => {
                   },
                   {
                     type: 'create',
-                    model: mockData.addressModel
+                    model: mockData.addressModel,
+                    parent: {
+                      type: 'detail',
+                      key: '1226',
+                      model: mockData.userModel,
+                      display: mockData.userDisplay
+                    },
+                    relationName: 'relAddress_user'
                   }]
 
                 return expectSaga(sagas.loadRouteInfo, pathname)

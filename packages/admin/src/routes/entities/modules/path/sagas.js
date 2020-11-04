@@ -102,10 +102,13 @@ export function* loadRouteInfo(pathname) {
     }
 
     if (path.view === 'create') {
-      const parent = routeInfos[routeInfos.length - 1]
+      const entity = routeInfos[routeInfos.length - 1]
+      const parent = routeInfos[routeInfos.length - 2]
       routeInfos.push({
         type: 'create',
-        model: parent.model
+        model: entity.model,
+        parent,
+        relationName: entity.relationName
       })
     } else if (path.actionId) {
       routeInfos.push({
