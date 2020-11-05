@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
-import {Link, SignalBox, SignalList, design} from 'tocco-ui'
+import {SignalBox, SignalList, design} from 'tocco-ui'
 import {form} from 'tocco-app-extensions'
 
-const ErrorBox = ({formErrors, showErrors}) => {
+const ErrorBox = ({formErrors}) => {
   let output = null
   const elements = []
 
@@ -14,11 +14,7 @@ const ErrorBox = ({formErrors, showErrors}) => {
         condition={design.condition.DANGER}
         key="hasFieldErrors"
       >
-        <Link
-          label={<FormattedMessage id="client.entity-detail.invalidFieldsError"/>}
-          neutral
-          onClick={showErrors}
-        />
+        <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
       </SignalList.Item>
     )
   }
@@ -62,8 +58,7 @@ const ErrorBox = ({formErrors, showErrors}) => {
 }
 
 ErrorBox.propTypes = {
-  formErrors: PropTypes.object,
-  showErrors: PropTypes.func.isRequired
+  formErrors: PropTypes.object
 }
 
 export default ErrorBox

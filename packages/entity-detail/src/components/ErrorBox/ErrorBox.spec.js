@@ -1,7 +1,7 @@
 import React from 'react'
 import {mount} from 'enzyme'
 import {IntlProvider} from 'react-intl'
-import {Link, SignalBox, SignalList} from 'tocco-ui'
+import {SignalBox, SignalList} from 'tocco-ui'
 
 import ErrorBox from './ErrorBox'
 
@@ -65,15 +65,11 @@ describe('entity-detail', () => {
             />
           </IntlProvider>
         )
-        const link = wrapper.find(Link)
 
-        expect(wrapper.find('span').text()).to.equal('client.entity-detail.invalidFieldsError')
-        expect(link).to.have.length(1)
-        expect(link.prop('label')).to.be.an('object')
-        expect(link.prop('neutral')).to.be.true
+        expect(wrapper.find('span').first().text()).to.equal('client.entity-detail.invalidFieldsError')
       })
 
-      test('should show field', () => {
+      test('should show entityValidatorErrors', () => {
         const formErrors = {
           _error: {
             entityValidatorErrors: {

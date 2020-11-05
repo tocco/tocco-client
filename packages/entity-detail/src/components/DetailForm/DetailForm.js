@@ -6,7 +6,6 @@ import {form} from 'tocco-app-extensions'
 import styled from 'styled-components'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
-import ErrorBox from '../ErrorBox'
 import SaveButton from './SaveButton'
 
 const StyledForm = styled.form`
@@ -25,7 +24,6 @@ const DetailForm = props => {
     formErrors,
     valid,
     submitForm,
-    touchAllFields,
     entity,
     formDefinition,
     formValues,
@@ -39,31 +37,20 @@ const DetailForm = props => {
 
   const customActions = useMemo(() => (
     {
-      save: () => <SaveButton intl={intl} submitting={submitting} mode={mode}/>
+      save: () =>
+        <SaveButton
+          intl={intl}
+          submitting={submitting}
+          mode={mode}
+          hasErrors={!valid && anyTouched}
+          formErrors={formErrors}
+        />
     }
-  ), [submitting, mode])
-
-  const focusErrorFields = () => {
-    const firstErrorField = form.formErrorsUtil.getFirstErrorField(formErrors)
-    if (firstErrorField) {
-      const element = document.getElementById(form.getFieldId(formName, firstErrorField))
-      if (element) {
-        element.focus()
-      }
-    }
-  }
-
-  const save = () => {
-    if (valid) {
-      submitForm()
-    } else if (formErrors) {
-      showErrors()
-    }
-  }
+  ), [submitting, mode, valid, anyTouched, formErrors])
 
   const handleSubmit = event => {
     event.preventDefault()
-    save()
+    submitForm()
   }
 
   const handleKeyPress = event => {
@@ -72,22 +59,13 @@ const DetailForm = props => {
     }
   }
 
-  const showErrors = event => {
-    if (event) {
-      event.preventDefault()
-    }
-
-    touchAllFields()
-    focusErrorFields()
-  }
-
   return <StyledForm
     onSubmit={handleSubmit}
     onKeyDown={handleKeyPress}
   >
     <form.FormBuilder
       entity={entity}
-      formName={props.form}
+      formName={formName}
       formDefinition={formDefinition}
       formValues={formValues}
       fieldMappingType={formDefinition.readOnly ? 'readonly' : 'editable'}
@@ -95,7 +73,7 @@ const DetailForm = props => {
       componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
       customActions={customActions}
     />
-    {!valid && anyTouched && <ErrorBox formErrors={formErrors} showErrors={showErrors}/>}
+
   </StyledForm>
 }
 
@@ -114,7 +92,6 @@ DetailForm.propTypes = {
   dirty: PropTypes.bool,
   lastSave: PropTypes.number,
   fireTouched: PropTypes.func.isRequired,
-  touchAllFields: PropTypes.func.isRequired,
   anyTouched: PropTypes.bool
 }
 

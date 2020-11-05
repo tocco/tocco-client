@@ -1,7 +1,8 @@
 import {
   actions as formActions,
   SubmissionError,
-  getFormValues
+  getFormValues,
+  isValid as isValidSelector, getFormSyncErrors, getFormAsyncErrors, getFormSubmitErrors
 } from 'redux-form'
 import {externalEvents, notifier, errorLogging, form, rest, remoteEvents}
   from 'tocco-app-extensions'
@@ -101,8 +102,21 @@ export function* touchAllFields() {
 
 export function* handleSubmitError(error) {
   if (error instanceof SubmissionError) {
-    yield call(touchAllFields)
     yield put(formActions.stopSubmit(FORM_ID, error.errors))
+    yield call(handleInvalidForm)
+
+    const validationErrors = yield call(form.formErrorsUtil.getValidatorErrors, error.errors)
+    const message = (validationErrors && validationErrors.length > 0
+      ? validationErrors.join('<br>')
+      : 'client.entity-detail.saveAbortedMessage')
+
+    yield put(notifier.info(
+      'warning',
+      'client.entity-detail.saveAbortedTitle',
+      message,
+      null,
+      5000
+    ))
   } else {
     if (!(error instanceof rest.ClientQuestionCancelledException)) {
       yield put(errorLogging.logError(
@@ -110,11 +124,9 @@ export function* handleSubmitError(error) {
         'client.entity-detail.saveError',
         error
       ))
+      yield put(formActions.stopSubmit(FORM_ID))
     }
-    yield put(formActions.stopSubmit(FORM_ID))
   }
-
-  yield call(showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
 }
 
 export function* getEntityForSubmit() {
@@ -135,14 +147,43 @@ export function* getPaths() {
   return yield call(form.getUsedPaths, fieldDefinitions)
 }
 
+export function* getFormErrors() {
+  return {
+    ...(yield select(getFormSyncErrors(FORM_ID))),
+    ...(yield select(getFormAsyncErrors(FORM_ID))),
+    ...(yield select(getFormSubmitErrors(FORM_ID)))
+  }
+}
+
+export function* focusErrorField() {
+  const formErrors = yield call(getFormErrors)
+  const firstErrorField = form.formErrorsUtil.getFirstErrorField(formErrors)
+  if (firstErrorField) {
+    const element = document.getElementById(form.getFieldId(FORM_ID, firstErrorField))
+    if (element) {
+      element.focus()
+    }
+  }
+}
+
+export function* handleInvalidForm() {
+  yield call(touchAllFields)
+  yield call(focusErrorField)
+}
+
 export function* submitForm() {
   try {
-    const {mode} = yield select(entityDetailSelector)
-    const entity = yield call(getEntityForSubmit)
-    if (mode === modes.UPDATE) {
-      yield call(updateFormSubmit, entity)
-    } else if (mode === modes.CREATE) {
-      yield call(createFormSubmit, entity)
+    const isValid = yield select(isValidSelector(FORM_ID))
+    if (!isValid) {
+      yield call(handleInvalidForm)
+    } else {
+      const {mode} = yield select(entityDetailSelector)
+      const entity = yield call(getEntityForSubmit)
+      if (mode === modes.UPDATE) {
+        yield call(updateFormSubmit, entity)
+      } else if (mode === modes.CREATE) {
+        yield call(createFormSubmit, entity)
+      }
     }
   } catch (error) {
     yield call(handleSubmitError, error)
