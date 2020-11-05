@@ -1,7 +1,7 @@
 import React from 'react'
 import {channel} from 'redux-saga'
 import uuid from 'uuid/v4'
-import {saga as sagaUtil, download} from 'tocco-util'
+import {saga as sagaUtil, download, api} from 'tocco-util'
 import {call, put, take} from 'redux-saga/effects'
 
 import {submitActions} from '../../utils/report'
@@ -25,7 +25,11 @@ export function* displayReportSettings(actionDefinition, selection, answerChanne
 
   const resource = `report/${actionDefinition.reportId}/settings`
   const {body: settingsDefinition} = yield call(rest.requestSaga, resource, options)
-  const onSubmit = (submitAction, formValues) => answerChannel.put({submitAction, formValues})
+  const onSubmit = (submitAction, formValues) => answerChannel.put({
+    submitAction,
+    formValues,
+    settingsDefinition
+  })
   const settingsModalId = yield call(uuid)
 
   yield put(notifier.modalComponent(
@@ -48,11 +52,23 @@ export function* displayReportSettings(actionDefinition, selection, answerChanne
 
 export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId, selection) {
   while (true) {
-    const {submitAction, formValues} = yield take(answerChannel)
+    const {
+      submitAction,
+      formValues: {customSettings, generalSettings, recipientSettings},
+      settingsDefinition
+    } = yield take(answerChannel)
+
+    const customSettingsEntity = api.toEntity({
+      __model: settingsDefinition.customSettings.entity.name,
+      ...customSettings
+    })
+
     const body = {
       entityModel: selection.entityName,
       selection,
-      ...formValues
+      generalSettings,
+      recipientSettings,
+      customSettings: customSettingsEntity
     }
 
     const requestOptions = {

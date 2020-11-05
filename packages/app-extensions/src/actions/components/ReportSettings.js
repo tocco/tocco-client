@@ -54,7 +54,7 @@ export class ReportSettings extends React.Component {
           form={getFormDefinition(settingsDefinition, intl)}
           noButtons
           onChange={({values, valid}) => { this.handleSettingsChange(values, valid) }}
-          formData={getFormDataDefaults(settingsDefinition)}
+          defaultValues={getFormDataDefaults(settingsDefinition)}
         />
         {this.customSettingsDefined
         && <this.SimpleFormContainer
