@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useRef, useState} from 'react'
 import ReactSelect from 'react-select'
 import _debounce from 'lodash/debounce'
-import _isEqual from 'lodash/isEqual'
 import {withTheme} from 'styled-components'
 
 import ClearIndicator from './ClearIndicator'
@@ -15,132 +14,140 @@ import MultiValueLabel from './MultiValueLabel'
 import SingleValue from './SingleValue'
 import {reactSelectStyles, reactSelectTheme} from './StyledReactSelect'
 
+const SEARCH_DEBOUNCE = 300
+
 /**
  * To select between multiple options. Loading of options and so on are remotely controlled.
  */
-export class Select extends React.Component {
-  SEARCH_DEBOUNCE = 300
+const Select = ({
+  fetchOptions,
+  id,
+  immutable,
+  isLoading,
+  isMulti,
+  loadTooltip,
+  moreOptionsAvailable,
+  moreOptionsAvailableText,
+  noResultsText,
+  onChange,
+  openAdvancedSearch,
+  openMenuOnClick,
+  options,
+  searchOptions,
+  theme,
+  tooltips,
+  value,
+  valueLinkFactory
+}) => {
+  const selectComponent = useRef(null)
+  const selectWrapper = useRef(null)
 
-  constructor(props) {
-    super(props)
-    this.selectComponent = React.createRef()
-    this.selectWrapper = React.createRef()
-    this.state = {isOpen: false}
+  const [isOpen, setIsOpen] = useState(false)
+  const [isFocused, setIsFocused] = useState(false)
+
+  const getOptions = () => [...(options || [])]
+
+  const handleFocus = () => {
+    setIsFocused(true)
+    selectComponent.current.focus()
   }
 
-  getOptions = () => [...(this.props.options || [])]
-
-  focus = () => {
-    this.selectComponent.current.focus()
+  const handleBlur = () => {
+    setIsFocused(false)
   }
 
-  resize = () => {
-    this.forceUpdate()
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.resize)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resize)
-  }
-
-  onInputChange = searchTerm => {
-    if (this.props.searchOptions && searchTerm) {
-      this.debouncedSearchOptions(searchTerm)
+  const handleInputChange = searchTerm => {
+    if (searchOptions && searchTerm) {
+      debouncedSearchOptions(searchTerm)
     }
   }
 
-  shouldComponentUpdate = (nextProps, nextState) =>
-    !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState)
-
-  onMenuOpen = () => {
-    this.setState({isOpen: true})
-    if (this.props.fetchOptions && !this.state.isOpen) { this.props.fetchOptions() }
+  const handleMenuOpen = () => {
+    setIsOpen(true)
+    if (fetchOptions && !isOpen) { fetchOptions() }
   }
 
-  debouncedSearchOptions =
-    this.props.searchOptions ? _debounce(this.props.searchOptions, this.SEARCH_DEBOUNCE) : () => {}
+  const debouncedSearchOptions
+    = searchOptions ? _debounce(searchOptions, SEARCH_DEBOUNCE) : () => {}
 
-  render() {
-    const wrapperWidth = this.selectWrapper.current ? this.selectWrapper.current.clientWidth : 300
-    const wrapperHeight = this.selectWrapper.current ? this.selectWrapper.current.clientHeight : 35
+  const wrapperWidth = selectWrapper.current ? selectWrapper.current.clientWidth : 300
+  const wrapperHeight = selectWrapper.current ? selectWrapper.current.clientHeight : 35
 
-    const CustomMenu = props => <Menu {...props} wrapperWidth={wrapperWidth} wrapperHeight={wrapperHeight}/>
+  const CustomMenu = propsCustoMenu =>
+    <Menu {...propsCustoMenu} wrapperWidth={wrapperWidth} wrapperHeight={wrapperHeight}/>
 
-    return (
-      <div
-        tabIndex="-1"
-        id={this.props.id}
-        onFocus={this.focus}
-        style={{
-          outlineStyle: 'none',
-          cursor: this.props.immutable ? 'not-allowed' : 'default'
-        }}>
-        <div ref={this.selectWrapper} style={{outlineStyle: 'none'}}>
-          <ReactSelect
-            getOptionLabel={option => option.display}
-            getOptionValue={option => option.key}
-            components={{
-              ClearIndicator,
-              DropdownIndicator: props =>
-                <DropdownIndicator
-                  immutable={this.props.immutable}
-                  isOpen={this.state.isOpen}
-                  openMenu={this.onMenuOpen}
-                  {...props}
-                />,
-              LoadingIndicator,
-              IndicatorsContainer: props =>
-                <IndicatorsContainer
-                  openAdvancedSearch = {this.props.openAdvancedSearch}
-                  immutable = {this.props.immutable}
-                  value = {this.props.value}
-                  {...props}
-                />,
-              IndicatorSeparator: null,
-              Menu: CustomMenu,
-              MenuList: props =>
-                <MenuList
-                  moreOptionsAvailable = {this.props.moreOptionsAvailable}
-                  moreOptionsAvailableText = {this.props.moreOptionsAvailableText}
-                  {...props}
-                />,
-              MultiValueLabel,
-              SingleValue
-            }}
-            noOptionsMessage={() => (this.props.noResultsText || ' - ')}
-            isMulti={this.props.isMulti}
-            closeMenuOnSelect={!this.props.isMulti}
-            isSearchable
-            {...(this.props.searchOptions ? {filterOption: () => (true)} : {})}
-            isClearable
-            loadingMessage={() => null}
-            placeholder=""
-            menuShouldScrollIntoView={false}
-            autoFocus={false}
-            value={this.props.value ? this.props.value : null}
-            onChange={this.props.onChange}
-            onInputChange={this.onInputChange}
-            options={this.getOptions()}
-            isLoading={this.props.isLoading}
-            isDisabled={this.props.immutable}
-            ref={this.selectComponent}
-            onMenuClose={() => this.setState({isOpen: false})}
-            onMenuOpen={this.onMenuOpen}
-            styles={reactSelectStyles(this.props.theme)}
-            theme={theme => reactSelectTheme(theme, this.props.theme)}
-            openMenuOnClick={this.props.openMenuOnClick || false}
-            menuIsOpen={this.state.isOpen}
-            loadTooltip={this.props.loadTooltip}
-            tooltips={this.props.tooltips}
-            valueLinkFactory={this.props.valueLinkFactory}
-          />
-        </div>
+  return (
+    <div
+      tabIndex="-1"
+      id={id}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      style={{
+        outlineStyle: 'none',
+        cursor: immutable ? 'not-allowed' : 'default'
+      }}>
+      <div ref={selectWrapper} style={{outlineStyle: 'none'}}>
+        <ReactSelect
+          getOptionLabel={option => option.display}
+          getOptionValue={option => option.key}
+          components={{
+            ClearIndicator,
+            DropdownIndicator: propsDD =>
+              <DropdownIndicator
+                immutable={immutable}
+                isOpen={isOpen}
+                openMenu={handleMenuOpen}
+                {...propsDD}
+              />,
+            LoadingIndicator,
+            IndicatorsContainer: propsIndicator =>
+              <IndicatorsContainer
+                openAdvancedSearch = {openAdvancedSearch}
+                immutable = {immutable}
+                value = {value}
+                {...propsIndicator}
+              />,
+            IndicatorSeparator: null,
+            Menu: CustomMenu,
+            MenuList: propsMenuList =>
+              <MenuList
+                moreOptionsAvailable = {moreOptionsAvailable}
+                moreOptionsAvailableText = {moreOptionsAvailableText}
+                {...propsMenuList}
+              />,
+            MultiValueLabel,
+            SingleValue
+          }}
+          noOptionsMessage={() => (noResultsText || ' - ')}
+          isMulti={isMulti}
+          closeMenuOnSelect={!isMulti}
+          isSearchable
+          {...(searchOptions ? {filterOption: () => (true)} : {})}
+          isClearable
+          loadingMessage={() => null}
+          placeholder=""
+          menuShouldScrollIntoView={false}
+          autoFocus={false}
+          value={value || null}
+          onChange={onChange}
+          onInputChange={handleInputChange}
+          options={getOptions()}
+          isLoading={isLoading}
+          isDisabled={immutable}
+          ref={selectComponent}
+          onMenuClose={() => setIsOpen(false)}
+          onMenuOpen={handleMenuOpen}
+          styles={reactSelectStyles(theme)}
+          theme={themeSelect => reactSelectTheme(themeSelect, theme)}
+          openMenuOnClick={openMenuOnClick || isFocused}
+          menuIsOpen={isOpen}
+          loadTooltip={loadTooltip}
+          tooltips={tooltips}
+          valueLinkFactory={valueLinkFactory}
+        />
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 const ItemPropType = PropTypes.shape({
