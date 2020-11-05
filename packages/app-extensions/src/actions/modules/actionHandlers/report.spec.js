@@ -34,9 +34,16 @@ describe('app-extensions', () => {
             settingsDefinition: {
               description: {
                 name: 'Sample Report'
+              },
+              customSettings: {
+                entity: {
+                  name: 'SessionOnlyEntity'
+                }
               }
             },
-            settings: {}
+            formValues: {
+              customSettings: {someBool: false}
+            }
           }
 
           describe('handler', () => {
@@ -80,7 +87,9 @@ describe('app-extensions', () => {
                   [matchers.call.fn(handleReportGenerations), undefined]
 
                 ])
-                .dispatch(channelMock.put({values: mockData.settings, submitAction}))
+                .dispatch(channelMock.put(
+                  {formValues: mockData.formValues, submitAction, settingsDefinition: mockData.settingsDefinition})
+                )
                 .call(handleReportGenerations, modalId, generationResponse, submitAction)
                 .silentRun()
             })
@@ -98,7 +107,9 @@ describe('app-extensions', () => {
                   [matchers.call.fn(handleReportGenerations), undefined]
 
                 ])
-                .dispatch(channelMock.put({values: mockData.settings, submitAction}))
+                .dispatch(channelMock.put(
+                  {formValues: mockData.formValues, submitAction, settingsDefinition: mockData.settingsDefinition})
+                )
                 .call(handleFailedGenerationsRequest, modalId, generationResponse)
                 .silentRun()
             })
