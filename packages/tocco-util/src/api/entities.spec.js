@@ -254,6 +254,17 @@ describe('tocco-util', () => {
         expect(result.paths).to.not.have.property('lastname')
       })
 
+      test('should set all fields with undefined dirtyfields', () => {
+        const values = {
+          firstname: 'peter',
+          lastname: 'griffin'
+        }
+
+        const result = toEntity(values)
+        expect(result.paths).to.have.property('firstname')
+        expect(result.paths).to.have.property('lastname')
+      })
+
       test('should simplify object values', () => {
         const values = {
           relGender: {key: '2', version: 3, model: 'Gender', display: 'W'}
