@@ -1,11 +1,12 @@
 import {
-  actions as formActions,
+  actions as formActions, isValid as isValidSelector,
   SubmissionError
 } from 'redux-form'
 import {externalEvents, form, rest, remoteEvents} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {throwError} from 'redux-saga-test-plan/providers'
 
 import * as actions from './actions'
 import {
@@ -14,6 +15,7 @@ import {
 } from '../../util/api/entities'
 import modes from '../../util/modes'
 import rootSaga, * as sagas from './sagas'
+import {focusErrorField, touchAllFields} from './sagas'
 
 const FORM_ID = 'detailForm'
 
@@ -65,64 +67,78 @@ describe('entity-detail', () => {
           test('should call create submit', () => {
             const mode = modes.CREATE
 
-            const gen = sagas.submitForm()
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
-            expect(gen.next(entity).value).to.eql(call(sagas.createFormSubmit, entity))
-            expect(gen.next().done).to.be.true
+            return expectSaga(sagas.submitForm)
+              .provide([
+                [select(sagas.entityDetailSelector), {mode}],
+                [select(isValidSelector(FORM_ID)), true],
+                [matchers.call.fn(sagas.getEntityForSubmit), entity]
+              ])
+              .call(sagas.createFormSubmit, entity)
+              .run()
           })
 
           test('should call update submit', () => {
             const mode = modes.UPDATE
 
-            const gen = sagas.submitForm()
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
-            expect(gen.next(entity).value).to.eql(call(sagas.updateFormSubmit, entity))
-            expect(gen.next().done).to.be.true
+            return expectSaga(sagas.submitForm)
+              .provide([
+                [select(sagas.entityDetailSelector), {mode}],
+                [select(isValidSelector(FORM_ID)), true],
+                [matchers.call.fn(sagas.getEntityForSubmit), entity]
+              ])
+              .call(sagas.updateFormSubmit, entity)
+              .run()
           })
 
           test('should handle thrown errors', () => {
             const mode = modes.UPDATE
-
             const error = new Error('error')
-            const gen = sagas.submitForm()
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
-            expect(gen.next(entity).value).to.eql(call(sagas.updateFormSubmit, entity))
+            return expectSaga(sagas.submitForm)
+              .provide([
+                [select(sagas.entityDetailSelector), {mode}],
+                [select(isValidSelector(FORM_ID)), true],
+                [matchers.call.fn(sagas.getEntityForSubmit), entity],
+                [matchers.call.fn(sagas.updateFormSubmit), throwError(error)]
 
-            expect(gen.throw(error).value).to.eql(call(sagas.handleSubmitError, error))
-            expect(gen.next().done).to.be.true
+              ])
+              .call(sagas.handleSubmitError, error)
+              .run()
           })
+
+          test('should call handleInvalidForm on invalid form', () =>
+            expectSaga(sagas.submitForm)
+              .provide({
+                select() {
+                  return false
+                }
+              })
+              .call(sagas.handleInvalidForm)
+              .not.call(sagas.updateFormSubmit, entity)
+              .not.call(sagas.createFormSubmit, entity)
+              .run()
+          )
         })
 
         describe('handleSubmitError saga', () => {
           test('should handle submission errors properly', () => {
             const error = new SubmissionError({})
-
-            const gen = sagas.handleSubmitError(error)
-            expect(gen.next().value).to.eql(call(sagas.touchAllFields))
-            expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID, error.errors)))
-            expect(gen.next().value).to.eql(
-              call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
-            )
-            expect(gen.next().done).to.be.true
+            return expectSaga(sagas.handleSubmitError, error)
+              .provide([
+                [matchers.call.fn(sagas.touchAllFields), {}],
+                [matchers.call.fn(form.formErrorsUtil.getValidatorErrors), {}]
+              ])
+              .call(sagas.touchAllFields)
+              .put(formActions.stopSubmit(FORM_ID, error.errors))
+              .run()
           })
 
           test('should log regular error and show notification', () => {
             const error = new Error('error')
 
-            const gen = sagas.handleSubmitError(error)
-            const payloadValue = gen.next().value.payload.action.payload
-            // workaround to avoid test fail due to mismatch of Date.now
-            expect(payloadValue).to.include(
-              {title: 'client.common.unexpectedError', description: 'client.entity-detail.saveError', error}
-            )
-            expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID)))
-            expect(gen.next().value).to.eql(
-              call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
-            )
-            expect(gen.next().done).to.be.true
+            return expectSaga(sagas.handleSubmitError, error)
+              .put(formActions.stopSubmit(FORM_ID))
+              .put.like({action: {type: 'tocco-util/LOG_ERROR'}})
+              .run()
           })
         })
 
@@ -265,6 +281,45 @@ describe('entity-detail', () => {
               ])
 
               .put(formActions.touch(FORM_ID, 'firstname', 'relGender--label'))
+              .run()
+          })
+        })
+
+        describe('focusErrorField saga', () => {
+          test('should focus first error field', () => {
+            const formErrors = {
+              firstname: {
+                mandatory: ['This is a mandatory field']
+              },
+              lastname: {
+                mandatory: ['This is a mandatory field']
+              }
+            }
+            const elementFocusSpy = sinon.spy()
+            const mElement = {focus: elementFocusSpy}
+            document.getElementById = sinon.spy(() => mElement)
+
+            return expectSaga(sagas.focusErrorField)
+              .provide([
+                [matchers.call.fn(sagas.getFormErrors), formErrors]
+              ])
+              .run()
+              .then(result => {
+                expect(document.getElementById).to.be.calledWith('input-detailForm-firstname')
+                expect(elementFocusSpy).to.be.calledOnce
+              })
+          })
+        })
+
+        describe('handleInvalidForm saga', () => {
+          test('should call touch and focus ', () => {
+            return expectSaga(sagas.handleInvalidForm)
+              .provide([
+                [matchers.call.fn(sagas.touchAllFields)],
+                [matchers.call.fn(sagas.focusErrorField)]
+              ])
+              .call(touchAllFields)
+              .call(focusErrorField)
               .run()
           })
         })
