@@ -23,6 +23,7 @@ const StyledInputCss = css`
   background-color: transparent;
   border: 0;
   cursor: ${({immutable}) => immutable ? 'not-allowed' : 'default'};
+  pointer-events: ${({immutable}) => immutable ? 'none' : 'auto'};
   flex-grow: 1;
   min-height: 2.6rem;
   min-width: 0;
@@ -64,6 +65,11 @@ const StyledInputCss = css`
   &[type='week'] {
     appearance: none;
     display: flex;
+
+    /* reset margin on smaller screens */
+    ::-webkit-date-and-time-value {
+      ${({immutable}) => immutable && 'margin: unset;'}
+    }
   }
 `
 
