@@ -14,6 +14,7 @@ const EntityDetailAppWrapper = styled.div`
   background-color: ${theme.color('paper')};
   padding: 0 0 0 1.5rem;
   overflow-y: auto;
+  overflow-x: hidden;
   height: 100%;
   ${StyledScrollbar}
 
