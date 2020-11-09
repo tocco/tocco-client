@@ -11,11 +11,14 @@ const setColumnWidth = (containerWidth, maxCellsPerRow) => {
   return `${100 / columns}%`
 }
 
-const declareStylesIfNestedCorrectly = props => {
-  return props.isNestedCorrectly ? `
+const declareStylesIfNestedCorrectly = ({
+  isNestedCorrectly,
+  containerWidth,
+  maxCellsPerRow
+}) => isNestedCorrectly ? `
     flex-grow: 1;
     flex-shrink: 0;
-    flex-basis: ${setColumnWidth(props.containerWidth, props.maxCellsPerRow)};
+    flex-basis: ${setColumnWidth(containerWidth, maxCellsPerRow)};
     padding: 0 10px 10px 0;
     box-sizing: border-box;  // reset Tocco Framework
   ` : `
@@ -23,10 +26,10 @@ const declareStylesIfNestedCorrectly = props => {
       padding: 0 0 10px 0;
     }
   `
-}
 
 const StyledLayoutBox = styled.div`
   && {
+    max-width: 100%;
     ${props => declareStylesIfNestedCorrectly(props)}
   }
 `
