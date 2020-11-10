@@ -1,3 +1,15 @@
+0.3.6
+- Reset css overwrites of Upload.js and refactor Preview.js
+- Restrict urls in table to one line
+- Set min and max width for modal
+- Change sort icon order and adjust table header styles to show marker on long columns when dragging
+- Reset date/time indicators on input fields
+- Remove stated value error animation, as it caused a wobble effect
+- Change chevron icon in multi select input when dropdown is opened
+- Change form field colors. Dirty: blue, Mandatory: organge
+- Open remote fields on second click
+- Set max width in layout box to prevent overflowing elements
+
 0.3.5
 - Table component
 - Make all children of readonly layouts readonly
