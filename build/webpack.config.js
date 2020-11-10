@@ -174,6 +174,17 @@ webpackConfig.module.rules.push(
   {
     test: /\.(png|jpg|ico)$/,
     use: 'file-loader?name=imgs/[name].[ext]&limit=8192'
+  },
+  {
+    test: /site\.webmanifest$/,
+    use: [
+      {
+        loader: 'file-loader'
+      },
+      {
+        loader: 'app-manifest-loader'
+      }
+    ]
   }
 )
 
