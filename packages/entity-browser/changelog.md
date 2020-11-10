@@ -1,3 +1,11 @@
+0.10.17
+- Adjust filter pane height when expanded
+- Change chevron icon in multi select input when dropdown is opened
+- Change form field colors. Dirty: blue, Mandatory: organge
+- Open remote fields on second click
+- Improve form error notification
+- Set max width in layout box to prevent overflowing elements
+
 0.10.16
 - Reset css overwrites of Upload.js and refactor Preview.js
 - Restrict urls in table to one line
