@@ -1,3 +1,13 @@
+0.3.30
+- Adjust filter pane height when expanded
+- Change chevron icon in multi select input when dropdown is opened
+- Change form field colors. Dirty: blue, Mandatory: organge
+- Fix create reverse relation
+- Open remote fields on second click
+- Improve form error notification
+- Set max width in layout box to prevent overflowing elements
+- Hide horizontal scrollbar to prevent it appearing on while loading
+
 0.3.29
 - Remove stated value error animation, as it caused a wobble effect
 - Extend actiom handling (precheck and initial forms with data)
