@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 export const StyledModalButton = styled(Button)`
   margin-bottom: ${scale.space(0)};
+  margin-top: ${scale.space(0)};
 `
 
 const ModalButtons = ({buttons}) =>

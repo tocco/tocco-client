@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useLayoutEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -41,6 +41,8 @@ const ModalContent = props => {
   } = props
 
   const [isClosing, setIsClosing] = useState(false)
+  const [modalWidth, setModalWidth] = useState(0)
+  const ref = useRef(null)
 
   const handleCloseClick = () => {
     setIsClosing(true)
@@ -49,8 +51,20 @@ const ModalContent = props => {
     }, 300) // Toastr fade out takes 300ms
   }
 
-  return <div className="rrt-confirm-holder">
-    <StyledModalContent isClosing={isClosing}>
+  const observer = new ResizeObserver(entries => {
+    const {width} = entries[0].contentRect
+    setModalWidth(width)
+  })
+
+  useLayoutEffect(() => {
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+    return () => observer.unobserve(ref.current)
+  }, [ref, observer])
+
+  return <div className="rrt-confirm-holder" >
+    <StyledModalContent isClosing={isClosing} ref={ref} titleWidth={modalWidth}>
       {closable && <StyledCloseButton onClick={handleCloseClick} type="button">
             ✕
       </StyledCloseButton>}

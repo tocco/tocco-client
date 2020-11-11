@@ -44,7 +44,7 @@ const StyledModalContent = styled.div.attrs(({isClosing}) => ({
     }
 
     ${StyledTitleWrapper} {
-      width: auto;
+      width: ${({titleWidth}) => titleWidth}px;
     }
 
     .advanced-search-button-wrapper {
