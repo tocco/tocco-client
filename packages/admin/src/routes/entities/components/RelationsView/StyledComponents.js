@@ -35,7 +35,9 @@ export const StyledRelationBox = styled.div`
   justify-content: space-between;
   overflow-y: auto;
   align-content: flex-start;
-  max-height: 25%;
+  height: fit-content;
+  min-height: 150px;
+  max-height: 20%;
   ${StyledScrollbar}
 `
 
