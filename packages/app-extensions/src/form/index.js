@@ -9,7 +9,8 @@ import {
   getDirtyFields,
   validationErrorToFormError,
   transformFieldName,
-  transformFieldNameBack
+  transformFieldNameBack,
+  isValueEmpty
 } from './reduxForm'
 import componentTypes from './enums/componentTypes'
 import layoutTypes from './enums/layoutTypes'
@@ -37,5 +38,6 @@ export default {
   validators,
   transformInputValues,
   asyncValidation,
-  submitValidation
+  submitValidation,
+  isValueEmpty
 }

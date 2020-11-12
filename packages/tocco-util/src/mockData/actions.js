@@ -46,6 +46,11 @@ export const setupActions = (fetchMock, entityStore, timeout = 2000) => {
     new RegExp('^.*?/nice2/rest/actions/simpleAction*?'),
     simpleAction(timeout)
   )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/client/user/callnameComplete*?'),
+    callnameComplete(timeout)
+  )
 }
 
 const simpleActionCheck = timeout =>
@@ -316,4 +321,24 @@ const validationError = timeout =>
         }
       }
     })
+  }
+
+const callnameComplete = () =>
+  (url, opts) => {
+    consoleLogger.log('fetchMock:callname complete called', url, opts)
+    return {
+      status: 200,
+      body: {
+        values: {
+          callname: {
+            mode: 'override',
+            value: 'AutoCompleted'
+          },
+          lastname: {
+            mode: 'if_empty',
+            value: 'Lastname AutoCompleted'
+          }
+        }
+      }
+    }
   }

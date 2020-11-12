@@ -107,6 +107,25 @@ describe('app-extensions', () => {
           expect(formErrors).to.have.property('_error')
         })
       })
+
+      describe('isValueEmpty', () => {
+        test('should return true for empty values', () => {
+          expect(reduxForm.isValueEmpty(null)).to.be.true
+          expect(reduxForm.isValueEmpty(undefined)).to.be.true
+          expect(reduxForm.isValueEmpty('')).to.be.true
+          expect(reduxForm.isValueEmpty([])).to.be.true
+          expect(reduxForm.isValueEmpty({})).to.be.true
+        })
+
+        test('should return false for none-empty values', () => {
+          expect(reduxForm.isValueEmpty('test')).to.be.false
+          expect(reduxForm.isValueEmpty(0)).to.be.false
+          expect(reduxForm.isValueEmpty(-1)).to.be.false
+          expect(reduxForm.isValueEmpty(false)).to.be.false
+          expect(reduxForm.isValueEmpty({test: 1})).to.be.false
+          expect(reduxForm.isValueEmpty([1])).to.be.false
+        })
+      })
     })
   })
 })
