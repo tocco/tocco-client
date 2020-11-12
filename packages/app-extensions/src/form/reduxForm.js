@@ -44,3 +44,10 @@ export const getDirtyFields = (initialValues, values, isCreate) => {
 
   return dirtyFields
 }
+
+export const isValueEmpty = v =>
+  v === null
+  || v === undefined
+  || v === ''
+  || (Array.isArray(v) && v.length === 0)
+  || (typeof v === 'object' && Object.keys(v).length === 0)

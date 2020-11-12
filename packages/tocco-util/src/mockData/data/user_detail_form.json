@@ -112,6 +112,7 @@
                         "componentType": "field",
                         "path": "firstname",
                         "defaultValue": "Homer",
+                        "autoCompleteEndpoint": "client/user/callnameComplete",
                         "validation": {
                           "length" : {
                             "toIncluding" : 255

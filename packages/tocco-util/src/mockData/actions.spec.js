@@ -38,6 +38,15 @@ describe('tocco-util', () => {
           done()
         })
       })
+
+      test('should setup an autocomplete endpoint', done => {
+        setupActions(fetchMock, null, 1)
+        fetch('/nice2/rest/client/user/callnameComplete', {
+          method: 'POST'
+        }).then(res => {
+          done()
+        })
+      })
     })
   })
 })

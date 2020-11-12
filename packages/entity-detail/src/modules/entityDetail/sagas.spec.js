@@ -7,6 +7,7 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import {throwError} from 'redux-saga-test-plan/providers'
+import * as formActionTypes from 'redux-form/lib/actionTypes'
 
 import * as actions from './actions'
 import {
@@ -15,7 +16,6 @@ import {
 } from '../../util/api/entities'
 import modes from '../../util/modes'
 import rootSaga, * as sagas from './sagas'
-import {focusErrorField, touchAllFields} from './sagas'
 
 const FORM_ID = 'detailForm'
 
@@ -34,7 +34,8 @@ describe('entity-detail', () => {
               takeEvery(actions.FIRE_TOUCHED, sagas.fireTouched),
               takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
-              takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction)
+              takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
+              takeEvery(formActionTypes.BLUR, sagas.onBlur)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -71,8 +72,10 @@ describe('entity-detail', () => {
               .provide([
                 [select(sagas.entityDetailSelector), {mode}],
                 [select(isValidSelector(FORM_ID)), true],
-                [matchers.call.fn(sagas.getEntityForSubmit), entity]
+                [matchers.call.fn(sagas.getEntityForSubmit), entity],
+                [matchers.call.fn(sagas.submitValidate)]
               ])
+              .put.like({action: {type: formActions.startSubmit().type}})
               .call(sagas.createFormSubmit, entity)
               .run()
           })
@@ -84,7 +87,8 @@ describe('entity-detail', () => {
               .provide([
                 [select(sagas.entityDetailSelector), {mode}],
                 [select(isValidSelector(FORM_ID)), true],
-                [matchers.call.fn(sagas.getEntityForSubmit), entity]
+                [matchers.call.fn(sagas.getEntityForSubmit), entity],
+                [matchers.call.fn(sagas.submitValidate)]
               ])
               .call(sagas.updateFormSubmit, entity)
               .run()
@@ -98,8 +102,8 @@ describe('entity-detail', () => {
                 [select(sagas.entityDetailSelector), {mode}],
                 [select(isValidSelector(FORM_ID)), true],
                 [matchers.call.fn(sagas.getEntityForSubmit), entity],
-                [matchers.call.fn(sagas.updateFormSubmit), throwError(error)]
-
+                [matchers.call.fn(sagas.updateFormSubmit), throwError(error)],
+                [matchers.call.fn(sagas.submitValidate)]
               ])
               .call(sagas.handleSubmitError, error)
               .run()
@@ -201,7 +205,6 @@ describe('entity-detail', () => {
             const formValues = {__key: '3', __model: 'User', firstname: 'test'}
             const initialValues = {firstname: 'tst'}
 
-            const entityModel = {}
             const mode = 'update'
 
             const expectedReturn = {
@@ -211,9 +214,32 @@ describe('entity-detail', () => {
               paths: {firstname: 'test'}
             }
 
+            return expectSaga(sagas.getEntityForSubmit)
+              .provide([
+                [matchers.call.fn(sagas.getCurrentEntityState), {mode, initialValues, formValues}]
+              ])
+              .returns(expectedReturn)
+              .run()
+          })
+        })
+
+        describe('getCurrentEntityState saga', () => {
+          test('should return an object with mode, values and dirty fields', () => {
+            const formValues = {firstname: 'test', lastname: 'test2'}
+            const initialValues = {firstname: 'test'}
+            const entityModel = {}
+            const mode = 'update'
+
+            const expectedReturn = {
+              formValues,
+              initialValues,
+              mode,
+              dirtyFields: ['lastname']
+            }
+
             let firstSelector = true
 
-            return expectSaga(sagas.getEntityForSubmit)
+            return expectSaga(sagas.getCurrentEntityState)
               .provide([
                 {
                   select(a, next, b) {
@@ -225,12 +251,47 @@ describe('entity-detail', () => {
                   }
                 },
                 [select(sagas.formInitialValueSelector, 'detailForm'), initialValues],
-                [select(sagas.entityDetailSelector), {entityModel, mode}],
-                [matchers.call.fn(form.submitValidation), null]
+                [select(sagas.entityDetailSelector), {entityModel, mode}]
               ])
-
-              .put.like({action: {type: formActions.startSubmit().type}})
               .returns(expectedReturn)
+              .run()
+          })
+        })
+
+        describe('submitValidate saga', () => {
+          test('should call submitValidation', () => {
+            const formValues = {firstname: 'test'}
+            const initialValues = {firstname: 'test1'}
+            const mode = 'update'
+
+            return expectSaga(sagas.submitValidate)
+              .provide([
+                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, initialValues, mode}],
+                [matchers.call.fn(form.submitValidation)]
+              ])
+              .call(form.submitValidation, formValues, initialValues, mode)
+              .run()
+          })
+        })
+
+        describe('getEntityForSubmit saga', () => {
+          test('should call submitValidation', () => {
+            const formValues = {__model: 'User', __key: '1', firstname: 'test'}
+            const dirtyFields = ['firstname']
+
+            const expectedReturn = {
+              model: 'User',
+              key: '1',
+              version: undefined,
+              paths: {firstname: 'test'}
+            }
+
+            return expectSaga(sagas.getEntityForSubmit)
+              .provide([
+                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFields}]
+              ])
+              .returns(expectedReturn)
+
               .run()
           })
         })
@@ -318,8 +379,8 @@ describe('entity-detail', () => {
                 [matchers.call.fn(sagas.touchAllFields)],
                 [matchers.call.fn(sagas.focusErrorField)]
               ])
-              .call(touchAllFields)
-              .call(focusErrorField)
+              .call(sagas.touchAllFields)
+              .call(sagas.focusErrorField)
               .run()
           })
         })
@@ -407,6 +468,111 @@ describe('entity-detail', () => {
                 [matchers.call.fn(sagas.loadData), {paths: {}}]
               ])
               .call(sagas.loadData, false)
+              .run()
+          })
+        })
+
+        describe('autoComplete saga', () => {
+          test('should dispatch form value changes accordingly', () => {
+            const fieldName = 'firstname'
+            const autoCompleteEndpoint = '/nice2/rest/autoComplete'
+            const entity = {
+              paths: {
+                fistname: 'test',
+                callname: 'test'
+              }
+            }
+
+            const response = {
+              body: {
+                values: {
+                  lastname: {
+                    mode: 'override',
+                    value: 'tocco'
+                  },
+                  callname: {
+                    mode: 'if_empty',
+                    value: 'tocco'
+                  },
+                  callname2: {
+                    mode: 'if_empty',
+                    value: 'tocco'
+                  }
+                }
+              }
+            }
+
+            const formValues = {
+              firstname: 'test',
+              callname: 'test'
+            }
+
+            return expectSaga(sagas.autoComplete, fieldName, autoCompleteEndpoint)
+              .provide([
+                [matchers.call.fn(sagas.getEntityForSubmit), entity],
+                [matchers.call.fn(rest.requestSaga), response],
+                {
+                  select() {
+                    return formValues
+                  }
+                }
+              ])
+              .put(formActions.change(FORM_ID, 'lastname', 'tocco'))
+              .put(formActions.change(FORM_ID, 'callname2', 'tocco'))
+              .not.put(formActions.change(FORM_ID, 'callname', 'tocco'))
+              .run()
+          })
+        })
+
+        describe('onBlur saga', () => {
+          test('should call autoComplete if endpoint is defined', () => {
+            const field = 'firstname'
+            const input = {
+              meta: {
+                field
+              }
+            }
+
+            const autoCompleteEndpoint = '/autoComplete'
+
+            const entityDetailState = {
+              fieldDefinitions: [
+                {
+                  id: field,
+                  autoCompleteEndpoint
+                }
+              ]
+            }
+            return expectSaga(sagas.onBlur, input)
+              .provide([
+                [select(sagas.entityDetailSelector), entityDetailState],
+                [matchers.call.fn(sagas.autoComplete)]
+              ])
+              .call(sagas.autoComplete, field, autoCompleteEndpoint)
+              .run()
+          })
+
+          test('should not call autoComplete if endpoint is not defined', () => {
+            const field = 'firstname'
+            const input = {
+              meta: {
+                field
+              }
+            }
+
+            const entityDetailState = {
+              fieldDefinitions: [
+                {
+                  id: field
+                }
+              ]
+            }
+            return expectSaga(sagas.onBlur, input)
+              .provide([
+                [select(sagas.entityDetailSelector), entityDetailState],
+                [matchers.call.fn(sagas.autoComplete)]
+              ])
+              .not.call.like({fn: sagas.autoComplete})
               .run()
           })
         })

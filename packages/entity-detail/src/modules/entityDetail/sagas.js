@@ -2,8 +2,12 @@ import {
   actions as formActions,
   SubmissionError,
   getFormValues,
-  isValid as isValidSelector, getFormSyncErrors, getFormAsyncErrors, getFormSubmitErrors
+  isValid as isValidSelector,
+  getFormSyncErrors,
+  getFormAsyncErrors,
+  getFormSubmitErrors
 } from 'redux-form'
+import * as formActionTypes from 'redux-form/es/actionTypes'
 import {externalEvents, notifier, errorLogging, form, rest, remoteEvents}
   from 'tocco-app-extensions'
 import {api} from 'tocco-util'
@@ -31,8 +35,41 @@ export default function* sagas() {
     takeEvery(actions.FIRE_TOUCHED, fireTouched),
     takeEvery(actions.NAVIGATE_TO_CREATE, navigateToCreate),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
-    takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction)
+    takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
+    takeEvery(formActionTypes.BLUR, onBlur)
   ])
+}
+
+export function* autoComplete(fieldName, autoCompleteEndpoint) {
+  const options = {
+    method: 'POST',
+    body: {
+      triggerField: fieldName,
+      entity: yield call(getEntityForSubmit)
+    }
+  }
+
+  const response = yield call(rest.requestSaga, autoCompleteEndpoint, options)
+  const {values} = response.body
+  const formValues = yield select(getFormValues(FORM_ID))
+
+  yield all(Object.keys(values).map(fieldName => {
+    const value = values[fieldName]
+    const currentFieldValue = formValues[fieldName]
+    if (value.mode === 'override'
+          || (value.mode === 'if_empty' && form.isValueEmpty(currentFieldValue))) {
+      return put(formActions.change(FORM_ID, fieldName, value.value))
+    }
+  }
+  ))
+}
+
+export function* onBlur({meta}) {
+  const {field} = meta
+  const fieldDefinition = (yield (select(entityDetailSelector))).fieldDefinitions.find(fd => fd.id === field)
+  if (fieldDefinition && fieldDefinition.autoCompleteEndpoint) {
+    yield call(autoComplete, field, fieldDefinition.autoCompleteEndpoint)
+  }
 }
 
 export function* loadDetailFormDefinition(formName, mode) {
@@ -129,15 +166,28 @@ export function* handleSubmitError(error) {
   }
 }
 
-export function* getEntityForSubmit() {
+export function* getCurrentEntityState() {
   const formValues = yield select(getFormValues(FORM_ID))
   const initialFormValues = yield select(formInitialValueSelector, FORM_ID)
   const {mode} = yield select(entityDetailSelector)
   const initialValues = mode === modes.CREATE ? {} : initialFormValues
-  yield put(formActions.startSubmit(FORM_ID))
-
-  yield call(form.submitValidation, formValues, initialValues, mode)
   const dirtyFields = yield call(form.getDirtyFields, initialValues, formValues, mode === modes.CREATE)
+
+  return {
+    formValues,
+    initialValues,
+    mode,
+    dirtyFields
+  }
+}
+
+export function* submitValidate() {
+  const {formValues, initialValues, mode} = yield call(getCurrentEntityState)
+  yield call(form.submitValidation, formValues, initialValues, mode)
+}
+
+export function* getEntityForSubmit() {
+  const {formValues, dirtyFields} = yield call(getCurrentEntityState)
   const flattenEntity = yield call(form.formValuesToFlattenEntity, formValues)
   return yield call(api.toEntity, flattenEntity, dirtyFields)
 }
@@ -177,7 +227,9 @@ export function* submitForm() {
     if (!isValid) {
       yield call(handleInvalidForm)
     } else {
+      yield put(formActions.startSubmit(FORM_ID))
       const {mode} = yield select(entityDetailSelector)
+      yield call(submitValidate)
       const entity = yield call(getEntityForSubmit)
       if (mode === modes.UPDATE) {
         yield call(updateFormSubmit, entity)
