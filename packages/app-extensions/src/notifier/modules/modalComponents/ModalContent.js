@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useRef} from 'react'
+import React, {useState, useLayoutEffect, useRef, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -37,12 +37,15 @@ const ModalContent = props => {
     message,
     title,
     close,
-    id
+    id,
+    component: Component
   } = props
 
   const [isClosing, setIsClosing] = useState(false)
   const [modalWidth, setModalWidth] = useState(0)
+  const content = useMemo(() => <Component close={handleCloseClick}/>, [Component])
   const ref = useRef(null)
+  const observable = ref.current
 
   const handleCloseClick = () => {
     setIsClosing(true)
@@ -57,10 +60,10 @@ const ModalContent = props => {
   })
 
   useLayoutEffect(() => {
-    if (ref.current) {
-      observer.observe(ref.current)
+    if (observable) {
+      observer.observe(observable)
     }
-    return () => observer.unobserve(ref.current)
+    return () => observer.unobserve(observable)
   }, [ref, observer])
 
   return <div className="rrt-confirm-holder" >
@@ -69,7 +72,7 @@ const ModalContent = props => {
             ✕
       </StyledCloseButton>}
       <TitleMessage title={title} message={message} closable={closable}>
-        <props.component close={handleCloseClick}/>
+        {content}
       </TitleMessage>
     </StyledModalContent>
     <div className={`shadow animated ${isClosing ? 'fadeOut' : 'fadeIn'}`} />
