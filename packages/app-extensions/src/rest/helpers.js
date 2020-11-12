@@ -71,8 +71,8 @@ export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExp
 export function* fetchDisplays(request, type) {
   const currentDisplays = Object.entries(request).map(([model, keys]) => ({
     model,
-    keys: keys.filter(key => cache.get('display', `${model}.${key}`) === undefined),
-    displays: keys.map(key => ({key, display: cache.get('display', `${model}.${key}`)}))
+    keys: keys.filter(key => cache.get('display', `${model}.${key}${type ? `.${type}` : ''}`) === undefined),
+    displays: keys.map(key => ({key, display: cache.get('display', `${model}.${key}${type ? `.${type}` : ''}`)}))
       .filter(value => value.display !== undefined)
   }))
 
@@ -107,7 +107,7 @@ function* loadDisplays(currentDisplays, type) {
     ), {})
     Object.entries(loadedDisplays).forEach(([entityName, values]) => {
       Object.entries(values).forEach(([key, display]) => {
-        cache.add('display', `${entityName}.${key}`, display)
+        cache.add('display', `${entityName}.${key}${type ? `.${type}` : ''}}`, display)
       })
     })
     return loadedDisplays

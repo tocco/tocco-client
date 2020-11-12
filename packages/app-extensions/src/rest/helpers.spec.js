@@ -188,6 +188,14 @@ describe('app-extensions', () => {
             .returns('Test')
             .run()
         })
+
+        test('should serve display with type from cache if already loaded', () => {
+          cache.add('display', 'User.1.tooltip', 'Test')
+
+          return expectSaga(helpers.fetchDisplay, 'User', '1', 'tooltip')
+            .returns('Test')
+            .run()
+        })
       })
 
       describe('fetchDisplayExpressions', () => {
