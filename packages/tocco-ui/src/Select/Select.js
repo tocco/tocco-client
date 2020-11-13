@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useState} from 'react'
+import React, {useRef} from 'react'
 import ReactSelect from 'react-select'
 import _debounce from 'lodash/debounce'
 import {withTheme} from 'styled-components'
@@ -31,7 +31,6 @@ const Select = ({
   noResultsText,
   onChange,
   openAdvancedSearch,
-  openMenuOnClick,
   options,
   searchOptions,
   theme,
@@ -42,19 +41,7 @@ const Select = ({
   const selectComponent = useRef(null)
   const selectWrapper = useRef(null)
 
-  const [isOpen, setIsOpen] = useState(false)
-  const [isFocused, setIsFocused] = useState(false)
-
   const getOptions = () => [...(options || [])]
-
-  const handleFocus = () => {
-    setIsFocused(true)
-    selectComponent.current.focus()
-  }
-
-  const handleBlur = () => {
-    setIsFocused(false)
-  }
 
   const handleInputChange = searchTerm => {
     if (searchOptions && searchTerm) {
@@ -63,8 +50,7 @@ const Select = ({
   }
 
   const handleMenuOpen = () => {
-    setIsOpen(true)
-    if (fetchOptions && !isOpen) { fetchOptions() }
+    if (fetchOptions) { fetchOptions() }
   }
 
   const debouncedSearchOptions
@@ -80,8 +66,6 @@ const Select = ({
     <div
       tabIndex="-1"
       id={id}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
       style={{
         outlineStyle: 'none',
         cursor: immutable ? 'not-allowed' : 'default'
@@ -92,29 +76,12 @@ const Select = ({
           getOptionValue={option => option.key}
           components={{
             ClearIndicator,
-            DropdownIndicator: propsDD =>
-              <DropdownIndicator
-                immutable={immutable}
-                isOpen={isOpen}
-                openMenu={handleMenuOpen}
-                {...propsDD}
-              />,
             LoadingIndicator,
-            IndicatorsContainer: propsIndicator =>
-              <IndicatorsContainer
-                openAdvancedSearch = {openAdvancedSearch}
-                immutable = {immutable}
-                value = {value}
-                {...propsIndicator}
-              />,
+            DropdownIndicator: DropdownIndicator,
+            IndicatorsContainer: IndicatorsContainer,
             IndicatorSeparator: null,
             Menu: CustomMenu,
-            MenuList: propsMenuList =>
-              <MenuList
-                moreOptionsAvailable = {moreOptionsAvailable}
-                moreOptionsAvailableText = {moreOptionsAvailableText}
-                {...propsMenuList}
-              />,
+            MenuList: MenuList,
             MultiValueLabel,
             SingleValue
           }}
@@ -135,15 +102,20 @@ const Select = ({
           isLoading={isLoading}
           isDisabled={immutable}
           ref={selectComponent}
-          onMenuClose={() => setIsOpen(false)}
           onMenuOpen={handleMenuOpen}
           styles={reactSelectStyles(theme)}
           theme={themeSelect => reactSelectTheme(themeSelect, theme)}
-          openMenuOnClick={openMenuOnClick || isFocused}
-          menuIsOpen={isOpen}
           loadTooltip={loadTooltip}
           tooltips={tooltips}
           valueLinkFactory={valueLinkFactory}
+          openAdvancedSearch={openAdvancedSearch}
+          moreOptionsAvailable={moreOptionsAvailable}
+          moreOptionsAvailableText={moreOptionsAvailableText}
+          onBlur={event => {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          }
         />
       </div>
     </div>

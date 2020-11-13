@@ -4,17 +4,21 @@ import {components} from 'react-select'
 
 import Ball from '../Ball'
 
-const DropdownIndicator = props => !props.immutable && <components.DropdownIndicator {...props}>
-  <Ball
-    icon={props.isOpen ? 'chevron-up' : 'chevron-down'}
-    tabIndex={-1}
-  />
-</components.DropdownIndicator>
+const DropdownIndicator = props => {
+  return !props.selectProps.isDisabled && <components.DropdownIndicator {...props}>
+    <Ball
+      icon={props.selectProps.menuIsOpen ? 'chevron-up' : 'chevron-down'}
+      tabIndex={-1}
+    />
+  </components.DropdownIndicator>
+}
 
 DropdownIndicator.propTypes = {
   immutable: PropTypes.bool,
-  openMenu: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool
+  selectProps: PropTypes.shape({
+    menuIsOpen: PropTypes.bool,
+    isDisabled: PropTypes.bool
+  })
 }
 
 export default DropdownIndicator
