@@ -45,7 +45,6 @@ const ModalContent = props => {
   const [modalWidth, setModalWidth] = useState(0)
   const content = useMemo(() => <Component close={handleCloseClick}/>, [Component])
   const ref = useRef(null)
-  const observable = ref.current
 
   const handleCloseClick = () => {
     setIsClosing(true)
@@ -60,6 +59,7 @@ const ModalContent = props => {
   })
 
   useLayoutEffect(() => {
+    const observable = ref.current
     if (observable) {
       observer.observe(observable)
     }
