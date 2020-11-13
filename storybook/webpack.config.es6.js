@@ -51,6 +51,10 @@ module.exports = ({config, configType}) => {
   {
     test: /\.(png|jpg)$/,
     use: 'file-loader?limit=8192'
+  },
+  {
+    test: /site\.webmanifest$/,
+    use: ['file-loader', 'app-manifest-loader']
   }
   )
 
