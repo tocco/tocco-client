@@ -4,8 +4,15 @@ import {FormattedMessage} from 'react-intl'
 import {form} from 'tocco-app-extensions'
 import Typography from 'tocco-ui/src/Typography'
 import styled from 'styled-components'
+import {scale} from 'tocco-ui'
 
 export const ErrorItem = styled.div``
+
+const StyledErrorItemWrapper = styled.div`
+  &:not(:last-child) {
+    margin-bottom: ${scale.space(0.4)};
+  }
+`
 
 const ErrorItems = ({formErrors}) => {
   let output = null
@@ -13,19 +20,17 @@ const ErrorItems = ({formErrors}) => {
 
   if (form.formErrorsUtil.hasFieldErrors(formErrors)) {
     elements.push(
-      <div
-        key="hasFieldErrors"
-      >
-        <Typography.H6>
+      <StyledErrorItemWrapper key="hasFieldErrors">
+        <Typography.H5>
           <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
-        </Typography.H6>
-      </div>
+        </Typography.H5>
+      </StyledErrorItemWrapper>
     )
   }
 
   if (form.formErrorsUtil.hasValidatorErrors(formErrors)) {
     elements.push(
-      <div key="hasValidatorErrors">
+      <StyledErrorItemWrapper key="hasValidatorErrors">
         <Typography.H5>
           <FormattedMessage id="client.entity-detail.validatorErrors"/>
         </Typography.H5>
@@ -34,13 +39,13 @@ const ErrorItems = ({formErrors}) => {
             {message}
           </ErrorItem>
         )}
-      </div>
+      </StyledErrorItemWrapper>
     )
   }
 
   if (form.formErrorsUtil.hasRelatedEntityErrors(formErrors)) {
     elements.push(
-      <div key="hasRelatedEntityErrors">
+      <StyledErrorItemWrapper key="hasRelatedEntityErrors">
         <Typography.H5>
           <FormattedMessage id="client.entity-detail.invalidRelationErrors"/>
         </Typography.H5>
@@ -49,7 +54,7 @@ const ErrorItems = ({formErrors}) => {
             {message}
           </ErrorItem>
         )}
-      </div>
+      </StyledErrorItemWrapper>
     )
   }
 
