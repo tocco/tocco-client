@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import {Manager, Popper, Reference} from 'react-popper'
 
 import {
+  StyledSpan,
   StyledArrow,
   StyledBox,
   StyledBoxWrapper
@@ -14,50 +15,38 @@ const placements = {
   BOTTOM: 'bottom'
 }
 
-class Popover extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {showToolTip: false}
+const Popover = ({
+  children,
+  content,
+  isPlainHtml,
+  rimless,
+  placement,
+  spacer
+}) => {
+  const [showToolTip, setShowToolTip] = useState(false)
+
+  const handleMouseEnter = () => {
+    setShowToolTip(true)
   }
 
-  setToolTipVisibility = visible => {
-    this.setState({
-      showToolTip: visible
-    })
+  const handleMouseLeave = () => {
+    setShowToolTip(false)
   }
 
-  handleMouseEnter = () => {
-    this.setToolTipVisibility(true)
-  }
-
-  handleMouseLeave = () => {
-    this.setToolTipVisibility(false)
-  }
-
-  render() {
-    const {
-      children,
-      content,
-      isPlainHtml,
-      rimless,
-      placement,
-      spacer
-    } = this.props
-
-    return <Manager>
+  return (
+    <Manager>
       <Reference>
         {({ref}) => (
-          <span
-            onMouseOut={this.handleMouseLeave}
-            onMouseOver={this.handleMouseEnter}
+          <StyledSpan
+            onMouseOut={handleMouseLeave}
+            onMouseOver={handleMouseEnter}
             ref={ref}
-            style={{display: 'inline-block'}}
           >
             {children}
-          </span>
+          </StyledSpan>
         )}
       </Reference>
-      {this.state.showToolTip && content
+      {showToolTip && content
       && ReactDOM.createPortal(
         <Popper
           placement={placement}
@@ -67,10 +56,10 @@ class Popover extends React.Component {
               ref={ref}
               style={style}
               spacer={spacer}
+              rimless={rimless}
             >
               <StyledBox
                 isPlainHtml={isPlainHtml}
-                rimless={rimless}
               >
                 {content}
               </StyledBox>
@@ -84,7 +73,7 @@ class Popover extends React.Component {
         </Popper>
         , document.body)}
     </Manager>
-  }
+  )
 }
 
 Popover.defaultProps = {
