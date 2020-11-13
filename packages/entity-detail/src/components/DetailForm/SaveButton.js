@@ -1,19 +1,15 @@
-import {Button, Popover} from 'tocco-ui'
+import {Button, Popover, theme} from 'tocco-ui'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import modes from '../../util/modes'
-import ErrorBox from '../ErrorBox'
+import ErrorItems from '../ErrorItems'
 
 const StyledButton = styled(Button)`
-  ${({hasErrors, theme}) => hasErrors && `
-   background-color: ${theme.colors.signal.warning.text};
-
-   &:hover {
-     background-color: ${theme.colors.signal.warning.text};
-   }
+  ${({hasErrors}) => hasErrors && `
+    background-color: ${theme.color('paper')};
   `};
 `
 
@@ -27,9 +23,8 @@ const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
   return <ConditionalWrap condition={hasErrors}
     wrap={children => (
       <Popover
-        content={<ErrorBox formErrors={formErrors}/>}
+        content={<ErrorItems formErrors={formErrors}/>}
         placement="bottom"
-        rimless
         spacer={10}
       >{children}
       </Popover>)
@@ -41,7 +36,7 @@ const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
       disabled={submitting }
       ink="primary"
       label={msg(`client.entity-detail.${mode === modes.CREATE ? 'create' : 'save'}`)}
-      look="raised"
+      look={hasErrors ? 'flat' : 'raised'}
       pending={submitting}
       type="submit"
       {...(hasErrors && {icon: 'exclamation'})}

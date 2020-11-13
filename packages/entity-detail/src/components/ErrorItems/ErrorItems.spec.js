@@ -1,15 +1,15 @@
 import React from 'react'
 import {mount} from 'enzyme'
 import {IntlProvider} from 'react-intl'
-import {SignalBox, SignalList} from 'tocco-ui'
+import {SignalList} from 'tocco-ui'
 
-import ErrorBox from './ErrorBox'
+import ErrorItems from './ErrorItems'
 
 const EMPTY_FUNC = () => {}
 
 describe('entity-detail', () => {
   describe('components', () => {
-    describe('ErrorBox', () => {
+    describe('ErrorItems', () => {
       test('should render relation errors', () => {
         const formErrors = {
           _error: {
@@ -36,7 +36,7 @@ describe('entity-detail', () => {
 
         const wrapper = mount(
           <IntlProvider locale="en">
-            <ErrorBox
+            <ErrorItems
               formErrors={{...formErrors}}
               showErrors={EMPTY_FUNC}
             />
@@ -45,12 +45,8 @@ describe('entity-detail', () => {
         const signalListItem = wrapper.find(SignalList.Item)
 
         expect(wrapper.find('span').text()).to.equal('client.entity-detail.invalidRelationErrors')
-        expect(wrapper.find(SignalBox).prop('condition')).to.be.equal('danger')
-        expect(signalListItem.get(0).props.condition).to.be.equal('danger')
-        expect(signalListItem.get(1).props.condition).to.be.equal('danger')
         expect(signalListItem.get(1).props.label).to.be
           .equal('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status, 3)')
-        expect(signalListItem.get(2).props.condition).to.be.equal('danger')
         expect(signalListItem.get(2).props.label).to.be
           .equal('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status2, 4)')
       })
@@ -59,7 +55,7 @@ describe('entity-detail', () => {
         const formErrors = {_error: {}, firstname: {mandatory: ['mandatory!']}}
         const wrapper = mount(
           <IntlProvider locale="en">
-            <ErrorBox
+            <ErrorItems
               formErrors={{...formErrors}}
               showErrors={EMPTY_FUNC}
             />
@@ -81,7 +77,7 @@ describe('entity-detail', () => {
 
         const wrapper = mount(
           <IntlProvider locale="en">
-            <ErrorBox
+            <ErrorItems
               formErrors={{...formErrors}}
               showErrors={EMPTY_FUNC}
             />
