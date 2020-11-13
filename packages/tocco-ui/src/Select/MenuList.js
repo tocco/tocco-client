@@ -22,12 +22,13 @@ const StyledMoreOptionsAvailable = styled.div`
 `
 
 const MenuList = props => {
+  const {moreOptionsAvailable, moreOptionsAvailableText} = props.selectProps
   return (
     <components.MenuList {...props}>
       {props.children}
-      {props.moreOptionsAvailable
+      {moreOptionsAvailable
         && <StyledMoreOptionsAvailable reactSelectTheme={props.theme}>
-          {props.moreOptionsAvailableText}
+          {moreOptionsAvailableText}
         </StyledMoreOptionsAvailable>
       }
     </components.MenuList>
@@ -36,8 +37,10 @@ const MenuList = props => {
 
 MenuList.propTypes = {
   children: PropTypes.node,
-  moreOptionsAvailable: PropTypes.bool,
-  moreOptionsAvailableText: PropTypes.string,
+  selectProps: PropTypes.shape({
+    moreOptionsAvailable: PropTypes.bool,
+    moreOptionsAvailableText: PropTypes.string
+  }),
   theme: PropTypes.object
 }
 

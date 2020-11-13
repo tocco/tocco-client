@@ -10,23 +10,17 @@ const handleMouseUp = (openAdvancedSearch, value) => event => {
 }
 
 const IndicatorsContainer = props => {
-  const {
-    children,
-    openAdvancedSearch,
-    immutable,
-    value,
-    ...restProps
-  } = props
+  const {openAdvancedSearch, isDisabled} = props.selectProps
 
   return (
-    <components.IndicatorsContainer {...restProps}>
-      {children}
+    <components.IndicatorsContainer {...props}>
+      {props.children}
       {openAdvancedSearch
-      && !immutable
+      && !isDisabled
       && <span
         onTouchEnd={e => e.stopPropagation()}
         onMouseDown={e => e.stopPropagation()}
-        onMouseUp={handleMouseUp(openAdvancedSearch, value)}>
+        onMouseUp={handleMouseUp(openAdvancedSearch, props.value)}>
         <Ball
           icon="search"
           tabIndex={-1}
@@ -46,8 +40,10 @@ const ItemPropType = PropTypes.shape({
 
 IndicatorsContainer.propTypes = {
   children: PropTypes.node,
-  openAdvancedSearch: PropTypes.func,
-  immutable: PropTypes.bool,
+  selectProps: PropTypes.shape({
+    openAdvancedSearch: PropTypes.func,
+    isDisabled: PropTypes.bool
+  }),
   value: PropTypes.oneOfType([
     ItemPropType,
     PropTypes.arrayOf(ItemPropType)
