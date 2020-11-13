@@ -177,14 +177,7 @@ webpackConfig.module.rules.push(
   },
   {
     test: /site\.webmanifest$/,
-    use: [
-      {
-        loader: 'file-loader'
-      },
-      {
-        loader: 'app-manifest-loader'
-      }
-    ]
+    use: ['file-loader', 'app-manifest-loader']
   }
 )
 
