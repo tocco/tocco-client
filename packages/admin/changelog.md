@@ -1,3 +1,11 @@
+0.3.31
+- Adjust relations view height for smaller screens
+- Increase min-width of table column for more usability on smaller screens
+- Disable touch on mobile and adjust margin
+- Autocomplete support
+- Fix select for mobile
+- Fix display bug
+
 0.3.30
 - Adjust filter pane height when expanded
 - Change chevron icon in multi select input when dropdown is opened
