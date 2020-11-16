@@ -11,27 +11,27 @@ import {
 
 const StyledLink = styled.a`
   ${declareFont()}
-  ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+  ${({breakWords}) => breakWords ? declareWrappingText() : declareNoneWrappingText()}
 
   && {
-    color: ${props => props.neutral
+    color: ${({neutral}) => neutral
     ? theme.color('text')
-    : theme.color('primary')};
-    text-decoration: ${props => props.neutral ? 'underline' : 'none'};
+    : theme.color('secondary')};
+    text-decoration: ${({neutral}) => neutral ? 'underline' : 'none'};
 
     &:hover,
     &:focus {
-      color: ${props => props.neutral
-    ? shadeColor(_get(props.theme, 'colors.text'), 1)
-    : shadeColor(_get(props.theme, 'colors.primary'), 1)};
-      text-decoration: ${props => props.neutral ? 'none' : 'underline'};
+      color: ${({neutral, theme}) => neutral
+    ? shadeColor(_get(theme, 'colors.text'), 1)
+    : shadeColor(_get(theme, 'colors.secondary'), 1)};
+      text-decoration: ${({neutral}) => neutral ? 'none' : 'underline'};
     }
 
     &:active {
-      color: ${props => props.neutral
-    ? shadeColor(_get(props.theme, 'colors.text'), 2)
-    : shadeColor(_get(props.theme, 'colors.primary'), 2)};
-      text-decoration: ${props => props.neutral ? 'none' : 'underline'};
+      color: ${({neutral, theme}) => neutral
+    ? shadeColor(_get(theme, 'colors.text'), 2)
+    : shadeColor(_get(theme, 'colors.secondary'), 2)};
+      text-decoration: ${({neutral}) => neutral ? 'none' : 'underline'};
     }
   }
 `
