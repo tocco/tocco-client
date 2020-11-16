@@ -1,5 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
+import {act} from '@testing-library/react-hooks'
 
 import Popover from './Popover'
 
@@ -12,10 +13,16 @@ describe('tocco-ui', () => {
       expect(wrapper.find('.child')).to.have.length(1)
       expect(wrapper.find('.content')).to.have.length(0)
 
-      wrapper.simulate('mouseover')
+      act(() => {
+        wrapper.find('span').first().simulate('mouseover')
+      })
+
       expect(wrapper.find('.content')).to.have.length(1)
 
-      wrapper.simulate('mouseout')
+      act(() => {
+        wrapper.find('span').first().simulate('mouseout')
+      })
+
       expect(wrapper.find('.content')).to.have.length(0)
     })
   })
