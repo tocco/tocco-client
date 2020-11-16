@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import {FormattedValue, Typography, scale} from 'tocco-ui'
@@ -29,8 +29,8 @@ export const StyledTitleWrapper = styled.div`
 `
 
 export const StyledMessageWrapper = styled.div`
-  margin-top: ${({closable, hasTitle}) => closable
-  ? scale.space(1.5)
+  margin-top: ${({closable, hasTitle, titleHeight}) => closable
+  ? `${titleHeight}px`
     : hasTitle
     ? scale.space(2.2)
     : scale.space(0.5)
@@ -41,9 +41,7 @@ export const StyledMessageWrapper = styled.div`
   }
 `
 
-export const StyledChildrenWrapper = styled.div`
-  margin-top: ${scale.space(0)};
-`
+const StyledChildrenWrapper = styled.div``
 
 Content.defaultProps = {
   tag: Typography.P
@@ -61,12 +59,28 @@ Content.propTypes = {
 }
 
 const TitleMessage = ({title, message, children, closable}) => {
+  const [titleHeight, setTitleHeight] = useState(0)
+  const ref = useRef(null)
+
+  const observer = new ResizeObserver(entries => {
+    const {height} = entries[0].contentRect
+    setTitleHeight(height)
+  })
+
+  useEffect(() => {
+    const observable = ref.current
+    if (observable) {
+      observer.observe(observable)
+    }
+    return () => observer.unobserve(observable)
+  }, [ref, observer])
+
   return (
     <>
-      {title && <StyledTitleWrapper>
+      {title && <StyledTitleWrapper ref={ref}>
         <Content content={title} tag={Typography.H1} />
       </StyledTitleWrapper>}
-      <StyledMessageWrapper closable={closable} hasTitle={!!title}>
+      <StyledMessageWrapper closable={closable} hasTitle={!!title} titleHeight={titleHeight}>
         {message && <Content content={message}/>}
         <StyledChildrenWrapper>
           {children}
