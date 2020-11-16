@@ -1,9 +1,8 @@
 import React from 'react'
 import {mount} from 'enzyme'
 import {IntlProvider} from 'react-intl'
-import {SignalList} from 'tocco-ui'
 
-import ErrorItems from './ErrorItems'
+import ErrorItems, {ErrorItem} from './ErrorItems'
 
 const EMPTY_FUNC = () => {}
 
@@ -42,13 +41,14 @@ describe('entity-detail', () => {
             />
           </IntlProvider>
         )
-        const signalListItem = wrapper.find(SignalList.Item)
 
         expect(wrapper.find('span').text()).to.equal('client.entity-detail.invalidRelationErrors')
-        expect(signalListItem.get(1).props.label).to.be
-          .equal('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status, 3)')
-        expect(signalListItem.get(2).props.label).to.be
-          .equal('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status2, 4)')
+        expect(wrapper.find(ErrorItem).at(0).text()).to.eql(
+          'Pflichtfeld ist nicht ausgefüllt. (label_de, User_status, 3)'
+        )
+        expect(wrapper.find(ErrorItem).at(1).text()).to.eql(
+          'Pflichtfeld ist nicht ausgefüllt. (label_de, User_status2, 4)'
+        )
       })
 
       test('should show field', () => {
@@ -83,12 +83,11 @@ describe('entity-detail', () => {
             />
           </IntlProvider>
         )
-        const signalListItem = wrapper.find(SignalList.Item)
-
         expect(wrapper.find('span').text()).to.equal('client.entity-detail.validatorErrors')
-        expect(signalListItem.get(1).props.label).to.be.equal('1')
-        expect(signalListItem.get(2).props.label).to.be.equal('2')
-        expect(signalListItem.get(3).props.label).to.be.equal('3')
+        expect(wrapper.find(ErrorItem)).to.have.length(3)
+        expect(wrapper.find(ErrorItem).at(0).text()).to.eql('1')
+        expect(wrapper.find(ErrorItem).at(1).text()).to.eql('2')
+        expect(wrapper.find(ErrorItem).at(2).text()).to.eql('3')
       })
     })
   })
