@@ -10,7 +10,7 @@ import {declareFont, shadeColor, theme} from '../utilStyles'
 export default styled(Link)`
   ${declareFont()}
   text-decoration: none;
-  color: ${theme.color('primary')};
+  color: ${theme.color('secondary')};
 
   * {
     color: ${theme.color('text')};
@@ -22,14 +22,14 @@ export default styled(Link)`
   &:focus,
   &:focus * {
     color: ${theme.color('secondaryLight')};
-    text-decoration: ${props => props.neutral ? 'none' : 'underline'};
+    text-decoration: ${({neutral}) => neutral ? 'none' : 'underline'};
   }
 
   &:active,
   &:active * {
-    color: ${props => props.neutral
-  ? shadeColor(_get(props.theme, 'colors.text'), 2)
-  : shadeColor(_get(props.theme, 'colors.primary'), 2)};
-    text-decoration: ${props => props.neutral ? 'none' : 'underline'};
+    color: ${({neutral, theme}) => neutral
+  ? shadeColor(_get(theme, 'colors.text'), 2)
+  : shadeColor(_get(theme, 'colors.secondary'), 2)};
+    text-decoration: ${({neutral}) => neutral ? 'none' : 'underline'};
   }
 `

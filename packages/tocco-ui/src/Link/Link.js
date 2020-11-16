@@ -8,25 +8,37 @@ import {design} from '../utilStyles'
 /**
  * Use <Link> for internal and external links in running text.
  */
-const Link = props => {
-  return (
-    <StyledLink
-      alt={props.alt}
-      breakWords={props.breakWords}
-      download={props.download}
-      href={props.href}
-      neutral={props.neutral}
-      onClick={props.onClick}
-      rel={props.rel}
-      tabIndex={props.tabIndex}
-      target={props.target}
-      title={props.title || (props.breakWords ? undefined : props.label)}
-    >
-      {props.icon && <Icon icon={props.icon} position={design.position.PREPEND}/>}
-      {props.label || props.children}
-    </StyledLink>
-  )
-}
+const Link = ({
+  alt,
+  breakWords,
+  download,
+  href,
+  neutral,
+  onClick,
+  rel,
+  tabIndex,
+  target,
+  title,
+  label,
+  icon,
+  children
+}) => (
+  <StyledLink
+    alt={alt}
+    breakWords={breakWords}
+    download={download}
+    href={href}
+    neutral={neutral}
+    onClick={onClick}
+    rel={rel}
+    tabIndex={tabIndex}
+    target={target}
+    title={title || (breakWords ? undefined : label)}
+  >
+    {icon && <Icon icon={icon} position={design.position.PREPEND}/>}
+    {label || children}
+  </StyledLink>
+)
 
 Link.defaultProps = {
   breakWords: true,
