@@ -7,7 +7,7 @@ export const TopPositioning = styled.div`
   grid-template-areas:
     'search'
     'list';
-  grid-auto-rows: auto minmax(400px, 1fr);
+  grid-auto-rows: auto minmax(${({searchFormType}) => searchFormType === 'simple' ? 'auto' : '400px'}, 1fr);
   /* safari only fix to ensure proper height in modal */
   @media not all and (min-resolution: .001dpcm)
     { @supports (-webkit-appearance:none) and (stroke-color: transparent) {
