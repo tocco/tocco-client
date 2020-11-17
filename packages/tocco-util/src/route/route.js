@@ -5,7 +5,14 @@ import sagaUtil from '../saga'
 import asyncRoute from './asyncRoute'
 import {dispatchInput} from './input'
 
-export const loadRoute = (store, input, importRouteDependencies) => props => {
+const loadedComponents = {}
+
+export const loadRoute = (store, input, importRouteDependencies, key) => props => {
+  if (key && loadedComponents[key]) {
+    const Component = loadedComponents[key]
+    return <Component {...props}/>
+  }
+
   const Component = asyncRoute(() =>
     new Promise(resolve => {
       importRouteDependencies().then(imported => {
@@ -35,6 +42,10 @@ export const loadRoute = (store, input, importRouteDependencies) => props => {
       })
     })
   )
+
+  if (key) {
+    loadedComponents[key] = Component
+  }
 
   return <Component {...props}/>
 }
