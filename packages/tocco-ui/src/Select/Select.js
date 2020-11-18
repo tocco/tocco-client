@@ -111,11 +111,7 @@ const Select = ({
           openAdvancedSearch={openAdvancedSearch}
           moreOptionsAvailable={moreOptionsAvailable}
           moreOptionsAvailableText={moreOptionsAvailableText}
-          onBlur={event => {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-          }
+          blurInputOnSelect={false}
         />
       </div>
     </div>
