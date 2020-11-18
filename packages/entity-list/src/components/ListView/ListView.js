@@ -48,7 +48,7 @@ const ListView = ({
       const content = [
         ...showSelectionController
           ? [<SelectionControllerContainer key="selectionController"/>] : [],
-        ...showActions !== false
+        ...showActions !== false && actionBar
           ? [<ActionContainer
             key={`listAction-${actionBar.id}`}
             definition={actionBar}
