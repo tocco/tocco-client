@@ -107,7 +107,7 @@ function* loadDisplays(currentDisplays, type) {
     ), {})
     Object.entries(loadedDisplays).forEach(([entityName, values]) => {
       Object.entries(values).forEach(([key, display]) => {
-        cache.add('display', `${entityName}.${key}${type ? `.${type}` : ''}}`, display)
+        cache.add('display', `${entityName}.${key}${type ? `.${type}` : ''}`, display)
       })
     })
     return loadedDisplays
