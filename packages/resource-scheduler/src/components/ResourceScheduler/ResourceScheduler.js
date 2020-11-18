@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import SplitPane from 'react-split-pane'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -21,37 +21,35 @@ const StyledSplitPane = styled(SplitPane)`
   }
 `
 
-class ResourceScheduler extends React.Component {
-  constructor(props) {
-    super(props)
-    this.props.initialize()
-  }
+const ResourceScheduler = ({
+  initialize,
+  locale,
+  calendarTypes,
+  updateRequestedCalendars,
+  requestedCalendars
+}) => {
+  useEffect(() => initialize(), [])
 
-  paneWidth = 325
-
-  render() {
-    const props = this.props
-    return (
-      <StyledSplitPane
-        defaultSize={this.paneWidth}
-        minSize={325}
-        resizerStyle={resizerStyle}
-        split="vertical"
-      >
-        <StyledSplitPanelWrapperLeft>
-          <SearchPanel
-            locale={props.locale}
-            calendarTypes={props.calendarTypes}
-            updateRequestedCalendars={props.updateRequestedCalendars}
-            requestedCalendars={this.props.requestedCalendars}
-          />
-        </StyledSplitPanelWrapperLeft>
-        <StyledSplitPanelWrapperRight>
-          <SchedulerAppContainer/>
-        </StyledSplitPanelWrapperRight>
-      </StyledSplitPane>
-    )
-  }
+  return (
+    <StyledSplitPane
+      defaultSize={325}
+      minSize={325}
+      resizerStyle={resizerStyle}
+      split="vertical"
+    >
+      <StyledSplitPanelWrapperLeft>
+        <SearchPanel
+          locale={locale}
+          calendarTypes={calendarTypes}
+          updateRequestedCalendars={updateRequestedCalendars}
+          requestedCalendars={requestedCalendars}
+        />
+      </StyledSplitPanelWrapperLeft>
+      <StyledSplitPanelWrapperRight>
+        <SchedulerAppContainer/>
+      </StyledSplitPanelWrapperRight>
+    </StyledSplitPane>
+  )
 }
 
 ResourceScheduler.propTypes = {
