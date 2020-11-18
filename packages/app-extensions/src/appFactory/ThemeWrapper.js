@@ -1,20 +1,17 @@
 import {ThemeProvider, withTheme} from 'styled-components'
 import _merge from 'lodash/merge'
 import {ToccoTheme} from 'tocco-theme'
-import React from 'react'
+import React, {memo} from 'react'
 import PropTypes from 'prop-types'
 
-class ThemeWrapper extends React.PureComponent {
-  render() {
-    const {theme, appTheme} = this.props
-    const mergedTheme = _merge({}, theme, appTheme)
+const ThemeWrapper = ({theme, appTheme, children}) => {
+  const mergedTheme = _merge({}, theme, appTheme)
 
-    return <ThemeProvider theme={mergedTheme}>
-      <React.Fragment>
-        {this.props.children}
-      </React.Fragment>
-    </ThemeProvider>
-  }
+  return <ThemeProvider theme={mergedTheme}>
+    <>
+      {children}
+    </>
+  </ThemeProvider>
 }
 
 ThemeWrapper.defaultProps = {
@@ -27,4 +24,4 @@ ThemeWrapper.propTypes = {
   children: PropTypes.node
 }
 
-export default withTheme(ThemeWrapper)
+export default memo(withTheme(ThemeWrapper))
