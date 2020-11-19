@@ -3,7 +3,7 @@ import SlideMenu from 'react-burger-menu/lib/menus/slide'
 import {theme} from 'tocco-ui'
 
 const calcViewportHeight = () => {
-  const vh = window.innerHeight * 0.01
+  const vh = document.documentElement.clientHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh}px`)
 }
 
@@ -17,7 +17,7 @@ export const StyledWrapper = styled.div`
   grid-template:
     'header header' auto
     'menu content' 1fr / auto 1fr;
-  background-color: #fff;
+  background-color: ${theme.color('paper')};
   height: calc(var(--vh, 1vh) * 100);
 
   .bm-burger-button button:focus {
