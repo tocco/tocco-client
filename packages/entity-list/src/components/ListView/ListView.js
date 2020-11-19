@@ -1,37 +1,14 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useMemo} from 'react'
 import {intlShape} from 'react-intl'
-import {LoadMask, theme} from 'tocco-ui'
+import {LoadMask} from 'tocco-ui'
 import {js} from 'tocco-util'
-import styled from 'styled-components'
 
 import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
 import {getColumnDefinition, getTable, getActionBar} from '../../util/api/forms'
 import TableContainer from '../../containers/TableContainer'
 import ActionContainer from '../../containers/ActionContainer'
-
-export const ListWrapper = styled.div`
-  grid-row-start: table-start;
-`
-
-const ActionWrapper = styled.div`
-  display: flex;
-  background-color: ${theme.color('paper')};
-  margin-bottom: 3px;
-  padding: 0 8px 8px;
-  grid-row-start: action-start;
-  flex-wrap: wrap;
-
-  & > * {
-    margin-top: 8px;
-  }
-`
-
-const StyledListView = styled.div`
-  display: grid;
-  grid-template-rows: [action-start] auto [table-start] minmax(200px, 1fr);
-  height: 100%;
-`
+import {StyledListWrapper, StyledActionWrapper, StyledListView} from './StyledComponents'
 
 const ListView = ({
   dataLoadingInProgress,
@@ -56,12 +33,12 @@ const ListView = ({
       const table = getTable(formDefinition)
       const columnsDefinitions = getColumnDefinition(table, sorting, parent, intl, columnDisplayPreferences)
 
-      return <ListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${table.id}`}>
+      return <StyledListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${table.id}`}>
         <TableContainer
           key={`table-${table.id}`}
           columnDefinitions={columnsDefinitions}
         />
-      </ListWrapper>
+      </StyledListWrapper>
     }
   }, [formDefinition, sorting, columnDisplayPreferences])
 
@@ -81,9 +58,9 @@ const ListView = ({
       ]
 
       if (content.length > 0) {
-        return <ActionWrapper key={`listActionWrapper-${actionBar.id}`}>
+        return <StyledActionWrapper key={`listActionWrapper-${actionBar.id}`}>
           {content}
-        </ActionWrapper>
+        </StyledActionWrapper>
       }
     }
   }, [dataLoadingInProgress, formDefinition])
