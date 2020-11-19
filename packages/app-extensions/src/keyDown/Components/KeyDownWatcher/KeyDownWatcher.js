@@ -5,13 +5,6 @@ import _pick from 'lodash/pick'
 const StyledDiv = styled.div`
   display: contents;
 
-  /* safari only fix to ensure proper height of misc divs */
-  @media not all and (min-resolution: .001dpcm)
-    { @supports (-webkit-appearance:none) and (stroke-color: transparent) {
-      display: flex;
-    }
-  }
-
   :focus {
     outline: none;
   }
