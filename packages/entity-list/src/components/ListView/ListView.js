@@ -12,15 +12,6 @@ import ActionContainer from '../../containers/ActionContainer'
 
 export const ListWrapper = styled.div`
   grid-row-start: table-start;
-  /* safari only fix to ensure proper height in modal */
-  ${({searchFormPosition}) => searchFormPosition !== 'left' && `
-    @media not all and (min-resolution: .001dpcm)
-    { @supports (-webkit-appearance:none) and (stroke-color: transparent) {
-      height: -webkit-fit-content;
-      }
-    }
-  `
-  }
 `
 
 const ActionWrapper = styled.div`
