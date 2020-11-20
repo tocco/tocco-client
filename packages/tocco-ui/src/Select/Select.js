@@ -66,6 +66,9 @@ const Select = ({
     <div
       tabIndex="-1"
       id={id}
+      onFocus={() => {
+        selectComponent.current.focus()
+      }}
       style={{
         outlineStyle: 'none',
         cursor: immutable ? 'not-allowed' : 'default'
@@ -112,6 +115,7 @@ const Select = ({
           moreOptionsAvailable={moreOptionsAvailable}
           moreOptionsAvailableText={moreOptionsAvailableText}
           blurInputOnSelect={false}
+          openMenuOnFocus={true}
         />
       </div>
     </div>
