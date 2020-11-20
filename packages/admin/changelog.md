@@ -1,3 +1,9 @@
+0.3.32
+- Style popover to better align with overall design and have better contrast
+- Add margin to error items inside popper
+- Adjust entity list height inside detail view to scale on smaller screens
+- Change link colors to secondary color
+
 0.3.31
 - Adjust relations view height for smaller screens
 - Increase min-width of table column for more usability on smaller screens
