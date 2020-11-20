@@ -135,8 +135,11 @@ class DateAbstract extends React.Component {
         id={this.props.id}
         tabIndex="-1"
         onFocus={() => {
-          const inputElement = this.wrapper.current.getElementsByClassName('flatpickr-input')[1]
-          inputElement.focus()
+          // flatpickr add two input in the DOM. One for the actual value (hidden) and one for the altInput
+          const inputElement = this.wrapper.current.querySelector('input.flatpickr-input:not([type="hidden"])')
+          if (inputElement) {
+            inputElement.focus()
+          }
           setTimeout(() => {
             this.flatpickr.open()
           })
