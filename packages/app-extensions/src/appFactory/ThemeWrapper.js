@@ -1,16 +1,14 @@
 import {ThemeProvider, withTheme} from 'styled-components'
 import _merge from 'lodash/merge'
 import {ToccoTheme} from 'tocco-theme'
-import React, {memo} from 'react'
+import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
 
 const ThemeWrapper = ({theme, appTheme, children}) => {
-  const mergedTheme = _merge({}, theme, appTheme)
+  const mergedTheme = useMemo(() => _merge({}, theme, appTheme), [theme, appTheme])
 
   return <ThemeProvider theme={mergedTheme}>
-    <>
-      {children}
-    </>
+    {children}
   </ThemeProvider>
 }
 
@@ -24,4 +22,4 @@ ThemeWrapper.propTypes = {
   children: PropTypes.node
 }
 
-export default memo(withTheme(ThemeWrapper))
+export default withTheme(ThemeWrapper)
