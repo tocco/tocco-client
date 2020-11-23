@@ -5,14 +5,14 @@ import {cache} from 'tocco-util'
 import * as actions from './actions'
 
 export function* loadMenu(id) {
-  const cachedMenu = cache.get('menu', id)
+  const cachedMenu = cache.getLongTerm('menu', id)
   if (cachedMenu) {
     return cachedMenu
   }
 
   const resp = yield call(rest.requestSaga, 'client/menus/' + id)
   const menu = resp.body.menuItems
-  cache.add('menu', id, menu)
+  cache.addLongTerm('menu', id, menu)
   return menu
 }
 

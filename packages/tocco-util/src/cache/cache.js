@@ -1,17 +1,23 @@
 import nice from '../nice'
 
-export const add = (type, id, value) => {
+const getKey = (type, id) => `cache.${type}.${id}`
+
+export const addShortTerm = (type, id, value) => add(type, id, value, sessionStorage)
+export const addLongTerm = (type, id, value) => add(type, id, value, localStorage)
+
+export const add = (type, id, value, storage) => {
   if (__DEV__ || nice.getRunEnv() !== 'PRODUCTION') {
     return null
   }
 
-  const key = `cache.${type}.${id}`
-  return sessionStorage.setItem(key, JSON.stringify(value))
+  return storage.setItem(getKey(type, id), JSON.stringify(value))
 }
 
-export const get = (type, id) => {
-  const key = `cache.${type}.${id}`
-  const cachedValue = sessionStorage.getItem(key)
+export const getShortTerm = (type, id) => get(type, id, sessionStorage)
+export const getLongTerm = (type, id) => get(type, id, localStorage)
+
+const get = (type, id, storage) => {
+  const cachedValue = storage.getItem(getKey(type, id))
 
   if (!cachedValue) {
     return undefined
@@ -20,6 +26,14 @@ export const get = (type, id) => {
   return JSON.parse(cachedValue)
 }
 
-export const clear = () => {
+export const removeShortTerm = (type, id) => remove(type, id, sessionStorage)
+export const removeLongTerm = (type, id) => remove(type, id, localStorage)
+const remove = (type, id, storage) => storage.removeItem(getKey(type, id))
+
+export const clearShortTerm = () => clear(sessionStorage)
+const clear = storage => storage.clear()
+
+export const clearAll = () => {
+  localStorage.clear()
   sessionStorage.clear()
 }

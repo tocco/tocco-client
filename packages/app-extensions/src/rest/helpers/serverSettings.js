@@ -10,7 +10,7 @@ import {requestSaga} from '../rest'
  * captchaKey
  */
 export function* fetchServerSettings() {
-  const cachedSettings = cache.get('server', 'settings')
+  const cachedSettings = cache.getLongTerm('server', 'settings')
   if (cachedSettings !== undefined) {
     return cachedSettings
   }
@@ -18,7 +18,16 @@ export function* fetchServerSettings() {
   const settingsResponse = yield call(requestSaga, 'client/settings')
   const settings = _omit(settingsResponse.body, ['_links'])
 
-  yield cache.add('server', 'settings', settings)
+  yield cache.addLongTerm('server', 'settings', settings)
 
   return settings
+}
+
+export function* hasRevisionIdChanged() {
+  const prevSettings = cache.getLongTerm('server', 'settings')
+  const settingsResponse = yield call(requestSaga, 'client/settings')
+  const settings = _omit(settingsResponse.body, ['_links'])
+
+  yield cache.addLongTerm('server', 'settings', settings)
+  return !prevSettings || !prevSettings.niceRevision || prevSettings.niceRevision !== settings.niceRevision
 }

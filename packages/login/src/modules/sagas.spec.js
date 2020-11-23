@@ -1,6 +1,6 @@
 import {externalEvents, rest} from 'tocco-app-extensions'
 import {takeLatest, put, select, call, all} from 'redux-saga/effects'
-import {cache} from 'tocco-util'
+import {cache, intl} from 'tocco-util'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
@@ -94,21 +94,40 @@ describe('login', () => {
 
       describe('handleSuccessfulLogin', () => {
         test('should call external event with timeout of reponse body', () => {
-          const gen = sagas.handleSuccessfulLogin({timeout: 33})
-          expect(gen.next().value).to.eql(put(externalEvents.fireExternalEvent('loginSuccess', {timeout: 33})))
-          expect(gen.next().value).to.deep.equal(call(cache.clear))
-          expect(gen.next().value).to.deep.equal(put(setPassword('')))
-          expect(gen.next().done).to.deep.equal(true)
+          const payload = {timeout: 33}
+          return expectSaga(sagas.handleSuccessfulLogin, payload)
+            .provide([
+              [matchers.call.fn(intl.hasUserLocaleChanged), false],
+              [matchers.call.fn(rest.hasRevisionIdChanged), false]
+            ])
+            .put(externalEvents.fireExternalEvent('loginSuccess', payload))
+            .call(cache.clearShortTerm)
+            .put(setPassword(''))
+            .run()
         })
 
         test('should call external event with default timeout if none in body', () => {
-          const gen = sagas.handleSuccessfulLogin({})
-          expect(gen.next().value).to.eql(
-            put(externalEvents.fireExternalEvent('loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT}))
-          )
-          expect(gen.next().value).to.deep.equal(call(cache.clear))
-          expect(gen.next().value).to.deep.equal(put(setPassword('')))
-          expect(gen.next().done).to.deep.equal(true)
+          expectSaga(sagas.handleSuccessfulLogin, {})
+            .provide([
+              [matchers.call.fn(intl.hasUserLocaleChanged), false],
+              [matchers.call.fn(rest.hasRevisionIdChanged), false]
+            ])
+            .put(externalEvents.fireExternalEvent('loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT}))
+            .call(cache.clearShortTerm)
+            .put(setPassword(''))
+            .run()
+        })
+
+        test('should clear long and short term cache', () => {
+          expectSaga(sagas.handleSuccessfulLogin, {})
+            .provide([
+              [matchers.call.fn(intl.hasUserLocaleChanged), true],
+              [matchers.call.fn(rest.hasRevisionIdChanged), false]
+            ])
+            .put(externalEvents.fireExternalEvent('loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT}))
+            .call(cache.clearAll)
+            .put(setPassword(''))
+            .run()
         })
       })
 

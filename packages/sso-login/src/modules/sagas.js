@@ -1,4 +1,5 @@
 import {externalEvents, rest} from 'tocco-app-extensions'
+import {cache, intl} from 'tocco-util'
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
 
 import {transformProviderEntities} from '../utils/providers'
@@ -21,6 +22,12 @@ export function* loadProviders() {
 }
 
 export function* loginCompleted({payload: {result}}) {
+  const [revisionChanged, localChanged] = yield all([call(rest.hasRevisionIdChanged), call(intl.hasUserLocaleChanged)])
+  if (revisionChanged || localChanged) {
+    yield call(cache.clearAll)
+  } else {
+    yield call(cache.clearShortTerm)
+  }
   yield put(externalEvents.fireExternalEvent('loginCompleted', result))
 }
 

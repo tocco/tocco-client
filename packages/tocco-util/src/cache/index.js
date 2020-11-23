@@ -1,2 +1,20 @@
-import {add, get, clear} from './cache'
-export default {add, get, clear}
+import {
+  addShortTerm,
+  addLongTerm,
+  getShortTerm,
+  getLongTerm,
+  removeShortTerm,
+  removeLongTerm,
+  clearShortTerm,
+  clearAll
+} from './cache'
+export default {
+  addShortTerm,
+  addLongTerm,
+  getShortTerm,
+  getLongTerm,
+  removeShortTerm,
+  removeLongTerm,
+  clearShortTerm,
+  clearAll
+}

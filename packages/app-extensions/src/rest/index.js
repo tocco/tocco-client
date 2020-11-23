@@ -23,7 +23,8 @@ import {
   savePreferences
 } from './helpers/preferences'
 import {
-  fetchServerSettings
+  fetchServerSettings,
+  hasRevisionIdChanged
 } from './helpers/serverSettings'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
 
@@ -47,5 +48,6 @@ export default {
   fetchUserPreferences,
   deleteUserPreferences,
   savePreferences,
-  fetchServerSettings
+  fetchServerSettings,
+  hasRevisionIdChanged
 }

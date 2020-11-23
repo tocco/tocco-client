@@ -1,4 +1,5 @@
 import {externalEvents, rest} from 'tocco-app-extensions'
+import {cache, intl} from 'tocco-util'
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {takeLatest, select} from 'redux-saga/effects'
@@ -23,6 +24,11 @@ describe('sso-login', () => {
         test('should call external event with result', () => {
           const result = {successful: true, xy: 2}
           return expectSaga(sagas.loginCompleted, actions.loginCompleted(result))
+            .provide([
+              [matchers.call.fn(intl.hasUserLocaleChanged), false],
+              [matchers.call.fn(rest.hasRevisionIdChanged), false]
+            ])
+            .call(cache.clearShortTerm)
             .put(externalEvents.fireExternalEvent('loginCompleted', result))
             .run()
         })
