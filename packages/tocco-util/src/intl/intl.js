@@ -20,7 +20,7 @@ export const initIntl = async(store, modules, forcedLocale) => {
 }
 
 export const changeLocale = async(store, modules, locale) => {
-  cache.clear()
+  cache.clearAll()
   setLocale(store, modules, locale)
 }
 
@@ -42,19 +42,32 @@ const fetchOptions = {
 }
 
 export const getUserLocale = async() => {
-  const cachedUserLocale = cache.get('user', 'locale')
+  const cachedUserLocale = cache.getLongTerm('user', 'locale')
 
   if (cachedUserLocale) {
     return cachedUserLocale
   }
 
+  const locale = await loadUserLocale()
+  cache.addLongTerm('user', 'locale', locale)
+  return locale
+}
+
+export const hasUserLocaleChanged = async() => {
+  const cachedUserLocale = cache.getLongTerm('user', 'locale')
+  const locale = await loadUserLocale()
+
+  cache.addLongTerm('user', 'locale', locale)
+  return !cachedUserLocale || cachedUserLocale !== locale
+}
+
+const loadUserLocale = async() => {
   const response = await fetch(`${__BACKEND_URL__}/nice2/username`, fetchOptions)
   const userInfo = await response.json()
   let {locale, username} = userInfo
   if (username === 'anonymous') {
     locale = getBrowserLocale()
   }
-  cache.add('user', 'locale', locale)
   return locale
 }
 
@@ -63,7 +76,7 @@ export const loadTextResources = async(locale, modules) => {
   const notLoadedModules = []
 
   modules.forEach(module => {
-    const cachedModuleResource = cache.get('textResource', module)
+    const cachedModuleResource = cache.getLongTerm('textResource', module)
     if (cachedModuleResource) {
       result = {...result, ...cachedModuleResource}
     } else {
@@ -82,7 +95,7 @@ export const loadTextResources = async(locale, modules) => {
           [key]: resources[key]
         }), {})
 
-      cache.add('textResource', module, filtered)
+      cache.addLongTerm('textResource', module, filtered)
       result = {...result, ...filtered}
     })
   }

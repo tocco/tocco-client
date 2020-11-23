@@ -71,8 +71,9 @@ export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExp
 export function* fetchDisplays(request, type) {
   const currentDisplays = Object.entries(request).map(([model, keys]) => ({
     model,
-    keys: keys.filter(key => cache.get('display', `${model}.${key}${type ? `.${type}` : ''}`) === undefined),
-    displays: keys.map(key => ({key, display: cache.get('display', `${model}.${key}${type ? `.${type}` : ''}`)}))
+    keys: keys.filter(key => cache.getShortTerm('display', `${model}.${key}${type ? `.${type}` : ''}`) === undefined),
+    displays: keys
+      .map(key => ({key, display: cache.getShortTerm('display', `${model}.${key}${type ? `.${type}` : ''}`)}))
       .filter(value => value.display !== undefined)
   }))
 
@@ -107,7 +108,7 @@ function* loadDisplays(currentDisplays, type) {
     ), {})
     Object.entries(loadedDisplays).forEach(([entityName, values]) => {
       Object.entries(values).forEach(([key, display]) => {
-        cache.add('display', `${entityName}.${key}${type ? `.${type}` : ''}`, display)
+        cache.addShortTerm('display', `${entityName}.${key}${type ? `.${type}` : ''}`, display)
       })
     })
     return loadedDisplays
@@ -189,7 +190,7 @@ export function* fetchEntities(
  */
 export function* fetchForm(formName, scope, allowNotFound = false) {
   const request = `${formName}/${scope}`
-  const cachedForm = cache.get('form', request)
+  const cachedForm = cache.getLongTerm('form', request)
   if (cachedForm !== undefined) {
     return cachedForm
   }
@@ -201,12 +202,12 @@ export function* fetchForm(formName, scope, allowNotFound = false) {
   const response = yield call(requestSaga, `forms/${request}`, options)
 
   if (allowNotFound && response.status === 404) {
-    cache.add('form', request, null)
+    cache.addLongTerm('form', request, null)
     return null
   }
 
   const form = yield call(defaultFormTransformer, response.body)
-  cache.add('form', request, form)
+  cache.addLongTerm('form', request, form)
   return form
 }
 
@@ -224,14 +225,14 @@ export function* fetchSearchFilters(entityName) {
  * @param entityName {String} Name of the entity you like to fetch the model
  */
 export function* fetchModel(entityName, transformer = defaultModelTransformer) {
-  const cachedModel = cache.get('model', entityName)
+  const cachedModel = cache.getLongTerm('model', entityName)
   if (cachedModel) {
     return cachedModel
   }
 
   const resp = yield call(requestSaga, `entities/${entityName}/model`)
   const model = yield call(transformer, resp.body)
-  cache.add('model', entityName, model)
+  cache.addLongTerm('model', entityName, model)
   return model
 }
 
@@ -335,7 +336,7 @@ export const flattenObjectValues = value =>
  * Helper to fetch information about the currently logged in user including username and active business unit.
  */
 export function* fetchPrincipal() {
-  const cachedPrincipal = cache.get('session', 'principal')
+  const cachedPrincipal = cache.getShortTerm('session', 'principal')
   if (cachedPrincipal !== undefined) {
     return cachedPrincipal
   }
@@ -348,7 +349,7 @@ export function* fetchPrincipal() {
     currentBusinessUnit
   }
 
-  yield cache.add('session', 'principal', principal)
+  yield cache.addShortTerm('session', 'principal', principal)
 
   return principal
 }

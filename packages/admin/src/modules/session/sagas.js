@@ -60,7 +60,7 @@ export function* sessionCheck() {
 }
 
 export function* loadPrincipal() {
-  const cachedPrincipal = cache.get('session', 'principal')
+  const cachedPrincipal = cache.getShortTerm('session', 'principal')
   if (cachedPrincipal !== undefined) {
     yield put(actions.setUsername(cachedPrincipal.username))
     yield put(actions.setCurrentBusinessUnit(cachedPrincipal.currentBusinessUnit))
@@ -71,7 +71,7 @@ export function* loadPrincipal() {
   yield put(actions.setUsername(username))
   yield put(actions.setCurrentBusinessUnit(currentBusinessUnit))
 
-  yield cache.add('session', 'principal', {
+  yield cache.addShortTerm('session', 'principal', {
     username,
     currentBusinessUnit
   })
@@ -86,18 +86,17 @@ export function* changeBusinessUnitId({payload: {businessUnitId}}) {
   const {username} = yield select(sessionSelector)
   const resource = `principals/${username}/businessunit`
   yield call(rest.requestSaga, resource, {method: 'PUT', body: {businessUnit: businessUnitId}})
-  yield call(cache.clear)
   location.reload()
 }
 
 export function* checkSsoAvailable() {
-  const cachedSsoAvailable = cache.get('session', 'ssoAvailable')
+  const cachedSsoAvailable = cache.getLongTerm('session', 'ssoAvailable')
   if (cachedSsoAvailable !== undefined) {
     yield put(actions.setSsoAvailable(cachedSsoAvailable))
   } else {
     const modules = yield call(rest.requestSaga, 'modules')
     const ssoAvailable = modules.body.modules.includes('nice2.optional.sso')
-    cache.add('session', 'ssoAvailable', ssoAvailable)
+    cache.addLongTerm('session', 'ssoAvailable', ssoAvailable)
     yield put(actions.setSsoAvailable(ssoAvailable))
   }
 }

@@ -11,7 +11,7 @@ describe('app-extensions', () => {
   describe('rest', () => {
     describe('helpers', () => {
       beforeEach(() => {
-        cache.clear()
+        cache.clearAll()
       })
 
       describe('buildRequestQuery', () => {
@@ -182,7 +182,7 @@ describe('app-extensions', () => {
         })
 
         test('should serve display from cache if already loaded', () => {
-          cache.add('display', 'User.1', 'Test')
+          cache.addShortTerm('display', 'User.1', 'Test')
 
           return expectSaga(helpers.fetchDisplay, 'User', '1')
             .returns('Test')
@@ -190,7 +190,7 @@ describe('app-extensions', () => {
         })
 
         test('should serve display with type from cache if already loaded', () => {
-          cache.add('display', 'User.1.tooltip', 'Test')
+          cache.addShortTerm('display', 'User.1.tooltip', 'Test')
 
           return expectSaga(helpers.fetchDisplay, 'User', '1', 'tooltip')
             .returns('Test')
@@ -310,7 +310,7 @@ describe('app-extensions', () => {
         })
 
         test('should only load uncached displays and combine results', () => {
-          cache.add('display', 'Gender.1', 'Male')
+          cache.addShortTerm('display', 'Gender.1', 'Male')
 
           const request = {
             Gender: ['1', '2']
@@ -362,8 +362,8 @@ describe('app-extensions', () => {
         })
 
         test('should not request anything if all displays are cached', () => {
-          cache.add('display', 'Gender.1', 'Male')
-          cache.add('display', 'Gender.2', 'Female')
+          cache.addShortTerm('display', 'Gender.1', 'Male')
+          cache.addShortTerm('display', 'Gender.2', 'Female')
 
           const request = {
             Gender: ['1', '2']
