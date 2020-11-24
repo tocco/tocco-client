@@ -60,8 +60,8 @@ const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
 
   return (
     <StyledLogin>
-      <StyledMobileSloganImg src={ToccoSlogan} alt="Tocco Slogan"/>
-      <StyledSloganImg src={ToccoSlogan} alt="Tocco Slogan"/>
+      <StyledMobileSloganImg src={ToccoSlogan} alt="Tocco Slogan" height="42.3" width="460"/>
+      <StyledSloganImg src={ToccoSlogan} alt="Tocco Slogan" height="42.3" width="460"/>
       <StyledLoginWrapper>
         <StyledHeadingLogin><FormattedMessage id="client.admin.welcomeTitle"/></StyledHeadingLogin>
         {ssoAvailable && <SsoLoginPart/>}
