@@ -63,7 +63,9 @@ const ModalContent = props => {
     if (observable) {
       observer.observe(observable)
     }
-    return () => observer.unobserve(observable)
+    return () => {
+      if (observable) observer.unobserve(observable)
+    }
   }, [ref, observer])
 
   return <div className="rrt-confirm-holder" >
