@@ -1,59 +1,52 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography, scale, Link} from 'tocco-ui'
+import {Typography, Link} from 'tocco-ui'
 import {FormattedMessage, intlShape} from 'react-intl'
-import styled from 'styled-components'
 
 import ToccoLogo from '../../assets/tocco_red.svg'
-
-const StyledFormattedMessageWrapper = styled.div`
-  font-size: ${scale.font(-1.5)};
-  margin-top: ${scale.space(0.5)};
-`
-
-const StyledBlockWrapper = styled.div`
-  margin-top: ${scale.space(0.5)};
-`
+import {StyledLogo, StyledBlockWrapper, StyledFormattedMessageWrapper} from './StyledComponents'
 
 const AboutTocco = ({niceVersion, niceRevision, intl}) => {
   const msg = id => intl.formatMessage({id})
 
-  return <Typography.Span>
-    <img width="80%" src={ToccoLogo}/>
-    <div dangerouslySetInnerHTML={{__html: msg('client.admin.tocco.address')}}/>
-    <Typography.P>
-      <Link
-        href={msg('client.admin.tocco.homepage')}
-        neutral
-        target="_blank"
-      >
-        <FormattedMessage id="client.admin.tocco.homepage"/>
-      </Link><br/>
-      <Link
-        href={'mailto:' + msg('client.admin.tocco.email')}
-        neutral
-        target="_blank"
-      >
-        <FormattedMessage id="client.admin.tocco.email"/>
-      </Link><br/>
-      <Link
-        href={'tel:' + msg('client.admin.tocco.phone')}
-        neutral
-        target="_blank"
-      >
-        <FormattedMessage id="client.admin.tocco.phone"/>
-      </Link>
-    </Typography.P>
-    <StyledBlockWrapper>
+  return (
+    <Typography.Span>
+      <StyledLogo src={ToccoLogo} height="53.34" width="580" alt="tocco-logo"/>
+      <div dangerouslySetInnerHTML={{__html: msg('client.admin.tocco.address')}}/>
       <Typography.P>
-        <FormattedMessage id="client.admin.about.versionLabel"/>:&nbsp; {niceVersion}<br/>
-        <FormattedMessage id="client.admin.about.revisionLabel"/>:&nbsp; {niceRevision}
+        <Link
+          href={msg('client.admin.tocco.homepage')}
+          neutral
+          target="_blank"
+        >
+          <FormattedMessage id="client.admin.tocco.homepage"/>
+        </Link><br/>
+        <Link
+          href={'mailto:' + msg('client.admin.tocco.email')}
+          neutral
+          target="_blank"
+        >
+          <FormattedMessage id="client.admin.tocco.email"/>
+        </Link><br/>
+        <Link
+          href={'tel:' + msg('client.admin.tocco.phone')}
+          neutral
+          target="_blank"
+        >
+          <FormattedMessage id="client.admin.tocco.phone"/>
+        </Link>
       </Typography.P>
-    </StyledBlockWrapper>
-    <StyledFormattedMessageWrapper>
-      <FormattedMessage id="client.admin.copyright"/>
-    </StyledFormattedMessageWrapper>
-  </Typography.Span>
+      <StyledBlockWrapper>
+        <Typography.P>
+          <FormattedMessage id="client.admin.about.versionLabel"/>:&nbsp; {niceVersion}<br/>
+          <FormattedMessage id="client.admin.about.revisionLabel"/>:&nbsp; {niceRevision}
+        </Typography.P>
+      </StyledBlockWrapper>
+      <StyledFormattedMessageWrapper>
+        <FormattedMessage id="client.admin.copyright"/>
+      </StyledFormattedMessageWrapper>
+    </Typography.Span>
+  )
 }
 
 AboutTocco.propTypes = {
