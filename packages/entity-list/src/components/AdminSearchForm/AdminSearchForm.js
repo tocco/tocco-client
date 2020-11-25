@@ -10,7 +10,7 @@ import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import SearchFilterList from '../SearchFilterList'
 
 const SEARCH_FILTER_BUTTON_HEIGHT = 28
-const SEARCH_FILTER_PADDING = 5
+const SEARCH_FILTER_PADDING = 10
 const MAX_HEIGHT_THRESHOLD = 30
 const MAX_SIZE_SEARCH_FILTER = 25
 
@@ -24,7 +24,7 @@ const getGutter = () => () => {
   return gutterEl
 }
 
-const AdminSearchForm = ({resetSearch, theme, intl, searchFilters}) => {
+const AdminSearchForm = ({resetSearch, intl, searchFilters}) => {
   const splitWrapperEl = useRef(null)
   const [size, setSize] = useState([MAX_SIZE_SEARCH_FILTER, 100 - MAX_SIZE_SEARCH_FILTER])
   const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
