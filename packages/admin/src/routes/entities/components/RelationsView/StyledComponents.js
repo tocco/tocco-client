@@ -71,23 +71,26 @@ export const RelationBox = styled.div`
     `
   };
 
-  &:hover ${RelationLinks} {
-    display: flex;
-  }
-
-  && {
-    :hover{
-      background-color: ${theme.color('secondaryLight')};
-
-      * {
-        color: ${theme.color('paper')};
-      }
-      cursor: pointer;
+  // allow hover styles only on non-touch devices
+  @media (hover: hover) and (pointer: fine) {
+    &:hover ${RelationLinks} {
+      display: flex;
     }
-  }
 
-  ${/* sc-selector */StyledLink}:hover * {
-    color: ${theme.color('secondary')};
+    && {
+      :hover{
+        background-color: ${theme.color('secondaryLight')};
+
+        * {
+          color: ${theme.color('paper')};
+        }
+        cursor: pointer;
+      }
+    }
+
+    ${/* sc-selector */StyledLink}:hover * {
+      color: ${theme.color('secondary')};
+    }
   }
 `
 
