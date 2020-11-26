@@ -17,7 +17,7 @@ import {
 } from './modules/list/actions'
 import {setSelection} from './modules/selection/actions'
 
-const isDefined = value => !(value === undefined || value === null)
+const isDefined = value => value !== undefined
 
 export const getDispatchActions = (input, init) =>
   actionSettings.reduce((acc, actionSetting) => {
