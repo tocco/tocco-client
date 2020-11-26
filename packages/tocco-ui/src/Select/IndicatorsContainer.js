@@ -3,6 +3,7 @@ import {components} from 'react-select'
 import PropTypes from 'prop-types'
 
 import Ball from '../Ball'
+import {StyledIndicatorsContainerWrapper} from './StyledIndicatorsContainer'
 
 const handleMouseUp = (openAdvancedSearch, value) => event => {
   openAdvancedSearch(value)
@@ -13,9 +14,10 @@ const IndicatorsContainer = props => {
   const {openAdvancedSearch, isDisabled} = props.selectProps
 
   return (
-    <components.IndicatorsContainer {...props}>
-      {props.children}
-      {openAdvancedSearch
+    <StyledIndicatorsContainerWrapper>
+      <components.IndicatorsContainer {...props}>
+        {props.children}
+        {openAdvancedSearch
       && !isDisabled
       && <span
         onTouchEnd={e => e.stopPropagation()}
@@ -26,7 +28,8 @@ const IndicatorsContainer = props => {
           tabIndex={-1}
         />
       </span>}
-    </components.IndicatorsContainer>
+      </components.IndicatorsContainer>
+    </StyledIndicatorsContainerWrapper>
   )
 }
 
