@@ -1,14 +1,7 @@
-import mergeStrategy from './mergeStrategy/'
-import wizard, {sagas as wizardSagas} from './wizard/'
-import mergeMatrix, {sagas as mergeMatrixSagas} from './mergeMatrix/'
+import merge, {sagas as mergeSagas} from './merge'
 
 export default {
-  mergeMatrix,
-  mergeStrategy,
-  wizard
+  merge
 }
 
-export const sagas = [
-  mergeMatrixSagas,
-  wizardSagas
-]
+export const sagas = [mergeSagas]
