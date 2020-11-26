@@ -53,6 +53,10 @@ const transformLabel = ({secondaryPosition}) => css`
 
 const declareCursor = ({isDisplay, immutable}) => `cursor: ${(!isDisplay && immutable) ? 'not-allowed' : 'auto'};`
 
+export const StyledLabelWrapper = styled.div`
+  width: calc(100% - ${scale.space(0.5)});
+`
+
 const StyledStatedValueLabel = styled.label`
   &&& {
     ${declareFont({
@@ -67,6 +71,8 @@ const StyledStatedValueLabel = styled.label`
     padding: 0 ${scale.space(-2)};
     position: absolute;
     top: 50%;
+    width: ${({secondaryPosition}) => secondaryPosition ? 'auto' : 'inherit'};
+    overflow: hidden;
     ${props => transformLabel(props)}
     ${props => declareCursor(props)}
     pointer-events: ${({secondaryPosition}) => secondaryPosition ? 'auto' : 'none'};
