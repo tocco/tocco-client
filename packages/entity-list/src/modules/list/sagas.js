@@ -9,6 +9,7 @@ import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
+import * as entityListActions from '../entityList/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
 import {getSorting, getSelectable, getClickable, getEndpoint, getConstriction, getFields} from '../../util/api/forms'
 import {entitiesListTransformer} from '../../util/api/entities'
@@ -35,6 +36,7 @@ export default function* sagas() {
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
     takeLatest(selectionActions.RELOAD_DATA, loadData, 1),
     takeLatest(actions.ON_ROW_CLICK, onRowClick),
+    takeLatest(entityListActions.SET_PARENT, setParent),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent)
   ])
 }
@@ -115,8 +117,9 @@ export function* getBasicQuery(regardSelection = true) {
 }
 
 export function* prepareEndpointUrl(endpoint) {
-  const {parent} = yield select(inputSelector)
-  return parent ? endpoint.replace('{parentKey}', parent.key) : endpoint
+  const {parent} = yield select(entityListSelector)
+  const parentKey = parent ? parent.key : ''
+  return parent ? endpoint.replace('{parentKey}', parentKey) : endpoint
 }
 
 export function* countEntities() {
@@ -149,6 +152,10 @@ export function* changePage({payload}) {
   yield put(actions.setCurrentPage(page))
   yield call(requestEntities, page)
   yield put(actions.setInProgress(false))
+}
+
+export function* setParent() {
+  yield call(reloadData)
 }
 
 export function* reloadData() {

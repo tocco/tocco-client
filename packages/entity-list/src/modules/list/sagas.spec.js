@@ -7,6 +7,7 @@ import {api} from 'tocco-util'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
+import * as entityListActions from '../entityList/actions'
 import rootSaga, * as sagas from './sagas'
 import {getSorting, getSelectable, getClickable, getFields, getEndpoint, getConstriction} from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
@@ -41,6 +42,7 @@ describe('entity-list', () => {
               takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
               takeLatest(selectionActions.RELOAD_DATA, sagas.loadData, 1),
               takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
+              takeLatest(entityListActions.SET_PARENT, sagas.setParent),
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent)
             ]))
             expect(generator.next().done).to.be.true
@@ -336,6 +338,7 @@ describe('entity-list', () => {
                 [select(sagas.selectionSelector), {showSelectedRecords}],
                 [select(sagas.inputSelector), {entityName}],
                 [select(sagas.listSelector), {endpoint}],
+                [select(sagas.entityListSelector), {}],
                 [matchers.call.fn(sagas.getBasicQuery), {}],
                 [matchers.call.fn(rest.fetchEntityCount), entityCount]
               ])
@@ -357,6 +360,7 @@ describe('entity-list', () => {
                 [select(sagas.selectionSelector), {showSelectedRecords, selection}],
                 [select(sagas.inputSelector), {entityName}],
                 [select(sagas.listSelector), {endpoint}],
+                [select(sagas.entityListSelector), {}],
                 [matchers.call.fn(sagas.getBasicQuery), {}],
                 [matchers.call.fn(rest.fetchEntityCount), entityCount]
               ])
@@ -471,25 +475,25 @@ describe('entity-list', () => {
 
         describe('prepareEndpointUrl', () => {
           test('should replace parentKey if parent exists', () => {
-            const input = {parent: {key: 123}}
+            const entityList = {parent: {key: 123}}
             const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
             const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint)
               .provide([
-                [select(sagas.inputSelector), input]
+                [select(sagas.entityListSelector), entityList]
               ])
               .returns(expectedResult)
               .run()
           })
 
           test('should return endpoint as it is if parent is undefined', () => {
-            const input = {parent: null}
+            const entityList = {parent: null}
             const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint)
               .provide([
-                [select(sagas.inputSelector), input]
+                [select(sagas.entityListSelector), entityList]
               ])
               .returns(endpoint)
               .run()
