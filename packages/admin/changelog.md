@@ -1,3 +1,11 @@
+0.3.33
+- Adjust tile width of modal to match modal width
+- Adjust top margin of modal content
+- Set height and width attribute to allow the browser to calculate/reserve sufficient space and minimize layout shifts
+- Remove hover of relation boxes on mobile devices
+- Add caption to preview
+- Improve caching (long-term cache)
+
 0.3.32
 - Style popover to better align with overall design and have better contrast
 - Add margin to error items inside popper
