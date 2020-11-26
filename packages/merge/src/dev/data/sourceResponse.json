@@ -1,0 +1,258 @@
+{
+  "entities": [
+    {
+      "key": "1",
+      "model": "User",
+      "version": 690,
+      "paths": {
+        "firstname": {
+          "type": "string",
+          "writable": null,
+          "value": "Muhammad"
+        },
+        "lastname": {
+          "type": "string",
+          "writable": null,
+          "value": "Ali"
+        },
+        "callname": {
+          "type": "string",
+          "writable": null,
+          "value": "Cassius Clay"
+        },
+        "birthdate": {
+          "type": "birthdate",
+          "writable": null,
+          "value": "1942-01-17"
+        },
+        "relGender": {
+          "type": "entity",
+          "writable": null,
+          "value": {
+            "_links": null,
+            "key": "1",
+            "model": "Gender",
+            "version": 1
+          }
+        },
+        "relPrincipal": {
+          "type": "entity-list",
+          "writable": null,
+          "value": [
+            {
+              "key": "3150",
+              "model": "Principal",
+              "version": 12,
+              "paths": {}
+            },
+            {
+              "key": "5711",
+              "model": "Principal",
+              "version": 21,
+              "paths": {}
+            },
+            {
+              "key": "5712",
+              "model": "Principal",
+              "version": 21,
+              "paths": {}
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "2",
+      "model": "User",
+      "version": 690,
+      "paths": {
+        "firstname": {
+          "type": "string",
+          "writable": null,
+          "value": "Muhammet"
+        },
+        "lastname": {
+          "type": "string",
+          "writable": null,
+          "value": "Ali"
+        },
+        "callname": {
+          "type": "string",
+          "writable": null,
+          "value": null
+        },
+        "birthdate": {
+          "type": "birthdate",
+          "writable": null,
+          "value": null
+        },
+        "relGender": {
+          "type": "entity",
+          "writable": null,
+          "value": null
+        },
+        "relPrincipal": {
+          "type": "entity-list",
+          "writable": null,
+          "value": []
+        }
+      }
+    },
+    {
+      "key": "10",
+      "model": "User",
+      "version": 690,
+      "paths": {
+        "firstname": {
+          "type": "string",
+          "writable": null,
+          "value": "Muhammad"
+        },
+        "lastname": {
+          "type": "string",
+          "writable": null,
+          "value": "Ali"
+        },
+        "callname": {
+          "type": "string",
+          "writable": null,
+          "value": "Cassius Marcellus Clay Jr."
+        },
+        "birthdate": {
+          "type": "birthdate",
+          "writable": null,
+          "value": "1942-01-17"
+        },
+        "relGender": {
+          "type": "entity",
+          "writable": null,
+          "value": {
+            "_links": null,
+            "key": "2",
+            "model": "Gender",
+            "version": 1
+          }
+        },
+        "relPrincipal": {
+          "type": "entity-list",
+          "writable": null,
+          "value": [
+            {
+              "key": "3150",
+              "model": "Principal",
+              "version": 12,
+              "paths": {}
+            },
+            {
+              "key": "3026",
+              "model": "Principal",
+              "version": 21,
+              "paths": {}
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "relations": [
+    {
+      "entityKey": "1",
+      "relationName": "relMail",
+      "keys": [
+        "2",
+        "3",
+        "5",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "23",
+        "233",
+        "2626",
+        "6261"
+      ]
+    },
+    {
+      "entityKey": "2",
+      "relationName": "relMail",
+      "keys": []
+    },
+    {
+      "entityKey": "10",
+      "relationName": "relMail",
+      "keys": [
+        "2",
+        "3",
+        "5",
+        "1337"
+      ]
+    }
+  ],
+  "displays": [
+    {
+      "model": "User",
+      "values": [
+        {
+          "key": "1",
+          "display": "Muhammad, Alli 1"
+        },
+        {
+          "key": "2",
+          "display": "Muhammet , Alli 2"
+        },
+        {
+          "key": "10",
+          "display":  "Muhammad , Alli 3"
+        }
+      ]
+    },
+    {
+      "model": "Gender",
+      "values": [
+        {
+          "key": "1",
+          "display": "Male"
+        },
+        {
+          "key": "2",
+          "display": "Female"
+        }
+      ]
+    },
+    {
+      "model": "Principal",
+      "values": [
+        {
+          "key": "3150",
+          "display": "Login 3150"
+        },
+        {
+          "key": "3026",
+          "display": "Login 3026 "
+        },
+        {
+          "key": "5711",
+          "display": "Login 5711"
+        } ,
+        {
+          "key": "5712",
+          "display": "Login 5711"
+        }
+      ]
+    }
+  ],
+  "labels": {
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "callname": "Callname",
+    "birthdate": "Birthdate",
+    "relGender": "Gender",
+    "relPrincipal": "Logins",
+    "relMail": "EMails"
+  },
+  "mergeStrategy": {
+    "display": "Delete"
+  }
+}
