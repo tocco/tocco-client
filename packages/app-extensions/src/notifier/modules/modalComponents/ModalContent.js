@@ -65,7 +65,9 @@ const ModalContent = props => {
       window.scrollTo(0, 0)
     }
     return () => {
-      if (observable) observer.unobserve(observable)
+      if (observable) {
+        observer.unobserve(observable)
+      }
     }
   }, [ref, observer])
 

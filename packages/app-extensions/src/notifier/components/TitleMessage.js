@@ -73,7 +73,9 @@ const TitleMessage = ({title, message, children, closable}) => {
       observer.observe(observable)
     }
     return () => {
-      if (observable) observer.unobserve(observable)
+      if (observable) {
+        observer.unobserve(observable)
+      }
     }
   }, [ref, observer])
 
