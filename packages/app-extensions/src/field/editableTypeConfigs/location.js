@@ -31,7 +31,9 @@ export default {
     return {
       ...events,
       onChange,
-      onBlur: () => { formData.touchField(formName, formField.id) }
+      onBlur: () => {
+        formData.touchField(formName, formField.id)
+      }
     }
   },
   dataContainerProps: ({formField, formName}) => ({

@@ -50,7 +50,9 @@ const Select = ({
   }
 
   const handleMenuOpen = () => {
-    if (fetchOptions) { fetchOptions() }
+    if (fetchOptions) {
+      fetchOptions()
+    }
   }
 
   const debouncedSearchOptions

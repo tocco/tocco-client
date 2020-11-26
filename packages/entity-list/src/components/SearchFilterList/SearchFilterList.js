@@ -31,7 +31,9 @@ SearchFilterButton.propTypes = {
 }
 
 const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) => {
-  if (!searchFilters) return null
+  if (!searchFilters) {
+    return null
+  }
 
   if (searchFilters.length === 0) {
     return <StyledMessageWrapper>

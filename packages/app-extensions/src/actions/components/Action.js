@@ -12,7 +12,9 @@ const ActionVisual = ({definition, onClick, selection, parent, mode, callback, d
     return customActions[definition.id]()
   }
 
-  if (!modeFitsScopes(mode, definition.scopes)) return null
+  if (!modeFitsScopes(mode, definition.scopes)) {
+    return null
+  }
 
   const ActionType = definition.componentType === componentTypes.ACTION_GROUP ? ActionGroup : SingleAction
 

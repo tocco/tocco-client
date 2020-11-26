@@ -36,8 +36,12 @@ export function* openAdvancedSearch(config, {payload}) {
     remoteFieldFormName,
     listFormDefinition,
     selection,
-    ids => { answerChannel.put(advancedSearchActions.advancedSearchUpdate(ids)) },
-    () => { answerChannel.put(advancedSearchActions.advancedSearchClose()) },
+    ids => {
+      answerChannel.put(advancedSearchActions.advancedSearchUpdate(ids))
+    },
+    () => {
+      answerChannel.put(advancedSearchActions.advancedSearchClose())
+    },
     fieldId,
     multi)
 

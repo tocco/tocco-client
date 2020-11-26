@@ -13,7 +13,9 @@ function changeEditOptionValue(state, {payload}) {
   const {name, value} = payload
   const newState = [].concat(state)
   const editOption = newState.find(eO => eO.name === name)
-  if (editOption) editOption.value = value
+  if (editOption) {
+    editOption.value = value
+  }
   return newState
 }
 
@@ -21,7 +23,9 @@ function activateEditOption(state, {payload}) {
   const {name, activate} = payload
   const newState = [].concat(state)
   const editOption = newState.find(eO => eO.name === name)
-  if (editOption) editOption.active = activate
+  if (editOption) {
+    editOption.active = activate
+  }
   return newState
 }
 

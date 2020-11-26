@@ -13,7 +13,9 @@ export default (tableElRef, resizeCallback) => {
   const onMouseUp = () => {
     window.removeEventListener('mousemove', onMouseMove)
     window.removeEventListener('mouseup', onMouseUp)
-    setTimeout(() => { setResizingColumn(null) }, 100)
+    setTimeout(() => {
+      setResizingColumn(null)
+    }, 100)
   }
 
   let lastPositionX

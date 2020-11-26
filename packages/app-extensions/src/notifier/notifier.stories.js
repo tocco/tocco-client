@@ -104,7 +104,9 @@ class Story extends React.Component {
           <Button
             look="raised"
             label="Secondary action (and close)"
-            onClick={() => { action('Secondary action')(); props.close() }}
+            onClick={() => {
+              action('Secondary action')(); props.close()
+            }}
           />
         </React.Fragment>
       ),

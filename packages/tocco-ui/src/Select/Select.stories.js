@@ -31,7 +31,9 @@ export class SelectStory extends React.Component {
   fetchOptions = () => {
     if (this.state.options === null) {
       this.setState({...this.state, options: null, isLoading: true})
-      setTimeout(() => { this.setState({...this.state, options, isLoading: false}) }, this.props.delay || 0)
+      setTimeout(() => {
+        this.setState({...this.state, options, isLoading: false})
+      }, this.props.delay || 0)
     }
   }
 

@@ -21,7 +21,9 @@ import {getFormattedTime} from '../../utils/time'
 
 const getLicense = () => {
   const licence = process.env.FULL_CALENDAR_LICENCE
-  if (licence) return licence
+  if (licence) {
+    return licence
+  }
   consoleLogger.logWarning('This Version runs with the NonCommercial FullCalendar license.')
   return 'CC-Attribution-NonCommercial-NoDerivatives' // noncommercial license
 }
@@ -161,7 +163,9 @@ const FullCalendar = ({
       resourceColumns={[{labelText: ''}]}
       resourceRender={resourceRender}
       eventRender={eventRender}
-      eventClick={info => { onEventClick(info.event) }}
+      eventClick={info => {
+        onEventClick(info.event)
+      }}
       firstDay={MONDAY}
       minTime="06:00:00"
       maxTime="23:00:00"

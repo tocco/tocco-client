@@ -4,7 +4,9 @@ import * as actions from './actions'
 
 const setFormBase = (state, {payload}) => {
   const {formBase} = payload
-  if (!formBase) return {...state}
+  if (!formBase) {
+    return {...state}
+  }
 
   return {
     ...state,

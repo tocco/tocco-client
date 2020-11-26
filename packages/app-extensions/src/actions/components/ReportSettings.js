@@ -53,7 +53,9 @@ export class ReportSettings extends React.Component {
           listApp={this.props.listApp}
           form={getFormDefinition(settingsDefinition, intl)}
           noButtons
-          onChange={({values, valid}) => { this.handleSettingsChange(values, valid) }}
+          onChange={({values, valid}) => {
+            this.handleSettingsChange(values, valid)
+          }}
           defaultValues={getFormDataDefaults(settingsDefinition)}
         />
         {this.customSettingsDefined
@@ -61,7 +63,9 @@ export class ReportSettings extends React.Component {
           listApp={this.props.listApp}
           form={settingsDefinition.customSettings.form.form}
           noButtons
-          onChange={({values, valid}) => { this.handleCustomSettingsChange(values, valid) }}
+          onChange={({values, valid}) => {
+            this.handleCustomSettingsChange(values, valid)
+          }}
         />
         }
         <div className="button-wrapper">

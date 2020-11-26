@@ -6,7 +6,9 @@ import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
 import Action from '../../../components/LazyAction'
 
 const mapDispatchToProps = (dispatch, props) => ({
-  emitAction: action => { dispatch(actionEmitter.dispatchEmittedAction(action)) }
+  emitAction: action => {
+    dispatch(actionEmitter.dispatchEmittedAction(action))
+  }
 })
 
 const handleNavigateToCreate = props => relationName => {
