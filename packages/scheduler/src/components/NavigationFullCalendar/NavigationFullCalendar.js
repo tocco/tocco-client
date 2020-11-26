@@ -104,7 +104,11 @@ const NavigationFullCalendar = props => {
         </ButtonGroup>
         <Button
           icon={isLoading ? '' : 'sync'}
-          onClick={() => { if (!isLoading) { refresh() } }}
+          onClick={() => {
+            if (!isLoading) {
+              refresh()
+            }
+          }}
           pending={isLoading}
           title={msg('client.scheduler.reload', intl)}
         />

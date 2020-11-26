@@ -25,7 +25,11 @@ const HeaderRow = props => {
           return (
             <StyledMergeMatrixTh
               bold
-              onClick={() => { if (!isTargetEntity(entity.pk)) props.changeTargetEntity(entity.pk) }}
+              onClick={() => {
+                if (!isTargetEntity(entity.pk)) {
+                  props.changeTargetEntity(entity.pk)
+                }
+              }}
               key={'th' + idx}
               {...attributes}
               selected={isTargetEntity(entity.pk)}>

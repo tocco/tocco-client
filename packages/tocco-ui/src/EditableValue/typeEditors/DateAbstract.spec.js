@@ -8,7 +8,9 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('DateAbstract', () => {
         test('should call initialized', done => {
-          const initSpy = () => { done() }
+          const initSpy = () => {
+            done()
+          }
 
           const wrapper = enzymeUtil.mountEmbedded(
             <DateAbstract options={{}} initialized={initSpy} onChange={() => {}}/>

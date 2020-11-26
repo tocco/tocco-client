@@ -30,7 +30,9 @@ const ActionGroup = props => {
   const hasDefaultAction = (definition.defaultAction && Object.keys(definition.defaultAction).length > 0)
 
   const label = hasDefaultAction ? definition.defaultAction.label : definition.label
-  const onClickHandler = hasDefaultAction ? () => { onClick(definition.defaultAction) } : null
+  const onClickHandler = hasDefaultAction ? () => {
+    onClick(definition.defaultAction)
+  } : null
   const actionId = hasDefaultAction ? definition.defaultAction.id : definition.id
   return <ButtonMenu
     buttonProps={{look: 'raised'}}

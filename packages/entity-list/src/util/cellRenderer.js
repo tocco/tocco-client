@@ -28,7 +28,9 @@ const getDisplayExpression = (field, entity) =>
   </LazyDataCell>
 
 const getAction = (field, entity, parent) =>
-  <div onClick={e => { e.stopPropagation() }}>
+  <div onClick={e => {
+    e.stopPropagation()
+  }}>
     <actions.Action
       key={'tableAction' + field.id}
       definition={field}

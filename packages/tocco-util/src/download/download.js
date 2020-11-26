@@ -5,8 +5,12 @@ export const downloadUrl = (url, fileName) => {
   a.target = '_blank'
   document.body.appendChild(a)
   a.click()
-  if (window.URL.revokeObjectURL) { window.URL.revokeObjectURL(url) }
-  if (a.remove) { a.remove() }
+  if (window.URL.revokeObjectURL) {
+    window.URL.revokeObjectURL(url)
+  }
+  if (a.remove) {
+    a.remove()
+  }
 }
 
 export const openUrl = url => {
@@ -15,14 +19,20 @@ export const openUrl = url => {
   a.target = '_blank'
   document.body.appendChild(a)
   a.click()
-  if (window.URL.revokeObjectURL) { window.URL.revokeObjectURL(url) }
-  if (a.remove) { a.remove() }
+  if (window.URL.revokeObjectURL) {
+    window.URL.revokeObjectURL(url)
+  }
+  if (a.remove) {
+    a.remove()
+  }
 }
 
 export const downloadSupportedByBrowser = () => {
   const a = document.createElement('a')
   const result = typeof a.download !== 'undefined'
-  if (a.remove) { a.remove() }
+  if (a.remove) {
+    a.remove()
+  }
   return result
 }
 

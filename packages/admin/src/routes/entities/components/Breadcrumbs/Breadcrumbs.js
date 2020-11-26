@@ -22,7 +22,9 @@ const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
     ...(currentViewTitle ? [{display: currentViewTitle}] : [])
   ]
 
-  if (breadcrumbs.length === 0) return null
+  if (breadcrumbs.length === 0) {
+    return null
+  }
 
   return <StyledBreadcumbs>
     <Helmet defer={false}>

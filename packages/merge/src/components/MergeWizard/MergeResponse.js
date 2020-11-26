@@ -14,7 +14,9 @@ import {
 } from '../MergeMatrix/StyledMergeMatrix'
 
 export const EntityResponseTable = props => {
-  if (!props.responseEntities || props.responseEntities.length === 0) return <div/>
+  if (!props.responseEntities || props.responseEntities.length === 0) {
+    return <div/>
+  }
   return (
     <React.Fragment>
       <Typography.H5>{props.title}</Typography.H5>
@@ -72,7 +74,9 @@ class MergeResponse extends React.Component {
           ink="primary"
           label={this.msg('client.merge.close')}
           look="raised"
-          onClick={() => { this.props.fireExternalEvent('close') }}
+          onClick={() => {
+            this.props.fireExternalEvent('close')
+          }}
         />
       </React.Fragment>
     )
