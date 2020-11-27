@@ -17,17 +17,17 @@ export const declareTypograhpy = (props, mode) => {
     line-height: ${theme.lineHeight('regular')(props)};
 
     a {
-      color: ${theme.color('primary')(props)};
+      color: ${theme.color('secondary')(props)};
       text-decoration: none;
 
       &:hover,
       &:focus {
-        color: ${props => shadeColor(_get(props.theme, 'colors.primary'), 1)}
+        color: ${shadeColor(_get(props.theme, 'colors.secondary'), 1)};
         text-decoration: underline;
       }
 
       &:active {
-        color: ${props => shadeColor(_get(props.theme, 'colors.primary'), 2)}
+        color: ${shadeColor(_get(props.theme, 'colors.secondary'), 2)};
       }
     }
 
