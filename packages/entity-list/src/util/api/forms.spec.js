@@ -382,6 +382,32 @@ describe('entity-list', () => {
           })
         })
 
+        describe('getSearchEndpoint', () => {
+          const getFormDefinition = searchEndpoint => ({
+            children: [{
+              layoutType: 'table',
+              componentType: 'table',
+              ...(searchEndpoint !== null ? {searchEndpoint} : {})
+            }]
+          })
+
+          test('should return search endpoint', () => {
+            const searchEndpoint = 'nice2/rest/xc'
+            const result = forms.getSearchEndpoint(getFormDefinition(searchEndpoint))
+            expect(result).to.eql(searchEndpoint)
+          })
+
+          test('should return null if search endpoint is not defined', () => {
+            const result = forms.getSearchEndpoint(getFormDefinition(null))
+            expect(result).to.be.null
+          })
+
+          test('should return null if search endpoint is empty', () => {
+            const result = forms.getSearchEndpoint(getFormDefinition(''))
+            expect(result).to.be.null
+          })
+        })
+
         describe('getConstriction', () => {
           const getFormDefinition = constriction => ({
             children: [{

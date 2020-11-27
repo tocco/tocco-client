@@ -69,6 +69,7 @@ const ACTION_HANDLERS = {
   [actions.SET_FORM_SELECTABLE]: reducerUtil.singleTransferReducer('formSelectable'),
   [actions.SET_FORM_CLICKABLE]: reducerUtil.singleTransferReducer('formClickable'),
   [actions.SET_ENDPOINT]: reducerUtil.singleTransferReducer('endpoint'),
+  [actions.SET_SEARCH_ENDPOINT]: reducerUtil.singleTransferReducer('searchEndpoint'),
   [actions.SET_CONSTRICTION]: reducerUtil.singleTransferReducer('constriction'),
   [actions.SET_SHOW_LINK]: reducerUtil.singleTransferReducer('showLink')
 
@@ -93,6 +94,7 @@ const initialState = {
   showLink: false,
   lazyData: {},
   endpoint: null,
+  searchEndpoint: null,
   constriction: null
 }
 
