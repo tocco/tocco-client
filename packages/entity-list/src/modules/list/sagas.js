@@ -1,4 +1,5 @@
 import _isEmpty from 'lodash/isEmpty'
+import _isEqual from 'lodash/isEqual'
 import _union from 'lodash/union'
 import {externalEvents, rest, remoteEvents, actionEmitter} from 'tocco-app-extensions'
 import _omit from 'lodash/omit'
@@ -11,7 +12,15 @@ import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
 import * as entityListActions from '../entityList/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
-import {getSorting, getSelectable, getClickable, getEndpoint, getConstriction, getFields} from '../../util/api/forms'
+import {
+  getSorting,
+  getSelectable,
+  getClickable,
+  getEndpoint,
+  getSearchEndpoint,
+  getConstriction,
+  getFields
+} from '../../util/api/forms'
 import {entitiesListTransformer} from '../../util/api/entities'
 import * as preferencesActions from '../preferences/actions'
 
@@ -105,31 +114,39 @@ export function* getBasicQuery(regardSelection = true) {
   const list = yield select(listSelector)
 
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
+
+  const relevantSearchFormFetchOptions = _omit(searchFormFetchOptions, ['filters', 'tql'])
   const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters, searchFormSearchFilter)
   const where = yield call(getTql, inputTql, searchFormFetchOptions.tql)
 
+  const hasUserChanges = Object.keys(relevantSearchFormFetchOptions).length > 0
+    || !_isEqual(inputSearchFilters || [], filter)
+    || (!!searchFormFetchOptions.tql && searchFormFetchOptions.tql.length > 0)
+
   return {
-    ..._omit(searchFormFetchOptions, ['filters', 'tql']),
+    ...relevantSearchFormFetchOptions,
     ...(filter && filter.length > 0 ? {filter} : {}),
     ...(where ? {where} : {}),
-    ...(list.constriction && {constriction: list.constriction})
+    ...(list.constriction && {constriction: list.constriction}),
+    hasUserChanges
   }
 }
 
-export function* prepareEndpointUrl(endpoint) {
+export function* prepareEndpointUrl(endpoint, searchEndpoint, hasUserChanges) {
   const {parent} = yield select(entityListSelector)
   const parentKey = parent ? parent.key : ''
-  return parent ? endpoint.replace('{parentKey}', parentKey) : endpoint
+  const selectedEndpoint = hasUserChanges && searchEndpoint ? searchEndpoint : endpoint
+  return selectedEndpoint ? selectedEndpoint.replace('{parentKey}', parentKey) : null
 }
 
 export function* countEntities() {
   const {entityName} = yield select(inputSelector)
-  const {endpoint} = yield select(listSelector)
+  const {endpoint, searchEndpoint} = yield select(listSelector)
   const {showSelectedRecords, selection} = yield select(selectionSelector)
 
   const regardSelection = !showSelectedRecords
   const query = yield call(getBasicQuery, regardSelection)
-  const preparedEndpoint = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
+  const preparedEndpoint = yield call(prepareEndpointUrl, endpoint, searchEndpoint, query.hasUserChanges)
 
   const requestOptions = {
     method: endpoint ? 'GET' : 'POST',
@@ -199,7 +216,7 @@ export function* loadRelationDisplays(relationFields, entities) {
 export function* fetchEntitiesAndAddToStore(page) {
   const {entityName, formName} = yield select(entityListSelector)
   const {columns: columnPreferences} = yield select(preferencesSelector)
-  const {entityStore, sorting, limit, formDefinition, endpoint} = yield select(listSelector)
+  const {entityStore, sorting, limit, formDefinition, endpoint, searchEndpoint} = yield select(listSelector)
   if (!entityStore[page]) {
     const {paths, relationFields, displayExpressionFields} = yield call(getFields, formDefinition, columnPreferences)
     const basicQuery = yield call(getBasicQuery)
@@ -210,7 +227,7 @@ export function* fetchEntitiesAndAddToStore(page) {
       limit,
       paths
     }
-    const preparedEndpoint = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
+    const preparedEndpoint = yield call(prepareEndpointUrl, endpoint, searchEndpoint, basicQuery.hasUserChanges)
     const requestOptions = {
       method: endpoint ? 'GET' : 'POST',
       ...(preparedEndpoint ? {endpoint: preparedEndpoint} : {})
@@ -293,6 +310,8 @@ export function* loadFormDefinition(formDefinition, formName) {
   yield put(actions.setFormClickable(clickable))
   const endpoint = yield call(getEndpoint, formDefinition)
   yield put(actions.setEndpoint(endpoint))
+  const searchEndpoint = yield call(getSearchEndpoint, formDefinition)
+  yield put(actions.setSearchEndpoint(searchEndpoint))
   const constriction = yield call(getConstriction, formDefinition)
   yield put(actions.setConstriction(constriction))
 }

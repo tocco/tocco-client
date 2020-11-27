@@ -30,6 +30,11 @@ export const getEndpoint = formDefinition => {
   return table.endpoint || null
 }
 
+export const getSearchEndpoint = formDefinition => {
+  const table = getTable(formDefinition)
+  return table.searchEndpoint || null
+}
+
 export const getConstriction = formDefinition => {
   const table = getTable(formDefinition)
   return table.constriction || null

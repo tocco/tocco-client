@@ -20,6 +20,7 @@ const EXPECTED_INITIAL_STATE = {
   showLink: false,
   lazyData: {},
   endpoint: null,
+  searchEndpoint: null,
   constriction: null
 }
 
@@ -313,6 +314,20 @@ describe('entity-list', () => {
 
           expect(reducer(expectedStateAfter, actions.setSortingInteractive('firstname', true)))
             .to.deep.equal(expectedStateAfter2)
+        })
+
+        test('should handle SET_SEARCH_ENDPOINT', () => {
+          const newSearchEndpoint = '/foo/bar'
+
+          const stateBefore = {
+            searchEndpoint: null
+          }
+
+          const expectedStateAfter = {
+            searchEndpoint: newSearchEndpoint
+          }
+
+          expect(reducer(stateBefore, actions.setSearchEndpoint(newSearchEndpoint))).to.deep.equal(expectedStateAfter)
         })
       })
     })

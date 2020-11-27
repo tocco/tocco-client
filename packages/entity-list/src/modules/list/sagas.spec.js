@@ -9,7 +9,15 @@ import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
 import * as entityListActions from '../entityList/actions'
 import rootSaga, * as sagas from './sagas'
-import {getSorting, getSelectable, getClickable, getFields, getEndpoint, getConstriction} from '../../util/api/forms'
+import {
+  getSorting,
+  getSelectable,
+  getClickable,
+  getFields,
+  getEndpoint,
+  getSearchEndpoint,
+  getConstriction
+} from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
 
 const generateState = (entityStore = {}, page) => ({
@@ -381,6 +389,7 @@ describe('entity-list', () => {
             const selectable = true
             const clickable = true
             const endpoint = 'customEndpoint'
+            const searchEndpoint = 'customSearchEndpoint'
             const constriction = 'sampleConstriction'
 
             return expectSaga(sagas.loadFormDefinition, formDefinition, formName)
@@ -389,6 +398,7 @@ describe('entity-list', () => {
                 [matchers.call.fn(getSelectable), selectable],
                 [matchers.call.fn(getClickable), clickable],
                 [matchers.call.fn(getEndpoint), endpoint],
+                [matchers.call.fn(getSearchEndpoint), searchEndpoint],
                 [matchers.call.fn(getConstriction), constriction]
               ])
               .call(rest.fetchForm, formName, 'list')
@@ -396,6 +406,7 @@ describe('entity-list', () => {
               .put(actions.setFormSelectable(selectable))
               .put(actions.setFormClickable(clickable))
               .put(actions.setEndpoint(endpoint))
+              .put(actions.setSearchEndpoint(searchEndpoint))
               .put(actions.setConstriction(constriction))
               .run()
           })
@@ -409,6 +420,7 @@ describe('entity-list', () => {
                 [matchers.call.fn(getSelectable), false],
                 [matchers.call.fn(getClickable), false],
                 [matchers.call.fn(getEndpoint), null],
+                [matchers.call.fn(getSearchEndpoint), null],
                 [matchers.call.fn(getConstriction), null]
               ])
               .not.call(rest.fetchForm, formName, 'list')
@@ -487,15 +499,58 @@ describe('entity-list', () => {
               .run()
           })
 
-          test('should return endpoint as it is if parent is undefined', () => {
+          test('should remove parentKey placeholder if parent is undefined', () => {
             const entityList = {parent: null}
             const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
+            const expectedResult = 'nice2/rest/entities/2.0/User//test' // REST API doesn't care about duplicate slash
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint)
               .provide([
                 [select(sagas.entityListSelector), entityList]
               ])
-              .returns(endpoint)
+              .returns(expectedResult)
+              .run()
+          })
+
+          test('should use search endpoint if defined and has user search input', () => {
+            const entityList = {parent: {key: 123}}
+            const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
+            const searchEndpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test/searchresults'
+            const expectedResult = 'nice2/rest/entities/2.0/User/123/test/searchresults'
+
+            return expectSaga(sagas.prepareEndpointUrl, endpoint, searchEndpoint, true)
+              .provide([
+                [select(sagas.entityListSelector), entityList]
+              ])
+              .returns(expectedResult)
+              .run()
+          })
+
+          test('should use regular endpoint if search endpoint not defined and has user search input', () => {
+            const entityList = {parent: {key: 123}}
+            const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
+            const searchEndpoint = undefined
+            const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
+
+            return expectSaga(sagas.prepareEndpointUrl, endpoint, searchEndpoint, true)
+              .provide([
+                [select(sagas.entityListSelector), entityList]
+              ])
+              .returns(expectedResult)
+              .run()
+          })
+
+          test('should use regular endpoint if search endpoint defined and does not have user search input', () => {
+            const entityList = {parent: {key: 123}}
+            const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
+            const searchEndpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test/searchresults'
+            const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
+
+            return expectSaga(sagas.prepareEndpointUrl, endpoint, searchEndpoint, false)
+              .provide([
+                [select(sagas.entityListSelector), entityList]
+              ])
+              .returns(expectedResult)
               .run()
           })
         })
@@ -520,7 +575,39 @@ describe('entity-list', () => {
 
             const expectedResult = {
               filter: ['filter1', 'filter2', 'filter3'],
-              where: '(foo == "bar") and (relParent.pk == 1 and relGender.pk == 3 and txtFulltext ~= "full")'
+              where: '(foo == "bar") and (relParent.pk == 1 and relGender.pk == 3 and txtFulltext ~= "full")',
+              hasUserChanges: true
+            }
+
+            return expectSaga(sagas.getBasicQuery)
+              .provide([
+                [select(sagas.inputSelector), input],
+                [select(sagas.searchFormSelector), searchForm],
+                [select(sagas.selectionSelector), selection],
+                [select(sagas.listSelector), {}],
+                [matchers.call.fn(getSearchFormValues), searchFormValues]
+              ])
+              .returns(expectedResult)
+              .run()
+          })
+
+          test('should return an object with hasUserChanges `false` if has only input attributes', () => {
+            const input = {searchFilters: ['filter1', 'filter2'], tql: 'foo == "bar"'}
+            const searchForm = {
+              formFieldsFlat: {
+                relGender: 'single-remote-field'
+              }
+            }
+            const selection = {
+              showSelectedRecords: false
+            }
+            const searchFormValues = {
+            }
+
+            const expectedResult = {
+              filter: ['filter1', 'filter2'],
+              where: '(foo == "bar")',
+              hasUserChanges: false
             }
 
             return expectSaga(sagas.getBasicQuery)
