@@ -10,22 +10,24 @@ import {design} from '../utilStyles'
  * Use <Button> to trigger any actions. Choose look and ink according Material Design.
  */
 const Button = React.forwardRef((props, ref) => {
+  const {aria, ink, label, icon, pending, look, iconPosition, children} = props
   return <StyledButton
     ref={ref}
-    {...props.aria}
+    {...aria}
     {...props}
-    ink={props.ink || design.ink.BASE}
+    ink={ink || design.ink.BASE}
     data-cy={props['data-cy']}
+    title={label}
   >
-    {props.icon && !props.pending && <Icon
-      icon={props.icon}
+    {icon && !pending && <Icon
+      icon={icon}
     />}
-    {props.pending && <LoadingSpinner
-      ink={props.ink || design.ink.BASE}
-      look={props.look}
-      position={props.iconPosition}
+    {pending && <LoadingSpinner
+      ink={ink || design.ink.BASE}
+      look={look}
+      position={iconPosition}
       size="1em"/>}
-    {props.label ? <span>{props.label}</span> : props.children ? props.children : '\u200B' }
+    {label ? <span>{label}</span> : children || '\u200B' }
   </StyledButton>
 })
 
