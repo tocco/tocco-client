@@ -1,3 +1,8 @@
+0.3.34
+- Fix modal being push out of view when keyboard pops up on iOS
+- Prevent label overflow inside input field
+- Prevent popper menu disappearing behind main menu overlay
+
 0.3.33
 - Adjust tile width of modal to match modal width
 - Adjust top margin of modal content
