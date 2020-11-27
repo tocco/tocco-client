@@ -43,18 +43,20 @@ if (config.env === 'development') {
   app.use(express.static(publicPath))
   app.use('/static', express.static('server/static'))
 
-  // Most probably the following requests should be answered by the Nice2 instance
-  // -> pipe them through
-  app.use(['/nice2/*', '/js/*', '/img/*', '/css/*'], function(req, res, next) {
-    // `window.location.hostname` might be used in __BACKEND_URL__ variable
-    // eslint-disable-next-line
-    const window = {location: {hostname: 'localhost'}}
-    // eslint-disable-next-line
-    const newUrl = eval(config.globals.__BACKEND_URL__) + req.originalUrl
-    req.pipe(
-      request[req.method.toLowerCase()](newUrl))
-      .pipe(res)
-  })
+  if (config.globals.__NO_MOCK__) {
+    // Most probably the following requests should be answered by the Nice2 instance
+    // -> pipe them through
+    app.use(['/nice2/*', '/js/*', '/img/*', '/css/*'], function(req, res, next) {
+      // `window.location.hostname` might be used in __BACKEND_URL__ variable
+      // eslint-disable-next-line
+      const window = {location: {hostname: 'localhost'}}
+      // eslint-disable-next-line
+      const newUrl = eval(config.globals.__BACKEND_URL__) + req.originalUrl
+      req.pipe(
+        request[req.method.toLowerCase()](newUrl))
+        .pipe(res)
+    })
+  }
 
   // This rewrites all routes requests to the root /index.html file
   // (ignoring file requests). If you want to implement universal
