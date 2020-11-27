@@ -9,20 +9,20 @@ import {theme} from '../'
 const StyledPopper = styled.div`
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
   border: 1px solid ${theme.color('secondaryLight')};
-  z-index: 1;
+  z-index: 1001;
 `
 
 /**
  * Menu realised with popper.
  */
-const Menu = props => {
+const Menu = ({referenceElement, onClose, open, children}) => {
   const thisEl = useRef(null)
   const [popperElement, setPopperElement] = useState(null)
 
   const handleClickOutside = e => {
     if (thisEl && thisEl.current && !thisEl.current.contains(e.target)
-      && props.referenceElement && !props.referenceElement.contains(e.target)) {
-      props.onClose()
+      && referenceElement && !referenceElement.contains(e.target)) {
+      onClose()
     }
   }
 
@@ -31,9 +31,9 @@ const Menu = props => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [props.referenceElement])
+  }, [referenceElement])
 
-  const {styles, attributes} = usePopper(props.referenceElement, popperElement, {
+  const {styles, attributes} = usePopper(referenceElement, popperElement, {
     placement: 'bottom-start',
     modifiers: [
       {
@@ -46,14 +46,14 @@ const Menu = props => {
   }
   )
 
-  if (!props.open) {
+  if (!open) {
     return null
   }
 
   return ReactDOM.createPortal(
     <div ref={thisEl}>
-      {props.children && <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper}>
-        {React.Children.map(props.children, child => child && React.cloneElement(child, {onClose: props.onClose}))}
+      {children && <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+        {React.Children.map(children, child => child && React.cloneElement(child, {onClose: onClose}))}
       </StyledPopper>}
     </div>
     , document.body)
