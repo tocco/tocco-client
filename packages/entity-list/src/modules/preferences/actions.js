@@ -52,9 +52,9 @@ export const resetPreferences = () => ({
   payload: {}
 })
 
-export const displayColumnModal = () => ({
+export const displayColumnModal = parent => ({
   type: DISPLAY_COLUMN_MODAL,
-  payload: {}
+  payload: {parent}
 })
 
 export const resetColumns = () => ({
