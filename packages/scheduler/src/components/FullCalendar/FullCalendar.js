@@ -82,7 +82,7 @@ const FullCalendar = ({
   }, [JSON.stringify(resources)])
 
   const addDeselectAllButton = () => {
-    const firstHeaderNode = document.querySelectorAll('.fc-widget-header')[0]
+    const firstHeaderNode = wrapperEl.current.querySelectorAll('.fc-widget-header')[0]
     if (firstHeaderNode) {
       const checkbox = document.createElement('INPUT')
       checkbox.type = 'checkbox'
