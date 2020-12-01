@@ -838,6 +838,20 @@ describe('entity-list', () => {
               .run()
           })
         })
+
+        describe('queryChanged saga', () => {
+          test('should set query and call external event onSearchChange', () => {
+            const query = {tql: 'firstname == "Max"'}
+
+            return expectSaga(sagas.queryChanged)
+              .provide([
+                [call(sagas.getBasicQuery), query]
+              ])
+              .put(selectionActions.setQuery(query))
+              .put(externalEvents.fireExternalEvent('onSearchChange', {query}))
+              .run()
+          })
+        })
       })
     })
   })

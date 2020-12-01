@@ -75,6 +75,7 @@ export function* initialize() {
 export function* queryChanged() {
   const query = yield call(getBasicQuery)
   yield put(selectionActions.setQuery(query))
+  yield put(externalEvents.fireExternalEvent('onSearchChange', {query: query}))
 }
 
 export function* loadData(page) {

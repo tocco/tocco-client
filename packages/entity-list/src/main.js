@@ -31,7 +31,8 @@ const EXTERNAL_EVENTS = [
   'onNavigateToAction',
   'emitAction',
   'onSelectChange',
-  'onStoreCreate'
+  'onStoreCreate',
+  'onSearchChange'
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
