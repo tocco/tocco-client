@@ -41,3 +41,4 @@ React-registry name: `entity-list`
 | `onNavigateToAction`| `definition` (action definition), `selection`(selection object) | Is called when an action is called with the fullscreen flag.
 | `onSelectChange`    | An array containing the ids of the new selection | This event is fired when the selection changes
 | `onStoreCreate`     | The created store | This event is fired when the store for the app is created. Note that the event will neved be fired if a store is passed to the app via the `store` input property.
+| `onSearchChange`    | The search params | This event is fired when the search is changed
