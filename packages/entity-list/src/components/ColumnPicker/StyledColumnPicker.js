@@ -31,3 +31,8 @@ export const StyledButtonWrapper = styled.div`
   background-color: ${theme.color('paper')};
   transform: translateY(1.8rem);
 `
+
+export const StyledColumnName = styled.span`
+  color: ${props => props.hasLabel ? 'inherit' : 'grey'};
+  font-style: ${props => props.hasLabel ? 'inherit' : 'italic'};
+`
