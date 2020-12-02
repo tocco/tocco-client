@@ -32,7 +32,7 @@ export const StyledButtonWrapper = styled.div`
   transform: translateY(1.8rem);
 `
 
-export const StyledColumnName = styled.span`
-  color: ${props => props.hasLabel ? 'inherit' : 'grey'};
-  font-style: ${props => props.hasLabel ? 'inherit' : 'italic'};
+export const StyledId = styled.span`
+  color: #808080;
+  font-style: italic;
 `

@@ -8,7 +8,7 @@ import {displayColumnModal, resetSorting, resetPreferences, resetColumns} from '
 
 const NavigationCellHeader = props =>
   <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
-    <MenuItem onClick={() => props.displayColumnModal(props.parent)}>
+    <MenuItem onClick={props.displayColumnModal}>
       <FormattedMessage id="client.entity-list.preferences.columns"/>
     </MenuItem>
     <MenuItem onClick={props.resetColumns}>
@@ -22,17 +22,8 @@ NavigationCellHeader.propTypes = {
   displayColumnModal: PropTypes.func.isRequired,
   resetSorting: PropTypes.func.isRequired,
   resetPreferences: PropTypes.func.isRequired,
-  resetColumns: PropTypes.func.isRequired,
-  parent: PropTypes.shape({
-    key: PropTypes.string.isRequired,
-    model: PropTypes.string.isRequired,
-    reverseRelationName: PropTypes.string
-  })
+  resetColumns: PropTypes.func.isRequired
 }
-
-const mapStateToProps = state => ({
-  parent: state.entityList.parent
-})
 
 const mapActionCreators = {
   displayColumnModal,
@@ -41,4 +32,4 @@ const mapActionCreators = {
   resetColumns
 }
 
-export default connect(mapStateToProps, mapActionCreators)(NavigationCellHeader)
+export default connect(null, mapActionCreators)(NavigationCellHeader)

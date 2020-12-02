@@ -8,7 +8,7 @@ import {
   StyledUl,
   StyledButtonWrapper,
   StyledColumnPickerWrapper,
-  StyledColumnName
+  StyledId
 } from './StyledColumnPicker'
 
 const ColumnPicker = ({columns, onOk, intl}) => {
@@ -25,7 +25,7 @@ const ColumnPicker = ({columns, onOk, intl}) => {
         onChange={value => setSelectedColumns({...selectedColumns, [column.id]: value.target.checked})}
       />
       <Typography.Label for={column.id}>
-        <StyledColumnName hasLabel={!!column.label}>{column.label || column.id}</StyledColumnName>
+        {column.label || <StyledId>{column.id}</StyledId>}
       </Typography.Label>
     </Typography.Li>), [columns, searchTerm, selectedColumns])
 
