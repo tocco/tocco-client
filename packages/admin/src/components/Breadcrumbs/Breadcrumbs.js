@@ -4,7 +4,7 @@ import {Icon, Typography} from 'tocco-ui'
 import {Helmet} from 'react-helmet'
 
 import {
-  StyledBreadcumbs,
+  StyledBreadcrumbs,
   StyledBreadcrumbsLink,
   StyledBreadcrumbsTitle
 } from './StyledBreadcrumbs'
@@ -16,7 +16,7 @@ const getTitle = breadcrumbsInfo =>
     .reverse()
     .join(' - ')
 
-const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
+const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle}) => {
   const breadcrumbs = [
     ...(breadcrumbsInfo || []),
     ...(currentViewTitle ? [{display: currentViewTitle}] : [])
@@ -26,7 +26,7 @@ const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
     return null
   }
 
-  return <StyledBreadcumbs>
+  return <StyledBreadcrumbs>
     <Helmet defer={false}>
       <title>{getTitle(breadcrumbsInfo)}</title>
     </Helmet>
@@ -38,7 +38,7 @@ const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
           <Comp
             neutral="true"
             {...(idx === breadcrumbs.length - 1 && {active: 'true'})}
-            to={`/e/${b.path}`}
+            to={`${pathPrefix}/${b.path}`}
           >
             {b.type === 'list' && <Icon icon="list-ul" />}  {display}
           </Comp>
@@ -50,10 +50,15 @@ const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
             curr]
         )}
     </div>
-  </StyledBreadcumbs>
+  </StyledBreadcrumbs>
+}
+
+Breadcrumbs.defaultProps = {
+  pathPrefix: ''
 }
 
 Breadcrumbs.propTypes = {
+  pathPrefix: PropTypes.string,
   match: PropTypes.object,
   breadcrumbsInfo: PropTypes.arrayOf(
     PropTypes.shape({

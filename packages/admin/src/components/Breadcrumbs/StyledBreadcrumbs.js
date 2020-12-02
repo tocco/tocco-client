@@ -2,9 +2,9 @@
 import styled from 'styled-components'
 import {theme} from 'tocco-ui'
 
-import {StyledLink} from '../../../../components/StyledLink'
+import {StyledLink} from '../StyledLink'
 
-export const StyledBreadcumbs = styled.div`
+export const StyledBreadcrumbs = styled.div`
   background-color: ${theme.color('backgroundBreadcrumbs')};
   width: 100%;
   padding: .8rem 1.7rem;
