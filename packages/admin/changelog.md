@@ -1,3 +1,9 @@
+0.3.35
+- Fix advanced search menu bug
+- Change typography link color to secondary (blue)
+- Do not display relation to parent entity in column picker if opened in a relation tab
+- Display id instead of label if the label is empty in column
+
 0.3.34
 - Fix modal being push out of view when keyboard pops up on iOS
 - Prevent label overflow inside input field
