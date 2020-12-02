@@ -5,12 +5,10 @@ import {intlEnzyme} from 'tocco-test-util'
 import {Typography} from 'tocco-ui'
 
 import TitleMessage from './TitleMessage'
-import ResizeObserver from '../../../../../__mocks__/ResizeObserver'
 
 describe('app-extensions', () => {
   describe('notifier', () => {
     describe('Components', () => {
-      window.ResizeObserver = ResizeObserver
       describe('TitleMessage', () => {
         test(
           'should render title as <Typography.H1> and message as <Typography.P>',

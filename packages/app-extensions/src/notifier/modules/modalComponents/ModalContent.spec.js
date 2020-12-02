@@ -1,7 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
 
-import ResizeObserver from '../../../../../../__mocks__/ResizeObserver'
 import ModalContent from './ModalContent'
 
 describe('app-extensions', () => {
@@ -10,7 +9,6 @@ describe('app-extensions', () => {
       describe('modalComponents', () => {
         describe('ModalContent', () => {
           test('should render component with close property', () => {
-            window.ResizeObserver = ResizeObserver
             const closeSpy = sinon.spy()
             const id = Date.now()
             // eslint-disable-next-line react/prop-types
