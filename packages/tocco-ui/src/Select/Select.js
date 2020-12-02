@@ -117,7 +117,6 @@ const Select = ({
           moreOptionsAvailable={moreOptionsAvailable}
           moreOptionsAvailableText={moreOptionsAvailableText}
           blurInputOnSelect={false}
-          openMenuOnFocus={true}
         />
       </div>
     </div>
