@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useRef, useMemo} from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -40,11 +40,7 @@ const ModalContent = props => {
     id,
     component: Component
   } = props
-
   const [isClosing, setIsClosing] = useState(false)
-  const [modalWidth, setModalWidth] = useState(0)
-  const content = useMemo(() => <Component close={handleCloseClick}/>, [Component])
-  const ref = useRef(null)
 
   const handleCloseClick = () => {
     setIsClosing(true)
@@ -53,31 +49,13 @@ const ModalContent = props => {
     }, 300) // Toastr fade out takes 300ms
   }
 
-  const observer = new ResizeObserver(entries => {
-    const {width} = entries[0].contentRect
-    setModalWidth(width)
-  })
-
-  useLayoutEffect(() => {
-    const observable = ref.current
-    if (observable) {
-      observer.observe(observable)
-      window.scrollTo(0, 0)
-    }
-    return () => {
-      if (observable) {
-        observer.unobserve(observable)
-      }
-    }
-  }, [ref, observer])
-
   return <div className="rrt-confirm-holder" >
-    <StyledModalContent isClosing={isClosing} ref={ref} titleWidth={modalWidth}>
+    <StyledModalContent isClosing={isClosing} >
       {closable && <StyledCloseButton onClick={handleCloseClick} type="button">
             ✕
       </StyledCloseButton>}
       <TitleMessage title={title} message={message} closable={closable}>
-        {content}
+        <Component close={handleCloseClick}/>,
       </TitleMessage>
     </StyledModalContent>
     <div className={`shadow animated ${isClosing ? 'fadeOut' : 'fadeIn'}`} />
