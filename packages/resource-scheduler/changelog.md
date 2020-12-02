@@ -1,3 +1,21 @@
+0.3.11
+- Fix deselect all bug
+- Increase min-width of table column for more usability on smaller screens
+- Disable touch on mobile and adjust margin
+- Fix select for mobile
+- Style popover to better align with overall design and have better contrast
+- Add margin to error items inside popper
+- Adjust entity list height inside detail view to scale on smaller screens
+- Change link colors to secondary color
+- Adjust title width of modal to match modal width
+- Adjust top margin of modal content
+- Add caption to preview
+- Fix modal being push out of view when keyboard pops up on iOS
+- Prevent label overflow inside input field
+- Prevent popper menu disappearing behind main menu overlay
+- Fix advanced search menu bug
+- Change typography link color to secondary (blue)
+
 0.3.10
 - Adjust filter pane height when expanded
 - Change chevron icon in multi select input when dropdown is opened
