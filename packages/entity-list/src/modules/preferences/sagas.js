@@ -89,9 +89,10 @@ export function* resetPreferences() {
   yield call(listSagas.reloadData)
 }
 
-export function* displayColumnModal({payload: {parent}}) {
+export function* displayColumnModal() {
   const {formDefinition} = yield select(listSagas.listSelector)
   const {columns: preferencesColumns} = yield select(preferencesSelector)
+  const {parent} = yield select(listSagas.entityListSelector)
   const formColumns = getTableColumns(formDefinition, preferencesColumns, parent)
 
   const answerChannel = yield call(channel)
