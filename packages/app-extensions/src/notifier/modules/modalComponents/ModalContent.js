@@ -55,7 +55,7 @@ const ModalContent = props => {
             ✕
       </StyledCloseButton>}
       <TitleMessage title={title} message={message} closable={closable}>
-        <Component close={handleCloseClick}/>,
+        <Component close={handleCloseClick}/>
       </TitleMessage>
     </StyledModalContent>
     <div className={`shadow animated ${isClosing ? 'fadeOut' : 'fadeIn'}`} />
