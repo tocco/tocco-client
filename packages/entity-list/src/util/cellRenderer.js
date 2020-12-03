@@ -1,9 +1,21 @@
 import React from 'react'
 import {actions, form} from 'tocco-app-extensions'
-import {FormattedValue} from 'tocco-ui'
+import {FormattedValue, StyledButton} from 'tocco-ui'
+import styled from 'styled-components'
 
 import fieldFactory from './fieldFactory'
 import LazyDataCell from '../components/LazyDataEnhancer'
+
+const StyledActionWrapper = styled.div`
+  ${StyledButton} {
+    width: 100%;
+    justify-content: center;
+
+    > * {
+      overflow: hidden;
+    }
+  }
+`
 
 export default (field, entity, parent, intl) => {
   const {componentType} = field
@@ -28,7 +40,7 @@ const getDisplayExpression = (field, entity) =>
   </LazyDataCell>
 
 const getAction = (field, entity, parent) =>
-  <div onClick={e => {
+  <StyledActionWrapper onClick={e => {
     e.stopPropagation()
   }}>
     <actions.Action
@@ -37,4 +49,4 @@ const getAction = (field, entity, parent) =>
       selection={actions.getSingleEntitySelection(entity.__model, entity.__key)}
       parent={parent}
     />
-  </div>
+  </StyledActionWrapper>
