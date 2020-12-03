@@ -10,7 +10,6 @@ import {
   scale
 } from '../'
 import {StyledResizeHandle} from './ResizingController'
-import StyledButton from '../Button/StyledButton'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)
 const basePadding = scale.space(-1)
@@ -22,15 +21,6 @@ export const StyledTableCell = styled.td`
   align-content: center;
   max-height: 23px;
   box-sizing: content-box;
-
-  ${StyledButton} {
-    width: 100%;
-    justify-content: center;
-
-    > * {
-      overflow: hidden;
-    }
-  }
 `
 
 export const StyledDnD = styled.div`
@@ -59,23 +49,23 @@ export const StyledTableHeaderCell = styled.th`
     > ${StyledResizeHandle} {
       opacity: 1;
     }
-    `
+  `
 }
   ${({resizingColumn, theme}) => !resizingColumn && `
     &:hover {
       background-color: ${lighten(0.25, theme.colors.secondaryLight)};
 
-        > ${StyledResizeHandle} {
-          opacity: 1;
-        }
+      > ${StyledResizeHandle} {
+        opacity: 1;
+      }
     }
-    `
+  `
 }
   ${({isResizing, sortable, fixedPosition}) => !isResizing && !sortable && !fixedPosition && `
     &:hover {
       background-color: transparent;
     }
-    `
+  `
 }
 `
 
