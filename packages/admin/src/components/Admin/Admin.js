@@ -11,6 +11,7 @@ import {viewPersistor} from 'tocco-util'
 import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
 import EntitiesRoute from '../../routes/entities'
+import DocsRoute from '../../routes/docs'
 import Settings from '../../routes/settings'
 import Header from '../Header'
 import {
@@ -87,6 +88,7 @@ const Admin = ({
             <Route exact={true} path="/dashboard" component={DashboardRoute}/>
             <Route path="/e" component={EntitiesRoute}/>
             <Route path="/s" component={Settings}/>
+            <Route path="/docs" component={DocsRoute}/>
             <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
           </Switch>
         </StyledContent>
