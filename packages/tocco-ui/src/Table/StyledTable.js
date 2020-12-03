@@ -50,7 +50,7 @@ export const StyledTableHeaderCell = styled.th`
       opacity: 1;
     }
   `
-}
+  }
   ${({resizingColumn, theme}) => !resizingColumn && `
     &:hover {
       background-color: ${lighten(0.25, theme.colors.secondaryLight)};
@@ -60,13 +60,13 @@ export const StyledTableHeaderCell = styled.th`
       }
     }
   `
-}
+  }
   ${({isResizing, sortable, fixedPosition}) => !isResizing && !sortable && !fixedPosition && `
     &:hover {
       background-color: transparent;
     }
   `
-}
+  }
 `
 
 export const PaginationContainer = styled.div`
