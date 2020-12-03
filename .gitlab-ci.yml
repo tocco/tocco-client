@@ -1,0 +1,37 @@
+image: node:14.15.1
+
+cache:
+  paths:
+    - .yarn/
+    - node_modules/
+    - packages/*/node_modules/*
+    - server/static/node_modules/
+    - .jestcache/
+    - .eslintcache
+    - .stylelintcache
+
+before_script:
+  - yarn install --cache-folder .yarn --frozen-lockfile
+  - lerna bootstrap --concurrency=1 --mutex network --force-local
+
+stages:
+  - quality
+  - build
+
+
+linting:
+  stage: quality
+  script:
+    -  yarn lint
+
+test:
+  stage: quality
+  script:
+    -  jest --maxWorkers=4 --silent --verbose false
+  after_script:
+    - yarn codecov
+
+storybook:
+  stage: build
+  script:
+    -  BACKEND=https://master.tocco.ch yarn build-storybook
