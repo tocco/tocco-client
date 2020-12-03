@@ -10,14 +10,17 @@ cache:
     - .eslintcache
     - .stylelintcache
 
-before_script:
-  - yarn install --cache-folder .yarn --frozen-lockfile
-  - lerna bootstrap --concurrency=1 --mutex network --force-local
-
 stages:
+  - setup
   - quality
   - build
 
+setup:
+  stage: setup
+  script:
+    - yarn install --cache-folder .yarn --frozen-lockfile
+    - export PATH=$HOME/.yarn/bin:$PATH
+    - lerna bootstrap --concurrency=1 --mutex network --force-local
 
 linting:
   stage: quality
