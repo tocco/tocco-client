@@ -175,6 +175,7 @@ describe('entity-list', () => {
                     }]
                   }
                 }],
+                [select(listSagas.entityListSelector), {}],
                 [select(sagas.preferencesSelector), {columns: {first_field: true, second_field: false}}],
                 [channel, {}],
                 {
