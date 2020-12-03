@@ -1,0 +1,55 @@
+image: node:14.15.1
+
+cache:
+  key: "$CI_COMMIT_REF_NAME"
+  paths:
+    - node_modules/
+    - packages/*/node_modules/
+    - .jestcache/
+    - .eslintcache
+    - .stylelintcache
+
+before_script:
+  - yarn setup:ci
+
+stages:
+  - quality
+  - build
+  - pullrequest
+  - onschedule
+
+linting:
+  stage: quality
+  before_script:
+    - ''
+  script:
+    -  yarn lint
+
+test:
+  stage: quality
+  script:
+    - yarn test --ci --forceExit --runInBand --detectOpenHandles
+  after_script:
+    - yarn codecov
+
+storybook:
+  stage: quality
+  script:
+    - BACKEND=https://master.tocco.ch yarn build-storybook
+    - deployment/deploy_storybook_gitlab.sh
+
+storybook-link:
+  stage: pullrequest
+  before_script:
+    - ''
+  only:
+    - external_pull_requests
+  script:
+    - deployment/storybook_link_gitlab.sh
+
+cypress:
+  stage: onschedule
+  only:
+    - schedules
+  script:
+    - yarn cypress:master:record --parallel
