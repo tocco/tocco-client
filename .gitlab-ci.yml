@@ -19,8 +19,7 @@ setup:
   stage: setup
   script:
     - yarn install --cache-folder .yarn --frozen-lockfile
-    - export PATH=$HOME/.yarn/bin:$PATH
-    - lerna bootstrap --concurrency=1 --mutex network --force-local
+    - yarn lernabootstrap:ci
 
 linting:
   stage: quality
