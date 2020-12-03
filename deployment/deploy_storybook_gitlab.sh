@@ -5,6 +5,7 @@ PAGES_BRANCH="gh-pages"
 echo "open ssl connection"
 eval `ssh-agent -s`
 ssh-add <(echo "$GITHUB_DEPLOY_KEY" | base64 -d)
+ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 
 echo "Clone ${PAGES_BRANCH} branch"
 cd dist
@@ -21,7 +22,7 @@ cd $PAGES_BRANCH
 
 echo "Commit and push"
 git config user.name "Travis CI"
-git config user.email "$COMMIT_AUTHOR_EMAIL"
+git config user.email "tocco.github.bot@gmail.com"
 
 git add -A
 rev=$(git rev-parse --short HEAD)

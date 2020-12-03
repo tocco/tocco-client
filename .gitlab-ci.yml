@@ -37,5 +37,4 @@ storybook:
   stage: quality
   script:
     - BACKEND=https://master.tocco.ch yarn build-storybook
-    - chmod +x deployment/deploy_storybook_gitlab.sh
     - deployment/deploy_storybook_gitlab.sh
