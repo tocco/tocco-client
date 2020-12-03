@@ -35,7 +35,7 @@ cd $PAGES_BRANCH
 
 echo "Commit and push"
 git config user.name "Travis CI"
-git config user.email "$COMMIT_AUTHOR_EMAIL"
+git config user.email "$GITLAB_USER_EMAIL"
 
 git add -A
 rev=$(git rev-parse --short HEAD)
