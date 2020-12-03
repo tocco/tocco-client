@@ -131,25 +131,40 @@ class DateAbstract extends React.Component {
 
   render() {
     return (
-      <StyledDateAbstractWrapper
-        data-wrap
-        onBlur={this.handleOnBlur}
-        immutable={this.props.immutable}
-        ref={this.wrapper}
+      <div
         id={this.props.id}
+        tabIndex="-1"
+        onFocus={() => {
+          // flatpickr add two input in the DOM. One for the actual value (hidden) and one for the altInput
+          const inputElement = this.wrapper.current.querySelector('input.flatpickr-input:not([type="hidden"])')
+          if (inputElement) {
+            inputElement.focus()
+          }
+          setTimeout(() => {
+            this.flatpickr.open()
+          })
+        }}
       >
-        <StyledDateAbstractInput
-          type="text"
-          data-input
+        <StyledDateAbstractWrapper
+          data-wrap
+          onBlur={this.handleOnBlur}
           immutable={this.props.immutable}
-          {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
-        />
-        <StyledDateAbstractInput
-          disabled
-          immutable={this.props.immutable}
-          value={this.state.altInput}
-        />
-      </StyledDateAbstractWrapper>
+          ref={this.wrapper}
+
+        >
+          <StyledDateAbstractInput
+            type="text"
+            data-input
+            immutable={this.props.immutable}
+            {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
+          />
+          <StyledDateAbstractInput
+            disabled
+            immutable={this.props.immutable}
+            value={this.state.altInput}
+          />
+        </StyledDateAbstractWrapper>
+      </div>
     )
   }
 }

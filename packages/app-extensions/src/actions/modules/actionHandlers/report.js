@@ -58,10 +58,11 @@ export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId,
       settingsDefinition
     } = yield take(answerChannel)
 
-    const customSettingsEntity = api.toEntity({
-      __model: settingsDefinition.customSettings.entity.name,
-      ...customSettings
-    })
+    const customSettingsEntity = settingsDefinition.customSettings
+      ? api.toEntity({
+        __model: settingsDefinition.customSettings.entity.name,
+        ...customSettings
+      }) : null
 
     const body = {
       entityModel: selection.entityName,

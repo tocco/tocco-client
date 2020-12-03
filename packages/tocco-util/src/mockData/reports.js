@@ -57,7 +57,9 @@ const startReportGeneration = (generationId, reportId, timeout) => {
 
   const generationTime = Math.floor(Math.random() * 3) * timeout
   setTimeout(
-    () => { progressSimulator[generationId] = reportId === 'generate_fails_report' ? failedAnswer : completedAnswer }
+    () => {
+      progressSimulator[generationId] = reportId === 'generate_fails_report' ? failedAnswer : completedAnswer
+    }
     , generationTime
   )
 }

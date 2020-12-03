@@ -92,7 +92,8 @@ export function* resetPreferences() {
 export function* displayColumnModal() {
   const {formDefinition} = yield select(listSagas.listSelector)
   const {columns: preferencesColumns} = yield select(preferencesSelector)
-  const formColumns = getTableColumns(formDefinition, preferencesColumns)
+  const {parent} = yield select(listSagas.entityListSelector)
+  const formColumns = getTableColumns(formDefinition, preferencesColumns, parent)
 
   const answerChannel = yield call(channel)
   yield put(notifier.modalComponent(

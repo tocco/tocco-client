@@ -22,7 +22,9 @@ const StyledContent = styled.div`
 `
 
 const UserQrCode = ({data, fetchData}) => {
-  useEffect(() => { fetchData() }, [])
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   let content
 

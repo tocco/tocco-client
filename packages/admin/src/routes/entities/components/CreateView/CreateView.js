@@ -46,7 +46,9 @@ const CreateView = props => {
 
   const mode = 'create'
 
-  if (!currentViewInfo) return null
+  if (!currentViewInfo) {
+    return null
+  }
   const {model, reverseRelation, parentKey} = currentViewInfo
   const entityName = model.name
 

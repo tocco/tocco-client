@@ -3,7 +3,13 @@ import React, {useState, useMemo} from 'react'
 import {Button, SearchBox, Typography} from 'tocco-ui'
 import {intlShape} from 'react-intl'
 
-import {StyledCheckbox, StyledUl, StyledButtonWrapper, StyledColumnPickerWrapper} from './StyledColumnPicker'
+import {
+  StyledCheckbox,
+  StyledUl,
+  StyledButtonWrapper,
+  StyledColumnPickerWrapper,
+  StyledId
+} from './StyledColumnPicker'
 
 const ColumnPicker = ({columns, onOk, intl}) => {
   const [selectedColumns, setSelectedColumns] = useState({})
@@ -18,7 +24,9 @@ const ColumnPicker = ({columns, onOk, intl}) => {
           ? selectedColumns[column.id] : !column.hidden}
         onChange={value => setSelectedColumns({...selectedColumns, [column.id]: value.target.checked})}
       />
-      <Typography.Label for={column.id}>{column.label}</Typography.Label>
+      <Typography.Label for={column.id}>
+        {column.label || <StyledId>{column.id}</StyledId>}
+      </Typography.Label>
     </Typography.Li>), [columns, searchTerm, selectedColumns])
 
   return <StyledColumnPickerWrapper>
@@ -37,7 +45,7 @@ const ColumnPicker = ({columns, onOk, intl}) => {
 ColumnPicker.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     hidden: PropTypes.bool.isRequired
   })).isRequired,
   onOk: PropTypes.func.isRequired,

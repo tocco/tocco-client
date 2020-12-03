@@ -38,7 +38,9 @@ const BasicSearchForm = ({
   }
 
   const isHidden = (preselectedSearchFields, name) => {
-    if (!preselectedSearchFields) return false
+    if (!preselectedSearchFields) {
+      return false
+    }
     const field = preselectedSearchFields.find(f => f.id === name)
     return field && field.hidden
   }

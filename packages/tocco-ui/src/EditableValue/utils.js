@@ -50,7 +50,9 @@ export const momentJStoToFlatpickrFormat = format => {
     h: 'h',
     i: 'mm'
   }
-  _forOwn(formattingMap, (v, k) => { format = format.replace(v, k) })
+  _forOwn(formattingMap, (v, k) => {
+    format = format.replace(v, k)
+  })
   return format
 }
 

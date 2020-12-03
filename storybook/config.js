@@ -23,7 +23,7 @@ addLocaleData(frLocaleData)
 addLocaleData(itLocaleData)
 
 setIntlConfig({
-  locales: ['de-CH'],
+  locales: ['de-CH', 'de', 'fr', 'it', 'en'],
   defaultLocale: 'de-CH',
   getMessages: locale => ({
     'client.component.pagination.text': '{start} to {to} from {total}'

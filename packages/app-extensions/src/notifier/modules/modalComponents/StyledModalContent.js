@@ -39,12 +39,8 @@ const StyledModalContent = styled.div.attrs(({isClosing}) => ({
       background: ${theme.color('paper')};
       padding-top: ${basePadding};
       padding-bottom: ${scale.space(0.2)};
-      width: 100%;
+      width: auto;
       z-index: 1;
-    }
-
-    ${StyledTitleWrapper} {
-      width: ${({titleWidth}) => titleWidth}px;
     }
 
     .advanced-search-button-wrapper {

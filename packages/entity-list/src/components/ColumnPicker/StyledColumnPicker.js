@@ -31,3 +31,8 @@ export const StyledButtonWrapper = styled.div`
   background-color: ${theme.color('paper')};
   transform: translateY(1.8rem);
 `
+
+export const StyledId = styled.span`
+  color: #808080;
+  font-style: italic;
+`

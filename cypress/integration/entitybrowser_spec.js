@@ -73,7 +73,9 @@ describe('Entity Browser', () => {
     })
 
     afterEach(() => {
-      cy.get('@pk').then(pk => { deleteUser(pk) })
+      cy.get('@pk').then(pk => {
+        deleteUser(pk)
+      })
     })
 
     it('should display detail view', () => {

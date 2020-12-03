@@ -202,7 +202,7 @@
                             "toIncluding" : 255
                           },
                           "regex" : {
-                            "pattern" : "^[A-Za-z]$"
+                            "pattern" : "^[A-Za-z]+$"
                           }
                         }
                       }

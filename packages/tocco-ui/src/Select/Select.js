@@ -50,7 +50,9 @@ const Select = ({
   }
 
   const handleMenuOpen = () => {
-    if (fetchOptions) { fetchOptions() }
+    if (fetchOptions) {
+      fetchOptions()
+    }
   }
 
   const debouncedSearchOptions
@@ -66,6 +68,9 @@ const Select = ({
     <div
       tabIndex="-1"
       id={id}
+      onFocus={() => {
+        selectComponent.current.focus()
+      }}
       style={{
         outlineStyle: 'none',
         cursor: immutable ? 'not-allowed' : 'default'

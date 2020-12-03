@@ -16,7 +16,9 @@ export function* checkStatusLoop(requestSaga, location, retryStatus) {
     const response = yield call(requestSaga, location)
     if (response.body.status === retryStatus) {
       yield delay(500 * delayer)
-      if (delayer < 10) delayer++
+      if (delayer < 10) {
+        delayer++
+      }
     } else {
       return response
     }

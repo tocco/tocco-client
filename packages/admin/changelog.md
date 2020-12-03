@@ -1,3 +1,22 @@
+0.3.35
+- Fix advanced search menu bug
+- Change typography link color to secondary (blue)
+- Do not display relation to parent entity in column picker if opened in a relation tab
+- Display id instead of label if the label is empty in column
+
+0.3.34
+- Fix modal being push out of view when keyboard pops up on iOS
+- Prevent label overflow inside input field
+- Prevent popper menu disappearing behind main menu overlay
+
+0.3.33
+- Adjust tile width of modal to match modal width
+- Adjust top margin of modal content
+- Set height and width attribute to allow the browser to calculate/reserve sufficient space and minimize layout shifts
+- Remove hover of relation boxes on mobile devices
+- Add caption to preview
+- Improve caching (long-term cache)
+
 0.3.32
 - Style popover to better align with overall design and have better contrast
 - Add margin to error items inside popper

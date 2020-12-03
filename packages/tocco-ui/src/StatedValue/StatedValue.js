@@ -9,7 +9,8 @@ import {
   StyledStatedValueDescription,
   StyledStatedValueError,
   StyledStatedValueLabel,
-  StyledStatedValueWrapper
+  StyledStatedValueWrapper,
+  StyledLabelWrapper
 } from './StyledStatedValue'
 import {design} from '../utilStyles'
 
@@ -61,14 +62,19 @@ const StatedValue = props => {
               isDisplay={isDisplay}
               signal={signal}>
               {children}
-              {label && <StyledStatedValueLabel
-                {...!isDisplay && !immutable && {htmlFor: id}}
-                title={labelAlt}
-                secondaryPosition={secondaryPosition}
-                immutable={immutable}
-                isDisplay={isDisplay}
-                signal={signal}
-              ><span dangerouslySetInnerHTML={{__html: `${label}${mandatory ? ' *' : ''}`}}/></StyledStatedValueLabel>}
+              {label && <StyledLabelWrapper>
+                <StyledStatedValueLabel
+                  {...!isDisplay && !immutable && {htmlFor: id}}
+                  title={labelAlt}
+                  secondaryPosition={secondaryPosition}
+                  immutable={immutable}
+                  isDisplay={isDisplay}
+                  signal={signal}
+                >
+                  <span dangerouslySetInnerHTML={{__html: `${label}${mandatory ? ' *' : ''}`}}/>
+                </StyledStatedValueLabel>
+              </StyledLabelWrapper>
+              }
             </StyledStatedValueBox>
             {description
               && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
