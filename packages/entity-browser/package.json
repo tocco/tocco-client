@@ -11,6 +11,7 @@
     "tocco-app-extensions": "*",
     "tocco-delete": "*",
     "tocco-entity-detail": "*",
+    "tocco-input-edit": "*",
     "tocco-entity-list": "*",
     "tocco-test-util": "*",
     "tocco-theme": "*",
