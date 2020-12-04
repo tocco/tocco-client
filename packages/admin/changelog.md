@@ -1,3 +1,10 @@
+0.3.36
+- Fix reports without custom settings
+- Add minimal padding to search filter to avoid scrollbar on fewer entries
+- Style button inside table
+- Add title tooltip to button
+- Make whole row clickable in list
+
 0.3.35
 - Fix advanced search menu bug
 - Change typography link color to secondary (blue)
