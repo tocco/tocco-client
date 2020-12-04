@@ -7,7 +7,7 @@ import {
   theme
 } from 'tocco-ui'
 
-import {StyledMessageWrapper, StyledTitleWrapper} from './TitleMessage'
+import {StyledMessageWrapper, StyledTitleWrapper} from './StyledTitleMessage'
 
 const wobbleHorizontal = keyframes`
   16.65% {

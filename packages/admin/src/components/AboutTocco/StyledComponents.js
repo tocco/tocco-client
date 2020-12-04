@@ -11,6 +11,7 @@ export const StyledBlockWrapper = styled.div`
 `
 
 export const StyledLogo = styled.img`
+  margin-top: ${scale.space(1)};
   width: 80%;
   height: auto;
 `
