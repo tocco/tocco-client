@@ -1,5 +1,5 @@
 # Tocco Client
-[![gitlab-ci Build Status](https://gitlab.com/toccoag/tocco-client/badges/master/pipeline.svg)](https://gitlab.com/toccoag/tocco-client/badges/master/pipeline.svg)
+[![gitlab-ci Build Status](https://gitlab.com/toccoag/tocco-client/badges/master/pipeline.svg)](https://gitlab.com/toccoag/tocco-client/-/pipelines/latest)
 [![codecov](https://codecov.io/gh/tocco/tocco-client/branch/master/graph/badge.svg)](https://codecov.io/gh/tocco/tocco-client)
 [![devDependencies Status](https://david-dm.org/tocco/tocco-client/dev-status.svg)](https://david-dm.org/tocco/tocco-client?type=dev)
 [![Documentation Status](https://readthedocs.org/projects/tocco-docs/badge/?version=latest)](http://tocco-docs.readthedocs.io/?badge=latest)
