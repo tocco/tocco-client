@@ -4,7 +4,7 @@ import {Button} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import uuid from 'uuid/v4'
 
-import {StyledAdvancedSearch} from './StyledAdvancedSearch'
+import {StyledAdvancedSearch, StyledAdvancedSearchButtonWrapper} from './StyledAdvancedSearch'
 
 const AdvancedSearch = ({
   entityName,
@@ -35,11 +35,11 @@ const AdvancedSearch = ({
       disableSelectionController={true}
       showActions={false}
     />
-    <div className="advanced-search-button-wrapper">
+    <StyledAdvancedSearchButtonWrapper>
       <Button look="raised" onClick={onOkClick}>
         <FormattedMessage id="client.common.ok"/>
       </Button>
-    </div>
+    </StyledAdvancedSearchButtonWrapper>
   </StyledAdvancedSearch>
 )
 

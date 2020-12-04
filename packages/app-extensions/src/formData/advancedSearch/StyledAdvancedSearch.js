@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {scale} from 'tocco-ui'
+import {scale, theme} from 'tocco-ui'
 
 export const StyledAdvancedSearch = styled.div`
   && {
@@ -7,4 +7,12 @@ export const StyledAdvancedSearch = styled.div`
       margin-bottom: ${scale.space(-1)};
     }
   }
+`
+
+export const StyledAdvancedSearchButtonWrapper = styled.div`
+  background: ${theme.color('paper')};
+  padding-top: ${scale.space(0.5)};
+  z-index: 1;
+  position: sticky;
+  bottom: 0;
 `
