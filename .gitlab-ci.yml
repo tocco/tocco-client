@@ -3,7 +3,6 @@ image: node:14.15.1
 cache:
   key: "$CI_COMMIT_REF_NAME"
   paths:
-    - .yarn/
     - node_modules/
     - packages/*/node_modules/
     - .jestcache/
@@ -11,22 +10,25 @@ cache:
     - .stylelintcache
 
 before_script:
-  - yarn install  --cache-folder .yarn --frozen-lockfile
+  - yarn install --frozen-lockfile
   - yarn lernabootstrap:ci
 
 stages:
   - quality
   - build
+  - notify
 
 linting:
   stage: quality
+  before_script:
+    - ''
   script:
     -  yarn lint
 
 test:
   stage: quality
   script:
-    - yarn test --ci --forceExit --runInBand
+    - yarn test --ci --forceExit --runInBand --detectOpenHandles
   after_script:
     - yarn codecov
 
@@ -35,3 +37,12 @@ storybook:
   script:
     - BACKEND=https://master.tocco.ch yarn build-storybook
     - deployment/deploy_storybook_gitlab.sh
+
+storybook-link:
+  stage: notify
+  before_script:
+    - ''
+  only:
+    - external_pull_requests
+  script:
+    - deployment/storybook_link_gitlab.sh
