@@ -10,6 +10,7 @@ import phone from './phone'
 import remote from './remote'
 import select from './select'
 import searchFilter from './searchFilter'
+import html from './html'
 import boolean from './boolean'
 import percent from './percent'
 
@@ -22,6 +23,7 @@ export default {
   'document': document,
   'double': decimal,
   'duration': duration,
+  'html': html,
   'image': document,
   'integer': integer,
   'latitude': coordinate,
