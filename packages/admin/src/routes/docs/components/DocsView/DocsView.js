@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
+import {viewPersistor} from 'tocco-util'
 
 const getParent = match => {
   if (match.params && match.params.model) {
@@ -16,7 +17,7 @@ const getParent = match => {
 }
 
 const DocsView = props => {
-  const {history, match, onSearchChange} = props
+  const {storeKey, history, match, onSearchChange} = props
 
   const handleRowClick = ({id}) => {
     const [model, key] = id.split('/')
@@ -37,12 +38,6 @@ const DocsView = props => {
     history.push(newLocation)
   }
 
-  const handleSearchChange = e => {
-    const path = e.query.hasUserChanges ? '/docs/search' : match.url
-    history.push(path)
-    onSearchChange(e)
-  }
-
   const parent = getParent(match)
 
   return (
@@ -54,12 +49,17 @@ const DocsView = props => {
       searchFormPosition="left"
       searchFormType="admin"
       parent={parent}
-      onSearchChange={handleSearchChange}
+      onSearchChange={onSearchChange}
+      store={viewPersistor.viewInfoSelector(storeKey).store}
+      onStoreCreate={store => {
+        viewPersistor.persistViewInfo(storeKey, {store})
+      }}
     />
   )
 }
 
 DocsView.propTypes = {
+  storeKey: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   onSearchChange: PropTypes.func.isRequired

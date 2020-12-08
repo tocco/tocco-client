@@ -45,8 +45,16 @@ const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs}) => {
   })
 
   const handleSearchChange = e => {
-    setSearchMode(e.query && e.query.hasUserChanges)
+    const hasUserChanges = e.query && e.query.hasUserChanges
+    if (history.location.pathname !== '/docs/search' && hasUserChanges) {
+      history.push('/docs/search')
+    } else if (history.location.pathname === '/docs/search' && !hasUserChanges) {
+      history.push('/docs')
+    }
+    setSearchMode(hasUserChanges)
   }
+
+  const key = `docs-view-${docsViewNumber}`
 
   return (
     <StyledWrapper>
@@ -65,7 +73,8 @@ const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs}) => {
             path={['/docs/:model/:key/list', '/docs', '/docs/search']}
             render={({match}) => (
               <DocsView
-                key={`docs-view-${docsViewNumber}`}
+                key={key}
+                storeKey={key}
                 history={history}
                 match={match}
                 onSearchChange={handleSearchChange}
