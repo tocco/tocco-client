@@ -235,10 +235,11 @@ describe('merge', () => {
           const result = getColumnDefinition(sourceData)
 
           expect(result).to.have.length(3)
+          expect(result[0].id).to.be.eql('column-label')
+          expect(result[1].id).to.be.eql('1')
+          expect(result[2].id).to.be.eql('2')
           expect(result.some(c => c.entityKey === '1')).to.be.true
-          expect(result.find(c => c.entityKey === '1').label).to.eql('User 1')
           expect(result.some(c => c.entityKey === '2')).to.be.true
-          expect(result.find(c => c.entityKey === '2').label).to.eql('User 2')
         })
       })
     })
