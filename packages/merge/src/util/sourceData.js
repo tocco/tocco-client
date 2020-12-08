@@ -52,18 +52,21 @@ export const getDataRows = sourceData => {
   return [...pathRows, ...relationRows]
 }
 
-export const getColumnDefinition = (sourceData, PathCellRenderer, LabelCellRenderer) => {
+export const getColumnDefinition = (sourceData, ColumnHeaderRenderer, PathCellRenderer, LabelCellRenderer) => {
   const pathColumns = sourceData.entities.map(entity => ({
     id: entity.key,
     entityKey: entity.key,
-    label: sourceData.displays.find(d => d.model === entity.model).values.find(v => v.key === entity.key).display,
     resizable: true,
     sorting: {
       sortable: false
     },
-    CellRenderer: PathCellRenderer
-  })
-  )
+    CellRenderer: PathCellRenderer,
+    HeaderRenderer: props => <ColumnHeaderRenderer
+      {...props}
+      entityKey={entity.key}
+      label={sourceData.displays.find(d => d.model === entity.model).values.find(v => v.key === entity.key).display}
+    />
+  }))
 
   const labelColumn = {
     id: 'column-label',
