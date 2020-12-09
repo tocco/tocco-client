@@ -1,3 +1,7 @@
+0.4.0
+- Add initial version of DMS
+- Hide burger menu button behind legacy modal window mask
+
 0.3.36
 - Fix reports without custom settings
 - Add minimal padding to search filter to avoid scrollbar on fewer entries
