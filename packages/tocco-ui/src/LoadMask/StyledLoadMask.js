@@ -23,6 +23,7 @@ const StyledLoadMask = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  height: 100%;
   ${({isInitialized}) => !isInitialized && css`
     && {
       flex-flow: column nowrap;
