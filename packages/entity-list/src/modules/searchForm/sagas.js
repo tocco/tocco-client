@@ -113,8 +113,10 @@ export function* submitSearchFrom() {
 export function* loadSearchFilter(entityName) {
   const searchFilters = yield call(rest.fetchSearchFilters, entityName)
 
+  const {parent} = yield select(entityListSelector)
+  const listHasNoParent = !parent
   yield put(actions.setSearchFilters(searchFilters.map(searchFilter =>
-    ({...searchFilter, ...(searchFilter.defaultFilter && {active: true})}))
+    ({...searchFilter, ...(listHasNoParent && searchFilter.defaultFilter && {active: true})}))
   ))
 }
 
