@@ -16,6 +16,7 @@ const SearchFilterButton = ({setActive, active, label}) =>
   <StyledSearchFilterButton active={active} onClick={() => setActive(!active)}>
     <StyledSpanSearchFilter title={label}>{label}</StyledSpanSearchFilter>
     <StyledButton
+      active={active}
       onClick={e => {
         setActive(false)
         e.stopPropagation()
