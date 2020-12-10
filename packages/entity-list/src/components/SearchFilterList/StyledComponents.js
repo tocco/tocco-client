@@ -22,7 +22,7 @@ export const StyledButton = styled(Button)`
     padding: 0 ${scale.space(-1)} 0 0;
 
     &:hover * {
-      color: ${theme.color('secondary')};
+      color: ${({active}) => active ? theme.color('secondaryLight') : theme.color('secondary')};
     }
   }
 `
@@ -47,7 +47,7 @@ export const StyledSearchFilterButton = styled.div`
       display: flex;
       justify-content: flex-end;
     }
-    background-color: ${theme.color('secondaryLight')};
+    background-color: ${({active}) => !active && theme.color('secondaryLight')};
     cursor: pointer;
 
     * {
