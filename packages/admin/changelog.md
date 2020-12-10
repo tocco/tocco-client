@@ -1,3 +1,6 @@
+0.4.1
+- Prevent null pointer when opening DMS (no action bar in form model)
+
 0.4.0
 - Add initial version of DMS
 - Hide burger menu button behind legacy modal window mask
