@@ -9,22 +9,25 @@ import ListView from './ListView'
 
 const EMPTY_FUNC = () => {}
 
+const table = {
+  componentType: 'table',
+  layoutType: 'table',
+  children: []
+}
+
+const mainActionBar = {
+  id: 'main-action-bar',
+  componentType: 'action-bar',
+  children: []
+}
+
+const formDefinition = children => ({
+  children
+})
+
 const props = {
   initialize: EMPTY_FUNC,
-  formDefinition: {
-    children: [
-      {
-        componentType: 'table',
-        layoutType: 'table',
-        children: []
-      },
-      {
-        id: 'main-action-bar',
-        componentType: 'action-bar',
-        children: []
-      }
-    ]
-  },
+  formDefinition: formDefinition([table, mainActionBar]),
   intl: IntlStub,
   orderBy: null,
   selectable: true,
@@ -49,6 +52,12 @@ describe('entity-list', () => {
         const wrapper = shallow(<ListView showActions={false} {...props}/>)
         expect(wrapper.find(ActionContainer)).to.have.length(0)
         expect(wrapper.find(SelectionControllerContainer)).to.have.length(1)
+      })
+
+      test('should not render action bar if not in model', () => {
+        const wrapper = shallow(<ListView {...props} formDefinition={formDefinition([table])}/>)
+        expect(wrapper.find(ActionContainer)).to.have.length(0)
+        expect(wrapper.find(SelectionControllerContainer)).to.have.length(0)
       })
     })
   })

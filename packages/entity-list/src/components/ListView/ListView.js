@@ -57,7 +57,7 @@ const ListView = ({
           />] : []
       ]
 
-      if (content.length > 0) {
+      if (content.length > 0 && actionBar) {
         return <StyledActionWrapper key={`listActionWrapper-${actionBar.id}`}>
           {content}
         </StyledActionWrapper>
