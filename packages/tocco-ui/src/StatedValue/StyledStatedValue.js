@@ -72,6 +72,7 @@ const StyledStatedValueLabel = styled.label`
     position: absolute;
     top: 50%;
     width: ${({secondaryPosition}) => secondaryPosition ? 'auto' : 'inherit'};
+    height: calc(${scale.font(0)} + 1px);
     overflow: hidden;
     ${props => transformLabel(props)}
     ${props => declareCursor(props)}
