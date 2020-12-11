@@ -9,6 +9,7 @@ import ClickableWrapper from './ClickableWrapper'
 import {theme} from '../utilStyles'
 
 const StyledSingleValueWrapper = styled.div`
+  overflow-x: hidden;
   color: ${({isDisabled}) => isDisabled ? theme.color('text') : 'inherit'};
 `
 
