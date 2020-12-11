@@ -5,27 +5,26 @@ import {
   StyledInputCss
 } from '../StyledEditableValue'
 
-const StyledDateAbstractInput = styled.input`
+export const StyledDateAbstractInput = styled.input`
   &&& {
     ${StyledInputCss}
   }
 `
 
-const StyledDateAbstractWrapper = styled.div`
+export const StyledDateAbstractOuterWrapper = styled.div`
+  outline: ${({immutable}) => immutable ? 0 : 'initial'};
+`
+
+export const StyledDateAbstractWrapper = styled.div`
   && {
     ${StyledEditableWrapperCss}
 
     input {
-      display: ${props => props.immutable ? 'none' : 'block'};
+      display: ${({immutable}) => immutable ? 'none' : 'block'};
 
       &:last-of-type {
-        display: ${props => props.immutable ? 'block' : 'none'};
+        display: ${({immutable}) => immutable ? 'block' : 'none'};
       }
     }
   }
 `
-
-export {
-  StyledDateAbstractInput,
-  StyledDateAbstractWrapper
-}

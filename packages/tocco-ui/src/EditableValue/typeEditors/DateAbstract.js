@@ -8,7 +8,8 @@ import {js} from 'tocco-util'
 import {theme} from '../../utilStyles'
 import {
   StyledDateAbstractInput,
-  StyledDateAbstractWrapper
+  StyledDateAbstractWrapper,
+  StyledDateAbstractOuterWrapper
 } from './StyledDateAbstract'
 
 class DateAbstract extends React.Component {
@@ -131,7 +132,8 @@ class DateAbstract extends React.Component {
 
   render() {
     return (
-      <div
+      <StyledDateAbstractOuterWrapper
+        immutable={this.props.immutable}
         id={this.props.id}
         tabIndex="-1"
         onFocus={() => {
@@ -153,6 +155,7 @@ class DateAbstract extends React.Component {
 
         >
           <StyledDateAbstractInput
+            {...this.props.immutable ? {disabled: 'disabled'} : {}}
             type="text"
             data-input
             immutable={this.props.immutable}
@@ -164,7 +167,7 @@ class DateAbstract extends React.Component {
             value={this.state.altInput}
           />
         </StyledDateAbstractWrapper>
-      </div>
+      </StyledDateAbstractOuterWrapper>
     )
   }
 }
