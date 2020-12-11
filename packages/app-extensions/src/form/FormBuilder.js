@@ -15,6 +15,7 @@ import actions from '../actions'
 import componentTypes from './enums/componentTypes'
 import layoutTypes from './enums/layoutTypes'
 import {isAction} from '../actions/actions'
+import {StyledActionsWrapper} from './StyledFormBuilder'
 
 const FormBuilder = props => {
   const {
@@ -119,9 +120,8 @@ const FormBuilder = props => {
     const entityName = _get(props, 'entity.model')
     const entityKey = _get(props, 'entity.key')
 
-    return <div
+    return <StyledActionsWrapper
       key={`action-${action.id}`}
-      className="StyledRelationsViewWrapper"
     >
       <actions.Action
         definition={action}
@@ -129,7 +129,7 @@ const FormBuilder = props => {
         mode={mode}
         customActions={customActions}
       />
-    </div>
+    </StyledActionsWrapper>
   }
 
   const createLayoutComponent = (field, type, parentReadOnly) => {
