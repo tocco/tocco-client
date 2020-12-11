@@ -5,11 +5,11 @@ import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import styled from 'styled-components'
-import {theme, StyledScrollbar, scale} from 'tocco-ui'
+import {theme, StyledScrollbar} from 'tocco-ui'
 
 import {currentViewPropType} from '../../utils/propTypes'
 
-const EntityDetailAppWrapper = styled.div`
+const StyledEntityDetailAppWrapper = styled.div`
   margin: 0;
   background-color: ${theme.color('paper')};
   padding: 0 0 0 1.5rem;
@@ -17,20 +17,6 @@ const EntityDetailAppWrapper = styled.div`
   overflow-x: hidden;
   height: 100%;
   ${StyledScrollbar}
-
-  .StyledRelationsViewWrapper {
-    background-color: ${theme.color('paper')};
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    padding-bottom: ${scale.space(-0.5)};
-    display: flex;
-    flex-wrap: wrap;
-
-    & > * {
-      margin-top: ${scale.space(-0.5)};
-    }
-  }
 `
 
 const CreateView = props => {
@@ -69,7 +55,7 @@ const CreateView = props => {
   const msg = id => intl.formatMessage({id})
   const handleToucheChanged = ({touched}) => setTouched(touched)
 
-  return <EntityDetailAppWrapper>
+  return <StyledEntityDetailAppWrapper>
     <Prompt
       when={touched}
       message={msg('client.entity-browser.detail.confirmTouchedFormLeave')}
@@ -85,7 +71,7 @@ const CreateView = props => {
       onEntityCreated={handleEntityCreated}
       onTouchedChange={handleToucheChanged}
     />
-  </EntityDetailAppWrapper>
+  </StyledEntityDetailAppWrapper>
 }
 
 CreateView.propTypes = {

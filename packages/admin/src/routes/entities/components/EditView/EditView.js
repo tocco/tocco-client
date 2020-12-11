@@ -6,14 +6,14 @@ import {intlShape} from 'react-intl'
 import queryString from 'query-string'
 import {queryString as queryStringUtil} from 'tocco-util'
 import styled from 'styled-components'
-import {scale, StyledScrollbar, theme} from 'tocco-ui'
+import {StyledScrollbar, theme} from 'tocco-ui'
 
 import {goBack} from '../../../../utils/routing'
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import Action from '../Action'
 import {currentViewPropType} from '../../utils/propTypes'
 
-export const EntityDetailAppWrapper = styled.div`
+export const StyledEntityDetailAppWrapper = styled.div`
   margin: 0;
   background-color: ${theme.color('paper')};
   padding: 0 0 0 1.5rem;
@@ -21,20 +21,6 @@ export const EntityDetailAppWrapper = styled.div`
   overflow-x: hidden;
   height: 100%;
   ${StyledScrollbar}
-
-  .StyledRelationsViewWrapper {
-    background-color: ${theme.color('paper')};
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    padding-bottom: ${scale.space(-0.5)};
-    display: flex;
-    flex-wrap: wrap;
-
-    & > * {
-      margin-top: ${scale.space(-0.5)};
-    }
-  }
 `
 
 const EditView = props => {
@@ -94,7 +80,7 @@ const EditView = props => {
   const entityName = currentViewInfo.model.name
   const msg = id => intl.formatMessage({id})
 
-  return <EntityDetailAppWrapper>
+  return <StyledEntityDetailAppWrapper>
     <Prompt
       when={touched}
       message={location => {
@@ -122,7 +108,7 @@ const EditView = props => {
       actionAppComponent={Action}
       onSubGridRowClick={handleSubGridRowClick}
     />
-  </EntityDetailAppWrapper>
+  </StyledEntityDetailAppWrapper>
 }
 
 EditView.propTypes = {
