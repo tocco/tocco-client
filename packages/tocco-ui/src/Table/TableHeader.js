@@ -11,7 +11,7 @@ import useResize from './useResize'
 const ThContent = ({column, data}) =>
   column.HeaderRenderer
     ? <column.HeaderRenderer column={column} data={data} />
-    : <div dangerouslySetInnerHTML={{__html: column.label}}/>
+    : <div dangerouslySetInnerHTML={{__html: column.label}} title={column.label}/>
 
 ThContent.propTypes = {
   data: dataPropType,
