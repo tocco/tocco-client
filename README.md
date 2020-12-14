@@ -28,3 +28,5 @@ A good starting point can be found in these docs:
 * https://medium.com/sons-of-javascript/javascript-an-introduction-to-es6-1819d0d89a0f
 * https://davidwalsh.name/es6-generators
 
+test
+
