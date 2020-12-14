@@ -253,6 +253,25 @@ describe('entity-list', () => {
               .dispatch(actions.setSearchFilters(expectedDispatch))
               .run()
           })
+          test('should not set searchfilter when parent exists', () => {
+            const searchFilters = [
+              {uniqueId: 'active', label: 'Active', defaultFilter: 'true'},
+              {uniqueId: 'inactive', label: 'Inactive'}
+            ]
+
+            const expectedDispatch = [
+              {uniqueId: 'active', label: 'Active', defaultFilter: 'true'},
+              {uniqueId: 'inactive', label: 'Inactive'}
+            ]
+
+            return expectSaga(sagas.loadSearchFilter, 'User')
+              .provide([
+                [matchers.call.fn(rest.fetchSearchFilters), searchFilters],
+                [select(sagas.entityListSelector), {parent: {}}]
+              ])
+              .put(actions.setSearchFilters(expectedDispatch))
+              .run()
+          })
         })
       })
     })
