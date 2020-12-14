@@ -248,9 +248,10 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.loadSearchFilter, 'User')
               .provide([
-                [matchers.call.fn(rest.fetchSearchFilters), searchFilters]
+                [matchers.call.fn(rest.fetchSearchFilters), searchFilters],
+                [select(sagas.entityListSelector), {}]
               ])
-              .dispatch(actions.setSearchFilters(expectedDispatch))
+              .put(actions.setSearchFilters(expectedDispatch))
               .run()
           })
           test('should not set searchfilter when parent exists', () => {
