@@ -13,7 +13,7 @@ import {
   transformValues,
   submitActions
 } from '../utils/report'
-import {StyledButtonWrapper, StyledReportSettings} from './StyledReportSettings'
+import {StyledStickyButtons, StyledReportSettings} from './StyledReportSettings'
 
 export class ReportSettings extends React.Component {
   constructor(props) {
@@ -68,7 +68,7 @@ export class ReportSettings extends React.Component {
           }}
         />
         }
-        <StyledButtonWrapper>
+        <StyledStickyButtons>
           {download.downloadSupportedByBrowser()
           && <Button
             ink="primary"
@@ -88,7 +88,7 @@ export class ReportSettings extends React.Component {
           >
             <FormattedMessage id="client.common.report.display"/>
           </Button>
-        </StyledButtonWrapper>
+        </StyledStickyButtons>
       </StyledReportSettings>
     )
   }

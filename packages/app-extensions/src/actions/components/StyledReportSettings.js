@@ -9,7 +9,7 @@ export const StyledReportSettings = styled.div`
   }
 `
 
-export const StyledButtonWrapper = styled.div`
+export const StyledStickyButtons = styled.div`
   position: sticky;
   bottom: 0;
   padding-top: ${scale.space(0)};
