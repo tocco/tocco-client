@@ -32,21 +32,27 @@ test:
 
 storybook:
   stage: quality
+  cache: {
+    policy: pull
+  }
   script:
     - BACKEND=https://master.tocco.ch yarn build-storybook
     - deployment/deploy_storybook_gitlab.sh
 
 storybook-link:
   stage: pullrequest
+  cache: {}
   before_script:
     - ''
   only:
     - external_pull_requests
   script:
+    - apt-get update && apt-get install -y jq
     - deployment/storybook_link_gitlab.sh
 
 cypress:
   stage: onschedule
+  cache: {}
   only:
     - schedules
   script:
