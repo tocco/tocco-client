@@ -1,11 +1,9 @@
 import styled from 'styled-components'
-import {StyledScrollbar} from 'tocco-ui'
-
-import {basePadding} from '../modules/modalComponents/StyledComponents'
+import {StyledScrollbar, scale} from 'tocco-ui'
 
 export const StyledTitleWrapper = styled.div`
-  padding-top: ${basePadding};
-  padding-bottom: ${basePadding};
+  padding-top: ${scale.space(0.5)};
+  padding-bottom: ${scale.space(0.5)};
   grid-row-start: title;
 `
 
