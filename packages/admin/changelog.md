@@ -1,3 +1,13 @@
+0.4.2
+- Fix the label of richtext fields to the top
+- Reset load mask height to 100%
+- Modal refactoring
+- Remove hover background color on active filter buttons
+- Add height to label to prevent vertical clip
+- Hide overflow of single value element
+- Default search filter is disabled when opening the relations view of an entity as its own list
+- Prevent click on disabled date input field
+
 0.4.1
 - Prevent null pointer when opening DMS (no action bar in form model)
 
