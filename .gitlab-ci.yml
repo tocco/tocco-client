@@ -1,7 +1,7 @@
 image: node:14.15.1
 
-cache:
-  key: "$CI_COMMIT_REF_NAME"
+cache: &global_cache
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
     - packages/*/node_modules/
@@ -20,11 +20,15 @@ stages:
 
 linting:
   stage: quality
+  only:
+    - branches
   script:
     -  yarn lint
 
 test:
   stage: quality
+  only:
+    - branches
   script:
     - yarn test --ci --forceExit --runInBand --detectOpenHandles
   after_script:
@@ -32,9 +36,11 @@ test:
 
 storybook:
   stage: quality
-  cache: {
+  cache:
+    <<: *global_cache
     policy: pull
-  }
+  only:
+    - branches
   script:
     - BACKEND=https://master.tocco.ch yarn build-storybook
     - deployment/deploy_storybook_gitlab.sh
