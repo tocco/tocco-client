@@ -9,7 +9,6 @@ export const StyledColumnPickerWrapper = styled.div`
 export const StyledUl = styled.ul`
   list-style-type: none;
   padding-left: ${scale.space(-0.5)};
-  margin-bottom: -${scale.space(0)};
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 `
@@ -27,12 +26,10 @@ export const StyledButtonWrapper = styled.div`
   position: sticky;
   bottom: 0;
   padding-top: ${scale.space(0)};
-  padding-bottom: ${scale.space(0)};
   background-color: ${theme.color('paper')};
-  transform: translateY(1.8rem);
 `
 
 export const StyledId = styled.span`
-  color: #808080;
+  color: ${theme.color('text')};
   font-style: italic;
 `
