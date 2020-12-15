@@ -4,7 +4,7 @@ import * as actions from './actions'
 const EXPECTED_INITIAL_STATE = {
   positions: null,
   sorting: null,
-  columns: {}
+  columns: null
 }
 
 describe('entity-list', () => {
@@ -44,7 +44,7 @@ describe('entity-list', () => {
             field: 'field',
             order: 'order'
           }
-          expect(reducer({sorting: previousSorting}, actions.resetSorting()).sorting).to.be.null
+          expect(reducer({sorting: previousSorting}, actions.resetSorting()).sorting).to.eql([])
         })
 
         test('should clear column preferences', () => {
@@ -54,8 +54,8 @@ describe('entity-list', () => {
             sorting: ['field']
           }
           const newState = reducer(previousState, actions.resetColumns())
-          expect(newState.positions).to.be.null
-          expect(newState.columns).to.be.empty
+          expect(newState.positions).to.eql({})
+          expect(newState.columns).to.eql({})
           expect(newState.sorting).to.be.deep.eq(previousState.sorting)
         })
       })
