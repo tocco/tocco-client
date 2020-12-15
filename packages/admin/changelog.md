@@ -1,3 +1,6 @@
+0.4.3
+- Fix table reset
+
 0.4.2
 - Fix the label of richtext fields to the top
 - Reset load mask height to 100%
