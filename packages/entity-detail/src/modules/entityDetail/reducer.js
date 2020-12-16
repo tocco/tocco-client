@@ -17,6 +17,8 @@ const ACTION_HANDLERS = {
   [actions.SET_FIELD_DEFINITIONS]: reducerUtil.singleTransferReducer('fieldDefinitions')
 }
 
+// Test
+
 const initialState = {
   appId: '',
   entityName: '',
