@@ -1,12 +1,12 @@
 import {
   actions as formActions,
-  SubmissionError,
   getFormValues,
   isValid as isValidSelector,
   getFormSyncErrors,
   getFormAsyncErrors,
   getFormSubmitErrors
 } from 'redux-form'
+import {SubmissionError} from 'redux-form/es/SubmissionError'
 import * as formActionTypes from 'redux-form/es/actionTypes'
 import {externalEvents, notifier, errorLogging, form, rest, remoteEvents}
   from 'tocco-app-extensions'
