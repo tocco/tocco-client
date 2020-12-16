@@ -1,5 +1,5 @@
 import fetchMock from 'fetch-mock'
-import {SubmissionError} from 'redux-form'
+import {SubmissionError} from 'redux-form/es/SubmissionError'
 
 import {asyncValidation, submitValidation} from './asyncValidation'
 

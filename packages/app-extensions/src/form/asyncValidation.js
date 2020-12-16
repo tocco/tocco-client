@@ -1,4 +1,4 @@
-import {SubmissionError} from 'redux-form'
+import {SubmissionError} from 'redux-form/es/SubmissionError'
 import {api} from 'tocco-util'
 import _has from 'lodash/has'
 import _get from 'lodash/get'

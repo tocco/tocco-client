@@ -1,7 +1,5 @@
-import {
-  actions as formActions, isValid as isValidSelector,
-  SubmissionError
-} from 'redux-form'
+import {actions as formActions, isValid as isValidSelector} from 'redux-form'
+import {SubmissionError} from 'redux-form/es/SubmissionError'
 import {externalEvents, form, rest, remoteEvents} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'

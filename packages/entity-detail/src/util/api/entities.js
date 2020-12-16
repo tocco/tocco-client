@@ -1,4 +1,4 @@
-import {SubmissionError} from 'redux-form'
+import {SubmissionError} from 'redux-form/es/SubmissionError'
 import {form, rest} from 'tocco-app-extensions'
 import {call} from 'redux-saga/effects'
 
