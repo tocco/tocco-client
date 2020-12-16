@@ -73,7 +73,7 @@ class PhoneEdit extends React.Component {
   }
 
   determineDisplayValue = () => {
-    if (this.state.libPhoneImport && this.state.libPhoneImport.AsYouType) {
+    if (this.props.value && this.state.libPhoneImport && this.state.libPhoneImport.AsYouType) {
       return new this.state.libPhoneImport.AsYouType(this.state.defaultCountry).input(this.props.value)
     }
 
