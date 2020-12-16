@@ -35,7 +35,8 @@ const props = {
   selection: [],
   refresh: EMPTY_FUNC,
   currentPageIds: ['1', '4'],
-  showSelectionController: true
+  showSelectionController: true,
+  columnDisplayPreferences: {}
 }
 
 describe('entity-list', () => {
