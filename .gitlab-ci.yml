@@ -1,7 +1,10 @@
 image: node:14.15.1-alpine
 
 cache: &global_cache
-  key: ${CI_COMMIT_REF_SLUG}
+  key:
+    files:
+      - yarn.lock
+      - packages/*/yarn.lock
   policy: pull
   paths:
     - node_modules/
