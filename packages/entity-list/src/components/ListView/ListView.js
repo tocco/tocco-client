@@ -29,7 +29,7 @@ const ListView = ({
   const msg = (id, values = {}) => intl.formatMessage({id}, values)
 
   const List = useMemo(() => {
-    if (formDefinition) {
+    if (formDefinition && columnDisplayPreferences) {
       const table = getTable(formDefinition)
       const columnsDefinitions = getColumnDefinition(table, sorting, parent, intl, columnDisplayPreferences)
 
