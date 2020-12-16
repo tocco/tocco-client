@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {EditableValue, Range} from 'tocco-ui'
 
 import editableTypeConfigs from './editableTypeConfigs'
@@ -18,7 +19,7 @@ const getOptions = (type, formField, formName, formData) =>
     ? editableTypeConfigs[type].getOptions({formField, formName, formData})
     : {}
 
-export default (type, range) => ({formField, formName, value, info, events, formData}) => {
+const EditableValueFactory = ({type, range, formField, formName, value, info, events, formData}) => {
   const formType = formField.dataType || formField.componentType
   const options = getOptions(formType, formField, formName, formData)
 
@@ -41,3 +42,19 @@ export default (type, range) => ({formField, formName, value, info, events, form
     />
   )
 }
+
+EditableValueFactory.propTypes = {
+  type: PropTypes.string,
+  range: PropTypes.bool,
+  formName: PropTypes.string,
+  formField: PropTypes.shape({
+    dataType: PropTypes.string,
+    componentType: PropTypes.string
+  }),
+  value: PropTypes.any,
+  info: PropTypes.object,
+  events: PropTypes.object,
+  formData: PropTypes.object
+}
+
+export default (type, range) => props => <EditableValueFactory type={type} range={range} {...props} />

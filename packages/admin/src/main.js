@@ -31,6 +31,7 @@ const initApp = (id, input, events, publicPath) => {
 
     // the following import can be removed once the merge action is
     // integrated properly (not as legacy action)
+    // eslint-disable-next-line chai-friendly/no-unused-expressions
     import('tocco-merge/src/main')
   }
 
