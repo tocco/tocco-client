@@ -47,7 +47,7 @@ storiesOf('Tocco-UI | Layout / Layout', module)
     'Layout',
     () =>
       <div>
-        <Layout.Container maxCellsPerRow={{sm: 2, md: 3, lg: 4, xl: 5}}>
+        <Layout.Container>
           <Layout.Box><ExampleCell/></Layout.Box>
           <Layout.Box><ExampleCell/></Layout.Box>
           <Layout.Box><ExampleCell/></Layout.Box>
