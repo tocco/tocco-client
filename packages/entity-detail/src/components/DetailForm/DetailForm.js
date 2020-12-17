@@ -3,15 +3,15 @@ import React, {useEffect, useMemo} from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape} from 'react-intl'
 import {form} from 'tocco-app-extensions'
+import {scale} from 'tocco-ui'
 import styled from 'styled-components'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import SaveButton from './SaveButton'
 
 const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  display: grid;
+  padding-bottom: ${scale.space(-0.5)};
 `
 
 const DetailForm = props => {

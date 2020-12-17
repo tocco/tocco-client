@@ -5,14 +5,14 @@ import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import styled from 'styled-components'
-import {theme, StyledScrollbar} from 'tocco-ui'
+import {theme, StyledScrollbar, scale} from 'tocco-ui'
 
 import {currentViewPropType} from '../../utils/propTypes'
 
 const StyledEntityDetailAppWrapper = styled.div`
   margin: 0;
   background-color: ${theme.color('paper')};
-  padding: 0 0 0 1.5rem;
+  padding: 0 ${scale.space(-0.5)} 0 ${scale.space(0)};
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
