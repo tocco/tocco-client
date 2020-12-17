@@ -8,7 +8,7 @@ const editableMapping = {
   'char': editableValueFactory('string'),
   'code': editableValueFactory('text'),
   'count': editableValueFactory('string'),
-  'counter': editableValueFactory('number'),
+  'counter': editableValueFactory('string'),
   'createts': editableValueFactory('datetime'),
   'createuser': editableValueFactory('string'),
   'compressed-text': editableValueFactory('text'),
