@@ -1,27 +1,12 @@
 import styled from 'styled-components'
 
-const declareStylesIfNestedCorrectly = ({isNestedCorrectly}) => {
-  if (isNestedCorrectly) {
-    return `
-      display: flex;
-      flex-wrap: wrap;
-
-      &:last-child {
-        margin-bottom: 0;
-        flex: 1;
-      }
-    `
-  } else {
-    return `
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
-    `
-  }
-}
+import {scale} from '../utilStyles'
 
 const StyledLayoutContainer = styled.div`
-  ${props => declareStylesIfNestedCorrectly(props)}
+  display: grid;
+  grid-template-columns: ${({containerWidth}) => containerWidth > 680 ? '1fr 1fr' : '1fr'};
+  grid-gap: ${scale.space(-0.5)};
+  align-items: flex-start;
 `
 
 export default StyledLayoutContainer
