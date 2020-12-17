@@ -13,21 +13,5 @@ describe('tocco-ui', () => {
       expect(wrapper.find('span').first().text()).to.equal('child1')
       expect(wrapper.find('span').last().text()).to.equal('child2')
     })
-
-    test('should have one defaultProps', () => {
-      expect(LayoutContainer.defaultProps.maxCellsPerRow).to.deep.equal({sm: 1, md: 2, lg: 3, xl: 4})
-    })
-
-    test('should pass props to child', () => {
-      const wrapper = mount(
-        <LayoutContainer
-          maxCellsPerRow={{sm: 5, md: 6, lg: 7, xl: 8}}
-        >
-          <span>child1</span>
-        </LayoutContainer>)
-      const {containerWidth, maxCellsPerRow} = wrapper.find('span').props()
-      expect(containerWidth).not.to.be.undefined
-      expect(maxCellsPerRow).to.deep.equal({sm: 5, md: 6, lg: 7, xl: 8})
-    })
   })
 })
