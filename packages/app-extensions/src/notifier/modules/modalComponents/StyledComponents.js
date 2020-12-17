@@ -7,19 +7,17 @@ import {
 export const basePadding = scale.space(0.5)
 
 export const StyledModalContent = styled.div`
-  &&& {
-    position: relative;
-    background-color: ${theme.color('paper')};
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);
-    padding: 0 ${basePadding} ${basePadding};
-    max-height: 80vh;
-    min-width: 350px;
-    max-width: 700px;
-    margin: auto;
-    top: 10%;
-    display: grid;
-    grid-template-rows: [title] auto [message] 1fr;
-  }
+  position: relative;
+  background-color: ${theme.color('paper')};
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);
+  padding: ${basePadding};
+  max-height: 80vh;
+  min-width: 350px;
+  max-width: 700px;
+  margin: auto;
+  top: 10%;
+  display: grid;
+  grid-template-rows: [title] auto [message] 1fr;
 `
 
 export const StyledCloseButton = styled.button`
@@ -31,7 +29,8 @@ export const StyledCloseButton = styled.button`
   outline: none;
   position: absolute;
   right: ${basePadding};
-  top: 1rem;
+  top: ${basePadding};
+  padding: 0;
 
   &:hover {
     opacity: 1;

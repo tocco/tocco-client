@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import {StyledScrollbar, scale} from 'tocco-ui'
 
 export const StyledTitleWrapper = styled.div`
-  padding-top: ${scale.space(0.5)};
   padding-bottom: ${scale.space(0.5)};
   grid-row-start: title;
 `
