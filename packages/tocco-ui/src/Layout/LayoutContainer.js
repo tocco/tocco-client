@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {memo, useRef, useState, useEffect} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 
 import StyledLayoutContainer from './StyledLayoutContainer'
 
@@ -14,6 +14,7 @@ const LayoutContainer = ({children}) => {
   useEffect(() => {
     setDeviceIndependentPixelWidth()
     window.addEventListener('resize', setDeviceIndependentPixelWidth)
+    return () => window.removeEventListener('resize', setDeviceIndependentPixelWidth)
   }, [])
 
   return (
@@ -27,4 +28,4 @@ LayoutContainer.propTypes = {
   children: PropTypes.node
 }
 
-export default memo(LayoutContainer)
+export default LayoutContainer
