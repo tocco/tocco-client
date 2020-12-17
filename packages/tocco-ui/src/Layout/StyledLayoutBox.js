@@ -4,9 +4,9 @@ import {scale} from '../utilStyles'
 
 const StyledLayoutBox = styled.div`
   display: grid;
+  height: fit-content;
   grid-template-rows: auto;
-  grid-gap: ${scale.space(-0.5)};
-  margin-bottom: .5rem;
+  margin-bottom: ${scale.space(-0.5)};
 `
 
 export default StyledLayoutBox
