@@ -6,7 +6,7 @@ import {intlShape} from 'react-intl'
 import queryString from 'query-string'
 import {queryString as queryStringUtil} from 'tocco-util'
 import styled from 'styled-components'
-import {StyledScrollbar, theme} from 'tocco-ui'
+import {StyledScrollbar, theme, scale} from 'tocco-ui'
 
 import {goBack} from '../../../../utils/routing'
 import StyledLink from '../../../../components/StyledLink/StyledLink'
@@ -16,7 +16,7 @@ import {currentViewPropType} from '../../utils/propTypes'
 export const StyledEntityDetailAppWrapper = styled.div`
   margin: 0;
   background-color: ${theme.color('paper')};
-  padding: 0 0 0 1.5rem;
+  padding: 0 ${scale.space(-0.5)} 0 ${scale.space(0)};
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
