@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef, useLayoutEffect} from 'react'
 import PropTypes from 'prop-types'
 
 import TitleMessage from '../../components/TitleMessage'
@@ -18,15 +18,23 @@ const ModalContent = ({
   component: Component
 }) => {
   const [isClosing, setIsClosing] = useState(false)
+  const ref = useRef(null)
 
   const handleCloseClick = () => {
     setIsClosing(true)
     close(id)
   }
 
+  useLayoutEffect(() => {
+    if (ref.current) {
+      // prevent mobile keyboard from pushing the modal up
+      setTimeout(() => window.scrollTo(0, 0), 10)
+    }
+  }, [ref])
+
   return (
     <StyledModalWrapper>
-      <StyledModalContent isClosing={isClosing}>
+      <StyledModalContent isClosing={isClosing} ref={ref}>
         {closable && <StyledCloseButton onClick={handleCloseClick} type="button">
           ✕
         </StyledCloseButton>}
