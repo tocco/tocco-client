@@ -14,17 +14,19 @@ const borderWidth = '1px'
 const animationDuration = '200ms'
 
 const getTextColor = ({isDisplay, secondaryPosition, immutable, signal}) => {
-  return isDisplay
-    ? secondaryPosition
-      ? 'shade0'
-      : 'shade1'
-    : secondaryPosition
-      ? 'shade1'
-      : immutable
+  return isDisplay && secondaryPosition && immutable
+    ? 'shade1'
+    : isDisplay
+      ? secondaryPosition
         ? 'shade0'
-        : signal
-          ? 'signal'
-          : 'shade1'
+        : 'shade1'
+      : secondaryPosition
+        ? 'shade1'
+        : immutable
+          ? 'shade0'
+          : signal
+            ? 'signal'
+            : 'shade1'
 }
 
 const getBorderColor = ({immutable, isDisplay, signal}) => {
@@ -77,6 +79,7 @@ const StyledStatedValueLabel = styled.label`
     ${props => transformLabel(props)}
     ${props => declareCursor(props)}
     pointer-events: ${({secondaryPosition}) => secondaryPosition ? 'auto' : 'none'};
+    padding-left: ${({immutable}) => immutable && '0'};
 
     span {
       white-space: nowrap;
@@ -94,6 +97,8 @@ const StyledStatedValueBox = styled.div`
     transition: border-color ${animationDuration};
     will-change: border-color;
     margin-top: ${({isDisplay}) => isDisplay && scale.space(-1)};
+    padding-left: ${({immutable}) => immutable && scale.space(-2)};
+    padding-top: ${({isDisplay, immutable}) => isDisplay && immutable && scale.space(-1)};
 
     * {
       padding-left: ${({isDisplay}) => isDisplay && '0'};
