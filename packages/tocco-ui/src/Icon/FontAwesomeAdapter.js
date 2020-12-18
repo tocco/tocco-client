@@ -39,6 +39,7 @@ const FontAwesomeAdapter = ({icon, style}) =>
     icon={icon.includes(',') ? icon.replace(/\s+/, '').split(',') : icon}
     style={style}
     {..._get(style, 'color') && {color: style.color}}
+    fixedWidth
   />
 
 FontAwesomeAdapter.propTypes = {
