@@ -180,12 +180,20 @@
     "id": "far, file-spreadsheet",
     "lib": "fa"
   },
+  "folder": {
+    "id": "fas, folder",
+    "lib": "fa"
+  },
   "folders": {
     "id": "far, folders",
     "lib": "fa",
     "tags": [
       "copy"
     ]
+  },
+  "globe": {
+    "id": "far, globe",
+    "lib": "fa"
   },
   "google": {
     "id": "fab, google",
