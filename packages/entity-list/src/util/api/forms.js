@@ -57,7 +57,9 @@ const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude'
 const isRightAligned = column =>
   column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
 
-export const getColumnDefinition = (table, sorting, parent, intl, columnDisplayPreferences = {}) => {
+export const getColumnDefinition = (
+  table, sorting, parent, intl, columnDisplayPreferences = {}, cellRenderers = {}
+) => {
   return table.children
     .filter(column => Object.prototype.hasOwnProperty.call(columnDisplayPreferences, column.id)
       ? columnDisplayPreferences[column.id] : !column.hidden)
@@ -74,7 +76,10 @@ export const getColumnDefinition = (table, sorting, parent, intl, columnDisplayP
         children: c.children.filter(isDisplayableChild),
         resizable: !c.widthFixed,
         rightAligned: isRightAligned(c),
-        CellRenderer: ({rowData, column}) => column.children.map(child => cellRenderer(child, rowData, parent, intl))
+        CellRenderer: ({rowData, column}) =>
+          c.clientRenderer && cellRenderers[c.clientRenderer]
+            ? cellRenderers[c.clientRenderer](rowData, column, child => cellRenderer(child, rowData, parent, intl))
+            : column.children.map(child => cellRenderer(child, rowData, parent, intl))
       }
     ))
 }

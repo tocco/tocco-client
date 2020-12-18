@@ -30,6 +30,7 @@ React-registry name: `entity-list`
 | `linkFactory`                   |             | Object consisting of various link factories. For more information see formData documentation.                                                                                                             | Object   |                            |
 | `showLink`                      |             | If true a link is shown in each row to open the record. A detail Link factory needs to be provided.                                                                                                       | Bool     | false                      |
 | `actionAppComponent`            |             | Component to render custom actions. Needs the appId and selection object property.                                                                                                                        | React Component |                     |
+| `cellRenderers`                 |             | Map of custom cell renderers which might be specified in list form definition (`client-renderer` attribute)                                                                                                                       | React Component |                     |
 
 
 ### Events

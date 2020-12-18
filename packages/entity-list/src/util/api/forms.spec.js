@@ -1,3 +1,4 @@
+import React from 'react'
 import {mockData} from 'tocco-util'
 import _omit from 'lodash/omit'
 
@@ -162,6 +163,49 @@ describe('entity-list', () => {
 
             expect(result).to.have.length(1)
             expect(result[0].id).to.eql('lb1')
+          })
+
+          test('should return custom cell renderer if defined', () => {
+            const field = {id: 'name1', componentType: 'field', label: 'label'}
+            const formDefinition = {
+              children: [
+                {
+                  hidden: false,
+                  id: 'lb1',
+                  label: 'label1',
+                  sortable: true,
+                  widthFixed: false,
+                  width: null,
+                  children: [field],
+                  clientRenderer: 'my-test-renderer'
+                }
+              ]
+            }
+
+            // eslint-disable-next-line react/prop-types
+            const CustomComponent = ({text}) => <div>{text}</div>
+
+            const cellRenderers = {
+              'my-test-renderer': (rowData, column, defaultRenderer) => {
+                return <CustomComponent text={rowData.text}/>
+              }
+            }
+
+            const columnDefinitions = forms.getColumnDefinition(
+              formDefinition, undefined, undefined, undefined, undefined, cellRenderers
+            )
+
+            expect(columnDefinitions).to.have.length(1)
+
+            const renderer = columnDefinitions[0].CellRenderer
+
+            const result = renderer({
+              rowData: {
+                text: 'foo'
+              }
+            })
+
+            expect(result).to.eql(<CustomComponent text="foo"/>)
           })
         })
 
