@@ -2,6 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {viewPersistor} from 'tocco-util'
+import {Icon} from 'tocco-ui'
+
+const ICONS = {
+  Domain: 'globe',
+  Folder: 'folder',
+  Resource: 'file'
+}
 
 const getParent = match => {
   if (match.params && match.params.model) {
@@ -53,6 +60,14 @@ const DocsView = props => {
       store={viewPersistor.viewInfoSelector(storeKey).store}
       onStoreCreate={store => {
         viewPersistor.persistViewInfo(storeKey, {store})
+      }}
+      cellRenderers={{
+        'dms-label-with-icon': (rowData, column, cellRenderer) => (
+          <div>
+            <Icon icon={ICONS[rowData.type]} style={{marginRight: '0.5rem', verticalAlign: 'middle'}}/>
+            <span style={{verticalAlign: 'middle'}}>{cellRenderer(column.children[0])}</span>
+          </div>
+        )
       }}
     />
   )
