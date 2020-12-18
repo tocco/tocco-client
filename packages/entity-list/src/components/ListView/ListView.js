@@ -19,6 +19,7 @@ const ListView = ({
   showSelectionController,
   sorting,
   columnDisplayPreferences,
+  cellRenderers,
   initialize,
   intl
 }) => {
@@ -31,7 +32,9 @@ const ListView = ({
   const List = useMemo(() => {
     if (formDefinition && columnDisplayPreferences) {
       const table = getTable(formDefinition)
-      const columnsDefinitions = getColumnDefinition(table, sorting, parent, intl, columnDisplayPreferences)
+      const columnsDefinitions = getColumnDefinition(
+        table, sorting, parent, intl, columnDisplayPreferences, cellRenderers
+      )
 
       return <StyledListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${table.id}`}>
         <TableContainer
@@ -100,7 +103,8 @@ ListView.propTypes = {
     field: PropTypes.string,
     order: PropTypes.string
   })),
-  columnDisplayPreferences: PropTypes.objectOf(PropTypes.bool)
+  columnDisplayPreferences: PropTypes.objectOf(PropTypes.bool),
+  cellRenderers: PropTypes.objectOf(PropTypes.func)
 }
 
 const areEqual = (prevProps, nextProps) => {
