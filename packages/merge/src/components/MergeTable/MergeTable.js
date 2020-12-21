@@ -20,13 +20,14 @@ LabelCellRenderer.propTypes = {
   allPaths: PropTypes.arrayOf(PropTypes.string)
 }
 
-const ColumnHeaderRenderer = ({label, entityKey, setTargetEntity, targetEntity}) => {
+const ColumnHeaderRenderer = ({label, entityKey, setTargetEntity, targetEntity, mergeStrategyDisplay}) => {
   const isChecked = targetEntity === entityKey
+  const status = isChecked ? <FormattedMessage id="client.merge.strategy.keep"/> : mergeStrategyDisplay
   const onChange = () => setTargetEntity(entityKey)
 
   return <>
     <input type="radio" name="column" onChange={onChange} checked={isChecked} id={`targetEntity${entityKey}`}/>
-    <Typography.Label for={`targetEntity${entityKey}`}> {label}</Typography.Label>
+    <Typography.Label for={`targetEntity${entityKey}`}> {label} ({status})</Typography.Label>
   </>
 }
 
@@ -34,14 +35,16 @@ ColumnHeaderRenderer.propTypes = {
   label: PropTypes.string,
   entityKey: PropTypes.string.isRequired,
   setTargetEntity: PropTypes.func.isRequired,
-  targetEntity: PropTypes.string
+  targetEntity: PropTypes.string,
+  mergeStrategyDisplay: PropTypes.string.isRequired
 }
 
 const mapActionCreatorsColumn = {
   setTargetEntity
 }
 const mapStateToPropsColumn = (state, props) => ({
-  targetEntity: state.merge.selected.targetEntity
+  targetEntity: state.merge.selected.targetEntity,
+  mergeStrategyDisplay: state.merge.sourceData.mergeStrategyDisplay
 })
 const ColumnHeaderRendererContainer = connect(mapStateToPropsColumn,
   mapActionCreatorsColumn)(injectIntl(ColumnHeaderRenderer))

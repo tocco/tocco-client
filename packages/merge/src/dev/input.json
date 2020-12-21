@@ -1,6 +1,6 @@
 {
   "selection": {
-    "entityName": "USER",
+    "entityName": "User",
     "type": "ID",
     "ids": [1, 2]
   }
