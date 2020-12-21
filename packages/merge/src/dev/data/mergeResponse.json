@@ -1,3 +1,31 @@
 {
-  "success": true
+  "notCopiedRelations": [
+    {
+      "pk": "1",
+      "entity": "User",
+      "entityLabel": "Person",
+      "name": "Display 1"
+    },
+    {
+      "pk": "2",
+      "entity": "User",
+      "entityLabel": "Person",
+      "name": "Display 2"
+    },
+    {
+      "pk": "4",
+      "entity": "Address",
+      "entityLabel": "Adresse",
+      "name": "Display 4"
+    }
+  ],
+  "notDeletedEntities": [
+    {
+      "pk": "3",
+      "entity": "User",
+      "entityLabel": "Person",
+      "name": "Display 3"
+    }
+  ],
+  "showPermissionMessage": true
 }

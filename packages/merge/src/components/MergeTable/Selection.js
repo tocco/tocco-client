@@ -70,12 +70,20 @@ export const FormattedValueRadio = React.memo(({entityData, entityKey, name, set
     entity: 'single-select'
   }
 
-  const {type} = entityData
+  const {type, writable} = entityData
   const mappedType = typeMapper[type] || type
-  const onChange = () => setSelectedSingle(name, entityKey)
+  const onChange = () => {
+    setSelectedSingle(name, entityKey)
+  }
 
   return <>
-    <input type="radio" name={name} onChange={onChange} checked={isSelected} id={`${name}${entityKey}`}/>
+    <input
+      type="radio"
+      name={name}
+      onChange={onChange}
+      checked={isSelected}
+      id={`${name}${entityKey}`}
+      disabled={!writable}/>
     <Typography.Label for={`${name}${entityKey}`}>
       <FormattedValue type={mappedType} value={entityData.value}/>
     </Typography.Label>
@@ -85,6 +93,7 @@ export const FormattedValueRadio = React.memo(({entityData, entityKey, name, set
 FormattedValueRadio.propTypes = {
   entityData: PropTypes.shape({
     value: PropTypes.any,
+    writable: PropTypes.bool,
     type: PropTypes.string
   }),
   entityKey: PropTypes.string.isRequired,

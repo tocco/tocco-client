@@ -7,27 +7,27 @@
       "paths": {
         "firstname": {
           "type": "string",
-          "writable": null,
+          "writable": true,
           "value": "Muhammad"
         },
         "lastname": {
           "type": "string",
-          "writable": null,
+          "writable": true,
           "value": "Ali"
         },
         "callname": {
           "type": "string",
-          "writable": null,
+          "writable": false,
           "value": "Cassius Clay"
         },
         "birthdate": {
           "type": "birthdate",
-          "writable": null,
+          "writable": true,
           "value": "1942-01-17"
         },
         "relGender": {
           "type": "entity",
-          "writable": null,
+          "writable": true,
           "value": {
             "_links": null,
             "key": "1",
@@ -35,9 +35,19 @@
             "version": 1
           }
         },
+        "relAcademic_title": {
+          "type": "entity",
+          "writable": true,
+          "value": {
+            "_links": null,
+            "key": "1",
+            "model": "Academic_title",
+            "version": 1
+          }
+        },
         "relPrincipal": {
           "type": "entity-list",
-          "writable": null,
+          "writable": true,
           "value": [
             {
               "key": "3150",
@@ -68,32 +78,37 @@
       "paths": {
         "firstname": {
           "type": "string",
-          "writable": null,
+          "writable": true,
           "value": "Muhammet"
         },
         "lastname": {
           "type": "string",
-          "writable": null,
+          "writable": true,
           "value": "Ali"
         },
         "callname": {
           "type": "string",
-          "writable": null,
+          "writable": false,
           "value": null
         },
         "birthdate": {
           "type": "birthdate",
-          "writable": null,
+          "writable": true,
           "value": null
         },
         "relGender": {
           "type": "entity",
-          "writable": null,
+          "writable": true,
+          "value": null
+        },
+        "relAcademic_title": {
+          "type": "entity",
+          "writable": true,
           "value": null
         },
         "relPrincipal": {
           "type": "entity-list",
-          "writable": null,
+          "writable": true,
           "value": []
         }
       }
@@ -105,27 +120,27 @@
       "paths": {
         "firstname": {
           "type": "string",
-          "writable": null,
+          "writable": true,
           "value": "Muhammad"
         },
         "lastname": {
           "type": "string",
-          "writable": null,
+          "writable": true,
           "value": "Ali"
         },
         "callname": {
           "type": "string",
-          "writable": null,
+          "writable": false,
           "value": "Cassius Marcellus Clay Jr."
         },
         "birthdate": {
           "type": "birthdate",
-          "writable": null,
+          "writable": true,
           "value": "1942-01-17"
         },
         "relGender": {
           "type": "entity",
-          "writable": null,
+          "writable": true,
           "value": {
             "_links": null,
             "key": "2",
@@ -133,9 +148,14 @@
             "version": 1
           }
         },
+        "relAcademic_title": {
+          "type": "entity",
+          "writable": true,
+          "value": null
+        },
         "relPrincipal": {
           "type": "entity-list",
-          "writable": null,
+          "writable": true,
           "value": [
             {
               "key": "3150",
@@ -204,7 +224,7 @@
         },
         {
           "key": "10",
-          "display":  "Muhammad , Alli 3"
+          "display": "Muhammad , Alli 3"
         }
       ]
     },
@@ -222,6 +242,15 @@
       ]
     },
     {
+      "model": "Academic_title",
+      "values": [
+        {
+          "key": "1",
+          "display": "Dr."
+        }
+      ]
+    },
+    {
       "model": "Principal",
       "values": [
         {
@@ -235,7 +264,7 @@
         {
           "key": "5711",
           "display": "Login 5711"
-        } ,
+        },
         {
           "key": "5712",
           "display": "Login 5712"
@@ -249,10 +278,9 @@
     "callname": "Callname",
     "birthdate": "Birthdate",
     "relGender": "Gender",
+    "relAcademic_title": "Academic Title",
     "relPrincipal": "Logins",
     "relMail": "EMails"
   },
-  "mergeStrategy": {
-    "display": "Delete"
-  }
+  "mergeStrategyDisplay": "Delete"
 }
