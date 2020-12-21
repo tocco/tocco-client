@@ -1,3 +1,9 @@
+0.4.4
+- Fix column picker styling
+- Use column label as titles when hovering over headers
+- Prevent mobile keyboard from pushing the modal up
+- Fix bug on list and detail
+
 0.4.3
 - Fix table reset
 
