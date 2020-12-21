@@ -9,7 +9,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  mergeResponse: state.merge.mergeResponse
+  mergeDone: !!state.merge.mergeResponse
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Merge))
