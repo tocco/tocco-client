@@ -12,5 +12,4 @@ const mapStateToProps = (state, props) => ({
   sourceData: state.merge.sourceData
 })
 
-// eslint-disable-next-line no-undef
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(MergeTable))

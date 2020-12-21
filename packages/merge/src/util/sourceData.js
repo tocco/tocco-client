@@ -22,8 +22,8 @@ export const getDataRows = sourceData => {
           value.value = value.value.map(f => {
             const display = sourceData.displays
               .find(d => d.model === f.model).values
-              .find(v => v.key === f.key).display
-            f.display = display
+              .find(v => v.key === f.key)
+            f.display = display === undefined ? 'PK: ' + f.key : display.display
             return f
           })
         }

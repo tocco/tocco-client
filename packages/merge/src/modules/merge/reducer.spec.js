@@ -268,7 +268,8 @@ describe('merge', () => {
                   lastname: '1',
                   callname: '1',
                   birthdate: '1',
-                  relGender: '1'
+                  relGender: '1',
+                  relAcademic_title: '1'
                 },
                 multiple: {
                   relPrincipal: {
