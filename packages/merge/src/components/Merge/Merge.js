@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import MergeTable from '../MergeTable'
+import MergeSummary from '../MergeSummary'
 
 const StyledMerge = styled.div`
   margin: 5px;
@@ -10,17 +11,15 @@ const StyledMerge = styled.div`
   overflow: hidden;
 `
 
-const Merge = ({initialize, mergeResponse}) => {
+const Merge = ({initialize, mergeDone}) => {
   useEffect(() => {
     initialize()
-  })
+  }, [])
 
   return (
     <StyledMerge>
       {
-        mergeResponse
-          ? <div>Merge Response</div>
-          : <MergeTable/>
+        mergeDone ? <MergeSummary/> : <MergeTable/>
       }
     </StyledMerge>
   )
@@ -28,7 +27,7 @@ const Merge = ({initialize, mergeResponse}) => {
 
 Merge.propTypes = {
   initialize: PropTypes.func.isRequired,
-  mergeResponse: PropTypes.object
+  mergeDone: PropTypes.bool.isRequired
 }
 
 export default Merge

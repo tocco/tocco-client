@@ -1,5 +1,6 @@
 import {takeLatest, all, select, call, put} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
+import _uniq from 'lodash/uniq'
 
 import * as actions from './actions'
 
@@ -17,13 +18,18 @@ export function* initialize() {
   yield call(loadSourceData, selection)
 }
 
+export function* getSelection(selection) {
+  return {
+    model: selection.entityName,
+    keys: selection.ids
+  }
+}
+
 export function* loadSourceData(selection) {
-  const resource = 'nice2/rest/merge/sourceData'
+  const resource = 'merge/sourceData'
   const options = {
     method: 'POST',
-    body: {
-      selection
-    }
+    body: yield call(getSelection, selection)
   }
   const response = yield call(rest.requestSaga, resource, options)
   const {body: sourceData} = response
@@ -37,12 +43,19 @@ export function* getMergeBody() {
   const paths = {}
   for (const [name, entityKey] of Object.entries(selected.single)) {
     const path = sourceData.entities.find(e => e.key === entityKey).paths[name]
-    if (path.type === 'entity') {
-      paths[name] = {
-        key: path.value.key
+
+    if (path.writable) {
+      if (path.type === 'entity') {
+        if (path.value === null) {
+          paths[name] = null
+        } else {
+          paths[name] = {
+            key: path.value.key
+          }
+        }
+      } else {
+        paths[name] = entityKey
       }
-    } else {
-      paths[name] = path.value
     }
   }
 
@@ -53,20 +66,13 @@ export function* getMergeBody() {
     }))
   }
 
-  const mergeRelations = []
-  sourceData.relations.forEach(relation => {
-    const isSelected = selected.multipleAll[relation.relationName].includes(relation.entityKey)
-    if (isSelected || relation.entityKey === selected.targetEntity) {
-      mergeRelations.push({
-        relationName: relation.relationName,
-        sourceKey: relation.entityKey,
-        selected: isSelected
-      })
-    }
-  })
+  const mergeRelations = _uniq(sourceData.relations.map(r => r.relationName)).map(relationName => ({
+    relationName: relationName,
+    sourceKey: selected.multipleAll[relationName] || []
+  }))
 
   return {
-    selection: selection,
+    selection: yield call(getSelection, selection),
     targetEntity: {
       key: selected.targetEntity,
       paths: paths
@@ -76,13 +82,12 @@ export function* getMergeBody() {
 }
 
 export function* executeMerge() {
-  const resource = 'nice2/rest/merge/merge'
+  const resource = 'merge/merge'
   const options = {
     method: 'POST',
     body: yield call(getMergeBody)
   }
 
   const response = yield call(rest.requestSaga, resource, options)
-
-  yield put(actions.setMergeResponse(response))
+  yield put(actions.setMergeResponse(response.body))
 }

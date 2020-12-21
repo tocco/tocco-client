@@ -7,9 +7,14 @@ import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 
 const selection = {
-  entityName: 'USER',
+  entityName: 'User',
   type: 'ID',
   ids: [1, 2]
+}
+
+const expectedSelection = {
+  model: 'User',
+  keys: [1, 2]
 }
 
 const sourceData = require('../../dev/data/sourceResponse.json')
@@ -39,13 +44,21 @@ describe('merge', () => {
           })
         })
 
+        describe('getSelection', () => {
+          test('should call getSelection', () => {
+            return expectSaga(sagas.getSelection, selection)
+              .returns(expectedSelection)
+              .run()
+          })
+        })
+
         describe('loadSourceData', () => {
           test('should call loadSourceData', () => {
             return expectSaga(sagas.loadSourceData, selection)
               .provide([
                 [matchers.call.fn(rest.requestSaga), {body: sourceData}]
               ])
-              .call(rest.requestSaga, 'nice2/rest/merge/sourceData', {method: 'POST', body: {selection: selection}})
+              .call(rest.requestSaga, 'merge/sourceData', {method: 'POST', body: expectedSelection})
               .put(actions.setSourceData(sourceData))
               .put(actions.setTargetEntity(sourceData.entities[0].key))
               .run()
@@ -55,7 +68,7 @@ describe('merge', () => {
         describe('executeMerge', () => {
           test('should call executeMerge', () => {
             const body = {
-              selection: selection,
+              selection: expectedSelection,
               targetEntity: {
                 key: '1',
                 paths: {}
@@ -63,15 +76,28 @@ describe('merge', () => {
               mergeRelations: []
             }
             const response = {
-              success: true
+              notCopiedRelations: [
+                {
+                  pk: '1',
+                  entity: 'User',
+                  name: 'Display 1'
+                },
+                {
+                  pk: '2',
+                  entity: 'User',
+                  name: 'Display 2'
+                }
+              ],
+              notDeletedEntities: [],
+              showPermissionMessage: false
             }
 
             return expectSaga(sagas.executeMerge)
               .provide([
                 [matchers.call.fn(sagas.getMergeBody), body],
-                [matchers.call.fn(rest.requestSaga), response]
+                [matchers.call.fn(rest.requestSaga), {body: response}]
               ])
-              .call(rest.requestSaga, 'nice2/rest/merge/merge', {method: 'POST', body: body})
+              .call(rest.requestSaga, 'merge/merge', {method: 'POST', body: body})
               .put(actions.setMergeResponse(response))
               .run()
           })
@@ -86,8 +112,10 @@ describe('merge', () => {
                 targetEntity: '1',
                 single: {
                   firstname: '2',
+                  callname: '1',
                   birthdate: '1',
-                  relGender: '1'
+                  relGender: '1',
+                  relAcademic_title: '10'
                 },
                 multiple: {
                   relPrincipal: {
@@ -102,15 +130,16 @@ describe('merge', () => {
             }
 
             const expectedBody = {
-              selection: selection,
+              selection: expectedSelection,
               targetEntity: {
                 key: merge.selected.targetEntity,
                 paths: {
-                  firstname: 'Muhammet',
-                  birthdate: '1942-01-17',
+                  firstname: '2',
+                  birthdate: '1',
                   relGender: {
                     key: '1'
                   },
+                  relAcademic_title: null,
                   relPrincipal: [{
                     key: '3150'
                   }, {
@@ -120,12 +149,7 @@ describe('merge', () => {
               },
               mergeRelations: [{
                 relationName: 'relMail',
-                sourceKey: '1',
-                selected: false
-              }, {
-                relationName: 'relMail',
-                sourceKey: '2',
-                selected: true
+                sourceKey: ['2']
               }]
             }
 

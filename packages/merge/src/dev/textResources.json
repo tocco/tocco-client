@@ -1,4 +1,10 @@
 [
   "client.merge.allRelations",
-  "client.merge.saveButton"
+  "client.merge.saveButton",
+  "client.merge.strategy.keep",
+  "client.merge.summary.success",
+  "client.merge.summary.successHint",
+  "client.merge.summary.notCopiedRelations",
+  "client.merge.summary.notDeletedEntities",
+  "client.merge.summary.permission"
 ]
