@@ -34,4 +34,4 @@ FormattedValueFactory.propTypes = {
   breakWords: PropTypes.bool
 }
 
-export default type => props => <FormattedValueFactory type={type} {...props}/>
+export default type => props => <FormattedValueFactory {...props} type={type}/>
