@@ -1,3 +1,7 @@
+0.4.5
+- Fix top padding of modal
+- Fix padding of immutable stated values
+
 0.4.4
 - Fix column picker styling
 - Use column label as titles when hovering over headers
