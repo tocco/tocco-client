@@ -249,7 +249,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: undefined
       },
-      output: 'shade0'
+      output: 'shade1'
     }]
 
     test('should get correct name of color for text', () => {
