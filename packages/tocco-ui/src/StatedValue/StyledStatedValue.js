@@ -14,7 +14,7 @@ const borderWidth = '1px'
 const animationDuration = '200ms'
 
 const getTextColor = ({isDisplay, secondaryPosition, immutable, signal}) => {
-  return isDisplay && secondaryPosition && immutable
+  return isDisplay && secondaryPosition && immutable && !signal
     ? 'shade1'
     : isDisplay
       ? secondaryPosition
