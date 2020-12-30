@@ -18,23 +18,37 @@ const ErrorItems = ({formErrors}) => {
   let output = null
   const elements = []
 
-  if (form.formErrorsUtil.hasFieldErrors(formErrors)) {
+  const hasFieldErrors = form.formErrorsUtil.hasFieldErrors(formErrors)
+  const hasValidatorErrors = form.formErrorsUtil.hasValidatorErrors(formErrors)
+  const hasRelatedEntityErrors = form.formErrorsUtil.hasRelatedEntityErrors(formErrors)
+  const validatorErrors = form.formErrorsUtil.getValidatorErrors(formErrors)
+  const relatedEntityErrorsCompact = form.formErrorsUtil.getRelatedEntityErrorsCompact(formErrors)
+
+  if (hasFieldErrors) {
     elements.push(
-      <StyledErrorItemWrapper key="hasFieldErrors">
-        <Typography.H5>
-          <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
-        </Typography.H5>
-      </StyledErrorItemWrapper>
+      !hasValidatorErrors && !hasRelatedEntityErrors
+        ? (
+          <StyledErrorItemWrapper key="hasFieldErrors">
+            <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
+          </StyledErrorItemWrapper>
+        )
+        : (
+          <StyledErrorItemWrapper key="hasFieldErrors">
+            <Typography.H5>
+              <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
+            </Typography.H5>
+          </StyledErrorItemWrapper>
+        )
     )
   }
 
-  if (form.formErrorsUtil.hasValidatorErrors(formErrors)) {
+  if (hasValidatorErrors) {
     elements.push(
       <StyledErrorItemWrapper key="hasValidatorErrors">
         <Typography.H5>
           <FormattedMessage id="client.entity-detail.validatorErrors"/>
         </Typography.H5>
-        {form.formErrorsUtil.getValidatorErrors(formErrors).map((message, idx) =>
+        {validatorErrors.map((message, idx) =>
           <ErrorItem key={idx}>
             {message}
           </ErrorItem>
@@ -43,13 +57,13 @@ const ErrorItems = ({formErrors}) => {
     )
   }
 
-  if (form.formErrorsUtil.hasRelatedEntityErrors(formErrors)) {
+  if (hasRelatedEntityErrors) {
     elements.push(
       <StyledErrorItemWrapper key="hasRelatedEntityErrors">
         <Typography.H5>
           <FormattedMessage id="client.entity-detail.invalidRelationErrors"/>
         </Typography.H5>
-        {form.formErrorsUtil.getRelatedEntityErrorsCompact(formErrors).map((message, idx) =>
+        {relatedEntityErrorsCompact.map((message, idx) =>
           <ErrorItem key={idx}>
             {message}
           </ErrorItem>
