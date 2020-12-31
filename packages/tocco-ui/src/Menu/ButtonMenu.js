@@ -1,25 +1,22 @@
 import React, {useRef, useState} from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import {Menu, Icon, Button, ButtonGroup} from '../'
-
-const IconWrapper = styled.div`
-  margin-left: 8px;
-`
+import {StyledIconButtonWrapper, StyledIconWrapper} from './StyledComponents'
 
 /**
  *  Button with a menu that pops out on click.
  */
 const ButtonMenu = props => {
+  const {onOpen, children, onClick, buttonProps, label} = props
   const referenceElement = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [onOpenCalled, setOnOpenCalled] = useState(false)
 
   const handleClick = () => {
     setMenuOpen(!menuOpen)
-    if (props.onOpen && !onOpenCalled) {
-      props.onOpen()
+    if (onOpen && !onOpenCalled) {
+      onOpen()
       setOnOpenCalled(true)
     }
   }
@@ -35,14 +32,14 @@ const ButtonMenu = props => {
     open={menuOpen}
     onClose={handleClose}
   >
-    {props.children}
+    {children}
   </Menu>
 
-  if (props.onClick) {
+  if (onClick) {
     return <>
       <ButtonGroup ref={referenceElement}>
-        <Button {...props.buttonProps || {}} onClick={props.onClick} label={props.label} data-cy={props['data-cy']}/>
-        <Button icon={angleIcon} onClick={handleClick} {...props.buttonProps || {}} />
+        <Button {...buttonProps || {}} onClick={onClick} label={label} data-cy={props['data-cy']}/>
+        <StyledIconButtonWrapper icon={angleIcon} onClick={handleClick} {...buttonProps || {}} />
       </ButtonGroup>
       {getMenu}
     </>
@@ -51,10 +48,13 @@ const ButtonMenu = props => {
   return <>
     <Button
       data-cy={props['data-cy']}
-      {...props.buttonProps || {}} ref={referenceElement}
+      {...buttonProps || {}} ref={referenceElement}
       onClick={handleClick}
     >
-      {props.label}<IconWrapper><Icon icon={angleIcon}/></IconWrapper>
+      {label}
+      <StyledIconWrapper>
+        <Icon icon={angleIcon}/>
+      </StyledIconWrapper>
     </Button>
     {getMenu}
   </>
