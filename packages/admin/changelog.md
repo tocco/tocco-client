@@ -1,3 +1,9 @@
+0.4.6
+- Use same width for all Fontawesome icons
+- Introduce custom cell renderers
+- New type icons in DMS list
+- Disable pointer event on Desktop as text cant be copied otherwise in Firefox
+
 0.4.5
 - Fix top padding of modal
 - Fix padding of immutable stated values
