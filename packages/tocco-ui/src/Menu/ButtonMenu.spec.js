@@ -30,7 +30,7 @@ describe('tocco-ui', () => {
           </ButtonMenu>
         )
 
-        expect(wrapper.find(Button)).to.have.length(2)
+        expect(wrapper.find(Button)).to.have.length(1)
         expect(wrapper.find(ButtonGroup)).to.have.length(1)
         expect(wrapper.find(MenuItem)).to.have.length(1)
 
