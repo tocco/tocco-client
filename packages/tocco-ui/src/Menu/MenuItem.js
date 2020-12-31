@@ -1,36 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
-import {theme} from '../'
-import {
-  declareFont,
-  interactiveStyling,
-  scale
-} from '../utilStyles'
-
-export const StyledMenuItem = styled.div`
-  min-width: 200px;
-  max-width: 300px;
-  background-color: ${theme.color('secondaryLight')};
-`
-
-export const StyledItemLabel = styled.div`
-  cursor: ${({hasOnClick}) => hasOnClick ? 'pointer' : 'default'};
-  ${declareFont()}
-  ${interactiveStyling}
-  padding:
-    ${scale.space(-2)}
-    ${scale.space(-0.5)}
-    ${scale.space(-2)}
-    calc(${scale.space(-0.5)} + ${({level}) => (level || 0) * 5 + 'px'});
-  font-weight: ${({isGroup}) => isGroup ? theme.fontWeight('bold') : theme.fontWeight('regular')};
-  box-shadow: none;
-
-  span > * {
-    margin-right: 4px;
-  }
-`
+import {StyledMenuItem, StyledItemLabel} from './StyledComponents'
 
 /**
  * Item of Menu

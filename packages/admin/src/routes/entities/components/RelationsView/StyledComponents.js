@@ -21,7 +21,7 @@ export const StyledPreviewBox = styled.div`
     padding-left: ${scale.space(-0.5)};
 
     &:nth-child(2) {
-      padding-left: ${scale.space(-1.1)};
+      padding-left: 0;
     }
   }
 `
@@ -47,7 +47,7 @@ export const RelationLinks = styled.div`
 
   * {
     color: ${theme.color('text')};
-    padding-left: ${scale.space(-2)};
+    padding-left: ${scale.space(-4.5)};
   }
 `
 
