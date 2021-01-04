@@ -9,7 +9,7 @@ import fieldFactory, {MultiSeparator} from './fieldFactory'
 describe('entity-list', () => {
   describe('util', () => {
     const getStore = () => createStore(() => ({
-      formData: {linkFactory: {}},
+      formData: {navigationStrategy: {}},
       entityList: {formName: 'User'},
       list: {lazyData: {}}
     }))

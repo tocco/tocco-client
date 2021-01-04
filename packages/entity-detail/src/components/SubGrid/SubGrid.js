@@ -19,6 +19,8 @@ const SubGrid = props => {
         formName={formBase}
         limit={props.limit}
         searchFormType={props.showSearchForm ? 'basic' : 'none'}
+        navigationStrategy={props.navigationStrategy}
+        showLink={true}
         onRowClick={e => {
           if (props.onRowClick) {
             props.onRowClick({
@@ -34,7 +36,8 @@ const SubGrid = props => {
         parent={{
           key: props.entityKey,
           reverseRelationName: props.formField.reverseRelation,
-          model: props.entityName
+          model: props.entityName,
+          relationName: props.formField.path
         }}
         emitAction={props.emitAction}
         store={viewPersistor.viewInfoSelector(subgridPersistorId).store}
@@ -65,7 +68,8 @@ SubGrid.propTypes = {
   appId: PropTypes.string,
   showSearchForm: PropTypes.bool,
   limit: PropTypes.number,
-  emitAction: PropTypes.func.isRequired
+  emitAction: PropTypes.func.isRequired,
+  navigationStrategy: PropTypes.objectOf(PropTypes.func)
 }
 
 export default SubGrid

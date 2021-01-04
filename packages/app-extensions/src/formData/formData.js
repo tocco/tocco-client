@@ -15,8 +15,8 @@ import searchFilterSagas from './searchFilters/sagas'
 import {setRelationEntities} from './relationEntities/actions'
 import locationSagas from './locations/sagas'
 import locations from './locations/reducer'
-import linkFactory from './linkFactory/reducer'
-import {setLinkFactory} from './linkFactory/actions'
+import navigationStrategy from './navigationStrategy/reducer'
+import {setNavigationStrategy} from './navigationStrategy/actions'
 
 export const relationEntitiesSelector = store => store.formData.relationEntities.data
 export const tooltipSelector = store => store.formData.tooltips.data
@@ -29,7 +29,7 @@ export const addToStore = (store, config) => {
       tooltips,
       searchFilters,
       locations,
-      linkFactory
+      navigationStrategy
     })
   })
 
@@ -41,8 +41,8 @@ export const addToStore = (store, config) => {
   store.sagaMiddleware.run(searchFilterSagas)
   store.sagaMiddleware.run(locationSagas)
 
-  if (config.linkFactory) {
-    store.dispatch(setLinkFactory(config.linkFactory))
+  if (config.navigationStrategy) {
+    store.dispatch(setNavigationStrategy(config.navigationStrategy))
   }
 
   const relationEntitiesData = _get(config, 'data.relationEntities', null)

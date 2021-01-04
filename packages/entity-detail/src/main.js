@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
+import {reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 import {hot} from 'react-hot-loader/root'
 import {
   appFactory,
@@ -28,9 +28,7 @@ const EXTERNAL_EVENTS = [
   'onEntityCreated',
   'onEntityDeleted',
   'onTouchedChange',
-  'emitAction',
-  'onNavigateToCreate',
-  'onNavigateToAction'
+  'emitAction'
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
@@ -46,10 +44,11 @@ const initApp = (id, input, events = {}, publicPath) => {
       formApp: SimpleFormApp,
       listApp: EntityListApp,
       customActions,
-      appComponent: input.actionAppComponent
+      appComponent: input.actionAppComponent,
+      navigationStrategy: input.navigationStrategy
     }
   )
-  formData.addToStore(store, {listApp: EntityListApp, linkFactory: input.linkFactory})
+  formData.addToStore(store, {listApp: EntityListApp, navigationStrategy: input.navigationStrategy})
   keyDown.addToStore(store, shortcuts)
 
   const dispatchActions = getDispatchActions(input)
@@ -127,8 +126,7 @@ EntityDetailApp.propTypes = {
     propTypes[event] = PropTypes.func
     return propTypes
   }, {}),
-  onNavigateToAction: PropTypes.func,
-  onNavigateToCreate: PropTypes.func,
+  navigationStrategy: navigationStrategy.propTypes,
   actionAppComponent: PropTypes.func
 }
 

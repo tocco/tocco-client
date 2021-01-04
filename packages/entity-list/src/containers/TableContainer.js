@@ -39,7 +39,7 @@ const mapStateToProps = (state, props) => ({
   selection: state.selection.selection,
   parent: state.entityList.parent,
   showLink: state.list.showLink,
-  linkFactory: state.formData.linkFactory.linkFactory,
+  navigationStrategy: state.input.navigationStrategy,
   positions: state.preferences.positions
 })
 

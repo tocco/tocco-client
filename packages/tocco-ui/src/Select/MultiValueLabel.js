@@ -8,12 +8,15 @@ import ClickableWrapper from './ClickableWrapper'
 
 export const MultiValueLabel = props => {
   const {data} = props
-  const {tooltips, loadTooltip, valueLinkFactory} = props.selectProps
+  const {tooltips, loadTooltip, DetailLink} = props.selectProps
   const tooltip = _get(tooltips, data.key, null)
 
-  const content = valueLinkFactory
-    ? <ClickableWrapper onMouseDown={e => e.stopPropagation()}>
-      {valueLinkFactory(data.key, <components.MultiValueLabel {...props}/>)}
+  const content = DetailLink
+    ? <ClickableWrapper onMouseDown={e => {
+      e.stopPropagation()
+      e.preventDefault()
+    }} >
+      <DetailLink entityKey={data.key}><components.MultiValueLabel {...props}/></DetailLink>
     </ClickableWrapper>
     : <components.MultiValueLabel {...props}/>
 
@@ -31,7 +34,7 @@ MultiValueLabel.propTypes = {
   selectProps: PropTypes.shape({
     tooltips: PropTypes.objectOf(PropTypes.string),
     loadTooltip: PropTypes.func,
-    valueLinkFactory: PropTypes.func
+    DetailLink: PropTypes.elementType
   })
 }
 

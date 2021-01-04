@@ -36,7 +36,7 @@ const Select = ({
   theme,
   tooltips,
   value,
-  valueLinkFactory
+  DetailLink
 }) => {
   const selectComponent = useRef(null)
   const selectWrapper = useRef(null)
@@ -112,7 +112,7 @@ const Select = ({
           theme={themeSelect => reactSelectTheme(themeSelect, theme)}
           loadTooltip={loadTooltip}
           tooltips={tooltips}
-          valueLinkFactory={valueLinkFactory}
+          DetailLink={DetailLink}
           openAdvancedSearch={openAdvancedSearch}
           moreOptionsAvailable={moreOptionsAvailable}
           moreOptionsAvailableText={moreOptionsAvailableText}
@@ -180,13 +180,13 @@ Select.propTypes = {
    */
   openAdvancedSearch: PropTypes.func,
   /**
-   * Function that can wrap the value. This allows to render a <Link> around the value label for navigation purposes.
-   * First parameter is the key of the value, the second parameter is the value node itself.
+   * Component that allows to render a <Link> around the value label for navigation purposes.
+   * First parameter is the key of the value, the second parameter is the value node itself / child.
    *
    * e.g.
-   * (key, children) => <a href={`/${key}`} target="_blank" rel="noopener noreferrer">{children}</a>
+   * ({entityKey, children}) => <a href={`/${key}`} target="_blank" rel="noopener noreferrer">{children}</a>
    */
-  valueLinkFactory: PropTypes.func,
+  DetailLink: PropTypes.func,
   /**
    * Theme provided by styled-components ThemeProvider.
    */

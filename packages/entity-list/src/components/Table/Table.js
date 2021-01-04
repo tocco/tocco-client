@@ -10,7 +10,7 @@ const Table = props =>
   <UiTable
     data={props.entities}
     columns={[
-      ...(props.showLink && props.linkFactory ? [navigationCell(props.linkFactory)] : []),
+      ...(props.showLink && props.navigationStrategy ? [navigationCell(props.navigationStrategy, props.parent)] : []),
       ...props.columnDefinitions.sort((a, b) =>
         _get(props.positions, [a.id]) - _get(props.positions, [b.id])
       )
@@ -48,10 +48,11 @@ Table.propTypes = {
   parent: PropTypes.shape({
     key: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
-    reverseRelationName: PropTypes.string
+    reverseRelationName: PropTypes.string,
+    relation: PropTypes.string
   }),
   showLink: PropTypes.bool,
-  linkFactory: PropTypes.objectOf(PropTypes.func),
+  navigationStrategy: PropTypes.objectOf(PropTypes.func),
   changePosition: PropTypes.func.isRequired,
   positions: PropTypes.objectOf(PropTypes.number)
 }

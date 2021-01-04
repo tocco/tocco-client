@@ -26,6 +26,8 @@ export const entityDetailSelector = state => state.entityDetail
 
 const FORM_ID = 'detailForm'
 
+export const inputSelector = state => state.input
+
 export default function* sagas() {
   yield all([
     takeLatest(actions.LOAD_DETAIL_VIEW, loadDetailView),
@@ -321,12 +323,14 @@ export function* loadData(reset = true) {
 }
 
 export function* navigateToCreate({payload}) {
-  yield put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+  const {navigationStrategy} = yield select(inputSelector)
+  yield call(navigationStrategy.navigateToCreateRelative, payload.relationName)
 }
 
 export function* navigateToAction({payload}) {
   const {definition, selection} = payload
-  yield put(externalEvents.fireExternalEvent('onNavigateToAction', {definition, selection}))
+  const {navigationStrategy} = yield select(inputSelector)
+  yield call(navigationStrategy.navigateToActionRelative, definition, selection)
 }
 
 export const isCurrentEntity = (event, entityName, entityId) =>

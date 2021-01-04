@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import {storiesOf} from '@storybook/react'
 import {withKnobs, date, boolean, number, object, text, select} from '@storybook/addon-knobs'
@@ -167,7 +168,8 @@ storiesOf('Tocco-UI | FormattedValue', module)
         {key: '1', display: 'apple'}
       )}
       options={{
-        linkFactory: (key, children) => <a href={`/${key}`} target="_blank" rel="noopener noreferrer">{children}</a>
+        DetailLink: ({entityKey, children}) =>
+          <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">{children}</a>
       }}
     />
   )
@@ -180,7 +182,8 @@ storiesOf('Tocco-UI | FormattedValue', module)
         [{key: '1', display: 'apple'}, {key: '2', display: 'khaki'}]
       )}
       options={{
-        linkFactory: (key, children) => <a href={`/${key}`} target="_blank" rel="noopener noreferrer">{children}</a>
+        DetailLink: ({entityKey, children}) =>
+          <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">{children}</a>
       }}
     />
   )

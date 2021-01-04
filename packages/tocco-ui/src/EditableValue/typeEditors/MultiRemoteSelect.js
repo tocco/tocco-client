@@ -38,7 +38,7 @@ MultiRemoteSelect.propTypes = {
     moreOptionsAvailableText: PropTypes.string,
     tooltips: PropTypes.objectOf(PropTypes.string),
     loadTooltip: PropTypes.func,
-    valueLinkFactory: PropTypes.func
+    DetailLink: PropTypes.elementType
   }),
   immutable: PropTypes.bool,
   id: PropTypes.string

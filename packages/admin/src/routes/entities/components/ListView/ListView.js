@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
-import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
+import {viewPersistor} from 'tocco-util'
 
-import StyledLink from '../../../../components/StyledLink/StyledLink'
-import {goBack} from '../../../../utils/routing'
 import Action from '../Action/LazyAction'
 import {currentViewPropType} from '../../utils/propTypes'
 import ErrorView from '../../../../components/ErrorView'
+import navigationStrategy from '../../utils/navigationStrategy'
 
 const ListView = ({match, history, currentViewInfo, emitAction}) => {
   if (currentViewInfo && currentViewInfo.error) {
@@ -23,28 +22,6 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
 
   const handleRowClick = ({id}) => {
     history.push(match.url.replace(/list$/, '') + id)
-  }
-
-  const handleNavigateToCreate = relationName => {
-    if (relationName) {
-      history.push(`${match.url}/${relationName}/create`)
-    } else {
-      const entityBaseUrl = goBack(match.url)
-      history.push(entityBaseUrl + '/create')
-    }
-  }
-
-  const handleNavigateToAction = ({definition, selection}) => {
-    const entityBaseUrl = goBack(match.url)
-    const search = queryStringUtil.toQueryString({
-      selection,
-      actionProperties: definition.properties
-    })
-    history.push({
-      pathname: entityBaseUrl + '/action/' + definition.appId,
-      state: {definition, selection},
-      search
-    })
   }
 
   return (
@@ -63,20 +40,13 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
         }
       })}
       showLink={true}
-      linkFactory={{
-        detail: (entity, relation, key, children) =>
-          entity
-            ? <StyledLink to={`/e/${entity}/${key}`} target="_blank">{children}</StyledLink>
-            : <StyledLink to={key}>{children}</StyledLink>
-      }}
-      onNavigateToCreate={handleNavigateToCreate}
+      navigationStrategy={navigationStrategy(history, match)}
       searchFormPosition="left"
       searchFormType="admin"
       store={viewPersistor.viewInfoSelector(history.location.pathname).store}
       onStoreCreate={store => {
         viewPersistor.persistViewInfo(history.location.pathname, {store}, currentViewInfo.level)
       }}
-      onNavigateToAction={handleNavigateToAction}
       actionAppComponent={Action}
       tql={queryParams.tql}
     />

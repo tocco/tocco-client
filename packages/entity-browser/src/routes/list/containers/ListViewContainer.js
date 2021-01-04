@@ -2,6 +2,9 @@ import {connect} from 'react-redux'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {actionEmitter} from 'tocco-app-extensions'
 import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
+import {RouterLink} from 'tocco-ui'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import Action from '../../../components/LazyAction'
 
@@ -11,24 +14,33 @@ const mapDispatchToProps = (dispatch, props) => ({
   }
 })
 
-const handleNavigateToCreate = props => relationName => {
+const navigateToCreate = ({history, match, relationName}) => {
   if (relationName) {
-    props.router.history.push(`${props.router.match.url}/${relationName}/`)
+    history.push(`${match}/${relationName}/`)
   } else {
-    props.router.history.push('/detail')
+    history.push('/detail')
   }
 }
 
-const handleNavigateToAction = props => ({definition, selection}) => {
+const navigateToAction = (history, definition, selection) => {
   const search = queryStringUtil.toQueryString({
     selection,
     actionProperties: definition.properties
   })
-  props.router.history.push({
+  history.push({
     pathname: '/action/' + definition.appId,
     state: {definition, selection},
     search
   })
+}
+
+const DetailLinkRelative = ({entityKey, children, relation}) =>
+  <RouterLink to={`${relation ? relation + '/' : ''}detail/${entityKey}`}>{children}</RouterLink>
+
+DetailLinkRelative.propTypes = {
+  entityKey: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
+  relation: PropTypes.string
 }
 
 const mapStateToProps = (state, props) => ({
@@ -45,8 +57,16 @@ const mapStateToProps = (state, props) => ({
   onRowClick: e => {
     props.router.history.push(`/detail/${e.id}`)
   },
-  onNavigateToCreate: handleNavigateToCreate(props),
-  onNavigateToAction: handleNavigateToAction(props),
+  showLink: true,
+  navigationStrategy: {
+    DetailLinkRelative,
+    navigateToActionRelative: (definition, selection) =>
+      navigateToAction(props.router.history, definition, selection),
+    navigateToCreateRelative: relationName => navigateToCreate(
+      {relationName, history: props.router.history, match: props.router.match}
+    )
+  },
+
   searchFormPosition: 'top',
   actionAppComponent: Action,
   store: viewPersistor.viewInfoSelector(props.router.history.location.pathname).store,

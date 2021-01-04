@@ -18,7 +18,7 @@ export default (fieldDefinition, entity, intl) => {
   const values = !isMultiType && Array.isArray(pathValue) ? pathValue : [pathValue]
   return <span key={id} style={{marginRight: '2px'}}>
     {values.map((v, idx) =>
-      <formData.FormDataContainer key={`formDataContainer-${entity.__key}-${path}`} linkFactory={true}>
+      <formData.FormDataContainer key={`formDataContainer-${entity.__key}-${path}`} navigationStrategy={true}>
         <FormattedValueWrapper type={dataType} value={v} intl={intl} formField={fieldDefinition}/>
       </formData.FormDataContainer>
     ).reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
@@ -49,7 +49,7 @@ FormattedValueWrapper.propTypes = {
   value: PropTypes.any,
   type: PropTypes.string.isRequired,
   formData: PropTypes.shape({
-    linkFactory: PropTypes.object
+    navigationStrategy: PropTypes.object
   }),
   intl: intlShape.isRequired,
   formField: PropTypes.object.isRequired

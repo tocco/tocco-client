@@ -17,6 +17,7 @@ import {StyledLink} from '../../../../components/StyledLink'
 import {goBack} from '../../../../utils/routing'
 import {currentViewPropType} from '../../utils/propTypes'
 import {getRelation, setRelation} from '../../utils/relationPersistor'
+import navigationStrategy from '../../utils/navigationStrategy'
 
 const RelationsView = ({
   history,
@@ -107,15 +108,11 @@ const RelationsView = ({
           parent={{
             key: currentViewInfo.key,
             reverseRelationName: selectedRelation.reverseRelationName,
-            model: currentViewInfo.model.name
+            model: currentViewInfo.model.name,
+            relationName: selectedRelation.relationName
           }}
           showLink={true}
-          linkFactory={{
-            detail: (entity, relation, key, children) =>
-              entity
-                ? <StyledLink to={`/e/${entity}/${key}`} target="_blank">{children}</StyledLink>
-                : <StyledLink to={selectedRelation.relationName + '/' + key}>{children}</StyledLink>
-          }}
+          navigationStrategy={navigationStrategy(history, match)}
           onRowClick={({id}) => {
             const entityBaseUrl = match.url.replace(/detail$/, '')
             history.push(`${entityBaseUrl}${selectedRelation.relationName}/${id}`)
