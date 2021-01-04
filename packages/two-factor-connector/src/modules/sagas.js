@@ -24,8 +24,8 @@ export function* loadPrincipal2FAInfo() {
   const principalsResponse = yield call(rest.requestSaga, 'principals')
   const username = principalsResponse.body.username
   yield put(actions.setUserName(username))
-  const tql = `username === "${username}"`
-  const principals = yield call(rest.fetchEntities, 'Principal', {tql, paths: [twoFactorField]})
+  const where = `username === "${username}"`
+  const principals = yield call(rest.fetchEntities, 'Principal', {where, paths: [twoFactorField]})
 
   if (principals.length > 1) {
     throw new Error(`More than one user found for username ${username}`)
