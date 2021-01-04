@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useMemo} from 'react'
+import React, {useEffect, useLayoutEffect, useMemo, useRef} from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape} from 'react-intl'
 import {form} from 'tocco-app-extensions'
@@ -31,9 +31,18 @@ const DetailForm = props => {
     form: formName
   } = props
 
+  const formEl = useRef()
+
   useEffect(() => {
     fireTouched(dirty)
   }, [dirty])
+
+  useLayoutEffect(() => {
+    const firstInput = formEl.current.querySelector('input:not([disabled])')
+    if (firstInput != null) {
+      firstInput.focus()
+    }
+  }, [])
 
   const customActions = useMemo(() => (
     {
@@ -62,6 +71,7 @@ const DetailForm = props => {
   return <StyledForm
     onSubmit={handleSubmit}
     onKeyDown={handleKeyPress}
+    ref={formEl}
   >
     <form.FormBuilder
       entity={entity}
