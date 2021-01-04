@@ -16,6 +16,7 @@ import {
 import {StyledLink} from '../../../../components/StyledLink'
 import {goBack} from '../../../../utils/routing'
 import {currentViewPropType} from '../../utils/propTypes'
+import {getRelation, setRelation} from '../../utils/relationPersistor'
 
 const RelationsView = ({
   history,
@@ -23,13 +24,14 @@ const RelationsView = ({
   currentViewInfo,
   relations,
   relationsInfo,
+  entity,
   emitAction
 }) => {
   const [selectedRelation, selectRelation] = useState(null)
 
   useEffect(
     () => {
-      const persistedSelectedRelation = viewPersistor.viewInfoSelector(history.location.pathname).selectedRelation
+      const persistedSelectedRelation = getRelation(entity)
       if (relations && relations.length > 0) {
         const queryRelation = queryString.parse(history.location.search).relation
         if (queryRelation) {
@@ -65,11 +67,7 @@ const RelationsView = ({
               history.replace({
                 search: '?relation=' + relation.relationName
               })
-              viewPersistor.persistViewInfo(
-                currentViewInfo.pathname,
-                {selectedRelation: relation.relationName},
-                currentViewInfo.level
-              )
+              setRelation(entity, relation.relationName)
             }}
           >
             <RelationLabel title={relation.relationDisplay.label}>
@@ -155,6 +153,7 @@ RelationsView.propTypes = {
     count: PropTypes.number,
     createPermission: PropTypes.bool
   })),
+  entity: PropTypes.string.isRequired,
   emitAction: PropTypes.func.isRequired
 }
 
