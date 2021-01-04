@@ -35,6 +35,7 @@ class Form extends React.Component {
         formDefinition={this.props.formDefinition}
         formValues={this.props.formValues}
         fieldMappingType={this.props.mappingType ? this.props.mappingType : 'editable'}
+        mode={this.props.mode}
       />
       {!this.props.noButtons
       && <React.Fragment>
@@ -69,7 +70,8 @@ Form.propTypes = {
   noButtons: PropTypes.bool,
   formValues: PropTypes.object,
   form: PropTypes.string,
-  mappingType: PropTypes.oneOf(['editable', 'search', 'readonly'])
+  mappingType: PropTypes.oneOf(['editable', 'search', 'readonly']),
+  mode: PropTypes.oneOf(['list', 'detail', 'create', 'update', 'search'])
 }
 
 export default reduxForm({form: REDUX_FORM_NAME, destroyOnUnmount: false})(Form)

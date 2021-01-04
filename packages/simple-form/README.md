@@ -17,6 +17,7 @@ React-registry name: `simple-form`
 | `listApp`              |           | List app (tocco-entity-list) must be provided to support
 | `validate`             |           | pass false if the form should not validate inputs, defaults to true
 | `mappingType`          |           | Will be passed to field factory. Default is "editable". But can be set to use "search" mapping.
+| `mode`                 |           | Will be passed to field factory. Per default no mode is set. Can be set to "search" that fields are no longer mandatory.
 | `defaultValues`        |           | Object where the keys are representing the paths. e.g. {'lastname': 'Simpson', relGender: {key: '1', display: 'Male'}}. Overwrittes form default values
 
 ### Events
