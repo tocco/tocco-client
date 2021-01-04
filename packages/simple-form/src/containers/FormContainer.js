@@ -21,7 +21,8 @@ const mapStateToProps = (state, props) => ({
   formDefinition: state.input.form,
   validate: state.input.validate !== false ? form.syncValidation(state.simpleForm.fieldDefinitions) : () => {},
   listApp: state.input.listApp,
-  mappingType: state.input.mappingType
+  mappingType: state.input.mappingType,
+  mode: state.input.mode
 })
 
 export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(Form)))

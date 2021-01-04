@@ -12,6 +12,7 @@ const InputEditSearch = ({form, setSearchFields}) => {
       noButtons={true}
       validate={false}
       mappingType="search"
+      mode="search"
     />
     : null
 }
