@@ -2,11 +2,21 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {Prompt} from 'react-router-dom'
 import {intlShape} from 'react-intl'
-import {Button} from 'tocco-ui'
+import {Button, RouterLink} from 'tocco-ui'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {queryString as queryStringUtil} from 'tocco-util'
 
 import {StyledEntityDetailBackButton} from './StyledEntityDetail'
+
+const DetailLinkRelative = ({currentKey, entityKey, children, relation}) =>
+  <RouterLink to={`${currentKey}/${relation}/${entityKey}`}>{children}</RouterLink>
+
+DetailLinkRelative.propTypes = {
+  currentKey: PropTypes.string.isRequired,
+  entityKey: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
+  relation: PropTypes.string
+}
 
 class EntityDetail extends React.Component {
   constructor(props) {
@@ -23,7 +33,7 @@ class EntityDetail extends React.Component {
     this.props.router.history.push(`${this.props.router.match.url}/${relationName}/${id}`)
   }
 
-  handleNavigateToCreate = relationName => {
+  navigateToCreate = relationName => {
     if (relationName) {
       this.props.router.history.push(`${this.props.router.match.url}/${relationName}/`)
     } else {
@@ -40,7 +50,7 @@ class EntityDetail extends React.Component {
     this.props.router.history.push(`${url}${id}`)
   }
 
-  handleNavigateToAction = ({definition, selection}) => {
+  navigateToAction = (definition, selection) => {
     const search = queryStringUtil.toQueryString({
       selection,
       actionProperties: definition.properties
@@ -67,12 +77,16 @@ class EntityDetail extends React.Component {
       entityId={entityId}
       formName={formName}
       mode={mode}
+      navigationStrategy={{
+        DetailLinkRelative: props => <DetailLinkRelative {...props} currentKey={entityId}/>,
+        navigateToCreateRelative: this.navigateToCreate,
+        navigateToActionRelative: this.navigateToAction
+      }}
       onSubGridRowClick={this.handleSubGridRowClick}
-      onNavigateToCreate={this.handleNavigateToCreate}
+
       onEntityCreated={this.handleEntityCreated}
       onEntityDeleted={this.handleGoBack}
       onTouchedChange={this.handleTouchedChange}
-      onNavigateToAction={this.handleNavigateToAction}
       emitAction={action => {
         this.props.dispatchEmittedAction(action)
       }}

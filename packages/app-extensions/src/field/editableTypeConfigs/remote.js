@@ -1,4 +1,5 @@
 import _get from 'lodash/get'
+import React from 'react'
 
 const settings = {
   SEARCH_RESULT_LIMIT: 50,
@@ -10,7 +11,7 @@ export default {
   dataContainerProps: ({formField}) => ({
     relationEntities: formField.id,
     tooltips: formField.targetEntity,
-    linkFactory: true
+    navigationStrategy: true
   }),
   getOptions: ({formField, formName, formData}) => ({
     options: _get(formData, ['relationEntities', formField.id, 'data'], []),
@@ -37,9 +38,14 @@ export default {
     moreOptionsAvailableText: formData.intl.formatMessage(
       {id: 'client.component.remoteselect.moreOptionsAvailableText'}
     ),
-    valueLinkFactory: formData.linkFactory && formData.linkFactory.detail
-      ? (key, content) => formData.linkFactory.detail(formField.targetEntity, formField.relationName, key, content)
+    DetailLink: formData.navigationStrategy && formData.navigationStrategy.DetailLink
+      ? ({entityKey, children}) =>
+        <formData.navigationStrategy.DetailLink
+          entityName={formField.targetEntity}
+          entityKey={entityKey}
+        >
+          {children}
+        </formData.navigationStrategy.DetailLink>
       : null
   })
-
 }

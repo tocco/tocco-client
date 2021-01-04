@@ -9,7 +9,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  dialogInfo: state.del.dialogInfo
+  dialogInfo: state.del.dialogInfo,
+  navigationStrategy: state.input.navigationStrategy
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(DeleteProgress))

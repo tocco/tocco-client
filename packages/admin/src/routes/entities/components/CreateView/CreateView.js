@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import {theme, StyledScrollbar, scale} from 'tocco-ui'
 
 import {currentViewPropType} from '../../utils/propTypes'
+import navigationStrategy from '../../utils/navigationStrategy'
 
 const StyledEntityDetailAppWrapper = styled.div`
   margin: 0;
@@ -27,7 +28,8 @@ const CreateView = props => {
     intl,
     dispatchEmittedAction
   } = props
-
+  const {location} = history
+  const stateDefaultValues = _get(location, 'state.defaultValues', [])
   const [touched, setTouched] = useState(false)
 
   const mode = 'create'
@@ -44,7 +46,8 @@ const CreateView = props => {
     ...((reverseRelation && parentKey)
       ? [{id: reverseRelation, value: isMultiReverseRelation ? [parentKey] : parentKey}]
       : []
-    )
+    ),
+    ...stateDefaultValues
   ]
 
   const handleEntityCreated = ({id}) => {
@@ -68,6 +71,7 @@ const CreateView = props => {
       emitAction={action => {
         dispatchEmittedAction(action)
       }}
+      navigationStrategy={navigationStrategy(history, match)}
       onEntityCreated={handleEntityCreated}
       onTouchedChange={handleToucheChanged}
     />

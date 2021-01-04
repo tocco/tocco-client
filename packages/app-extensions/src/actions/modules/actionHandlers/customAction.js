@@ -64,6 +64,7 @@ export function* handleCustomActionModal({definition, selection, config}) {
         appId={definition.appId}
         actionProperties={definition.properties}
         selection={selection}
+        navigationStrategy={config.navigationStrategy || {}}
         onSuccess={onSuccess}
         onError={onError}
         onCancel={onCancel}

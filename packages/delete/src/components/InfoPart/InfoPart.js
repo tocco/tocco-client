@@ -1,5 +1,6 @@
 import React from 'react'
-import {Typography, RouterLink} from 'tocco-ui'
+import {Typography} from 'tocco-ui'
+import {navigationStrategy} from 'tocco-util'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -10,13 +11,17 @@ const NonBreakingText = styled.span`
   white-space: nowrap;
 `
 
-const InfoPart = ({entityName, entityLabel, keys, relatedEntities, maxCountLink}) => {
-  const primaryTql = 'KEYS(' + keys.join(',') + ')'
+const InfoPart = ({entityName, entityLabel, keys, relatedEntities, maxCountLink, navigationStrategy}) => {
   return <Typography.Span>
     <Typography.B>
       {entityLabel} ({
-        keys.length > 0
-          ? <RouterLink to={`/e/${entityName}/list?tql=${primaryTql}`} target="_blank">{keys.length}</RouterLink>
+        keys.length > 0 && navigationStrategy.ListLink
+          ? <navigationStrategy.ListLink
+            entityName={entityName}
+            entityKeys={keys}
+          >
+            {keys.length}
+          </navigationStrategy.ListLink>
           : <Typography.Span>{keys.length}</Typography.Span>
       })
     </Typography.B>
@@ -26,13 +31,15 @@ const InfoPart = ({entityName, entityLabel, keys, relatedEntities, maxCountLink}
         <span> / </span>
         {Object.keys(relatedEntities).map(entityName => {
           const relatedEntity = relatedEntities[entityName]
-          const tql = 'KEYS(' + relatedEntity.keys.slice(0, maxCountLink).join(',') + ')'
           const linkText = [...relatedEntity.keys, ...relatedEntity.keysOtherBu].length
 
-          const Count = relatedEntity.keys.length > 0
-            ? <RouterLink to={`/e/${entityName}/list?tql=${tql}`} target="_blank">
+          const Count = relatedEntity.keys.length > 0 && navigationStrategy.ListLink
+            ? <navigationStrategy.ListLink
+              entityName={entityName}
+              keys={relatedEntity.keys.slice(0, maxCountLink)}
+            >
               {linkText}
-            </RouterLink>
+            </navigationStrategy.ListLink>
             : <Typography.Span>{linkText}</Typography.Span>
 
           const Content = <LinkPopOver relatedEntity={relatedEntity} maxCountLink={maxCountLink}>{Count}</LinkPopOver>
@@ -53,7 +60,8 @@ InfoPart.propTypes = {
   entityLabel: PropTypes.string.isRequired,
   keys: PropTypes.arrayOf(PropTypes.string),
   relatedEntities: PropTypes.objectOf(relatedPropType).isRequired,
-  maxCountLink: PropTypes.number
+  maxCountLink: PropTypes.number,
+  navigationStrategy: navigationStrategy.propTypes
 }
 
 export default InfoPart

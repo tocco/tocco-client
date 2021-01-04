@@ -36,7 +36,7 @@ RemoteSelect.propTypes = {
     openAdvancedSearch: PropTypes.func,
     tooltips: PropTypes.objectOf(PropTypes.string),
     loadTooltip: PropTypes.func,
-    valueLinkFactory: PropTypes.func
+    DetailLink: PropTypes.func
   }),
   immutable: PropTypes.bool,
   id: PropTypes.string

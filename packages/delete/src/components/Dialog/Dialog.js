@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button, Typography, SignalBox} from 'tocco-ui'
+import {navigationStrategy} from 'tocco-util'
 import {FormattedMessage} from 'react-intl'
 
 import {deleteInfoPropType} from '../../utils/deleteRequestParser'
 import InfoPart from '../InfoPart'
 
-const Dialog = ({dialogInfo, doDelete, onCancel}) =>
+const Dialog = ({dialogInfo, doDelete, onCancel, navigationStrategy}) =>
   <>
     <Typography.P><FormattedMessage id="client.delete.confirmText"/></Typography.P>
     <InfoPart
@@ -16,6 +17,7 @@ const Dialog = ({dialogInfo, doDelete, onCancel}) =>
       keys={dialogInfo.keysDeletable}
       relatedEntities={dialogInfo.relatedDeletable}
       maxCountLink={100}
+      navigationStrategy={navigationStrategy}
     />
     {dialogInfo.keysNotDeletable.length > 0
     && <div style={{paddingTop: '20px'}}>
@@ -27,6 +29,7 @@ const Dialog = ({dialogInfo, doDelete, onCancel}) =>
         keys={dialogInfo.keysNotDeletable}
         relatedEntities={dialogInfo.relatedNotDeletable}
         maxCountLink={100}
+        navigationStrategy={navigationStrategy}
       />
     </div>
     }
@@ -57,7 +60,8 @@ const Dialog = ({dialogInfo, doDelete, onCancel}) =>
 Dialog.propTypes = {
   onCancel: PropTypes.func.isRequired,
   doDelete: PropTypes.func.isRequired,
-  dialogInfo: deleteInfoPropType.isRequired
+  dialogInfo: deleteInfoPropType.isRequired,
+  navigationStrategy: navigationStrategy.propTypes
 }
 
 export default Dialog

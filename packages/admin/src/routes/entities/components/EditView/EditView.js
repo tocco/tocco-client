@@ -4,14 +4,13 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import {intlShape} from 'react-intl'
 import queryString from 'query-string'
-import {queryString as queryStringUtil} from 'tocco-util'
 import styled from 'styled-components'
 import {StyledScrollbar, theme, scale} from 'tocco-ui'
 
 import {goBack} from '../../../../utils/routing'
-import StyledLink from '../../../../components/StyledLink/StyledLink'
 import Action from '../Action'
 import {currentViewPropType} from '../../utils/propTypes'
+import navigationStrategy from '../../utils/navigationStrategy'
 
 export const StyledEntityDetailAppWrapper = styled.div`
   margin: 0;
@@ -45,31 +44,25 @@ const EditView = props => {
     setTouched(touched)
   }
 
-  const handleNavigateToCreate = relationName => {
+  const navigateToCreateRelative = (relationName, state) => {
     if (relationName) {
-      history.push(`${match.url}/${relationName}/create`)
+      const entityBaseUrl = goBack(match.url, 1)
+      history.push({
+        pathname: `${entityBaseUrl}/${relationName}/create`,
+        state
+      })
     } else {
       const entityBaseUrl = goBack(match.url, 2)
-      history.push(entityBaseUrl + '/create')
+      history.push({
+        pathname: entityBaseUrl + '/create',
+        state
+      })
     }
   }
 
   const handleEntityDeleted = () => {
     const entityBaseUrl = goBack(match.url, 2)
     history.push(entityBaseUrl)
-  }
-
-  const handleNavigateToAction = ({definition, selection}) => {
-    const entityBaseUrl = goBack(match.url)
-    const search = queryStringUtil.toQueryString({
-      selection,
-      actionProperties: definition.properties
-    })
-    history.push({
-      pathname: entityBaseUrl + '/action/' + definition.appId,
-      state: {definition, selection},
-      search
-    })
   }
 
   const handleSubGridRowClick = ({id, relationName}) => {
@@ -98,12 +91,7 @@ const EditView = props => {
       mode={mode}
       emitAction={emitAction}
       onTouchedChange = {handleToucheChanged}
-      linkFactory={{
-        detail: (entity, relation, key, children) =>
-          <StyledLink to={`/e/${entity}/${key}`} target="_blank">{children}</StyledLink>
-      }}
-      onNavigateToCreate={handleNavigateToCreate}
-      onNavigateToAction={handleNavigateToAction}
+      navigationStrategy={{...navigationStrategy(history, match), navigateToCreateRelative}}
       onEntityDeleted={handleEntityDeleted}
       actionAppComponent={Action}
       onSubGridRowClick={handleSubGridRowClick}

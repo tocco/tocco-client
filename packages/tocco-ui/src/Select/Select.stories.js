@@ -97,8 +97,8 @@ export class SelectStory extends React.Component {
           searchOptions={this.searchOptions}
           tooltips={this.state.tooltips}
           value={this.state.valueMulti}
-          valueLinkFactory={(key, children) =>
-            <a href={`/${key}`} target="_blank" rel="noopener noreferrer" >{children}</a>
+          DetailLink= {({entityKey, children}) =>
+            <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer" >{children}</a>
           }
         />
       </div>

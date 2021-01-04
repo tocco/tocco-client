@@ -15,12 +15,14 @@ const StyledSingleValueWrapper = styled.div`
 
 export const SingleValue = props => {
   const {data, selectProps, isDisabled, children} = props
-  const {tooltips, loadTooltip, valueLinkFactory} = selectProps
+  const {tooltips, loadTooltip, DetailLink} = selectProps
   const tooltip = _get(tooltips, data.key, null)
-
-  const content = valueLinkFactory
-    ? <ClickableWrapper onMouseDown={e => e.stopPropagation()}>
-      {valueLinkFactory(data.key, children)}
+  const content = DetailLink
+    ? <ClickableWrapper onMouseDown={e => {
+      e.stopPropagation()
+      e.preventDefault()
+    }} >
+      <DetailLink entityKey={data.key}>{children}</DetailLink>
     </ClickableWrapper>
     : children
 
@@ -45,7 +47,7 @@ SingleValue.propTypes = {
   selectProps: PropTypes.shape({
     tooltips: PropTypes.objectOf(PropTypes.string),
     loadTooltip: PropTypes.func,
-    valueLinkFactory: PropTypes.func
+    DetailLink: PropTypes.func
   })
 }
 

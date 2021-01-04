@@ -335,12 +335,14 @@ export function* onRowClick({payload}) {
 }
 
 export function* navigateToCreate({payload}) {
-  yield put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+  const {navigationStrategy} = yield select(inputSelector)
+  yield call(navigationStrategy.navigateToCreateRelative, payload.relationName)
 }
 
 export function* navigateToAction({payload}) {
   const {definition, selection} = payload
-  yield put(externalEvents.fireExternalEvent('onNavigateToAction', {definition, selection}))
+  const {navigationStrategy} = yield select(inputSelector)
+  yield call(navigationStrategy.navigateToActionRelative, definition, selection)
 }
 
 export const containsEntityOfModel = (event, entityName) =>

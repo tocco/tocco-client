@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import {mount} from 'enzyme'
 
@@ -20,7 +21,7 @@ describe('tocco-ui', () => {
           const wrapper = mount(<MultiSelectFormatter
             value={value}
             breakWords={true}
-            options={{linkFactory: (key, children) => <a>{children}</a>}}
+            options={{DetailLink: ({key, children}) => <a>{children}</a>}}
           />)
           expect(wrapper.find('a')).to.have.length(2)
         })

@@ -8,7 +8,8 @@ const mapStateToProps = (state, props) => ({
   appId: state.entityDetail.appId,
   entityKey: state.entityDetail.entity.key,
   entityName: state.entityDetail.entity.model,
-  detailFormName: state.entityDetail.formDefinition.id
+  detailFormName: state.entityDetail.formDefinition.id,
+  navigationStrategy: state.input.navigationStrategy
 })
 
 const mapActionCreators = {

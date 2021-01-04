@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
+import {reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 import {
   appFactory,
   notifier,
@@ -27,8 +27,6 @@ const packageName = 'entity-list'
 
 const EXTERNAL_EVENTS = [
   'onRowClick',
-  'onNavigateToCreate',
-  'onNavigateToAction',
   'emitAction',
   'onSelectChange',
   'onStoreCreate',
@@ -51,10 +49,11 @@ const initApp = (id, input, events = {}, publicPath) => {
     actions.addToStore(store, {
       formApp: SimpleFormApp,
       listApp: EntityListApp,
-      customActions,
-      appComponent: input.actionAppComponent
+      customActions: customActions(input),
+      appComponent: input.actionAppComponent,
+      navigationStrategy: input.navigationStrategy
     })
-    formData.addToStore(store, {listApp: EntityListApp, linkFactory: input.linkFactory})
+    formData.addToStore(store, {listApp: EntityListApp, navigationStrategy: input.navigationStrategy})
 
     dispatchActions = getDispatchActions(input, true)
 
@@ -166,9 +165,8 @@ EntityListApp.propTypes = {
     id: PropTypes.string,
     value: PropTypes.string
   }),
-  onNavigateToAction: PropTypes.func,
-  onNavigateToCreate: PropTypes.func,
-  actionAppComponent: PropTypes.func
+  actionAppComponent: PropTypes.func,
+  navigationStrategy: navigationStrategy.propTypes
 }
 
 export default hot(EntityListApp)

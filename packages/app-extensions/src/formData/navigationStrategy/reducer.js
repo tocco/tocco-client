@@ -1,18 +1,18 @@
 import * as actions from './actions'
 
-export const setLinkFactory = (state, {payload: {linkFactory}}) => (
-  {
+export const setNavigationStrategy = (state, {payload: {navigationStrategy}}) => {
+  return {
     ...state,
-    linkFactory
+    navigationStrategy
   }
-)
+}
 
 const ACTION_HANDLERS = {
-  [actions.SET_LINK_FACTORY]: setLinkFactory
+  [actions.SET_NAVIGATION_STRATEGY]: setNavigationStrategy
 }
 
 const initialState = {
-  linkFactory: null
+  navigationStrategy: null
 }
 
 export default function reducer(state = initialState, action) {

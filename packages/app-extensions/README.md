@@ -55,14 +55,12 @@ Import:
 Initialization:
 
 ```javascript
- formData.addToStore(store, {listApp, linkFactory})
+ formData.addToStore(store, {listApp, navigationStrategy})
 ```
 
 config, the second parameter, is an object an can have the following properties:
 * listApp: Entity-List App component. Is used to connect the remote field with a list search.
-* linkFactory: An object consisting of different types of link factories. Form components such as remote field can use
-  these factories to create a link around the values for navigation purposes.
-   e.g. {detail: (entity, relation, key, children) => <a ../>}
+* navigationStrategy: See tocco-util > navigationStrategy for more information
 
 
 #### formField

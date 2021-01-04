@@ -26,20 +26,17 @@ React-registry name: `entity-list`
 | `selection`                     |             | Array of keys. The whole selection can be preset with this property.                                                                                                                                      | Array    |                            |
 | `selectOnRowClick`              |             | If true, a click on the row (outside the checkbox) toggles the selection of that particular row.                                                                                                          | Bool     |                            |
 | `store`                         |             | The store to use for the app. If not set, a new store is created and emitted via the `onStoreCreate` event.                                                                                               | Bool     |                            |
-| `parent`                        |             | Object with key and reverseRelationName of a parent entity. If set, the result gets filtered to only show related entities.                                                                               | Object   |                            |
-| `linkFactory`                   |             | Object consisting of various link factories. For more information see formData documentation.                                                                                                             | Object   |                            |
+| `parent`                        |             | Object with key and reverseRelationName of a parent entity. If set, the result gets filtered to only show related entities.                                                                               | Object   |                            |                                                                                                    | Object   |                            |
 | `showLink`                      |             | If true a link is shown in each row to open the record. A detail Link factory needs to be provided.                                                                                                       | Bool     | false                      |
 | `actionAppComponent`            |             | Component to render custom actions. Needs the appId and selection object property.                                                                                                                        | React Component |                     |
 | `cellRenderers`                 |             | Map of custom cell renderers which might be specified in list form definition (`client-renderer` attribute)                                                                                                                       | React Component |                     |
-
+| `navigationStrategy`   |           | Object consisting of various link factories. For more information see tocco-util/navigationStrategy documentation.
 
 ### Events
 
 | Name                | Payload                       | Description
 |---------------------|-------------------------------|-------------
 | `onRowClick`        | `id` (The id of the record)   | This event is fired when a list row is clicked
-| `onNavigateToCreate`| `relationName` (Optional. If defined, a related create button was clicked. From a subgrid for example.) | This event is fired when the "new" button is clicked
-| `onNavigateToAction`| `definition` (action definition), `selection`(selection object) | Is called when an action is called with the fullscreen flag.
 | `onSelectChange`    | An array containing the ids of the new selection | This event is fired when the selection changes
 | `onStoreCreate`     | The created store | This event is fired when the store for the app is created. Note that the event will neved be fired if a store is passed to the app via the `store` input property.
 | `onSearchChange`    | The search params | This event is fired when the search is changed

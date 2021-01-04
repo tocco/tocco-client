@@ -384,13 +384,20 @@ describe('entity-detail', () => {
         })
 
         describe('navigateToCreate saga', () => {
-          test('should call external event onNavigateToCreate', () => {
+          test('should call navigationStrategy', () => {
             const payload = {
               relationName: 'relUser'
             }
 
+            const navigationStrategy = {
+              navigateToCreateRelative: () => {}
+            }
+
             return expectSaga(sagas.navigateToCreate, {payload})
-              .put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+              .provide([
+                [select(sagas.inputSelector), {navigationStrategy}]
+              ])
+              .call(navigationStrategy.navigateToCreateRelative, payload.relationName)
               .run()
           })
         })
@@ -402,8 +409,15 @@ describe('entity-detail', () => {
               definition: {appId: 'input-edit'}
             }
 
+            const navigationStrategy = {
+              navigateToActionRelative: () => {}
+            }
+
             return expectSaga(sagas.navigateToAction, {payload})
-              .put.actionType('externalEvents/FIRE_EXTERNAL_EVENT')
+              .provide([
+                [select(sagas.inputSelector), {navigationStrategy}]
+              ])
+              .call(navigationStrategy.navigateToActionRelative, payload.definition, payload.selection)
               .run()
           })
         })

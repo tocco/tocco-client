@@ -1,8 +1,14 @@
-
+import React from 'react'
 export default {
   getOptions: ({formField, formData}) => ({
-    linkFactory: formData.linkFactory && formData.linkFactory.detail
-      ? (key, content) => formData.linkFactory.detail(formField.targetEntity, formField.relationName, key, content)
+    DetailLink: formData.navigationStrategy && formData.navigationStrategy.DetailLink
+      ? ({entityKey, children}) =>
+        <formData.navigationStrategy.DetailLink
+          entityName={formField.targetEntity}
+          entityKey={entityKey}
+        >
+          {children}
+        </formData.navigationStrategy.DetailLink>
       : null
   })
 
