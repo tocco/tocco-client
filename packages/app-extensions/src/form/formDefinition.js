@@ -27,7 +27,8 @@ const getFieldsOfChildren = definition => {
     if (validFieldTypes.includes(componentType)) {
       result.push({
         ...definition.children[i],
-        readonly: definition.readonly
+        readonly: definition.readonly,
+        ignoreCopy: definition.ignoreCopy
       })
     }
   }

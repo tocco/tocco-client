@@ -35,6 +35,7 @@ const testDisplay = {
 const testFormDefinition = {
   id: 'fromX',
   readonly: false,
+  ignoreCopy: false,
   children: [
     {
       componentType: 'layout',
@@ -47,13 +48,16 @@ const testFormDefinition = {
           layoutType: 'horizontal-box',
           id: 'box 2',
           readonly: false,
+          ignoreCopy: false,
           children: [
             {
               readonly: false,
+              ignoreCopy: true,
               children: [testField1]
             },
             {
               readonly: true,
+              ignoreCopy: false,
               children: [testField2]
             },
             testDisplay,
@@ -83,19 +87,23 @@ describe('app-extensions', () => {
           expect(fields).to.eql([
             {
               ...testField1,
-              readonly: false
+              readonly: false,
+              ignoreCopy: true
             },
             {
               ...testField2,
-              readonly: true
+              readonly: true,
+              ignoreCopy: false
             },
             {
               ...testDisplay,
-              readonly: false
+              readonly: false,
+              ignoreCopy: false
             },
             {
               ...testField3,
-              readonly: false
+              readonly: false,
+              ignoreCopy: false
             }
           ])
         })
