@@ -1,0 +1,13 @@
+{
+  "selection": {
+    "entityName": "User",
+    "type": "ID",
+    "ids": [1]
+  },
+  "navigationStrategy": {
+
+  },
+  "context": {
+    "formName": "User"
+  }
+}
