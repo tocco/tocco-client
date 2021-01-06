@@ -38,10 +38,17 @@ const MergeSummary = ({mergeResponse}) => {
   </>
 }
 
+const entityWarningPropType = PropTypes.shape({
+  pk: PropTypes.string.isRequired,
+  entity: PropTypes.string.isRequired,
+  entityLabel: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
+})
+
 MergeSummary.propTypes = {
   mergeResponse: PropTypes.shape({
-    notCopiedRelations: PropTypes.arrayOf(PropTypes.object),
-    notDeletedEntities: PropTypes.arrayOf(PropTypes.object),
+    notCopiedRelations: PropTypes.arrayOf(entityWarningPropType),
+    notDeletedEntities: PropTypes.arrayOf(entityWarningPropType),
     showPermissionMessage: PropTypes.bool.isRequired
   })
 }
