@@ -1,3 +1,6 @@
+0.1.4-hotfix227.1
+- rename tql parameter
+
 0.1.4
 - Table component
 - Make all children of readonly layouts readonly
