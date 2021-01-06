@@ -45,7 +45,11 @@ const initApp = (id, input, events = {}, publicPath) => {
       listApp: EntityListApp,
       customActions,
       appComponent: input.actionAppComponent,
-      navigationStrategy: input.navigationStrategy
+      navigationStrategy: input.navigationStrategy,
+      context: {
+        viewName: 'detail',
+        formName: input.formName
+      }
     }
   )
   formData.addToStore(store, {listApp: EntityListApp, navigationStrategy: input.navigationStrategy})
