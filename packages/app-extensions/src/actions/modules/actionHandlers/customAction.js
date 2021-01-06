@@ -62,6 +62,7 @@ export function* handleCustomActionModal({definition, selection, config}) {
 
       return <ActionComponent
         appId={definition.appId}
+        context={config.context}
         actionProperties={definition.properties}
         selection={selection}
         navigationStrategy={config.navigationStrategy || {}}
