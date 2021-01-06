@@ -1,7 +1,7 @@
 # Input Edit
 Action to input grades, points and other ratings.
 
-##Embedding
+## Embedding
 
 React-registry name: `input-edit`
 
