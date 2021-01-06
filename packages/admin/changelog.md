@@ -1,3 +1,11 @@
+0.4.7
+- Refactor Layout components to use CSS Grid instead of JS for nested elements
+- Fix positioning and z-index of ActionsWrapper
+- Improve render of multi column layouts
+- Change the text format if there are only fieldErrors
+- Persist selected relation tab on detail
+- Focus on first input field
+
 0.4.6
 - Use same width for all Fontawesome icons
 - Introduce custom cell renderers
