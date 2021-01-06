@@ -1,3 +1,36 @@
+0.3.9
+- Increase min-width of table column for more usability on smaller screens
+- Disable touch on mobile and adjust margin
+- Fix select for mobile
+- Style popover to better align with overall design and have better contrast
+- Change link colors to secondary color
+- Adjust ttile width of modal to match modal width
+- Adjust top margin of modal content
+- Add caption to preview
+- Fix modal being push out of view when keyboard pops up on iOS
+- Prevent label overflow inside input field
+- Prevent popper menu disappearing behind main menu overlay
+- Fix advanced search menu bug
+- Change typography link color to secondary (blue)
+- Fix reports without custom settings
+- Style button inside table
+- Add title tooltip to button
+- Fix the label of richtext fields to the top
+- Reset load mask height to 100%
+- Add height to label to prevent vertical clip
+- Hide overflow of single value element
+- Prevent click on disabled date input field
+- Use column label as titles when hovering over headers
+- Prevent mobile keyboard from pushing the modal up
+- Fix top padding of modal
+- Fix padding of immutable stated values
+- Use same width for all Fontawesome icons
+- Disable pointer event on Desktop as text cant be copied otherwise in Firefox
+- Refactor Layout components to use CSS Grid instead of JS for nested elements
+- Fix positioning and z-index of ActionsWrapper
+- Improve render of multi column layouts
+- add mode to simple form
+
 0.3.8
 - Change chevron icon in multi select input when dropdown is opened
 - Change form field colors. Dirty: blue, Mandatory: organge
