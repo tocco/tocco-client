@@ -19,42 +19,9 @@ storiesOf('Tocco-UI | FormattedValue', module)
   .add(
     'Boolean',
     () => <FormattedValue key="2" type="boolean" value={boolean('Value', true)}/>
-  )
-  .add(
-    'Birthdate',
-    () => <FormattedValue type="birthdate" value={iso('1988-11-14')}/>
-
   ).add(
     'Date',
     () => <FormattedValue type="date" value={iso('2001-1-1')}/>
-  )
-  .add(
-    'Char',
-    () => <FormattedValue type="char" value={text('Characters', 'Simple string')}/>
-  )
-  .add(
-    'Counter',
-    () => <FormattedValue type="counter" value={text('Counter', '23')}/>
-  )
-  .add(
-    'Createuser',
-    () => <FormattedValue type="createuser" value={text('Createuser', 'User 1')}/>
-  )
-  .add(
-    'Email',
-    () => <FormattedValue type="email" value={text('Email', 'test@test.com')}/>
-  )
-  .add(
-    'Identifier',
-    () => <FormattedValue type="identifier" value={text('Identifier', 'IdentifierString')}/>
-  )
-  .add(
-    'Ipaddress',
-    () => <FormattedValue type="ipaddress" value={text('IP Address', '216.3.128.12')}/>
-  )
-  .add(
-    'Postcode',
-    () => <FormattedValue type="postcode" value={text('Postcode', '4321')}/>
   )
   .add(
     'String',
@@ -65,44 +32,20 @@ storiesOf('Tocco-UI | FormattedValue', module)
     () => <FormattedValue type="text" value={text('text', 'Line1 \nLine2')} breakWords={boolean('breakWords', true)}/>
   )
   .add(
-    'Uuid',
-    () => <FormattedValue type="uuid" value={text('Uuid', '814e1266-8123-40ce-9873-8a8c0aa59be7')}/>
-  )
-  .add(
-    'Createts',
-    () => <FormattedValue type="createts" value={text('Createts', '2016-12-06T13:40:25.864Z')}/>
-  )
-  .add(
     'Datetime',
     () => <FormattedValue type="datetime" value={text('Datetime', '2017-11-16T03:21:23.123Z')}/>
   )
   .add(
-    'Integer',
-    () => <FormattedValue type="integer" value={number('Integer', 8766)}/>
+    'Time',
+    () => <FormattedValue type="time" value={text('Time', '03:21:23.123Z')}/>
   )
   .add(
-    'Long',
-    () => <FormattedValue type="long" value={number('Long', 32324)}/>
+    'Integer',
+    () => <FormattedValue type="integer" value={number('Integer', 87660000)}/>
   )
   .add(
     'Number',
     () => <FormattedValue type="number" value={number('Number', 8473226)}/>
-  )
-  .add(
-    'Sorting',
-    () => <FormattedValue type="sorting" value={number('Sorting', 3.35)}/>
-  )
-  .add(
-    'Version',
-    () => <FormattedValue type="version" value={number('Version', 4.723)}/>
-  )
-  .add(
-    'Decimal',
-    () => <FormattedValue type="decimal" value={number('Decimal', 2334.567)}/>
-  )
-  .add(
-    'Double',
-    () => <FormattedValue type="double" value={number('Double', 3434.723)}/>
   )
   .add(
     'Document',
@@ -142,18 +85,6 @@ storiesOf('Tocco-UI | FormattedValue', module)
         title: text('Title', 'Title')
       }}
     />
-  )
-  .add(
-    'Login',
-    () => <FormattedValue type="login" value={{username: text('username', 'tocco_user')}}/>
-  )
-  .add(
-    'Longitude',
-    () => <FormattedValue type="longitude" value={{value: number('Longitude', 45.976575)}}/>
-  )
-  .add(
-    'Latitude',
-    () => <FormattedValue type="latitude" value={{value: number('Latitude', 7.658452)}}/>
   )
   .add(
     'Money',
@@ -208,4 +139,8 @@ storiesOf('Tocco-UI | FormattedValue', module)
   .add(
     'Phone',
     () => <FormattedValue type="phone" value={text('Phone', '+41761234567')}/>
+  )
+  .add(
+    'Url',
+    () => <FormattedValue type="url" value={text('Url', 'https://www.tocco.ch')}/>
   )

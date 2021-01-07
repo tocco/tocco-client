@@ -1,4 +1,3 @@
-import coordinate from './coordinate'
 import decimal from './decimal'
 import document from './document'
 import duration from './duration'
@@ -26,10 +25,8 @@ export default {
   'html': html,
   'image': document,
   'integer': integer,
-  'latitude': coordinate,
   'location': location,
   'long': integer,
-  'longitude': coordinate,
   'moneyamount': moneyamount,
   'multi-remote-field': remote,
   'multi-select-box': select,

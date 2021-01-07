@@ -17,8 +17,8 @@ import StringFormatter from './typeFormatters/StringFormatter'
 import TextFormatter from './typeFormatters/TextFormatter'
 import TimeFormatter from './typeFormatters/TimeFormatter'
 import UrlFormatter from './typeFormatters/UrlFormatter'
-import CoordinateFormatter from './typeFormatters/CoordinateFormatter'
 import DescriptionFormatter from './typeFormatters/DescriptionFormatter'
+import IntegerFormatter from './typeFormatters/IntegerFormatter'
 
 export default (type, value, options, breakWords = true) => {
   if (map[type]) {
@@ -31,49 +31,25 @@ export default (type, value, options, breakWords = true) => {
 }
 
 export const map = {
-  'binary': DocumentFormatter,
-  'birthdate': DateFormatter,
   'boolean': BooleanFormatter,
-  'char': StringFormatter,
-  'code': TextFormatter,
-  'count': StringFormatter,
-  'counter': StringFormatter,
-  'createts': DateTimeFormatter,
-  'createuser': StringFormatter,
   'date': DateFormatter,
-  'data-amoun': NumberFormatter,
-  'date-range': DateFormatter,
   'datetime': DateTimeFormatter,
-  'decimal': NumberFormatter,
   'document': DocumentFormatter,
   'document-compact': DocumentCompactFormatter,
-  'double': NumberFormatter,
   'duration': DurationFormatter,
-  'email': StringFormatter,
   'html': HtmlFormatter,
-  'identifier': StringFormatter,
-  'integer': StringFormatter,
-  'ipaddress': StringFormatter,
-  'latitude': CoordinateFormatter,
-  'login': StringFormatter,
-  'long': StringFormatter,
-  'longitude': CoordinateFormatter,
+  'integer': IntegerFormatter,
   'moneyamount': MoneyFormatter,
   'multi-remote': MultiSelectFormatter,
   'multi-select': MultiSelectFormatter,
   'number': NumberFormatter,
   'percent': PercentFormatter,
   'phone': PhoneFormatter,
-  'postcode': StringFormatter,
   'remote': SingleSelectFormatter,
   'single-select': SingleSelectFormatter,
-  'sorting': NumberFormatter,
   'string': StringFormatter,
   'text': TextFormatter,
-  'text-area': TextFormatter,
   'time': TimeFormatter,
   'url': UrlFormatter,
-  'uuid': StringFormatter,
-  'version': NumberFormatter,
   'description': DescriptionFormatter
 }

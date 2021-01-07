@@ -44,28 +44,10 @@ const testData = {
   entities: [
     {
       fields: {
-        user_nr: {
-          name: 'user_nr',
-          type: 'counter',
-          value: 62,
-          writable: false
-        },
-        email: {
-          name: 'email',
-          type: 'email',
-          value: 'mergi@test.ch',
-          writable: true
-        },
         callname: {
           name: 'callname',
           type: 'string',
           value: 'mergi',
-          writable: true
-        },
-        birthdate: {
-          name: 'birthdate',
-          type: 'birthdate',
-          value: '',
           writable: true
         },
         phone_company: {
@@ -138,28 +120,10 @@ const testData = {
     },
     {
       fields: {
-        user_nr: {
-          name: 'user_nr',
-          type: 'counter',
-          value: 68,
-          writable: false
-        },
-        email: {
-          name: 'email',
-          type: 'email',
-          value: 'test@test.merge.ch',
-          writable: true
-        },
         callname: {
           name: 'callname',
           type: 'string',
           value: '',
-          writable: true
-        },
-        birthdate: {
-          name: 'birthdate',
-          type: 'birthdate',
-          value: '1980-01-31',
           writable: true
         },
         phone_company: {
@@ -226,28 +190,10 @@ const testData = {
     },
     {
       fields: {
-        user_nr: {
-          name: 'user_nr',
-          type: 'counter',
-          value: 65,
-          writable: false
-        },
-        email: {
-          name: 'email',
-          type: 'email',
-          value: '',
-          writable: true
-        },
         callname: {
           name: 'callname',
           type: 'string',
           value: '',
-          writable: true
-        },
-        birthdate: {
-          name: 'birthdate',
-          type: 'birthdate',
-          value: null,
           writable: true
         },
         phone_company: {
@@ -322,20 +268,8 @@ const testData = {
   model: {
     fields: [
       {
-        label: 'Personen-Nr.',
-        name: 'user_nr'
-      },
-      {
-        label: 'E-Mail',
-        name: 'email'
-      },
-      {
         label: 'Rufname',
         name: 'callname'
-      },
-      {
-        label: 'Geburtsdatum',
-        name: 'birthdate'
       },
       {
         label: 'Telefon G',
