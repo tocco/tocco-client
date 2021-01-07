@@ -213,10 +213,21 @@ storiesOf('Tocco-UI | EditableValue', module)
           allowNegative: true,
           fixedDecimalScale: true,
           prefix: '#',
-          suffix: '%',
-          format: ''
+          suffix: '%'
         })}
         defaultValue={123.45}
+      />
+  ).add(
+    'Integer',
+    () =>
+      <EditableValueStory
+        type="integer"
+        knobType={number}
+        options={object('options', {
+          maxValue: 300000,
+          minValue: 1000
+        })}
+        defaultValue={1001}
       />
   ).add(
     'Phone',

@@ -20,6 +20,7 @@ import UrlEdit from './typeEditors/UrlEdit'
 import PhoneEdit from './typeEditors/PhoneEdit'
 import DurationEdit from './typeEditors/DurationEdit'
 import NumberEdit from './typeEditors/NumberEdit'
+import IntegerEdit from './typeEditors/IntegerEdit'
 import LocationEdit from './typeEditors/LocationEdit'
 
 export const map = {
@@ -29,6 +30,7 @@ export const map = {
   'document': Document,
   'duration': DurationEdit,
   'html': HtmlEdit,
+  'integer': IntegerEdit,
   'location': LocationEdit,
   'multi-remote': MultiRemoteSelect,
   'multi-select': MultiSelect,
