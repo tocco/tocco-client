@@ -15,7 +15,7 @@ DetailLinkRelative.propTypes = {
   currentKey: PropTypes.string.isRequired,
   entityKey: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
-  relation: PropTypes.string
+  relation: PropTypes.string.isRequired
 }
 
 class EntityDetail extends React.Component {
