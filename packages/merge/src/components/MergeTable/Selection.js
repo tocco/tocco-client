@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedValue, Typography} from 'tocco-ui'
+import {field} from 'tocco-app-extensions'
 import {FormattedMessage} from 'react-intl'
 import {js} from 'tocco-util'
 import _get from 'lodash/get'
@@ -67,7 +68,7 @@ RelationsCheckBoxes.propTypes = {
 
 export const FormattedValueRadio = React.memo(({entityData, entityKey, name, setSelectedSingle, isSelected}) => {
   const typeMapper = {
-    entity: 'single-select'
+    entity: 'single-select-box'
   }
 
   const {type, writable} = entityData
@@ -75,6 +76,8 @@ export const FormattedValueRadio = React.memo(({entityData, entityKey, name, set
   const onChange = () => {
     setSelectedSingle(name, entityKey)
   }
+
+  const Field = field.factory('list', mappedType)
 
   return <>
     <input
@@ -85,7 +88,10 @@ export const FormattedValueRadio = React.memo(({entityData, entityKey, name, set
       id={`${name}${entityKey}`}
       disabled={!writable}/>
     <Typography.Label for={`${name}${entityKey}`}>
-      <FormattedValue type={mappedType} value={entityData.value}/>
+      <Field
+        formField={{dataType: mappedType}}
+        value={entityData.value}
+      />
     </Typography.Label>
   </>
 }, areEqual)
