@@ -1,3 +1,6 @@
+0.3.4-hotfix226.3
+- Map integer, counter and long to string
+
 0.3.4-hotfix226.2
 - Handle notifications depending on parent
 
