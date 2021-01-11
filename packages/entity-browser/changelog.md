@@ -1,3 +1,6 @@
+0.10.17-hotfix227.1
+- Map integer, counter and long to string
+
 0.10.17
 - Adjust filter pane height when expanded
 - Change chevron icon in multi select input when dropdown is opened
