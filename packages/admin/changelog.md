@@ -1,3 +1,10 @@
+0.4.8
+- Introduce navigationStrategy
+- Remove favicons inside react project, as they will loaded via the static index.html
+- Remove obsolete right margin inside menu item
+- Display integer and counter data unformatted
+- Add copy action
+
 0.4.7
 - Refactor Layout components to use CSS Grid instead of JS for nested elements
 - Fix positioning and z-index of ActionsWrapper
