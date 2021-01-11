@@ -1,3 +1,6 @@
+0.3.8-hotfix227.1
+- Map integer, counter and long to string
+
 0.3.8
 - Change chevron icon in multi select input when dropdown is opened
 - Change form field colors. Dirty: blue, Mandatory: organge
