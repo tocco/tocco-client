@@ -1,3 +1,6 @@
+0.10.10-hotfix226.4
+- Map integer, counter and long to string
+
 0.10.10-hotfix226.3
 - Entity list: Add support for `clickable` attribute
 
