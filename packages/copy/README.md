@@ -2,7 +2,7 @@
 
 Custom action to copy a single record
 
-##Embedding
+## Embedding
 
 React-registry name: `copy`
 
