@@ -28,6 +28,7 @@ git add -A
 rev=$(git rev-parse --short HEAD)
 git diff-index --quiet HEAD || git commit -m "rebuild storybook at ${rev}"
 echo "Push"
+git pull --rebase origin $PAGES_BRANCH
 git push -q git@github.com:tocco/tocco-client.git HEAD:$PAGES_BRANCH
 
-# test 2
+# test 3
