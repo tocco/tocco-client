@@ -20,14 +20,14 @@ mkdir $PAGES_BRANCH/$BRANCH_FOLDER_NAME
 mv storybook/* $PAGES_BRANCH/$BRANCH_FOLDER_NAME
 cd $PAGES_BRANCH
 
-echo "Commit and push"
+echo "Commit"
 git config user.name "Gitlab CI"
 git config user.email "tocco.github.bot@gmail.com"
 
 git add -A
 rev=$(git rev-parse --short HEAD)
 git diff-index --quiet HEAD || git commit -m "rebuild storybook at ${rev}"
-
+echo "Push"
 git push -q git@github.com:tocco/tocco-client.git HEAD:$PAGES_BRANCH
 
 # test 2
