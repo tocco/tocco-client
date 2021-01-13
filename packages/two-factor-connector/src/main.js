@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, errorLogging, notifier} from 'tocco-app-extensions'
+import PropTypes from 'prop-types'
+import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules'
 import TwoFactorConnector from './components/TwoFactorConnector'
@@ -54,3 +56,26 @@ const initApp = (id, input, events, publicPath) => {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
 })()
+
+const EXTERNAL_EVENTS_PASSWORD_UPDATE = [
+  'onSuccess'
+]
+
+const TwoFactorConnectorApp = props => {
+  const [app, setApp] = useState(null)
+  useEffect(() => {
+    const events = EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((events, event) => (
+      {...events, ...(props[event] && {[event]: props[event]})}
+    ), {})
+
+    setApp(initApp('two-factor-connector', props, events))
+  }, [])
+
+  return app ? app.component : null
+}
+
+TwoFactorConnectorApp.propTypes = {
+  ...EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {})
+}
+
+export default hot(TwoFactorConnectorApp)

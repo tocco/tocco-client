@@ -9,7 +9,9 @@ const mapActionCreators = {
   doLogout,
   loadBusinessUnits,
   changeBusinessUnit,
-  openModalComponent: notifier.modalComponent
+  openModalComponent: notifier.modalComponent,
+  removeModalComponent: notifier.removeModalComponent,
+  info: notifier.info
 }
 
 const mapStateToProps = (state, props) => ({

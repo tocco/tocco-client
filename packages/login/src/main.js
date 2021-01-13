@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {consoleLogger, reducer as reducerUtil} from 'tocco-util'
 import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
@@ -148,3 +148,29 @@ LoginApp.propTypes = {
 }
 
 export default hot(LoginApp)
+
+const EXTERNAL_EVENTS_PASSWORD_UPDATE = [
+  'success',
+  'resize'
+]
+
+export const PasswordUpdateApp = props => {
+  const [app, setApp] = useState(null)
+  useEffect(() => {
+    const events = EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((events, event) => (
+      {...events, ...(props[event] && {[event]: props[event]})}
+    ), {})
+
+    setApp(initPasswordUpdateApp('password-update', props, events))
+  }, [])
+
+  return app ? app.component : null
+}
+
+PasswordUpdateApp.propTypes = {
+  username: PropTypes.string,
+  showTitle: PropTypes.bool,
+  showOldPasswordField: PropTypes.bool,
+  oldPassword: PropTypes.string,
+  ...EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {})
+}
