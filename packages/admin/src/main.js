@@ -28,11 +28,6 @@ const LazyAdmin = () => (
 const initApp = (id, input, events, publicPath) => {
   if (window.reactRegistry && window.reactRegistry.setReact) {
     window.reactRegistry.setReact(React, ReactDOM)
-
-    // the following import can be removed once the merge action is
-    // integrated properly (not as legacy action)
-    // eslint-disable-next-line chai-friendly/no-unused-expressions
-    import('tocco-merge/src/main')
   }
 
   const content = <LazyAdmin/>
