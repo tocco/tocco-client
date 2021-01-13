@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography} from 'tocco-ui'
+import {Button, Typography} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import _groupBy from 'lodash/groupBy'
 
-const MergeSummary = ({mergeResponse}) => {
+const MergeSummary = ({mergeResponse, close}) => {
   const notCopiedRelations = Object.entries(_groupBy(mergeResponse.notCopiedRelations, e => e.entityLabel))
     .map(([entityLabel, list]) => `${entityLabel} (${list.length})`).join(', ')
 
@@ -35,14 +35,17 @@ const MergeSummary = ({mergeResponse}) => {
       mergeResponse.showPermissionMessage
       && <Typography.P><FormattedMessage id="client.merge.summary.permission"/></Typography.P>
     }
+
+    <Button onClick={close} look="raised" ink="primary">
+      <FormattedMessage id="client.merge.close"/>
+    </Button>
   </>
 }
 
 const entityWarningPropType = PropTypes.shape({
   pk: PropTypes.string.isRequired,
   entity: PropTypes.string.isRequired,
-  entityLabel: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  entityLabel: PropTypes.string.isRequired
 })
 
 MergeSummary.propTypes = {
@@ -50,7 +53,8 @@ MergeSummary.propTypes = {
     notCopiedRelations: PropTypes.arrayOf(entityWarningPropType),
     notDeletedEntities: PropTypes.arrayOf(entityWarningPropType),
     showPermissionMessage: PropTypes.bool.isRequired
-  })
+  }),
+  close: PropTypes.func.isRequired
 }
 
 export default MergeSummary
