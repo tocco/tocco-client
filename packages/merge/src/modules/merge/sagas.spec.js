@@ -1,7 +1,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {all, select, takeLatest} from 'redux-saga/effects'
-import {rest} from 'tocco-app-extensions'
+import {externalEvents, rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -27,7 +27,8 @@ describe('merge', () => {
           const generator = rootSaga()
           expect(generator.next().value).to.deep.equal(all([
             takeLatest(actions.INITIALIZE, sagas.initialize),
-            takeLatest(actions.EXECUTE_MERGE, sagas.executeMerge)
+            takeLatest(actions.EXECUTE_MERGE, sagas.executeMerge),
+            takeLatest(actions.CLOSE, sagas.close)
           ]))
           expect(generator.next().done).to.be.true
         })
@@ -66,15 +67,16 @@ describe('merge', () => {
         })
 
         describe('executeMerge', () => {
-          test('should call executeMerge', () => {
-            const body = {
-              selection: expectedSelection,
-              targetEntity: {
-                key: '1',
-                paths: {}
-              },
-              mergeRelations: []
-            }
+          const body = {
+            selection: expectedSelection,
+            targetEntity: {
+              key: '1',
+              paths: {}
+            },
+            mergeRelations: []
+          }
+
+          test('should call executeMerge successfully', () => {
             const response = {
               notCopiedRelations: [
                 {
@@ -95,10 +97,62 @@ describe('merge', () => {
             return expectSaga(sagas.executeMerge)
               .provide([
                 [matchers.call.fn(sagas.getMergeBody), body],
-                [matchers.call.fn(rest.requestSaga), {body: response}]
+                [matchers.call.fn(rest.requestSaga), {status: 200, body: response}]
               ])
-              .call(rest.requestSaga, 'merge/merge', {method: 'POST', body: body})
+              .call(rest.requestSaga, 'merge/merge', {method: 'POST', acceptedStatusCodes: [400, 500], body: body})
               .put(actions.setMergeResponse(response))
+              .run()
+          })
+
+          test('should call executeMerge but validation failed', () => {
+            const response = {
+              status: 400,
+              message: 'Validation failed',
+              errorCode: 'VALIDATION_FAILED',
+              errors: [
+                {
+                  model: 'User',
+                  key: '1',
+                  paths: {
+                    email: {
+                      UniqueValidator: [
+                        'Related entity path error'
+                      ]
+                    }
+                  },
+                  entityValidatorErrors: {
+                    CaseRegistrationValidator: [
+                      'An error occurred'
+                    ]
+                  }
+                }
+              ]
+            }
+
+            return expectSaga(sagas.executeMerge)
+              .provide([
+                [matchers.call.fn(sagas.getMergeBody), body],
+                [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
+              ])
+              .call(rest.requestSaga, 'merge/merge', {method: 'POST', acceptedStatusCodes: [400, 500], body: body})
+              .put(actions.setMergeError(null, response.errors))
+              .run()
+          })
+
+          test('should call executeMerge but failed', () => {
+            const response = {
+              status: 500,
+              message: 'Internal Server Error (Error reference: gbjuqw)',
+              errorCode: null
+            }
+
+            return expectSaga(sagas.executeMerge)
+              .provide([
+                [matchers.call.fn(sagas.getMergeBody), body],
+                [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
+              ])
+              .call(rest.requestSaga, 'merge/merge', {method: 'POST', acceptedStatusCodes: [400, 500], body: body})
+              .put(actions.setMergeError(response.message, []))
               .run()
           })
         })
@@ -158,6 +212,33 @@ describe('merge', () => {
                 [select(sagas.mergeSelector), merge]
               ])
               .returns(expectedBody)
+              .run()
+          })
+        })
+
+        describe('close', () => {
+          test('should call close', () => {
+            const remoteEvents = [
+              {
+                type: 'entity-update-event',
+                payload: {
+                  entities: [
+                    {
+                      entityName: 'User',
+                      key: 1
+                    },
+                    {
+                      entityName: 'User',
+                      key: 2
+                    }]
+                }
+              }]
+
+            return expectSaga(sagas.close)
+              .provide([
+                [select(sagas.mergeSelector), {selection: selection}]
+              ])
+              .put(externalEvents.fireExternalEvent('onSuccess', {remoteEvents}))
               .run()
           })
         })

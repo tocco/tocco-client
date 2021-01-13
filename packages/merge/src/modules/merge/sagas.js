@@ -1,5 +1,5 @@
 import {takeLatest, all, select, call, put} from 'redux-saga/effects'
-import {rest} from 'tocco-app-extensions'
+import {externalEvents, rest} from 'tocco-app-extensions'
 import _uniq from 'lodash/uniq'
 
 import * as actions from './actions'
@@ -9,7 +9,8 @@ export const mergeSelector = state => state.merge
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.INITIALIZE, initialize),
-    takeLatest(actions.EXECUTE_MERGE, executeMerge)
+    takeLatest(actions.EXECUTE_MERGE, executeMerge),
+    takeLatest(actions.CLOSE, close)
   ])
 }
 
@@ -85,9 +86,32 @@ export function* executeMerge() {
   const resource = 'merge/merge'
   const options = {
     method: 'POST',
+    acceptedStatusCodes: [400, 500],
     body: yield call(getMergeBody)
   }
 
   const response = yield call(rest.requestSaga, resource, options)
-  yield put(actions.setMergeResponse(response.body))
+
+  if (response.status === 200) {
+    yield put(actions.setMergeResponse(response.body))
+  } else {
+    if (response.body && response.body.errorCode === 'VALIDATION_FAILED') {
+      yield put(actions.setMergeError(null, response.body.errors))
+    } else {
+      yield put(actions.setMergeError(response.body.message, []))
+    }
+  }
+}
+
+export function* close() {
+  const {selection} = yield select(mergeSelector)
+  const entities = selection.ids.map(id => ({entityName: selection.entityName, key: id}))
+  const remoteEvents = [{
+    type: 'entity-update-event',
+    payload: {
+      entities
+    }
+  }]
+
+  yield put(externalEvents.fireExternalEvent('onSuccess', {remoteEvents}))
 }

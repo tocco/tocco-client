@@ -3,28 +3,24 @@
     {
       "pk": "1",
       "entity": "User",
-      "entityLabel": "Person",
-      "name": "Display 1"
+      "entityLabel": "Person"
     },
     {
       "pk": "2",
       "entity": "User",
-      "entityLabel": "Person",
-      "name": "Display 2"
+      "entityLabel": "Person"
     },
     {
       "pk": "4",
       "entity": "Address",
-      "entityLabel": "Adresse",
-      "name": "Display 4"
+      "entityLabel": "Adresse"
     }
   ],
   "notDeletedEntities": [
     {
       "pk": "3",
       "entity": "User",
-      "entityLabel": "Person",
-      "name": "Display 3"
+      "entityLabel": "Person"
     }
   ],
   "showPermissionMessage": true
