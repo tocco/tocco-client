@@ -12,8 +12,116 @@ const selection = {
 
 describe('merge', () => {
   describe('modules', () => {
-    describe('modules', () => {
-      describe('merge', () => {
+    describe('merge', () => {
+      describe('reducer', () => {
+        describe('executeMerge', () => {
+          test('should be pending', () => {
+            const stateBefore = {
+              selection: selection,
+              selected: {
+                targetEntity: '1',
+                single: {
+                  firstname: '1',
+                  lastname: '2'
+                }
+              },
+              mergePending: false
+            }
+
+            const expectedStateAfter = {
+              selection: selection,
+              selected: {
+                targetEntity: '1',
+                single: {
+                  firstname: '1',
+                  lastname: '2'
+                }
+              },
+              mergePending: true
+            }
+
+            expect(reducer(stateBefore, actions.executeMerge()))
+              .to.deep.equal(expectedStateAfter)
+          })
+        })
+
+        describe('mergeResponse', () => {
+          test('no longer pending and set response', () => {
+            const stateBefore = {
+              selection: selection,
+              selected: {
+                targetEntity: '1',
+                single: {
+                  firstname: '1',
+                  lastname: '2'
+                }
+              },
+              mergePending: true,
+              mergeResponse: null
+            }
+
+            const mergeResponse = {
+              notCopiedRelations: [],
+              notDeletedEntities: [],
+              showPermissionMessage: true
+            }
+
+            const expectedStateAfter = {
+              selection: selection,
+              selected: {
+                targetEntity: '1',
+                single: {
+                  firstname: '1',
+                  lastname: '2'
+                }
+              },
+              mergePending: false,
+              mergeResponse: mergeResponse
+            }
+
+            expect(reducer(stateBefore, actions.setMergeResponse(mergeResponse)))
+              .to.deep.equal(expectedStateAfter)
+          })
+        })
+
+        describe('mergeErrors', () => {
+          test('no longer pending and set response error', () => {
+            const stateBefore = {
+              selection: selection,
+              selected: {
+                targetEntity: '1',
+                single: {
+                  firstname: '1',
+                  lastname: '2'
+                }
+              },
+              mergePending: true,
+              mergeErrorMsg: null,
+              mergeValidationErrors: []
+            }
+
+            const mergeErrorMsg = 'Failed'
+            const mergeValidationErrors = []
+
+            const expectedStateAfter = {
+              selection: selection,
+              selected: {
+                targetEntity: '1',
+                single: {
+                  firstname: '1',
+                  lastname: '2'
+                }
+              },
+              mergePending: false,
+              mergeErrorMsg: mergeErrorMsg,
+              mergeValidationErrors: mergeValidationErrors
+            }
+
+            expect(reducer(stateBefore, actions.setMergeError(mergeErrorMsg, mergeValidationErrors)))
+              .to.deep.equal(expectedStateAfter)
+          })
+        })
+
         describe('setSelectedSingle', () => {
           test('should set single selected', () => {
             const stateBefore = {

@@ -7,6 +7,8 @@ export const SET_SELECTED_MULTIPLE_ALL = 'merge/SET_SELECTED_MULTIPLE_ALL'
 export const SET_TARGET_ENTITY = 'merge/SET_TARGET_ENTITY'
 export const EXECUTE_MERGE = 'merge/EXECUTE_MERGE'
 export const SET_MERGE_RESPONSE = 'merge/SET_MERGE_RESPONSE'
+export const SET_MERGE_ERROR = 'merge/SET_MERGE_ERROR'
+export const CLOSE = 'merge/CLOSE'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -69,4 +71,16 @@ export const setMergeResponse = mergeResponse => ({
   payload: {
     mergeResponse
   }
+})
+
+export const setMergeError = (errorMsg, validationErrors) => ({
+  type: SET_MERGE_ERROR,
+  payload: {
+    errorMsg,
+    validationErrors
+  }
+})
+
+export const close = () => ({
+  type: CLOSE
 })

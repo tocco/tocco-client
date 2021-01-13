@@ -3,6 +3,30 @@ import _omit from 'lodash/omit'
 
 import * as actions from './actions'
 
+const executeMerge = state => (
+  {
+    ...state,
+    mergePending: true
+  }
+)
+
+const mergeResponse = (state, {payload: {mergeResponse}}) => (
+  {
+    ...state,
+    mergePending: false,
+    mergeResponse: mergeResponse
+  }
+)
+
+const mergeErrors = (state, {payload: {errorMsg, validationErrors}}) => (
+  {
+    ...state,
+    mergePending: false,
+    mergeErrorMsg: errorMsg,
+    mergeValidationErrors: validationErrors
+  }
+)
+
 const setSelectedSingle = (state, {payload: {name, entityKey}}) => (
   {
     ...state,
@@ -98,7 +122,9 @@ const setTargetEntity = (state, {payload: {entityKey}}) => {
 const ACTION_HANDLERS = {
   [actions.SET_SELECTION]: reducerUtil.singleTransferReducer('selection'),
   [actions.SET_SOURCE_DATA]: reducerUtil.singleTransferReducer('sourceData'),
-  [actions.SET_MERGE_RESPONSE]: reducerUtil.singleTransferReducer('mergeResponse'),
+  [actions.EXECUTE_MERGE]: executeMerge,
+  [actions.SET_MERGE_RESPONSE]: mergeResponse,
+  [actions.SET_MERGE_ERROR]: mergeErrors,
   [actions.SET_SELECTED_SINGLE]: setSelectedSingle,
   [actions.SET_SELECTED_MULTIPLE]: setSelectedMultiple,
   [actions.SET_SELECTED_MULTIPLE_ALL]: setSelectedMultipleAll,
@@ -108,7 +134,10 @@ const ACTION_HANDLERS = {
 const initialState = {
   selection: null,
   sourceData: null,
+  mergePending: false,
   mergeResponse: null,
+  mergeErrorMsg: null,
+  mergeValidationErrors: [],
   selected: {
     targetEntity: null,
     single: {},
