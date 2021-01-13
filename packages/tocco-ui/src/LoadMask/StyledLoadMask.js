@@ -24,6 +24,13 @@ const StyledLoadMask = styled.div`
   flex-direction: column;
   flex: 1;
   height: 100%;
+
+  // Safari 10.1+ https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome
+  @media not all and (min-resolution: .01dpcm) {
+    @media {
+      transform: translateZ(0);
+    }
+  }
   ${({isInitialized}) => !isInitialized && css`
     && {
       flex-flow: column nowrap;
