@@ -1,13 +1,14 @@
 import React, {useMemo} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {Table, Typography, Button} from 'tocco-ui'
+import {Table, Typography, Button, LoadMask} from 'tocco-ui'
 import {FormattedMessage, injectIntl} from 'react-intl'
 
 import {getColumnDefinition, getDataRows} from '../../util/sourceData'
 import sourceDataPropType from '../../util/sourceDataPropType'
 import {setTargetEntity} from '../../modules/merge/actions'
 import {CellRendererContainer} from './CellRender'
+import MergeErrors, {mergeValidationErrorsPropTypes} from './MergeErrors'
 
 const LabelCellRenderer = ({rowIdx, sourceData, allPaths}) => {
   const columnName = allPaths[rowIdx]
@@ -49,7 +50,7 @@ const mapStateToPropsColumn = (state, props) => ({
 const ColumnHeaderRendererContainer = connect(mapStateToPropsColumn,
   mapActionCreatorsColumn)(injectIntl(ColumnHeaderRenderer))
 
-const MergeTable = ({sourceData, executeMerge}) => {
+const MergeTable = ({sourceData, mergePending, mergeErrorMsg, mergeValidationErrors, executeMerge}) => {
   const data = useMemo(() =>
     sourceData ? getDataRows(sourceData) : []
   , [sourceData])
@@ -59,25 +60,34 @@ const MergeTable = ({sourceData, executeMerge}) => {
       ? getColumnDefinition(sourceData, ColumnHeaderRendererContainer, CellRendererContainer, LabelCellRenderer) : []
   , [sourceData])
 
-  return (
-    <>
-      <Button onClick={executeMerge} look="raised" ink="primary">
-        <FormattedMessage id="client.merge.saveButton"/>
-      </Button>
-      <Table
-        columns={columns}
-        data={data}
-        selectionStyle="none"
-        dataLoadingInProgress={sourceData === null}
-        onColumnPositionChange={() => {
-        }}
-      />
-    </>
-  )
+  if (mergePending) {
+    return <LoadMask/>
+  }
+
+  return <>
+    <Button onClick={executeMerge} look="raised" ink="primary" disabled={sourceData === null}>
+      <FormattedMessage id="client.merge.saveButton"/>
+    </Button>
+    <MergeErrors
+      sourceData={sourceData}
+      mergeErrorMsg={mergeErrorMsg}
+      mergeValidationErrors={mergeValidationErrors}/>
+    <Table
+      columns={columns}
+      data={data}
+      selectionStyle="none"
+      dataLoadingInProgress={sourceData === null}
+      onColumnPositionChange={() => {
+      }}
+    />
+  </>
 }
 
 MergeTable.propTypes = {
   sourceData: sourceDataPropType,
+  mergePending: PropTypes.bool.isRequired,
+  mergeErrorMsg: PropTypes.string,
+  mergeValidationErrors: mergeValidationErrorsPropTypes,
   executeMerge: PropTypes.func.isRequired
 }
 
