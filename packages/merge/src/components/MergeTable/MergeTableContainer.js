@@ -9,7 +9,10 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  sourceData: state.merge.sourceData
+  sourceData: state.merge.sourceData,
+  mergePending: state.merge.mergePending,
+  mergeErrorMsg: state.merge.mergeErrorMsg,
+  mergeValidationErrors: state.merge.mergeValidationErrors
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(MergeTable))

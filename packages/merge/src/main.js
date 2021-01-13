@@ -1,6 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory} from 'tocco-app-extensions'
+import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 import {hot} from 'react-hot-loader/root'
 
@@ -11,13 +11,15 @@ import {setSelection} from './modules/merge/actions'
 const packageName = 'merge'
 
 const EXTERNAL_EVENTS = [
-  'emitAction'
+  'emitAction',
+  'onSuccess'
 ]
 
 const initApp = (id, input, events, publicPath) => {
   const content = <Merge/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  externalEvents.addToStore(store, events)
 
   return appFactory.createApp(
     packageName,
