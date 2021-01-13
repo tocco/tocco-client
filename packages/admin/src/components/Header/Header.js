@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'
+import {PasswordUpdateApp} from 'tocco-login/src/main'
+import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
 
 import {
   StyledHeader,
@@ -28,12 +30,36 @@ const Header = ({
   doLogout,
   runEnv,
   niceVersion,
-  openModalComponent
+  openModalComponent,
+  removeModalComponent,
+  info
 }) => {
   const handleBusinessUnitOpen = () => {
     if (businessUnits.length === 0) {
       loadBusinessUnits()
     }
+  }
+
+  const openPasswordUpdate = () => {
+    openModalComponent(
+      'passwordUpdateModal',
+      'client.login.passwordUpdate.title',
+      null,
+      () => <PasswordUpdateApp username={username} success={() => {
+        removeModalComponent('passwordUpdateModal')
+        info('success', 'client.login.passwordUpdate.success')
+      }}/>
+      , true
+    )
+  }
+
+  const openTwoFactorConnector = () => {
+    openModalComponent(
+      'passwordUpdateModal',
+      'client.login.passwordUpdate.title',
+      null,
+      () => <TwoFactorConnectorApp/>,
+      true)
   }
 
   return <>
@@ -56,6 +82,10 @@ const Header = ({
           }
         </ButtonMenu>
         <ButtonMenu label={username}>
+          <MenuItem onClick={openPasswordUpdate}><FormattedMessage id="client.admin.menu.passwordUpdate"/></MenuItem>
+          <MenuItem onClick={openTwoFactorConnector}>
+            <FormattedMessage id="client.admin.menu.twoFactorConnector"/>
+          </MenuItem>
           <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
         </ButtonMenu>
         <StyledBallMenuWrapper>
@@ -102,7 +132,9 @@ Header.propTypes = {
   loadBusinessUnits: PropTypes.func.isRequired,
   runEnv: PropTypes.string,
   niceVersion: PropTypes.string,
-  openModalComponent: PropTypes.func.isRequired
+  openModalComponent: PropTypes.func.isRequired,
+  removeModalComponent: PropTypes.func.isRequired,
+  info: PropTypes.func.isRequired
 }
 
 export default Header

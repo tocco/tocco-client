@@ -23,6 +23,7 @@
     "tocco-sso-login": "*",
     "tocco-test-util": "*",
     "tocco-theme": "*",
+    "tocco-two-factor-connector": "*",
     "tocco-ui": "*",
     "tocco-user-qr-action": "*",
     "tocco-util": "*"
