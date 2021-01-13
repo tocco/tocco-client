@@ -7,7 +7,13 @@ import FullCalendar from './FullCalendar'
 describe('scheduler', () => {
   describe('components', () => {
     describe('Fullcalendar', () => {
-      const baseProps = {onRefresh: () => {}, events: [], resources: [], onEventClick: () => {}}
+      const baseProps = {
+        onRefresh: () => {},
+        events: [],
+        resources: [],
+        onEventClick: () => {},
+        onCalendarRemove: () => {}
+      }
 
       test('should render calendar', () => {
         const wrapper = enzymeUtil.mountEmbedded(<FullCalendar {...baseProps}/>)

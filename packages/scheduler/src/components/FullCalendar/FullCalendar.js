@@ -1,23 +1,20 @@
 import React, {useRef, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
-import ReactDOMServer from 'react-dom/server'
 import ReactFullCalendar from '@fullcalendar/react'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
 import moment from 'moment'
 import 'twix'
-import '!style-loader!css-loader!@fullcalendar/core/main.css'
-import '!style-loader!css-loader!@fullcalendar/timeline/main.css'
-import '!style-loader!css-loader!@fullcalendar/resource-timeline/main.css'
-import {FormattedValue} from 'tocco-ui'
+import {FormattedValue, Popover} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
-import Tooltip from 'tooltip.js'
 import {injectIntl, intlShape} from 'react-intl'
 import interactionPlugin from '@fullcalendar/interaction'
+import adaptivePlugin from '@fullcalendar/adaptive'
 
 import NavigationFullCalendar from '../NavigationFullCalendar'
 import StyledFullCalendar from './StyledFullCalendar'
 import Conflict from '../Conflict'
 import {getFormattedTime} from '../../utils/time'
+import ResourceLabelContent from './ResourceLabelContent'
 
 const getLicense = () => {
   const licence = process.env.FULL_CALENDAR_LICENCE
@@ -51,11 +48,7 @@ const FullCalendar = ({
   }, [])
 
   useEffect(() => {
-    addDeselectAllButton()
-  })
-
-  useEffect(() => {
-    const calendar = calendarEl.current.calendar
+    const calendar = calendarEl.current.getApi()
     calendar.batchRendering(() => {
       const eventSources = calendar.getEventSources()
       eventSources.forEach(eS => eS.remove())
@@ -64,7 +57,7 @@ const FullCalendar = ({
   }, [JSON.stringify(events)])
 
   useEffect(() => {
-    const calendar = calendarEl.current.calendar
+    const calendar = calendarEl.current.getApi()
     calendar.batchRendering(() => {
       const loadedResources = calendar.getResources()
       loadedResources.forEach(l => {
@@ -83,92 +76,75 @@ const FullCalendar = ({
     })
   }, [JSON.stringify(resources)])
 
-  const addDeselectAllButton = () => {
-    const firstHeaderNode = wrapperEl.current.querySelectorAll('.fc-widget-header')[0]
-    if (firstHeaderNode) {
-      const checkbox = document.createElement('INPUT')
-      checkbox.type = 'checkbox'
-      if (resources.length > 0) {
-        checkbox.checked = 'checked'
-      }
-      checkbox.className = 'remove-all-checkbox'
-      checkbox.style.visibility = resources.length > 0 ? 'visible' : 'hidden'
-      checkbox.onclick = onCalendarRemoveAll
-
-      firstHeaderNode.innerHTML = ''
-      firstHeaderNode.appendChild(checkbox)
-    }
-  }
+  const headerContent = <input
+    type="checkbox"
+    defaultChecked={true}
+    style={{visibility: resources.length > 0 ? 'visible' : 'hidden'}}
+    className="remove-all-checkbox"
+    onClick={onCalendarRemoveAll}
+  />
 
   const changeRange = () => {
-    const view = calendarEl.current.calendar.view
+    const {view} = calendarEl.current.getApi()
     if (onDateRangeChange) {
       onDateRangeChange({startDate: view.activeStart, endDate: view.activeEnd})
     }
   }
 
   const changeView = (view = 'timelineDay') => {
-    calendarEl.current.calendar.changeView(view)
+    calendarEl.current.getApi().changeView(view)
     changeRange()
   }
 
-  const resourceRender = renderInfo => {
-    const element = renderInfo.el.getElementsByClassName('fc-cell-content')[0]
-    const checkbox = document.createElement('INPUT')
-    checkbox.type = 'checkbox'
-    checkbox.checked = 'checked'
-    checkbox.className = 'remove-resource-checkbox'
-    checkbox.onclick = () => {
-      onCalendarRemove(renderInfo.resource.extendedProps.entityKey, renderInfo.resource.extendedProps.entityModel)
-    }
-    element.prepend(checkbox)
-  }
-
-  const eventRender = ({event, el}) => {
-    const time = moment(event.start).twix(moment(event.end)).format({monthFormat: 'MMMM', dayFormat: 'Do'})
+  function renderEventContent(eventInfo) {
+    const time = moment(eventInfo.event.start)
+      .twix(moment(eventInfo.event.end))
+      .format({monthFormat: 'MMMM', dayFormat: 'Do'})
     const tooltipDescriptionContent = <div>
-      <FormattedValue type="html" value={event.extendedProps.description}/>
+      <FormattedValue type="html" value={eventInfo.event.extendedProps.description}/>
       <p>{time}</p>
-      <p><Conflict conflictStatus={event.extendedProps.conflict} intl={intl}/></p>
+      <p><Conflict conflictStatus={eventInfo.event.extendedProps.conflict} intl={intl}/></p>
     </div>
 
-    const content = ReactDOMServer.renderToString(tooltipDescriptionContent)
-
-    // eslint-disable-next-line no-new
-    new Tooltip(el, {
-      title: content,
-      placement: 'bottom',
-      trigger: 'hover',
-      container: wrapperEl.current,
-      html: true,
-      boundariesElement: 'body',
-      innerSelector: '.na-tooltip-inner',
-      arrowSelector: '.na-tooltip-arrow',
-      template: `<div class="na-tooltip" role="tooltip"><div class="na-tooltip-arrow">
-                    </div><div class="na-tooltip-inner"></div></div>
-                   `
-    })
+    return (
+      <Popover
+        content={tooltipDescriptionContent}
+        isPlainHtml
+        placement="top"
+        spacer={10}
+      >
+        <div className={`fc-event-main-frame ${eventInfo.event.extendedProps.styleAttr} `}>
+          {eventInfo.timeText && <div className="fc-event-time">{ eventInfo.timeText }</div>}
+          <div className="fc-event-title-container">
+            <div className="fc-event-title fc-sticky">
+              {eventInfo.event.title || <>&nbsp;</>}
+            </div>
+          </div>
+        </div>
+      </Popover>
+    )
   }
 
   const FullCalendarMemorized = useMemo(() =>
     <ReactFullCalendar
-      locale={locale}
-      plugins={[resourceTimelinePlugin, interactionPlugin]}
-      ref={calendarEl}
+      resourceOrder=""
       schedulerLicenseKey={getLicense()}
-      defaultView={'dayView'}
-      header={false}
+      locale={locale}
+      plugins={[adaptivePlugin, resourceTimelinePlugin, interactionPlugin]}
+      ref={calendarEl}
+      initialView={'dayView'}
+      headerToolbar={false}
       height="auto"
       resourceAreaWidth="15%"
-      resourceColumns={[{labelText: ''}]}
-      resourceRender={resourceRender}
-      eventRender={eventRender}
+      resourceAreaColumns={[{labelText: '', headerContent}]}
+      resourceLabelContent={props => <ResourceLabelContent {...props} onCalendarRemove={onCalendarRemove}/>}
       eventClick={info => {
         onEventClick(info.event)
       }}
+      eventContent={renderEventContent}
       firstDay={MONDAY}
-      minTime="06:00:00"
-      maxTime="23:00:00"
+      slotMinTime ="06:00:00"
+      slotMaxTime ="23:00:00"
       views={{
         dayView: {
           type: 'resourceTimelineDay',
@@ -193,23 +169,22 @@ const FullCalendar = ({
           slotLabelFormat: {weekday: 'short', month: 'numeric', day: 'numeric', omitCommas: true}
         }
       }}
-    />
-  , [])
+    />, [])
 
   return <StyledFullCalendar>
     <div ref={wrapperEl}>
       {calendarEl.current && <NavigationFullCalendar
         changeRange={changeRange}
         changeView={changeView}
-        chooseNext={() => calendarEl.current.calendar.next()}
-        choosePrev={() => calendarEl.current.calendar.prev()}
-        chooseToday={() => calendarEl.current.calendar.today()}
-        goToDate={date => calendarEl.current.calendar.gotoDate(date)}
-        date={calendarEl.current.calendar.getDate()}
+        chooseNext={() => calendarEl.current.getApi().next()}
+        choosePrev={() => calendarEl.current.getApi().prev()}
+        chooseToday={() => calendarEl.current.getApi().today()}
+        goToDate={date => calendarEl.current.getApi().gotoDate(date)}
+        date={calendarEl.current.getApi().getDate()}
         isLoading={isLoading}
         refresh={onRefresh}
-        title={calendarEl.current.calendar.view.title}
-        type={calendarEl.current.calendar.view.type}
+        title={calendarEl.current.getApi().view.title}
+        type={calendarEl.current.getApi().view.type}
       />}
       {FullCalendarMemorized}
     </div>
