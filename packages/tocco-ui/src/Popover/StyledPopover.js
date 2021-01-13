@@ -20,7 +20,7 @@ const StyledBoxWrapper = styled.div`
   }
 `
 export const StyledSpan = styled.span`
-  display: inline-block;
+
 `
 
 const StyledBox = styled.div`

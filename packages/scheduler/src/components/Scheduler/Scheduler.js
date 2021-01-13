@@ -4,23 +4,19 @@ import PropTypes from 'prop-types'
 import FullCalendar from '../FullCalendar'
 import {getEvents, getResources} from '../../utils/calendar'
 
-class Scheduler extends React.Component {
-  render() {
-    return <div>
-      <FullCalendar
-        events={getEvents(this.props.calendars)}
-        resources={getResources(this.props.calendars)}
-        onDateRangeChange={this.props.onDateRangeChange}
-        onCalendarRemove={this.props.onCalendarRemove}
-        onCalendarRemoveAll={this.props.onCalendarRemoveAll}
-        onEventClick={this.props.onEventClick}
-        onRefresh={this.props.onRefresh}
-        locale={this.props.locale}
-        isLoading={this.props.isLoading}
-      />
-    </div>
-  }
-}
+const Scheduler = props => <div>
+  <FullCalendar
+    events={ getEvents(props.calendars)}
+    resources={getResources(props.calendars)}
+    onDateRangeChange={props.onDateRangeChange}
+    onCalendarRemove={props.onCalendarRemove}
+    onCalendarRemoveAll={props.onCalendarRemoveAll}
+    onEventClick={props.onEventClick}
+    onRefresh={props.onRefresh}
+    locale={props.locale}
+    isLoading={props.isLoading}
+  />
+</div>
 
 Scheduler.propTypes = {
   calendars: PropTypes.arrayOf(
