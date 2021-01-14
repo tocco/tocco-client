@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import {Manager, Popper, Reference} from 'react-popper'
 
 import {
-  StyledSpan,
   StyledArrow,
   StyledBox,
   StyledBoxWrapper
@@ -37,13 +36,13 @@ const Popover = ({
     <Manager>
       <Reference>
         {({ref}) => (
-          <StyledSpan
+          <span
             onMouseOut={handleMouseLeave}
             onMouseOver={handleMouseEnter}
             ref={ref}
           >
             {children}
-          </StyledSpan>
+          </span>
         )}
       </Reference>
       {showToolTip && content
