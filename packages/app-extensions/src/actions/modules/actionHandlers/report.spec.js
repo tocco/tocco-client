@@ -1,7 +1,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {channel} from 'redux-saga'
-import uuid from 'uuid/v4'
+import {v4 as uuid} from 'uuid'
 import {download, saga as sagaUtil} from 'tocco-util'
 
 import rest from '../../../rest'
