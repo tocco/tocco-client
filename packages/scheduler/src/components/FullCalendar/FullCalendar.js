@@ -125,7 +125,7 @@ const FullCalendar = ({
     )
   }
 
-  const FullCalendarMemorized = useMemo(() =>
+  const memoizedFullcalendar = useMemo(() =>
     <ReactFullCalendar
       resourceOrder=""
       schedulerLicenseKey={getLicense()}
@@ -186,7 +186,7 @@ const FullCalendar = ({
         title={calendarEl.current.getApi().view.title}
         type={calendarEl.current.getApi().view.type}
       />}
-      {FullCalendarMemorized}
+      {memoizedFullcalendar}
     </div>
   </StyledFullCalendar>
 }
