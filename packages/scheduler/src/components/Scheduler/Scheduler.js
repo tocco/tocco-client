@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import FullCalendar from '../FullCalendar'
 import {getEvents, getResources} from '../../utils/calendar'
 
-const Scheduler = props => <div>
+const Scheduler = props =>
   <FullCalendar
-    events={ getEvents(props.calendars)}
+    events={getEvents(props.calendars)}
     resources={getResources(props.calendars)}
     onDateRangeChange={props.onDateRangeChange}
     onCalendarRemove={props.onCalendarRemove}
@@ -16,7 +16,6 @@ const Scheduler = props => <div>
     locale={props.locale}
     isLoading={props.isLoading}
   />
-</div>
 
 Scheduler.propTypes = {
   calendars: PropTypes.arrayOf(
