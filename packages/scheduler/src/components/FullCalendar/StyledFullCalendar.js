@@ -1,31 +1,48 @@
 import styled from 'styled-components'
+import _get from 'lodash/get'
 import {
   declareFont,
-  theme
+  theme,
+  StyledScrollbar,
+  shadeColor
 } from 'tocco-ui'
 
-const StyledFullCalendar = styled.div`
-  .fc{
+export const StyledFullCalendarWrapper = styled.div`
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  .fc {
     ${declareFont()}
 
     // decrease header height
     .fc-datagrid-header {
-      .fc-datagrid-cell-frame{
+      .fc-datagrid-cell-frame {
         height: 25px !important;
       }
     }
 
     // decrease header height
-    .fc-timeline-slot-frame.fc-timeline-slot-frame{
+    .fc-timeline-slot-frame.fc-timeline-slot-frame {
       height: 25px !important;
     }
 
-    .remove-resource-checkbox{
+    .remove-resource-checkbox {
       margin-right: 6px;
     }
 
+    .fc-scrollgrid {
+      border-top: 0; // remove top border as it otherwise causes a double border when not scrolling
+      border-color: ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 1)};
+    }
+
+    // prevent top border from disappearing on scroll
+    & .fc-scroller-harness {
+      border-top: 1px solid ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 1)};
+    }
+
     .fc-timeline-header-row {
-      th{
+      th {
         font-weight: ${theme.fontWeight('regular')};
       }
     }
@@ -33,20 +50,18 @@ const StyledFullCalendar = styled.div`
     .fc-event {
       cursor: pointer;
       border: none;
-      border-radius: 2px;
-      background-color: #1287de;
+      background-color: ${theme.color('signal.info.paper')};
 
       .dark {
         color: ${theme.color('text')};
       }
 
       .bright {
-        color: #fff;
+        color: ${theme.color('paper')};
       }
 
       .conflict {
-        border: 3px dashed #8b0000;
-        border-radius: ${theme.radii('regular')};
+        border: 2px dashed  ${theme.color('signal.danger.text')};
       }
 
       .fc-event-time {
@@ -56,4 +71,7 @@ const StyledFullCalendar = styled.div`
   }
 `
 
-export default StyledFullCalendar
+export const StyledMemoizedFullCalender = styled.div`
+  overflow-y: auto;
+  ${StyledScrollbar}
+`

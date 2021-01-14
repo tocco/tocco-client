@@ -11,7 +11,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import adaptivePlugin from '@fullcalendar/adaptive'
 
 import NavigationFullCalendar from '../NavigationFullCalendar'
-import StyledFullCalendar from './StyledFullCalendar'
+import {StyledFullCalendarWrapper, StyledMemoizedFullCalender} from './StyledFullCalendar'
 import Conflict from '../Conflict'
 import {getFormattedTime} from '../../utils/time'
 import ResourceLabelContent from './ResourceLabelContent'
@@ -113,8 +113,8 @@ const FullCalendar = ({
         placement="top"
         spacer={10}
       >
-        <div className={`fc-event-main-frame ${eventInfo.event.extendedProps.styleAttr} `}>
-          {eventInfo.timeText && <div className="fc-event-time">{ eventInfo.timeText }</div>}
+        <div className={`fc-event-main-frame ${eventInfo.event.extendedProps.styleAttr.join(' ')}`}>
+          {eventInfo.timeText && <div className="fc-event-time">{eventInfo.timeText}</div>}
           <div className="fc-event-title-container">
             <div className="fc-event-title fc-sticky">
               {eventInfo.event.title || <>&nbsp;</>}
@@ -125,7 +125,7 @@ const FullCalendar = ({
     )
   }
 
-  const memoizedFullcalendar = useMemo(() =>
+  const memoizedFullCalendar = useMemo(() =>
     <ReactFullCalendar
       resourceOrder=""
       schedulerLicenseKey={getLicense()}
@@ -161,34 +161,43 @@ const FullCalendar = ({
           type: 'resourceTimelineWeek',
           slotDuration: {day: 1},
           slotLabelFormat: [
-            {weekday: 'short', month: 'numeric', day: 'numeric'}
+            {
+              weekday: 'short',
+              month: 'numeric',
+              day: 'numeric'
+            }
           ]
         },
         monthView: {
           type: 'resourceTimelineMonth',
-          slotLabelFormat: {weekday: 'short', month: 'numeric', day: 'numeric', omitCommas: true}
+          slotLabelFormat: {
+            weekday: 'short',
+            month: 'numeric',
+            day: 'numeric',
+            omitCommas: true
+          }
         }
       }}
     />, [])
 
-  return <StyledFullCalendar>
-    <div ref={wrapperEl}>
-      {calendarEl.current && <NavigationFullCalendar
-        changeRange={changeRange}
-        changeView={changeView}
-        chooseNext={() => calendarEl.current.getApi().next()}
-        choosePrev={() => calendarEl.current.getApi().prev()}
-        chooseToday={() => calendarEl.current.getApi().today()}
-        goToDate={date => calendarEl.current.getApi().gotoDate(date)}
-        date={calendarEl.current.getApi().getDate()}
-        isLoading={isLoading}
-        refresh={onRefresh}
-        title={calendarEl.current.getApi().view.title}
-        type={calendarEl.current.getApi().view.type}
-      />}
-      {memoizedFullcalendar}
-    </div>
-  </StyledFullCalendar>
+  return <StyledFullCalendarWrapper ref={wrapperEl}>
+    {calendarEl.current && <NavigationFullCalendar
+      changeRange={changeRange}
+      changeView={changeView}
+      chooseNext={() => calendarEl.current.getApi().next()}
+      choosePrev={() => calendarEl.current.getApi().prev()}
+      chooseToday={() => calendarEl.current.getApi().today()}
+      goToDate={date => calendarEl.current.getApi().gotoDate(date)}
+      date={calendarEl.current.getApi().getDate()}
+      isLoading={isLoading}
+      refresh={onRefresh}
+      title={calendarEl.current.getApi().view.title}
+      type={calendarEl.current.getApi().view.type}
+    />}
+    <StyledMemoizedFullCalender>
+      {memoizedFullCalendar}
+    </StyledMemoizedFullCalender>
+  </StyledFullCalendarWrapper>
 }
 
 FullCalendar.defaultProps = {
