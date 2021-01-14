@@ -1,6 +1,6 @@
 import React from 'react'
 import {channel} from 'redux-saga'
-import uuid from 'uuid/v4'
+import {v4 as uuid} from 'uuid'
 import {saga as sagaUtil, download, api} from 'tocco-util'
 import {call, put, take} from 'redux-saga/effects'
 

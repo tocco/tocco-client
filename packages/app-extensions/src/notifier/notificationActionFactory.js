@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {actions as toastrActions} from 'react-redux-toastr'
-import uuid from 'uuid/v4'
+import {v4 as uuid} from 'uuid'
 import {Icon, LoadingSpinner} from 'tocco-ui'
 
 import {modalComponent} from './modules/actions'

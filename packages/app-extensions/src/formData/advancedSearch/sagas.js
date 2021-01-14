@@ -1,5 +1,5 @@
 import {channel} from 'redux-saga'
-import uuid from 'uuid/v4'
+import {v4 as uuid} from 'uuid'
 import {all, call, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
