@@ -19,9 +19,6 @@ const StyledBoxWrapper = styled.div`
     padding: ${({rimless}) => rimless ? '0' : scale.space(-1)};
   }
 `
-export const StyledSpan = styled.span`
-
-`
 
 const StyledBox = styled.div`
   && {
