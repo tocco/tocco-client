@@ -1,7 +1,14 @@
 import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
 
-import StyledRange, {StyledInputWrapper, StyledInputItemWrapper, StyledIconWrapper} from './StyledRange'
+import {
+  StyledRange,
+  StyledInputWrapper,
+  StyledInputItemWrapper,
+  StyledIconWrapper,
+  StyledInput,
+  StyledExtender
+} from './StyledRange'
 import EditableValue from '../EditableValue'
 import Ball from '../Ball'
 import Icon from '../Icon'
@@ -30,7 +37,7 @@ const getFromOptions = (type, options, toValue) => {
  * Allows to render EditableValues as a range. The value can be switched between a range or single value.
  */
 const Range = props => {
-  const {value, events, readOnly} = props
+  const {value, events, readOnly, type, options} = props
   const hasRangeValue = typeof value === 'object' && value && value.isRangeValue
 
   const exactEvents = useMemo(() => ({
@@ -67,11 +74,11 @@ const Range = props => {
           {...props}
           events={exactEvents}
         />
-        : <div className="input">
+        : <StyledInput>
           <StyledInputItemWrapper>
             <EditableValue
               {...props}
-              options={getFromOptions(props.type, props.options, value.to)}
+              options={getFromOptions(type, options, value.to)}
               value={value && value.from ? value.from : null}
               events={fromEvents}
             />
@@ -82,14 +89,14 @@ const Range = props => {
           <StyledInputItemWrapper>
             <EditableValue
               {...props}
-              options={getToOptions(props.type, props.options, value.from)}
+              options={getToOptions(type, options, value.from)}
               value={value && value.to ? value.to : null}
               events={toEvents}
             />
           </StyledInputItemWrapper>
-        </div>}
+        </StyledInput>}
     </StyledInputWrapper>
-    <div className="extender">
+    <StyledExtender>
       <Ball disabled={readOnly} icon={hasRangeValue ? 'chevron-left' : 'chevron-down'} onClick={() => {
         if (hasRangeValue) {
           events.onChange(getFromOrTo(value))
@@ -98,7 +105,7 @@ const Range = props => {
         }
       }}>
       </Ball>
-    </div>
+    </StyledExtender>
   </StyledRange>
 }
 

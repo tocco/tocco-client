@@ -21,21 +21,19 @@ export const StyledIconWrapper = styled.div`
   align-items: center;
 `
 
-const StyledRange = styled.div`
+export const StyledRange = styled.div`
   display: flex;
-
-  .input {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-
-  .extender {
-    display: flex;
-    align-items: center;
-    margin-left: -20px;
-  }
 `
 
-export default StyledRange
+export const StyledInput = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+`
+
+export const StyledExtender = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: -20px;
+`
