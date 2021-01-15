@@ -105,6 +105,7 @@ const FullCalendar = ({
       <p>{time}</p>
       <p><Conflict conflictStatus={eventInfo.event.extendedProps.conflict} intl={intl}/></p>
     </div>
+    const eventInfoStyleAttributes = eventInfo.event.extendedProps.styleAttr
 
     return (
       <Popover
@@ -113,7 +114,7 @@ const FullCalendar = ({
         placement="top"
         spacer={10}
       >
-        <div className={`fc-event-main-frame ${eventInfo.event.extendedProps.styleAttr.join(' ')}`}>
+        <div className={`fc-event-main-frame ${eventInfoStyleAttributes && eventInfoStyleAttributes.join(' ')}`}>
           {eventInfo.timeText && <div className="fc-event-time">{eventInfo.timeText}</div>}
           <div className="fc-event-title-container">
             <div className="fc-event-title fc-sticky">
