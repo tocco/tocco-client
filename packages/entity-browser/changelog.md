@@ -1,3 +1,55 @@
+0.10.18
+- Increase min-width of table column for more usability on smaller screens
+- Disable touch on mobile and adjust margin
+- Autocomplete support
+- Fix select for mobile
+- Style popover to better align with overall design and have better contrast
+- Add margin to error items inside popper
+- Adjust entity list height inside detail view to scale on smaller screens
+- Change link colors to secondary color
+- Adjust ttile width of modal to match modal width
+- Adjust top margin of modal content
+- Add caption to preview
+- Fix modal being push out of view when keyboard pops up on iOS
+- Prevent label overflow inside input field
+- Prevent popper menu disappearing behind main menu overlay
+- Fix advanced search menu bug
+- Change typography link color to secondary (blue)
+- Do not display relation to parent entity in column picker if
+- Display id instead of label if the label is empty in column
+- Fix reports without custom settings
+- Add minimal padding to search filter to avoid scrollbar on fewer entries
+- Style button inside table
+- Add title tooltip to button
+- Make whole row clickable in list
+- Prevent null pointer if no action bar in form model
+- Fix the label of richtext fields to the top
+- Reset load mask height to 100%
+- Remove hover background color on active filter buttons
+- Add height to label to prevent vertical clip
+- Hide overflow of single value element
+- Default search filter is disabled when opening the relations view of an entity as its own list
+- Prevent click on disabled date input field
+- Fix table reset
+- Fix column picker styling
+- Use column label as titles when hovering over headers
+- Prevent mobile keyboard from pushing the modal up
+- Fix top padding of modal
+- Fix padding of immutable stated values
+- Use same width for all Fontawesome icons
+- Introduce custom cell renderers
+- Disable pointer event on Desktop as text cant be copied otherwise in Firefox
+- Refactor Layout components to use CSS Grid instead of JS for nested elements
+- Fix positioning and z-index of ActionsWrapper
+- Improve render of multi column layouts
+- Change the text format if there are only fieldErrors
+- focus on first input field
+- Introduce navigationStrategy
+- Introduce navigationStrategy
+- Remove obsolete right margin inside menu item
+- Display integer and counter data unformatted
+- Prevent content ghosting in safari when opening/closing collapsibles
+
 0.10.17
 - Adjust filter pane height when expanded
 - Change chevron icon in multi select input when dropdown is opened
