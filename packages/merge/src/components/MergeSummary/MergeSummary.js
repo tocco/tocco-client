@@ -1,15 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button, Typography} from 'tocco-ui'
+import {navigationStrategy} from 'tocco-util'
 import {FormattedMessage} from 'react-intl'
 import _groupBy from 'lodash/groupBy'
 
-const MergeSummary = ({mergeResponse, close}) => {
-  const notCopiedRelations = Object.entries(_groupBy(mergeResponse.notCopiedRelations, e => e.entityLabel))
-    .map(([entityLabel, list]) => `${entityLabel} (${list.length})`).join(', ')
+import {ManyRelationEntityCount} from '../../util/manyRelationEntityCount'
 
-  const notDeletedEntities = Object.entries(_groupBy(mergeResponse.notDeletedEntities, e => e.entityLabel))
-    .map(([entityLabel, list]) => `${entityLabel} (${list.length})`).join(', ')
+const MergeSummary = ({mergeResponse, navigationStrategy, isOldClient, close, openEntityList}) => {
+  const mapToEntityList = entities => Object.entries(_groupBy(entities, e => e.entityLabel))
+    .map(([entityLabel, list]) => {
+      const model = entities.find(e => e.entityLabel === entityLabel).entity
+      const keys = list.map(e => e.pk)
+      return <span key={model}>{entityLabel} <ManyRelationEntityCount
+        model={model}
+        keys={keys}
+        totalKeys={keys.length}
+        openEntityList={openEntityList}
+        navigationStrategy={navigationStrategy}
+        isOldClient={isOldClient}
+      /></span>
+    }).reduce((prev, curr) => prev === null ? [curr] : [...prev, ', ', curr], null)
+
+  const notCopiedRelations = mapToEntityList(mergeResponse.notCopiedRelations)
+  const notDeletedEntities = mapToEntityList(mergeResponse.notDeletedEntities)
 
   return <>
     <Typography.P>
@@ -54,7 +68,10 @@ MergeSummary.propTypes = {
     notDeletedEntities: PropTypes.arrayOf(entityWarningPropType),
     showPermissionMessage: PropTypes.bool.isRequired
   }),
-  close: PropTypes.func.isRequired
+  navigationStrategy: navigationStrategy.propTypes,
+  isOldClient: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
+  openEntityList: PropTypes.func.isRequired
 }
 
 export default MergeSummary

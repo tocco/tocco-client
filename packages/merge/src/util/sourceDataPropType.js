@@ -13,7 +13,8 @@ export default PropTypes.shape({
   relations: PropTypes.arrayOf(PropTypes.shape({
     entityKey: PropTypes.string.isRequired,
     relationName: PropTypes.string.isRequired,
-    keys: PropTypes.arrayOf(PropTypes.string).isRequired
+    keys: PropTypes.arrayOf(PropTypes.string).isRequired,
+    totalKeys: PropTypes.number.isRequired
   })).isRequired,
   displays: PropTypes.arrayOf(PropTypes.shape({
     model: PropTypes.string.isRequired,

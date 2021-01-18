@@ -178,6 +178,7 @@
     {
       "entityKey": "1",
       "relationName": "relMail",
+      "relationEntity": "Mail",
       "keys": [
         "2",
         "3",
@@ -192,22 +193,27 @@
         "233",
         "2626",
         "6261"
-      ]
+      ],
+      "totalKeys": 15
     },
     {
       "entityKey": "2",
       "relationName": "relMail",
-      "keys": []
+      "relationEntity": "Mail",
+      "keys": [],
+      "totalKeys": 2
     },
     {
       "entityKey": "10",
       "relationName": "relMail",
+      "relationEntity": "Mail",
       "keys": [
         "2",
         "3",
         "5",
         "1337"
-      ]
+      ],
+      "totalKeys": 4
     }
   ],
   "displays": [
