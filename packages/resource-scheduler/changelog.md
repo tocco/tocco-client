@@ -1,3 +1,37 @@
+0.4.0
+- Update Calendar component
+- Style fullcalendar after update
+- Fix reports without custom settings
+- Add minimal padding to search filter to avoid scrollbar on fewer entries
+- Style button inside table
+- Add title tooltip to button
+- Make whole row clickable in list
+- Prevent null pointer if no action bar in form model
+- Fix the label of richtext fields to the top
+- Reset load mask height to 100%
+- Remove hover background color on active filter buttons
+- Add height to label to prevent vertical clip
+- Hide overflow of single value element
+- Default search filter is disabled when opening the relations view of an entity as its own list
+- Prevent click on disabled date input field
+- Fix table reset
+- Fix column picker styling
+- Use column label as titles when hovering over headers
+- Prevent mobile keyboard from pushing the modal up
+- Fix top padding of modal
+- Fix padding of immutable stated values
+- Use same width for all Fontawesome icons
+- Introduce custom cell renderers
+- Disable pointer event on Desktop as text cant be copied otherwise in Firefox
+- Refactor Layout components to use CSS Grid instead of JS for nested elements
+- Fix positioning and z-index of ActionsWrapper
+- Improve render of multi column layouts
+- Introduce navigationStrategy
+- Introduce navigationStrategy
+- Remove obsolete right margin inside menu item
+- Display integer and counter data unformatted
+- Prevent content ghosting in safari when opening/closing collapsibles
+
 0.3.11
 - Fix deselect all bug
 - Increase min-width of table column for more usability on smaller screens
