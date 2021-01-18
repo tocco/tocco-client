@@ -42,6 +42,7 @@ class DetailView extends React.Component {
           mode={this.props.mode}
           validate={this.getSyncValidation()}
           asyncValidate={this.handledAsyncValidate}
+          asyncBlurFields={this.props.fieldDefinitions.map(fD => fD.path)}
         />
       </LoadMask>
     )
