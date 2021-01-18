@@ -10,7 +10,8 @@ export default function* mainSagas() {
   yield all([
     takeLatest(actions.INITIALIZE, initialize),
     takeLatest(actions.EXECUTE_MERGE, executeMerge),
-    takeLatest(actions.CLOSE, close)
+    takeLatest(actions.CLOSE, close),
+    takeLatest(actions.OPEN_ENTITY_LIST, openEntityList)
   ])
 }
 
@@ -114,4 +115,8 @@ export function* close() {
   }]
 
   yield put(externalEvents.fireExternalEvent('onSuccess', {remoteEvents}))
+}
+
+export function* openEntityList({payload}) {
+  yield put(externalEvents.fireExternalEvent('openEntityList', payload))
 }
