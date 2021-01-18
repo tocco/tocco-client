@@ -40,22 +40,30 @@ describe('merge', () => {
               {
                 entityKey: '1',
                 relationName: 'relMail',
-                keys: ['2']
+                relationEntity: 'Mail',
+                keys: ['2'],
+                totalKeys: 1
               },
               {
                 entityKey: '2',
                 relationName: 'relMail',
-                keys: ['3']
+                relationEntity: 'Mail',
+                keys: ['3'],
+                totalKeys: 1
               },
               {
                 entityKey: '1',
                 relationName: 'relPrincipal',
-                keys: ['1']
+                relationEntity: 'Principal',
+                keys: ['1'],
+                totalKeys: 1
               },
               {
                 entityKey: '2',
                 relationName: 'relPrincipal',
-                keys: []
+                relationEntity: 'Principal',
+                keys: [],
+                totalKeys: 2
               }
             ]
           }
@@ -86,22 +94,38 @@ describe('merge', () => {
             {
               1: {
                 type: 'relations',
-                value: ['2']
+                value: {
+                  keys: ['2'],
+                  totalKeys: 1,
+                  relationEntity: 'Mail'
+                }
               },
               2: {
                 type: 'relations',
-                value: ['3']
+                value: {
+                  keys: ['3'],
+                  totalKeys: 1,
+                  relationEntity: 'Mail'
+                }
               },
               __key: 'relMail'
             },
             {
               1: {
                 type: 'relations',
-                value: ['1']
+                value: {
+                  keys: ['1'],
+                  totalKeys: 1,
+                  relationEntity: 'Principal'
+                }
               },
               2: {
                 type: 'relations',
-                value: []
+                value: {
+                  keys: [],
+                  totalKeys: 2,
+                  relationEntity: 'Principal'
+                }
               },
               __key: 'relPrincipal'
             }

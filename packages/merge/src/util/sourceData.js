@@ -43,7 +43,11 @@ export const getDataRows = sourceData => {
           ...acc,
           [val.entityKey]: {
             type: 'relations',
-            value: val.keys
+            value: {
+              keys: val.keys,
+              totalKeys: val.totalKeys,
+              relationEntity: val.relationEntity
+            }
           }
         }
       }, {__key: relation})
