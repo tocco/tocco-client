@@ -3,16 +3,27 @@ import PropTypes from 'prop-types'
 import {FormattedValue, Typography} from 'tocco-ui'
 import {field} from 'tocco-app-extensions'
 import {FormattedMessage} from 'react-intl'
-import {js} from 'tocco-util'
+import {js, navigationStrategy} from 'tocco-util'
 import _get from 'lodash/get'
+
+import {ManyRelationEntityCount} from '../../util/manyRelationEntityCount'
 
 const areEqual = (prevProps, nextProps) => {
   const diff = Object.keys(js.difference(prevProps, nextProps))
   return diff.length === 0
 }
 
-export const ManyRelationsCheckBox = React.memo(({entityData, entityKey, name, setSelectedMultipleAll, isSelected}) => {
-  if (entityData.value.length === 0) {
+export const ManyRelationsCheckBox = React.memo(({
+  entityData,
+  entityKey,
+  name,
+  setSelectedMultipleAll,
+  isSelected,
+  openEntityList,
+  navigationStrategy,
+  isOldClient
+}) => {
+  if (entityData.value.totalKeys === 0) {
     return null
   }
 
@@ -21,19 +32,33 @@ export const ManyRelationsCheckBox = React.memo(({entityData, entityKey, name, s
   return <>
     <input type="checkbox" onChange={onChange} checked={isSelected} id={`${name}${entityKey}`}/>
     <Typography.Label for={`${name}${entityKey}`}>
-      <FormattedMessage id="client.merge.allRelations"/> ({entityData.value.length})
+      <FormattedMessage id="client.merge.allRelations"/> <ManyRelationEntityCount
+        model={entityData.value.relationEntity}
+        keys={entityData.value.keys}
+        totalKeys={entityData.value.totalKeys}
+        openEntityList={openEntityList}
+        navigationStrategy={navigationStrategy}
+        isOldClient={isOldClient}
+      />
     </Typography.Label>
   </>
 }, areEqual)
 
 ManyRelationsCheckBox.propTypes = {
   entityData: PropTypes.shape({
-    value: PropTypes.arrayOf(PropTypes.string)
+    value: PropTypes.shape({
+      keys: PropTypes.arrayOf(PropTypes.string),
+      totalKeys: PropTypes.number.isRequired,
+      relationEntity: PropTypes.string.isRequired
+    })
   }),
   entityKey: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   setSelectedMultipleAll: PropTypes.func.isRequired,
-  isSelected: PropTypes.bool.isRequired
+  isSelected: PropTypes.bool.isRequired,
+  openEntityList: PropTypes.func.isRequired,
+  navigationStrategy: navigationStrategy.propTypes,
+  isOldClient: PropTypes.bool.isRequired
 }
 
 export const RelationsCheckBoxes = React.memo(({

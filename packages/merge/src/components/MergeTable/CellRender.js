@@ -2,9 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
+import {navigationStrategy} from 'tocco-util'
 import _get from 'lodash/get'
 
 import {
+  openEntityList,
   setSelectedMultiple,
   setSelectedMultipleAll,
   setSelectedSingle
@@ -19,7 +21,10 @@ const CellRenderer = ({
   setSelectedMultiple,
   selectedMultiple,
   setSelectedMultipleAll,
-  selectedMultipleAll
+  selectedMultipleAll,
+  openEntityList,
+  navigationStrategy,
+  isOldClient
 }) => {
   const {entityKey} = column
   const entityData = rowData[entityKey]
@@ -34,6 +39,9 @@ const CellRenderer = ({
       name={name}
       setSelectedMultipleAll={setSelectedMultipleAll}
       isSelected={_get(selectedMultipleAll, [name], []).includes(entityKey)}
+      openEntityList={openEntityList}
+      navigationStrategy={navigationStrategy}
+      isOldClient={isOldClient}
     />
   }
 
@@ -69,17 +77,23 @@ CellRenderer.propTypes = {
   setSelectedMultiple: PropTypes.func.isRequired,
   selectedMultiple: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
   setSelectedMultipleAll: PropTypes.func.isRequired,
-  selectedMultipleAll: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string))
+  selectedMultipleAll: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+  openEntityList: PropTypes.func.isRequired,
+  navigationStrategy: navigationStrategy.propTypes,
+  isOldClient: PropTypes.bool.isRequired
 }
 
 const mapActionCreatorsCell = {
   setSelectedSingle,
   setSelectedMultiple,
-  setSelectedMultipleAll
+  setSelectedMultipleAll,
+  openEntityList
 }
 const mapStateToPropsCell = (state, props) => ({
   selectedSingle: state.merge.selected.single,
   selectedMultiple: state.merge.selected.multiple,
-  selectedMultipleAll: state.merge.selected.multipleAll
+  selectedMultipleAll: state.merge.selected.multipleAll,
+  navigationStrategy: state.input.navigationStrategy,
+  isOldClient: !!state.input.isOldClient
 })
 export const CellRendererContainer = connect(mapStateToPropsCell, mapActionCreatorsCell)(injectIntl(CellRenderer))
