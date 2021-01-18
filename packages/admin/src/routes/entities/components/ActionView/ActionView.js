@@ -6,6 +6,7 @@ import _get from 'lodash/get'
 
 import Action from '../Action'
 import {currentViewPropType} from '../../utils/propTypes'
+import navigationStrategy from '../../utils/navigationStrategy'
 
 const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}) => {
   const {location} = history
@@ -34,6 +35,7 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
       appId={currentViewInfo.actionId}
       selection={selection}
       actionProperties={actionProperties}
+      navigationStrategy={navigationStrategy(history, match)}
     />
   )
 }
