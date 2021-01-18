@@ -9,6 +9,7 @@ export const EXECUTE_MERGE = 'merge/EXECUTE_MERGE'
 export const SET_MERGE_RESPONSE = 'merge/SET_MERGE_RESPONSE'
 export const SET_MERGE_ERROR = 'merge/SET_MERGE_ERROR'
 export const CLOSE = 'merge/CLOSE'
+export const OPEN_ENTITY_LIST = 'merge/OPEN_ENTITY_LIST'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -83,4 +84,12 @@ export const setMergeError = (errorMsg, validationErrors) => ({
 
 export const close = () => ({
   type: CLOSE
+})
+
+export const openEntityList = (model, keys) => ({
+  type: OPEN_ENTITY_LIST,
+  payload: {
+    model,
+    keys
+  }
 })
