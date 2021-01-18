@@ -1,3 +1,9 @@
+0.4.9
+- Prevent content ghosting in safari when opening/closing collapsibles
+- Add password-update and two-factor-connector to menu
+- Update dependencies
+- Update FullCalendar
+
 0.4.8
 - Introduce navigationStrategy
 - Remove favicons inside react project, as they will loaded via the static index.html
