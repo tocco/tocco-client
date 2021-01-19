@@ -114,6 +114,15 @@ describe('app-extensions', () => {
         expect(headers.get('content-type')).to.eql('application/json')
       })
 
+      test('should set content type header if body is FormData (browser will set content type)', () => {
+        fetchMock.get('*', {})
+
+        simpleRequest('', {body: new FormData()})
+
+        const headers = fetchMock.lastOptions().headers
+        expect(headers.get('content-type')).to.be.null
+      })
+
       test('should set null business unit header', () => {
         fetchMock.get('*', {})
 
