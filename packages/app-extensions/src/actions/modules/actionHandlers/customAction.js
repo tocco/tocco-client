@@ -23,7 +23,7 @@ export default function* (definition, selection, parent, params, config) {
   } else {
     const handler = config && config.customActions && config.customActions[definition.id]
     if (handler) {
-      yield call(handleAppActionsFallback, {definition, selection, parent, params, config, handler})
+      return yield call(handleAppActionsFallback, {definition, selection, parent, params, config, handler})
     } else {
       yield call(consoleLogger.logError, `Unable to load custom action with id ${definition.id}`)
     }
@@ -92,5 +92,37 @@ export function* handleFullScreenActions({definition, selection, config}) {
 }
 
 export function* handleAppActionsFallback({definition, selection, config, parent, params, handler}) {
-  yield call(handler, definition, selection, parent, params, config)
+  const answerChannel = yield call(channel)
+  const onSuccess = ({message, remoteEvents}) => {
+    answerChannel.put({status: actionStatus.OK, message, remoteEvents})
+  }
+  const onError = ({message}) => {
+    answerChannel.put({status: actionStatus.NOT_OK, message})
+  }
+  const onCancel = () => {
+    answerChannel.put({status: actionStatus.CANCEL})
+  }
+
+  yield call(handler, definition, selection, parent, params, config, onSuccess, onError, onCancel)
+
+  return yield call(handleAnswer, answerChannel)
+}
+
+export function* handleAnswer(answerChannel) {
+  const response = yield take(answerChannel)
+  if (response.status === actionStatus.CANCEL) {
+    return null
+  }
+
+  const success = response.status === actionStatus.OK
+
+  if (response.message) {
+    const type = success ? 'success' : 'warning'
+    const icon = success ? 'check' : 'exclamation'
+    const title = response.message === 'default' ? 'client.component.actions.successDefault' : response.message
+
+    yield put(notifier.info(type, title, null, icon, 3000))
+  }
+
+  return {success: success, remoteEvents: response.remoteEvents}
 }

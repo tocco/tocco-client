@@ -8,6 +8,7 @@ import customActionHandler, {
   handleCustomActionModal,
   handleFullScreenActions
 } from './customAction'
+import notifier from '../../../notifier'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -57,6 +58,95 @@ describe('app-extensions', () => {
               ])
               .call.like({fn: consoleLogger.logError})
               .run()
+          })
+
+          describe('handleAppActionsFallback', () => {
+            const definition = {
+              id: 'new',
+              appId: null,
+              fullscreen: false,
+              type: 'custom'
+            }
+
+            const handler = () => {}
+            const config = {
+              customActions: {
+                new: handler
+              }
+            }
+
+            test('should return successful true if action returns ok', () => {
+              return expectSaga(handleAppActionsFallback, {definition, selection, config, handler})
+                .provide([
+                  [channel, {}],
+                  {
+                    take({channel}, next) {
+                      return {status: 'ok', message: 'msg'}
+                    }
+                  }
+                ])
+                .put.actionType('notifier/INFO')
+                .returns({success: true, remoteEvents: undefined})
+                .run()
+            })
+
+            test('should skip notification if message not set', () => {
+              return expectSaga(handleAppActionsFallback, {definition, selection, config, handler})
+                .provide([
+                  [channel, {}],
+                  {
+                    take({channel}, next) {
+                      return {status: 'ok', message: null}
+                    }
+                  }
+                ])
+                .not.put.actionType('notifier/INFO')
+                .run()
+            })
+
+            test('should display default notification if message is "default"', () => {
+              return expectSaga(handleAppActionsFallback, {definition, selection, config, handler})
+                .provide([
+                  [channel, {}],
+                  {
+                    take({channel}, next) {
+                      return {status: 'ok', message: 'default'}
+                    }
+                  }
+                ])
+                .put(notifier.info('success', 'client.component.actions.successDefault', null, 'check', 3000))
+                .run()
+            })
+
+            test('should return successful false if action returns not_ok', () => {
+              return expectSaga(handleAppActionsFallback, {definition, selection, config, handler})
+                .provide([
+                  [channel, {}],
+                  {
+                    take({channel}, next) {
+                      return {status: 'not_ok', message: 'msg'}
+                    }
+                  }
+                ])
+                .put.actionType('notifier/INFO')
+                .returns({success: false, remoteEvents: undefined})
+                .run()
+            })
+
+            test('should return null if action was canceled', () => {
+              return expectSaga(handleAppActionsFallback, {definition, selection, config, handler})
+                .provide([
+                  [channel, {}],
+                  {
+                    take({channel}, next) {
+                      return {status: 'cancel', message: 'msg'}
+                    }
+                  }
+                ])
+                .not.put.actionType('notifier/INFO')
+                .returns(null)
+                .run()
+            })
           })
 
           test('should call handleFullScreenActions for fullscreen apps', () => {
