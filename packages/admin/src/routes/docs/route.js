@@ -1,13 +1,13 @@
 import {combineReducers} from 'redux'
 
 import DocsRoute from './components/DocsRoute'
-import path from './modules/path'
-import sagas from './modules/path/sagas'
+import path, {sagas as pathSagas} from './modules/path'
+import create, {sagas as createSagas} from './modules/create'
 
 export default {
   container: DocsRoute,
   reducers: {
-    docs: combineReducers({path})
+    docs: combineReducers({path, create})
   },
-  sagas: [sagas]
+  sagas: [pathSagas, createSagas]
 }

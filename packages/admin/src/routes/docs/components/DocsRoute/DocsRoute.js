@@ -29,7 +29,7 @@ const StyledBreadcrumbs = styled.div`
   grid-area: breadcrumbs;
 `
 
-const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs}) => {
+const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs, emitAction, openFileDialog}) => {
   // eslint-disable-next-line no-unused-vars
   const [docsViewNumber, forceDocsViewUpdate] = useReducer(x => x + 1, 0)
 
@@ -78,6 +78,8 @@ const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs}) => {
                 history={history}
                 match={match}
                 onSearchChange={handleSearchChange}
+                emitAction={emitAction}
+                openFileDialog={openFileDialog}
               />)}
           />
         </Switch>
@@ -89,6 +91,8 @@ const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs}) => {
 DocsRoute.propTypes = {
   loadBreadcrumbs: PropTypes.func.isRequired,
   setSearchMode: PropTypes.func.isRequired,
+  emitAction: PropTypes.func.isRequired,
+  openFileDialog: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   searchMode: PropTypes.bool.isRequired
 }
