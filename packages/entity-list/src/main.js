@@ -39,6 +39,11 @@ const initApp = (id, input, events = {}, publicPath) => {
   let dispatchActions
   let store = input.store
 
+  const allCustomActions = {
+    ...customActions(input),
+    ...(input.customActions || {})
+  }
+
   if (!store) {
     store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -49,7 +54,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     actions.addToStore(store, {
       formApp: SimpleFormApp,
       listApp: EntityListApp,
-      customActions: customActions(input),
+      customActions: allCustomActions,
       appComponent: input.actionAppComponent,
       navigationStrategy: input.navigationStrategy,
       context: {
