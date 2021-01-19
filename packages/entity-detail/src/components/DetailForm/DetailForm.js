@@ -12,6 +12,7 @@ import SaveButton from './SaveButton'
 const StyledForm = styled.form`
   display: grid;
   padding-bottom: ${scale.space(-0.5)};
+  grid-template-columns: 100%;
 `
 
 const DetailForm = props => {
