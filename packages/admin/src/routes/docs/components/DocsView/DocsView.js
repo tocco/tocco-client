@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {viewPersistor} from 'tocco-util'
 import {Icon} from 'tocco-ui'
+import {put} from 'redux-saga/effects'
+
+import FileInput from '../FileInput'
 
 const ICONS = {
   Domain: 'globe',
@@ -24,7 +27,7 @@ const getParent = match => {
 }
 
 const DocsView = props => {
-  const {storeKey, history, match, onSearchChange} = props
+  const {storeKey, history, match, onSearchChange, emitAction, openFileDialog} = props
 
   const handleRowClick = ({id}) => {
     const [model, key] = id.split('/')
@@ -47,29 +50,40 @@ const DocsView = props => {
 
   const parent = getParent(match)
 
+  const handleCreateDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
+    yield put(openFileDialog(history.location.pathname, onSuccess, onError))
+  }
+
   return (
-    <EntityListApp
-      id="documents"
-      entityName="Docs_list_item"
-      formName="Docs_list_item"
-      onRowClick={handleRowClick}
-      searchFormPosition="left"
-      searchFormType="admin"
-      parent={parent}
-      onSearchChange={onSearchChange}
-      store={viewPersistor.viewInfoSelector(storeKey).store}
-      onStoreCreate={store => {
-        viewPersistor.persistViewInfo(storeKey, {store})
-      }}
-      cellRenderers={{
-        'dms-label-with-icon': (rowData, column, cellRenderer) => (
-          <div>
-            <Icon icon={ICONS[rowData.type]} style={{marginRight: '0.5rem', verticalAlign: 'middle'}}/>
-            <span style={{verticalAlign: 'middle'}}>{cellRenderer(column.children[0])}</span>
-          </div>
-        )
-      }}
-    />
+    <>
+      <EntityListApp
+        id="documents"
+        entityName="Docs_list_item"
+        formName="Docs_list_item"
+        onRowClick={handleRowClick}
+        searchFormPosition="left"
+        searchFormType="admin"
+        parent={parent}
+        onSearchChange={onSearchChange}
+        store={viewPersistor.viewInfoSelector(storeKey).store}
+        onStoreCreate={store => {
+          viewPersistor.persistViewInfo(storeKey, {store})
+        }}
+        cellRenderers={{
+          'dms-label-with-icon': (rowData, column, cellRenderer) => (
+            <div>
+              <Icon icon={ICONS[rowData.type]} style={{marginRight: '0.5rem', verticalAlign: 'middle'}}/>
+              <span style={{verticalAlign: 'middle'}}>{cellRenderer(column.children[0])}</span>
+            </div>
+          )
+        }}
+        emitAction={emitAction}
+        customActions={{
+          'upload-document': handleCreateDocument
+        }}
+      />
+      <FileInput/>
+    </>
   )
 }
 
@@ -77,7 +91,9 @@ DocsView.propTypes = {
   storeKey: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  onSearchChange: PropTypes.func.isRequired
+  onSearchChange: PropTypes.func.isRequired,
+  emitAction: PropTypes.func.isRequired,
+  openFileDialog: PropTypes.func.isRequired
 }
 
 export default DocsView
