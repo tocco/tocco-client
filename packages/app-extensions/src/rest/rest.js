@@ -85,7 +85,7 @@ export function prepareRequest(resource, options = {}) {
   let body = options.body
   const headers = {}
 
-  if (body) {
+  if (body && !(body instanceof FormData)) {
     if (typeof body === 'string') {
       headers['Content-Type'] = 'text/plain'
     } else {
