@@ -277,6 +277,11 @@ describe('app-extensions', () => {
         expect(requestData.options.headers.get('X-Business-Unit')).to.eql('__n-u-l-l__')
       })
 
+      test('should add X-Origin-Id header', () => {
+        const requestData = prepareRequest('entities/Contact')
+        expect(requestData.options.headers.get('X-Origin-Id')).to.be.not.null
+      })
+
       test('should use backend URL from options if set', () => {
         const resource = 'entities/2.0/Contact'
         const options = {

@@ -1,4 +1,5 @@
 import {call} from 'redux-saga/effects'
+import {v4 as uuid} from 'uuid'
 
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
@@ -75,6 +76,8 @@ export const simpleRequest = (resource, options = {}) => {
   return sendRequest(requestData.url, requestData.options, options.acceptedErrorCodes, options.acceptedStatusCodes)
 }
 
+const originId = uuid()
+
 export function prepareRequest(resource, options = {}) {
   const {
     queryParams = {},
@@ -97,6 +100,8 @@ export function prepareRequest(resource, options = {}) {
   if (nullBusinessUnit) {
     headers['X-Business-Unit'] = '__n-u-l-l__'
   }
+
+  headers['X-Origin-Id'] = originId
 
   const fetchOptions = {
     method,
