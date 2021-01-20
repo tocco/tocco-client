@@ -56,9 +56,13 @@ const Header = ({
   const openTwoFactorConnector = () => {
     openModalComponent(
       'passwordUpdateModal',
-      'client.login.passwordUpdate.title',
+      'client.two-factor-connector.title',
       null,
-      () => <TwoFactorConnectorApp/>,
+      () => <TwoFactorConnectorApp
+        onSuccess={() => {
+          removeModalComponent('passwordUpdateModal')
+        }}
+      />,
       true)
   }
 
