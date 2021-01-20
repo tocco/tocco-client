@@ -78,10 +78,10 @@ const FullCalendar = ({
 
   const headerContent = <input
     type="checkbox"
-    defaultChecked={true}
+    checked={true}
+    onChange={() => onCalendarRemoveAll()}
     style={{visibility: resources.length > 0 ? 'visible' : 'hidden'}}
     className="remove-all-checkbox"
-    onClick={onCalendarRemoveAll}
   />
 
   const changeRange = () => {
@@ -179,7 +179,7 @@ const FullCalendar = ({
           }
         }
       }}
-    />, [])
+    />, [resources.length])
 
   return <StyledFullCalendarWrapper ref={wrapperEl}>
     {calendarEl.current && <NavigationFullCalendar
