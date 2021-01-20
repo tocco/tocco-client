@@ -1,17 +1,15 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
-import {initialize, connectLogin} from '../../modules/actions'
+import {initialize} from '../../modules/actions'
 import TwoFactorConnector from './TwoFactorConnector'
 
 const mapActionCreators = {
-  initialize,
-  connectLogin
+  initialize
 }
 
-const mapStateToProps = (state, props) => ({
-  twoFactorActive: state.twoFactorConnector.twoFactorActive,
-  secret: state.twoFactorConnector.secret
+const mapStateToProps = state => ({
+  stage: state.twoFactorConnector.stage
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(TwoFactorConnector))

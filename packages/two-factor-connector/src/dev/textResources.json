@@ -1,9 +1,13 @@
 [
-  "client.two-factor-connector.qrCodeInfo",
-  "client.two-factor-connector.secretInfo",
   "client.two-factor-connector.info",
   "client.two-factor-connector.overwriteInfo",
+  "client.two-factor-connector.nextButton",
+  "client.two-factor-connector.okButton",
+  "client.two-factor-connector.qrCodeInfo",
+  "client.two-factor-connector.secretInfo",
   "client.two-factor-connector.backupInfo",
-  "client.two-factor-connector.generateButton",
-  "client.two-factor-connector.overwriteButton"
+  "client.two-factor-connector.verificationText",
+  "client.two-factor-connector.verificationInputLabel",
+  "client.two-factor-connector.successfulText",
+  "client.two-factor-connector.errorText"
 ]

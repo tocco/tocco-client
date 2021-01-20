@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, errorLogging, notifier} from 'tocco-app-extensions'
+import {appFactory, errorLogging, notifier, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 import {hot} from 'react-hot-loader/root'
 
@@ -16,6 +16,7 @@ const initApp = (id, input, events, publicPath) => {
 
   notifier.addToStore(store, true)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
+  externalEvents.addToStore(store, events)
 
   return appFactory.createApp(
     packageName,
@@ -58,7 +59,8 @@ const initApp = (id, input, events, publicPath) => {
 })()
 
 const EXTERNAL_EVENTS_PASSWORD_UPDATE = [
-  'onSuccess'
+  'onSuccess',
+  'onCancel'
 ]
 
 const TwoFactorConnectorApp = props => {

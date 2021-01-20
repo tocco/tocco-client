@@ -2,7 +2,20 @@ import {mockData} from 'tocco-util'
 
 export default function setupFetchMock(packageName, fetchMock) {
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/principals.*'),
+    new RegExp('^.*?/nice2/rest/principals/.*/two-factor'),
+    () => ({
+      secret: '7ad4b588f0774cf19ac518289c751486',
+      totpUri: 'otpauth://totp/Tocco?secret=7ad4b588f0774cf19ac518289c751486'
+    })
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/principals/.*/two-factor'),
+    (url, opts) => JSON.parse(opts.body).userCode === '666666' ? 400 : 204
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/principals'),
     () => ({
       username: 'tocco',
       businessUnit: {
@@ -40,18 +53,6 @@ export default function setupFetchMock(packageName, fetchMock) {
       ]
     }
     ))
-
-  fetchMock.postOnce(new RegExp('^.*?/nice2/rest/principals/.*/two-factor'), {throws: new Error('Not working')}
-  )
-
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/principals/.*/two-factor'),
-    () => {
-      return {
-        secret: '7ad4b588f0774cf19ac518289c751486',
-        totpUri: 'otpauth://totp/Tocco?secret=7ad4b588f0774cf19ac518289c751486'
-      }
-    })
 
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
 

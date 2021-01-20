@@ -2,9 +2,11 @@ import reducer from './reducer'
 import * as actions from './actions'
 
 const INITIAL_STATE = {
+  stage: null,
   twoFactorActive: null,
   secret: null,
-  username: null
+  username: null,
+  setupSuccessful: null
 }
 
 describe('sso-login-detail', () => {
