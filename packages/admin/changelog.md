@@ -1,3 +1,6 @@
+0.4.10
+- Async validation on blur
+
 0.4.9
 - Prevent content ghosting in safari when opening/closing collapsibles
 - Add password-update and two-factor-connector to menu
