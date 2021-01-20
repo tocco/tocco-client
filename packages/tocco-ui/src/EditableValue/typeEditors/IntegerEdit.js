@@ -9,11 +9,13 @@ import StyledNumberEdit from './StyledNumberEdit'
 const IntegerEdit = ({value, onChange, options, immutable, name, id}) => {
   const {
     minValue,
-    maxValue
+    maxValue,
+    format,
+    allowLeadingZeros
   } = options || {}
 
-  const handleChange = ({floatValue}) => {
-    onChange(floatValue)
+  const handleChange = ({value, floatValue}) => {
+    onChange(allowLeadingZeros ? value : floatValue)
   }
 
   const isAllowed = ({floatValue}) =>
@@ -30,6 +32,8 @@ const IntegerEdit = ({value, onChange, options, immutable, name, id}) => {
         name={name}
         onValueChange={handleChange}
         value={value}
+        allowLeadingZeros={allowLeadingZeros}
+        format={format}
       />
     </StyledEditableWrapper>
   )
@@ -37,14 +41,16 @@ const IntegerEdit = ({value, onChange, options, immutable, name, id}) => {
 
 IntegerEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.string,
   id: PropTypes.string,
   intl: intlShape,
   immutable: PropTypes.bool,
   options: PropTypes.shape({
     minValue: PropTypes.number,
-    maxValue: PropTypes.number
+    maxValue: PropTypes.number,
+    format: PropTypes.string,
+    allowLeadingZeros: PropTypes.bool
   })
 }
 
