@@ -1,12 +1,12 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
-import {initialize, connectLogin} from '../../modules/actions'
-import Dialog from './Dialog'
+import {initialize, requestSecret} from '../../modules/actions'
+import Start from './Start'
 
 const mapActionCreators = {
   initialize,
-  connectLogin
+  requestSecret
 }
 
 const mapStateToProps = (state, props) => ({
@@ -14,4 +14,4 @@ const mapStateToProps = (state, props) => ({
   secret: state.twoFactorConnector.secret
 })
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(Dialog))
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(Start))

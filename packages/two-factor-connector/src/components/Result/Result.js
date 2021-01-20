@@ -1,43 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {QRCode, scale, Typography, StyledP} from 'tocco-ui'
-import {FormattedMessage} from 'react-intl'
-import styled from 'styled-components'
+import {Button, Typography} from 'tocco-ui'
+import {FormattedMessage, intlShape} from 'react-intl'
 
-const StyledQRCodeWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: ${scale.space(0)};
-`
+const Result = ({success, goToStart, setupSuccessful, intl}) => {
+  const msg = id => intl.formatMessage({id})
 
-const StyledParagraph = styled(StyledP)`
-  text-align: center;
-`
+  if (setupSuccessful) {
+    return <div>
+      <Typography.P>
+        <FormattedMessage id="client.two-factor-connector.successfulText"/>
+      </Typography.P>
+      <Button
+        label={msg('client.two-factor-connector.okButton')}
+        ink="primary"
+        look="raised"
+        onClick={success}
+      />
+    </div>
+  }
 
-const Result = ({secret}) =>
-  <>
+  return <div>
     <Typography.P>
-      <FormattedMessage id="client.two-factor-connector.qrCodeInfo"/>
+      <FormattedMessage id="client.two-factor-connector.errorText"/>
     </Typography.P>
-    <StyledQRCodeWrapper>
-      <QRCode value={secret.uri}/>
-    </StyledQRCodeWrapper>
-    <Typography.P>
-      <FormattedMessage id="client.two-factor-connector.secretInfo"/>
-    </Typography.P>
-    <StyledParagraph>
-      <Typography.B>{secret.text}</Typography.B>
-    </StyledParagraph>
-    <Typography.P>
-      <FormattedMessage id="client.two-factor-connector.backupInfo"/>
-    </Typography.P>
-  </>
+    <Button
+      label={msg('client.two-factor-connector.okButton')}
+      ink="primary"
+      look="raised"
+      onClick={goToStart}
+    />
+  </div>
+}
 
 Result.propTypes = {
-  secret: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    uri: PropTypes.string.isRequired
-  }).isRequired
+  intl: intlShape.isRequired,
+  success: PropTypes.func.isRequired,
+  goToStart: PropTypes.func.isRequired,
+  setupSuccessful: PropTypes.bool
 }
 
 export default Result

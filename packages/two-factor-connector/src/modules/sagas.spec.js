@@ -1,11 +1,10 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {all, select, takeLatest} from 'redux-saga/effects'
-import {rest} from 'tocco-app-extensions'
+import {rest, externalEvents} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {connectLogin, initialize, loadPrincipal2FAInfo} from './sagas'
 
 describe('two-factor-connector', () => {
   describe('modules', () => {
@@ -13,8 +12,10 @@ describe('two-factor-connector', () => {
       test('should fork child sagas', () => {
         const generator = rootSaga()
         expect(generator.next().value).to.deep.equal(all([
-          takeLatest(actions.CONNECT_LOGIN, connectLogin),
-          takeLatest(actions.INITIALIZE, initialize)
+          takeLatest(actions.REQUEST_SECRET, sagas.requestSecret),
+          takeLatest(actions.VERIFY_CODE, sagas.verifyCode),
+          takeLatest(actions.INITIALIZE, sagas.initialize),
+          takeLatest(actions.SUCCESS, sagas.success)
         ]))
         expect(generator.next().done).to.be.true
       })
@@ -23,9 +24,18 @@ describe('two-factor-connector', () => {
         test('should call loadPrincipal2FAInfo', () => {
           return expectSaga(sagas.initialize)
             .provide([
-              [matchers.call.fn(loadPrincipal2FAInfo)]
+              [matchers.call.fn(sagas.loadPrincipal2FAInfo)]
             ])
             .call(sagas.loadPrincipal2FAInfo)
+            .put(actions.goToStart())
+            .run()
+        })
+      })
+
+      describe('success', () => {
+        test('should call external event', () => {
+          return expectSaga(sagas.success)
+            .put(externalEvents.fireExternalEvent('onSuccess'))
             .run()
         })
       })
@@ -72,7 +82,7 @@ describe('two-factor-connector', () => {
         })
       })
 
-      describe('connectLogin', () => {
+      describe('requestSecret', () => {
         const secret = {
           secret: '7ad4b588f0774cf19ac518289c751486',
           totpUri: 'otpauth://totp/Tocco?secret=7ad4b588f0774cf19ac518289c751486'
@@ -84,7 +94,7 @@ describe('two-factor-connector', () => {
         }
 
         test('should call rest endpoint and set secret', () =>
-          expectSaga(sagas.connectLogin)
+          expectSaga(sagas.requestSecret)
             .provide([
               [select(sagas.usernameSelector), 'dake'],
               [matchers.call.fn(rest.requestSaga), FakeTwoFactorResponse]
@@ -93,6 +103,32 @@ describe('two-factor-connector', () => {
               text: secret.secret,
               uri: secret.totpUri
             }))
+            .run()
+        )
+      })
+
+      describe('verifyCode', () => {
+        test('should redirect and set successfully on 204 response', () =>
+          expectSaga(sagas.verifyCode, actions.verifyCode('123456'))
+            .provide([
+              [select(sagas.usernameSelector), 'dake'],
+              [select(sagas.secretSelector), {text: '7ad4b588f0774cf19ac518289c751486'}],
+              [matchers.call.fn(rest.requestSaga), {status: 204}]
+            ])
+            .put(actions.setSetupSuccessful(true))
+            .put(actions.goToResult())
+            .run()
+        )
+
+        test('should redirect and set NOT successfully on falsy response', () =>
+          expectSaga(sagas.verifyCode, actions.verifyCode('123456'))
+            .provide([
+              [select(sagas.usernameSelector), 'dake'],
+              [select(sagas.secretSelector), {text: '7ad4b588f0774cf19ac518289c751486'}],
+              [matchers.call.fn(rest.requestSaga), {status: 400}]
+            ])
+            .put(actions.setSetupSuccessful(false))
+            .put(actions.goToResult())
             .run()
         )
       })
