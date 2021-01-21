@@ -8,7 +8,7 @@ const mapActionCreators = {
   goToSecretVerification
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   secret: state.twoFactorConnector.secret
 })
 
