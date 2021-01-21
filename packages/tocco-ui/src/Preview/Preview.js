@@ -34,6 +34,7 @@ const Preview = ({
   const image = thumbnailUrl ? (
     <img
       alt={alt}
+      title={alt}
       src={thumbnailUrl}
       onClick={handleOnClick}
       onLoad={handleOnLoad}

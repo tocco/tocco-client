@@ -10,8 +10,10 @@ import StyledView from './StyledView'
 export const getDownloadUrl = binaryLink =>
   download.addParameterToURL(binaryLink, 'download', true)
 
-const View = props => (
-  <StyledView>
+const View = props => {
+  const isNotUploadedFile = props.value.binaryLink && props.value.binaryLink.startsWith('blob:')
+  
+  return <StyledView>
     <div>
       <Link
         neutral
@@ -22,24 +24,25 @@ const View = props => (
         title={props.downloadTitle || 'download'}
       />
       {!props.immutable
-      && <Button
-        icon="times"
-        onClick={() => props.onUpload(null)}
-        tabIndex={-1}
-        title={props.deleteTitle || 'delete'}
-      />
+        && <Button
+          icon="times"
+          onClick={() => props.onUpload(null)}
+          tabIndex={-1}
+          title={props.deleteTitle || 'delete'}
+        />
       }
     </div>
     <Preview
       alt={props.value.fileName}
-      caption={props.value.fileName}
+      caption={isNotUploadedFile && props.value.fileName}
+      fileName={props.value.fileName}
       maxDimensionX="96px"
       maxDimensionY="96px"
       srcUrl={props.value.binaryLink}
       thumbnailUrl={props.value.thumbnailLink}
     />
   </StyledView>
-)
+}
 
 View.propTypes = {
   immutable: PropTypes.bool,
