@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {LoadMask} from 'tocco-ui'
 import {notifier} from 'tocco-app-extensions'
 
-import Dialog from '../Start'
+import Start from '../Start'
 import Secret from '../Secret'
 import Verification from '../Verification'
 import Result from '../Result'
@@ -23,7 +23,7 @@ const TwoFactorConnector = ({initialize, stage}) => {
   const renderContent = () => {
     switch (stage) {
       case stages.Start:
-        return <Dialog/>
+        return <Start/>
       case stages.Secret:
         return <Secret/>
       case stages.Verification:
