@@ -55,7 +55,8 @@ const NumberEdit = props => {
     fixedDecimalScale,
     suffix,
     prefix,
-    format
+    format,
+    allowLeadingZeros
   } = props.options || {}
 
   const calculatedMaxValue = calculateMaxValue(prePointDigits, postPointDigits, maxValue)
@@ -68,7 +69,7 @@ const NumberEdit = props => {
 
   const handleChange = values => {
     if (props.onChange && checkValueRange(minValue, calculatedMaxValue, values.floatValue)) {
-      props.onChange(values.floatValue)
+      props.onChange(allowLeadingZeros ? values.value : values.floatValue)
     }
   }
 
@@ -97,6 +98,7 @@ const NumberEdit = props => {
         {...numberFormatOptions}
         format={format}
         onBlur={handleBlur}
+        allowLeadingZeros={allowLeadingZeros}
       />
     </StyledEditableWrapper>
   )
@@ -104,7 +106,7 @@ const NumberEdit = props => {
 
 NumberEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.string,
   id: PropTypes.string,
   intl: intlShape,
@@ -118,7 +120,8 @@ NumberEdit.propTypes = {
     maxValue: PropTypes.number,
     suffix: PropTypes.string,
     prefix: PropTypes.string,
-    format: PropTypes.string
+    format: PropTypes.string,
+    allowLeadingZeros: PropTypes.bool
   })
 }
 
