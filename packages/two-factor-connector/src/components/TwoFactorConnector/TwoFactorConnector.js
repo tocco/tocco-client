@@ -35,10 +35,12 @@ const TwoFactorConnector = ({initialize, stage}) => {
     }
   }
 
-  return <div>
-    <notifier.Notifier/>
-    {renderContent()}
-  </div>
+  return (
+    <>
+      <notifier.Notifier/>
+      {renderContent()}
+    </>
+  )
 }
 
 TwoFactorConnector.propTypes = {

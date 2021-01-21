@@ -1,18 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {QRCode, scale, Typography, StyledP, Button} from 'tocco-ui'
+import {QRCode, Typography, Button} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
-import styled from 'styled-components'
 
-const StyledQRCodeWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: ${scale.space(0)};
-`
-
-const StyledParagraph = styled(StyledP)`
-  text-align: center;
-`
+import {StyledButtonWrapper} from '../GlobalStyledComponents'
+import {StyledQRCodeWrapper, StyledParagraph, StyledBoldText} from './StyledComponents'
 
 const Secret = ({secret, goToSecretVerification}) => {
   return <>
@@ -28,16 +20,20 @@ const Secret = ({secret, goToSecretVerification}) => {
     <StyledParagraph>
       <Typography.B>{secret.text}</Typography.B>
     </StyledParagraph>
-    <Typography.P>
-      <FormattedMessage id="client.two-factor-connector.backupInfo"/>
-    </Typography.P>
-    <Button
-      ink="primary"
-      look="raised"
-      onClick={goToSecretVerification}
-    >
-      <FormattedMessage id="client.two-factor-connector.nextButton"/>
-    </Button>
+    <StyledBoldText>
+      <Typography.B>
+        <FormattedMessage id="client.two-factor-connector.backupInfo"/>
+      </Typography.B>
+    </StyledBoldText>
+    <StyledButtonWrapper>
+      <Button
+        ink="primary"
+        look="raised"
+        onClick={goToSecretVerification}
+      >
+        <FormattedMessage id="client.two-factor-connector.nextButton"/>
+      </Button>
+    </StyledButtonWrapper>
   </>
 }
 

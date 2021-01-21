@@ -9,7 +9,7 @@ const mapActionCreators = {
   requestSecret
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   twoFactorActive: state.twoFactorConnector.twoFactorActive,
   secret: state.twoFactorConnector.secret
 })

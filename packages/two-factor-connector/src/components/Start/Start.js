@@ -3,24 +3,30 @@ import PropTypes from 'prop-types'
 import {Button, Typography} from 'tocco-ui'
 import {FormattedMessage, intlShape} from 'react-intl'
 
+import {StyledButtonWrapper} from '../GlobalStyledComponents'
+
 const Start = ({twoFactorActive, requestSecret, intl}) => {
   const msg = id => intl.formatMessage({id})
 
-  return <div>
-    <Typography.P>
-      {
-        twoFactorActive
-          ? <FormattedMessage id="client.two-factor-connector.overwriteInfo"/>
-          : <FormattedMessage id="client.two-factor-connector.info"/>
-      }
-    </Typography.P>
-    <Button
-      label={msg('client.two-factor-connector.nextButton')}
-      ink="primary"
-      look="raised"
-      onClick={requestSecret}
-    />
-  </div>
+  return (
+    <>
+      <Typography.P>
+        {
+          twoFactorActive
+            ? <FormattedMessage id="client.two-factor-connector.overwriteInfo"/>
+            : <FormattedMessage id="client.two-factor-connector.info"/>
+        }
+      </Typography.P>
+      <StyledButtonWrapper>
+        <Button
+          label={msg('client.two-factor-connector.nextButton')}
+          ink="primary"
+          look="raised"
+          onClick={requestSecret}
+        />
+      </StyledButtonWrapper>
+    </>
+  )
 }
 
 Start.propTypes = {

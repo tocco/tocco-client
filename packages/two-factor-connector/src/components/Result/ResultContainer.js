@@ -9,7 +9,7 @@ const mapActionCreators = {
   goToStart
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   setupSuccessful: state.twoFactorConnector.setupSuccessful
 })
 

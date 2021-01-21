@@ -1,22 +1,16 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {Button, EditableValue, StatedValue, StyledEditableWrapperCss, Typography} from 'tocco-ui'
-import styled from 'styled-components'
+import {Button, EditableValue, StatedValue, Typography} from 'tocco-ui'
 import {FormattedMessage, intlShape} from 'react-intl'
 
-export const StyledLoginFormInputWrapper = styled.div`
-  && {
-    ${StyledEditableWrapperCss}
-  }
-`
+import {StyledButtonWrapper} from '../GlobalStyledComponents'
+import {StyledLoginFormInputWrapper} from './StyledComponents'
 
 const Verification = ({verifyCode, intl}) => {
   const [userCode, setUserCode] = useState(null)
   const msg = id => intl.formatMessage({id})
+  const handleVerifyClick = () => verifyCode(userCode)
 
-  const handleVerifyClick = () => {
-    verifyCode(userCode)
-  }
   return <>
     <Typography.P>
       <FormattedMessage id="client.two-factor-connector.verificationText"/>
@@ -42,14 +36,16 @@ const Verification = ({verifyCode, intl}) => {
           />
         </StyledLoginFormInputWrapper>
       </StatedValue>
+      <StyledButtonWrapper>
+        <Button
+          label={msg('client.two-factor-connector.okButton')}
+          ink="primary"
+          look="raised"
+          type="submit"
+          disabled={!userCode || userCode.toString().length < 6}
+        />
+      </StyledButtonWrapper>
     </form>
-    <Button
-      label={msg('client.two-factor-connector.okButton')}
-      ink="primary"
-      look="raised"
-      type="submit"
-      disabled={!userCode || userCode.toString().length < 6}
-    />
   </>
 }
 
