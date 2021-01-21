@@ -1,3 +1,6 @@
+0.2.12-hotfix226.1
+- Fix leading zeros bug in two-factor code
+
 0.2.12
 - Style Inputfield in two step login form
 - Fix icon positioning within buttons
