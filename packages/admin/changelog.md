@@ -1,3 +1,6 @@
+0.4.12
+- Text autosize new component (Fixes Safari performance problems)
+
 0.4.11
 - Adjust left pane grid on for android tablets to prevent overflow
 - Two Factor Connector process optimizations
