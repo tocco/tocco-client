@@ -1,3 +1,6 @@
+0.2.16-hotfix227.1
+- Fix leading zeros bug in two-factor code
+
 0.2.16
 - Reset css overwrites of Upload.js and refactor Preview.js
 - Restrict urls in table to one line
