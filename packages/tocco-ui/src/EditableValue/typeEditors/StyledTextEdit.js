@@ -1,5 +1,5 @@
 import React from 'react'
-import TextareaAutosize from 'react-autosize-textarea'
+import TextareaAutosize from 'react-textarea-autosize'
 import styled from 'styled-components'
 
 import {StyledInputCss} from '../StyledEditableValue'
