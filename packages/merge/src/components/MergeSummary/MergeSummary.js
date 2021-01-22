@@ -6,6 +6,7 @@ import {FormattedMessage} from 'react-intl'
 import _groupBy from 'lodash/groupBy'
 
 import {ManyRelationEntityCount} from '../../util/manyRelationEntityCount'
+import {StyledButtonWrapper} from './StyledComponents'
 
 const MergeSummary = ({mergeResponse, navigationStrategy, isOldClient, close, openEntityList}) => {
   const mapToEntityList = entities => Object.entries(_groupBy(entities, e => e.entityLabel))
@@ -26,33 +27,44 @@ const MergeSummary = ({mergeResponse, navigationStrategy, isOldClient, close, op
   const notDeletedEntities = mapToEntityList(mergeResponse.notDeletedEntities)
 
   return <>
-    <Typography.P>
+    <Typography.H3>
       <FormattedMessage id="client.merge.summary.success"/>
       {
         (mergeResponse.notCopiedRelations.length > 0 || mergeResponse.notDeletedEntities.length > 0)
         && <FormattedMessage id="client.merge.summary.successHint"/>
       }
-    </Typography.P>
+    </Typography.H3>
     {
       mergeResponse.notCopiedRelations.length > 0
       && <Typography.P>
-        <FormattedMessage id="client.merge.summary.notCopiedRelations"/>:<br/>{notCopiedRelations}
+        <Typography.B>
+          <FormattedMessage id="client.merge.summary.notCopiedRelations"/>:
+        </Typography.B>
+        <br/>
+        {notCopiedRelations}
       </Typography.P>
     }
     {
       mergeResponse.notDeletedEntities.length > 0
       && <Typography.P>
-        <FormattedMessage id="client.merge.summary.notDeletedEntities"/>:<br/>{notDeletedEntities}
+        <Typography.B>
+          <FormattedMessage id="client.merge.summary.notDeletedEntities"/>:
+        </Typography.B>
+        <br/>
+        {notDeletedEntities}
       </Typography.P>
     }
     {
       mergeResponse.showPermissionMessage
-      && <Typography.P><FormattedMessage id="client.merge.summary.permission"/></Typography.P>
+      && <Typography.B>
+        <FormattedMessage id="client.merge.summary.permission"/>
+      </Typography.B>
     }
-
-    <Button onClick={close} look="raised" ink="primary">
-      <FormattedMessage id="client.merge.close"/>
-    </Button>
+    <StyledButtonWrapper>
+      <Button onClick={close} look="raised" ink="primary">
+        <FormattedMessage id="client.merge.close"/>
+      </Button>
+    </StyledButtonWrapper>
   </>
 }
 

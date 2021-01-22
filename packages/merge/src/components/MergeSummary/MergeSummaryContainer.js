@@ -9,7 +9,7 @@ const mapActionCreators = {
   openEntityList
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   mergeResponse: state.merge.mergeResponse,
   navigationStrategy: state.input.navigationStrategy,
   isOldClient: !!state.input.isOldClient

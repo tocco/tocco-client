@@ -7,6 +7,7 @@ import {js, navigationStrategy} from 'tocco-util'
 import _get from 'lodash/get'
 
 import {ManyRelationEntityCount} from '../../util/manyRelationEntityCount'
+import {StyledLabelWrapper} from './StyledComponents'
 
 const areEqual = (prevProps, nextProps) => {
   const diff = Object.keys(js.difference(prevProps, nextProps))
@@ -29,19 +30,21 @@ export const ManyRelationsCheckBox = React.memo(({
 
   const onChange = e => setSelectedMultipleAll(name, entityKey, e.target.checked)
 
-  return <>
-    <input type="checkbox" onChange={onChange} checked={isSelected} id={`${name}${entityKey}`}/>
-    <Typography.Label for={`${name}${entityKey}`}>
-      <FormattedMessage id="client.merge.allRelations"/> <ManyRelationEntityCount
-        model={entityData.value.relationEntity}
-        keys={entityData.value.keys}
-        totalKeys={entityData.value.totalKeys}
-        openEntityList={openEntityList}
-        navigationStrategy={navigationStrategy}
-        isOldClient={isOldClient}
-      />
-    </Typography.Label>
-  </>
+  return (
+    <StyledLabelWrapper>
+      <input type="checkbox" onChange={onChange} checked={isSelected} id={`${name}${entityKey}`}/>
+      <Typography.Label for={`${name}${entityKey}`}>
+        <FormattedMessage id="client.merge.allRelations"/> <ManyRelationEntityCount
+          model={entityData.value.relationEntity}
+          keys={entityData.value.keys}
+          totalKeys={entityData.value.totalKeys}
+          openEntityList={openEntityList}
+          navigationStrategy={navigationStrategy}
+          isOldClient={isOldClient}
+        />
+      </Typography.Label>
+    </StyledLabelWrapper>
+  )
 }, areEqual)
 
 ManyRelationsCheckBox.propTypes = {
