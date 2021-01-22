@@ -1,3 +1,10 @@
+0.4.11
+- Adjust left pane grid on for android tablets to prevent overflow
+- Two Factor Connector process optimizations
+- Upload component: Show file names only in upload process
+- Style two-factor-connector app
+- Login: fix leading zeros bug in two-factor code
+
 0.4.10
 - Async validation on blur
 
