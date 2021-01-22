@@ -38,10 +38,10 @@ const TwoStepLoginForm = ({username, password, showTitle, loginPending, twoStepL
       >
         <StyledLoginFormInputWrapper>
           <EditableValue
-            type="number"
+            type="integer"
             value={userCode}
             events={{onChange: setUserCode}}
-            options={{format: '### ###'}}
+            options={{format: '### ###', allowLeadingZeros: true}}
           />
         </StyledLoginFormInputWrapper>
       </StatedValue>
