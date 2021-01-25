@@ -22,7 +22,7 @@ const createHistory = (store, memoryHistory) => {
   const historyFactory = memoryHistory ? createMemoryHistory : createHashHistory
 
   return historyFactory({
-    getUserConfirmation: (message, callback) => {
+    getUserConfirmation: (message, confirmCallback) => {
       const state = store.getState()
 
       const okText = textResourceSelector(state, 'client.common.ok')
@@ -33,8 +33,8 @@ const createHistory = (store, memoryHistory) => {
         message,
         okText,
         cancelText,
-        () => callback(true), // eslint-disable-line standard/no-callback-literal
-        () => callback(false) // eslint-disable-line standard/no-callback-literal
+        () => confirmCallback(true),
+        () => confirmCallback(false)
       )
       store.dispatch(action)
     }

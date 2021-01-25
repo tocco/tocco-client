@@ -26,9 +26,9 @@ describe('tocco-ui', () => {
       }]
 
       test('should calculate product correctly', () => {
-        scenarios.map(scenario => {
+        scenarios.forEach(scenario => {
           const {base, exponents, factor} = scenario
-          exponents.map((exponent, i) => {
+          exponents.forEach((exponent, i) => {
             expect(scale.exponentiate(base, exponent, factor)).to.be.closeTo(scenario.expectation[i], 0.1)
           })
         })
@@ -53,7 +53,7 @@ describe('tocco-ui', () => {
       const unit = undefined
 
       test('should be valid scale in rem', () => {
-        exponents.map((exponent, i) => {
+        exponents.forEach((exponent, i) => {
           expect(scale.font(exponent, unit)(props)).to.equal(expectation[i])
         })
       })
@@ -80,7 +80,7 @@ describe('tocco-ui', () => {
       const unit = 'em'
 
       test('should be valid scale in em', () => {
-        exponents.map((exponent, i) => {
+        exponents.forEach((exponent, i) => {
           expect(scale.space(exponent, unit)(props)).to.equal(expectation[i])
         })
       })

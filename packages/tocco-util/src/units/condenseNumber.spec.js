@@ -27,11 +27,7 @@ describe('tocco-util', () => {
           [123456789012345, '123T'],
           [999499000000000, '999T'],
           [999500000000000, '1P'],
-          [1234567890123456, '1P'],
-          [12345678901234567, '12P'],
-          [123456789012345678, '123P'],
-          [1234567890123456789, '1235P'],
-          [12345678901234567890, '12346P']
+          [1234567890123456, '1P']
         ]
         scenarios.map(scenario => condenseNumber(scenario[0]))
         scenarios.map(scenario => expect(condenseNumber(scenario[0])).to.equal(scenario[1]))

@@ -43,14 +43,14 @@ const Admin = ({
   const initializeHistory = () => {
     const browserHistory = createBrowserHistory({
       ...baseRoute && {basename: baseRoute},
-      getUserConfirmation: (message, callback) => {
+      getUserConfirmation: (message, confirmCallback) => {
         confirm(
           '',
           message,
           <FormattedMessage id="client.common.ok"/>,
           <FormattedMessage id="client.common.cancel"/>,
-          () => callback(true), // eslint-disable-line standard/no-callback-literal
-          () => callback(false) // eslint-disable-line standard/no-callback-literal
+          () => confirmCallback(true),
+          () => confirmCallback(false)
         )
       }
     })
