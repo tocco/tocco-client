@@ -4,7 +4,8 @@ import {
   declareFont,
   theme,
   StyledScrollbar,
-  shadeColor
+  shadeColor,
+  scale
 } from 'tocco-ui'
 
 export const StyledFullCalendarWrapper = styled.div`
@@ -13,13 +14,21 @@ export const StyledFullCalendarWrapper = styled.div`
   grid-template-rows: auto 1fr;
 
   .fc {
-    ${declareFont()}
+    ${declareFont()};
+
+    table {
+      font-size: ${scale.font(-2)};
+    }
 
     // decrease header height
     .fc-datagrid-header {
       .fc-datagrid-cell-frame {
         height: 25px !important;
       }
+    }
+
+    .fc-timeline-slot-frame a {
+      text-decoration: none;
     }
 
     // decrease header height
@@ -67,6 +76,10 @@ export const StyledFullCalendarWrapper = styled.div`
       .fc-event-time {
         overflow: visible;
       }
+    }
+
+    .fc-event-title {
+      font-size: ${scale.font(0)};
     }
   }
 `
