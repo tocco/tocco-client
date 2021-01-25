@@ -75,12 +75,17 @@ export const RelationsCheckBoxes = React.memo(({
     const isSelected = _get(selectedMultiple, [name, relationEntity.key]) === entityKey
     const onChange = e => setSelectedMultiple(name, entityKey, relationEntity.key, e.target.checked)
 
-    return <div key={`relation-checkbox-${relationEntity.key}`}>
-      <input type="checkbox" onChange={onChange} checked={isSelected} id={`${name}${entityKey}-${relationEntity.key}`}/>
-      <Typography.Label for={`${name}${entityKey}-${relationEntity.key}`}>
-        <FormattedValue type="single-select" value={relationEntity}/>
-      </Typography.Label>
-    </div>
+    return (
+      <StyledLabelWrapper key={`relation-checkbox-${relationEntity.key}`}>
+        <input type="checkbox"
+          onChange={onChange}
+          checked={isSelected}
+          id={`${name}${entityKey}-${relationEntity.key}`}/>
+        <Typography.Label for={`${name}${entityKey}-${relationEntity.key}`}>
+          <FormattedValue type="single-select" value={relationEntity}/>
+        </Typography.Label>
+      </StyledLabelWrapper>
+    )
   })
 }, areEqual)
 
@@ -107,21 +112,23 @@ export const FormattedValueRadio = React.memo(({entityData, entityKey, name, set
 
   const Field = field.factory('list', mappedType)
 
-  return <>
-    <input
-      type="radio"
-      name={name}
-      onChange={onChange}
-      checked={isSelected}
-      id={`${name}${entityKey}`}
-      disabled={!writable}/>
-    <Typography.Label for={`${name}${entityKey}`}>
-      <Field
-        formField={{dataType: mappedType}}
-        value={entityData.value}
-      />
-    </Typography.Label>
-  </>
+  return (
+    <StyledLabelWrapper>
+      <input
+        type="radio"
+        name={name}
+        onChange={onChange}
+        checked={isSelected}
+        id={`${name}${entityKey}`}
+        disabled={!writable}/>
+      <Typography.Label for={`${name}${entityKey}`}>
+        <Field
+          formField={{dataType: mappedType}}
+          value={entityData.value}
+        />
+      </Typography.Label>
+    </StyledLabelWrapper>
+  )
 }, areEqual)
 
 FormattedValueRadio.propTypes = {

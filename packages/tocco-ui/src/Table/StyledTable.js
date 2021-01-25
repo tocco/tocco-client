@@ -20,13 +20,6 @@ export const StyledTableCell = styled.td`
   border-bottom: 1px solid ${borderColor};
   align-content: center;
   box-sizing: content-box;
-  display: flex;
-  align-items: center;
-
-  > div {
-    display: flex;
-    align-items: center;
-  }
 `
 
 export const StyledDnD = styled.div`

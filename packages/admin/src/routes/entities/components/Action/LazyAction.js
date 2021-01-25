@@ -12,7 +12,6 @@ const actions = {
   'show-output-jobs-action': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ShowOutputJobsAction')),
   'delete': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Delete')),
   'copy': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Copy')),
-  'documents': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Documents'))
   'documents': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Documents')),
   'merge': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Merge'))
 }
