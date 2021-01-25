@@ -9,7 +9,8 @@ const SortingState = ({column}) =>
     ? <StyledSortingSpan>
       <Icon icon={`sort-${column.sorting.order === 'asc' ? 'up' : 'down'}`}/>
       {column.sorting.sortRank > 1 && <span>{column.sorting.sortRank}</span>}
-    </StyledSortingSpan> : null
+    </StyledSortingSpan>
+    : null
 
 SortingState.propTypes = {
   column: PropTypes.shape({

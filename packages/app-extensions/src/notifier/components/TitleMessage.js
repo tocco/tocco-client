@@ -16,10 +16,10 @@ const Content = props => {
   const {content} = props
   return _isString(content)
     ? containsHtml(content)
-      ? <FormattedValue type="html" value={content}/>
-      : isKey(content)
-        ? <props.tag><FormattedMessage id={content}/></props.tag>
-        : <props.tag>{content}</props.tag>
+        ? <FormattedValue type="html" value={content}/>
+        : isKey(content)
+          ? <props.tag><FormattedMessage id={content}/></props.tag>
+          : <props.tag>{content}</props.tag>
     : content.type && content.type.displayName === 'FormattedMessage'
       ? <props.tag>{content}</props.tag>
       : content

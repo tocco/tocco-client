@@ -154,48 +154,52 @@ export const createUsers = amount => {
         },
         relMulti_entity1: {
           type: 'entity-list',
-          value: [...fiftyFifty() ? [{
-            key: '3150',
-            model: 'Multi_entity',
-            version: 12,
-            paths: {
-              relPayment_status: {
-                type: 'entity',
-                value: {
-                  key: '1',
-                  model: 'Payment_status',
-                  paths: {
-                    unique_id: {
-                      type: 'identifier',
-                      writable: null,
-                      value: 'fully_paid'
+          value: [...fiftyFifty()
+            ? [{
+                key: '3150',
+                model: 'Multi_entity',
+                version: 12,
+                paths: {
+                  relPayment_status: {
+                    type: 'entity',
+                    value: {
+                      key: '1',
+                      model: 'Payment_status',
+                      paths: {
+                        unique_id: {
+                          type: 'identifier',
+                          writable: null,
+                          value: 'fully_paid'
+                        }
+                      }
                     }
                   }
                 }
-              }
-            }
-          }] : [],
-          ...fiftyFifty() ? [{
-            key: '3152',
-            model: 'Multi_entity',
-            version: 10,
-            paths: {
-              relPayment_status: {
-                type: 'entity',
-                value: {
-                  key: '2',
-                  model: 'Payment_status',
-                  paths: {
-                    unique_id: {
-                      type: 'identifier',
-                      writable: null,
-                      value: 'partially_paid'
+              }]
+            : [],
+          ...fiftyFifty()
+            ? [{
+                key: '3152',
+                model: 'Multi_entity',
+                version: 10,
+                paths: {
+                  relPayment_status: {
+                    type: 'entity',
+                    value: {
+                      key: '2',
+                      model: 'Payment_status',
+                      paths: {
+                        unique_id: {
+                          type: 'identifier',
+                          writable: null,
+                          value: 'partially_paid'
+                        }
+                      }
                     }
                   }
                 }
-              }
-            }
-          }] : []
+              }]
+            : []
           ]
         }
       }

@@ -31,14 +31,14 @@ const ErrorItems = ({formErrors}) => {
           <StyledErrorItemWrapper key="hasFieldErrors">
             <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
           </StyledErrorItemWrapper>
-        )
+          )
         : (
           <StyledErrorItemWrapper key="hasFieldErrors">
             <Typography.H5>
               <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
             </Typography.H5>
           </StyledErrorItemWrapper>
-        )
+          )
     )
   }
 

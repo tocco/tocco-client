@@ -18,8 +18,8 @@ const getTextColor = ({isDisplay, secondaryPosition, immutable, signal}) => {
     ? 'shade1'
     : isDisplay
       ? secondaryPosition
-        ? 'shade0'
-        : 'shade1'
+          ? 'shade0'
+          : 'shade1'
       : secondaryPosition
         ? 'shade1'
         : immutable

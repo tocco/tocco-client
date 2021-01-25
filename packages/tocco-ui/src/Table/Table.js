@@ -29,10 +29,12 @@ const Table = props => {
   const tableEl = useRef(null)
 
   const resizeCallback = (columnId, width) => {
-    setColumns([...columns.map(c => c.id === columnId ? {
-      ...c,
-      width
-    } : c)])
+    setColumns([...columns.map(c => c.id === columnId
+      ? {
+          ...c,
+          width
+        }
+      : c)])
   }
 
   const {isSelected, selectionChange}

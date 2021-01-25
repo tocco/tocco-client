@@ -23,7 +23,8 @@ const initApp = (id, input, events, publicPath) => {
   const dispatchActions = [
     ...(input.selection && input.selection.type === 'ID'
     && input.actionProperties && input.actionProperties.calendarType
-      ? [updateRequestedCalendars(input.actionProperties.calendarType, input.selection.ids)] : [])
+      ? [updateRequestedCalendars(input.actionProperties.calendarType, input.selection.ids)]
+      : [])
   ]
 
   return appFactory.createApp(

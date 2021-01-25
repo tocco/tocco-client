@@ -31,7 +31,8 @@ const Preview = ({
 
   const handleOnLoad = () => setIsLoaded(Math.random())
 
-  const image = thumbnailUrl ? (
+  const image = thumbnailUrl
+    ? (
     <img
       alt={alt}
       title={alt}
@@ -40,22 +41,25 @@ const Preview = ({
       onLoad={handleOnLoad}
       data-image-in-cache={isLoaded}
     />
-  ) : (
+      )
+    : (
     <Icon
       icon="file-alt"
     />
-  )
+      )
 
-  const imageWrapper = downloadOnClick && srcUrl && !onClick ? (
+  const imageWrapper = downloadOnClick && srcUrl && !onClick
+    ? (
     <Link
       alt={fileName || alt}
       download={fileName || caption}
       href={srcUrl}
       label={image}
     />
-  ) : (
-    image
-  )
+      )
+    : (
+        image
+      )
 
   const interactive = ((downloadOnClick && srcUrl) || onClick)
 

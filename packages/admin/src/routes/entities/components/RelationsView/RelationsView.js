@@ -48,7 +48,8 @@ const RelationsView = ({
   )
 
   const getRelationCountLabel = relationName => relationsInfo[relationName] && relationsInfo[relationName].count > 0
-    ? <RelationLabel>&nbsp;({relationsInfo[relationName].count})</RelationLabel> : null
+    ? <RelationLabel>&nbsp;({relationsInfo[relationName].count})</RelationLabel>
+    : null
 
   if (!relations || relations.length === 0 || !currentViewInfo) {
     return null
