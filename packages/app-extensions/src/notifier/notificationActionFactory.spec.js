@@ -25,7 +25,7 @@ describe('app-extensions', () => {
           () => getInfoAction('error', 'title', 'message'),
           () => getInfoAction('error', 'title', 'message', null, null)
         ]
-        actions.map(test => {
+        actions.forEach(test => {
           const action = test()
           expect(action.payload.options.removeOnHover).to.be.false
           expect(action.payload.options).to.have.property('removeOnHoverTimeOut', 0)
@@ -37,7 +37,7 @@ describe('app-extensions', () => {
           () => getInfoAction('info', 'title', 'message'),
           () => getInfoAction('success', 'title', 'message')
         ]
-        actions2.map(test => {
+        actions2.forEach(test => {
           const action = test()
           expect(action.payload.options.removeOnHover).to.be.false
           expect(action.payload.options.removeOnHoverTimeOut).to.be.undefined
@@ -49,7 +49,7 @@ describe('app-extensions', () => {
           () => getInfoAction('info', 'title', 'message', null, null),
           () => getInfoAction('success', 'title', 'message', null, null)
         ]
-        actions3.map(test => {
+        actions3.forEach(test => {
           const action = test()
           expect(action.payload.options.removeOnHover).to.be.false
           expect(action.payload.options.removeOnHoverTimeOut).to.be.null
@@ -63,7 +63,7 @@ describe('app-extensions', () => {
           () => getInfoAction('info', 'title', 'message', null, 1),
           () => getInfoAction('success', 'title', 'message', null, 1)
         ]
-        actions.map(test => {
+        actions.forEach(test => {
           const action = test()
           expect(action.payload.options.removeOnHover).to.be.true
           expect(action.payload.options.removeOnHoverTimeOut).to.equal(1)
@@ -91,7 +91,7 @@ describe('app-extensions', () => {
           () => getInfoAction('warning', 'title', 'message', 'thumbs-up'),
           () => getInfoAction('error', 'title', 'message', 'thumbs-up')
         ]
-        actions.map(test => {
+        actions.forEach(test => {
           const action = test()
           expect(action.payload.options.icon.props.icon).to.equal('thumbs-up')
         })

@@ -58,10 +58,10 @@ export function* autoComplete(fieldName, autoCompleteEndpoint) {
   yield all(Object.keys(values).map(fieldName => {
     const value = values[fieldName]
     const currentFieldValue = formValues[fieldName]
-    if (value.mode === 'override'
-          || (value.mode === 'if_empty' && form.isValueEmpty(currentFieldValue))) {
+    if (value.mode === 'override' || (value.mode === 'if_empty' && form.isValueEmpty(currentFieldValue))) {
       return put(formActions.change(FORM_ID, fieldName, value.value))
     }
+    return null
   }
   ))
 }

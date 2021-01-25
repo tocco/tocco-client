@@ -253,7 +253,7 @@ describe('tocco-ui', () => {
     }]
 
     test('should get correct name of color for text', () => {
-      mapTextColorNames.map(item => {
+      mapTextColorNames.forEach(item => {
         expect(getTextColor(item.input)).to.be.equal(item.output)
       })
     })
@@ -389,7 +389,7 @@ describe('tocco-ui', () => {
     }]
 
     test('should get correct name of color for borders', () => {
-      mapBorderColorNames.map(item => {
+      mapBorderColorNames.forEach(item => {
         expect(getBorderColor(item.input)).to.be.equal(item.output)
       })
     })

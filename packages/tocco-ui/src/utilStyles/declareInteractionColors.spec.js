@@ -68,7 +68,7 @@ describe('tocco-ui', () => {
           options: {shadeOffset: 0.1}
         }]
 
-        scenarios.map(scenario => {
+        scenarios.forEach(scenario => {
           const {color, expectation, options, step} = scenario
           expect(shadeColor(color, step, options)).to.equal(expectation)
         })
@@ -91,7 +91,7 @@ describe('tocco-ui', () => {
           options: {action: 'darken'}
         }]
 
-        scenarios.map(scenario => {
+        scenarios.forEach(scenario => {
           const {color, expectation, options} = scenario
           expect(shadeColor(color, 1, options)).to.equal(expectation)
         })
@@ -107,7 +107,7 @@ describe('tocco-ui', () => {
           options: {shadeFactor: 0.2, shadeOffset: 0.1}
         }]
 
-        scenarios.map(scenario => {
+        scenarios.forEach(scenario => {
           const {color, expectation, options} = scenario
           expect(generateShades(color, options)).to.deep.equal(expectation)
         })
@@ -175,7 +175,7 @@ describe('tocco-ui', () => {
             fg: ['#300', '#000', '#000']
           }
         }]
-        scenarios.map(scenario => {
+        scenarios.forEach(scenario => {
           const {scheme, expectation} = scenario
           expect(generateInteractionColors(props, scheme)).to.deep.equal(expectation)
         })

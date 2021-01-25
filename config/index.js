@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 
 import chalk from 'chalk'
 
@@ -11,7 +12,8 @@ logger.info(`Apply environment overrides for NODE_ENV ${chalk.bold(config.env)}.
 const overridesFilename = `_${config.env}`
 let hasOverridesFile
 try {
-  fs.lstatSync(`${__dirname}/${overridesFilename}.js`)
+  // eslint-disable-next-line node/no-path-concat
+  fs.lstatSync(path.join(__dirname), `${overridesFilename}.js`)
   hasOverridesFile = true
 } catch (e) {}
 

@@ -48,7 +48,7 @@ describe('scheduler', () => {
           const events = getEvents(mockCalendars)
           const resources = getResources(mockCalendars)
 
-          events.map(event => {
+          events.forEach(event => {
             expect(resources.filter(resource => resource.id === event.resourceId)).to.have.length(1)
           })
         })
@@ -58,7 +58,7 @@ describe('scheduler', () => {
             const events = getEvents(mockCalendars)
             expect(events).to.have.length(3)
 
-            events.map(event => {
+            events.forEach(event => {
               expect(event).to.have.property('resourceId')
               expect(event).to.have.property('title')
               expect(event).to.have.property('start')
@@ -72,7 +72,7 @@ describe('scheduler', () => {
             const resources = getResources(mockCalendars)
             expect(resources).to.have.length(2)
 
-            resources.map(resource => {
+            resources.forEach(resource => {
               expect(resource).to.have.property('id')
               expect(resource).to.have.property('title')
               expect(resource).to.have.property('entityKey')

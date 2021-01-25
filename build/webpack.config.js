@@ -34,7 +34,7 @@ const webpackConfig = {
     ],
     alias: {
       ...(__DEV__ ? {'react-dom': '@hot-loader/react-dom'} : {}),
-      moment: `${__dirname}/../node_modules/moment/moment.js`
+      moment: path.join(__dirname, '..', 'node_modules', 'moment', 'moment.js')
     }
   },
   performance: {
