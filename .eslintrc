@@ -52,7 +52,6 @@
     "max-len":  [2, 120, 2],
     "arrow-parens":  [2, "as-needed"],
     "quote-props": [2, "consistent-as-needed"],
-    "standard/object-curly-even-spacing": [2, "never"],
     "object-curly-spacing": [2, "never"],
     "no-var": 2,
     "prefer-const": 2,
@@ -75,6 +74,7 @@
     "import/order": [2, {"groups": ["builtin", "external", ["sibling", "parent", "index"]], "newlines-between": "always"}],
     "import/first": 2,
     "import/no-webpack-loader-syntax": 0,
-    "monorepo/no-relative-import": 2
+    "monorepo/no-relative-import": 2,
+    "prefer-regex-literals": 0
   }
 }
