@@ -37,19 +37,22 @@ const mapStateToProps = (
   ...(searchFilters ? {searchFilters: _pick(state.formData.searchFilters, searchFilters)} : {}),
   ...(locations ? {locations: _pick(state.formData.locations, locations)} : {}),
   ...(formValues && state.form[formValues.formName]
-    ? {formValues: _pick(state.form[formValues.formName].values, formValues.fields)} : {}),
+    ? {formValues: _pick(state.form[formValues.formName].values, formValues.fields)}
+    : {}),
   ...(isDirty && state.form[isDirty.formName]
-    ? {isDirty: isDirtySelector(isDirty.formName)(state, ...isDirty.fields)} : {}),
+    ? {isDirty: isDirtySelector(isDirty.formName)(state, ...isDirty.fields)}
+    : {}),
   ...(errors && state.form[errors.formName]
     ? {
-      errors: _reduce(
-        _merge(
-          _pick(getFormSubmitErrors(errors.formName)(state), errors.fields),
-          _pick(getFormSyncErrors(errors.formName)(state), errors.fields),
-          _pick(getFormAsyncErrors(errors.formName)(state), errors.fields)
-        ),
-        (result, value) => ({...result, ...value}), null)
-    } : null),
+        errors: _reduce(
+          _merge(
+            _pick(getFormSubmitErrors(errors.formName)(state), errors.fields),
+            _pick(getFormSyncErrors(errors.formName)(state), errors.fields),
+            _pick(getFormAsyncErrors(errors.formName)(state), errors.fields)
+          ),
+          (result, value) => ({...result, ...value}), null)
+      }
+    : null),
   ...(navigationStrategy && state.formData.navigationStrategy
     ? {navigationStrategy: state.formData.navigationStrategy.navigationStrategy}
     : {}

@@ -7,10 +7,10 @@ import {StyledPasswordInput, StyledPasswordInputWrapper} from './StyledPasswordI
 const PasswordInput = props => {
   const getSignal = props.value
     ? props.valid === undefined
-      ? null
-      : props.valid
-        ? design.condition.SUCCESS
-        : design.condition.DANGER
+        ? null
+        : props.valid
+          ? design.condition.SUCCESS
+          : design.condition.DANGER
     : null
 
   return (

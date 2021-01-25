@@ -102,9 +102,11 @@ const InputEditTable = ({
     setColumnPosition(columns.reduce((acc, c) => {
       return [
         ...acc,
-        ...(c.id === newPositionColumn ? [
-          c.id, column
-        ] : []),
+        ...(c.id === newPositionColumn
+          ? [
+              c.id, column
+            ]
+          : []),
         ...(c.id === column ? [] : [c.id])
       ]
     }, []))

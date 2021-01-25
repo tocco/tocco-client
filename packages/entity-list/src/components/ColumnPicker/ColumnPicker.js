@@ -21,7 +21,8 @@ const ColumnPicker = ({columns, onOk, intl}) => {
         type={'checkbox'}
         id={column.id}
         checked={Object.prototype.hasOwnProperty.call(selectedColumns, column.id)
-          ? selectedColumns[column.id] : !column.hidden}
+          ? selectedColumns[column.id]
+          : !column.hidden}
         onChange={value => setSelectedColumns({...selectedColumns, [column.id]: value.target.checked})}
       />
       <Typography.Label for={column.id}>

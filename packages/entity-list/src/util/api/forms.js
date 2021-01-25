@@ -46,9 +46,10 @@ const getSortingAttributes = (column, sorting) => {
   const idx = sorting && sorting.findIndex(s => s.field === column.id)
   return idx >= 0
     ? {
-      sortRank: idx + 1,
-      order: sorting[idx].order
-    } : null
+        sortRank: idx + 1,
+        order: sorting[idx].order
+      }
+    : null
 }
 
 const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude', 'long', 'longitude', 'moneyamount',
@@ -62,7 +63,8 @@ export const getColumnDefinition = (
 ) => {
   return table.children
     .filter(column => Object.prototype.hasOwnProperty.call(columnDisplayPreferences, column.id)
-      ? columnDisplayPreferences[column.id] : !column.hidden)
+      ? columnDisplayPreferences[column.id]
+      : !column.hidden)
     .filter(column => !parent || column.children.length !== 1 || column.children[0].path !== parent.reverseRelationName)
     .filter(column => column.children.filter(isDisplayableChild).length > 0)
     .map(c => (
@@ -163,5 +165,6 @@ export const getTableColumns = (formDefinition, columnDisplayPreferences = {}, p
     .map(column => ({
       ...column,
       hidden: Object.prototype.hasOwnProperty.call(columnDisplayPreferences, column.id)
-        ? !columnDisplayPreferences[column.id] : column.hidden
+        ? !columnDisplayPreferences[column.id]
+        : column.hidden
     }))

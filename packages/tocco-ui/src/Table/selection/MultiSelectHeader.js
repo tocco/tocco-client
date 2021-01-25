@@ -11,7 +11,8 @@ const MultiSelectHeader = ({data, isSelected, selectionChange}) => {
   }
 
   const allRowsSelectionState = allKeys.every(k => isSelected(k))
-    ? 'checked' : allKeys.some(k => isSelected(k))
+    ? 'checked'
+    : allKeys.some(k => isSelected(k))
       ? 'indeterminate'
       : 'unchecked'
   return data.length === 0

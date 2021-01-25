@@ -6,17 +6,19 @@ export const transformResponseData = response =>
       const isInputField = !isNaN(parseInt(key))
       return {
         ...acc,
-        ...(isInputField ? {
-          inputFields: {
-            ...acc.inputFields,
-            [key]: dataRecord[key]
-          }
-        } : {
-          entityFields: {
-            ...acc.entityFields,
-            [key]: dataRecord[key]
-          }
-        })
+        ...(isInputField
+          ? {
+              inputFields: {
+                ...acc.inputFields,
+                [key]: dataRecord[key]
+              }
+            }
+          : {
+              entityFields: {
+                ...acc.entityFields,
+                [key]: dataRecord[key]
+              }
+            })
       }
     }, {
       inputFields: {},

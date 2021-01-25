@@ -16,12 +16,12 @@ export default function* (definition, selection, parent, params) {
     remoteEvents: [
       ...(response && response.success
         ? [{
-          type: 'entity-update-event',
-          payload: {
-            parent,
-            entities: [{entityName: selection.entityName}]
-          }
-        }]
+            type: 'entity-update-event',
+            payload: {
+              parent,
+              entities: [{entityName: selection.entityName}]
+            }
+          }]
         : []
       )
     ]

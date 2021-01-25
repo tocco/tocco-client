@@ -60,7 +60,7 @@ const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInPro
                 )
               }
             </StyledTableRow>
-          )
+            )
           : <NoDataRow/>
     }
   </StyledTableBody>

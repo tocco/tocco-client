@@ -4,9 +4,10 @@ const getSortingAttributes = (column, sorting) => {
   const idx = sorting && sorting.findIndex(s => s.field === column.id)
   return idx >= 0
     ? {
-      sortRank: idx + 1,
-      order: sorting[idx].order
-    } : null
+        sortRank: idx + 1,
+        order: sorting[idx].order
+      }
+    : null
 }
 
 const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude', 'long', 'longitude', 'moneyamount',

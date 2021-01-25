@@ -12,22 +12,25 @@ const transformRelatedEntities = (relatedEntities, entityToDelete, deletable, cu
     ...acc,
     ...(deletable || affectedEntity.deleteStatus !== deleteStatus.DELETABLE
       ? {
-        [affectedEntity.entityName]: {
-          ..._get(acc, affectedEntity.entityName, {keys: [], keysOtherBu: [], entityLabel: affectedEntity.entityLabel}),
-          ...(affectedEntity.businessUnitId === null || affectedEntity.businessUnitId === currentBuId
-            ? {
-              keys: Array.from(
-                new Set([..._get(acc, [affectedEntity.entityName, 'keys'], []), affectedEntity.key])
-              )
-            }
-            : {
-              keysOtherBu: Array.from(
-                new Set([..._get(acc, [affectedEntity.entityName, 'keysOtherBu'], []), affectedEntity.key])
-              )
-            }
-          )
+          [affectedEntity.entityName]: {
+            ..._get(acc,
+              affectedEntity.entityName,
+              {keys: [], keysOtherBu: [], entityLabel: affectedEntity.entityLabel}
+            ),
+            ...(affectedEntity.businessUnitId === null || affectedEntity.businessUnitId === currentBuId
+              ? {
+                  keys: Array.from(
+                    new Set([..._get(acc, [affectedEntity.entityName, 'keys'], []), affectedEntity.key])
+                  )
+                }
+              : {
+                  keysOtherBu: Array.from(
+                    new Set([..._get(acc, [affectedEntity.entityName, 'keysOtherBu'], []), affectedEntity.key])
+                  )
+                }
+            )
+          }
         }
-      }
       : {}
     )
   }), {...relatedEntities})

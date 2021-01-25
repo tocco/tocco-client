@@ -50,14 +50,16 @@ const ListView = ({
       const actionBar = getActionBar(formDefinition)
       const content = [
         ...showSelectionController
-          ? [<SelectionControllerContainer key="selectionController"/>] : [],
+          ? [<SelectionControllerContainer key="selectionController"/>]
+          : [],
         ...showActions !== false && actionBar
           ? [<ActionContainer
             key={`listAction-${actionBar.id}`}
             definition={actionBar}
             parent={parent}
             disabled={dataLoadingInProgress}
-          />] : []
+          />]
+          : []
       ]
 
       if (content.length > 0 && actionBar) {

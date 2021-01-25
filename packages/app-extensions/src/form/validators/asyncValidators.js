@@ -13,12 +13,12 @@ export const phoneValidator = async(value, phoneValidation = {}) => {
   return (isValidCustomRegex || isValidPhoneNumber)
     ? null
     : {
-      phone: [<FormattedMessage
+        phone: [<FormattedMessage
         key="invalidPhoneNumber"
         id="client.component.form.invalidPhoneNumber"
       />
-      ]
-    }
+        ]
+      }
 }
 
 export default {
