@@ -1,3 +1,6 @@
+0.2.7-hotfix225.2
+- Fix login after password update with recaptcha
+
 0.2.7-hotfix225.1
 - Fix style bugs
 
