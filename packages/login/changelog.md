@@ -1,3 +1,6 @@
+0.2.12-hotfix226.2
+- Fix login after password update with recaptcha
+
 0.2.12-hotfix226.1
 - Fix leading zeros bug in two-factor code
 
