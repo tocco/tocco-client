@@ -96,7 +96,7 @@ export function* savePassword({payload: {executeRecaptcha}}) {
         newPassword: data.newPassword
       }))
     } else {
-      const loginData = yield call(getLoginData)
+      const loginData = yield call(getLoginData, executeRecaptcha)
       yield put(setPassword(loginData.payload.password))
       yield call(loginSaga, loginData)
     }
@@ -115,14 +115,15 @@ export function* getData() {
   }
 }
 
-export function* getLoginData() {
+export function* getLoginData(executeRecaptcha) {
   const password = yield select(passwordSelector)
   const username = yield select(usernameSelector)
 
   return {
     payload: {
       username,
-      password: password.newPasswordRepeat
+      password: password.newPasswordRepeat,
+      executeRecaptcha
     }
   }
 }

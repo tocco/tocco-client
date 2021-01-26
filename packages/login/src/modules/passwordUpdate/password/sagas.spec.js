@@ -231,7 +231,7 @@ describe('login', () => {
 
               const standalone = false
 
-              expect(generator.next(standalone).value).to.deep.equal(call(sagas.getLoginData))
+              expect(generator.next(standalone).value).to.deep.equal(call(sagas.getLoginData, executeRecaptcha))
               const loginData = {payload: {username: 'user1', password: '123'}}
 
               expect(generator.next(loginData).value).to.deep.equal(put(setPassword('123')))
