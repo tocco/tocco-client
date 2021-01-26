@@ -8,7 +8,7 @@ const mapActionCreators = {
   executeMerge
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   sourceData: state.merge.sourceData,
   mergePending: state.merge.mergePending,
   mergeErrorMsg: state.merge.mergeErrorMsg,
