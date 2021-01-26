@@ -3,10 +3,12 @@ const PARENT_PATH_REGEX = /^\/docs\/(domain|folder)\/(\d+)\/list$/
 
 const getResourceNode = pathname => {
   const docMatches = DOC_PATH_REGEX.exec(pathname)
-  return docMatches && docMatches.length >= 2 ? {
-    model: 'Resource',
-    key: docMatches[1]
-  } : null
+  return docMatches && docMatches.length >= 2
+    ? {
+        model: 'Resource',
+        key: docMatches[1]
+      }
+    : null
 }
 
 const getParentNode = pathname => {
