@@ -89,7 +89,7 @@ const mapActionCreatorsCell = {
   setSelectedMultipleAll,
   openEntityList
 }
-const mapStateToPropsCell = (state, props) => ({
+const mapStateToPropsCell = state => ({
   selectedSingle: state.merge.selected.single,
   selectedMultiple: state.merge.selected.multiple,
   selectedMultipleAll: state.merge.selected.multipleAll,

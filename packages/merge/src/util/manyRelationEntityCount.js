@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {StyledLink, Typography} from 'tocco-ui'
+import {Typography} from 'tocco-ui'
 import {navigationStrategy} from 'tocco-util'
+
+import {ManyRelationsStyledLink} from './StyledComponents'
 
 const maxCountLink = 100
 
@@ -15,7 +17,7 @@ export const ManyRelationEntityCount = ({model, keys, totalKeys, openEntityList,
       openEntityList(model, keys)
     }
 
-    return <StyledLink onClick={showEntities}>({totalKeys})</StyledLink>
+    return <ManyRelationsStyledLink onClick={showEntities}>({totalKeys})</ManyRelationsStyledLink>
   } else {
     return <navigationStrategy.ListLink entityName={model} entityKeys={keys.slice(0, maxCountLink)}>
       ({totalKeys})
