@@ -26,6 +26,7 @@ export const StyledDnD = styled.div`
   padding: ${basePadding};
   width: 100%;
   display: flex;
+  align-items: center;
   opacity: ${({isDragged}) => isDragged ? 0.2 : 1};
 `
 
@@ -155,6 +156,12 @@ export const StyledTableWrapper = styled.div`
   background-color: ${theme.color('paper')};
   grid-template-rows: [table-start] minmax(300px, 1fr) [pagination-start] auto auto;
   height: 100%;
+
+  // reset external styles in old client
+  input[type='checkbox'],
+  input[type='radio'] {
+    margin: 3px 3px 3px 4px !important;
+  }
 
   @media screen and (max-height: 650px) {
     grid-template-rows: [table-start] 1fr [pagination-start] auto auto;

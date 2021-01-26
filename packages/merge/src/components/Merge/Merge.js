@@ -1,15 +1,9 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import MergeTable from '../MergeTable'
 import MergeSummary from '../MergeSummary'
-
-const StyledMerge = styled.div`
-  margin: 5px;
-  height: 100%;
-  overflow: hidden;
-`
+import {StyledMerge} from './StyledComponents'
 
 const Merge = ({initialize, mergeDone}) => {
   useEffect(() => {
@@ -18,9 +12,7 @@ const Merge = ({initialize, mergeDone}) => {
 
   return (
     <StyledMerge>
-      {
-        mergeDone ? <MergeSummary/> : <MergeTable/>
-      }
+      {mergeDone ? <MergeSummary/> : <MergeTable/>}
     </StyledMerge>
   )
 }

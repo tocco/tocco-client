@@ -8,7 +8,7 @@ const mapActionCreators = {
   initialize
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   mergeDone: !!state.merge.mergeResponse
 })
 
