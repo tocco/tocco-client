@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 import _get from 'lodash/get'
 import {
   declareFont,
@@ -58,8 +58,6 @@ export const StyledFullCalendarWrapper = styled.div`
 
     .fc-event {
       cursor: pointer;
-      border: none;
-      background-color: ${theme.color('signal.info.paper')};
 
       .dark {
         color: ${theme.color('text')};
@@ -87,4 +85,31 @@ export const StyledFullCalendarWrapper = styled.div`
 export const StyledMemoizedFullCalender = styled.div`
   overflow-y: auto;
   ${StyledScrollbar}
+`
+
+export const CalendarGlobalPrintStyle = createGlobalStyle`
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+
+    #section-to-print,
+    #section-to-print * {
+      visibility: visible;
+      color: ${theme.color('text')};
+
+      input[type='checkbox'] {
+        visibility: hidden !important;
+      }
+    }
+
+    #section-to-print {
+      position: fixed;
+      overflow: visible;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  }
 `
