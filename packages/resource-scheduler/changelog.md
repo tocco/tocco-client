@@ -1,3 +1,6 @@
+0.4.1
+- Reset font sizes inside updated fullcalendar
+
 0.4.0
 - Update Calendar component
 - Style fullcalendar after update
