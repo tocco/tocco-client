@@ -7,11 +7,15 @@ React-registry name: `merge`
 
 ### Inputs
 
-| Name                            | Mandatory   | Description                                                                                                                                                                                               | Type     | Default-Value              |
-|-------------------------------- | :---------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -------- | ---------------------------|
+| Name                            | Mandatory   | Description            | Type     | Default-Value              |
+|-------------------------------- | :---------: | -----------------------| -------- | ---------------------------|
 | `selection`                     | *           | Selection of entities
+| `onSuccess`                     |             | Callback if merge was successful
+| `isOldClient`                   |             | Can be set to true to work with `openEntityList`. Temporary workaround.
 
 
 ### Events
 
-None so far.
+| Name                   | Description
+|------------------------|------------
+| `openEntityList`       | Should be set if `isOldClient` is true. Passes an object with entity name and keys {model: 'User, keys:["1"]}
