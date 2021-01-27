@@ -75,6 +75,7 @@ export const getColumnDefinition = (
           sortable: c.sortable,
           ...getSortingAttributes(c, sorting)
         },
+        shrinkToContent: c.shrinkToContent || false,
         children: c.children.filter(isDisplayableChild),
         resizable: !c.widthFixed,
         rightAligned: isRightAligned(c),

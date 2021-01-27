@@ -52,7 +52,8 @@ describe('entity-list', () => {
                   children: [field1],
                   sortable: true,
                   widthFixed: false,
-                  width: null
+                  width: null,
+                  shrinkToContent: true
                 }, {
                   id: 'lb2',
                   label: 'label2',
@@ -74,7 +75,8 @@ describe('entity-list', () => {
                 children: [field1],
                 sorting: {sortable: true},
                 resizable: true,
-                rightAligned: false
+                rightAligned: false,
+                shrinkToContent: true
               },
               {
                 label: 'label2',
@@ -82,7 +84,8 @@ describe('entity-list', () => {
                 children: [field2],
                 sorting: {sortable: false},
                 resizable: false,
-                rightAligned: true
+                rightAligned: true,
+                shrinkToContent: false
               }
             ]
 
