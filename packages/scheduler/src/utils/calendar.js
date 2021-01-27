@@ -29,7 +29,7 @@ export const getEvents = calendars =>
         end: event.end,
         description: event.description,
         conflict: event.conflict,
-        ...(event.color ? {backgroundColor: event.color} : {}),
+        ...(event.color ? {backgroundColor: event.color, borderColor: event.color} : {}),
         styleAttr: [
           ...(event.conflict === conflicts.EXISTING ? ['conflict'] : []),
           getOptimalTextColorClass(event.color)

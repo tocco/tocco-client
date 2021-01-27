@@ -11,7 +11,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import adaptivePlugin from '@fullcalendar/adaptive'
 
 import NavigationFullCalendar from '../NavigationFullCalendar'
-import {StyledFullCalendarWrapper, StyledMemoizedFullCalender} from './StyledFullCalendar'
+import {StyledFullCalendarWrapper, StyledMemoizedFullCalender, CalendarGlobalPrintStyle} from './StyledFullCalendar'
 import Conflict from '../Conflict'
 import {getFormattedTime} from '../../utils/time'
 import ResourceLabelContent from './ResourceLabelContent'
@@ -181,7 +181,8 @@ const FullCalendar = ({
       }}
     />, [resources.length])
 
-  return <StyledFullCalendarWrapper ref={wrapperEl}>
+  return <StyledFullCalendarWrapper ref={wrapperEl} >
+    <CalendarGlobalPrintStyle />
     {calendarEl.current && <NavigationFullCalendar
       changeRange={changeRange}
       changeView={changeView}
@@ -195,7 +196,7 @@ const FullCalendar = ({
       title={calendarEl.current.getApi().view.title}
       type={calendarEl.current.getApi().view.type}
     />}
-    <StyledMemoizedFullCalender>
+    <StyledMemoizedFullCalender id="section-to-print">
       {memoizedFullCalendar}
     </StyledMemoizedFullCalender>
   </StyledFullCalendarWrapper>
