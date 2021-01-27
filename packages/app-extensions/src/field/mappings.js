@@ -57,7 +57,7 @@ const editableMapping = {
 }
 const readOnlyMapping = {
   'binary': formattedValueFactory('document'),
-  'birthdate': formattedValueFactory('birthdate'),
+  'birthdate': formattedValueFactory('date'),
   'boolean': formattedValueFactory('boolean'),
   'code': formattedValueFactory('text'),
   'char': formattedValueFactory('string'),
