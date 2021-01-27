@@ -1,3 +1,6 @@
+0.4.0
+- Merge V2!
+
 0.3.6
 - Reset css overwrites of Upload.js and refactor Preview.js
 - Restrict urls in table to one line
