@@ -1,3 +1,7 @@
+0.4.13
+- Support uploading documents in DMS
+- Merge V2!
+
 0.4.12
 - Text autosize new component (Fixes Safari performance problems)
 
