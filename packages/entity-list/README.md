@@ -32,6 +32,7 @@ React-registry name: `entity-list`
 | `cellRenderers`                 |             | Map of custom cell renderers which might be specified in list form definition (`client-renderer` attribute)                                                                                                                       | React Component |                     |
 | `navigationStrategy`            |             | Object consisting of various link factories. For more information see tocco-util/navigationStrategy documentation.
 | `customActions`                 |             | Map of custom action handlers. Note that this prop should only be used if you have an action without a component (i.e. an action that only puts a redux action to trigger a saga). If rendering of a component is involved (like it is in most cases), you should use `actionAppComponent`. | Object
+| `contextParams`                 |             | Map of parameters that will be added to the context which will be passed on to the called actions.                                                                                                        | Object
 
 ### Events
 

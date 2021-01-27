@@ -44,6 +44,12 @@ const initApp = (id, input, events = {}, publicPath) => {
     ...(input.customActions || {})
   }
 
+  const context = {
+    viewName: 'list',
+    formName: input.formName,
+    ...(input.contextParams || {})
+  }
+
   if (!store) {
     store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -57,10 +63,7 @@ const initApp = (id, input, events = {}, publicPath) => {
       customActions: allCustomActions,
       appComponent: input.actionAppComponent,
       navigationStrategy: input.navigationStrategy,
-      context: {
-        viewName: 'list',
-        formName: input.formName
-      }
+      context
     })
     formData.addToStore(store, {listApp: EntityListApp, navigationStrategy: input.navigationStrategy})
 
@@ -175,7 +178,8 @@ EntityListApp.propTypes = {
     value: PropTypes.string
   }),
   actionAppComponent: PropTypes.func,
-  navigationStrategy: navigationStrategy.propTypes
+  navigationStrategy: navigationStrategy.propTypes,
+  contextParams: PropTypes.object
 }
 
 export default hot(EntityListApp)
