@@ -5,6 +5,7 @@ import {viewPersistor} from 'tocco-util'
 import {Icon} from 'tocco-ui'
 import {put} from 'redux-saga/effects'
 
+import Action from '../Action'
 import FileInput from '../FileInput'
 
 const ICONS = {
@@ -78,6 +79,10 @@ const DocsView = props => {
           )
         }}
         emitAction={emitAction}
+        actionAppComponent={Action}
+        contextParams={{
+          history
+        }}
         customActions={{
           'upload-document': handleCreateDocument
         }}
