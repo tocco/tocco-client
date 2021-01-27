@@ -191,6 +191,7 @@
             "readonly": false,
             "hidden": false,
             "sortable": true,
+            "shrinkToContent": true,
             "width": 50,
             "widthFixed": true,
             "children": [
@@ -262,6 +263,7 @@
             "id": "birthdate",
             "componentType": "Column",
             "readonly": false,
+            "shrinkToContent": true,
             "children": [
               {
                 "id": "birthdate",
@@ -280,6 +282,7 @@
             "id": "salary",
             "componentType": "Column",
             "readonly": false,
+            "shrinkToContent": true,
             "children": [
               {
                 "id": "salary",
