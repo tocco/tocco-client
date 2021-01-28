@@ -11,6 +11,7 @@ import {
   StyledDateAbstractWrapper,
   StyledDateAbstractOuterWrapper
 } from './StyledDateAbstract'
+import {GlobalStyles} from '../../DatePicker/DatePickerCustomStyles'
 
 class DateAbstract extends React.Component {
   Flatpickr = null
@@ -133,42 +134,45 @@ class DateAbstract extends React.Component {
 
   render() {
     return (
-      <StyledDateAbstractOuterWrapper
-        immutable={this.props.immutable}
-        id={this.props.id}
-        tabIndex="-1"
-        onFocus={() => {
-          // flatpickr add two input in the DOM. One for the actual value (hidden) and one for the altInput
-          const inputElement = this.wrapper.current.querySelector('input.flatpickr-input:not([type="hidden"])')
-          if (inputElement) {
-            inputElement.focus()
-          }
-          setTimeout(() => {
-            this.flatpickr.open()
-          })
-        }}
-      >
-        <StyledDateAbstractWrapper
-          data-wrap
-          onBlur={this.handleOnBlur}
+      <>
+        <GlobalStyles/>
+        <StyledDateAbstractOuterWrapper
           immutable={this.props.immutable}
-          ref={this.wrapper}
-
+          id={this.props.id}
+          tabIndex="-1"
+          onFocus={() => {
+          // flatpickr add two input in the DOM. One for the actual value (hidden) and one for the altInput
+            const inputElement = this.wrapper.current.querySelector('input.flatpickr-input:not([type="hidden"])')
+            if (inputElement) {
+              inputElement.focus()
+            }
+            setTimeout(() => {
+              this.flatpickr.open()
+            })
+          }}
         >
-          <StyledDateAbstractInput
-            {...this.props.immutable ? {disabled: 'disabled'} : {}}
-            type="text"
-            data-input
+          <StyledDateAbstractWrapper
+            data-wrap
+            onBlur={this.handleOnBlur}
             immutable={this.props.immutable}
-            {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
-          />
-          <StyledDateAbstractInput
-            disabled
-            immutable={this.props.immutable}
-            value={this.state.altInput}
-          />
-        </StyledDateAbstractWrapper>
-      </StyledDateAbstractOuterWrapper>
+            ref={this.wrapper}
+
+          >
+            <StyledDateAbstractInput
+              {...this.props.immutable ? {disabled: 'disabled'} : {}}
+              type="text"
+              data-input
+              immutable={this.props.immutable}
+              {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
+            />
+            <StyledDateAbstractInput
+              disabled
+              immutable={this.props.immutable}
+              value={this.state.altInput}
+            />
+          </StyledDateAbstractWrapper>
+        </StyledDateAbstractOuterWrapper>
+      </>
     )
   }
 }

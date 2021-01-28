@@ -1,18 +1,12 @@
 import React, {useRef} from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
-import styled, {withTheme} from 'styled-components'
+import {withTheme} from 'styled-components'
 
 import {theme} from '../utilStyles'
 import {useDatePickr} from './useDatePickr'
-
-const WrapperStyle = styled.div`
-  cursor: pointer;
-
-  .flatpickr-calendar.open  {
-    top: auto !important;
-  }
-`
+import {StyledWrapper} from './StyledDatePicker'
+import {GlobalStyles} from './DatePickerCustomStyles'
 
 export const DatePicker = props => {
   const {value, children, intl, onChange} = props
@@ -24,19 +18,22 @@ export const DatePicker = props => {
   useDatePickr(wrapperElement, {value, onChange, fontFamily, locale})
 
   return (
-    <WrapperStyle
-      data-wrap
-      ref={wrapperElement}
-    >
-      <div data-toggle>
-        <input
-          style={{display: 'none'}}
-          type="text"
-          data-input
-        />
-        {children}
-      </div>
-    </WrapperStyle>
+    <>
+      <GlobalStyles/>
+      <StyledWrapper
+        data-wrap
+        ref={wrapperElement}
+      >
+        <div data-toggle>
+          <input
+            style={{display: 'none'}}
+            type="text"
+            data-input
+          />
+          {children}
+        </div>
+      </StyledWrapper>
+    </>
   )
 }
 
