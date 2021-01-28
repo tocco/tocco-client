@@ -13,7 +13,7 @@ const StyledBoxWrapper = styled.div`
   && {
     background-color: ${theme.color('paper')};
     max-width: calc(100vw - ${({spacer}) => `${spacer}px - ${spacer}px`});
-    margin: ${ARROW_WIDTH / 2}px 0;
+    margin: ${({placement}) => placement !== 'right' ? `${ARROW_WIDTH / 2}px 0` : '0 0 0 6px'};
     z-index: 100000010;
     border: ${BORDER_WIDTH}px solid ${theme.color('secondaryLight')};
     padding: ${({rimless}) => rimless ? '0' : scale.space(-1)};
@@ -47,6 +47,16 @@ const StyledArrow = styled.i`
     &:before {
       border-width: ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px 0 ${ARROW_WIDTH / 2}px;
       border-color: ${theme.color('secondaryLight')} transparent transparent transparent;
+    }
+  }
+
+  &[data-placement*='right'] {
+    left: -${ARROW_WIDTH}px;
+    top: -6px !important;
+
+    &:before {
+      border-width: ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px;
+      border-color: transparent ${theme.color('secondaryLight')} transparent transparent;
     }
   }
 

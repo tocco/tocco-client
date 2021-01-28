@@ -11,7 +11,8 @@ import {
 
 const placements = {
   TOP: 'top',
-  BOTTOM: 'bottom'
+  BOTTOM: 'bottom',
+  RIGHT: 'right'
 }
 
 const Popover = ({
@@ -56,6 +57,7 @@ const Popover = ({
               style={style}
               spacer={spacer}
               rimless={rimless}
+              placement={placement}
             >
               <StyledBox
                 isPlainHtml={isPlainHtml}

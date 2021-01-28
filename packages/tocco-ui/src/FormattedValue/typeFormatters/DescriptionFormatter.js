@@ -28,7 +28,7 @@ const DescriptionFormatter = props => {
   return <Popover
     content={content}
     isPlainHtml={true}
-    placement="top"
+    placement="right"
   ><Icon
       style={iconStyles}
       icon="question-circle"/>
