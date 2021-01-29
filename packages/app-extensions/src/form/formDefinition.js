@@ -41,7 +41,7 @@ export const getDefaultValues = fieldDefinitions =>
     .filter(f => f.defaultValue)
     .reduce((valueObj, field) => ({
       ...valueObj,
-      [field.id]: field.defaultValue
+      [field.path]: field.defaultValue
     }), {})
 
 const typePathsHandlers = {

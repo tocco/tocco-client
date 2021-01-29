@@ -20,7 +20,7 @@ const testField2 = {
 }
 
 const testField3 = {
-  id: 'xyz',
+  id: 'create_xyz',
   componentType: 'field',
   path: 'xyz',
   dataType: 'something',
@@ -163,8 +163,8 @@ describe('app-extensions', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
           const fieldNames = formDefinition.getDefaultValues(fields)
           expect(fieldNames).to.eql({
-            [testField2.id]: testField2.defaultValue,
-            [testField3.id]: testField3.defaultValue
+            [testField2.path]: testField2.defaultValue,
+            [testField3.path]: testField3.defaultValue
           })
         })
       })
