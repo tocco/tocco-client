@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import {Table, Typography, Button, LoadMask} from 'tocco-ui'
+import {Table, Typography, LoadMask} from 'tocco-ui'
 import {FormattedMessage, injectIntl} from 'react-intl'
 
 import {getColumnDefinition, getDataRows} from '../../util/sourceData'
@@ -9,6 +9,8 @@ import sourceDataPropType from '../../util/sourceDataPropType'
 import {setTargetEntity} from '../../modules/merge/actions'
 import {CellRendererContainer} from './CellRender'
 import MergeErrors, {mergeValidationErrorsPropTypes} from './MergeErrors'
+import {StyledTableWrapper} from './StyledComponents'
+import {StyledButton, StyledButtonWrapper} from '../GlobalStyledComponents'
 
 const LabelCellRenderer = ({rowIdx, sourceData, allPaths}) => {
   const columnName = allPaths[rowIdx]
@@ -66,21 +68,25 @@ const MergeTable = ({sourceData, mergePending, mergeErrorMsg, mergeValidationErr
   }
 
   return <>
-    <Button onClick={executeMerge} look="raised" ink="primary" disabled={sourceData === null}>
-      <FormattedMessage id="client.merge.saveButton"/>
-    </Button>
-    <MergeErrors
-      sourceData={sourceData}
-      mergeErrorMsg={mergeErrorMsg}
-      mergeValidationErrors={mergeValidationErrors}/>
-    <Table
-      columns={columns}
-      data={data}
-      selectionStyle="none"
-      dataLoadingInProgress={sourceData === null}
-      onColumnPositionChange={() => {
-      }}
-    />
+    <StyledButtonWrapper>
+      <StyledButton onClick={executeMerge} look="raised" ink="primary" disabled={sourceData === null}>
+        <FormattedMessage id="client.merge.saveButton"/>
+      </StyledButton>
+    </StyledButtonWrapper>
+    <StyledTableWrapper>
+      <MergeErrors
+        sourceData={sourceData}
+        mergeErrorMsg={mergeErrorMsg}
+        mergeValidationErrors={mergeValidationErrors}/>
+      <Table
+        columns={columns}
+        data={data}
+        selectionStyle="none"
+        dataLoadingInProgress={sourceData === null}
+        onColumnPositionChange={() => {}}
+      />
+    </StyledTableWrapper>
+
   </>
 }
 

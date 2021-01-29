@@ -8,3 +8,7 @@ export const StyledLabelWrapper = styled.div`
     vertical-align: bottom;
   }
 `
+
+export const StyledTableWrapper = styled.div`
+  flex: 1;
+`

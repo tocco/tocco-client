@@ -1,12 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, Typography} from 'tocco-ui'
+import {Icon, Typography} from 'tocco-ui'
 import {navigationStrategy} from 'tocco-util'
 import {FormattedMessage} from 'react-intl'
 import _groupBy from 'lodash/groupBy'
 
 import {ManyRelationEntityCount} from '../../util/manyRelationEntityCount'
-import {StyledButtonWrapper} from './StyledComponents'
+import {
+  StyledSummarySuccessWrapper,
+  StyledResultsWrapper,
+  StyledIconWrapper,
+  StyledMessageWrapper
+} from './StyledComponents'
+import {StyledButtonWrapper, StyledButton} from '../GlobalStyledComponents'
 
 const MergeSummary = ({mergeResponse, navigationStrategy, isOldClient, close, openEntityList}) => {
   const mapToEntityList = entities => Object.entries(_groupBy(entities, e => e.entityLabel))
@@ -27,44 +33,53 @@ const MergeSummary = ({mergeResponse, navigationStrategy, isOldClient, close, op
   const notDeletedEntities = mapToEntityList(mergeResponse.notDeletedEntities)
 
   return <>
-    <Typography.H3>
-      <FormattedMessage id="client.merge.summary.success"/>
-      {
-        (mergeResponse.notCopiedRelations.length > 0 || mergeResponse.notDeletedEntities.length > 0)
-        && <FormattedMessage id="client.merge.summary.successHint"/>
-      }
-    </Typography.H3>
+    <StyledButtonWrapper>
+      <StyledButton onClick={close} look="raised" ink="primary">
+        <FormattedMessage id="client.merge.close"/>
+      </StyledButton>
+    </StyledButtonWrapper>
+    <StyledResultsWrapper>
+    <StyledSummarySuccessWrapper>
+      <StyledIconWrapper>
+        <Icon icon={'check'}/>
+      </StyledIconWrapper>
+      <Typography.P>
+        <FormattedMessage id="client.merge.summary.success"/>
+        {
+          (mergeResponse.notCopiedRelations.length > 0 || mergeResponse.notDeletedEntities.length > 0)
+          && <FormattedMessage id="client.merge.summary.successHint"/>
+        }
+      </Typography.P>
+    </StyledSummarySuccessWrapper>
     {
       mergeResponse.notCopiedRelations.length > 0
-      && <Typography.P>
-        <Typography.B>
+      && <StyledMessageWrapper>
+        <Typography.P>
           <FormattedMessage id="client.merge.summary.notCopiedRelations"/>:
+        </Typography.P>
+        <Typography.B>
+          {notCopiedRelations}
         </Typography.B>
-        <br/>
-        {notCopiedRelations}
-      </Typography.P>
+      </StyledMessageWrapper>
     }
     {
       mergeResponse.notDeletedEntities.length > 0
-      && <Typography.P>
-        <Typography.B>
+      && <StyledMessageWrapper>
+        <Typography.P>
           <FormattedMessage id="client.merge.summary.notDeletedEntities"/>:
+        </Typography.P>
+        <Typography.B>
+          {notDeletedEntities}
         </Typography.B>
-        <br/>
-        {notDeletedEntities}
-      </Typography.P>
+      </StyledMessageWrapper>
     }
     {
       mergeResponse.showPermissionMessage
-      && <Typography.B>
+      && <Typography.P>
         <FormattedMessage id="client.merge.summary.permission"/>
-      </Typography.B>
+      </Typography.P>
     }
-    <StyledButtonWrapper>
-      <Button onClick={close} look="raised" ink="primary">
-        <FormattedMessage id="client.merge.close"/>
-      </Button>
-    </StyledButtonWrapper>
+    </StyledResultsWrapper>
   </>
 }
 
