@@ -2,14 +2,14 @@ import {createGlobalStyle} from 'styled-components'
 
 import {theme, declareFont, scale} from '../utilStyles'
 
-const calendarWidth = 270.875
+const calendarWidth = 270
 const secondaryLight = theme.color('secondaryLight')
 const secondary = theme.color('secondary')
 const paper = theme.color('paper')
 const regular = theme.fontWeight('regular')
 const baseSpace = scale.space(-2)
 
-export const GlobalStyles = createGlobalStyle`
+export const GlobalDatePickerStyles = createGlobalStyle`
   .flatpickr-calendar {
     && {
       ${declareFont()}
@@ -58,8 +58,6 @@ export const GlobalStyles = createGlobalStyle`
     .flatpickr-day.today {
       border-color: ${secondary};
       font-weight: ${theme.fontWeight('bold')};
-      background-color: ${secondary};
-      color: ${paper};
     }
 
     .flatpickr-day {

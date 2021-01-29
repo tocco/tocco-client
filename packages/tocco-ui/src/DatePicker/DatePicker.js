@@ -6,7 +6,7 @@ import {withTheme} from 'styled-components'
 import {theme} from '../utilStyles'
 import {useDatePickr} from './useDatePickr'
 import {StyledWrapper} from './StyledDatePicker'
-import {GlobalStyles} from './DatePickerCustomStyles'
+import {GlobalDatePickerStyles} from './GlobalDatePickerStyles'
 
 export const DatePicker = props => {
   const {value, children, intl, onChange} = props
@@ -19,7 +19,7 @@ export const DatePicker = props => {
 
   return (
     <>
-      <GlobalStyles/>
+      <GlobalDatePickerStyles/>
       <StyledWrapper
         data-wrap
         ref={wrapperElement}
