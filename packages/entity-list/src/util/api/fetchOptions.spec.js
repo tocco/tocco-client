@@ -43,6 +43,15 @@ describe('entity-list', () => {
             expect(result).to.eql(expectedResult)
           })
 
+          test('should handle null search filters', () => {
+            const searchFormValues = {
+              searchFilter: null
+            }
+
+            const result = getFetchOptionsFromSearchForm(searchFormValues)
+            expect(result).to.eql({})
+          })
+
           test('should map single filter ', () => {
             const searchFormValues = {
               searchFilter: {uniqueId: 'filter1'}
