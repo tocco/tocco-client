@@ -219,7 +219,8 @@ describe('tocco-util', () => {
         const values = {
           'relGender': {key: '2', version: 3, model: 'Gender'},
           'relGender.relXy': {key: '33', version: 4},
-          'relGender.relXy.Z': 'TEST'
+          'relGender.relXy.Z': 'TEST',
+          'relGender.relXy.Y': 'TEST'
         }
 
         const dirtyFields = ['relGender.relXy.Z']
@@ -288,6 +289,20 @@ describe('tocco-util', () => {
         expect(result.key).to.eql('2')
         expect(result.model).to.eql('User')
         expect(result.version).to.eql(3)
+      })
+
+      test('should ignore pristine fields with same name prefix', () => {
+        const values = {
+          registration_internet_from: '2021-01-29T11:00:00.000Z',
+          registration: 1
+        }
+
+        const dirtyFields = ['registration_internet_from']
+
+        const result = toEntity(values, dirtyFields)
+
+        expect(result.paths).to.have.property('registration_internet_from')
+        expect(result.paths).to.not.have.property('registration')
       })
     })
   })
