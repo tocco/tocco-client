@@ -11,6 +11,7 @@ const ARROW_WIDTH = 16
 
 const StyledBoxWrapper = styled.div`
   && {
+    pointer-events: none; // prevent flickering of tooltip
     background-color: ${theme.color('paper')};
     max-width: calc(100vw - ${({spacer}) => `${spacer}px - ${spacer}px`});
     margin: ${({placement}) => placement !== 'right' ? `${ARROW_WIDTH / 2}px 0` : '0 0 0 6px'};
@@ -55,7 +56,7 @@ const StyledArrow = styled.i`
     top: -6px !important;
 
     &:before {
-      border-width: ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px;
+      border-width: ${ARROW_WIDTH / 2}px;
       border-color: transparent ${theme.color('secondaryLight')} transparent transparent;
     }
   }
