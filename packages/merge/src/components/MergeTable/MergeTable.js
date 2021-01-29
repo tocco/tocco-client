@@ -57,7 +57,8 @@ const MergeTable = ({sourceData, mergePending, mergeErrorMsg, mergeValidationErr
 
   const columns = useMemo(() =>
     sourceData
-      ? getColumnDefinition(sourceData, ColumnHeaderRendererContainer, CellRendererContainer, LabelCellRenderer) : []
+      ? getColumnDefinition(sourceData, ColumnHeaderRendererContainer, CellRendererContainer, LabelCellRenderer)
+      : []
   , [sourceData])
 
   if (mergePending) {
