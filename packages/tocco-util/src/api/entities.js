@@ -70,7 +70,7 @@ export const flattenPaths = (paths, currentPath = []) =>
  */
 export const toEntity = (flattenEntity, dirtyFields) => {
   const ignoredPath = path => (Object.values(metaFields).includes(path))
-      || (dirtyFields && !dirtyFields.some(dirtyField => dirtyField.startsWith(path)))
+      || (dirtyFields && !dirtyFields.some(dirtyField => dirtyField === path || dirtyField.startsWith(path + '.')))
 
   const valueSimplifier = value => {
     if (Array.isArray(value)) {
