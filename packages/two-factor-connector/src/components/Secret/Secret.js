@@ -4,7 +4,7 @@ import {QRCode, Typography, Button} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 import {StyledButtonWrapper} from '../GlobalStyledComponents'
-import {StyledQRCodeWrapper, StyledParagraph, StyledBoldText} from './StyledComponents'
+import {StyledQRCodeWrapper, StyledParagraph} from './StyledComponents'
 
 const Secret = ({secret, goToSecretVerification}) => {
   return <>
@@ -20,11 +20,9 @@ const Secret = ({secret, goToSecretVerification}) => {
     <StyledParagraph>
       <Typography.B>{secret.text}</Typography.B>
     </StyledParagraph>
-    <StyledBoldText>
-      <Typography.B>
+      <Typography.P>
         <FormattedMessage id="client.two-factor-connector.backupInfo"/>
-      </Typography.B>
-    </StyledBoldText>
+      </Typography.P>
     <StyledButtonWrapper>
       <Button
         ink="primary"
