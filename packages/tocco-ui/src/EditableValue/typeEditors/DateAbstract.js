@@ -11,7 +11,7 @@ import {
   StyledDateAbstractWrapper,
   StyledDateAbstractOuterWrapper
 } from './StyledDateAbstract'
-import {GlobalStyles} from '../../DatePicker/DatePickerCustomStyles'
+import {GlobalDatePickerStyles} from '../../DatePicker/GlobalDatePickerStyles'
 
 class DateAbstract extends React.Component {
   Flatpickr = null
@@ -135,7 +135,7 @@ class DateAbstract extends React.Component {
   render() {
     return (
       <>
-        <GlobalStyles/>
+        <GlobalDatePickerStyles/>
         <StyledDateAbstractOuterWrapper
           immutable={this.props.immutable}
           id={this.props.id}
