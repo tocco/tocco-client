@@ -8,7 +8,9 @@ export const getFetchOptionsFromSearchForm = (searchFormValues, formFields = {})
   _reduce(searchFormValues, (acc, value, path) => {
     const addition = {}
     if (path === 'searchFilter') {
-      addition.filters = getFilterArray(value)
+      if (value) {
+        addition.filters = getFilterArray(value)
+      }
     } else {
       const fieldType = formFields[path]
       const tql = tqlBuilder.getTql(path, value, fieldType)
