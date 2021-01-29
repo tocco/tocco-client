@@ -28,7 +28,9 @@ const ResourceScheduler = ({
   updateRequestedCalendars,
   requestedCalendars
 }) => {
-  useEffect(() => initialize(), [])
+  useEffect(() => {
+    initialize()
+  }, [])
 
   return (
     <StyledSplitPane
