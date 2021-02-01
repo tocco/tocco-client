@@ -6,7 +6,8 @@ import {LoadMask} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
 const actions = {
-  'create-folder': lazy(() => import(/* webpackChunkName: "actions" */'./actions/CreateFolder'))
+  'create-folder': lazy(() => import(/* webpackChunkName: "actions" */'./actions/CreateFolder')),
+  'delete': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Delete'))
 }
 
 const renderLoader = () => <LoadMask/>
