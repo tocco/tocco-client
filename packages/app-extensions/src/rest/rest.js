@@ -95,26 +95,26 @@ export function prepareRequest(resource, options = {}) {
   } = options
 
   let body = options.body
-  const headers = {}
+  const headers = options.headers || new Headers()
 
-  if (body && !(body instanceof FormData)) {
+  if (!headers.has('Content-Type') && body && !(body instanceof FormData)) {
     if (typeof body === 'string') {
-      headers['Content-Type'] = 'text/plain'
+      headers.set('Content-Type', 'text/plain')
     } else {
-      headers['Content-Type'] = 'application/json'
+      headers.set('Content-Type', 'application/json')
       body = JSON.stringify(body)
     }
   }
 
   if (nullBusinessUnit) {
-    headers['X-Business-Unit'] = '__n-u-l-l__'
+    headers.set('X-Business-Unit', '__n-u-l-l__')
   }
 
-  headers['X-Origin-Id'] = getOriginId()
+  headers.set('X-Origin-Id', getOriginId())
 
   const fetchOptions = {
     method,
-    headers: new Headers(headers),
+    headers,
     credentials: 'include',
     ...(body ? {body} : {})
   }
