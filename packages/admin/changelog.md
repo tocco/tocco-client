@@ -1,3 +1,15 @@
+0.4.14
+- Harmonize icon size and text spacing
+- Fix blank screen after navigating away from the calendar
+- Style datepicker so that it fits better into the rest of admin
+- Add a popover variant that is placed on the right of element
+- Prevent flickering effect for tooltips
+- New action in the docs route to create a folder
+- Support shrinkToContent column attribute
+- Fix search form endless loading with empty filter field
+- Fix dirty path bug
+- Fix missing default values bug
+
 0.4.13
 - Support uploading documents in DMS
 - Merge V2!
