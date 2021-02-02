@@ -24,9 +24,11 @@ const CreateFolder = ({context, onSuccess, intl}) => {
   }
 
   const parent = getNode(context.history.location.pathname)
-  const defaultValues = parent ? [
-    {id: `rel${parent.model}`, value: parent.key}
-  ] : []
+  const defaultValues = parent
+    ? [
+        {id: `rel${parent.model}`, value: parent.key}
+      ]
+    : []
 
   return <EntityDetailApp
     entityName="Folder"
