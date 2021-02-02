@@ -1,3 +1,15 @@
+0.4.2
+- Optimize print view for calendar
+- Fix blank screen after navigating away from the calendar
+- Style datepicker so that it fits better into the rest of admin
+- Add a popover variant that is placed on the right of element
+- Prevent flickering effect for tooltips
+- New input prop `contextParams` to extend context
+- Support shrinkToContent column attribute
+- Fix search form endless loading with empty filter field
+- Fix path dirty bug
+- Fix missing default values bug
+
 0.4.1
 - Reset font sizes inside updated fullcalendar
 
