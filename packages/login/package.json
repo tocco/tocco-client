@@ -13,6 +13,7 @@
     "tocco-test-util": "*",
     "tocco-theme": "*",
     "tocco-ui": "*",
-    "tocco-util": "*"
+    "tocco-util": "*",
+    "tocco-two-factor-connector": "*"
   }
 }
