@@ -322,6 +322,21 @@ describe('app-extensions', () => {
 
         expect(requestData2.url).to.eql('https://www.tocco.ch/nice2/rest/entities')
       })
+
+      test('should use Content-Type passed in options', () => {
+        const resource = 'endpoint'
+        const options = {
+          method: 'POST',
+          headers: new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+          }),
+          body: 'foo=bar'
+        }
+
+        const requestData = prepareRequest(resource, options)
+        const contentTypeHeader = requestData.options.headers.get('Content-Type')
+        expect(contentTypeHeader).to.eql('application/x-www-form-urlencoded; charset=utf-8')
+      })
     })
   })
 })
