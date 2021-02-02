@@ -1,3 +1,8 @@
+0.3.10-hotfix227.1
+- Fix deselect all bug
+- Map integer, counter and long to string
+- Fix search form endless loading with empty filter field
+
 0.3.10
 - Adjust filter pane height when expanded
 - Change chevron icon in multi select input when dropdown is opened
