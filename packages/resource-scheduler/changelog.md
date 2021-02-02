@@ -1,3 +1,7 @@
+0.3.3-hotfix226.1
+- Map integer, counter and long to string
+- Fix search form endless loading with empty filter field
+
 0.3.3
 - Fix shy in table header
 - Adjust HTML Edit
