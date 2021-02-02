@@ -12,7 +12,8 @@ export const secretSelector = state => state.twoFactorConnector.secret
 export const inputSelector = state => state.input
 
 export function* requestSecret() {
-  if (!(yield select(secretSelector))) {
+  const {secret: inputSecret} = yield select(inputSelector)
+  if (!inputSecret) {
     const username = yield select(usernameSelector)
     const principalsResponse = yield call(rest.requestSaga, `principals/${username}/two-factor`, {method: 'GET'})
     const {secret, totpUri} = principalsResponse.body
@@ -21,7 +22,10 @@ export function* requestSecret() {
   yield put(actions.goToSecret())
 }
 
-function* loginAndActivateTwoFactor(secret, userCode, username, password) {
+/* the regular two-factor endpoint can only be accessed while logged in to secure against anonymous activation of
+   two-factor validation on arbitrary accounts, so without a session we send a request to the login servlet which uses
+   the forced two-factor authenticator to validate login data and activate the two-factor login */
+function* activateTwoFactorWithoutSession(secret, userCode, username, password) {
   const data = {
     secret,
     userCode,
@@ -40,7 +44,7 @@ function* loginAndActivateTwoFactor(secret, userCode, username, password) {
         .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
     })
 
-  yield put(actions.setSetupSuccessful(response.TWOSTEPLOGIN_ACTIVATION.success))
+  yield put(actions.setSetupSuccessful(_get(response, 'body.TWOSTEPLOGIN_ACTIVATION.success', false)))
 }
 
 function* activateTwoFactor(username, secret, code) {
@@ -63,7 +67,7 @@ export function* verifyCode({payload: {userCode}}) {
   const {password, forced} = yield select(inputSelector)
 
   if (forced) {
-    yield call(loginAndActivateTwoFactor, secret, userCode, username, password)
+    yield call(activateTwoFactorWithoutSession, secret, userCode, username, password)
   } else {
     yield call(activateTwoFactor, username, secret, userCode)
   }
