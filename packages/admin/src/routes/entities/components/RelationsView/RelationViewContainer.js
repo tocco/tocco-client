@@ -7,8 +7,7 @@ import RelationsView from './RelationsView'
 const mapStateToProps = (state, props) => ({
   currentViewInfo: state.entities.path.currentViewInfos[props.history.location.pathname],
   relations: state.entities.path.relations,
-  relationsInfo: state.entities.path.relationsInfo,
-  entity: props.match.params.entity
+  relationsInfo: state.entities.path.relationsInfo
 })
 
 const mapActionCreators = {

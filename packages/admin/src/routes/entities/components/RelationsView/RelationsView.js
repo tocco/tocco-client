@@ -4,6 +4,7 @@ import {Icon, Typography} from 'tocco-ui'
 import {js, viewPersistor} from 'tocco-util'
 import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
+import _get from 'lodash/get'
 
 import {
   RelationBox,
@@ -25,22 +26,23 @@ const RelationsView = ({
   currentViewInfo,
   relations,
   relationsInfo,
-  entity,
   emitAction
 }) => {
   const [selectedRelation, selectRelation] = useState(null)
-
+  const entityName = _get(currentViewInfo, 'model.name')
   useEffect(
     () => {
-      const persistedSelectedRelation = getRelation(entity)
       if (relations && relations.length > 0) {
         const queryRelation = queryString.parse(history.location.search).relation
         if (queryRelation) {
           selectRelation(relations.find(r => r.relationName === queryRelation))
-        } else if (persistedSelectedRelation) {
-          selectRelation(relations.find(r => r.relationName === persistedSelectedRelation))
         } else {
-          selectRelation(relations[0])
+          const persistedSelectedRelation = getRelation(entityName)
+          if (persistedSelectedRelation) {
+            selectRelation(relations.find(r => r.relationName === persistedSelectedRelation))
+          } else {
+            selectRelation(relations[0])
+          }
         }
       }
     },
@@ -69,7 +71,7 @@ const RelationsView = ({
               history.replace({
                 search: '?relation=' + relation.relationName
               })
-              setRelation(entity, relation.relationName)
+              setRelation(entityName, relation.relationName)
             }}
           >
             <RelationLabel title={relation.relationDisplay.label}>
@@ -151,7 +153,6 @@ RelationsView.propTypes = {
     count: PropTypes.number,
     createPermission: PropTypes.bool
   })),
-  entity: PropTypes.string.isRequired,
   emitAction: PropTypes.func.isRequired
 }
 
