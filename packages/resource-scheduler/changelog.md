@@ -1,4 +1,4 @@
-0.3.10-hotfix227.1
+0.3.10-hotfix227.2
 - Fix deselect all bug
 - Map integer, counter and long to string
 - Fix search form endless loading with empty filter field
