@@ -12,6 +12,7 @@ import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {Pages} from '../types/Pages'
 import * as loginActions from './login/actions'
+import {setSecret} from './twoStepLogin/actions'
 
 describe('login', () => {
   describe('modules', () => {
@@ -59,6 +60,23 @@ describe('login', () => {
           }
           expect(gen.next(response).value).to.eql(put(changePage(Pages.LOGIN_FORM)))
           expect(gen.next().value).to.eql(call(sagas.handleTwoStepLoginResponse, response))
+          expect(gen.next().value).to.eql(put(setPending(false)))
+          expect(gen.next().done).to.eql(true)
+        })
+
+        test('should handle two step activation response', () => {
+          const gen = sagas.loginSaga({payload})
+          expect(gen.next().value).to.eql(put(setPending(true)))
+          expect(gen.next().value).to.eql(call(sagas.doLoginRequest, payload))
+          const response = {
+            success: false,
+            [Pages.TWOSTEPLOGIN_ACTIVATION]: {
+              secret: 'secret',
+              uri: 'uri'
+            }
+          }
+          expect(gen.next(response).value).to.eql(put(changePage(Pages.LOGIN_FORM)))
+          expect(gen.next().value).to.eql(call(sagas.handleTwoStepActivationResponse, response))
           expect(gen.next().value).to.eql(put(setPending(false)))
           expect(gen.next().done).to.eql(true)
         })
@@ -151,6 +169,23 @@ describe('login', () => {
           expect(gen.next().value).to.deep.equal(put(setUsername(login.username)))
           expect(gen.next().value).to.deep.equal(put(setForcedUpdate(true)))
           expect(gen.next().value).to.deep.equal(put(changePage('PASSWORD_UPDATE')))
+          expect(gen.next().done).to.deep.equal(true)
+        })
+      })
+
+      describe('handleTwoStepActivationResponse', () => {
+        test('should dispatch actions `changePage`', () => {
+          const gen = sagas.handleTwoStepActivationResponse({
+            [Pages.TWOSTEPLOGIN_ACTIVATION]: {
+              secret: 'secret',
+              uri: 'uri'
+            }
+          })
+          expect(gen.next().value).to.deep.equal(put(setSecret({
+            secret: 'secret',
+            uri: 'uri'
+          })))
+          expect(gen.next().value).to.deep.equal(put(changePage(Pages.TWOSTEPLOGIN_ACTIVATION)))
           expect(gen.next().done).to.deep.equal(true)
         })
       })

@@ -7,6 +7,7 @@ import LoginFormContainer from '../../containers/LoginFormContainer'
 import PasswordUpdateContainer from '../../containers/PasswordUpdateDialogContainer'
 import PasswordRequestContainer from '../../containers/PasswordRequestContainer'
 import TwoStepLoginContainer from '../../containers/TwoStepLoginContainer'
+import TwoFactorConnectorContainer from '../../containers/TwoFactorConnectorContainer'
 
 const GlobalRecaptchaBadgeStyle = createGlobalStyle`
   .grecaptcha-badge {
@@ -30,6 +31,8 @@ const Login = props => {
           return <PasswordRequestContainer showTitle={props.showTitle}/>
         case Pages.TWOSTEPLOGIN:
           return <TwoStepLoginContainer showTitle={props.showTitle}/>
+        case Pages.TWOSTEPLOGIN_ACTIVATION:
+          return <TwoFactorConnectorContainer/>
         default:
           return <LoginFormContainer showTitle={props.showTitle}/>
       }

@@ -8,6 +8,7 @@ import {setMessage, setPending, activateRecaptcha} from './loginForm/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {changePage, setPassword} from './login/actions'
+import {setSecret} from './twoStepLogin/actions'
 import {Pages} from '../types/Pages'
 
 export const DEFAULT_TIMEOUT = 30
@@ -50,6 +51,12 @@ function getOptions(data = {}) {
 
 export function* handleTwoStepLoginResponse() {
   yield put(changePage(Pages.TWOSTEPLOGIN))
+}
+
+export function* handleTwoStepActivationResponse(response) {
+  const twoFactorResponse = response[Pages.TWOSTEPLOGIN_ACTIVATION]
+  yield put(setSecret(twoFactorResponse))
+  yield put(changePage(Pages.TWOSTEPLOGIN_ACTIVATION))
 }
 
 export function* handlePasswordUpdateResponse() {
@@ -106,6 +113,8 @@ export function* loginSaga({payload}) {
       yield call(handlePasswordUpdateResponse)
     } else if (response.LOGIN_BLOCKED) {
       yield call(handleBlockResponse)
+    } else if (response.TWOSTEPLOGIN_ACTIVATION) {
+      yield call(handleTwoStepActivationResponse, response)
     } else {
       yield call(handleFailedResponse)
     }
