@@ -77,7 +77,14 @@ const TwoFactorConnectorApp = props => {
 }
 
 TwoFactorConnectorApp.propTypes = {
-  ...EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {})
+  ...EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {}),
+  username: PropTypes.string,
+  password: PropTypes.string,
+  secret: PropTypes.shape({
+    secret: PropTypes.string.isRequired,
+    uri: PropTypes.string.isRequired
+  }),
+  forced: PropTypes.bool
 }
 
 export default hot(TwoFactorConnectorApp)
