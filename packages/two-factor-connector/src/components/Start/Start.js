@@ -5,7 +5,7 @@ import {FormattedMessage, intlShape} from 'react-intl'
 
 import {StyledButtonWrapper} from '../GlobalStyledComponents'
 
-const Start = ({twoFactorActive, requestSecret, intl}) => {
+const Start = ({twoFactorActive, forced, requestSecret, intl}) => {
   const msg = id => intl.formatMessage({id})
 
   return (
@@ -14,7 +14,9 @@ const Start = ({twoFactorActive, requestSecret, intl}) => {
         {
           twoFactorActive
             ? <FormattedMessage id="client.two-factor-connector.overwriteInfo"/>
-            : <FormattedMessage id="client.two-factor-connector.info"/>
+            : forced
+              ? <FormattedMessage id="client.two-factor-connector.forcedInfo"/>
+              : <FormattedMessage id="client.two-factor-connector.info"/>
         }
       </Typography.P>
       <StyledButtonWrapper>
@@ -32,7 +34,8 @@ const Start = ({twoFactorActive, requestSecret, intl}) => {
 Start.propTypes = {
   intl: intlShape.isRequired,
   requestSecret: PropTypes.func.isRequired,
-  twoFactorActive: PropTypes.bool
+  twoFactorActive: PropTypes.bool,
+  forced: PropTypes.bool
 }
 
 export default Start

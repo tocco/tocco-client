@@ -24,9 +24,23 @@ describe('two-factor-connector', () => {
         test('should call loadPrincipal2FAInfo', () => {
           return expectSaga(sagas.initialize)
             .provide([
-              [matchers.call.fn(sagas.loadPrincipal2FAInfo)]
+              [matchers.call.fn(sagas.loadPrincipal2FAInfo)],
+              [select(sagas.inputSelector), {}]
             ])
             .call(sagas.loadPrincipal2FAInfo)
+            .put(actions.goToStart())
+            .run()
+        })
+
+        test('should set secret if it is in input', () => {
+          const secret = {secret: 'text', uri: 'uri'}
+          return expectSaga(sagas.initialize)
+            .provide([
+              [matchers.call.fn(sagas.loadPrincipal2FAInfo)],
+              [select(sagas.inputSelector), {secret: secret}]
+            ])
+            .call(sagas.loadPrincipal2FAInfo)
+            .put(actions.setSecret(secret))
             .put(actions.goToStart())
             .run()
         })
@@ -50,7 +64,8 @@ describe('two-factor-connector', () => {
           expectSaga(sagas.loadPrincipal2FAInfo)
             .provide([
               [matchers.call.fn(rest.requestSaga), principalFake],
-              [matchers.call.fn(rest.fetchEntities), fakePrincipals(true)]
+              [matchers.call.fn(rest.fetchEntities), fakePrincipals(true)],
+              [select(sagas.inputSelector), {}]
             ])
             .put(actions.setUserName(username))
             .put(actions.setTwoFactorActive(true))
@@ -61,7 +76,8 @@ describe('two-factor-connector', () => {
           expectSaga(sagas.loadPrincipal2FAInfo)
             .provide([
               [matchers.call.fn(rest.requestSaga), principalFake],
-              [matchers.call.fn(rest.fetchEntities), fakePrincipals(false)]
+              [matchers.call.fn(rest.fetchEntities), fakePrincipals(false)],
+              [select(sagas.inputSelector), {}]
             ])
             .put(actions.setUserName(username))
             .put(actions.setTwoFactorActive(false))
@@ -72,13 +88,25 @@ describe('two-factor-connector', () => {
           expectSaga(sagas.loadPrincipal2FAInfo)
             .provide([
               [matchers.call.fn(rest.requestSaga), principalFake],
-              [matchers.call.fn(rest.fetchEntities), [...fakePrincipals(false), ...fakePrincipals(false)]]
+              [matchers.call.fn(rest.fetchEntities), [...fakePrincipals(false), ...fakePrincipals(false)]],
+              [select(sagas.inputSelector), {}]
             ])
             .silentRun()
             .catch(error => {
               expect(error.message).to.eql('More than one user found for username dake')
               done()
             })
+        })
+
+        test('should use username from input', () => {
+          expectSaga(sagas.loadPrincipal2FAInfo)
+            .provide([
+              [matchers.call.fn(rest.fetchEntities), fakePrincipals(true)],
+              [select(sagas.inputSelector), {username: 'inputUser'}]
+            ])
+            .put(actions.setUserName('inputUser'))
+            .put(actions.setTwoFactorActive(true))
+            .run()
         })
       })
 
@@ -96,13 +124,24 @@ describe('two-factor-connector', () => {
         test('should call rest endpoint and set secret', () =>
           expectSaga(sagas.requestSecret)
             .provide([
+              [select(sagas.secretSelector), null],
               [select(sagas.usernameSelector), 'dake'],
               [matchers.call.fn(rest.requestSaga), FakeTwoFactorResponse]
             ])
             .put(actions.setSecret({
-              text: secret.secret,
+              secret: secret.secret,
               uri: secret.totpUri
             }))
+            .put(actions.goToSecret())
+            .run()
+        )
+
+        test('should not load secret if it is already set', () =>
+          expectSaga(sagas.requestSecret)
+            .provide([
+              [select(sagas.secretSelector), secret]
+            ])
+            .put(actions.goToSecret())
             .run()
         )
       })
@@ -113,7 +152,8 @@ describe('two-factor-connector', () => {
             .provide([
               [select(sagas.usernameSelector), 'dake'],
               [select(sagas.secretSelector), {text: '7ad4b588f0774cf19ac518289c751486'}],
-              [matchers.call.fn(rest.requestSaga), {status: 204}]
+              [matchers.call.fn(rest.requestSaga), {status: 204}],
+              [select(sagas.inputSelector), {}]
             ])
             .put(actions.setSetupSuccessful(true))
             .put(actions.goToResult())
@@ -125,9 +165,27 @@ describe('two-factor-connector', () => {
             .provide([
               [select(sagas.usernameSelector), 'dake'],
               [select(sagas.secretSelector), {text: '7ad4b588f0774cf19ac518289c751486'}],
-              [matchers.call.fn(rest.requestSaga), {status: 400}]
+              [matchers.call.fn(rest.requestSaga), {status: 400}],
+              [select(sagas.inputSelector), {}]
             ])
             .put(actions.setSetupSuccessful(false))
+            .put(actions.goToResult())
+            .run()
+        )
+
+        test('should send login request when forced', () =>
+          expectSaga(sagas.verifyCode, actions.verifyCode('123456'))
+            .provide([
+              [select(sagas.usernameSelector), 'dake'],
+              [select(sagas.secretSelector), {secret: '7ad4b588f0774cf19ac518289c751486'}],
+              [matchers.call.fn(rest.requestSaga), {TWOSTEPLOGIN_ACTIVATION: {success: true}}],
+              [select(sagas.inputSelector), {password: 'password', forced: true}]
+            ])
+            .call.like({
+              fn: rest.requestSaga,
+              args: [`${__BACKEND_URL__}/nice2/login`]
+            })
+            .put(actions.setSetupSuccessful(true))
             .put(actions.goToResult())
             .run()
         )

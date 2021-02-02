@@ -11,7 +11,8 @@ const mapActionCreators = {
 
 const mapStateToProps = state => ({
   twoFactorActive: state.twoFactorConnector.twoFactorActive,
-  secret: state.twoFactorConnector.secret
+  secret: state.twoFactorConnector.secret,
+  forced: state.input.forced
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Start))

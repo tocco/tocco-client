@@ -18,7 +18,7 @@ const Secret = ({secret, goToSecretVerification}) => {
       <FormattedMessage id="client.two-factor-connector.secretInfo"/>
     </Typography.P>
     <StyledParagraph>
-      <Typography.B>{secret.text}</Typography.B>
+      <Typography.B>{secret.secret}</Typography.B>
     </StyledParagraph>
       <Typography.P>
         <FormattedMessage id="client.two-factor-connector.backupInfo"/>
@@ -37,7 +37,7 @@ const Secret = ({secret, goToSecretVerification}) => {
 
 Secret.propTypes = {
   secret: PropTypes.shape({
-    text: PropTypes.string.isRequired,
+    secret: PropTypes.string.isRequired,
     uri: PropTypes.string.isRequired
   }).isRequired,
   goToSecretVerification: PropTypes.func.isRequired

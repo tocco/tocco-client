@@ -48,7 +48,7 @@ TwoFactorConnector.propTypes = {
   initialize: PropTypes.func.isRequired,
   twoFactorActive: PropTypes.bool,
   secret: PropTypes.shape({
-    text: PropTypes.string,
+    secret: PropTypes.string,
     uri: PropTypes.string
   })
 }
