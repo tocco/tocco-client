@@ -62,8 +62,8 @@ describe('entity-list', () => {
               const preselectedSearchFields = [{id: 'first.name', value: 'test'}]
               const formDefinition = {children: []}
               const fieldDefinitions = [
-                {id: 'first.name', type: 'string'},
-                {id: 'defaultTest', type: 'string', defaultValue: 'default'}
+                {id: 'first.name', path: 'first.name', type: 'string'},
+                {id: 'defaultTest', path: 'defaultTest', type: 'string', defaultValue: 'default'}
               ]
               const expectedValues = {'first--name': 'test', 'defaultTest': 'default'}
 
