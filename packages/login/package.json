@@ -12,8 +12,8 @@
     "tocco-app-extensions": "*",
     "tocco-test-util": "*",
     "tocco-theme": "*",
+    "tocco-two-factor-connector": "*",
     "tocco-ui": "*",
-    "tocco-util": "*",
-    "tocco-two-factor-connector": "*"
+    "tocco-util": "*"
   }
 }
