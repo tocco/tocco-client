@@ -87,6 +87,17 @@ const getOriginId = () => {
   return id
 }
 
+function getOrCreateHeaders(optionsHeader) {
+  if (optionsHeader) {
+    if (optionsHeader instanceof Headers) {
+      return optionsHeader
+    } else if (typeof optionsHeader === 'object') {
+      return new Headers(optionsHeader)
+    }
+  }
+  return new Headers()
+}
+
 export function prepareRequest(resource, options = {}) {
   const {
     queryParams = {},
@@ -95,7 +106,7 @@ export function prepareRequest(resource, options = {}) {
   } = options
 
   let body = options.body
-  const headers = options.headers || new Headers()
+  const headers = getOrCreateHeaders(options.headers)
 
   if (!headers.has('Content-Type') && body && !(body instanceof FormData)) {
     if (typeof body === 'string') {
