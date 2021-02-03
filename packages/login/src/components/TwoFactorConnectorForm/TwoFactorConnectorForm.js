@@ -11,13 +11,15 @@ import {Pages} from '../../types/Pages'
 const TwoFactorConnectorForm = ({username, password, secret, showTitle, changePage}) => {
   return <div>
     {showTitle && <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>}
-    <TwoFactorConnectorApp username={username}
-                           password={password}
-                           secret={secret}
-                           forced={true}
-                           onSuccess={() => {
-                             changePage(Pages.LOGIN_FORM)
-                           }}/>
+    <TwoFactorConnectorApp
+      username={username}
+      password={password}
+      secret={secret}
+      forced={true}
+      onSuccess={() => {
+        changePage(Pages.LOGIN_FORM)
+      }}
+    />
   </div>
 }
 
