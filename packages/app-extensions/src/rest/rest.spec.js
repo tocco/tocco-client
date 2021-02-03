@@ -337,6 +337,52 @@ describe('app-extensions', () => {
         const contentTypeHeader = requestData.options.headers.get('Content-Type')
         expect(contentTypeHeader).to.eql('application/x-www-form-urlencoded; charset=utf-8')
       })
+
+      test('should use passed Headers object', () => {
+        const resource = 'endpoint'
+        const optionHeaders = new Headers({
+          'Content-Type': 'application/json'
+        })
+        const options = {
+          headers: optionHeaders,
+          body: {some: 'thing'}
+        }
+
+        const requestData = prepareRequest(resource, options)
+        const headers = requestData.options.headers
+        expect(headers).to.eql(optionHeaders)
+        const contentTypeHeader = headers.get('Content-Type')
+        expect(contentTypeHeader).to.eql('application/json')
+      })
+
+      test('should create Headers from passed object', () => {
+        const resource = 'endpoint'
+        const options = {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: {some: 'thing'}
+        }
+
+        const requestData = prepareRequest(resource, options)
+        const headers = requestData.options.headers
+        expect(headers).to.be.an.instanceOf(Headers)
+        const contentTypeHeader = headers.get('Content-Type')
+        expect(contentTypeHeader).to.eql('application/json')
+      })
+
+      test('should create empty Headers when nothing passed', () => {
+        const resource = 'endpoint'
+        const options = {
+          body: {some: 'thing'}
+        }
+
+        const requestData = prepareRequest(resource, options)
+        const headers = requestData.options.headers
+        expect(headers).to.be.an.instanceOf(Headers)
+        const contentTypeHeader = headers.get('Content-Type')
+        expect(contentTypeHeader).to.eql('application/json')
+      })
     })
   })
 })
