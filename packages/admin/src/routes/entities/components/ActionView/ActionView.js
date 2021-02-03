@@ -7,6 +7,7 @@ import _get from 'lodash/get'
 import Action from '../Action'
 import {currentViewPropType} from '../../utils/propTypes'
 import navigationStrategy from '../../utils/navigationStrategy'
+import {goBack} from '../../../../utils/routing'
 
 const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}) => {
   const {location} = history
@@ -28,6 +29,10 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
   const selection = _get(location, 'state.selection', queryParams.actionProperties)
   const actionProperties = _get(location, 'state.definition.properties', queryParams.actionProperties)
 
+  const navigateBack = () => {
+    history.replace(goBack(match.url, 2))
+  }
+
   return (
     <Action
       history={history}
@@ -36,6 +41,9 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
       selection={selection}
       actionProperties={actionProperties}
       navigationStrategy={navigationStrategy(history, match)}
+      onSuccess={navigateBack}
+      onError={navigateBack}
+      onCancel={navigateBack}
     />
   )
 }
@@ -45,6 +53,7 @@ ActionView.propTypes = {
   currentViewInfo: currentViewPropType,
   setCurrentViewTitle: PropTypes.func.isRequired,
   history: PropTypes.shape({
+    replace: PropTypes.func.isRequired,
     location: PropTypes.shape({
       search: PropTypes.string,
       state: PropTypes.shape({
