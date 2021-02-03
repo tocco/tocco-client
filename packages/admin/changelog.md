@@ -1,3 +1,8 @@
+0.4.16
+- Support deletion of documents in docs route
+- Fix relation selection bug (TOCDEV-3037)
+- Fix default value serach filter bug
+
 0.4.15
 - Harmonize icon size and text spacing
 - Fix blank screen after navigating away from the calendar
