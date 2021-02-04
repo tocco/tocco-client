@@ -115,29 +115,32 @@ describe('entity-list', () => {
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>
-            <MemoryRouter>
-              <SearchForm
-                initializeSearchForm={EMPTY_FUNC}
-                entityModel={entityModel}
-                searchFormDefinition={searchFormDefinition}
-                setSearchInput={EMPTY_FUNC}
-                relationEntities={{}}
-                searchInputs={{}}
-                loadRelationEntities={EMPTY_FUNC}
-                loadTooltip={EMPTY_FUNC}
-                submitSearchForm={EMPTY_FUNC}
-                resetSearch={EMPTY_FUNC}
-                intl={IntlStub}
-                simpleSearchFields={['txtFulltext']}
-                preselectedSearchFields={[]}
-                setShowExtendedSearchForm={EMPTY_FUNC}
-                loadSearchFilters={EMPTY_FUNC}
-                openAdvancedSearch={EMPTY_FUNC}
-                changeFieldValue={EMPTY_FUNC}
-                formValues={{}}
-              />
-            </MemoryRouter>
+            <TestThemeProvider>
+              <MemoryRouter>
+                <SearchForm
+                  initializeSearchForm={EMPTY_FUNC}
+                  entityModel={entityModel}
+                  searchFormDefinition={searchFormDefinition}
+                  setSearchInput={EMPTY_FUNC}
+                  relationEntities={{}}
+                  searchInputs={{}}
+                  loadRelationEntities={EMPTY_FUNC}
+                  loadTooltip={EMPTY_FUNC}
+                  submitSearchForm={EMPTY_FUNC}
+                  resetSearch={EMPTY_FUNC}
+                  intl={IntlStub}
+                  simpleSearchFields={['txtFulltext']}
+                  preselectedSearchFields={[]}
+                  setShowExtendedSearchForm={EMPTY_FUNC}
+                  loadSearchFilters={EMPTY_FUNC}
+                  openAdvancedSearch={EMPTY_FUNC}
+                  changeFieldValue={EMPTY_FUNC}
+                  formValues={{}}
+                />
+              </MemoryRouter>
+            </TestThemeProvider>
           </Provider>
+
         )
 
         expect(wrapper.find(StatedValue)).to.have.length(1)
@@ -213,31 +216,33 @@ describe('entity-list', () => {
         }))
 
         const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <MemoryRouter>
-              <SearchForm
-                initializeSearchForm={EMPTY_FUNC}
-                entityModel={entityModel}
-                searchFormDefinition={searchFormDefinition}
-                setSearchInput={EMPTY_FUNC}
-                relationEntities={{}}
-                searchInputs={{}}
-                loadRelationEntities={EMPTY_FUNC}
-                loadTooltip={EMPTY_FUNC}
-                submitSearchForm={EMPTY_FUNC}
-                resetSearch={EMPTY_FUNC}
-                intl={IntlStub}
-                formValues={{}}
-                disableSimpleSearch
-                simpleSearchFields={[]}
-                preselectedSearchFields={preselectedSearchFields}
-                setShowExtendedSearchForm={EMPTY_FUNC}
-                loadSearchFilters={EMPTY_FUNC}
-                openAdvancedSearch={EMPTY_FUNC}
-                changeFieldValue={EMPTY_FUNC}
-              />
-            </MemoryRouter>
-          </Provider>
+          <TestThemeProvider>
+            <Provider store={store}>
+              <MemoryRouter>
+                <SearchForm
+                  initializeSearchForm={EMPTY_FUNC}
+                  entityModel={entityModel}
+                  searchFormDefinition={searchFormDefinition}
+                  setSearchInput={EMPTY_FUNC}
+                  relationEntities={{}}
+                  searchInputs={{}}
+                  loadRelationEntities={EMPTY_FUNC}
+                  loadTooltip={EMPTY_FUNC}
+                  submitSearchForm={EMPTY_FUNC}
+                  resetSearch={EMPTY_FUNC}
+                  intl={IntlStub}
+                  formValues={{}}
+                  disableSimpleSearch
+                  simpleSearchFields={[]}
+                  preselectedSearchFields={preselectedSearchFields}
+                  setShowExtendedSearchForm={EMPTY_FUNC}
+                  loadSearchFilters={EMPTY_FUNC}
+                  openAdvancedSearch={EMPTY_FUNC}
+                  changeFieldValue={EMPTY_FUNC}
+                />
+              </MemoryRouter>
+            </Provider>
+          </TestThemeProvider>
         )
 
         expect(wrapper.find(StatedValue)).to.have.length(searchFormDefinition.children.length - 1)
