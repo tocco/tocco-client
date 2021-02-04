@@ -61,11 +61,17 @@ export const StyledTableHeaderCell = styled.th`
     }
   `
   }
-  ${({isResizing, sortable, fixedPosition}) => !isResizing && !sortable && !fixedPosition && `
+  ${({isResizing, sortable, fixedPosition, theme}) => !sortable
+    ? `
     &:hover {
-      background-color: transparent;
+      background-color: ${theme.colors.paper};
     }
-  `
+    `
+    : !isResizing && !sortable && !fixedPosition && `
+        &:hover {
+          background-color: transparent;
+        }
+    `
   }
 `
 
