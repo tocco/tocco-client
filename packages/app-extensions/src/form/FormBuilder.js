@@ -78,6 +78,10 @@ const FormBuilder = props => {
         return false
       }
 
+      if (fieldMappingType === 'search') {
+        return true
+      }
+
       const hasEmptyValue = (fieldName, formValues) => {
         if (!Object.prototype.hasOwnProperty.call(formValues || {}, fieldName)) {
           return true
