@@ -1,3 +1,6 @@
+0.4.18
+- Calendar print view improvements
+
 0.4.17
 - Fix merge table and harmonize spacing/text
 - Harmonize text spacing in two factor connector
