@@ -124,7 +124,7 @@ describe('two-factor-connector', () => {
         test('should call rest endpoint and set secret', () =>
           expectSaga(sagas.requestSecret)
             .provide([
-              [select(sagas.secretSelector), null],
+              [select(sagas.inputSelector), {}],
               [select(sagas.usernameSelector), 'dake'],
               [matchers.call.fn(rest.requestSaga), FakeTwoFactorResponse]
             ])
@@ -139,7 +139,7 @@ describe('two-factor-connector', () => {
         test('should not load secret if it is already set', () =>
           expectSaga(sagas.requestSecret)
             .provide([
-              [select(sagas.secretSelector), secret]
+              [select(sagas.inputSelector), {secret: 'xxx'}]
             ])
             .put(actions.goToSecret())
             .run()
@@ -178,7 +178,7 @@ describe('two-factor-connector', () => {
             .provide([
               [select(sagas.usernameSelector), 'dake'],
               [select(sagas.secretSelector), {secret: '7ad4b588f0774cf19ac518289c751486'}],
-              [matchers.call.fn(rest.requestSaga), {TWOSTEPLOGIN_ACTIVATION: {success: true}}],
+              [matchers.call.fn(rest.requestSaga), {body: {TWOSTEPLOGIN_ACTIVATION: {success: true}}}],
               [select(sagas.inputSelector), {password: 'password', forced: true}]
             ])
             .call.like({
