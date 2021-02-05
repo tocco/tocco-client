@@ -1,3 +1,11 @@
+0.4.3
+- Fix default value serach filter bug
+- Fix checkbox and menu background hover inside table heading
+- Harmonize text styles inside calendar entries
+- Set origin id for each session (TOCDEV-2980)
+- Writable mutlipath fix (TOCDEV-3012)
+- Allow display of horizontal overflow when printing
+
 0.4.2
 - Optimize print view for calendar
 - Fix blank screen after navigating away from the calendar
