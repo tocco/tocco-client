@@ -16,25 +16,25 @@ describe('Login', () => {
       cy.get('[data-cy=login-form_user-input]')
         .type('{selectall}{del}cypress_test')
       cy.get('[data-cy=login-form_login-button]')
-        .should('be', 'disabled')
+        .should('be.disabled')
       cy.contains('Dieser Bereich ist privat.')
       cy.get('[data-cy=login-form_user-input]')
         .type('{selectall}{del}')
       cy.get('[data-cy=login-form_password-input]')
         .type('{selectall}{del}12345')
       cy.get('[data-cy=login-form_login-button]')
-        .should('be', 'disabled')
+        .should('be.disabled')
       cy.get('[data-cy=login-form_request-button]')
     })
 
-    it('should login', () => {
+    it('should send login request', () => {
       cy.get('[data-cy=login-form_user-input]')
         .type('{selectall}{del}cypress_test')
       cy.get('[data-cy=login-form_password-input]')
         .type('{selectall}{del}Test_pw1')
       cy.get('[data-cy=login-form_login-button]')
         .click()
-        .children().first().should('be', 'svg')
+      cy.contains('Login fehlgeschlagen.')
     })
 
     it('should request password from request page', () => {
