@@ -1,11 +1,10 @@
 test-bundler.js
-node_modules/**
-coverage/**
-.idea/
+node_modules
+coverage
+.idea
 templates
-
 server/static/node_modules
 
-packages/*/dist/**
-packages/*/node_modules/**
-packages/*/coverage/**
+packages/*/dist
+packages/*/node_modules
+packages/*/coverage
