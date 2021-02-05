@@ -76,7 +76,16 @@ export const simpleRequest = (resource, options = {}) => {
   return sendRequest(requestData.url, requestData.options, options.acceptedErrorCodes, options.acceptedStatusCodes)
 }
 
-const originId = uuid()
+const originIdName = 'originId'
+const originIdPrefix = 'client_'
+const getOriginId = () => {
+  if (sessionStorage.getItem(originIdName)) {
+    return sessionStorage.getItem(originIdName)
+  }
+  const id = `${originIdPrefix}_${uuid()}`
+  sessionStorage.setItem(originIdName, id)
+  return id
+}
 
 export function prepareRequest(resource, options = {}) {
   const {
@@ -101,7 +110,7 @@ export function prepareRequest(resource, options = {}) {
     headers['X-Business-Unit'] = '__n-u-l-l__'
   }
 
-  headers['X-Origin-Id'] = originId
+  headers['X-Origin-Id'] = getOriginId()
 
   const fetchOptions = {
     method,
