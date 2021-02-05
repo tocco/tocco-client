@@ -1,3 +1,16 @@
+0.4.1
+- Style datepicker so that it fits better into the rest of admin
+- Add a popover variant that is placed on the right of element
+- Prevent flickering effect for tooltips
+- Support shrinkToContent column attribute
+- Fix path dirty bug
+- Fix missing default values bug
+- Fix default value serach filter bug
+- Fix merge table and harmonize spacing/text
+- Fix checkbox and menu background hover inside table heading
+- Set origin id for each session (TOCDEV-2980)
+- Writable mutlipath fix (TOCDEV-3012)
+
 0.4.0
 - Merge V2!
 
