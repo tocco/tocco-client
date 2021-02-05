@@ -6,7 +6,7 @@ const LONG_TIMEOUT = 15000
 
 const createUser = (firstname, lastname) => {
   return cy.request({
-    url: `${Cypress.env('BACKEND_URL')}/nice2/rest/entities/User`,
+    url: `${Cypress.env('BACKEND_URL')}/nice2/rest/entities/2.0/User`,
     method: 'POST',
     json: true,
     body: {model: 'User', key: null, paths: {firstname, lastname, relGender: {key: '2'}}}
@@ -18,7 +18,7 @@ const createUser = (firstname, lastname) => {
 
 const deleteUser = pk => {
   return cy.request({
-    url: `${Cypress.env('BACKEND_URL')}/nice2/rest/entities/User/${pk}`,
+    url: `${Cypress.env('BACKEND_URL')}/nice2/rest/entities/2.0/User/${pk}`,
     method: 'DELETE'
   })
 }
@@ -52,8 +52,8 @@ describe('Entity Browser', () => {
       cy.get('[data-cy=detail-form_submit-button]').click()
       cy.contains('Dieses Feld darf nicht leer sein')
 
-      cy.get('#input-detailForm-relGender').type('{downarrow}').get('#react-select-3-option-1').click()
-
+      cy.get('#input-detailForm-relGender').type('{downarrow}').wait(100).get('#react-select-3-option-1').click()
+      cy.wait(200)
       cy.get('[data-cy=detail-form_submit-button]').click()
       cy.contains('Erstellt')
 
@@ -121,7 +121,7 @@ describe('Entity Browser', () => {
       cy.get('#input-detailForm-email').type('test@tocco.ch')
       cy.get('#input-detailForm-callname').type('cyp')
       cy.get('#input-detailForm-relGender').type('{downarrow}').get('#react-select-3-option-1').click()
-      cy.get('#input-detailForm-birthdate > .flatpickr-input').eq(1).type('14111988{enter}')
+      cy.get('#input-detailForm-birthdate .flatpickr-input').eq(1).type('14111988{enter}')
       cy.get('#input-detailForm-abbreviation').focus()
       cy.get('#input-detailForm-publish').check()
       cy.get('#input-detailForm-comment').type('Line1{enter}Line2{enter}Line3')
@@ -179,9 +179,9 @@ describe('Entity Browser', () => {
       cy.get('[data-cy=header-cell-firstname]').should('not.have.css', 'width', '30px')
       cy.wait(500) // without this wait, a rerender will let the test fail
       cy.get('[data-cy=header-cell-firstname-resizing-controller]').trigger('mousedown')
-        .trigger('mousemove', {clientX: 500, clientY: 0})
+        .trigger('mousemove', {clientX: 500, clientY: 0}).wait(100)
         .trigger('mousemove', {clientX: 40, clientY: 0})
-        .trigger('mouseup')
+        .trigger('mouseup').wait(100)
       cy.get('[data-cy=header-cell-firstname]').invoke('outerWidth').should('eq', 50)
     })
   })
