@@ -1,4 +1,7 @@
-image: node:14.15.1-alpine
+image: node:14.15.4-alpine
+
+variables:
+  CYPRESS_INSTALL_BINARY: "0"
 
 cache: &global_cache
   key:
@@ -71,7 +74,11 @@ storybook-link:
 
 cypress:
   stage: onschedule
+  image: cypress/base:10
+  variables:
+    CYPRESS_INSTALL_BINARY: "6.4.0"
   only:
     - schedules
   script:
+    - npm rebuild cypress
     - yarn cypress:master:record --parallel
