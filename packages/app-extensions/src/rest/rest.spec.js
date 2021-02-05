@@ -288,7 +288,17 @@ describe('app-extensions', () => {
 
       test('should add X-Origin-Id header', () => {
         const requestData = prepareRequest('entities/Contact')
+        expect(requestData.options.headers.get('X-Origin-Id')).to.be.not.undefined
         expect(requestData.options.headers.get('X-Origin-Id')).to.be.not.null
+      })
+
+      test('should add same X-Origin-Id for session', () => {
+        const requestData = prepareRequest('entities/Contact')
+        const originId = requestData.options.headers.get('X-Origin-Id')
+
+        const requestData2 = prepareRequest('entities/User')
+        const originId2 = requestData2.options.headers.get('X-Origin-Id')
+        expect(originId).to.eql(originId2)
       })
 
       test('should use backend URL from options if set', () => {
