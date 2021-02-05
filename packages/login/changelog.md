@@ -1,3 +1,22 @@
+0.2.18
+- Text autosize new component (Fixes Safari performance problems)
+- Support multipart/form-data requests in `rest` extension
+- Handle answer from custom actions
+- Harmonize icon size and text spacing
+- Style datepicker so that it fits better into the rest of admin
+- Add a popover variant that is placed on the right of element
+- Prevent flickering effect for tooltips
+- Support shrinkToContent column attribute
+- Fix path dirty bug
+- Fix missing default values bug
+- Fix default value serach filter bug
+- Harmonize text spacing in two factor connector
+- Fix checkbox and menu background hover inside table heading
+- Set origin id for each session (TOCDEV-2980)
+- Writable mutlipath fix (TOCDEV-3012)
+- Writable mutlipath fix (TOCDEV-3012)
+- Load two-factor-connector in login when two-factor activation is forced
+
 0.2.17
 - Increase min-width of table column for more usability on smaller screens
 - Disable touch on mobile and adjust margin
