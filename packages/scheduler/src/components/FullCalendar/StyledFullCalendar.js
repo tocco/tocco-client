@@ -73,6 +73,8 @@ export const StyledFullCalendarWrapper = styled.div`
 
       .fc-event-time {
         overflow: visible;
+        font-size: ${scale.font(0)};
+        font-weight: ${theme.fontWeight('regular')};
       }
     }
 
