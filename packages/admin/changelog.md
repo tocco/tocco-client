@@ -1,3 +1,14 @@
+0.4.17
+- Fix merge table and harmonize spacing/text
+- Harmonize text spacing in two factor connector
+- Fix checkbox and menu background hover inside table heading
+- support fullscreen action callbacks
+- Set origin id for each session (TOCDEV-2980)
+- Writable mutlipath fix (TOCDEV-3012)
+- Writable mutlipath fix (TOCDEV-3012)
+- Load two-factor-connector in login when two-factor activation is forced
+- Fix autofocus if first field is a textarea
+
 0.4.16
 - Support deletion of documents in docs route
 - Fix relation selection bug (TOCDEV-3037)
