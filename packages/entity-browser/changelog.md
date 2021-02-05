@@ -1,3 +1,51 @@
+0.10.19
+- Async validation on blur
+- Adjust left pane grid on for android tablets to prevent overflow
+- Upload component: Show file names only in upload process
+- Text autosize new component (Fixes Safari performance problems)
+- New input parameter `customActions`
+- Support multipart/form-data requests in `rest` extension
+- Handle answer from custom actions
+- Merge V2!
+- Style datepicker so that it fits better into the rest of admin
+- Add a popover variant that is placed on the right of element
+- Prevent flickering effect for tooltips
+- New input prop `contextParams` to extend context
+- Support shrinkToContent column attribute
+- Fix search form endless loading with empty filter field
+- Fix path dirty bug
+- Fix missing default values bug
+- Fix default value serach filter bug
+- Fix checkbox and menu background hover inside table heading
+- Set origin id for each session (TOCDEV-2980)
+- Writable mutlipath fix (TOCDEV-3012)
+- Writable mutlipath fix (TOCDEV-3012)
+- Fix autofocus if first field is a textarea
+
+0.10
+- Async validation on blur
+- Adjust left pane grid on for android tablets to prevent overflow
+- Upload component: Show file names only in upload process
+- Text autosize new component (Fixes Safari performance problems)
+- New input parameter `customActions`
+- Support multipart/form-data requests in `rest` extension
+- Handle answer from custom actions
+- Merge V2!
+- Style datepicker so that it fits better into the rest of admin
+- Add a popover variant that is placed on the right of element
+- Prevent flickering effect for tooltips
+- New input prop `contextParams` to extend context
+- Support shrinkToContent column attribute
+- Fix search form endless loading with empty filter field
+- Fix path dirty bug
+- Fix missing default values bug
+- Fix default value serach filter bug
+- Fix checkbox and menu background hover inside table heading
+- Set origin id for each session (TOCDEV-2980)
+- Writable mutlipath fix (TOCDEV-3012)
+- Writable mutlipath fix (TOCDEV-3012)
+- Fix autofocus if first field is a textarea
+
 0.10.18
 - Increase min-width of table column for more usability on smaller screens
 - Disable touch on mobile and adjust margin
