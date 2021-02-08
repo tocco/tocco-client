@@ -309,6 +309,55 @@ describe('app-extensions', () => {
 
         expect(wrapper.find(Field)).to.have.length(0)
       })
+
+      test('should render multipath fields with missing parts in create mode', () => {
+        const entity = {
+          paths: {
+            relOrder: {
+              type: 'entity-list',
+              writable: null,
+              value: []
+            }
+          }
+        }
+
+        const formDefinition = {
+          id: 'UserSearch_detail',
+          readonly: false,
+          children: [
+            {
+              id: 'user_information',
+              componentType: 'layout',
+              layoutType: 'vertical-box',
+              readonly: false,
+              children: [
+                {
+                  id: 'Order_debitor_status',
+                  componentType: 'field-set',
+                  label: 'Status',
+                  hidden: false,
+                  readonly: false,
+                  children: [
+                    {
+                      id: 'relOrder.relOrder_debitor_status',
+                      componentType: 'field',
+                      path: 'relOrder.relOrder_debitor_status',
+                      dataType: 'string',
+                      label: null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+
+        const {formName, formValues} = testData
+        const props = {entity, formName, formDefinition, formValues, mode: 'create', formFieldMapping: {}}
+        const wrapper = shallow(<FormBuilder {...props}/>)
+
+        expect(wrapper.find(Field)).to.have.length(1)
+      })
     })
   })
 })
