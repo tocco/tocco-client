@@ -1,3 +1,6 @@
+0.4.19
+- Fix empty create forms because of missing field information
+
 0.4.17
 - Fix merge table and harmonize spacing/text
 - Harmonize text spacing in two factor connector
