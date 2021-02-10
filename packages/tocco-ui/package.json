@@ -9,8 +9,8 @@
     "prepublish": "npm run compile:prod"
   },
   "peerDependencies": {
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
