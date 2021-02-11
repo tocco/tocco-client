@@ -302,6 +302,34 @@
       "close"
     ]
   },
+  "times-circle": {
+    "id": "fal, times-circle",
+    "lib": "fa",
+    "tags": [
+      "error"
+    ]
+  },
+  "info-circle": {
+    "id": "fal, info-circle",
+    "lib": "fa",
+    "tags": [
+      "info"
+    ]
+  },
+  "check-circle-light": {
+    "id": "fal, check-circle",
+    "lib": "fa",
+    "tags": [
+      "check"
+    ]
+  },
+  "exclamation-circle": {
+    "id": "fal, exclamation-circle",
+    "lib": "fa",
+    "tags": [
+      "warning"
+    ]
+  },
   "tocco": {
     "id": "logo",
     "lib": "toc"
