@@ -7,7 +7,6 @@ import {
 } from 'tocco-ui'
 
 import {StyledMessageWrapper, StyledTitleWrapper} from './StyledTitleMessage'
-import {StyledIconWrapper} from '../StyledComponents'
 
 const fadeIn = keyframes`
   0% {
@@ -32,6 +31,15 @@ export const StyledNotifier = styled.div`
         background-color: ${theme.color('paper')};  // reset: react-redux-toastr (index.scss)
         color: ${theme.color('text')};  // reset: react-redux-toastr (index.scss)
         border: 1px solid ${theme.color('text')};
+
+        .rrt-holder {
+          width: 30px;
+          top: ${scale.space(-0.5)};  // reset: react-redux-toastr (index.scss)
+          margin-top: 0;  // reset: react-redux-toastr (index.scss)
+          height: auto;  // reset: react-redux-toastr (index.scss)
+          line-height: 1;  // reset: react-redux-toastr (index.scss)
+          font-size: ${iconSize};
+        }
 
         .rrt-left-container {
           width: 40px;
@@ -93,7 +101,7 @@ export const StyledNotifier = styled.div`
           border-color: ${infoColor};  // reset: react-redux-toastr (index.scss)
 
           ${/* sc-selector */StyledTitleWrapper} *,
-          ${StyledIconWrapper} {
+          .rrt-holder {
             color: ${infoColor};
           }
         }
@@ -102,7 +110,7 @@ export const StyledNotifier = styled.div`
           border-color: ${successColor};  // reset: react-redux-toastr (index.scss)
 
           ${/* sc-selector */StyledTitleWrapper} *,
-          ${StyledIconWrapper} {
+          .rrt-holder {
             color: ${successColor};
           }
         }
@@ -111,7 +119,7 @@ export const StyledNotifier = styled.div`
           border-color: ${warningColor};  // reset: react-redux-toastr (index.scss)
 
           ${/* sc-selector */StyledTitleWrapper} *,
-          ${StyledIconWrapper} {
+          .rrt-holder {
             color: ${warningColor};
           }
         }
@@ -120,16 +128,8 @@ export const StyledNotifier = styled.div`
           border-color: ${dangerColor};  // reset: react-redux-toastr (index.scss)
 
           ${/* sc-selector */StyledTitleWrapper} *,
-          ${StyledIconWrapper} {
+          .rrt-holder {
             color: ${dangerColor};
-          }
-        }
-
-        .rrt-holder {
-          opacity: .9;
-
-          ${StyledIconWrapper} {
-            font-size: ${iconSize};
           }
         }
       }
@@ -166,14 +166,6 @@ export const StyledNotifier = styled.div`
 
         &:hover:not(.rrt-message) {
           box-shadow: none;  // reset: react-redux-toastr (index.scss)
-        }
-
-        .rrt-holder {
-          width: 30px;
-          top: ${scale.space(-0.5)};  // reset: react-redux-toastr (index.scss)
-          margin-top: 0;  // reset: react-redux-toastr (index.scss)
-          height: auto;  // reset: react-redux-toastr (index.scss)
-          line-height: 1;  // reset: react-redux-toastr (index.scss)
         }
 
         .close-toastr {
