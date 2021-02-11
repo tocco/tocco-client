@@ -191,7 +191,8 @@ export function* submitValidate() {
 export function* getEntityForSubmit() {
   const {formValues, dirtyFields} = yield call(getCurrentEntityState)
   const flattenEntity = yield call(form.formValuesToFlattenEntity, formValues)
-  return yield call(api.toEntity, flattenEntity, dirtyFields)
+  const dirtyFieldNames = dirtyFields.map(fieldName => form.transformFieldNameBack(fieldName))
+  return yield call(api.toEntity, flattenEntity, dirtyFieldNames)
 }
 
 export function* getPaths() {

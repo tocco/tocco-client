@@ -200,8 +200,19 @@ describe('entity-detail', () => {
 
         describe('getEntityForSubmit saga', () => {
           test('should return entity', () => {
-            const formValues = {__key: '3', __model: 'User', firstname: 'test'}
+            const formValues = {
+              '__key': '3',
+              '__model': 'User',
+              'firstname': 'test',
+              'relAddress': {
+                key: '29242',
+                model: 'Address',
+                version: 2
+              },
+              'relAddress--city': 'Bern'
+            }
             const initialValues = {firstname: 'tst'}
+            const dirtyFields = ['firstname', 'relAddress--city']
 
             const mode = 'update'
 
@@ -209,12 +220,21 @@ describe('entity-detail', () => {
               model: 'User',
               key: '3',
               version: undefined,
-              paths: {firstname: 'test'}
+              paths: {
+                firstname: 'test',
+                relAddress: {
+                  key: '29242',
+                  version: 2,
+                  paths: {
+                    city: 'Bern'
+                  }
+                }
+              }
             }
 
             return expectSaga(sagas.getEntityForSubmit)
               .provide([
-                [matchers.call.fn(sagas.getCurrentEntityState), {mode, initialValues, formValues}]
+                [matchers.call.fn(sagas.getCurrentEntityState), {mode, initialValues, formValues, dirtyFields}]
               ])
               .returns(expectedReturn)
               .run()
