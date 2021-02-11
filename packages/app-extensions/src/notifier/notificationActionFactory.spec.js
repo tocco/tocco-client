@@ -75,13 +75,13 @@ describe('app-extensions', () => {
       test('should display default icon', () => {
         let action
         action = getInfoAction('info', 'title', 'message')
-        expect(action.payload.options.icon.props.icon).to.equal('info')
+        expect(action.payload.options.icon.props.icon).to.equal('info-circle')
         action = getInfoAction('success', 'title', 'message')
-        expect(action.payload.options.icon.props.icon).to.equal('check')
+        expect(action.payload.options.icon.props.icon).to.equal('check-circle-light')
         action = getInfoAction('warning', 'title', 'message')
-        expect(action.payload.options.icon.props.icon).to.equal('exclamation')
+        expect(action.payload.options.icon.props.icon).to.equal('exclamation-circle')
         action = getInfoAction('error', 'title', 'message')
-        expect(action.payload.options.icon.props.icon).to.equal('times')
+        expect(action.payload.options.icon.props.icon).to.equal('times-circle')
       })
 
       test('should replace default icon', () => {

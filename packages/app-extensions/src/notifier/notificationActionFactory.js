@@ -7,7 +7,6 @@ import {Icon, LoadingSpinner} from 'tocco-ui'
 import {modalComponent} from './modules/actions'
 import ModalButtons from './modules/modalComponents/ModalButtons'
 import TitleMessage from './components/TitleMessage'
-import {StyledIconWrapper} from './StyledComponents'
 
 const typeIconMap = {
   error: 'times-circle',
@@ -26,7 +25,7 @@ export function getInfoAction(uncheckedType, title, message, icon, timeOut) {
   const options = {
     attention: false,
     component: () => <TitleMessage title={title} message={message}/>,
-    icon: <StyledIconWrapper><Icon icon={icon || typeIconMap[type] || 'info'}/></StyledIconWrapper>,
+    icon: <Icon icon={icon || typeIconMap[type] || 'info'}/>,
     preventDuplicates: true,
     removeOnHover: isNotWarningNorErrorAndDoesTimeOut(type, timeOut),
     removeOnHoverTimeOut: isWarningOrError(type) ? 0 : timeOut,
@@ -117,7 +116,7 @@ export function getBlockingInfo(id, title, message) {
   const options = {
     attention: true,
     component: () => <TitleMessage title={title} message={message}/>,
-    icon: <StyledIconWrapper><LoadingSpinner/></StyledIconWrapper>,
+    icon: <LoadingSpinner/>,
     onAttentionClick: () => {},
     preventDuplicates: true,
     showCloseButton: false,
