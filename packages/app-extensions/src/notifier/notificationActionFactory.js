@@ -7,12 +7,13 @@ import {Icon, LoadingSpinner} from 'tocco-ui'
 import {modalComponent} from './modules/actions'
 import ModalButtons from './modules/modalComponents/ModalButtons'
 import TitleMessage from './components/TitleMessage'
+import {StyledIconWrapper} from './StyledComponents'
 
 const typeIconMap = {
-  error: 'times',
-  info: 'info',
-  success: 'check',
-  warning: 'exclamation'
+  error: 'times-circle',
+  info: 'info-circle',
+  success: 'check-circle-light',
+  warning: 'exclamation-circle'
 }
 
 const isWarningOrError = type => type === 'warning' || type === 'error'
@@ -25,7 +26,7 @@ export function getInfoAction(uncheckedType, title, message, icon, timeOut) {
   const options = {
     attention: false,
     component: () => <TitleMessage title={title} message={message}/>,
-    icon: <Icon icon={icon || typeIconMap[type] || 'info'} style={{fontSize: '5rem'}}/>,
+    icon: <StyledIconWrapper><Icon icon={icon || typeIconMap[type] || 'info'}/></StyledIconWrapper>,
     preventDuplicates: true,
     removeOnHover: isNotWarningNorErrorAndDoesTimeOut(type, timeOut),
     removeOnHoverTimeOut: isWarningOrError(type) ? 0 : timeOut,
@@ -116,7 +117,7 @@ export function getBlockingInfo(id, title, message) {
   const options = {
     attention: true,
     component: () => <TitleMessage title={title} message={message}/>,
-    icon: <LoadingSpinner size="3em" />,
+    icon: <StyledIconWrapper><LoadingSpinner/></StyledIconWrapper>,
     onAttentionClick: () => {},
     preventDuplicates: true,
     showCloseButton: false,
