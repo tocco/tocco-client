@@ -3,37 +3,11 @@ import styled, {keyframes} from 'styled-components'
 import _get from 'lodash/get'
 import {
   scale,
-  shadeColor,
   theme
 } from 'tocco-ui'
 
 import {StyledMessageWrapper, StyledTitleWrapper} from './StyledTitleMessage'
-
-const wobbleHorizontal = keyframes`
-  16.65% {
-    transform: translateX(8px);
-  }
-
-  33.3%  {
-    transform: translateX(-6px);
-  }
-
-  49.95% {
-    transform: translateX(4px);
-  }
-
-  66.6%  {
-    transform: translateX(-2px);
-  }
-
-  83.25% {
-    transform: translateX(1px);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
-`
+import {StyledIconWrapper} from '../StyledComponents'
 
 const fadeIn = keyframes`
   0% {
@@ -45,30 +19,46 @@ const fadeIn = keyframes`
   }
 `
 
-const StyledNotifier = styled.div`
+const iconSize = scale.font(7)
+const infoColor = theme.color('signal.info.text')
+const successColor = theme.color('signal.success.text')
+const warningColor = theme.color('signal.warning.text')
+const dangerColor = theme.color('signal.danger.text')
+
+export const StyledNotifier = styled.div`
   && {
     .redux-toastr {
       .toastr {
-        background-color: ${({theme}) =>
-        shadeColor(_get(theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
+        background-color: ${theme.color('paper')};  // reset: react-redux-toastr (index.scss)
         color: ${theme.color('text')};  // reset: react-redux-toastr (index.scss)
+        border: 1px solid ${theme.color('text')};
+
+        .rrt-left-container {
+          width: 40px;
+          height: 40px;
+        }
+
+        .rrt-middle-container {
+          width: 100%; // reset: react-redux-toastr (index.scss)
+          margin-left: 0; // reset: react-redux-toastr (index.scss)
+          padding: ${scale.space(-0.5)};
+        }
 
         .toastr-status {
           &.success {
-            background-color: ${theme.color('signal.success.paper')};  // reset: react-redux-toastr (index.scss)
+            border-color: ${successColor};  // reset: react-redux-toastr (index.scss)
           }
 
           &.warning {
-            background-color: ${theme.color('signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
+            border-color: ${warningColor};  // reset: react-redux-toastr (index.scss)
           }
 
           &.info {
-            background-color: ${({theme}) =>
-            shadeColor(_get(theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
+            border-color: ${infoColor};  // reset: react-redux-toastr (index.scss)
           }
 
           &.error {
-            background-color: ${theme.color('signal.danger.paper')}; // reset: react-redux-toastr (index.scss)
+            border-color: ${dangerColor}; // reset: react-redux-toastr (index.scss)
           }
         }
 
@@ -83,6 +73,13 @@ const StyledNotifier = styled.div`
           }
 
           ${StyledTitleWrapper} {
+            * {
+              font-size: ${scale.font(1.5)};
+              font-weight: ${theme.fontWeight('regular')};
+            }
+            margin-top: ${scale.space(-2.5)};
+            margin-left: calc(${iconSize} + ${scale.space(-1)}); // icon size + spacing
+            padding-bottom: ${scale.space(-0.5)};
             position: static;
             top: unset;
           }
@@ -93,24 +90,47 @@ const StyledNotifier = styled.div`
         }
 
         &.rrt-info {
-          background-color: ${({theme}) =>
-          shadeColor(_get(theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
+          border-color: ${infoColor};  // reset: react-redux-toastr (index.scss)
+
+          ${/* sc-selector */StyledTitleWrapper} *,
+          ${StyledIconWrapper} {
+            color: ${infoColor};
+          }
         }
 
         &.rrt-success {
-          background-color: ${theme.color('signal.success.paper')};  // reset: react-redux-toastr (index.scss)
+          border-color: ${successColor};  // reset: react-redux-toastr (index.scss)
+
+          ${/* sc-selector */StyledTitleWrapper} *,
+          ${StyledIconWrapper} {
+            color: ${successColor};
+          }
         }
 
         &.rrt-warning {
-          background-color: ${theme.color('signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
+          border-color: ${warningColor};  // reset: react-redux-toastr (index.scss)
+
+          ${/* sc-selector */StyledTitleWrapper} *,
+          ${StyledIconWrapper} {
+            color: ${warningColor};
+          }
         }
 
         &.rrt-error {
-          background-color: ${theme.color('signal.danger.paper')};  // reset: react-redux-toastr (index.scss)
+          border-color: ${dangerColor};  // reset: react-redux-toastr (index.scss)
+
+          ${/* sc-selector */StyledTitleWrapper} *,
+          ${StyledIconWrapper} {
+            color: ${dangerColor};
+          }
         }
 
         .rrt-holder {
           opacity: .9;
+
+          ${StyledIconWrapper} {
+            font-size: ${iconSize};
+          }
         }
       }
     }
@@ -129,7 +149,7 @@ const StyledNotifier = styled.div`
         overflow-y: auto; // todo: enhance usability - it is not obvious that content is scrollable
 
         .animated.bounceIn {
-          animation-name: ${wobbleHorizontal};
+          animation-name: ${fadeIn};
           animation-timing-function: ease-in-out;
           will-change: transform;
         }
@@ -140,16 +160,17 @@ const StyledNotifier = styled.div`
       }
 
       .toastr {
-        min-height: 80px;  // reset: react-redux-toastr (index.scss)
         opacity: 1;  // reset: react-redux-toastr (index.scss)
-        border-radius: ${theme.radii('regular')};  // reset: react-redux-toastr (index.scss)
+        border-radius: 0;  // reset: react-redux-toastr (index.scss)
+        box-shadow: none; // reset: react-redux-toastr (index.scss)
 
         &:hover:not(.rrt-message) {
-          box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);  // reset: react-redux-toastr (index.scss)
+          box-shadow: none;  // reset: react-redux-toastr (index.scss)
         }
 
         .rrt-holder {
-          top: 16px;  // reset: react-redux-toastr (index.scss)
+          width: 30px;
+          top: ${scale.space(-0.5)};  // reset: react-redux-toastr (index.scss)
           margin-top: 0;  // reset: react-redux-toastr (index.scss)
           height: auto;  // reset: react-redux-toastr (index.scss)
           line-height: 1;  // reset: react-redux-toastr (index.scss)
@@ -159,7 +180,8 @@ const StyledNotifier = styled.div`
           height: auto;
           opacity: .7;  // reset: react-redux-toastr (index.scss)
           margin-top: 5px;
-          margin-right: 5px;
+          margin-right: 0;
+          font-size: ${scale.font(1.5)}; // reset: react-redux-toastr (index.scss)
 
           &:hover {
             opacity: 1;
@@ -177,14 +199,6 @@ const StyledNotifier = styled.div`
         }
 
         .rrt-buttons-holder .rrt-button {
-          background-color: $btn-default-bg;
-
-          &:hover,
-          &:focus,
-          &:active {
-            background-color: darken($btn-default-bg, 10%);
-          }
-
           &.rrt-ok-btn:active {
             background-color: inherit;  // reset: react-redux-toastr (confirm.scss)
             color: inherit;  // reset: react-redux-toastr (confirm.scss)
@@ -225,7 +239,3 @@ const StyledNotifier = styled.div`
     }
   }
 `
-
-export {
-  StyledNotifier
-}

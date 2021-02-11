@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import ReduxToastr from 'react-redux-toastr'
 import _debounce from 'lodash/debounce'
@@ -7,35 +7,32 @@ import {defaultToastrOptions} from '../notifier'
 import ModalDisplayContainer from '../modules/modalComponents/ModalDisplayContainer'
 import {StyledNotifier} from './StyledNotifier'
 
-class Notifier extends React.Component {
-  componentDidMount() {
-    window.addEventListener('mousemove', this.debouncedHandleEvent)
-    window.addEventListener('touchstart', this.debouncedHandleEvent)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('mousemove', this.debouncedHandleEvent)
-    window.removeEventListener('touchstart', this.debouncedHandleEvent)
-  }
-
-  handleEvent = e => {
-    if (this.props.hasNotifications) {
-      this.props.userActive()
+const Notifier = ({hasNotifications, userActive, toastrOptions}) => {
+  const debouncedHandleEvent = () => _debounce(handleEvent, 300)
+  const handleEvent = () => {
+    if (hasNotifications) {
+      userActive()
     }
   }
 
-  debouncedHandleEvent = _debounce(this.handleEvent, 300)
+  useEffect(() => {
+    window.addEventListener('mousemove', debouncedHandleEvent)
+    window.addEventListener('touchstart', debouncedHandleEvent)
 
-  render() {
-    return (
+    return () => {
+      window.removeEventListener('mousemove', debouncedHandleEvent)
+      window.removeEventListener('touchstart', debouncedHandleEvent)
+    }
+  }, [])
+
+  return (
       <StyledNotifier>
         <div className="tocco-notifier">
-          <ReduxToastr {...this.props.toastrOptions} />
+          <ReduxToastr {...toastrOptions}/>
           <ModalDisplayContainer/>
         </div>
       </StyledNotifier>
-    )
-  }
+  )
 }
 
 Notifier.defaultProps = {
