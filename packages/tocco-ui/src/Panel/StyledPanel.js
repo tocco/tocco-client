@@ -8,10 +8,10 @@ import {
 
 const StyledPanel = styled.div`
   && {
-    background-color: ${props => theme.color('paper')};
+    background-color: ${theme.color('paper')};
     border-width: 1px;
-    border-style: ${props => props.isFramed ? 'solid' : 'none'};
-    border-color: ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
+    border-style: ${({isFramed}) => isFramed ? 'solid' : 'none'};
+    border-color: ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 1)};
   }
 `
 export default StyledPanel

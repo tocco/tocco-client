@@ -4,21 +4,21 @@ import _get from 'lodash/get'
 import {StyledButton} from '../Button'
 import {shadeColor} from '../utilStyles'
 
-const declareDivider = props => {
+const declareDivider = ({theme, isOpen, isFramed}) => {
   const cssShared = `
     &:first-child {
-      border-bottom-color: ${shadeColor(_get(props.theme, 'colors.paper'), 1)};
-      border-bottom-style: ${props.isFramed ? 'solid' : 'none'};
+      border-bottom-color: ${shadeColor(_get(theme, 'colors.paper'), 1)};
+      border-bottom-style: ${isFramed ? 'solid' : 'none'};
     }
 
     &:last-child,
     &:nth-child(3) {
-      border-top-color: ${shadeColor(_get(props.theme, 'colors.paper'), 1)};
-      border-top-style: ${props.isFramed ? 'solid' : 'none'};
+      border-top-color: ${shadeColor(_get(theme, 'colors.paper'), 1)};
+      border-top-style: ${isFramed ? 'solid' : 'none'};
     }
   `
 
-  if (props.isOpen) {
+  if (isOpen) {
     return `
       ${cssShared}
       &:first-child {
@@ -51,7 +51,7 @@ const declareDivider = props => {
 const StyledPanelHeaderFooter = styled.div`
   && {
     display: flex;
-    padding: ${props => props.isFramed ? '4px 8px 4px 8px' : 0};
+    padding: ${({isFramed}) => isFramed ? '4px 8px 4px 8px' : 0};
     align-items: center;
 
     > div {
@@ -63,7 +63,7 @@ const StyledPanelHeaderFooter = styled.div`
       align-self: center;
     }
     ${props => declareDivider(props)}
-    transition: border ${props => props.isOpen ? '300ms ease-in-out' : '1ms ease-in-out 299ms'};
+    transition: border ${({isOpen}) => isOpen ? '300ms ease-in-out' : '1ms ease-in-out 299ms'};
     will-change: border;
   }
 `

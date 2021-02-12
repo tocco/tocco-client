@@ -8,37 +8,33 @@ import Ball from '../Ball'
  * <Panel.Header/> and <Panel.Footer/> contain by default a button to toggle the visibility state of <Panel.Body>.
  * Header and footer can contain any content. If both are displayed is up to the implementer.
  */
-class PanelHeaderFooter extends React.PureComponent {
-  render() {
-    const {
-      children,
-      isFramed,
-      isOpen,
-      isToggleable,
-      showToggler,
-      toggleOpenState
-    } = this.props
-
-    return (
-      <StyledPanelHeaderFooter
-        isFramed={isFramed}
-        isOpen={isOpen}
-      >
-        <div>
-          {React.Children.map(children, child => React.cloneElement(child))}
-        </div>
-        {isToggleable
-          && showToggler
-          && <Ball
-            icon={isOpen ? 'chevron-up' : 'chevron-down'}
-            onClick={toggleOpenState}
-            title={isOpen ? this.props.options.collapseButtonText : this.props.options.unfoldButtonText}
-          />
-        }
-      </StyledPanelHeaderFooter>
-    )
-  }
-}
+const PanelHeaderFooter = ({
+  children,
+  isFramed,
+  isOpen,
+  isToggleable,
+  showToggler,
+  toggleOpenState,
+  options
+}) => (
+  <StyledPanelHeaderFooter
+    isFramed={isFramed}
+    isOpen={isOpen}
+    onClick={toggleOpenState}
+  >
+    <div>
+      {React.Children.map(children, child => React.cloneElement(child))}
+    </div>
+    {isToggleable
+    && showToggler
+    && <Ball
+      icon={isOpen ? 'chevron-up' : 'chevron-down'}
+      onClick={toggleOpenState}
+      title={isOpen ? options.collapseButtonText : options.unfoldButtonText}
+    />
+    }
+  </StyledPanelHeaderFooter>
+)
 
 PanelHeaderFooter.defaultProps = {
   showToggler: true,
