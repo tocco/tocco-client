@@ -5,10 +5,13 @@ import {navigationStrategy} from 'tocco-util'
 
 import {deleteInfoPropType} from '../../utils/deleteRequestParser'
 import InfoPart from '../InfoPart'
+import {StyledIconWrapper} from './StyledComponents'
 
 const DeleteProgress = ({dialogInfo, navigationStrategy}) => {
   return <>
-    <LoadingSpinner size="30px"/>
+    <StyledIconWrapper >
+      <LoadingSpinner size="30px"/>
+    </StyledIconWrapper>
     <Typography.P><FormattedMessage id="client.delete.deleteInProgress"/></Typography.P>
     <InfoPart
       key="infopart-deletable"
