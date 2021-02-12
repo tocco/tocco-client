@@ -9,7 +9,7 @@ import sourceDataPropType from '../../util/sourceDataPropType'
 import {setTargetEntity} from '../../modules/merge/actions'
 import {CellRendererContainer} from './CellRender'
 import MergeErrors, {mergeValidationErrorsPropTypes} from './MergeErrors'
-import {StyledTableWrapper} from './StyledComponents'
+import {StyledTableWrapper, StyledStatusWrapper} from './StyledComponents'
 import {StyledButton, StyledButtonWrapper} from '../GlobalStyledComponents'
 
 const LabelCellRenderer = ({rowIdx, sourceData, allPaths}) => {
@@ -30,7 +30,10 @@ const ColumnHeaderRenderer = ({label, entityKey, setTargetEntity, targetEntity, 
 
   return <>
     <input type="radio" name="column" onChange={onChange} checked={isChecked} id={`targetEntity${entityKey}`}/>
-    <Typography.Label for={`targetEntity${entityKey}`}> {label} ({status})</Typography.Label>
+    <Typography.Label for={`targetEntity${entityKey}`}>
+      <Typography.B>{label}</Typography.B>
+      <StyledStatusWrapper isChecked={isChecked}> ({status})</StyledStatusWrapper>
+    </Typography.Label>
   </>
 }
 
@@ -45,7 +48,7 @@ ColumnHeaderRenderer.propTypes = {
 const mapActionCreatorsColumn = {
   setTargetEntity
 }
-const mapStateToPropsColumn = (state, props) => ({
+const mapStateToPropsColumn = state => ({
   targetEntity: state.merge.selected.targetEntity,
   mergeStrategyDisplay: state.merge.sourceData.mergeStrategyDisplay
 })
@@ -86,7 +89,6 @@ const MergeTable = ({sourceData, mergePending, mergeErrorMsg, mergeValidationErr
         onColumnPositionChange={() => {}}
       />
     </StyledTableWrapper>
-
   </>
 }
 
