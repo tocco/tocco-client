@@ -12,6 +12,7 @@ import {
   StyledDateAbstractOuterWrapper
 } from './StyledDateAbstract'
 import {GlobalDatePickerStyles} from '../../DatePicker/GlobalDatePickerStyles'
+import Ball from '../../Ball'
 
 class DateAbstract extends React.Component {
   Flatpickr = null
@@ -130,6 +131,7 @@ class DateAbstract extends React.Component {
       const altValue = this.flatpickr.altInput.value
       this.props.onBlur(altValue, this.flatpickr.selectedDates, r => this.flatpickr.setDate(r, true))
     }
+    this.flatpickr.close()
   }
 
   render() {
@@ -150,13 +152,17 @@ class DateAbstract extends React.Component {
               this.flatpickr.open()
             })
           }}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              this.handleOnBlur()
+            }
+          }}
         >
           <StyledDateAbstractWrapper
             data-wrap
             onBlur={this.handleOnBlur}
             immutable={this.props.immutable}
             ref={this.wrapper}
-
           >
             <StyledDateAbstractInput
               {...this.props.immutable ? {disabled: 'disabled'} : {}}
@@ -170,6 +176,13 @@ class DateAbstract extends React.Component {
               immutable={this.props.immutable}
               value={this.state.altInput}
             />
+            <Ball
+              icon="times"
+              data-clear
+              tabIndex={-1}
+              onMouseDown={e => {
+                e.preventDefault()
+              }}/>
           </StyledDateAbstractWrapper>
         </StyledDateAbstractOuterWrapper>
       </>
