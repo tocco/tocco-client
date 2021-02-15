@@ -4,9 +4,8 @@ import {scale, StyledH1, StyledSpan, theme} from 'tocco-ui'
 import ToccoLogo from '../../assets/tocco-circle.svg'
 
 export const StyledLogin = styled.div`
-  height: 100%;
+  height: 100vh;
   width: 100vw;
-  position: absolute;
   background-image: url(${ToccoLogo});
   background-repeat: no-repeat;
   background-size: 61vw;
@@ -60,7 +59,7 @@ export const StyledLoginWrapper = styled.div`
     }
 
     @media (max-width: 425px) {
-      margin-top: 8rem;
+      margin-top: 12rem;
     }
   }
 `
@@ -82,7 +81,9 @@ export const StyledMobileSloganImg = styled.img`
   max-width: 400px;
   width: 95%;
   height: auto;
-  margin: 45px auto 0;
+  position: relative;
+  margin: auto;
+  top: 45px;
 
   @media (max-width: 1024px) {
     display: block;
@@ -90,7 +91,6 @@ export const StyledMobileSloganImg = styled.img`
 
   @media (max-width: 425px) {
     max-width: 280px;
-    margin-top: 40px;
   }
 `
 
