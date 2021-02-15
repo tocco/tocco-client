@@ -98,6 +98,17 @@ function getOrCreateHeaders(optionsHeader) {
   return new Headers()
 }
 
+function getBaseUrl(backendUrl, resource) {
+  if (resource.startsWith('http')) {
+    return resource
+  } else
+  if (resource.startsWith('nice2')) {
+    return `${backendUrl}/${resource}`
+  } else {
+    return `${backendUrl}/nice2/rest/${resource}`
+  }
+}
+
 export function prepareRequest(resource, options = {}) {
   const {
     queryParams = {},
@@ -131,11 +142,7 @@ export function prepareRequest(resource, options = {}) {
   }
 
   const paramString = getParameterString(queryParams)
-
-  const baseUrl = resource.startsWith('http')
-    ? resource
-    : `${backendUrl}/nice2/rest/${resource}`
-
+  const baseUrl = getBaseUrl(backendUrl, resource)
   const url = `${baseUrl}${paramString}`
 
   return {
