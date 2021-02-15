@@ -183,7 +183,7 @@ describe('two-factor-connector', () => {
             ])
             .call.like({
               fn: rest.requestSaga,
-              args: [`${__BACKEND_URL__}/nice2/login`]
+              args: ['nice2/login']
             })
             .put(actions.setSetupSuccessful(true))
             .put(actions.goToResult())
