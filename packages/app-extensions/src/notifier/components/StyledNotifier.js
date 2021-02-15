@@ -54,19 +54,19 @@ export const StyledNotifier = styled.div`
 
         .toastr-status {
           &.success {
-            border-color: ${successColor};  // reset: react-redux-toastr (index.scss)
+            border-color: ${successColor};
           }
 
           &.warning {
-            border-color: ${warningColor};  // reset: react-redux-toastr (index.scss)
+            border-color: ${warningColor};
           }
 
           &.info {
-            border-color: ${infoColor};  // reset: react-redux-toastr (index.scss)
+            border-color: ${infoColor};
           }
 
           &.error {
-            border-color: ${dangerColor}; // reset: react-redux-toastr (index.scss)
+            border-color: ${dangerColor};
           }
         }
 
@@ -98,7 +98,7 @@ export const StyledNotifier = styled.div`
         }
 
         &.rrt-info {
-          border-color: ${infoColor};  // reset: react-redux-toastr (index.scss)
+          border-color: ${infoColor};
 
           ${/* sc-selector */StyledTitleWrapper} *,
           .rrt-holder {
@@ -107,7 +107,7 @@ export const StyledNotifier = styled.div`
         }
 
         &.rrt-success {
-          border-color: ${successColor};  // reset: react-redux-toastr (index.scss)
+          border-color: ${successColor};
 
           ${/* sc-selector */StyledTitleWrapper} *,
           .rrt-holder {
@@ -116,7 +116,7 @@ export const StyledNotifier = styled.div`
         }
 
         &.rrt-warning {
-          border-color: ${warningColor};  // reset: react-redux-toastr (index.scss)
+          border-color: ${warningColor};
 
           ${/* sc-selector */StyledTitleWrapper} *,
           .rrt-holder {
@@ -125,7 +125,7 @@ export const StyledNotifier = styled.div`
         }
 
         &.rrt-error {
-          border-color: ${dangerColor};  // reset: react-redux-toastr (index.scss)
+          border-color: ${dangerColor};
 
           ${/* sc-selector */StyledTitleWrapper} *,
           .rrt-holder {
