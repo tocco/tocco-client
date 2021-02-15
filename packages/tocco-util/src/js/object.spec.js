@@ -41,6 +41,22 @@ describe('tocco-util', () => {
         const diff = difference(obj, base)
         expect(diff).to.eql({address: {city: {zipcode: '8006'}}})
       })
+
+      test('should handle function values', () => {
+        const func1 = () => {}
+        const func2 = () => {}
+
+        const obj = {
+          func: func1
+        }
+
+        const base = {
+          func: func2
+        }
+
+        const diff = difference(obj, base)
+        expect(diff.func).to.eql(func1)
+      })
     })
   })
 })
