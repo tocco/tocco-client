@@ -32,7 +32,7 @@ function* activateTwoFactorWithoutSession(secret, userCode, username, password) 
     username,
     password
   }
-  const response = yield call(rest.requestSaga, `${__BACKEND_URL__}/nice2/login`,
+  const response = yield call(rest.requestSaga, 'nice2/login',
     {
       method: 'POST',
       headers: new Headers({
