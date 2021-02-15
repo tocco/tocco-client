@@ -1,21 +1,10 @@
 import React from 'react'
 import {actions, form} from 'tocco-app-extensions'
-import {FormattedValue, StyledButton} from 'tocco-ui'
-import styled from 'styled-components'
+import {FormattedValue} from 'tocco-ui'
 
 import fieldFactory from './fieldFactory'
 import LazyDataCell from '../components/LazyDataEnhancer'
-
-const StyledActionWrapper = styled.div`
-  ${StyledButton} {
-    width: 100%;
-    justify-content: center;
-
-    > * {
-      overflow: hidden;
-    }
-  }
-`
+import {StyledActionWrapper} from './StyledComponents'
 
 export default (field, entity, parent, intl) => {
   const {componentType} = field
