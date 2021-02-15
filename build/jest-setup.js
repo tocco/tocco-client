@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import Enzyme from 'enzyme'
-import EnzymeAdapter from 'enzyme-adapter-react-16'
+import EnzymeAdapter from '@wojtekmaj/enzyme-adapter-react-17'
 import sinon from 'sinon'
 import fetch from 'node-fetch'
 import chai from 'chai'
