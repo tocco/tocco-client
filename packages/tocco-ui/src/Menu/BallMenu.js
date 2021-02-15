@@ -27,13 +27,14 @@ const BallMenu = props => {
 
   return <>
     <Ball {...props.buttonProps} onClick={handleClick} ref={ballEl}/>
-    <Menu
+    {menuOpen && <Menu
       referenceElement={ballEl.current}
       open={menuOpen}
       onClose={handleClose}
     >
-      {props.children}
-    </Menu>
+      {props.children
+      }
+    </Menu>}
   </>
 }
 
