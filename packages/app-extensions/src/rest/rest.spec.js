@@ -323,6 +323,13 @@ describe('app-extensions', () => {
         expect(requestData2.url).to.eql('https://www.tocco.ch/nice2/rest/entities')
       })
 
+      test('should use nice2 url if resource is one', () => {
+        const absoluteResource = 'nice2/login'
+        const requestData = prepareRequest(absoluteResource, {backendUrl: 'backend'})
+
+        expect(requestData.url).to.eql('backend/nice2/login')
+      })
+
       test('should use Content-Type passed in options', () => {
         const resource = 'endpoint'
         const options = {
