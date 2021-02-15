@@ -1,17 +1,11 @@
-import {Button, Popover, theme} from 'tocco-ui'
+import {Popover} from 'tocco-ui'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import modes from '../../util/modes'
 import ErrorItems from '../ErrorItems'
-
-const StyledButton = styled(Button)`
-  ${({hasErrors}) => hasErrors && `
-    background-color: ${theme.color('paper')};
-  `};
-`
+import {StyledButton} from './StyledComponents'
 
 const ConditionalWrap = ({condition, wrap, children}) => (
   condition ? wrap(children) : children
