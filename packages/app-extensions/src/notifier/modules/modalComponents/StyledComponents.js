@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {
+  Button,
   scale,
   theme
 } from 'tocco-ui'
@@ -56,4 +57,17 @@ export const StyledPageOverlay = styled.div`
   top: 0;
   left: 0;
   z-index: -1;
+`
+
+export const StyledModalButton = styled(Button)`
+  margin-top: ${scale.space(0)};
+
+  &:last-child {
+    margin-right: 0;
+  }
+`
+
+export const StyledModalButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `
