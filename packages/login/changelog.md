@@ -1,3 +1,8 @@
+0.2.19
+- Style notifier popups to better harmonize with the existing styling
+- Make panel header clickable so it can also expand the panel
+- Fix logo not displaying in login screen on iOS
+
 0.2.18
 - Text autosize new component (Fixes Safari performance problems)
 - Support multipart/form-data requests in `rest` extension
