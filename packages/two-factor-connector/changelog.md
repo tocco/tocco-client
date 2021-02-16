@@ -1,3 +1,6 @@
+0.1.8
+- Fix url bug
+
 0.1.7
 - Text autosize new component (Fixes Safari performance problems)
 - Support multipart/form-data requests in `rest` extension
