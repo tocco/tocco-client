@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {scale, theme} from 'tocco-ui'
+import {scale, theme, StyledButton} from 'tocco-ui'
 
 export const StyledColumnPickerWrapper = styled.div`
   display: grid;
@@ -27,6 +27,12 @@ export const StyledButtonWrapper = styled.div`
   bottom: 0;
   padding-top: ${scale.space(0)};
   background-color: ${theme.color('paper')};
+  display: flex;
+  justify-content: flex-end;
+
+  ${StyledButton} {
+    margin-right: 0;
+  }
 `
 
 export const StyledId = styled.span`

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {scale, theme} from 'tocco-ui'
+import {scale, theme, StyledButton} from 'tocco-ui'
 
 export const StyledAdvancedSearch = styled.div`
   && {
@@ -15,4 +15,10 @@ export const StyledAdvancedSearchButtonWrapper = styled.div`
   z-index: 1;
   position: sticky;
   bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+
+  ${StyledButton} {
+    margin-right: 0;
+  }
 `

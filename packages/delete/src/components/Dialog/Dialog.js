@@ -6,56 +6,68 @@ import {FormattedMessage} from 'react-intl'
 
 import {deleteInfoPropType} from '../../utils/deleteRequestParser'
 import InfoPart from '../InfoPart'
+import {StyledSectionWrapper, StyledButtonsWrapper} from './StyledComponents'
 
-const Dialog = ({dialogInfo, doDelete, onCancel, navigationStrategy}) =>
-  <>
+const Dialog = ({
+  dialogInfo: {
+    entityName,
+    entityLabel,
+    keysDeletable,
+    relatedDeletable,
+    keysNotDeletable,
+    relatedNotDeletable,
+    hasUnreadableEntities
+  }, doDelete, onCancel, navigationStrategy
+}) => <>
     <Typography.P><FormattedMessage id="client.delete.confirmText"/></Typography.P>
     <InfoPart
       key="infopart-deletable"
-      entityName={dialogInfo.entityName}
-      entityLabel={dialogInfo.entityLabel}
-      keys={dialogInfo.keysDeletable}
-      relatedEntities={dialogInfo.relatedDeletable}
+      entityName={entityName}
+      entityLabel={entityLabel}
+      keys={keysDeletable}
+      relatedEntities={relatedDeletable}
       maxCountLink={100}
       navigationStrategy={navigationStrategy}
     />
-    {dialogInfo.keysNotDeletable.length > 0
-    && <div style={{paddingTop: '20px'}}>
+    {keysNotDeletable.length > 0
+    && <StyledSectionWrapper>
       <Typography.P><FormattedMessage id="client.delete.textNotDeletable"/></Typography.P>
       <InfoPart
         key="infopart-notdeletable"
-        entityName={dialogInfo.entityName}
-        entityLabel={dialogInfo.entityLabel}
-        keys={dialogInfo.keysNotDeletable}
-        relatedEntities={dialogInfo.relatedNotDeletable}
+        entityName={entityName}
+        entityLabel={entityLabel}
+        keys={keysNotDeletable}
+        relatedEntities={relatedNotDeletable}
         maxCountLink={100}
         navigationStrategy={navigationStrategy}
       />
-    </div>
+    </StyledSectionWrapper>
     }
-    {dialogInfo.hasUnreadableEntities
-    && <div style={{paddingTop: '20px'}}>
+    {hasUnreadableEntities
+    && <StyledSectionWrapper>
       <SignalBox
         condition="warning">
         <Typography.Span><FormattedMessage id="client.delete.unreadableEntities"/></Typography.Span>
       </SignalBox>
-    </div>
+    </StyledSectionWrapper>
     }
-    <div style={{paddingTop: '20px'}}>
-      <Button
-        onClick={doDelete}
-        disabled={dialogInfo.keysDeletable.length === 0}
-      >
-        <FormattedMessage id="client.delete.deleteButton"/>
-      </Button>
-      <Button
-        ink="primary"
-        onClick={onCancel}
-      >
-        <FormattedMessage id="client.delete.cancelButton"/>
-      </Button>
-    </div>
-  </>
+    <StyledSectionWrapper>
+      <StyledButtonsWrapper>
+        <Button
+          onClick={doDelete}
+          disabled={keysDeletable.length === 0}
+        >
+          <FormattedMessage id="client.delete.deleteButton"/>
+        </Button>
+        <Button
+          ink="primary"
+          onClick={onCancel}
+        >
+          <FormattedMessage id="client.delete.cancelButton"/>
+        </Button>
+      </StyledButtonsWrapper>
+    </StyledSectionWrapper>
+</>
 
 Dialog.propTypes = {
   onCancel: PropTypes.func.isRequired,
