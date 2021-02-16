@@ -1,3 +1,6 @@
+0.4.19-hotfix228.1
+- Fix caching of business unit
+
 0.4.19
 - Fix empty create forms because of missing field information
 
