@@ -22,7 +22,8 @@ describe('app-extensions', () => {
         describe('uploadDocument saga', () => {
           test('should call upload and dispatch value', () => {
             const file = {}
-            const field = 'preview_picture'
+            const field = 'relData.preview_picture'
+            const fieldTransformed = 'relData--preview_picture'
             const uploadResponse = {
               success: true
             }
@@ -33,7 +34,7 @@ describe('app-extensions', () => {
             expect(gen.next().value).to.eql(call(uploadRequest, file))
             expect(gen.next(uploadResponse).value).to.eql(call(documentToFormValueTransformer, uploadResponse, file))
             expect(gen.next(documentFormValue).value).to.eql(
-              put(formActions.change(formName, field, documentFormValue))
+              put(formActions.change(formName, fieldTransformed, documentFormValue))
             )
 
             expect(gen.next().done).to.be.true

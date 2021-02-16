@@ -4,6 +4,7 @@ import {all, call, put, takeEvery} from 'redux-saga/effects'
 import {documentToFormValueTransformer, uploadRequest} from './documents'
 import * as actions from './actions'
 import errorLogging from '../../errorLogging'
+import form from '../../form'
 
 export default function* sagas() {
   yield all([
@@ -19,7 +20,7 @@ export function* uploadDocument({payload}) {
 
     if (uploadResponse.success) {
       const documentFormValue = yield call(documentToFormValueTransformer, uploadResponse, file)
-      yield put(formActions.change(formName, field, documentFormValue))
+      yield put(formActions.change(formName, form.transformFieldName(field), documentFormValue))
     } else {
       throw new Error(`upload not successful: ${JSON.stringify(uploadResponse)}`)
     }
