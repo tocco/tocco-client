@@ -7,14 +7,14 @@ const LayoutContainer = ({children}) => {
   const ref = useRef(null)
   const [containerWidth, setContainerWidth] = useState(0)
 
-  const setDeviceIndependentPixelWidth = () => {
-    setContainerWidth(Math.floor(ref.current.offsetWidth / window.devicePixelRatio))
+  const setPixelWidth = () => {
+    setContainerWidth(ref.current.offsetWidth)
   }
 
   useEffect(() => {
-    setDeviceIndependentPixelWidth()
-    window.addEventListener('resize', setDeviceIndependentPixelWidth)
-    return () => window.removeEventListener('resize', setDeviceIndependentPixelWidth)
+    setPixelWidth()
+    window.addEventListener('resize', setPixelWidth)
+    return () => window.removeEventListener('resize', setPixelWidth)
   }, [])
 
   return (
