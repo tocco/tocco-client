@@ -1,3 +1,9 @@
+0.10.20
+- Vertically center spinner icon in delete progress
+- Style notifier popups to better harmonize with the existing styling
+- Make panel header clickable so it can also expand the panel
+- Fix height and action button styling of detail form in old client
+
 0.10.19
 - Async validation on blur
 - Adjust left pane grid on for android tablets to prevent overflow
