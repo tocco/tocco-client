@@ -1,3 +1,12 @@
+0.4.20
+- Fix caching of business unit
+- Vertically center spinner icon in delete progress
+- Style merge table header contents for better UX
+- Style notifier popups to better harmonize with the existing styling
+- Make panel header clickable so it can also expand the panel
+- Fix logo not displaying in login screen on iOS
+- Fix height and action button styling of detail form in old client
+
 0.4.19
 - Fix empty create forms because of missing field information
 
