@@ -1,3 +1,8 @@
+0.4.2
+- Style merge table header contents for better UX
+- Style notifier popups to better harmonize with the existing styling
+- Make panel header clickable so it can also expand the panel
+
 0.4.1
 - Style datepicker so that it fits better into the rest of admin
 - Add a popover variant that is placed on the right of element
