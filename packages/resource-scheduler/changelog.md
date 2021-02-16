@@ -1,3 +1,8 @@
+0.4.4
+- Style notifier popups to better harmonize with the existing styling
+- Make panel header clickable so it can also expand the panel
+- Fix height and action button styling of detail form in old client
+
 0.4.3
 - Fix default value serach filter bug
 - Fix checkbox and menu background hover inside table heading
