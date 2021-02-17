@@ -1,3 +1,8 @@
+0.4.21
+- Move buttons inside modals to the right to improve UX
+- Fix hidden extender and force border rendering of ranges in chrome
+- Fix empty report settings (TOCDEV-3218)
+
 0.4.20
 - Fix caching of business unit
 - Vertically center spinner icon in delete progress
