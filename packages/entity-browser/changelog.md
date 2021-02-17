@@ -1,3 +1,6 @@
+0.10.19-hotfix228.1
+- Fix empty report settings (TOCDEV-3218)
+
 0.10.19
 - Async validation on blur
 - Adjust left pane grid on for android tablets to prevent overflow
