@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {scale} from '../utilStyles'
 
 export const StyledInputWrapper = styled.div`
-  width: 100%;
+  width: calc(100% - 20px); // subtract extender width
 `
 export const StyledInputItemWrapper = styled.div`
   display: inline-block;
@@ -35,5 +35,7 @@ export const StyledInput = styled.div`
 export const StyledExtender = styled.div`
   display: flex;
   align-items: center;
-  margin-left: -20px;
+  position: relative;
+  left: 2px;
+  z-index: 1;
 `

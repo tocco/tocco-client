@@ -10,7 +10,7 @@ import {
 } from '../utilStyles'
 import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
 
-const borderWidth = '1px'
+const borderWidth = '1.1px' // deliberately uneven to force correct rendering in chrome
 const animationDuration = '200ms'
 
 const getTextColor = ({isDisplay, secondaryPosition, immutable, signal}) => {
