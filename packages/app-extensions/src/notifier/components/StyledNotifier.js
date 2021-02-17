@@ -50,6 +50,11 @@ export const StyledNotifier = styled.div`
           width: 100%; // reset: react-redux-toastr (index.scss)
           margin-left: 0; // reset: react-redux-toastr (index.scss)
           padding: ${scale.space(-0.5)};
+
+          > div:first-child {
+            margin-left: calc(${iconSize} + ${scale.space(-1)}); // icon size + spacing
+            margin-top: ${scale.space(-2.5)};
+          }
         }
 
         .toastr-status {
@@ -85,8 +90,6 @@ export const StyledNotifier = styled.div`
               font-size: ${scale.font(1.5)};
               font-weight: ${theme.fontWeight('regular')};
             }
-            margin-top: ${scale.space(-2.5)};
-            margin-left: calc(${iconSize} + ${scale.space(-1)}); // icon size + spacing
             padding-bottom: ${scale.space(-0.5)};
             position: static;
             top: unset;
