@@ -1,3 +1,6 @@
+0.4.19-hotfix228.2
+- Fix empty report settings (TOCDEV-3218)
+
 0.4.19-hotfix228.1
 - Fix caching of business unit
 
