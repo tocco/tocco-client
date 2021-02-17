@@ -35,6 +35,7 @@ export function* handleInitialForm({formDefinition, defaultValues, formTitle, fo
       onSubmit={onSend}
       onCancel={onCancel}
       defaultValues={defaultValues}
+      mode="create"
     />
   ))
 

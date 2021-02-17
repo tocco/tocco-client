@@ -57,6 +57,7 @@ export class ReportSettings extends React.Component {
             this.handleSettingsChange(values, valid)
           }}
           defaultValues={getFormDataDefaults(settingsDefinition)}
+          mode="create"
         />
         {this.customSettingsDefined
         && <this.SimpleFormContainer
@@ -66,6 +67,7 @@ export class ReportSettings extends React.Component {
           onChange={({values, valid}) => {
             this.handleCustomSettingsChange(values, valid)
           }}
+          mode="create"
         />
         }
         <StyledStickyButtons>
