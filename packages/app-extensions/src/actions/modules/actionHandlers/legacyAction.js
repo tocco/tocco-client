@@ -211,7 +211,11 @@ export default function* (definition, selection, parent, params, config) {
   })
   entityExplorer.init()
 
-  const ctx = new window.nice2.modules.entityexplorer.EntityExplorerActionContext(entityExplorer, null)
+  const panel = new window.nice2.modules.NewClientLegacyActionsPanel({
+    entityName: selection.entityName
+  })
+
+  const ctx = new window.nice2.modules.entityexplorer.EntityExplorerActionContext(entityExplorer, panel)
   if (selection.type === 'ID' && selection.ids.length === 1) {
     ctx.getRecord = () => ({id: selection.ids[0]})
   }
