@@ -1,5 +1,6 @@
 import {reducer as reducerUtil} from 'tocco-util'
 import _omit from 'lodash/omit'
+import _setWith from 'lodash/setWith'
 
 import * as actions from './actions'
 
@@ -86,23 +87,20 @@ const setTargetEntity = (state, {payload: {entityKey}}) => {
   const single = {}
   const multiple = {}
 
-  const paths = state.sourceData.entities.find(e => e.key === entityKey).paths
-  for (const [key, obj] of Object.entries(paths)) {
-    if (obj.type === 'entity-list') {
-      multiple[key] = {}
-      obj.value.map(e => e.key).forEach(relatedEntityKey => {
-        multiple[key][relatedEntityKey] = entityKey
-      })
-    } else {
+  const targetEntity = state.sourceData.entities.find(e => e.key === entityKey)
+  for (const [key, obj] of Object.entries(targetEntity.paths)) {
+    if (obj.type !== 'entity-list') {
       single[key] = entityKey
     }
   }
 
+  state.sourceData.entities.filter(e => e.key !== entityKey).forEach(e => setTargetEntityMultiple(multiple, e))
+  setTargetEntityMultiple(multiple, targetEntity)
+
   const multipleAll = state.sourceData.relations
-    .filter(e => e.entityKey === entityKey && e.keys.length > 0)
     .reduce((acc, val) => ({
       ...acc,
-      [val.relationName]: [entityKey]
+      [val.relationName]: [...(acc[val.relationName] || []), val.entityKey]
     }), {})
 
   return (
@@ -117,6 +115,16 @@ const setTargetEntity = (state, {payload: {entityKey}}) => {
       }
     }
   )
+}
+
+const setTargetEntityMultiple = (multiple, entity) => {
+  for (const [key, obj] of Object.entries(entity.paths)) {
+    if (obj.type === 'entity-list') {
+      obj.value.map(e => e.key).forEach(relatedEntityKey => {
+        _setWith(multiple, [key, relatedEntityKey], entity.key, Object)
+      })
+    }
+  }
 }
 
 const ACTION_HANDLERS = {
