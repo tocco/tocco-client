@@ -45,12 +45,14 @@ const MergeSummary = ({mergeResponse, navigationStrategy, isOldClient, close, op
       </StyledIconWrapper>
       <Typography.P>
         <FormattedMessage id="client.merge.summary.success"/>
-        {
-          (mergeResponse.notCopiedRelations.length > 0 || mergeResponse.notDeletedEntities.length > 0)
-          && <FormattedMessage id="client.merge.summary.successHint"/>
-        }
       </Typography.P>
     </StyledSummarySuccessWrapper>
+    {
+      (mergeResponse.notCopiedRelations.length > 0 || mergeResponse.notDeletedEntities.length > 0)
+      && <Typography.P>
+        <FormattedMessage id="client.merge.summary.successHint"/>
+      </Typography.P>
+    }
     {
       mergeResponse.notCopiedRelations.length > 0
       && <StyledMessageWrapper>
