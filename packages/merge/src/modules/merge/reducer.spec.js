@@ -381,13 +381,14 @@ describe('merge', () => {
                 },
                 multiple: {
                   relPrincipal: {
+                    3026: '10',
                     3150: '1',
                     5711: '1',
                     5712: '1'
                   }
                 },
                 multipleAll: {
-                  relMail: ['1']
+                  relMail: ['1', '2', '10']
                 }
               }
             }
