@@ -22,6 +22,7 @@ React-registry name: `entity-detail`
 |-----------------------------|--------------------------------------------------------------------------------------------------------------------|-------------
 | `onSubGridRowClick`         | `id` (id of the clicked record), `gridName` (name of the sub grid), `relationName` (name of the sub grid relation) | Is fired when a row of a sub grid is clicked
 | `onEntityCreated`           | `id` (of the newly created record)                                                                                 | Is fired when a a record got created
+| `onEntityUpdated`           |                                                                                                                    | Is fired when a a record got sucessfully updated
 | `onEntityDeleted`           |                                                                                                                    | Is fired when the loaded record got deleted
 | `onTouchedChange`           | `touched` (boolean flag which indicates if the form is touched)                                                    | This event is fired when the touched state changes
 

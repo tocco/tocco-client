@@ -123,6 +123,7 @@ export function* updateFormSubmit(entity) {
   yield call(updateEntity, entity)
   yield call(loadData)
 
+  yield put(externalEvents.fireExternalEvent('onEntityUpdated'))
   yield call(showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
   yield put(actions.setLastSave())
   yield put(formActions.stopSubmit(FORM_ID))
