@@ -5,6 +5,25 @@ const getAllRelations = sourceData => [...new Set(sourceData.relations.map(r => 
 
 const getAllPathsAndRelations = sourceData => [...getAllPaths(sourceData), ...getAllRelations(sourceData)]
 
+const getSortedPathsAndRelations = sourceData => {
+  const counters = Object.entries(sourceData.entities[0].paths)
+    .filter(([_, value]) => value.type === 'counter')
+    .map(([name, _]) => name)
+
+  const other = getAllPathsAndRelations(sourceData)
+    .filter(name => !counters.includes(name))
+
+  const sortByLabel = list => list
+    .map(name => ({
+      name: name,
+      label: sourceData.labels[name]
+    }))
+    .sort((a, b) => a.label < b.label ? -1 : 1)
+    .map(o => o.name)
+
+  return [...sortByLabel(counters), ...sortByLabel(other)]
+}
+
 export const getDataRows = sourceData => {
   const pathRows = getAllPaths(sourceData).map((path, idx) => {
     return sourceData.entities.reduce((acc, e) => {
@@ -53,7 +72,10 @@ export const getDataRows = sourceData => {
       }, {__key: relation})
   })
 
-  return [...pathRows, ...relationRows]
+  const sorting = getSortedPathsAndRelations(sourceData)
+  return [...pathRows, ...relationRows].sort((a, b) =>
+    sorting.findIndex(e => e === a.__key) - sorting.findIndex(e => e === b.__key)
+  )
 }
 
 export const getColumnDefinition = (sourceData, ColumnHeaderRenderer, PathCellRenderer, LabelCellRenderer) => {
@@ -80,7 +102,7 @@ export const getColumnDefinition = (sourceData, ColumnHeaderRenderer, PathCellRe
       sortable: false
     },
     CellRenderer: props =>
-      <LabelCellRenderer {...props} sourceData={sourceData} allPaths={getAllPathsAndRelations(sourceData)}/>
+      <LabelCellRenderer {...props} sourceData={sourceData} allPaths={getSortedPathsAndRelations(sourceData)}/>
   }
 
   return [labelColumn, ...pathColumns]
