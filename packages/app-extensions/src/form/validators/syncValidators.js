@@ -107,7 +107,7 @@ export const emailValidator = value =>
     : null
 
 export const urlValidator = value =>
-  !isUrl(value)
+  !isUrl(value) && !(value.includes('localhost') && isUrl(value, {require_tld: false}))
     ? {
         format: [<FormattedMessage
         key="invalidUrl"
