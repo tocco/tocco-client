@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedValue, Typography} from 'tocco-ui'
+import {FormattedValue, MultiCheckbox, Typography} from 'tocco-ui'
 import {field} from 'tocco-app-extensions'
 import {FormattedMessage} from 'react-intl'
 import {js, navigationStrategy} from 'tocco-util'
@@ -71,22 +71,48 @@ export const RelationsCheckBoxes = React.memo(({
   setSelectedMultiple,
   selectedMultiple
 }) => {
-  return entityData.value.map(relationEntity => {
-    const isSelected = _get(selectedMultiple, [name, relationEntity.key]) === entityKey
-    const onChange = e => setSelectedMultiple(name, entityKey, relationEntity.key, e.target.checked)
+  const isSelected = key => _get(selectedMultiple, [name, key]) === entityKey
+  const setSelected = (key, checked) => setSelectedMultiple(name, entityKey, key, checked)
 
-    return (
-      <StyledLabelWrapper key={`relation-checkbox-${relationEntity.key}`}>
-        <input type="checkbox"
-          onChange={onChange}
-          checked={isSelected}
-          id={`${name}${entityKey}-${relationEntity.key}`}/>
-        <Typography.Label for={`${name}${entityKey}-${relationEntity.key}`}>
-          <FormattedValue type="single-select" value={relationEntity}/>
-        </Typography.Label>
-      </StyledLabelWrapper>
-    )
-  })
+  const numberTotal = entityData.value.length
+  const numberSelected = entityData.value.filter(relationEntity => isSelected(relationEntity.key)).length
+  const allRowsSelectionState = numberTotal === numberSelected
+    ? 'checked'
+    : numberSelected > 0
+      ? 'indeterminate'
+      : 'unchecked'
+  const allRowsSelectionChange = v => {
+    entityData.value.forEach(relationEntity => {
+      const checked = v === 'checked'
+      if (isSelected(relationEntity.key) !== checked) {
+        setSelected(relationEntity.key, checked)
+      }
+    })
+  }
+
+  return <>
+    {
+      entityData.value.length > 0 && <StyledLabelWrapper>
+          <MultiCheckbox value={allRowsSelectionState} onChange={allRowsSelectionChange} id={`${name}${entityKey}`}/>
+          <Typography.Label for={`${name}${entityKey}`}>
+            <Typography.B>
+              <FormattedMessage id="client.merge.allRelations"/>
+            </Typography.B>
+          </Typography.Label>
+        </StyledLabelWrapper>
+    }
+    {
+      entityData.value.map(relationEntity => <StyledLabelWrapper key={`relation-checkbox-${relationEntity.key}`}>
+            <input type="checkbox"
+                   onChange={e => setSelected(relationEntity.key, e.target.checked)}
+                   checked={isSelected(relationEntity.key)}
+                   id={`${name}${entityKey}-${relationEntity.key}`}/>
+            <Typography.Label for={`${name}${entityKey}-${relationEntity.key}`}>
+              <FormattedValue type="single-select" value={relationEntity}/>
+            </Typography.Label>
+          </StyledLabelWrapper>)
+    }
+  </>
 }, areEqual)
 
 RelationsCheckBoxes.propTypes = {
