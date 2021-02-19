@@ -10,7 +10,7 @@ const checkboxValues = {
 /**
  * Use <MultiCheckbox> to display if none, some or all items of a portion are selected.
  */
-const MultiCheckbox = ({value, onChange}) => {
+const MultiCheckbox = ({value, id, onChange}) => {
   const inputEl = useRef(null)
   const handleOnChange = e => {
     if (value === checkboxValues.INDETERMINATE) {
@@ -29,6 +29,7 @@ const MultiCheckbox = ({value, onChange}) => {
     <input
       ref={inputEl}
       onChange={handleOnChange}
+      id={id}
       type="checkbox"
     />
   )
@@ -40,6 +41,10 @@ MultiCheckbox.propTypes = {
    *  is neither checked nor unchecked.
    */
   value: PropTypes.oneOf(Object.values(checkboxValues)),
+  /**
+   * Id of the checkbox. Can be used in combination with the 'for' attribute of the label element
+   */
+  id: PropTypes.string,
   /**
    * Callback is executed on change. Callback receives new checkbox state, which is 'checked' or 'unchecked'.
    */

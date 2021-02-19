@@ -3,6 +3,7 @@ import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 
 import MultiCheckbox from './'
+import {Typography} from '../index'
 
 storiesOf('Tocco-UI | MultiCheckbox', module)
   .add(
@@ -23,6 +24,8 @@ storiesOf('Tocco-UI | MultiCheckbox', module)
         <MultiCheckbox
           value="unchecked"
           onChange={action('box-action')}
+          id={'linkedToLabel'}
         />
+        <Typography.Label for={'linkedToLabel'}>Label</Typography.Label>
       </div>
   )
