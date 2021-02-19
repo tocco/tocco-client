@@ -1,57 +1,64 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {form} from 'tocco-app-extensions'
 import {Button} from 'tocco-ui'
 import {reduxForm} from 'redux-form'
 import {intlShape} from 'react-intl'
 
+import {StyledButtonsWrapper} from './StyledComponents'
+
 const REDUX_FORM_NAME = 'simpleForm'
 
-class Form extends React.Component {
-  constructor(props) {
-    super(props)
-    this.props.initializeForm()
-  }
+const Form = ({
+  initializeForm,
+  intl, onCancel,
+  onSubmit,
+  handleSubmit: handleSubmitProp,
+  form: formName,
+  formDefinition,
+  formValues,
+  mappingType,
+  mode,
+  noButtons,
+  submitting,
+  submitText,
+  cancelText
+}) => {
+  const msg = id => intl.formatMessage({id})
+  const handleCancel = () => onCancel()
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+  // delay closing of the window so it won't close immediately with the click
+  const handleSubmit = () => sleep(400).then(() => onSubmit())
 
-  msg = id => this.props.intl.formatMessage({id})
+  useEffect(() => {
+    initializeForm()
+  }, [])
 
-  handleCancel = () => {
-    this.props.onCancel()
-  }
-
-  sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-  handleSubmit = values =>
-    this.sleep(400).then(() => {
-      // delay closing of the window so it won't close immediately with the click
-      this.props.onSubmit()
-    })
-
-  render = () => (
-    <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
+  return (
+    <form onSubmit={handleSubmitProp(handleSubmit)}>
       <form.FormBuilder
         entity={undefined}
-        formName={this.props.form}
-        formDefinition={this.props.formDefinition}
-        formValues={this.props.formValues}
-        fieldMappingType={this.props.mappingType ? this.props.mappingType : 'editable'}
-        mode={this.props.mode}
+        formName={formName}
+        formDefinition={formDefinition}
+        formValues={formValues}
+        fieldMappingType={mappingType || 'editable'}
+        mode={mode}
       />
-      {!this.props.noButtons
-      && <React.Fragment>
+      {!noButtons
+      && <StyledButtonsWrapper>
         <Button
-          disabled={this.props.submitting}
+          disabled={submitting}
           ink="primary"
-          label={this.props.submitText || this.msg('client.simple-form.defaultOk')}
-          pending={this.props.submitting}
+          label={submitText || msg('client.simple-form.defaultOk')}
+          pending={submitting}
           type="submit"
         />
         <Button
-          disabled={this.props.submitting}
-          label={this.props.cancelText || this.msg('client.simple-form.defaultCancel')}
-          onClick={this.handleCancel}
+          disabled={submitting}
+          label={cancelText || msg('client.simple-form.defaultCancel')}
+          onClick={handleCancel}
         />
-      </React.Fragment>
+      </StyledButtonsWrapper>
       }
     </form>
   )
