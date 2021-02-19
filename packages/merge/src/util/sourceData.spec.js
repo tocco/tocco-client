@@ -65,21 +65,16 @@ describe('merge', () => {
                 keys: [],
                 totalKeys: 2
               }
-            ]
+            ],
+            labels: {
+              firstname: 'Firstname',
+              age: 'Age',
+              relMail: 'Mail',
+              relPrincipal: 'Principal'
+            }
           }
 
           const expectedResult = [
-            {
-              1: {
-                type: 'string',
-                value: 'Firstname'
-              },
-              2: {
-                type: 'string',
-                value: 'Firstname2'
-              },
-              __key: 'firstname'
-            },
             {
               1: {
                 type: 'number',
@@ -90,6 +85,17 @@ describe('merge', () => {
                 value: null
               },
               __key: 'age'
+            },
+            {
+              1: {
+                type: 'string',
+                value: 'Firstname'
+              },
+              2: {
+                type: 'string',
+                value: 'Firstname2'
+              },
+              __key: 'firstname'
             },
             {
               1: {
@@ -176,7 +182,11 @@ describe('merge', () => {
                   }
                 ]
               }
-            ]
+            ],
+            labels: {
+              relGender: 'Gender',
+              relGender2: 'Gender2'
+            }
           }
 
           const expectedResult = [

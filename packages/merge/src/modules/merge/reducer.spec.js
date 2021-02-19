@@ -376,6 +376,7 @@ describe('merge', () => {
                   lastname: '1',
                   callname: '1',
                   birthdate: '1',
+                  user_nr: '1',
                   relGender: '1',
                   relAcademic_title: '1'
                 },
