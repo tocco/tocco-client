@@ -6,7 +6,8 @@ import {LoadMask} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
 const actions = {
-  'create-folder': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/CreateFolder')),
+  'dms-create-folder': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/CreateFolder')),
+  'dms-edit': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/Edit')),
   'delete': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/Delete'))
 }
 
