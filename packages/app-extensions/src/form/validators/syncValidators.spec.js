@@ -255,34 +255,39 @@ describe('app-extensions', () => {
               expect(result).to.not.be.null
             })
           })
+
+          test('should accept localhost url', () => {
+            const result = urlValidator('http://localhost:8080')
+            expect(result).to.be.null
+          })
+        })
+      })
+
+      describe('email', () => {
+        test('should not return error on valid inputs', () => {
+          const validValues = [
+            'abc@tocco.ch',
+            'a.beta@te.cz',
+            'c@c.it'
+          ]
+
+          validValues.forEach(validValue => {
+            const result = emailValidator(validValue)
+            expect(result).to.be.null
+          })
         })
 
-        describe('email', () => {
-          test('should not return error on valid inputs', () => {
-            const validValues = [
-              'abc@tocco.ch',
-              'a.beta@te.cz',
-              'c@c.it'
-            ]
+        test('should return an error for invalid values', () => {
+          const invalidValues = [
+            'a..beta@te.cz',
+            'tocco.ch',
+            'c@c.i',
+            ' '
+          ]
 
-            validValues.forEach(validValue => {
-              const result = emailValidator(validValue)
-              expect(result).to.be.null
-            })
-          })
-
-          test('should return an error for invalid values', () => {
-            const invalidValues = [
-              'a..beta@te.cz',
-              'tocco.ch',
-              'c@c.i',
-              ' '
-            ]
-
-            invalidValues.forEach(invalidValue => {
-              const result = emailValidator(invalidValue)
-              expect(result).to.not.be.null
-            })
+          invalidValues.forEach(invalidValue => {
+            const result = emailValidator(invalidValue)
+            expect(result).to.not.be.null
           })
         })
       })
