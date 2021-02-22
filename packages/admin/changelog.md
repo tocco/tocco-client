@@ -1,3 +1,8 @@
+0.4.22
+- Fix spacing of notifiers without title
+- Add dms edit action
+- Add Domain create action
+
 0.4.21
 - Move buttons inside modals to the right to improve UX
 - Fix hidden extender and force border rendering of ranges in chrome
