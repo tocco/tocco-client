@@ -1,3 +1,6 @@
+0.10.19-hotfix228.2
+- Fix height and action button styling of detail form in old client
+
 0.10.19-hotfix228.1
 - Fix empty report settings (TOCDEV-3218)
 
