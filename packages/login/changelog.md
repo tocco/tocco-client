@@ -1,3 +1,6 @@
+0.2.18-hotfix228.1
+- Fix empty report settings (TOCDEV-3218)
+
 0.2.18
 - Text autosize new component (Fixes Safari performance problems)
 - Support multipart/form-data requests in `rest` extension
