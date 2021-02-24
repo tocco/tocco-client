@@ -176,13 +176,13 @@ class DateAbstract extends React.Component {
               immutable={this.props.immutable}
               value={this.state.altInput}
             />
-            <Ball
+            {!this.props.immutable && <Ball
               icon="times"
               data-clear
               tabIndex={-1}
               onMouseDown={e => {
                 e.preventDefault()
-              }}/>
+              }}/>}
           </StyledDateAbstractWrapper>
         </StyledDateAbstractOuterWrapper>
       </>
