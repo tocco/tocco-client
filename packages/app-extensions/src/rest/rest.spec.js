@@ -1,5 +1,8 @@
 import fetchMock from 'fetch-mock'
 import {call} from 'redux-saga/effects'
+import {expectSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+import {throwError} from 'redux-saga-test-plan/providers'
 
 import {
   getParameterString,
@@ -10,6 +13,8 @@ import {
 } from './rest'
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
+import {INFO} from '../notifier/modules/actions'
+import InformationError from './InformationError'
 
 describe('app-extensions', () => {
   describe('rest', () => {
@@ -230,6 +235,36 @@ describe('app-extensions', () => {
           expect(next.done).to.be.true
         }
       )
+
+      test('should notify about unexpected information errors', () => {
+        const resource = 'entities/2.0/Contact'
+        const options = {
+          method: 'POST',
+          body: {
+            foo: 'bar'
+          }
+        }
+
+        const error = new InformationError('message')
+        return expectSaga(requestSaga, resource, options)
+          .provide([
+            [matchers.call.fn(prepareRequest), {}],
+            [matchers.call.fn(sendRequest), throwError(error)]
+          ])
+          .put.like({
+            action: {
+              type: INFO,
+              payload: {
+                type: 'info',
+                title: 'client.common.information',
+                message: 'message',
+                icon: null,
+                timeOut: 5000
+              }
+            }
+          })
+          .run()
+      })
     })
 
     describe('prepareRequest', () => {

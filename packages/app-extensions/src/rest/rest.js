@@ -1,8 +1,10 @@
-import {call} from 'redux-saga/effects'
+import {call, put} from 'redux-saga/effects'
 import {v4 as uuid} from 'uuid'
 
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
+import InformationError from './InformationError'
+import notifier from '../notifier'
 
 export const getParameterString = params => {
   const paramString = Object.keys(params || {})
@@ -42,15 +44,30 @@ export const setNullBusinessUnit = value => {
  */
 export function* requestSaga(resource, options = {}) {
   const requestData = yield call(prepareRequest, resource, options)
-  let response = yield call(
-    sendRequest,
-    requestData.url,
-    requestData.options,
-    options.acceptedErrorCodes,
-    options.acceptedStatusCodes
-  )
-  response = yield call(handleClientQuestion, response, requestData, options)
-  return response
+  try {
+    let response = yield call(
+      sendRequest,
+      requestData.url,
+      requestData.options,
+      options.acceptedErrorCodes,
+      options.acceptedStatusCodes
+    )
+    response = yield call(handleClientQuestion, response, requestData, options)
+    return response
+  } catch (error) {
+    if (error instanceof InformationError) {
+      yield put(notifier.info(
+        'info',
+        'client.common.information',
+        error.message,
+        null,
+        5000
+      ))
+      return {}
+    } else {
+      throw error
+    }
+  }
 }
 
 /**
