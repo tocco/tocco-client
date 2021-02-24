@@ -157,6 +157,15 @@ export function* handleSubmitError(error) {
       null,
       5000
     ))
+  } else if (error instanceof rest.InformationError) {
+    yield put(notifier.info(
+      'info',
+      'client.entity-detail.saveAbortedTitle',
+      error.message,
+      null,
+      5000
+    ))
+    yield put(formActions.stopSubmit(FORM_ID))
   } else {
     if (!(error instanceof rest.ClientQuestionCancelledException)) {
       yield put(errorLogging.logError(
