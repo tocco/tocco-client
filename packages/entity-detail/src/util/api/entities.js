@@ -9,13 +9,18 @@ export function* updateEntity(entity, paths = []) {
       _paths: paths.join(',')
     },
     body: entity,
-    acceptedErrorCodes: ['VALIDATION_FAILED']
+    acceptedErrorCodes: ['VALIDATION_FAILED'],
+    acceptedStatusCodes: [409]
   }
   const resource = `entities/2.0/${entity.model}/${entity.key}`
   const resp = yield call(rest.requestSaga, resource, options)
 
   if (resp.body.errorCode === 'VALIDATION_FAILED') {
     throw new SubmissionError(form.validationErrorToFormError(entity, resp.body.errors))
+  }
+
+  if (resp.status === 409 && resp.body.information) {
+    throw new rest.InformationError(resp.body.information)
   }
 
   return resp.body
@@ -30,7 +35,8 @@ export function* createEntity(entity, paths = []) {
       _paths: paths.join(',')
     },
     body: entity,
-    acceptedErrorCodes: ['VALIDATION_FAILED']
+    acceptedErrorCodes: ['VALIDATION_FAILED'],
+    acceptedStatusCodes: [409]
   }
   const resource = `entities/2.0/${entity.model}`
   const resp = yield call(rest.requestSaga, resource, options)
@@ -42,6 +48,10 @@ export function* createEntity(entity, paths = []) {
   } else {
     if (resp.body && resp.body.errorCode === 'VALIDATION_FAILED') {
       throw new SubmissionError(form.validationErrorToFormError(entity, resp.body.errors))
+    }
+
+    if (resp.status === 409 && resp.body.information) {
+      throw new rest.InformationError(resp.body.information)
     }
 
     throw new Error('unexpected error during save', resp)

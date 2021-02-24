@@ -142,6 +142,26 @@ describe('entity-detail', () => {
               .put.like({action: {type: 'tocco-util/LOG_ERROR'}})
               .run()
           })
+
+          test('should notify about information errors', () => {
+            const error = new rest.InformationError('error')
+
+            return expectSaga(sagas.handleSubmitError, error)
+              .put(formActions.stopSubmit(FORM_ID))
+              .put.like({
+                action: {
+                  type: 'notifier/INFO',
+                  payload: {
+                    type: 'info',
+                    title: 'client.entity-detail.saveAbortedTitle',
+                    message: 'error',
+                    icon: null,
+                    timeOut: 5000
+                  }
+                }
+              })
+              .run()
+          })
         })
 
         describe('updateFormSubmit saga', () => {
