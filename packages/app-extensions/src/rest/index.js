@@ -27,12 +27,14 @@ import {
   hasRevisionIdChanged
 } from './helpers/serverSettings'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
+import InformationError from './InformationError'
 
 export default {
   requestSaga,
   setNullBusinessUnit,
   simpleRequest,
   ClientQuestionCancelledException,
+  InformationError,
   fetchEntity,
   fetchEntities,
   fetchDisplay,
