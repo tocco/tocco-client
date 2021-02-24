@@ -2,7 +2,6 @@ import React from 'react'
 import {reducer as reducerUtil, selection, navigationStrategy} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
-import {hot} from 'react-hot-loader/root'
 
 import CopyProgress from './components/CopyProgress'
 import reducers, {sagas} from './modules/reducers'
@@ -85,4 +84,4 @@ CopyApp.propTypes = {
   }, {})
 }
 
-export default hot(CopyApp)
+export default CopyApp

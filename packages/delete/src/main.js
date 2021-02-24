@@ -1,7 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil, selection} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
-import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
 import Delete from './components/Delete'
@@ -73,4 +72,4 @@ DeleteApp.propTypes = {
   selection: selection.propType.isRequired
 }
 
-export default hot(DeleteApp)
+export default DeleteApp

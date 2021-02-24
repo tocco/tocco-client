@@ -10,7 +10,6 @@ import {
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import PropTypes from 'prop-types'
-import {hot} from 'react-hot-loader/root'
 
 import Router from './components/Router'
 
@@ -140,4 +139,4 @@ EntityBrowserApp.propTypes = {
   memoryHistory: PropTypes.bool
 }
 
-export default hot(EntityBrowserApp)
+export default EntityBrowserApp

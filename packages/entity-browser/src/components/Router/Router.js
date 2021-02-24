@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Router as ReactRouter} from 'react-router'
-import {hot} from 'react-hot-loader/root'
 
 import RouteWithSubRoutes from '../RouteWithSubRoutes'
 
@@ -20,4 +19,4 @@ Router.propTypes = {
   history: PropTypes.object
 }
 
-export default hot(Router)
+export default Router

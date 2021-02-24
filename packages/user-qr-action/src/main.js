@@ -2,7 +2,6 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
-import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
 import UserQrCode from './containers/UserQrCodeContainer'
@@ -62,4 +61,4 @@ UserQrActionApp.propTypes = {
   selection: PropTypes.object
 }
 
-export default hot(UserQrActionApp)
+export default UserQrActionApp

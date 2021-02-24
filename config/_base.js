@@ -11,15 +11,7 @@ const config = {
   dir_server : 'server',
 
   server_host : 'localhost',
-  server_port : process.env.PORT || 3000,
-
-  compiler_fail_on_warning : false,
-  compiler_stats           : {
-    chunks : false,
-    chunkModules : false,
-    colors : true,
-    maxModules: false
-  }
+  server_port : process.env.PORT || 3000
 }
 
 config.globals = {

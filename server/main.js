@@ -22,8 +22,7 @@ if (config.env === 'development') {
   const compiler = webpack(webpackConfig)
 
   const wdm = require('webpack-dev-middleware')(compiler, {
-    publicPath: webpackConfig.output.publicPath,
-    logLevel: 'warn'
+    publicPath: webpackConfig.output.publicPath
   })
 
   logger.info('Enabling webpack dev and HMR middleware')

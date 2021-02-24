@@ -1,7 +1,6 @@
 import {connect} from 'react-redux'
 import {form} from 'tocco-app-extensions'
 import {injectIntl} from 'react-intl'
-import {hot} from 'react-hot-loader/root'
 
 import Form from '../../src/components/Form'
 import {initializeForm, submit, cancel} from '../modules/simpleForm/actions'
@@ -25,4 +24,4 @@ const mapStateToProps = (state, props) => ({
   mode: state.input.mode
 })
 
-export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(Form)))
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(Form))

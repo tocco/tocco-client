@@ -3,7 +3,6 @@ import {argv} from 'yargs'
 import logger from '../lib/logger'
 import webpackCompiler from '../webpack-compiler'
 import webpackConfig from '../webpack.config'
-import config from '../../config/index'
 import {packagesExists} from '../lib/packages'
 
 const compile = () => {
@@ -17,11 +16,6 @@ const compile = () => {
 
   return Promise.resolve()
     .then(() => webpackCompiler(webpackConfig))
-    .then(stats => {
-      if (stats.warnings.length && config.compiler_fail_on_warning) {
-        throw new Error('Config set to fail on warning, exiting with status code "1".')
-      }
-    })
     .then(() => {
       logger.success('Compilation completed successfully.')
     })

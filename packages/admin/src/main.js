@@ -9,7 +9,6 @@ import {
   externalEvents,
   keyDown
 } from 'tocco-app-extensions'
-import {hot} from 'react-hot-loader/root'
 import PropTypes from 'prop-types'
 
 import shortcuts from './shortcuts'
@@ -76,7 +75,7 @@ const initApp = (id, input, events, publicPath) => {
       })
     }
 
-    const App = hot(() => app.component)
+    const App = () => app.component
     appFactory.renderApp(<App/>)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
@@ -98,4 +97,4 @@ AdminApp.propTypes = {
   baseRoute: PropTypes.string
 }
 
-export default hot(AdminApp)
+export default AdminApp

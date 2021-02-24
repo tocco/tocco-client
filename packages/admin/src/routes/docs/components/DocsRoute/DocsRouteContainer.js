@@ -1,6 +1,5 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-import {hot} from 'react-hot-loader/root'
 import {actionEmitter} from 'tocco-app-extensions'
 
 import DocsRoute from './DocsRoute'
@@ -18,4 +17,4 @@ const mapActionCreators = {
   openFileDialog: openDialog
 }
 
-export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(DocsRoute)))
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(DocsRoute))

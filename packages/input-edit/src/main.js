@@ -1,7 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, actions, actionEmitter, notifier, errorLogging} from 'tocco-app-extensions'
-import {hot} from 'react-hot-loader/root'
 import PropTypes from 'prop-types'
 
 import reducers, {sagas} from './modules/reducers'
@@ -86,4 +85,4 @@ InputEditApp.propTypes = {
   }, {})
 }
 
-export default hot(InputEditApp)
+export default InputEditApp

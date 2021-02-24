@@ -1,5 +1,4 @@
 import {connect} from 'react-redux'
-import {hot} from 'react-hot-loader/root'
 
 import UserQrCode from '../components/UserQrCode'
 import {fetchData} from '../modules/qrCode'
@@ -12,4 +11,4 @@ const mapStateToProps = state => ({
   data: state.qrCode.data
 })
 
-export default hot(connect(mapStateToProps, mapActionCreators)(UserQrCode))
+export default connect(mapStateToProps, mapActionCreators)(UserQrCode)
