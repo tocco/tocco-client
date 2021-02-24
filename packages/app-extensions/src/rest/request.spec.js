@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock'
 
 import {sendRequest} from './request'
+import InformationError from './InformationError'
 
 describe('app-extensions', () => {
   describe('rest', () => {
@@ -96,6 +97,23 @@ describe('app-extensions', () => {
         const result = await sendRequest(url, options)
         expect(result.status).to.eql(204)
         expect(result.body).to.be.null
+      })
+
+      test('should throw information error for status 409 ', async() => {
+        fetchMock.post(
+          new RegExp('.*'),
+          new Response(JSON.stringify({information: 'message'}), {status: 409})
+        )
+
+        const url = '/entities/User/1'
+        const options = {method: 'POST'}
+
+        try {
+          await sendRequest(url, options)
+        } catch (e) {
+          expect(e).to.be.instanceof(InformationError)
+          expect(e.message).to.eql('message')
+        }
       })
     })
   })

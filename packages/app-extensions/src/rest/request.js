@@ -1,9 +1,15 @@
+import InformationError from './InformationError'
+
 const handleError = (response, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
   if (!response.ok
     && !acceptedStatusCodes.includes(response.status)
     && !(response.body && acceptedErrorCodes.includes(response.body.errorCode))) {
-    const msg = `${response.statusText} ${response.body ? response.body.message : ''}`
-    throw new Error(msg)
+    if (response.status === 409 && response.body.information) {
+      throw new InformationError(response.body.information)
+    } else {
+      const msg = `${response.statusText} ${response.body ? response.body.message : ''}`
+      throw new Error(msg)
+    }
   }
 
   return response
