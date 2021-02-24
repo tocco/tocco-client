@@ -52,7 +52,11 @@ export function* doDelete() {
 
   const deleteEndpoint = yield call(getDeleteEndpoint)
 
-  const response = yield call(rest.requestSaga, deleteEndpoint, {method: 'POST', body})
+  const response = yield call(rest.requestSaga, deleteEndpoint, {
+    method: 'POST',
+    body,
+    acceptedStatusCodes: [409]
+  })
 
   const textResources = yield select(textResourceSelector)
   if (response.ok) {
@@ -77,7 +81,11 @@ export function* doDelete() {
       remoteEvents
     }))
   } else {
-    yield put(externalEvents.fireExternalEvent('onError', {message: textResources['client.delete.errorMessage']}))
+    if (response.status === 409 && response.body.information) {
+      yield put(externalEvents.fireExternalEvent('onError', {message: response.body.information}))
+    } else {
+      yield put(externalEvents.fireExternalEvent('onError', {message: textResources['client.delete.errorMessage']}))
+    }
   }
 }
 
