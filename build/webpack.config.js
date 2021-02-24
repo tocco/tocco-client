@@ -9,6 +9,7 @@ import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 import DotEnv from 'dotenv-webpack'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 import config from '../config'
 import logger from './lib/logger'
@@ -37,27 +38,22 @@ const webpackConfig = {
       moment: path.join(__dirname, '..', 'node_modules', 'moment', 'moment.js')
     }
   },
-  performance: {
-    hints: __PROD__ ? 'warning' : false
-  },
   module: {},
-
   externals: {
     ...(__PROD__ ? {'react': 'React', 'react-dom': 'ReactDOM'} : {})
   },
   entry: [
-    ...(__DEV__ ? ['webpack-hot-middleware/client', 'react-hot-loader/patch'] : []),
+    ...(__DEV__ ? ['webpack-hot-middleware/client'] : []),
     paths.client(`${packageDir}/src/main.js`)
   ]
 }
 
 webpackConfig.output = {
   filename: 'index.js',
-  chunkFilename: '[name]-chunk-[chunkhash:6].js',
+  chunkFilename: 'chunk-[name].js',
   path: outputDir,
   libraryTarget: 'umd',
-  publicPath: '/',
-  jsonpFunction: __PACKAGE__ + 'jsonp'
+  publicPath: '/'
 }
 
 webpackConfig.plugins = [
@@ -69,7 +65,7 @@ webpackConfig.plugins = [
     collections: true
   }),
   // prevent all moment locales from being loaded when importing momentjs
-  new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de|en|fr|it/),
+  new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(de|en|fr|it)$/),
   new DotEnv()
 ]
 
@@ -95,6 +91,7 @@ if (__DEV__) {
   )
   webpackConfig.plugins.push(new CaseSensitivePathsPlugin())
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
+  webpackConfig.plugins.push(new ReactRefreshWebpackPlugin())
   webpackConfig.plugins.push(
     new webpack.LoaderOptionsPlugin({
       options: {
@@ -110,9 +107,6 @@ if (__DEV__) {
       minimize: true,
       debug: false
     }))
-
-  webpackConfig.plugins.push(
-    new webpack.optimize.OccurrenceOrderPlugin())
 } else if (__STANDALONE__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
@@ -138,7 +132,10 @@ webpackConfig.module.rules = [
   {
     test: /\.(js|jsx)$/,
     exclude: /node_modules/,
-    loader: 'babel-loader'
+    loader: 'babel-loader',
+    options: {
+      plugins: __DEV__ ? ['react-refresh/babel'] : []
+    }
   }
 ]
 

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, errorLogging, notifier, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
-import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules'
 import TwoFactorConnector from './components/TwoFactorConnector'
@@ -87,4 +86,4 @@ TwoFactorConnectorApp.propTypes = {
   forced: PropTypes.bool
 }
 
-export default hot(TwoFactorConnectorApp)
+export default TwoFactorConnectorApp

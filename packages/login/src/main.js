@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import {consoleLogger, reducer as reducerUtil} from 'tocco-util'
 import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
-import {hot} from 'react-hot-loader/root'
 
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
 import * as passwordRequest from './modules/passwordRequest/actions'
@@ -147,7 +146,7 @@ LoginApp.propTypes = {
   }, {})
 }
 
-export default hot(LoginApp)
+export default LoginApp
 
 const EXTERNAL_EVENTS_PASSWORD_UPDATE = [
   'success',

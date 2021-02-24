@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {reducer as reducerUtil, selection as selectionPropType} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
-import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
 import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
@@ -96,4 +95,4 @@ ResourceSchedulerApp.propTypes = {
   })
 }
 
-export default hot(ResourceSchedulerApp)
+export default ResourceSchedulerApp

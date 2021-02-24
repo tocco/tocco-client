@@ -2,7 +2,6 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents, formData, notifier, actionEmitter, form} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
-import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
 import {setFieldDefinitions} from './modules/simpleForm/actions'
@@ -101,4 +100,4 @@ SimpleFormApp.propTypes = {
   defaultValues: PropTypes.object
 }
 
-export default hot(SimpleFormApp)
+export default SimpleFormApp

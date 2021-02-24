@@ -1,4 +1,4 @@
-import webpack from 'webpack'
+import webpack from '@storybook/core/node_modules/webpack'
 
 import runConfig from '../config'
 

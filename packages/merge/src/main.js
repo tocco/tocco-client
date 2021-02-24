@@ -2,7 +2,6 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
-import {hot} from 'react-hot-loader/root'
 
 import Merge from './components/Merge'
 import reducers, {sagas} from './modules/reducers'
@@ -82,4 +81,4 @@ MergeApp.propTypes = {
   }, {})
 }
 
-export default hot(MergeApp)
+export default MergeApp

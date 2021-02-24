@@ -1,4 +1,3 @@
-import {hot} from 'react-hot-loader/root'
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
@@ -9,4 +8,4 @@ const mapStateToProps = (state, props) => ({
   onOk: props.onOk
 })
 
-export default hot(connect(mapStateToProps)(injectIntl(ColumnPicker)))
+export default connect(mapStateToProps)(injectIntl(ColumnPicker))

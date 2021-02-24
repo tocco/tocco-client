@@ -2,7 +2,6 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
-import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules'
 import LoginBoxContainer from './containers/LoginBoxContainer'
@@ -84,4 +83,4 @@ SsoLoginApp.propTypes = {
   autoLogin: PropTypes.bool
 }
 
-export default hot(SsoLoginApp)
+export default SsoLoginApp

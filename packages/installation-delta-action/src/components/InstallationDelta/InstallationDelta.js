@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {hot} from 'react-hot-loader/root'
 import {LoadMask} from 'tocco-ui'
 
 import CommitMsg from '../CommitMsg'
@@ -69,4 +68,4 @@ InstallationDelta.propTypes = {
   keys: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
-export default hot(InstallationDelta)
+export default InstallationDelta

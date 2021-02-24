@@ -1,6 +1,5 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-import {hot} from 'react-hot-loader/root'
 
 import Login from '../components/Login'
 import {initialize} from '../modules/actions'
@@ -14,4 +13,4 @@ const mapStateToProps = (state, props) => ({
   showTitle: props.showTitle
 })
 
-export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(Login)))
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(Login))

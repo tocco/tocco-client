@@ -49,11 +49,6 @@ module.exports = function(api) {
           'transform-react-remove-prop-types',
           '@babel/transform-react-constant-elements'
         ]
-      },
-      development: {
-        plugins: [
-          'react-hot-loader/babel'
-        ]
       }
     }
   }

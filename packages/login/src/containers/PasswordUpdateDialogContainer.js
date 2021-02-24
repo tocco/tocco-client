@@ -1,6 +1,5 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-import {hot} from 'react-hot-loader/root'
 
 import PasswordUpdateDialog from '../components/passwordUpdate/PasswordUpdateDialog'
 import {initialized} from '../modules/passwordUpdate/actions'
@@ -26,4 +25,4 @@ const mapStateToProps = state => ({
   captchaKey: state.login.captchaKey
 })
 
-export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(PasswordUpdateDialog)))
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(PasswordUpdateDialog))

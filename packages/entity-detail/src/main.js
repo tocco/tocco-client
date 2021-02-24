@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {reducer as reducerUtil, navigationStrategy} from 'tocco-util'
-import {hot} from 'react-hot-loader/root'
 import {
   appFactory,
   notifier,
@@ -135,4 +134,4 @@ EntityDetailApp.propTypes = {
   actionAppComponent: PropTypes.func
 }
 
-export default hot(EntityDetailApp)
+export default EntityDetailApp
