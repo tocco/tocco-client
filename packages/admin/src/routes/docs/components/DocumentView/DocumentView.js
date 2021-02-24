@@ -16,7 +16,7 @@ const DocumentView = ({match, history, breadcrumbs, emitAction}) => {
     <EntityDetailApp
       entityName="Resource"
       entityId={match.params.key}
-      formName="Resource"
+      formName="DmsResource"
       mode="update"
       actionAppComponent={Action}
       emitAction={emitAction}
