@@ -1,3 +1,9 @@
+0.4.19-hotfix228.3
+- Fix height and action button styling of detail form in old client
+- Style merge table header contents for better UX
+- Fix hidden extender and force border rendering of ranges in chrome
+- Fix icon and qr code spacing inside two factor connector
+
 0.4.19-hotfix228.2
 - Fix empty report settings (TOCDEV-3218)
 
