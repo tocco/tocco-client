@@ -1,3 +1,9 @@
+0.1.9
+- Move buttons inside modals to the right to improve UX
+- Fix hidden extender and force border rendering of ranges in chrome
+- Fix spacing of notifiers without title
+- Fix icon and qr code spacing inside two factor connector
+
 0.1.8
 - Fix url bug
 
