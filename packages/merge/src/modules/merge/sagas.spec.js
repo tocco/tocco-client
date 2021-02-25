@@ -28,8 +28,7 @@ describe('merge', () => {
           expect(generator.next().value).to.deep.equal(all([
             takeLatest(actions.INITIALIZE, sagas.initialize),
             takeLatest(actions.EXECUTE_MERGE, sagas.executeMerge),
-            takeLatest(actions.CLOSE, sagas.close),
-            takeLatest(actions.OPEN_ENTITY_LIST, sagas.openEntityList)
+            takeLatest(actions.CLOSE, sagas.close)
           ]))
           expect(generator.next().done).to.be.true
         })
@@ -240,19 +239,6 @@ describe('merge', () => {
                 [select(sagas.mergeSelector), {selection: selection}]
               ])
               .put(externalEvents.fireExternalEvent('onSuccess', {remoteEvents}))
-              .run()
-          })
-        })
-
-        describe('openEntityList', () => {
-          test('should call openEntityList', () => {
-            const payload = {
-              model: 'User',
-              keys: ['1', '2']
-            }
-
-            return expectSaga(sagas.openEntityList, {payload})
-              .put(externalEvents.fireExternalEvent('openEntityList', payload))
               .run()
           })
         })

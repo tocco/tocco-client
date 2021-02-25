@@ -4,5 +4,7 @@
     "type": "ID",
     "ids": [1, 2]
   },
-  "isOldClient": true
+  "navigationStrategy": {
+
+  }
 }

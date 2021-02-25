@@ -12,8 +12,7 @@ const packageName = 'merge'
 
 const EXTERNAL_EVENTS = [
   'emitAction',
-  'onSuccess',
-  'openEntityList'
+  'onSuccess'
 ]
 
 const initApp = (id, input, events, publicPath) => {
