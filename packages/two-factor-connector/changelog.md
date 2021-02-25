@@ -1,3 +1,7 @@
+0.1.7-hotfix228.2
+- Fix hidden extender and force border rendering of ranges in chrome
+- Fix icon and qr code spacing inside two factor connector
+
 0.1.7-hotfix228.1
 - Fix url bug
 
