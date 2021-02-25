@@ -20,9 +20,7 @@ export const ManyRelationsCheckBox = React.memo(({
   name,
   setSelectedMultipleAll,
   isSelected,
-  openEntityList,
-  navigationStrategy,
-  isOldClient
+  navigationStrategy
 }) => {
   if (entityData.value.totalKeys === 0) {
     return null
@@ -38,9 +36,7 @@ export const ManyRelationsCheckBox = React.memo(({
           model={entityData.value.relationEntity}
           keys={entityData.value.keys}
           totalKeys={entityData.value.totalKeys}
-          openEntityList={openEntityList}
           navigationStrategy={navigationStrategy}
-          isOldClient={isOldClient}
         />
       </Typography.Label>
     </StyledLabelWrapper>
@@ -59,9 +55,7 @@ ManyRelationsCheckBox.propTypes = {
   name: PropTypes.string.isRequired,
   setSelectedMultipleAll: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
-  openEntityList: PropTypes.func.isRequired,
-  navigationStrategy: navigationStrategy.propTypes,
-  isOldClient: PropTypes.bool.isRequired
+  navigationStrategy: navigationStrategy.propTypes
 }
 
 export const RelationsCheckBoxes = React.memo(({

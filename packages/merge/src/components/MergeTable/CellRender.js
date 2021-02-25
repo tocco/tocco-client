@@ -6,7 +6,6 @@ import {navigationStrategy} from 'tocco-util'
 import _get from 'lodash/get'
 
 import {
-  openEntityList,
   setSelectedMultiple,
   setSelectedMultipleAll,
   setSelectedSingle
@@ -22,9 +21,7 @@ const CellRenderer = ({
   selectedMultiple,
   setSelectedMultipleAll,
   selectedMultipleAll,
-  openEntityList,
-  navigationStrategy,
-  isOldClient
+  navigationStrategy
 }) => {
   const {entityKey} = column
   const entityData = rowData[entityKey]
@@ -39,9 +36,7 @@ const CellRenderer = ({
       name={name}
       setSelectedMultipleAll={setSelectedMultipleAll}
       isSelected={_get(selectedMultipleAll, [name], []).includes(entityKey)}
-      openEntityList={openEntityList}
       navigationStrategy={navigationStrategy}
-      isOldClient={isOldClient}
     />
   }
 
@@ -78,22 +73,18 @@ CellRenderer.propTypes = {
   selectedMultiple: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
   setSelectedMultipleAll: PropTypes.func.isRequired,
   selectedMultipleAll: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  openEntityList: PropTypes.func.isRequired,
-  navigationStrategy: navigationStrategy.propTypes,
-  isOldClient: PropTypes.bool.isRequired
+  navigationStrategy: navigationStrategy.propTypes
 }
 
 const mapActionCreatorsCell = {
   setSelectedSingle,
   setSelectedMultiple,
-  setSelectedMultipleAll,
-  openEntityList
+  setSelectedMultipleAll
 }
 const mapStateToPropsCell = state => ({
   selectedSingle: state.merge.selected.single,
   selectedMultiple: state.merge.selected.multiple,
   selectedMultipleAll: state.merge.selected.multipleAll,
-  navigationStrategy: state.input.navigationStrategy,
-  isOldClient: !!state.input.isOldClient
+  navigationStrategy: state.input.navigationStrategy
 })
 export const CellRendererContainer = connect(mapStateToPropsCell, mapActionCreatorsCell)(injectIntl(CellRenderer))

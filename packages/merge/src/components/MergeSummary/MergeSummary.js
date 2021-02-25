@@ -14,7 +14,7 @@ import {
 } from './StyledComponents'
 import {StyledButtonWrapper, StyledButton} from '../GlobalStyledComponents'
 
-const MergeSummary = ({mergeResponse, navigationStrategy, isOldClient, close, openEntityList}) => {
+const MergeSummary = ({mergeResponse, navigationStrategy, close}) => {
   const mapToEntityList = entities => Object.entries(_groupBy(entities, e => e.entityLabel))
     .map(([entityLabel, list]) => {
       const model = entities.find(e => e.entityLabel === entityLabel).entity
@@ -23,9 +23,7 @@ const MergeSummary = ({mergeResponse, navigationStrategy, isOldClient, close, op
         model={model}
         keys={keys}
         totalKeys={keys.length}
-        openEntityList={openEntityList}
         navigationStrategy={navigationStrategy}
-        isOldClient={isOldClient}
       /></span>
     }).reduce((prev, curr) => prev === null ? [curr] : [...prev, ', ', curr], null)
 
@@ -96,9 +94,7 @@ MergeSummary.propTypes = {
     showPermissionMessage: PropTypes.bool.isRequired
   }),
   navigationStrategy: navigationStrategy.propTypes,
-  isOldClient: PropTypes.bool.isRequired,
-  close: PropTypes.func.isRequired,
-  openEntityList: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired
 }
 
 export default MergeSummary
