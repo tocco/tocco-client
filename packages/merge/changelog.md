@@ -1,3 +1,8 @@
+0.4.1-hotfix228.1
+- Style merge table header contents for better UX
+- Fix hidden extender and force border rendering of ranges in chrome
+- Various merge adjustments (TOCDEV-3229)
+
 0.4.1
 - Style datepicker so that it fits better into the rest of admin
 - Add a popover variant that is placed on the right of element
