@@ -20,21 +20,23 @@ export function* getDeleteBodyFromSelection() {
   }
 }
 
-const deleteDialogResource = 'client/delete/dialog'
+export function* getDeleteEndpoint() {
+  const {customDeleteEndpoint} = yield select(inputSelector)
+  return customDeleteEndpoint || 'client/delete'
+}
 
 export function* loadDialogInfo() {
   const body = yield call(getDeleteBodyFromSelection)
+  const deleteEndpoint = yield call(getDeleteEndpoint)
 
   const [deleteResponse, principal] = yield all([
-    call(rest.requestSaga, deleteDialogResource, {method: 'POST', body}),
+    call(rest.requestSaga, `${deleteEndpoint}/dialog`, {method: 'POST', body}),
     call(rest.fetchPrincipal)
   ])
 
   const res = deleteRequestParser(deleteResponse.body, principal.currentBusinessUnit.id)
   yield put(actions.setDeleteDialogInfo(res))
 }
-
-const deleteResource = 'client/delete'
 
 export function* doDelete() {
   const {keysDeletable, entityName} = yield select(dialogInfoSelector)
@@ -44,7 +46,9 @@ export function* doDelete() {
     keys: keysDeletable
   }
 
-  const response = yield call(rest.requestSaga, deleteResource, {method: 'POST', body})
+  const deleteEndpoint = yield call(getDeleteEndpoint)
+
+  const response = yield call(rest.requestSaga, `${deleteEndpoint}/delete`, {method: 'POST', body})
 
   const textResources = yield select(textResourceSelector)
   if (response.ok) {
