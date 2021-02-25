@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {reducer as reducerUtil, selection} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 
@@ -69,7 +70,8 @@ const DeleteApp = props => {
 }
 
 DeleteApp.propTypes = {
-  selection: selection.propType.isRequired
+  selection: selection.propType.isRequired,
+  customDeleteEndpoint: PropTypes.string
 }
 
 export default DeleteApp
