@@ -18,7 +18,7 @@
     "test": "jest",
     "codecov": "codecov --disable=gcov -f ./coverage/lcov.info",
     "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts --force-local",
-    "setup:ci": "yarn install --frozen-lockfile && lerna bootstrap --no-progress --ignore-scripts --concurrency 2",
+    "setup:ci": "yarn install --frozen-lockfile && lerna bootstrap --no-progress --ignore-scripts --concurrency 2 --force-local",
     "plop": "babel-node ./node_modules/plop",
     "release-package": "yarn setup && ./scripts/release-package.sh",
     "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook",
