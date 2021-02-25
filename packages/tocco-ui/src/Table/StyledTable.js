@@ -12,7 +12,7 @@ import {
 import {StyledResizeHandle} from './ResizingController'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)
-const basePadding = scale.space(-1)
+const basePadding = scale.space(-1.5)
 
 export const StyledTableCell = styled.td`
   padding: ${basePadding};
@@ -90,13 +90,13 @@ const selectionStyles = css`
 
   &.selected {
     > ${StyledTableCell} {
-      background-color: ${({theme}) => lighten(0.1, theme.colors.secondaryLight)};
+      background-color: ${({theme}) => lighten(0.3, theme.colors.secondaryLight)};
     }
   }
 
   &.selectableRow:not(.selected):hover {
     > ${StyledTableCell} {
-      background-color: ${({theme}) => lighten(0.25, theme.colors.secondaryLight)};
+      background-color: ${({theme}) => lighten(0.45, theme.colors.secondaryLight)};
     }
   }
 `
@@ -129,6 +129,10 @@ export const StyledTableHead = styled.thead`
 
 export const StyledTableRow = styled.tr`
   ${selectionStyles}
+
+  &:nth-child(even) td {
+    background-color: ${theme.color('backgroundBody')};
+  }
 `
 
 export const StyledTableBody = styled.tbody`
