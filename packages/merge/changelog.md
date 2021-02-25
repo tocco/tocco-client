@@ -1,3 +1,6 @@
+0.4.3
+- Remove workaround for opening an entity list in the old client
+
 0.4.2
 - Style merge table header contents for better UX
 - Style notifier popups to better harmonize with the existing styling
