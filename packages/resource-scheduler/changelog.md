@@ -1,3 +1,7 @@
+0.4.3-hotfix228.1
+- Fix height and action button styling of detail form in old client
+- Fix hidden extender and force border rendering of ranges in chrome
+
 0.4.3
 - Fix default value serach filter bug
 - Fix checkbox and menu background hover inside table heading
