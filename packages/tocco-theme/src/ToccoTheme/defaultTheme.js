@@ -2,15 +2,15 @@ export default {
   colors: {
     paper: '#fff',
     primary: '#B22A31',
-    secondary: '#11587f',
-    secondaryLight: '#9BC0D5',
-    text: '#4f5e60',
+    secondary: '#263E5B',
+    secondaryLight: '#347da9',
+    text: '#171717',
     backgroundBody: '#EDF1F5',
     backgroundBreadcrumbs: '#DEE6ED',
     signal: {
       danger: {
         paper: '#EF9A9A',
-        text: '#B71C1C'
+        text: '#961b1b'
       },
       info: {
         paper: '#81D4FA',
@@ -18,11 +18,11 @@ export default {
       },
       success: {
         paper: '#A5D6A7',
-        text: '#388E3C'
+        text: '#337f37'
       },
       warning: {
         paper: '#FFF59D',
-        text: '#F57F17'
+        text: '#b55c26'
       }
     }
   },
