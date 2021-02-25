@@ -1,3 +1,6 @@
+0.10.19-hotfix228.3
+- Fix hidden extender and force border rendering of ranges in chrome
+
 0.10.19-hotfix228.2
 - Fix height and action button styling of detail form in old client
 
