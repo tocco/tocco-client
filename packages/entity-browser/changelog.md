@@ -1,3 +1,9 @@
+0.10.21
+- Move buttons inside modals to the right to improve UX
+- Fix hidden extender and force border rendering of ranges in chrome
+- Fix empty report settings (TOCDEV-3218)
+- Fix spacing of notifiers without title
+
 0.10.20
 - Vertically center spinner icon in delete progress
 - Style notifier popups to better harmonize with the existing styling
