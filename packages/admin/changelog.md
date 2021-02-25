@@ -1,3 +1,7 @@
+0.4.23
+- Fix icon and qr code spacing inside two factor connector
+- Merge: Remove workaround for opening an entity list in the old client
+
 0.4.22
 - Fix spacing of notifiers without title
 - Add dms edit action
