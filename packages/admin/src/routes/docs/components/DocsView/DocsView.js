@@ -61,6 +61,7 @@ const DocsView = props => {
         id="documents"
         entityName="Docs_list_item"
         formName="Docs_list_item"
+        limit={25}
         onRowClick={handleRowClick}
         searchFormPosition="left"
         searchFormType="admin"
