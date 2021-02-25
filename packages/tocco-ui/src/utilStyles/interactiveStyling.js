@@ -76,8 +76,8 @@ export default props => {
 
   &:disabled,
   &[disabled] {
-    background: ${tint(0.5, backgroundColor)};
-    color: ${tint(0.5, fontColor)};
+    background: ${tint(0.41, backgroundColor)};
+    color: ${tint(0.41, fontColor)};
     cursor: not-allowed;
   }
 `
