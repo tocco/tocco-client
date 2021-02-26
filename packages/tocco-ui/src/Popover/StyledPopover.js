@@ -24,6 +24,12 @@ const StyledBox = styled.div`
     ${props => props.isPlainHtml && declareTypograhpy(props, 'html')};
 
     &,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
     ${StyledHtmlFormatter} {
       color: ${theme.color('paper')};
     }
