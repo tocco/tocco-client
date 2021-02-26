@@ -24,8 +24,13 @@ const Popover = ({
 }) => {
   const [showToolTip, setShowToolTip] = useState(false)
 
-  const handleMouseEnter = () => setShowToolTip(true)
-  const handleMouseLeave = () => setShowToolTip(false)
+  const handleMouseEnter = () => {
+    setShowToolTip(true)
+  }
+
+  const handleMouseLeave = () => {
+    setShowToolTip(false)
+  }
 
   const modifiers = [
     {
