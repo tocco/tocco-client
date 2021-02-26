@@ -5,24 +5,28 @@ import {
   scale,
   theme
 } from '../utilStyles'
+import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
 
-const BORDER_WIDTH = 1
 const ARROW_WIDTH = 16
 
 const StyledBoxWrapper = styled.div`
   && {
     pointer-events: none; // prevent flickering of tooltip
-    background-color: ${theme.color('paper')};
+    background-color: ${theme.color('secondaryLight')};
     max-width: 400px;
     z-index: 100000010;
-    border: ${BORDER_WIDTH}px solid ${theme.color('secondaryLight')};
     padding: ${({rimless}) => rimless ? '0' : scale.space(-1)};
   }
 `
 
 const StyledBox = styled.div`
   && {
-    ${props => props.isPlainHtml && declareTypograhpy(props, 'html')}
+    ${props => props.isPlainHtml && declareTypograhpy(props, 'html')};
+
+    &,
+    ${StyledHtmlFormatter} {
+      color: ${theme.color('paper')};
+    }
   }
 `
 
