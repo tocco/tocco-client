@@ -14,7 +14,7 @@ export default {
       },
       info: {
         paper: '#81D4FA',
-        text: '#0288D1'
+        text: '#027cc1'
       },
       success: {
         paper: '#A5D6A7',
@@ -22,7 +22,7 @@ export default {
       },
       warning: {
         paper: '#FFF59D',
-        text: '#b55c26'
+        text: '#d54300'
       }
     }
   },
