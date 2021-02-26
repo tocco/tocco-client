@@ -1,7 +1,7 @@
 import {css} from 'styled-components'
-import {lighten} from 'polished'
+import _get from 'lodash/get'
 
-import {theme} from '../utilStyles'
+import {shadeColor, theme} from '../utilStyles'
 
 export const StyledScrollbar = css`
   ::-webkit-scrollbar {
@@ -10,7 +10,7 @@ export const StyledScrollbar = css`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: ${({theme}) => lighten(0.3, theme.colors.text)};
+    background-color: ${({theme}) => shadeColor(_get(theme, 'colors.text'), 2)};
 
     &:hover {
       background-color: ${theme.color('secondary')};
