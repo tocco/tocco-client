@@ -29,8 +29,11 @@ export const StyledNotifier = styled.div`
     .redux-toastr {
       .toastr {
         background-color: ${theme.color('paper')};  // reset: react-redux-toastr (index.scss)
-        color: ${theme.color('text')};  // reset: react-redux-toastr (index.scss)
-        border: 1px solid ${theme.color('text')};
+        border: 0;
+
+        * {
+          color: ${theme.color('paper')} // reset: react-redux-toastr (index.scss)
+        }
 
         .rrt-holder {
           width: 30px;
@@ -57,29 +60,11 @@ export const StyledNotifier = styled.div`
           }
         }
 
-        .toastr-status {
-          &.success {
-            border-color: ${successColor};
-          }
-
-          &.warning {
-            border-color: ${warningColor};
-          }
-
-          &.info {
-            border-color: ${infoColor};
-          }
-
-          &.error {
-            border-color: ${dangerColor};
-          }
-        }
-
         &.rrt-info,
         &.rrt-success,
         &.rrt-warning,
         &.rrt-error {
-          color: ${theme.color('text')};  // reset: react-redux-toastr (index.scss)
+          color: ${theme.color('paper')};  // reset: react-redux-toastr (index.scss)
 
           .rrt-progressbar {
             background-color: rgba(0, 0, 0, .3);  // reset: react-redux-toastr (index.scss)
@@ -101,39 +86,19 @@ export const StyledNotifier = styled.div`
         }
 
         &.rrt-info {
-          border-color: ${infoColor};
-
-          ${/* sc-selector */StyledTitleWrapper} *,
-          .rrt-holder {
-            color: ${infoColor};
-          }
+          background-color: ${infoColor};
         }
 
         &.rrt-success {
-          border-color: ${successColor};
-
-          ${/* sc-selector */StyledTitleWrapper} *,
-          .rrt-holder {
-            color: ${successColor};
-          }
+          background-color: ${successColor};
         }
 
         &.rrt-warning {
-          border-color: ${warningColor};
-
-          ${/* sc-selector */StyledTitleWrapper} *,
-          .rrt-holder {
-            color: ${warningColor};
-          }
+          background-color: ${warningColor};
         }
 
         &.rrt-error {
-          border-color: ${dangerColor};
-
-          ${/* sc-selector */StyledTitleWrapper} *,
-          .rrt-holder {
-            color: ${dangerColor};
-          }
+          background-color: ${dangerColor};
         }
       }
     }
