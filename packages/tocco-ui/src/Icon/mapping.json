@@ -101,7 +101,7 @@
     "lib": "fa"
   },
   "download": {
-    "id": "far, download",
+    "id": "fal, download",
     "lib": "fa"
   },
   "dropbox": {
@@ -330,12 +330,19 @@
       "warning"
     ]
   },
+  "trash": {
+    "id": "fal, trash",
+    "lib": "fa",
+    "tags": [
+      "trash"
+    ]
+  },
   "tocco": {
     "id": "logo",
     "lib": "toc"
   },
   "upload": {
-    "id": "far, upload",
+    "id": "fal, upload",
     "lib": "fa"
   },
   "minus": {

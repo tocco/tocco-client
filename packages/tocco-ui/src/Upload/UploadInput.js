@@ -1,38 +1,34 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Dropzone from 'react-dropzone'
-import styled from 'styled-components'
 
+import Button from '../Button'
 import Icon from '../Icon'
 import StyledUploadInput from './StyledUploadInput'
 import {design} from '../utilStyles'
+import {StyledDropzone, StyledIconWrapper} from './SyledUploadInput'
 
-const IconWrapper = styled.div`
-  margin-right: 5px;
-  display: inline-block;
-`
+const UploadInput = ({onDrop: onDropProp, immutable, text}) => {
+  const onDrop = files => onDropProp(files[0])
 
-const UploadInput = props => {
-  const onDrop = files => {
-    props.onDrop(files[0])
-  }
-
-  return <StyledUploadInput immutable={props.immutable}>
-    <Dropzone
-      disabled={props.immutable}
-      multiple={false}
-      style={{position: 'relative'}}
-      onDrop={onDrop}
-      title={props.text || 'drag and drop or click'}
-    >
-      <IconWrapper>
-        <Icon
-          icon="upload"
-          position={design.position.PREPEND}
-        />
-      </IconWrapper>
-    </Dropzone>
-  </StyledUploadInput>
+  return (
+    <StyledUploadInput immutable={immutable}>
+      <StyledDropzone
+        disabled={immutable}
+        multiple={false}
+        onDrop={onDrop}
+        title={text || 'drag and drop or click'}
+      >
+        <StyledIconWrapper>
+          <Button>
+            <Icon
+              icon="upload"
+              position={design.position.PREPEND}
+            />
+          </Button>
+        </StyledIconWrapper>
+      </StyledDropzone>
+    </StyledUploadInput>
+  )
 }
 
 UploadInput.propTypes = {

@@ -24,6 +24,7 @@ import scale from './modularScale'
 import design from './designConstants'
 import {validateCssDimension} from './propTypesValidator'
 import interactiveStyling from './interactiveStyling'
+import {StyledButton} from '../Button'
 export {
   interactiveStyling,
   assertObjectValuesMatchOtherObjectKeys,
@@ -44,5 +45,6 @@ export {
   scale,
   shadeColor,
   theme,
-  validateCssDimension
+  validateCssDimension,
+  StyledButton
 }

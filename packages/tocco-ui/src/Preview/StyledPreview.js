@@ -1,4 +1,7 @@
 import styled from 'styled-components'
+import _get from 'lodash/get'
+
+import {shadeColor, scale} from '../utilStyles'
 
 const declareInteraction = ({interactive}) => {
   if (interactive) {
@@ -17,13 +20,11 @@ const StyledPreview = styled.figure`
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    margin: revert; //reset css overwrite
-
-    > * {
-      flex: 1 1 auto;
-    }
+    margin: 0; //reset css overwrite
 
     img {
+      margin-top: ${scale.space(-2.2)};
+      border: 1px solid ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)};
       max-width: ${({maxDimensionX}) => maxDimensionX || '100%'};
       max-height: ${({maxDimensionY}) => maxDimensionY || '100%'};
       ${props => declareInteraction(props)}
