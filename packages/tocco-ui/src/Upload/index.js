@@ -1,5 +1,5 @@
 import StyledUploadInput from './StyledUploadInput'
-import StyledView from './StyledView'
+import {StyledView} from './StyledView'
 import Upload from './Upload'
 
 export {

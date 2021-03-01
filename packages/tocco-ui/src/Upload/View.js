@@ -5,43 +5,47 @@ import {download} from 'tocco-util'
 import Button from '../Button'
 import Link from '../Link'
 import Preview from '../Preview'
-import StyledView from './StyledView'
+import {StyledView, StyledButtonsWrapper} from './StyledView'
 
 export const getDownloadUrl = binaryLink =>
   download.addParameterToURL(binaryLink, 'download', true)
 
-const View = props => {
-  const isNotUploadedFile = props.value.binaryLink && props.value.binaryLink.startsWith('blob:')
-  
-  return <StyledView>
-    <div>
-      <Link
-        neutral
-        icon="download"
-        download={props.value.fileName}
-        href={getDownloadUrl(props.value.binaryLink)}
-        tabIndex={-1}
-        title={props.downloadTitle || 'download'}
+const View = ({value, downloadTitle, immutable, onUpload, deleteTitle}) => {
+  const isNotUploadedFile = value.binaryLink && value.binaryLink.startsWith('blob:')
+
+  return (
+    <StyledView className="StyledView">
+      <Preview
+        alt={value.fileName}
+        caption={isNotUploadedFile && value.fileName}
+        fileName={value.fileName}
+        maxDimensionX="96px"
+        maxDimensionY="96px"
+        srcUrl={value.binaryLink}
+        thumbnailUrl={value.thumbnailLink}
       />
-      {!props.immutable
+      <StyledButtonsWrapper>
+        {!immutable
         && <Button
-          icon="times"
-          onClick={() => props.onUpload(null)}
+          icon="trash"
+          onClick={() => onUpload(null)}
           tabIndex={-1}
-          title={props.deleteTitle || 'delete'}
+          title={deleteTitle || 'delete'}
         />
-      }
-    </div>
-    <Preview
-      alt={props.value.fileName}
-      caption={isNotUploadedFile && props.value.fileName}
-      fileName={props.value.fileName}
-      maxDimensionX="96px"
-      maxDimensionY="96px"
-      srcUrl={props.value.binaryLink}
-      thumbnailUrl={props.value.thumbnailLink}
-    />
-  </StyledView>
+        }
+        <Button>
+          <Link
+            neutral
+            icon="download"
+            download={value.fileName}
+            href={getDownloadUrl(value.binaryLink)}
+            tabIndex={-1}
+            title={downloadTitle || 'download'}
+          />
+        </Button>
+      </StyledButtonsWrapper>
+    </StyledView>
+  )
 }
 
 View.propTypes = {
