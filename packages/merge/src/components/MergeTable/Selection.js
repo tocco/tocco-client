@@ -95,9 +95,7 @@ export const RelationsCheckBoxes = React.memo(({
       entityData.value.length > 0 && <StyledLabelWrapper>
           <MultiCheckbox value={allRowsSelectionState} onChange={allRowsSelectionChange} id={`${name}${entityKey}`}/>
           <Typography.Label for={`${name}${entityKey}`}>
-            <Typography.B>
-              <FormattedMessage id="client.merge.allRelations"/>
-            </Typography.B>
+            <FormattedMessage id="client.merge.allRelations"/>
           </Typography.Label>
         </StyledLabelWrapper>
     }
