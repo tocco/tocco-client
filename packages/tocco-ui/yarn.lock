@@ -444,10 +444,10 @@ find-root@^1.1.0:
   resolved "https://registry.yarnpkg.com/find-root/-/find-root-1.1.0.tgz#abcfc8ba76f708c42a97b3d685b7e9450bfb9ce4"
   integrity sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==
 
-flatpickr@4.5.7:
-  version "4.5.7"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.7.tgz#6efc0d93c65547aa77294205c67830ebabe3565c"
-  integrity sha512-JqPfihUc9A/j9QAsh6otoARmMyUauPE17vRBEG+ThJwbl8zAq4ssGpxlPK3wWM/i8EFxkHg9UuVo0ds7XluKxw==
+flatpickr@^4.6.9:
+  version "4.6.9"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.9.tgz#9a13383e8a6814bda5d232eae3fcdccb97dc1499"
+  integrity sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw==
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -909,6 +909,21 @@ to-fast-properties@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
+
+tocco-test-util@*:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/tocco-test-util/-/tocco-test-util-0.1.2.tgz#6388309f1598d612cbc29e27564fb10706ade6f6"
+  integrity sha1-Y4gwnxWY1hLLwp4nVk+xBwat5vY=
+
+tocco-theme@*:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.2.10.tgz#9e20ef4a5a93040b7dcc0fd947b260233a6e0e30"
+  integrity sha512-5aBspMHAqGfR7fZg1p8L6dXbtU+lGSj2XnKHYqeKy9O2NKJoFBw4W3s7i9bAMliAYYApj4py3icHZ/pLH+j4VQ==
+
+tocco-util@*:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/tocco-util/-/tocco-util-0.1.11.tgz#c159134e9bb8359384aab0996286de233b19d0a8"
+  integrity sha512-7VbdKXPPAyXXibJ1AIiPDdwb4ksU0RmbvHr/mznU//slM9I8ncoOLR/159lcnDnXiI6HokWE+fKqRCuyZ9oQNw==
 
 ts-essentials@^2.0.3:
   version "2.0.12"

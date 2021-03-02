@@ -64,6 +64,7 @@ class DateAbstract extends React.Component {
     this.flatpickr = new this.Flatpickr(this.wrapper.current, this.options)
     this.flatpickr.calendarContainer.classList.add('tocco-ui-theme')
     this.flatpickr.calendarContainer.style.fontFamily = theme.fontFamily('regular')(this.props)
+    this.flatpickr.calendarContainer.addEventListener('keydown', this.handleConfirmKey)
 
     if (this.props.initialized) {
       this.props.initialized()
@@ -131,7 +132,17 @@ class DateAbstract extends React.Component {
       const altValue = this.flatpickr.altInput.value
       this.props.onBlur(altValue, this.flatpickr.selectedDates, r => this.flatpickr.setDate(r, true))
     }
-    this.flatpickr.close()
+  }
+
+  handleConfirmKey = e => {
+    if (e.key === 'Enter' || e.key === 'Tab') {
+      this.handleOnBlur()
+      this.flatpickr.close()
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        e.stopPropagation()
+      }
+    }
   }
 
   render() {
@@ -152,11 +163,7 @@ class DateAbstract extends React.Component {
               this.flatpickr.open()
             })
           }}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              this.handleOnBlur()
-            }
-          }}
+          onKeyDown={this.handleConfirmKey}
         >
           <StyledDateAbstractWrapper
             data-wrap
