@@ -1,3 +1,6 @@
+0.4.19-hotfix228.4
+- adjust merge table "all" label layout
+
 0.4.19-hotfix228.3
 - Fix height and action button styling of detail form in old client
 - Style merge table header contents for better UX
