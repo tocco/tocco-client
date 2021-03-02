@@ -8,10 +8,10 @@ import {goBack} from '../../../utils/routing'
 const DetailLinkRelative = ({entityKey, children, relation}) =>
   <StyledLink to={`${relation ? relation + '/' : ''}${entityKey}`}>{children}</StyledLink>
 
-const DetailLink = ({entityName, entityKey, children}) =>
+export const DetailLink = ({entityName, entityKey, children}) =>
   <StyledLink to={`/e/${entityName}/${entityKey}`} target="_blank">{children}</StyledLink>
 
-const ListLink = ({entityName, entityKeys, children}) => {
+export const ListLink = ({entityName, entityKeys, children}) => {
   const queryString = entityKeys && entityKeys.length > 0 && 'tql=KEYS(' + entityKeys.join(',') + ')'
   return (
     <StyledLink

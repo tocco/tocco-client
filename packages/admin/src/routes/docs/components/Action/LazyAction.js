@@ -5,6 +5,8 @@ import {actionEmitter} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
+import {ListLink, DetailLink} from '../../../entities/utils/navigationStrategy'
+
 const actions = {
   'dms-create-folder': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/CreateFolder')),
   'dms-create-domain': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/CreateDomain')),
@@ -28,7 +30,13 @@ const LazyAction = props => {
   })(LazyAction)
 
   return <Suspense fallback={renderLoader()}>
-    <ActionComponent {...props}/>
+    <ActionComponent
+      {...props}
+      navigationStrategy={{
+        ListLink,
+        DetailLink
+      }}
+    />
   </Suspense>
 }
 
