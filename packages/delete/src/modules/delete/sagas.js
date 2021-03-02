@@ -3,11 +3,11 @@ import {rest, externalEvents} from 'tocco-app-extensions'
 import {selection as selectionUtil} from 'tocco-util'
 
 import * as actions from './actions'
-import deleteRequestParser from '../../utils/deleteRequestParser'
+import {getDialogInfo, getEntitiesToDelete} from '../../utils/deleteRequestParser'
 
 export const inputSelector = state => state.input
 export const textResourceSelector = state => state.intl.messages
-export const dialogInfoSelector = state => state.del.dialogInfo
+export const entitiesToDeleteSelector = state => state.del.entitiesToDelete
 
 export function* getDeleteBodyFromSelection() {
   const {selection} = yield select(inputSelector)
@@ -34,21 +34,25 @@ export function* loadDialogInfo() {
     call(rest.fetchPrincipal)
   ])
 
-  const res = deleteRequestParser(deleteResponse.body, principal.currentBusinessUnit.id)
-  yield put(actions.setDeleteDialogInfo(res))
+  const dialogInfo = yield call(getDialogInfo, deleteResponse.body, principal.currentBusinessUnit.id)
+  yield put(actions.setDeleteDialogInfo(dialogInfo))
+
+  const entitiesToDelete = yield call(getEntitiesToDelete, deleteResponse.body)
+  yield put(actions.setEntitiesToDelete(entitiesToDelete))
 }
 
 export function* doDelete() {
-  const {keysDeletable, entityName} = yield select(dialogInfoSelector)
+  const entitiesToDelete = yield select(entitiesToDeleteSelector)
+
   yield put(actions.setDeletingInProgress(true))
   const body = {
-    entityModel: entityName,
-    keys: keysDeletable
+    entityModel: entitiesToDelete.entityName,
+    keys: entitiesToDelete.keys
   }
 
   const deleteEndpoint = yield call(getDeleteEndpoint)
 
-  const response = yield call(rest.requestSaga, `${deleteEndpoint}/delete`, {method: 'POST', body})
+  const response = yield call(rest.requestSaga, deleteEndpoint, {method: 'POST', body})
 
   const textResources = yield select(textResourceSelector)
   if (response.ok) {

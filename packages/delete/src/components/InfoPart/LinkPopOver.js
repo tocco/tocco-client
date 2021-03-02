@@ -3,7 +3,7 @@ import {FormattedMessage} from 'react-intl'
 import {Popover, Typography} from 'tocco-ui'
 import PropTypes from 'prop-types'
 
-import {relatedPropType} from '../../utils/deleteRequestParser'
+import {deleteEntityPropType} from '../../utils/deleteRequestParser'
 
 const LinkPopOver = ({relatedEntity, children, maxCountLink}) => {
   if (relatedEntity.keys.length < maxCountLink && relatedEntity.keysOtherBu.length === 0) {
@@ -33,7 +33,7 @@ const LinkPopOver = ({relatedEntity, children, maxCountLink}) => {
 }
 
 LinkPopOver.propTypes = {
-  relatedEntity: relatedPropType.isRequired,
+  relatedEntity: deleteEntityPropType.isRequired,
   maxCountLink: PropTypes.number.isRequired,
   children: PropTypes.element
 }

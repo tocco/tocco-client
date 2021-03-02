@@ -3,6 +3,7 @@ export const SET_DIALOG_INFO = 'delete/SET_DELETE_DIALOG_INFO'
 export const DO_DELETE = 'delete/DO_DELETE'
 export const SET_DELETING_IN_PROGRESS = 'delete/SET_DELETING_IN_PROGRESS'
 export const ON_CANCEL = 'delete/ON_CANCEL'
+export const SET_ENTITIES_TO_DELETE = 'delete/SET_ENTITIES_TO_DELETE'
 
 export const
   loadDialogInfo = () => ({
@@ -29,4 +30,11 @@ export const setDeletingInProgress = deletingInProgress => ({
 
 export const onCancel = () => ({
   type: ON_CANCEL
+})
+
+export const setEntitiesToDelete = entitiesToDelete => ({
+  type: SET_ENTITIES_TO_DELETE,
+  payload: {
+    entitiesToDelete
+  }
 })

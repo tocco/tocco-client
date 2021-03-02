@@ -13,9 +13,12 @@ describe('delete', () => {
         const wrapper = mount(
           <MemoryRouter>
             <InfoPart
-              entityName="User"
-              entityLabel="Person"
-              keys={['1', '3']}
+              rootEntities={{
+                User: {
+                  entityLabel: 'Person',
+                  keys: ['1', '3']
+                }
+              }}
               relatedEntities={{
                 Document: {
                   entityLabel: 'Dokument',

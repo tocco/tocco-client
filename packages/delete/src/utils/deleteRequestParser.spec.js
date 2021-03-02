@@ -1,4 +1,132 @@
-import deleteRequestParser from './deleteRequestParser'
+import {getDialogInfo, getEntitiesToDelete} from './deleteRequestParser'
+
+describe('delete', () => {
+  describe('util', () => {
+    describe('getDialogInfo', () => {
+      test('should transform the response to desired format', () => {
+        const result = getDialogInfo(exampleResponse, 'test1')
+        expect(result).to.deep.eql(dialogInfo)
+      })
+
+      test('should handle Session only entities', () => {
+        const result = getDialogInfo(exampleResponseSessionOnly, 'test1')
+        expect(result).to.deep.eql(dialogInfoSessionOnly)
+      })
+    })
+
+    describe('getEntitiesToDelete', () => {
+      test('should transform the response to desired format', () => {
+        const result = getEntitiesToDelete(exampleResponse)
+        const expectedResult = {
+          entityName: 'User',
+          keys: ['100']
+        }
+        expect(result).to.deep.eql(expectedResult)
+      })
+
+      test('should handle Session only entities', () => {
+        const result = getEntitiesToDelete(exampleResponseSessionOnly)
+        const expectedResult = {
+          entityName: 'Doc_list_item',
+          keys: ['Resource/2255', 'Folder/892']
+        }
+        expect(result).to.deep.eql(expectedResult)
+      })
+    })
+  })
+})
+
+const exampleResponseSessionOnly = {
+  entitiesToDelete: [
+    {
+      rootEntity: {
+        entityName: 'Doc_list_item',
+        key: 'Resource/2255',
+        entityLabel: 'Dokument',
+        businessUnitId: null,
+        deleteStatus: 'DELETABLE'
+      },
+      affectedEntities: [],
+      unreadableEntities: false
+    },
+    {
+      rootEntity: {
+        entityName: 'Doc_list_item',
+        key: 'Folder/3',
+        entityLabel: 'Ordner',
+        businessUnitId: null,
+        deleteStatus: 'NO_DELETE_PERMISSION'
+      },
+      affectedEntities: [
+        {
+          entityName: 'Resource',
+          key: '10785',
+          entityLabel: 'Dokument',
+          businessUnitId: null,
+          deleteStatus: 'NO_DELETE_PERMISSION'
+        }
+      ],
+      unreadableEntities: false
+    },
+    {
+      rootEntity: {
+        entityName: 'Doc_list_item',
+        key: 'Folder/892',
+        entityLabel: 'Ordner',
+        businessUnitId: null,
+        deleteStatus: 'DELETABLE'
+      },
+      affectedEntities: [{
+        entityName: 'Resource',
+        key: '13380',
+        entityLabel: 'Dokument',
+        businessUnitId: null,
+        deleteStatus: 'DELETABLE'
+      }, {
+        entityName: 'Resource',
+        key: '10786',
+        entityLabel: 'Dokument',
+        businessUnitId: null,
+        deleteStatus: 'DELETABLE'
+      }
+      ]
+    }
+  ]
+}
+
+export const dialogInfoSessionOnly = {
+  rootEntitiesDeletable: {
+    Resource: {
+      entityLabel: 'Dokument',
+      keys: ['2255']
+    },
+    Folder: {
+      entityLabel: 'Ordner',
+      keys: ['892']
+    }
+  },
+  rootEntitiesNotDeletable: {
+    Folder: {
+      entityLabel: 'Ordner',
+      keys: ['3']
+    }
+  },
+  relatedDeletable: {
+    Resource: {
+      entityLabel: 'Dokument',
+      keys: ['13380', '10786'],
+      keysOtherBu: []
+    }
+  },
+  relatedNotDeletable: {
+    Resource: {
+      entityLabel: 'Dokument',
+      keys: ['10785'],
+      keysOtherBu: []
+    }
+  },
+  hasUnreadableEntities: false
+}
 
 const exampleResponse = {
   entitiesToDelete: [
@@ -109,10 +237,18 @@ const exampleResponse = {
 }
 
 export const dialogInfo = {
-  entityName: 'User',
-  entityLabel: 'Person',
-  keysDeletable: ['100'],
-  keysNotDeletable: ['9', '1'],
+  rootEntitiesDeletable: {
+    User: {
+      entityLabel: 'Person',
+      keys: ['100']
+    }
+  },
+  rootEntitiesNotDeletable: {
+    User: {
+      entityLabel: 'Person',
+      keys: ['9', '1']
+    }
+  },
   relatedDeletable: {
     Resource: {
       entityLabel: 'Dokument',
@@ -139,14 +275,3 @@ export const dialogInfo = {
   },
   hasUnreadableEntities: true
 }
-
-describe('delete', () => {
-  describe('util', () => {
-    describe('deleteResponseParser', () => {
-      test('should transform the response to desired format', () => {
-        const result = deleteRequestParser(exampleResponse, 'test1')
-        expect(result).to.deep.eql(dialogInfo)
-      })
-    })
-  })
-})
