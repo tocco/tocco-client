@@ -1,3 +1,6 @@
+0.4.1-hotfix228.2
+- adjust merge table "all" label layout
+
 0.4.1-hotfix228.1
 - Style merge table header contents for better UX
 - Fix hidden extender and force border rendering of ranges in chrome
