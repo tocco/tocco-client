@@ -4,11 +4,13 @@ import * as actions from './actions'
 
 const ACTION_HANDLERS = {
   [actions.SET_DIALOG_INFO]: reducerUtil.singleTransferReducer('dialogInfo'),
+  [actions.SET_ENTITIES_TO_DELETE]: reducerUtil.singleTransferReducer('entitiesToDelete'),
   [actions.SET_DELETING_IN_PROGRESS]: reducerUtil.singleTransferReducer('deletingInProgress')
 }
 
 const initialState = {
   dialogInfo: null,
+  entitiesToDelete: null,
   deletingInProgress: false
 }
 

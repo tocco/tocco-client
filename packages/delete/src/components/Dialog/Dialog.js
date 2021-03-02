@@ -10,11 +10,9 @@ import {StyledSectionWrapper, StyledButtonsWrapper} from './StyledComponents'
 
 const Dialog = ({
   dialogInfo: {
-    entityName,
-    entityLabel,
-    keysDeletable,
+    rootEntitiesDeletable,
+    rootEntitiesNotDeletable,
     relatedDeletable,
-    keysNotDeletable,
     relatedNotDeletable,
     hasUnreadableEntities
   }, doDelete, onCancel, navigationStrategy
@@ -22,21 +20,17 @@ const Dialog = ({
     <Typography.P><FormattedMessage id="client.delete.confirmText"/></Typography.P>
     <InfoPart
       key="infopart-deletable"
-      entityName={entityName}
-      entityLabel={entityLabel}
-      keys={keysDeletable}
+      rootEntities={rootEntitiesDeletable}
       relatedEntities={relatedDeletable}
       maxCountLink={100}
       navigationStrategy={navigationStrategy}
     />
-    {keysNotDeletable.length > 0
+    {Object.keys(rootEntitiesNotDeletable).length > 0
     && <StyledSectionWrapper>
       <Typography.P><FormattedMessage id="client.delete.textNotDeletable"/></Typography.P>
       <InfoPart
         key="infopart-notdeletable"
-        entityName={entityName}
-        entityLabel={entityLabel}
-        keys={keysNotDeletable}
+        rootEntities={rootEntitiesNotDeletable}
         relatedEntities={relatedNotDeletable}
         maxCountLink={100}
         navigationStrategy={navigationStrategy}
@@ -55,7 +49,7 @@ const Dialog = ({
       <StyledButtonsWrapper>
         <Button
           onClick={doDelete}
-          disabled={keysDeletable.length === 0}
+          disabled={Object.keys(rootEntitiesDeletable).length === 0}
         >
           <FormattedMessage id="client.delete.deleteButton"/>
         </Button>

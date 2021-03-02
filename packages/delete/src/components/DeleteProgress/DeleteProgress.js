@@ -15,9 +15,7 @@ const DeleteProgress = ({dialogInfo, navigationStrategy}) => {
     <Typography.P><FormattedMessage id="client.delete.deleteInProgress"/></Typography.P>
     <InfoPart
       key="infopart-deletable"
-      entityName={dialogInfo.entityName}
-      entityLabel={dialogInfo.entityLabel}
-      keys={dialogInfo.keysDeletable}
+      rootEntities={dialogInfo.rootEntitiesDeletable}
       relatedEntities={dialogInfo.relatedDeletable}
       maxCountLink={100}
       navigationStrategy={navigationStrategy}

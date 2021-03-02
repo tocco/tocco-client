@@ -36,46 +36,74 @@ const transformRelatedEntities = (relatedEntities, entityToDelete, deletable, cu
   }), {...relatedEntities})
 })
 
+const transformRootEntity = (rootEntities, entityToDelete) => {
+  const {entityName, entityLabel, key} = entityToDelete.rootEntity
+  if (key.includes('/')) {
+    const [entityNameReal, keyReal] = key.split('/')
+    return {
+      ...rootEntities,
+      [entityNameReal]: {
+        entityLabel,
+        keys: [..._get(rootEntities, [entityNameReal, 'keys'], []), keyReal]
+      }
+    }
+  } else {
+    return {
+      ...rootEntities,
+      [entityName]: {
+        entityLabel,
+        keys: [..._get(rootEntities, [entityName, 'keys'], []), key]
+      }
+    }
+  }
+}
+
 const isEntityDeletable = entityToDelete =>
   entityToDelete.rootEntity.deleteStatus === deleteStatus.DELETABLE
   && !entityToDelete.affectedEntities.find(affectedEntity => affectedEntity.deleteStatus !== deleteStatus.DELETABLE)
 
-export default (response, currentBuId) => {
+export const getDialogInfo = (response, currentBuId) => {
   const {entitiesToDelete} = response
 
   return entitiesToDelete.reduce((acc, entityToDelete) => {
     const deletable = isEntityDeletable(entityToDelete)
-    const keyAttr = deletable ? 'keysDeletable' : 'keysNotDeletable'
+    const keyAttr = deletable ? 'rootEntitiesDeletable' : 'rootEntitiesNotDeletable'
     const relatedAttr = deletable ? 'relatedDeletable' : 'relatedNotDeletable'
     return {
       ...acc,
-      [keyAttr]: [...acc[keyAttr], entityToDelete.rootEntity.key],
+      [keyAttr]: transformRootEntity(acc[keyAttr], entityToDelete),
       [relatedAttr]: transformRelatedEntities(acc[relatedAttr], entityToDelete, deletable, currentBuId)
     }
   },
   {
-    entityName: _get(entitiesToDelete, '[0].rootEntity.entityName'),
-    entityLabel: _get(entitiesToDelete, '[0].rootEntity.entityLabel'),
-    keysDeletable: [],
-    keysNotDeletable: [],
+    rootEntitiesDeletable: {},
+    rootEntitiesNotDeletable: {},
     relatedDeletable: {},
     relatedNotDeletable: {},
     hasUnreadableEntities: !!entitiesToDelete.find(e => e.unreadableEntities)
   })
 }
 
-export const relatedPropType = PropTypes.shape({
+export const getEntitiesToDelete = ({entitiesToDelete}) => ({
+  entityName: _get(entitiesToDelete, '[0].rootEntity.entityName'),
+  keys: entitiesToDelete.reduce((acc, entityToDelete) => [
+    ...acc,
+    ...(isEntityDeletable(entityToDelete) ? [entityToDelete.rootEntity.key] : [])
+  ]
+  , [])
+}
+)
+
+export const deleteEntityPropType = PropTypes.shape({
   entityLabel: PropTypes.string,
   keys: PropTypes.arrayOf(PropTypes.string),
   keysOtherBu: PropTypes.arrayOf(PropTypes.string)
 })
 
 export const deleteInfoPropType = PropTypes.shape({
-  entityName: PropTypes.string.isRequired,
-  entityLabel: PropTypes.string.isRequired,
-  keysDeletable: PropTypes.arrayOf(PropTypes.string).isRequired,
-  keysNotDeletable: PropTypes.arrayOf(PropTypes.string).isRequired,
-  relatedDeletable: PropTypes.objectOf(relatedPropType).isRequired,
-  relatedNotDeletable: PropTypes.objectOf(relatedPropType).isRequired,
+  rootEntitiesDeletable: PropTypes.objectOf(deleteEntityPropType).isRequired,
+  rootEntitiesNotDeletable: PropTypes.objectOf(deleteEntityPropType).isRequired,
+  relatedDeletable: PropTypes.objectOf(deleteEntityPropType).isRequired,
+  relatedNotDeletable: PropTypes.objectOf(deleteEntityPropType).isRequired,
   hasUnreadableEntities: PropTypes.bool
 })

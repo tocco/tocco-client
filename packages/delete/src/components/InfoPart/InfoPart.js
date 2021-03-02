@@ -5,25 +5,28 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import LinkPopOver from './LinkPopOver'
-import {relatedPropType} from '../../utils/deleteRequestParser'
+import {deleteEntityPropType} from '../../utils/deleteRequestParser'
 
 const NonBreakingText = styled.span`
   white-space: nowrap;
 `
 
-const InfoPart = ({entityName, entityLabel, keys, relatedEntities, maxCountLink, navigationStrategy}) => {
+const InfoPart = ({rootEntities, relatedEntities, maxCountLink, navigationStrategy}) => {
   return <Typography.Span>
     <Typography.B>
-      {entityLabel} ({
-        keys.length > 0 && navigationStrategy.ListLink
-          ? <navigationStrategy.ListLink
-            entityName={entityName}
-            entityKeys={keys}
-          >
-            {keys.length}
-          </navigationStrategy.ListLink>
-          : <Typography.Span>{keys.length}</Typography.Span>
-      })
+      {
+        Object.entries(rootEntities).map(([rootEntityName, rootEntity]) => (
+           <span key={`root-entity-${rootEntityName}`}>
+             {rootEntity.entityLabel} ({rootEntity.keys.length > 0 && navigationStrategy.ListLink
+               ? <navigationStrategy.ListLink
+                        entityName={rootEntityName}
+                        entityKeys={rootEntity.keys}
+                      >
+                        {rootEntity.keys.length}
+                      </navigationStrategy.ListLink>
+               : <Typography.Span>{rootEntity.keys.length}</Typography.Span>
+             })</span>
+        )).reduce((prev, curr) => [prev, ', ', curr])}
     </Typography.B>
     {
       Object.keys(relatedEntities).length > 0
@@ -56,10 +59,12 @@ const InfoPart = ({entityName, entityLabel, keys, relatedEntities, maxCountLink,
 }
 
 InfoPart.propTypes = {
-  entityName: PropTypes.string.isRequired,
-  entityLabel: PropTypes.string.isRequired,
-  keys: PropTypes.arrayOf(PropTypes.string),
-  relatedEntities: PropTypes.objectOf(relatedPropType).isRequired,
+  rootEntities: PropTypes.objectOf(
+    PropTypes.shape({
+      entityLabel: PropTypes.string.isRequired,
+      keys: PropTypes.arrayOf(PropTypes.string).isRequired
+    })).isRequired,
+  relatedEntities: PropTypes.objectOf(deleteEntityPropType).isRequired,
   maxCountLink: PropTypes.number,
   navigationStrategy: navigationStrategy.propTypes
 }
