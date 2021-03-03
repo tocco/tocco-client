@@ -18,13 +18,16 @@ const Dialog = ({
   }, doDelete, onCancel, navigationStrategy
 }) => <>
     <Typography.P><FormattedMessage id="client.delete.confirmText"/></Typography.P>
-    <InfoPart
-      key="infopart-deletable"
-      rootEntities={rootEntitiesDeletable}
-      relatedEntities={relatedDeletable}
-      maxCountLink={100}
-      navigationStrategy={navigationStrategy}
+  {Object.keys(rootEntitiesDeletable).length > 0
+    ? <InfoPart
+    key="infopart-deletable"
+    rootEntities={rootEntitiesDeletable}
+    relatedEntities={relatedDeletable}
+    maxCountLink={100}
+    navigationStrategy={navigationStrategy}
     />
+    : '-'
+  }
     {Object.keys(rootEntitiesNotDeletable).length > 0
     && <StyledSectionWrapper>
       <Typography.P><FormattedMessage id="client.delete.textNotDeletable"/></Typography.P>
