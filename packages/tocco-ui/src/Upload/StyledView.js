@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
-import {scale, StyledButton} from '../utilStyles'
+import {StyledButton} from '../Button'
+import {scale} from '../utilStyles'
 
 export const StyledView = styled.div`
   display: flex;
