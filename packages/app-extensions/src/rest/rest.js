@@ -30,6 +30,20 @@ export const setNullBusinessUnit = value => {
   nullBusinessUnit = value
 }
 
+function* runInformationErrorFallback(error) {
+  if (error instanceof InformationError) {
+    yield put(notifier.info(
+      'info',
+      'client.common.information',
+      error.message,
+      null,
+      5000
+    ))
+  } else {
+    throw error
+  }
+}
+
 /**
  * Fetch a resource.
  *
@@ -55,18 +69,8 @@ export function* requestSaga(resource, options = {}) {
     response = yield call(handleClientQuestion, response, requestData, options)
     return response
   } catch (error) {
-    if (error instanceof InformationError) {
-      yield put(notifier.info(
-        'info',
-        'client.common.information',
-        error.message,
-        null,
-        5000
-      ))
-      return {}
-    } else {
-      throw error
-    }
+    yield runInformationErrorFallback(error)
+    return {}
   }
 }
 
