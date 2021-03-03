@@ -1,3 +1,7 @@
+0.2.25
+- Change header color
+- DMS delete
+
 0.2.24
 - Style upload and switch to light icons
 
