@@ -2,35 +2,37 @@ import {getDialogInfo, getEntitiesToDelete} from './deleteRequestParser'
 
 describe('delete', () => {
   describe('util', () => {
-    describe('getDialogInfo', () => {
-      test('should transform the response to desired format', () => {
-        const result = getDialogInfo(exampleResponse, 'test1')
-        expect(result).to.deep.eql(dialogInfo)
+    describe('deleteRequestParser', () => {
+      describe('getDialogInfo', () => {
+        test('should transform the response to desired format', () => {
+          const result = getDialogInfo(exampleResponse, 'test1')
+          expect(result).to.deep.eql(dialogInfo)
+        })
+
+        test('should handle Session only entities', () => {
+          const result = getDialogInfo(exampleResponseSessionOnly, 'test1')
+          expect(result).to.deep.eql(dialogInfoSessionOnly)
+        })
       })
 
-      test('should handle Session only entities', () => {
-        const result = getDialogInfo(exampleResponseSessionOnly, 'test1')
-        expect(result).to.deep.eql(dialogInfoSessionOnly)
-      })
-    })
+      describe('getEntitiesToDelete', () => {
+        test('should transform the response to desired format', () => {
+          const result = getEntitiesToDelete(exampleResponse)
+          const expectedResult = {
+            entityName: 'User',
+            keys: ['100']
+          }
+          expect(result).to.deep.eql(expectedResult)
+        })
 
-    describe('getEntitiesToDelete', () => {
-      test('should transform the response to desired format', () => {
-        const result = getEntitiesToDelete(exampleResponse)
-        const expectedResult = {
-          entityName: 'User',
-          keys: ['100']
-        }
-        expect(result).to.deep.eql(expectedResult)
-      })
-
-      test('should handle Session only entities', () => {
-        const result = getEntitiesToDelete(exampleResponseSessionOnly)
-        const expectedResult = {
-          entityName: 'Doc_list_item',
-          keys: ['Resource/2255', 'Folder/892']
-        }
-        expect(result).to.deep.eql(expectedResult)
+        test('should handle Session only entities', () => {
+          const result = getEntitiesToDelete(exampleResponseSessionOnly)
+          const expectedResult = {
+            entityName: 'Doc_list_item',
+            keys: ['Resource/2255', 'Folder/892']
+          }
+          expect(result).to.deep.eql(expectedResult)
+        })
       })
     })
   })

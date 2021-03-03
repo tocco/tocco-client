@@ -91,8 +91,7 @@ export const getEntitiesToDelete = ({entitiesToDelete}) => ({
     ...(isEntityDeletable(entityToDelete) ? [entityToDelete.rootEntity.key] : [])
   ]
   , [])
-}
-)
+})
 
 export const deleteEntityPropType = PropTypes.shape({
   entityLabel: PropTypes.string,
