@@ -1,4 +1,9 @@
 0.4.19-hotfix228.4
+- Adjust merge table "all" label layout
+- Ignore field if path is null in copy action
+- Change header color
+
+0.4.19-hotfix228.4
 - adjust merge table "all" label layout
 
 0.4.19-hotfix228.3
