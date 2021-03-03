@@ -31,7 +31,8 @@ describe('entity-detail', () => {
                 queryParams: {
                   _paths: 'f1,f2'
                 },
-                acceptedErrorCodes: ['VALIDATION_FAILED']
+                acceptedErrorCodes: ['VALIDATION_FAILED'],
+                acceptedStatusCodes: [409]
               }
             ))
 
