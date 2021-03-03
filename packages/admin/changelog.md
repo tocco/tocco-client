@@ -1,3 +1,6 @@
+0.2.24
+- Style upload and switch to light icons
+
 0.4.23
 - Fix icon and qr code spacing inside two factor connector
 - Merge: Remove workaround for opening an entity list in the old client
