@@ -11,18 +11,18 @@ const NonBreakingText = styled.span`
   white-space: nowrap;
 `
 
-const InfoPart = ({rootEntities, relatedEntities, maxCountLink, navigationStrategy}) => {
-  return <Typography.Span>
+const InfoPart = ({rootEntities, relatedEntities, maxCountLink, navigationStrategy}) => (
+  <Typography.Span>
     <Typography.B>
       {
         Object.entries(rootEntities).map(([rootEntityName, rootEntity]) => (
-           <span key={`root-entity-${rootEntityName}`}>
+          <span key={`root-entity-${rootEntityName}`}>
              {rootEntity.entityLabel} ({rootEntity.keys.length > 0 && navigationStrategy.ListLink
                ? <navigationStrategy.ListLink
-                        entityName={rootEntityName}
-                        entityKeys={rootEntity.keys}
-                      >
-                        {rootEntity.keys.length}
+              entityName={rootEntityName}
+              entityKeys={rootEntity.keys}
+            >
+              {rootEntity.keys.length}
                       </navigationStrategy.ListLink>
                : <Typography.Span>{rootEntity.keys.length}</Typography.Span>
              })</span>
@@ -39,7 +39,7 @@ const InfoPart = ({rootEntities, relatedEntities, maxCountLink, navigationStrate
           const Count = relatedEntity.keys.length > 0 && navigationStrategy.ListLink
             ? <navigationStrategy.ListLink
               entityName={entityName}
-              keys={relatedEntity.keys.slice(0, maxCountLink)}
+              entityKeys={relatedEntity.keys.slice(0, maxCountLink)}
             >
               {linkText}
             </navigationStrategy.ListLink>
@@ -56,7 +56,7 @@ const InfoPart = ({rootEntities, relatedEntities, maxCountLink, navigationStrate
     }
 
   </Typography.Span>
-}
+)
 
 InfoPart.propTypes = {
   rootEntities: PropTypes.objectOf(
