@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {StyledLayoutBox, StyledScrollbar} from 'tocco-ui/src/Layout'
 
-const StyledBasicSearchForm = styled.div`
+export const StyledBasicSearchForm = styled.div`
   ${StyledScrollbar}
 
   && {
@@ -9,22 +9,18 @@ const StyledBasicSearchForm = styled.div`
       padding-bottom: 0;
     }
   }
-  ${({disableSimpleSearch}) => !disableSimpleSearch && `
+
+  //restrict height only in modal
+  .tocco-notifier & {
     max-height: 200px;
     overflow-y: auto;
     padding-right: .5rem;
-  `
   }
 `
 
-const StyledSearchFormButtons = styled.div`
+export const StyledSearchFormButtons = styled.div`
   && {
     width: 100%;
     text-align: center;
   }
 `
-
-export {
-  StyledBasicSearchForm,
-  StyledSearchFormButtons
-}

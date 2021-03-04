@@ -65,9 +65,10 @@ const BasicSearchForm = ({
   const fields = form.getFieldDefinitions(searchFormDefinition)
   const hasExtendedOnlySearchFields = !fields.every(field => simpleSearchFields.includes(field.id))
 
-  return <StyledBasicSearchForm disableSimpleSearch={disableSimpleSearch}>
-    <form onSubmit={handleSubmit}>
-      {hasExtendedOnlySearchFields && !disableSimpleSearch
+  return (
+    <StyledBasicSearchForm>
+      <form onSubmit={handleSubmit}>
+        {hasExtendedOnlySearchFields && !disableSimpleSearch
         && <StyledSearchFormButtons>
           <Ball
             data-cy="extend-search-button"
@@ -76,23 +77,24 @@ const BasicSearchForm = ({
             title={msg('client.entity-list.extendedSearch')}
           />
         </StyledSearchFormButtons>
-      }
-      <form.FormBuilder
-        entity={entity}
-        formName={formName}
-        formDefinition={searchFormDefinition}
-        formValues={formValues}
-        fieldMappingType="search"
-        beforeRenderField={shouldRenderField(
-          preselectedSearchFields,
-          disableSimpleSearch,
-          showExtendedSearchForm,
-          simpleSearchFields)
         }
-        mode="search"
-      />
-    </form>
-  </StyledBasicSearchForm>
+        <form.FormBuilder
+          entity={entity}
+          formName={formName}
+          formDefinition={searchFormDefinition}
+          formValues={formValues}
+          fieldMappingType="search"
+          beforeRenderField={shouldRenderField(
+            preselectedSearchFields,
+            disableSimpleSearch,
+            showExtendedSearchForm,
+            simpleSearchFields)
+          }
+          mode="search"
+        />
+      </form>
+    </StyledBasicSearchForm>
+  )
 }
 
 BasicSearchForm.propTypes = {
