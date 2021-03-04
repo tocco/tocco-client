@@ -95,22 +95,24 @@ const initApp = (id, input, events, publicPath) => {
 }
 
 (() => {
-  if (__DEV__ && __PACKAGE_NAME__ === 'entity-browser') {
-    if (!__NO_MOCK__) {
-      const fetchMock = require('fetch-mock')
-
-      const setupFetchMocks = require('./dev/fetchMocks').default
-      setupFetchMocks(packageName, fetchMock)
-
-      fetchMock.spy()
-    }
-
-    const input = !__NO_MOCK__ ? require('./dev/input.json') : require('./dev/input-no-mock.json')
-
-    const app = initApp('id', input)
-    appFactory.renderApp(app.component)
-  } else {
+  if (__PACKAGE_NAME__ === 'entity-browser') {
     appFactory.registerAppInRegistry(packageName, initApp)
+
+    if (__DEV__) {
+      if (!__NO_MOCK__) {
+        const fetchMock = require('fetch-mock')
+
+        const setupFetchMocks = require('./dev/fetchMocks').default
+        setupFetchMocks(packageName, fetchMock)
+
+        fetchMock.spy()
+      }
+
+      const input = !__NO_MOCK__ ? require('./dev/input.json') : require('./dev/input-no-mock.json')
+
+      const app = initApp('id', input)
+      appFactory.renderApp(app.component)
+    }
   }
 })()
 
