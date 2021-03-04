@@ -12,6 +12,8 @@ import setupIntlPolyfill from './intl_polyfill'
 
 Enzyme.configure({adapter: new EnzymeAdapter()})
 
+global.__PACKAGE_NAME__ = 'jest'
+
 global.chai = chai
 global.sinon = sinon
 global.expect = chai.expect
