@@ -1,74 +1,55 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 import LoadingSpinner from '../LoadingSpinner'
 import Typography from '../Typography'
-import StyledLoadMask from './StyledLoadMask'
+import StyledLoadMask, {StyledLoadingIconAndTest} from './StyledLoadMask'
 
 /**
  * A loadmask that can hide elements as long as promises are not resolved
  */
-class LoadMask extends React.Component {
-  mounted = false
-  constructor(props) {
-    super(props)
+const LoadMask = ({promises, required, children, loadingText}) => {
+  const [isInitialized, setIsInitialized] = useState(false)
+  const [isMounted, setIsMounted] = useState(true)
 
-    let initialized = false
-    if (props.required && this.requiredLoaded(props.required)) {
-      initialized = true
-    }
-
-    this.state = {
-      initialized
+  const requiredLoaded = required => !required.some(r => (!r))
+  const handleInitialization = () => {
+    if (isMounted && !isInitialized) {
+      setIsInitialized(true)
     }
   }
 
-  requiredLoaded = required => !required.some(r => (!r))
-
-  setInitialized = () => {
-    if (this.mounted && !this.state.initialized) {
-      this.setState({initialized: true})
-    }
-  }
-
-  componentDidMount() {
-    this.mounted = true
-    if (this.props.promises) {
-      Promise.all(this.props.promises).then(() => {
-        this.setInitialized()
+  useEffect(() => {
+    if (promises) {
+      Promise.all(promises).then(() => {
+        handleInitialization()
       })
     }
-  }
+    return () => {
+      setIsMounted(false)
+    }
+  }, [])
 
-  componentWillUnmount() {
-    this.mounted = false
-  }
-
-  componentDidUpdate() {
-    if (!this.state.initialized) {
-      if (this.props.required && this.requiredLoaded(this.props.required)) {
-        this.setInitialized()
+  useEffect(() => {
+    if (!isInitialized) {
+      if (required && requiredLoaded(required)) {
+        handleInitialization()
       }
     }
-  }
+  })
 
-  render() {
-    const loadingIconAndText = [
-      <LoadingSpinner key="loading-spinner" size="30px" />
-    ]
-
-    if (this.props.loadingText) {
-      loadingIconAndText.push(
-        <Typography.Span key="loadingText">{this.props.loadingText}</Typography.Span>
-      )
-    }
-
-    return (
-      <StyledLoadMask isInitialized={this.state.initialized}>
-        {this.state.initialized ? this.props.children : [...loadingIconAndText]}
-      </StyledLoadMask>
-    )
-  }
+  return (
+    <StyledLoadMask isInitialized={isInitialized}>
+      {isInitialized
+        ? children
+        : <StyledLoadingIconAndTest>
+          <LoadingSpinner key="loading-spinner" size="30px"/>
+          {loadingText
+          && <Typography.Span key="loadingText">{loadingText}</Typography.Span>}
+        </StyledLoadingIconAndTest>
+      }
+    </StyledLoadMask>
+  )
 }
 
 LoadMask.propTypes = {
