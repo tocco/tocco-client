@@ -12,6 +12,7 @@
     "tocco-delete": "*",
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
+    "tocco-input-edit": "*",
     "tocco-test-util": "*",
     "tocco-theme": "*",
     "tocco-ui": "*",
