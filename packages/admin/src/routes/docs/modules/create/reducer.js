@@ -1,9 +1,10 @@
 import * as actions from './actions'
 
-const openDialog = (state, {payload: {location, onSuccess, onError}}) => ({
+const openDialog = (state, {payload: {location, directory, onSuccess, onError}}) => ({
   ...state,
   dialog: {
     instanceCount: state.dialog.instanceCount + 1,
+    directory,
     location,
     onSuccess,
     onError
@@ -17,6 +18,7 @@ const ACTION_HANDLERS = {
 const initialState = {
   dialog: {
     instanceCount: 0,
+    directory: false,
     location: null,
     onSuccess: null,
     onError: null

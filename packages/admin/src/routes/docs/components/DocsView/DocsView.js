@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {viewPersistor} from 'tocco-util'
 import {Icon} from 'tocco-ui'
-import {put} from 'redux-saga/effects'
 
 import Action from '../Action'
 import FileInput from '../FileInput'
@@ -51,8 +50,14 @@ const DocsView = props => {
 
   const parent = getParent(match)
 
-  const handleCreateDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
-    yield put(openFileDialog(history.location.pathname, onSuccess, onError))
+  const handleUploadDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
+    const directory = false
+    openFileDialog(history.location.pathname, directory, onSuccess, onError)
+  }
+
+  const handleUploadDirectory = function* (definition, selection, parent, params, config, onSuccess, onError) {
+    const directory = true
+    openFileDialog(history.location.pathname, directory, onSuccess, onError)
   }
 
   return (
@@ -85,7 +90,8 @@ const DocsView = props => {
           history
         }}
         customActions={{
-          'upload-document': handleCreateDocument
+          'upload-document': handleUploadDocument,
+          'upload-directory': handleUploadDirectory
         }}
       />
       <FileInput/>
