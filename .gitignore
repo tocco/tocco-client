@@ -12,3 +12,6 @@ packages/*/node_modules
 cypress/screenshots/
 cypress/videos/
 .env
+
+# vs code
+.history
