@@ -1,3 +1,8 @@
+0.2.18-hotfix228.2
+- Fix hidden extender and force border rendering of ranges in chrome
+- Fix icon and qr code spacing inside two factor connector
+- Fix app registration in old client (TOCDEV-3330)
+
 0.2.18-hotfix228.1
 - Fix empty report settings (TOCDEV-3218)
 
