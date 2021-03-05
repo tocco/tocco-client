@@ -1,0 +1,84 @@
+image: node:14.15.4-alpine
+
+variables:
+  CYPRESS_INSTALL_BINARY: "0"
+
+cache: &global_cache
+  key:
+    files:
+      - yarn.lock
+      - packages/*/yarn.lock
+  policy: pull
+  paths:
+    - node_modules/
+    - packages/*/node_modules/
+
+stages:
+  - setup
+  - quality
+  - build
+  - pullrequest
+  - onschedule
+
+yarn_setup:
+  stage: setup
+  only:
+    - external_pull_requests
+    - master
+  cache:
+    <<: *global_cache
+    policy: pull-push
+  script:
+    - yarn setup:ci
+  interruptible: true
+
+linting:
+  stage: quality
+  only:
+    - external_pull_requests
+    - master
+  script:
+    - yarn lint
+
+test:
+  stage: quality
+  only:
+    - external_pull_requests
+    - master
+  script:
+    - yarn test --ci --forceExit --runInBand --detectOpenHandles
+  after_script:
+    - yarn codecov
+  interruptible: true
+
+storybook:
+  stage: quality
+  only:
+    - external_pull_requests
+    - master
+  before_script:
+    - apk update && apk add bash && apk add openssh-client && apk add git
+  script:
+    - BACKEND=https://master.tocco.ch yarn build-storybook
+    - deployment/deploy_storybook_gitlab.sh
+
+storybook-link:
+  stage: pullrequest
+  cache: {}
+  before_script:
+    - apk update && apk add bash && apk add curl && apk add jq
+  only:
+    - external_pull_requests
+  script:
+    - deployment/storybook_link_gitlab.sh
+
+cypress:
+  stage: onschedule
+  image: cypress/base:10
+  variables:
+    CYPRESS_INSTALL_BINARY: "6.4.0"
+  only:
+    - schedules
+  script:
+    - npm rebuild cypress
+    - yarn cypress:master:record --parallel
