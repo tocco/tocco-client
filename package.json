@@ -18,6 +18,7 @@
     "test": "jest",
     "codecov": "codecov",
     "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts --force-local",
+    "setup:ci": "yarn install --frozen-lockfile && lerna bootstrap --no-progress --ignore-scripts --force-local --concurrency 2",
     "plop": "babel-node ./node_modules/plop",
     "release-package": "yarn setup && ./scripts/release-package.sh",
     "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook",
