@@ -9,7 +9,7 @@ const usePrevious = value => {
   return ref.current
 }
 
-const FileInput = ({instanceCount, onChange}) => {
+const FileInput = ({instanceCount, directory, onChange}) => {
   const fileInput = useRef()
 
   const prevInstanceCount = usePrevious(instanceCount)
@@ -23,16 +23,23 @@ const FileInput = ({instanceCount, onChange}) => {
   const handleChange = e => {
     const files = e.target.files
     if (files && files.length > 0 && onChange) {
-      onChange(files)
+      onChange(files, directory)
     }
     e.target.value = null
   }
-
-  return <input type="file" ref={fileInput} style={{display: 'none'}} onChange={handleChange} multiple/>
+  
+  return <input
+    type="file"
+    ref={fileInput}
+    style={{display: 'none'}}
+    onChange={handleChange}
+    multiple {...(directory ? {webkitdirectory: 'true', directory: 'true'} : {})}
+  />
 }
 
 FileInput.propTypes = {
   instanceCount: PropTypes.number.isRequired,
+  directory: PropTypes.bool,
   onChange: PropTypes.func
 }
 

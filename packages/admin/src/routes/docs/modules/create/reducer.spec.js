@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   dialog: {
     instanceCount: 0,
     location: null,
+    directory: false,
     onSuccess: null,
     onError: null
   }
@@ -29,13 +30,14 @@ describe('admin', () => {
                 ...INITIAL_STATE,
                 dialog: {
                   instanceCount: 1,
+                  directory: true,
                   location,
                   onSuccess,
                   onError
                 }
               }
 
-              const action = actions.openDialog(location, onSuccess, onError)
+              const action = actions.openDialog(location, true, onSuccess, onError)
 
               expect(reducer(INITIAL_STATE, action)).to.deep.equal(expectedStateAfter)
             })

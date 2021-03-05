@@ -11,11 +11,15 @@ export const textResourceSelector = (state, key) => state.intl.messages[key]
 
 const CREATED_STATUS = 201
 
-export function* handleFilesSelected({payload: {files}}) {
+export function* handleFilesSelected({payload: {files, isDirectory}}) {
   const blockingInfoId = yield call(uuid)
   yield put(notifier.blockingInfo(
     blockingInfoId,
-    files.length > 1 ? 'client.admin.docs.uploadInProgressMultiple' : 'client.admin.docs.uploadInProgress',
+    isDirectory
+      ? 'client.admin.docs.uploadInProgressDirectory'
+      : files.length > 1
+        ? 'client.admin.docs.uploadInProgressMultiple'
+        : 'client.admin.docs.uploadInProgress',
     null
   ))
 
@@ -38,8 +42,9 @@ export function* handleFilesSelected({payload: {files}}) {
 
     yield put(notifier.removeBlockingInfo(blockingInfoId))
 
+    const msgId = isDirectory ? 'client.admin.docs.uploadSuccessfulDirectory' : 'client.admin.docs.uploadSuccessful'
     onSuccess({
-      message: yield select(textResourceSelector, 'client.admin.docs.uploadSuccessful'),
+      message: yield select(textResourceSelector, msgId),
       remoteEvents
     })
   } catch (e) {
