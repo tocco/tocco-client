@@ -42,3 +42,8 @@ function checkPackage() {
      exit
   fi
 }
+
+function setCurrentReleaseTag() {
+  nice_version=$(head -n 1 nice-current-version.txt)
+  release_tag="nice${nice_version//[(.0).]/}"
+}
