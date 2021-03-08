@@ -1,6 +1,8 @@
 /* stylelint-disable no-descending-specificity */
 import styled from 'styled-components'
-import {AdminLink as StyledLink, theme} from 'tocco-ui'
+
+import {AdminLink as StyledLink} from '../AdminLink'
+import {theme} from '../utilStyles'
 
 export const StyledBreadcrumbs = styled.div`
   background-color: ${theme.color('backgroundBreadcrumbs')};

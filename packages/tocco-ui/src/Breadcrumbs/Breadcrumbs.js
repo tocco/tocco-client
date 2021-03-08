@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Icon, Typography} from 'tocco-ui'
 import {Helmet} from 'react-helmet'
 
+import Icon from '../Icon'
+import Typography from '../Typography'
 import {
   StyledBreadcrumbs,
   StyledBreadcrumbsLink,
