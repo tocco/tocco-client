@@ -30,6 +30,7 @@ const SearchBox = React.forwardRef((props, ref) => {
             ref={ref}
             onChange={onChange}
             value={inputValue}
+            aria-label={placeholder}
           />
         </StyledEditableWrapper>
       </StatedValue>

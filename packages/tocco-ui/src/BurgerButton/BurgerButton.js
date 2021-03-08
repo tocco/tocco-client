@@ -51,6 +51,7 @@ const BurgerButton = ({isOpen, size = '20', color}) => {
       preserveAspectRatio="none"
       width={size}
       height={size}
+      aria-label="Open menu"
     >
       <motion.line
         x1="0"

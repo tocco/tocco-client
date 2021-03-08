@@ -76,11 +76,15 @@ const RelationsView = ({
             <RelationLabel title={relation.relationDisplay.label}>
               {relation.relationDisplay.label}</RelationLabel>{getRelationCountLabel(relation.relationName)}
             <RelationLinks>
-              <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
+              <StyledLink
+                aria-label="go to relation list view"
+                to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
                 <Icon icon="arrow-right"/>
               </StyledLink>
               {hasCreateRights(relation.relationName)
-              && <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
+              && <StyledLink
+                aria-label="create new related entity"
+                to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
                 <Icon icon="plus"/>
               </StyledLink>
               }
@@ -93,11 +97,15 @@ const RelationsView = ({
       && <StyledPreviewBox>
         <Typography.H4>
           {selectedRelation.relationDisplay.label}
-          <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
+          <StyledLink
+            aria-label="go to relation list view"
+            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
             <Icon icon="arrow-right"/>
           </StyledLink>
-          { hasCreateRights(selectedRelation.relationName)
-          && <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
+          {hasCreateRights(selectedRelation.relationName)
+          && <StyledLink
+            aria-label="create new related entity"
+            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
             <Icon icon="plus"/>
           </StyledLink>
           }

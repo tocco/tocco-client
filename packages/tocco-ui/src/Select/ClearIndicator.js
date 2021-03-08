@@ -8,6 +8,7 @@ const ClearIndicator = props =>
     <Ball
       icon="times"
       tabIndex={-1}
+      aria-label="clear field"
     />
   </span>
 

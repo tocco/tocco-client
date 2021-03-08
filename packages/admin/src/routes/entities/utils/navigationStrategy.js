@@ -6,7 +6,11 @@ import {AdminLink as StyledLink} from 'tocco-ui'
 import {goBack} from '../../../utils/routing'
 
 const DetailLinkRelative = ({entityKey, children, relation}) =>
-  <StyledLink to={`${relation ? relation + '/' : ''}${entityKey}`}>{children}</StyledLink>
+  <StyledLink
+    aria-label="go to detail"
+    to={`${relation ? relation + '/' : ''}${entityKey}`}>
+    {children}
+  </StyledLink>
 
 export const DetailLink = ({entityName, entityKey, children}) =>
   <StyledLink to={`/e/${entityName}/${entityKey}`} target="_blank">{children}</StyledLink>

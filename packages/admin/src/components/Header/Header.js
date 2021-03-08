@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale} from 'tocco-ui'
-import {FormattedMessage} from 'react-intl'
+import {FormattedMessage, intlShape} from 'react-intl'
 import styled from 'styled-components'
 import {PasswordUpdateApp} from 'tocco-login/src/main'
 import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
@@ -32,7 +32,8 @@ const Header = ({
   niceVersion,
   openModalComponent,
   removeModalComponent,
-  info
+  info,
+  intl
 }) => {
   const handleBusinessUnitOpen = () => {
     if (businessUnits.length === 0) {
@@ -66,6 +67,8 @@ const Header = ({
       true)
   }
 
+  const msg = id => intl.formatMessage({id})
+
   return <>
     <StyledBackgroundLogo runEnv={runEnv}/>
     <StyledHeader>
@@ -93,11 +96,14 @@ const Header = ({
           <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
         </ButtonMenu>
         <StyledBallMenuWrapper>
-          <BallMenu buttonProps={{icon: 'question-circle'}}>
+          <BallMenu buttonProps={{
+            icon: 'question-circle',
+            title: msg('client.admin.header.help')
+          }}>
             {niceVersion && <MenuItem onClick={() => {
               window.open(
-                  `https://${niceVersion.replace('.', '')}.docs.tocco.ch/de/`,
-                  '_blank'
+                `https://${niceVersion.replace('.', '')}.docs.tocco.ch/de/`,
+                '_blank'
               )
             }}>
               <FormattedMessage id="client.admin.menu.doc"/>
@@ -138,7 +144,8 @@ Header.propTypes = {
   niceVersion: PropTypes.string,
   openModalComponent: PropTypes.func.isRequired,
   removeModalComponent: PropTypes.func.isRequired,
-  info: PropTypes.func.isRequired
+  info: PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 }
 
 export default Header

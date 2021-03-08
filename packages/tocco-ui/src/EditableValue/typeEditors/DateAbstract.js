@@ -187,6 +187,7 @@ class DateAbstract extends React.Component {
               icon="times"
               data-clear
               tabIndex={-1}
+              aria-label="clear date"
               onMouseDown={e => {
                 e.preventDefault()
               }}/>}

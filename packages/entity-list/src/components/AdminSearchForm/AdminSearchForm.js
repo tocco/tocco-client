@@ -17,7 +17,7 @@ const MAX_SIZE_SEARCH_FILTER = 25
 const getGutter = () => () => {
   const gutterEl = document.createElement('div')
   ReactDOM.render(
-    <StyledGutter>
+    <StyledGutter tabIndex={0}>
       <Icon icon="horizontal-rule"/>
     </StyledGutter>, gutterEl
   )
@@ -52,6 +52,7 @@ const AdminSearchForm = ({resetSearch, intl, searchFilters}) => {
       {showExpandSearchFilter && <Ball
         icon={searchFilterExpanded ? 'chevron-up' : 'chevron-down'}
         onClick={() => setSearchFilterExpanded(!searchFilterExpanded)}
+        title={searchFilterExpanded ? msg('client.entity-list.contract') : msg('client.entity-list.expand')}
       />}
       <Ball
         data-cy="reset-button"
