@@ -15,7 +15,11 @@ describe('two-factor-connector', () => {
           takeLatest(actions.REQUEST_SECRET, sagas.requestSecret),
           takeLatest(actions.VERIFY_CODE, sagas.verifyCode),
           takeLatest(actions.INITIALIZE, sagas.initialize),
-          takeLatest(actions.SUCCESS, sagas.success)
+          takeLatest(actions.SUCCESS, sagas.success),
+          takeLatest(actions.GO_TO_START, sagas.fireResize),
+          takeLatest(actions.GO_TO_SECRET, sagas.fireResize),
+          takeLatest(actions.GO_TO_SECRET_VERIFICATION, sagas.fireResize),
+          takeLatest(actions.GO_TO_RESULT, sagas.fireResize)
         ]))
         expect(generator.next().done).to.be.true
       })
@@ -189,6 +193,14 @@ describe('two-factor-connector', () => {
             .put(actions.goToResult())
             .run()
         )
+      })
+
+      describe('fireResize', () => {
+        test('should call external onResize event', () => {
+          return expectSaga(sagas.fireResize)
+            .put(externalEvents.fireExternalEvent('onResize'))
+            .run()
+        })
       })
     })
   })
