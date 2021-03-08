@@ -29,6 +29,7 @@ export const DatePicker = props => {
             style={{display: 'none'}}
             type="text"
             data-input
+            aria-label="date picker"
           />
           {children}
         </div>

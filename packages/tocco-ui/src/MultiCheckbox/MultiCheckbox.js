@@ -10,7 +10,7 @@ const checkboxValues = {
 /**
  * Use <MultiCheckbox> to display if none, some or all items of a portion are selected.
  */
-const MultiCheckbox = ({value, id, onChange}) => {
+const MultiCheckbox = ({value, id, onChange, label}) => {
   const inputEl = useRef(null)
   const handleOnChange = e => {
     if (value === checkboxValues.INDETERMINATE) {
@@ -25,14 +25,14 @@ const MultiCheckbox = ({value, id, onChange}) => {
     inputEl.current.checked = (value === checkboxValues.CHECKED)
   }, [value])
 
-  return (
-    <input
-      ref={inputEl}
-      onChange={handleOnChange}
-      id={id}
-      type="checkbox"
-    />
-  )
+  return <input
+    ref={inputEl}
+    onChange={handleOnChange}
+    id={id}
+    type="checkbox"
+    aria-checked={value === 'checked'}
+    aria-label={label}
+  />
 }
 
 MultiCheckbox.propTypes = {
@@ -48,7 +48,11 @@ MultiCheckbox.propTypes = {
   /**
    * Callback is executed on change. Callback receives new checkbox state, which is 'checked' or 'unchecked'.
    */
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  /**
+   * Label to be used for the aria-label attribute. Improves Accessibility.
+   */
+  label: PropTypes.string
 }
 
 export default MultiCheckbox

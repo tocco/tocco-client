@@ -143,6 +143,7 @@ const Navigation = ({
         onSearch={setFilter}
         ref={inputEl}
         placeholder={msg('client.admin.navigation.searchBoxPlaceHolder')}
+        aria-label={msg('client.admin.navigation.searchBoxPlaceHolder')}
       />
     </StyledSearchBoxWrapper>
     {activeMenuTab === tabs.MODULES
