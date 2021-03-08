@@ -1,7 +1,5 @@
 import React from 'react'
-import {Typography} from 'tocco-ui'
-
-import {StyledLink} from '../../../../components/StyledLink'
+import {AdminLink as StyledLink, Typography} from 'tocco-ui'
 
 const EntitiesOverview = props => {
   return (

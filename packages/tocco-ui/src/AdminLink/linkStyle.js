@@ -1,6 +1,7 @@
-import {declareFont, shadeColor, theme} from 'tocco-ui'
 import {css} from 'styled-components'
 import _get from 'lodash/get'
+
+import {declareFont, shadeColor, theme} from '../utilStyles'
 
 export const linkStyle = css`
   ${declareFont()}

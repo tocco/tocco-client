@@ -1,7 +1,5 @@
 import styled from 'styled-components'
-import {StyledSpan, theme, scale, StyledScrollbar} from 'tocco-ui'
-
-import {StyledLink} from '../../../../components/StyledLink'
+import {AdminLink as StyledLink, StyledSpan, theme, scale, StyledScrollbar} from 'tocco-ui'
 
 export const StyledRelationsViewWrapper = styled.div`
   height: 100%;
