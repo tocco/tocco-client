@@ -4,23 +4,26 @@ import {Icon} from 'tocco-ui'
 
 import NavigationCellHeader from './NavigationCellHeader'
 
-const CellRenderer = ({rowData, navigationStrategy, parent}) =>
-  <span
-    onClick={e => e.stopPropagation()}
-    data-cy="list-navigation-arrow"
-  >
-    <navigationStrategy.DetailLinkRelative
-      entityKey={rowData.__key}
-      {...(parent && parent.relationName && {relation: parent.relationName})}
+const CellRenderer = ({showNavigation, rowData, navigationStrategy, parent}) =>
+  showNavigation
+    ? <span
+      onClick={e => e.stopPropagation()}
+      data-cy="list-navigation-arrow"
     >
-      <Icon icon="arrow-right"/>
-    </navigationStrategy.DetailLinkRelative>
-  </span>
+      <navigationStrategy.DetailLinkRelative
+        entityKey={rowData.__key}
+        {...(parent && parent.relationName && {relation: parent.relationName})}
+      >
+        <Icon icon="arrow-right"/>
+      </navigationStrategy.DetailLinkRelative>
+    </span>
+    : null
 
 CellRenderer.propTypes = {
   rowData: PropTypes.shape({
     __key: PropTypes.string.isRequired
   }).isRequired,
+  showNavigation: PropTypes.bool.isRequired,
   navigationStrategy: PropTypes.shape({
     DetailLinkRelative: PropTypes.func.isRequired
   }).isRequired,
@@ -29,12 +32,17 @@ CellRenderer.propTypes = {
   })
 }
 
-export const navigationCell = (navigationStrategy, parent) => ({
+export const navigationCell = (showNavigation, navigationStrategy, parent) => ({
   id: 'navigation-column',
   fixedPosition: true,
   width: 30,
   resizable: false,
   dynamic: false,
   HeaderRenderer: NavigationCellHeader,
-  CellRenderer: props => <CellRenderer {...props} navigationStrategy={navigationStrategy} parent={parent}/>
+  CellRenderer: props => <CellRenderer
+    {...props}
+    showNavigation={showNavigation}
+    navigationStrategy={navigationStrategy}
+    parent={parent}
+  />
 })
