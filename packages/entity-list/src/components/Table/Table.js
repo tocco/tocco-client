@@ -10,7 +10,9 @@ const Table = props =>
   <UiTable
     data={props.entities}
     columns={[
-      ...(props.showLink && props.navigationStrategy ? [navigationCell(props.navigationStrategy, props.parent)] : []),
+      navigationCell(props.showLink && props.navigationStrategy && props.clickable,
+        props.navigationStrategy,
+        props.parent),
       ...props.columnDefinitions.sort((a, b) =>
         _get(props.positions, [a.id]) - _get(props.positions, [b.id])
       )
