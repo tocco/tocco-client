@@ -59,15 +59,16 @@ const initApp = (id, input, events, publicPath) => {
   }
 })()
 
-const EXTERNAL_EVENTS_PASSWORD_UPDATE = [
+const EXTERNAL_EVENTS = [
   'onSuccess',
-  'onCancel'
+  'onCancel',
+  'onResize'
 ]
 
 const TwoFactorConnectorApp = props => {
   const [app, setApp] = useState(null)
   useEffect(() => {
-    const events = EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((events, event) => (
+    const events = EXTERNAL_EVENTS.reduce((events, event) => (
       {...events, ...(props[event] && {[event]: props[event]})}
     ), {})
 
@@ -78,7 +79,7 @@ const TwoFactorConnectorApp = props => {
 }
 
 TwoFactorConnectorApp.propTypes = {
-  ...EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {}),
+  ...EXTERNAL_EVENTS.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {}),
   username: PropTypes.string,
   password: PropTypes.string,
   secret: PropTypes.shape({
