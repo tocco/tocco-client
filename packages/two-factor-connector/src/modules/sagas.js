@@ -113,11 +113,19 @@ function* getUsername() {
   }
 }
 
+export function* fireResize() {
+  yield put(externalEvents.fireExternalEvent('onResize'))
+}
+
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.REQUEST_SECRET, requestSecret),
     takeLatest(actions.VERIFY_CODE, verifyCode),
     takeLatest(actions.INITIALIZE, initialize),
-    takeLatest(actions.SUCCESS, success)
+    takeLatest(actions.SUCCESS, success),
+    takeLatest(actions.GO_TO_START, fireResize),
+    takeLatest(actions.GO_TO_SECRET, fireResize),
+    takeLatest(actions.GO_TO_SECRET_VERIFICATION, fireResize),
+    takeLatest(actions.GO_TO_RESULT, fireResize)
   ])
 }
