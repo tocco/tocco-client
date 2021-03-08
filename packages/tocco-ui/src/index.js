@@ -1,6 +1,7 @@
 export {AdminLink, AdminNavLink} from './AdminLink'
 export {default as Button, StyledButton} from './Button'
 export {default as Ball, StyledBall} from './Ball'
+export {default as Breadcrumbs} from './Breadcrumbs'
 export {default as ButtonGroup, StyledButtonGroup} from './ButtonGroup'
 export {
   default as EditableValue,

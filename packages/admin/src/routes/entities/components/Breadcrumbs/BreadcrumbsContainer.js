@@ -1,7 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-
-import Breadcrumbs from '../../../../components/Breadcrumbs'
+import {Breadcrumbs} from 'tocco-ui'
 
 const mapActionCreators = {
 
