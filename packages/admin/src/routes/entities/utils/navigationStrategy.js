@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {queryString as queryStringUtil} from 'tocco-util'
+import {AdminLink as StyledLink} from 'tocco-ui'
 
-import StyledLink from '../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../utils/routing'
 
 const DetailLinkRelative = ({entityKey, children, relation}) =>

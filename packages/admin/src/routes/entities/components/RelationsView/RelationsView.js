@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {Icon, Typography} from 'tocco-ui'
+import {AdminLink as StyledLink, Icon, Typography} from 'tocco-ui'
 import {js, viewPersistor} from 'tocco-util'
 import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
@@ -14,7 +14,6 @@ import {
   StyledRelationBox,
   StyledRelationsViewWrapper
 } from './StyledComponents'
-import {StyledLink} from '../../../../components/StyledLink'
 import {goBack} from '../../../../utils/routing'
 import {currentViewPropType} from '../../utils/propTypes'
 import {getRelation, setRelation} from '../../utils/relationPersistor'
