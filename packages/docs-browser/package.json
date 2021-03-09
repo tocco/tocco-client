@@ -1,0 +1,21 @@
+{
+  "name": "tocco-docs-browser",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=docs-browser",
+    "prepublish": "npm run compile:prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tocco-app-extensions": "*",
+    "tocco-entity-detail": "*",
+    "tocco-entity-list": "*",
+    "tocco-delete": "*",
+    "tocco-test-util": "*",
+    "tocco-theme": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
+  }
+}

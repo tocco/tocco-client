@@ -1,0 +1,13 @@
+[
+  "client.docs-browser.breadcrumbs.start",
+  "client.docs-browser.breadcrumbs.searchResults",
+  "client.docs-browser.createDomainSuccessful",
+  "client.docs-browser.createFolderSuccessful",
+  "client.docs-browser.editSuccessful",
+  "client.docs-browser.uploadInProgress",
+  "client.docs-browser.uploadInProgressMultiple",
+  "client.docs-browser.uploadInProgressDirectory",
+  "client.docs-browser.uploadFailed",
+  "client.docs-browser.uploadSuccessful",
+  "client.docs-browser.uploadSuccessfulDirectory"
+]

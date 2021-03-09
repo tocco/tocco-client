@@ -9,11 +9,11 @@ export const docsPathSelector = state => state.docs.path
 
 export function* getSearchBreadcrumbs() {
   return [{
-    display: yield select(textResourceSelector, 'client.admin.docs.breadcrumbs.start'),
+    display: yield select(textResourceSelector, 'client.docs-browser.breadcrumbs.start'),
     path: '',
     type: 'list'
   }, {
-    display: yield select(textResourceSelector, 'client.admin.breadcrumbs.searchResults'),
+    display: yield select(textResourceSelector, 'client.docs-browser.breadcrumbs.searchResults'),
     path: '',
     type: 'list'
   }]

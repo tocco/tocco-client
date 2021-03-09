@@ -16,10 +16,10 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
   yield put(notifier.blockingInfo(
     blockingInfoId,
     isDirectory
-      ? 'client.admin.docs.uploadInProgressDirectory'
+      ? 'client.docs-browser.uploadInProgressDirectory'
       : files.length > 1
-        ? 'client.admin.docs.uploadInProgressMultiple'
-        : 'client.admin.docs.uploadInProgress',
+        ? 'client.docs-browser.uploadInProgressMultiple'
+        : 'client.docs-browser.uploadInProgress',
     null
   ))
 
@@ -42,7 +42,7 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
 
     yield put(notifier.removeBlockingInfo(blockingInfoId))
 
-    const msgId = isDirectory ? 'client.admin.docs.uploadSuccessfulDirectory' : 'client.admin.docs.uploadSuccessful'
+    const msgId = isDirectory ? 'client.docs-browser.uploadSuccessfulDirectory' : 'client.docs-browser.uploadSuccessful'
     onSuccess({
       message: yield select(textResourceSelector, msgId),
       remoteEvents
@@ -51,7 +51,7 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
     consoleLogger.logError('Failed to upload files', e)
     yield put(notifier.removeBlockingInfo(blockingInfoId))
     onError({
-      message: yield select(textResourceSelector, 'client.admin.docs.uploadFailed')
+      message: yield select(textResourceSelector, 'client.docs-browser.uploadFailed')
     })
   }
 }

@@ -15,6 +15,7 @@
     "tocco-copy": "*",
     "tocco-delete": "*",
     "tocco-entity-detail": "*",
+    "tocco-docs-browser": "*",
     "tocco-entity-list": "*",
     "tocco-input-edit": "*",
     "tocco-login": "*",

@@ -52,9 +52,9 @@ describe('admin', () => {
                     [call(uuid), 'my-random-uuid'],
                     [select(sagas.dialogSelector), {location, onSuccess}],
                     [call(sagas.createDocuments, location, files), response],
-                    [select(sagas.textResourceSelector, 'client.admin.docs.uploadSuccessful'), 'upload successful']
+                    [select(sagas.textResourceSelector, 'client.docs-browser.uploadSuccessful'), 'upload successful']
                   ])
-                  .put(notifier.blockingInfo('my-random-uuid', 'client.admin.docs.uploadInProgressMultiple', null))
+                  .put(notifier.blockingInfo('my-random-uuid', 'client.docs-browser.uploadInProgressMultiple', null))
                   .put(notifier.removeBlockingInfo('my-random-uuid'))
                   .run()
                   .then(() => {
