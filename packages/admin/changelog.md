@@ -1,11 +1,16 @@
-0.2.26
+0.4.27
+- Dms upload directory (TOCDEV-3042)
+- Restrict max height of basic search form only in modal
+- Prevent action buttons disappearing on scroll
+
+0.4.26
 -
 
-0.2.25
+0.4.25
 - Change header color
 - DMS delete
 
-0.2.24
+0.4.24
 - Style upload and switch to light icons
 
 0.4.23
