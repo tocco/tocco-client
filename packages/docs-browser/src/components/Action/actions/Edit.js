@@ -24,7 +24,7 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context}) => {
     }]
 
     onSuccess({
-      message: intl.formatMessage({id: 'client.admin.docs.editSuccessful'}),
+      message: intl.formatMessage({id: 'client.docs-browser.editSuccessful'}),
       remoteEvents
     })
   }

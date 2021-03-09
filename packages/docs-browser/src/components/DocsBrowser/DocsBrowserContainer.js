@@ -2,12 +2,13 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {actionEmitter} from 'tocco-app-extensions'
 
-import DocsRoute from './DocsRoute'
+import DocsBrowser from './DocsBrowser'
 import {loadBreadcrumbs, setSearchMode} from '../../modules/path/actions'
 import {openDialog} from '../../modules/create/actions'
 
 const mapStateToProps = state => ({
-  searchMode: state.docs.path.searchMode
+  searchMode: state.docs.path.searchMode,
+  navigationStrategy: state.input.navigationStrategy
 })
 
 const mapActionCreators = {
@@ -17,4 +18,4 @@ const mapActionCreators = {
   openFileDialog: openDialog
 }
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(DocsRoute))
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(DocsBrowser))

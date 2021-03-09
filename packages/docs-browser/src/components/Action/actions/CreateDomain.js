@@ -18,7 +18,7 @@ const CreateDomain = ({context, onSuccess, intl}) => {
     }]
 
     onSuccess({
-      message: intl.formatMessage({id: 'client.admin.docs.createDomainSuccessful'}),
+      message: intl.formatMessage({id: 'client.docs-browser.createDomainSuccessful'}),
       remoteEvents
     })
   }

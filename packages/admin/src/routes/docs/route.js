@@ -1,13 +1,15 @@
-import {combineReducers} from 'redux'
+import React from 'react'
+import DocsBrowser from 'tocco-docs-browser/src/main'
 
-import DocsRoute from './components/DocsRoute'
-import path, {sagas as pathSagas} from './modules/path'
-import create, {sagas as createSagas} from './modules/create'
+import {ListLink, DetailLink} from '../entities/utils/navigationStrategy'
+
+const DocsBrowserApp = props => (
+  <DocsBrowser {...props} navigationStrategy={{
+    ListLink,
+    DetailLink
+  }}/>
+)
 
 export default {
-  container: DocsRoute,
-  reducers: {
-    docs: combineReducers({path, create})
-  },
-  sagas: [pathSagas, createSagas]
+  container: DocsBrowserApp
 }

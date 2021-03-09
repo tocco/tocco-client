@@ -1,6 +1,6 @@
 import React, {useEffect, useReducer} from 'react'
 import PropTypes from 'prop-types'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, useLocation} from 'react-router-dom'
 import styled from 'styled-components'
 import {StyledScrollbar, scale} from 'tocco-ui'
 
@@ -29,19 +29,29 @@ const StyledBreadcrumbs = styled.div`
   grid-area: breadcrumbs;
 `
 
-const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs, emitAction, openFileDialog}) => {
+const DocsBrowser = ({
+  history,
+  searchMode,
+  navigationStrategy,
+  setSearchMode,
+  loadBreadcrumbs,
+  emitAction,
+  openFileDialog
+}) => {
   // eslint-disable-next-line no-unused-vars
   const [docsViewNumber, forceDocsViewUpdate] = useReducer(x => x + 1, 0)
 
+  const location = useLocation()
+
   useEffect(() => {
-    if (searchMode === true && history.location.pathname === '/docs/') {
+    if (searchMode === true && location.pathname === '/docs/') {
       // this means the user clicked on the root item in the breadcrumbs navigation
       // -> reset search mode to false and rerender the <DocsView>
       setSearchMode(false)
       forceDocsViewUpdate()
     }
 
-    loadBreadcrumbs(history.location.pathname)
+    loadBreadcrumbs(location.pathname)
   })
 
   const handleSearchChange = e => {
@@ -66,7 +76,13 @@ const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs, emitAct
           <Route
             exact
             path={'/docs/doc/:key/detail'}
-            component={DocumentView}
+            render={({match}) => (
+              <DocumentView
+                match={match}
+                history={history}
+                navigationStrategy={navigationStrategy}
+              />
+            )}
           />
           <Route
             exact
@@ -77,6 +93,7 @@ const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs, emitAct
                 storeKey={key}
                 history={history}
                 match={match}
+                navigationStrategy={navigationStrategy}
                 onSearchChange={handleSearchChange}
                 emitAction={emitAction}
                 openFileDialog={openFileDialog}
@@ -88,13 +105,14 @@ const DocsRoute = ({history, searchMode, setSearchMode, loadBreadcrumbs, emitAct
   )
 }
 
-DocsRoute.propTypes = {
+DocsBrowser.propTypes = {
   loadBreadcrumbs: PropTypes.func.isRequired,
   setSearchMode: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired,
   openFileDialog: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  searchMode: PropTypes.bool.isRequired
+  searchMode: PropTypes.bool.isRequired,
+  navigationStrategy: PropTypes.object
 }
 
-export default DocsRoute
+export default DocsBrowser

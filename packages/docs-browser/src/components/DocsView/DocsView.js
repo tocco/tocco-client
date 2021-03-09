@@ -27,7 +27,7 @@ const getParent = match => {
 }
 
 const DocsView = props => {
-  const {storeKey, history, match, onSearchChange, emitAction, openFileDialog} = props
+  const {storeKey, history, match, navigationStrategy, onSearchChange, emitAction, openFileDialog} = props
 
   const handleRowClick = ({id}) => {
     const [model, key] = id.split('/')
@@ -93,6 +93,7 @@ const DocsView = props => {
           'upload-document': handleUploadDocument,
           'upload-directory': handleUploadDirectory
         }}
+        navigationStrategy={navigationStrategy}
       />
       <FileInput/>
     </>
@@ -103,6 +104,7 @@ DocsView.propTypes = {
   storeKey: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  navigationStrategy: PropTypes.object,
   onSearchChange: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired,
   openFileDialog: PropTypes.func.isRequired

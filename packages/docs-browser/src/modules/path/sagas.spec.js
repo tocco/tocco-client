@@ -68,8 +68,11 @@ describe('admin', () => {
                     [select(sagas.docsPathSelector), {
                       searchMode: true
                     }],
-                    [select(sagas.textResourceSelector, 'client.admin.docs.breadcrumbs.start'), 'Dokument'],
-                    [select(sagas.textResourceSelector, 'client.admin.breadcrumbs.searchResults'), 'Suchresultate']
+                    [select(sagas.textResourceSelector, 'client.docs-browser.breadcrumbs.start'), 'Dokument'],
+                    [
+                      select(sagas.textResourceSelector, 'client.docs-browser.breadcrumbs.searchResults'),
+                      'Suchresultate'
+                    ]
                   ])
                   .put(actions.setBreadcrumbs(breadcrumbs))
                   .run()
