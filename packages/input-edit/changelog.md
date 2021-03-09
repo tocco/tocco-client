@@ -1,3 +1,6 @@
+0.3.8-hotfix227.2
+
+
 0.3.8-hotfix227.1
 - Map integer, counter and long to string
 
