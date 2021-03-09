@@ -1,5 +1,4 @@
 #!/bin/bash
-
 package=$1
 
 source ./scripts/helpers.sh
@@ -7,6 +6,14 @@ setColors
 checkPackage
 setGitVars
 setCurrentReleaseTag
+
+if [[ -z $(git status -s) ]]
+then
+  echo "${color_green}Git tree is clean!${color_reset}"
+else
+  echo "${color_red}Git tree is dirty, please commit changes before running the release script.${color_reset}"
+  exit
+fi
 
 echo "---------------------"
 echo "info latest release tag: ${color_blue}${last_release_tag}${color_reset}"
