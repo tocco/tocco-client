@@ -1,6 +1,6 @@
 import React, {lazy, Suspense} from 'react'
 
-const IconComponent = lazy(() => import(/* webpackChunkName: "icons" */ './Icon'))
+const IconComponent = lazy(() => import(/* webpackChunkName: "vendor-icons" */ './Icon'))
 
 const renderLoader = () => <React.Fragment/>
 

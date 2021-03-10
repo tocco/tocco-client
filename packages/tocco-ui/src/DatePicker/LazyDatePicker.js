@@ -1,6 +1,6 @@
 import React, {lazy, Suspense} from 'react'
 
-const DatePickerComponent = lazy(() => import(/* webpackChunkName: "icons" */ './DatePicker'))
+const DatePickerComponent = lazy(() => import(/* webpackChunkName: "date-picker" */ './DatePicker'))
 
 const renderLoader = () => <React.Fragment/>
 

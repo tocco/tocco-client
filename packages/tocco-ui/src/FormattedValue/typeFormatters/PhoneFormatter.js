@@ -17,7 +17,7 @@ class PhoneFormatter extends React.Component {
   }
 
   async importLibPhoneNumber() {
-    const libPhoneImport = await import(/* webpackChunkName: "libphonenumber-js" */ 'libphonenumber-js')
+    const libPhoneImport = await import(/* webpackChunkName: "vendor-libphonenumber-js" */ 'libphonenumber-js')
     if (this.mounted) {
       this.setState({libPhoneImport})
     }

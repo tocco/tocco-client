@@ -17,7 +17,7 @@ const StyledApp = styled.div`
 const App = ({store, initIntlPromise, name, content, theme}) => {
   const wrapperCallback = useCallback(node => {
     if (node) {
-      import(/* webpackChunkName: "fontawesome" */ '@fortawesome/fontawesome-svg-core').then(fontawesome => {
+      import(/* webpackChunkName: "vendor-fontawesome" */ '@fortawesome/fontawesome-svg-core').then(fontawesome => {
         fontawesome.dom.watch({
           autoReplaceSvgRoot: node,
           observeMutationsRoot: node

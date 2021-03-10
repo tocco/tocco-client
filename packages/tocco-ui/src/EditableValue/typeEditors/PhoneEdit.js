@@ -23,7 +23,7 @@ class PhoneEdit extends React.Component {
   }
 
   async importLibPhoneNumber() {
-    const libPhoneImport = await import(/* webpackChunkName: "libphonenumber-js" */ 'libphonenumber-js')
+    const libPhoneImport = await import(/* webpackChunkName: "vendor-libphonenumber-js" */ 'libphonenumber-js')
     if (!this.componentIsUnmounted) {
       this.setState({...this.state, libPhoneImport})
     }
