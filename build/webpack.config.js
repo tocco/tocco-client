@@ -4,6 +4,7 @@ import fs from 'fs'
 import {argv} from 'yargs'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
@@ -45,7 +46,10 @@ const webpackConfig = {
   entry: [
     ...(__DEV__ ? ['webpack-hot-middleware/client'] : []),
     paths.client(`${packageDir}/src/main.js`)
-  ]
+  ],
+  optimization: {
+    minimizer: [new TerserPlugin({extractComments: false})]
+  }
 }
 
 webpackConfig.output = {
@@ -73,7 +77,7 @@ if (!__CI__) {
   const SourceMapPlugin = __DEV__ ? webpack.EvalSourceMapDevToolPlugin : webpack.SourceMapDevToolPlugin
   webpackConfig.plugins.push(new SourceMapPlugin({
     filename: '[file].map',
-    exclude: /vendors~.+\.js/
+    exclude: /chunk-vendor.+\.js/
   }))
 }
 

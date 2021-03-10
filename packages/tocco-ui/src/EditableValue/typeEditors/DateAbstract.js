@@ -25,13 +25,13 @@ class DateAbstract extends React.Component {
     this.state = {altInput: ''}
 
     // eslint-disable-next-line chai-friendly/no-unused-expressions
-    import(/* webpackChunkName: "flatpickr" */ '!style-loader!css-loader!flatpickr/dist/themes/light.css')
+    import(/* webpackChunkName: "vendor-flatpickr" */ '!style-loader!css-loader!flatpickr/dist/themes/light.css')
 
     Promise.all([
-      import(/* webpackChunkName: "flatpickr" */ 'flatpickr'),
-      import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/de.js'),
-      import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/fr.js'),
-      import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/it.js')
+      import(/* webpackChunkName: "vendor-flatpickr" */ 'flatpickr'),
+      import(/* webpackChunkName: "vendor-flatpickr" */ 'flatpickr/dist/l10n/de.js'),
+      import(/* webpackChunkName: "vendor-flatpickr" */ 'flatpickr/dist/l10n/fr.js'),
+      import(/* webpackChunkName: "vendor-flatpickr" */ 'flatpickr/dist/l10n/it.js')
     ]).then(response => {
       if (!this.componentIsUnmounted) {
         this.Flatpickr = response[0].default
