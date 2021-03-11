@@ -1,3 +1,7 @@
+0.10.17-hotfix227.2
+- Fix search form endless loading with empty filter field
+-  Fix action bar
+
 0.10.17-hotfix227.1
 - Map integer, counter and long to string
 
