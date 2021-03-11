@@ -49,7 +49,9 @@ const SelectionController = props => {
             title={msg('client.entity-list.clearSelection')}
             onClick={e => {
               e.stopPropagation()
-              props.toggleShowSelectedRecords()
+              if (props.showSelectedRecords) {
+                props.toggleShowSelectedRecords()
+              }
               props.clearSelection()
             }}
           />}

@@ -14,7 +14,6 @@ export const listSelector = state => state.list
 export default function* sagas() {
   yield all([
     takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, reloadData),
-    takeLatest(actions.CLEAR_SELECTION, reloadData),
     takeLatest(actions.ON_SELECT_CHANGE, onSelectChange),
     takeLatest(SET_FORM_SELECTABLE, initialize)
   ])
