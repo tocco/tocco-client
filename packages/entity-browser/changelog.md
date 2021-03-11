@@ -1,3 +1,6 @@
+0.10.17-hotfix227.3
+- Make whole row clickable in list
+
 0.10.17-hotfix227.2
 - Fix search form endless loading with empty filter field
 -  Fix action bar
