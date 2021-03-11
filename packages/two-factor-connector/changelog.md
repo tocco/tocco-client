@@ -1,3 +1,9 @@
+0.1.10
+- Style upload and switch to light icons
+- Fix empty pop-up in old client
+- Prevent action buttons disappearing on scroll
+- Introduce onResize external event
+
 0.1.9
 - Move buttons inside modals to the right to improve UX
 - Fix hidden extender and force border rendering of ranges in chrome
