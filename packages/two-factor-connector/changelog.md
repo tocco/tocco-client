@@ -1,3 +1,6 @@
+0.1.7-hotfix228.4
+- Introduce onResize external event
+
 0.1.7-hotfix228.3
 - Fix empty pop-up in old client
 
