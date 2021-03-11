@@ -16,7 +16,6 @@ describe('entity-list', () => {
           const generator = rootSaga()
           expect(generator.next().value).to.deep.equal(all([
             takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, sagas.reloadData),
-            takeLatest(actions.CLEAR_SELECTION, sagas.reloadData),
             takeLatest(actions.ON_SELECT_CHANGE, sagas.onSelectChange),
             takeLatest(SET_FORM_SELECTABLE, sagas.initialize)
           ]))
