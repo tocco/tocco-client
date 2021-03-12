@@ -606,6 +606,64 @@ describe('app-extensions', () => {
               .returns(expectedReturn)
               .run()
           })
+
+          test('should clear cache because other user & business unit', async() => {
+            cache.addLongTerm('session', 'principal', {
+              username: 'tocco2',
+              businessUnit: 'test2'
+            })
+            cache.addLongTerm('model', 'user', 'key')
+            cache.addMediumTerm('form', 'user', 'key')
+
+            const response = {
+              username: 'tocco',
+              businessUnit: 'test1'
+            }
+
+            const expectedReturn = {
+              username: 'tocco',
+              currentBusinessUnit: 'test1'
+            }
+
+            await expectSaga(helpers.fetchPrincipal)
+              .provide([
+                [matchers.call.fn(requestSaga), {body: response}]
+              ])
+              .returns(expectedReturn)
+              .run()
+
+            expect(cache.getMediumTerm('form', 'user')).to.be.undefined
+            expect(cache.getLongTerm('model', 'user')).to.be.equal('key')
+          })
+
+          test('should cache principal info object after fetch', async() => {
+            const response = {
+              username: 'tocco',
+              businessUnit: 'test1'
+            }
+
+            const expectedReturn = {
+              username: 'tocco',
+              currentBusinessUnit: 'test1'
+            }
+
+            await expectSaga(helpers.fetchPrincipal)
+              .provide([
+                [matchers.call.fn(requestSaga), {body: response}]
+              ])
+              .returns(expectedReturn)
+              .run()
+              .then(({effects}) => {
+                expect(effects.call.length).to.be.equal(1)
+              })
+
+            return expectSaga(helpers.fetchPrincipal)
+              .returns(expectedReturn)
+              .run()
+              .then(({effects}) => {
+                expect(effects.call).to.be.undefined
+              })
+          })
         })
       })
     })
