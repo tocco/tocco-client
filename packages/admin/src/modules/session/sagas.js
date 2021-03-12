@@ -60,21 +60,9 @@ export function* sessionCheck() {
 }
 
 export function* loadPrincipal() {
-  const cachedPrincipal = cache.getShortTerm('session', 'principal')
-  if (cachedPrincipal !== undefined) {
-    yield put(actions.setUsername(cachedPrincipal.username))
-    yield put(actions.setCurrentBusinessUnit(cachedPrincipal.currentBusinessUnit))
-    return
-  }
-  const principal = yield call(rest.requestSaga, 'principals')
-  const {username, businessUnit: currentBusinessUnit} = principal.body
+  const {username, currentBusinessUnit} = yield call(rest.fetchPrincipal)
   yield put(actions.setUsername(username))
   yield put(actions.setCurrentBusinessUnit(currentBusinessUnit))
-
-  yield cache.addShortTerm('session', 'principal', {
-    username,
-    currentBusinessUnit
-  })
 }
 
 export function* loadBusinessUnits() {

@@ -3,6 +3,7 @@ import _isObject from 'lodash/isObject'
 import {call} from 'redux-saga/effects'
 import {cache} from 'tocco-util'
 import _get from 'lodash/get'
+import _isEqual from 'lodash/isEqual'
 
 import {requestSaga} from './rest'
 
@@ -190,7 +191,7 @@ export function* fetchEntities(
  */
 export function* fetchForm(formName, scope, allowNotFound = false) {
   const request = `${formName}/${scope}`
-  const cachedForm = cache.getLongTerm('form', request)
+  const cachedForm = cache.getMediumTerm('form', request)
   if (cachedForm !== undefined) {
     return cachedForm
   }
@@ -202,12 +203,12 @@ export function* fetchForm(formName, scope, allowNotFound = false) {
   const response = yield call(requestSaga, `forms/${request}`, options)
 
   if (allowNotFound && response.status === 404) {
-    cache.addLongTerm('form', request, null)
+    cache.addMediumTerm('form', request, null)
     return null
   }
 
   const form = yield call(defaultFormTransformer, response.body)
-  cache.addLongTerm('form', request, form)
+  cache.addMediumTerm('form', request, form)
   return form
 }
 
@@ -335,12 +336,15 @@ export const flattenObjectValues = value =>
 /**
  * Helper to fetch information about the currently logged in user including username and active business unit.
  */
+let principalFetchedSincePageRefresh = false
 export function* fetchPrincipal() {
-  const cachedPrincipal = cache.getShortTerm('session', 'principal')
-  if (cachedPrincipal !== undefined) {
+  const principalFetchedSinceLogin = cache.getShortTerm('session', 'principalFetchedSinceLogin')
+  const cachedPrincipal = cache.getLongTerm('session', 'principal')
+  if (principalFetchedSincePageRefresh && principalFetchedSinceLogin && cachedPrincipal !== undefined) {
     return cachedPrincipal
   }
 
+  principalFetchedSincePageRefresh = true
   const principalResponse = yield call(requestSaga, 'principals')
   const {username, businessUnit: currentBusinessUnit} = principalResponse.body
 
@@ -349,7 +353,12 @@ export function* fetchPrincipal() {
     currentBusinessUnit
   }
 
-  yield cache.addShortTerm('session', 'principal', principal)
+  if (!_isEqual(principal, cachedPrincipal)) {
+    yield cache.clearMediumTerm()
+  }
+
+  yield cache.addShortTerm('session', 'principalFetchedSinceLogin', true)
+  yield cache.addLongTerm('session', 'principal', principal)
 
   return principal
 }
