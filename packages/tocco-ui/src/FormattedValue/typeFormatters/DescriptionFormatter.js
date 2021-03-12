@@ -18,21 +18,23 @@ const DescriptionFormatter = props => {
   const iconStyles = {
     color: theme.color('text')({theme: themeContext}),
     fontSize: `${theme.fontSize('base')({theme: themeContext}) * theme.fontSize('factor')({theme: themeContext})}rem`,
-    marginLeft: `-${scale.space(-1)({theme: themeContext})}`
+    marginLeft: `-${scale.space(-1.9)({theme: themeContext})}`
   }
 
   if (options.mode === 'text') {
     return content
   }
 
-  return <Popover
-    content={content}
-    isPlainHtml={true}
-    placement="right"
-  ><Icon
-      style={iconStyles}
-      icon="question-circle"/>
-  </Popover>
+  return (
+    <Popover
+      content={content}
+      isPlainHtml={true}
+    >
+      <Icon
+        style={iconStyles}
+        icon="question-circle"/>
+    </Popover>
+  )
 }
 
 DescriptionFormatter.propTypes = {
