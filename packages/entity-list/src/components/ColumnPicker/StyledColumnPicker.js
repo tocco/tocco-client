@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {scale, theme, StyledButton} from 'tocco-ui'
+import {StyledLabel} from 'tocco-ui/src/Typography'
 
 export const StyledColumnPickerWrapper = styled.div`
   display: grid;
@@ -8,9 +9,14 @@ export const StyledColumnPickerWrapper = styled.div`
 
 export const StyledUl = styled.ul`
   list-style-type: none;
-  padding-left: ${scale.space(-0.5)};
+  margin-top: ${scale.space(-0.5)} !important; // Nice2 Reset
+  padding-left: ${scale.space(-0.5)} !important; // Nice2 Reset
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+  ${StyledLabel} {
+    padding: 0 !important; // Nice2 Reset
+  }
 `
 
 export const StyledCheckbox = styled.input`
