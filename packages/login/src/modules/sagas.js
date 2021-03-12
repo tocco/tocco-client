@@ -78,9 +78,6 @@ export function* handleFailedResponse() {
 }
 
 export function* handleSuccessfulLogin(response) {
-  const timeout = response.timeout || DEFAULT_TIMEOUT
-  yield put(externalEvents.fireExternalEvent('loginSuccess', {timeout}))
-
   const [revisionChanged, localChanged] = yield all([call(rest.hasRevisionIdChanged), call(intl.hasUserLocaleChanged)])
   if (revisionChanged || localChanged) {
     yield call(cache.clearAll)
@@ -88,6 +85,8 @@ export function* handleSuccessfulLogin(response) {
     yield call(cache.clearShortTerm)
   }
   yield put(setPassword(''))
+  const timeout = response.timeout || DEFAULT_TIMEOUT
+  yield put(externalEvents.fireExternalEvent('loginSuccess', {timeout}))
 }
 
 export function* loginSaga({payload}) {
