@@ -1,3 +1,15 @@
+0.2.20
+- Move buttons inside modals to the right to improve UX
+- Fix hidden extender and force border rendering of ranges in chrome
+- Fix empty report settings (TOCDEV-3218)
+- Fix spacing of notifiers without title
+- Fix icon and qr code spacing inside two factor connector
+- Style upload and switch to light icons
+- Fix empty pop-up in old client
+- Fix empty pop-up in old client
+- Prevent action buttons disappearing on scroll
+- Introduce onResize external event
+
 0.2.19
 - Style notifier popups to better harmonize with the existing styling
 - Make panel header clickable so it can also expand the panel
