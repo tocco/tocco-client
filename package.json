@@ -103,7 +103,7 @@
     "express": "^4.17.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "faker": "^5.1.0",
-    "fetch-mock": "^7.3.9",
+    "fetch-mock": "^9.11.0",
     "figures": "^3.0.0",
     "file-loader": "^4.2.0",
     "framer-motion": "^1.9.1",

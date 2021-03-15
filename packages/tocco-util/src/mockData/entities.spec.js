@@ -6,6 +6,7 @@ import {createUsers} from './entityFactory'
 
 describe('tocco-util', () => {
   describe('mockData', () => {
+    fetchMock.config.overwriteRoutes = false
     describe('entities', () => {
       describe('setupEntities', () => {
         test('setup basic mocks', () => {
