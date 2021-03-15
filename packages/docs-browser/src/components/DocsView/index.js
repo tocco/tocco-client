@@ -1,1 +1,1 @@
-export {default} from './DocsView'
+export {default} from './DocsViewContainer'

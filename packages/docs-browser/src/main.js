@@ -113,7 +113,8 @@ class DocsBrowserApp extends React.Component {
 
 DocsBrowserApp.propTypes = {
   history: PropTypes.object,
-  navigationStrategy: PropTypes.object
+  navigationStrategy: PropTypes.object,
+  domainTypes: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default DocsBrowserApp

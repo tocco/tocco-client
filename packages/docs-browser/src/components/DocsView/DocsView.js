@@ -13,7 +13,7 @@ const ICONS = {
   Resource: 'file'
 }
 
-const getParent = match => {
+export const getParent = match => {
   if (match.params && match.params.model) {
     const model = match.params.model.charAt(0).toUpperCase() + match.params.model.slice(1)
     const key = match.params.key
@@ -26,8 +26,15 @@ const getParent = match => {
   return null
 }
 
+export const getTql = (parent, domainTypes) =>
+  !parent
+  && Array.isArray(domainTypes)
+  && domainTypes.length > 0
+    ? `exists(relDomain_type where IN(unique_id, ${domainTypes.map(type => `"${type}"`).join(',')}))`
+    : null
+
 const DocsView = props => {
-  const {storeKey, history, match, navigationStrategy, onSearchChange, emitAction, openFileDialog} = props
+  const {storeKey, history, match, domainTypes, navigationStrategy, onSearchChange, emitAction, openFileDialog} = props
 
   const handleRowClick = ({id}) => {
     const [model, key] = id.split('/')
@@ -49,6 +56,7 @@ const DocsView = props => {
   }
 
   const parent = getParent(match)
+  const tql = getTql(parent, domainTypes)
 
   const handleUploadDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
     const directory = false
@@ -94,6 +102,7 @@ const DocsView = props => {
           'upload-directory': handleUploadDirectory
         }}
         navigationStrategy={navigationStrategy}
+        tql={tql}
       />
       <FileInput/>
     </>
@@ -105,6 +114,7 @@ DocsView.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   navigationStrategy: PropTypes.object,
+  domainTypes: PropTypes.objectOf(PropTypes.string),
   onSearchChange: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired,
   openFileDialog: PropTypes.func.isRequired
