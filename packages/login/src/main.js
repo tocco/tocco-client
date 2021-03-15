@@ -90,7 +90,8 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
 
     if (__DEV__) {
       if (!__NO_MOCK__) {
-        const fetchMock = require('fetch-mock')
+        const fetchMock = require('fetch-mock').default
+        fetchMock.config.overwriteRoutes = false
         const setupFetchMocks = require('./dev/fetchMocks').default
         setupFetchMocks(packageName, fetchMock)
       }

@@ -4,6 +4,7 @@ import {setupActions} from './actions'
 
 describe('tocco-util', () => {
   describe('mockData', () => {
+    fetchMock.config.overwriteRoutes = false
     describe('actions', () => {
       test('should setup basic action mocks', () => {
         const postSpy = sinon.spy()

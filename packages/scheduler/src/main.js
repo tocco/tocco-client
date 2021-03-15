@@ -46,7 +46,8 @@ const initApp = (input, events, publicPath) => {
       const input = require('./dev/input.json')
   
       if (!__NO_MOCK__) {
-        const fetchMock = require('fetch-mock')
+        const fetchMock = require('fetch-mock').default
+        fetchMock.config.overwriteRoutes = false
         const setupFetchMocks = require('./dev/fetchMocks').default
         setupFetchMocks(packageName, fetchMock)
         fetchMock.spy()
