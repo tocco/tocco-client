@@ -71,8 +71,8 @@ describe('entity-list', () => {
             expect(gen.next({entityName, formName}).value).to.eql(select(sagas.listSelector))
             const nextValue = gen.next({formDefinition, entityModel, initialized}).value
             expect(nextValue).to.eql(all([
-              call(sagas.loadEntityModel, entityName, entityModel),
-              call(sagas.loadFormDefinition, formDefinition, formName)
+              call(sagas.loadEntityModel, entityName, entityModel, true),
+              call(sagas.loadFormDefinition, formDefinition, formName, true)
             ]))
 
             expect(gen.next().value).to.eql(call(sagas.setSorting))
@@ -87,7 +87,7 @@ describe('entity-list', () => {
             const entityName = 'Test_entity'
             const formName = 'form2'
             const columnDefinition = []
-            const entityModel = {}
+            const entityModel = {name: 'Test_entity'}
             const initialized = true
 
             const gen = sagas.initialize()
@@ -111,6 +111,20 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(call(sagas.requestEntities, page))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('setParent saga', () => {
+          test('should set parent, reload entity model, form definition and data', () => {
+            return expectSaga(sagas.setParent)
+              .provide([
+                [select(sagas.entityListSelector), {formName: 'UserTest', entityName: 'Docs_list_item'}],
+                [select(sagas.listSelector), generateState({}, 1)],
+                [matchers.call.fn(sagas.loadEntityModel), {}],
+                [matchers.call.fn(sagas.loadFormDefinition), {}],
+                [matchers.call.fn(sagas.reloadData), {}]
+              ])
+              .run()
           })
         })
 

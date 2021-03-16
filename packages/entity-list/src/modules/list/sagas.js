@@ -58,8 +58,8 @@ export function* initialize() {
 
   if (!initialized) {
     yield all([
-      call(loadEntityModel, entityName, entityModel),
-      call(loadFormDefinition, formDefinition, formName)
+      call(loadEntityModel, entityName, entityModel, true),
+      call(loadFormDefinition, formDefinition, formName, true)
     ])
     yield call(setSorting)
     yield call(loadData, 1)
@@ -173,6 +173,12 @@ export function* changePage({payload}) {
 }
 
 export function* setParent() {
+  const {entityName, formName} = yield select(entityListSelector)
+  const {formDefinition, entityModel} = yield select(listSelector)
+  yield all([
+    call(loadEntityModel, entityName, entityModel, true),
+    call(loadFormDefinition, formDefinition, formName, true)
+  ])
   yield call(reloadData)
 }
 
@@ -299,8 +305,8 @@ export function* setSorting() {
   }
 }
 
-export function* loadFormDefinition(formDefinition, formName) {
-  if (formDefinition === null) {
+export function* loadFormDefinition(formDefinition, formName, forceLoad = false) {
+  if (formDefinition === null || forceLoad) {
     formDefinition = yield call(rest.fetchForm, formName, 'list')
     yield put(actions.setFormDefinition(formDefinition))
   }
@@ -317,8 +323,8 @@ export function* loadFormDefinition(formDefinition, formName) {
   yield put(actions.setConstriction(constriction))
 }
 
-export function* loadEntityModel(entityName, entityModel) {
-  if (_isEmpty(entityModel)) {
+export function* loadEntityModel(entityName, entityModel, forceLoad = false) {
+  if (_isEmpty(entityModel) || forceLoad) {
     const model = yield call(rest.fetchModel, entityName)
     yield put(actions.setEntityModel(model))
   }
