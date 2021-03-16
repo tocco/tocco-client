@@ -358,6 +358,59 @@ describe('app-extensions', () => {
 
         expect(wrapper.find(Field)).to.have.length(1)
       })
+
+      test('should render description field', () => {
+        const entity = {
+          paths: {
+            relOrder: {
+              type: 'entity-list',
+              writable: null,
+              value: []
+            }
+          }
+        }
+
+        const formDefinition = {
+          id: 'UserSearch_detail',
+          readonly: false,
+          children: [
+            {
+              id: 'user_information',
+              componentType: 'layout',
+              layoutType: 'vertical-box',
+              readonly: false,
+              children: [
+                {
+                  id: 'email_change_field_description',
+                  label: null,
+                  componentType: 'field-set',
+                  children: [
+                    {
+                      id: 'email_change_field_description',
+                      label: null,
+                      componentType: 'description',
+                      title: 'description title',
+                      text: 'description text',
+                      mode: 'tooltip'
+                    }
+                  ],
+                  readonly: false,
+                  hidden: false,
+                  useLabel: 'no',
+                  scopes: [],
+                  ignoreCopy: false
+                }
+              ]
+            }
+          ]
+        }
+
+        const {formName, formValues} = testData
+        const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
+        const wrapper = shallow(<FormBuilder {...props}/>)
+
+        expect(wrapper.find(Field)).to.have.length(1)
+      })
     })
   })
 })
