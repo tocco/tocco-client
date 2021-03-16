@@ -1,4 +1,11 @@
 0.4.28
+- Introduce onResize external event
+- Reset label spacing inside column picker for old client
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- No list refresh after selection clear
+
+0.4.28
 
 
 0.4.27
