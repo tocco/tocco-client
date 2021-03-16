@@ -65,7 +65,7 @@ const DocsView = props => {
       <EntityListApp
         id="documents"
         entityName="Docs_list_item"
-        formName="Docs_list_item"
+        formName={parent ? parent.model : 'Root_docs_list_item'}
         limit={25}
         onRowClick={handleRowClick}
         searchFormPosition="left"
