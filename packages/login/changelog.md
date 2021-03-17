@@ -1,3 +1,7 @@
+0.2.18-hotfix228.3
+- fix long term caching
+- render description field in form
+
 0.2.18-hotfix228.2
 - Fix hidden extender and force border rendering of ranges in chrome
 - Fix icon and qr code spacing inside two factor connector
