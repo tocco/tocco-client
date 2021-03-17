@@ -1,3 +1,14 @@
+0.10.22
+- Style upload and switch to light icons
+- Restrict max height of basic search form only in modal
+- Prevent action buttons disappearing on scroll
+- Reset label spacing inside column picker for old client
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- No list refresh after selection clear
+- fix long term caching
+- hide list navigation arrow if row is not clickable
+
 0.10.21
 - Move buttons inside modals to the right to improve UX
 - Fix hidden extender and force border rendering of ranges in chrome
