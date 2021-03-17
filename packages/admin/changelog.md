@@ -1,3 +1,10 @@
+0.4.19-hotfix228.6
+- Fix empty pop-up in old client
+- hide list navigation arrow if row is not clickable
+- Reset label spacing inside column picker for old client
+- fix long term caching
+- render description field in form
+
 0.4.19-hotfix228.5
 - ignore field if path is null in copy action
 - Change header color
