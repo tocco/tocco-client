@@ -1,3 +1,8 @@
+0.1.11
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- fix long term caching
+
 0.1.10
 - Style upload and switch to light icons
 - Fix empty pop-up in old client
