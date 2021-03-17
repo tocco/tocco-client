@@ -123,6 +123,7 @@
     "libphonenumber-js": "^1.6.8",
     "lodash": "^4.17.14",
     "lodash-webpack-plugin": "^0.11.6",
+    "mock-socket": "^9.0.3",
     "moment": "^2.22.2",
     "opn": "^6.0.0",
     "plop": "2.4.0",

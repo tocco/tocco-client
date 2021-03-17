@@ -5,6 +5,41 @@ import rest from '../../../rest'
 import notifier from '../../../notifier'
 
 export default function* (definition, selection, parent, params) {
+  const runAsync = definition.runInBackgroundTask
+  const invokeFnc = runAsync ? invokeActionAsync : invokeActionSync
+
+  yield call(invokeFnc, definition, selection, parent, params)
+}
+
+export function* invokeActionAsync(definition, selection, parent, params) {
+  const response = yield call(rest.requestSaga, definition.endpoint, {
+    method: 'POST',
+    body: {
+      entity: selection.entityName,
+      selection,
+      parent,
+      params: {
+        background: true,
+        ...params
+      },
+      formProperties: definition.properties
+    },
+    acceptedErrorCodes: ['VALIDATION_FAILED'],
+    headers: {
+      'X-Enable-Notifications': true
+    }
+  })
+
+  if (response.body && response.body.success === false) {
+    yield put(notifier.info(
+      'error',
+      'client.common.unexpectedError',
+      response.body.message || 'client.component.actions.errorText'
+    ))
+  }
+}
+
+export function* invokeActionSync(definition, selection, parent, params) {
   const randomId = Math.random()
   const title = definition.progressMsg || 'client.component.actions.defaultProgressMessage'
   yield put(notifier.blockingInfo(randomId, title))

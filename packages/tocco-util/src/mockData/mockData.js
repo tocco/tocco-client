@@ -1,3 +1,5 @@
+import {Server} from 'mock-socket'
+
 import {setupForms} from './forms'
 import {setupEntities} from './entities'
 import {setupActions} from './actions'
@@ -11,10 +13,22 @@ import {setupLog} from './log'
 import {setupSettings} from './settings'
 import {setupPrincipals} from './principals'
 
+let webSocketServer = null
+
+const createMockSocketServer = () => {
+  try {
+    const socketUrl = `${__BACKEND_URL__}`.replace('http://', 'ws://').replace('https://', 'wss://')
+    const notificationWebSocketUrl = `${socketUrl}/nice2/websocket/notification`
+    webSocketServer = new Server(notificationWebSocketUrl)
+  } catch (e) {}
+}
+
 export const setupFetchMock = (fetchMock, entityStore, timeout = 1000) => {
+  createMockSocketServer()
+
   setupForms(fetchMock, entityStore, timeout)
   setupEntities(fetchMock, entityStore, timeout)
-  setupActions(fetchMock, entityStore, timeout)
+  setupActions(fetchMock, entityStore, webSocketServer, timeout)
   setupPreferences(fetchMock, entityStore, timeout)
   setupReports(fetchMock, entityStore, timeout)
   setupUpload(fetchMock, entityStore, timeout)
