@@ -1,6 +1,6 @@
 {
   "name": "tocco-docs-browser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -10,9 +10,9 @@
   "dependencies": {},
   "devDependencies": {
     "tocco-app-extensions": "*",
+    "tocco-delete": "*",
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
-    "tocco-delete": "*",
     "tocco-test-util": "*",
     "tocco-theme": "*",
     "tocco-ui": "*",
