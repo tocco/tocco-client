@@ -762,12 +762,12 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-number-format@^3.6.0:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-3.6.2.tgz#46fb692a88ed25808f0cb08fd12aeae4ae68295a"
-  integrity sha512-HsO11fH6WiugtJflrMQn3/Yhq2J4uEWLxrKCQbI1gSGAOwIhUsOGJJeP8Vci/U4A7xK5SjC95ngZU8//Nuz3Gg==
+react-number-format@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-4.5.0.tgz#3fc7b544530cf953a858c1d7a585f12e4ef6095e"
+  integrity sha512-QnZpikIClOZEDSLJciUl3qDvguQn+jOO/b3dqBimnHRN4qNan8mo4/9iVM7QC6YwqpHQ9lg5I3yFB6bBVusdhw==
   dependencies:
-    prop-types "^15.6.0"
+    prop-types "^15.7.2"
 
 react-popper@^2.2.3:
   version "2.2.3"
