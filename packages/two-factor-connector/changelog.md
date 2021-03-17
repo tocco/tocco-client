@@ -1,3 +1,7 @@
+0.1.7-hotfix228.5
+- fix long term caching
+- render description field in form
+
 0.1.7-hotfix228.4
 - Introduce onResize external event
 
