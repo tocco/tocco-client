@@ -1,3 +1,9 @@
+0.4.3-hotfix228.2
+- hide list navigation arrow if row is not clickable
+- Reset label spacing inside column picker for old client
+- fix long term caching
+- render description field in form
+
 0.4.3-hotfix228.1
 - Fix height and action button styling of detail form in old client
 - Fix hidden extender and force border rendering of ranges in chrome
