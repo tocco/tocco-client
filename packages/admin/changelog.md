@@ -1,3 +1,14 @@
+
+0.4.29
+- Introduce onResize external event
+- Reset label spacing inside column picker for old client
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- No list refresh after selection clear
+- New input param `domainTypes` to filter domains
+- hide list navigation arrow if row is not clickable
+- fix long term caching
+
 0.4.28
 - Introduce onResize external event
 - Reset label spacing inside column picker for old client
