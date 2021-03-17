@@ -40,8 +40,10 @@ yarn publish --new-version ${new_version}
 
 read -p "Push commits and tags (y/n)?" PUSH
 if [ "$PUSH" = "y" ]; then
+  git checkout -b relasing/${package}@${new_version}
   git push
   git push --tags
+  git checkout ${current_branch}
   echo "${color_green}Commits and tags pushed!${color_reset}"
 else
   echo "${color_red}Nothing pushed!${color_reset}"
