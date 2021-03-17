@@ -1,3 +1,18 @@
+0.2.21
+- Move buttons inside modals to the right to improve UX
+- Fix hidden extender and force border rendering of ranges in chrome
+- Fix empty report settings (TOCDEV-3218)
+- Fix spacing of notifiers without title
+- Fix icon and qr code spacing inside two factor connector
+- Style upload and switch to light icons
+- Fix empty pop-up in old client
+- Fix empty pop-up in old client
+- Prevent action buttons disappearing on scroll
+- Introduce onResize external event
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- fix long term caching
+
 0.2.20
 - Move buttons inside modals to the right to improve UX
 - Fix hidden extender and force border rendering of ranges in chrome
