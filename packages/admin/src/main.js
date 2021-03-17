@@ -7,7 +7,8 @@ import {
   errorLogging,
   actionEmitter,
   externalEvents,
-  keyDown
+  keyDown,
+  notification
 } from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
@@ -37,6 +38,7 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
   notifier.addToStore(store, true)
   keyDown.addToStore(store, shortcuts)
+  notification.addToStore(store)
 
   return appFactory.createApp(
     packageName,
