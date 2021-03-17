@@ -1,3 +1,10 @@
+0.4.4
+- Style upload and switch to light icons
+- Prevent action buttons disappearing on scroll
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- fix long term caching
+
 0.4.3
 - Remove workaround for opening an entity list in the old client
 
