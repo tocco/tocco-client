@@ -5,7 +5,8 @@ import {
   errorLogging,
   actionEmitter,
   externalEvents,
-  rest
+  rest,
+  notification
 } from 'tocco-app-extensions'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
@@ -65,6 +66,7 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
   notifier.addToStore(store, true)
 
+  notification.addToStore(store)
   const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)
 
@@ -101,9 +103,8 @@ const initApp = (id, input, events, publicPath) => {
     if (__DEV__) {
       if (!__NO_MOCK__) {
         const fetchMock = require('fetch-mock').default
-        fetchMock.config.overwriteRoutes = false.default
         fetchMock.config.overwriteRoutes = false
-
+        
         const setupFetchMocks = require('./dev/fetchMocks').default
         setupFetchMocks(packageName, fetchMock)
 
