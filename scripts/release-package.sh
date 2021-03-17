@@ -40,7 +40,7 @@ yarn publish --new-version ${new_version}
 
 read -p "Push commits and tags (y/n)?" PUSH
 if [ "$PUSH" = "y" ]; then
-  git checkout -b relasing/${package}@${new_version}
+  git checkout -b releasing/${package}@${new_version}
   git push
   git push --tags
   git checkout ${current_branch}
@@ -49,7 +49,7 @@ else
   echo "${color_red}Nothing pushed!${color_reset}"
 fi
 
-read -p "Create a npm dist tag ${release_tag} for current version (y/n)?" CREATE_TAG 
+read -p "Create a npm dist tag ${release_tag} for current version (y/n)?" CREATE_TAG
 if [ "$CREATE_TAG" = "y" ]; then
   echo "Trying to execute: npm dist-tag add tocco-${package}@${new_version} ${release_tag}"
   npm dist-tag add tocco-${package}@${new_version} ${release_tag} --registry=https://registry.npmjs.org/
