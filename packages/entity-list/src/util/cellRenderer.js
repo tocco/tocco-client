@@ -20,6 +20,7 @@ export default (field, entity, parent, intl) => {
 
 const getDisplayExpression = (field, entity) =>
   <LazyDataCell
+  key={'action-' + field.id}
     path={field.id}
     entityKey={entity.__key}
     type={'displayExpression'}
@@ -29,9 +30,12 @@ const getDisplayExpression = (field, entity) =>
   </LazyDataCell>
 
 const getAction = (field, entity, parent) =>
-  <StyledActionWrapper onClick={e => {
-    e.stopPropagation()
-  }}>
+  <StyledActionWrapper
+   key={'action-' + field.id}
+   onClick={e => {
+     e.stopPropagation()
+   }}
+   >
     <actions.Action
       key={'tableAction' + field.id}
       definition={field}
