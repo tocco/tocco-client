@@ -1,3 +1,17 @@
+0.3.11
+- Style notifier popups to better harmonize with the existing styling
+- Make panel header clickable so it can also expand the panel
+- Move buttons inside modals to the right to improve UX
+- Fix hidden extender and force border rendering of ranges in chrome
+- Fix empty report settings (TOCDEV-3218)
+- Fix spacing of notifiers without title
+- Change button position to right side inside modal
+- Style upload and switch to light icons
+- Prevent action buttons disappearing on scroll
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- fix long term caching
+
 0.3.10
 - Introduce navigationStrategy
 - Remove obsolete right margin inside menu item
