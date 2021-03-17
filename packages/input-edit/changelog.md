@@ -1,3 +1,9 @@
+0.3.10-hotfix228.1
+- Fix empty report settings (TOCDEV-3218)
+- Fix hidden extender and force border rendering of ranges in chrome
+- fix long term caching
+- render description field in form
+
 0.3.10
 - Introduce navigationStrategy
 - Remove obsolete right margin inside menu item
