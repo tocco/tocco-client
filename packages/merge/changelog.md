@@ -1,3 +1,8 @@
+0.4.1-hotfix228.3
+- adjust merge table "all" label layout
+- fix long term caching
+- render description field in form
+
 0.4.1-hotfix228.2
 - adjust merge table "all" label layout
 
