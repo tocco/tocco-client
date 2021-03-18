@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {motion} from 'framer-motion'
+import {injectIntl, intlShape} from 'react-intl'
 
 /**
  * Animated Burger Menu Button
  */
-const BurgerButton = ({isOpen, size = '20', color}) => {
+const BurgerButton = ({isOpen, size = '20', color, intl}) => {
+  const msg = id => intl.formatMessage({id})
   const variant = isOpen ? 'opened' : 'closed'
   const top = {
     closed: {
@@ -51,7 +53,7 @@ const BurgerButton = ({isOpen, size = '20', color}) => {
       preserveAspectRatio="none"
       width={size}
       height={size}
-      aria-label="Open menu"
+      aria-label={msg('client.component.burgerButton.Label')}
     >
       <motion.line
         x1="0"
@@ -94,8 +96,8 @@ BurgerButton.propTypes = {
   /**
    * Specify width and height.
    */
-  isOpen: PropTypes.bool
-
+  isOpen: PropTypes.bool,
+  intl: intlShape.isRequired
 }
 
-export default BurgerButton
+export default injectIntl(BurgerButton)

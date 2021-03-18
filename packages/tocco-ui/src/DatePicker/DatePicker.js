@@ -12,6 +12,7 @@ export const DatePicker = props => {
   const {value, children, intl, onChange} = props
   const wrapperElement = useRef(null)
   const locale = intl.locale
+  const msg = id => intl.formatMessage({id})
 
   const fontFamily = theme.fontFamily('regular')(props)
 
@@ -29,7 +30,7 @@ export const DatePicker = props => {
             style={{display: 'none'}}
             type="text"
             data-input
-            aria-label="date picker"
+            aria-label={msg('client.component.datePicker.label')}
           />
           {children}
         </div>

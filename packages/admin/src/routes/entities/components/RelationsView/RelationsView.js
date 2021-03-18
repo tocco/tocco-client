@@ -5,6 +5,7 @@ import {js, viewPersistor} from 'tocco-util'
 import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
 import _get from 'lodash/get'
+import {intlShape} from 'react-intl'
 
 import {
   RelationBox,
@@ -25,7 +26,8 @@ const RelationsView = ({
   currentViewInfo,
   relations,
   relationsInfo,
-  emitAction
+  emitAction,
+  intl
 }) => {
   const [selectedRelation, selectRelation] = useState(null)
   const entityName = _get(currentViewInfo, 'model.name')
@@ -47,6 +49,8 @@ const RelationsView = ({
     },
     [relations]
   )
+
+  const msg = id => intl.formatMessage({id})
 
   const getRelationCountLabel = relationName => relationsInfo[relationName] && relationsInfo[relationName].count > 0
     ? <RelationLabel>&nbsp;({relationsInfo[relationName].count})</RelationLabel>
@@ -77,13 +81,13 @@ const RelationsView = ({
               {relation.relationDisplay.label}</RelationLabel>{getRelationCountLabel(relation.relationName)}
             <RelationLinks>
               <StyledLink
-                aria-label="go to relation list view"
+                aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
                 to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
                 <Icon icon="arrow-right"/>
               </StyledLink>
               {hasCreateRights(relation.relationName)
               && <StyledLink
-                aria-label="create new related entity"
+                aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
                 to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
                 <Icon icon="plus"/>
               </StyledLink>
@@ -98,13 +102,13 @@ const RelationsView = ({
         <Typography.H4>
           {selectedRelation.relationDisplay.label}
           <StyledLink
-            aria-label="go to relation list view"
+            aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
             to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
             <Icon icon="arrow-right"/>
           </StyledLink>
           {hasCreateRights(selectedRelation.relationName)
           && <StyledLink
-            aria-label="create new related entity"
+            aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
             to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
             <Icon icon="plus"/>
           </StyledLink>
@@ -160,7 +164,8 @@ RelationsView.propTypes = {
     count: PropTypes.number,
     createPermission: PropTypes.bool
   })),
-  emitAction: PropTypes.func.isRequired
+  emitAction: PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 }
 
 const areEqual = (prevProps, nextProps) => {
