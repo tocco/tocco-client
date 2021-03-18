@@ -47,6 +47,8 @@ class DateAbstract extends React.Component {
     })
   }
 
+  msg = id => this.props.intl.formatMessage({id})
+
   initializeFlatPickr = flatpickr => {
     const locale = this.localeMap[this.props.intl.locale]
 
@@ -187,7 +189,7 @@ class DateAbstract extends React.Component {
               icon="times"
               data-clear
               tabIndex={-1}
-              aria-label="clear date"
+              aria-label={this.msg('client.component.dateAbstract.clearDateLabel')}
               onMouseDown={e => {
                 e.preventDefault()
               }}/>}
