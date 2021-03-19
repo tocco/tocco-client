@@ -19,18 +19,11 @@ export function* initialize() {
   yield call(loadSourceData, selection)
 }
 
-export function* getSelection(selection) {
-  return {
-    model: selection.entityName,
-    keys: selection.ids
-  }
-}
-
 export function* loadSourceData(selection) {
   const resource = 'merge/sourceData'
   const options = {
     method: 'POST',
-    body: yield call(getSelection, selection)
+    body: selection
   }
   const response = yield call(rest.requestSaga, resource, options)
   const {body: sourceData} = response
@@ -73,7 +66,7 @@ export function* getMergeBody() {
   }))
 
   return {
-    selection: yield call(getSelection, selection),
+    selection: selection,
     targetEntity: {
       key: selected.targetEntity,
       paths: paths
