@@ -48,7 +48,7 @@ const transformLabel = ({secondaryPosition}) => css`
     ${secondaryPosition && css`
       top: 0;
       font-size: ${scale.font(-1.2)};
-      margin: calc(${scale.font(-1)} / -2) 0 0;
+      margin: calc(${scale.font(-0.5)} / -2) 0 0;
     `}
   }
 `
