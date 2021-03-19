@@ -12,11 +12,6 @@ const selection = {
   ids: [1, 2]
 }
 
-const expectedSelection = {
-  model: 'User',
-  keys: [1, 2]
-}
-
 const sourceData = require('../../dev/data/sourceResponse.json')
 
 describe('merge', () => {
@@ -46,21 +41,13 @@ describe('merge', () => {
           })
         })
 
-        describe('getSelection', () => {
-          test('should call getSelection', () => {
-            return expectSaga(sagas.getSelection, selection)
-              .returns(expectedSelection)
-              .run()
-          })
-        })
-
         describe('loadSourceData', () => {
           test('should call loadSourceData', () => {
             return expectSaga(sagas.loadSourceData, selection)
               .provide([
                 [matchers.call.fn(rest.requestSaga), {body: sourceData}]
               ])
-              .call(rest.requestSaga, 'merge/sourceData', {method: 'POST', body: expectedSelection})
+              .call(rest.requestSaga, 'merge/sourceData', {method: 'POST', body: selection})
               .put(actions.setSourceData(sourceData))
               .put(actions.setTargetEntity(sourceData.entities[0].key))
               .run()
@@ -69,7 +56,7 @@ describe('merge', () => {
 
         describe('executeMerge', () => {
           const body = {
-            selection: expectedSelection,
+            selection: selection,
             targetEntity: {
               key: '1',
               paths: {}
@@ -185,7 +172,7 @@ describe('merge', () => {
             }
 
             const expectedBody = {
-              selection: expectedSelection,
+              selection: selection,
               targetEntity: {
                 key: merge.selected.targetEntity,
                 paths: {
