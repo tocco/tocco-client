@@ -19,6 +19,7 @@ import {
   getConstriction
 } from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
+import {setSorting} from './sagas'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
@@ -51,7 +52,9 @@ describe('entity-list', () => {
               takeLatest(selectionActions.RELOAD_DATA, sagas.loadData, 1),
               takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
               takeLatest(entityListActions.SET_PARENT, sagas.setParent),
-              takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent)
+              takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
+              takeLatest(searchFormActions.SET_SEARCH_FILTERS, setSorting),
+              takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, setSorting)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -212,6 +215,37 @@ describe('entity-list', () => {
           })
         })
 
+        describe('hasActiveSearchFilterOrderBy saga', () => {
+          test('search filters not set', () => {
+            return expectSaga(sagas.hasActiveSearchFilterOrderBy)
+              .provide([
+                [select(sagas.searchFormSelector), {searchFilters: null}]
+              ])
+              .returns(null)
+              .run()
+          })
+
+          test('no active search filter with order by', () => {
+            const searchFilters = [{active: true, orderBy: ''}, {active: false, orderBy: 'firstname'}]
+            return expectSaga(sagas.hasActiveSearchFilterOrderBy)
+              .provide([
+                [select(sagas.searchFormSelector), {searchFilters: searchFilters}]
+              ])
+              .returns(false)
+              .run()
+          })
+
+          test('active search filter with order by', () => {
+            const searchFilters = [{active: true, orderBy: 'firstname'}]
+            return expectSaga(sagas.hasActiveSearchFilterOrderBy)
+              .provide([
+                [select(sagas.searchFormSelector), {searchFilters: searchFilters}]
+              ])
+              .returns(true)
+              .run()
+          })
+        })
+
         describe('requestEntities saga', () => {
           test('should request entities', () => {
             const page = 1
@@ -255,31 +289,47 @@ describe('entity-list', () => {
               .provide([
                 [matchers.call.fn(getSorting), sorting],
                 [select(sagas.listSelector), {entityModel, formDefinition}],
-                [select(sagas.preferencesSelector), {sorting: []}]
+                [select(sagas.preferencesSelector), {sorting: []}],
+                [select(sagas.searchFormSelector), {searchFilters: null}]
               ])
               .put(actions.setSorting(sorting))
               .run()
           })
 
-          test('should set fallback if not defined in form', () => {
+          test('should set fallback if not defined in form and search filters are not set', () => {
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), []],
                 [select(sagas.listSelector), {entityModel, formDefinition}],
-                [select(sagas.preferencesSelector), {sorting: []}]
+                [select(sagas.preferencesSelector), {sorting: []}],
+                [select(sagas.searchFormSelector), {searchFilters: null}]
               ])
               .put(actions.setSorting([{field: sagas.FALLBACK_SORTING_FIELD, order: 'desc'}]))
               .run()
           })
 
-          test('should not set sorting if fallback does not exist in model', () => {
+          test('should set fallback if no active search filter has order by', () => {
+            const searchFilters = [{active: true, orderBy: ''}, {active: false, orderBy: 'firstname'}]
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), []],
-                [select(sagas.listSelector), {entityModel: {paths: {}}, formDefinition}],
-                [select(sagas.preferencesSelector), {sorting: []}]
+                [select(sagas.listSelector), {entityModel, formDefinition}],
+                [select(sagas.preferencesSelector), {sorting: []}],
+                [select(sagas.searchFormSelector), {searchFilters: searchFilters}]
               ])
-              .not.put.like({action: {type: 'list/SET_SORTING'}})
+              .put(actions.setSorting([{field: sagas.FALLBACK_SORTING_FIELD, order: 'desc'}]))
+              .run()
+          })
+
+          test('should set empty array as sorting if an active search filter has order by', () => {
+            return expectSaga(sagas.setSorting)
+              .provide([
+                [matchers.call.fn(getSorting), []],
+                [select(sagas.listSelector), {entityModel, formDefinition}],
+                [select(sagas.preferencesSelector), {sorting: []}],
+                [select(sagas.searchFormSelector), {searchFilters: [{active: true, orderBy: 'firstname'}]}]
+              ])
+              .put(actions.setSorting([]))
               .run()
           })
 
@@ -290,7 +340,8 @@ describe('entity-list', () => {
               .provide([
                 [matchers.call.fn(getSorting), formSorting],
                 [select(sagas.listSelector), {entityModel, formDefinition}],
-                [select(sagas.preferencesSelector), {sorting: preferenceSorting}]
+                [select(sagas.preferencesSelector), {sorting: preferenceSorting}],
+                [select(sagas.searchFormSelector), {searchFilters: null}]
               ])
               .put(actions.setSorting(preferenceSorting))
               .run()
