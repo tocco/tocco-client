@@ -46,7 +46,9 @@ export default function* sagas() {
     takeLatest(selectionActions.RELOAD_DATA, loadData, 1),
     takeLatest(actions.ON_ROW_CLICK, onRowClick),
     takeLatest(entityListActions.SET_PARENT, setParent),
-    takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent)
+    takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
+    takeLatest(searchFormActions.SET_SEARCH_FILTERS, setSorting),
+    takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, setSorting)
   ])
 }
 
@@ -196,6 +198,11 @@ export function* getSearchFilter(inputSearchFilters, searchInputsFilters, adminS
   return yield call(_union, inputSearchFilters, searchInputsFilters, activeSearchFormFilters)
 }
 
+export function* hasActiveSearchFilterOrderBy() {
+  const {searchFilters} = yield select(searchFormSelector)
+  return searchFilters && searchFilters.some(f => f.active && f.orderBy)
+}
+
 export const getTql = (inputTql, searchTql) => [
   ...(inputTql && inputTql.length > 0 ? [`(${inputTql})`] : []),
   ...(searchTql && searchTql.length > 0 ? [`(${searchTql})`] : [])
@@ -296,12 +303,15 @@ export function* setSorting() {
   const {formDefinition, entityModel} = yield select(listSelector)
   const tableSorting = yield call(getSorting, formDefinition)
   const preferencesSorting = yield call(getPreferencesSorting)
+  const activeSearchFilterHasOrderBy = yield call(hasActiveSearchFilterOrderBy)
   if (preferencesSorting && preferencesSorting.length > 0) {
     yield put(actions.setSorting(preferencesSorting))
   } else if (tableSorting.length > 0) {
     yield put(actions.setSorting(tableSorting))
-  } else if (entityModel.paths[FALLBACK_SORTING_FIELD]) {
+  } else if (!activeSearchFilterHasOrderBy && entityModel.paths[FALLBACK_SORTING_FIELD]) {
     yield put(actions.setSorting([{field: FALLBACK_SORTING_FIELD, order: 'desc'}]))
+  } else {
+    yield put(actions.setSorting([]))
   }
 }
 
