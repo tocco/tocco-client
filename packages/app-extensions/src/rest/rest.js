@@ -155,6 +155,10 @@ export function prepareRequest(resource, options = {}) {
 
   headers.set('X-Origin-Id', getOriginId())
 
+  if (!headers.has('X-Client-Questions')) {
+    headers.set('X-Client-Questions', 'true')
+  }
+
   const fetchOptions = {
     method,
     headers,

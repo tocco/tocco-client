@@ -39,6 +39,7 @@ const validateRequest = (formValues, initialValues, mode) => {
   const options = {
     queryParams: {_validate: true},
     method: mode === 'create' ? 'POST' : 'PATCH',
+    headers: {'X-Client-Questions': 'false'},
     body: entity
   }
 

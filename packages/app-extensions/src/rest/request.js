@@ -1,5 +1,7 @@
 import InformationError from './InformationError'
 
+const PRECONDITION_FAILED_STATUS_CODE = 412
+
 const handleError = (response, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
   if (!response.ok
     && !acceptedStatusCodes.includes(response.status)
@@ -28,7 +30,13 @@ const extractBody = response => {
     })
 }
 
-export function sendRequest(url, options, acceptedErrorCodes, acceptedStatusCodes) {
+export function sendRequest(url, options, acceptedErrorCodes= [], acceptedStatusCodes= []) {
+  if (options.headers
+    && options.headers.has('X-Client-Questions')
+    && options.headers.get('X-Client-Questions') === 'true') {
+    acceptedStatusCodes.push(PRECONDITION_FAILED_STATUS_CODE)
+  }
+
   return fetch(url, options)
     .then(response => (extractBody(response)))
     .then(response => (handleError(response, acceptedErrorCodes, acceptedStatusCodes)))
