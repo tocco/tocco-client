@@ -35,7 +35,6 @@ const EXTERNAL_EVENTS = [
 const initApp = (id, input, events = {}, publicPath) => {
   const content = <EntityList/>
 
-  let dispatchActions
   let store = input.store
 
   const allCustomActions = {
@@ -66,8 +65,6 @@ const initApp = (id, input, events = {}, publicPath) => {
     })
     formData.addToStore(store, {listApp: EntityListApp, navigationStrategy: input.navigationStrategy})
 
-    dispatchActions = getDispatchActions(input, true)
-
     store.dispatch(externalEvents.fireExternalEvent('onStoreCreate', store))
   }
 
@@ -78,7 +75,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     {
       input,
       events,
-      actions: dispatchActions,
+      actions: getDispatchActions(input),
       publicPath,
       textResourceModules: ['component', 'common']
     }
