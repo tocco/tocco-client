@@ -30,7 +30,7 @@ const extractBody = response => {
     })
 }
 
-export function sendRequest(url, options, acceptedErrorCodes= [], acceptedStatusCodes= []) {
+export function sendRequest(url, options, acceptedErrorCodes = [], acceptedStatusCodes = []) {
   if (options.headers
     && options.headers.has('X-Client-Questions')
     && options.headers.get('X-Client-Questions') === 'true') {
