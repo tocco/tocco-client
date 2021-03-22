@@ -1,3 +1,6 @@
+0.4.1-hotfix228.4
+- support selection of type query
+
 0.4.1-hotfix228.3
 - adjust merge table "all" label layout
 - fix long term caching
