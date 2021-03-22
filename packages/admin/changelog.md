@@ -1,3 +1,6 @@
+0.4.19-hotfix228.7
+- support selection of type query
+
 0.4.19-hotfix228.6
 - Fix empty pop-up in old client
 - hide list navigation arrow if row is not clickable
