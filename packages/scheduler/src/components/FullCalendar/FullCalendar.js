@@ -112,7 +112,6 @@ const FullCalendar = ({
         content={tooltipDescriptionContent}
         isPlainHtml
         placement="top"
-        spacer={10}
       >
         <div className={`fc-event-main-frame ${eventInfoStyleAttributes && eventInfoStyleAttributes.join(' ')}`}>
           {eventInfo.timeText && <div className="fc-event-time">{eventInfo.timeText}</div>}

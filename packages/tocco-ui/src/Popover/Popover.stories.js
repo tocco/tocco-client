@@ -1,6 +1,6 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {boolean, number, select, withKnobs} from '@storybook/addon-knobs'
+import {boolean, select, withKnobs} from '@storybook/addon-knobs'
 
 import Popover from './Popover'
 import Button from '../Button'
@@ -16,7 +16,6 @@ storiesOf('Tocco-UI | Popover', module)
         content={<span><p>Popover</p><img src="https://picsum.photos/200/200" width="200" height="200"/></span>}
         rimless={boolean('rimless', true)}
         isPlainHtml={boolean('isPlainHtml', true)}
-        spacer={number('spacer', 10)}
         placement={select('placement', ['top', 'bottom'])}
       >
         <Typography.Span>HOVER ME</Typography.Span>
