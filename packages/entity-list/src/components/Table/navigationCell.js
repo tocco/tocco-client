@@ -5,7 +5,7 @@ import {Icon} from 'tocco-ui'
 import NavigationCellHeader from './NavigationCellHeader'
 
 const CellRenderer = ({showNavigation, rowData, navigationStrategy, parent}) =>
-  showNavigation
+  showNavigation && navigationStrategy.DetailLinkRelative
     ? <span
       onClick={e => e.stopPropagation()}
       data-cy="list-navigation-arrow"
@@ -25,7 +25,7 @@ CellRenderer.propTypes = {
   }).isRequired,
   showNavigation: PropTypes.bool.isRequired,
   navigationStrategy: PropTypes.shape({
-    DetailLinkRelative: PropTypes.func.isRequired
+    DetailLinkRelative: PropTypes.func
   }).isRequired,
   parent: PropTypes.shape({
     relationName: PropTypes.string
