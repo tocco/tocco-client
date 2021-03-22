@@ -13,8 +13,7 @@ const StyledBoxWrapper = styled.div`
   && {
     pointer-events: none; // prevent flickering of tooltip
     background-color: ${theme.color('paper')};
-    max-width: calc(100vw - ${({spacer}) => `${spacer}px - ${spacer}px`});
-    margin: ${({placement}) => placement !== 'right' ? `${ARROW_WIDTH / 2}px 0` : '0 0 0 6px'};
+    max-width: 400px;
     z-index: 100000010;
     border: ${BORDER_WIDTH}px solid ${theme.color('secondaryLight')};
     padding: ${({rimless}) => rimless ? '0' : scale.space(-1)};

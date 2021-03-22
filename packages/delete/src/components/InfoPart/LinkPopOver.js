@@ -26,7 +26,6 @@ const LinkPopOver = ({relatedEntity, children, maxCountLink}) => {
   return <Popover
     content={content}
     placement="top"
-    spacer={10}
   >
     {children}
   </Popover>

@@ -19,7 +19,6 @@ const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
       <Popover
         content={<ErrorItems formErrors={formErrors}/>}
         placement="bottom"
-        spacer={10}
       >{children}
       </Popover>)
     }

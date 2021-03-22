@@ -20,8 +20,7 @@ const Popover = ({
   content,
   isPlainHtml,
   rimless,
-  placement,
-  spacer
+  placement
 }) => {
   const [showToolTip, setShowToolTip] = useState(false)
 
@@ -32,6 +31,21 @@ const Popover = ({
   const handleMouseLeave = () => {
     setShowToolTip(false)
   }
+
+  const modifiers = [
+    {
+      name: 'offset',
+      options: {
+        offset: [0, 8]
+      }
+    },
+    {
+      name: 'preventOverflow',
+      options: {
+        padding: 10
+      }
+    }
+  ]
 
   return (
     <Manager>
@@ -50,12 +64,12 @@ const Popover = ({
       && ReactDOM.createPortal(
         <Popper
           placement={placement}
+          modifiers={modifiers}
         >
           {({ref, style, placement, arrowProps}) => (
             <StyledBoxWrapper
               ref={ref}
               style={style}
-              spacer={spacer}
               rimless={rimless}
               placement={placement}
             >
@@ -80,8 +94,7 @@ const Popover = ({
 Popover.defaultProps = {
   isPlainHtml: true,
   rimless: false,
-  placement: placements.TOP,
-  spacer: 10
+  placement: placements.TOP
 }
 
 Popover.propTypes = {
@@ -102,10 +115,6 @@ Popover.propTypes = {
    * styled disable this option (e.g. styled-components). Default is {true}.
    */
   isPlainHtml: PropTypes.bool,
-  /**
-   * Minimal distance between popper and viewport edge in pixels. Default is '10'.
-   */
-  spacer: PropTypes.number,
   /**
    * Content of the popover
    */
