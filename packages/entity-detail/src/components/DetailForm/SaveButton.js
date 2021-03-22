@@ -12,7 +12,7 @@ const ConditionalWrap = ({condition, wrap, children}) => (
 )
 
 const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
-  const msg = id => (intl.formatMessage({id}))
+  const msg = id => intl.formatMessage({id})
 
   return <ConditionalWrap condition={hasErrors}
     wrap={children => (
@@ -33,7 +33,10 @@ const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
       look={hasErrors ? 'flat' : 'raised'}
       pending={submitting}
       type="submit"
-      {...(hasErrors && {icon: 'exclamation'})}
+      {...(hasErrors
+        ? {icon: 'exclamation'}
+        : {icon: 'save'})
+      }
       hasErrors={hasErrors}
     />
   </ConditionalWrap>

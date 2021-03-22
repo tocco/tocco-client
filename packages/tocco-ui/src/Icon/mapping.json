@@ -337,6 +337,41 @@
       "trash"
     ]
   },
+  "comments": {
+    "id": "fal, comments",
+    "lib": "fa",
+    "tags": [
+      "comments"
+    ]
+  },
+  "cog-light": {
+    "id": "fal, cog",
+    "lib": "fa",
+    "tags": [
+      "cog"
+    ]
+  },
+  "file-export-light": {
+    "id": "fal, file-export",
+    "lib": "fa",
+    "tags": [
+      "file-export"
+    ]
+  },
+  "plus-light": {
+    "id": "fal, plus",
+    "lib": "fa",
+    "tags": [
+      "plus"
+    ]
+  },
+  "save": {
+    "id": "fal, save",
+    "lib": "fa",
+    "tags": [
+      "save"
+    ]
+  },
   "tocco": {
     "id": "logo",
     "lib": "toc"

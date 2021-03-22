@@ -40,6 +40,7 @@ const ActionGroup = props => {
     buttonProps={{look: 'raised'}}
     label={label}
     data-cy={`action-${actionId}`}
+    iconType={actionId}
     onClick={onClickHandler}>
     {
       definition.children.map((childDefinition, idx) => getChildMenuItems({...props, definition: childDefinition}))
