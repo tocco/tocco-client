@@ -54,7 +54,7 @@ const webpackConfig = {
 
 webpackConfig.output = {
   filename: 'index.js',
-  chunkFilename: 'chunk-[name].js',
+  chunkFilename: 'chunk-[name].[contenthash].js',
   path: outputDir,
   libraryTarget: 'umd',
   publicPath: '/'
@@ -150,35 +150,31 @@ webpackConfig.module.rules.push(
   },
   {
     test: /\.woff(\?.*)?$/,
-    use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff'
+    use: 'file-loader?name=fonts/[name].[contenthash].[ext]&mimetype=application/font-woff'
   },
   {
     test: /\.woff2(\?.*)?$/,
-    use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff2'
+    use: 'file-loader?name=fonts/[name].[contenthash].[ext]&mimetype=application/font-woff2'
   },
   {
     test: /\.otf(\?.*)?$/,
-    use: 'file-loader?name=fonts/[name].[ext]&mimetype=font/opentype'
+    use: 'file-loader?name=fonts/[name].[contenthash].[ext]&mimetype=font/opentype'
   },
   {
     test: /\.ttf(\?.*)?$/,
-    use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/octet-stream'
+    use: 'file-loader?name=fonts/[name].[contenthash].[ext]&mimetype=application/octet-stream'
   },
   {
     test: /\.eot(\?.*)?$/,
-    use: 'file-loader?name=fonts/[name].[ext]'
+    use: 'file-loader?name=fonts/[name].[contenthash].[ext]'
   },
   {
     test: /\.svg(\?.*)?$/,
-    use: 'file-loader?name=imgs/[name].[ext]&mimetype=image/svg+xml'
+    use: 'file-loader?name=imgs/[name].[contenthash].[ext]&mimetype=image/svg+xml'
   },
   {
     test: /\.(png|jpg|ico)$/,
-    use: 'file-loader?name=imgs/[name].[ext]&limit=8192'
-  },
-  {
-    test: /site\.webmanifest$/,
-    use: ['file-loader', 'app-manifest-loader']
+    use: 'file-loader?name=imgs/[name].[contenthash].[ext]&limit=8192'
   }
 )
 
