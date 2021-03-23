@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import {motion} from 'framer-motion'
+import {m} from 'framer-motion'
 
-const StyledPanelBody = styled(motion.div)`
+const StyledPanelBody = styled(m.div)`
   && {
     padding: 0 ${({isFramed}) => isFramed ? '10px' : 0};
     overflow: hidden;

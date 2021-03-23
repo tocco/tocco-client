@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {LazyMotion} from 'framer-motion'
 
 import StyledPanelBody from './StyledPanelBody'
 
@@ -9,7 +10,12 @@ import StyledPanelBody from './StyledPanelBody'
 
 const PanelBody = ({children, isFramed, isOpen}) => {
   const currentVariant = isOpen ? 'open' : 'closed'
+
+  const loadFeatures = () =>
+    import('./framerMotionFeatures.js').then(res => res.default)
+
   return (
+    <LazyMotion features={loadFeatures}>
     <StyledPanelBody
       initial={currentVariant}
       animate={currentVariant}
@@ -25,6 +31,7 @@ const PanelBody = ({children, isFramed, isOpen}) => {
         {children}
       </div>
     </StyledPanelBody>
+    </LazyMotion>
   )
 }
 
