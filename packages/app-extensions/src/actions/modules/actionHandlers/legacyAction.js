@@ -4,6 +4,7 @@ import {call, all, put, spawn, take, select} from 'redux-saga/effects'
 
 import notifier from '../../../notifier'
 import remoteEvents from '../../../remoteEvents'
+import rest from '../../../rest'
 
 export const loadScript = src => new Promise((resolve, reject) => {
   const s = document.createElement('script')
@@ -27,9 +28,10 @@ export const loadCss = src => new Promise((resolve, reject) => {
 
 export function* loadSequentially(sources) {
   const currentEnv = window.legacyActionEnv || 'new'
+  const serverSettings = yield call(rest.fetchServerSettings)
   for (const source of sources) {
     if (source.envs.includes(currentEnv)) {
-      yield call(source.handler, source.src)
+      yield call(source.handler, `${source.src}?v=${serverSettings.niceRevision}`)
     }
   }
 }
