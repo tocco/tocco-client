@@ -4,6 +4,7 @@ import {call, spawn, select} from 'redux-saga/effects'
 
 import notifier from '../../../notifier'
 import * as legacyAction from './legacyAction'
+import rest from '../../../rest'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -36,35 +37,53 @@ describe('app-extensions', () => {
           describe('loadSequentially', () => {
             test('should load the required sources for the new client sequentially', () => {
               window.legacyActionEnv = undefined
+              const revision = 'abcdef1234567890'
 
-              testSaga(legacyAction.loadSequentially, legacyAction.sources).next()
-                .call(legacyAction.loadScript, '/nice2/javascript/lang.release.js').next()
-                .call(legacyAction.loadScript, '/nice2/javascript/nice2-ext-newclient-actions.release.js').next()
-                .call(legacyAction.loadScript, '/nice2/javascript/nice2-admin.release.js').next()
-                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-setup.release.js').next()
-                .call(legacyAction.loadScript, '/nice2/dwr-all.js').next()
-                .call(legacyAction.loadScript, '/js/ext-extensions/ckeditor/ckeditor/ckeditor.js').next()
-                .call(legacyAction.loadCss, '/css/themes/blue-medium.css').next()
-                .call(legacyAction.loadCss, '/css/nice2-admin.css').next()
-                .call(legacyAction.loadCss, '/css/nice2-new-client-legacy-actions.css').next()
-                .isDone()
+              expectSaga(legacyAction.loadSequentially, legacyAction.sources)
+                .provide([
+                  [call(rest.fetchServerSettings), {niceRevision: revision}]
+                ])
+                .call(legacyAction.loadScript,
+                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`)
+                .call(legacyAction.loadScript, `/nice2/javascript/lang.release.js?v=${revision}`)
+                .call(legacyAction.loadScript, `/nice2/javascript/nice2-ext-newclient-actions.release.js?v=${revision}`)
+                .call(legacyAction.loadScript, `/nice2/javascript/nice2-admin.release.js?v=${revision}`)
+                .call(legacyAction.loadScript,
+                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`)
+                .call(legacyAction.loadScript, `/nice2/dwr-all.js?v=${revision}`)
+                .call(legacyAction.loadScript, `/js/ext-extensions/ckeditor/ckeditor/ckeditor.js?v=${revision}`)
+                .call(legacyAction.loadCss, `/css/themes/blue-medium.css?v=${revision}`)
+                .call(legacyAction.loadCss, `/css/nice2-admin.css?v=${revision}`)
+                .call(legacyAction.loadCss, `/css/nice2-new-client-legacy-actions.css?v=${revision}`)
+                .run()
             })
 
             test('should load the required sources for the legacy admin client sequentially', () => {
               window.legacyActionEnv = 'legacy-admin'
+              const revision = 'abcdef1234567890'
 
-              testSaga(legacyAction.loadSequentially, legacyAction.sources).next()
-                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-setup.release.js').next()
-                .isDone()
+              expectSaga(legacyAction.loadSequentially, legacyAction.sources)
+                .provide([
+                  [call(rest.fetchServerSettings), {niceRevision: revision}]
+                ])
+                .call(legacyAction.loadScript,
+                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`)
+                .run()
             })
 
             test('should load the required sources for public flows sequentially', () => {
               window.legacyActionEnv = 'legacy-public'
+              const revision = 'abcdef1234567890'
 
-              testSaga(legacyAction.loadSequentially, legacyAction.sources).next()
-                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-public.release.js').next()
-                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-setup.release.js').next()
-                .isDone()
+              expectSaga(legacyAction.loadSequentially, legacyAction.sources)
+                .provide([
+                  [call(rest.fetchServerSettings), {niceRevision: revision}]
+                ])
+                .call(legacyAction.loadScript,
+                  `/nice2/javascript/nice2-newclient-actions-public.release.js?v=${revision}`)
+                .call(legacyAction.loadScript,
+                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`)
+                .run()
             })
           })
 
