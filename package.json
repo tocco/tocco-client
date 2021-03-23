@@ -106,7 +106,7 @@
     "fetch-mock": "^9.11.0",
     "figures": "^3.0.0",
     "file-loader": "^4.2.0",
-    "framer-motion": "^1.9.1",
+    "framer-motion": "^4.0.2",
     "fuse.js": "^3.4.5",
     "glob": "^7.1.4",
     "history": "4.7.2",

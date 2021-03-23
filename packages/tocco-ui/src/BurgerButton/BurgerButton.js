@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {motion} from 'framer-motion'
+import {m, LazyMotion} from 'framer-motion'
 import {injectIntl, intlShape} from 'react-intl'
+
 
 /**
  * Animated Burger Menu Button
@@ -46,8 +47,12 @@ const BurgerButton = ({isOpen, size = '20', color, intl}) => {
     transition: {ease: 'easeOut', duration: 0.4}
   }
 
+  const loadFeatures = () =>
+    import('./framerMotionFeatures.js').then(res => res.default)
+
   return (
-    <motion.svg
+    <LazyMotion features={loadFeatures}>
+    <m.svg
       viewBox="0 0 6 6"
       overflow="visible"
       preserveAspectRatio="none"
@@ -55,7 +60,7 @@ const BurgerButton = ({isOpen, size = '20', color, intl}) => {
       height={size}
       aria-label={msg('client.component.burgerButton.Label')}
     >
-      <motion.line
+      <m.line
         x1="0"
         x2="6"
         y1="1"
@@ -63,7 +68,7 @@ const BurgerButton = ({isOpen, size = '20', color, intl}) => {
         variants={top}
         {...lineProps}
       />
-      <motion.line
+      <m.line
         x1="0"
         x2="6"
         y1="3"
@@ -72,7 +77,7 @@ const BurgerButton = ({isOpen, size = '20', color, intl}) => {
         {...lineProps}
         transition={{ease: 'easeOut', duration: 0.1}}
       />
-      <motion.line
+      <m.line
         x1="0"
         x2="6"
         y1="5"
@@ -80,7 +85,8 @@ const BurgerButton = ({isOpen, size = '20', color, intl}) => {
         variants={bottom}
         {...lineProps}
       />
-    </motion.svg>
+    </m.svg>
+    </LazyMotion>
   )
 }
 
