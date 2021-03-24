@@ -1,4 +1,4 @@
-import {getParent, getTql} from './DocsView'
+import {getParent, getTql, getFormName} from './DocsView'
 
 describe('docs-browser', () => {
   describe('components', () => {
@@ -26,30 +26,41 @@ describe('docs-browser', () => {
       })
 
       describe('getTql', () => {
-        test('should return tql if is root level and domain types are set', () => {
-          const parent = null
+        test('should return tql if domain types are given', () => {
           const domainTypes = ['public_file_repository', 'internal_file_repository']
-          expect(getTql(parent, domainTypes)).to.equal(
+          expect(getTql(domainTypes)).to.equal(
             'exists(relDomain_type where IN(unique_id, "public_file_repository","internal_file_repository"))'
           )
         })
 
-        test('should return no tql if is not root level and domain types are set', () => {
-          const parent = {
-            model: 'Docs_list_item',
-            key: 'Folder/9345'
-          }
-          const domainTypes = ['public_file_repository', 'internal_file_repository']
-          expect(getTql(parent, domainTypes)).to.equal(null)
+        test('should return no tql if no domain types are null', () => {
+          const domainTypes = null
+          expect(getTql(domainTypes)).to.equal(null)
         })
 
-        test('should return no tql if is root level and no domain types are set', () => {
-          const parent = {
-            model: 'Docs_list_item',
-            key: 'Folder/9345'
-          }
-          const domainTypes = null
-          expect(getTql(parent, domainTypes)).to.equal(null)
+        test('should return no tql if no domain types are empty', () => {
+          const domainTypes = []
+          expect(getTql(domainTypes)).to.equal(null)
+        })
+      })
+
+      describe('getFormName', () => {
+        test('should return "Docs_list_item" if parent is given', () => {
+          const parent = {}
+          const keys = null
+          expect(getFormName(parent, keys)).to.equal('Docs_list_item')
+        })
+
+        test('should return "Root_docs_list_item_specific" if keys are given', () => {
+          const parent = null
+          const keys = ['235']
+          expect(getFormName(parent, keys)).to.equal('Root_docs_list_item_specific')
+        })
+
+        test('should return "Root_docs_list_item" if neither parent and keys are given', () => {
+          const parent = null
+          const keys = null
+          expect(getFormName(parent, keys)).to.equal('Root_docs_list_item')
         })
       })
     })

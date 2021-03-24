@@ -26,15 +26,30 @@ export const getParent = match => {
   return null
 }
 
-export const getTql = (parent, domainTypes) =>
-  !parent
-  && Array.isArray(domainTypes)
+export const getTql = domainTypes =>
+  Array.isArray(domainTypes)
   && domainTypes.length > 0
     ? `exists(relDomain_type where IN(unique_id, ${domainTypes.map(type => `"${type}"`).join(',')}))`
     : null
 
+export const getFormName = (parent, keys) => parent
+  ? 'Docs_list_item'
+  : keys
+    ? 'Root_docs_list_item_specific'
+    : 'Root_docs_list_item'
+
 const DocsView = props => {
-  const {storeKey, history, match, domainTypes, navigationStrategy, onSearchChange, emitAction, openFileDialog} = props
+  const {
+    storeKey,
+    history,
+    match,
+    domainTypes,
+    rootNodes,
+    navigationStrategy,
+    onSearchChange,
+    emitAction,
+    openFileDialog
+  } = props
 
   const handleRowClick = ({id}) => {
     const [model, key] = id.split('/')
@@ -56,7 +71,9 @@ const DocsView = props => {
   }
 
   const parent = getParent(match)
-  const tql = getTql(parent, domainTypes)
+  const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
+  const tql = !parent && !keys ? getTql(domainTypes) : null
+  const formName = getFormName(parent, keys)
 
   const handleUploadDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
     const directory = false
@@ -73,7 +90,7 @@ const DocsView = props => {
       <EntityListApp
         id="documents"
         entityName="Docs_list_item"
-        formName={parent ? parent.model : 'Root_docs_list_item'}
+        formName={formName}
         limit={25}
         onRowClick={handleRowClick}
         searchFormPosition="left"
@@ -103,6 +120,7 @@ const DocsView = props => {
         }}
         navigationStrategy={navigationStrategy}
         tql={tql}
+        keys={keys}
       />
       <FileInput/>
     </>
@@ -114,7 +132,11 @@ DocsView.propTypes = {
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   navigationStrategy: PropTypes.object,
-  domainTypes: PropTypes.objectOf(PropTypes.string),
+  domainTypes: PropTypes.arrayOf(PropTypes.string),
+  rootNodes: PropTypes.arrayOf(PropTypes.shape({
+    entityName: PropTypes.string,
+    key: PropTypes.string
+  })),
   onSearchChange: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired,
   openFileDialog: PropTypes.func.isRequired

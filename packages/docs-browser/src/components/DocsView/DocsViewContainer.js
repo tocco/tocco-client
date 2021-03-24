@@ -4,7 +4,8 @@ import {injectIntl} from 'react-intl'
 import DocsView from './DocsView'
 
 const mapStateToProps = state => ({
-  domainTypes: state.input.domainTypes
+  domainTypes: state.input.domainTypes,
+  rootNodes: state.input.rootNodes
 })
 
 const mapActionCreators = {

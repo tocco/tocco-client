@@ -47,13 +47,23 @@ const initApp = (id, input, events, publicPath) => {
 
   const history = input.history || createHistory(store)
 
+  const singleRootNode = Array.isArray(input.rootNodes) && input.rootNodes.length === 1 ? input.rootNodes[0] : null
+  const startUrl = singleRootNode
+    ? `/docs/${singleRootNode.entityName.toLowerCase()}/${singleRootNode.key}/list`
+    : '/docs'
+
   const content = (
     <ReactRouter history={history}>
       <notifier.Notifier/>
       <DocsBrowser history={history}/>
       <Route exact path="/">
-        <Redirect to="/docs" />
+        <Redirect to={startUrl} />
       </Route>
+      {singleRootNode && (
+        <Route exact path="/docs">
+          <Redirect to={startUrl} />
+        </Route>
+      )}
     </ReactRouter>
   )
 
@@ -114,7 +124,11 @@ class DocsBrowserApp extends React.Component {
 DocsBrowserApp.propTypes = {
   history: PropTypes.object,
   navigationStrategy: PropTypes.object,
-  domainTypes: PropTypes.arrayOf(PropTypes.string)
+  domainTypes: PropTypes.arrayOf(PropTypes.string),
+  rootNodes: PropTypes.arrayOf(PropTypes.shape({
+    entityName: PropTypes.string,
+    key: PropTypes.string
+  }))
 }
 
 export default DocsBrowserApp
