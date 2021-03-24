@@ -120,12 +120,20 @@ export function* loadSearchFilter(entityName) {
   ))
 }
 
+export function* setSimpleForm() {
+  const formDefinition = {txtFulltext: 'fulltext-search'}
+  yield put(actions.setFormFieldsFlat(formDefinition))
+}
+
 export function* loadSearchForm() {
   const {searchFormType, formName} = yield select(entityListSelector)
   if (searchFormType === searchFormTypes.SIMPLE) {
+    yield call(setSimpleForm)
     return null
   }
+
   let formDefinition = yield call(rest.fetchForm, formName, 'search', true)
+
   if (formDefinition) {
     const {parent} = yield select(inputSelector)
     if (parent && parent.reverseRelationName) {
@@ -134,10 +142,12 @@ export function* loadSearchForm() {
 
     yield put(actions.setFormDefinition(formDefinition))
     yield put(actions.setFormFieldsFlat(getFormFieldFlat(formDefinition)))
+    return formDefinition
   } else {
     yield put(setSearchFormType(searchFormTypes.SIMPLE))
+    yield call(setSimpleForm)
+    return null
   }
-  return formDefinition
 }
 
 export function* getEntityModel() {
