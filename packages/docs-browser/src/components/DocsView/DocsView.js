@@ -1,8 +1,7 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 import PropTypes from 'prop-types'
-import EntityListApp from 'tocco-entity-list/src/main'
 import {viewPersistor} from 'tocco-util'
-import {Icon} from 'tocco-ui'
+import {Icon, LoadMask} from 'tocco-ui'
 
 import Action from '../Action'
 import FileInput from '../FileInput'
@@ -68,9 +67,12 @@ const DocsView = props => {
     openFileDialog(history.location.pathname, directory, onSuccess, onError)
   }
 
+  const LazyListApp = React.lazy(() => import('./LazyListApp'))
+
   return (
     <>
-      <EntityListApp
+     <Suspense fallback={<LoadMask/>}>
+      <LazyListApp
         id="documents"
         entityName="Docs_list_item"
         formName={parent ? parent.model : 'Root_docs_list_item'}
@@ -104,6 +106,7 @@ const DocsView = props => {
         navigationStrategy={navigationStrategy}
         tql={tql}
       />
+       </Suspense>
       <FileInput/>
     </>
   )
