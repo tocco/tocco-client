@@ -17,6 +17,7 @@ describe('entity-list', () => {
           expect(generator.next().value).to.deep.equal(all([
             takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, sagas.reloadData),
             takeLatest(actions.ON_SELECT_CHANGE, sagas.onSelectChange),
+            takeLatest(actions.CLEAR_SELECTION, sagas.clearSelection),
             takeLatest(SET_FORM_SELECTABLE, sagas.initialize)
           ]))
           expect(generator.next().done).to.be.true
@@ -49,6 +50,14 @@ describe('entity-list', () => {
 
               .put(actions.setSelection(expectedSelection))
               .put(externalEvents.fireExternalEvent('onSelectChange', expectedSelection))
+              .run()
+          })
+        })
+
+        describe('clearSelection', () => {
+          test('should clear selection an put external event', () => {
+            return expectSaga(sagas.clearSelection)
+              .put(externalEvents.fireExternalEvent('onSelectChange', []))
               .run()
           })
         })
