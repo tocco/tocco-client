@@ -37,7 +37,7 @@ const StyledLoadMask = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-
+  height: 100%;
   // Safari 10.1+ https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome
   @media not all and (min-resolution: .01dpcm) {
     @media {
