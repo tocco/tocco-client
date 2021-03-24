@@ -181,6 +181,7 @@ export function* setParent() {
     call(loadEntityModel, entityName, entityModel, true),
     call(loadFormDefinition, formDefinition, formName, true)
   ])
+  yield put(selectionActions.clearSelection())
   yield call(reloadData)
 }
 
