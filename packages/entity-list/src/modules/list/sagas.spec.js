@@ -146,6 +146,7 @@ describe('entity-list', () => {
               .put(actions.setEndpoint(endpoint))
               .put(actions.setSearchEndpoint(searchEndpoint))
               .put(actions.setConstriction(constriction))
+              .put(selectionActions.clearSelection())
               .run()
           })
         })
