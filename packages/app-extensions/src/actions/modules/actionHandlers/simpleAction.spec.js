@@ -1,7 +1,9 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {download} from 'tocco-util'
 
 import simpleAction, {validationErrorCompact, invokeRequest} from './simpleAction'
+import rest from '../../../rest'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -26,6 +28,19 @@ describe('app-extensions', () => {
                 {type: 'entity-update-event', payload: {entities: [{entityName: 'User'}], parent}}
               )
             })
+          })
+
+          test('should try downloading', async() => {
+            const definition = {}
+            const selection = {entityName: 'User'}
+            const parent = {}
+            await expectSaga(invokeRequest, definition, selection, parent)
+              .provide([
+                [matchers.call.fn(rest.requestSaga), {body: {params: {downloadUrl: 'download'}}}],
+                [matchers.call.fn(rest.requestBytesSaga), {body: new Blob(['data'])}]
+              ])
+              .call.like({fn: download.downloadReadableStream})
+              .run()
           })
 
           describe('validationErrorCompact', () => {

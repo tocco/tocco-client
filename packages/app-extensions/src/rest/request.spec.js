@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock'
 
-import {sendRequest} from './request'
+import {sendRequest, sendByteRequest} from './request'
 import InformationError from './InformationError'
 
 describe('app-extensions', () => {
@@ -114,6 +114,27 @@ describe('app-extensions', () => {
           expect(e).to.be.instanceof(InformationError)
           expect(e.message).to.eql('message')
         }
+      })
+    })
+
+    describe('sendByteRequest', () => {
+      test('should call fetch and return response with blob', async() => {
+        fetchMock.post(
+          new RegExp('.*'),
+          'some data'
+        )
+
+        const url = '/bytes'
+        const options = {method: 'POST'}
+        const acceptedErrorCodes = []
+        const acceptedStatusCodes = []
+
+        const result = await sendByteRequest(url, options, acceptedErrorCodes, acceptedStatusCodes)
+
+        expect(result.ok).to.be.true
+        expect(result.status).to.eql(200)
+        const blobData = await result.body.text()
+        expect(blobData).to.eql('some data')
       })
     })
   })

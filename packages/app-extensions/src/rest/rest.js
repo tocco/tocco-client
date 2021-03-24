@@ -1,7 +1,7 @@
 import {call, put} from 'redux-saga/effects'
 import {v4 as uuid} from 'uuid'
 
-import {sendRequest} from './request'
+import {sendRequest, sendByteRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
 import InformationError from './InformationError'
 import notifier from '../notifier'
@@ -68,6 +68,22 @@ export function* requestSaga(resource, options = {}) {
     )
     response = yield call(handleClientQuestion, response, requestData, options)
     return response
+  } catch (error) {
+    yield runInformationErrorFallback(error)
+    return {}
+  }
+}
+
+export function* requestBytesSaga(resource, options = {}) {
+  const requestData = yield call(prepareRequest, resource, options)
+  try {
+    return yield call(
+      sendByteRequest,
+      requestData.url,
+      requestData.options,
+      options.acceptedErrorCodes,
+      options.acceptedStatusCodes
+    )
   } catch (error) {
     yield runInformationErrorFallback(error)
     return {}

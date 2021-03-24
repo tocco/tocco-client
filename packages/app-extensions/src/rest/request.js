@@ -30,6 +30,19 @@ const extractBody = response => {
     })
 }
 
+const extractBlobBody = response => {
+  const {ok, headers, status, statusText} = response
+  const filteredResponse = {ok, headers, status, statusText}
+  if (status === 204) {
+    return {...filteredResponse, body: null}
+  }
+  return response.blob()
+    .then(body => ({...filteredResponse, body}))
+    .catch(() => {
+      return {...filteredResponse, body: null}
+    })
+}
+
 export function sendRequest(url, options, acceptedErrorCodes = [], acceptedStatusCodes = []) {
   if (options.headers
     && options.headers.has('X-Client-Questions')
@@ -39,5 +52,11 @@ export function sendRequest(url, options, acceptedErrorCodes = [], acceptedStatu
 
   return fetch(url, options)
     .then(response => (extractBody(response)))
+    .then(response => (handleError(response, acceptedErrorCodes, acceptedStatusCodes)))
+}
+
+export function sendByteRequest(url, options, acceptedErrorCodes, acceptedStatusCodes) {
+  return fetch(url, options)
+    .then(response => (extractBlobBody(response)))
     .then(response => (handleError(response, acceptedErrorCodes, acceptedStatusCodes)))
 }
