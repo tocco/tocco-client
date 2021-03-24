@@ -15,6 +15,7 @@ export default function* sagas() {
   yield all([
     takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, reloadData),
     takeLatest(actions.ON_SELECT_CHANGE, onSelectChange),
+    takeLatest(actions.CLEAR_SELECTION, clearSelection),
     takeLatest(SET_FORM_SELECTABLE, initialize)
   ])
 }
@@ -29,6 +30,10 @@ export function* onSelectChange({payload: {keys, isSelected}}) {
 
   yield put(actions.setSelection(newSelection))
   yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))
+}
+
+export function* clearSelection() {
+  yield put(externalEvents.fireExternalEvent('onSelectChange', []))
 }
 
 export function* reloadData() {
