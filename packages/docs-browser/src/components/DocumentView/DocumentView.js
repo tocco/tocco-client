@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 import PropTypes from 'prop-types'
-import EntityDetailApp from 'tocco-entity-detail/src/main'
+import {LoadMask} from 'tocco-ui'
 
 import Action from '../Action/'
 
@@ -12,8 +12,11 @@ const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy
     history.push(lastListUrl)
   }
 
+  const LazyDetailApp = React.lazy(() => import('./LazyDetailApp'))
+
   return (
-    <EntityDetailApp
+    <Suspense fallback={<LoadMask/>}>
+    <LazyDetailApp
       entityName="Resource"
       entityId={match.params.key}
       formName={formName || 'DmsResource'}
@@ -23,6 +26,7 @@ const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy
       emitAction={emitAction}
       onEntityDeleted={handleEntityDeleted}
     />
+    </Suspense>
   )
 }
 
