@@ -203,7 +203,17 @@ describe('entity-list', () => {
                 [select(sagas.entityListSelector), {searchFormType: 'basic'}]
               ])
               .not.put(actions.setFormDefinition(formDefinition))
+              .call(sagas.setSimpleForm)
               .put(setSearchFormType('simple'))
+              .run()
+          })
+
+          test('should set simple form if type is simple', () => {
+            return expectSaga(sagas.loadSearchForm)
+              .provide([
+                [select(sagas.entityListSelector), {searchFormType: 'simple'}]
+              ])
+              .call(sagas.setSimpleForm)
               .run()
           })
         })
@@ -217,6 +227,14 @@ describe('entity-list', () => {
               ])
               .dispatch(setInitialized())
               .returns(entityModel)
+              .run()
+          })
+        })
+
+        describe('setSimpleForm saga', () => {
+          test('should set simple form fields', () => {
+            return expectSaga(sagas.setSimpleForm)
+              .put.like({action: {type: actions.SET_FORM_FIELDS_FLAT}})
               .run()
           })
         })
