@@ -5,7 +5,7 @@ import {Prompt} from 'react-router'
 import {intlShape} from 'react-intl'
 import queryString from 'query-string'
 import styled from 'styled-components'
-import {StyledScrollbar, theme, scale} from 'tocco-ui'
+import {theme, scale} from 'tocco-ui'
 
 import {goBack} from '../../../../utils/routing'
 import Action from '../Action'
@@ -15,11 +15,9 @@ import navigationStrategy from '../../utils/navigationStrategy'
 export const StyledEntityDetailAppWrapper = styled.div`
   margin: 0;
   background-color: ${theme.color('paper')};
-  padding: 0 ${scale.space(-0.5)} 0 ${scale.space(0)};
-  overflow-y: auto;
-  overflow-x: hidden;
+  padding: 0 0 0 ${scale.space(0)};
+  overflow: hidden;
   height: 100%;
-  ${StyledScrollbar}
 `
 
 const EditView = props => {

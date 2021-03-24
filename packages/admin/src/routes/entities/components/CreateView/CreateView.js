@@ -5,7 +5,7 @@ import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import styled from 'styled-components'
-import {theme, StyledScrollbar, scale} from 'tocco-ui'
+import {theme, scale} from 'tocco-ui'
 
 import {currentViewPropType} from '../../utils/propTypes'
 import navigationStrategy from '../../utils/navigationStrategy'
@@ -13,11 +13,9 @@ import navigationStrategy from '../../utils/navigationStrategy'
 const StyledEntityDetailAppWrapper = styled.div`
   margin: 0;
   background-color: ${theme.color('paper')};
-  padding: 0 ${scale.space(-0.5)} 0 ${scale.space(0)};
-  overflow-y: auto;
-  overflow-x: hidden;
+  padding: 0 0 0 ${scale.space(0)};
+  overflow: hidden;
   height: 100%;
-  ${StyledScrollbar}
 `
 
 const CreateView = props => {
