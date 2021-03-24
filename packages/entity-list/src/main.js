@@ -160,6 +160,7 @@ EntityListApp.propTypes = {
     })
   ),
   tql: PropTypes.string,
+  keys: PropTypes.arrayOf(PropTypes.string),
   disableSimpleSearch: PropTypes.bool,
   simpleSearchFields: PropTypes.string,
   onSelectChange: PropTypes.func,

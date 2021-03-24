@@ -642,7 +642,11 @@ describe('entity-list', () => {
 
         describe('getBasicQuery', () => {
           test('should return an object with correct attributes', () => {
-            const input = {searchFilters: ['filter1', 'filter2'], tql: 'foo == "bar"'}
+            const input = {
+              searchFilters: ['filter1', 'filter2'],
+              tql: 'foo == "bar"',
+              keys: ['235', '18', '120']
+            }
             const searchForm = {
               formFieldsFlat: {
                 relGender: 'single-remote-field'
@@ -661,6 +665,7 @@ describe('entity-list', () => {
             const expectedResult = {
               filter: ['filter1', 'filter2', 'filter3'],
               where: '(foo == "bar") and (relParent.pk == 1 and relGender.pk == 3 and txtFulltext ~= "full")',
+              keys: ['235', '18', '120'],
               hasUserChanges: true
             }
 

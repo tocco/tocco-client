@@ -103,7 +103,7 @@ export function* loadData(page) {
 }
 
 export function* getBasicQuery(regardSelection = true) {
-  const {searchFilters: inputSearchFilters, tql: inputTql} = yield select(inputSelector)
+  const {searchFilters: inputSearchFilters, tql: inputTql, keys: inputKeys} = yield select(inputSelector)
 
   const {showSelectedRecords, selection} = yield select(selectionSelector)
   if (regardSelection && showSelectedRecords) {
@@ -131,6 +131,7 @@ export function* getBasicQuery(regardSelection = true) {
     ...(filter && filter.length > 0 ? {filter} : {}),
     ...(where ? {where} : {}),
     ...(list.constriction && {constriction: list.constriction}),
+    ...(inputKeys ? {keys: inputKeys} : {}),
     hasUserChanges
   }
 }
