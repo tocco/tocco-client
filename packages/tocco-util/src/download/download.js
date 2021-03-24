@@ -13,6 +13,22 @@ export const downloadUrl = (url, fileName) => {
   }
 }
 
+export const downloadReadableStream = (readableStream, fileName) => {
+  const a = document.createElement('a')
+  const url = URL.createObjectURL(readableStream)
+  a.href = url
+  a.download = fileName
+  a.target = '_blank'
+  document.body.appendChild(a)
+  a.click()
+  if (window.URL.revokeObjectURL) {
+    window.URL.revokeObjectURL(url)
+  }
+  if (a.remove) {
+    a.remove()
+  }
+}
+
 export const openUrl = url => {
   const a = document.createElement('a')
   a.href = url
