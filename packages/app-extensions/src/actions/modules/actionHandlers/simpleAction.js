@@ -1,4 +1,5 @@
 import {put, call} from 'redux-saga/effects'
+import {download} from 'tocco-util'
 
 import errorLogging from '../../../errorLogging'
 import rest from '../../../rest'
@@ -46,6 +47,18 @@ export function* invokeRequest(definition, selection, parent, params) {
         notifier.info('error', 'client.component.actions.validationError', validationErrorCompact(response.body.errors),
           'exclamation')
       )
+    } else if (response.body && response.body.params.downloadUrl) {
+      const fileResponse = yield call(rest.requestBytesSaga, response.body.params.downloadUrl, {
+        method: 'POST',
+        body: {
+          entity: selection.entityName,
+          selection,
+          parent,
+          ...params,
+          formProperties: definition.properties
+        }
+      })
+      yield call(download.downloadReadableStream, fileResponse.body, response.body.params.filename)
     } else {
       const success = response.body.success === true
       const type = success ? 'success' : 'warning'

@@ -1,5 +1,6 @@
 import {
   requestSaga,
+  requestBytesSaga,
   setNullBusinessUnit,
   simpleRequest
 } from './rest'
@@ -31,6 +32,7 @@ import InformationError from './InformationError'
 
 export default {
   requestSaga,
+  requestBytesSaga,
   setNullBusinessUnit,
   simpleRequest,
   ClientQuestionCancelledException,
