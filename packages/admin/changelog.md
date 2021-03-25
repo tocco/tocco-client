@@ -1,3 +1,27 @@
+0.3.37
+- Introduce onResize external event
+- Reset label spacing inside column picker for old client
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- No list refresh after selection clear
+- New input param `domainTypes` to filter domains
+- Hide list navigation arrow if row is not clickable
+- Fix long term caching
+- Adjust label margin in input fields
+- Support sorting by search filters and preferences
+- Reload sources after deployment
+- Clear selection if parent is set
+- Dispatch actions if store already exists
+- Support selection of type query
+- Fix fulltext search form
+- Restrict max width of popover to 400px
+- Reference text ressources for aria-labels for improved localization
+- Increase contrast of theme colors to ensure WCAG 2.0 standards
+- Change spacing/hover colors inside table and adjust scrollbar width
+- Change notifier style to a solid variant to increase contrast/visibility
+- Change popover style to solid for increased contrast
+- Adjust text shade colors to a lighter variant
+
 0.4.29
 - Introduce onResize external event
 - Reset label spacing inside column picker for old client
@@ -5,8 +29,8 @@
 - Add aria-labels to improve accessibility
 - No list refresh after selection clear
 - New input param `domainTypes` to filter domains
-- hide list navigation arrow if row is not clickable
-- fix long term caching
+- Hide list navigation arrow if row is not clickable
+- Fix long term caching
 
 0.4.28
 - Introduce onResize external event
