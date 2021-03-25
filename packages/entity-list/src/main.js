@@ -3,7 +3,7 @@ import React from 'react'
 import {reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 import {
   appFactory,
-  notifier,
+  notification,
   errorLogging,
   actionEmitter,
   externalEvents,
@@ -54,7 +54,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     externalEvents.addToStore(store, events)
     actionEmitter.addToStore(store, events.emitAction)
     errorLogging.addToStore(store, false)
-    notifier.addToStore(store, false)
+    notification.addToStore(store, false)
     actions.addToStore(store, {
       formApp: SimpleFormApp,
       listApp: EntityListApp,

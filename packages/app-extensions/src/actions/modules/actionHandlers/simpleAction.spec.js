@@ -9,7 +9,7 @@ describe('app-extensions', () => {
       describe('actionHandler', () => {
         describe('simpleAction', () => {
           describe('simpleAction', () => {
-            test('should call notifier and return an remote event', async() => {
+            test('should call notification and return an remote event', async() => {
               const definition = {}
               const selection = {entityName: 'User'}
               const parent = {}
@@ -17,9 +17,8 @@ describe('app-extensions', () => {
                 .provide([
                   [matchers.call.fn(invokeRequest), {success: true}]
                 ])
-                .put.actionType('notifier/BLOCKING_INFO')
+                .put.actionType('notification/BLOCKING_INFO')
                 .run()
-
               expect(returnValue.success).to.be.true
               expect(returnValue.remoteEvents).to.have.length(1)
               expect(returnValue.remoteEvents[0]).to.eql(

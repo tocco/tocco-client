@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom'
 import {reducer as reducerUtil} from 'tocco-util'
 import {
   appFactory,
-  notifier,
+  notification,
   errorLogging,
   actionEmitter,
   externalEvents,
-  keyDown,
-  notification
+  keyDown
 } from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
@@ -35,10 +34,9 @@ const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
-  errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
-  notifier.addToStore(store, true)
+  errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
+  notification.addToStore(store, true)
   keyDown.addToStore(store, shortcuts)
-  notification.addToStore(store)
 
   return appFactory.createApp(
     packageName,

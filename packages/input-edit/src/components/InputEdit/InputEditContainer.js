@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {notifier} from 'tocco-app-extensions'
+import {notification} from 'tocco-app-extensions'
 
 import InputEdit from './InputEdit'
 import {initializeTable} from '../../modules/inputEditTable/actions'
@@ -12,7 +12,7 @@ const mapActionCreators = {
   initializeTable,
   initializeSearch,
   initializeInformation,
-  notify: notifier.info
+  notify: notification.toaster
 }
 
 const mapStateToProps = state => ({

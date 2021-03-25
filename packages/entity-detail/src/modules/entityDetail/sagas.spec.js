@@ -150,13 +150,13 @@ describe('entity-detail', () => {
               .put(formActions.stopSubmit(FORM_ID))
               .put.like({
                 action: {
-                  type: 'notifier/INFO',
+                  type: 'notification/TOASTER',
                   payload: {
-                    type: 'info',
-                    title: 'client.entity-detail.saveAbortedTitle',
-                    message: 'error',
-                    icon: null,
-                    timeOut: 5000
+                    toaster: {
+                      type: 'info',
+                      title: 'client.entity-detail.saveAbortedTitle',
+                      body: 'error'
+                    }
                   }
                 }
               })

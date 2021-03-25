@@ -5,7 +5,7 @@ import {createBrowserHistory} from 'history'
 import {BurgerButton, LoadMask} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import {withTheme} from 'styled-components'
-import {notifier} from 'tocco-app-extensions'
+import {notification} from 'tocco-app-extensions'
 import {viewPersistor} from 'tocco-util'
 
 import Navigation from '../Navigation'
@@ -65,7 +65,7 @@ const Admin = ({
 
   return <LoadMask required={[history !== null]}>
     <Router history={history || {}}>
-      <notifier.Notifier/>
+      <notification.Notifications/>
       <StyledWrapper id="outer-container">
         <Header/>
         <StyledMenu

@@ -6,7 +6,7 @@ import {
   actionEmitter,
   errorLogging,
   externalEvents,
-  notifier
+  notification
 } from 'tocco-app-extensions'
 import createHashHistory from 'history/createHashHistory'
 import {Router as ReactRouter, Route, Redirect} from 'react-router'
@@ -25,7 +25,7 @@ const createHistory = store => createHashHistory({
     const okText = textResourceSelector(state, 'client.common.ok')
     const cancelText = textResourceSelector(state, 'client.common.cancel')
 
-    const action = notifier.confirm(
+    const action = notification.confirm(
       '',
       message,
       okText,
@@ -42,8 +42,8 @@ const initApp = (id, input, events, publicPath) => {
 
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
-  errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
-  notifier.addToStore(store, true)
+  errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
+  notification.addToStore(store, true)
 
   const history = input.history || createHistory(store)
 
@@ -54,7 +54,7 @@ const initApp = (id, input, events, publicPath) => {
 
   const content = (
     <ReactRouter history={history}>
-      <notifier.Notifier/>
+      <notification.Notifications/>
       <DocsBrowser history={history}/>
       <Route exact path="/">
         <Redirect to={startUrl} />

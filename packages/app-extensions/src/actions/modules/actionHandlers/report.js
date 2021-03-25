@@ -6,7 +6,7 @@ import {call, put, take} from 'redux-saga/effects'
 
 import {submitActions} from '../../utils/report'
 import rest from '../../../rest'
-import notifier from '../../../notifier'
+import notification from '../../../notification'
 import ReportSettings from '../../components/ReportSettings'
 
 export default function* (actionDefinition, selection, parent, params, config) {
@@ -32,7 +32,7 @@ export function* displayReportSettings(actionDefinition, selection, answerChanne
   })
   const settingsModalId = yield call(uuid)
 
-  yield put(notifier.modalComponent(
+  yield put(notification.modal(
     settingsModalId,
     settingsDefinition.description.name,
     null,
@@ -91,13 +91,13 @@ export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId,
 }
 
 export function* handleReportGenerations(settingsModalId, generationsResponse, submitAction) {
-  yield put(notifier.removeModalComponent(settingsModalId))
+  yield put(notification.removeModal(settingsModalId))
   const pollingUrl = generationsResponse.headers.get('Location')
   const blockingInfoId = yield call(uuid)
-  yield put(notifier.blockingInfo(blockingInfoId, 'client.common.report.inProgress', null, 'file-pdf'))
+  yield put(notification.blockingInfo(blockingInfoId, 'client.common.report.inProgress', null, 'file-pdf'))
 
   const completed = yield call(sagaUtil.checkStatusLoop, rest.requestSaga, pollingUrl, 'in_progress')
-  yield put(notifier.removeBlockingInfo(blockingInfoId))
+  yield put(notification.removeBlockingInfo(blockingInfoId))
   if (completed.body.status === 'completed') {
     yield call(handleSuccessfulReport, completed, submitAction)
   } else {
@@ -120,15 +120,15 @@ export function* handleSuccessfulReport(completed, submitAction) {
     yield call(download.openUrl, binaryLink)
   }
 
-  yield put(notifier.info('success', 'client.common.report.successful', null, null, 3000))
+  yield put(notification.toaster({type: 'success', title: 'client.common.report.successful'}))
 }
 
 export function* handleFailedReport() {
-  yield put(notifier.info('error', 'client.common.report.failed', null))
+  yield put(notification.toaster({type: 'error', title: 'client.common.report.failed'}))
 }
 
 export function* handleFailedGenerationsRequest(modalId, generationsResponse) {
   const title = 'client.common.report.failedGenerationTitle'
-  const message = generationsResponse.body.message || 'client.common.report.failedGenerationMessage'
-  yield put(notifier.info('warning', title, message))
+  const body = generationsResponse.body.message || 'client.common.report.failedGenerationMessage'
+  yield put(notification.toaster({type: 'warning', title, body}))
 }

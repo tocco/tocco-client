@@ -5,7 +5,7 @@ import {Provider} from 'react-redux'
 import {Button} from 'tocco-ui'
 
 import Readme from './README.md'
-import notifier from '../notifier'
+import notification from '../notification'
 import appFactory from '../appFactory'
 import errorLogging from './'
 
@@ -13,8 +13,8 @@ class Story extends React.Component {
   constructor(props) {
     super(props)
     this.store = appFactory.createStore({}, undefined, {}, 'errorLogging')
-    errorLogging.addToStore(this.store, true, ['console', 'remote', 'notifier'])
-    notifier.addToStore(this.store, true)
+    errorLogging.addToStore(this.store, true, ['console', 'remote', 'notification'])
+    notification.addToStore(this.store, true)
   }
 
   logError = () => {
@@ -25,7 +25,7 @@ class Story extends React.Component {
     return (
       <Provider store={this.store}>
         <div>
-          <notifier.Notifier/>
+          <notification.Notifications/>
           <Button
             label="Log Error"
             look="raised"

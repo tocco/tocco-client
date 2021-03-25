@@ -3,7 +3,7 @@ import {v4 as uuid} from 'uuid'
 import {all, call, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
-import notifier from './../../notifier'
+import notification from './../../notification'
 import rest from '../../rest'
 import * as advancedSearchActions from './actions'
 import * as valueActions from '../values/actions'
@@ -45,7 +45,7 @@ export function* openAdvancedSearch(config, {payload}) {
     fieldId,
     multi)
 
-  yield put(notifier.modalComponent(modalId, `${label}: ${advancedSearchTitle}`, null, advancedSearchComponent, true))
+  yield put(notification.modal(modalId, `${label}: ${advancedSearchTitle}`, null, advancedSearchComponent, true))
   yield spawn(closeAdvancedSearch, answerChannel, modalId, fieldId, formName, entity, multi)
 }
 
@@ -72,11 +72,11 @@ export function* closeAdvancedSearch(answerChannel, modalId, fieldId, formName, 
         yield call(advancedSearchUpdate, formName, fieldId, [])
       }
       if (!multi) {
-        yield put(notifier.removeModalComponent(modalId))
+        yield put(notification.removeModal(modalId))
         modalOpen = false
       }
     } else if (type === advancedSearchActions.ADVANCED_SEARCH_CLOSE) {
-      yield put(notifier.removeModalComponent(modalId))
+      yield put(notification.removeModal(modalId))
       modalOpen = false
     }
   }

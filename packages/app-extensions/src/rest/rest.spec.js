@@ -13,7 +13,7 @@ import {
 } from './rest'
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
-import {INFO} from '../notifier/modules/actions'
+import {toaster} from '../notification/modules/toaster/actions'
 import InformationError from './InformationError'
 
 describe('app-extensions', () => {
@@ -251,18 +251,11 @@ describe('app-extensions', () => {
             [matchers.call.fn(prepareRequest), {}],
             [matchers.call.fn(sendRequest), throwError(error)]
           ])
-          .put.like({
-            action: {
-              type: INFO,
-              payload: {
-                type: 'info',
-                title: 'client.common.information',
-                message: 'message',
-                icon: null,
-                timeOut: 5000
-              }
-            }
-          })
+          .put(toaster({
+            type: 'info',
+            title: 'client.common.information',
+            body: 'message'
+          }))
           .run()
       })
     })

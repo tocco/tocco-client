@@ -187,7 +187,7 @@ describe('entity-list', () => {
               ])
               .put.like({
                 action: {
-                  type: 'notifier/MODAL_COMPONENT',
+                  type: 'notification/MODAL',
                   payload: {
                     id: 'Some_list-column-selection',
                     title: 'client.entity-list.preferences.columns',
