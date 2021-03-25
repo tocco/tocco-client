@@ -8,7 +8,7 @@ import {
 } from 'redux-form'
 import {SubmissionError} from 'redux-form/es/SubmissionError'
 import * as formActionTypes from 'redux-form/es/actionTypes'
-import {externalEvents, notifier, errorLogging, form, rest, remoteEvents}
+import {externalEvents, notification, errorLogging, form, rest, remoteEvents}
   from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
@@ -150,7 +150,7 @@ export function* handleSubmitError(error) {
       ? validationErrors.join('<br>')
       : 'client.entity-detail.saveAbortedMessage')
 
-    yield put(notifier.info(
+    yield put(notification.toaster(
       'warning',
       'client.entity-detail.saveAbortedTitle',
       message,
@@ -158,13 +158,11 @@ export function* handleSubmitError(error) {
       5000
     ))
   } else if (error instanceof rest.InformationError) {
-    yield put(notifier.info(
-      'info',
-      'client.entity-detail.saveAbortedTitle',
-      error.message,
-      null,
-      5000
-    ))
+    yield put(notification.toaster({
+      type: 'info',
+      title: 'client.entity-detail.saveAbortedTitle',
+      body: error.message
+    }))
     yield put(formActions.stopSubmit(FORM_ID))
   } else if (error instanceof rest.ClientQuestionCancelledException) {
     yield put(formActions.stopSubmit(FORM_ID))
@@ -266,13 +264,12 @@ export function* fireTouched({payload}) {
   }
 }
 
-export function* showNotification(type, titleResourceName, messageResourceName, duration = 2000) {
-  yield put(notifier.info(
+export function* showNotification(type, titleResourceName, messageResourceName) {
+  yield put(notification.toaster({
     type,
-    `client.entity-detail.${titleResourceName}`,
-    `client.entity-detail.${messageResourceName}`,
-    null,
-    duration
+    title: `client.entity-detail.${titleResourceName}`,
+    body: `client.entity-detail.${messageResourceName}`
+  }
   ))
 }
 

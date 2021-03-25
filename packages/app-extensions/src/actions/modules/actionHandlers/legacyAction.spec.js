@@ -2,7 +2,7 @@ import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {channel} from 'redux-saga'
 import {call, spawn, select} from 'redux-saga/effects'
 
-import notifier from '../../../notifier'
+import newNotification from '../../../notification'
 import * as legacyAction from './legacyAction'
 import rest from '../../../rest'
 
@@ -135,7 +135,7 @@ describe('app-extensions', () => {
                 message: 'Die Aktion wurde ausgeführt'
               }
               return expectSaga(legacyAction.handleNotification, notification)
-                .put(notifier.info('info', null, 'Die Aktion wurde ausgeführt'))
+                .put(newNotification.toaster({type: 'info', title: 'Die Aktion wurde ausgeführt'}))
                 .run()
             })
 
@@ -145,7 +145,7 @@ describe('app-extensions', () => {
                 message: 'Die Aktion ist fehlgeschlagen'
               }
               return expectSaga(legacyAction.handleNotification, notification)
-                .put(notifier.info('error', null, 'Die Aktion ist fehlgeschlagen'))
+                .put(newNotification.toaster({type: 'error', title: 'Die Aktion ist fehlgeschlagen'}))
                 .run()
             })
 

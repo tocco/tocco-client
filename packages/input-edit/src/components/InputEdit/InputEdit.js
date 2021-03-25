@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {actions, notifier} from 'tocco-app-extensions'
+import {actions, notification} from 'tocco-app-extensions'
 import {selection as selectionPropType} from 'tocco-util'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
@@ -34,7 +34,7 @@ const InputEdit = ({
   }, [selection])
 
   return <>
-    {handleNotifications && <notifier.Notifier/>}
+    {handleNotifications && <notification.Notifications/>}
     <StyledPaneWrapper>
       <StyledPanelWrapperLeft>
         <StyledLeftPane>

@@ -1,7 +1,7 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {select, call, takeEvery} from 'redux-saga/effects'
-import {rest, notifier} from 'tocco-app-extensions'
+import {rest, notification} from 'tocco-app-extensions'
 import {v4 as uuid} from 'uuid'
 
 import * as sagas from './sagas'
@@ -54,8 +54,10 @@ describe('admin', () => {
                     [call(sagas.createDocuments, location, files), response],
                     [select(sagas.textResourceSelector, 'client.docs-browser.uploadSuccessful'), 'upload successful']
                   ])
-                  .put(notifier.blockingInfo('my-random-uuid', 'client.docs-browser.uploadInProgressMultiple', null))
-                  .put(notifier.removeBlockingInfo('my-random-uuid'))
+                  .put(notification.blockingInfo(
+                    'my-random-uuid', 'client.docs-browser.uploadInProgressMultiple', null
+                  ))
+                  .put(notification.removeBlockingInfo('my-random-uuid'))
                   .run()
                   .then(() => {
                     expect(onSuccess.mock.calls.length).to.eql(1)

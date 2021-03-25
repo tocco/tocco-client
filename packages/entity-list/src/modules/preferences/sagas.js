@@ -1,4 +1,4 @@
-import {rest, notifier} from 'tocco-app-extensions'
+import {rest, notification} from 'tocco-app-extensions'
 import {all, call, put, select, take, takeLatest} from 'redux-saga/effects'
 import React from 'react'
 import {channel} from 'redux-saga'
@@ -96,7 +96,7 @@ export function* displayColumnModal() {
   const formColumns = getTableColumns(formDefinition, preferencesColumns, parent)
 
   const answerChannel = yield call(channel)
-  yield put(notifier.modalComponent(
+  yield put(notification.modal(
     `${formDefinition.id}-column-selection`,
     'client.entity-list.preferences.columns',
     null,

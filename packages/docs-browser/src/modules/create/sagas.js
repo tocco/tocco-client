@@ -1,5 +1,5 @@
 import {all, takeEvery, call, put, select} from 'redux-saga/effects'
-import {rest, notifier} from 'tocco-app-extensions'
+import {rest, notification} from 'tocco-app-extensions'
 import {consoleLogger} from 'tocco-util'
 import {v4 as uuid} from 'uuid'
 
@@ -13,7 +13,7 @@ const CREATED_STATUS = 201
 
 export function* handleFilesSelected({payload: {files, isDirectory}}) {
   const blockingInfoId = yield call(uuid)
-  yield put(notifier.blockingInfo(
+  yield put(notification.blockingInfo(
     blockingInfoId,
     isDirectory
       ? 'client.docs-browser.uploadInProgressDirectory'
@@ -40,7 +40,7 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
       }
     }]
 
-    yield put(notifier.removeBlockingInfo(blockingInfoId))
+    yield put(notification.removeBlockingInfo(blockingInfoId))
 
     const msgId = isDirectory ? 'client.docs-browser.uploadSuccessfulDirectory' : 'client.docs-browser.uploadSuccessful'
     onSuccess({
@@ -49,7 +49,7 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
     })
   } catch (e) {
     consoleLogger.logError('Failed to upload files', e)
-    yield put(notifier.removeBlockingInfo(blockingInfoId))
+    yield put(notification.removeBlockingInfo(blockingInfoId))
     onError({
       message: yield select(textResourceSelector, 'client.docs-browser.uploadFailed')
     })

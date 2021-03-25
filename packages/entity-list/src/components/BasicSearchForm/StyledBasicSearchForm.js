@@ -9,13 +9,6 @@ export const StyledBasicSearchForm = styled.div`
       padding-bottom: 0;
     }
   }
-
-  //restrict height only in modal
-  .tocco-notifier & {
-    max-height: 200px;
-    overflow-y: auto;
-    padding-right: .5rem;
-  }
 `
 
 export const StyledSearchFormButtons = styled.div`

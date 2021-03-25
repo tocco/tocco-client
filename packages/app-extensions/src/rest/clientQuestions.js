@@ -1,7 +1,7 @@
 import {channel} from 'redux-saga'
 import {call, put, take} from 'redux-saga/effects'
 
-import notifier from '../notifier'
+import notification from '../notification'
 import {sendRequest} from './request'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
 
@@ -61,7 +61,7 @@ export function* handleConfirmQuestion(question) {
 
   const {header, message, okText, cancelText} = question
 
-  yield put(notifier.confirm(header, message, okText, cancelText, confirm, cancel))
+  yield put(notification.confirm(header, message, okText, cancelText, confirm, cancel))
 
   return yield take(answerChannel)
 }
@@ -75,7 +75,7 @@ export function* handleYesNoQuestion(question) {
 
   const {header, message, yesText, noText, cancelText} = question
 
-  yield put(notifier.yesNoQuestion(header, message, yesText, noText, cancelText, onYes, onNo, onCancel))
+  yield put(notification.yesNoQuestion(header, message, yesText, noText, cancelText, onYes, onNo, onCancel))
 
   return yield take(answerChannel)
 }

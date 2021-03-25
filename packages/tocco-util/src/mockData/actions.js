@@ -1,6 +1,6 @@
 import consoleLogger from '../consoleLogger'
 import {sleep} from './mockData'
-
+import originId from '../originId'
 export const setupActions = (fetchMock, entityStore, webSocketServer, timeout = 2000) => {
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/actions/simpleActionForm/check*?'),
@@ -293,7 +293,7 @@ const simpleActionBackground = webSocketServer =>
     webSocketServer.emit('message', JSON.stringify({
       key: '7',
       timestamp: '2021-03-16T09:40:42.718Z',
-      originId: 'client__32bb0e2d-7153-4c3b-b8d6-e1fac091c961',
+      originId: originId.getOriginId(),
       message: 'Die Aktion wurde zur Ausführung eingeplant',
       result: '',
       type: 'Information',
@@ -313,8 +313,8 @@ const simpleActionBackground = webSocketServer =>
       webSocketServer.emit('message', JSON.stringify({
         key: '7',
         timestamp: '2021-03-16T09:40:42.718Z',
-        originId: 'client__32bb0e2d-7153-4c3b-b8d6-e1fac091c961',
-        message: 'Die Aktion wurde zur Ausführung eingeplant',
+        originId: originId.getOriginId(),
+        message: 'Die Aktion wird ausgeführt',
         result: '',
         type: 'Information',
         username: 'dkeller@tocco.ch',
@@ -330,6 +330,28 @@ const simpleActionBackground = webSocketServer =>
   
       }))
     }, 2000)
+
+    setTimeout(() => {
+      webSocketServer.emit('message', JSON.stringify({
+        key: '7',
+        timestamp: '2021-03-16T09:40:42.718Z',
+        originId: originId.getOriginId(),
+        message: 'Die Aktion ist fehlgeschlagen',
+        result: '',
+        type: 'Fehlgeschlagen',
+        username: 'dkeller@tocco.ch',
+        read: false,
+        taskProgress: {
+          key: '7',
+          taskId: '048853bc-7853-4aaa-83dd-5c6df737ff13',
+          message: 'Fehlgeschlagen',
+          status: 'Fehlgeschlagen',
+          total: 0,
+          done: 0
+        }
+  
+      }))
+    }, 4000)
 
     return {
       status: 200,

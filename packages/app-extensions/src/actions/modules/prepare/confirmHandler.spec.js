@@ -2,7 +2,7 @@ import {expectSaga} from 'redux-saga-test-plan'
 import {channel} from 'redux-saga'
 
 import confirmHandler from './confirmHandler'
-import {CONFIRM} from '../../../notifier/modules/actions'
+import {CONFIRM} from '../../../notification/modules/interactive/actions'
 
 describe('app-extensions', () => {
   describe('actions', () => {

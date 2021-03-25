@@ -3,7 +3,7 @@ import {channel} from 'redux-saga'
 import {FormattedMessage} from 'react-intl'
 import React from 'react'
 
-import notifier from '../../../notifier'
+import notification from '../../../notification'
 
 export default function* confirmHandler(preparationResponse, params, definition, selection, config) {
   if (preparationResponse.preCheck && preparationResponse.preCheck.confirmMessage) {
@@ -20,7 +20,7 @@ export function* promptConfirm(message) {
   const onCancel = () => answerChannel.put(false)
 
   yield put(
-    notifier.confirm(
+    notification.confirm(
       'client.component.actions.confirmTitle',
       <FormattedMessage id={message}/>,
       <FormattedMessage id="client.common.yes"/>,

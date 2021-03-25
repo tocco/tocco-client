@@ -1,7 +1,7 @@
 import React from 'react'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {rest, notifier} from 'tocco-app-extensions'
+import {rest, notification} from 'tocco-app-extensions'
 import {takeEvery, all, select} from 'redux-saga/effects'
 
 import * as advancedSearchActions from './actions'
@@ -41,7 +41,7 @@ describe('app-extensions', () => {
                 [matchers.spawn.fn(sagas.closeAdvancedSearch), () => {}],
                 [matchers.call.fn(rest.fetchForm), {form: {}}]
               ])
-              .put.actionType(notifier.modalComponent().type)
+              .put.actionType(notification.modal().type)
               .spawn.like(sagas.closeAdvancedSearch)
               .run()
           })
@@ -69,7 +69,7 @@ describe('app-extensions', () => {
                   }
                 }
               ])
-              .put.actionType(notifier.removeModalComponent().type)
+              .put.actionType(notification.removeModal().type)
               .run()
           })
 
@@ -96,7 +96,7 @@ describe('app-extensions', () => {
                 [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
               ])
               .call(sagas.advancedSearchUpdate, formName, fieldId, entities)
-              .put.actionType(notifier.removeModalComponent().type)
+              .put.actionType(notification.removeModal().type)
               .run()
           })
         })

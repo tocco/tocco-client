@@ -1,4 +1,5 @@
 import webpack from '@storybook/core/node_modules/webpack'
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 
 import runConfig from '../config'
 
@@ -21,7 +22,7 @@ module.exports = ({config, configType}) => {
   })
 
   config.plugins = config.plugins.filter(p => String(p.resourceRegExp) !== '/core-js/')
-
+  config.plugins.push(new CaseSensitivePathsPlugin())
   config.module.rules.push({
     test: /\.scss$/,
       use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${runConfig.env};&includePaths[]=./packages/tocco-theme/node_modules/`]  // eslint-disable-line
