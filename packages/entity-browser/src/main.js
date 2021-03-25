@@ -1,12 +1,11 @@
 import React from 'react'
 import {
   appFactory,
-  notifier,
+  notification,
   errorLogging,
   actionEmitter,
   externalEvents,
-  rest,
-  notification
+  rest
 } from 'tocco-app-extensions'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
@@ -28,7 +27,7 @@ const createHistory = (store, memoryHistory) => {
       const okText = textResourceSelector(state, 'client.common.ok')
       const cancelText = textResourceSelector(state, 'client.common.cancel')
 
-      const action = notifier.confirm(
+      const action = notification.confirm(
         '',
         message,
         okText,
@@ -63,10 +62,10 @@ const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(undefined, undefined, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
-  errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
-  notifier.addToStore(store, true)
+  errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
+  notification.addToStore(store, true)
 
-  notification.addToStore(store)
+  notification.addToStore(store, true)
   const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)
 

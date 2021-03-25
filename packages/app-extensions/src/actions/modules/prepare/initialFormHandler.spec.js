@@ -2,7 +2,7 @@ import {expectSaga} from 'redux-saga-test-plan'
 import {channel} from 'redux-saga'
 
 import initialFormHandler from './initialFormHandler'
-import {MODAL_COMPONENT} from '../../../notifier/modules/actions'
+import {MODAL} from '../../../notification/modules/modal/actions'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -27,7 +27,7 @@ describe('app-extensions', () => {
                   return effect.fn === channel ? channelMock : next()
                 }
               }])
-              .put.like({action: {type: MODAL_COMPONENT}})
+              .put.like({action: {type: MODAL}})
               .dispatch(channelMock.put({formValues: {firstname: 'test'}}))
               .returns({
                 abort: false,
@@ -55,7 +55,7 @@ describe('app-extensions', () => {
                   return effect.fn === channel ? channelMock : next()
                 }
               }])
-              .put.like({action: {type: MODAL_COMPONENT}})
+              .put.like({action: {type: MODAL}})
               .dispatch(channelMock.put({formValues: null}))
               .returns({
                 abort: true,
@@ -69,7 +69,7 @@ describe('app-extensions', () => {
             const response = {initialFormValues: null}
 
             return expectSaga(initialFormHandler, response, null, null, null, {formApp: () => {}})
-              .not.put.like({action: {type: MODAL_COMPONENT}})
+              .not.put.like({action: {type: MODAL}})
               .returns({
                 abort: false
               })

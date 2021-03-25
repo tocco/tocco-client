@@ -1,10 +1,10 @@
 import {call, put} from 'redux-saga/effects'
-import {v4 as uuid} from 'uuid'
+import {originId} from 'tocco-util'
 
 import {sendRequest, sendByteRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
 import InformationError from './InformationError'
-import notifier from '../notifier'
+import notification from '../notification'
 
 export const getParameterString = params => {
   const paramString = Object.keys(params || {})
@@ -32,13 +32,11 @@ export const setNullBusinessUnit = value => {
 
 function* runInformationErrorFallback(error) {
   if (error instanceof InformationError) {
-    yield put(notifier.info(
-      'info',
-      'client.common.information',
-      error.message,
-      null,
-      5000
-    ))
+    yield put(notification.toaster({
+      type: 'info',
+      title: 'client.common.information',
+      body: error.message
+    }))
   } else {
     throw error
   }
@@ -125,17 +123,6 @@ export const simpleRequest = (resource, options = {}) => {
   return sendRequest(requestData.url, requestData.options, options.acceptedErrorCodes, options.acceptedStatusCodes)
 }
 
-const originIdName = 'originId'
-const originIdPrefix = 'client_'
-const getOriginId = () => {
-  if (sessionStorage.getItem(originIdName)) {
-    return sessionStorage.getItem(originIdName)
-  }
-  const id = `${originIdPrefix}_${uuid()}`
-  sessionStorage.setItem(originIdName, id)
-  return id
-}
-
 function getOrCreateHeaders(optionsHeader) {
   if (optionsHeader) {
     if (optionsHeader instanceof Headers) {
@@ -181,7 +168,7 @@ export function prepareRequest(resource, options = {}) {
     headers.set('X-Business-Unit', '__n-u-l-l__')
   }
 
-  headers.set('X-Origin-Id', getOriginId())
+  headers.set('X-Origin-Id', originId.getOriginId())
 
   if (!headers.has('X-Client-Questions')) {
     headers.set('X-Client-Questions', 'true')

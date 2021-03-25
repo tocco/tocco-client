@@ -6,12 +6,16 @@ import {download, saga as sagaUtil} from 'tocco-util'
 
 import rest from '../../../rest'
 import {
-  MODAL_COMPONENT,
-  REMOVE_MODAL_COMPONENT,
+  MODAL,
+  REMOVE_MODAL
+} from '../../../notification/modules/modal/actions'
+import {
   BLOCKING_INFO,
-  REMOVE_BLOCKING_INFO,
-  INFO
-} from '../../../notifier/modules/actions'
+  REMOVE_BLOCKING_INFO
+} from '../../../notification/modules/blocking/actions'
+import {
+  TOASTER
+} from '../../../notification/modules/toaster/actions'
 import reportSaga, {
   awaitSettingsSubmit,
   displayReportSettings,
@@ -66,7 +70,7 @@ describe('app-extensions', () => {
                   [matchers.call.fn(rest.requestSaga), {body: mockData.settingsDefinition}],
                   [matchers.call.fn(uuid), id]
                 ])
-                .put.like({action: {type: MODAL_COMPONENT}})
+                .put.like({action: {type: MODAL}})
                 .returns(id)
                 .run()
             })
@@ -130,7 +134,7 @@ describe('app-extensions', () => {
                   [matchers.call(sagaUtil.checkStatusLoop, rest.requestSaga, pollUrl, 'in_progress'), reportStatusResp],
                   [matchers.call.fn(handleSuccessfulReport), undefined]
                 ])
-                .put.like({action: {type: REMOVE_MODAL_COMPONENT}})
+                .put.like({action: {type: REMOVE_MODAL}})
                 .put.like({action: {type: BLOCKING_INFO}})
                 .put.like({action: {type: REMOVE_BLOCKING_INFO}})
                 .call(handleSuccessfulReport, reportStatusResp, submitAction)
@@ -195,7 +199,7 @@ describe('app-extensions', () => {
           describe('handleFailedReport', () => {
             test('should show info', () => {
               return expectSaga(handleFailedReport)
-                .put.like({action: {type: INFO}})
+                .put.like({action: {type: TOASTER}})
                 .run()
             })
           })
@@ -209,7 +213,7 @@ describe('app-extensions', () => {
                 }
               }
               return expectSaga(handleFailedGenerationsRequest, modalId, generationsResponse)
-                .put.like({action: {type: INFO}})
+                .put.like({action: {type: TOASTER}})
                 .run()
             })
           })

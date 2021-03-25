@@ -2,7 +2,7 @@ import _isPlainObject from 'lodash/isPlainObject'
 import {channel} from 'redux-saga'
 import {call, all, put, spawn, take, select} from 'redux-saga/effects'
 
-import notifier from '../../../notifier'
+import newNotification from '../../../notification'
 import remoteEvents from '../../../remoteEvents'
 import rest from '../../../rest'
 
@@ -86,10 +86,10 @@ export function* handleNotification(notification) {
 
   switch (notification.level) {
     case 'ERROR':
-      action = notifier.info('error', null, message)
+      action = newNotification.toaster({type: 'error', title: message})
       break
     case 'INFO':
-      action = notifier.info('info', null, message)
+      action = newNotification.toaster({type: 'info', title: message})
       break
     default:
       throw new Error(`Unsupported notification level: ${notification.level}`)

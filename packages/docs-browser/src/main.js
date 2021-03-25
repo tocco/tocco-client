@@ -6,7 +6,7 @@ import {
   actionEmitter,
   errorLogging,
   externalEvents,
-  notifier
+  notification
 } from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
 import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles'
@@ -39,7 +39,7 @@ const createHistory = (store, memoryHistory) => {
       const okText = textResourceSelector(state, 'client.common.ok')
       const cancelText = textResourceSelector(state, 'client.common.cancel')
 
-      const action = notifier.confirm(
+      const action = notification.confirm(
         '',
         message,
         okText,
@@ -51,14 +51,13 @@ const createHistory = (store, memoryHistory) => {
     }
   })
 }
-
 const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
-  errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
-  notifier.addToStore(store, true)
+  errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
+  notification.addToStore(store, true)
 
   const history = input.history || createHistory(store, input.memoryHistory)
 
@@ -73,7 +72,7 @@ const initApp = (id, input, events = {}, publicPath) => {
 
   const content = (
     <ReactRouter history={history}>
-      <notifier.Notifier/>
+      <notification.Notifications/>
       <DocsBrowser history={history}/>
       <Route exact path="/">
         <Redirect to={startUrl}/>
