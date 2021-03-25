@@ -2,16 +2,23 @@ import React, {useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 
 import {Menu, Icon, Button, ButtonGroup} from '../'
-import {StyledIconButtonWrapper, StyledIconWrapper} from './StyledComponents'
+import {StyledIconButtonWrapper, StyledIconWrapper, StyledIconTypeWrapper} from './StyledComponents'
 
 /**
  *  Button with a menu that pops out on click.
  */
 const ButtonMenu = props => {
-  const {onOpen, children, onClick, buttonProps, label} = props
+  const {onOpen, children, onClick, buttonProps, label, iconType} = props
   const referenceElement = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [onOpenCalled, setOnOpenCalled] = useState(false)
+
+  const iconMap = {
+    communications: 'comments',
+    actions: 'cog-light',
+    output: 'file-export-light',
+    new: 'plus-light'
+  }
 
   const handleClick = () => {
     setMenuOpen(!menuOpen)
@@ -21,9 +28,7 @@ const ButtonMenu = props => {
     }
   }
 
-  const handleClose = () => {
-    setMenuOpen(false)
-  }
+  const handleClose = () => setMenuOpen(false)
 
   const angleIcon = menuOpen ? 'angle-up' : 'angle-down'
 
@@ -38,7 +43,16 @@ const ButtonMenu = props => {
   if (onClick) {
     return <>
       <ButtonGroup ref={referenceElement}>
-        <Button {...buttonProps || {}} onClick={onClick} label={label} data-cy={props['data-cy']}/>
+        <Button {...buttonProps || {}} onClick={onClick} data-cy={props['data-cy']}>
+          {
+            iconMap[iconType] && (
+              <StyledIconTypeWrapper>
+                <Icon icon={iconMap[iconType]}/>
+              </StyledIconTypeWrapper>
+            )
+          }
+          {label}
+        </Button>
         <StyledIconButtonWrapper icon={angleIcon} onClick={handleClick} {...buttonProps || {}} />
       </ButtonGroup>
       {menuOpen && <ThisMenu/>}
@@ -51,6 +65,13 @@ const ButtonMenu = props => {
       {...buttonProps || {}} ref={referenceElement}
       onClick={handleClick}
     >
+      {
+        iconMap[iconType] && (
+          <StyledIconTypeWrapper>
+            <Icon icon={iconMap[iconType]}/>
+          </StyledIconTypeWrapper>
+        )
+      }
       {label}
       <StyledIconWrapper>
         <Icon icon={angleIcon}/>
@@ -84,7 +105,11 @@ ButtonMenu.propTypes = {
   /**
    * cypress selector string
    */
-  'data-cy': PropTypes.string
+  'data-cy': PropTypes.string,
+  /**
+   * Icon Type to be shown on the button
+   */
+  'iconType': PropTypes.string
 }
 
 export default ButtonMenu

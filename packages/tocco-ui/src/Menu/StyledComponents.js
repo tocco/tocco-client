@@ -8,6 +8,10 @@ export const StyledIconWrapper = styled.div`
   margin-right: -3px;
 `
 
+export const StyledIconTypeWrapper = styled.div`
+  margin-right: .6rem;
+`
+
 export const StyledIconButtonWrapper = styled(Button)`
   padding-left: .9rem;
   padding-right: .9rem;
