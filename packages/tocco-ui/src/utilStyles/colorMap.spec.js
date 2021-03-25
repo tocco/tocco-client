@@ -30,11 +30,11 @@ describe('tocco-ui', () => {
       })
       test('should return shade 1 of text color', () => {
         const value = colorizeText.shade1(props)
-        expect(value).to.equal('#6e6e6e')
+        expect(value).to.equal('#7a7a7a')
       })
       test('should return shade 2 of text color', () => {
         const value = colorizeText.shade2(props)
-        expect(value).to.equal('#a1a1a1')
+        expect(value).to.equal('#adadad')
       })
     })
     describe('colorizeBorder', () => {
