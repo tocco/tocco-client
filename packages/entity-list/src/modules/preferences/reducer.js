@@ -29,9 +29,9 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  positions: null,
-  sorting: null,
-  columns: null
+  positions: {},
+  sorting: [],
+  columns: {}
 }
 
 export default function reducer(state = initialState, action) {

@@ -2,9 +2,9 @@ import reducer from './'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
-  positions: null,
-  sorting: null,
-  columns: null
+  positions: {},
+  sorting: [],
+  columns: {}
 }
 
 describe('entity-list', () => {
@@ -17,7 +17,7 @@ describe('entity-list', () => {
 
         test('should handle SET_SELECTION', () => {
           const stateBefore = {
-            positions: null
+            positions: {}
           }
           const positions = {
             firstname: 0,
