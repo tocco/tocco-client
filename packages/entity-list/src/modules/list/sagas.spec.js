@@ -138,7 +138,7 @@ describe('entity-list', () => {
                 [matchers.call.fn(getEndpoint), endpoint],
                 [matchers.call.fn(getSearchEndpoint), searchEndpoint],
                 [matchers.call.fn(getConstriction), constriction],
-                [matchers.call.fn(sagas.reloadData), {}]
+                [matchers.call.fn(sagas.loadData), {}]
               ])
               .put(actions.setEntityModel(model))
               .put(actions.setFormSelectable(selectable))

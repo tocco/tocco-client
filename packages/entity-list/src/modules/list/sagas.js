@@ -183,7 +183,7 @@ export function* setParent() {
     call(loadFormDefinition, formDefinition, formName, true)
   ])
   yield put(selectionActions.clearSelection())
-  yield call(reloadData)
+  yield call(loadData, 1)
 }
 
 export function* reloadData() {
