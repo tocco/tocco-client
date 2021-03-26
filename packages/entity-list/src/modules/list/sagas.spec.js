@@ -19,7 +19,7 @@ import {
   getConstriction
 } from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
-import {setSorting} from './sagas'
+import {setParent, setSorting} from './sagas'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
@@ -52,6 +52,7 @@ describe('entity-list', () => {
               takeLatest(selectionActions.RELOAD_DATA, sagas.loadData, 1),
               takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
               takeLatest(entityListActions.SET_PARENT, sagas.setParent),
+              takeLatest(entityListActions.SET_FORM_NAME, setParent),
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
               takeLatest(searchFormActions.SET_SEARCH_FILTERS, setSorting),
               takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, setSorting)
