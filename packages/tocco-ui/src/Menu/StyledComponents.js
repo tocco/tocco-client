@@ -16,7 +16,7 @@ export const StyledIconButtonWrapper = styled(Button)`
 export const StyledPopper = styled.div`
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
   border: 1px solid ${theme.color('secondaryLight')};
-  z-index: 1001;
+  z-index: 99999;
 `
 
 export const StyledMenuItem = styled.div`
