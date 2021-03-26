@@ -46,6 +46,7 @@ export default function* sagas() {
     takeLatest(selectionActions.RELOAD_DATA, loadData, 1),
     takeLatest(actions.ON_ROW_CLICK, onRowClick),
     takeLatest(entityListActions.SET_PARENT, setParent),
+    takeLatest(entityListActions.SET_FORM_NAME, setParent),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(searchFormActions.SET_SEARCH_FILTERS, setSorting),
     takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, setSorting)
