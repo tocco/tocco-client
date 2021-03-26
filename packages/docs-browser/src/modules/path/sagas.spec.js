@@ -24,11 +24,13 @@ describe('admin', () => {
               test('should load root breadcrumbs', () => {
                 const pathname = '/docs'
                 const breadcrumbs = [{display: 'root'}]
+                const options = {queryParams: {rootnodes: null}}
 
                 return expectSaga(sagas.loadBreadcrumbs, actions.loadBreadcrumbs(pathname))
                   .provide([
                     [select(sagas.docsPathSelector), {}],
-                    [call(rest.requestSaga, 'documents/breadcrumbs'), {
+                    [select(sagas.rootNodesSelector), null],
+                    [call(rest.requestSaga, 'documents/breadcrumbs', options), {
                       body: {breadcrumbs}
                     }]
                   ])
@@ -39,11 +41,36 @@ describe('admin', () => {
               test('should load breadcrumbs of node', () => {
                 const pathname = '/docs/folder/45/list'
                 const breadcrumbs = [{display: 'root'}, {display: 'item 1'}, {display: 'item 2'}]
+                const options = {queryParams: {rootnodes: null}}
 
                 return expectSaga(sagas.loadBreadcrumbs, actions.loadBreadcrumbs(pathname))
                   .provide([
                     [select(sagas.docsPathSelector), {}],
-                    [call(rest.requestSaga, 'documents/Folder/45/breadcrumbs'), {
+                    [select(sagas.rootNodesSelector), null],
+                    [call(rest.requestSaga, 'documents/Folder/45/breadcrumbs', options), {
+                      body: {breadcrumbs}
+                    }]
+                  ])
+                  .put(actions.setBreadcrumbs(breadcrumbs))
+                  .run()
+              })
+
+              test('should load breadcrumbs with root nodes', () => {
+                const pathname = '/docs/folder/45/list'
+                const breadcrumbs = [{display: 'root'}, {display: 'item 2'}]
+                const options = {queryParams: {rootnodes: 'Folder/25,Folder/38'}}
+
+                return expectSaga(sagas.loadBreadcrumbs, actions.loadBreadcrumbs(pathname))
+                  .provide([
+                    [select(sagas.docsPathSelector), {}],
+                    [select(sagas.rootNodesSelector), [{
+                      entityName: 'Folder',
+                      key: '25'
+                    }, {
+                      entityName: 'Folder',
+                      key: '38'
+                    }]],
+                    [call(rest.requestSaga, 'documents/Folder/45/breadcrumbs', options), {
                       body: {breadcrumbs}
                     }]
                   ])
