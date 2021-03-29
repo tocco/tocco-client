@@ -13,6 +13,13 @@ export const downloadUrl = (url, fileName) => {
   }
 }
 
+/**
+ * download a byte stream as a file with a given filename
+ * an example when to use this is an action that streams a file as a response
+ *
+ * @param readableStream the stream to download
+ * @param fileName the filename to use for the downloaded file
+ */
 export const downloadReadableStream = (readableStream, fileName) => {
   const a = document.createElement('a')
   const url = URL.createObjectURL(readableStream)
