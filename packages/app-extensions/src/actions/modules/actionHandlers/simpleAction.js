@@ -1,5 +1,5 @@
 import {put, call} from 'redux-saga/effects'
-import {download} from 'tocco-util'
+import {download, validation} from 'tocco-util'
 
 import errorLogging from '../../../errorLogging'
 import rest from '../../../rest'
@@ -43,10 +43,10 @@ export function* invokeRequest(definition, selection, parent, params) {
       acceptedErrorCodes: ['VALIDATION_FAILED']
     })
     if (response.body && response.body.errorCode === 'VALIDATION_FAILED') {
-      yield put(
-        notifier.info('error', 'client.component.actions.validationError', validationErrorCompact(response.body.errors),
-          'exclamation')
-      )
+      yield put(notifier.info('error',
+        'client.component.actions.validationError',
+        validation.getErrorCompact(response.body.errors),
+        'exclamation'))
     } else if (response.body && response.body.params.downloadUrl) {
       const fileResponse = yield call(rest.requestBytesSaga, response.body.params.downloadUrl, {
         method: 'POST',
@@ -79,19 +79,3 @@ export function* invokeRequest(definition, selection, parent, params) {
     }
   }
 }
-
-export const validationErrorCompact = errors => {
-  for (const error of errors) {
-    if (error.entityValidatorErrors) {
-      return getFirstElement(error.entityValidatorErrors)[0]
-    }
-
-    if (error.paths) {
-      return getFirstElement(getFirstElement(error.paths))[0]
-    }
-  }
-
-  return null
-}
-
-const getFirstElement = obj => Object.keys(obj).length >= 1 ? obj[Object.keys(obj)[0]] : undefined

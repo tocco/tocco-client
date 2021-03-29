@@ -2,7 +2,7 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {download} from 'tocco-util'
 
-import simpleAction, {validationErrorCompact, invokeRequest} from './simpleAction'
+import simpleAction, {invokeRequest} from './simpleAction'
 import rest from '../../../rest'
 
 describe('app-extensions', () => {
@@ -41,30 +41,6 @@ describe('app-extensions', () => {
               ])
               .call.like({fn: download.downloadReadableStream})
               .run()
-          })
-
-          describe('validationErrorCompact', () => {
-            test('should return null on empty array', () => {
-              expect(validationErrorCompact([])).to.be.null
-            })
-
-            test('should first path error', () => {
-              const msg = 'message'
-              expect(validationErrorCompact([{model: 'User', paths: {firstname: {firstname: [msg, 'message2']}}}]))
-                .to.be.eql(msg)
-            })
-
-            test('should return first validator error', () => {
-              const msg = 'message'
-              expect(validationErrorCompact([{model: 'User', entityValidatorErrors: {firstname: [msg, 'message2']}}]))
-                .to.be.eql(msg)
-            })
-
-            test('should return first validator error', () => {
-              const msg = 'message'
-              expect(validationErrorCompact([{model: 'User', entityValidatorErrors: {firstname: [msg, 'message2']}}]))
-                .to.be.eql(msg)
-            })
           })
         })
       })
