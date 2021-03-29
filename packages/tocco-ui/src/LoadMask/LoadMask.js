@@ -9,20 +9,19 @@ import StyledLoadMask, {StyledLoadingIconAndTest} from './StyledLoadMask'
  * A loadmask that can hide elements as long as promises are not resolved
  */
 const LoadMask = ({promises, required, children, loadingText}) => {
-  const [isInitialized, setIsInitialized] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
   const [isMounted, setIsMounted] = useState(true)
 
-  const requiredLoaded = required => !required.some(r => (!r))
-  const handleInitialization = () => {
-    if (isMounted && !isInitialized) {
-      setIsInitialized(true)
+  const setIsLoadedSafe = isLoaded => {
+    if (isMounted) {
+      setIsLoaded(isLoaded)
     }
   }
 
   useEffect(() => {
     if (promises) {
       Promise.all(promises).then(() => {
-        handleInitialization()
+        setIsLoadedSafe(true)
       })
     }
     return () => {
@@ -31,16 +30,14 @@ const LoadMask = ({promises, required, children, loadingText}) => {
   }, [])
 
   useEffect(() => {
-    if (!isInitialized) {
-      if (required && requiredLoaded(required)) {
-        handleInitialization()
-      }
+    if (required && Array.isArray(required)) {
+      setIsLoaded(!required.some(r => (!r)))
     }
   })
 
   return (
-    <StyledLoadMask isInitialized={isInitialized}>
-      {isInitialized
+    <StyledLoadMask>
+      {isLoaded
         ? children
         : <StyledLoadingIconAndTest>
           <LoadingSpinner key="loading-spinner" size="30px"/>
