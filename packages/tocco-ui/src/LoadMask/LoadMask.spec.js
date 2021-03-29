@@ -80,5 +80,23 @@ describe('tocco-ui', () => {
       )
       expect(wrapper.find(Typography.Span)).to.have.length(0)
     })
+
+    test('should be able to switch between loading and not loading', () => {
+      const wrapper = mount(
+        <LoadMask
+          required={[true]}
+        />
+      )
+      
+      expect(wrapper.find(LoadingSpinner)).to.have.length(0)
+
+      wrapper.setProps({required: [false]})
+      wrapper.update()
+      expect(wrapper.find(LoadingSpinner)).to.have.length(1)
+
+      wrapper.setProps({required: [true]})
+      wrapper.update()
+      expect(wrapper.find(LoadingSpinner)).to.have.length(0)
+    })
   })
 })
