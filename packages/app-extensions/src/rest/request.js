@@ -17,30 +17,33 @@ const handleError = (response, acceptedErrorCodes = [], acceptedStatusCodes = []
   return response
 }
 
-const extractBody = response => {
+/**
+ * extract the content of a response
+ *
+ * @param response the response to extract from
+ * @param extractor a function that reads the body from a response, json by default
+ * @returns an object with the content in the 'body' field and additional status fields
+ */
+const extractBody = (response, extractor = r => r.json()) => {
   const {ok, headers, status, statusText} = response
   const filteredResponse = {ok, headers, status, statusText}
   if (status === 204) {
     return {...filteredResponse, body: null}
   }
-  return response.json()
+  return extractor(response)
     .then(body => ({...filteredResponse, body}))
     .catch(exception => {
       return {...filteredResponse, body: null}
     })
 }
 
+/**
+ * reads the content of a response as a Blob
+ *
+ * @see extractBody
+ */
 const extractBlobBody = response => {
-  const {ok, headers, status, statusText} = response
-  const filteredResponse = {ok, headers, status, statusText}
-  if (status === 204) {
-    return {...filteredResponse, body: null}
-  }
-  return response.blob()
-    .then(body => ({...filteredResponse, body}))
-    .catch(() => {
-      return {...filteredResponse, body: null}
-    })
+  return extractBody(response, r => r.blob())
 }
 
 export function sendRequest(url, options, acceptedErrorCodes = [], acceptedStatusCodes = []) {
@@ -57,6 +60,6 @@ export function sendRequest(url, options, acceptedErrorCodes = [], acceptedStatu
 
 export function sendByteRequest(url, options, acceptedErrorCodes, acceptedStatusCodes) {
   return fetch(url, options)
-    .then(response => (extractBlobBody(response)))
-    .then(response => (handleError(response, acceptedErrorCodes, acceptedStatusCodes)))
+    .then(response => extractBlobBody(response))
+    .then(response => handleError(response, acceptedErrorCodes, acceptedStatusCodes))
 }

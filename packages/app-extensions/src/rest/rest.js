@@ -74,6 +74,18 @@ export function* requestSaga(resource, options = {}) {
   }
 }
 
+/**
+ * fetches e given url and returns the response as a byte stream, useful for file handling
+ *
+ * @param resource {String} The URL to fetch.
+ * @param options {Object} An object which can contain the following options:
+ * - queryParams {Object}
+ * - method {String}
+ * - body {Object}
+ * - acceptedErrorCodes {Array}
+ * - acceptedStatusCodes {Array}
+ * - backendUrl {String}
+ */
 export function* requestBytesSaga(resource, options = {}) {
   const requestData = yield call(prepareRequest, resource, options)
   try {
