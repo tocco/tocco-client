@@ -1,7 +1,9 @@
-import React, {Suspense} from 'react'
+import React, {useEffect, Suspense} from 'react'
 import PropTypes from 'prop-types'
 import {viewPersistor} from 'tocco-util'
 import {Icon, LoadMask} from 'tocco-ui'
+import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
+import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles'
 
 import Action from '../Action'
 import FileInput from '../FileInput'
@@ -37,6 +39,19 @@ export const getFormName = (parent, keys) => parent
     ? 'Root_docs_list_item_specific'
     : 'Root_docs_list_item'
 
+export const getDefaultLocation = (model, key) => {
+  switch (model) {
+    case 'Domain':
+      return `/docs/domain/${key}/list`
+    case 'Folder':
+      return `/docs/folder/${key}/list`
+    case 'Resource':
+      return `/docs/doc/${key}/detail`
+    default:
+      throw new Error(`Unexpected model: ${model}`)
+  }
+}
+
 const DocsView = props => {
   const {
     storeKey,
@@ -45,34 +60,34 @@ const DocsView = props => {
     domainTypes,
     rootNodes,
     navigationStrategy,
+    changeListParent,
     onSearchChange,
     emitAction,
-    openFileDialog
+    openFileDialog,
+    limit,
+    searchFormType,
+    selectionStyle,
+    getCustomLocation,
+    disableViewPersistor,
+    formName
   } = props
+
+  const parent = getParent(match)
+
+  useEffect(() => {
+    changeListParent(parent)
+  }, [parent])
 
   const handleRowClick = ({id}) => {
     const [model, key] = id.split('/')
-    let newLocation
-    switch (model) {
-      case 'Domain':
-        newLocation = `/docs/domain/${key}/list`
-        break
-      case 'Folder':
-        newLocation = `/docs/folder/${key}/list`
-        break
-      case 'Resource':
-        newLocation = `/docs/doc/${key}/detail`
-        break
-      default:
-        throw new Error(`Unexpected model: ${model}`)
+    const location = getCustomLocation ? getCustomLocation(model, key) : getDefaultLocation(model, key)
+    if (location) {
+      history.push(location)
     }
-    history.push(newLocation)
   }
 
-  const parent = getParent(match)
   const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
   const tql = !parent && !keys ? getTql(domainTypes) : null
-  const formName = getFormName(parent, keys)
 
   const handleUploadDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
     const directory = false
@@ -92,16 +107,18 @@ const DocsView = props => {
       <LazyListApp
         id="documents"
         entityName="Docs_list_item"
-        formName={formName}
-        limit={25}
+        formName={formName === null ? getFormName(parent, keys) : formName}
+        limit={limit || 25}
         onRowClick={handleRowClick}
         searchFormPosition="left"
-        searchFormType="admin"
+        searchFormType={searchFormType || 'admin'}
         parent={parent}
         onSearchChange={onSearchChange}
-        store={viewPersistor.viewInfoSelector(storeKey).store}
+        store={disableViewPersistor ? undefined : viewPersistor.viewInfoSelector(storeKey).store}
         onStoreCreate={store => {
-          viewPersistor.persistViewInfo(storeKey, {store})
+          if (!disableViewPersistor) {
+            viewPersistor.persistViewInfo(storeKey, {store})
+          }
         }}
         cellRenderers={{
           'dms-label-with-icon': (rowData, column, cellRenderer) => (
@@ -123,6 +140,7 @@ const DocsView = props => {
         navigationStrategy={navigationStrategy}
         tql={tql}
         keys={keys}
+        selectionStyle={selectionStyle || 'multi'}
       />
        </Suspense>
       <FileInput/>
@@ -140,9 +158,16 @@ DocsView.propTypes = {
     entityName: PropTypes.string,
     key: PropTypes.string
   })),
+  changeListParent: PropTypes.func.isRequired,
   onSearchChange: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired,
-  openFileDialog: PropTypes.func.isRequired
+  openFileDialog: PropTypes.func.isRequired,
+  limit: PropTypes.number,
+  searchFormType: searchFormTypePropTypes,
+  selectionStyle: selectionStylePropType,
+  getCustomLocation: PropTypes.func,
+  disableViewPersistor: PropTypes.bool,
+  formName: PropTypes.string
 }
 
 export default DocsView

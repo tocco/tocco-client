@@ -1,4 +1,4 @@
-import {getParent, getTql, getFormName} from './DocsView'
+import {getParent, getTql, getFormName, getDefaultLocation} from './DocsView'
 
 describe('docs-browser', () => {
   describe('components', () => {
@@ -61,6 +61,27 @@ describe('docs-browser', () => {
           const parent = null
           const keys = null
           expect(getFormName(parent, keys)).to.equal('Root_docs_list_item')
+        })
+      })
+
+      describe('getDefaultLocation', () => {
+        test('Domain', () => {
+          const key = '1'
+          expect(getDefaultLocation('Domain', key)).to.equal(`/docs/domain/${key}/list`)
+        })
+
+        test('Folder', () => {
+          const key = '1'
+          expect(getDefaultLocation('Folder', key)).to.equal(`/docs/folder/${key}/list`)
+        })
+
+        test('Resource', () => {
+          const key = '1'
+          expect(getDefaultLocation('Resource', key)).to.equal(`/docs/doc/${key}/detail`)
+        })
+
+        test('invalid model', () => {
+          expect(() => getDefaultLocation('User', '1')).to.throw('Unexpected model: User')
         })
       })
     })

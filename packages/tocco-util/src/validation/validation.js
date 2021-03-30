@@ -1,3 +1,6 @@
+/**
+ * extracts the first error message of a validation failed response object
+ */
 export const getErrorCompact = errors => {
   for (const error of errors) {
     if (error.entityValidatorErrors) {
