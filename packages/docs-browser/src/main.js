@@ -8,36 +8,51 @@ import {
   externalEvents,
   notifier
 } from 'tocco-app-extensions'
+import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
+import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles'
 import createHashHistory from 'history/createHashHistory'
+import createMemoryHistory from 'history/createMemoryHistory'
 import {Router as ReactRouter, Route, Redirect} from 'react-router'
+import _pickBy from 'lodash/pickBy'
+import _isEqual from 'lodash/isEqual'
+import _isEmpty from 'lodash/isEmpty'
 
-import reducers, {sagas} from './modules/reducers'
 import DocsBrowser from './components/DocsBrowser'
+import reducers, {sagas} from './modules/reducers'
+import {getDispatchActions} from './input'
 
 const packageName = 'docs-browser'
 
+const EXTERNAL_EVENTS = [
+  'onListParentChange'
+]
+
 const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
-const createHistory = store => createHashHistory({
-  getUserConfirmation: (message, confirmCallback) => {
-    const state = store.getState()
+const createHistory = (store, memoryHistory) => {
+  const historyFactory = memoryHistory ? createMemoryHistory : createHashHistory
 
-    const okText = textResourceSelector(state, 'client.common.ok')
-    const cancelText = textResourceSelector(state, 'client.common.cancel')
+  return historyFactory({
+    getUserConfirmation: (message, confirmCallback) => {
+      const state = store.getState()
 
-    const action = notifier.confirm(
-      '',
-      message,
-      okText,
-      cancelText,
-      () => confirmCallback(true),
-      () => confirmCallback(false)
-    )
-    store.dispatch(action)
-  }
-})
+      const okText = textResourceSelector(state, 'client.common.ok')
+      const cancelText = textResourceSelector(state, 'client.common.cancel')
 
-const initApp = (id, input, events, publicPath) => {
+      const action = notifier.confirm(
+        '',
+        message,
+        okText,
+        cancelText,
+        () => confirmCallback(true),
+        () => confirmCallback(false)
+      )
+      store.dispatch(action)
+    }
+  })
+}
+
+const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   externalEvents.addToStore(store, events)
@@ -45,7 +60,11 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
   notifier.addToStore(store, true)
 
-  const history = input.history || createHistory(store)
+  const history = input.history || createHistory(store, input.memoryHistory)
+
+  if (input.initialLocation) {
+    history.push(input.initialLocation)
+  }
 
   const singleRootNode = Array.isArray(input.rootNodes) && input.rootNodes.length === 1 ? input.rootNodes[0] : null
   const startUrl = singleRootNode
@@ -57,11 +76,11 @@ const initApp = (id, input, events, publicPath) => {
       <notifier.Notifier/>
       <DocsBrowser history={history}/>
       <Route exact path="/">
-        <Redirect to={startUrl} />
+        <Redirect to={startUrl}/>
       </Route>
       {singleRootNode && (
         <Route exact path="/docs">
-          <Redirect to={startUrl} />
+          <Redirect to={startUrl}/>
         </Route>
       )}
     </ReactRouter>
@@ -74,7 +93,7 @@ const initApp = (id, input, events, publicPath) => {
     {
       input,
       events,
-      actions: [],
+      actions: getDispatchActions(input),
       publicPath,
       textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail', packageName]
     }
@@ -113,7 +132,24 @@ const initApp = (id, input, events, publicPath) => {
 class DocsBrowserApp extends React.Component {
   constructor(props) {
     super(props)
-    this.app = initApp('id', props)
+
+    const events = EXTERNAL_EVENTS.reduce((events, event) => {
+      if (props[event]) {
+        events[event] = props[event]
+      }
+      return events
+    }, {})
+
+    this.app = initApp('docs-browser', props, events)
+  }
+
+  componentDidUpdate(prevProps) {
+    const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
+    if (!_isEmpty(changedProps)) {
+      getDispatchActions(changedProps).forEach(action => {
+        this.app.store.dispatch(action)
+      })
+    }
   }
 
   render() {
@@ -129,7 +165,19 @@ DocsBrowserApp.propTypes = {
     entityName: PropTypes.string,
     key: PropTypes.string
   })),
-  documentDetailFormName: PropTypes.string
+  initialLocation: PropTypes.string,
+  listLimit: PropTypes.number,
+  documentDetailFormName: PropTypes.string,
+  searchFormType: searchFormTypePropTypes,
+  selectionStyle: selectionStylePropType,
+  listFormName: PropTypes.string,
+  memoryHistory: PropTypes.bool,
+  disableViewPersistor: PropTypes.bool,
+  getCustomLocation: PropTypes.func,
+  ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
+    propTypes[event] = PropTypes.func
+    return propTypes
+  }, {})
 }
 
 export default DocsBrowserApp

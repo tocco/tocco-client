@@ -9,6 +9,7 @@ const actions = {
   'dms-create-folder': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/CreateFolder')),
   'dms-create-domain': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/CreateDomain')),
   'dms-edit': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/Edit')),
+  'dms-move': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/MoveContainer')),
   'delete': lazy(() => import(/* webpackChunkName: "docs-actions" */'./actions/Delete'))
 }
 
