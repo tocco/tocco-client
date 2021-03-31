@@ -5,7 +5,16 @@ source ./scripts/helpers.sh
 setColors
 checkPackage
 setGitVars
+setNiceVersion
 setCurrentReleaseTag
+setNextVersion
+
+if [[ $* == *--auto* ]]; then
+  auto=true
+  echo "Questions are disabled and automatically with default values answered"
+else
+  auto=false
+fi
 
 if [[ -z $(git status -s) ]]
 then
@@ -15,13 +24,25 @@ else
   exit
 fi
 
+if [[ -z "${changelog}" && $auto = true ]]; then
+	echo "${color_red}Skip package ${package} because changelog is empty. ${color_reset}"
+	exit
+fi
+
 echo "---------------------"
 echo "info latest release tag: ${color_blue}${last_release_tag}${color_reset}"
 echo "info latest version: ${color_blue}${last_version}${color_reset}"
 echo "release tag: ${color_blue}${release_tag}${color_reset}"
 echo -e  "Generated changelog:\n${color_blue}${changelog}${color_reset}"
 
-read -p "question New version: : " new_version
+if [[ $auto = false ]]; then
+  read -p "New version [${next_version}] : " new_version
+fi
+
+if [[ -z "${new_version}" ]]; then
+	new_version="${next_version}"
+	echo "New version is ${new_version}"
+fi
 
 cd packages/${package}
 changelog_file="./changelog.md"
@@ -32,24 +53,36 @@ if [[ ! -e "${changelog_file}" ]]; then
 fi
 
 (echo  -e "${new_version}\n${changelog}\n" && cat "${changelog_file}") > "${tmp_file}" && mv "${tmp_file}" "${changelog_file}"
-read -p "${color_green}Edit the changelog and press ENTER to continue${color_reset}"
+
+if [[ $auto = true ]]; then
+  echo "Skip editing changelog"
+else
+  read -p "${color_green}Edit the changelog and press ENTER to continue${color_reset}"
+fi
 
 git commit -m "docs(${package}): changelog ${new_version}" ${changelog_file}
 echo "releasing and publishing ${package} with version ${new_version}"
 yarn publish --new-version ${new_version}
 
-read -p "Push commits and tags (y/n)?" PUSH
+if [[ $auto = true ]]; then
+  PUSH="n"
+  echo "Pushing commits and tags is skipped"
+else
+  read -p "Push commits and tags (y/n)?" PUSH
+fi
+
 if [ "$PUSH" = "y" ]; then
-  git push --tags
-  git checkout -b releasing/${package}@${new_version}
-  git push
-  git checkout ${current_branch}
-  echo "${color_green}Commits and tags pushed!${color_reset}"
+  gitPush releasing/${package}@${new_version}
 else
   echo "${color_red}Nothing pushed!${color_reset}"
 fi
 
-read -p "Create a npm dist tag ${release_tag} for current version (y/n)?" CREATE_TAG
+if [[ $auto = true ]]; then
+  CREATE_TAG="y"
+else
+  read -p "Create a npm dist tag ${release_tag} for current version (y/n)?" CREATE_TAG
+fi
+
 if [ "$CREATE_TAG" = "y" ]; then
   echo "Trying to execute: npm dist-tag add tocco-${package}@${new_version} ${release_tag}"
   npm dist-tag add tocco-${package}@${new_version} ${release_tag} --registry=https://registry.npmjs.org/
