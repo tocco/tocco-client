@@ -1,3 +1,31 @@
+0.10.23
+- Style upload and switch to light icons
+- Restrict max height of basic search form only in modal
+- Prevent action buttons disappearing on scroll
+- Reset label spacing inside column picker for old client
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- No list refresh after selection clear
+- hide list navigation arrow if row is not clickable
+- Adjust label margin in input fields
+- support sorting by search filters and preferences
+- reload sources after deployment
+- clear selection if parent is set
+- dispatch actions if store already exists
+- Fix fulltext search form
+- Restrict max width of popover to 400px
+- Reference text ressources for aria-labels for improved localization
+- Increase contrast of theme colors to ensure WCAG 2.0 standards
+- Change spacing/hover colors inside table and adjust scrollbar width
+- Change notifier style to a solid variant to increase contrast/visibility
+- Change popover style to solid for increased contrast
+- Adjust text shade colors to a lighter variant
+- New input parameter `keys`
+- clear selection fire onSelectChange
+- Fix fulltext search
+- fix load data if parent is changed
+- support createuser & updateuser in tql builder
+
 0.10.22
 - Style upload and switch to light icons
 - Restrict max height of basic search form only in modal
