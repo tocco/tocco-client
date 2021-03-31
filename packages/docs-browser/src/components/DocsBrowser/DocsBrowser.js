@@ -44,8 +44,8 @@ const DocsBrowser = ({
   const location = useLocation()
 
   useEffect(() => {
-    if (searchMode === true && location.pathname === '/docs/') {
-      // this means the user clicked on the root item in the breadcrumbs navigation
+    if (searchMode === true && location.pathname !== '/docs/search') {
+      // this means the user clicked on the root item in the breadcrumbs navigation or clicked on a search result item
       // -> reset search mode to false and rerender the <DocsView>
       setSearchMode(false)
       forceDocsViewUpdate()
