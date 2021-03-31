@@ -3,7 +3,6 @@ import React from 'react'
 import {m, LazyMotion} from 'framer-motion'
 import {injectIntl, intlShape} from 'react-intl'
 
-
 /**
  * Animated Burger Menu Button
  */
