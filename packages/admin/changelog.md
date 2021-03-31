@@ -1,3 +1,33 @@
+0.4.31
+- Introduce onResize external event
+- Reset label spacing inside column picker for old client
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- No list refresh after selection clear
+- New input param `domainTypes` to filter domains
+- hide list navigation arrow if row is not clickable
+- fix long term caching
+- Adjust label margin in input fields
+- support sorting by search filters and preferences
+- reload sources after deployment
+- clear selection if parent is set
+- dispatch actions if store already exists
+- support selection of type query
+- Fix fulltext search form
+- Restrict max width of popover to 400px
+- Reference text ressources for aria-labels for improved localization
+- Increase contrast of theme colors to ensure WCAG 2.0 standards
+- Change spacing/hover colors inside table and adjust scrollbar width
+- Change notifier style to a solid variant to increase contrast/visibility
+- Change popover style to solid for increased contrast
+- Adjust text shade colors to a lighter variant
+- New input parameter `keys`
+- New input param `rootNodes` to define root items
+- clear selection fire onSelectChange
+- Fix fulltext search
+- fix load data if parent is changed
+- support createuser & updateuser in tql builder
+
 0.4.30
 - Introduce onResize external event
 - Reset label spacing inside column picker for old client
