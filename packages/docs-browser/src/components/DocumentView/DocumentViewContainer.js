@@ -5,7 +5,8 @@ import {actionEmitter} from 'tocco-app-extensions'
 import DocumentView from './DocumentView'
 
 const mapStateToProps = state => ({
-  breadcrumbs: state.docs.path.breadcrumbs
+  breadcrumbs: state.docs.path.breadcrumbs,
+  formName: state.input.documentDetailFormName
 })
 
 const mapActionCreators = {
