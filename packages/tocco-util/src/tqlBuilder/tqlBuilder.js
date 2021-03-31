@@ -50,6 +50,8 @@ const typeHandlers = type => {
       return (path, value, comp) => `${path} ${comp} time:"${moment(value, 'HH:mm').format('HH:mm:ss.sss')}"`
     case 'compressed-text':
     case 'string':
+    case 'createuser':
+    case 'updateuser':
       return (path, value) => `${path} ~= "${value}"`
     case 'boolean':
       return (path, value) => value === false ? null : `${path} == ${value}`
