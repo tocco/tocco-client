@@ -128,7 +128,8 @@ DocsBrowserApp.propTypes = {
   rootNodes: PropTypes.arrayOf(PropTypes.shape({
     entityName: PropTypes.string,
     key: PropTypes.string
-  }))
+  })),
+  documentDetailFormName: PropTypes.string
 }
 
 export default DocsBrowserApp

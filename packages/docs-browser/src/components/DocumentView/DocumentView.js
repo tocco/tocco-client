@@ -4,7 +4,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 
 import Action from '../Action/'
 
-const DocumentView = ({match, history, breadcrumbs, navigationStrategy, emitAction}) => {
+const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy, emitAction}) => {
   const handleEntityDeleted = () => {
     const lastList = breadcrumbs.slice().reverse()
       .find(breadcrumb => breadcrumb.type === 'list')
@@ -16,7 +16,7 @@ const DocumentView = ({match, history, breadcrumbs, navigationStrategy, emitActi
     <EntityDetailApp
       entityName="Resource"
       entityId={match.params.key}
-      formName="DmsResource"
+      formName={formName || 'DmsResource'}
       mode="update"
       actionAppComponent={Action}
       navigationStrategy={navigationStrategy}
@@ -39,6 +39,7 @@ DocumentView.propTypes = {
     path: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired
   })).isRequired,
+  formName: PropTypes.string,
   navigationStrategy: PropTypes.object,
   emitAction: PropTypes.func.isRequired
 }
