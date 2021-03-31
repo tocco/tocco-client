@@ -136,14 +136,25 @@ class DateAbstract extends React.Component {
     }
   }
 
+  focusInput() {
+    // flatpickr add two input in the DOM. One for the actual value (hidden) and one for the altInput
+    const inputElement = this.wrapper.current.querySelector('input.flatpickr-input:not([type="hidden"])')
+    if (inputElement) {
+      inputElement.focus()
+    }
+  }
+
   handleConfirmKey = e => {
-    if (e.key === 'Enter' || e.key === 'Tab') {
+    if ((!e.target.classList.contains('flatpickr-hour') && e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
+      this.focusInput()
       this.handleOnBlur()
-      this.flatpickr.close()
-      if (e.key === 'Enter') {
-        e.preventDefault()
-        e.stopPropagation()
-      }
+      setTimeout(() => {
+        this.flatpickr.close()
+      })
+    }
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      e.stopPropagation()
     }
   }
 
@@ -156,11 +167,7 @@ class DateAbstract extends React.Component {
           id={this.props.id}
           tabIndex="-1"
           onFocus={() => {
-          // flatpickr add two input in the DOM. One for the actual value (hidden) and one for the altInput
-            const inputElement = this.wrapper.current.querySelector('input.flatpickr-input:not([type="hidden"])')
-            if (inputElement) {
-              inputElement.focus()
-            }
+            this.focusInput()
             setTimeout(() => {
               this.flatpickr.open()
             })
@@ -185,13 +192,13 @@ class DateAbstract extends React.Component {
               immutable={this.props.immutable}
               value={this.state.altInput}
             />
-            {!this.props.immutable && <Ball
+            {!this.props.immutable && this.props.value.filter(i => i).length > 0 && <Ball
               icon="times"
-              data-clear
               tabIndex={-1}
               aria-label={this.msg('client.component.dateAbstract.clearDateLabel')}
               onMouseDown={e => {
                 e.preventDefault()
+                this.props.onChange(null)
               }}/>}
           </StyledDateAbstractWrapper>
         </StyledDateAbstractOuterWrapper>
