@@ -29,11 +29,26 @@ function setColors(){
 
 function setGitVars() {
   current_branch=$(git rev-parse --abbrev-ref HEAD)
+  remote_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} | cut -d '/' -f2-)
   last_release_tag=$(git describe --tags --match 'tocco-'${package}'@*' --abbrev=0 ${current_branch})
   last_version=$(echo ${last_release_tag} | awk -F '@' '{print $2}')
 
+  if [[ $remote_branch != "master" && $remote_branch != nice-releases/* ]]; then
+    echo "Running release script is not allowed if remote branch is not master or nice-releases/*"
+    exit
+  fi
+
   greps=$(getDevDependenciesGreps)
   changelog=$(git log --pretty='%b' "${last_release_tag}"..HEAD --grep="${package}" ${greps} --reverse | grep -E '^Changelog:' | awk '{gsub("Changelog:", "-", $0); print}')
+}
+
+
+function gitPush() {
+  git checkout -b $1
+  git push
+  git push --tags
+  git checkout ${current_branch}
+  echo "${color_green}Commits and tags pushed!${color_reset}"
 }
 
 function checkPackage() {
@@ -43,7 +58,28 @@ function checkPackage() {
   fi
 }
 
+function setNiceVersion() {
+  nice_version=$(head -n 1 nice-current-version.txt | (read s;echo ${s//[(.0).]/}))
+}
+
 function setCurrentReleaseTag() {
-  nice_version=$(head -n 1 nice-current-version.txt)
-  release_tag="nice${nice_version//[(.0).]/}"
+  setNiceVersion
+  release_tag="nice${nice_version}"
+}
+
+function setNextVersion() {
+  if [[ $remote_branch == "master" ]]; then
+    local major="$(cut -d'.' -f1 <<<${last_version})"
+    local minor="$(cut -d'.' -f2 <<<${last_version})"
+    local patch="$(cut -d'.' -f3 <<<${last_version})"
+    next_version="${major}.${minor}.$((patch + 1))"
+  else
+    if [[ $last_version == *"-hotfix"* ]]; then
+      local last_version_number="$(cut -d'-' -f1 <<<${last_version})"
+      local fix_number="$(cut -d'.' -f2 <<<"$(cut -d'-' -f2 <<<${last_version})")"
+      next_version="${last_version_number}-hotfix${nice_version}.$((fix_number + 1))"
+    else
+      next_version="${last_version}-hotfix${nice_version}.1"
+    fi
+  fi
 }
