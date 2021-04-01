@@ -1,3 +1,21 @@
+0.4.5
+- Style upload and switch to light icons
+- Prevent action buttons disappearing on scroll
+- Harmonize popover placement on description formatter
+- Add aria-labels to improve accessibility
+- Adjust label margin in input fields
+- reload sources after deployment
+- support selection of type query
+- Restrict max width of popover to 400px
+- Reference text ressources for aria-labels for improved localization
+- Increase contrast of theme colors to ensure WCAG 2.0 standards
+- Change spacing/hover colors inside table and adjust scrollbar width
+- Change notifier style to a solid variant to increase contrast/visibility
+- Change popover style to solid for increased contrast
+- Adjust text shade colors to a lighter variant
+- Fix fulltext search
+- support createuser & updateuser in tql builder
+
 0.4.4
 - Style upload and switch to light icons
 - Prevent action buttons disappearing on scroll
