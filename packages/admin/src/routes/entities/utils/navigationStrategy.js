@@ -6,17 +6,19 @@ import {injectIntl, intlShape} from 'react-intl'
 
 import {goBack} from '../../../utils/routing'
 
-const DetailLinkRelative = injectIntl(({entityKey, children, relation, intl}) => {
+const DetailLinkRelativeWithoutIntl = ({entityKey, children, relation, intl}) => {
   const msg = id => intl.formatMessage({id})
 
   return (
     <StyledLink
-      aria-label={msg('client.admin.entities.navigationStrategy.detailLinkRelative')}
+      aria-label={msg('client.component.navigationStrategy.detailLinkRelative')}
       to={`${relation ? relation + '/' : ''}${entityKey}`}>
       {children}
     </StyledLink>
   )
-})
+}
+
+const DetailLinkRelative = injectIntl(DetailLinkRelativeWithoutIntl)
 
 export const DetailLink = ({entityName, entityKey, children}) =>
   <StyledLink to={`/e/${entityName}/${entityKey}`} target="_blank">{children}</StyledLink>
@@ -78,7 +80,7 @@ export default (history, match) => {
   }
 }
 
-DetailLinkRelative.propTypes = {
+DetailLinkRelativeWithoutIntl.propTypes = {
   entityKey: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
   relation: PropTypes.string,
