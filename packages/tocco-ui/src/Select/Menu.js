@@ -39,7 +39,10 @@ class Menu extends React.Component {
       >
         <TetherPosition/>
         <div>
-          <StyledMenu {...(_omit(props, ['innerRef']))}>
+          <StyledMenu
+          {...(_omit(props, ['innerRef']))}
+          wrapperWidth={props.selectProps.wrapperWidth}
+          wrapperHeight={props.selectProps.wrapperHeight}>
             {props.children}
           </StyledMenu>
         </div>
@@ -49,7 +52,11 @@ class Menu extends React.Component {
 }
 
 Menu.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  selectProps: PropTypes.shape({
+    wrapperHeight: PropTypes.number,
+    wrapperWidth: PropTypes.number
+  })
 }
 
 export default Menu

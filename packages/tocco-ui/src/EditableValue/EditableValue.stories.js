@@ -167,14 +167,14 @@ storiesOf('Tocco-UI | EditableValue', module)
         type="multi-select"
         knobType={object}
         options={object('options', {
-          options: [{key: 1, display: 'One'}, {key: 2, display: 'Two'}, {key: 3, display: 'Three'}],
+          options: Array.from(Array(100).keys()).map(v => ({key: v, display: `V: ${v}`})),
           noResultsText: 'no results found',
           isLoading: false,
           tooltips: {2: 'Tooltip for Two'},
           loadTooltip,
           fetchOptions
         })}
-        defaultValue={[{key: 2, display: 'Two v'}, {key: 3, display: 'Three v'}]}
+        defaultValue={[{key: 2, display: 'V: 2'}, {key: 3, display: 'V: 3'}]}
       />
   ).add(
     'Multi-Remote',

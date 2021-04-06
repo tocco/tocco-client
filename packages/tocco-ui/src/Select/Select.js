@@ -61,9 +61,6 @@ const Select = ({
   const wrapperWidth = selectWrapper.current ? selectWrapper.current.clientWidth : 300
   const wrapperHeight = selectWrapper.current ? selectWrapper.current.clientHeight : 35
 
-  const CustomMenu = propsCustoMenu =>
-    <Menu {...propsCustoMenu} wrapperWidth={wrapperWidth} wrapperHeight={wrapperHeight}/>
-
   return (
     <div
       tabIndex="-1"
@@ -79,13 +76,15 @@ const Select = ({
         <ReactSelect
           getOptionLabel={option => option.display}
           getOptionValue={option => option.key}
+          wrapperWidth={wrapperWidth}
+          wrapperHeight={wrapperHeight}
           components={{
             ClearIndicator,
             LoadingIndicator,
             DropdownIndicator: DropdownIndicator,
             IndicatorsContainer: IndicatorsContainer,
             IndicatorSeparator: null,
-            Menu: CustomMenu,
+            Menu: Menu,
             MenuList: MenuList,
             MultiValueLabel,
             SingleValue
