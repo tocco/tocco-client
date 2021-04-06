@@ -166,15 +166,14 @@ export function* handleSubmitError(error) {
       5000
     ))
     yield put(formActions.stopSubmit(FORM_ID))
+  } else if (error instanceof rest.ClientQuestionCancelledException) {
+    yield put(formActions.stopSubmit(FORM_ID))
   } else {
-    if (!(error instanceof rest.ClientQuestionCancelledException)) {
-      yield put(errorLogging.logError(
-        'client.common.unexpectedError',
-        'client.entity-detail.saveError',
-        error
-      ))
-      yield put(formActions.stopSubmit(FORM_ID))
-    }
+    yield put(errorLogging.logError(
+      'client.common.unexpectedError',
+      'client.entity-detail.saveError',
+      error))
+    yield put(formActions.stopSubmit(FORM_ID))
   }
 }
 

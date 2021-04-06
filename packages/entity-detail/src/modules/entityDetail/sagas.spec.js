@@ -162,6 +162,15 @@ describe('entity-detail', () => {
               })
               .run()
           })
+
+          test('should stop submit on ClientQuestionCancelledException and not log an error', () => {
+            const error = new rest.ClientQuestionCancelledException()
+
+            return expectSaga(sagas.handleSubmitError, error)
+              .put(formActions.stopSubmit(FORM_ID))
+              .not.put.like({action: {type: 'tocco-util/LOG_ERROR'}})
+              .run()
+          })
         })
 
         describe('updateFormSubmit saga', () => {
