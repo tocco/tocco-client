@@ -44,9 +44,9 @@ function setGitVars() {
 
 
 function gitPush() {
+  git push --tags
   git checkout -b $1
   git push
-  git push --tags
   git checkout ${current_branch}
   echo "${color_green}Commits and tags pushed!${color_reset}"
 }
