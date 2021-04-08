@@ -1,3 +1,10 @@
+0.4.32
+- Handle client question cancellation
+- Keep scroll position on multi select selection
+- Fix menu in action
+- Move validation helper method to tocco-util
+- Add move action
+
 0.4.31
 - Introduce onResize external event
 - Reset label spacing inside column picker for old client
