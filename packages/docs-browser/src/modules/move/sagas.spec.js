@@ -1,7 +1,7 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {takeLatest, select} from 'redux-saga/effects'
-import {notifier, rest} from 'tocco-app-extensions'
+import {notification, rest} from 'tocco-app-extensions'
 
 import * as sagas from './sagas'
 import * as actions from './actions'
@@ -75,10 +75,11 @@ describe('admin', () => {
                   .put(actions.setWaiting(true))
                   .call(rest.requestSaga, 'documents/move', {method: 'POST', acceptedStatusCodes: [400], body: body})
                   .put(actions.setWaiting(false))
-                  .put(notifier.info('error',
-                    'client.actions.dms-move.failed.title',
-                    'client.actions.dms-move.failed.message',
-                    'exclamation'))
+                  .put(notification.toaster({
+                    type: 'error',
+                    title: 'client.actions.dms-move.failed.title',
+                    body: 'client.actions.dms-move.failed.message'
+                  }))
                   .run()
               })
 
@@ -95,7 +96,7 @@ describe('admin', () => {
                   .put(actions.setWaiting(true))
                   .call(rest.requestSaga, 'documents/move', {method: 'POST', acceptedStatusCodes: [400], body: body})
                   .put(actions.setWaiting(false))
-                  .put(notifier.info('error', 'client.actions.dms-move.failed.title', msg, 'exclamation'))
+                  .put(notification.toaster({type: 'error', title: 'client.actions.dms-move.failed.title', body: msg}))
                   .run()
               })
             })
