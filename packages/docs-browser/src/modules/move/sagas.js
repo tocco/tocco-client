@@ -1,5 +1,5 @@
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
-import {notifier, rest} from 'tocco-app-extensions'
+import {notification, rest} from 'tocco-app-extensions'
 import {validation} from 'tocco-util'
 
 import * as actions from './actions'
@@ -40,7 +40,7 @@ export function* moveElements({payload}) {
     if (response.body.errorCode === 'VALIDATION_FAILED') {
       message = validation.getErrorCompact(response.body.errors)
     }
-    yield put(notifier.info('error', 'client.actions.dms-move.failed.title', message, 'exclamation'))
+    yield put(notification.toaster({type: 'error', title: 'client.actions.dms-move.failed.title', body: message}))
   }
 }
 
