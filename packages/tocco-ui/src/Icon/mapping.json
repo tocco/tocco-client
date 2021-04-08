@@ -43,6 +43,13 @@
       "burger"
     ]
   },
+  "bell": {
+    "id": "far, bell",
+    "lib": "fa",
+    "tags": [
+      "notification"
+    ]
+  },
   "book": {
     "id": "far, book",
     "lib": "fa"
