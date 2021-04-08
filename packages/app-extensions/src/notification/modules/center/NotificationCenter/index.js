@@ -1,0 +1,2 @@
+import NotificationCenterContainer from './NotificationCenterContainer'
+export default NotificationCenterContainer

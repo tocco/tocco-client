@@ -7,6 +7,7 @@ import * as actions from './actions'
 import * as toasterActions from '../toaster/actions'
 import errorLogging from '../../../errorLogging'
 import {toaster} from '../toaster/actions'
+import {updateNotification} from '../center/actions'
 
 export const notificationSocketSelector = state => state.notification.socket
 
@@ -56,6 +57,8 @@ export function* messageReceived({payload: {data}}) {
       yield put(toaster(toasterInfo))
     }
   }
+
+  yield put(updateNotification(data))
 }
 
 export function* toasterRemoved({payload: {key, manually}}) {

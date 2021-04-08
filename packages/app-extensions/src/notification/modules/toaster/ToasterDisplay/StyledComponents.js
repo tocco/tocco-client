@@ -32,6 +32,7 @@ export const StyledToaster = styled.div`
   }
   animation-name: ${fadeIn};
   animation-duration: .8s;
+  pointer-events: auto;
 `
 
 export const StyledCloseButton = styled(Ball)`
@@ -73,6 +74,7 @@ export const StyledContentWrapper = styled.div`
 `
 
 export const StyledToasterBox = styled.div`
+  pointer-events: none;
   ${declareFont()};
   position: absolute;
   height: 100%;
