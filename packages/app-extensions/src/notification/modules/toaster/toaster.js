@@ -1,25 +1,9 @@
 import PropTypes from 'prop-types'
 import {v4 as uuid} from 'uuid'
 
+import {iconMap, isWarningOrError, TYPES} from '../../types'
+
 const DEFAULT_DURATION = 5000
-
-const TYPES = {
-  neutral: 'neutral',
-  info: 'info',
-  warning: 'warning',
-  error: 'error',
-  success: 'success'
-}
-
-const isWarningOrError = type => type === TYPES.error || type === TYPES.warning
-
-const iconMap = {
-  [TYPES.neutral]: null,
-  [TYPES.error]: 'times-circle',
-  [TYPES.warning]: 'exclamation-circle',
-  [TYPES.success]: 'check-circle-light',
-  [TYPES.info]: 'info-circle'
-}
 
 export const enhanceToaster = toaster => {
   if (!toaster.title && !toaster.body) {
