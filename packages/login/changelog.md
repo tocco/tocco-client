@@ -1,3 +1,6 @@
+0.2.18-hotfix228.4
+- 2fa force text as HTML
+
 0.2.18-hotfix228.3
 - fix long term caching
 - render description field in form
