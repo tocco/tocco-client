@@ -411,6 +411,60 @@ describe('app-extensions', () => {
 
         expect(wrapper.find(Field)).to.have.length(1)
       })
+
+      test('should always render location field', () => {
+        const entity = {}
+
+        const formDefinition = {
+          id: 'UserSearch_detail',
+          readonly: false,
+          children: [
+            {
+              id: 'user_information',
+              componentType: 'layout',
+              layoutType: 'vertical-box',
+              readonly: false,
+              children: [
+                {
+                  id: 'locationfield_c',
+                  label: 'PLZ / Ort',
+                  componentType: 'field-set',
+                  children: [{
+                    id: 'locationfield_c',
+                    label: null,
+                    componentType: 'field',
+                    path: null,
+                    dataType: 'location',
+                    validation: null,
+                    defaultValue: null,
+                    autoCompleteEndpoint: null,
+                    locationMapping: {
+                      postcode: 'zip_c',
+                      city: 'city_c',
+                      street: 'address_c',
+                      country: 'relCountry_c',
+                      state: 'canton',
+                      district: 'admincode2'
+                    },
+                    countries: ['DE', 'AT', 'CH', 'IT', 'FR', 'LI']
+                  }],
+                  readonly: false,
+                  hidden: false,
+                  useLabel: 'yes',
+                  scopes: [],
+                  ignoreCopy: false
+                }
+              ]
+            }
+          ]
+        }
+
+        const {formName, formValues} = testData
+        const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
+        const wrapper = shallow(<FormBuilder {...props}/>)
+
+        expect(wrapper.find(Field)).to.have.length(1)
+      })
     })
   })
 })
