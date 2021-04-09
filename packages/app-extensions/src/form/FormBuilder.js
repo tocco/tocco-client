@@ -95,7 +95,8 @@ const FormBuilder = props => {
         parentReadOnly
         || formDefinition.readonly
         || (entityField && entityField.writable === false)
-        || (mode !== 'create' && !entityField && formDefinitionField.componentType !== 'description')
+        || (mode !== 'create' && !entityField && formDefinitionField.componentType !== 'description'
+          && formDefinitionField.dataType !== 'location')
         || formDefinitionField.readonly || formDefinitionField.componentType === 'display'
       )
 
