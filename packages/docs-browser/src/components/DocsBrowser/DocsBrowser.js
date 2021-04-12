@@ -1,8 +1,8 @@
 import React, {useEffect, useReducer} from 'react'
 import PropTypes from 'prop-types'
 import {Route, Switch, useLocation} from 'react-router-dom'
-import styled from 'styled-components'
-import {StyledScrollbar, scale} from 'tocco-ui'
+import styled, {withTheme} from 'styled-components'
+import {StyledScrollbar, scale, theme as themeUtil} from 'tocco-ui'
 
 import DocsView from '../DocsView'
 import DocumentView from '../DocumentView'
@@ -36,7 +36,9 @@ const DocsBrowser = ({
   setSearchMode,
   loadBreadcrumbs,
   emitAction,
-  openFileDialog
+  openFileDialog,
+  theme,
+  embedded
 }) => {
   // eslint-disable-next-line no-unused-vars
   const [docsViewNumber, forceDocsViewUpdate] = useReducer(x => x + 1, 0)
@@ -69,7 +71,7 @@ const DocsBrowser = ({
   return (
     <StyledWrapper>
       <StyledBreadcrumbs>
-        <Breadcrumbs/>
+        <Breadcrumbs {...embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {}}/>
       </StyledBreadcrumbs>
       <StyledContent>
         <Switch>
@@ -112,7 +114,9 @@ DocsBrowser.propTypes = {
   openFileDialog: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   searchMode: PropTypes.bool.isRequired,
-  navigationStrategy: PropTypes.object
+  navigationStrategy: PropTypes.object,
+  embedded: PropTypes.bool,
+  theme: PropTypes.object
 }
 
-export default DocsBrowser
+export default withTheme(DocsBrowser)
