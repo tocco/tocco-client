@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{3748:function(module,__webpack_exports__,__webpack_require__){"use strict";__webpack_require__.r(__webpack_exports__);var tocco_entity_detail_src_main__WEBPACK_IMPORTED_MODULE_0__=__webpack_require__(3668);__webpack_require__.d(__webpack_exports__,"default",(function(){return tocco_entity_detail_src_main__WEBPACK_IMPORTED_MODULE_0__.a}))}}]);
+//# sourceMappingURL=20.b6e20e13f4e3b575c4b7.bundle.js.map
