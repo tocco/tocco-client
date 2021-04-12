@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {AdminLink as StyledLink, Icon, Typography} from 'tocco-ui'
-import {js, viewPersistor} from 'tocco-util'
-import EntityListApp from 'tocco-entity-list/src/main'
+import {js} from 'tocco-util'
 import queryString from 'query-string'
 import _get from 'lodash/get'
 import {intlShape} from 'react-intl'
@@ -15,10 +14,10 @@ import {
   StyledRelationBox,
   StyledRelationsViewWrapper
 } from './StyledComponents'
-import {goBack} from '../../../../utils/routing'
 import {currentViewPropType} from '../../utils/propTypes'
 import {getRelation, setRelation} from '../../utils/relationPersistor'
-import navigationStrategy from '../../utils/navigationStrategy'
+import ListView from './ListView'
+import DocsViewAdapter from './DocsViewAdapter'
 
 const RelationsView = ({
   history,
@@ -61,6 +60,10 @@ const RelationsView = ({
   }
 
   const hasCreateRights = relationName => relationsInfo[relationName] && relationsInfo[relationName].createPermission
+
+  const RelationPreview = selectedRelation
+    ? (selectedRelation.targetEntity === 'Resource' ? DocsViewAdapter : ListView)
+    : () => <React.Fragment/>
 
   return (
     <StyledRelationsViewWrapper>
@@ -114,39 +117,11 @@ const RelationsView = ({
           </StyledLink>
           }
         </Typography.H4>
-        <EntityListApp
-          id={'preview' + selectedRelation.reverseRelationName + selectedRelation.targetEntity}
-          key={selectedRelation.reverseRelationName + selectedRelation.targetEntity}
-          entityName={selectedRelation.targetEntity}
-          formName={selectedRelation.targetEntity}
-          parent={{
-            key: currentViewInfo.key,
-            reverseRelationName: selectedRelation.reverseRelationName,
-            model: currentViewInfo.model.name,
-            relationName: selectedRelation.relationName
-          }}
-          showLink={true}
-          navigationStrategy={navigationStrategy(history, match)}
-          onRowClick={({id}) => {
-            const entityBaseUrl = match.url.replace(/detail$/, '')
-            history.push(`${entityBaseUrl}${selectedRelation.relationName}/${id}`)
-          }}
-          onNavigateToCreate={() => {
-            const entityBaseUrl = goBack(match.url)
-            history.push(entityBaseUrl + '/' + selectedRelation.relationName + '/create')
-          }}
-          searchFormType="simple"
-          selectionStyle="none"
-          store={viewPersistor.viewInfoSelector(history.location.pathname)[`store-${selectedRelation.relationName}`]}
-          onStoreCreate={store => {
-            viewPersistor.persistViewInfo(
-              currentViewInfo.pathname,
-              {[`store-${selectedRelation.relationName}`]: store},
-              currentViewInfo.level
-            )
-          }}
-          showActions={false}
-          limit={15}
+        <RelationPreview
+          selectedRelation={selectedRelation}
+          match={match}
+          history={history}
+          currentViewInfo={currentViewInfo}
           emitAction={emitAction}
         />
       </StyledPreviewBox>

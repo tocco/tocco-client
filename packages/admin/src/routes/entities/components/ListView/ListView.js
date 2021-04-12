@@ -8,6 +8,7 @@ import Action from '../Action/LazyAction'
 import {currentViewPropType} from '../../utils/propTypes'
 import ErrorView from '../../../../components/ErrorView'
 import navigationStrategy from '../../utils/navigationStrategy'
+import DocsViewAdapter from './DocsViewAdapter'
 
 const ListView = ({match, history, currentViewInfo, emitAction}) => {
   if (currentViewInfo && currentViewInfo.error) {
@@ -22,6 +23,12 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
 
   const handleRowClick = ({id}) => {
     history.push(match.url.replace(/list$/, '') + id)
+  }
+
+  if (currentViewInfo.model.name === 'Resource') {
+    return <DocsViewAdapter
+      currentViewInfo={currentViewInfo}
+    />
   }
 
   return (

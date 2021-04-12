@@ -4,7 +4,7 @@ import {ReactReduxContext} from 'react-redux'
 import _omit from 'lodash/omit'
 import _omitBy from 'lodash/omitBy'
 
-const ignoredAttributes = ['location.key', 'location.search']
+const ignoredAttributes = ['location.key', 'location.search', 'location.hash']
 
 function areEqual(prevProps, nextProps) {
   const diff = js.difference(prevProps, nextProps)
