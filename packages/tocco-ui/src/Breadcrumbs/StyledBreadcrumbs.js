@@ -5,7 +5,7 @@ import {AdminLink as StyledLink} from '../AdminLink'
 import {theme} from '../utilStyles'
 
 export const StyledBreadcrumbs = styled.div`
-  background-color: ${theme.color('backgroundBreadcrumbs')};
+  background-color: ${props => props.backgroundColor || theme.color('backgroundBreadcrumbs')(props)};
   width: 100%;
   padding: .8rem 1.7rem;
 

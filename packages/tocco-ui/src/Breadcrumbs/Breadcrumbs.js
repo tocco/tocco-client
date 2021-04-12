@@ -17,7 +17,7 @@ const getTitle = breadcrumbsInfo =>
     .reverse()
     .join(' - ')
 
-const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle}) => {
+const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundColor}) => {
   const breadcrumbs = [
     ...(breadcrumbsInfo || []),
     ...(currentViewTitle ? [{display: currentViewTitle}] : [])
@@ -27,7 +27,7 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle}) => {
     return null
   }
 
-  return <StyledBreadcrumbs>
+  return <StyledBreadcrumbs backgroundColor={backgroundColor}>
     <Helmet defer={false}>
       <title>{getTitle(breadcrumbsInfo)}</title>
     </Helmet>
@@ -68,7 +68,8 @@ Breadcrumbs.propTypes = {
       type: PropTypes.string
     })
   ),
-  currentViewTitle: PropTypes.string
+  currentViewTitle: PropTypes.string,
+  backgroundColor: PropTypes.string
 }
 
 export default Breadcrumbs
