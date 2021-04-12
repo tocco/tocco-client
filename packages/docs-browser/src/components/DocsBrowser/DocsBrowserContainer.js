@@ -8,7 +8,8 @@ import {openDialog} from '../../modules/create/actions'
 
 const mapStateToProps = state => ({
   searchMode: state.docs.path.searchMode,
-  navigationStrategy: state.input.navigationStrategy
+  navigationStrategy: state.input.navigationStrategy,
+  embedded: state.input.embedded
 })
 
 const mapActionCreators = {

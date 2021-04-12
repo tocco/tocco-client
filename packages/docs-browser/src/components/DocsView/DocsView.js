@@ -69,7 +69,8 @@ const DocsView = props => {
     selectionStyle,
     getCustomLocation,
     disableViewPersistor,
-    formName
+    formName,
+    showActions
   } = props
 
   const parent = getParent(match)
@@ -141,6 +142,7 @@ const DocsView = props => {
         tql={tql}
         keys={keys}
         selectionStyle={selectionStyle || 'multi'}
+        showActions={showActions}
       />
        </Suspense>
       <FileInput/>
@@ -167,7 +169,8 @@ DocsView.propTypes = {
   selectionStyle: selectionStylePropType,
   getCustomLocation: PropTypes.func,
   disableViewPersistor: PropTypes.bool,
-  formName: PropTypes.string
+  formName: PropTypes.string,
+  showActions: PropTypes.bool
 }
 
 export default DocsView
