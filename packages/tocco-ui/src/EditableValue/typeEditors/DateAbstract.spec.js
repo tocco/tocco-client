@@ -13,7 +13,7 @@ describe('tocco-ui', () => {
           }
 
           const wrapper = enzymeUtil.mountEmbedded(
-            <DateAbstract options={{}} initialized={initSpy} onChange={() => {}}/>
+            <DateAbstract options={{}} initialized={initSpy} onChange={() => {}} value={[]}/>
           )
 
           expect(wrapper.find('input')).to.have.length(2)
