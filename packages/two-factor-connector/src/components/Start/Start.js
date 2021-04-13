@@ -16,7 +16,7 @@ const Start = ({twoFactorActive, forced, requestSecret, intl}) => {
             ? <FormattedMessage id="client.two-factor-connector.overwriteInfo"/>
             : forced
               ? <span dangerouslySetInnerHTML={{__html: msg('client.two-factor-connector.forcedInfo')}}/>
-              : <FormattedMessage id="client.two-factor-connector.info"/>
+              : <span dangerouslySetInnerHTML={{__html: msg('client.two-factor-connector.info')}}/>
         }
       </Typography.P>
       <StyledButtonWrapper>
