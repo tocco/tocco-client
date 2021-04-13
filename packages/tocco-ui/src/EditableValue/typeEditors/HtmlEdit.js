@@ -34,8 +34,8 @@ class HtmlEdit extends React.Component {
     this.lazyQuill = lazy(() => import(/* webpackChunkName: "quill" */ 'react-quill'))
   }
 
-  handleChange = value => {
-    if (this.props.onChange) {
+  handleChange = (value, delta, source) => {
+    if (this.props.onChange && source === 'user') {
       this.props.onChange(value)
     }
   }
@@ -55,7 +55,12 @@ class HtmlEdit extends React.Component {
             onChange={this.handleChange}
             id={this.props.id}
             theme="snow"
-            value={this.props.value}
+            defaultValue={this.props.value}
+            modules={{
+              clipboard: {
+                matchVisual: false
+              }
+            }}
           />
         </Suspense>
       </StyledHtmlEdit>

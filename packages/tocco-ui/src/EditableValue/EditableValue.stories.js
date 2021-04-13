@@ -118,7 +118,7 @@ storiesOf('Tocco-UI | EditableValue', module)
       <EditableValueStory
         type="html"
         knobType={text}
-        defaultValue={'<h1>Test</h1>'}
+        defaultValue={'<h1>Test</h1> TEst <span>TEST</span>'}
       />,
     {knobs: {escapeHTML: false}}
   )
