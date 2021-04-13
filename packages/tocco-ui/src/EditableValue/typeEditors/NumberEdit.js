@@ -68,7 +68,7 @@ const NumberEdit = props => {
 
   const handleChange = values => {
     if (props.onChange && checkValueRange(minValue, calculatedMaxValue, values.floatValue)) {
-      props.onChange(values.floatValue)
+      props.onChange(values.floatValue !== undefined ? values.floatValue : null)
     }
   }
 

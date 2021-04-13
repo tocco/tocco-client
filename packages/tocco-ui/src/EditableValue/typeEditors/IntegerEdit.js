@@ -15,7 +15,11 @@ const IntegerEdit = ({value, onChange, options, immutable, name, id}) => {
   } = options || {}
 
   const handleChange = ({value, floatValue}) => {
-    onChange(allowLeadingZeros ? value : floatValue)
+    let newValue = allowLeadingZeros ? value : floatValue
+    if (newValue === undefined) {
+      newValue = null
+    }
+    onChange(newValue)
   }
 
   const isAllowed = ({floatValue}) =>

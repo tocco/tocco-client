@@ -16,6 +16,32 @@ describe('tocco-ui', () => {
           expect(wrapper.find('input')).to.have.length(1)
         })
 
+        test('should call onChange handler with value null', done => {
+          const changeHandler = value => {
+            expect(value).to.be.null
+            done()
+          }
+
+          const wrapper = mountWithIntl(
+            <NumberEdit value={1234567.89} options={{}} onChange={changeHandler} />
+          )
+
+          wrapper.find('input').simulate('change', {target: {value: '', focus: () => {}}})
+        })
+
+        test('should call onChange handler with value 0', done => {
+          const changeHandler = value => {
+            expect(value).to.eql(0)
+            done()
+          }
+
+          const wrapper = mountWithIntl(
+            <NumberEdit value={1234567.89} options={{}} onChange={changeHandler}/>
+          )
+
+          wrapper.find('input').simulate('change', {target: {value: '0', focus: () => {}}})
+        })
+
         test('should return number string in en', () => {
           const result = '1,234,567.89'
           const wrapper = mountWithIntl(

@@ -44,6 +44,40 @@ describe('tocco-ui', () => {
           wrapper.find('input').simulate('change', {target: {value: '100', focus: () => {}}})
         })
 
+        test('should call onChange handler with value null', done => {
+          const changeHandler = value => {
+            expect(value).to.be.null
+            done()
+          }
+
+          const wrapper = mount(
+            <IntegerEdit
+              value={1}
+              onChange={changeHandler}
+              options={{maxValue: 100}}
+            />
+          )
+
+          wrapper.find('input').simulate('change', {target: {value: '', focus: () => {}}})
+        })
+
+        test('should call onChange handler with value 0', done => {
+          const changeHandler = value => {
+            expect(value).to.eql(0)
+            done()
+          }
+
+          const wrapper = mount(
+            <IntegerEdit
+              value={1}
+              onChange={changeHandler}
+              options={{maxValue: 100}}
+            />
+          )
+
+          wrapper.find('input').simulate('change', {target: {value: '0', focus: () => {}}})
+        })
+
         test('should not call onChange it number is too high', done => {
           const spy = sinon.spy()
           const wrapper = mount(
