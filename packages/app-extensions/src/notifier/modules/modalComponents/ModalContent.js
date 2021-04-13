@@ -5,8 +5,7 @@ import TitleMessage from '../../components/TitleMessage'
 import {
   StyledModalContent,
   StyledModalWrapper,
-  StyledCloseButton,
-  StyledPageOverlay
+  StyledCloseButton
 } from './StyledComponents'
 
 const ModalContent = ({
@@ -42,7 +41,6 @@ const ModalContent = ({
           <Component close={handleCloseClick}/>
         </TitleMessage>
       </StyledModalContent>
-      <StyledPageOverlay/>
     </StyledModalWrapper>
   )
 }
