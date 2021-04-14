@@ -75,9 +75,6 @@ else
 fi
 
 if [ "$PUSH" = "y" ]; then
-
-
-function gitPush() {
   git push --tags
   git push
   echo "${color_green}Commits and tags pushed to ${targetBranch}!${color_reset}"
