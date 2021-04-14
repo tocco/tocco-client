@@ -26,6 +26,7 @@ const DocsView = ({entityName, entityKey, showActions}) => {
         embedded={true}
         showActions={showActions}
         {...showActions === false ? {selectionStyle: 'none'} : {}}
+        disableViewPersistor={true}
       />
 }
 
