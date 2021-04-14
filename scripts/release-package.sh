@@ -60,6 +60,8 @@ else
   read -p "${color_green}Edit the changelog and press ENTER to continue${color_reset}"
 fi
 
+git checkout -b releasing/${package}@${new_version}
+
 git commit -m "docs(${package}): changelog ${new_version}" ${changelog_file}
 echo "releasing and publishing ${package} with version ${new_version}"
 yarn publish --new-version ${new_version}
@@ -72,10 +74,14 @@ else
 fi
 
 if [ "$PUSH" = "y" ]; then
-  gitPush releasing/${package}@${new_version}
+  git push --tags
+  git push
+  echo "${color_green}Commits and tags pushed!${color_reset}"
 else
   echo "${color_red}Nothing pushed!${color_reset}"
 fi
+
+git checkout ${current_branch}
 
 if [[ $auto = true ]]; then
   CREATE_TAG="y"
