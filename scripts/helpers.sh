@@ -42,15 +42,6 @@ function setGitVars() {
   changelog=$(git log --pretty='%b' "${last_release_tag}"..HEAD --grep="${package}" ${greps} --reverse | grep -E '^Changelog:' | awk '{gsub("Changelog:", "-", $0); print}')
 }
 
-
-function gitPush() {
-  git push --tags
-  git checkout -b $1
-  git push
-  git checkout ${current_branch}
-  echo "${color_green}Commits and tags pushed!${color_reset}"
-}
-
 function checkPackage() {
   if [[ ! "${package}" ]] || [[ ! -d "packages/${package}" ]]; then
      echo "${color_red}Please provide a valid package name${color_reset}"
