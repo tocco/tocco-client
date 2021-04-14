@@ -1,3 +1,9 @@
+0.4.33
+- Clear button in date fields only show up when data has been entered, tab and enter can now be used to navigate in the calendar popup and between date fields
+- fix resetting search mode
+- Embedd dms in entity view
+- Text as html
+
 0.4.32
 - Handle client question cancellation
 - Keep scroll position on multi select selection
