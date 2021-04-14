@@ -1,3 +1,6 @@
+0.2.18-hotfix228.5
+- Text as html
+
 0.2.18-hotfix228.4
 - 2fa force text as HTML
 
