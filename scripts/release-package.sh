@@ -61,6 +61,7 @@ else
 fi
 
 targetBranch=releasing/${package}@${new_version}
+echo "Checkin out new branch ${targetBranch}"
 git checkout -b ${targetBranch}
 
 git commit -m "docs(${package}): changelog ${new_version}" ${changelog_file}
@@ -82,6 +83,7 @@ else
   echo "${color_red}Nothing pushed!${color_reset}"
 fi
 
+echo "Checkin out ${current_branch}"
 git checkout ${current_branch}
 
 if [[ $auto = true ]]; then
