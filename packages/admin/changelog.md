@@ -1,3 +1,13 @@
+0.4.19-hotfix228.8
+- Fix empty pop-up in old client
+- hide list navigation arrow if row is not clickable
+- Reset label spacing inside column picker for old client
+- fix long term caching
+- render description field in form
+- support selection of type query
+- Fix fulltext search form
+- Fix fulltext search
+
 0.4.19-hotfix228.7
 - support selection of type query
 
