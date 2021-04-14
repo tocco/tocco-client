@@ -1,3 +1,6 @@
+0.4.19-hotfix228.9
+- Text as html
+
 0.4.19-hotfix228.8
 - Fix empty pop-up in old client
 - hide list navigation arrow if row is not clickable
