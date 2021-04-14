@@ -1,3 +1,12 @@
+0.10.25
+- support createuser & updateuser in tql builder
+- Handle client question cancellation
+- Keep scroll position on multi select selection
+- fix menu in action
+- move validation helper method to tocco-util
+- Clear button in date fields only show up when data has been entered, tab and enter can now be used to navigate in the calendar popup and between date fields
+- Prevent stacking of modal overlays
+
 0.10.23
 - Style upload and switch to light icons
 - Restrict max height of basic search form only in modal
