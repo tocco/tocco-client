@@ -1,3 +1,8 @@
+0.2.23
+- Clear button in date fields only show up when data has been entered, tab and enter can now be used to navigate in the calendar popup and between date fields
+- Text as html
+- Prevent stacking of modal overlays
+
 0.2.22
 - Adjust label margin in input fields
 - reload sources after deployment
