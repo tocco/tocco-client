@@ -1,7 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {usePopper} from 'react-popper'
-import ReactDOM from 'react-dom'
 
 import {StyledPopper} from './StyledComponents'
 
@@ -43,13 +42,13 @@ const Menu = ({referenceElement, onClose, open, children}) => {
     return null
   }
 
-  return ReactDOM.createPortal(
+  return (
     <div ref={thisEl}>
       {children && <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper}>
         {React.Children.map(children, child => child && React.cloneElement(child, {onClose: onClose}))}
       </StyledPopper>}
     </div>
-    , document.body)
+  )
 }
 
 Menu.propTypes = {
