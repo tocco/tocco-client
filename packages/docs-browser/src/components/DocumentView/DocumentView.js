@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {LoadMask} from 'tocco-ui'
 
 import Action from '../Action/'
+import {StyledDocumentViewWrapper} from './StyledComponents'
 
 const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy, emitAction}) => {
   const handleEntityDeleted = () => {
@@ -15,18 +16,20 @@ const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy
   const LazyDetailApp = React.lazy(() => import('./LazyDetailApp'))
 
   return (
-    <Suspense fallback={<LoadMask/>}>
-    <LazyDetailApp
-      entityName="Resource"
-      entityId={match.params.key}
-      formName={formName || 'DmsResource'}
-      mode="update"
-      actionAppComponent={Action}
-      navigationStrategy={navigationStrategy}
-      emitAction={emitAction}
-      onEntityDeleted={handleEntityDeleted}
-    />
-    </Suspense>
+    <StyledDocumentViewWrapper>
+      <Suspense fallback={<LoadMask/>}>
+        <LazyDetailApp
+          entityName="Resource"
+          entityId={match.params.key}
+          formName={formName || 'DmsResource'}
+          mode="update"
+          actionAppComponent={Action}
+          navigationStrategy={navigationStrategy}
+          emitAction={emitAction}
+          onEntityDeleted={handleEntityDeleted}
+        />
+      </Suspense>
+    </StyledDocumentViewWrapper>
   )
 }
 

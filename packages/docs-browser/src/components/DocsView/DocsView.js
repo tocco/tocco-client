@@ -7,6 +7,7 @@ import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles
 
 import Action from '../Action'
 import FileInput from '../FileInput'
+import {StyledContentWrapper, StyledIconWrapper} from './StyledComponents'
 
 const ICONS = {
   Domain: 'globe',
@@ -123,10 +124,12 @@ const DocsView = props => {
         }}
         cellRenderers={{
           'dms-label-with-icon': (rowData, column, cellRenderer) => (
-            <div>
-              <Icon icon={ICONS[rowData.type]} style={{marginRight: '0.5rem', verticalAlign: 'middle'}}/>
-              <span style={{verticalAlign: 'middle'}}>{cellRenderer(column.children[0])}</span>
-            </div>
+            <StyledContentWrapper>
+              <StyledIconWrapper>
+                <Icon icon={ICONS[rowData.type]}/>
+              </StyledIconWrapper>
+              <span>{cellRenderer(column.children[0])}</span>
+            </StyledContentWrapper>
           )
         }}
         emitAction={emitAction}

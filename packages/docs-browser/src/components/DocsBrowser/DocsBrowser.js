@@ -1,33 +1,13 @@
 import React, {useEffect, useReducer} from 'react'
 import PropTypes from 'prop-types'
 import {Route, Switch, useLocation} from 'react-router-dom'
-import styled, {withTheme} from 'styled-components'
-import {StyledScrollbar, scale, theme as themeUtil} from 'tocco-ui'
+import {withTheme} from 'styled-components'
+import {theme as themeUtil} from 'tocco-ui'
 
 import DocsView from '../DocsView'
 import DocumentView from '../DocumentView'
 import Breadcrumbs from '../../containers/BreadcrumbsContainer'
-
-const StyledWrapper = styled.div`
-  display: grid;
-  grid-template-rows: auto  1fr;
-  grid-template-areas:
-    'breadcrumbs'
-    'content';
-  height: 100%;
-  width: 100%;
-`
-
-const StyledContent = styled.div`
-  grid-area: content;
-  overflow-x: hidden;
-  padding-right: ${scale.space(-1)};
-  ${StyledScrollbar}
-`
-
-const StyledBreadcrumbs = styled.div`
-  grid-area: breadcrumbs;
-`
+import {StyledWrapper, StyledBreadcrumbs, StyledContent} from './StyledComponents'
 
 const DocsBrowser = ({
   history,
