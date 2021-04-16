@@ -1,12 +1,14 @@
 import styled from 'styled-components'
-import {Button, scale, theme} from 'tocco-ui'
+import {Button, scale, theme, StyledScrollbar} from 'tocco-ui'
 
 export const StyledForm = styled.form`
   display: grid;
   padding-bottom: ${scale.space(-0.5)};
   grid-template-columns: 100%;
+  grid-auto-rows: min-content;
   height: 100%;
-  grid-template-rows: auto auto 1fr;
+  overflow-y: auto;
+  ${StyledScrollbar}
 `
 
 export const StyledButton = styled(Button)`
