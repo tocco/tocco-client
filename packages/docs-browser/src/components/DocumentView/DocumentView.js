@@ -5,6 +5,8 @@ import {LoadMask} from 'tocco-ui'
 import Action from '../Action/'
 import {StyledDocumentViewWrapper} from './StyledComponents'
 
+const LazyDetailApp = React.lazy(() => import('./LazyDetailApp'))
+
 const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy, emitAction}) => {
   const handleEntityDeleted = () => {
     const lastList = breadcrumbs.slice().reverse()
@@ -12,8 +14,6 @@ const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy
     const lastListUrl = `/docs/${lastList.path}`
     history.push(lastListUrl)
   }
-
-  const LazyDetailApp = React.lazy(() => import('./LazyDetailApp'))
 
   return (
     <StyledDocumentViewWrapper>
