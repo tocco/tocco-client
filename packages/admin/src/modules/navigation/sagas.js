@@ -1,19 +1,11 @@
 import {rest} from 'tocco-app-extensions'
 import {takeLatest, call, all, put} from 'redux-saga/effects'
-import {cache} from 'tocco-util'
 
 import * as actions from './actions'
 
 export function* loadMenu(id) {
-  const cachedMenu = cache.getMediumTerm('menu', id)
-  if (cachedMenu) {
-    return cachedMenu
-  }
-
   const resp = yield call(rest.requestSaga, 'client/menus/' + id)
-  const menu = resp.body.menuItems
-  cache.addMediumTerm('menu', id, menu)
-  return menu
+  return resp.body.menuItems
 }
 
 export function* loadNavigation() {

@@ -3,7 +3,6 @@ import _isObject from 'lodash/isObject'
 import {call} from 'redux-saga/effects'
 import {cache} from 'tocco-util'
 import _get from 'lodash/get'
-import _isEqual from 'lodash/isEqual'
 
 import {requestSaga} from './rest'
 
@@ -189,26 +188,27 @@ export function* fetchEntities(
  * @param allowNotFound {Boolean} If true and the form does not exist null is returned.
  *                                Otherwise an exception will be thrown.
  */
+const formCache = {}
 export function* fetchForm(formName, scope, allowNotFound = false) {
   const request = `${formName}/${scope}`
-  const cachedForm = cache.getMediumTerm('form', request)
-  if (cachedForm !== undefined) {
-    return cachedForm
+  if (formCache[request] !== undefined) {
+    return formCache[request]
   }
 
   const options = {
+    ...(scope === 'create' ? {queryParams: {_display: true}} : {}),
     ...(allowNotFound && {acceptedStatusCodes: [404]})
   }
 
   const response = yield call(requestSaga, `forms/${request}`, options)
 
   if (allowNotFound && response.status === 404) {
-    cache.addMediumTerm('form', request, null)
+    formCache[request] = null
     return null
   }
 
   const form = yield call(defaultFormTransformer, response.body)
-  cache.addMediumTerm('form', request, form)
+  formCache[request] = form
   return form
 }
 
@@ -336,15 +336,12 @@ export const flattenObjectValues = value =>
 /**
  * Helper to fetch information about the currently logged in user including username and active business unit.
  */
-let principalFetchedSincePageRefresh = false
 export function* fetchPrincipal() {
-  const principalFetchedSinceLogin = cache.getShortTerm('session', 'principalFetchedSinceLogin')
-  const cachedPrincipal = cache.getLongTerm('session', 'principal')
-  if (principalFetchedSincePageRefresh && principalFetchedSinceLogin && cachedPrincipal !== undefined) {
+  const cachedPrincipal = cache.getShortTerm('session', 'principal')
+  if (cachedPrincipal !== undefined) {
     return cachedPrincipal
   }
 
-  principalFetchedSincePageRefresh = true
   const principalResponse = yield call(requestSaga, 'principals')
   const {username, businessUnit: currentBusinessUnit} = principalResponse.body
 
@@ -353,12 +350,7 @@ export function* fetchPrincipal() {
     currentBusinessUnit
   }
 
-  if (!_isEqual(principal, cachedPrincipal)) {
-    yield cache.clearMediumTerm()
-  }
-
-  yield cache.addShortTerm('session', 'principalFetchedSinceLogin', true)
-  yield cache.addLongTerm('session', 'principal', principal)
+  yield cache.addShortTerm('session', 'principal', principal)
 
   return principal
 }
