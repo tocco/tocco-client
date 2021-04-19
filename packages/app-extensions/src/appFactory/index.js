@@ -1,4 +1,10 @@
-import {renderApp, reloadApp, createApp, registerAppInRegistry} from './appFactory'
+import {
+  renderApp,
+  reloadApp,
+  createApp,
+  registerAppInRegistry,
+  inputDispatchActionType
+} from './appFactory'
 import {createStore} from './store/store'
 
 export default {
@@ -6,5 +12,6 @@ export default {
   reloadApp,
   createApp,
   createStore,
-  registerAppInRegistry
+  registerAppInRegistry,
+  inputDispatchActionType
 }
