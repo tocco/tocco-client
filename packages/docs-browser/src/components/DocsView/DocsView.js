@@ -52,6 +52,8 @@ export const getDefaultLocation = (model, key) => {
   }
 }
 
+const LazyListApp = React.lazy(() => import('./LazyListApp'))
+
 const DocsView = props => {
   const {
     storeKey,
@@ -99,8 +101,6 @@ const DocsView = props => {
     const directory = true
     openFileDialog(history.location.pathname, directory, onSuccess, onError)
   }
-
-  const LazyListApp = React.lazy(() => import('./LazyListApp'))
 
   return (
     <>
