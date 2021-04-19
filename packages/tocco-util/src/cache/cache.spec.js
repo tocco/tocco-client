@@ -1,14 +1,11 @@
 import {
   addShortTerm,
-  addMediumTerm,
   addLongTerm,
   getShortTerm,
-  getMediumTerm,
   getLongTerm,
   clearAll,
   clearShortTerm,
-  removeLongTerm,
-  clearMediumTerm
+  removeLongTerm
 } from './cache'
 
 describe('tocco-util', () => {
@@ -136,16 +133,6 @@ describe('tocco-util', () => {
         const cachedValueLongTerm = getLongTerm(type, id)
         expect(cachedValueShortTerm).to.be.undefined
         expect(cachedValueLongTerm).to.eql(value)
-      })
-
-      test('should clear medium term cache', () => {
-        addMediumTerm('form', 'id', 'form')
-        addMediumTerm('menu', 'id', 'menu')
-        addLongTerm('model', 'id', 'model')
-        clearMediumTerm()
-        expect(getMediumTerm('form', 'id')).to.be.undefined
-        expect(getMediumTerm('menu', 'id')).to.be.undefined
-        expect(getLongTerm('model', 'id')).to.eql('model')
       })
     })
 
