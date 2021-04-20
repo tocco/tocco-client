@@ -1,6 +1,7 @@
 import {all, call, put, delay} from 'redux-saga/effects'
 
 import consoleLogger from '../consoleLogger'
+import {abortController} from './abortController'
 
 /**
  * Sends a request to a location in a repetitive manner until the response has another status
@@ -37,10 +38,12 @@ export const autoRestartSaga = (generator, config, logErrorAction) => {
       try {
         yield call(generator, config, ...args)
       } catch (error) {
-        if (logErrorAction) {
-          yield put(logErrorAction('client.common.unexpectedError', 'client.common.unexpectedError', error))
-        } else {
-          consoleLogger.logError('error', error)
+        if (abortController.signal.aborted === false) {
+          if (logErrorAction) {
+            yield put(logErrorAction('client.common.unexpectedError', 'client.common.unexpectedError', error))
+          } else {
+            consoleLogger.logError('error', error)
+          }
         }
       }
     }
