@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useMemo} from 'react'
+import React, {useMemo} from 'react'
 import {intlShape} from 'react-intl'
 import {LoadMask} from 'tocco-ui'
 import {js} from 'tocco-util'
@@ -20,17 +20,13 @@ const ListView = ({
   sorting,
   columnDisplayPreferences,
   cellRenderers,
-  initialize,
+  preferencesLoaded,
   intl
 }) => {
-  useEffect(() => {
-    initialize()
-  }, [])
-
   const msg = (id, values = {}) => intl.formatMessage({id}, values)
 
   const List = useMemo(() => {
-    if (formDefinition && columnDisplayPreferences) {
+    if (formDefinition && preferencesLoaded) {
       const table = getTable(formDefinition)
       const columnsDefinitions = getColumnDefinition(
         table, sorting, parent, intl, columnDisplayPreferences, cellRenderers
@@ -43,7 +39,7 @@ const ListView = ({
         />
       </StyledListWrapper>
     }
-  }, [formDefinition, sorting, columnDisplayPreferences])
+  }, [formDefinition, sorting, columnDisplayPreferences, preferencesLoaded])
 
   const ActionBar = useMemo(() => {
     if (formDefinition) {
@@ -85,7 +81,6 @@ const ListView = ({
 
 ListView.propTypes = {
   intl: intlShape.isRequired,
-  initialize: PropTypes.func.isRequired,
   formDefinition: PropTypes.shape({
     children: PropTypes.array
   }),
@@ -106,7 +101,8 @@ ListView.propTypes = {
     order: PropTypes.string
   })),
   columnDisplayPreferences: PropTypes.objectOf(PropTypes.bool),
-  cellRenderers: PropTypes.objectOf(PropTypes.func)
+  cellRenderers: PropTypes.objectOf(PropTypes.func),
+  preferencesLoaded: PropTypes.bool
 }
 
 const areEqual = (prevProps, nextProps) => {

@@ -3,7 +3,6 @@ import * as actions from './actions'
 import searchFormTypes from '../../util/searchFormTypes'
 
 const INITIAL_STATE = {
-  entityModel: {},
   entityName: '',
   formName: '',
   initialized: false,

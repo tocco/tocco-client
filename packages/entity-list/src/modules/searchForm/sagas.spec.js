@@ -11,8 +11,8 @@ import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {getEndpoint} from '../../util/api/forms'
-import {setInitialized, setSearchFormType} from '../entityList/actions'
-import {setFormDefinition} from '../list/actions'
+import {setSearchFormType} from '../entityList/actions'
+import {setFormDefinition, SET_ENTITY_MODEL} from '../list/actions'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -36,20 +36,18 @@ describe('entity-list', () => {
             const formDefinition = []
             const entityName = 'User'
             const searchFormType = 'admin'
-            const initialized = false
+    
             const showSearchForm = true
-            const gen = sagas.initialize(actions.initialize(showSearchForm))
 
-            expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({initialized}).value).to.eql(select(sagas.entityListSelector))
-
-            expect(gen.next({entityName, searchFormType}).value).to.eql(call(sagas.loadSearchForm))
-            expect(gen.next(
-              formDefinition).value).to.eql(call(sagas.setInitialFormValues, showSearchForm, formDefinition)
-            )
-            expect(gen.next().value).to.eql(call(sagas.loadSearchFilter, entityName))
-            expect(gen.next().value).to.eql(put(actions.setInitialized()))
-            expect(gen.next().done).to.be.true
+            return expectSaga(sagas.initialize, actions.initialize(showSearchForm))
+              .provide([
+                [select(sagas.entityListSelector), {searchFormType, entityName}],
+                [matchers.call.fn(sagas.loadSearchForm), formDefinition],
+                [matchers.call.fn(sagas.setInitialFormValues)],
+                [matchers.call.fn(sagas.loadSearchFilter)]
+              ])
+              .put(actions.setInitialized())
+              .run()
           })
         })
 
@@ -69,6 +67,7 @@ describe('entity-list', () => {
 
               return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
                 .provide([
+                  [select(sagas.entityListSelector), {}],
                   [select(sagas.inputSelector), {preselectedSearchFields}],
                   [matchers.call.fn(sagas.getEntityModel), entityModel],
                   [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions]
@@ -87,7 +86,8 @@ describe('entity-list', () => {
 
               return expectSaga(sagas.setInitialFormValues, false, null)
                 .provide([
-                  [select(sagas.inputSelector), {parent}],
+                  [select(sagas.entityListSelector), {parent}],
+                  [select(sagas.inputSelector), {}],
                   [matchers.call.fn(sagas.getListFormDefinition), null],
                   [matchers.call.fn(getEndpoint), null],
                   [matchers.call.fn(rest.fetchDisplay), 'Test User']
@@ -107,7 +107,8 @@ describe('entity-list', () => {
 
               return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
                 .provide([
-                  [select(sagas.inputSelector), {parent}],
+                  [select(sagas.entityListSelector), {parent}],
+                  [select(sagas.inputSelector), {}],
                   [matchers.call.fn(sagas.getListFormDefinition), null],
                   [matchers.call.fn(getEndpoint), '/custom/']
                 ])
@@ -223,9 +224,9 @@ describe('entity-list', () => {
             const entityModel = {fields: []}
             return expectSaga(sagas.getEntityModel)
               .provide([
-                [select(sagas.entityListSelector), {initialized: false, entityModel}]
+                [select(sagas.listSelector), {entityModel}]
               ])
-              .dispatch(setInitialized())
+              .dispatch({type: SET_ENTITY_MODEL})
               .returns(entityModel)
               .run()
           })

@@ -4,7 +4,7 @@ import React from 'react'
 import {channel} from 'redux-saga'
 
 import * as actions from './actions'
-import {setPositions, setSorting, setColumns} from './actions'
+import {setPositions, setSorting, setColumns, setPreferencesLoaded} from './actions'
 import * as listActions from '../list/actions'
 import * as listSagas from '../list/sagas'
 import * as util from '../../util/preferences'
@@ -34,6 +34,7 @@ export function* loadPreferences() {
   yield put(setPositions(util.getPositions(preferences)))
   yield put(setSorting(util.getSorting(preferences)))
   yield put(setColumns(util.getColumns(preferences)))
+  yield put(setPreferencesLoaded(true))
 }
 
 export function* changePosition({payload}) {
