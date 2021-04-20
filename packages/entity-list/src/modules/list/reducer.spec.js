@@ -2,7 +2,6 @@ import reducer from './index'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
-  initialized: false,
   entityModel: {},
   entities: [],
   limit: 10,
@@ -11,7 +10,7 @@ const EXPECTED_INITIAL_STATE = {
   formDefinition: null,
   entityCount: null,
   entityStore: {},
-  inProgress: false,
+  inProgress: true,
   showSearchForm: true,
   searchFilters: [],
   createPermission: false,

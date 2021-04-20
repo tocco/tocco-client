@@ -1,16 +1,14 @@
-import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import _union from 'lodash/union'
 import {externalEvents, rest, remoteEvents, actionEmitter} from 'tocco-app-extensions'
 import _omit from 'lodash/omit'
-import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take} from 'redux-saga/effects'
+import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take, delay} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
 import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
-import * as entityListActions from '../entityList/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
 import {
   getSorting,
@@ -35,44 +33,26 @@ export default function* sagas() {
   yield all([
     takeLatest(actions.INITIALIZE, initialize),
     takeLatest(actions.CHANGE_PAGE, changePage),
-    takeLatest(searchFormActions.EXECUTE_SEARCH, loadData, 1),
+    takeLatest(searchFormActions.EXECUTE_SEARCH, reloadData),
     takeLatest(searchFormActions.EXECUTE_SEARCH, queryChanged),
-    takeEvery(actions.SET_SORTING, reloadData),
     takeLatest(actions.SET_SORTING_INTERACTIVE, reloadData),
-    takeEvery(actions.RESET_DATA_SET, loadData, 1),
-    takeLatest(actions.REFRESH, loadData),
+    takeLatest(actions.REFRESH, refreshData),
     takeLatest(actions.NAVIGATE_TO_CREATE, navigateToCreate),
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
-    takeLatest(selectionActions.RELOAD_DATA, loadData, 1),
+    takeLatest(selectionActions.RELOAD_DATA, reloadData),
     takeLatest(actions.ON_ROW_CLICK, onRowClick),
-    takeLatest(entityListActions.SET_PARENT, setParent),
-    takeLatest(entityListActions.SET_FORM_NAME, setParent),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
-    takeLatest(searchFormActions.SET_SEARCH_FILTERS, setSorting),
-    takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, setSorting)
+    takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, setSorting),
+    takeLatest(actions.DEFINE_SORTING, setSorting)
   ])
 }
 
 export function* initialize() {
-  yield put(actions.setInProgress(true))
   const {entityName, formName} = yield select(entityListSelector)
-
-  const {formDefinition, entityModel, initialized} = yield select(listSelector)
-
-  if (!initialized) {
-    yield all([
-      call(loadEntityModel, entityName, entityModel, true),
-      call(loadFormDefinition, formDefinition, formName, true)
-    ])
-    yield call(setSorting)
-    yield call(loadData, 1)
-  } else {
-    yield call(loadData)
-  }
-
-  yield call(queryChanged)
-  yield put(actions.setInProgress(false))
-  yield put(actions.setInitialized())
+  yield all([
+    call(loadFormDefinition, formName),
+    call(loadEntityModel, entityName)
+  ])
 }
 
 export function* queryChanged() {
@@ -83,22 +63,8 @@ export function* queryChanged() {
 
 export function* loadData(page) {
   yield put(actions.setInProgress(true))
-  const {initialized: searchFormInitialized} = yield select(searchFormSelector)
-
-  if (!searchFormInitialized) {
-    yield take(searchFormActions.SET_INITIALIZED)
-  }
-
   yield fork(countEntities)
   yield put(actions.clearEntityStore())
-
-  if (page) {
-    yield put(actions.setCurrentPage(page))
-  } else {
-    const {currentPage} = yield select(listSelector)
-    page = currentPage
-  }
-
   yield call(requestEntities, page)
   yield put(actions.setInProgress(false))
 }
@@ -176,22 +142,13 @@ export function* changePage({payload}) {
   yield put(actions.setInProgress(false))
 }
 
-export function* setParent() {
-  const {entityName, formName} = yield select(entityListSelector)
-  const {formDefinition, entityModel} = yield select(listSelector)
-  yield all([
-    call(loadEntityModel, entityName, entityModel, true),
-    call(loadFormDefinition, formDefinition, formName, true)
-  ])
-  yield put(selectionActions.clearSelection())
-  yield call(loadData, 1)
+export function* refreshData() {
+  const {currentPage} = yield select(listSelector)
+  yield call(loadData, currentPage)
 }
 
 export function* reloadData() {
-  const {initialized} = yield select(listSelector)
-  if (initialized) {
-    yield call(loadData, 1)
-  }
+  yield call(loadData, 1)
 }
 
 export function* getSearchFilter(inputSearchFilters, searchInputsFilters, adminSearchFormFilters = []) {
@@ -266,7 +223,12 @@ export function* requestEntities(page) {
   }
 
   yield call(displayEntity, page)
-  yield spawn(preloadNextPage, page)
+  yield spawn(delayedPreloadNextPage, page)
+}
+
+export function* delayedPreloadNextPage(page) {
+  yield delay(2000)
+  yield call(preloadNextPage, page)
 }
 
 export function* preloadNextPage(currentPage) {
@@ -318,12 +280,13 @@ export function* setSorting() {
   }
 }
 
-export function* loadFormDefinition(formDefinition, formName, forceLoad = false) {
-  if (formDefinition === null || forceLoad) {
-    formDefinition = yield call(rest.fetchForm, formName, 'list')
-    yield put(actions.setFormDefinition(formDefinition))
-  }
+export function* loadFormDefinition(formName) {
+  const fetchedFormDefinition = yield call(rest.fetchForm, formName, 'list')
+  yield put(actions.setFormDefinition(fetchedFormDefinition))
+  yield call(extractFormInformation, fetchedFormDefinition)
+}
 
+export function* extractFormInformation(formDefinition) {
   const selectable = yield call(getSelectable, formDefinition)
   yield put(actions.setFormSelectable(selectable))
   const clickable = yield call(getClickable, formDefinition)
@@ -336,11 +299,9 @@ export function* loadFormDefinition(formDefinition, formName, forceLoad = false)
   yield put(actions.setConstriction(constriction))
 }
 
-export function* loadEntityModel(entityName, entityModel, forceLoad = false) {
-  if (_isEmpty(entityModel) || forceLoad) {
-    const model = yield call(rest.fetchModel, entityName)
-    yield put(actions.setEntityModel(model))
-  }
+export function* loadEntityModel(entityName) {
+  const model = yield call(rest.fetchModel, entityName)
+  yield put(actions.setEntityModel(model))
 }
 
 export function* onRowClick({payload}) {

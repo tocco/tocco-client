@@ -1,5 +1,4 @@
 export const INITIALIZE = 'list/INITIALIZE'
-export const SET_INITIALIZED = 'list/SET_INITIALIZED'
 export const REQUEST_ENTITIES = 'list/REQUEST_ENTITIES'
 export const SET_ENTITIES = 'list/SET_ENTITIES'
 export const SET_FORM_DEFINITION = 'list/SET_FORM_DEFINITION'
@@ -10,7 +9,6 @@ export const SET_CURRENT_PAGE = 'list/SET_CURRENT_PAGE'
 export const SET_ENTITY_COUNT = 'list/SET_ENTITY_COUNT'
 export const ADD_ENTITIES_TO_STORE = 'list/ADD_ENTITIES_TO_STORE'
 export const CLEAR_ENTITY_STORE = 'list/CLEAR_ENTITIES_CACHE'
-export const RESET_DATA_SET = 'list/RESET_DATA_SET'
 export const SET_IN_PROGRESS = 'list/SET_IN_PROGRESS'
 export const CHANGE_PAGE = 'list/CHANGE_PAGE'
 export const REFRESH = 'list/REFRESH'
@@ -29,16 +27,10 @@ export const SET_SHOW_LINK = 'list/SET_SHOW_LINK'
 export const SET_LAZY_DATA = 'list/SET_LAZY_DATA'
 export const NAVIGATE_TO_ACTION = 'list/NAVIGATE_TO_ACTION'
 export const SET_SORTING_INTERACTIVE = 'list/SET_SORTING_INTERACTIVE'
+export const DEFINE_SORTING = 'list/DEFINE_SORTING'
 
 export const initialize = () => ({
   type: INITIALIZE
-})
-
-export const setInitialized = (initialized = true) => ({
-  type: SET_INITIALIZED,
-  payload: {
-    initialized
-  }
 })
 
 export const requestEntities = (page, show) => ({
@@ -101,10 +93,6 @@ export const setLimit = limit => ({
   payload: {
     limit
   }
-})
-
-export const resetDataSet = () => ({
-  type: RESET_DATA_SET
 })
 
 export const setCurrentPage = currentPage => ({
@@ -232,4 +220,8 @@ export const setSortingInteractive = (field, add) => ({
     field,
     add
   }
+})
+
+export const defineSorting = () => ({
+  type: DEFINE_SORTING
 })

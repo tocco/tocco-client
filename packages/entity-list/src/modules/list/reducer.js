@@ -51,7 +51,6 @@ const setSortingInteractive = (state, {payload: {field, add}}) => {
 }
 
 const ACTION_HANDLERS = {
-  [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
   [actions.SET_ENTITIES]: reducerUtil.singleTransferReducer('entities'),
   [actions.SET_FORM_DEFINITION]: reducerUtil.singleTransferReducer('formDefinition'),
   [actions.SET_ENTITY_MODEL]: reducerUtil.singleTransferReducer('entityModel'),
@@ -76,7 +75,6 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  initialized: false,
   entityModel: {},
   entities: [],
   limit: 10,
@@ -85,7 +83,7 @@ const initialState = {
   formDefinition: null,
   entityCount: null,
   entityStore: {},
-  inProgress: false,
+  inProgress: true,
   showSearchForm: true,
   searchFilters: [],
   createPermission: false,

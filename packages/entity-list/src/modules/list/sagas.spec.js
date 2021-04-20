@@ -1,13 +1,12 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import {externalEvents, rest, remoteEvents} from 'tocco-app-extensions'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {put, select, call, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {put, select, call, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
-import * as entityListActions from '../entityList/actions'
 import rootSaga, * as sagas from './sagas'
 import {
   getSorting,
@@ -19,7 +18,6 @@ import {
   getConstriction
 } from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
-import {setParent, setSorting} from './sagas'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
@@ -41,68 +39,35 @@ describe('entity-list', () => {
             expect(generator.next().value).to.deep.equal(all([
               takeLatest(actions.INITIALIZE, sagas.initialize),
               takeLatest(actions.CHANGE_PAGE, sagas.changePage),
-              takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.loadData, 1),
+              takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.reloadData),
               takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.queryChanged),
-              takeEvery(actions.SET_SORTING, sagas.reloadData),
               takeLatest(actions.SET_SORTING_INTERACTIVE, sagas.reloadData),
-              takeEvery(actions.RESET_DATA_SET, sagas.loadData, 1),
-              takeLatest(actions.REFRESH, sagas.loadData),
+              takeLatest(actions.REFRESH, sagas.refreshData),
               takeLatest(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
               takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
-              takeLatest(selectionActions.RELOAD_DATA, sagas.loadData, 1),
+              takeLatest(selectionActions.RELOAD_DATA, sagas.reloadData),
               takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
-              takeLatest(entityListActions.SET_PARENT, sagas.setParent),
-              takeLatest(entityListActions.SET_FORM_NAME, setParent),
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
-              takeLatest(searchFormActions.SET_SEARCH_FILTERS, setSorting),
-              takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, setSorting)
+              takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, sagas.setSorting),
+              takeLatest(actions.DEFINE_SORTING, sagas.setSorting)
             ]))
             expect(generator.next().done).to.be.true
           })
         })
 
         describe('initialize saga', () => {
-          test('should initialize the list', () => {
-            const entityName = 'Test_entity'
-            const formName = 'Base_form'
-            const formDefinition = null
-            const entityModel = {}
-            const initialized = false
-
-            const gen = sagas.initialize()
-            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(select(sagas.entityListSelector))
-            expect(gen.next({entityName, formName}).value).to.eql(select(sagas.listSelector))
-            const nextValue = gen.next({formDefinition, entityModel, initialized}).value
-            expect(nextValue).to.eql(all([
-              call(sagas.loadEntityModel, entityName, entityModel, true),
-              call(sagas.loadFormDefinition, formDefinition, formName, true)
-            ]))
-
-            expect(gen.next().value).to.eql(call(sagas.setSorting))
-            expect(gen.next().value).to.eql(call(sagas.loadData, 1))
-            expect(gen.next().value).to.eql(call(sagas.queryChanged))
-            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
-            expect(gen.next().value).to.eql(put(actions.setInitialized()))
-            expect(gen.next().done).to.be.true
-          })
-
-          test('should refresh the current page if already initialized', () => {
-            const entityName = 'Test_entity'
-            const formName = 'form2'
-            const columnDefinition = []
-            const entityModel = {name: 'Test_entity'}
-            const initialized = true
-
-            const gen = sagas.initialize()
-            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(select(sagas.entityListSelector))
-            expect(gen.next({entityName, formName}).value).to.eql(select(sagas.listSelector))
-            expect(gen.next({columnDefinition, entityModel, initialized}).value).to.eql(call(sagas.loadData))
-            expect(gen.next().value).to.eql(call(sagas.queryChanged))
-            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
-            expect(gen.next().value).to.eql(put(actions.setInitialized()))
-            expect(gen.next().done).to.be.true
+          test('should load form and model', () => {
+            const formName = 'UserSearch'
+            const entityName = 'User'
+            return expectSaga(sagas.initialize)
+              .provide([
+                [select(sagas.entityListSelector), {entityName, formName}],
+                [matchers.call.fn(sagas.loadFormDefinition)],
+                [matchers.call.fn(sagas.loadEntityModel)]
+              ])
+              .call(sagas.loadFormDefinition, formName)
+              .call(sagas.loadEntityModel, entityName)
+              .run()
           })
         })
 
@@ -118,54 +83,26 @@ describe('entity-list', () => {
           })
         })
 
-        describe('setParent saga', () => {
-          test('should set parent, reload entity model, form definition and data', () => {
-            const model = {name: 'Docs_list_item'}
-            const formDefinition = [{someContent: true}]
-            const selectable = false
-            const clickable = true
-            const endpoint = null
-            const searchEndpoint = null
-            const constriction = null
-
-            return expectSaga(sagas.setParent)
+        describe('reloadData saga', () => {
+          test('should  load data with first page', () => {
+            return expectSaga(sagas.reloadData)
               .provide([
-                [select(sagas.entityListSelector), {formName: 'UserTest', entityName: 'Docs_list_item'}],
-                [select(sagas.listSelector), generateState({}, 1)],
-                [matchers.call.fn(rest.fetchModel), model],
-                [matchers.call.fn(rest.fetchForm), formDefinition],
-                [matchers.call.fn(getSelectable), selectable],
-                [matchers.call.fn(getClickable), clickable],
-                [matchers.call.fn(getEndpoint), endpoint],
-                [matchers.call.fn(getSearchEndpoint), searchEndpoint],
-                [matchers.call.fn(getConstriction), constriction],
-                [matchers.call.fn(sagas.loadData), {}]
+                [matchers.call.fn(sagas.loadData)]
               ])
-              .put(actions.setEntityModel(model))
-              .put(actions.setFormSelectable(selectable))
-              .put(actions.setFormClickable(clickable))
-              .put(actions.setEndpoint(endpoint))
-              .put(actions.setSearchEndpoint(searchEndpoint))
-              .put(actions.setConstriction(constriction))
-              .put(selectionActions.clearSelection())
+              .call(sagas.loadData, 1)
               .run()
           })
         })
 
-        describe('reloadData saga', () => {
-          test('should call reset data if list is initialized', () => {
-            const initialized = true
-            const gen = sagas.reloadData()
-            expect(gen.next().value).to.eql(select(sagas.listSelector))
-            expect(gen.next({initialized}).value).to.eql(call(sagas.loadData, 1))
-            expect(gen.next().done).to.be.true
-          })
-
-          test('should not call reset data if list isnt initialized', () => {
-            const initialized = false
-            const gen = sagas.reloadData()
-            expect(gen.next().value).to.eql(select(sagas.listSelector))
-            expect(gen.next({initialized}).done).to.be.true
+        describe('refresh saga', () => {
+          test('should  load data with first page', () => {
+            return expectSaga(sagas.refreshData)
+              .provide([
+                [select(sagas.listSelector), {currentPage: 3}],
+                [matchers.call.fn(sagas.loadData)]
+              ])
+              .call(sagas.loadData, 3)
+              .run()
           })
         })
 
@@ -250,18 +187,30 @@ describe('entity-list', () => {
 
         describe('requestEntities saga', () => {
           test('should request entities', () => {
+            const entityStore = {}
             const page = 1
-            const gen = sagas.requestEntities(page)
+            return expectSaga(sagas.requestEntities, page)
+              .provide([
+                [select(sagas.listSelector), {entityStore}],
+                [matchers.call.fn(sagas.fetchEntitiesAndAddToStore)]
+              ])
+              .call.like({fn: sagas.fetchEntitiesAndAddToStore})
+              .call(sagas.displayEntity, page)
+              .spawn(sagas.delayedPreloadNextPage, page)
+              .run()
+          })
 
-            const state = generateState({}, page)
-            state.limit = 50
-            state.entityCount = 1000
-
-            expect(gen.next().value).to.eql(select(sagas.listSelector))
-            expect(gen.next(state).value).to.eql(call(sagas.fetchEntitiesAndAddToStore, page))
-            expect(gen.next().value).to.eql(call(sagas.displayEntity, page))
-            expect(gen.next().value).to.eql(spawn(sagas.preloadNextPage, page))
-            expect(gen.next().done).to.be.true
+          test('should not fetch entities if already exists in store', () => {
+            const entityStore = {1: []}
+            const page = 1
+            return expectSaga(sagas.requestEntities, page)
+              .provide([
+                [select(sagas.listSelector), {entityStore}]
+              ])
+              .not.call.like({fn: sagas.fetchEntitiesAndAddToStore})
+              .call(sagas.displayEntity, page)
+              .spawn(sagas.delayedPreloadNextPage, page)
+              .run()
           })
         })
 
@@ -351,72 +300,19 @@ describe('entity-list', () => {
         })
 
         describe('loadData saga', () => {
-          test('should not load data if search form is not initialized', () =>
-            expectSaga(sagas.loadData)
+          test('should load data of provided page', () =>
+            expectSaga(sagas.loadData, 2)
               .provide([
-                [select(sagas.searchFormSelector), {initialized: false}],
-                [matchers.fork.fn(sagas.countEntities), null],
-                [matchers.call.fn(sagas.requestEntities), null],
-                [select(sagas.listSelector), {currentPage: 2}]
+                [matchers.fork.fn(sagas.countEntities)],
+                [matchers.call.fn(sagas.requestEntities)]
               ])
-              .not.fork(sagas.countEntities)
-              .run(200)
-          )
-
-          test('should await the initialization of search for before loading data', () =>
-            expectSaga(sagas.loadData)
-              .provide([
-                [select(sagas.searchFormSelector), {initialized: false}],
-                [matchers.fork.fn(sagas.countEntities), null],
-                [matchers.call.fn(sagas.requestEntities), null],
-                [select(sagas.listSelector), {currentPage: 2}]
-              ])
-              .dispatch(searchFormActions.setInitialized())
+              .put(actions.setInProgress(true))
+              .put(actions.clearEntityStore())
+              .call(sagas.requestEntities, 2)
+              .put(actions.setInProgress(false))
               .fork(sagas.countEntities)
               .run()
           )
-
-          test('should load data of provided page', () => {
-            const requestedPage = 223
-            return expectSaga(sagas.loadData, requestedPage)
-              .provide([
-                [select(sagas.searchFormSelector), {initialized: true}],
-                [matchers.fork.fn(sagas.countEntities), null],
-                [matchers.call.fn(sagas.requestEntities), null],
-                [select(sagas.listSelector), {currentPage: 2}]
-              ])
-              .put(actions.setCurrentPage(requestedPage))
-              .call(sagas.requestEntities, requestedPage)
-              .run()
-          })
-
-          test('should load data of current page if no page is passed', () => {
-            const currentPage = 33
-            return expectSaga(sagas.loadData)
-              .provide([
-                [select(sagas.searchFormSelector), {initialized: true}],
-                [matchers.fork.fn(sagas.countEntities), null],
-                [matchers.call.fn(sagas.requestEntities), null],
-                [select(sagas.listSelector), {currentPage}]
-              ])
-              .not.put(actions.setCurrentPage(currentPage))
-              .call(sagas.requestEntities, currentPage)
-              .run()
-          })
-
-          test('should dispatch inProgress actions', () => {
-            const requestedPage = 223
-            return expectSaga(sagas.loadData, requestedPage)
-              .provide([
-                [select(sagas.searchFormSelector), {initialized: true}],
-                [matchers.fork.fn(sagas.countEntities), null],
-                [matchers.call.fn(sagas.requestEntities), null],
-                [select(sagas.listSelector), {currentPage: 2}]
-              ])
-              .put(actions.setInProgress(true))
-              .put(actions.setInProgress(false))
-              .run()
-          })
         })
 
         describe('countEntities saga', () => {
@@ -464,13 +360,23 @@ describe('entity-list', () => {
           })
         })
 
-        describe('loadTableDefinition saga', () => {
-          test('should load Columndefinition if not loaded', () => {
-            const formDefinition = null
-            const formName = 'UserSearch'
-            const loadedFormDefinition = {
-              children: []
-            }
+        describe('loadFormDefinition saga', () => {
+          test('should load form definition', () => {
+            const fetchedFormDefinition = {}
+            return expectSaga(sagas.loadFormDefinition)
+              .provide([
+                [matchers.call.fn(sagas.extractFormInformation)],
+                [matchers.call.fn(rest.fetchForm), fetchedFormDefinition]
+              ])
+              .put(actions.setFormDefinition(fetchedFormDefinition))
+              .call(sagas.extractFormInformation, fetchedFormDefinition)
+              .run()
+          })
+        })
+
+        describe('extractFormInformation saga', () => {
+          test('should put infos gathered from the form defintion', () => {
+            const fetchedFormDefinition = {}
 
             const selectable = true
             const clickable = true
@@ -478,17 +384,14 @@ describe('entity-list', () => {
             const searchEndpoint = 'customSearchEndpoint'
             const constriction = 'sampleConstriction'
 
-            return expectSaga(sagas.loadFormDefinition, formDefinition, formName)
+            return expectSaga(sagas.extractFormInformation, fetchedFormDefinition)
               .provide([
-                [matchers.call.fn(rest.fetchForm), loadedFormDefinition],
                 [matchers.call.fn(getSelectable), selectable],
                 [matchers.call.fn(getClickable), clickable],
                 [matchers.call.fn(getEndpoint), endpoint],
                 [matchers.call.fn(getSearchEndpoint), searchEndpoint],
                 [matchers.call.fn(getConstriction), constriction]
               ])
-              .call(rest.fetchForm, formName, 'list')
-              .put(actions.setFormDefinition(loadedFormDefinition))
               .put(actions.setFormSelectable(selectable))
               .put(actions.setFormClickable(clickable))
               .put(actions.setEndpoint(endpoint))
@@ -496,46 +399,17 @@ describe('entity-list', () => {
               .put(actions.setConstriction(constriction))
               .run()
           })
-
-          test('should not load formDefinition if already loaded', () => {
-            const formDefinition = [{someContent: true}]
-            const formName = 'UserSearch'
-            return expectSaga(sagas.loadFormDefinition, formDefinition, formName)
-              .provide([
-                [matchers.call.fn(sagas.setSorting)],
-                [matchers.call.fn(getSelectable), false],
-                [matchers.call.fn(getClickable), false],
-                [matchers.call.fn(getEndpoint), null],
-                [matchers.call.fn(getSearchEndpoint), null],
-                [matchers.call.fn(getConstriction), null]
-              ])
-              .not.call(rest.fetchForm, formName, 'list')
-              .run()
-          })
         })
 
         describe('loadEntityModel saga', () => {
-          test('should load the entity model if not loaded', () => {
-            const entityName = 'User'
-            const entityModel = {}
-
+          test('should load the entity model', () => {
             const model = {name: 'User'}
-
-            const gen = sagas.loadEntityModel(entityName, entityModel)
-            expect(gen.next().value).to.eql(call(rest.fetchModel, entityName))
-            expect(gen.next(model).value).to.eql(put(actions.setEntityModel(model)))
-
-            expect(gen.next().done).to.be.true
-          })
-
-          test('should not load the entity model if already loaded', () => {
-            const entityName = 'User'
-            const entityModel = {
-              name: 'User'
-            }
-
-            const gen = sagas.loadEntityModel(entityName, entityModel)
-            expect(gen.next().done).to.be.true
+            return expectSaga(sagas.loadEntityModel)
+              .provide([
+                [matchers.call.fn(rest.fetchModel), model]
+              ])
+              .put(actions.setEntityModel(model))
+              .run()
           })
         })
 
@@ -883,7 +757,8 @@ describe('entity-list', () => {
 
           const expectReload = (listState, remoteEvent) => expectSaga(sagas.remoteEvent, remoteEvent)
             .provide([
-              [select(sagas.listSelector), listState]
+              [select(sagas.listSelector), listState],
+              [call(sagas.reloadData)]
             ])
             .call(sagas.reloadData)
             .run()
@@ -937,7 +812,8 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.remoteEvent, deleteEventAction)
               .provide([
-                [select(sagas.listSelector), listState]
+                [select(sagas.listSelector), listState],
+                [call(sagas.reloadData)]
               ])
               .put(selectionActions.onSelectChange(['1', '99'], false))
               .run()
