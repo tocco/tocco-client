@@ -1,4 +1,4 @@
-import React, {useEffect, Suspense} from 'react'
+import React, {useEffect, useState, Suspense, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {viewPersistor} from 'tocco-util'
 import {Icon, LoadMask} from 'tocco-ui'
@@ -76,10 +76,12 @@ const DocsView = props => {
     showActions
   } = props
 
-  const parent = getParent(match)
+  const [selection, setSelection] = useState([])
+  const parent = useMemo(() => getParent(match), [match.params])
 
   useEffect(() => {
     changeListParent(parent)
+    setSelection([])
   }, [parent])
 
   const handleRowClick = ({id}) => {
@@ -106,7 +108,7 @@ const DocsView = props => {
   return (
     <>
      <Suspense fallback={<LoadMask/>}>
-      <LazyListApp
+        <LazyListApp
         id="documents"
         entityName="Docs_list_item"
         formName={formName === null ? getFormName(parent, keys) : formName}
@@ -145,6 +147,8 @@ const DocsView = props => {
         tql={tql}
         keys={keys}
         selectionStyle={selectionStyle || 'multi'}
+        onSelectChange={setSelection}
+        selection={selection}
         showActions={showActions}
       />
        </Suspense>
