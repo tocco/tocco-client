@@ -1,3 +1,5 @@
+import {saga} from 'tocco-util'
+
 import InformationError from './InformationError'
 
 const PRECONDITION_FAILED_STATUS_CODE = 412
@@ -53,7 +55,7 @@ export function sendRequest(url, options, acceptedErrorCodes = [], acceptedStatu
     acceptedStatusCodes.push(PRECONDITION_FAILED_STATUS_CODE)
   }
 
-  return fetch(url, options)
+  return fetch(url, {...options, signal: saga.abortController.signal})
     .then(response => (extractBody(response)))
     .then(response => (handleError(response, acceptedErrorCodes, acceptedStatusCodes)))
 }
