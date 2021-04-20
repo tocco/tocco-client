@@ -16,8 +16,9 @@ import _isEmpty from 'lodash/isEmpty'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 
 import reducers, {sagas} from './modules/reducers'
+import {reloadData, reloadAll} from './modules/entityList/actions'
 import EntityList from './components/EntityList'
-import {getDispatchActions} from './input'
+import {getDispatchActions, getReloadOption, reloadOptions} from './input'
 import {selectionStylePropType} from './util/selectionStyles'
 import customActions from './customActions'
 import {searchFormTypePropTypes} from './util/searchFormTypes'
@@ -130,6 +131,13 @@ class EntityListApp extends React.Component {
       getDispatchActions(changedProps).forEach(action => {
         this.app.store.dispatch(action)
       })
+
+      const reloadOption = getReloadOption(changedProps)
+      if (reloadOption === reloadOptions.ALL) {
+        this.app.store.dispatch(reloadAll())
+      } else if (reloadOption === reloadOptions.DATA) {
+        this.app.store.dispatch(reloadData())
+      }
     }
   }
 

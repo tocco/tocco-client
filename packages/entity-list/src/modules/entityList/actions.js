@@ -2,10 +2,11 @@ export const SET_INITIALIZED = 'entityList/SET_INITIALIZED'
 export const INITIALIZE = 'entityList/INITIALIZE'
 export const SET_SEARCH_FORM_TYPE = 'entityList/SET_SEARCH_FORM_TYPE'
 export const SET_ENTITY_NAME = 'entityList/SET_ENTITY_NAME'
-export const SET_ENTITY_MODEL = 'entityList/SET_ENTITY_MODEL'
 export const SET_PARENT = 'entityList/SET_PARENT'
 export const SET_SEARCH_FORM_POSITION = 'entityList/SET_SEARCH_FORM_POSITION'
 export const SET_FORM_NAME = 'entityList/SET_FORM_NAME'
+export const RELOAD_ALL = 'entityList/RELOAD_ALL'
+export const RELOAD_DATA = 'entityList/RELOAD_DATA'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -16,13 +17,6 @@ export const setInitialized = (initialized = true) => ({
 
 export const initialize = () => ({
   type: INITIALIZE
-})
-
-export const setEntityModel = entityModel => ({
-  type: SET_ENTITY_MODEL,
-  payload: {
-    entityModel
-  }
 })
 
 export const setSearchFormType = searchFormType => ({
@@ -58,4 +52,12 @@ export const setFormName = formName => ({
   payload: {
     formName
   }
+})
+
+export const reloadData = () => ({
+  type: RELOAD_DATA
+})
+
+export const reloadAll = () => ({
+  type: RELOAD_ALL
 })

@@ -16,7 +16,6 @@ const ACTION_HANDLERS = {
   [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
   [actions.SET_ENTITY_NAME]: reducerUtil.singleTransferReducer('entityName'),
   [actions.SET_FORM_NAME]: reducerUtil.singleTransferReducer('formName'),
-  [actions.SET_ENTITY_MODEL]: reducerUtil.singleTransferReducer('entityModel'),
   [actions.SET_SEARCH_FORM_TYPE]: setSearchFormType,
   [actions.SET_SEARCH_FORM_POSITION]: reducerUtil.singleTransferReducer('searchFormPosition'),
   [actions.SET_PARENT]: reducerUtil.singleTransferReducer('parent')
@@ -26,7 +25,6 @@ const initialState = {
   initialized: false,
   entityName: '',
   formName: '',
-  entityModel: {},
   searchFormType: searchFormTypes.BASIC,
   searchFormPosition: 'top',
   parent: null

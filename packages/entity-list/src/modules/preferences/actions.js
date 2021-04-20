@@ -7,9 +7,17 @@ export const RESET_SORTING = 'preferences/RESET_SORTING'
 export const RESET_COLUMNS = 'preferences/RESET_COLUMNS'
 export const RESET_PREFERENCES = 'preferences/RESET_PREFERENCES'
 export const DISPLAY_COLUMN_MODAL = 'preferences/DISPLAY_COLUMN_MODAL'
+export const SET_PREFERENCES_LOADED = 'preferences/SET_PREFERENCES_LOADED'
 
 export const loadPreferences = () => ({
   type: LOAD_PREFERENCES
+})
+
+export const setPreferencesLoaded = preferencesLoaded => ({
+  type: SET_PREFERENCES_LOADED,
+  payload: {
+    preferencesLoaded
+  }
 })
 
 export const setPositions = positions => ({

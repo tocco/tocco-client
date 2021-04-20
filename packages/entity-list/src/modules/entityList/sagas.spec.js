@@ -1,7 +1,11 @@
-import {put, call, takeLatest, all} from 'redux-saga/effects'
-import {rest} from 'tocco-app-extensions'
+import {call, takeLatest, all} from 'redux-saga/effects'
+import {appFactory} from 'tocco-app-extensions'
+import {expectSaga} from 'redux-saga-test-plan'
 
-import * as actions from './actions'
+import * as actions from './../entityList/actions'
+import * as listActions from './../list/actions'
+import * as searchFormActions from './../searchForm/actions'
+import * as preferenceActions from './../preferences/actions'
 import rootSaga, * as sagas from './sagas'
 
 describe('entity-list', () => {
@@ -12,31 +16,37 @@ describe('entity-list', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              takeLatest(actions.INITIALIZE, sagas.initialize)
+              call(sagas.initialize),
+              takeLatest(actions.RELOAD_DATA, sagas.reloadData),
+              takeLatest(actions.RELOAD_ALL, sagas.initialize, false)
             ]))
             expect(generator.next().done).to.be.true
           })
         })
 
-        describe('loadEntityModel saga', () => {
-          test('should load model if not already loaded', () => {
-            const entityName = 'User'
-            const entityModel = {}
-            const loadedModel = {}
-            const gen = sagas.loadEntityModel(entityName, entityModel)
-
-            expect(gen.next().value).to.eql(call(rest.fetchModel, entityName))
-            expect(gen.next(loadedModel).value).to.eql(put(actions.setEntityModel(loadedModel)))
-
-            expect(gen.next().done).to.be.true
+        describe('initialize', () => {
+          test('should coordinate loading of modules and dependencies', () => {
+            return expectSaga(sagas.initialize)
+              .dispatch({type: appFactory.inputDispatchActionType})
+              .put(listActions.initialize())
+              .put(preferenceActions.loadPreferences())
+              .put(searchFormActions.initialize())
+              .dispatch({type: searchFormActions.SET_INITIALIZED})
+              .dispatch({type: preferenceActions.SET_PREFERENCES_LOADED})
+              .put(listActions.defineSorting())
+              .dispatch({type: listActions.SET_SORTING})
+              .put(searchFormActions.executeSearch())
+              .run()
           })
+        })
 
-          test('should not load model if already loaded', () => {
-            const entityName = 'User'
-            const entityModel = {someContent: true}
-
-            const gen = sagas.loadEntityModel(entityName, entityModel)
-            expect(gen.next().done).to.be.true
+        describe('reloadData', () => {
+          test('should init search form and trigger search', () => {
+            return expectSaga(sagas.reloadData)
+              .put(searchFormActions.initialize())
+              .dispatch({type: searchFormActions.SET_INITIALIZED})
+              .put(searchFormActions.executeSearch())
+              .run()
           })
         })
       })

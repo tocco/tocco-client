@@ -1,29 +1,41 @@
-import _isEmpty from 'lodash/isEmpty'
-import {put, select, call, takeLatest, all} from 'redux-saga/effects'
-import {rest} from 'tocco-app-extensions'
+import {put, call, all, take, takeLatest} from 'redux-saga/effects'
+import {appFactory} from 'tocco-app-extensions'
 
-import * as actions from './actions'
+import * as actions from './../entityList/actions'
+import * as listActions from './../list/actions'
+import * as searchFormActions from './../searchForm/actions'
+import * as preferenceActions from './../preferences/actions'
 
 export const entityListSelector = state => state.entityList
 
 export default function* sagas() {
   yield all([
-    takeLatest(actions.INITIALIZE, initialize)
+    call(initialize),
+    takeLatest(actions.RELOAD_DATA, reloadData),
+    takeLatest(actions.RELOAD_ALL, initialize, false)
   ])
 }
 
-export function* loadEntityModel(entityName, entityModel) {
-  if (_isEmpty(entityModel)) {
-    const loadedModel = yield call(rest.fetchModel, entityName)
-    yield put(actions.setEntityModel(loadedModel))
+export function* initialize(waitForInputDispatch = true) {
+  if (waitForInputDispatch) {
+    yield take(appFactory.inputDispatchActionType)
   }
+  yield put(listActions.initialize())
+  yield put(preferenceActions.loadPreferences())
+  yield put(searchFormActions.initialize())
+  yield all([
+    take(searchFormActions.SET_INITIALIZED),
+    take(preferenceActions.SET_PREFERENCES_LOADED)
+  ])
+  yield put(listActions.defineSorting())
+  yield take(listActions.SET_SORTING)
+  yield put(searchFormActions.executeSearch())
 }
 
-export function* initialize() {
-  const {entityModel, entityName, initialized} = yield select(entityListSelector)
-
-  if (!initialized) {
-    yield call(loadEntityModel, entityName, entityModel)
-    yield put(actions.setInitialized())
-  }
+export function* reloadData() {
+  yield put(searchFormActions.initialize())
+  yield all([
+    take(searchFormActions.SET_INITIALIZED)
+  ])
+  yield put(searchFormActions.executeSearch())
 }

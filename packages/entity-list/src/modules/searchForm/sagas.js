@@ -10,13 +10,14 @@ import {call, put, select, takeLatest, take, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {getFormFieldFlat, getEndpoint, changeParentFieldType} from '../../util/api/forms'
-import {SET_INITIALIZED as LIST_SET_INITIALIZED, setSearchFormType} from '../entityList/actions'
+import {setSearchFormType} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
-import {SET_FORM_DEFINITION} from '../list/actions'
+import {SET_ENTITY_MODEL, SET_FORM_DEFINITION} from '../list/actions'
 import searchFormTypes from '../../util/searchFormTypes'
 
 export const inputSelector = state => state.input
 export const searchFormSelector = state => state.searchForm
+export const listSelector = state => state.list
 export const entityListSelector = state => state.entityList
 export const listFromDefinitionSelector = state => state.list.formDefinition
 export const searchValuesSelector = getFormValues('searchForm')
@@ -34,19 +35,16 @@ export default function* sagas() {
 }
 
 export function* initialize() {
-  const {initialized} = yield select(searchFormSelector)
   const {searchFormType, entityName} = yield select(entityListSelector)
   const searchFormVisible = searchFormType !== searchFormTypes.NONE
 
-  if (!initialized) {
-    const formDefinition = searchFormVisible ? yield call(loadSearchForm) : null
-    yield call(setInitialFormValues, searchFormVisible, formDefinition)
-    if (searchFormType === searchFormTypes.ADMIN) {
-      yield call(loadSearchFilter, entityName)
-    }
-
-    yield put(actions.setInitialized())
+  const formDefinition = searchFormVisible ? yield call(loadSearchForm) : null
+  yield call(setInitialFormValues, searchFormVisible, formDefinition)
+  if (searchFormType === searchFormTypes.ADMIN) {
+    yield call(loadSearchFilter, entityName)
   }
+
+  yield put(actions.setInitialized())
 }
 
 export function* getListFormDefinition() {
@@ -60,10 +58,9 @@ export function* getListFormDefinition() {
 }
 
 export function* setInitialFormValues(searchFormVisible, formDefinition) {
-  const {preselectedSearchFields, parent} = yield select(inputSelector)
-
+  const {preselectedSearchFields} = yield select(inputSelector)
+  const {parent} = yield select(entityListSelector)
   let formValues = {}
-
   if (preselectedSearchFields) {
     const model = yield call(getEntityModel)
     const preselectedValues = searchFormVisible
@@ -151,13 +148,13 @@ export function* loadSearchForm() {
 }
 
 export function* getEntityModel() {
-  let entityList = yield select(entityListSelector)
-  if (!entityList.initialized) {
-    yield take(LIST_SET_INITIALIZED)
+  const entityList = yield select(listSelector)
+  if (Object.keys(entityList.entityModel).length === 0) {
+    yield take(SET_ENTITY_MODEL)
   }
 
-  entityList = yield select(entityListSelector)
-  return entityList.entityModel
+  const {entityModel} = yield select(listSelector)
+  return entityModel
 }
 
 export function* resetSearchFilters() {
