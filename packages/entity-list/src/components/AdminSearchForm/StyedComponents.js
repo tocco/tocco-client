@@ -10,10 +10,12 @@ export const StyledSplitWrapper = styled.div`
 
 export const StyledHeader = styled.div`
   background-color: ${theme.color('paper')};
-  margin-bottom: 3px;
+  border-bottom: 3px solid ${theme.color('backgroundBody')};
   display: flex;
   justify-content: flex-end;
   padding: 9px;
+  position: relative;
+  z-index: 2; // higher than StyledTether to prevent cover on scroll
 `
 
 export const AdminSearchGrid = styled.div`
@@ -31,6 +33,11 @@ export const Box = styled.div`
   background-color: ${theme.color('paper')};
   overflow-y: auto;
   padding: .6rem 1rem 0 .6rem;
+  position: relative;
+
+  &:first-of-type {
+    z-index: 2; // higher than StyledTether to prevent cover on scroll
+  }
   ${StyledScrollbar}
 `
 
@@ -43,6 +50,8 @@ export const StyledGutter = styled.div`
   height: calc(100% - 1px); //subtract border height from total height
   font-size: 20px;
   border-top: 1px solid ${theme.color('backgroundBody')};
+  position: relative;
+  z-index: 2;
 
   &:hover {
     cursor: row-resize;

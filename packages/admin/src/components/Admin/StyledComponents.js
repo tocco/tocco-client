@@ -44,8 +44,8 @@ export const burgerMenuStyles = {
     left: '17px',
     top: '10px',
     // Default z-index of button is 1000 which is higher than the mask of the legacy action modal windows (not good).
-    // It seems like it doesn't need to be higher than 1, therefore we set it to 1.
-    zIndex: 1
+    // It seems like it doesn't need to be higher than 3, therefore we set it to 3.
+    zIndex: 3
   },
   bmBurgerBarsHover: {
     background: '#a90000'

@@ -7,6 +7,7 @@ import {PasswordUpdateApp} from 'tocco-login/src/main'
 import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
 
 import {
+  StyledBackgroundCover,
   StyledHeader,
   StyledConfig,
   StyledBackgroundLogo
@@ -71,6 +72,7 @@ const Header = ({
 
   return <>
     <StyledBackgroundLogo runEnv={runEnv}/>
+    <StyledBackgroundCover />
     <StyledHeader>
       <StyledConfig>
         <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
