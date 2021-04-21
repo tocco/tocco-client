@@ -13,6 +13,60 @@ describe('delete', () => {
           const result = getDialogInfo(exampleResponseSessionOnly, 'test1')
           expect(result).to.deep.eql(dialogInfoSessionOnly)
         })
+
+        test('should set empty root entity if none is deletable', () => {
+          const response = {
+            entitiesToDelete: [
+              {
+                rootEntity: {
+                  entityName: 'User',
+                  key: '100',
+                  entityLabel: 'Person',
+                  businessUnitId: null,
+                  deleteStatus: 'NO_DELETE_PERMISSION'
+                },
+                affectedEntities: [],
+                unreadableEntities: false
+              },
+              {
+                rootEntity: {
+                  entityName: 'Event',
+                  key: '22',
+                  entityLabel: 'Veranstaltung',
+                  businessUnitId: null,
+                  deleteStatus: 'DELETABLE'
+                },
+                affectedEntities: [],
+                unreadableEntities: false
+              }
+            ]
+          }
+
+          const result = getDialogInfo(response)
+          const expectedResult = {
+            rootEntitiesDeletable: {
+              User: {
+                entityLabel: 'Person',
+                keys: []
+              },
+              Event: {
+                entityLabel: 'Veranstaltung',
+                keys: ['22']
+              }
+            },
+            rootEntitiesNotDeletable: {
+              User: {
+                entityLabel: 'Person',
+                keys: ['100']
+              }
+            },
+            relatedDeletable: {},
+            relatedNotDeletable: {},
+            hasUnreadableEntities: false
+          }
+          
+          expect(result).to.deep.eql(expectedResult)
+        })
       })
 
       describe('getEntitiesToDelete', () => {

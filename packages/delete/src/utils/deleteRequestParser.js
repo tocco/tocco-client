@@ -36,15 +36,15 @@ const transformRelatedEntities = (relatedEntities, entityToDelete, deletable, cu
   }), {...relatedEntities})
 })
 
-const transformRootEntity = (rootEntities, entityToDelete) => {
-  const {entityName, entityLabel, key} = entityToDelete.rootEntity
+const transformRootEntity = (rootEntities, entity, applyKeys = true) => {
+  const {entityName, entityLabel, key} = entity.rootEntity
   if (key.includes('/')) {
     const [entityNameReal, keyReal] = key.split('/')
     return {
       ...rootEntities,
       [entityNameReal]: {
         entityLabel,
-        keys: [..._get(rootEntities, [entityNameReal, 'keys'], []), keyReal]
+        keys: [..._get(rootEntities, [entityNameReal, 'keys'], []), ...(applyKeys ? [keyReal] : [])]
       }
     }
   } else {
@@ -52,7 +52,7 @@ const transformRootEntity = (rootEntities, entityToDelete) => {
       ...rootEntities,
       [entityName]: {
         entityLabel,
-        keys: [..._get(rootEntities, [entityName, 'keys'], []), key]
+        keys: [..._get(rootEntities, [entityName, 'keys'], []), ...(applyKeys ? [key] : [])]
       }
     }
   }
@@ -67,11 +67,11 @@ export const getDialogInfo = (response, currentBuId) => {
 
   return entitiesToDelete.reduce((acc, entityToDelete) => {
     const deletable = isEntityDeletable(entityToDelete)
-    const keyAttr = deletable ? 'rootEntitiesDeletable' : 'rootEntitiesNotDeletable'
     const relatedAttr = deletable ? 'relatedDeletable' : 'relatedNotDeletable'
     return {
       ...acc,
-      [keyAttr]: transformRootEntity(acc[keyAttr], entityToDelete),
+      rootEntitiesDeletable: transformRootEntity(acc.rootEntitiesDeletable, entityToDelete, deletable),
+      ...!deletable && {rootEntitiesNotDeletable: transformRootEntity(acc.rootEntitiesNotDeletable, entityToDelete)},
       [relatedAttr]: transformRelatedEntities(acc[relatedAttr], entityToDelete, deletable, currentBuId)
     }
   },
