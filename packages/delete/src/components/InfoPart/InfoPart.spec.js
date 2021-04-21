@@ -43,6 +43,25 @@ describe('delete', () => {
         expect(wrapper.text()).to.eql('Person (2) / Dokument (2), Adresse (1)')
         expect(wrapper.find(RouterLink)).to.have.length(2)
       })
+
+      it('should display zeros', () => {
+        const wrapper = mount(
+          <MemoryRouter>
+            <InfoPart
+              rootEntities={{
+                User: {
+                  entityLabel: 'Person',
+                  keys: []
+                }
+              }}
+              relatedEntities={{}}
+              maxCountLink={100}
+            />
+          </MemoryRouter>
+        )
+
+        expect(wrapper.text()).to.eql('Person (0)')
+      })
     })
   })
 })
