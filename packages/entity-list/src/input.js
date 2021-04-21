@@ -13,7 +13,10 @@ import {
   setLimit,
   setSearchFilters,
   setFormDefinition as setListFormDefinition,
-  setShowLink
+  setShowLink,
+  setInputTql,
+  setInputKeys,
+  setInputSearchFilters
 } from './modules/list/actions'
 import {setSelection} from './modules/selection/actions'
 
@@ -116,5 +119,23 @@ const actionSettings = [
     action: setShowLink,
     argsFactory: input => [input.showLink],
     reload: reloadOptions.NOTHING
+  },
+  {
+    name: 'tql',
+    action: setInputTql,
+    argsFactory: input => [input.tql],
+    reload: reloadOptions.DATA
+  },
+  {
+    name: 'keys',
+    action: setInputKeys,
+    argsFactory: input => [input.keys],
+    reload: reloadOptions.DATA
+  },
+  {
+    name: 'searchFilters',
+    action: setInputSearchFilters,
+    argsFactory: input => [input.searchFilters],
+    reload: reloadOptions.DATA
   }
 ]
