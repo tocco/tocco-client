@@ -70,8 +70,10 @@ const ACTION_HANDLERS = {
   [actions.SET_ENDPOINT]: reducerUtil.singleTransferReducer('endpoint'),
   [actions.SET_SEARCH_ENDPOINT]: reducerUtil.singleTransferReducer('searchEndpoint'),
   [actions.SET_CONSTRICTION]: reducerUtil.singleTransferReducer('constriction'),
-  [actions.SET_SHOW_LINK]: reducerUtil.singleTransferReducer('showLink')
-
+  [actions.SET_SHOW_LINK]: reducerUtil.singleTransferReducer('showLink'),
+  [actions.SET_INPUT_TQL]: reducerUtil.singleTransferReducer('inputTql'),
+  [actions.SET_INPUT_KEYS]: reducerUtil.singleTransferReducer('inputKeys'),
+  [actions.SET_INPUT_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('inputSearchFilters')
 }
 
 const initialState = {
@@ -93,7 +95,10 @@ const initialState = {
   lazyData: {},
   endpoint: null,
   searchEndpoint: null,
-  constriction: null
+  constriction: null,
+  inputTql: null,
+  inputKeys: null,
+  inputSearchFilters: null
 }
 
 export default function reducer(state = initialState, action) {

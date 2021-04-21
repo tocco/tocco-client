@@ -20,7 +20,10 @@ const EXPECTED_INITIAL_STATE = {
   lazyData: {},
   endpoint: null,
   searchEndpoint: null,
-  constriction: null
+  constriction: null,
+  inputKeys: null,
+  inputSearchFilters: null,
+  inputTql: null
 }
 
 describe('entity-list', () => {

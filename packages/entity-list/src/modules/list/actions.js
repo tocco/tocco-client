@@ -28,6 +28,7 @@ export const SET_LAZY_DATA = 'list/SET_LAZY_DATA'
 export const NAVIGATE_TO_ACTION = 'list/NAVIGATE_TO_ACTION'
 export const SET_SORTING_INTERACTIVE = 'list/SET_SORTING_INTERACTIVE'
 export const DEFINE_SORTING = 'list/DEFINE_SORTING'
+export const SET_INPUT_TQL = 'list/SET_INPUT_TQL'export const SET_INPUT_KEYS = 'list/SET_INPUT_KEYS'export const SET_INPUT_SEARCH_FILTERS = 'list/SET_INPUT_SEARCH_FILTERS'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -224,4 +225,25 @@ export const setSortingInteractive = (field, add) => ({
 
 export const defineSorting = () => ({
   type: DEFINE_SORTING
+})
+
+export const setInputTql = inputTql => ({
+  type: SET_INPUT_TQL,
+  payload: {
+    inputTql
+  }
+})
+
+export const setInputKeys = inputKeys => ({
+  type: SET_INPUT_KEYS,
+  payload: {
+    inputKeys
+  }
+})
+
+export const setInputSearchFilters = inputSearchFilters => ({
+  type: SET_INPUT_SEARCH_FILTERS,
+  payload: {
+    inputSearchFilters
+  }
 })
