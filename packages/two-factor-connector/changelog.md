@@ -1,4 +1,9 @@
 0.1.7-hotfix228.5
+- render description field in form
+- Fix fulltext search
+- Text as html
+
+0.1.7-hotfix228.5
 - fix long term caching
 - render description field in form
 
