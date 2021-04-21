@@ -30,7 +30,7 @@ export const getParent = match => {
 
 export const getTql = domainTypes =>
   Array.isArray(domainTypes)
-  && domainTypes.length > 0
+    && domainTypes.length > 0
     ? `exists(relDomain_type where IN(unique_id, ${domainTypes.map(type => `"${type}"`).join(',')}))`
     : null
 
@@ -108,52 +108,52 @@ const DocsView = props => {
 
   return (
     <>
-     <Suspense fallback={<LoadMask/>}>
+      <Suspense fallback={<LoadMask />}>
         <LazyListApp
-        id="documents"
-        entityName="Docs_list_item"
-        formName={listFormName}
-        limit={limit || 25}
-        onRowClick={handleRowClick}
-        searchFormPosition="left"
-        searchFormType={searchFormType || 'admin'}
-        parent={parent}
-        onSearchChange={onSearchChange}
-        store={disableViewPersistor ? undefined : viewPersistor.viewInfoSelector(storeKey).store}
-        onStoreCreate={store => {
-          if (!disableViewPersistor) {
-            viewPersistor.persistViewInfo(storeKey, {store})
-          }
-        }}
-        cellRenderers={{
-          'dms-label-with-icon': (rowData, column, cellRenderer) => (
-            <StyledContentWrapper>
-              <StyledIconWrapper>
-                <Icon icon={ICONS[rowData.type]}/>
-              </StyledIconWrapper>
-              <span>{cellRenderer(column.children[0])}</span>
-            </StyledContentWrapper>
-          )
-        }}
-        emitAction={emitAction}
-        actionAppComponent={Action}
-        contextParams={{
-          history
-        }}
-        customActions={{
-          'upload-document': handleUploadDocument,
-          'upload-directory': handleUploadDirectory
-        }}
-        navigationStrategy={navigationStrategy}
-        tql={tql}
-        keys={keys}
-        selectionStyle={selectionStyle || 'multi'}
-        onSelectChange={setSelection}
-        selection={selection}
-        showActions={showActions}
-      />
-       </Suspense>
-      <FileInput/>
+          id="documents"
+          entityName="Docs_list_item"
+          formName={listFormName}
+          limit={limit || 25}
+          onRowClick={handleRowClick}
+          searchFormPosition="left"
+          searchFormType={searchFormType || 'admin'}
+          parent={parent}
+          onSearchChange={onSearchChange}
+          store={disableViewPersistor ? undefined : viewPersistor.viewInfoSelector(storeKey).store}
+          onStoreCreate={store => {
+            if (!disableViewPersistor) {
+              viewPersistor.persistViewInfo(storeKey, {store})
+            }
+          }}
+          cellRenderers={{
+            'dms-label-with-icon': (rowData, column, cellRenderer) => (
+              <StyledContentWrapper>
+                <StyledIconWrapper>
+                  <Icon icon={ICONS[rowData.type]}/>
+                </StyledIconWrapper>
+                <span>{cellRenderer(column.children[0])}</span>
+              </StyledContentWrapper>
+            )
+          }}
+          emitAction={emitAction}
+          actionAppComponent={Action}
+          contextParams={{
+            history
+          }}
+          customActions={{
+            'upload-document': handleUploadDocument,
+            'upload-directory': handleUploadDirectory
+          }}
+          navigationStrategy={navigationStrategy}
+          tql={tql}
+          keys={keys}
+          selectionStyle={selectionStyle || 'multi'}
+          onSelectChange={setSelection}
+          selection={selection}
+          showActions={showActions}
+        />
+      </Suspense>
+      <FileInput />
     </>
   )
 }
