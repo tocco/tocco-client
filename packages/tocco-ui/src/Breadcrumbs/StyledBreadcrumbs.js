@@ -8,6 +8,8 @@ export const StyledBreadcrumbs = styled.div`
   background-color: ${props => props.backgroundColor || theme.color('backgroundBreadcrumbs')(props)};
   width: 100%;
   padding: .8rem 1.7rem;
+  position: relative;
+  z-index: 2; // higher than StyledTether to prevent cover on scroll
 
   span:nth-child(even) {
     margin-left: .9rem;

@@ -56,7 +56,7 @@ export const StyledPageOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 3;
+  z-index: 4; // higher than header components
 `
 
 export const StyledModalButton = styled(Button)`
