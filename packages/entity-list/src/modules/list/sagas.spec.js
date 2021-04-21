@@ -517,10 +517,10 @@ describe('entity-list', () => {
 
         describe('getBasicQuery', () => {
           test('should return an object with correct attributes', () => {
-            const input = {
-              searchFilters: ['filter1', 'filter2'],
-              tql: 'foo == "bar"',
-              keys: ['235', '18', '120']
+            const listState = {
+              inputSearchFilters: ['filter1', 'filter2'],
+              inputTql: 'foo == "bar"',
+              inputKeys: ['235', '18', '120']
             }
             const searchForm = {
               formFieldsFlat: {
@@ -546,10 +546,9 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.getBasicQuery)
               .provide([
-                [select(sagas.inputSelector), input],
                 [select(sagas.searchFormSelector), searchForm],
                 [select(sagas.selectionSelector), selection],
-                [select(sagas.listSelector), {}],
+                [select(sagas.listSelector), listState],
                 [matchers.call.fn(getSearchFormValues), searchFormValues]
               ])
               .returns(expectedResult)
@@ -557,7 +556,7 @@ describe('entity-list', () => {
           })
 
           test('should return an object with hasUserChanges `false` if has only input attributes', () => {
-            const input = {searchFilters: ['filter1', 'filter2'], tql: 'foo == "bar"'}
+            const listState = {inputSearchFilters: ['filter1', 'filter2'], inputTql: 'foo == "bar"'}
             const searchForm = {
               formFieldsFlat: {
                 relGender: 'single-remote-field'
@@ -577,10 +576,9 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.getBasicQuery)
               .provide([
-                [select(sagas.inputSelector), input],
                 [select(sagas.searchFormSelector), searchForm],
                 [select(sagas.selectionSelector), selection],
-                [select(sagas.listSelector), {}],
+                [select(sagas.listSelector), listState],
                 [matchers.call.fn(getSearchFormValues), searchFormValues]
               ])
               .returns(expectedResult)
@@ -596,7 +594,7 @@ describe('entity-list', () => {
             const saga = await expectSaga(sagas.getBasicQuery, true)
               .provide([
                 [select(sagas.selectionSelector), selection],
-                [select(sagas.inputSelector), {}]
+                [select(sagas.listSelector), {}]
               ])
               .run()
 
