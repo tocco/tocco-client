@@ -78,6 +78,7 @@ const DocsView = props => {
 
   const [selection, setSelection] = useState([])
   const parent = useMemo(() => getParent(match), [match.params])
+  const listFormName = useMemo(() => formName === null ? getFormName(parent, keys) : formName, [match.params])
 
   useEffect(() => {
     changeListParent(parent)
@@ -111,7 +112,7 @@ const DocsView = props => {
         <LazyListApp
         id="documents"
         entityName="Docs_list_item"
-        formName={formName === null ? getFormName(parent, keys) : formName}
+        formName={listFormName}
         limit={limit || 25}
         onRowClick={handleRowClick}
         searchFormPosition="left"
