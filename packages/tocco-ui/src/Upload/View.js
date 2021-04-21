@@ -17,7 +17,7 @@ const View = ({value, downloadTitle, immutable, onUpload, deleteTitle}) => {
     <StyledView className="StyledView">
       <Preview
         alt={value.fileName}
-        caption={isNotUploadedFile && value.fileName}
+        {...isNotUploadedFile && {caption: value.fileName}}
         fileName={value.fileName}
         maxDimensionX="96px"
         maxDimensionY="96px"
