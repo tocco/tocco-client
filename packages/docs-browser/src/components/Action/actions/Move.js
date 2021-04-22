@@ -60,6 +60,7 @@ export const MoveAction = ({selection, onSuccess, onError, context, initialize, 
       onListParentChange={parent => setParent(parent)}
       getCustomLocation={getCustomLocation}
       navigationStrategy={{}}
+      embedded={true}
     />
     <StyledButtonsWrapper>
       <Button
