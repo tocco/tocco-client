@@ -6,7 +6,8 @@ import {
   actionEmitter,
   errorLogging,
   externalEvents,
-  notifier
+  notifier,
+  rest
 } from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
 import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles'
@@ -59,6 +60,10 @@ const initApp = (id, input, events = {}, publicPath) => {
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
   notifier.addToStore(store, true)
+
+  if (input.businessUnit) {
+    rest.setBusinessUnit(input.businessUnit)
+  }
 
   const history = input.history || createHistory(store, input.memoryHistory)
 
