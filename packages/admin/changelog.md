@@ -1,3 +1,16 @@
+0.4.34
+- Prevent stacking of modal overlays
+- render description field in form
+- Fix popper menu positioning
+- Prevent layout container overlap in detail view
+- Show not deletable entities with 0
+- Fix html edit initial change
+- Fix icon and document view in doc browser
+- Fix dms reload
+- Refactoring list initialization
+- Fix tether dropdown z-index to prevent overlay on scroll
+- Set background color of breadcrumbs inside doc browser to white
+
 0.4.33
 - Clear button in date fields only show up when data has been entered, tab and enter can now be used to navigate in the calendar popup and between date fields
 - fix resetting search mode
