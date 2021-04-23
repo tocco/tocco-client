@@ -19,7 +19,7 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
     return null
   }
 
-  const queryParams = queryString.parse(location.search)
+  const queryParams = queryString.parse(history.location.search)
 
   const handleRowClick = ({id}) => {
     history.push(match.url.replace(/list$/, '') + id)
