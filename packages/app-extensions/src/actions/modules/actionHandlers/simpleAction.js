@@ -21,9 +21,9 @@ export function* invokeActionAsync(definition, selection, parent, params) {
       selection,
       parent,
       params: {
-        background: true,
-        ...params
+        background: true
       },
+      ...params,
       formProperties: definition.properties
     },
     acceptedErrorCodes: ['VALIDATION_FAILED'],
