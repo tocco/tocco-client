@@ -18,7 +18,16 @@ const StyledButtonsWrapper = styled.div`
   }
 `
 
-export const MoveAction = ({selection, onSuccess, onError, context, initialize, moveElements, isWaiting}) => {
+export const MoveAction = ({
+  selection,
+  onSuccess,
+  onError,
+  context,
+  initialize,
+  moveElements,
+  isWaiting,
+  emitAction
+}) => {
   const initialNode = getNode(context.history.location.pathname)
   const initialParent = {model: 'Docs_list_item', key: `${initialNode.model}/${initialNode.key}`}
   const [parent, setParent] = useState(initialParent)
@@ -61,6 +70,7 @@ export const MoveAction = ({selection, onSuccess, onError, context, initialize, 
       getCustomLocation={getCustomLocation}
       navigationStrategy={{}}
       embedded={true}
+      emitAction={emitAction}
     />
     <StyledButtonsWrapper>
       <Button
@@ -88,5 +98,6 @@ MoveAction.propTypes = {
   }).isRequired,
   initialize: PropTypes.func.isRequired,
   moveElements: PropTypes.func.isRequired,
-  isWaiting: PropTypes.bool.isRequired
+  isWaiting: PropTypes.bool.isRequired,
+  emitAction: PropTypes.func.isRequired
 }

@@ -5,7 +5,7 @@ import {injectIntl, intlShape} from 'react-intl'
 
 import getNode from '../../../utils/getNode'
 
-const CreateDomain = ({context, onSuccess, intl}) => {
+const CreateDomain = ({context, onSuccess, intl, emitAction}) => {
   const handleEntityCreated = ({id}) => {
     const remoteEvents = [{
       type: 'entity-create-event',
@@ -36,6 +36,7 @@ const CreateDomain = ({context, onSuccess, intl}) => {
     mode="create"
     defaultValues={defaultValues}
     onEntityCreated={handleEntityCreated}
+    emitAction={emitAction}
   />
 }
 
@@ -48,7 +49,8 @@ CreateDomain.propTypes = {
     }).isRequired
   }).isRequired,
   onSuccess: PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
+  emitAction: PropTypes.func.isRequired
 }
 
 export default injectIntl(CreateDomain)

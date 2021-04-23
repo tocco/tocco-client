@@ -5,7 +5,7 @@ import {injectIntl, intlShape} from 'react-intl'
 
 import getNode from '../../../utils/getNode'
 
-const CreateFolder = ({context, onSuccess, intl}) => {
+const CreateFolder = ({context, onSuccess, intl, emitAction}) => {
   const handleEntityCreated = ({id}) => {
     const remoteEvents = [{
       type: 'entity-create-event',
@@ -36,6 +36,7 @@ const CreateFolder = ({context, onSuccess, intl}) => {
     mode="create"
     defaultValues={defaultValues}
     onEntityCreated={handleEntityCreated}
+    emitAction={emitAction}
   />
 }
 
@@ -48,7 +49,8 @@ CreateFolder.propTypes = {
     }).isRequired
   }).isRequired,
   onSuccess: PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
+  emitAction: PropTypes.func.isRequired
 }
 
 export default injectIntl(CreateFolder)
