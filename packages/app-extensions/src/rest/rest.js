@@ -24,10 +24,12 @@ export const getParameterString = params => {
   return ''
 }
 
-let nullBusinessUnit = false
+export const NULL_BUSINESS_UNIT = '__n-u-l-l__'
 
-export const setNullBusinessUnit = value => {
-  nullBusinessUnit = value
+let businessUnit = null
+
+export const setBusinessUnit = value => {
+  businessUnit = value
 }
 
 function* runInformationErrorFallback(error) {
@@ -177,8 +179,8 @@ export function prepareRequest(resource, options = {}) {
     }
   }
 
-  if (nullBusinessUnit) {
-    headers.set('X-Business-Unit', '__n-u-l-l__')
+  if (businessUnit) {
+    headers.set('X-Business-Unit', businessUnit)
   }
 
   headers.set('X-Origin-Id', getOriginId())

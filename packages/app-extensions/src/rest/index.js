@@ -1,8 +1,9 @@
 import {
   requestSaga,
   requestBytesSaga,
-  setNullBusinessUnit,
-  simpleRequest
+  setBusinessUnit,
+  simpleRequest,
+  NULL_BUSINESS_UNIT
 } from './rest'
 import {
   fetchEntity,
@@ -33,7 +34,7 @@ import InformationError from './InformationError'
 export default {
   requestSaga,
   requestBytesSaga,
-  setNullBusinessUnit,
+  setBusinessUnit,
   simpleRequest,
   ClientQuestionCancelledException,
   InformationError,
@@ -53,5 +54,6 @@ export default {
   deleteUserPreferences,
   savePreferences,
   fetchServerSettings,
-  hasRevisionIdChanged
+  hasRevisionIdChanged,
+  NULL_BUSINESS_UNIT
 }
