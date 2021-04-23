@@ -58,7 +58,8 @@ const initApp = (id, input, events = {}, publicPath) => {
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
-  notifier.addToStore(store, true)
+  const handleNotifications = !events.emitAction
+  notifier.addToStore(store, handleNotifications)
 
   const history = input.history || createHistory(store, input.memoryHistory)
 
@@ -73,7 +74,7 @@ const initApp = (id, input, events = {}, publicPath) => {
 
   const content = (
     <ReactRouter history={history}>
-      <notifier.Notifier/>
+      {handleNotifications && <notifier.Notifier />}
       <DocsBrowser history={history}/>
       <Route exact path="/">
         <Redirect to={startUrl}/>
