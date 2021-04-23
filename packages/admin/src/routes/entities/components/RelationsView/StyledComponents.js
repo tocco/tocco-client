@@ -14,14 +14,6 @@ export const StyledPreviewBox = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-
-  ${StyledLink} {
-    padding-left: ${scale.space(-0.5)};
-
-    &:nth-child(2) {
-      padding-left: 0;
-    }
-  }
 `
 
 export const StyledRelationBox = styled.div`
@@ -37,6 +29,14 @@ export const StyledRelationBox = styled.div`
   min-height: 150px;
   max-height: 20%;
   ${StyledScrollbar}
+`
+
+export const StyledPreviewLink = styled(StyledLink)`
+  padding-left: ${scale.space(-0.5)};
+
+  &:nth-child(2) {
+    padding-left: 0;
+  }
 `
 
 export const RelationLinks = styled.div`

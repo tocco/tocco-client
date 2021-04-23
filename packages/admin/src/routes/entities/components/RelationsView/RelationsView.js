@@ -12,7 +12,8 @@ import {
   RelationLinks,
   StyledPreviewBox,
   StyledRelationBox,
-  StyledRelationsViewWrapper
+  StyledRelationsViewWrapper,
+  StyledPreviewLink
 } from './StyledComponents'
 import {currentViewPropType} from '../../utils/propTypes'
 import {getRelation, setRelation} from '../../utils/relationPersistor'
@@ -104,17 +105,17 @@ const RelationsView = ({
       && <StyledPreviewBox>
         <Typography.H4>
           {selectedRelation.relationDisplay.label}
-          <StyledLink
+          <StyledPreviewLink
             aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
             to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
             <Icon icon="arrow-right"/>
-          </StyledLink>
+          </StyledPreviewLink>
           {hasCreateRights(selectedRelation.relationName)
-          && <StyledLink
+          && <StyledPreviewLink
             aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
             to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
             <Icon icon="plus"/>
-          </StyledLink>
+          </StyledPreviewLink>
           }
         </Typography.H4>
         <RelationPreview

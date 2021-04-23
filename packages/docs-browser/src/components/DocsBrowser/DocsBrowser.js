@@ -50,7 +50,7 @@ const DocsBrowser = ({
 
   return (
     <StyledWrapper>
-      <StyledBreadcrumbs>
+      <StyledBreadcrumbs embedded={embedded}>
         <Breadcrumbs {...embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {}}/>
       </StyledBreadcrumbs>
       <StyledContent>

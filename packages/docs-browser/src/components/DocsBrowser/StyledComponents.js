@@ -19,9 +19,9 @@ export const StyledContent = styled.div`
 
 export const StyledBreadcrumbs = styled.div`
   grid-area: breadcrumbs;
-
-  > div,
-  a:first-child {
-    padding-left: 0;
-  }
+  ${({embedded}) => embedded && `
+    > div {
+      padding-left: 0;
+    }
+  `}
 `
