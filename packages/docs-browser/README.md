@@ -14,6 +14,7 @@ React-registry name: `docs-browser`
 | `navigationStrategy`   |           | Object consisting of various link factories. For more information see tocco-util/navigationStrategy documentation.
 | `domainTypes`          |           | Array of domain types to show
 | `rootNodes`            |           | Array of root nodes to use instead of the domains (array of objects with `entityName` and `key`)
+| `businessUnit`         |           | The business unit to display data from
 | `listLimit`            |           | Amount of records per page in list
 | `listFormName`         |           | Set a form name for the list
 | `documentDetailFormName`|          | Name of the document detail form to use (default: "DmsResource")
