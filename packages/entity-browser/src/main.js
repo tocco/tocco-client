@@ -57,7 +57,7 @@ const navigateToDetailIfKeySet = (history, input) => {
 const initApp = (id, input, events, publicPath) => {
   input = {...input, id}
   if (input.nullBusinessUnit) {
-    rest.setNullBusinessUnit(input.nullBusinessUnit)
+    rest.setBusinessUnit(rest.NULL_BUSINESS_UNIT)
   }
 
   const store = appFactory.createStore(undefined, undefined, input, packageName)
