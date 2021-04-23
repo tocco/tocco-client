@@ -30,6 +30,7 @@ export const StyledInput = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  width: inherit;
 `
 
 export const StyledExtender = styled.div`
