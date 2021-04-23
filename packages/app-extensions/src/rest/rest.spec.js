@@ -8,7 +8,7 @@ import {
   getParameterString,
   simpleRequest,
   requestSaga,
-  setNullBusinessUnit,
+  setBusinessUnit,
   prepareRequest
 } from './rest'
 import {sendRequest} from './request'
@@ -128,19 +128,19 @@ describe('app-extensions', () => {
         expect(headers.get('content-type')).to.be.null
       })
 
-      test('should set null business unit header', () => {
+      test('should set business unit header', () => {
         fetchMock.get('*', {})
 
         simpleRequest('')
         const headers = fetchMock.lastOptions().headers
         expect(headers.get('x-business-unit')).to.be.null
 
-        setNullBusinessUnit(true)
+        setBusinessUnit('my_test_bu')
         simpleRequest('')
-        setNullBusinessUnit(false)
+        setBusinessUnit(null)
 
         const headers2 = fetchMock.lastOptions().headers
-        expect(headers2.get('x-business-unit')).to.eql('__n-u-l-l__')
+        expect(headers2.get('x-business-unit')).to.eql('my_test_bu')
       })
 
       test('should use ordered params', () => {
@@ -313,12 +313,12 @@ describe('app-extensions', () => {
         expect(requestData.options.headers.get('Content-Type')).to.eql('application/json')
       })
 
-      test('should add X-Business-Unit header if null business unit', () => {
-        setNullBusinessUnit(true)
+      test('should add X-Business-Unit header if business unit set', () => {
+        setBusinessUnit('my_test_bu')
         const requestData = prepareRequest('entities/2.0/Contact')
-        setNullBusinessUnit(false)
+        setBusinessUnit(null)
 
-        expect(requestData.options.headers.get('X-Business-Unit')).to.eql('__n-u-l-l__')
+        expect(requestData.options.headers.get('X-Business-Unit')).to.eql('my_test_bu')
       })
 
       test('should add X-Origin-Id header', () => {
