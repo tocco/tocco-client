@@ -39,10 +39,10 @@ export const StyledTableHeaderCell = styled.th`
   ${declareFont({fontWeight: theme.fontWeight('bold')})};
   user-select: none;
   cursor: ${({sortable}) => sortable ? 'pointer' : 'auto'};
-  overflow: hidden;
   white-space: nowrap;
   display: flex;
   border-right: ${({isDraggedOver, theme}) => isDraggedOver ? `3px solid ${theme.colors.secondary}` : 'none'};
+  ${({id}) => id === 'header-cell-navigation-column' && 'z-index: 1'};
   ${({isResizing, theme}) => isResizing && `
     background-color: ${lighten(0.25, theme.colors.secondaryLight)};
 
