@@ -5,8 +5,11 @@ import styled from 'styled-components'
 import {Ball} from 'tocco-ui'
 import {notification} from 'tocco-app-extensions'
 
+import navigationStrategy from './../../routes/entities/utils/navigationStrategy'
+
 const StyledPopper = styled.div`
   width: 300px;
+  z-index: 999999999999999999999;
 `
 
 const popperModifiers = [
@@ -47,18 +50,18 @@ const NotificationCenterButton = () => {
   const {styles, attributes} = usePopper(referenceElement.current, popperElement.current, {modifiers: popperModifiers})
 
   return <>
-      <Ball onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement}/>
-      {ReactDOM.createPortal(
-        <StyledPopper
-          ref={popperElement}
-          style={styles.popper}
-          {...attributes.popper}
-        >
-         {visible && <notification.NotificationCenter />}
-          </StyledPopper>,
-        document.body
-      )}
-    </>
+    <Ball onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement} />
+    {ReactDOM.createPortal(
+      <StyledPopper
+        ref={popperElement}
+        style={styles.popper}
+        {...attributes.popper}
+      >
+        {visible && <notification.NotificationCenter navigationStrategy={navigationStrategy()} />}
+      </StyledPopper>,
+      document.body
+    )}
+  </>
 }
 
 export default NotificationCenterButton

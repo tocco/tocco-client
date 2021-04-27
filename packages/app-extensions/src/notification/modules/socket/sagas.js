@@ -2,12 +2,13 @@ import {takeEvery, all, call, take, put, select} from 'redux-saga/effects'
 import {eventChannel} from 'redux-saga'
 import {originId as originIdHelper} from 'tocco-util'
 
-import {getSocketUrl, socketMessageToToaster, TOASTER_KEY_PREFIX} from './socket'
+import {getSocketUrl, notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
 import * as actions from './actions'
 import * as toasterActions from '../toaster/actions'
 import errorLogging from '../../../errorLogging'
 import {toaster} from '../toaster/actions'
 import {updateNotification} from '../center/actions'
+import {notificationTransform} from '../../api'
 
 export const notificationSocketSelector = state => state.notification.socket
 
@@ -35,13 +36,13 @@ const websocketInitChannel = url =>
 
     return () => {}
   })
-  
+
 export function* connectSocket() {
   const originId = yield call(originIdHelper.getOriginId)
   yield put(actions.setOriginId(originId))
   const socketUrl = yield call(getSocketUrl)
   const channel = yield call(websocketInitChannel, socketUrl)
-  
+
   while (true) {
     const action = yield take(channel)
     yield put(action)
@@ -49,16 +50,17 @@ export function* connectSocket() {
 }
 
 export function* messageReceived({payload: {data}}) {
+  const notification = yield call(notificationTransform, data)
   const {originId, ignoredToasters} = yield select(notificationSocketSelector)
 
-  if (data.originId === originId) {
-    const toasterInfo = yield call(socketMessageToToaster, data)
+  if (notification.originId === originId) {
+    const toasterInfo = yield call(notificationToToaster, notification)
     if (!ignoredToasters.includes(toasterInfo.key)) {
       yield put(toaster(toasterInfo))
     }
   }
 
-  yield put(updateNotification(data))
+  yield put(updateNotification(notification))
 }
 
 export function* toasterRemoved({payload: {key, manually}}) {

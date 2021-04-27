@@ -1,6 +1,7 @@
 import {takeEvery, all, call, put} from 'redux-saga/effects'
 
 import rest from '../../../rest'
+import {notificationTransform} from '../../api'
 import * as actions from './actions'
 
 const LIMIT = 10
@@ -20,7 +21,11 @@ export function* loadNotifications({payload: {offset}}) {
     _offset: offset
   }
   const notificationsResponse = yield call(rest.requestSaga, 'client/notifications', {method: 'GET', queryParams})
-  const notifications = notificationsResponse.body.data.reduce((acc, v) => ({...acc, [v.key]: v}), {})
+  const notifications = yield all(notificationsResponse.body.data.map(v => call(notificationTransform, v)))
+
+  notifications.reduce((acc, v) => {
+    return {...acc, [v.key]: v}
+  }, {})
 
   if (Object.keys(notifications).length < LIMIT) {
     yield put(actions.setMoreNotificationsAvailable(false))

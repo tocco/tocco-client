@@ -5,7 +5,7 @@ import Toaster from './Toaster'
 import {ToasterPropType} from '../toaster'
 import {StyledToasterBox} from './StyledComponents'
 
-const ToasterDisplay = ({toasters, removeToaster}) => {
+const ToasterDisplay = ({toasters, removeToaster, navigationStrategy}) => {
   const toastersSorted = Object.values(toasters)
     .sort((n1, n2) => new Date(n1.timestamp) - new Date(n2.timestamp))
 
@@ -18,6 +18,7 @@ const ToasterDisplay = ({toasters, removeToaster}) => {
           closeToaster={(key, manually) => {
             removeToaster(key, manually)
           }}
+          navigationStrategy={navigationStrategy}
         />
       })}
     </StyledToasterBox>}
@@ -26,7 +27,8 @@ const ToasterDisplay = ({toasters, removeToaster}) => {
 
 ToasterDisplay.propTypes = {
   toasters: PropTypes.objectOf(ToasterPropType),
-  removeToaster: PropTypes.func.isRequired
+  removeToaster: PropTypes.func.isRequired,
+  navigationStrategy: PropTypes.object
 }
 
 export default ToasterDisplay

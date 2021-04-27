@@ -7,9 +7,9 @@ export const TYPES = {
   error: 'error',
   success: 'success'
 }
-  
+
 export const isWarningOrError = type => type === TYPES.error || type === TYPES.warning
-  
+
 export const iconMap = {
   [TYPES.neutral]: null,
   [TYPES.error]: 'times-circle',

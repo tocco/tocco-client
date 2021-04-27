@@ -13,7 +13,9 @@ export const StyledNotificationCenter = styled.div`
   background-color: ${theme.color('paper')};
 `
 
-const NotificationCenter = ({loadNotifications, notifications, moreNotificationsAvailable, markAsRead}) => {
+const NotificationCenter = (
+  {loadNotifications, notifications, moreNotificationsAvailable, markAsRead, navigationStrategy}
+) => {
   const element = useRef(null)
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
@@ -33,23 +35,24 @@ const NotificationCenter = ({loadNotifications, notifications, moreNotifications
       }
     }
   }
-  
+
   const sortedNotifications = Object.keys(notifications)
     .map(k => notifications[k])
     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
 
   return (
-        <StyledNotificationCenter ref={element} onScroll={handleScroll}>
-            {sortedNotifications.map(notification => (
-              <Notification
-                key={'notification-' + notification.key}
-                markAsRead={markAsRead}
-                notification={notification}
-              />
-            ))}
+    <StyledNotificationCenter ref={element} onScroll={handleScroll}>
+      {sortedNotifications.map(notification => (
+        <Notification
+          key={'notification-' + notification.key}
+          markAsRead={markAsRead}
+          notification={notification}
+          navigationStrategy={navigationStrategy}
+        />
+      ))}
       {isLoadingMore && <LoadingSpinner />}
       {!moreNotificationsAvailable && <span>No more notifications available</span>}
-        </StyledNotificationCenter>
+    </StyledNotificationCenter>
   )
 }
 
@@ -57,7 +60,8 @@ NotificationCenter.propTypes = {
   loadNotifications: PropTypes.func.isRequired,
   notifications: PropTypes.objectOf(notificationPropType),
   moreNotificationsAvailable: PropTypes.bool,
-  markAsRead: PropTypes.func.isRequired
+  markAsRead: PropTypes.func.isRequired,
+  navigationStrategy: PropTypes.object
 }
 
 export default NotificationCenter

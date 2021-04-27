@@ -1,11 +1,12 @@
 import React, {useRef} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {theme} from 'tocco-ui'
+import {theme, Typography} from 'tocco-ui'
 import {FormattedRelative} from 'react-intl'
 
 import useInViewport from './useInViewport'
 import {notificationPropType} from '../../../types'
+import NotificationBody from '../../../components/NotificationBody'
 
 const StyledNotification = styled.div`
   border: 1px solid #000;
@@ -15,7 +16,7 @@ const StyledNotification = styled.div`
   background-color: ${theme.color('paper')};
 `
 
-const Notification = ({notification, markAsRead}) => {
+const Notification = ({notification, markAsRead, navigationStrategy}) => {
   const notificationElement = useRef(null)
 
   const notificationInViewport = () => {
@@ -27,7 +28,8 @@ const Notification = ({notification, markAsRead}) => {
 
   return (
     <StyledNotification ref={notificationElement}>
-      <div>msg: {notification.message}</div>
+      <Typography.H1>{notification.message}</Typography.H1>
+      <NotificationBody notification={notification} navigationStrategy={navigationStrategy} />
       <div>read: {JSON.stringify(notification.read)}</div>
       <div><FormattedRelative value={notification.timestamp} /></div>
     </StyledNotification>
@@ -36,7 +38,8 @@ const Notification = ({notification, markAsRead}) => {
 
 Notification.propTypes = {
   notification: notificationPropType.isRequired,
-  markAsRead: PropTypes.func.isRequired
+  markAsRead: PropTypes.func.isRequired,
+  navigationStrategy: PropTypes.object
 }
 
 export default Notification

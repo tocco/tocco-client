@@ -8,6 +8,7 @@ import {withTheme} from 'styled-components'
 import {notification} from 'tocco-app-extensions'
 import {viewPersistor} from 'tocco-util'
 
+import navigationStrategy from './../../routes/entities/utils/navigationStrategy'
 import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
 import EntitiesRoute from '../../routes/entities'
@@ -65,7 +66,7 @@ const Admin = ({
 
   return <LoadMask required={[history !== null]}>
     <Router history={history || {}}>
-      <notification.Notifications/>
+      <notification.Notifications navigationStrategy={navigationStrategy()}/>
       <StyledWrapper id="outer-container">
         <Header/>
         <StyledMenu

@@ -13,7 +13,7 @@ import {
   StyledContentWrapper
 } from './StyledComponents'
 
-const Toaster = ({toaster, closeToaster}) => {
+const Toaster = ({toaster, closeToaster, navigationStrategy}) => {
   const [setDuration, abort] = reactUtil.useUserActive(() => {
     closeToaster(toaster.key, false)
   })
@@ -30,19 +30,25 @@ const Toaster = ({toaster, closeToaster}) => {
     <StyledToaster onClick={handleToasterClick} type={toaster.type} key={toaster.key}>
       <StyledCloseButton icon="times" onClick={() => {
         closeToaster(toaster.key, true)
-      }}/>
+      }} />
       <StyledIconTitleWrapper>
         {toaster.icon
-        && <StyledIconWrapper>
-          <Icon icon={toaster.icon}/>
-        </StyledIconWrapper>
+          && <StyledIconWrapper>
+            <Icon icon={toaster.icon} />
+          </StyledIconWrapper>
         }
         {toaster.title && <Typography.H1><Content>{toaster.title}</Content></Typography.H1>}
       </StyledIconTitleWrapper>
       {toaster.body
-      && <StyledContentWrapper>
-        <Content>{toaster.body}</Content>
-      </StyledContentWrapper>
+        && <StyledContentWrapper>
+          <Content>
+          {
+            typeof toaster.body === 'function'
+              ? <toaster.body navigationStrategy={navigationStrategy} />
+              : toaster.body
+          }
+          </Content>
+        </StyledContentWrapper>
       }
     </StyledToaster>
   )
@@ -50,7 +56,8 @@ const Toaster = ({toaster, closeToaster}) => {
 
 Toaster.propTypes = {
   toaster: ToasterPropType,
-  closeToaster: PropTypes.func.isRequired
+  closeToaster: PropTypes.func.isRequired,
+  navigationStrategy: PropTypes.object
 }
 
 export default Toaster
