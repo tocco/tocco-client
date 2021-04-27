@@ -1,3 +1,6 @@
+0.2.2
+- Fix ignored domainTypes-Filter
+
 0.2.1
 - disable search form in widget
 
