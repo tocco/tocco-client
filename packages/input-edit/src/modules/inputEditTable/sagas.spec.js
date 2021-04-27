@@ -5,6 +5,7 @@ import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import * as searchActions from '../inputEditSearch/actions'
+import * as inputEditActions from '../inputEdit/actions'
 import rootSaga, * as sagas from './sagas'
 import {transformResponseData} from './utils'
 
@@ -105,7 +106,7 @@ describe('input-edit', () => {
                 }
               }],
               [select(sagas.inputEditSearchSelector), {initialized: false}],
-              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}}],
+              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}, updateInProgress: false}],
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedEditForm
               }],
@@ -115,6 +116,34 @@ describe('input-edit', () => {
             ])
             .dispatch(searchActions.initializeSearch(true))
             .call(rest.fetchForm, 'PublicInput_edit_data', 'list')
+            .run()
+        })
+
+        test('should load data after selection update is done', () => {
+          const expectedEditForm = [{
+            editform: 'editform'
+          }]
+          const expectedDataForm = {
+            dataform: 'dataform'
+          }
+          return expectSaga(sagas.initialize)
+            .provide([
+              [select(sagas.inputSelector), {
+                actionProperties: {
+                  inputEditDataForm: 'PublicInput_edit_data'
+                }
+              }],
+              [select(sagas.inputEditSearchSelector), {initialized: true}],
+              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}, updateInProgress: true}],
+              [matchers.call.fn(rest.requestSaga), {
+                body: expectedEditForm
+              }],
+              [matchers.call.fn(sagas.processDataForm), {}],
+              [matchers.call.fn(rest.fetchForm), expectedDataForm],
+              [matchers.call.fn(sagas.loadData), {}]
+            ])
+            .dispatch(inputEditActions.setSelectionUpdateInProgress(false))
+            .call.like(sagas.loadData)
             .run()
         })
       })
