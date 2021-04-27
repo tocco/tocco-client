@@ -2,6 +2,7 @@ import {actions, actionEmitter, rest} from 'tocco-app-extensions'
 import {all, takeEvery, takeLatest, put, select, call} from 'redux-saga/effects'
 
 import {UPDATE_SELECTION} from './actions'
+import * as inputEditAction from './actions'
 
 const inputEditSelector = state => state.inputEdit
 
@@ -17,6 +18,8 @@ export function* emit(action) {
 }
 
 export function* updateInputDatas() {
+  yield put(inputEditAction.setSelectionUpdateInProgress(true))
   const {selection} = yield select(inputEditSelector)
   yield call(rest.requestSaga, 'inputEdit/update-input-datas', {method: 'POST', body: selection})
+  yield put(inputEditAction.setSelectionUpdateInProgress(false))
 }

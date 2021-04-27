@@ -4,6 +4,7 @@ import {rest} from 'tocco-app-extensions'
 import * as actions from './actions'
 import {setTotalCount} from '../inputEditPagination/actions'
 import * as searchFormActions from '../inputEditSearch/actions'
+import * as inputEditActions from '../inputEdit/actions'
 import {transformResponseData} from './utils'
 
 export const inputSelector = state => state.input
@@ -53,6 +54,10 @@ export function* initialize() {
   const {initialized: searchFormInitialized} = yield select(inputEditSearchSelector)
   if (!searchFormInitialized) {
     yield take(searchFormActions.SET_INITIALIZED)
+  }
+  const {updateInProgress} = yield select(inputEditSelector)
+  if (updateInProgress) {
+    yield take(({payload, type}) => type === inputEditActions.SET_UPDATE_IN_PROGRESS && !payload.updateInProgress)
   }
   yield call(loadData, {})
 }
