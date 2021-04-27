@@ -6,6 +6,7 @@ import {Ball} from 'tocco-ui'
 import {notification} from 'tocco-app-extensions'
 
 import navigationStrategy from './../../routes/entities/utils/navigationStrategy'
+import NotificationCenterRedDotContainer from './NotificationCenterRedDotContainer'
 
 const StyledPopper = styled.div`
   width: 300px;
@@ -32,10 +33,12 @@ const NotificationCenterButton = () => {
 
   const referenceElement = useRef(null)
   const popperElement = useRef(null)
+  const redDotElement = useRef(null)
 
   const handleMouseDown = e => {
     if (popperElement.current && !popperElement.current.contains(e.target)
-      && referenceElement.current && !referenceElement.current.contains(e.target)) {
+      && referenceElement.current && !referenceElement.current.contains(e.target)
+      && redDotElement.current && !redDotElement.current.contains(e.target)) {
       setVisibility(false)
     }
   }
@@ -50,7 +53,10 @@ const NotificationCenterButton = () => {
   const {styles, attributes} = usePopper(referenceElement.current, popperElement.current, {modifiers: popperModifiers})
 
   return <>
-    <Ball onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement} />
+    <>
+      <Ball onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement}/>
+      <NotificationCenterRedDotContainer onClick={() => setVisibility(!visible)} innerRef={redDotElement}/>
+    </>
     {ReactDOM.createPortal(
       <StyledPopper
         ref={popperElement}
