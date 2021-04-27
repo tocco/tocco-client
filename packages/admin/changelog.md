@@ -1,3 +1,6 @@
+0.4.35
+- Fix doc-browsers client questions
+
 0.4.34
 - Prevent stacking of modal overlays
 - render description field in form
