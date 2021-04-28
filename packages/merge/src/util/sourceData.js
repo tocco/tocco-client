@@ -31,18 +31,12 @@ export const getDataRows = sourceData => {
 
       if (value && value.value) {
         if (value.type === 'entity') {
-          const display = sourceData.displays
-            .find(d => d.model === value.value.model).values
-            .find(v => v.key === value.value.key).display
-          value.value.display = display
+          value.value.display = getDisplay(sourceData, value.value.model, value.value.key)
         }
 
         if (value.type === 'entity-list') {
           value.value = value.value.map(f => {
-            const display = sourceData.displays
-              .find(d => d.model === f.model).values
-              .find(v => v.key === f.key)
-            f.display = display === undefined ? 'PK: ' + f.key : display.display
+            f.display = getDisplay(sourceData, f.model, f.key)
             return f
           })
         }
@@ -90,7 +84,7 @@ export const getColumnDefinition = (sourceData, ColumnHeaderRenderer, PathCellRe
     HeaderRenderer: props => <ColumnHeaderRenderer
       {...props}
       entityKey={entity.key}
-      label={sourceData.displays.find(d => d.model === entity.model).values.find(v => v.key === entity.key).display}
+      label={getDisplay(sourceData, entity.model, entity.key)}
     />
   }))
 
@@ -106,4 +100,15 @@ export const getColumnDefinition = (sourceData, ColumnHeaderRenderer, PathCellRe
   }
 
   return [labelColumn, ...pathColumns]
+}
+
+export const getDisplay = (sourceData, model, key) => {
+  const fallbackDisplay = `PK: ${key}`
+  const displaysPerModel = sourceData.displays.find(d => d.model === model)
+  if (displaysPerModel === undefined) {
+    return fallbackDisplay
+  }
+
+  const display = displaysPerModel.values.find(v => v.key === key)
+  return display ? display.display : fallbackDisplay
 }

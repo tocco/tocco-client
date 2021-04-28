@@ -1,4 +1,4 @@
-import {getDataRows, getColumnDefinition} from './sourceData'
+import {getDataRows, getColumnDefinition, getDisplay} from './sourceData'
 
 describe('merge', () => {
   describe('utils', () => {
@@ -274,6 +274,34 @@ describe('merge', () => {
           expect(result[2].id).to.be.eql('2')
           expect(result.some(c => c.entityKey === '1')).to.be.true
           expect(result.some(c => c.entityKey === '2')).to.be.true
+        })
+      })
+
+      describe('getDisplay', () => {
+        const sourceData = {
+          displays: [
+            {
+              model: 'User',
+              values: [
+                {
+                  key: '1',
+                  display: 'User 1'
+                }
+              ]
+            }
+          ]
+        }
+
+        test('return display', () => {
+          expect(getDisplay(sourceData, 'User', '1')).to.be.eql('User 1')
+        })
+
+        test('model not present return fallback display', () => {
+          expect(getDisplay(sourceData, 'Address', '1')).to.be.eql('PK: 1')
+        })
+
+        test('key not present return fallback display', () => {
+          expect(getDisplay(sourceData, 'User', '2')).to.be.eql('PK: 2')
         })
       })
     })
