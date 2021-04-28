@@ -67,6 +67,7 @@ describe('entity-list', () => {
               ])
               .call(sagas.loadFormDefinition, formName)
               .call(sagas.loadEntityModel, entityName)
+              .put(actions.setInitialized())
               .run()
           })
         })
