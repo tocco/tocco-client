@@ -53,6 +53,8 @@ export function* initialize() {
     call(loadFormDefinition, formName),
     call(loadEntityModel, entityName)
   ])
+
+  yield put(actions.setInitialized())
 }
 
 export function* queryChanged() {
@@ -71,7 +73,7 @@ export function* loadData(page) {
 
 export function* getBasicQuery(regardSelection = true) {
   const {inputSearchFilters, inputTql, inputKeys, constriction} = yield select(listSelector)
-  
+
   const {showSelectedRecords, selection} = yield select(selectionSelector)
   if (regardSelection && showSelectedRecords) {
     return {
