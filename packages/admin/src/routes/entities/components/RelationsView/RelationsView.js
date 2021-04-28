@@ -89,7 +89,7 @@ const RelationsView = ({
                 to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
                 <Icon icon="arrow-right"/>
               </StyledLink>
-              {hasCreateRights(relation.relationName)
+              {hasCreateRights(relation.relationName) && relation.targetEntity !== 'Resource'
               && <StyledLink
                 aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
                 to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
@@ -110,7 +110,7 @@ const RelationsView = ({
             to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
             <Icon icon="arrow-right"/>
           </StyledPreviewLink>
-          {hasCreateRights(selectedRelation.relationName)
+          {hasCreateRights(selectedRelation.relationName) && selectedRelation.targetEntity !== 'Resource'
           && <StyledPreviewLink
             aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
             to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
