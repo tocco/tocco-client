@@ -1,3 +1,11 @@
+0.4.36
+- Fix doc-browsers client questions
+- New input prop `businessUnit` to filter by business unit
+- Prevent range input overflow
+- Adapt table colors to better differentiate from background
+- Remove obsolete left padding in table
+- Ignore field if path is null in copy action
+
 0.4.35
 - Fix doc-browsers client questions
 
