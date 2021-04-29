@@ -1,3 +1,6 @@
+0.2.3
+- Fix list bug
+
 0.2.2
 - Fix ignored domainTypes-Filter
 
