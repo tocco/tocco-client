@@ -5,7 +5,8 @@ import TitleMessage from '../../components/TitleMessage'
 import {
   StyledModalContent,
   StyledModalWrapper,
-  StyledCloseButton
+  StyledCloseButton,
+  GlobalTetherStyle
 } from './StyledComponents'
 
 const ModalContent = ({
@@ -32,16 +33,19 @@ const ModalContent = ({
   }, [ref])
 
   return (
-    <StyledModalWrapper>
-      <StyledModalContent isClosing={isClosing} ref={ref}>
-        {closable && <StyledCloseButton onClick={handleCloseClick} type="button">
-          ✕
-        </StyledCloseButton>}
-        <TitleMessage title={title} message={message} closable={closable}>
-          <Component close={handleCloseClick}/>
-        </TitleMessage>
-      </StyledModalContent>
-    </StyledModalWrapper>
+    <>
+      <GlobalTetherStyle/>
+      <StyledModalWrapper>
+        <StyledModalContent isClosing={isClosing} ref={ref}>
+          {closable && <StyledCloseButton onClick={handleCloseClick} type="button">
+            ✕
+          </StyledCloseButton>}
+          <TitleMessage title={title} message={message} closable={closable}>
+            <Component close={handleCloseClick}/>
+          </TitleMessage>
+        </StyledModalContent>
+      </StyledModalWrapper>
+    </>
   )
 }
 

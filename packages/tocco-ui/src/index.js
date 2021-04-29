@@ -19,7 +19,7 @@ export {default as Panel, StyledPanel, StyledPanelBody, StyledPanelHeaderFooter}
 export {default as Popover} from './Popover'
 export {default as Preview, StyledPreview} from './Preview'
 export {default as SearchBox} from './SearchBox'
-export {default as Select} from './Select'
+export {default as Select, StyledTether} from './Select'
 export {default as SignalBox, StyledSignalBox} from './SignalBox'
 export {default as SignalList, StyledSignalList, StyledSignalListItem} from './SignalList'
 export {default as SomeOf} from './SomeOf'

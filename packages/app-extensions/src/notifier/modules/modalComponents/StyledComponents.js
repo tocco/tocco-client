@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 import {
   Button,
-  scale,
+  scale, StyledTether,
   theme
 } from 'tocco-ui'
 
@@ -70,4 +70,11 @@ export const StyledModalButton = styled(Button)`
 export const StyledModalButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+`
+export const GlobalTetherStyle = createGlobalStyle`
+  ${StyledTether} {
+    && {
+      z-index: 99999; // higher than StyledModalWrapper
+    }
+  }
 `
