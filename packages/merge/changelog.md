@@ -1,3 +1,17 @@
+0.4.6
+- Keep scroll position on multi select selection
+- fix menu in action
+- move validation helper method to tocco-util
+- Clear button in date fields only show up when data has been entered, tab and enter can now be used to navigate in the calendar popup and between date fields
+- Prevent stacking of modal overlays
+- render description field in form
+- Fix popper menu positioning
+- Prevent layout container overlap in detail view
+- Fix html edit initial change
+- Prevent range input overflow
+- Adapt table colors to better differentiate from background
+- refactor extracting displays
+
 0.4.5
 - Style upload and switch to light icons
 - Prevent action buttons disappearing on scroll
