@@ -7,8 +7,8 @@ import * as actions from './actions'
 import * as toasterActions from '../toaster/actions'
 import errorLogging from '../../../errorLogging'
 import {toaster} from '../toaster/actions'
-import {updateNotification} from '../center/actions'
 import {notificationTransform} from '../../api'
+import {updateNotification, updateUnreadNotification} from '../center/actions'
 
 export const notificationSocketSelector = state => state.notification.socket
 
@@ -52,12 +52,18 @@ export function* connectSocket() {
 export function* messageReceived({payload: {data}}) {
   const notification = yield call(notificationTransform, data)
   const {originId, ignoredToasters} = yield select(notificationSocketSelector)
+  let showToaster = false
 
   if (notification.originId === originId) {
     const toasterInfo = yield call(notificationToToaster, notification)
     if (!ignoredToasters.includes(toasterInfo.key)) {
       yield put(toaster(toasterInfo))
+      showToaster = true
     }
+  }
+
+  if (!showToaster) {
+    yield put(updateUnreadNotification(notification.key, notification.read))
   }
 
   yield put(updateNotification(notification))

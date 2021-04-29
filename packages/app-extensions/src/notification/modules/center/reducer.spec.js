@@ -3,6 +3,7 @@ import * as actions from './actions'
 
 const INITIAL_STATE = {
   notifications: {},
+  unreadNotificationKeys: [],
   moreNotificationsAvailable: true
 }
 
@@ -47,6 +48,42 @@ describe('app-extensions', () => {
             stateAfter = reducer(stateAfter, actions.updateNotification(notificationUpdated))
             expect(Object.keys(stateAfter.notifications)).to.have.length(1)
             expect(stateAfter.notifications['1'].message).to.eql('test2!')
+          })
+
+          test('should set unread notification keys', () => {
+            const keys = [1, 2, 3]
+            const stateAfter = reducer(INITIAL_STATE, actions.setUnreadNotificationKeys(keys))
+            expect(stateAfter.unreadNotificationKeys).to.be.equal(keys)
+          })
+
+          describe('UPDATE_UNREAD_NOTIFICATION', () => {
+            test('add unread notification', () => {
+              const stateAfter = reducer(INITIAL_STATE, actions.updateUnreadNotification('1', false))
+              expect(stateAfter.unreadNotificationKeys).to.deep.equal(['1'])
+            })
+
+            test('add existing unread notification', () => {
+              const initialState = {
+                ...INITIAL_STATE,
+                unreadNotificationKeys: ['1']
+              }
+              const stateAfter = reducer(initialState, actions.updateUnreadNotification('1', false))
+              expect(stateAfter.unreadNotificationKeys).to.deep.equal(['1'])
+            })
+
+            test('add read notification', () => {
+              const stateAfter = reducer(INITIAL_STATE, actions.updateUnreadNotification('1', true))
+              expect(stateAfter.unreadNotificationKeys).to.deep.equal([])
+            })
+
+            test('remove read notification', () => {
+              const initialState = {
+                ...INITIAL_STATE,
+                unreadNotificationKeys: ['1']
+              }
+              const stateAfter = reducer(initialState, actions.updateUnreadNotification('1', true))
+              expect(stateAfter.unreadNotificationKeys).to.deep.equal([])
+            })
           })
         })
       })
