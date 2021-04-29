@@ -1,3 +1,6 @@
+0.4.1-hotfix228.5
+- refactor extracting displays
+
 0.4.1-hotfix228.4
 - support selection of type query
 
