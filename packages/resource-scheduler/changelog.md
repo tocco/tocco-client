@@ -1,3 +1,37 @@
+0.4.6
+- Adjust label margin in input fields
+- support sorting by search filters and preferences
+- reload sources after deployment
+- clear selection if parent is set
+- dispatch actions if store already exists
+- Fix fulltext search form
+- Restrict max width of popover to 400px
+- Reference text ressources for aria-labels for improved localization
+- Increase contrast of theme colors to ensure WCAG 2.0 standards
+- Change spacing/hover colors inside table and adjust scrollbar width
+- Change notifier style to a solid variant to increase contrast/visibility
+- Change popover style to solid for increased contrast
+- Adjust text shade colors to a lighter variant
+- New input parameter `keys`
+- clear selection fire onSelectChange
+- Fix fulltext search
+- fix load data if parent is changed
+- support createuser & updateuser in tql builder
+- Keep scroll position on multi select selection
+- fix menu in action
+- move validation helper method to tocco-util
+- Clear button in date fields only show up when data has been entered, tab and enter can now be used to navigate in the calendar popup and between date fields
+- Prevent stacking of modal overlays
+- render description field in form
+- Fix popper menu positioning
+- Prevent layout container overlap in detail view
+- Fix html edit initial change
+- Refactoring list initialization
+- Prevent range input overflow
+- Adapt table colors to better differentiate from background
+- Fix select menu disappearing behind modal
+- Fix fulltext search form
+
 0.4.5
 - Move buttons inside modals to the right to improve UX
 - Fix hidden extender and force border rendering of ranges in chrome
