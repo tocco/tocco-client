@@ -13,7 +13,8 @@ const mapStateToProps = state => ({
   getCustomLocation: state.input.getCustomLocation,
   disableViewPersistor: state.input.disableViewPersistor,
   formName: state.docs.list.formName,
-  showActions: state.input.showActions
+  showActions: state.input.showActions,
+  sortable: state.input.sortable
 })
 
 const mapActionCreators = {
