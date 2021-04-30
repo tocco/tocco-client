@@ -62,7 +62,7 @@
     ]
   },
   "check-circle": {
-    "id": "fas, check-circle",
+    "id": "fal, check-circle",
     "lib": "fa",
     "tags": [
       "selection"
@@ -133,10 +133,6 @@
       "warning"
     ]
   },
-  "external-link": {
-    "id": "fas, external-link",
-    "lib": "fa"
-  },
   "facebook": {
     "id": "fab, facebook",
     "lib": "fa",
@@ -152,7 +148,7 @@
     ]
   },
   "file": {
-    "id": "far, file",
+    "id": "fal, file",
     "lib": "fa"
   },
   "file-alt": {
@@ -323,13 +319,6 @@
       "info"
     ]
   },
-  "check-circle-light": {
-    "id": "fal, check-circle",
-    "lib": "fa",
-    "tags": [
-      "check"
-    ]
-  },
   "exclamation-circle": {
     "id": "fal, exclamation-circle",
     "lib": "fa",
@@ -342,6 +331,13 @@
     "lib": "fa",
     "tags": [
       "trash"
+    ]
+  },
+  "external-link": {
+    "id": "fal, external-link",
+    "lib": "fa",
+    "tags": [
+      "external-link"
     ]
   },
   "tocco": {

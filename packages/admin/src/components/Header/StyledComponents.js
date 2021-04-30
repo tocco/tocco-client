@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'tocco-ui'
+import {Ball, scale, theme} from 'tocco-ui'
 
 import ToccoLogo from '../../assets/tocco-circle.svg'
 
@@ -37,4 +37,25 @@ export const StyledBackgroundLogo = styled.div`
   mask-image: url(${ToccoLogo});
   mask-repeat: no-repeat;
   mask-position: -300px -900px;
+`
+
+export const StyledPopper = styled.div`
+  width: 350px;
+  z-index: 1001; // higher than bm-overlay
+  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+`
+
+export const StyledBall = styled(Ball)`
+  margin-left: ${scale.space(-0.5)};
+`
+
+export const StyledRedDot = styled.span`
+  width: 8px;
+  height: 8px;
+  position: relative;
+  top: -6px;
+  left: -9px;
+  background-color: ${theme.color('secondaryLight')};
+  border-radius: 50%;
+  display: inline-block;
 `

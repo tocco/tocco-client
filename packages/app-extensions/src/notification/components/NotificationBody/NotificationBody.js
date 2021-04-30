@@ -2,47 +2,48 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {LoadingSpinner, Icon} from 'tocco-ui'
 import {download} from 'tocco-util'
-import styled from 'styled-components'
 
 import {notificationPropType} from '../../types'
-
-const StyledProgressOuter = styled.div`
-  background-color: #000;
-  width: 150px;
-  height: 10px;
-`
-
-const StyledProgressInner = styled.div`
-  background-color: #131;
-  width: ${({percentage}) => percentage}%;
-  height: 10px;
-`
+import {
+  StyledOutputJobWrapper,
+  StyledDetailLinkWrapper,
+  StyledTaskProgressWrapper,
+  StyledSpinnerWrapper,
+  StyledProgressMessage,
+  StyledProgressOuter,
+  StyledProgressInner
+} from './StyledComponents'
 
 const Result = ({notification: {result}, navigationStrategy}) => {
   if (result.type === 'OUTPUTJOB') {
-    return <>
-      {result.file.description}
-      <a
-        href={download.addParameterToURL(result.file.link, 'download', true)}
-        download={result.file.name}
-        title="download"
-      >
-        <Icon icon="download"/>
-      </a>
-      <a href={result.file.link} target="_blank " title="open"><Icon icon="file" /></a>
-    </>
+    return (
+      <StyledOutputJobWrapper>
+        <a
+          href={download.addParameterToURL(result.file.link, 'download', true)}
+          download={result.file.name}
+          title="download">
+          <Icon icon="download" />
+        </a>
+        <a href={result.file.link} target="_blank " title="open">
+          <Icon icon="file" />
+        </a>
+        {result.file.description}
+      </StyledOutputJobWrapper>)
   }
 
   if (result.type === 'ENTITIES') {
     return <>
       {result.content.map(entity => {
-        return <navigationStrategy.DetailLink
-          key={'entitylink-' + entity.key}
-          entityName={entity.model}
-          entityKey={entity.key}
-        >
-          {entity.display}
-        </navigationStrategy.DetailLink>
+        return (
+          <StyledDetailLinkWrapper key={'entitylink-' + entity.key}>
+            <navigationStrategy.DetailLink
+              entityName={entity.model}
+              entityKey={entity.key}
+            >
+              <Icon icon="external-link" /> {entity.display}
+            </navigationStrategy.DetailLink>
+          </StyledDetailLinkWrapper>
+        )
       })
       }
     </>
@@ -60,20 +61,23 @@ Result.propTypes = {
 
 const TaskProgress = ({notification: {taskProgress}, navigationStrategy}) => {
   return <>
-    <span>{taskProgress.message}</span>
-    {taskProgress.isRunning && <LoadingSpinner />}
+    <StyledTaskProgressWrapper>
+      <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner />}</StyledSpinnerWrapper>
+      <StyledProgressMessage>{taskProgress.message}</StyledProgressMessage>
+    </StyledTaskProgressWrapper>
     {taskProgress.status === 'running_absolute'
       && <>
         <StyledProgressOuter>
-          <StyledProgressInner percentage={taskProgress.percentage}>
-          </StyledProgressInner>
+          <StyledProgressInner percentage={taskProgress.percentage} />
         </StyledProgressOuter>
         {taskProgress.done} / {taskProgress.total} = {taskProgress.percentage} %
       </>
     }
-    <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.key}>
-      Task öffnen
+    <StyledDetailLinkWrapper>
+      <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.key}>
+        <Icon icon="external-link" /> Task öffnen
       </navigationStrategy.DetailLink>
+    </StyledDetailLinkWrapper>
   </>
 }
 
@@ -84,7 +88,7 @@ TaskProgress.propTypes = {
   })
 }
 
-function NotificationBody({notification, navigationStrategy}) {
+const NotificationBody = ({notification, navigationStrategy}) => {
   const {result, taskProgress} = notification
 
   if (result) {
