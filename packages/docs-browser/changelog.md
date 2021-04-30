@@ -1,3 +1,7 @@
+0.2.4
+- Fix select menu disappearing behind modal
+- Fix fulltext search form
+
 0.2.3
 - Fix list bug
 
