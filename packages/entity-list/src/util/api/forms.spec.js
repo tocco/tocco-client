@@ -66,7 +66,7 @@ describe('entity-list', () => {
 
             }
 
-            const result = forms.getColumnDefinition(formDefinition)
+            const result = forms.getColumnDefinition({table: formDefinition})
 
             const expectedColumnDefinition = [
               {
@@ -128,7 +128,7 @@ describe('entity-list', () => {
               ]
             }
 
-            const result = forms.getColumnDefinition(formDefinition)
+            const result = forms.getColumnDefinition({table: formDefinition})
 
             expect(result).to.have.length(1)
             expect(result[0].id).to.eql('lb1')
@@ -158,11 +158,11 @@ describe('entity-list', () => {
               ]
             }
 
-            const columnPreferences = {
+            const columnDisplayPreferences = {
               lb2: false
             }
 
-            const result = forms.getColumnDefinition(formDefinition, undefined, undefined, undefined, columnPreferences)
+            const result = forms.getColumnDefinition({table: formDefinition, columnDisplayPreferences})
 
             expect(result).to.have.length(1)
             expect(result[0].id).to.eql('lb1')
@@ -190,13 +190,11 @@ describe('entity-list', () => {
 
             const cellRenderers = {
               'my-test-renderer': (rowData, column, defaultRenderer) => {
-                return <CustomComponent text={rowData.text}/>
+                return <CustomComponent text={rowData.text} />
               }
             }
 
-            const columnDefinitions = forms.getColumnDefinition(
-              formDefinition, undefined, undefined, undefined, undefined, cellRenderers
-            )
+            const columnDefinitions = forms.getColumnDefinition({table: formDefinition, cellRenderers})
 
             expect(columnDefinitions).to.have.length(1)
 
@@ -208,7 +206,45 @@ describe('entity-list', () => {
               }
             })
 
-            expect(result).to.eql(<CustomComponent text="foo"/>)
+            expect(result).to.eql(<CustomComponent text="foo" />)
+          })
+
+          test('should set columns as not sortable if set', () => {
+            const field1 = {id: 'name1', sortable: true, componentType: 'field', dataType: 'string', label: 'label'}
+            const field2 = {id: 'name2', sortable: false, componentType: 'field', dataType: 'decimal', label: 'label'}
+
+            const formDefinition = {
+              children: [
+                {
+                  id: 'lb1',
+                  label: 'label1',
+                  useLabel: 'YES',
+                  children: [field1],
+                  sortable: true,
+                  widthFixed: false,
+                  width: null,
+                  shrinkToContent: true
+                }, {
+                  id: 'lb2',
+                  label: 'label2',
+                  children: [field2],
+                  sortable: false,
+                  widthFixed: true,
+                  width: 500
+                }
+              ]
+
+            }
+
+            const result = forms.getColumnDefinition({table: formDefinition, sortable: false})
+
+            expect(result[0].sorting.sortable).to.eql(false)
+            expect(result[1].sorting.sortable).to.eql(false)
+
+            const result2 = forms.getColumnDefinition({table: formDefinition, sortable: true})
+
+            expect(result2[0].sorting.sortable).to.eql(true)
+            expect(result2[1].sorting.sortable).to.eql(false)
           })
         })
 

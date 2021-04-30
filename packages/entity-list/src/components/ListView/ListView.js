@@ -21,7 +21,8 @@ const ListView = ({
   columnDisplayPreferences,
   cellRenderers,
   preferencesLoaded,
-  intl
+  intl,
+  sortable
 }) => {
   const msg = (id, values = {}) => intl.formatMessage({id}, values)
 
@@ -29,7 +30,7 @@ const ListView = ({
     if (formDefinition && preferencesLoaded) {
       const table = getTable(formDefinition)
       const columnsDefinitions = getColumnDefinition(
-        table, sorting, parent, intl, columnDisplayPreferences, cellRenderers
+        {table, sorting, sortable, parent, intl, columnDisplayPreferences, cellRenderers}
       )
 
       return <StyledListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${table.id}`}>
@@ -46,7 +47,7 @@ const ListView = ({
       const actionBar = getActionBar(formDefinition)
       const content = [
         ...showSelectionController
-          ? [<SelectionControllerContainer key="selectionController"/>]
+          ? [<SelectionControllerContainer key="selectionController" />]
           : [],
         ...showActions !== false && actionBar
           ? [<ActionContainer
@@ -100,6 +101,7 @@ ListView.propTypes = {
     field: PropTypes.string,
     order: PropTypes.string
   })),
+  sortable: PropTypes.bool,
   columnDisplayPreferences: PropTypes.objectOf(PropTypes.bool),
   cellRenderers: PropTypes.objectOf(PropTypes.func),
   preferencesLoaded: PropTypes.bool
