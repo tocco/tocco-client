@@ -1,29 +1,23 @@
 import React, {useState, useEffect, useRef} from 'react'
 import ReactDOM from 'react-dom'
 import {usePopper} from 'react-popper'
-import styled from 'styled-components'
-import {Ball} from 'tocco-ui'
 import {notification} from 'tocco-app-extensions'
 
 import navigationStrategy from './../../routes/entities/utils/navigationStrategy'
 import NotificationCenterRedDotContainer from './NotificationCenterRedDotContainer'
-
-const StyledPopper = styled.div`
-  width: 300px;
-  z-index: 999999999999999999999;
-`
+import {StyledBall, StyledPopper} from './StyledComponents'
 
 const popperModifiers = [
   {
     name: 'offset',
     options: {
-      offset: [0, 15]
+      offset: [0, 3]
     }
   },
   {
     name: 'preventOverflow',
     options: {
-      padding: 10
+      padding: 35
     }
   }
 ]
@@ -54,7 +48,7 @@ const NotificationCenterButton = () => {
 
   return <>
     <>
-      <Ball onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement}/>
+      <StyledBall onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement}/>
       <NotificationCenterRedDotContainer onClick={() => setVisibility(!visible)} innerRef={redDotElement}/>
     </>
     {ReactDOM.createPortal(

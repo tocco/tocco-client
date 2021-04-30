@@ -1,17 +1,10 @@
 import React, {useEffect, useState, useRef} from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import {LoadingSpinner, theme} from 'tocco-ui'
+import {LoadingSpinner} from 'tocco-ui'
 
 import Notification from './Notification'
 import {notificationPropType} from './../../../types'
-
-export const StyledNotificationCenter = styled.div`
-  max-height: calc(100vh - 100px);
-  overflow-y: scroll;
-  width: 300px;
-  background-color: ${theme.color('paper')};
-`
+import {StyledNotificationCenter} from './StyledComponents'
 
 const NotificationCenter = (
   {loadNotifications, notifications, moreNotificationsAvailable, markAsRead, navigationStrategy}
@@ -51,7 +44,7 @@ const NotificationCenter = (
         />
       ))}
       {isLoadingMore && <LoadingSpinner />}
-      {!moreNotificationsAvailable && <span>No more notifications available</span>}
+      {!moreNotificationsAvailable && <span>This is the end, beautiful friend...</span>}
     </StyledNotificationCenter>
   )
 }

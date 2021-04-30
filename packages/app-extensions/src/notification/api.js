@@ -3,7 +3,7 @@ import {call} from 'redux-saga/effects'
 import rest from '../rest'
 
 export const typeMapper = {
-  failed: 'warning',
+  failed: 'error',
   info: 'info',
   success: 'success'
 }
