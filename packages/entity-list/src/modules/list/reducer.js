@@ -71,6 +71,7 @@ const ACTION_HANDLERS = {
   [actions.SET_SEARCH_ENDPOINT]: reducerUtil.singleTransferReducer('searchEndpoint'),
   [actions.SET_CONSTRICTION]: reducerUtil.singleTransferReducer('constriction'),
   [actions.SET_SHOW_LINK]: reducerUtil.singleTransferReducer('showLink'),
+  [actions.SET_SORTABLE]: reducerUtil.singleTransferReducer('sortable'),
   [actions.SET_INPUT_TQL]: reducerUtil.singleTransferReducer('inputTql'),
   [actions.SET_INPUT_KEYS]: reducerUtil.singleTransferReducer('inputKeys'),
   [actions.SET_INPUT_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('inputSearchFilters')
@@ -92,6 +93,7 @@ const initialState = {
   formSelectable: false,
   formClickable: false,
   showLink: false,
+  sortable: true,
   lazyData: {},
   endpoint: null,
   searchEndpoint: null,

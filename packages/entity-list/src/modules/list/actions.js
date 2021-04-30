@@ -31,7 +31,7 @@ export const DEFINE_SORTING = 'list/DEFINE_SORTING'
 export const SET_INPUT_TQL = 'list/SET_INPUT_TQL'
 export const SET_INPUT_KEYS = 'list/SET_INPUT_KEYS'
 export const SET_INPUT_SEARCH_FILTERS = 'list/SET_INPUT_SEARCH_FILTERS'
-export const SET_INITIALIZED = 'list/SET_INITIALIZED'
+export const SET_INITIALIZED = 'list/SET_INITIALIZED'export const SET_SORTABLE = 'list/SET_SORTABLE'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -253,4 +253,11 @@ export const setInputSearchFilters = inputSearchFilters => ({
 
 export const setInitialized = () => ({
   type: SET_INITIALIZED
+})
+
+export const setSortable = sortable => ({
+  type: SET_SORTABLE,
+  payload: {
+    sortable
+  }
 })

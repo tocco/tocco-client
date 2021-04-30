@@ -14,6 +14,7 @@ const mapStateToProps = (state, props) => ({
   searchFormPosition: state.input.searchFormPosition,
   showActions: state.input.showActions,
   sorting: state.list.sorting,
+  sortable: state.list.sortable,
   columnDisplayPreferences: state.preferences.columns,
   preferencesLoaded: state.preferences.preferencesLoaded,
   cellRenderers: state.input.cellRenderers
