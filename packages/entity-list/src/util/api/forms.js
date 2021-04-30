@@ -58,45 +58,46 @@ const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude'
 const isRightAligned = column =>
   column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
 
-export const getColumnDefinition = (
-  table, sorting, parent, intl, columnDisplayPreferences = {}, cellRenderers = {}
-) => {
-  return table.children
-    .filter(column => Object.prototype.hasOwnProperty.call(columnDisplayPreferences, column.id)
-      ? columnDisplayPreferences[column.id]
-      : !column.hidden)
-    .filter(column => !parent || column.children.length !== 1 || column.children[0].path !== parent.reverseRelationName)
-    .filter(column => column.children.filter(isDisplayableChild).length > 0)
-    .map(c => (
-      {
-        id: c.id,
-        label: c.label,
-        sorting: {
-          sortable: c.sortable,
-          ...getSortingAttributes(c, sorting)
-        },
-        shrinkToContent: c.shrinkToContent || false,
-        children: c.children.filter(isDisplayableChild),
-        resizable: !c.widthFixed,
-        rightAligned: isRightAligned(c),
-        CellRenderer: ({rowData, column}) =>
-          c.clientRenderer && cellRenderers[c.clientRenderer]
-            ? cellRenderers[c.clientRenderer](rowData, column, child => cellRenderer(child, rowData, parent, intl))
-            : column.children.map(child => cellRenderer(child, rowData, parent, intl))
-      }
-    ))
+export const getColumnDefinition = ({
+  table,
+  sorting,
+  sortable = true,
+  parent,
+  intl,
+  columnDisplayPreferences = {},
+  cellRenderers = {}
 }
+
+) => table.children
+  .filter(column => Object.prototype.hasOwnProperty.call(columnDisplayPreferences, column.id)
+    ? columnDisplayPreferences[column.id]
+    : !column.hidden)
+  .filter(column => !parent || column.children.length !== 1 || column.children[0].path !== parent.reverseRelationName)
+  .filter(column => column.children.filter(isDisplayableChild).length > 0)
+  .map(c => (
+    {
+      id: c.id,
+      label: c.label,
+      sorting: {
+        sortable: sortable && c.sortable,
+        ...getSortingAttributes(c, sorting)
+      },
+      shrinkToContent: c.shrinkToContent || false,
+      children: c.children.filter(isDisplayableChild),
+      resizable: !c.widthFixed,
+      rightAligned: isRightAligned(c),
+      CellRenderer: ({rowData, column}) =>
+        c.clientRenderer && cellRenderers[c.clientRenderer]
+          ? cellRenderers[c.clientRenderer](rowData, column, child => cellRenderer(child, rowData, parent, intl))
+          : column.children.map(child => cellRenderer(child, rowData, parent, intl))
+    }
+  ))
 
 export const getFields = (formDefinition, columnDisplayPreferences) => {
   const relationFields = []
   const displayExpressionFields = []
-  const columns = getColumnDefinition(
-    getTable(formDefinition),
-    undefined,
-    undefined,
-    undefined,
-    columnDisplayPreferences
-  )
+  const columns = getColumnDefinition({table: getTable(formDefinition), columnDisplayPreferences})
+
   const fields = columns.reduce((accumulator, current) => (
     [
       ...accumulator,
