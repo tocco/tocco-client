@@ -1,3 +1,28 @@
+0.3.12
+- Adjust label margin in input fields
+- reload sources after deployment
+- Restrict max width of popover to 400px
+- Reference text ressources for aria-labels for improved localization
+- Increase contrast of theme colors to ensure WCAG 2.0 standards
+- Change spacing/hover colors inside table and adjust scrollbar width
+- Change notifier style to a solid variant to increase contrast/visibility
+- Change popover style to solid for increased contrast
+- Adjust text shade colors to a lighter variant
+- Fix fulltext search
+- support createuser & updateuser in tql builder
+- Keep scroll position on multi select selection
+- fix menu in action
+- move validation helper method to tocco-util
+- Clear button in date fields only show up when data has been entered, tab and enter can now be used to navigate in the calendar popup and between date fields
+- Prevent stacking of modal overlays
+- render description field in form
+- Fix popper menu positioning
+- Prevent layout container overlap in detail view
+- Fix html edit initial change
+- Prevent range input overflow
+- Adapt table colors to better differentiate from background
+- Fix select menu disappearing behind modal
+
 0.3.11
 - Style notifier popups to better harmonize with the existing styling
 - Make panel header clickable so it can also expand the panel
