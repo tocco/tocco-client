@@ -1,3 +1,8 @@
+0.4.37
+- refactor extracting displays
+- Fix select menu disappearing behind modal
+- Fix fulltext search form
+
 0.4.36
 - Fix doc-browsers client questions
 - New input prop `businessUnit` to filter by business unit
