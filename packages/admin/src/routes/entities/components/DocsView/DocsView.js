@@ -16,18 +16,19 @@ const DocsView = ({entityName, entityKey, showActions}) => {
   useEffect(() => {
     fetchFolder()
   }, [])
-    
+
   return folderKey
     && <DocsBrowserApp
-        searchFormType="none"
-        rootNodes={[
-          {key: folderKey, entityName: 'Folder'}
-        ]}
-        embedded={true}
-        showActions={showActions}
-        {...showActions === false ? {selectionStyle: 'none'} : {}}
-        disableViewPersistor={true}
-      />
+      sortable={false}
+      searchFormType="none"
+      rootNodes={[
+        {key: folderKey, entityName: 'Folder'}
+      ]}
+      embedded={true}
+      showActions={showActions}
+      {...showActions === false ? {selectionStyle: 'none'} : {}}
+      disableViewPersistor={true}
+    />
 }
 
 DocsView.propTypes = {
