@@ -1,3 +1,12 @@
+0.1.13
+- render description field in form
+- Fix popper menu positioning
+- Prevent layout container overlap in detail view
+- Fix html edit initial change
+- Prevent range input overflow
+- Adapt table colors to better differentiate from background
+- Fix select menu disappearing behind modal
+
 0.1.12
 - Adjust label margin in input fields
 - reload sources after deployment
