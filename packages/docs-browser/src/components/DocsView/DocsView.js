@@ -72,10 +72,11 @@ const DocsView = props => {
     selectionStyle,
     getCustomLocation,
     disableViewPersistor,
+    showActions,
+    sortable,
     getListFormName,
     domainDetailFormName,
     folderDetailFormName,
-    showActions,
     searchMode
   } = props
 
@@ -183,6 +184,7 @@ const DocsView = props => {
           onSelectChange={setSelection}
           selection={selection}
           showActions={showActions}
+          sortable={sortable}
         />
       </Suspense>
       <FileInput />
@@ -209,10 +211,11 @@ DocsView.propTypes = {
   selectionStyle: selectionStylePropType,
   getCustomLocation: PropTypes.func,
   disableViewPersistor: PropTypes.bool,
+  showActions: PropTypes.bool,
+  sortable: PropTypes.bool,
   getListFormName: PropTypes.func,
   domainDetailFormName: PropTypes.string,
   folderDetailFormName: PropTypes.string,
-  showActions: PropTypes.bool,
   searchMode: PropTypes.bool
 }
 
