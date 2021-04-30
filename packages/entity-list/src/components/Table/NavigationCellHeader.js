@@ -14,7 +14,9 @@ const NavigationCellHeader = props =>
     <MenuItem onClick={props.resetColumns}>
       <FormattedMessage id="client.entity-list.preferences.columns.reset"/>
     </MenuItem>
-    <MenuItem onClick={props.resetSorting}><FormattedMessage id="client.entity-list.sorting.reset"/></MenuItem>
+    {props.sortable
+      && <MenuItem onClick={props.resetSorting}><FormattedMessage id="client.entity-list.sorting.reset"/></MenuItem>
+    }
     <MenuItem onClick={props.resetPreferences}><FormattedMessage id="client.entity-list.preferences.reset"/></MenuItem>
   </BallMenu>
 
@@ -22,7 +24,8 @@ NavigationCellHeader.propTypes = {
   displayColumnModal: PropTypes.func.isRequired,
   resetSorting: PropTypes.func.isRequired,
   resetPreferences: PropTypes.func.isRequired,
-  resetColumns: PropTypes.func.isRequired
+  resetColumns: PropTypes.func.isRequired,
+  sortable: PropTypes.bool
 }
 
 const mapActionCreators = {
@@ -32,4 +35,8 @@ const mapActionCreators = {
   resetColumns
 }
 
-export default connect(null, mapActionCreators)(NavigationCellHeader)
+const mapStateToProps = (state, props) => ({
+  sortable: state.list.sortable
+})
+
+export default connect(mapStateToProps, mapActionCreators)(NavigationCellHeader)

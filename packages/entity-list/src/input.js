@@ -14,6 +14,7 @@ import {
   setSearchFilters,
   setFormDefinition as setListFormDefinition,
   setShowLink,
+  setSortable,
   setInputTql,
   setInputKeys,
   setInputSearchFilters
@@ -118,6 +119,12 @@ const actionSettings = [
     name: 'showLink',
     action: setShowLink,
     argsFactory: input => [input.showLink],
+    reload: reloadOptions.NOTHING
+  },
+  {
+    name: 'sortable',
+    action: setSortable,
+    argsFactory: input => [input.sortable],
     reload: reloadOptions.NOTHING
   },
   {
