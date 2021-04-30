@@ -1,3 +1,12 @@
+0.2.24
+- render description field in form
+- Fix popper menu positioning
+- Prevent layout container overlap in detail view
+- Fix html edit initial change
+- Prevent range input overflow
+- Adapt table colors to better differentiate from background
+- Fix select menu disappearing behind modal
+
 0.2.23
 - Clear button in date fields only show up when data has been entered, tab and enter can now be used to navigate in the calendar popup and between date fields
 - Text as html
