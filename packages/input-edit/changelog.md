@@ -1,3 +1,6 @@
+0.3.10-hotfix228.2
+
+
 0.3.10-hotfix228.1
 - Fix empty report settings (TOCDEV-3218)
 - Fix hidden extender and force border rendering of ranges in chrome
