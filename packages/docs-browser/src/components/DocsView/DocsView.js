@@ -78,6 +78,8 @@ const DocsView = props => {
 
   const [selection, setSelection] = useState([])
   const parent = useMemo(() => getParent(match), [match.params])
+
+  const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
   const listFormName = useMemo(() => formName === null ? getFormName(parent, keys) : formName, [match.params])
 
   useEffect(() => {
@@ -93,7 +95,6 @@ const DocsView = props => {
     }
   }
 
-  const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
   const tql = !parent && !keys ? getTql(domainTypes) : null
 
   const handleUploadDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
