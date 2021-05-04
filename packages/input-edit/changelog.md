@@ -1,3 +1,6 @@
+0.3.13
+- Wait for update to finish before loading data in input-edit
+
 0.3.12
 - Adjust label margin in input fields
 - reload sources after deployment
