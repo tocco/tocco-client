@@ -48,7 +48,12 @@ const webpackConfig = {
     paths.client(`${packageDir}/src/main.js`)
   ],
   optimization: {
-    minimizer: [new TerserPlugin({extractComments: false})]
+    minimizer: [
+      new TerserPlugin({extractComments: false}),
+      new webpack.optimize.MinChunkSizePlugin({
+        minChunkSize: 10000
+      })
+    ]
   }
 }
 
@@ -137,6 +142,7 @@ webpackConfig.module.rules = [
     test: /\.(js|jsx)$/,
     exclude: /node_modules/,
     loader: 'babel-loader',
+    sideEffects: false,
     options: {
       plugins: __DEV__ ? ['react-refresh/babel'] : []
     }
