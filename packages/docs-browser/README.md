@@ -27,6 +27,8 @@ React-registry name: `docs-browser`
 | `embedded`             |           | If true, the styling is more subtle (E.g. no background color for in the breadcrumbs). Default is false.
 | `showActions`          |           | Attribute will be passed along to entity-list.
 | `sortable`             |           | Attribute will be passed along to entity-list.
+| `hasLeftPadding`       |           | If true, a LeftPadding will be applied to the Breadcrumbs.
+
 ### Events
 
 | Name                | Payload                       | Description
