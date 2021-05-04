@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {LoadingSpinner, Icon} from 'tocco-ui'
+import {download} from 'tocco-util'
 import styled from 'styled-components'
 
 import {notificationPropType} from '../../types'
@@ -21,7 +22,13 @@ const Result = ({notification: {result}, navigationStrategy}) => {
   if (result.type === 'OUTPUTJOB') {
     return <>
       {result.file.description}
-      <a href={result.file.link} download={result.file.name} title="download"><Icon icon="download" /></a>
+      <a
+        href={download.addParameterToURL(result.file.link, 'download', true)}
+        download={result.file.name}
+        title="download"
+      >
+        <Icon icon="download"/>
+      </a>
       <a href={result.file.link} target="_blank " title="open"><Icon icon="file" /></a>
     </>
   }
