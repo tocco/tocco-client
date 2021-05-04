@@ -26,6 +26,8 @@ React-registry name: `docs-browser`
 | `disableViewPersistor` |           | Per default the docs view is persisted with the view persistor. This property allows to disable using the view persistor
 | `embedded`             |           | If true, the styling is more subtle (E.g. no background color for in the breadcrumbs). Default is false.
 | `showActions`          |           | Attribute will be passed along to entity-list.
+| `sortable`             |           | Attribute will be passed along to entity-list.
+| `hasLeftPadding`       |           | If true, a LeftPadding will be applied to the Breadcrumbs.
 
 ### Events
 
