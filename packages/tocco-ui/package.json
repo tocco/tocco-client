@@ -4,6 +4,7 @@
   "private": true,
   "description": "some ui elements",
   "main": "src/index.js",
+  "sideEffects": false,
   "scripts": {
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=tocco-ui",
     "prepublish": "npm run compile:prod"
