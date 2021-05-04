@@ -20,10 +20,11 @@ export function* invokeActionAsync(definition, selection, parent, params) {
       entity: selection.entityName,
       selection,
       parent,
+      ...params,
       params: {
+        ...params.params,
         background: true
       },
-      ...params,
       formProperties: definition.properties
     },
     acceptedErrorCodes: ['VALIDATION_FAILED'],
