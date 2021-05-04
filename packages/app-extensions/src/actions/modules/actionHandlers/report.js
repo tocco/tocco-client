@@ -1,13 +1,13 @@
 import React from 'react'
 import {channel} from 'redux-saga'
 import {v4 as uuid} from 'uuid'
-import {saga as sagaUtil, download, api} from 'tocco-util'
+import {api} from 'tocco-util'
 import {call, put, take} from 'redux-saga/effects'
 
-import {submitActions} from '../../utils/report'
 import rest from '../../../rest'
 import notification from '../../../notification'
 import ReportSettings from '../../components/ReportSettings'
+import {invokeActionAsync} from './simpleAction'
 
 export default function* (actionDefinition, selection, parent, params, config) {
   const answerChannel = yield call(channel)
@@ -25,8 +25,7 @@ export function* displayReportSettings(actionDefinition, selection, answerChanne
 
   const resource = `report/${actionDefinition.reportId}/settings`
   const {body: settingsDefinition} = yield call(rest.requestSaga, resource, options)
-  const onSubmit = (submitAction, formValues) => answerChannel.put({
-    submitAction,
+  const onSubmit = formValues => answerChannel.put({
     formValues,
     settingsDefinition
   })
@@ -53,82 +52,29 @@ export function* displayReportSettings(actionDefinition, selection, answerChanne
 export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId, selection) {
   while (true) {
     const {
-      submitAction,
       formValues: {customSettings, generalSettings, recipientSettings},
       settingsDefinition
     } = yield take(answerChannel)
 
+    definition.endpoint = 'report/generations'
     const customSettingsEntity = settingsDefinition.customSettings
       ? api.toEntity({
           __model: settingsDefinition.customSettings.entity.name,
           ...customSettings
         })
       : null
-
-    const body = {
-      entityModel: selection.entityName,
-      selection,
-      generalSettings,
-      recipientSettings,
-      customSettings: customSettingsEntity
+    const params = {
+      params: {
+        reportParams: {
+          reportId: definition.reportId,
+          generalSettings,
+          recipientSettings
+        }
+      },
+      formData: customSettingsEntity
     }
 
-    const requestOptions = {
-      method: 'POST',
-      body,
-      acceptedStatusCodes: [400]
-    }
-
-    const resource = `report/${definition.reportId}/generations`
-    const generationsResponse = yield call(rest.requestSaga, resource, requestOptions)
-
-    if (generationsResponse.status === 400) {
-      yield call(handleFailedGenerationsRequest, settingsModalId, generationsResponse)
-    } else {
-      yield call(handleReportGenerations, settingsModalId, generationsResponse, submitAction)
-    }
+    yield call(invokeActionAsync, definition, selection, null, params)
+    yield put(notification.removeModal(settingsModalId))
   }
-}
-
-export function* handleReportGenerations(settingsModalId, generationsResponse, submitAction) {
-  yield put(notification.removeModal(settingsModalId))
-  const pollingUrl = generationsResponse.headers.get('Location')
-  const blockingInfoId = yield call(uuid)
-  yield put(notification.blockingInfo(blockingInfoId, 'client.common.report.inProgress', null, 'file-pdf'))
-
-  const completed = yield call(sagaUtil.checkStatusLoop, rest.requestSaga, pollingUrl, 'in_progress')
-  yield put(notification.removeBlockingInfo(blockingInfoId))
-  if (completed.body.status === 'completed') {
-    yield call(handleSuccessfulReport, completed, submitAction)
-  } else {
-    yield call(handleFailedReport)
-  }
-}
-
-export const getDownloadUrl = binaryLink =>
-  download.addParameterToURL(binaryLink, 'download', true)
-
-export function* handleSuccessfulReport(completed, submitAction) {
-  const outputJobId = completed.body.outputJobId
-  const outputJob = yield call(rest.fetchEntity, 'Output_job', outputJobId, {paths: ['document']})
-  const {fileName, binaryLink} = outputJob.paths.document.value
-
-  if (submitAction === submitActions.DOWNLOAD) {
-    const downloadLink = yield call(getDownloadUrl, binaryLink)
-    yield call(download.downloadUrl, downloadLink, fileName)
-  } else if (submitAction === submitActions.DISPLAY) {
-    yield call(download.openUrl, binaryLink)
-  }
-
-  yield put(notification.toaster({type: 'success', title: 'client.common.report.successful'}))
-}
-
-export function* handleFailedReport() {
-  yield put(notification.toaster({type: 'error', title: 'client.common.report.failed'}))
-}
-
-export function* handleFailedGenerationsRequest(modalId, generationsResponse) {
-  const title = 'client.common.report.failedGenerationTitle'
-  const body = generationsResponse.body.message || 'client.common.report.failedGenerationMessage'
-  yield put(notification.toaster({type: 'warning', title, body}))
 }

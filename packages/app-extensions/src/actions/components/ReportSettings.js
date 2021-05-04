@@ -10,8 +10,7 @@ import {
   getFormDefinition,
   getGroupedValues,
   reportSettingsDefinitionPropType,
-  transformValues,
-  submitActions
+  transformValues
 } from '../utils/report'
 import {StyledStickyButtons, StyledReportSettings} from './StyledReportSettings'
 
@@ -36,13 +35,13 @@ export class ReportSettings extends React.Component {
     this.setState({...this.state, customSettings, customSettingsValid})
   }
 
-  handleButtonClick = action => () => {
+  handleButtonClick = () => () => {
     const groupedValues = {
       ...getGroupedValues(this.props.settingsDefinition, transformValues(this.state.values)),
       customSettings: this.state.customSettings
     }
 
-    this.props.onSubmit(action, groupedValues)
+    this.props.onSubmit(groupedValues)
   }
 
   render() {
@@ -76,20 +75,12 @@ export class ReportSettings extends React.Component {
             ink="primary"
             disabled={!this.state.customSettingsValid || !this.state.valid}
             icon="download"
-            onClick={this.handleButtonClick(submitActions.DOWNLOAD)}
+            onClick={this.handleButtonClick()}
             look="raised"
           >
-            <FormattedMessage id="client.common.report.download"/>
+            <FormattedMessage id="client.common.report.generate"/>
           </Button>
           }
-          <Button
-            disabled={!this.state.customSettingsValid || !this.state.valid}
-            icon="file"
-            onClick={this.handleButtonClick(submitActions.DISPLAY)}
-            look="raised"
-          >
-            <FormattedMessage id="client.common.report.display"/>
-          </Button>
         </StyledStickyButtons>
       </StyledReportSettings>
     )
