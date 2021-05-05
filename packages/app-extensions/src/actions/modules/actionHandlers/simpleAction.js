@@ -5,6 +5,7 @@ import {v4 as uuid} from 'uuid'
 import errorLogging from '../../../errorLogging'
 import rest from '../../../rest'
 import notification from '../../../notification'
+import {TOASTER_KEY_PREFIX} from '../../../notification/modules/socket/socket'
 
 export default function* (definition, selection, parent, params) {
   const runAsync = definition.runInBackgroundTask
@@ -39,6 +40,8 @@ export function* invokeActionAsync(definition, selection, parent, params) {
       title: 'client.common.unexpectedError',
       body: response.body.message || 'client.component.actions.errorText'
     }))
+  } else {
+    yield call(showToaster, response, 'info')
   }
 }
 
@@ -100,11 +103,7 @@ export function* invokeRequest(definition, selection, parent, params) {
       })
       yield call(download.downloadReadableStream, fileResponse.body, response.body.params.filename)
     } else {
-      const success = response.body.success === true
-      const type = success ? 'success' : 'warning'
-      const title = response.body.message || 'client.component.actions.successDefault'
-
-      yield put(notification.toaster({type, title}))
+      yield call(showToaster, response, response.body.success === true ? 'success' : 'warning')
     }
 
     return response.body
@@ -117,4 +116,10 @@ export function* invokeRequest(definition, selection, parent, params) {
       ))
     }
   }
+}
+
+export function* showToaster(response, type) {
+  const title = response.body.message || 'client.component.actions.successDefault'
+  const key = response.body.notificationKey ? `${TOASTER_KEY_PREFIX}${response.body.notificationKey}` : undefined
+  yield put(notification.toaster({type, title, key}))
 }

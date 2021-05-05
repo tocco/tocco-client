@@ -92,7 +92,7 @@ describe('app-extensions', () => {
 
               return expectSaga(awaitSettingsSubmit, mockData.definition, channelMock, modalId, mockData.ids)
                 .provide([
-                  [matchers.call.fn(rest.requestSaga), {status: 200}]
+                  [matchers.call.fn(rest.requestSaga), {status: 200, body: {}}]
                 ])
                 .dispatch(channelMock.put(
                   {formValues: mockData.formValues, settingsDefinition: mockData.settingsDefinition})
