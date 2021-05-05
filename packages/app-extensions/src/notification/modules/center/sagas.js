@@ -46,9 +46,8 @@ export function* loadNotifications({payload: {offset}}) {
     _offset: offset
   }
   const notificationsResponse = yield call(rest.requestSaga, 'client/notifications', {method: 'GET', queryParams})
-  const notifications = yield all(notificationsResponse.body.data.map(v => call(notificationTransform, v)))
-
-  notifications.reduce((acc, v) => {
+  const notificationList = yield all(notificationsResponse.body.data.map(v => call(notificationTransform, v)))
+  const notifications = notificationList.reduce((acc, v) => {
     return {...acc, [v.key]: v}
   }, {})
 
