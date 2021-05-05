@@ -20,7 +20,7 @@ export const enhanceToaster = toaster => {
     icon: toaster.icon || iconMap[type],
     ...(toaster.onClose && typeof toaster.onClose === 'function' && {onClose: toaster.onClose}),
     duration: Number.isInteger(toaster.duration) ? toaster.duration : isWarningOrError(type) ? -1 : DEFAULT_DURATION,
-    time: toaster.time instanceof Date ? toaster.time : Date.now()
+    time: toaster.time instanceof Date ? toaster.time : new Date()
   }
 }
 
