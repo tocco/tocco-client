@@ -80,7 +80,10 @@ export function* invokeRequest(definition, selection, parent, params) {
         ...params,
         formProperties: definition.properties
       },
-      acceptedErrorCodes: ['VALIDATION_FAILED']
+      acceptedErrorCodes: ['VALIDATION_FAILED'],
+      headers: {
+        'X-Enable-Notifications': true
+      }
     })
     if (response.body && response.body.errorCode === 'VALIDATION_FAILED') {
       yield put(
