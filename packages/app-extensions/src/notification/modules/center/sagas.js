@@ -41,6 +41,7 @@ export function* loadInitialUnreadNotificationKeys() {
 }
 
 export function* loadNotifications({payload: {offset}}) {
+  yield put(actions.isLoadingMoreNotifications())
   const queryParams = {
     _limit: LIMIT,
     _offset: offset

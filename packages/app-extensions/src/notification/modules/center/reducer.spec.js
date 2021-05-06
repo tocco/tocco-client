@@ -3,6 +3,7 @@ import * as actions from './actions'
 
 const INITIAL_STATE = {
   notifications: {},
+  isLoadingMoreNotifications: false,
   unreadNotificationKeys: [],
   moreNotificationsAvailable: true
 }
@@ -26,6 +27,7 @@ describe('app-extensions', () => {
 
             expect(stateAfter).to.have.property('notifications')
             expect(Object.keys(stateAfter.notifications)).to.have.length(2)
+            expect(stateAfter.isLoadingMoreNotifications).to.be.false
 
             const notifications2 = {
               3: {key: '3', message: 'test'},
@@ -34,6 +36,7 @@ describe('app-extensions', () => {
 
             stateAfter = reducer(stateAfter, actions.setNotifications(notifications2))
             expect(Object.keys(stateAfter.notifications)).to.have.length(3)
+            expect(stateAfter.isLoadingMoreNotifications).to.be.false
           })
 
           test('should update notifications', () => {
@@ -83,6 +86,13 @@ describe('app-extensions', () => {
               }
               const stateAfter = reducer(initialState, actions.updateUnreadNotification('1', true))
               expect(stateAfter.unreadNotificationKeys).to.deep.equal([])
+            })
+          })
+
+          describe('IS_LOADING_MORE_NOTIFICATIONS', () => {
+            test('set is loading to true', () => {
+              const stateAfter = reducer(INITIAL_STATE, actions.isLoadingMoreNotifications())
+              expect(stateAfter.isLoadingMoreNotifications).to.be.true
             })
           })
         })

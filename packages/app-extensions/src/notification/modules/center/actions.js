@@ -4,6 +4,7 @@ export const LOAD_NOTIFICATIONS = 'notification/LOAD_NOTIFICATIONS'
 export const SET_NOTIFICATIONS = 'notification/SET_NOTIFICATION'
 export const SET_MORE_NOTIFICATIONS_AVAILABLE = 'notification/SET_MORE_NOTIFICATIONS_AVAILABLE'
 export const UPDATE_NOTIFICATION = 'notification/UPDATE_NOTIFICATION'
+export const IS_LOADING_MORE_NOTIFICATIONS = 'notification/IS_LOADING_MORE_NOTIFICATIONS'
 export const MARK_AS_READ = 'notification/MARK_AS_READ'
 
 export const setUnreadNotificationKeys = unreadNotificationKeys => ({
@@ -46,6 +47,13 @@ export const updateNotification = notification => ({
   type: UPDATE_NOTIFICATION,
   payload: {
     notification
+  }
+})
+
+export const isLoadingMoreNotifications = (isLoadingMoreNotifications = true) => ({
+  type: IS_LOADING_MORE_NOTIFICATIONS,
+  payload: {
+    isLoadingMoreNotifications
   }
 })
 
