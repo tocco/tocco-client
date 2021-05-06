@@ -62,7 +62,7 @@ export function* messageReceived({payload: {data}}) {
     }
   }
 
-  if (!showToaster) {
+  if (!showToaster || notification.read) {
     yield put(updateUnreadNotification(notification.key, notification.read))
   }
 
