@@ -72,7 +72,11 @@ const initApp = (id, input, events = {}, publicPath) => {
     history.push(input.initialLocation)
   }
 
-  const singleRootNode = Array.isArray(input.rootNodes) && input.rootNodes.length === 1 ? input.rootNodes[0] : null
+  const singleRootNode = Array.isArray(input.rootNodes) && input.rootNodes.length === 1
+    && input.rootNodes[0].entityName !== 'Resource'
+    ? input.rootNodes[0]
+    : null
+  
   const startUrl = singleRootNode
     ? `/docs/${singleRootNode.entityName.toLowerCase()}/${singleRootNode.key}/list`
     : '/docs'
