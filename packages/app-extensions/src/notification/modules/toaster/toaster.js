@@ -3,7 +3,7 @@ import {v4 as uuid} from 'uuid'
 
 import {iconMap, isWarningOrError, TYPES} from '../../types'
 
-const DEFAULT_DURATION = 5000
+export const DEFAULT_DURATION = 5000
 
 export const enhanceToaster = toaster => {
   if (!toaster.title && !toaster.body) {
