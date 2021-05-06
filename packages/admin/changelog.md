@@ -1,3 +1,7 @@
+0.4.38
+- EntityDocs not sortable
+- Dms fixes
+
 0.4.37
 - refactor extracting displays
 - Fix select menu disappearing behind modal
