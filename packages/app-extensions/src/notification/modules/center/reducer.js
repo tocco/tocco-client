@@ -8,7 +8,8 @@ const setNotifications = (state, {payload: {notifications}}) => ({
   notifications: {
     ...state.notifications,
     ...notifications
-  }
+  },
+  isLoadingMoreNotifications: false
 })
 
 const updateNotification = (state, {payload: {notification}}) => ({
@@ -38,11 +39,13 @@ const ACTION_HANDLERS = {
   [actions.SET_MORE_NOTIFICATIONS_AVAILABLE]: reducerUtil.singleTransferReducer('moreNotificationsAvailable'),
   [actions.UPDATE_NOTIFICATION]: updateNotification,
   [actions.SET_UNREAD_NOTIFICATION_KEYS]: reducerUtil.singleTransferReducer('unreadNotificationKeys'),
-  [actions.UPDATE_UNREAD_NOTIFICATION]: updateUnreadNotification
+  [actions.UPDATE_UNREAD_NOTIFICATION]: updateUnreadNotification,
+  [actions.IS_LOADING_MORE_NOTIFICATIONS]: reducerUtil.singleTransferReducer('isLoadingMoreNotifications')
 }
 
 const initialState = {
   notifications: {},
+  isLoadingMoreNotifications: false,
   unreadNotificationKeys: [],
   moreNotificationsAvailable: true
 }

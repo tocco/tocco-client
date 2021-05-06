@@ -93,6 +93,7 @@ describe('app-extensions', () => {
                 .provide([
                   [matchers.call.fn(rest.requestSaga), {body}]
                 ])
+                .put(actions.isLoadingMoreNotifications(true))
                 .put(actions.setMoreNotificationsAvailable(false))
                 .put(actions.setNotifications(notifications))
                 .run()
