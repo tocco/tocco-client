@@ -1,3 +1,6 @@
+0.4.37-hotfix229.1
+- Fix docs-browser bugs
+
 0.4.37
 - refactor extracting displays
 - Fix select menu disappearing behind modal
