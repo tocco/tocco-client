@@ -1,3 +1,7 @@
+0.2.4-hotfix229.1
+- Fix root node Resource
+- Fix key form bug
+
 0.2.4
 - Fix select menu disappearing behind modal
 - Fix fulltext search form
