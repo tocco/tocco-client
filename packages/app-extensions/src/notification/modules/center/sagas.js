@@ -4,8 +4,7 @@ import rest from '../../../rest'
 import {notificationTransform} from '../../api'
 import * as actions from './actions'
 
-export const notificationCenterSelector = state => state.notification.center
-export const notificationToasterSelector = state => state.notification.toaster
+export const notificationsSelector = state => state.notification.center.notifications
 
 const LIMIT = 10
 

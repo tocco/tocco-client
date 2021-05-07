@@ -56,7 +56,7 @@ export function* messageReceived({payload: {data}}) {
 
   if (notification.originId === originId) {
     const toasterInfo = yield call(notificationToToaster, notification)
-    if (!ignoredToasters.includes(toasterInfo.key)) {
+    if (!ignoredToasters.includes(toasterInfo.key) && !notification.read) {
       yield put(toaster(toasterInfo))
       showToaster = true
     }
