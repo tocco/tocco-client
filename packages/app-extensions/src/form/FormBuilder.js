@@ -165,7 +165,11 @@ const FormBuilder = props => {
     const key = `layoutcomponent-${field.id}-${field.layoutType}`
 
     if (LayoutComponent) {
-      return <LayoutComponent key={key}>{content}</LayoutComponent>
+      return <LayoutComponent
+        key={key}
+        occupiesRemainingHeight={field.occupiesRemainingHeight}>
+        {content}
+      </LayoutComponent>
     } else {
       consoleLogger.logWarning(`Layout type "${type}" for box "${field.id}" is unknown.`)
       return null
