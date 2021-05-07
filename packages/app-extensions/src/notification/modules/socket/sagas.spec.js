@@ -42,12 +42,12 @@ describe('app-extensions', () => {
         const originId = 'test'
         const data = {
           key: '1',
-          read: true,
+          read: false,
           originId
         }
         const notification = {
           key: '1',
-          read: true,
+          read: false,
           type: 'info',
           result: null,
           taskProgress: null,
