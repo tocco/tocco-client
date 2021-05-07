@@ -937,21 +937,6 @@ to-fast-properties@^2.0.0:
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
 
-tocco-test-util@*:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/tocco-test-util/-/tocco-test-util-0.1.2.tgz#6388309f1598d612cbc29e27564fb10706ade6f6"
-  integrity sha1-Y4gwnxWY1hLLwp4nVk+xBwat5vY=
-
-tocco-theme@*:
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.2.10.tgz#9e20ef4a5a93040b7dcc0fd947b260233a6e0e30"
-  integrity sha512-5aBspMHAqGfR7fZg1p8L6dXbtU+lGSj2XnKHYqeKy9O2NKJoFBw4W3s7i9bAMliAYYApj4py3icHZ/pLH+j4VQ==
-
-tocco-util@*:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/tocco-util/-/tocco-util-0.1.11.tgz#c159134e9bb8359384aab0996286de233b19d0a8"
-  integrity sha512-7VbdKXPPAyXXibJ1AIiPDdwb4ksU0RmbvHr/mznU//slM9I8ncoOLR/159lcnDnXiI6HokWE+fKqRCuyZ9oQNw==
-
 ts-essentials@^2.0.3:
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-2.0.12.tgz#c9303f3d74f75fa7528c3d49b80e089ab09d8745"

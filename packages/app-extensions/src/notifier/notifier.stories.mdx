@@ -1,0 +1,289 @@
+import {useEffect, useState} from 'react'
+import {action} from "@storybook/addon-actions";
+import {Provider} from "react-redux";
+import {Button, Typography} from "tocco-ui";
+import {Meta, Story, Canvas} from "@storybook/addon-docs/blocks";
+
+import notifier from ".";
+import appFactory from "../appFactory";
+import {Fragment} from 'react'
+
+<Meta title="App-Extensions/Notifier" />
+
+
+# Notifier
+
+## Usage
+
+### Import
+
+  ```javascript
+import { notifier } from "tocco-app-extensions";
+```
+
+### Setup
+
+Firstly the Notifier util must be added to the store:
+
+```javascript
+notifier.addToStore(store, accept);
+```
+
+The first parameter is the redux store.The store is needed to adding its reducers and add saga middleware.
+The second parameter(accept) determines whether the app is handling the Notifier action itself or just emits the
+actions to the parent app.The latter also needs the`emmitAction` util added to the store.
+
+Secondly the Notifier Components must be added to dom:
+
+```javascript
+ render() {
+    return (
+      <Provider store={store}>
+        <div>
+          <notifier.Notifier/>
+          <...>
+        </div>
+     </Provider>
+     )
+}
+```
+
+### Show notifications
+
+info action creator can be used to show notifications:
+
+`notifier.info(type, title, message, icon, timeOut)`
+
+#### Examples
+
+  ```javascript
+store.dispatch(
+  notifier.info(
+    "info",
+    "client.title",
+    "client.message",
+    ["far", "thumbs-up"],
+    2000
+  )
+);
+store.dispatch(
+  notifier.info(
+    "info",
+    <Title>Custom</Title>,
+    "message line contains <b>html</b>"
+  )
+);
+store.dispatch(
+  notifier.info("success", "client.title", "client.message", null, 2000)
+);
+store.dispatch(notifier.info("warning", "client.title", longText));
+store.dispatch(notifier.info("error", "client.title", "client.description"));
+```
+
+### Show notifications
+
+  ```javascript
+store.dispatch(
+  notifier.confirm(
+    "Title",
+    "message line contains <b>html</b>",
+    "OK text",
+    "Cancel text",
+    () => console.log("Ok"),
+    () => console.log("Cancel")
+  )
+);
+```
+
+### Show Yes / No Question
+
+  ```javascript
+store.dispatch(
+  notifier.yesNoQuestion(
+    title,
+    message,
+    "Yes text",
+    "No text",
+    "Cancel text",
+    () => console.log("Yes"),
+    () => console.log("No"),
+    () => console.log("Cancel")
+  )
+);
+```
+
+### Show blocking Info
+
+  ```javascript
+store.dispatch(notifier.blockingInfo(id, "Title", "Please wait"));
+```
+
+### Show Modal Component
+
+  ```javascript
+store.dispatch(
+  notifier.modalComponent(
+    id,
+    "Title",
+    "Message",
+    (props) => (
+      <React.Fragment>
+        <Typography.P>Custom component starts here</Typography.P>
+        <Button label="Close" onClick={() => props.close()} />
+      </React.Fragment>
+    ),
+    closable
+  )
+);
+```
+
+export const NotifierStory = () => {
+  const [store, setStore] = useState()
+  useEffect(() => {
+    const s = appFactory.createStore({}, undefined, {}, 'notifier')
+    notifier.addToStore(s, true)
+    setStore(s)
+  }, [])
+  const Message = () => (
+    <Fragment>
+      Test
+    </Fragment>
+  )
+  const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad. Sit et meliore intellegam. Mel cu maluisset philosophia, pri et habeo oportere. Vis in purto verear luptatum, has ne graecis qualisque. Mei ei placerat incorrupte adversarium, eum rebum nonumy ut.`
+  const title = <Typography.H4>Main title <Typography.Small>additional byline</Typography.Small></Typography.H4>
+  const info1 = () => {
+    store.dispatch(notifier.info('info', 'client.title', 'client.message', 'star', 2000))
+  }
+  const info2 = () => {
+    store.dispatch(notifier.info('info', title, 'message line contains <b>html</b>'))
+  }
+  const success = () => {
+    store.dispatch(notifier.info('success', 'client.title', 'client.message', null, 2000))
+  }
+  const warning = () => {
+    store.dispatch(notifier.info('warning', 'client.title', longText))
+  }
+  const error = () => {
+    store.dispatch(notifier.info('error', 'client.title', 'client.description'))
+  }
+  const confirmQuestion = () => {
+    store.dispatch(notifier.confirm(
+      'Title',
+      'message line contains <b>html</b>',
+      'OK text',
+      'Cancel text',
+      action('Ok'),
+      action('Cancel')
+    ))
+  }
+  const yesNoQuestion = () => {
+    store.dispatch(notifier.yesNoQuestion(
+      title,
+      <Message />,
+      'Yes text',
+      'No text',
+      'Cancel text',
+      action('Yes'),
+      action('No'),
+      action('Cancel')
+    ))
+  }
+  const blockingInfo = () => {
+    const id = Date.now()
+    store.dispatch(notifier.blockingInfo(
+      id,
+      'Title',
+      'Please wait'
+    ))
+    setTimeout(() => {
+      store.dispatch(notifier.removeBlockingInfo(id))
+    }, 5000)
+  }
+  const modalComponent = () => {
+    const id = Date.now()
+    store.dispatch(notifier.modalComponent(
+      id,
+      'Title',
+      'Message',
+      props => (
+        <React.Fragment>
+          <Typography.P>Custom component starts here</Typography.P>
+          <Button
+            look="raised"
+            ink="primary"
+            label="Primary action"
+            onClick={action('Primary action')}
+          />
+          <Button
+            look="raised"
+            label="Secondary action (and close)"
+            onClick={() => {
+              action('Secondary action')(); props.close()
+            }}
+          />
+        </React.Fragment>
+      ),
+      true
+    ))
+    setTimeout(() => {
+      store.dispatch(notifier.removeBlockingInfo(id))
+    }, 2000)
+  }
+  if (!store) {
+    return null
+  }
+  return (
+    <Provider store={store}>
+      <div>
+        <notifier.Notifier />
+        <span>
+          <Button
+            label="Info 1"
+            look="raised"
+            onClick={info1} />&nbsp;
+            <Button
+            label="Info 2"
+            look="raised"
+            onClick={info2} />&nbsp;
+              <Button
+            label="Success"
+            look="raised"
+            onClick={success} />&nbsp;
+              <Button
+            label="Warning"
+            look="raised"
+            onClick={warning} />&nbsp;
+              <Button
+            label="Error"
+            look="raised"
+            onClick={error} />&nbsp;
+              <Button
+            label="Blocking Info"
+            look="raised"
+            onClick={blockingInfo} />&nbsp;
+          </span>
+        <>
+          <Button
+            label="Confirm"
+            look="raised"
+            onClick={confirmQuestion} />&nbsp;
+              <Button
+            label="Yes-No Question"
+            look="raised"
+            onClick={yesNoQuestion} />&nbsp;
+              <Button
+            label="Modal Component"
+            look="raised"
+            onClick={modalComponent} />
+        </>
+      </div>
+    </Provider>
+  )
+}
+
+<Canvas>
+  <Story name="Basic">
+    <NotifierStory />
+  </Story>
+</Canvas>
+

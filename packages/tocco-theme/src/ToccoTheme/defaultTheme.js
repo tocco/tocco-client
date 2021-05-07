@@ -1,4 +1,5 @@
 export default {
+  name: 'default',
   colors: {
     paper: '#fff',
     primary: '#B22A31',

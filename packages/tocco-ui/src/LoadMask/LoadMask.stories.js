@@ -1,15 +1,18 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {withKnobs, boolean, text} from '@storybook/addon-knobs'
 
 import LoadMask from './'
 
-storiesOf('Tocco-UI | LoadMask', module)
-  .addDecorator(withKnobs)
-  .add(
-    'LoadMask',
-    () =>
-      <LoadMask required={[boolean('loaded', false)]} loadingText={text('loadingText', 'Loading...')}>
-        LOADED
-      </LoadMask>
-  )
+export default {
+  title: 'Tocco-UI/Load Mask',
+  component: LoadMask,
+  argTypes: {
+    loaded: {type: 'boolean', defaultValue: false},
+    loadingText: {type: 'string', defaultValue: 'Loading...'}
+  }
+}
+
+export const Basic = ({loaded, ...args}) =>
+  <LoadMask required={[loaded]} {...args}>
+    LOADED
+  </LoadMask>

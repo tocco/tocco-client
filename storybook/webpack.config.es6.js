@@ -1,17 +1,9 @@
-import webpack from '@storybook/core/node_modules/webpack'
+import webpack from '@storybook/builder-webpack4/node_modules/webpack'
 
 import runConfig from '../config'
 
 module.exports = ({config, configType}) => {
   config.plugins.push(new webpack.DefinePlugin(runConfig.globals))
-
-  const babelLoaderRule = config.module.rules.find(element => {
-    return element.use.find(usageObject => {
-      return usageObject.loader === 'babel-loader'
-    })
-  })
-
-  babelLoaderRule.exclude[0] = /node_modules/
 
   config.module.rules = config.module.rules.map(data => {
     if (/svg\|/.test(String(data.test))) {
@@ -24,7 +16,7 @@ module.exports = ({config, configType}) => {
 
   config.module.rules.push({
     test: /\.scss$/,
-      use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${runConfig.env};&includePaths[]=./packages/tocco-theme/node_modules/`]  // eslint-disable-line
+    use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${runConfig.env};&includePaths[]=./packages/tocco-theme/node_modules/`]  // eslint-disable-line
   },
   {
     test: /\.woff(\?.*)?$/,
