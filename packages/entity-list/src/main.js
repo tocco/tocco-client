@@ -76,7 +76,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     {
       input,
       events,
-      actions: getDispatchActions(input),
+      actions: [reloadAll(true), ...getDispatchActions(input)],
       publicPath,
       textResourceModules: ['component', 'common']
     }

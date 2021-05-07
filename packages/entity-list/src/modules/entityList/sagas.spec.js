@@ -1,4 +1,4 @@
-import {call, takeLatest, all} from 'redux-saga/effects'
+import {takeLatest, all} from 'redux-saga/effects'
 import {appFactory} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 
@@ -16,9 +16,8 @@ describe('entity-list', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              call(sagas.initialize),
               takeLatest(actions.RELOAD_DATA, sagas.reloadData),
-              takeLatest(actions.RELOAD_ALL, sagas.initialize, false)
+              takeLatest(actions.RELOAD_ALL, sagas.initialize)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -26,8 +25,9 @@ describe('entity-list', () => {
 
         describe('initialize', () => {
           test('should coordinate loading of modules and dependencies', () => {
-            return expectSaga(sagas.initialize)
+            return expectSaga(sagas.initialize, {payload: {waitForInputDispatch: true}})
               .dispatch({type: appFactory.inputDispatchActionType})
+              .put(listActions.setInProgress(true))
               .put(listActions.initialize())
               .put(preferenceActions.loadPreferences())
               .put(searchFormActions.initialize())

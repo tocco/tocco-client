@@ -58,6 +58,9 @@ export const reloadData = () => ({
   type: RELOAD_DATA
 })
 
-export const reloadAll = () => ({
-  type: RELOAD_ALL
+export const reloadAll = waitForInputDispatch => ({
+  type: RELOAD_ALL,
+  payload: {
+    waitForInputDispatch
+  }
 })
