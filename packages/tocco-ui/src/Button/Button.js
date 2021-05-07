@@ -7,7 +7,7 @@ import StyledButton from './StyledButton'
 import {design} from '../utilStyles'
 
 /**
- * Use <Button> to trigger any actions. Choose look and ink according Material Design.
+ * Use the Button to trigger any actions. Choose look and ink according Material Design.
  */
 const Button = React.forwardRef((props, ref) => {
   const {aria, ink, label, icon, pending, look, iconPosition, children} = props

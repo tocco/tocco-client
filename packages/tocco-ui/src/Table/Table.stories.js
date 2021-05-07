@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, {useState} from 'react'
-import {storiesOf} from '@storybook/react'
 import faker from 'faker'
 import _difference from 'lodash/difference'
 import {action} from '@storybook/addon-actions'
@@ -39,10 +38,10 @@ const columnsT = [
     },
     resizable: true,
     HeaderRenderer: ({column, data}) => {
-      return <span>{column.label} <Icon icon="id-badge"/></span>
+      return <span>{column.label} <Icon icon="id-badge" /></span>
     },
     CellRenderer: ({rowData, column, props}) => {
-      return <Typography.Span>{rowData[column.id]} <Icon icon="id-badge"/></Typography.Span>
+      return <Typography.Span>{rowData[column.id]} <Icon icon="id-badge" /></Typography.Span>
     }
   }
 ]
@@ -56,58 +55,59 @@ const data = [...Array(100).keys()].map(k => {
   }
 })
 
-storiesOf('Tocco-UI | Table', module)
-  .add(
-    'Table',
-    () => {
-      const recordsPerPage = 30
-      const [columns, setColumns] = useState(columnsT)
-      const [selection, setSelection] = useState([2])
+export default {
+  title: 'Tocco-UI/Table',
+  component: Table
+}
 
-      const [currentPage, setCurrentPage] = useState(1)
-      const onPageChange = newPage => {
-        setCurrentPage(newPage)
-      }
+export const Basic = () => {
+  const recordsPerPage = 30
+  const [columns, setColumns] = useState(columnsT)
+  const [selection, setSelection] = useState([2])
 
-      const onColumnPositionChange = (columnId, columnIdPosition) => {
-        const from = columns.findIndex(c => c.id === columnId)
-        const to = columns.findIndex(c => c.id === columnIdPosition)
+  const [currentPage, setCurrentPage] = useState(1)
+  const onPageChange = newPage => {
+    setCurrentPage(newPage)
+  }
 
-        setColumns(columns.reduce((acc, c, idx) => {
-          return [
-            ...acc,
-            ...(idx !== from ? [c] : []),
-            ...(idx === to ? [columns[from]] : [])
-          ]
-        }, []))
-      }
+  const onColumnPositionChange = (columnId, columnIdPosition) => {
+    const from = columns.findIndex(c => c.id === columnId)
+    const to = columns.findIndex(c => c.id === columnIdPosition)
 
-      const onSelectionChange = (keys, selected) => {
-        if (selected) {
-          setSelection([...selection, ...keys])
-        } else {
-          setSelection([..._difference(selection, keys)])
-        }
-      }
+    setColumns(columns.reduce((acc, c, idx) => {
+      return [
+        ...acc,
+        ...(idx !== from ? [c] : []),
+        ...(idx === to ? [columns[from]] : [])
+      ]
+    }, []))
+  }
 
-      return <div style={{width: '1000px', height: '500px', backgroundColor: 'red'}}>
-        <Table
-          columns={columns}
-          data={data.slice(currentPage * recordsPerPage, currentPage * recordsPerPage + recordsPerPage)}
-          selection={selection}
-          selectionStyle="multi"
-          onSelectionChange={onSelectionChange}
-          paginationInfo={{
-            totalCount: data.length,
-            currentPage: currentPage,
-            recordsPerPage: recordsPerPage
-          }}
-          onPageChange={onPageChange}
-          onColumnPositionChange={onColumnPositionChange}
-          onRowClick={action('row clicked')}
-          onSortingChange={action('sorting changed')}
-        />
-        Selection: {JSON.stringify(selection)}
-      </div>
+  const onSelectionChange = (keys, selected) => {
+    if (selected) {
+      setSelection([...selection, ...keys])
+    } else {
+      setSelection([..._difference(selection, keys)])
     }
-  )
+  }
+
+  return <div style={{width: '1000px', height: '500px', backgroundColor: 'red'}}>
+    <Table
+      columns={columns}
+      data={data.slice(currentPage * recordsPerPage, currentPage * recordsPerPage + recordsPerPage)}
+      selection={selection}
+      selectionStyle="multi"
+      onSelectionChange={onSelectionChange}
+      paginationInfo={{
+        totalCount: data.length,
+        currentPage: currentPage,
+        recordsPerPage: recordsPerPage
+      }}
+      onPageChange={onPageChange}
+      onColumnPositionChange={onColumnPositionChange}
+      onRowClick={action('row clicked')}
+      onSortingChange={action('sorting changed')}
+    />
+        Selection: {JSON.stringify(selection)}
+  </div>
+}

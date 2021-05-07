@@ -1,105 +1,88 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
-import {withKnobs, select, boolean, text} from '@storybook/addon-knobs'
-import _pick from 'lodash/pick'
 
 import Button from './'
-import {design} from '../utilStyles'
 
-storiesOf('Tocco-UI | Buttons / Button', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Knobs',
-    () => (
-      <Button
-        dense={boolean('dense', false) || undefined}
-        disabled={boolean('disabled', false) || undefined}
-        ink={select('ink', {'-': null, ...design.ink}) || undefined}
-        icon={text('icon', 'cog')}
-        iconPosition={select('iconPosition', {
-          [Button.defaultProps.iconPosition.toUpperCase()]: Button.defaultProps.iconPosition,
-          ..._pick(design.position, ['APPEND', 'PREPEND'])
-        }) || undefined
-        }
-        label={text('label', 'My Button')}
-        look={select('look', {
-          [Button.defaultProps.look.toUpperCase()]: Button.defaultProps.look,
-          ..._pick(design.look, ['FLAT', 'RAISED'])
-        }) || undefined}
-        onClick={action('clicked')}
-        pending={boolean('pending', false) || undefined}
-        title={text('title')}
-        type={select('type', ['button', 'submit', 'reset'] || undefined)}
-      />
-    )
-  ).add(
-    'Showcase',
-    () => {
-      const knobs = {
-        dense: boolean('dense', false) || undefined,
-        disabled: boolean('disabled', false) || undefined
-      }
-      return <span>
-        <Button
-          {...knobs}
-          key="1"
-          label="Base color flat"
-          onClick={action('clicked')}
-        />
-        <Button
-          {...knobs}
-          ink="primary"
-          key="2"
-          label="Primary color flat"
-        />
-        <Button
-          {...knobs}
-          key="3"
-          label="Base color raised"
-          look="raised"
-        />
-        <Button
-          {...knobs}
-          ink="primary"
-          key="4"
-          label="Primary color raised"
-          look="raised"
-        />
-        <Button
-          {...knobs}
-          icon="cog"
-          iconPosition="append"
-          key="5"
-          label="Icon append"
-          type="submit"
-        />
-        <Button
-          {...knobs}
-          icon="facebook"
-          key="6"
-          label="Icon prepend"
-        />
-        <Button
-          {...knobs}
-          icon="google"
-          ink="primary"
-          key="9"
-          label="Pending"
-          pending={true}
-        />
-        <Button
-          {...knobs}
-          key="13"
-          look="raised"
-        >
-          <i>child</i><b>child2</b>
-        </Button>
-        <Button
-          icon={'angle-up' }
-          iconPosition="append"
-          label="Menu"
-        />
-      </span>
+export default {
+  title: 'Tocco-UI/Button',
+  component: Button,
+  argTypes: {
+    label: {
+      type: 'string'
+    },
+    look: {
+      options: ['raised', 'flat']
+    },
+    ink: {
+      options: ['base', 'primary']
+    },
+    iconPosition: {
+      options: ['append', 'prepend']
+    },
+    children: {
+      control: false
     }
-  )
+  }
+}
+
+export const Basic = args => (
+  <Button
+    {...args}
+  />
+)
+
+Basic.args = {label: 'Button', icon: 'cog'}
+
+export const Showcase = () => <span>
+  <Button
+    key="1"
+    label="Base color flat"
+    onClick={action('clicked')}
+  />
+  <Button
+    ink="primary"
+    key="2"
+    label="Primary color flat"
+  />
+  <Button
+    key="3"
+    label="Base color raised"
+    look="raised"
+  />
+  <Button
+    ink="primary"
+    key="4"
+    label="Primary color raised"
+    look="raised"
+  />
+  <Button
+    icon="cog"
+    iconPosition="append"
+    key="5"
+    label="Icon append"
+    type="submit"
+  />
+  <Button
+    icon="facebook"
+    key="6"
+    label="Icon prepend"
+  />
+  <Button
+    icon="google"
+    ink="primary"
+    key="9"
+    label="Pending"
+    pending={true}
+  />
+  <Button
+    key="13"
+    look="raised"
+  >
+    <i>child</i><b>child2</b>
+  </Button>
+  <Button
+    icon={'angle-up'}
+    iconPosition="append"
+    label="Menu"
+  />
+</span>

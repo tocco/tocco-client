@@ -1,38 +1,20 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {number, withKnobs} from '@storybook/addon-knobs'
-import {injectIntl, intlShape} from 'react-intl'
+import {v4 as uuid} from 'uuid'
 
-import Readme from '../README.md'
 import InputEditApp from './main'
 
-storiesOf('Apps|Input Edit', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Input Edit',
-    () => <InputEditStoryIntl/>,
-    {info: {disable: true}, notes: Readme}
-
-  )
-
-class InputEditStory extends React.Component {
-  key = 0
-
-  render() {
-    return (
-      <div>
-        <InputEditApp
-          key={this.key++}
-          locale={this.props.intl.locale}
-          selection={{type: 'ID', ids: [number('Input primary key', 1)]}}
-        />
-      </div>
-    )
+export default {
+  title: 'Apps/Input Edit',
+  component: InputEditApp,
+  argTypes: {
+    selection: {
+      type: 'object',
+      defaultValue: {type: 'ID', entityName: 'Input', ids: ['11']}
+    }
   }
 }
 
-InputEditStory.propTypes = {
-  intl: intlShape
-}
-
-const InputEditStoryIntl = injectIntl(InputEditStory)
+export const Basic = args => <InputEditApp
+  key={uuid()}
+  {...args}
+/>

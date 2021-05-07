@@ -1,10 +1,37 @@
-import {storiesOf} from '@storybook/react'
+
 import React from 'react'
 
 import Panel from '../Panel'
 import Typography from '../Typography'
 import Layout from './index'
-import {Layout as RawLayout} from './Layout'
+
+export default {
+  title: 'Tocco-UI/Layout',
+  component: Layout.Box,
+  subcomponents: {Container: Layout.Container}
+}
+
+export const Basic = () => (
+  <div>
+    <Layout.Container>
+      <Layout.Box><ExampleCell /></Layout.Box>
+      <Layout.Box><ExampleCell /></Layout.Box>
+      <Layout.Box><ExampleCell /></Layout.Box>
+      <Layout.Box><ExampleCell /></Layout.Box>
+      <Layout.Box><ExampleCell /></Layout.Box>
+      <Layout.Box><ExampleCell /></Layout.Box>
+      <Layout.Box><ExampleCell /></Layout.Box>
+      <Layout.Box><ExampleCell /></Layout.Box>
+      <Layout.Box><ExampleCell /></Layout.Box>
+    </Layout.Container>
+
+    <Layout.Container>
+      <Layout.Box><ExamplePanel1 /></Layout.Box>
+      <Layout.Box><ExamplePanel2 /></Layout.Box>
+      <Layout.Box><ExamplePanel3 /></Layout.Box>
+    </Layout.Container>
+  </div>
+)
 
 const ExampleCell = () => <div style={{backgroundColor: '#ddd'}}>Cell</div>
 
@@ -41,29 +68,3 @@ const ExamplePanel3 = () =>
       <Typography.H5>Footer</Typography.H5>
     </Panel.Footer>
   </Panel.Wrapper>
-
-storiesOf('Tocco-UI | Layout / Layout', module)
-  .add(
-    'Layout',
-    () =>
-      <div>
-        <Layout.Container>
-          <Layout.Box><ExampleCell/></Layout.Box>
-          <Layout.Box><ExampleCell/></Layout.Box>
-          <Layout.Box><ExampleCell/></Layout.Box>
-          <Layout.Box><ExampleCell/></Layout.Box>
-          <Layout.Box><ExampleCell/></Layout.Box>
-          <Layout.Box><ExampleCell/></Layout.Box>
-          <Layout.Box><ExampleCell/></Layout.Box>
-          <Layout.Box><ExampleCell/></Layout.Box>
-          <Layout.Box><ExampleCell/></Layout.Box>
-        </Layout.Container>
-
-        <Layout.Container>
-          <Layout.Box><ExamplePanel1/></Layout.Box>
-          <Layout.Box><ExamplePanel2/></Layout.Box>
-          <Layout.Box><ExamplePanel3/></Layout.Box>
-        </Layout.Container>
-      </div>,
-    {info: {propTables: [RawLayout], propTablesExclude: [ExampleCell, ExamplePanel1, ExamplePanel2, ExamplePanel3]}}
-  )

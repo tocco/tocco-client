@@ -4,7 +4,7 @@ import React from 'react'
 import StyledButtonGroup from './StyledButtonGroup'
 
 /**
- * Wrap <Button> into <ButtonGroup> to control flow and style.
+ * Wrap a Button into a ButtonGroup to control flow and style.
  */
 const ButtonGroup = React.forwardRef((props, ref) => (
   <StyledButtonGroup ref={ref} >

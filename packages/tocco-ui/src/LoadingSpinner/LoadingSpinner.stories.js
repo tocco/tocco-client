@@ -1,21 +1,14 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {text, withKnobs} from '@storybook/addon-knobs'
 
-import LoadingSpinner from './'
+import LoadingSpinner from './LoadingSpinner'
 
-storiesOf('Tocco-UI | Loading Spinner', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Size Knob',
-    () => <LoadingSpinner
-      size={text('size', '40px')}
-    />
-  )
-  .add(
-    'Color',
-    () => <LoadingSpinner
-      size="40px"
-      style={{color: 'red'}}
-    />
-  )
+export default {
+  title: 'Tocco-UI/Loading Spinner',
+  component: LoadingSpinner,
+  argTypes: {
+    size: {type: 'string', defaultValue: '40px'},
+    style: {control: 'object', defaultValue: {color: 'red'}}
+  }
+}
+
+export const Basic = args => <LoadingSpinner {...args}/>
