@@ -10,6 +10,9 @@ const StyledLayoutContainer = styled.div`
     : `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       grid-gap: ${scale.space(-0.5)({theme})}`
   };
+  ${({occupiesRemainingHeight}) => occupiesRemainingHeight && `
+    flex: 1;
+  `};
 `
 
 export default StyledLayoutContainer
