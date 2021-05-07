@@ -2,10 +2,9 @@ import styled from 'styled-components'
 import {Button, scale, theme, StyledScrollbar} from 'tocco-ui'
 
 export const StyledForm = styled.form`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   padding-bottom: ${scale.space(-0.5)};
-  grid-template-columns: 100%;
-  grid-auto-rows: min-content;
   height: 100%;
   overflow-y: auto;
   ${StyledScrollbar}
