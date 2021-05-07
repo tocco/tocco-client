@@ -3,7 +3,7 @@ import React, {useRef, useState, useEffect} from 'react'
 
 import StyledLayoutContainer from './StyledLayoutContainer'
 
-const LayoutContainer = ({children}) => {
+const LayoutContainer = ({children, occupiesRemainingHeight}) => {
   const ref = useRef(null)
   const [containerWidth, setContainerWidth] = useState(0)
 
@@ -18,14 +18,18 @@ const LayoutContainer = ({children}) => {
   }, [])
 
   return (
-    <StyledLayoutContainer ref={ref} containerWidth={containerWidth}>
+    <StyledLayoutContainer
+      ref={ref}
+      containerWidth={containerWidth}
+      occupiesRemainingHeight={occupiesRemainingHeight}>
       {children}
     </StyledLayoutContainer>
   )
 }
 
 LayoutContainer.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  occupiesRemainingHeight: PropTypes.bool
 }
 
 export default LayoutContainer
