@@ -18,6 +18,8 @@ React-registry name: `docs-browser`
 | `listLimit`            |           | Amount of records per page in list
 | `listFormName`         |           | Set a form name for the list
 | `documentDetailFormName`|          | Name of the document detail form to use (default: "DmsResource")
+| `domainDetailFormName` |           | Name of the domain detail form to use (default: "DmsDomain")
+| `folderDetailFormName` |           | Name of the folder detail form to use (default: "DmsFolder")
 | `searchFormType`       |           | Possible values: none (no search form shown), simple (only one fulltext search field), basic (usual search form with advanced expansion), admin (full search with search filter)
 | `selectionStyle`       |           | none", "multi" or "single". If not defined and form model selectable is true, "multi" is used. Otherwise no selection is possible.
 | `memoryHistory`        |           | If set to true in-memory history. This is useful in testing and non-DOM environments.
