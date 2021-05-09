@@ -4,6 +4,8 @@ import {injectIntl, intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {selection} from 'tocco-util'
 
+import getDetailFormName from '../../../utils/getDetailFormName'
+
 const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction}) => {
   const [entityName, entityKey] = selection.ids[0].split('/')
 
@@ -29,9 +31,11 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
     })
   }
 
+  const formName = getDetailFormName(context, entityName)
+
   return <EntityDetailApp
       entityName={entityName}
-      formName={`Dms${entityName}`}
+      formName={formName}
       entityId={entityKey}
       mode="update"
       onEntityUpdated={handleEntityUpdated}
