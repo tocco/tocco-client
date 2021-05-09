@@ -4,6 +4,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {injectIntl, intlShape} from 'react-intl'
 
 import getNode from '../../../utils/getNode'
+import getDetailFormName from '../../../utils/getDetailFormName'
 
 const CreateDomain = ({context, onSuccess, intl, emitAction}) => {
   const handleEntityCreated = ({id}) => {
@@ -30,9 +31,11 @@ const CreateDomain = ({context, onSuccess, intl, emitAction}) => {
       ]
     : []
 
+  const formName = getDetailFormName(context, 'Domain')
+
   return <EntityDetailApp
     entityName="Domain"
-    formName="Domain"
+    formName={formName}
     mode="create"
     defaultValues={defaultValues}
     onEntityCreated={handleEntityCreated}
