@@ -73,6 +73,8 @@ const DocsView = props => {
     getCustomLocation,
     disableViewPersistor,
     formName,
+    domainDetailFormName,
+    folderDetailFormName,
     showActions
   } = props
 
@@ -139,7 +141,11 @@ const DocsView = props => {
           emitAction={emitAction}
           actionAppComponent={Action}
           contextParams={{
-            history
+            history,
+            detailFormNames: {
+              Domain: domainDetailFormName,
+              Folder: folderDetailFormName
+            }
           }}
           customActions={{
             'upload-document': handleUploadDocument,
@@ -179,6 +185,8 @@ DocsView.propTypes = {
   getCustomLocation: PropTypes.func,
   disableViewPersistor: PropTypes.bool,
   formName: PropTypes.string,
+  domainDetailFormName: PropTypes.string,
+  folderDetailFormName: PropTypes.string,
   showActions: PropTypes.bool
 }
 
