@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'tocco-ui'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
-import {download} from 'tocco-util'
 
 import simpleFormConnector from '../containers/simpleFormConnector'
 import {
@@ -70,8 +69,7 @@ export class ReportSettings extends React.Component {
         />
         }
         <StyledStickyButtons>
-          {download.downloadSupportedByBrowser()
-          && <Button
+          <Button
             ink="primary"
             disabled={!this.state.customSettingsValid || !this.state.valid}
             icon="download"
@@ -80,7 +78,6 @@ export class ReportSettings extends React.Component {
           >
             <FormattedMessage id="client.common.report.generate"/>
           </Button>
-          }
         </StyledStickyButtons>
       </StyledReportSettings>
     )

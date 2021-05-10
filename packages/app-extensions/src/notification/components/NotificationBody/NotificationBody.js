@@ -18,12 +18,14 @@ const Result = ({notification: {result}, navigationStrategy}) => {
   if (result.type === 'OUTPUTJOB') {
     return (
       <StyledOutputJobWrapper>
-        <a
+        {download.downloadSupportedByBrowser()
+        && <a
           href={download.addParameterToURL(result.file.link, 'download', true)}
           download={result.file.name}
           title="download">
           <Icon icon="download" />
         </a>
+        }
         <a href={result.file.link} target="_blank " title="open">
           <Icon icon="file" />
         </a>
