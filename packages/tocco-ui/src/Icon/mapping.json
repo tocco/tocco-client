@@ -119,6 +119,14 @@
       "pünktli"
     ]
   },
+  "ellipsis-h": {
+    "id": "far, ellipsis-h",
+    "lib": "fa",
+    "tags": [
+      "dots",
+      "pünktli"
+    ]
+  },
   "exclamation": {
     "id": "fas, exclamation",
     "lib": "fa",
