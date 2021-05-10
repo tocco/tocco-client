@@ -12,8 +12,9 @@ const BallMenu = props => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [onOpenCalled, setOnOpenCalled] = useState(false)
 
-  const handleClick = () => {
+  const handleClick = e => {
     setMenuOpen(!menuOpen)
+    e.stopPropagation()
 
     if (props.onOpen && !onOpenCalled) {
       props.onOpen()
