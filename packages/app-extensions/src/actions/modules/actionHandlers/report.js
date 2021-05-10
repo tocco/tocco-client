@@ -64,12 +64,10 @@ export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId,
         })
       : null
     const params = {
-      params: {
-        reportParams: {
-          reportId: definition.reportId,
-          generalSettings,
-          recipientSettings
-        }
+      additionalProperties: {
+        reportId: definition.reportId,
+        generalSettings,
+        recipientSettings
       },
       formData: customSettingsEntity
     }

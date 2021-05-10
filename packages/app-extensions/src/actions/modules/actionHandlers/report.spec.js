@@ -73,12 +73,10 @@ describe('app-extensions', () => {
                 endpoint: 'report/generations'
               }
               const params = {
-                params: {
-                  reportParams: {
-                    reportId: mockData.definition.reportId,
-                    generalSettings: undefined,
-                    recipientSettings: undefined
-                  }
+                additionalProperties: {
+                  reportId: mockData.definition.reportId,
+                  generalSettings: undefined,
+                  recipientSettings: undefined
                 },
                 formData: {
                   model: 'SessionOnlyEntity',

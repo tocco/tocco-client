@@ -22,7 +22,6 @@ export function* invokeActionAsync(definition, selection, parent, params) {
       parent,
       ...params,
       params: {
-        ...params.params,
         background: true
       },
       formProperties: definition.properties
