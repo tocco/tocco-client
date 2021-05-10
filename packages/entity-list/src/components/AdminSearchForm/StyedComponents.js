@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {StyledScrollbar, theme} from 'tocco-ui'
+import {StyledScrollbar, theme, Menu} from 'tocco-ui'
 import Split from 'react-split'
 
 export const StyledSplit = styled(Split)``
@@ -16,6 +16,10 @@ export const StyledHeader = styled.div`
   padding: 9px;
   position: relative;
   z-index: 2; // higher than StyledTether to prevent cover on scroll
+
+  ${Menu} {
+    z-index: 3; //higher than rest to lay over search filter list
+  }
 `
 
 export const AdminSearchGrid = styled.div`

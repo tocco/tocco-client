@@ -1,4 +1,5 @@
-import {form, rest} from 'tocco-app-extensions'
+import {form, rest, notifier} from 'tocco-app-extensions'
+import React, {useState} from 'react'
 import _reduce from 'lodash/reduce'
 import {
   actions as formActions,
@@ -7,12 +8,16 @@ import {
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
 import {call, put, select, takeLatest, take, all} from 'redux-saga/effects'
+import {Button, EditableValue, StatedValue} from 'tocco-ui'
+import {channel} from 'redux-saga'
+import {FormattedMessage} from 'react-intl'
 
 import * as actions from './actions'
 import {getFormFieldFlat, getEndpoint, changeParentFieldType} from '../../util/api/forms'
 import {setSearchFormType} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {SET_ENTITY_MODEL, SET_FORM_DEFINITION} from '../list/actions'
+import {getBasicQuery} from '../list/sagas'
 import searchFormTypes from '../../util/searchFormTypes'
 
 export const inputSelector = state => state.input
@@ -30,7 +35,9 @@ export default function* sagas() {
     takeLatest(actions.INITIALIZE, initialize),
     takeLatest(formActionTypes.CHANGE, submitSearchFrom),
     takeLatest(actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
-    takeLatest(actions.RESET_SEARCH, resetSearch)
+    takeLatest(actions.RESET_SEARCH, resetSearch),
+    takeLatest(actions.SAVE_SEARCH_FILTER, saveSearchFilter),
+    takeLatest(actions.DELETE_SEARCH_FILTER, deleteSearchFilter)
   ])
 }
 
@@ -187,4 +194,91 @@ export function* getSearchFormValues() {
       ...(!Array.isArray(value) || value.length) ? {[form.transformFieldNameBack(key)]: value} : {}
     }
   ), {})
+}
+
+export function* saveSearchFilter() {
+  const answerChannel = yield call(channel)
+  yield put(notifier.modalComponent(
+    'filter-save',
+    'client.entity-list.search.settings.saveAsFilter',
+    null,
+    ({close}) => {
+      const onSave = value => {
+        close()
+        answerChannel.put(value)
+      }
+      const [name, setName] = useState('')
+      return <>
+        <StatedValue label={'Name'}>
+          <EditableValue type={'string'} value={name} events={{onChange: setName}}/>
+        </StatedValue>
+        <Button onClick={() => onSave(name)} look={'raised'} disabled={!name}>
+          <FormattedMessage id="client.entity-list.search.settings.saveAsFilter.button"/>
+        </Button>
+      </>
+    },
+    true
+  ))
+
+  const searchFilterName = yield take(answerChannel)
+  const {where} = yield call(getBasicQuery, false)
+  const {sorting} = yield select(listSelector)
+  const {entityName} = yield select(entityListSelector)
+
+  yield call(saveNewSearchFilter, searchFilterName, entityName, where, sorting)
+  yield call(loadSearchFilter, entityName)
+  yield call(resetSearch)
+}
+
+export function* saveNewSearchFilter(name, entityName, query, sorting) {
+  const order = sorting.map(s => `${s.field} ${s.order}`).join(',')
+  const resource = 'client/searchfilters'
+  const body = {
+    name,
+    query,
+    entityName,
+    order
+  }
+  yield call(rest.requestSaga, resource, {method: 'POST', body})
+}
+
+export function* deleteSearchFilter({payload: {primaryKey}}) {
+  const {actionAppComponent: ActionAppComponent, navigationStrategy} = yield select(inputSelector)
+
+  const answerChannel = yield call(channel)
+  yield put(notifier.modalComponent(
+    'filter-delete',
+    'client.actions.delete.title',
+    null,
+    ({close}) => {
+      const onSuccess = () => {
+        answerChannel.put(true)
+        close()
+      }
+
+      const onCancel = () => {
+        answerChannel.put(false)
+        close()
+      }
+
+      return <ActionAppComponent
+        appId={'delete'}
+        selection={{
+          entityName: 'Search_filter',
+          ids: [primaryKey],
+          type: 'ID'
+        }}
+        navigationStrategy={navigationStrategy}
+        onSuccess={onSuccess}
+        onCancel={onCancel}/>
+    },
+    true
+  ))
+
+  const isSearchFilterDeleted = yield take(answerChannel)
+  if (isSearchFilterDeleted) {
+    const {entityName} = yield select(entityListSelector)
+    yield call(loadSearchFilter, entityName)
+    yield call(resetSearch)
+  }
 }
