@@ -27,6 +27,26 @@ export const StyledButton = styled(Button)`
   }
 `
 
+export const StyledMenuWrapper = styled.div`
+  && {
+    display: flex;
+
+    button {
+      display: none;
+      background-color: transparent;
+      padding: 0 ${scale.space(-1)} 0 0;
+    }
+
+    div * {
+      color: ${() => theme.color('text')};
+    }
+
+    &:hover button * {
+      color: ${({active}) => active ? theme.color('secondaryLight') : theme.color('secondary')};
+    }
+  }
+`
+
 export const StyledSearchFilterButton = styled.div`
   border-radius: ${theme.radii('medium')};
   display: flex;
@@ -46,6 +66,13 @@ export const StyledSearchFilterButton = styled.div`
     ${StyledButton} {
       display: flex;
       justify-content: flex-end;
+    }
+
+    ${StyledMenuWrapper} {
+      button {
+        display: flex;
+        justify-content: flex-end;
+      }
     }
     background-color: ${({active}) => !active && theme.color('secondaryLight')};
     cursor: pointer;

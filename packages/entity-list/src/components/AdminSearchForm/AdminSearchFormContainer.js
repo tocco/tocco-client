@@ -2,11 +2,13 @@ import {connect} from 'react-redux'
 
 import AdminSearchForm from './AdminSearchForm'
 import {
-  resetSearch
+  resetSearch,
+  saveSearchFilter
 } from '../../modules/searchForm/actions'
 
 const mapActionCreators = {
-  resetSearch
+  resetSearch,
+  saveSearchFilter
 }
 
 const mapStateToProps = (state, props) => ({
