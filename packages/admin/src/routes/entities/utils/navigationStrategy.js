@@ -71,12 +71,17 @@ export default (history, match) => {
     })
   }
 
+  const openDetailInTab = (entityName, key) => {
+    window.open(`/e/${entityName}/${key}`, '_blank')
+  }
+
   return {
     DetailLink,
     ListLink,
     DetailLinkRelative,
     navigateToCreateRelative,
-    navigateToActionRelative
+    navigateToActionRelative,
+    openDetailInTab
   }
 }
 
