@@ -217,13 +217,31 @@ export function* getFormErrors() {
   }
 }
 
+export function focusField(fieldName) {
+  const element = document.getElementById(form.getFieldId(FORM_ID, fieldName))
+  if (element) {
+    element.focus()
+    return true
+  }
+
+  return false
+}
+
+export function* locationFieldFocus(errorField) {
+  const {fieldDefinitions} = yield select(entityDetailSelector)
+  const locationField = fieldDefinitions
+    .find(f => f.locationMapping && f.locationMapping.postcode === errorField)
+  yield call(focusField, locationField.id)
+}
+
 export function* focusErrorField() {
   const formErrors = yield call(getFormErrors)
-  const firstErrorField = form.formErrorsUtil.getFirstErrorField(formErrors)
+  const firstErrorField = yield call(form.formErrorsUtil.getFirstErrorField, formErrors)
   if (firstErrorField) {
-    const element = document.getElementById(form.getFieldId(FORM_ID, firstErrorField))
-    if (element) {
-      element.focus()
+    const focusSet = yield call(focusField, firstErrorField)
+
+    if (!focusSet) {
+      yield call(locationFieldFocus, firstErrorField)
     }
   }
 }
