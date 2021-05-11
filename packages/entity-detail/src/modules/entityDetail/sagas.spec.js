@@ -637,6 +637,50 @@ describe('entity-detail', () => {
               .run()
           })
         })
+
+        describe('focusErrorField saga', () => {
+          test('should call focus for first error field', () => {
+            const field = 'firstname'
+            return expectSaga(sagas.focusErrorField)
+              .provide([
+                [matchers.call.fn(sagas.getFormErrors), []],
+                [matchers.call.fn(sagas.focusField), true],
+                [matchers.call.fn(form.formErrorsUtil.getFirstErrorField), field]
+              ])
+              .call(sagas.focusField, field)
+              .run()
+          })
+
+          test('should call location fallback', () => {
+            const field = 'postcode_c'
+            return expectSaga(sagas.focusErrorField)
+              .provide([
+                [matchers.call.fn(sagas.getFormErrors), []],
+                [matchers.call.fn(sagas.focusField), false],
+                [matchers.call.fn(form.formErrorsUtil.getFirstErrorField), field],
+                [matchers.call.fn(sagas.locationFieldFocus)]
+              ])
+              .call(sagas.locationFieldFocus, field)
+              .run()
+          })
+
+          describe('locationFieldFocus saga', () => {
+            test('should call focus for first error field', () => {
+              const field = 'postcode_c'
+              const locationField = 'location_c'
+              const fieldDefinitions = [
+                {id: locationField, locationMapping: {postcode: field}}
+              ]
+              return expectSaga(sagas.locationFieldFocus, field)
+                .provide([
+                  [select(sagas.entityDetailSelector), {fieldDefinitions}],
+                  [matchers.call.fn(sagas.focusField), true]
+                ])
+                .call(sagas.focusField, locationField)
+                .run()
+            })
+          })
+        })
       })
     })
   })
