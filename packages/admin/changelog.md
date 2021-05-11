@@ -1,3 +1,9 @@
+0.4.39
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Adjust left padding of Breadcrumbs in list view
+- Location field focus problem fix
+- Displayexpression call adjustment
+
 0.4.38
 - EntityDocs not sortable
 - Dms fixes
