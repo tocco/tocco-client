@@ -1,3 +1,8 @@
+0.10.27
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Location field focus problem fix
+- Displayexpression call adjustment
+
 0.10.26
 - render description field in form
 - Fix popper menu positioning
