@@ -297,7 +297,8 @@ export function* showNotification(type, titleResourceName, messageResourceName, 
 export function* loadDisplayExpressions(formName, mode, paths, entities) {
   if (paths && paths.length > 0) {
     const keys = entities.map(e => e.__key)
-    const result = yield call(rest.fetchDisplayExpressions, formName, mode, keys, paths)
+    const entityName = entities[0].__model
+    const result = yield call(rest.fetchDisplayExpressions, formName, mode, keys, paths, entityName)
     return result
   }
 }

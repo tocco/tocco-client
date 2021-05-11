@@ -236,7 +236,9 @@ describe('app-extensions', () => {
             }
           }
 
-          return expectSaga(helpers.fetchDisplayExpressions, formName, scope, entityKeys, fields)
+          const entityName = 'User'
+
+          return expectSaga(helpers.fetchDisplayExpressions, formName, scope, entityKeys, fields, entityName)
             .provide([
               [matchers.call.fn(requestSaga), {body: responseFake}]
             ])
