@@ -1,3 +1,7 @@
+0.4.37-hotfix229.2
+- Adjust left padding of Breadcrumbs in list view
+- Displayexpression call adjustment
+
 0.4.37-hotfix229.1
 - Fix docs-browser bugs
 
