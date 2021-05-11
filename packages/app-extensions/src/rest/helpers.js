@@ -48,12 +48,16 @@ export function* fetchDisplay(entityName, key, type) {
  * @param entityKeys {Array} List of entity keys
  * @param displayExpressionFields {Array} List of desired display-expression fields
  */
-export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExpressionFields) {
+export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExpressionFields, entityName) {
   const options = {
-    method: 'GET',
+    method: 'POST',
     queryParams: {
-      _keys: entityKeys.join(','),
       _paths: displayExpressionFields.join(',')
+    },
+    body: {
+      entityName: entityName,
+      type: 'ID',
+      ids: entityKeys
     }
   }
 
