@@ -14,13 +14,9 @@ import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import {Router as ReactRouter, Route, Redirect} from 'react-router'
-import _pickBy from 'lodash/pickBy'
-import _isEqual from 'lodash/isEqual'
-import _isEmpty from 'lodash/isEmpty'
 
 import DocsBrowser from './components/DocsBrowser'
 import reducers, {sagas} from './modules/reducers'
-import {getDispatchActions} from './input'
 
 const packageName = 'docs-browser'
 
@@ -76,7 +72,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     && input.rootNodes[0].entityName !== 'Resource'
     ? input.rootNodes[0]
     : null
-  
+
   const startUrl = singleRootNode
     ? `/docs/${singleRootNode.entityName.toLowerCase()}/${singleRootNode.key}/list`
     : '/docs'
@@ -103,7 +99,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     {
       input,
       events,
-      actions: getDispatchActions(input),
+      actions: [],
       publicPath,
       textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail', packageName]
     }
@@ -153,15 +149,6 @@ class DocsBrowserApp extends React.Component {
     this.app = initApp('docs-browser', props, events)
   }
 
-  componentDidUpdate(prevProps) {
-    const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
-    if (!_isEmpty(changedProps)) {
-      getDispatchActions(changedProps).forEach(action => {
-        this.app.store.dispatch(action)
-      })
-    }
-  }
-
   render() {
     return this.app.component
   }
@@ -180,7 +167,7 @@ DocsBrowserApp.propTypes = {
   documentDetailFormName: PropTypes.string,
   searchFormType: searchFormTypePropTypes,
   selectionStyle: selectionStylePropType,
-  listFormName: PropTypes.string,
+  getListFormName: PropTypes.func,
   memoryHistory: PropTypes.bool,
   disableViewPersistor: PropTypes.bool,
   getCustomLocation: PropTypes.func,

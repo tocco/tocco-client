@@ -65,7 +65,7 @@ export const MoveAction = ({
       selectionStyle="none"
       searchFormType="none"
       disableViewPersistor={true}
-      listFormName={parent === null ? 'Move_root_docs_list_item' : 'Move_docs_list_item'}
+      getListFormName={parent => parent === null ? 'Move_root_docs_list_item' : 'Move_docs_list_item'}
       onListParentChange={parent => setParent(parent)}
       getCustomLocation={getCustomLocation}
       navigationStrategy={{}}
