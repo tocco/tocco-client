@@ -35,7 +35,7 @@ const SearchFilterButton = ({
       dense/>
     <StyledMenuWrapper active={active}>
       <BallMenu buttonProps={{icon: 'ellipsis-h'}}>
-        {canEdit && <MenuItem onClick={() => window.open(`/e/Search_filter/${primaryKey}`, '_blank')}>
+        {canEdit && <MenuItem onClick={() => navigationStrategy.openDetailInTab('Search_filter', primaryKey)}>
             <FormattedMessage id="client.entity-list.search.settings.editFilter"/>
         </MenuItem>}
         {canDelete && <MenuItem onClick={deleteSearchFilter}>
