@@ -1,3 +1,6 @@
+0.4.6-hotfix229.1
+- Displayexpression call adjustment
+
 0.4.6
 - Adjust label margin in input fields
 - support sorting by search filters and preferences
