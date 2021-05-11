@@ -231,7 +231,7 @@ export function* saveSearchFilter() {
 }
 
 export function* saveNewSearchFilter(name, entityName, query, sorting) {
-  const order = sorting.map(s => `${s.field} ${s.order}`).join(',')
+  const order = rest.createSortingString(sorting)
   const resource = 'client/searchfilters'
   const body = {
     name,

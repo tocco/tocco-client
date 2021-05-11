@@ -133,7 +133,7 @@ export const entityListSelector = state => state.entityList
 export const entityDetailSelector = state => state.entityDetail
 
 export const getOrderByString = sortingArray => sortingArray && sortingArray.length > 0
-  ? sortingArray.map(item => `${item.field} ${item.order}`).join(', ')
+  ? rest.createSortingString(sortingArray)
   : null
 
 export const getManualQuery = (selection, listState) => ({
