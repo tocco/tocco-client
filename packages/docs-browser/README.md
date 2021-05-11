@@ -16,7 +16,7 @@ React-registry name: `docs-browser`
 | `rootNodes`            |           | Array of root nodes to use instead of the domains (array of objects with `entityName` and `key`)
 | `businessUnit`         |           | The business unit to display data from
 | `listLimit`            |           | Amount of records per page in list
-| `listFormName`         |           | Set a form name for the list
+| `getlistFormName`      |           | If set form name is determined by this function which has (parent, keys) as input parameters
 | `documentDetailFormName`|          | Name of the document detail form to use (default: "DmsResource")
 | `domainDetailFormName` |           | Name of the domain detail form to use (default: "DmsDomain")
 | `folderDetailFormName` |           | Name of the folder detail form to use (default: "DmsFolder")

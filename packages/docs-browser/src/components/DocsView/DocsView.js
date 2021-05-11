@@ -72,7 +72,7 @@ const DocsView = props => {
     selectionStyle,
     getCustomLocation,
     disableViewPersistor,
-    formName,
+    getListFormName,
     domainDetailFormName,
     folderDetailFormName,
     showActions,
@@ -85,7 +85,10 @@ const DocsView = props => {
   const parent = useMemo(() => getParent(match), [match.params])
 
   const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
-  const listFormName = useMemo(() => formName === null ? getFormName(parent, keys) : formName, [match.params])
+  const formName = useMemo(() => getListFormName
+    ? getListFormName(parent, keys)
+    : getFormName(parent, keys)
+  , [match.params, getListFormName])
 
   const mounted = useRef(false)
 
@@ -144,7 +147,7 @@ const DocsView = props => {
         <LazyListApp
           id="documents"
           entityName="Docs_list_item"
-          formName={listFormName}
+          formName={formName}
           limit={limit || 25}
           onRowClick={handleRowClick}
           searchFormPosition="left"
@@ -214,7 +217,7 @@ DocsView.propTypes = {
   selectionStyle: selectionStylePropType,
   getCustomLocation: PropTypes.func,
   disableViewPersistor: PropTypes.bool,
-  formName: PropTypes.string,
+  getListFormName: PropTypes.func,
   domainDetailFormName: PropTypes.string,
   folderDetailFormName: PropTypes.string,
   showActions: PropTypes.bool,
