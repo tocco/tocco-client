@@ -1,3 +1,6 @@
+0.10.26-hotfix229.1
+- Displayexpression call adjustment
+
 0.10.26
 - render description field in form
 - Fix popper menu positioning
