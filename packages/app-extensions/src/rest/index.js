@@ -17,7 +17,8 @@ import {
   fetchDisplays,
   fetchDisplayExpressions,
   buildRequestQuery,
-  fetchPrincipal
+  fetchPrincipal,
+  createSortingString
 } from './helpers'
 import {
   fetchUserPreferences,
@@ -55,5 +56,6 @@ export default {
   savePreferences,
   fetchServerSettings,
   hasRevisionIdChanged,
+  createSortingString,
   NULL_BUSINESS_UNIT
 }

@@ -347,7 +347,7 @@ describe('entity-list', () => {
                 name: 'searchFilterName',
                 query: 'query',
                 entityName: 'entityName',
-                order: 'sorting asc,other desc'
+                order: 'sorting asc, other desc'
               }
             }
             return expectSaga(sagas.saveNewSearchFilter, 'searchFilterName', 'entityName', 'query', sorting)

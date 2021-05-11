@@ -305,7 +305,7 @@ export const buildRequestQuery = ({
     ...(form ? {form} : {}),
     ...(limit ? {limit} : {}),
     ...(search ? {search} : {}),
-    ...(sorting ? {sort: sorting.map(s => `${s.field} ${s.order}`).join(', ')} : {}),
+    ...(sorting ? {sort: createSortingString(sorting)} : {}),
     ...(page && limit ? {offset: (page - 1) * limit} : {}),
     ...(paths ? {paths} : {}),
     ...(where ? {where} : {}),
@@ -315,6 +315,8 @@ export const buildRequestQuery = ({
     ...(constriction ? {constriction} : {})
   }
 )
+
+export const createSortingString = sorting => sorting.map(s => `${s.field} ${s.order}`).join(', ')
 
 export const requestQueryToUrlParams = queryObject =>
   _reduce(queryObject, (result, value, key) => {
