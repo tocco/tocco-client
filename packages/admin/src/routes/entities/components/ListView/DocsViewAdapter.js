@@ -5,7 +5,7 @@ import {currentViewPropType} from '../../utils/propTypes'
 
 const DocsViewAdapter = ({currentViewInfo}) =>
     <DocsView
-        hasLeftPadding={true}
+        noLeftPadding={false}
         entityName={currentViewInfo.parentModel.name}
         entityKey={currentViewInfo.parentKey}
         showActions={true}
