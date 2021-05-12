@@ -8,8 +8,9 @@ const DocsViewAdapter = ({currentViewInfo}) =>
     entityName={currentViewInfo.model.name}
     entityKey={currentViewInfo.key}
     showActions={false}
+    noLeftPadding={true}
   />
-  
+
 DocsViewAdapter.propTypes = {
   currentViewInfo: currentViewPropType
 }

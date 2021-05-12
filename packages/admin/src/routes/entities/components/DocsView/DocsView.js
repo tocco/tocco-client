@@ -3,7 +3,7 @@ import DocsBrowserApp from 'tocco-docs-browser/src/main'
 import {rest} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
-const DocsView = ({entityName, entityKey, showActions, hasLeftPadding}) => {
+const DocsView = ({entityName, entityKey, showActions, noLeftPadding}) => {
   const [folderKey, setFolderKey] = useState(null)
 
   const fetchFolder = async() => {
@@ -19,7 +19,7 @@ const DocsView = ({entityName, entityKey, showActions, hasLeftPadding}) => {
 
   return folderKey
     && <DocsBrowserApp
-      hasLeftPadding={hasLeftPadding}
+      noLeftPadding={noLeftPadding}
       sortable={false}
       searchFormType="none"
       rootNodes={[
@@ -39,7 +39,7 @@ DocsView.propTypes = {
   entityName: PropTypes.string.isRequired,
   entityKey: PropTypes.string.isRequired,
   showActions: PropTypes.bool.isRequired,
-  hasLeftPadding: PropTypes.bool
+  noLeftPadding: PropTypes.bool
 }
 
 export default DocsView
