@@ -58,5 +58,5 @@ export const propTypes = PropTypes.shape({
    *  entityName {string} the model of the entity to open
    *  key {string} the key of the entity to open
    */
-  openDetailInTab: PropTypes.func
+  openDetail: PropTypes.func
 })
