@@ -623,6 +623,27 @@ describe('app-extensions', () => {
           })
         })
       })
+
+      describe('createSortingString', () => {
+        test('handles empty list', () => {
+          const results = helpers.createSortingString([])
+          expect(results).to.be.empty
+        })
+
+        test('handles sorting fields', () => {
+          const results = helpers.createSortingString([
+            {
+              field: 'first',
+              order: 'asc'
+            },
+            {
+              field: 'second',
+              order: 'desc'
+            }
+          ])
+          expect(results).to.equal('first asc, second desc')
+        })
+      })
     })
   })
 })
