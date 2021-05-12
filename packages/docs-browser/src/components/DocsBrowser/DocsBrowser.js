@@ -19,7 +19,7 @@ const DocsBrowser = ({
   openFileDialog,
   theme,
   embedded,
-  hasLeftPadding
+  noLeftPadding
 }) => {
   // eslint-disable-next-line no-unused-vars
   const [docsViewNumber, forceDocsViewUpdate] = useReducer(x => x + 1, 0)
@@ -51,7 +51,7 @@ const DocsBrowser = ({
 
   return (
     <StyledWrapper>
-      <StyledBreadcrumbs hasLeftPadding={hasLeftPadding}>
+      <StyledBreadcrumbs noLeftPadding={noLeftPadding}>
         <Breadcrumbs {...embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {}}/>
       </StyledBreadcrumbs>
       <StyledContent>
@@ -98,7 +98,7 @@ DocsBrowser.propTypes = {
   navigationStrategy: PropTypes.object,
   embedded: PropTypes.bool,
   theme: PropTypes.object,
-  hasLeftPadding: PropTypes.bool
+  noLeftPadding: PropTypes.bool
 }
 
 export default withTheme(DocsBrowser)
