@@ -19,7 +19,7 @@ export const StyledContent = styled.div`
 
 export const StyledBreadcrumbs = styled.div`
   grid-area: breadcrumbs;
-  ${({hasLeftPadding}) => !hasLeftPadding && `
+  ${({noLeftPadding}) => noLeftPadding && `
     > div {
       padding-left: 0;
     }

@@ -71,6 +71,7 @@ export const MoveAction = ({
       navigationStrategy={{}}
       embedded={true}
       emitAction={emitAction}
+      noLeftPadding={true}
     />
     <StyledButtonsWrapper>
       <Button
