@@ -135,7 +135,7 @@ const formDefinitionFull = {
       disabled: false,
       label: 'Dateiid',
       id: 'fileid',
-      options: null,
+      targetEntity: null,
       type: 'string'
     },
     {
@@ -144,20 +144,7 @@ const formDefinitionFull = {
       disabled: false,
       label: 'Archivierung',
       id: 'archiveType',
-      options: [
-        {
-          display: 'Nicht archiviert',
-          key: 'not_archived'
-        },
-        {
-          display: 'Archiviert',
-          key: 'archived'
-        },
-        {
-          display: 'Archiviert mit Publikation',
-          key: 'archived_and_published'
-        }
-      ],
+      targetEntity: 'Output_job_archive_type',
       type: 'single-select-box'
     }
   ],

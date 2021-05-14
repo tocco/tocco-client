@@ -37,23 +37,6 @@ export const transformValues = values => {
   ), {})
 }
 
-export const getFormDataDefaults = settingsDefinition => {
-  const extractDefaultValues = name =>
-    (settingsDefinition[name] || []).reduce((result, field) => (
-      {
-        ...result,
-        ...(field.options ? {[field.id]: field.options} : {})
-      }
-    ), {})
-
-  return {
-    relationEntities: {
-      ...extractDefaultValues(GROUP_GENERAL),
-      ...extractDefaultValues(GROUP_RECIPIENT)
-    }
-  }
-}
-
 export const getFormDefinition = (settingsDefinition, intl) => {
   const msg = id => intl.formatMessage({id})
 
