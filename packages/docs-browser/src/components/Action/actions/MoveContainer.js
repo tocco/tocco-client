@@ -11,7 +11,10 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => ({
-  isWaiting: state.docs.move.isWaiting
+  isWaiting: state.docs.move.isWaiting,
+  domainTypes: state.input.domainTypes,
+  rootNodes: state.input.rootNodes,
+  businessUnit: state.input.businessUnit
 })
 
 const MoveContainer = connect(mapStateToProps, mapActionCreators)(MoveAction)

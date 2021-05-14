@@ -171,6 +171,7 @@ DocsBrowserApp.propTypes = {
   memoryHistory: PropTypes.bool,
   disableViewPersistor: PropTypes.bool,
   getCustomLocation: PropTypes.func,
+  businessUnit: PropTypes.string,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
