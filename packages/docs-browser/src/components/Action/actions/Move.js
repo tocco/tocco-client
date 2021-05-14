@@ -26,6 +26,9 @@ export const MoveAction = ({
   initialize,
   moveElements,
   isWaiting,
+  domainTypes,
+  rootNodes,
+  businessUnit,
   emitAction
 }) => {
   const initialNode = getNode(context.history.location.pathname)
@@ -72,6 +75,9 @@ export const MoveAction = ({
       embedded={true}
       emitAction={emitAction}
       noLeftPadding={true}
+      domainTypes={domainTypes}
+      rootNodes={rootNodes}
+      businessUnit={businessUnit}
     />
     <StyledButtonsWrapper>
       <Button
@@ -100,5 +106,11 @@ MoveAction.propTypes = {
   initialize: PropTypes.func.isRequired,
   moveElements: PropTypes.func.isRequired,
   isWaiting: PropTypes.bool.isRequired,
+  domainTypes: PropTypes.arrayOf(PropTypes.string),
+  rootNodes: PropTypes.arrayOf(PropTypes.shape({
+    entityName: PropTypes.string,
+    key: PropTypes.string
+  })),
+  businessUnit: PropTypes.string,
   emitAction: PropTypes.func.isRequired
 }
