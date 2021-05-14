@@ -5,7 +5,6 @@ import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 
 import simpleFormConnector from '../containers/simpleFormConnector'
 import {
-  getFormDataDefaults,
   getFormDefinition,
   getGroupedValues,
   reportSettingsDefinitionPropType,
@@ -54,7 +53,6 @@ export class ReportSettings extends React.Component {
           onChange={({values, valid}) => {
             this.handleSettingsChange(values, valid)
           }}
-          defaultValues={getFormDataDefaults(settingsDefinition)}
           mode="create"
         />
         {this.customSettingsDefined
