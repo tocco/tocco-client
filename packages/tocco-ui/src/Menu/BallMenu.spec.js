@@ -21,19 +21,22 @@ describe('tocco-ui', () => {
 
       test('should set menu open on click and call onOpen only once', () => {
         const onOpen = sinon.spy()
+        const stopPropagationSpy = sinon.spy()
         const wrapper = shallow(
           <BallMenu buttonProps={{icon: 'facebook'}} onOpen={onOpen}>
             <MenuItem>Test</MenuItem>
           </BallMenu>
         )
 
-        wrapper.find(Ball).simulate('click')
+        wrapper.find(Ball).simulate('click', {stopPropagation: stopPropagationSpy})
         wrapper.update()
         expect(onOpen).to.be.calledOnce
 
-        wrapper.find(Ball).simulate('click')
+        expect(stopPropagationSpy).to.be.calledOnce
+        wrapper.find(Ball).simulate('click', {stopPropagation: stopPropagationSpy})
         wrapper.update()
         expect(onOpen).to.be.calledOnce
+        expect(stopPropagationSpy).to.be.calledTwice
       })
     })
   })
