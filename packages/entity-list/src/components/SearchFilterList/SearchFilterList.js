@@ -13,6 +13,25 @@ import {
   StyledMessageWrapper
 } from './StyledComponents'
 
+const getFilterButtons = (canEdit, canDelete, navigationStrategy, primaryKey, deleteSearchFilter) => {
+  const buttons = []
+  if (canEdit) {
+    buttons.push(
+      <MenuItem key={'edit-button'} onClick={() => navigationStrategy.openDetail('Search_filter', primaryKey)}>
+        <FormattedMessage id="client.entity-list.search.settings.editFilter"/>
+      </MenuItem>
+    )
+  }
+  if (canDelete) {
+    buttons.push(
+      <MenuItem key={'delete-button'} onClick={deleteSearchFilter}>
+        <FormattedMessage id="client.entity-list.search.settings.deleteFilter"/>
+      </MenuItem>
+    )
+  }
+  return buttons
+}
+
 const SearchFilterButton = ({
   setActive,
   active,
@@ -35,12 +54,7 @@ const SearchFilterButton = ({
       dense/>
     {(canEdit || canDelete) && <StyledMenuWrapper active={active}>
       <BallMenu buttonProps={{icon: 'ellipsis-h'}}>
-        {canEdit && <MenuItem onClick={() => navigationStrategy.openDetail('Search_filter', primaryKey)}>
-            <FormattedMessage id="client.entity-list.search.settings.editFilter"/>
-        </MenuItem>}
-        {canDelete && <MenuItem onClick={deleteSearchFilter}>
-          <FormattedMessage id="client.entity-list.search.settings.deleteFilter"/>
-        </MenuItem>}
+        {getFilterButtons(canEdit, canDelete, navigationStrategy, primaryKey, deleteSearchFilter)}
       </BallMenu>
     </StyledMenuWrapper>}
   </StyledSearchFilterButton>
