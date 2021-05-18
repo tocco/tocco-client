@@ -8,9 +8,11 @@ export const getTql = (path, value, fieldType) => {
     return null
   }
 
-  const isRangeValue = value && typeof value === 'object' && value.isRangeValue
+  const type = fieldType || guessType(value)
+  value = rangeMappings(type)(value)
 
-  const typeHandler = typeHandlers(fieldType || guessType(value))
+  const isRangeValue = value && typeof value === 'object' && value.isRangeValue
+  const typeHandler = typeHandlers(type)
 
   if (isRangeValue) {
     return handleRangeValue(value, typeHandler, path)
@@ -25,6 +27,28 @@ const handleRangeValue = (value, typeHandler, path) => (
     ...(isDefined(value.to) ? [typeHandler(path, value.to, '<=')] : [])
   ].join(' and ')
 )
+
+const rangeMappings = type => {
+  switch (type) {
+    case 'datetime':
+    case 'createts':
+    case 'updatets':
+      return value => {
+        const momentValue = moment(value, 'YYYY-MM-DD', true)
+        if (momentValue.isValid()) {
+          return {
+            from: value,
+            to: momentValue.add(1, 'd'),
+            isRangeValue: true
+          }
+        } else {
+          return value
+        }
+      }
+    default:
+      return value => value
+  }
+}
 
 const typeHandlers = type => {
   switch (type) {
