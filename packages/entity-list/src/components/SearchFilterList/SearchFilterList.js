@@ -33,7 +33,7 @@ const SearchFilterButton = ({
       }}
       icon={active ? 'minus' : 'plus'}
       dense/>
-    <StyledMenuWrapper active={active}>
+    {(canEdit || canDelete) && <StyledMenuWrapper active={active}>
       <BallMenu buttonProps={{icon: 'ellipsis-h'}}>
         {canEdit && <MenuItem onClick={() => navigationStrategy.openDetail('Search_filter', primaryKey)}>
             <FormattedMessage id="client.entity-list.search.settings.editFilter"/>
@@ -42,7 +42,7 @@ const SearchFilterButton = ({
           <FormattedMessage id="client.entity-list.search.settings.deleteFilter"/>
         </MenuItem>}
       </BallMenu>
-    </StyledMenuWrapper>
+    </StyledMenuWrapper>}
   </StyledSearchFilterButton>
 
 SearchFilterButton.propTypes = {
