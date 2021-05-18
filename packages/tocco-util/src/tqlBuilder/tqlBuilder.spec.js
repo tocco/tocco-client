@@ -170,6 +170,23 @@ describe('entity-list', () => {
             const numberRange2 = getTql('age', {isRangeValue: true, from: 0, to: undefined}, 'number')
             expect(numberRange2).to.eql('age >= 0')
           })
+
+          test('should adapt date value to datetime range', () => {
+            const tql = getTql('datefield', '2020-04-29', 'datetime')
+            const expected = 'datefield >= datetime:"2020-04-29 00:00" and datefield <= datetime:"2020-04-30 00:00"'
+            expect(tql).to.eql(expected)
+          })
+
+          test('should not adapt datetime value to range', () => {
+            const tql = getTql('datefield', '2020-04-29 00:00', 'datetime')
+            const expected = 'datefield == datetime:"2020-04-29 00:00"'
+            expect(tql).to.eql(expected)
+          })
+
+          test('should not adapt empty to datetime range', () => {
+            const tql = getTql('datefield', '', 'datetime')
+            expect(tql).to.be.null
+          })
         })
       })
     })
