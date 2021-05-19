@@ -54,6 +54,10 @@ const StyledPanelHeaderFooter = styled.div`
     padding: ${({isFramed}) => isFramed ? '4px 8px 4px 8px' : 0};
     align-items: center;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     > div {
       flex: 1 1 auto;
     }
