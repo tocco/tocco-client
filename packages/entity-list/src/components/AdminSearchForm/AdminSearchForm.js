@@ -24,7 +24,7 @@ const getGutter = () => () => {
   return gutterEl
 }
 
-const AdminSearchForm = ({resetSearch, intl, searchFilters, saveSearchFilter}) => {
+const AdminSearchForm = ({resetSearch, intl, searchFilters, saveSearchFilter, searchFormDirty}) => {
   const splitWrapperEl = useRef(null)
   const [size, setSize] = useState([MAX_SIZE_SEARCH_FILTER, 100 - MAX_SIZE_SEARCH_FILTER])
   const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
@@ -61,7 +61,7 @@ const AdminSearchForm = ({resetSearch, intl, searchFilters, saveSearchFilter}) =
         title={msg('client.entity-list.reset')}
       />
       <BallMenu buttonProps={{icon: 'ellipsis-h'}}>
-        <MenuItem onClick={saveSearchFilter}>
+        <MenuItem onClick={saveSearchFilter} disabled={!searchFormDirty}>
           <FormattedMessage id="client.entity-list.search.settings.saveAsFilter"/>
         </MenuItem>
       </BallMenu>
@@ -90,7 +90,8 @@ AdminSearchForm.propTypes = {
   searchFilters: PropTypes.arrayOf(PropTypes.object),
   resetSearch: PropTypes.func.isRequired,
   theme: PropTypes.object,
-  saveSearchFilter: PropTypes.func.isRequired
+  saveSearchFilter: PropTypes.func.isRequired,
+  searchFormDirty: PropTypes.bool
 }
 
 export default injectIntl(withTheme(AdminSearchForm))
