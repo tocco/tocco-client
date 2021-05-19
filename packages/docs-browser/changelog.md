@@ -1,3 +1,10 @@
+0.2.5
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Adjust left padding of Breadcrumbs in list view
+- Location field focus problem fix
+- Displayexpression call adjustment
+- Bug fixing
+
 0.2.4
 - Fix select menu disappearing behind modal
 - Fix fulltext search form
