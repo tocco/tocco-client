@@ -34,7 +34,7 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = <EntityList/>
+  const content = <EntityList />
 
   let store = input.store
 
@@ -81,6 +81,10 @@ const initApp = (id, input, events = {}, publicPath) => {
       textResourceModules: ['component', 'common']
     }
   )
+
+  if (input.store) {
+    store.dispatch(reloadAll())
+  }
 
   if (module.hot) {
     module.hot.accept('./modules/reducers', () => {
