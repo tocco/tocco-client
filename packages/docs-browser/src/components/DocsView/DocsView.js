@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Suspense, useMemo} from 'react'
+import React, {useEffect, useState, Suspense, useMemo, useRef} from 'react'
 import PropTypes from 'prop-types'
 import {viewPersistor} from 'tocco-util'
 import {Icon, LoadMask} from 'tocco-ui'
@@ -74,7 +74,8 @@ const DocsView = props => {
     disableViewPersistor,
     formName,
     showActions,
-    sortable
+    sortable,
+    searchMode
   } = props
 
   const [selection, setSelection] = useState([])
@@ -83,12 +84,25 @@ const DocsView = props => {
   const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
   const listFormName = useMemo(() => formName === null ? getFormName(parent, keys) : formName, [match.params])
 
+  const mounted = useRef(false)
+
+  useEffect(() => {
+    mounted.current = true
+    return () => (mounted.current = false)
+  })
+
   useEffect(() => {
     changeListParent(parent)
     setSelection([])
   }, [parent])
 
   const handleRowClick = ({id}) => {
+    if (history.location.pathname === '/docs/search') {
+      // persist search store to allow a "go back to search"
+      const searchStore = viewPersistor.viewInfoSelector(storeKey).store
+      viewPersistor.persistViewInfo('search', {store: searchStore})
+    }
+
     const [model, key] = id.split('/')
     const location = getCustomLocation ? getCustomLocation(model, key) : getDefaultLocation(model, key)
     if (location) {
@@ -108,6 +122,14 @@ const DocsView = props => {
     openFileDialog(history.location.pathname, directory, onSuccess, onError)
   }
 
+  const handleSearch = e => {
+    if (mounted.current) {
+      onSearchChange(e)
+    }
+  }
+
+  const store = disableViewPersistor ? undefined : searchMode ? viewPersistor.viewInfoSelector('search').store : null
+
   return (
     <>
       <Suspense fallback={<LoadMask />}>
@@ -120,8 +142,8 @@ const DocsView = props => {
           searchFormPosition="left"
           searchFormType={searchFormType || 'admin'}
           parent={parent}
-          onSearchChange={onSearchChange}
-          store={disableViewPersistor ? undefined : viewPersistor.viewInfoSelector(storeKey).store}
+          onSearchChange={handleSearch}
+          store={store}
           onStoreCreate={store => {
             if (!disableViewPersistor) {
               viewPersistor.persistViewInfo(storeKey, {store})
@@ -131,7 +153,7 @@ const DocsView = props => {
             'dms-label-with-icon': (rowData, column, cellRenderer) => (
               <StyledContentWrapper>
                 <StyledIconWrapper>
-                  <Icon icon={ICONS[rowData.type]}/>
+                  <Icon icon={ICONS[rowData.type]} />
                 </StyledIconWrapper>
                 <span>{cellRenderer(column.children[0])}</span>
               </StyledContentWrapper>
@@ -182,7 +204,8 @@ DocsView.propTypes = {
   disableViewPersistor: PropTypes.bool,
   formName: PropTypes.string,
   showActions: PropTypes.bool,
-  sortable: PropTypes.bool
+  sortable: PropTypes.bool,
+  searchMode: PropTypes.bool
 }
 
 export default DocsView

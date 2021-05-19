@@ -34,13 +34,18 @@ const DocsBrowser = ({
       forceDocsViewUpdate()
     }
 
+    if (searchMode === false && location.pathname === '/docs/search') {
+      setSearchMode(true)
+      forceDocsViewUpdate()
+    }
+
     loadBreadcrumbs(location.pathname)
   })
 
   const handleSearchChange = e => {
     const hasUserChanges = e.query && e.query.hasUserChanges
     if (history.location.pathname !== '/docs/search' && hasUserChanges) {
-      history.push('/docs/search')
+      history.push('/docs/search', {userSearch: true})
     } else if (history.location.pathname === '/docs/search' && !hasUserChanges) {
       history.push('/docs')
     }
@@ -52,7 +57,7 @@ const DocsBrowser = ({
   return (
     <StyledWrapper>
       <StyledBreadcrumbs hasLeftPadding={hasLeftPadding}>
-        <Breadcrumbs {...embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {}}/>
+        <Breadcrumbs {...embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {}} />
       </StyledBreadcrumbs>
       <StyledContent>
         <Switch>
@@ -80,6 +85,7 @@ const DocsBrowser = ({
                 onSearchChange={handleSearchChange}
                 emitAction={emitAction}
                 openFileDialog={openFileDialog}
+                searchMode={searchMode}
               />)}
           />
         </Switch>
