@@ -4,12 +4,16 @@ import {isDirty} from 'redux-form'
 import AdminSearchForm from './AdminSearchForm'
 import {
   resetSearch,
+  resetDefaultSearchFilter,
+  saveDefaultSearchFilter,
   saveSearchFilter
 } from '../../modules/searchForm/actions'
 
 const mapActionCreators = {
   resetSearch,
-  saveSearchFilter
+  saveSearchFilter,
+  saveDefaultSearchFilter,
+  resetDefaultSearchFilter
 }
 
 const mapStateToProps = (state, props) => ({
