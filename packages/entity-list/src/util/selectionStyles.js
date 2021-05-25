@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 const selectionStyles = {
   SINGLE: 'single',
   MULTI: 'multi',
+  MULTI_EXPLICIT: 'multi_explicit',
   NONE: 'none'
 }
 
