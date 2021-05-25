@@ -1,4 +1,4 @@
-import {form, rest} from 'tocco-app-extensions'
+import {form, rest, notifier} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {
@@ -29,7 +29,9 @@ describe('entity-list', () => {
               takeLatest(actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
               takeLatest(actions.RESET_SEARCH, sagas.resetSearch),
               takeLatest(actions.SAVE_SEARCH_FILTER, sagas.saveSearchFilter),
-              takeLatest(actions.DELETE_SEARCH_FILTER, sagas.deleteSearchFilter)
+              takeLatest(actions.DELETE_SEARCH_FILTER, sagas.deleteSearchFilter),
+              takeLatest(actions.SAVE_DEFAULT_SEARCH_FILTER, sagas.saveDefaultSearchFilter),
+              takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, sagas.resetDefaultSearchFilter)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -416,6 +418,65 @@ describe('entity-list', () => {
               .call.like({fn: channel})
               .not.call(sagas.loadSearchFilter, 'entityName')
               .not.call(sagas.resetSearch)
+              .run()
+          })
+        })
+
+        describe('saveDefaultSearchFilter saga', () => {
+          test('should save active filter as default', () => {
+            const searchFilters = [
+              {
+                key: '1',
+                active: false
+              },
+              {
+                key: '2',
+                active: true
+              }
+            ]
+            const formDefinition = {
+              id: 'User_search',
+              modelName: 'User'
+            }
+            const expectedPreferences = {
+              'User.User_search.searchfilter': '2'
+            }
+            return expectSaga(sagas.saveDefaultSearchFilter)
+              .provide([
+                [select(sagas.searchFormSelector), {searchFilters, formDefinition}],
+                [matchers.call.fn(rest.savePreferences)]
+              ])
+              .call(rest.savePreferences, expectedPreferences)
+              .put(notifier.info(
+                'success',
+                'client.entity-list.search.settings.defaultFilter.save.success',
+                null,
+                null,
+                3000
+              ))
+              .run()
+          })
+        })
+
+        describe('resetDefaultSearchFilter saga', () => {
+          test('should delete custom default search filter', () => {
+            const formDefinition = {
+              id: 'User_search',
+              modelName: 'User'
+            }
+            return expectSaga(sagas.resetDefaultSearchFilter)
+              .provide([
+                [select(sagas.searchFormSelector), {formDefinition}],
+                [matchers.call.fn(rest.deleteUserPreferences)]
+              ])
+              .call(rest.deleteUserPreferences, 'User.User_search.searchfilter')
+              .put(notifier.info(
+                'success',
+                'client.entity-list.search.settings.defaultFilter.reset.success',
+                null,
+                null,
+                3000
+              ))
               .run()
           })
         })

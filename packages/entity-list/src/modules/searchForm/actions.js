@@ -15,6 +15,8 @@ export const SET_SEARCH_FILTERS = 'searchForm/SET_SEARCH_FILTERS'
 export const SET_SEARCH_FILTER_ACTIVE = 'searchForm/SET_SEARCH_FILTER_ACTIVE'
 export const DELETE_SEARCH_FILTER = 'searchForm/DELETE_SEARCH_FILTER'
 export const SAVE_SEARCH_FILTER = 'searchForm/SAVE_SEARCH_FILTER'
+export const SAVE_DEFAULT_SEARCH_FILTER = 'searchForm/SAVE_DEFAULT_SEARCH_FILTER'
+export const RESET_DEFAULT_SEARCH_FILTER = 'searchForm/RESET_DEFAULT_SEARCH_FILTER'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -105,7 +107,13 @@ export const deleteSearchFilter = primaryKey => ({
 })
 
 export const saveSearchFilter = () => ({
-  type: SAVE_SEARCH_FILTER,
-  payload: {
-  }
+  type: SAVE_SEARCH_FILTER
+})
+
+export const saveDefaultSearchFilter = () => ({
+  type: SAVE_DEFAULT_SEARCH_FILTER
+})
+
+export const resetDefaultSearchFilter = () => ({
+  type: RESET_DEFAULT_SEARCH_FILTER
 })

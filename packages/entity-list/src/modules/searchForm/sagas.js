@@ -37,7 +37,9 @@ export default function* sagas() {
     takeLatest(actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
     takeLatest(actions.RESET_SEARCH, resetSearch),
     takeLatest(actions.SAVE_SEARCH_FILTER, saveSearchFilter),
-    takeLatest(actions.DELETE_SEARCH_FILTER, deleteSearchFilter)
+    takeLatest(actions.DELETE_SEARCH_FILTER, deleteSearchFilter),
+    takeLatest(actions.SAVE_DEFAULT_SEARCH_FILTER, saveDefaultSearchFilter),
+    takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, resetDefaultSearchFilter)
   ])
 }
 
@@ -281,4 +283,30 @@ export function* deleteSearchFilter({payload: {primaryKey}}) {
     yield call(loadSearchFilter, entityName)
     yield call(resetSearch)
   }
+}
+
+export function* saveDefaultSearchFilter() {
+  const {searchFilters, formDefinition} = yield select(searchFormSelector)
+  const key = `${formDefinition.modelName}.${formDefinition.id}.searchfilter`
+  const value = searchFilters.find(s => s.active).key
+  yield call(rest.savePreferences, {[key]: value})
+  yield put(notifier.info(
+    'success',
+    'client.entity-list.search.settings.defaultFilter.save.success',
+    null,
+    null,
+    3000
+  ))
+}
+
+export function* resetDefaultSearchFilter() {
+  const {formDefinition} = yield select(searchFormSelector)
+  yield call(rest.deleteUserPreferences, `${formDefinition.modelName}.${formDefinition.id}.searchfilter`)
+  yield put(notifier.info(
+    'success',
+    'client.entity-list.search.settings.defaultFilter.reset.success',
+    null,
+    null,
+    3000
+  ))
 }
