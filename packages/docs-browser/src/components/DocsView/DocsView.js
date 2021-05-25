@@ -171,7 +171,7 @@ const DocsView = props => {
           navigationStrategy={navigationStrategy}
           tql={tql}
           keys={keys}
-          selectionStyle={selectionStyle || 'multi'}
+          selectionStyle={selectionStyle || 'multi_explicit'}
           onSelectChange={setSelection}
           selection={selection}
           showActions={showActions}
