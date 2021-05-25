@@ -223,23 +223,24 @@ export function* saveSearchFilter() {
   ))
 
   const searchFilterName = yield take(answerChannel)
-  const {where} = yield call(getBasicQuery, false)
+  const {where, filter} = yield call(getBasicQuery, false)
   const {sorting} = yield select(listSelector)
   const {entityName} = yield select(entityListSelector)
 
-  yield call(saveNewSearchFilter, searchFilterName, entityName, where, sorting)
+  yield call(saveNewSearchFilter, searchFilterName, entityName, where, sorting, filter)
   yield call(loadSearchFilter, entityName)
   yield call(resetSearch)
 }
 
-export function* saveNewSearchFilter(name, entityName, query, sorting) {
+export function* saveNewSearchFilter(name, entityName, query, sorting, filters) {
   const order = rest.createSortingString(sorting)
   const resource = 'client/searchfilters'
   const body = {
     name,
     query,
     entityName,
-    order
+    order,
+    filters
   }
   yield call(rest.requestSaga, resource, {method: 'POST', body})
 }
