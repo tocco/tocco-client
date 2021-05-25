@@ -5,6 +5,9 @@ describe('entity-list', () => {
     describe('actions', () => {
       test('should handle query selection ', () => {
         const state = {
+          input: {
+            selectionStyle: 'multi'
+          },
           entityList: {
             entityName: 'User'
           },
@@ -40,6 +43,29 @@ describe('entity-list', () => {
           type: 'ID',
           ids: [1, 2, 4],
           count: 3
+        }
+
+        expect(actions.deriveSelectionFromState(state)).to.eql(expectedSelection)
+      })
+
+      test('should return selection with multi_explicit', () => {
+        const state = {
+          input: {
+            selectionStyle: 'multi_explicit'
+          },
+          entityList: {
+            entityName: 'User'
+          },
+          selection: {
+            selection: []
+          }
+        }
+
+        const expectedSelection = {
+          entityName: 'User',
+          type: 'ID',
+          ids: [],
+          count: 0
         }
 
         expect(actions.deriveSelectionFromState(state)).to.eql(expectedSelection)
