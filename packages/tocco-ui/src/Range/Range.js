@@ -49,31 +49,23 @@ const Range = props => {
 
   const typeMapping = rangeTypeMappings[type]
 
-  const getToOptions = (options, fromValue) => {
-    if (typeMapping && typeMapping.getToOptions) {
-      return typeMapping.getToOptions(options, fromValue)
-    } else {
-      return options
-    }
-  }
+  const getToOptions = (options, fromValue) =>
+    typeMapping && typeMapping.getToOptions
+      ? typeMapping.getToOptions(options, fromValue)
+      : options
 
-  const getFromOptions = (options, toValue) => {
-    if (typeMapping && typeMapping.getFromOptions) {
-      return typeMapping.getFromOptions(options, toValue)
-    } else {
-      return options
-    }
-  }
+  const getFromOptions = (options, toValue) =>
+    typeMapping && typeMapping.getFromOptions
+      ? typeMapping.getFromOptions(options, toValue)
+      : options
 
   const getFromOrTo = value => value && value.from ? value.from : value && value.to ? value.to : null
 
-  const getRangeValue = value => {
-    if (typeMapping && typeMapping.toRange) {
-      return typeMapping.toRange(value)
-    } else {
-      return {from: value, to: value, isRangeValue: true}
-    }
-  }
+  const getRangeValue = value =>
+    typeMapping && typeMapping.toRange
+      ? typeMapping.toRange(value)
+      : {from: value, to: value, isRangeValue: true}
+
   const baseType = typeMapping && typeMapping.type ? typeMapping.type : type
 
   return <StyledRange>
