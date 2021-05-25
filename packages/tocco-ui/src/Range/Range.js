@@ -65,7 +65,7 @@ const Range = props => {
     }
   }
 
-  const getFromOrTo = value => value && value.to ? value.to : value && value.from ? value.from : null
+  const getFromOrTo = value => value && value.from ? value.from : value && value.to ? value.to : null
 
   const getRangeValue = value => {
     if (typeMapping && typeMapping.toRange) {
