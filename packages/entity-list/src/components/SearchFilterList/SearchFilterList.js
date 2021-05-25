@@ -7,10 +7,11 @@ import {searchFilterCompare} from './utils'
 import {
   SearchFilterListWrapper,
   StyledSpanSearchFilter,
-  StyledButton,
+  StyledAddRemoveButton,
   StyledMenuWrapper,
   StyledSearchFilterButton,
-  StyledMessageWrapper
+  StyledMessageWrapper,
+  StyleButtonWrapper
 } from './StyledComponents'
 
 const EllipsisMenu = ({canEdit, canDelete, navigationStrategy, deleteSearchFilter, primaryKey, active}) => {
@@ -19,14 +20,14 @@ const EllipsisMenu = ({canEdit, canDelete, navigationStrategy, deleteSearchFilte
   if (canEdit) {
     entries.push(
       <MenuItem key={'edit-button'} onClick={() => navigationStrategy.openDetail('Search_filter', primaryKey)}>
-        <FormattedMessage id="client.entity-list.search.settings.editFilter" />
+        <FormattedMessage id="client.entity-list.search.settings.editFilter"/>
       </MenuItem>
     )
   }
   if (canDelete) {
     entries.push(
       <MenuItem key={'delete-button'} onClick={deleteSearchFilter}>
-        <FormattedMessage id="client.entity-list.search.settings.deleteFilter" />
+        <FormattedMessage id="client.entity-list.search.settings.deleteFilter"/>
       </MenuItem>
     )
   }
@@ -35,11 +36,13 @@ const EllipsisMenu = ({canEdit, canDelete, navigationStrategy, deleteSearchFilte
     return null
   }
 
-  return <StyledMenuWrapper active={active}>
-    <BallMenu buttonProps={{icon: 'ellipsis-h'}}>
-      {entries}
-    </BallMenu>
-  </StyledMenuWrapper>
+  return (
+    <StyledMenuWrapper active={active}>
+      <BallMenu buttonProps={{icon: 'ellipsis-h'}}>
+        {entries}
+      </BallMenu>
+    </StyledMenuWrapper>
+  )
 }
 
 EllipsisMenu.propTypes = {
@@ -63,22 +66,24 @@ const SearchFilterButton = ({
 }) =>
   <StyledSearchFilterButton active={active} onClick={() => setActive(!active)}>
     <StyledSpanSearchFilter title={label}>{label}</StyledSpanSearchFilter>
-    <StyledButton
-      active={active}
-      onClick={e => {
-        setActive(false)
-        e.stopPropagation()
-      }}
-      icon={active ? 'minus' : 'plus'}
-      dense />
-    <EllipsisMenu
-      canEdit={canEdit}
-      canDelete={canDelete}
-      navigationStrategy={navigationStrategy}
-      deleteSearchFilter={deleteSearchFilter}
-      primaryKey={primaryKey}
-      active={active}
-    />
+    <StyleButtonWrapper>
+      <StyledAddRemoveButton
+        active={active}
+        onClick={e => {
+          setActive(false)
+          e.stopPropagation()
+        }}
+        icon={active ? 'minus' : 'plus'}
+        dense/>
+      <EllipsisMenu
+        canEdit={canEdit}
+        canDelete={canDelete}
+        navigationStrategy={navigationStrategy}
+        deleteSearchFilter={deleteSearchFilter}
+        primaryKey={primaryKey}
+        active={active}
+      />
+    </StyleButtonWrapper>
   </StyledSearchFilterButton>
 
 SearchFilterButton.propTypes = {
@@ -101,7 +106,7 @@ const AdminSearchForm = props => {
   if (searchFilters.length === 0) {
     return <StyledMessageWrapper>
       <Typography.I>
-        <FormattedMessage id="client.entity-list.noSearchFilters" />
+        <FormattedMessage id="client.entity-list.noSearchFilters"/>
       </Typography.I>
     </StyledMessageWrapper>
   }
