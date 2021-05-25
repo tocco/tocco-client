@@ -307,7 +307,7 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.listSelector), {sorting: expectedSorting}],
                 [select(sagas.entityListSelector), {entityName: 'entityName'}],
-                [matchers.call.fn(listSagas.getBasicQuery), {where: 'query'}],
+                [matchers.call.fn(listSagas.getBasicQuery), {where: 'query', filter: ['filtername']}],
                 [channel, {}],
                 {
                   take() {
@@ -330,7 +330,14 @@ describe('entity-list', () => {
                 }
               })
               .call.like({fn: channel})
-              .call(sagas.saveNewSearchFilter, 'searchFilterName', 'entityName', 'query', expectedSorting)
+              .call(
+                sagas.saveNewSearchFilter,
+                'searchFilterName',
+                'entityName',
+                'query',
+                expectedSorting,
+                ['filtername']
+              )
               .call(sagas.loadSearchFilter, 'entityName')
               .call(sagas.resetSearch)
               .run()
@@ -349,13 +356,20 @@ describe('entity-list', () => {
                 name: 'searchFilterName',
                 query: 'query',
                 entityName: 'entityName',
-                order: 'sorting asc, other desc'
+                order: 'sorting asc, other desc',
+                filters: ['filtername']
               }
             }
-            return expectSaga(sagas.saveNewSearchFilter, 'searchFilterName', 'entityName', 'query', sorting)
-              .provide([
-                [matchers.call.fn(rest.requestSaga)]
-              ])
+            return expectSaga(
+              sagas.saveNewSearchFilter,
+              'searchFilterName',
+              'entityName',
+              'query',
+              sorting,
+              ['filtername']
+            ).provide([
+              [matchers.call.fn(rest.requestSaga)]
+            ])
               .call(rest.requestSaga, 'client/searchfilters', expectedContent)
               .run()
           })
