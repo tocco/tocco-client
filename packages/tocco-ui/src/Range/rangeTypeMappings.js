@@ -6,8 +6,8 @@ const rangeTypeMappings = {
   datetime: {
     type: 'date',
     toRange: value => {
-      const fromValue = moment(value).utc().format(datetimeFormat)
-      const toValue = moment(value).utc().add(1, 'd').format(datetimeFormat)
+      const fromValue = value ? moment(value).utc().format(datetimeFormat) : null
+      const toValue = value ? moment(value).utc().add(1, 'd').format(datetimeFormat) : null
       return {from: fromValue, to: toValue, isRangeValue: true}
     },
     getToOptions: (options, fromValue) => ({...options, flatpickrOptions: {minDate: fromValue}}),
