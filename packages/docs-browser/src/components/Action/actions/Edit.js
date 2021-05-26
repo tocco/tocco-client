@@ -24,19 +24,19 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
     }]
 
     onSuccess({
-      message: intl.formatMessage({id: 'client.docs-browser.editSuccessful'}),
+      message: null,
       remoteEvents
     })
   }
 
   return <EntityDetailApp
-      entityName={entityName}
-      formName={`Dms${entityName}`}
-      entityId={entityKey}
-      mode="update"
-      onEntityUpdated={handleEntityUpdated}
-      emitAction={emitAction}
-    />
+    entityName={entityName}
+    formName={`Dms${entityName}`}
+    entityId={entityKey}
+    mode="update"
+    onEntityUpdated={handleEntityUpdated}
+    emitAction={emitAction}
+  />
 }
 
 EditAction.propTypes = {
