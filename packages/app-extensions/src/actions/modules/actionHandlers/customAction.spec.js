@@ -209,6 +209,21 @@ describe('app-extensions', () => {
             }
           }
 
+          test('should show a INFO if message is set to null', () => {
+            return expectSaga(handleCustomActionModal, {definition, selection, config})
+              .provide([
+                [channel, {}],
+                {
+                  take({channel}, next) {
+                    return {status: 'ok', message: null}
+                  }
+                }
+              ])
+              .not.put.actionType('notifier/INFO')
+              .returns({success: true, remoteEvents: undefined})
+              .run()
+          })
+
           test('should return successful true if modal return ok', () => {
             return expectSaga(handleCustomActionModal, {definition, selection, config})
               .provide([
