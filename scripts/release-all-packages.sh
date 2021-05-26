@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu # Exit with nonzero exit code if anything fails
 
 source ./scripts/helpers.sh
 
@@ -15,9 +16,4 @@ for package in "${releasePackages[@]}"
 do
 	echo "Start releasing package $package"
 	source ./scripts/release-package.sh $package --auto
-	yarn release-package $package --auto
 done
-
-# push all commits once
-current_branch=$(git rev-parse --abbrev-ref HEAD)
-gitPush releasing/auto-$(($(date +%s%N)/1000000))

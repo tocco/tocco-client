@@ -35,7 +35,7 @@ function setGitVars() {
 
   if [[ $remote_branch != "master" && $remote_branch != nice-releases/* ]]; then
     echo "Running release script is not allowed if remote branch is not master or nice-releases/*"
-    exit
+    exit 1
   fi
 
   greps=$(getDevDependenciesGreps)
@@ -45,7 +45,7 @@ function setGitVars() {
 function checkPackage() {
   if [[ ! "${package}" ]] || [[ ! -d "packages/${package}" ]]; then
      echo "${color_red}Please provide a valid package name${color_reset}"
-     exit
+     exit 1
   fi
 }
 
