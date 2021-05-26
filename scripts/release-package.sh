@@ -23,12 +23,12 @@ then
   echo "${color_green}Git tree is clean!${color_reset}"
 else
   echo "${color_red}Git tree is dirty, please commit changes before running the release script.${color_reset}"
-  exit
+  exit 1
 fi
 
 if [[ -z "${changelog}" && $auto = true ]]; then
 	echo "${color_red}Skip package ${package} because changelog is empty. ${color_reset}"
-	exit
+	exit 0
 fi
 
 echo "---------------------"
@@ -62,9 +62,11 @@ else
   read -p "${color_green}Edit the changelog and press ENTER to continue${color_reset}"
 fi
 
-targetBranch=releasing/${package}@${new_version}
-echo "Checkin out new branch ${targetBranch}"
-git checkout -b ${targetBranch}
+if [[ $auto = false ]]; then
+  targetBranch=releasing/${package}@${new_version}
+  echo "Checkin out new branch ${targetBranch}"
+  git checkout -b ${targetBranch}
+fi
 
 git commit -m "docs(${package}): changelog ${new_version}" ${changelog_file}
 echo "releasing and publishing ${package} with version ${new_version}"
@@ -85,8 +87,10 @@ else
   echo "${color_red}Nothing pushed!${color_reset}"
 fi
 
-echo "Checkin out ${current_branch}"
-git checkout ${current_branch}
+if [[ $auto = false ]]; then
+  echo "Checkin out ${current_branch}"
+  git checkout ${current_branch}
+fi
 
 if [[ $auto = true ]]; then
   CREATE_TAG="y"
