@@ -79,11 +79,14 @@ export function* handleCustomActionModal({definition, selection, config}) {
   }
 
   const success = response.status === actionStatus.OK
-  const type = success ? 'success' : 'warning'
-  const icon = success ? 'check' : 'exclamation'
-  const title = response.message || 'client.component.actions.successDefault'
 
-  yield put(notifier.info(type, title, null, icon, 3000))
+  if (response.message !== null) {
+    const type = success ? 'success' : 'warning'
+    const icon = success ? 'check' : 'exclamation'
+    const title = response.message || 'client.component.actions.successDefault'
+    yield put(notifier.info(type, title, null, icon, 3000))
+  }
+
   return {success: success, remoteEvents: response.remoteEvents}
 }
 
