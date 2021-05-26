@@ -1,3 +1,11 @@
+0.4.41
+- Change cursor to pointer on panel header/footer hover
+- Added options to create a search filter from the current search, edit or delete an existing filter
+- Enable body scrolling on login screen for smaller screens
+- Use explicit selection style
+- datetime search fields now use a date field until the full range is expanded
+- Fix hover delay and hover color of search filter buttons
+
 0.4.40
 - DMS fixes
 
