@@ -1,3 +1,7 @@
+0.4.37-hotfix229.3
+- forward input props to move action
+- Use explicit selection style
+
 0.4.37-hotfix229.2
 - Adjust left padding of Breadcrumbs in list view
 - Displayexpression call adjustment
