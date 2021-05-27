@@ -2,11 +2,8 @@
 set -eu # Exit with nonzero exit code if anything fails
 PAGES_BRANCH="gh-pages"
 
-echo "Setup ssh"
-eval `ssh-agent -s`
-ssh-add <(echo "$GITHUB_DEPLOY_PRIVATE_KEY" | base64 -d)
-mkdir -p ~/.ssh
-echo "github.com ssh-rsa ${GITHUB_PUBLIC_KEY}" >>~/.ssh/known_hosts
+source ./scripts/github.sh
+setupGithub
 
 echo "Clone ${PAGES_BRANCH} branch"
 cd dist
@@ -21,9 +18,6 @@ mv storybook/* $PAGES_BRANCH/$BRANCH_FOLDER_NAME
 cd $PAGES_BRANCH
 
 echo "Commit and push"
-git config user.name "Gitlab CI"
-git config user.email "tocco.github.bot@gmail.com"
-
 git add -A
 rev=$(git rev-parse --short HEAD)
 git diff-index --quiet HEAD || git commit -m "rebuild storybook at ${rev}"
