@@ -77,7 +77,7 @@ describe('app-extensions', () => {
         action = getInfoAction('info', 'title', 'message')
         expect(action.payload.options.icon.props.icon).to.equal('info-circle')
         action = getInfoAction('success', 'title', 'message')
-        expect(action.payload.options.icon.props.icon).to.equal('check-circle-light')
+        expect(action.payload.options.icon.props.icon).to.equal('check-circle')
         action = getInfoAction('warning', 'title', 'message')
         expect(action.payload.options.icon.props.icon).to.equal('exclamation-circle')
         action = getInfoAction('error', 'title', 'message')

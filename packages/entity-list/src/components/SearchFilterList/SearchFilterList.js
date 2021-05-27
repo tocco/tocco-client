@@ -38,7 +38,7 @@ const EllipsisMenu = ({canEdit, canDelete, navigationStrategy, deleteSearchFilte
 
   return (
     <StyledMenuWrapper active={active}>
-      <BallMenu buttonProps={{icon: 'ellipsis-h'}}>
+      <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
         {entries}
       </BallMenu>
     </StyledMenuWrapper>
