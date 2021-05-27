@@ -25,7 +25,8 @@ import {getDispatchActions} from './input'
 const packageName = 'docs-browser'
 
 const EXTERNAL_EVENTS = [
-  'onListParentChange'
+  'onListParentChange',
+  'openResource'
 ]
 
 const textResourceSelector = (state, key) => state.intl.messages[key] || key
@@ -76,7 +77,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     && input.rootNodes[0].entityName !== 'Resource'
     ? input.rootNodes[0]
     : null
-  
+
   const startUrl = singleRootNode
     ? `/docs/${singleRootNode.entityName.toLowerCase()}/${singleRootNode.key}/list`
     : '/docs'
@@ -84,13 +85,13 @@ const initApp = (id, input, events = {}, publicPath) => {
   const content = (
     <ReactRouter history={history}>
       {handleNotifications && <notifier.Notifier />}
-      <DocsBrowser history={history}/>
+      <DocsBrowser history={history} />
       <Route exact path="/">
-        <Redirect to={startUrl}/>
+        <Redirect to={startUrl} />
       </Route>
       {singleRootNode && (
         <Route exact path="/docs">
-          <Redirect to={startUrl}/>
+          <Redirect to={startUrl} />
         </Route>
       )}
     </ReactRouter>
