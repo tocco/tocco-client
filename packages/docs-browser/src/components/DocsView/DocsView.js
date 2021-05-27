@@ -77,7 +77,8 @@ const DocsView = props => {
     getListFormName,
     domainDetailFormName,
     folderDetailFormName,
-    searchMode
+    searchMode,
+    openResource
   } = props
 
   const [selection, setSelection] = useState([])
@@ -110,8 +111,13 @@ const DocsView = props => {
 
     const [model, key] = id.split('/')
     const location = getCustomLocation ? getCustomLocation(model, key) : getDefaultLocation(model, key)
+
     if (location) {
-      history.push(location)
+      if (openResource && model === 'Resource') {
+        openResource(location)
+      } else {
+        history.push(location)
+      }
     }
   }
 
@@ -216,7 +222,8 @@ DocsView.propTypes = {
   getListFormName: PropTypes.func,
   domainDetailFormName: PropTypes.string,
   folderDetailFormName: PropTypes.string,
-  searchMode: PropTypes.bool
+  searchMode: PropTypes.bool,
+  openResource: PropTypes.func
 }
 
 export default DocsView
