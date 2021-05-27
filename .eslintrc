@@ -64,6 +64,7 @@
     "react/jsx-no-bind":  [2, { "allowArrowFunctions": true, "allowBind": true }],
     "react/display-name": 0,
     "jsx-quotes": [2, "prefer-double"],
+    "react/jsx-tag-spacing":[2, {"closingSlash": "never", "beforeSelfClosing": "never", "afterOpening": "never", "beforeClosing": "never"}],
     "react-hooks/rules-of-hooks": 2,
 
     "no-unused-expressions": 0, // "no-unused-expressions" is included with "chai-friendly/no-unused-expressions"
