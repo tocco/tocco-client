@@ -64,7 +64,7 @@ const RelationsView = ({
 
   const RelationPreview = selectedRelation
     ? (selectedRelation.targetEntity === 'Resource' ? DocsViewAdapter : ListView)
-    : () => <React.Fragment/>
+    : () => <React.Fragment />
 
   return (
     <StyledRelationsViewWrapper>
@@ -87,14 +87,14 @@ const RelationsView = ({
               <StyledLink
                 aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
                 to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
-                <Icon icon="arrow-right"/>
+                <Icon icon="arrow-right" />
               </StyledLink>
               {hasCreateRights(relation.relationName) && relation.targetEntity !== 'Resource'
-              && <StyledLink
-                aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-                to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
-                <Icon icon="plus"/>
-              </StyledLink>
+                && <StyledLink
+                  aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
+                  to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
+                  <Icon icon="plus" />
+                </StyledLink>
               }
             </RelationLinks>
           </RelationBox>
@@ -102,30 +102,30 @@ const RelationsView = ({
       </StyledRelationBox>
 
       {selectedRelation
-      && <StyledPreviewBox>
-        <Typography.H4>
-          {selectedRelation.relationDisplay.label}
-          <StyledPreviewLink
-            aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
-            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
-            <Icon icon="arrow-right"/>
-          </StyledPreviewLink>
-          {hasCreateRights(selectedRelation.relationName) && selectedRelation.targetEntity !== 'Resource'
-          && <StyledPreviewLink
-            aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
-            <Icon icon="plus"/>
-          </StyledPreviewLink>
-          }
-        </Typography.H4>
-        <RelationPreview
-          selectedRelation={selectedRelation}
-          match={match}
-          history={history}
-          currentViewInfo={currentViewInfo}
-          emitAction={emitAction}
-        />
-      </StyledPreviewBox>
+        && <StyledPreviewBox>
+          <Typography.H4>
+            {selectedRelation.relationDisplay.label}
+            <StyledPreviewLink
+              aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
+              to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
+              <Icon icon="arrow-right" />
+            </StyledPreviewLink>
+            {hasCreateRights(selectedRelation.relationName) && selectedRelation.targetEntity !== 'Resource'
+              && <StyledPreviewLink
+                aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
+                to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
+                <Icon icon="plus" />
+              </StyledPreviewLink>
+            }
+          </Typography.H4>
+          <RelationPreview
+            selectedRelation={selectedRelation}
+            match={match}
+            history={history}
+            currentViewInfo={currentViewInfo}
+            emitAction={emitAction}
+          />
+        </StyledPreviewBox>
       }
     </StyledRelationsViewWrapper>
   )
