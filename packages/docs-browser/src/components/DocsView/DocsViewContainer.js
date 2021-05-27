@@ -14,7 +14,8 @@ const mapStateToProps = state => ({
   disableViewPersistor: state.input.disableViewPersistor,
   formName: state.docs.list.formName,
   showActions: state.input.showActions,
-  sortable: state.input.sortable
+  sortable: state.input.sortable,
+  openResource: state.input.openResource
 })
 
 const mapActionCreators = {
