@@ -81,7 +81,7 @@ export const Showcase = () => <span>
     <i>child</i><b>child2</b>
   </Button>
   <Button
-    icon={'angle-up'}
+    icon={'chevron-up'}
     iconPosition="append"
     label="Menu"
   />

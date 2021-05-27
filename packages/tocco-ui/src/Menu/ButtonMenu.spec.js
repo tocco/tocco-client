@@ -45,10 +45,10 @@ describe('tocco-ui', () => {
           </ButtonMenu>
         )
 
-        expect(wrapper.find(Icon)).to.have.prop('icon', 'angle-down')
+        expect(wrapper.find(Icon)).to.have.prop('icon', 'chevron-down')
         wrapper.find(Button).simulate('click')
         wrapper.update()
-        expect(wrapper.find(Icon)).to.have.prop('icon', 'angle-up')
+        expect(wrapper.find(Icon)).to.have.prop('icon', 'chevron-up')
         expect(onOpen).to.be.calledOnce
 
         wrapper.find(Button).simulate('click')

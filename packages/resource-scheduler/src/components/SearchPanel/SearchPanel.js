@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {
@@ -11,7 +11,7 @@ import {
 const PanelHeaderContent = ({color, label}) =>
   <Typography.Span >
     <Icon
-      icon={color ? 'square' : ['far', 'square']}
+      icon={color ? 'square-full' : 'square'}
       aria-hidden="true"
       style={{...(color ? {color} : {})}}
       position={design.position.PREPEND}
@@ -23,17 +23,12 @@ PanelHeaderContent.propTypes = {
   label: PropTypes.string.isRequired
 }
 
-class SearchPanel extends React.PureComponent {
-  constructor() {
-    super()
-    this.state = {activeKey: -1}
+const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, calendarTypes}) => {
+  const handleSelect = name => selection => {
+    updateRequestedCalendars(name, selection)
   }
 
-  handleSelect = name => selection => {
-    this.props.updateRequestedCalendars(name, selection)
-  }
-
-  getSearchLists = calendarTypes =>
+  const getSearchLists = calendarTypes =>
     calendarTypes.map(calendarType =>
       <Panel.Wrapper key={calendarType.name}>
         <Panel.Header>
@@ -44,15 +39,15 @@ class SearchPanel extends React.PureComponent {
         </Panel.Header>
         <Panel.Body>
           <EntityListApp
-            locale={this.props.locale}
+            locale={locale}
             id={`search-panel-${calendarType.name}`}
             entityName={calendarType.targetEntity}
             formName={calendarType.formBase}
             limit={15}
             showSearchForm={true}
             selectable={true}
-            selection={this.props.requestedCalendars ? this.props.requestedCalendars[calendarType.name] || [] : []}
-            onSelectChange={this.handleSelect(calendarType.name)}
+            selection={requestedCalendars ? requestedCalendars[calendarType.name] || [] : []}
+            onSelectChange={handleSelect(calendarType.name)}
             simpleSearchFields="txtFulltext, searchFilter"
             disableSelectionController
             showActions={false}
@@ -61,10 +56,11 @@ class SearchPanel extends React.PureComponent {
       </Panel.Wrapper>
     )
 
-  render = () =>
+  return (
     <Panel.Group>
-      {this.getSearchLists(this.props.calendarTypes)}
+      {getSearchLists(calendarTypes)}
     </Panel.Group>
+  )
 }
 
 SearchPanel.propTypes = {
@@ -82,4 +78,4 @@ SearchPanel.propTypes = {
   locale: PropTypes.string
 }
 
-export default SearchPanel
+export default memo(SearchPanel)

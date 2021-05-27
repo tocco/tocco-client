@@ -38,7 +38,7 @@ const Result = ({success, goToStart, setupSuccessful, intl}) => {
     <>
       <StyledMessageWrapper>
         <StyledIconWrapper isSuccessful={false}>
-          <Icon icon={'times-light'}/>
+          <Icon icon={'times'}/>
         </StyledIconWrapper>
         <StyledTextWrapper>
           <Typography.P>

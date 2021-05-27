@@ -41,13 +41,13 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundC
             {...(idx === breadcrumbs.length - 1 && {active: 'true'})}
             to={`${pathPrefix}/${b.path}`}
           >
-            {b.type === 'list' && <Icon icon="list-ul" />}  {display}
+            {b.type === 'list' && <Icon icon="list"/>} {display}
           </Comp>
         </Typography.Span>
       })
         .reduce((prev, curr, idx) =>
           [prev,
-            <Typography.Span key={'icon' + idx}> <Icon icon="angle-right"/> </Typography.Span>,
+            <Typography.Span key={'icon' + idx}> <Icon icon="chevron-right"/> </Typography.Span>,
             curr]
         )}
     </div>

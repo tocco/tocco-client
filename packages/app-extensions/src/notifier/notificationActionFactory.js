@@ -11,7 +11,7 @@ import TitleMessage from './components/TitleMessage'
 const typeIconMap = {
   error: 'times-circle',
   info: 'info-circle',
-  success: 'check-circle-light',
+  success: 'check-circle',
   warning: 'exclamation-circle'
 }
 

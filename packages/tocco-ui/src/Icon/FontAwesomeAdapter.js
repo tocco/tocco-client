@@ -4,38 +4,28 @@ import _get from 'lodash/get'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {
-  faAngleDown, faAngleRight, faAngleLeft, faAngleUp, faStar as faStarFilled, faExclamation, faCheckCircle,
-  faExternalLink, faFolder, faPhone, faSquare,
-  faPaperclip as LegacyPaperclip, faAsterisk as LegacyAsterisk, faChartBar as LegacyChartBar,
-  faExclamationCircle as LegacyExclamationCircle, faTimesCircle as LegacyTimesCircle, faPencil as LecacyPencil,
-  faChevronCircleRight
+  faSquareFull
 } from '@fortawesome/pro-solid-svg-icons'
 import {
-  faChevronDoubleLeft, faChevronDoubleRight, faChevronRight, faChevronLeft, faChevronUp, faChevronDown, faGlobe, faPlus,
-  faFolders, faStar, faTimes, faArrowRight, faArrowLeft, faListUl, faFile, faFileAlt, faFileCode, faFileCsv,
-  faFileExcel, faFileExport, faFileImport, faFilePdf, faFileSpreadsheet, faIdBadge, faCheck, faMapMarked, faSearch,
-  faCog, faBars, faInfo, faCompress, faBook, faSortDown, faSortUp, faQuestionCircle, faEllipsisV, faEllipsisH
-} from '@fortawesome/pro-regular-svg-icons'
-import {
-  faTimes as faTimesLight, faCircle, faHorizontalRule, faSync, faMinus, faTimesCircle, faInfoCircle,
-  faCheckCircle as faCheckCircleLight, faExclamationCircle, faTrash, faDownload, faUpload
+  faTimes, faCircle, faHorizontalRule, faSync, faMinus, faTimesCircle, faInfoCircle,
+  faCheckCircle, faExclamationCircle, faTrash, faDownload, faUpload, faList, faPhone, faSearch, faFolder,
+  faExternalLink, faChevronDoubleRight, faChevronDoubleLeft, faChevronRight, faChevronLeft, faChevronUp, faChevronDown,
+  faPlus, faGlobe, faFileExcel, faFilePdf, faFile, faSortDown, faSortUp, faArrowRight, faArrowLeft, faQuestionCircle,
+  faCog, faFolders, faStar, faFileAlt, faFileCode, faFileCsv, faFileExport, faFileImport, faFileSpreadsheet, faIdBadge,
+  faCheck, faMapMarked, faBars, faInfo, faCompress, faBook, faEllipsisV, faSquare, faExclamation
 } from '@fortawesome/pro-light-svg-icons'
 import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple}
   from '@fortawesome/free-brands-svg-icons'
 (() => {
   library.add(
-    faAngleDown, faAngleRight, faAngleLeft, faAngleUp, faChevronDoubleLeft, faChevronDoubleRight, faChevronRight,
-    faChevronLeft, faChevronUp, faChevronDown, faGlobe, faPlus, faFolder, faFolders, faStarFilled, faStar, faTimes,
-    faArrowRight, faArrowLeft, faListUl, faFile, faFileAlt, faFileCode, faFileCsv, faFileExcel, faFileExport,
-    faFileImport, faFilePdf, faFileSpreadsheet, faIdBadge, faCheck, faExclamation, faTimesLight, faCircle,
+    faChevronDoubleLeft, faChevronDoubleRight, faChevronRight,
+    faChevronLeft, faChevronUp, faChevronDown, faGlobe, faPlus, faFolder, faFolders, faStar, faTimes,
+    faArrowRight, faArrowLeft, faFile, faFileAlt, faFileCode, faFileCsv, faFileExcel, faFileExport,
+    faFileImport, faFilePdf, faFileSpreadsheet, faIdBadge, faCheck, faExclamation, faCircle,
     faCheckCircle, faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple, faBars, faExternalLink,
-    faPhone, faMapMarked, faSearch, faCog, faDownload, faUpload, faInfo, faHorizontalRule, faSync, faSquare,
+    faPhone, faMapMarked, faSearch, faCog, faDownload, faUpload, faInfo, faHorizontalRule, faSync, faSquareFull,
     faCompress, faBook, faSortUp, faSortDown, faQuestionCircle, faEllipsisV, faMinus, faTimesCircle, faInfoCircle,
-    faCheckCircleLight, faExclamationCircle, faTrash, faEllipsisH)
-
-  library.add(
-    LegacyPaperclip, LegacyAsterisk, LegacyChartBar, LegacyExclamationCircle, LegacyTimesCircle,
-    LecacyPencil, faChevronCircleRight)
+    faExclamationCircle, faTrash, faList, faSquare)
 })()
 
 const FontAwesomeAdapter = ({icon, style}) =>

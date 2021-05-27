@@ -70,7 +70,7 @@ const AdminSearchForm = ({
         onClick={resetSearch}
         title={msg('client.entity-list.reset')}
       />
-      <BallMenu buttonProps={{icon: 'ellipsis-h'}}>
+      <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
         <MenuItem disabled={!isSingleSearchFilterActive} onClick={saveDefaultSearchFilter}>
           <Popover content={!isSingleSearchFilterActive
             && <FormattedMessage id="client.entity-list.search.settings.defaultFilter.save.info"/>
