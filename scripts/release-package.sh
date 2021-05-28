@@ -9,6 +9,8 @@ setNiceVersion
 setCurrentReleaseTag
 setNextVersion
 
+git fetch --tags -f
+
 if [[ $* == *--auto* ]]; then
   auto=true
   echo "Questions are disabled and automatically with default values answered"
