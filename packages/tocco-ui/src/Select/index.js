@@ -1,5 +1,5 @@
 import Select from './Select'
-import {StyledTether} from './Menu'
+import {StyledTether} from './StyledComponents'
 
 export {
   Select as default,

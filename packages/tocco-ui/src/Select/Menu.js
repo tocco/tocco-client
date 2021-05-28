@@ -1,27 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import TetherComponent from 'react-tether'
-import {components} from 'react-select'
 import _omit from 'lodash/omit'
 
-export const StyledTether = styled(TetherComponent)`
-  && {
-    z-index: 1;
-  }
-`
-
-const StyledMenu = styled(components.Menu)`
-  && {
-    margin: 8px -12px;
-    width: calc(${({wrapperWidth}) => wrapperWidth}px + 22px);
-    position: relative;
-
-    .tether-target-attached-top & {
-      transform: translateY(-${({wrapperHeight}) => wrapperHeight + 6}px);
-    }
-  }
-`
+import {StyledTether, StyledMenu} from './StyledComponents'
 
 const TetherPosition = () => <div/>
 
