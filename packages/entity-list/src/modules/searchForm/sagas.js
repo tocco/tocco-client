@@ -8,10 +8,11 @@ import {
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
 import {call, put, select, takeLatest, take, all} from 'redux-saga/effects'
-import {Button, EditableValue, StatedValue} from 'tocco-ui'
+import {EditableValue, StatedValue} from 'tocco-ui'
 import {channel} from 'redux-saga'
 import {FormattedMessage} from 'react-intl'
 
+import {StyledButton} from './StyledComponents'
 import * as actions from './actions'
 import {getFormFieldFlat, getEndpoint, changeParentFieldType} from '../../util/api/forms'
 import {setSearchFormType} from '../entityList/actions'
@@ -214,9 +215,9 @@ export function* saveSearchFilter() {
         <StatedValue label={'Name'}>
           <EditableValue type={'string'} value={name} events={{onChange: setName}}/>
         </StatedValue>
-        <Button onClick={() => onSave(name)} look={'raised'} disabled={!name}>
+        <StyledButton onClick={() => onSave(name)} look={'raised'} ink={'primary'} disabled={!name}>
           <FormattedMessage id="client.entity-list.search.settings.saveAsFilter.button"/>
-        </Button>
+        </StyledButton>
       </>
     },
     true
