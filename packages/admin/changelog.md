@@ -1,3 +1,7 @@
+0.4.43
+- Edit action only one message
+- Entity-Docs open resource in full view
+
 0.4.41
 - Change cursor to pointer on panel header/footer hover
 - Added options to create a search filter from the current search, edit or delete an existing filter
