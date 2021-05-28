@@ -56,7 +56,7 @@ export class ReportSettings extends React.Component {
           onChange={({values, valid}) => {
             this.handleSettingsChange(values, valid)
           }}
-          defaultValues={getFormDataDefaults(settingsDefinition)}
+          formData={getFormDataDefaults(settingsDefinition)}
           mode="create"
         />
         {this.customSettingsDefined
