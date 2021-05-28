@@ -19,13 +19,17 @@ echo "Matching commit: $matching_commit"
 for commit in $(git rev-list $matching_commit..HEAD)
 do
     msg="$(git log --format=%s -n 1 $commit)"
-    echo "found commit: $msg"
     full_msg="$(git log --format=%B -n 2 $commit)"
     isPublish="$(echo $msg | grep -c 'chore: publish')"
     echo "found commit $isPublish: $msg"
     if [ $isPublish == 1 ]; then
         echo "Commit '$msg' ($commit) is a release commit"
         tag_name="$(echo "$full_msg" | grep -e '- ' | sed 's/- //g')"
+
+        echo "Delete existing tag name"
+        git tag -d $tag_name
+        git push origin :refs/tags/$tag_name
+
         echo "Create tag  '$tag_name'"
         git tag -f $tag_name $commit 
     fi
