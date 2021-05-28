@@ -1,3 +1,6 @@
+0.4.45
+- Fix report settings
+
 0.4.44
 
 0.4.43
