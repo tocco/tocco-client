@@ -1,6 +1,6 @@
 0.4.37-hotfix229.4
 - Entity-Docs open resource in full view
-- Fix r
+- Fix report settings
 
 0.4.37-hotfix229.3
 - forward input props to move action
