@@ -12,7 +12,7 @@ import Menu from './Menu'
 import MenuList from './MenuList'
 import MultiValueLabel from './MultiValueLabel'
 import SingleValue from './SingleValue'
-import {reactSelectStyles, reactSelectTheme} from './StyledReactSelect'
+import {reactSelectStyles, reactSelectTheme} from './StyledComponents'
 
 const SEARCH_DEBOUNCE = 300
 

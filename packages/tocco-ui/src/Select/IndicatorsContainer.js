@@ -3,7 +3,7 @@ import {components} from 'react-select'
 import PropTypes from 'prop-types'
 
 import Ball from '../Ball'
-import {StyledIndicatorsContainerWrapper} from './StyledIndicatorsContainer'
+import {StyledIndicatorsContainerWrapper} from './StyledComponents'
 
 const handleMouseUp = (openAdvancedSearch, value) => event => {
   openAdvancedSearch(value)

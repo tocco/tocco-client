@@ -1,16 +1,51 @@
-import {
-  getLuminance
-} from 'polished'
+import styled from 'styled-components'
+import TetherComponent from 'react-tether'
+import {components} from 'react-select'
+import {getLuminance} from 'polished'
 
-import {
-  generateDisabledShade,
-  generateShades,
-  scale
-} from '../utilStyles'
+import {declareFont, generateDisabledShade, generateShades, scale, theme} from '../utilStyles'
+import {StyledScrollbar} from '../Layout'
 
-const reactSelectTheme = (theme, outerTheme) => ({
+export const StyledIndicatorsContainerWrapper = styled.div`
+  position: relative;
+  z-index: 1;
+  background-color: ${theme.color('paper')};
+`
+
+export const StyledTether = styled(TetherComponent)`
+  && {
+    z-index: 1;
+  }
+`
+
+export const StyledMenu = styled(components.Menu)`
+  && {
+    margin: 8px 0 0 -8.5px;
+    width: calc(${({wrapperWidth}) => wrapperWidth}px + 15.8px);
+    position: relative;
+
+    .tether-target-attached-top & {
+      transform: translateY(-${({wrapperHeight}) => wrapperHeight + 6}px);
+    }
+  }
+`
+
+export const StyledMoreOptionsAvailable = styled.div`
+  && {
+    ${props => declareFont(props, {
+  color: theme.color('signal.warning.text'),
+  lineHeight: 'normal'
+})}
+    cursor: default;
+    padding: ${({reactSelectTheme}) =>
+  `${reactSelectTheme.spacing.baseUnit * 2}px ${reactSelectTheme.spacing.baseUnit * 3}px`
+};
+  }
+`
+
+export const reactSelectTheme = (theme, outerTheme) => ({
   ...theme,
-  borderRadius: outerTheme.radii.regular,
+  borderRadius: 0,
   colors: {
     ...theme.colors,
     primary: outerTheme.colors.signal.info.text,
@@ -22,7 +57,7 @@ const reactSelectTheme = (theme, outerTheme) => ({
   }
 })
 
-const reactSelectStyles = outerTheme => {
+export const reactSelectStyles = outerTheme => {
   const paper = generateShades(outerTheme.colors.paper)
   const text = generateShades(outerTheme.colors.text, {
     action: getLuminance(outerTheme.colors.paper) > 0.5 ? 'darken' : 'lighten'
@@ -40,7 +75,8 @@ const reactSelectStyles = outerTheme => {
     container: (base, state) => ({
       ...base,
       ...typography,
-      outline: 0
+      outline: 0,
+      backgroundColor: 'red'
     }),
     control: (base, state) => ({
       ...base,
@@ -65,15 +101,25 @@ const reactSelectStyles = outerTheme => {
     option: (base, state) => ({
       ...base,
       'backgroundColor': state.isSelected
-        ? paper[2]
+        ? `${outerTheme.colors.secondary} !important` // force to stay on hover
         : state.isFocused
-          ? paper[1]
+          ? outerTheme.colors.secondaryLight
           : paper[0],
+      'color': state.isSelected
+        ? paper[0]
+        : state.isFocused
+          ? paper[0]
+          : text[0],
       'cursor': 'pointer',
+      ':hover': {
+        backgroundColor: outerTheme.colors.secondaryLight,
+        color: paper[0]
+      },
       ':active': {
         backgroundColor: state.isSelected
           ? paper[2]
-          : paper[1]
+          : outerTheme.colors.secondaryLight,
+        color: paper[0]
       }
     }),
     indicatorsContainer: (base, state) => ({
@@ -95,7 +141,10 @@ const reactSelectStyles = outerTheme => {
     }),
     menuList: (base, state) => ({
       ...base,
-      ...typography
+      ...typography,
+      border: `1px solid ${outerTheme.colors.secondaryLight}`,
+      padding: '0',
+      ...StyledScrollbar
     }),
     multiValue: (base, state) => ({
       ...base,
@@ -133,9 +182,4 @@ const reactSelectStyles = outerTheme => {
       overflow: 'visible'
     })
   }
-}
-
-export {
-  reactSelectStyles,
-  reactSelectTheme
 }
