@@ -1,3 +1,5 @@
+0.4.44
+
 0.4.43
 - Edit action only one message
 - Entity-Docs open resource in full view
