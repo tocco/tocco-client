@@ -27,7 +27,7 @@ do
         echo "Commit '$msg' ($commit) is a release commit"
         tag_name="$(echo "$full_msg" | grep -e '- ' | sed 's/- //g')"
         echo "Create tag  '$tag_name'"
-        git tag -a $tag_name $commit 
+        git tag -f $tag_name $commit 
     fi
 done
 echo "pushing tags..."
