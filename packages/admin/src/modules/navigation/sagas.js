@@ -3,7 +3,7 @@ import {takeLatest, call, all, put, select} from 'redux-saga/effects'
 
 import * as actions from './actions'
 
-const navigationSelector = state => state.navigation
+export const navigationSelector = state => state.navigation
 
 const preferencesKey = 'admin.activeMenu'
 
@@ -42,7 +42,7 @@ export function* initializeNavigation() {
 
 export function* saveOpenMenuPreference({payload: {activeMenuTab}}) {
   const {visibleMenus} = yield select(navigationSelector)
-  call(rest.savePreferences, {
+  yield call(rest.savePreferences, {
     [preferencesKey]: `${visibleMenus}#${activeMenuTab}`
   })
 }
