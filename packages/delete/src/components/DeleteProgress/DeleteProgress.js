@@ -10,7 +10,7 @@ import {StyledIconWrapper} from './StyledComponents'
 
 const DeleteProgress = ({dialogInfo, navigationStrategy}) => {
   return <>
-    <StyledIconWrapper >
+    <StyledIconWrapper>
       <LoadingSpinner size="30px"/>
     </StyledIconWrapper>
     <Typography.P><FormattedMessage id="client.delete.deleteInProgress"/></Typography.P>

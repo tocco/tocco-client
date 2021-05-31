@@ -5,7 +5,7 @@ import Range from './'
 
 export default {
   title: 'Tocco-UI/Range',
-  decorators: [Story => <div style={{maxWidth: '300px'}} > <Story /></div >],
+  decorators: [Story => <div style={{maxWidth: '300px'}}> <Story/></div>],
   component: Range,
   args: {value: 'Test'}
 }

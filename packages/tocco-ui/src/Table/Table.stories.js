@@ -38,10 +38,10 @@ const columnsT = [
     },
     resizable: true,
     HeaderRenderer: ({column, data}) => {
-      return <span>{column.label} <Icon icon="id-badge" /></span>
+      return <span>{column.label} <Icon icon="id-badge"/></span>
     },
     CellRenderer: ({rowData, column, props}) => {
-      return <Typography.Span>{rowData[column.id]} <Icon icon="id-badge" /></Typography.Span>
+      return <Typography.Span>{rowData[column.id]} <Icon icon="id-badge"/></Typography.Span>
     }
   }
 ]

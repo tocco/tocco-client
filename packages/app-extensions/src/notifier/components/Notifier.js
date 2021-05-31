@@ -30,7 +30,7 @@ class Notifier extends React.Component {
     return (
       <StyledNotifier>
         <div className="tocco-notifier">
-          <ReduxToastr {...this.props.toastrOptions} />
+          <ReduxToastr {...this.props.toastrOptions}/>
           <ModalDisplayContainer/>
         </div>
       </StyledNotifier>

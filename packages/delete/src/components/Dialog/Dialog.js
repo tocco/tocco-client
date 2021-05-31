@@ -17,7 +17,7 @@ const Dialog = ({
     hasUnreadableEntities
   }, doDelete, onCancel, navigationStrategy
 }) => <>
-    <Typography.P><FormattedMessage id="client.delete.confirmText" /></Typography.P>
+    <Typography.P><FormattedMessage id="client.delete.confirmText"/></Typography.P>
     <InfoPart
       key="infopart-deletable"
       rootEntities={rootEntitiesDeletable}
@@ -27,7 +27,7 @@ const Dialog = ({
     />
     {Object.keys(rootEntitiesNotDeletable).length > 0
       && <StyledSectionWrapper>
-        <Typography.P><FormattedMessage id="client.delete.textNotDeletable" /></Typography.P>
+        <Typography.P><FormattedMessage id="client.delete.textNotDeletable"/></Typography.P>
         <InfoPart
           key="infopart-notdeletable"
           rootEntities={rootEntitiesNotDeletable}
@@ -41,7 +41,7 @@ const Dialog = ({
       && <StyledSectionWrapper>
         <SignalBox
           condition="warning">
-          <Typography.Span><FormattedMessage id="client.delete.unreadableEntities" /></Typography.Span>
+          <Typography.Span><FormattedMessage id="client.delete.unreadableEntities"/></Typography.Span>
         </SignalBox>
       </StyledSectionWrapper>
     }
@@ -51,13 +51,13 @@ const Dialog = ({
           onClick={doDelete}
           disabled={Object.keys(rootEntitiesDeletable).length === 0}
         >
-          <FormattedMessage id="client.delete.deleteButton" />
+          <FormattedMessage id="client.delete.deleteButton"/>
         </Button>
         <Button
           ink="primary"
           onClick={onCancel}
         >
-          <FormattedMessage id="client.delete.cancelButton" />
+          <FormattedMessage id="client.delete.cancelButton"/>
         </Button>
       </StyledButtonsWrapper>
     </StyledSectionWrapper>

@@ -23,7 +23,7 @@ describe('tocco-ui', () => {
           onBlur: blurSpy,
           onFocus: focusSpy
         }
-        const wrapper = mount(<TypeEditorFactory type="string" value="test" events={events} />)
+        const wrapper = mount(<TypeEditorFactory type="string" value="test" events={events}/>)
 
         wrapper.find('input').first().simulate('focus')
         expect(focusSpy).to.have.calledOnce

@@ -14,7 +14,7 @@ export const Basic = () => {
     value={value}
     onChange={setValue}
   >
-    <Button icon="calendar" />
+    <Button icon="calendar"/>
     {value}
   </DatePicker>
 }

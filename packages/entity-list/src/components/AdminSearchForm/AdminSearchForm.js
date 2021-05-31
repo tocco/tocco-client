@@ -95,7 +95,7 @@ const AdminSearchForm = ({
         gutter={getGutter()}
       >
         <Box>
-          <SearchFilterList />
+          <SearchFilterList/>
         </Box>
         <Box>
           <BasicSearchFormContainer disableSimpleSearch={true}/>

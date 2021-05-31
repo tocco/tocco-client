@@ -40,7 +40,7 @@ export const Upload = props => {
   }, [value])
 
   if (value && value.binaryLink) {
-    return <View {...props} deleteTitle={textResources.delete} downloadTitle={textResources.download} />
+    return <View {...props} deleteTitle={textResources.delete} downloadTitle={textResources.download}/>
   } else if (states.isUploading) {
     return <UploadProgress file={states.previewFile} text={textResources.uploading} {...props}/>
   }

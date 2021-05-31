@@ -9,7 +9,7 @@ describe('tocco-ui', () => {
     test('should render input', () => {
       const cb = sinon.spy()
       const wrapper = mount(
-        <MultiCheckbox onChange={cb} />
+        <MultiCheckbox onChange={cb}/>
       )
       expect(wrapper.find('input')).to.have.lengthOf(1)
     })
@@ -17,7 +17,7 @@ describe('tocco-ui', () => {
     test('should call onChange(\'checked\') on status unchecked', () => {
       const cb = sinon.spy()
       const wrapper = mount(
-        <MultiCheckbox value="unchecked" onChange={cb} />
+        <MultiCheckbox value="unchecked" onChange={cb}/>
       )
       wrapper.find('input').simulate('change', {target: {checked: true}})
       expect(cb).to.be.calledOnce

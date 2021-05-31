@@ -9,7 +9,7 @@ import {
 } from 'tocco-ui'
 
 const PanelHeaderContent = ({color, label}) =>
-  <Typography.Span >
+  <Typography.Span>
     <Icon
       icon={color ? 'square-full' : 'square'}
       aria-hidden="true"

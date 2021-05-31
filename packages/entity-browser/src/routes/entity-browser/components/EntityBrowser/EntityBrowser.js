@@ -9,7 +9,7 @@ const EntityBrowser = ({routes}) =>
   <StyledEntityBrowser>
     <notifier.Notifier/>
     {routes.map((route, i) => (
-      <RouteWithSubRoutes key={i} {...route} />
+      <RouteWithSubRoutes key={i} {...route}/>
     ))
     }
   </StyledEntityBrowser>

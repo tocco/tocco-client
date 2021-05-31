@@ -100,7 +100,7 @@ class SelectStory extends React.Component {
           tooltips={this.state.tooltips}
           value={this.state.valueMulti}
           DetailLink={({entityKey, children}) =>
-            <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer" >{children}</a>
+            <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">{children}</a>
           }
         />
       </div>

@@ -72,7 +72,7 @@ const Header = ({
 
   return <>
     <StyledBackgroundLogo runEnv={runEnv}/>
-    <StyledBackgroundCover />
+    <StyledBackgroundCover/>
     <StyledHeader>
       <StyledConfig>
         <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>

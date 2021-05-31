@@ -157,7 +157,7 @@ const DocsView = props => {
 
   return (
     <>
-      <Suspense fallback={<LoadMask />}>
+      <Suspense fallback={<LoadMask/>}>
         <LazyListApp
           key={entityListKey}
           id="documents"
@@ -179,7 +179,7 @@ const DocsView = props => {
             'dms-label-with-icon': (rowData, column, cellRenderer) => (
               <StyledContentWrapper>
                 <StyledIconWrapper>
-                  <Icon icon={ICONS[rowData.type]} />
+                  <Icon icon={ICONS[rowData.type]}/>
                 </StyledIconWrapper>
                 <span>{cellRenderer(column.children[0])}</span>
               </StyledContentWrapper>
@@ -208,7 +208,7 @@ const DocsView = props => {
           sortable={sortable}
         />
       </Suspense>
-      <FileInput />
+      <FileInput/>
     </>
   )
 }

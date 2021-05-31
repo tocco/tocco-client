@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import {StyledInputCss} from '../StyledEditableValue'
 
-const StyledTextareaAutosize = styled(({immutable, ...rest}) => <TextareaAutosize {...rest} />)`
+const StyledTextareaAutosize = styled(({immutable, ...rest}) => <TextareaAutosize {...rest}/>)`
   && {
     ${StyledInputCss}
     padding-top: 2px;

@@ -8,6 +8,6 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export default Story => <div>
-  <GlobalStyle />
-  <Story />
+  <GlobalStyle/>
+  <Story/>
 </div>

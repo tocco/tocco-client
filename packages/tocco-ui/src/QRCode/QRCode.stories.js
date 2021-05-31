@@ -8,4 +8,4 @@ export default {
   args: {value: 'Test'}
 }
 
-export const Basic = args => <QRCode {...args} />
+export const Basic = args => <QRCode {...args}/>
