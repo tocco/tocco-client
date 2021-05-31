@@ -64,7 +64,7 @@ export const StyledTabsContainer = styled.div`
 `
 
 export const StyledNavButton = styled(Button)`
-  flex: 1;
+  flex: ${({narrow}) => narrow ? 0.2 : 1};
   justify-content: center;
   border-radius: 0;
   margin: 5px;
