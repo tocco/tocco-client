@@ -1,4 +1,4 @@
-0.4.45
+0.4.46
 - Adjust spacing and alignment of button inside modal
 
 0.4.45
