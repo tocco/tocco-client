@@ -26,9 +26,9 @@ do
         echo "Commit '$msg' ($commit) is a release commit"
         tag_name="$(echo "$full_msg" | grep -e '- ' | sed 's/- //g')"
 
-        echo "Delete existing tag name"
-        git tag -d $tag_name
-        git push origin :refs/tags/$tag_name
+        echo "Delete existing tag _$tag_name"
+        git tag -d _$tag_name
+        git push origin :refs/tags/_$tag_name
 
         echo "Create tag  '$tag_name'"
         git tag -f $tag_name $commit 
