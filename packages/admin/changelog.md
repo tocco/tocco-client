@@ -1,4 +1,7 @@
 0.4.45
+- Adjust spacing and alignment of button inside modal
+
+0.4.45
 - Fix report settings
 
 0.4.44
