@@ -27,10 +27,10 @@ export function* promptConfirm(count) {
 
   yield put(
     notifier.confirm(
-      <FormattedMessage id="client.component.actions.confirmTitle" />,
-      <FormattedMessage id="client.component.actions.largeSelectionConfirm" values={{count}} />,
-      <FormattedMessage id="client.common.yes" />,
-      <FormattedMessage id="client.common.cancel" />,
+      <FormattedMessage id="client.component.actions.confirmTitle"/>,
+      <FormattedMessage id="client.component.actions.largeSelectionConfirm" values={{count}}/>,
+      <FormattedMessage id="client.common.yes"/>,
+      <FormattedMessage id="client.common.cancel"/>,
       onYes,
       onCancel
     )

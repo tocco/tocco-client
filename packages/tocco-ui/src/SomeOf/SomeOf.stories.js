@@ -11,4 +11,4 @@ export default {
   }
 }
 
-export const Basic = args => <SomeOf {...args} />
+export const Basic = args => <SomeOf {...args}/>

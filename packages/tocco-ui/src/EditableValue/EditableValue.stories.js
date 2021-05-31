@@ -14,7 +14,7 @@ const StyledDecorator = styled.div`
 export default {
   title: 'Tocco-UI/EditableValue',
   component: EditableValue,
-  decorators: [Story => <StyledDecorator><Story /></StyledDecorator>],
+  decorators: [Story => <StyledDecorator><Story/></StyledDecorator>],
   argTypes: {
     type: {control: false},
     events: {control: false}

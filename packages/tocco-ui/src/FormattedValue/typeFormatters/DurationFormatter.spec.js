@@ -16,7 +16,7 @@ describe('tocco-ui', () => {
           const durationFormatedS = '00:01:23'
 
           const wrapper = mount(<IntlProvider locale="de"><DurationFormatter
-            value={durationMilliseconds} /></IntlProvider>)
+            value={durationMilliseconds}/></IntlProvider>)
 
           expect(wrapper.text().replace(leftToRightMark, '')).to.equal(durationFormatedS)
         })

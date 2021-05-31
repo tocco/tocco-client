@@ -16,22 +16,22 @@ export const Basic = () => <div>
   <Typography.H6>Heading 6 <Typography.Small>Small byline</Typography.Small></Typography.H6>
   <Typography.H1 styledLike="H3">H1 styled Like H3</Typography.H1>
   <Typography.P>&lt;P&gt;Laborum est molLit&lt;/P&gt;</Typography.P>
-        &lt;Span&gt;<Typography.Span>Laborum est molLit</Typography.Span>&lt;/Span&gt;<br />
-        &lt;B&gt;<Typography.B>Laborum est molLit</Typography.B>&lt;/B&gt;<br />
-        &lt;Strong&gt;<Typography.Strong>Laborum est molLit</Typography.Strong>&lt;/Strong&gt;<br />
-        &lt;I&gt;<Typography.I>Laborum est molLit</Typography.I>&lt;/I&gt;<br />
-        &lt;Em&gt;<Typography.Em>Laborum est molLit</Typography.Em>&lt;/Em&gt;<br />
-        &lt;U&gt;<Typography.U>Laborum est molLit</Typography.U>&lt;/U&gt;<br />
-        &lt;S&gt;<Typography.S>Laborum est molLit</Typography.S>&lt;/S&gt;<br />
-        &lt;Del&gt;<Typography.Del>Laborum est molLit</Typography.Del>&lt;/Del&gt;<br />
-        &lt;Ins&gt;<Typography.Ins>Laborum est molLit</Typography.Ins>&lt;/Ins&gt;<br />
-        &lt;Sup&gt;<Typography.Sup>Laborum est molLit</Typography.Sup>&lt;/Sup&gt;<br />
-        &lt;Sub&gt;<Typography.Sub>Laborum est molLit</Typography.Sub>&lt;/Sub&gt;<br />
-        &lt;Q&gt;<Typography.Q>Laborum est molLit</Typography.Q>&lt;/Q&gt;<br />
-        &lt;Var&gt;<Typography.Var>Laborum est molLit</Typography.Var>&lt;/Var&gt;<br />
-        &lt;Code&gt;<Typography.Code>Laborum est molLit</Typography.Code>&lt;/Code&gt;<br />
-        &lt;Kbd&gt;<Typography.Kbd>CMD & A</Typography.Kbd>&lt;/Kbd&gt;<br />
-        &lt;Mark&gt;<Typography.Mark>Laborum est molLit</Typography.Mark>&lt;/Mark&gt;<br />
+        &lt;Span&gt;<Typography.Span>Laborum est molLit</Typography.Span>&lt;/Span&gt;<br/>
+        &lt;B&gt;<Typography.B>Laborum est molLit</Typography.B>&lt;/B&gt;<br/>
+        &lt;Strong&gt;<Typography.Strong>Laborum est molLit</Typography.Strong>&lt;/Strong&gt;<br/>
+        &lt;I&gt;<Typography.I>Laborum est molLit</Typography.I>&lt;/I&gt;<br/>
+        &lt;Em&gt;<Typography.Em>Laborum est molLit</Typography.Em>&lt;/Em&gt;<br/>
+        &lt;U&gt;<Typography.U>Laborum est molLit</Typography.U>&lt;/U&gt;<br/>
+        &lt;S&gt;<Typography.S>Laborum est molLit</Typography.S>&lt;/S&gt;<br/>
+        &lt;Del&gt;<Typography.Del>Laborum est molLit</Typography.Del>&lt;/Del&gt;<br/>
+        &lt;Ins&gt;<Typography.Ins>Laborum est molLit</Typography.Ins>&lt;/Ins&gt;<br/>
+        &lt;Sup&gt;<Typography.Sup>Laborum est molLit</Typography.Sup>&lt;/Sup&gt;<br/>
+        &lt;Sub&gt;<Typography.Sub>Laborum est molLit</Typography.Sub>&lt;/Sub&gt;<br/>
+        &lt;Q&gt;<Typography.Q>Laborum est molLit</Typography.Q>&lt;/Q&gt;<br/>
+        &lt;Var&gt;<Typography.Var>Laborum est molLit</Typography.Var>&lt;/Var&gt;<br/>
+        &lt;Code&gt;<Typography.Code>Laborum est molLit</Typography.Code>&lt;/Code&gt;<br/>
+        &lt;Kbd&gt;<Typography.Kbd>CMD & A</Typography.Kbd>&lt;/Kbd&gt;<br/>
+        &lt;Mark&gt;<Typography.Mark>Laborum est molLit</Typography.Mark>&lt;/Mark&gt;<br/>
   <Typography.Figcaption>&lt;Figcaption&gt;Laborum est molLit&lt;/Figcaption&gt;</Typography.Figcaption>
   <Typography.Time dateTime="15:13:00">15:13:00</Typography.Time>
   <Typography.Pre>&lt;Pre&gt;Laborum est molLit&lt;Pre&gt;</Typography.Pre>

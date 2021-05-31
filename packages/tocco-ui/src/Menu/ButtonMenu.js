@@ -39,7 +39,7 @@ const ButtonMenu = props => {
     return <>
       <ButtonGroup ref={referenceElement}>
         <Button {...buttonProps || {}} onClick={onClick} label={label} data-cy={props['data-cy']}/>
-        <StyledIconButtonWrapper icon={chevronIcon} onClick={handleClick} {...buttonProps || {}} />
+        <StyledIconButtonWrapper icon={chevronIcon} onClick={handleClick} {...buttonProps || {}}/>
       </ButtonGroup>
       {menuOpen && <ThisMenu/>}
     </>

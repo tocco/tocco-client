@@ -180,8 +180,8 @@ const FullCalendar = ({
       }}
     />, [resources.length])
 
-  return <StyledFullCalendarWrapper ref={wrapperEl} >
-    <CalendarGlobalPrintStyle />
+  return <StyledFullCalendarWrapper ref={wrapperEl}>
+    <CalendarGlobalPrintStyle/>
     {calendarEl.current && <NavigationFullCalendar
       changeRange={changeRange}
       changeView={changeView}

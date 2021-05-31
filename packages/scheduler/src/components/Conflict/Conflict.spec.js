@@ -8,7 +8,7 @@ describe('scheduler', () => {
   describe('components', () => {
     describe('Conflict', () => {
       test('should return null if conflictstatus is undefined', () => {
-        const wrapper = shallow(<Conflict intl={IntlStub} />)
+        const wrapper = shallow(<Conflict intl={IntlStub}/>)
         expect(wrapper.type()).to.be.null
       })
 

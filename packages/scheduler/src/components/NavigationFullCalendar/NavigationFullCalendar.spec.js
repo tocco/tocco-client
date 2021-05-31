@@ -34,7 +34,7 @@ describe('scheduler', () => {
             type: 'timelineWeek'
           }
 
-          const wrapper = enzymeUtil.mountEmbedded(<NavigationFullCalendar {...mockProps} />)
+          const wrapper = enzymeUtil.mountEmbedded(<NavigationFullCalendar {...mockProps}/>)
           expect(wrapper.find(Button)).to.have.length(7)
           wrapper.find('button').map(button => button.simulate('click'))
           expect(changeRange).to.have.property('callCount', 3)

@@ -14,21 +14,21 @@ export default {
 export const Basic = () => (
   <div>
     <Layout.Container>
-      <Layout.Box><ExampleCell /></Layout.Box>
-      <Layout.Box><ExampleCell /></Layout.Box>
-      <Layout.Box><ExampleCell /></Layout.Box>
-      <Layout.Box><ExampleCell /></Layout.Box>
-      <Layout.Box><ExampleCell /></Layout.Box>
-      <Layout.Box><ExampleCell /></Layout.Box>
-      <Layout.Box><ExampleCell /></Layout.Box>
-      <Layout.Box><ExampleCell /></Layout.Box>
-      <Layout.Box><ExampleCell /></Layout.Box>
+      <Layout.Box><ExampleCell/></Layout.Box>
+      <Layout.Box><ExampleCell/></Layout.Box>
+      <Layout.Box><ExampleCell/></Layout.Box>
+      <Layout.Box><ExampleCell/></Layout.Box>
+      <Layout.Box><ExampleCell/></Layout.Box>
+      <Layout.Box><ExampleCell/></Layout.Box>
+      <Layout.Box><ExampleCell/></Layout.Box>
+      <Layout.Box><ExampleCell/></Layout.Box>
+      <Layout.Box><ExampleCell/></Layout.Box>
     </Layout.Container>
 
     <Layout.Container>
-      <Layout.Box><ExamplePanel1 /></Layout.Box>
-      <Layout.Box><ExamplePanel2 /></Layout.Box>
-      <Layout.Box><ExamplePanel3 /></Layout.Box>
+      <Layout.Box><ExamplePanel1/></Layout.Box>
+      <Layout.Box><ExamplePanel2/></Layout.Box>
+      <Layout.Box><ExamplePanel3/></Layout.Box>
     </Layout.Container>
   </div>
 )

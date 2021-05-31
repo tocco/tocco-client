@@ -24,8 +24,8 @@ export function getInfoAction(uncheckedType, title, message, icon, timeOut) {
 
   const options = {
     attention: false,
-    component: () => <TitleMessage title={title} message={message} />,
-    icon: <Icon icon={icon || typeIconMap[type] || 'info'} />,
+    component: () => <TitleMessage title={title} message={message}/>,
+    icon: <Icon icon={icon || typeIconMap[type] || 'info'}/>,
     preventDuplicates: true,
     removeOnHover: isNotWarningNorErrorAndDoesTimeOut(type, timeOut),
     removeOnHoverTimeOut: isWarningOrError(type) ? 0 : timeOut,
@@ -77,7 +77,7 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
         close()
       }
     }]
-    return <ModalButtons buttons={buttons} />
+    return <ModalButtons buttons={buttons}/>
   }
 
   Content.propTypes = {close: PropTypes.func.isRequired}
@@ -118,7 +118,7 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
 
     Content.propTypes = {close: PropTypes.func.isRequired}
 
-    return <ModalButtons buttons={buttons} />
+    return <ModalButtons buttons={buttons}/>
   }
 
   return modalComponent(
@@ -133,8 +133,8 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
 export function getBlockingInfo(id, title, message) {
   const options = {
     attention: true,
-    component: () => <TitleMessage title={title} message={message} />,
-    icon: <LoadingSpinner />,
+    component: () => <TitleMessage title={title} message={message}/>,
+    icon: <LoadingSpinner/>,
     onAttentionClick: () => {},
     preventDuplicates: true,
     showCloseButton: false,

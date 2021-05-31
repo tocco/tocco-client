@@ -19,4 +19,4 @@ const mapStateToProps = state => ({
 
 const MoveContainer = connect(mapStateToProps, mapActionCreators)(MoveAction)
 
-export default injectIntl(props => <MoveContainer {...props} />)
+export default injectIntl(props => <MoveContainer {...props}/>)

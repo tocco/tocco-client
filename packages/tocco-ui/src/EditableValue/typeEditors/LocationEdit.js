@@ -94,7 +94,7 @@ class LocationEdit extends React.Component {
               shouldRenderSuggestions={v => v && !this.props.immutable}
             />
             <StyledEditableControl>
-              {this.props.options.isLoading && <LoadingSpinner size="1.8rem" />}
+              {this.props.options.isLoading && <LoadingSpinner size="1.8rem"/>}
               {this.showGoogleMaps(this.props.value)
                 && <Link
                   href={getGoogleMapsAddress(this.props.value)}

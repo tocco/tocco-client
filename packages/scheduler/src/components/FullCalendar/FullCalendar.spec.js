@@ -53,7 +53,7 @@ describe('scheduler', () => {
 
       test('should show events', () => {
         const wrapper = enzymeUtil.mountEmbedded(
-          <FullCalendar locale="de" {...baseProps} resources={mockResources} />
+          <FullCalendar locale="de" {...baseProps} resources={mockResources}/>
         )
         wrapper.setProps({events: mockEvents})
         // its not possible to check for updated events

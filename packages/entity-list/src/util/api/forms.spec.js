@@ -190,7 +190,7 @@ describe('entity-list', () => {
 
             const cellRenderers = {
               'my-test-renderer': (rowData, column, defaultRenderer) => {
-                return <CustomComponent text={rowData.text} />
+                return <CustomComponent text={rowData.text}/>
               }
             }
 
@@ -206,7 +206,7 @@ describe('entity-list', () => {
               }
             })
 
-            expect(result).to.eql(<CustomComponent text="foo" />)
+            expect(result).to.eql(<CustomComponent text="foo"/>)
           })
 
           test('should set columns as not sortable if set', () => {

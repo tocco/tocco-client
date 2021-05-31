@@ -34,7 +34,7 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = <EntityList />
+  const content = <EntityList/>
 
   let store = input.store
 

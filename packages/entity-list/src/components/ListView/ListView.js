@@ -45,7 +45,7 @@ const ListView = ({
     if (formDefinition) {
       const actionBar = getActionBar(formDefinition)
       const content = [
-        ...(showSelectionController ? [<SelectionControllerContainer key="selectionController" />] : []),
+        ...(showSelectionController ? [<SelectionControllerContainer key="selectionController"/>] : []),
         ...(showActions !== false && actionBar
           ? [<ActionContainer
             key={`listAction-${actionBar.id}`}

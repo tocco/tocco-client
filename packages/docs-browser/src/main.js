@@ -80,14 +80,14 @@ const initApp = (id, input, events = {}, publicPath) => {
 
   const content = (
     <ReactRouter history={history}>
-      {handleNotifications && <notifier.Notifier />}
-      <DocsBrowser history={history} />
+      {handleNotifications && <notifier.Notifier/>}
+      <DocsBrowser history={history}/>
       <Route exact path="/">
-        <Redirect to={startUrl} />
+        <Redirect to={startUrl}/>
       </Route>
       {singleRootNode && (
         <Route exact path="/docs">
-          <Redirect to={startUrl} />
+          <Redirect to={startUrl}/>
         </Route>
       )}
     </ReactRouter>

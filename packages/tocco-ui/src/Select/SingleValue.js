@@ -21,7 +21,7 @@ export const SingleValue = props => {
     ? <ClickableWrapper onMouseDown={e => {
       e.stopPropagation()
       e.preventDefault()
-    }} >
+    }}>
       <DetailLink entityKey={data.key}>{children}</DetailLink>
     </ClickableWrapper>
     : children

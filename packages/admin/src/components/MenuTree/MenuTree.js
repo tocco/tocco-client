@@ -33,7 +33,7 @@ const MenuItem = ({item, typeMapping}) => {
   const Component = mappedType.component
   return <StyledMenuEntry {...item}>
     <Component item={item} {...mappedType.props}/>
-    {item.children && item.children.map(child => <MenuItem key={child.name} item={child} typeMapping={typeMapping} />)}
+    {item.children && item.children.map(child => <MenuItem key={child.name} item={child} typeMapping={typeMapping}/>)}
   </StyledMenuEntry>
 }
 

@@ -24,7 +24,7 @@ const FullTextSearchForm = props => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field name="txtFulltext" component={field} />
+      <Field name="txtFulltext" component={field}/>
     </form>
   )
 }
