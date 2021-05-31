@@ -14,6 +14,7 @@ export function* emitAction(configs, {payload}) {
     config =>
       config.key === event.key
       && (!config.ctrl || (event.ctrlKey || event.metaKey))
+      && (!config.alt || (event.altKey))
       && event.global === config.global
   )
 
