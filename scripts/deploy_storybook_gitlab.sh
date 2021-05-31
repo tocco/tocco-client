@@ -2,11 +2,8 @@
 set -eu # Exit with nonzero exit code if anything fails
 PAGES_BRANCH="gh-pages"
 
-echo "Setup ssh"
-eval `ssh-agent -s`
-ssh-add <(echo "$GITHUB_DEPLOY_PRIVATE_KEY" | base64 -d)
-mkdir -p ~/.ssh
-echo "github.com ssh-rsa ${GITHUB_PUBLIC_KEY}" >>~/.ssh/known_hosts
+source ./scripts/github.sh
+setupGithub
 
 echo "Clone ${PAGES_BRANCH} branch"
 cd dist

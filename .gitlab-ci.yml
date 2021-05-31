@@ -18,6 +18,7 @@ stages:
   - quality
   - build
   - pullrequest
+  - release
   - onschedule
 
 yarn_setup:
@@ -60,7 +61,7 @@ storybook:
     - apk update && apk add bash && apk add openssh-client && apk add git
   script:
     - BACKEND=https://master.tocco.ch yarn build-storybook
-    - deployment/deploy_storybook_gitlab.sh
+    - scripts/deploy_storybook_gitlab.sh
 
 storybook-link:
   stage: pullrequest
@@ -70,7 +71,7 @@ storybook-link:
   only:
     - external_pull_requests
   script:
-    - deployment/storybook_link_gitlab.sh
+    - scripts/storybook_link_gitlab.sh
 
 cypress:
   stage: onschedule
@@ -82,3 +83,13 @@ cypress:
   script:
     - npm rebuild cypress
     - yarn cypress:master:record --parallel
+
+tagging:
+  stage: release
+  only:
+    - master
+    - /^nice-releases\/[0-9]+$/
+  before_script:
+    - apk update && apk add bash && apk add curl && apk add git && apk add openssh-client
+  script:
+    - ./scripts/tagging.sh
