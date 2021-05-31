@@ -14,6 +14,12 @@ export function* loadNavigation() {
 
   const settingsMenu = yield call(loadMenu, 'settings')
   yield put(actions.setSettingsMenuTree(settingsMenu))
+
+  const systemMenu = yield call(loadMenu, 'system')
+  yield put(actions.setSystemMenuTree(systemMenu))
+
+  const completeMenu = yield call(loadMenu, 'all')
+  yield put(actions.setCompleteMenuTree(completeMenu))
 }
 
 export default function* mainSagas() {

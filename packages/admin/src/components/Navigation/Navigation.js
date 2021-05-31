@@ -58,17 +58,23 @@ ActionMenuEntry.propTypes = {
 
 const tabs = {
   MODULES: 'modules',
-  SETTINGS: 'settings'
+  SETTINGS: 'settings',
+  SYSTEM: 'system',
+  COMPLETE: 'complete'
 }
 
 const Navigation = ({
   modulesMenuTree,
   settingsMenuTree,
+  systemMenuTree,
+  completeMenuTree,
   menuOpen,
   onClick,
   activeMenuTab,
   setActiveMenuTab,
-  intl
+  intl,
+  setVisibleMenus,
+  visibleMenus
 }) => {
   const inputEl = useRef(null)
   const navigationEl = useRef(null)
@@ -126,16 +132,44 @@ const Navigation = ({
 
   return <StyledNav ref={navigationEl} onKeyDown={onKeyDown}>
     <StyledTabsContainer>
-      <StyledNavButton
-        active={activeMenuTab === tabs.MODULES}
-        onClick={() => setActiveMenuTab(tabs.MODULES)}
-        label={msg('client.admin.navigation.modules')}
-      />
-      <StyledNavButton
-        active={activeMenuTab === tabs.SETTINGS}
-        onClick={() => setActiveMenuTab(tabs.SETTINGS)}
-        label={msg('client.admin.navigation.settings')}
-      />
+      {visibleMenus === 'main'
+      && <StyledNavButton
+        active={false}
+        onClick={() => setVisibleMenus('additional')}
+        label={'>'}
+        narrow={true}
+      />}
+      {visibleMenus === 'main'
+        && <StyledNavButton
+          active={activeMenuTab === tabs.MODULES}
+          onClick={() => setActiveMenuTab(tabs.MODULES)}
+          label={msg('client.admin.navigation.modules')}
+        />}
+      {visibleMenus === 'main'
+        && <StyledNavButton
+          active={activeMenuTab === tabs.SETTINGS}
+          onClick={() => setActiveMenuTab(tabs.SETTINGS)}
+          label={msg('client.admin.navigation.settings')}
+        />}
+      {visibleMenus === 'additional'
+        && <StyledNavButton
+          active={false}
+          onClick={() => setVisibleMenus('main')}
+          label={'<'}
+          narrow={true}
+        />}
+      {visibleMenus === 'additional'
+        && <StyledNavButton
+        active={activeMenuTab === tabs.SYSTEM}
+        onClick={() => setActiveMenuTab(tabs.SYSTEM)}
+        label={msg('client.admin.navigation.system')}
+        />}
+      {visibleMenus === 'additional'
+        && <StyledNavButton
+        active={activeMenuTab === tabs.COMPLETE}
+        onClick={() => setActiveMenuTab(tabs.COMPLETE)}
+        label={msg('client.admin.navigation.complete')}
+        />}
     </StyledTabsContainer>
     <StyledSearchBoxWrapper>
       <SearchBox
@@ -154,6 +188,14 @@ const Navigation = ({
     && <StyledMenuWrapper>
       <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={map}/>
     </StyledMenuWrapper>}
+    {activeMenuTab === tabs.SYSTEM
+    && <StyledMenuWrapper>
+      <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={map}/>
+    </StyledMenuWrapper>}
+    {activeMenuTab === tabs.COMPLETE
+    && <StyledMenuWrapper>
+      <MenuTree items={completeMenuTree} searchFilter={filter} typeMapping={map} requireSearch={true}/>
+    </StyledMenuWrapper>}
   </StyledNav>
 }
 
@@ -162,9 +204,13 @@ Navigation.propTypes = {
   activeMenuTab: PropTypes.string.isRequired,
   settingsMenuTree: PropTypes.array,
   modulesMenuTree: PropTypes.array,
+  systemMenuTree: PropTypes.array,
+  completeMenuTree: PropTypes.array,
   onClick: PropTypes.func,
   setActiveMenuTab: PropTypes.func,
-  menuOpen: PropTypes.bool
+  menuOpen: PropTypes.bool,
+  visibleMenus: PropTypes.string,
+  setVisibleMenus: PropTypes.func
 }
 
 export default Navigation
