@@ -12,11 +12,11 @@ const StyledDiv = styled.div`
 
 const KeyDownWatcher = ({children, keyDownHandler}) => {
   const onKeyDown = event => {
-    keyDownHandler({..._pick(event, ['metaKey', 'ctrlKey', 'key'])})
+    keyDownHandler({..._pick(event, ['altKey', 'metaKey', 'ctrlKey', 'key'])})
   }
 
   const onDocumentKeyDown = event => {
-    keyDownHandler({..._pick(event, ['metaKey', 'ctrlKey', 'key']), global: true})
+    keyDownHandler({..._pick(event, ['altKey', 'metaKey', 'ctrlKey', 'key']), global: true})
   }
 
   useEffect(() => {
