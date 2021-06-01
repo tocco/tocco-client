@@ -43,6 +43,7 @@
                 "label": "Simple Action",
                 "icon": null,
                 "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
+                "confirmationThreshold": 5,
                 "endpoint": "actions/simpleAction"
               },
               {
@@ -60,10 +61,10 @@
                 "componentType": "action",
                 "actionType": "simple",
                 "readonly": false,
-                "label": "Confirm Simple Action",
+                "label": "Confirm Simple Action (no threshold confirm)",
                 "icon": null,
-                "showConfirmMessage": true,
-                "endpoint": "actions/simpleActionConfirm"
+                "endpoint": "actions/simpleActionConfirm",
+                "confirmationThreshold": -1
               },
               {
                 "componentType": "action",
@@ -133,8 +134,6 @@
                 "icon": "file-pdf",
                 "minSelection": null,
                 "maxSelection": null,
-                "showConfirmMessage": false,
-                "confirmationMessageText": null,
                 "reportId": "sample_report"
               },
               {
@@ -146,9 +145,6 @@
                 "icon": "file-excel",
                 "minSelection": null,
                 "maxSelection": null,
-                "showConfirmMessage": false,
-                "confirmationMessageText": null,
-                "confirmationMessageText": null,
                 "reportId": "invalid_settings_report"
               },
               {
@@ -160,7 +156,6 @@
                 "icon": "file-alt",
                 "minSelection": null,
                 "maxSelection": null,
-                "showConfirmMessage": false,
                 "reportId": "generate_fails_report"
               }
             ]
