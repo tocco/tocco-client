@@ -1,17 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {design} from 'tocco-ui'
 
-import {StyledModalButtonWrapper, StyledModalButton} from './StyledComponents'
+import {StyledModalButton, StyledModalButtonWrapper} from './StyledComponents'
 
 const ModalButtons = ({buttons}) => (
   <StyledModalButtonWrapper>
     {buttons.map((button, i) => <StyledModalButton
-        {...(button.primary ? {ink: design.ink.PRIMARY} : {})}
-        key={i}
-        label={button.label}
-        onClick={button.callback}
-      />
+      {...(button.primary ? {ink: design.ink.PRIMARY} : {})}
+      key={i}
+      label={button.label}
+      onClick={button.callback}
+    />
     )}
   </StyledModalButtonWrapper>
 )
@@ -19,7 +19,7 @@ const ModalButtons = ({buttons}) => (
 ModalButtons.propTypes = {
   buttons: PropTypes.arrayOf(
     PropTypes.shape({
-      label: PropTypes.string.isRequired,
+      label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
       primary: PropTypes.bool,
       callback: PropTypes.func.isRequired
     })
