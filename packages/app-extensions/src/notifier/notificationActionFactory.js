@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {actions as toastrActions} from 'react-redux-toastr'
 import {v4 as uuid} from 'uuid'
@@ -24,8 +24,8 @@ export function getInfoAction(uncheckedType, title, message, icon, timeOut) {
 
   const options = {
     attention: false,
-    component: () => <TitleMessage title={title} message={message}/>,
-    icon: <Icon icon={icon || typeIconMap[type] || 'info'}/>,
+    component: () => <TitleMessage title={title} message={message} />,
+    icon: <Icon icon={icon || typeIconMap[type] || 'info'} />,
     preventDuplicates: true,
     removeOnHover: isNotWarningNorErrorAndDoesTimeOut(type, timeOut),
     removeOnHoverTimeOut: isWarningOrError(type) ? 0 : timeOut,
@@ -45,6 +45,24 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
   const id = uuid()
 
   const Content = ({close}) => {
+    const handleKeyDown = event => {
+      if (event.key === 'Enter') {
+        event.preventDefault()
+        onOk()
+        close()
+      } else if (event.key === 'Escape') {
+        onCancel()
+        close()
+      }
+    }
+    useEffect(() => {
+      document.addEventListener('keydown', handleKeyDown)
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown)
+      }
+    }, [])
+
     const buttons = [{
       label: okText,
       primary: true,
@@ -115,8 +133,8 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
 export function getBlockingInfo(id, title, message) {
   const options = {
     attention: true,
-    component: () => <TitleMessage title={title} message={message}/>,
-    icon: <LoadingSpinner/>,
+    component: () => <TitleMessage title={title} message={message} />,
+    icon: <LoadingSpinner />,
     onAttentionClick: () => {},
     preventDuplicates: true,
     showCloseButton: false,
