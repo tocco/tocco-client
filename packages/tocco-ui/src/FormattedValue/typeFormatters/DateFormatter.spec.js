@@ -1,6 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import {addLocaleData, IntlProvider} from 'react-intl'
+import {IntlProvider} from 'react-intl'
 
 import DateFormatter from './DateFormatter'
 
@@ -8,14 +8,6 @@ describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('DateFormatter ', () => {
-        beforeAll(function() {
-          require('intl/locale-data/jsonp/en.js')
-          require('intl/locale-data/jsonp/de.js')
-          const en = require('react-intl/locale-data/en')
-          const de = require('react-intl/locale-data/de')
-          addLocaleData([...en, ...de])
-        })
-
         const leftToRightMark = /\u200E/g // required for browser Edge
         const dateInput = '1976-11-16'
         const dateOutputIso = '1976-11-16'

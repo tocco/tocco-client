@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 
 import getNode from '../../../utils/getNode'
 
@@ -49,7 +49,7 @@ CreateDomain.propTypes = {
     }).isRequired
   }).isRequired,
   onSuccess: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   emitAction: PropTypes.func.isRequired
 }
 

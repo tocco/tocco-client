@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button, Typography, Icon} from 'tocco-ui'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 
 import {StyledButtonWrapper} from '../GlobalStyledComponents'
 import {StyledMessageWrapper, StyledIconWrapper, StyledTextWrapper} from './StyledComponents'
@@ -59,7 +59,7 @@ const Result = ({success, goToStart, setupSuccessful, intl}) => {
 }
 
 Result.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   success: PropTypes.func.isRequired,
   goToStart: PropTypes.func.isRequired,
   setupSuccessful: PropTypes.bool

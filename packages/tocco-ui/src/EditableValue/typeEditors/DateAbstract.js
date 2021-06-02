@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 import _isEqual from 'lodash/isEqual'
 import {withTheme} from 'styled-components'
 import {js} from 'tocco-util'
@@ -209,7 +209,7 @@ class DateAbstract extends React.Component {
 
 DateAbstract.propTypes = {
   id: PropTypes.string,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.arrayOf(PropTypes.string),

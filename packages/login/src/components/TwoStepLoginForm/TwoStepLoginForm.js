@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState, useLayoutEffect, useRef} from 'react'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import {
   StatedValue,
   Typography,
@@ -59,7 +59,7 @@ const TwoStepLoginForm = ({username, password, showTitle, loginPending, twoStepL
 }
 
 TwoStepLoginForm.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   twoStepLogin: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,

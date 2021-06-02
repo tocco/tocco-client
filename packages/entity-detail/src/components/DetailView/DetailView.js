@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {intlShape} from 'react-intl'
 import _isEmpty from 'lodash/isEmpty'
 import {form} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
@@ -52,7 +51,7 @@ class DetailView extends React.Component {
 export default DetailView
 
 DetailView.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   mode: PropTypes.oneOf(['update', 'create']),
   loadDetailView: PropTypes.func.isRequired,
   unloadDetailView: PropTypes.func.isRequired,

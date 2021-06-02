@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {Button, EditableValue, StatedValue, Typography} from 'tocco-ui'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 
 import {StyledButtonWrapper} from '../GlobalStyledComponents'
 import {StyledLoginFormInputWrapper} from './StyledComponents'
@@ -50,7 +50,7 @@ const Verification = ({verifyCode, intl}) => {
 }
 
 Verification.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   verifyCode: PropTypes.func.isRequired
 }
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import {
   StatedValue,
   Typography
@@ -87,7 +87,7 @@ export class PasswordRequest extends React.Component {
 }
 
 PasswordRequest.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   changePage: PropTypes.func.isRequired,
   requestPassword: PropTypes.func.isRequired,
   showTitle: PropTypes.bool,

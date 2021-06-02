@@ -3,31 +3,24 @@ import React from 'react'
 import {mount, shallow} from 'enzyme'
 import {ThemeProvider} from 'styled-components'
 import {ToccoTheme} from 'tocco-theme'
-import {IntlProvider, intlShape} from 'react-intl'
+import {IntlProvider} from 'react-intl'
 
-const intlProvider = new IntlProvider({locale: 'en'}, {})
-const {intl} = intlProvider.getChildContext()
-const nodeWithIntlProp = node => React.cloneElement(node, {intl})
-
-// Enzymes shallow wrapped with a ThemeProvider and Intl Context
-export const shallowEmbedded = (child, {context} = {}) => (
-  shallow(
-    nodeWithIntlProp(child),
-    {
-      context: Object.assign({}, context, {intl}),
-      wrappingComponent: ({children}) => <ThemeProvider theme={ToccoTheme}>{children}</ThemeProvider>
-    }
-  )
+const WrappingComponent = ({locale, defaultLocale, children}) => (
+  <IntlProvider locale="en" defaultLocale="en">
+    <ThemeProvider theme={ToccoTheme}>
+      {children}
+    </ThemeProvider>
+  </IntlProvider>
 )
 
-// Enzymes mount wrapped with a ThemeProvider and Intl Context
-export const mountEmbedded = (child, {context, childContextTypes} = {}) => (
-  mount(
-    nodeWithIntlProp(child),
-    {
-      context: Object.assign({}, context, {intl}),
-      childContextTypes: Object.assign({}, {intl: intlShape}, childContextTypes),
-      wrappingComponent: ({children}) => <ThemeProvider theme={ToccoTheme}>{children}</ThemeProvider>
-    }
-  )
-)
+export function mountEmbedded(node) {
+  return mount(node, {
+    wrappingComponent: WrappingComponent
+  })
+}
+
+export function shallowEmbedded(node) {
+  return shallow(node, {
+    wrappingComponent: WrappingComponent
+  })
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import {addLocaleData, IntlProvider} from 'react-intl'
+import {IntlProvider} from 'react-intl'
 
 import TimeFormatter from './TimeFormatter'
 
@@ -8,14 +8,6 @@ describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('TimeFormatter ', () => {
-        beforeAll(() => {
-          require('intl/locale-data/jsonp/en.js')
-          require('intl/locale-data/jsonp/de.js')
-          const en = require('react-intl/locale-data/en')
-          const de = require('react-intl/locale-data/de')
-          addLocaleData([...en, ...de])
-        })
-
         const leftToRightMark = /\u200E/g // required for browser Edge
 
         const timeOutputIso = '23:15:00.000'

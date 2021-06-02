@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 import PropTypes from 'prop-types'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
 
 import {theme} from '../utilStyles'
@@ -52,7 +52,7 @@ DatePicker.propTypes = {
    * To set the selected date from outside the component.
    */
   value: PropTypes.any,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 export default withTheme(injectIntl(DatePicker))

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
-import {intlShape} from 'react-intl'
 import {LoadMask} from 'tocco-ui'
 import {js} from 'tocco-util'
 
@@ -46,17 +45,15 @@ const ListView = ({
     if (formDefinition) {
       const actionBar = getActionBar(formDefinition)
       const content = [
-        ...showSelectionController
-          ? [<SelectionControllerContainer key="selectionController" />]
-          : [],
-        ...showActions !== false && actionBar
+        ...(showSelectionController ? [<SelectionControllerContainer key="selectionController" />] : []),
+        ...(showActions !== false && actionBar
           ? [<ActionContainer
             key={`listAction-${actionBar.id}`}
             definition={actionBar}
             parent={parent}
             disabled={dataLoadingInProgress}
           />]
-          : []
+          : [])
       ]
 
       if (content.length > 0 && actionBar) {
@@ -81,7 +78,7 @@ const ListView = ({
 }
 
 ListView.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   formDefinition: PropTypes.shape({
     children: PropTypes.array
   }),

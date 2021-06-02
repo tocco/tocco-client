@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState, useRef} from 'react'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import {
   SignalList,
   StatedValue,
@@ -159,7 +159,7 @@ const LoginForm = ({
 LoginForm.propTypes = {
   captchaKey: PropTypes.string,
   changePage: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   login: PropTypes.func.isRequired,
   loginPending: PropTypes.bool.isRequired,
   message: PropTypes.shape({

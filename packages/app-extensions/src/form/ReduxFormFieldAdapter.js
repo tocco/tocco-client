@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import _omit from 'lodash/omit'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 
 import formField from '../formField'
 
@@ -44,7 +44,7 @@ const ReduxFormFieldAdapter = props => {
 }
 
 ReduxFormFieldAdapter.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   id: PropTypes.string,
   input: PropTypes.shape({
     value: PropTypes.any,

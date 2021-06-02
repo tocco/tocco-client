@@ -1,11 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {addLocaleData} from 'react-intl'
 import _union from 'lodash/union'
-import de from 'react-intl/locale-data/de'
-import en from 'react-intl/locale-data/en'
-import fr from 'react-intl/locale-data/fr'
-import it from 'react-intl/locale-data/it'
 import {intl, consoleLogger} from 'tocco-util'
 
 import errorLogging from '../errorLogging'
@@ -83,7 +78,6 @@ const setWebpacksPublicPath = publicPath => {
 
 const setupIntl = (input, store, module, textResourceModules) => {
   const modules = _union([module], textResourceModules)
-  addLocaleData([...de, ...en, ...fr, ...it])
   const locale = input ? input.locale : null
   return intl.initIntl(store, modules, locale)
 }

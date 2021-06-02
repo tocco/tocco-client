@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useEffect} from 'react'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import {LoadMask, SignalList, Typography} from 'tocco-ui'
 import styled from 'styled-components'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -157,7 +157,7 @@ PasswordUpdateDialog.propTypes = {
   fetchValidationRules: PropTypes.func.isRequired,
   forcedUpdate: PropTypes.bool,
   initialized: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   password: PropTypes.shape({
     newPassword: PropTypes.string.isRequired,
     newPasswordRepeat: PropTypes.string.isRequired,

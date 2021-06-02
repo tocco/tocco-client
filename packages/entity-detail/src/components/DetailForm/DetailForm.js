@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useLayoutEffect, useMemo, useRef} from 'react'
 import {reduxForm} from 'redux-form'
-import {intlShape} from 'react-intl'
 import {form} from 'tocco-app-extensions'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
@@ -83,7 +82,7 @@ const DetailForm = props => {
 }
 
 DetailForm.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   mode: PropTypes.oneOf(['update', 'create']),
   submitForm: PropTypes.func.isRequired,
   formDefinition: PropTypes.object.isRequired,

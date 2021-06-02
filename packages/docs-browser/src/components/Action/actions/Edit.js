@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {selection} from 'tocco-util'
 
@@ -48,7 +48,7 @@ EditAction.propTypes = {
   }).isRequired,
   onSuccess: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   emitAction: PropTypes.func.isRequired
 }
 

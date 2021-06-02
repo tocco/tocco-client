@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import styled from 'styled-components'
 
 import Button from '../Button'
@@ -65,7 +65,7 @@ const Pagination = ({totalCount, recordsPerPage, currentPage, onPageChange, intl
 }
 
 Pagination.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   /**
    * Currently displayed page
    */

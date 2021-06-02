@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import moment from 'moment'
-import {injectIntl, intlShape} from 'react-intl'
+import {useIntl} from 'react-intl'
 
 import DateAbstract from './DateAbstract'
 import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from '../utils'
 
-export const DateEdit = ({intl, onChange, options, id, value, immutable, events}) => {
+export const DateEdit = ({onChange, options, id, value, immutable, events}) => {
   const DATE_FORMAT = 'YYYY-MM-DD'
+  const intl = useIntl()
 
   const getLocalizedAltFormat = () => moment().locale(intl.locale)._locale.longDateFormat('L')
 
@@ -38,21 +39,21 @@ export const DateEdit = ({intl, onChange, options, id, value, immutable, events}
   }
 
   return (
-      <DateAbstract
-        id={id}
-        value={[value]}
-        onBlur={onBlur}
-        onChange={handleChange}
-        options={{...options, flatpickrOptions}}
-        immutable={immutable}
-        events={events}
-      />
+    <DateAbstract
+      id={id}
+      value={[value]}
+      onBlur={onBlur}
+      onChange={handleChange}
+      options={{...options, flatpickrOptions}}
+      immutable={immutable}
+      events={events}
+    />
   )
 }
 
 DateEdit.propTypes = {
   id: PropTypes.string,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   immutable: PropTypes.bool,
@@ -65,4 +66,4 @@ DateEdit.propTypes = {
   })
 }
 
-export default injectIntl(DateEdit)
+export default DateEdit

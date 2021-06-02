@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {form} from 'tocco-app-extensions'
 import {Button} from 'tocco-ui'
 import {reduxForm} from 'redux-form'
-import {intlShape} from 'react-intl'
 
 import {StyledButtonsWrapper} from './StyledComponents'
 
@@ -65,7 +64,7 @@ const Form = ({
 }
 
 Form.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   initializeForm: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
