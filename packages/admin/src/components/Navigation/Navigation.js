@@ -29,7 +29,7 @@ const EntityExplorerMenuEntry = ({onClick, item}) => {
   const entityNameDisplay = item.matchingAttribute === 'entity' ? <React.Fragment> ({item.entity})</React.Fragment> : ''
 
   return <StyledMenuLink onClick={onClick}
-    to={`/e/${item.entity}`}>{item.label}{entityNameDisplay}
+                         to={`/e/${item.entity}`}>{item.label}{entityNameDisplay}
   </StyledMenuLink>
 }
 
@@ -133,43 +133,43 @@ const Navigation = ({
   return <StyledNav ref={navigationEl} onKeyDown={onKeyDown}>
     <StyledTabsContainer>
       {visibleMenus === 'main'
-      && <StyledNavButton
-        active={false}
-        onClick={() => setVisibleMenus('additional')}
-        label={'>'}
-        narrow={true}
-      />}
-      {visibleMenus === 'main'
-        && <StyledNavButton
+      && <>
+        <StyledNavButton
+          active={false}
+          onClick={() => setVisibleMenus('additional')}
+          label={'>'}
+          narrow={true}
+        />
+        <StyledNavButton
           active={activeMenuTab === tabs.MODULES}
           onClick={() => setActiveMenuTab(tabs.MODULES)}
           label={msg('client.admin.navigation.modules')}
-        />}
-      {visibleMenus === 'main'
-        && <StyledNavButton
+        />
+        <StyledNavButton
           active={activeMenuTab === tabs.SETTINGS}
           onClick={() => setActiveMenuTab(tabs.SETTINGS)}
           label={msg('client.admin.navigation.settings')}
-        />}
+        />
+      </>}
       {visibleMenus === 'additional'
-        && <StyledNavButton
+      && <>
+        <StyledNavButton
           active={false}
           onClick={() => setVisibleMenus('main')}
           label={'<'}
           narrow={true}
-        />}
-      {visibleMenus === 'additional'
-        && <StyledNavButton
-        active={activeMenuTab === tabs.SYSTEM}
-        onClick={() => setActiveMenuTab(tabs.SYSTEM)}
-        label={msg('client.admin.navigation.system')}
-        />}
-      {visibleMenus === 'additional'
-        && <StyledNavButton
-        active={activeMenuTab === tabs.COMPLETE}
-        onClick={() => setActiveMenuTab(tabs.COMPLETE)}
-        label={msg('client.admin.navigation.complete')}
-        />}
+        />
+        <StyledNavButton
+          active={activeMenuTab === tabs.SYSTEM}
+          onClick={() => setActiveMenuTab(tabs.SYSTEM)}
+          label={msg('client.admin.navigation.system')}
+        />
+        <StyledNavButton
+          active={activeMenuTab === tabs.COMPLETE}
+          onClick={() => setActiveMenuTab(tabs.COMPLETE)}
+          label={msg('client.admin.navigation.complete')}
+        />
+      </>}
     </StyledTabsContainer>
     <StyledSearchBoxWrapper>
       <SearchBox
