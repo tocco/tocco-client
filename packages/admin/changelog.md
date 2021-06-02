@@ -1,3 +1,8 @@
+0.4.47
+- New menus for system options and all possible options
+- Last opened menu is now saved in user preferences
+-  Add action selection count confirm
+
 0.4.46
 - Adjust spacing and alignment of button inside modal
 
