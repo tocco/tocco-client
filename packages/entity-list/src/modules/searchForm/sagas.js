@@ -228,9 +228,10 @@ export function* saveSearchFilter() {
   const {sorting} = yield select(listSelector)
   const {entityName} = yield select(entityListSelector)
 
-  yield call(saveNewSearchFilter, searchFilterName, entityName, where, sorting, filter)
+  const createdSearchFilter = yield call(saveNewSearchFilter, searchFilterName, entityName, where, sorting, filter)
   yield call(loadSearchFilter, entityName)
   yield call(resetSearch)
+  yield put(actions.setSearchFilterActive(createdSearchFilter.uniqueId, true, true))
 }
 
 export function* saveNewSearchFilter(name, entityName, query, sorting, filters) {
@@ -243,7 +244,8 @@ export function* saveNewSearchFilter(name, entityName, query, sorting, filters) 
     order,
     filters
   }
-  yield call(rest.requestSaga, resource, {method: 'POST', body})
+  const {body: response} = yield call(rest.requestSaga, resource, {method: 'POST', body})
+  return response
 }
 
 export function* deleteSearchFilter({payload: {primaryKey}}) {
