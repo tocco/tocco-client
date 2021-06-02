@@ -8,8 +8,6 @@ import chaiEnzyme from 'chai-enzyme'
 import chaiAsPromised from 'chai-as-promised'
 import sinonChai from 'sinon-chai'
 
-import setupIntlPolyfill from './intl_polyfill'
-
 Enzyme.configure({adapter: new EnzymeAdapter()})
 
 global.__PACKAGE_NAME__ = 'jest'
@@ -23,8 +21,6 @@ global.fetch = fetch
 global.Response = fetch.Response
 global.Headers = fetch.Headers
 global.Request = fetch.Request
-
-setupIntlPolyfill()
 
 chai.use(chaiEnzyme())
 chai.use(sinonChai)

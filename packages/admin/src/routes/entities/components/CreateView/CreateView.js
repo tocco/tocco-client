@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import _get from 'lodash/get'
-import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import styled from 'styled-components'
@@ -77,7 +76,7 @@ const CreateView = props => {
 }
 
 CreateView.propTypes = {
-  intl: intlShape,
+  intl: PropTypes.object,
   match: PropTypes.object,
   history: PropTypes.object,
   currentViewInfo: currentViewPropType,

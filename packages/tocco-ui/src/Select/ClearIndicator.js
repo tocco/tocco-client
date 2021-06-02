@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 
 import Ball from '../Ball'
 
@@ -20,7 +20,7 @@ const ClearIndicator = props => {
 
 ClearIndicator.propTypes = {
   innerProps: PropTypes.object,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 export default injectIntl(ClearIndicator)

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import {intlShape} from 'react-intl'
 import React from 'react'
 import {react} from 'tocco-util'
 
@@ -48,7 +47,7 @@ IntegerEdit.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.string,
   id: PropTypes.string,
-  intl: intlShape,
+  intl: PropTypes.object,
   immutable: PropTypes.bool,
   options: PropTypes.shape({
     minValue: PropTypes.number,

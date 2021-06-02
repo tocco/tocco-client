@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {Prompt} from 'react-router-dom'
-import {intlShape} from 'react-intl'
 import {Button, RouterLink} from 'tocco-ui'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {queryString as queryStringUtil} from 'tocco-util'
@@ -120,7 +119,7 @@ class EntityDetail extends React.Component {
 }
 
 EntityDetail.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   dispatchEmittedAction: PropTypes.func.isRequired,
   loadDetailParams: PropTypes.func.isRequired,
   clearDetailParams: PropTypes.func.isRequired,

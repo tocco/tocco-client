@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale} from 'tocco-ui'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'
 import {PasswordUpdateApp} from 'tocco-login/src/main'
 import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
@@ -147,7 +147,7 @@ Header.propTypes = {
   openModalComponent: PropTypes.func.isRequired,
   removeModalComponent: PropTypes.func.isRequired,
   info: PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 export default Header

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import {Button, ButtonGroup, Icon, Typography, DatePicker} from 'tocco-ui'
 
 import StyledNavigationFullCalendar from './StyledNavigationFullCalendar'
@@ -121,7 +121,7 @@ NavigationFullCalendar.propTypes = {
   choosePrev: PropTypes.func.isRequired,
   chooseToday: PropTypes.func.isRequired,
   goToDate: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   isLoading: PropTypes.bool,
   refresh: PropTypes.func.isRequired,
   title: PropTypes.string,

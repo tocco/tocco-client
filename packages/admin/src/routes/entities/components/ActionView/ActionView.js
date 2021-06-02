@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {queryString as queryStringUtil, js} from 'tocco-util'
-import {intlShape} from 'react-intl'
 import _get from 'lodash/get'
 
 import Action from '../Action'
@@ -49,7 +48,7 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
 }
 
 ActionView.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   currentViewInfo: currentViewPropType,
   setCurrentViewTitle: PropTypes.func.isRequired,
   history: PropTypes.shape({

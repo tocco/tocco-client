@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {m, LazyMotion} from 'framer-motion'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 
 /**
  * Animated Burger Menu Button
@@ -102,7 +102,7 @@ BurgerButton.propTypes = {
    * Specify width and height.
    */
   isOpen: PropTypes.bool,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 export default injectIntl(BurgerButton)

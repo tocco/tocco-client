@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {FormattedDate, FormattedTime, injectIntl, intlShape} from 'react-intl'
+import {FormattedDate, FormattedTime, injectIntl} from 'react-intl'
 import moment from 'moment'
 
 import Typography from '../../Typography'
@@ -33,7 +33,7 @@ export const DateTimeFormatter = props => {
 }
 
 DateTimeFormatter.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 }
 

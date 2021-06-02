@@ -2,7 +2,6 @@ import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {Typography} from 'tocco-ui'
 import {formData, field} from 'tocco-app-extensions'
-import {intlShape} from 'react-intl'
 import {js} from 'tocco-util'
 
 import LazyDataEnhancer from '../components/LazyDataEnhancer'
@@ -51,6 +50,6 @@ FormattedValueWrapper.propTypes = {
   formData: PropTypes.shape({
     navigationStrategy: PropTypes.object
   }),
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   formField: PropTypes.object.isRequired
 }

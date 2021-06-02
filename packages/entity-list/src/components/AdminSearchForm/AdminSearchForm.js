@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import {Icon, Ball, BallMenu, MenuItem, Popover} from 'tocco-ui'
 import {withTheme} from 'styled-components'
-import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 
 import {StyledSplit, AdminSearchGrid, Box, StyledGutter, StyledHeader, StyledSplitWrapper} from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
@@ -106,7 +106,7 @@ const AdminSearchForm = ({
 }
 
 AdminSearchForm.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   searchFilters: PropTypes.arrayOf(PropTypes.object),
   resetSearch: PropTypes.func.isRequired,
   theme: PropTypes.object,

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {LoadMask} from 'tocco-ui'
-import {intlShape} from 'react-intl'
 
 import Dialog from '../Dialog'
 import {deleteInfoPropType} from '../../utils/deleteRequestParser'
@@ -32,7 +31,7 @@ Delete.propTypes = {
   loadDialogInfo: PropTypes.func.isRequired,
   dialogInfo: deleteInfoPropType,
   deletingInProgress: PropTypes.bool,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 export default Delete

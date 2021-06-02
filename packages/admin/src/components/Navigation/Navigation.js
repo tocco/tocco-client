@@ -1,7 +1,6 @@
 import React, {useRef, useState, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import SearchBox from 'tocco-ui/src/SearchBox'
-import {intlShape} from 'react-intl'
 
 import MenuTree from '../MenuTree'
 import {
@@ -201,7 +200,7 @@ const Navigation = ({
 }
 
 Navigation.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   activeMenuTab: PropTypes.string.isRequired,
   settingsMenuTree: PropTypes.array,
   modulesMenuTree: PropTypes.array,

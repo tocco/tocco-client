@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
-import {intlShape} from 'react-intl'
 import queryString from 'query-string'
 import styled from 'styled-components'
 import {theme, scale} from 'tocco-ui'
@@ -98,7 +97,7 @@ const EditView = props => {
 }
 
 EditView.propTypes = {
-  intl: intlShape,
+  intl: PropTypes.object,
   match: PropTypes.object,
   history: PropTypes.object,
   currentViewInfo: currentViewPropType,

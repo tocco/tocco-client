@@ -4,7 +4,6 @@ import {AdminLink as StyledLink, Icon, Typography} from 'tocco-ui'
 import {js} from 'tocco-util'
 import queryString from 'query-string'
 import _get from 'lodash/get'
-import {intlShape} from 'react-intl'
 
 import {
   RelationBox,
@@ -141,7 +140,7 @@ RelationsView.propTypes = {
     createPermission: PropTypes.bool
   })),
   emitAction: PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 const areEqual = (prevProps, nextProps) => {

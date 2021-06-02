@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'tocco-ui'
-import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import {download} from 'tocco-util'
 
 import simpleFormConnector from '../containers/simpleFormConnector'
@@ -97,7 +97,7 @@ export class ReportSettings extends React.Component {
 }
 
 ReportSettings.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   listApp: PropTypes.func.isRequired,
   formApp: PropTypes.func.isRequired,

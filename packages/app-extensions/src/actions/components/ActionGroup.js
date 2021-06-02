@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 import {ButtonMenu, MenuItem, Icon} from 'tocco-ui'
 
 import {isValidSelection, selectionText} from './selectionHelper'
@@ -48,7 +48,7 @@ const ActionGroup = props => {
 }
 
 ActionGroup.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   definition: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   selectedCount: PropTypes.number,

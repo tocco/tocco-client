@@ -1,6 +1,7 @@
 import React from 'react'
 import {LoadingSpinner, Typography} from 'tocco-ui'
-import {FormattedMessage, intlShape} from 'react-intl'
+import PropTypes from 'prop-types'
+import {FormattedMessage} from 'react-intl'
 import {navigationStrategy} from 'tocco-util'
 
 import {deleteInfoPropType} from '../../utils/deleteRequestParser'
@@ -25,7 +26,7 @@ const DeleteProgress = ({dialogInfo, navigationStrategy}) => {
 
 DeleteProgress.propTypes = {
   dialogInfo: deleteInfoPropType.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   navigationStrategy: navigationStrategy.propTypes
 }
 

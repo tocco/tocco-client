@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 import React from 'react'
 import {react} from 'tocco-util'
 
@@ -107,7 +107,7 @@ NumberEdit.propTypes = {
   value: PropTypes.number,
   name: PropTypes.string,
   id: PropTypes.string,
-  intl: intlShape,
+  intl: PropTypes.object,
   immutable: PropTypes.bool,
   options: PropTypes.shape({
     allowNegative: PropTypes.bool,

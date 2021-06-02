@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
-import {intlShape} from 'react-intl'
 import {reduxForm, Field} from 'redux-form'
 import {form} from 'tocco-app-extensions'
 import {SearchBox} from 'tocco-ui'
@@ -31,7 +30,7 @@ const FullTextSearchForm = props => {
 }
 
 FullTextSearchForm.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   submitSearchForm: PropTypes.func.isRequired,
   input: PropTypes.string
 }
