@@ -314,7 +314,7 @@ describe('entity-list', () => {
                     return 'searchFilterName'
                   }
                 },
-                [matchers.call.fn(sagas.saveNewSearchFilter)],
+                [matchers.call.fn(sagas.saveNewSearchFilter), {uniqueId: 'filter id'}],
                 [matchers.call.fn(sagas.loadSearchFilter)],
                 [matchers.call.fn(sagas.resetSearch)]
               ])
@@ -326,6 +326,16 @@ describe('entity-list', () => {
                     title: 'client.entity-list.search.settings.saveAsFilter',
                     message: null,
                     closable: true
+                  }
+                }
+              })
+              .put.like({
+                action: {
+                  type: 'searchForm/SET_SEARCH_FILTER_ACTIVE',
+                  payload: {
+                    searchFilterId: 'filter id',
+                    active: true,
+                    exclusive: true
                   }
                 }
               })
@@ -368,7 +378,7 @@ describe('entity-list', () => {
               sorting,
               ['filtername']
             ).provide([
-              [matchers.call.fn(rest.requestSaga)]
+              [matchers.call.fn(rest.requestSaga), {body: {uniqueId: 'filter id'}}]
             ])
               .call(rest.requestSaga, 'client/searchfilters', expectedContent)
               .run()
