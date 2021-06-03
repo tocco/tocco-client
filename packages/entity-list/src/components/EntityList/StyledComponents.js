@@ -13,13 +13,20 @@ export const TopPositioning = styled.div`
   ${({searchFormType}) => searchFormType !== 'simple' && `
     grid-template-columns: minmax(100%, 700px);
   `
-  }
+}
 `
 
 export const LeftPositioning = styled.div`
   display: grid;
-  grid: 'search list' / minmax(350px, 16%) auto;
   column-gap: 1rem;
+  ${({isCollapsed}) => !isCollapsed
+  ? `
+      grid: 'search list' / minmax(350px, 16%) auto;
+    `
+  : `
+      grid: 'search list' / 25px auto;
+    `
+}
 
   @media (max-width: 600px) {
     column-gap: 8px;
