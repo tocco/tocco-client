@@ -1,3 +1,6 @@
+0.4.37-hotfix229.5
+- Fix merge close function with query selection
+
 0.4.37-hotfix229.4
 - Entity-Docs open resource in full view
 - Fix report settings
