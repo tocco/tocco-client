@@ -1,3 +1,7 @@
+0.4.48
+- Fix merge close function with query selection
+- Add confirm keyboard support
+
 0.4.47
 - New menus for system options and all possible options
 - Last opened menu is now saved in user preferences
