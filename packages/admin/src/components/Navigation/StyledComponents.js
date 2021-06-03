@@ -63,7 +63,19 @@ export const StyledTabsContainer = styled.div`
   }
 `
 
+export const StyledNavSwitchButton = styled(Button)`
+  font-size: ${scale.font(3)};
+  justify-content: center;
+  border-radius: 0;
+  margin: 5px;
+
+  &:hover {
+    background-color: transparent;
+  }
+`
+
 export const StyledNavButton = styled(Button)`
+  overflow: hidden;
   flex: ${({narrow}) => narrow ? 0.2 : 1};
   justify-content: center;
   border-radius: 0;
@@ -80,6 +92,13 @@ export const StyledNavButton = styled(Button)`
 
   &:focus {
     background-color: transparent;
+  }
+
+  & > * {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `
 
