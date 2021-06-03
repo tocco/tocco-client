@@ -1,3 +1,8 @@
+0.4.6-hotfix229.1
+- Fix select menu disappearing behind modal
+- Displayexpression call adjustment
+- Fix merge close function with query selection
+
 0.4.6
 - Keep scroll position on multi select selection
 - fix menu in action
