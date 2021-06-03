@@ -10,6 +10,7 @@ import {
   StyledMenuLink,
   StyledNav,
   StyledMenuWrapper,
+  StyledNavSwitchButton,
   StyledNavButton,
   StyledSearchBoxWrapper
 }
@@ -134,10 +135,10 @@ const Navigation = ({
     <StyledTabsContainer>
       {visibleMenus === 'main'
       && <>
-        <StyledNavButton
+        <StyledNavSwitchButton
           active={false}
           onClick={() => setVisibleMenus('additional')}
-          label={'>'}
+          icon={'chevron-right'}
           narrow={true}
         />
         <StyledNavButton
@@ -153,10 +154,10 @@ const Navigation = ({
       </>}
       {visibleMenus === 'additional'
       && <>
-        <StyledNavButton
+        <StyledNavSwitchButton
           active={false}
           onClick={() => setVisibleMenus('main')}
-          label={'<'}
+          icon={'chevron-left'}
           narrow={true}
         />
         <StyledNavButton
