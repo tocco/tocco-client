@@ -1,3 +1,12 @@
+0.4.7
+- Fix select menu disappearing behind modal
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Displayexpression call adjustment
+- Change cursor to pointer on panel header/footer hover
+- Datetime search fields now use a date field until the full range is expanded
+- Add action selection count confirm
+- Fix merge close function with query selection
+
 0.4.6
 - Keep scroll position on multi select selection
 - fix menu in action
