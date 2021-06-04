@@ -80,6 +80,7 @@ export function* executeMerge() {
   const options = {
     method: 'POST',
     acceptedStatusCodes: [400, 500],
+    headers: {'X-Client-Questions': 'false'},
     body: yield call(getMergeBody)
   }
 
