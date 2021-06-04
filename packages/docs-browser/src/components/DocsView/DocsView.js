@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Suspense, useMemo, useRef} from 'react'
+import React, {useEffect, useState, Suspense, useMemo, useRef, useReducer} from 'react'
 import PropTypes from 'prop-types'
 import {viewPersistor} from 'tocco-util'
 import {Icon, LoadMask} from 'tocco-ui'
@@ -8,6 +8,7 @@ import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles
 import Action from '../Action'
 import FileInput from '../FileInput'
 import {StyledContentWrapper, StyledIconWrapper} from './StyledComponents'
+import isRootLocation from '../../utils/isRootLocation'
 
 const ICONS = {
   Domain: 'globe',
@@ -57,7 +58,6 @@ const LazyListApp = React.lazy(() => import('./LazyListApp'))
 
 const DocsView = props => {
   const {
-    storeKey,
     history,
     match,
     domainTypes,
@@ -80,6 +80,10 @@ const DocsView = props => {
     searchMode,
     openResource
   } = props
+  // eslint-disable-next-line no-unused-vars
+  const [entityListNumber, forceEntityListUpdate] = useReducer(x => x + 1, 0)
+
+  const entityListKey = `entity-list-${entityListNumber}`
 
   const [selection, setSelection] = useState([])
   const parent = useMemo(() => getParent(match), [match.params])
@@ -91,6 +95,9 @@ const DocsView = props => {
   , [match.params, getListFormName])
 
   const mounted = useRef(false)
+  const searchModeRef = useRef(searchMode)
+
+  searchModeRef.current = searchMode
 
   useEffect(() => {
     mounted.current = true
@@ -103,10 +110,13 @@ const DocsView = props => {
   }, [parent])
 
   const handleRowClick = ({id}) => {
-    if (history.location.pathname === '/docs/search') {
-      // persist search store to allow a "go back to search"
-      const searchStore = viewPersistor.viewInfoSelector(storeKey).store
-      viewPersistor.persistViewInfo('search', {store: searchStore})
+    if (searchModeRef.current && isRootLocation(history.location.pathname)) {
+      if (!viewPersistor.viewInfoSelector('search').store) {
+        // persist search store to allow a "go back to search"
+        const searchStore = viewPersistor.viewInfoSelector(entityListKey).store
+        viewPersistor.persistViewInfo('search', {store: searchStore})
+      }
+      forceEntityListUpdate()
     }
 
     const [model, key] = id.split('/')
@@ -139,12 +149,17 @@ const DocsView = props => {
     }
   }
 
-  const store = disableViewPersistor ? undefined : searchMode ? viewPersistor.viewInfoSelector('search').store : null
+  const store = disableViewPersistor
+    ? undefined
+    : isRootLocation(history.location.pathname)
+      ? viewPersistor.viewInfoSelector('search').store
+      : null
 
   return (
     <>
       <Suspense fallback={<LoadMask />}>
         <LazyListApp
+          key={entityListKey}
           id="documents"
           entityName="Docs_list_item"
           formName={formName}
@@ -157,7 +172,7 @@ const DocsView = props => {
           store={store}
           onStoreCreate={store => {
             if (!disableViewPersistor) {
-              viewPersistor.persistViewInfo(storeKey, {store})
+              viewPersistor.persistViewInfo(entityListKey, {store})
             }
           }}
           cellRenderers={{
@@ -199,7 +214,6 @@ const DocsView = props => {
 }
 
 DocsView.propTypes = {
-  storeKey: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   navigationStrategy: PropTypes.object,

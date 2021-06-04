@@ -79,7 +79,7 @@ describe('admin', () => {
               })
 
               test('should load search breadcrumbs', () => {
-                const pathname = '/docs/folder/45/list'
+                const pathname = '/docs/'
                 const breadcrumbs = [{
                   display: 'Dokument',
                   path: '',
