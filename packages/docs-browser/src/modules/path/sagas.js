@@ -26,7 +26,7 @@ export function* loadBreadcrumbs({payload: {location}}) {
 
   let breadcrumbs
 
-  if (pathState.searchMode && (!node || node.model !== 'Resource')) {
+  if (pathState.searchMode && !node) {
     breadcrumbs = yield call(getSearchBreadcrumbs)
   } else {
     const url = node ? `documents/${node.model}/${node.key}/breadcrumbs` : 'documents/breadcrumbs'
