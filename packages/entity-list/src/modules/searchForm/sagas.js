@@ -88,7 +88,12 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
   const transformedFromValues = yield call(transformFieldNames, formValues)
   const oldValues = yield select(getFormValues(FORM_ID))
 
-  yield put(formActions.initialize(FORM_ID, {...oldValues, ...transformedFromValues}))
+  yield put(formActions.initialize(FORM_ID, transformedFromValues))
+  if (oldValues) {
+    yield all(Object.keys(oldValues).map(fieldId =>
+      put(formActions.change(FORM_ID, fieldId, oldValues[fieldId]))
+    ))
+  }
   yield put(actions.setValuesInitialized(true))
 }
 
