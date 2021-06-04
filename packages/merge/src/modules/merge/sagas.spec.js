@@ -81,12 +81,19 @@ describe('merge', () => {
               showPermissionMessage: false
             }
 
+            const mergeRequest = {
+              method: 'POST',
+              headers: {'X-Client-Questions': 'false'},
+              acceptedStatusCodes: [400, 500],
+              body: body
+            }
+
             return expectSaga(sagas.executeMerge)
               .provide([
                 [matchers.call.fn(sagas.getMergeBody), body],
                 [matchers.call.fn(rest.requestSaga), {status: 200, body: response}]
               ])
-              .call(rest.requestSaga, 'merge/merge', {method: 'POST', acceptedStatusCodes: [400, 500], body: body})
+              .call(rest.requestSaga, 'merge/merge', mergeRequest)
               .put(actions.setMergeResponse(response))
               .run()
           })
@@ -116,12 +123,19 @@ describe('merge', () => {
               ]
             }
 
+            const mergeRequest = {
+              method: 'POST',
+              headers: {'X-Client-Questions': 'false'},
+              acceptedStatusCodes: [400, 500],
+              body: body
+            }
+
             return expectSaga(sagas.executeMerge)
               .provide([
                 [matchers.call.fn(sagas.getMergeBody), body],
                 [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
               ])
-              .call(rest.requestSaga, 'merge/merge', {method: 'POST', acceptedStatusCodes: [400, 500], body: body})
+              .call(rest.requestSaga, 'merge/merge', mergeRequest)
               .put(actions.setMergeError(null, response.errors))
               .run()
           })
@@ -133,12 +147,19 @@ describe('merge', () => {
               errorCode: null
             }
 
+            const mergeRequest = {
+              method: 'POST',
+              headers: {'X-Client-Questions': 'false'},
+              acceptedStatusCodes: [400, 500],
+              body: body
+            }
+
             return expectSaga(sagas.executeMerge)
               .provide([
                 [matchers.call.fn(sagas.getMergeBody), body],
                 [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
               ])
-              .call(rest.requestSaga, 'merge/merge', {method: 'POST', acceptedStatusCodes: [400, 500], body: body})
+              .call(rest.requestSaga, 'merge/merge', mergeRequest)
               .put(actions.setMergeError(response.message, []))
               .run()
           })
