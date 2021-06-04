@@ -1,13 +1,15 @@
-import React, {useEffect, useReducer} from 'react'
+import React, {useEffect, useReducer, useRef} from 'react'
 import PropTypes from 'prop-types'
 import {Route, Switch, useLocation} from 'react-router-dom'
 import {withTheme} from 'styled-components'
 import {theme as themeUtil} from 'tocco-ui'
+import {viewPersistor} from 'tocco-util'
 
 import DocsView from '../DocsView'
 import DocumentView from '../DocumentView'
 import Breadcrumbs from '../../containers/BreadcrumbsContainer'
 import {StyledWrapper, StyledBreadcrumbs, StyledContent} from './StyledComponents'
+import isRootLocation from '../../utils/isRootLocation'
 
 const DocsBrowser = ({
   history,
@@ -26,30 +28,37 @@ const DocsBrowser = ({
 
   const location = useLocation()
 
+  const searchModeRef = useRef(searchMode)
+  searchModeRef.current = searchMode
+
   useEffect(() => {
-    if (searchMode === true && location.pathname !== '/docs/search') {
-      // this means the user clicked on the root item in the breadcrumbs navigation or clicked on a search result item
-      // -> reset search mode to false and rerender the <DocsView>
-      setSearchMode(false)
-      forceDocsViewUpdate()
-    }
-
-    if (searchMode === false && location.pathname === '/docs/search') {
-      setSearchMode(true)
-      forceDocsViewUpdate()
-    }
-
     loadBreadcrumbs(location.pathname)
   })
 
+  const resetSearchMode = () => {
+    if (searchModeRef.current) {
+      viewPersistor.clearPersistedViews()
+      setSearchMode(false)
+      loadBreadcrumbs(location.pathname)
+      forceDocsViewUpdate()
+    }
+  }
+
   const handleSearchChange = e => {
     const hasUserChanges = e.query && e.query.hasUserChanges
-    if (history.location.pathname !== '/docs/search' && hasUserChanges) {
-      history.push('/docs/search', {userSearch: true})
-    } else if (history.location.pathname === '/docs/search' && !hasUserChanges) {
-      history.push('/docs')
+    if (hasUserChanges) {
+      setSearchMode(true)
+      history.push('/docs/')
+      loadBreadcrumbs(location.pathname)
+    } else if (isRootLocation(history.location.pathname)) {
+      resetSearchMode()
     }
-    setSearchMode(hasUserChanges)
+  }
+
+  const handleBreadcrumbsClick = breadcrumbsItem => {
+    if (breadcrumbsItem.path === '') {
+      resetSearchMode()
+    }
   }
 
   const key = `docs-view-${docsViewNumber}`
@@ -57,7 +66,10 @@ const DocsBrowser = ({
   return (
     <StyledWrapper>
       <StyledBreadcrumbs noLeftPadding={noLeftPadding}>
-        <Breadcrumbs {...embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {}}/>
+        <Breadcrumbs
+          {...embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {}}
+          onClick={handleBreadcrumbsClick}
+        />
       </StyledBreadcrumbs>
       <StyledContent>
         <Switch>
@@ -74,11 +86,10 @@ const DocsBrowser = ({
           />
           <Route
             exact
-            path={['/docs/:model/:key/list', '/docs', '/docs/search']}
+            path={['/docs/:model/:key/list', '/docs']}
             render={({match}) => (
               <DocsView
                 key={key}
-                storeKey={key}
                 history={history}
                 match={match}
                 navigationStrategy={navigationStrategy}
