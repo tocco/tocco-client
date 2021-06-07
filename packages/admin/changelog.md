@@ -1,3 +1,7 @@
+0.4.37-hotfix229.6
+- disable client questions for merge action
+- Fix various dms problems
+
 0.4.37-hotfix229.5
 - Fix merge close function with query selection
 
