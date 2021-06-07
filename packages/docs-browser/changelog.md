@@ -1,3 +1,6 @@
+0.2.4-hotfix229.4
+- Fix various DMS navigation and search problems
+
 0.2.4-hotfix229.3
 - forward input props to move action
 - Use explicit selection style
