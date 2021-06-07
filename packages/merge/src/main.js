@@ -1,6 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, externalEvents} from 'tocco-app-extensions'
+import {actionEmitter, appFactory, externalEvents, notifier} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
 import Merge from './components/Merge'
@@ -14,11 +14,17 @@ const EXTERNAL_EVENTS = [
   'onSuccess'
 ]
 
-const initApp = (id, input, events, publicPath) => {
-  const content = <Merge/>
-
+const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  actionEmitter.addToStore(store, events.emitAction)
   externalEvents.addToStore(store, events)
+  const handleNotifications = !events.emitAction
+  notifier.addToStore(store, handleNotifications)
+
+  const content = <>
+    {handleNotifications && <notifier.Notifier/>}
+    <Merge/>
+  </>
 
   return appFactory.createApp(
     packageName,
@@ -42,6 +48,8 @@ const initApp = (id, input, events, publicPath) => {
 
     if (__DEV__) {
       const input = require('./dev/input.json')
+      input.navigationStrategy = {}
+      input.navigationStrategy.ListLink = ({children}) => children
 
       if (!__NO_MOCK__) {
         const fetchMock = require('fetch-mock').default
@@ -50,16 +58,16 @@ const initApp = (id, input, events, publicPath) => {
         setupFetchMocks(packageName, fetchMock)
         fetchMock.spy()
       }
-  
+
       const app = initApp(packageName, input)
-  
+
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
           const reducers = require('./modules/reducers').default
           reducerUtil.hotReloadReducers(app.store, reducers)
         })
       }
-  
+
       appFactory.renderApp(app.component)
     }
   }
