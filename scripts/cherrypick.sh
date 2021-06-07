@@ -66,7 +66,7 @@ git config user.name "ToccoBot"
 
 # checkout source branch
 git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-git fetch origin $branch
+git fetch origin $branch --tags
 git checkout $branch
 
 getTagCommitId
