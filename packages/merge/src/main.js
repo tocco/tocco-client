@@ -1,6 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, externalEvents} from 'tocco-app-extensions'
+import {appFactory, externalEvents, notifier} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
 import Merge from './components/Merge'
@@ -15,10 +15,14 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <Merge/>
-
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
+  notifier.addToStore(store, true)
+
+  const content = <>
+    <notifier.Notifier/>
+    <Merge/>
+  </>
 
   return appFactory.createApp(
     packageName,
@@ -50,16 +54,16 @@ const initApp = (id, input, events, publicPath) => {
         setupFetchMocks(packageName, fetchMock)
         fetchMock.spy()
       }
-  
+
       const app = initApp(packageName, input)
-  
+
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
           const reducers = require('./modules/reducers').default
           reducerUtil.hotReloadReducers(app.store, reducers)
         })
       }
-  
+
       appFactory.renderApp(app.component)
     }
   }
