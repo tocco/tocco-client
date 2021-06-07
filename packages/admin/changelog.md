@@ -1,3 +1,9 @@
+0.4.50
+- Forward input props to move action
+- Style nav switch button to better fit into UI
+- Disable client questions for merge action
+- Fix various dms problems (navigation and search)
+
 0.4.48
 - Fix merge close function with query selection
 - Add confirm keyboard support
