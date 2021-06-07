@@ -1,3 +1,10 @@
+0.2.7
+- Edit action only one message
+- Adjust spacing and alignment of button inside modal
+- Add action selection count confirm
+- Forward input props to move action
+- Fix various dms problems (navigation and search)
+
 0.2.6
 - Change cursor to pointer on panel header/footer hover
 - Added options to create a search filter from the current search, edit or delete an existing filter
