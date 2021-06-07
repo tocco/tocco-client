@@ -6,7 +6,7 @@ set -eu # Exit with nonzero exit code if anything fails
 
 function getTagCommitId() {
   # get commit id of tag
-  tag_commit=$(git log -1 --format=%H $latest_tag)
+  tag_commit=$(git log -1 --format=%H $branch)
   echo "${tag_commit} is commit id of tag ${tag}"
 
   # check if tag_commit is in release branch
