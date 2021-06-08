@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
-import {intlShape} from 'react-intl'
 import {LoadMask} from 'tocco-ui'
 import {js} from 'tocco-util'
 
@@ -21,7 +20,8 @@ const ListView = ({
   columnDisplayPreferences,
   cellRenderers,
   preferencesLoaded,
-  intl
+  intl,
+  sortable
 }) => {
   const msg = (id, values = {}) => intl.formatMessage({id}, values)
 
@@ -29,7 +29,7 @@ const ListView = ({
     if (formDefinition && preferencesLoaded) {
       const table = getTable(formDefinition)
       const columnsDefinitions = getColumnDefinition(
-        table, sorting, parent, intl, columnDisplayPreferences, cellRenderers
+        {table, sorting, sortable, parent, intl, columnDisplayPreferences, cellRenderers}
       )
 
       return <StyledListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${table.id}`}>
@@ -45,17 +45,15 @@ const ListView = ({
     if (formDefinition) {
       const actionBar = getActionBar(formDefinition)
       const content = [
-        ...showSelectionController
-          ? [<SelectionControllerContainer key="selectionController"/>]
-          : [],
-        ...showActions !== false && actionBar
+        ...(showSelectionController ? [<SelectionControllerContainer key="selectionController"/>] : []),
+        ...(showActions !== false && actionBar
           ? [<ActionContainer
             key={`listAction-${actionBar.id}`}
             definition={actionBar}
             parent={parent}
             disabled={dataLoadingInProgress}
           />]
-          : []
+          : [])
       ]
 
       if (content.length > 0 && actionBar) {
@@ -80,7 +78,7 @@ const ListView = ({
 }
 
 ListView.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   formDefinition: PropTypes.shape({
     children: PropTypes.array
   }),
@@ -100,6 +98,7 @@ ListView.propTypes = {
     field: PropTypes.string,
     order: PropTypes.string
   })),
+  sortable: PropTypes.bool,
   columnDisplayPreferences: PropTypes.objectOf(PropTypes.bool),
   cellRenderers: PropTypes.objectOf(PropTypes.func),
   preferencesLoaded: PropTypes.bool

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Suspense, useMemo} from 'react'
+import React, {useEffect, useState, Suspense, useMemo, useRef, useReducer} from 'react'
 import PropTypes from 'prop-types'
 import {viewPersistor} from 'tocco-util'
 import {Icon, LoadMask} from 'tocco-ui'
@@ -8,6 +8,7 @@ import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles
 import Action from '../Action'
 import FileInput from '../FileInput'
 import {StyledContentWrapper, StyledIconWrapper} from './StyledComponents'
+import isRootLocation from '../../utils/isRootLocation'
 
 const ICONS = {
   Domain: 'globe',
@@ -57,7 +58,6 @@ const LazyListApp = React.lazy(() => import('./LazyListApp'))
 
 const DocsView = props => {
   const {
-    storeKey,
     history,
     match,
     domainTypes,
@@ -72,13 +72,37 @@ const DocsView = props => {
     selectionStyle,
     getCustomLocation,
     disableViewPersistor,
-    formName,
-    showActions
+    getListFormName,
+    domainDetailFormName,
+    folderDetailFormName,
+    showActions,
+    sortable,
+    searchMode,
+    openResource
   } = props
+  // eslint-disable-next-line no-unused-vars
+  const [entityListNumber, forceEntityListUpdate] = useReducer(x => x + 1, 0)
+
+  const entityListKey = `entity-list-${entityListNumber}`
 
   const [selection, setSelection] = useState([])
   const parent = useMemo(() => getParent(match), [match.params])
-  const listFormName = useMemo(() => formName === null ? getFormName(parent, keys) : formName, [match.params])
+
+  const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
+  const formName = useMemo(() => getListFormName
+    ? getListFormName(parent, keys)
+    : getFormName(parent, keys)
+  , [match.params, getListFormName])
+
+  const mounted = useRef(false)
+  const searchModeRef = useRef(searchMode)
+
+  searchModeRef.current = searchMode
+
+  useEffect(() => {
+    mounted.current = true
+    return () => (mounted.current = false)
+  })
 
   useEffect(() => {
     changeListParent(parent)
@@ -86,14 +110,27 @@ const DocsView = props => {
   }, [parent])
 
   const handleRowClick = ({id}) => {
+    if (searchModeRef.current && isRootLocation(history.location.pathname)) {
+      if (!viewPersistor.viewInfoSelector('search').store) {
+        // persist search store to allow a "go back to search"
+        const searchStore = viewPersistor.viewInfoSelector(entityListKey).store
+        viewPersistor.persistViewInfo('search', {store: searchStore})
+      }
+      forceEntityListUpdate()
+    }
+
     const [model, key] = id.split('/')
     const location = getCustomLocation ? getCustomLocation(model, key) : getDefaultLocation(model, key)
+
     if (location) {
-      history.push(location)
+      if (openResource && model === 'Resource') {
+        openResource(location)
+      } else {
+        history.push(location)
+      }
     }
   }
 
-  const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
   const tql = !parent && !keys ? getTql(domainTypes) : null
 
   const handleUploadDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
@@ -106,23 +143,36 @@ const DocsView = props => {
     openFileDialog(history.location.pathname, directory, onSuccess, onError)
   }
 
+  const handleSearch = e => {
+    if (mounted.current) {
+      onSearchChange(e)
+    }
+  }
+
+  const store = disableViewPersistor
+    ? undefined
+    : isRootLocation(history.location.pathname)
+      ? viewPersistor.viewInfoSelector('search').store
+      : null
+
   return (
     <>
-      <Suspense fallback={<LoadMask />}>
+      <Suspense fallback={<LoadMask/>}>
         <LazyListApp
+          key={entityListKey}
           id="documents"
           entityName="Docs_list_item"
-          formName={listFormName}
+          formName={formName}
           limit={limit || 25}
           onRowClick={handleRowClick}
           searchFormPosition="left"
           searchFormType={searchFormType || 'admin'}
           parent={parent}
-          onSearchChange={onSearchChange}
-          store={disableViewPersistor ? undefined : viewPersistor.viewInfoSelector(storeKey).store}
+          onSearchChange={handleSearch}
+          store={store}
           onStoreCreate={store => {
             if (!disableViewPersistor) {
-              viewPersistor.persistViewInfo(storeKey, {store})
+              viewPersistor.persistViewInfo(entityListKey, {store})
             }
           }}
           cellRenderers={{
@@ -138,7 +188,11 @@ const DocsView = props => {
           emitAction={emitAction}
           actionAppComponent={Action}
           contextParams={{
-            history
+            history,
+            detailFormNames: {
+              Domain: domainDetailFormName,
+              Folder: folderDetailFormName
+            }
           }}
           customActions={{
             'upload-document': handleUploadDocument,
@@ -147,19 +201,19 @@ const DocsView = props => {
           navigationStrategy={navigationStrategy}
           tql={tql}
           keys={keys}
-          selectionStyle={selectionStyle || 'multi'}
+          selectionStyle={selectionStyle || 'multi_explicit'}
           onSelectChange={setSelection}
           selection={selection}
           showActions={showActions}
+          sortable={sortable}
         />
       </Suspense>
-      <FileInput />
+      <FileInput/>
     </>
   )
 }
 
 DocsView.propTypes = {
-  storeKey: PropTypes.string.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   navigationStrategy: PropTypes.object,
@@ -177,8 +231,13 @@ DocsView.propTypes = {
   selectionStyle: selectionStylePropType,
   getCustomLocation: PropTypes.func,
   disableViewPersistor: PropTypes.bool,
-  formName: PropTypes.string,
-  showActions: PropTypes.bool
+  getListFormName: PropTypes.func,
+  domainDetailFormName: PropTypes.string,
+  folderDetailFormName: PropTypes.string,
+  showActions: PropTypes.bool,
+  sortable: PropTypes.bool,
+  searchMode: PropTypes.bool,
+  openResource: PropTypes.func
 }
 
 export default DocsView

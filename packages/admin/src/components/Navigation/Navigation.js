@@ -1,7 +1,6 @@
 import React, {useRef, useState, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import SearchBox from 'tocco-ui/src/SearchBox'
-import {intlShape} from 'react-intl'
 
 import MenuTree from '../MenuTree'
 import {
@@ -10,6 +9,7 @@ import {
   StyledMenuLink,
   StyledNav,
   StyledMenuWrapper,
+  StyledNavSwitchButton,
   StyledNavButton,
   StyledSearchBoxWrapper
 }
@@ -29,7 +29,7 @@ const EntityExplorerMenuEntry = ({onClick, item}) => {
   const entityNameDisplay = item.matchingAttribute === 'entity' ? <React.Fragment> ({item.entity})</React.Fragment> : ''
 
   return <StyledMenuLink onClick={onClick}
-    to={`/e/${item.entity}`}>{item.label}{entityNameDisplay}
+                         to={`/e/${item.entity}`}>{item.label}{entityNameDisplay}
   </StyledMenuLink>
 }
 
@@ -58,17 +58,23 @@ ActionMenuEntry.propTypes = {
 
 const tabs = {
   MODULES: 'modules',
-  SETTINGS: 'settings'
+  SETTINGS: 'settings',
+  SYSTEM: 'system',
+  COMPLETE: 'complete'
 }
 
 const Navigation = ({
   modulesMenuTree,
   settingsMenuTree,
+  systemMenuTree,
+  completeMenuTree,
   menuOpen,
   onClick,
   activeMenuTab,
   setActiveMenuTab,
-  intl
+  intl,
+  setVisibleMenus,
+  visibleMenus
 }) => {
   const inputEl = useRef(null)
   const navigationEl = useRef(null)
@@ -126,16 +132,44 @@ const Navigation = ({
 
   return <StyledNav ref={navigationEl} onKeyDown={onKeyDown}>
     <StyledTabsContainer>
-      <StyledNavButton
-        active={activeMenuTab === tabs.MODULES}
-        onClick={() => setActiveMenuTab(tabs.MODULES)}
-        label={msg('client.admin.navigation.modules')}
-      />
-      <StyledNavButton
-        active={activeMenuTab === tabs.SETTINGS}
-        onClick={() => setActiveMenuTab(tabs.SETTINGS)}
-        label={msg('client.admin.navigation.settings')}
-      />
+      {visibleMenus === 'main'
+      && <>
+        <StyledNavSwitchButton
+          active={false}
+          onClick={() => setVisibleMenus('additional')}
+          icon={'chevron-right'}
+          narrow={true}
+        />
+        <StyledNavButton
+          active={activeMenuTab === tabs.MODULES}
+          onClick={() => setActiveMenuTab(tabs.MODULES)}
+          label={msg('client.admin.navigation.modules')}
+        />
+        <StyledNavButton
+          active={activeMenuTab === tabs.SETTINGS}
+          onClick={() => setActiveMenuTab(tabs.SETTINGS)}
+          label={msg('client.admin.navigation.settings')}
+        />
+      </>}
+      {visibleMenus === 'additional'
+      && <>
+        <StyledNavSwitchButton
+          active={false}
+          onClick={() => setVisibleMenus('main')}
+          icon={'chevron-left'}
+          narrow={true}
+        />
+        <StyledNavButton
+          active={activeMenuTab === tabs.SYSTEM}
+          onClick={() => setActiveMenuTab(tabs.SYSTEM)}
+          label={msg('client.admin.navigation.system')}
+        />
+        <StyledNavButton
+          active={activeMenuTab === tabs.COMPLETE}
+          onClick={() => setActiveMenuTab(tabs.COMPLETE)}
+          label={msg('client.admin.navigation.complete')}
+        />
+      </>}
     </StyledTabsContainer>
     <StyledSearchBoxWrapper>
       <SearchBox
@@ -154,17 +188,29 @@ const Navigation = ({
     && <StyledMenuWrapper>
       <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={map}/>
     </StyledMenuWrapper>}
+    {activeMenuTab === tabs.SYSTEM
+    && <StyledMenuWrapper>
+      <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={map}/>
+    </StyledMenuWrapper>}
+    {activeMenuTab === tabs.COMPLETE
+    && <StyledMenuWrapper>
+      <MenuTree items={completeMenuTree} searchFilter={filter} typeMapping={map} requireSearch={true}/>
+    </StyledMenuWrapper>}
   </StyledNav>
 }
 
 Navigation.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   activeMenuTab: PropTypes.string.isRequired,
   settingsMenuTree: PropTypes.array,
   modulesMenuTree: PropTypes.array,
+  systemMenuTree: PropTypes.array,
+  completeMenuTree: PropTypes.array,
   onClick: PropTypes.func,
   setActiveMenuTab: PropTypes.func,
-  menuOpen: PropTypes.bool
+  menuOpen: PropTypes.bool,
+  visibleMenus: PropTypes.string,
+  setVisibleMenus: PropTypes.func
 }
 
 export default Navigation

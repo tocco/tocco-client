@@ -50,5 +50,13 @@ export const propTypes = PropTypes.shape({
    *  actionDefinition {object}
    *  selection {object}
    */
-  navigateToActionRelative: PropTypes.func
+  navigateToActionRelative: PropTypes.func,
+
+  /**
+   * Opens the detail of an entity in a new tab
+   * Params:
+   *  entityName {string} the model of the entity to open
+   *  key {string} the key of the entity to open
+   */
+  openDetail: PropTypes.func
 })

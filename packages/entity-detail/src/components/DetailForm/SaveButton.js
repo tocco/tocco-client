@@ -1,6 +1,5 @@
 import {Popover} from 'tocco-ui'
 import React from 'react'
-import {intlShape} from 'react-intl'
 import PropTypes from 'prop-types'
 
 import modes from '../../util/modes'
@@ -39,7 +38,7 @@ const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
 }
 
 SaveButton.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   submitting: PropTypes.bool,
   mode: PropTypes.oneOf(Object.values(modes)),
   hasErrors: PropTypes.bool,

@@ -5,7 +5,7 @@ import TetherComponent from 'react-tether'
 import {components} from 'react-select'
 import _omit from 'lodash/omit'
 
-const StyledTether = styled(TetherComponent)`
+export const StyledTether = styled(TetherComponent)`
   && {
     z-index: 1;
   }

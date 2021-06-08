@@ -80,6 +80,7 @@ export function* executeMerge() {
   const options = {
     method: 'POST',
     acceptedStatusCodes: [400, 500],
+    headers: {'X-Client-Questions': 'false'},
     body: yield call(getMergeBody)
   }
 
@@ -97,8 +98,8 @@ export function* executeMerge() {
 }
 
 export function* close() {
-  const {selection} = yield select(mergeSelector)
-  const entities = selection.ids.map(id => ({entityName: selection.entityName, key: id}))
+  const {sourceData} = yield select(mergeSelector)
+  const entities = sourceData.entities.map(entitiy => ({entityName: entitiy.model, key: entitiy.key}))
   const remoteEvents = [{
     type: 'entity-update-event',
     payload: {

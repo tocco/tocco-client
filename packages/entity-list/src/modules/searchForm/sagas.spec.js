@@ -1,4 +1,4 @@
-import {form, rest} from 'tocco-app-extensions'
+import {form, rest, notification} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {
@@ -6,6 +6,7 @@ import {
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
 import {put, select, call, takeLatest, all} from 'redux-saga/effects'
+import {channel} from 'redux-saga'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
@@ -13,6 +14,7 @@ import {validateSearchFields} from '../../util/searchFormValidation'
 import {getEndpoint} from '../../util/api/forms'
 import {setSearchFormType} from '../entityList/actions'
 import {setFormDefinition, SET_ENTITY_MODEL} from '../list/actions'
+import * as listSagas from '../list/sagas'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -25,7 +27,11 @@ describe('entity-list', () => {
               takeLatest(actions.INITIALIZE, sagas.initialize),
               takeLatest(formActionTypes.CHANGE, sagas.submitSearchFrom),
               takeLatest(actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
-              takeLatest(actions.RESET_SEARCH, sagas.resetSearch)
+              takeLatest(actions.RESET_SEARCH, sagas.resetSearch),
+              takeLatest(actions.SAVE_SEARCH_FILTER, sagas.saveSearchFilter),
+              takeLatest(actions.DELETE_SEARCH_FILTER, sagas.deleteSearchFilter),
+              takeLatest(actions.SAVE_DEFAULT_SEARCH_FILTER, sagas.saveDefaultSearchFilter),
+              takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, sagas.resetDefaultSearchFilter)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -36,7 +42,7 @@ describe('entity-list', () => {
             const formDefinition = []
             const entityName = 'User'
             const searchFormType = 'admin'
-    
+
             const showSearchForm = true
 
             return expectSaga(sagas.initialize, actions.initialize(showSearchForm))
@@ -290,6 +296,205 @@ describe('entity-list', () => {
                 [select(sagas.entityListSelector), {parent: {}}]
               ])
               .put(actions.setSearchFilters(expectedDispatch))
+              .run()
+          })
+        })
+
+        describe('save search filter', () => {
+          test('should save search filter after modal', () => {
+            const expectedSorting = ['sorting']
+            return expectSaga(sagas.saveSearchFilter)
+              .provide([
+                [select(sagas.listSelector), {sorting: expectedSorting}],
+                [select(sagas.entityListSelector), {entityName: 'entityName'}],
+                [matchers.call.fn(listSagas.getBasicQuery), {where: 'query', filter: ['filtername']}],
+                [channel, {}],
+                {
+                  take() {
+                    return 'searchFilterName'
+                  }
+                },
+                [matchers.call.fn(sagas.saveNewSearchFilter), {uniqueId: 'filter id'}],
+                [matchers.call.fn(sagas.loadSearchFilter)],
+                [matchers.call.fn(sagas.resetSearch)]
+              ])
+              .put.like({
+                action: {
+                  type: 'notification/MODAL',
+                  payload: {
+                    id: 'filter-save',
+                    title: 'client.entity-list.search.settings.saveAsFilter',
+                    message: null,
+                    closable: true
+                  }
+                }
+              })
+              .put.like({
+                action: {
+                  type: 'searchForm/SET_SEARCH_FILTER_ACTIVE',
+                  payload: {
+                    searchFilterId: 'filter id',
+                    active: true,
+                    exclusive: true
+                  }
+                }
+              })
+              .call.like({fn: channel})
+              .call(
+                sagas.saveNewSearchFilter,
+                'searchFilterName',
+                'entityName',
+                'query',
+                expectedSorting,
+                ['filtername']
+              )
+              .call(sagas.loadSearchFilter, 'entityName')
+              .call(sagas.resetSearch)
+              .run()
+          })
+          test('should call rest save', () => {
+            const sorting = [{
+              field: 'sorting',
+              order: 'asc'
+            }, {
+              field: 'other',
+              order: 'desc'
+            }]
+            const expectedContent = {
+              method: 'POST',
+              body: {
+                name: 'searchFilterName',
+                query: 'query',
+                entityName: 'entityName',
+                order: 'sorting asc, other desc',
+                filters: ['filtername']
+              }
+            }
+            return expectSaga(
+              sagas.saveNewSearchFilter,
+              'searchFilterName',
+              'entityName',
+              'query',
+              sorting,
+              ['filtername']
+            ).provide([
+              [matchers.call.fn(rest.requestSaga), {body: {uniqueId: 'filter id'}}]
+            ])
+              .call(rest.requestSaga, 'client/searchfilters', expectedContent)
+              .run()
+          })
+        })
+
+        describe('delete search filter', () => {
+          test('should reload filters after modal', () => {
+            return expectSaga(sagas.deleteSearchFilter, {payload: {primaryKey: '1'}})
+              .provide([
+                [select(sagas.inputSelector), {actionAppComponent: {}, navigationStrategy: {}}],
+                [select(sagas.entityListSelector), {entityName: 'entityName'}],
+                [channel, {}],
+                {
+                  take() {
+                    return true
+                  }
+                },
+                [matchers.call.fn(sagas.loadSearchFilter)],
+                [matchers.call.fn(sagas.resetSearch)]
+              ])
+              .put.like({
+                action: {
+                  type: 'notification/MODAL',
+                  payload: {
+                    id: 'filter-delete',
+                    title: 'client.actions.delete.title',
+                    message: null,
+                    closable: true
+                  }
+                }
+              })
+              .call.like({fn: channel})
+              .call(sagas.loadSearchFilter, 'entityName')
+              .call(sagas.resetSearch)
+              .run()
+          })
+          test('should not reload filters when not deleted', () => {
+            return expectSaga(sagas.deleteSearchFilter, {payload: {primaryKey: '1'}})
+              .provide([
+                [select(sagas.inputSelector), {actionAppComponent: {}, navigationStrategy: {}}],
+                [select(sagas.entityListSelector), {entityName: 'entityName'}],
+                [channel, {}],
+                {
+                  take() {
+                    return false
+                  }
+                }
+              ])
+              .put.like({
+                action: {
+                  type: 'notification/MODAL',
+                  payload: {
+                    id: 'filter-delete',
+                    title: 'client.actions.delete.title',
+                    message: null,
+                    closable: true
+                  }
+                }
+              })
+              .call.like({fn: channel})
+              .not.call(sagas.loadSearchFilter, 'entityName')
+              .not.call(sagas.resetSearch)
+              .run()
+          })
+        })
+
+        describe('saveDefaultSearchFilter saga', () => {
+          test('should save active filter as default', () => {
+            const searchFilters = [
+              {
+                key: '1',
+                active: false
+              },
+              {
+                key: '2',
+                active: true
+              }
+            ]
+            const formDefinition = {
+              id: 'User_search',
+              modelName: 'User'
+            }
+            const expectedPreferences = {
+              'User.User_search.searchfilter': '2'
+            }
+            return expectSaga(sagas.saveDefaultSearchFilter)
+              .provide([
+                [select(sagas.searchFormSelector), {searchFilters, formDefinition}],
+                [matchers.call.fn(rest.savePreferences)]
+              ])
+              .call(rest.savePreferences, expectedPreferences)
+              .put(notification.toaster({
+                type: 'success',
+                title: 'client.entity-list.search.settings.defaultFilter.save.success'
+              }))
+              .run()
+          })
+        })
+
+        describe('resetDefaultSearchFilter saga', () => {
+          test('should delete custom default search filter', () => {
+            const formDefinition = {
+              id: 'User_search',
+              modelName: 'User'
+            }
+            return expectSaga(sagas.resetDefaultSearchFilter)
+              .provide([
+                [select(sagas.searchFormSelector), {formDefinition}],
+                [matchers.call.fn(rest.deleteUserPreferences)]
+              ])
+              .call(rest.deleteUserPreferences, 'User.User_search.searchfilter')
+              .put(notification.toaster({
+                type: 'success',
+                title: 'client.entity-list.search.settings.defaultFilter.reset.success'
+              }))
               .run()
           })
         })

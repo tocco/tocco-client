@@ -1,11 +1,10 @@
 import {takeEvery, all, call, take, put, select} from 'redux-saga/effects'
 import {eventChannel} from 'redux-saga'
-import {originId as originIdHelper} from 'tocco-util'
+import {originId as originIdHelper, consoleLogger} from 'tocco-util'
 
 import {getSocketUrl, notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
 import * as actions from './actions'
 import * as toasterActions from '../toaster/actions'
-import errorLogging from '../../../errorLogging'
 import {toaster} from '../toaster/actions'
 import {notificationTransform} from '../../api'
 import {updateNotification, updateUnreadNotification} from '../center/actions'
@@ -32,7 +31,9 @@ const websocketInitChannel = url =>
       emitter(actions.socketMessageReceived(data))
     }
     ws.onclose = e => emitter(actions.connectSocket())
-    ws.onerror = err => emitter(errorLogging.logError(err))
+    ws.onerror = err => {
+      consoleLogger.log('socket error', err)
+    }
 
     return () => {}
   })

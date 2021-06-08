@@ -7,6 +7,7 @@ const EXPECTED_INITIAL_STATE = {
   limit: 10,
   currentPage: 1,
   sorting: [],
+  sortable: true,
   formDefinition: null,
   entityCount: null,
   entityStore: {},

@@ -16,26 +16,8 @@ describe('admin', () => {
               test('should fork sagas', () => {
                 const saga = testSaga(sagas.default)
                 saga.next().all([
-                  takeLatest(actions.INITIALIZE, sagas.initialize),
                   takeLatest(actions.MOVE_ELEMENTS, sagas.moveElements)
                 ])
-              })
-            })
-
-            describe('initialize', () => {
-              test('initialize', () => {
-                const selection = {type: 'QUERY'}
-                const onError = jest.fn()
-                return expectSaga(sagas.initialize)
-                  .provide([
-                    [select(sagas.inputSelector), {selection, onError}],
-                    [select(sagas.textResourceSelector, 'client.actions.dms-move.explicitSelection.message'), 'failed']
-                  ])
-                  .put(actions.close())
-                  .run()
-                  .then(() => {
-                    expect(onError.mock.calls.length).to.eql(1)
-                  })
               })
             })
 

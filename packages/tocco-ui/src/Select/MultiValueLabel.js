@@ -15,14 +15,14 @@ export const MultiValueLabel = props => {
     ? <ClickableWrapper onMouseDown={e => {
       e.stopPropagation()
       e.preventDefault()
-    }} >
+    }}>
       <DetailLink entityKey={data.key}><components.MultiValueLabel {...props}/></DetailLink>
     </ClickableWrapper>
     : <components.MultiValueLabel {...props}/>
 
   return (
     <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: tooltip}}/> : null}>
-      <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(data.key)} >
+      <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(data.key)}>
         {content}
       </span>
     </Popover>

@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import _get from 'lodash/get'
-import {lighten} from 'polished'
+import {lighten, darken} from 'polished'
 
 import {
   declareFont,
@@ -39,10 +39,10 @@ export const StyledTableHeaderCell = styled.th`
   ${declareFont({fontWeight: theme.fontWeight('bold')})};
   user-select: none;
   cursor: ${({sortable}) => sortable ? 'pointer' : 'auto'};
-  overflow: hidden;
   white-space: nowrap;
   display: flex;
   border-right: ${({isDraggedOver, theme}) => isDraggedOver ? `3px solid ${theme.colors.secondary}` : 'none'};
+  ${({id}) => id === 'header-cell-navigation-column' && 'z-index: 1'};
   ${({isResizing, theme}) => isResizing && `
     background-color: ${lighten(0.25, theme.colors.secondaryLight)};
 
@@ -96,7 +96,7 @@ const selectionStyles = css`
 
   &.selectableRow:not(.selected):hover {
     > ${StyledTableCell} {
-      background-color: ${({theme}) => lighten(0.45, theme.colors.secondaryLight)};
+      background-color: ${({theme}) => darken(0.2, theme.colors.backgroundBody)};
     }
   }
 `
@@ -131,7 +131,7 @@ export const StyledTableRow = styled.tr`
   ${selectionStyles}
 
   &:nth-child(even) td {
-    background-color: ${theme.color('backgroundBody')};
+    background-color: ${({theme}) => darken(0.04, theme.colors.backgroundBody)};
   }
 `
 
@@ -168,7 +168,6 @@ export const StretchingTableContainer = styled.div`
 
 export const StyledTableWrapper = styled.div`
   display: grid;
-  padding-left: ${scale.space(-0.5)};
   background-color: ${theme.color('paper')};
   grid-template-rows: [table-start] minmax(300px, 1fr) [pagination-start] auto auto;
   height: 100%;

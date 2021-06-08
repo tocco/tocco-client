@@ -1,8 +1,8 @@
 import * as actions from './actions'
 
-const addBlocker = (state, {payload: {id, title, message}}) => ({
+const addBlocker = (state, {payload: {id, title, body}}) => ({
   ...state,
-  blockers: [...state.blockers, {id, title, message}]
+  blockers: [...state.blockers, {id, title, body}]
 })
 
 const removeBlocker = (state, {payload: {id}}) => ({

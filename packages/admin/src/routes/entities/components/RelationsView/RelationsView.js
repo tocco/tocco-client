@@ -4,7 +4,6 @@ import {AdminLink as StyledLink, Icon, Typography} from 'tocco-ui'
 import {js} from 'tocco-util'
 import queryString from 'query-string'
 import _get from 'lodash/get'
-import {intlShape} from 'react-intl'
 
 import {
   RelationBox,
@@ -12,7 +11,8 @@ import {
   RelationLinks,
   StyledPreviewBox,
   StyledRelationBox,
-  StyledRelationsViewWrapper
+  StyledRelationsViewWrapper,
+  StyledPreviewLink
 } from './StyledComponents'
 import {currentViewPropType} from '../../utils/propTypes'
 import {getRelation, setRelation} from '../../utils/relationPersistor'
@@ -88,12 +88,12 @@ const RelationsView = ({
                 to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
                 <Icon icon="arrow-right"/>
               </StyledLink>
-              {hasCreateRights(relation.relationName)
-              && <StyledLink
-                aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-                to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
-                <Icon icon="plus"/>
-              </StyledLink>
+              {hasCreateRights(relation.relationName) && relation.targetEntity !== 'Resource'
+                && <StyledLink
+                  aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
+                  to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
+                  <Icon icon="plus"/>
+                </StyledLink>
               }
             </RelationLinks>
           </RelationBox>
@@ -101,30 +101,30 @@ const RelationsView = ({
       </StyledRelationBox>
 
       {selectedRelation
-      && <StyledPreviewBox>
-        <Typography.H4>
-          {selectedRelation.relationDisplay.label}
-          <StyledLink
-            aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
-            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
-            <Icon icon="arrow-right"/>
-          </StyledLink>
-          {hasCreateRights(selectedRelation.relationName)
-          && <StyledLink
-            aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
-            <Icon icon="plus"/>
-          </StyledLink>
-          }
-        </Typography.H4>
-        <RelationPreview
-          selectedRelation={selectedRelation}
-          match={match}
-          history={history}
-          currentViewInfo={currentViewInfo}
-          emitAction={emitAction}
-        />
-      </StyledPreviewBox>
+        && <StyledPreviewBox>
+          <Typography.H4>
+            {selectedRelation.relationDisplay.label}
+            <StyledPreviewLink
+              aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
+              to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
+              <Icon icon="arrow-right"/>
+            </StyledPreviewLink>
+            {hasCreateRights(selectedRelation.relationName) && selectedRelation.targetEntity !== 'Resource'
+              && <StyledPreviewLink
+                aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
+                to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
+                <Icon icon="plus"/>
+              </StyledPreviewLink>
+            }
+          </Typography.H4>
+          <RelationPreview
+            selectedRelation={selectedRelation}
+            match={match}
+            history={history}
+            currentViewInfo={currentViewInfo}
+            emitAction={emitAction}
+          />
+        </StyledPreviewBox>
       }
     </StyledRelationsViewWrapper>
   )
@@ -140,7 +140,7 @@ RelationsView.propTypes = {
     createPermission: PropTypes.bool
   })),
   emitAction: PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 const areEqual = (prevProps, nextProps) => {

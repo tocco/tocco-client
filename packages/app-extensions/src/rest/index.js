@@ -1,8 +1,9 @@
 import {
   requestSaga,
   requestBytesSaga,
-  setNullBusinessUnit,
-  simpleRequest
+  setBusinessUnit,
+  simpleRequest,
+  NULL_BUSINESS_UNIT
 } from './rest'
 import {
   fetchEntity,
@@ -16,7 +17,8 @@ import {
   fetchDisplays,
   fetchDisplayExpressions,
   buildRequestQuery,
-  fetchPrincipal
+  fetchPrincipal,
+  createSortingString
 } from './helpers'
 import {
   fetchUserPreferences,
@@ -33,7 +35,7 @@ import InformationError from './InformationError'
 export default {
   requestSaga,
   requestBytesSaga,
-  setNullBusinessUnit,
+  setBusinessUnit,
   simpleRequest,
   ClientQuestionCancelledException,
   InformationError,
@@ -53,5 +55,7 @@ export default {
   deleteUserPreferences,
   savePreferences,
   fetchServerSettings,
-  hasRevisionIdChanged
+  hasRevisionIdChanged,
+  createSortingString,
+  NULL_BUSINESS_UNIT
 }

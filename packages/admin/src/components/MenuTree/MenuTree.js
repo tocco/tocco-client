@@ -33,7 +33,7 @@ const MenuItem = ({item, typeMapping}) => {
   const Component = mappedType.component
   return <StyledMenuEntry {...item}>
     <Component item={item} {...mappedType.props}/>
-    {item.children && item.children.map(child => <MenuItem key={child.name} item={child} typeMapping={typeMapping} />)}
+    {item.children && item.children.map(child => <MenuItem key={child.name} item={child} typeMapping={typeMapping}/>)}
   </StyledMenuEntry>
 }
 
@@ -76,7 +76,11 @@ const prepareTree = (item, searchFilter, typeMapping, level = 0) => {
   return {...item, level, children, matchingAttribute}
 }
 
-const MenuTree = ({items, searchFilter, typeMapping}) => {
+const MenuTree = ({items, searchFilter, typeMapping, requireSearch}) => {
+  if (requireSearch && !searchFilter) {
+    return null
+  }
+
   if (!items || items.length === 0) {
     return null
   }
@@ -101,7 +105,8 @@ MenuTree.propTypes = {
       component: PropTypes.func,
       filterAttribute: PropTypes.arrayOf(PropTypes.string)
     })
-  )
+  ),
+  requireSearch: PropTypes.bool
 }
 
 export default React.memo(MenuTree)

@@ -50,6 +50,7 @@ class LocationEdit extends React.Component {
 
   render() {
     const inputPropsZip = {
+      id: this.props.id,
       value: this.props.value.postcode || '',
       onChange: this.onChange('postcode'),
       disabled: this.props.immutable
@@ -65,7 +66,6 @@ class LocationEdit extends React.Component {
       <FocusWithin>
         {({focused, getRef}) => {
           return <StyledLocationEdit
-            id={this.props.id}
             immutable={this.props.immutable}
             name={this.props.name}
             ref={getRef}
@@ -96,15 +96,15 @@ class LocationEdit extends React.Component {
             <StyledEditableControl>
               {this.props.options.isLoading && <LoadingSpinner size="1.8rem"/>}
               {this.showGoogleMaps(this.props.value)
-              && <Link
-                href={getGoogleMapsAddress(this.props.value)}
-                icon="map-marked"
-                tabIndex={-1}
-                target="_blank"
-                dense={false}
-                title={this.props.options.mapButtonTitle || 'Show on map'}
-                neutral
-              />
+                && <Link
+                  href={getGoogleMapsAddress(this.props.value)}
+                  icon="map-marked"
+                  tabIndex={-1}
+                  target="_blank"
+                  dense={false}
+                  title={this.props.options.mapButtonTitle || 'Show on map'}
+                  neutral
+                />
               }
             </StyledEditableControl>
           </StyledLocationEdit>

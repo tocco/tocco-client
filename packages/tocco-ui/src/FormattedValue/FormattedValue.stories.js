@@ -1,146 +1,187 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {withKnobs, date, boolean, number, object, text, select} from '@storybook/addon-knobs'
-import moment from 'moment'
 
 import FormattedValue from './'
 import {storybookHtmlMarkup} from '../util/storybookHtmlMarkup'
-
-export function iso(value) {
-  const knob = date('Value', moment(value).toDate())
-  return moment(knob).format('YYYY-MM-DD')
+import {map} from './typeFormatterProvider'
+export default {
+  title: 'Tocco-UI/FormattedValue',
+  component: FormattedValue,
+  argTypes: {
+    type: {
+      control: {
+        type: 'select',
+        options: Object.keys(map)
+      }
+    }
+  }
 }
 
-storiesOf('Tocco-UI | FormattedValue', module)
-  .addDecorator(withKnobs({
-    escapeHTML: false
-  }))
-  .add(
-    'Boolean',
-    () => <FormattedValue key="2" type="boolean" value={boolean('Value', true)}/>
-  ).add(
-    'Date',
-    () => <FormattedValue type="date" value={iso('2001-1-1')}/>
-  )
-  .add(
-    'String',
-    () => <FormattedValue type="string" value={text('String', 'Simple string')}/>
-  )
-  .add(
-    'Text',
-    () => <FormattedValue type="text" value={text('text', 'Line1 \nLine2')} breakWords={boolean('breakWords', true)}/>
-  )
-  .add(
-    'Datetime',
-    () => <FormattedValue type="datetime" value={text('Datetime', '2017-11-16T03:21:23.123Z')}/>
-  )
-  .add(
-    'Time',
-    () => <FormattedValue type="time" value={text('Time', '03:21:23.123Z')}/>
-  )
-  .add(
-    'Integer',
-    () => <FormattedValue type="integer" value={number('Integer', 87660000)}/>
-  )
-  .add(
-    'Number',
-    () => <FormattedValue type="number" value={number('Number', 8473226)}/>
-  )
-  .add(
-    'Document',
-    () => <FormattedValue type="document" value={{
-      alt: text('alt', 'a classic car parked in nature'),
-      binaryLink: text('binaryLink', 'https://picsum.photos/1000/1000?image=1070'),
-      caption: text('caption', 'car parked nature'),
-      fileName: text('fileName', 'nature_car.jpg'),
-      thumbnailLink: text('thumbnailLink', 'https://picsum.photos/400/400?image=1070')
-    }}/>
-  )
-  .add(
-    'Document Compact',
-    () => <FormattedValue type="document-compact" value={{
-      alt: text('alt', 'modern building captured from frog view'),
-      binaryLink: text('binaryLink', 'https://picsum.photos/1000/1000?image=1081'),
-      caption: text('caption', 'modern skyscraper'),
-      fileName: text('fileName', 'modern_skyscraper.jpg'),
-      thumbnailLink: text('thumbnailLink', 'https://picsum.photos/400/400?image=1081')
-    }}/>
-  )
-  .add(
-    'Duration',
-    () => <FormattedValue type="duration" value={number('Duration in ms', 83456678)}/>
-  )
-  .add(
-    'HTML',
-    () => <FormattedValue type="html" value={text('HTML', storybookHtmlMarkup)}/>
-  )
-  .add(
-    'Description',
-    () => <FormattedValue
-      type="description"
-      value={text('Value', 'This is a <b>strong</b> text')}
-      options={{
-        mode: select('Mode', {tooltip: 'tooltip', text: 'text'}),
-        title: text('Title', 'Title')
-      }}
-    />
-  )
-  .add(
-    'Money',
-    () => <FormattedValue type="moneyamount" value={number('Money', 1235.67)}/>
-  )
-  .add(
-    'Remote',
-    () => <FormattedValue
-      type="remote"
-      value={object(
-        'Remote',
-        {key: '1', display: 'apple'}
-      )}
-      options={{
-        DetailLink: ({entityKey, children}) =>
-          <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">{children}</a>
-      }}
-    />
-  )
-  .add(
-    'Multi Remote',
-    () => <FormattedValue
-      type="multi-remote"
-      value={object(
-        'Multi Remote',
-        [{key: '1', display: 'apple'}, {key: '2', display: 'khaki'}]
-      )}
-      options={{
-        DetailLink: ({entityKey, children}) =>
-          <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">{children}</a>
-      }}
-    />
-  )
-  .add(
-    'Multi Select',
-    () => <FormattedValue
-      type="multi-select"
-      value={object(
-        'Multi Select',
-        [
-          {key: '3', display: 'Matterhorn'},
-          {key: '4', display: 'Jungfraujoch'},
-          {key: '5', display: 'Rigi'}
-        ]
-      )}
-    />
-  )
-  .add(
-    'Percent',
-    () => <FormattedValue type="percent" value={number('Percent', 65.89)}/>
-  )
-  .add(
-    'Phone',
-    () => <FormattedValue type="phone" value={text('Phone', '+41761234567')}/>
-  )
-  .add(
-    'Url',
-    () => <FormattedValue type="url" value={text('Url', 'https://www.tocco.ch')}/>
-  )
+export const Boolean = args => (
+  <FormattedValue {...args}/>
+)
+
+Boolean.argTypes = {value: {type: 'boolean', defaultValue: true}, type: {defaultValue: 'boolean'}}
+
+export const DateTime = args => (
+  <FormattedValue {...args}/>
+)
+
+DateTime.argTypes = {
+  value: {type: 'string', defaultValue: '2017-11-16T03:21:23.123Z'},
+  type: {defaultValue: 'datetime'}
+}
+
+export const Description = ({mode, title, ...args}) => (
+  <FormattedValue {...args} options={{mode, title}}/>
+)
+
+Description.argTypes = {
+  value: {control: 'text', defaultValue: 'This is a <b>strong</b> text'},
+  options: {control: false},
+  mode: {control: {type: 'radio', options: ['tooltip', 'text']}, defaultValue: 'tooltip'},
+  title: {type: 'string', defaultValue: 'Title'},
+  type: {defaultValue: 'description'}
+}
+
+export const Document = args => (
+  <FormattedValue {...args}/>
+)
+
+Document.argTypes = {
+  value: {
+    control: 'object',
+    defaultValue: {
+      alt: 'a classic car parked in nature',
+      binaryLink: 'https://picsum.photos/1000/1000?image=1070',
+      caption: 'car parked nature',
+      fileName: 'nature_car.jpg',
+      thumbnailLink: 'https://picsum.photos/400/400?image=1070'
+    }
+  },
+  type: {defaultValue: 'document'}
+}
+
+export const DocumentCompact = args => (
+  <FormattedValue {...args}/>
+)
+
+DocumentCompact.argTypes = {
+  value: {
+    control: 'object',
+    defaultValue: {
+      alt: 'a classic car parked in nature',
+      binaryLink: 'https://picsum.photos/1000/1000?image=1070',
+      caption: 'car parked nature',
+      fileName: 'nature_car.jpg',
+      thumbnailLink: 'https://picsum.photos/400/400?image=1070'
+    }
+  },
+  type: {defaultValue: 'document-compact'}
+}
+export const Duration = args => (
+  <FormattedValue {...args}/>
+)
+
+Duration.argTypes = {
+  value: {control: 'number', defaultValue: 83456678, description: 'Duration in milliseconds'},
+  type: {defaultValue: 'duration'}
+}
+
+export const Html = args => (
+  <FormattedValue {...args}/>
+)
+
+Html.argTypes = {value: {control: 'text', defaultValue: storybookHtmlMarkup}, type: {defaultValue: 'html'}}
+
+export const Integer = args => (
+  <FormattedValue {...args}/>
+)
+
+Integer.argTypes = {value: {type: 'number', defaultValue: 87660000}, type: {defaultValue: 'integer'}}
+
+export const Money = args => (
+  <FormattedValue {...args} type="moneyamount"/>
+)
+
+Money.argTypes = {value: {control: 'number', defaultValue: 1235.67}}
+
+export const MultiRemote = args => (
+  <FormattedValue {...args} options={{
+    DetailLink: ({entityKey, children}) =>
+      <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">{children}</a>
+  }}/>
+)
+
+MultiRemote.argTypes = {
+  value: {control: 'object', defaultValue: [{key: '1', display: 'apple'}, {key: '2', display: 'khaki'}]},
+  type: {defaultValue: 'multi-remote'}
+}
+
+export const MultiSelect = args => (
+  <FormattedValue {...args}/>
+)
+
+MultiSelect.argTypes = {
+  value: {
+    control: 'object',
+    defaultValue: [
+      {key: '3', display: 'Matterhorn'},
+      {key: '4', display: 'Jungfraujoch'},
+      {key: '5', display: 'Rigi'}
+    ]
+  },
+  type: {defaultValue: 'multi-select'}
+}
+export const Number = args => (
+  <FormattedValue {...args}/>
+)
+
+Number.argTypes = {value: {type: 'number', defaultValue: 876600.010}, type: {defaultValue: 'number'}}
+
+export const Percent = args => (
+  <FormattedValue {...args}/>
+)
+
+Percent.argTypes = {value: {type: 'number', defaultValue: 65.89}, type: {defaultValue: 'percent'}}
+
+export const Phone = args => (
+  <FormattedValue {...args}/>
+)
+
+Phone.argTypes = {value: {type: 'string', defaultValue: '+41761234567'}, type: {defaultValue: 'phone'}}
+
+export const Remote = args => (
+  <FormattedValue {...args} options={{
+    DetailLink: ({entityKey, children}) =>
+      <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">{children}</a>
+  }}/>
+)
+
+Remote.argTypes = {
+  value: {control: 'object', defaultValue: {key: '1', display: 'apple'}}, type: {defaultValue: 'remote'}
+}
+
+export const String = args => (
+  <FormattedValue {...args}/>
+)
+
+String.argTypes = {value: {type: 'string', defaultValue: 'Test String'}, type: {defaultValue: 'string'}}
+
+export const Text = args => (
+  <FormattedValue {...args}/>
+)
+
+Text.argTypes = {value: {type: 'string', defaultValue: 'Line1 \nLine2'}, type: {defaultValue: 'text'}}
+
+export const Time = args => (
+  <FormattedValue {...args}/>
+)
+
+Time.argTypes = {value: {type: 'string', defaultValue: '03:21:23.123Z'}, type: {defaultValue: 'time'}}
+
+export const Url = args => (
+  <FormattedValue {...args}/>
+)
+
+Url.argTypes = {value: {type: 'string', defaultValue: 'https://www.tocco.ch'}, type: {defaultValue: 'url'}}

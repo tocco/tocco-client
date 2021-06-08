@@ -8,7 +8,7 @@ describe('app-extensions', () => {
   describe('errorLogging', () => {
     describe('sagas', () => {
       test('should handle error if accept true', () => {
-        const handlers = ['console', 'notifier']
+        const handlers = ['console', 'notification']
         const accept = true
         const generator = rootSaga(accept, handlers)
 
@@ -20,7 +20,7 @@ describe('app-extensions', () => {
       })
 
       test('should emit error if accept false', () => {
-        const handlers = ['console', 'notifier']
+        const handlers = ['console', 'notification']
         const accept = false
         const generator = rootSaga(accept, handlers)
 
@@ -31,8 +31,8 @@ describe('app-extensions', () => {
         expect(generator.next().done).to.be.true
       })
 
-      test('should call configured handerls', () => {
-        const handlers = ['console', 'notifier']
+      test('should call configured handlers', () => {
+        const handlers = ['console', 'notification']
         const title = 'title'
         const description = 'description'
         const error = new Error('error')
@@ -40,7 +40,7 @@ describe('app-extensions', () => {
 
         expect(gen.next().value).to.eql(all([
           call(handlerRegistry.console, title, description, error),
-          call(handlerRegistry.notifier, title, description, error)
+          call(handlerRegistry.notification, title, description, error)
         ]))
 
         expect(gen.next().done).to.be.true

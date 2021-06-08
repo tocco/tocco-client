@@ -42,7 +42,7 @@ describe('entity-detail', () => {
           </IntlProvider>
         )
 
-        expect(wrapper.find('span').text()).to.equal('client.entity-detail.invalidRelationErrors')
+        expect(wrapper.find('FormattedMessage').text()).to.equal('client.entity-detail.invalidRelationErrors')
         expect(wrapper.find(ErrorItem).at(0).text()).to.eql(
           'Pflichtfeld ist nicht ausgefüllt. (label_de, User_status, 3)'
         )
@@ -62,7 +62,7 @@ describe('entity-detail', () => {
           </IntlProvider>
         )
 
-        expect(wrapper.find('span').first().text()).to.equal('client.entity-detail.invalidFieldsError')
+        expect(wrapper.find('FormattedMessage').first().text()).to.equal('client.entity-detail.invalidFieldsError')
       })
 
       test('should show entityValidatorErrors', () => {
@@ -83,7 +83,7 @@ describe('entity-detail', () => {
             />
           </IntlProvider>
         )
-        expect(wrapper.find('span').text()).to.equal('client.entity-detail.validatorErrors')
+        expect(wrapper.find('FormattedMessage').text()).to.equal('client.entity-detail.validatorErrors')
         expect(wrapper.find(ErrorItem)).to.have.length(3)
         expect(wrapper.find(ErrorItem).at(0).text()).to.eql('1')
         expect(wrapper.find(ErrorItem).at(1).text()).to.eql('2')

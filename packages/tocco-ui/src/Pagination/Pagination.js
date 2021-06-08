@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import styled from 'styled-components'
 
 import Button from '../Button'
@@ -42,22 +42,22 @@ const Pagination = ({totalCount, recordsPerPage, currentPage, onPageChange, intl
         && <Button
           title={msg('client.component.pagination.firstPageTitle')}
           icon="chevron-double-left"
-          onClick={() => onPageChange(1)} />}
+          onClick={() => onPageChange(1)}/>}
         {currentPage > 1
         && <Button
           title={msg('client.component.pagination.prePageTitle')}
           icon="chevron-left"
-          onClick={() => onPageChange(currentPage - 1)} />}
+          onClick={() => onPageChange(currentPage - 1)}/>}
         {currentPage < totalPages
         && <Button
           title={msg('client.component.pagination.nextPageTitle')}
           icon="chevron-right"
-          onClick={() => onPageChange(currentPage + 1)} />}
+          onClick={() => onPageChange(currentPage + 1)}/>}
         {currentPage < totalPages - 1
         && <Button
           title={msg('client.component.pagination.lastPageTitle')}
           icon="chevron-double-right"
-          onClick={() => onPageChange(totalPages)} />}
+          onClick={() => onPageChange(totalPages)}/>}
       </ButtonGroup>
       }
     </StyledPagination>
@@ -65,7 +65,7 @@ const Pagination = ({totalCount, recordsPerPage, currentPage, onPageChange, intl
 }
 
 Pagination.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   /**
    * Currently displayed page
    */

@@ -17,7 +17,7 @@ const getTitle = breadcrumbsInfo =>
     .reverse()
     .join(' - ')
 
-const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundColor}) => {
+const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundColor, onClick}) => {
   const breadcrumbs = [
     ...(breadcrumbsInfo || []),
     ...(currentViewTitle ? [{display: currentViewTitle}] : [])
@@ -25,6 +25,12 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundC
 
   if (breadcrumbs.length === 0) {
     return null
+  }
+
+  const handleClick = breadcrumbsItem => () => {
+    if (onClick) {
+      onClick(breadcrumbsItem)
+    }
   }
 
   return <StyledBreadcrumbs backgroundColor={backgroundColor}>
@@ -40,14 +46,15 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundC
             neutral="true"
             {...(idx === breadcrumbs.length - 1 && {active: 'true'})}
             to={`${pathPrefix}/${b.path}`}
+            onClick={handleClick(b)}
           >
-            {b.type === 'list' && <Icon icon="list-ul" />}  {display}
+            {b.type === 'list' && <Icon icon="list"/>} {display}
           </Comp>
         </Typography.Span>
       })
         .reduce((prev, curr, idx) =>
           [prev,
-            <Typography.Span key={'icon' + idx}> <Icon icon="angle-right"/> </Typography.Span>,
+            <Typography.Span key={'icon' + idx}> <Icon icon="chevron-right"/> </Typography.Span>,
             curr]
         )}
     </div>
@@ -69,7 +76,8 @@ Breadcrumbs.propTypes = {
     })
   ),
   currentViewTitle: PropTypes.string,
-  backgroundColor: PropTypes.string
+  backgroundColor: PropTypes.string,
+  onClick: PropTypes.func
 }
 
 export default Breadcrumbs

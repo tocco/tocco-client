@@ -1,10 +1,11 @@
 export default {
+  name: 'default',
   colors: {
     paper: '#fff',
     primary: '#B22A31',
     secondary: '#263E5B',
     secondaryLight: '#347da9',
-    text: '#171717',
+    text: '#000',
     backgroundBody: '#EDF1F5',
     backgroundBreadcrumbs: '#DEE6ED',
     signal: {

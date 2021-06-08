@@ -55,7 +55,7 @@ const InstallationDelta = ({keys}) => {
               <CommitMsg msg={commit.commit.commitMessage}/>
             </div>
             <div>
-              <IssueInfos issues={commit.issues} />
+              <IssueInfos issues={commit.issues}/>
             </div>
           </StyledRow>
         )}

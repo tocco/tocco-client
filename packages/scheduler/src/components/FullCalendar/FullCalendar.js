@@ -6,7 +6,7 @@ import moment from 'moment'
 import 'twix'
 import {FormattedValue, Popover} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 import interactionPlugin from '@fullcalendar/interaction'
 import adaptivePlugin from '@fullcalendar/adaptive'
 
@@ -180,8 +180,8 @@ const FullCalendar = ({
       }}
     />, [resources.length])
 
-  return <StyledFullCalendarWrapper ref={wrapperEl} >
-    <CalendarGlobalPrintStyle />
+  return <StyledFullCalendarWrapper ref={wrapperEl}>
+    <CalendarGlobalPrintStyle/>
     {calendarEl.current && <NavigationFullCalendar
       changeRange={changeRange}
       changeView={changeView}
@@ -206,7 +206,7 @@ FullCalendar.defaultProps = {
 }
 
 FullCalendar.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
   onCalendarRemoveAll: PropTypes.func,

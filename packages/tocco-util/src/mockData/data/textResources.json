@@ -2,7 +2,6 @@
   "client.component.table.dataLoading",
   "client.component.table.noData",
   "client.component.actions.confirmTitle",
-  "client.component.actions.defaultConfirmMessage",
   "client.component.actions.defaultProgressMessage",
   "client.component.actions.errorText",
   "client.component.actions.successDefault",

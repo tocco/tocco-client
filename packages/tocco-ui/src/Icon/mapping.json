@@ -1,18 +1,18 @@
 {
   "angle-down": {
-    "id": "fas, angle-down",
+    "id": "fal, angle-down",
     "lib": "fa"
   },
   "angle-left": {
-    "id": "fas, angle-left",
+    "id": "fal, angle-left",
     "lib": "fa"
   },
   "angle-right": {
-    "id": "fas, angle-right",
+    "id": "fal, angle-right",
     "lib": "fa"
   },
   "angle-up": {
-    "id": "fas, angle-up",
+    "id": "fal, angle-up",
     "lib": "fa"
   },
   "apple": {
@@ -23,73 +23,66 @@
     ]
   },
   "arrow-left": {
-    "id": "far, arrow-left",
+    "id": "fal, arrow-left",
     "lib": "fa",
     "tags": [
       "navigate"
     ]
   },
   "arrow-right": {
-    "id": "far, arrow-right",
+    "id": "fal, arrow-right",
     "lib": "fa",
     "tags": [
       "navigate"
     ]
   },
   "bars": {
-    "id": "far, bars",
+    "id": "fal, bars",
     "lib": "fa",
     "tags": [
       "burger"
     ]
   },
   "bell": {
-    "id": "far, bell",
+    "id": "fal, bell",
     "lib": "fa",
     "tags": [
       "notification"
     ]
   },
   "book": {
-    "id": "far, book",
+    "id": "fal, book",
     "lib": "fa"
   },
   "check": {
-    "id": "far, check",
+    "id": "fal, check",
     "lib": "fa",
     "tags": [
       "ok"
     ]
   },
-  "check-circle": {
-    "id": "fal, check-circle",
-    "lib": "fa",
-    "tags": [
-      "selection"
-    ]
-  },
   "chevron-double-left": {
-    "id": "far, chevron-double-left",
+    "id": "fal, chevron-double-left",
     "lib": "fa"
   },
   "chevron-double-right": {
-    "id": "far, chevron-double-right",
+    "id": "fal, chevron-double-right",
     "lib": "fa"
   },
   "chevron-down": {
-    "id": "far, chevron-down",
+    "id": "fal, chevron-down",
     "lib": "fa"
   },
   "chevron-left": {
-    "id": "far, chevron-left",
+    "id": "fal, chevron-left",
     "lib": "fa"
   },
   "chevron-right": {
-    "id": "far, chevron-right",
+    "id": "fal, chevron-right",
     "lib": "fa"
   },
   "chevron-up": {
-    "id": "far, chevron-up",
+    "id": "fal, chevron-up",
     "lib": "fa"
   },
   "circle": {
@@ -100,11 +93,11 @@
     ]
   },
   "cog": {
-    "id": "far, cog",
+    "id": "fal, cog",
     "lib": "fa"
   },
   "compress": {
-    "id": "far, compress",
+    "id": "fal, compress",
     "lib": "fa"
   },
   "download": {
@@ -119,7 +112,7 @@
     ]
   },
   "ellipsis-v": {
-    "id": "far, ellipsis-v",
+    "id": "fal, ellipsis-v",
     "lib": "fa",
     "tags": [
       "dots",
@@ -127,11 +120,15 @@
     ]
   },
   "exclamation": {
-    "id": "fas, exclamation",
+    "id": "fal, exclamation",
     "lib": "fa",
     "tags": [
       "warning"
     ]
+  },
+  "external-link": {
+    "id": "fal, external-link",
+    "lib": "fa"
   },
   "facebook": {
     "id": "fab, facebook",
@@ -152,50 +149,50 @@
     "lib": "fa"
   },
   "file-alt": {
-    "id": "far, file-alt",
+    "id": "fal, file-alt",
     "lib": "fa"
   },
   "file-code": {
-    "id": "far, file-code",
+    "id": "fal, file-code",
     "lib": "fa"
   },
   "file-csv": {
-    "id": "far, file-csv",
+    "id": "fal, file-csv",
     "lib": "fa"
   },
   "file-excel": {
-    "id": "far, file-excel",
+    "id": "fal, file-excel",
     "lib": "fa"
   },
   "file-export": {
-    "id": "far, file-export",
+    "id": "fal, file-export",
     "lib": "fa"
   },
   "file-import": {
-    "id": "far, file-import",
+    "id": "fal, file-import",
     "lib": "fa"
   },
   "file-pdf": {
-    "id": "far, file-pdf",
+    "id": "fal, file-pdf",
     "lib": "fa"
   },
   "file-spreadsheet": {
-    "id": "far, file-spreadsheet",
+    "id": "fal, file-spreadsheet",
     "lib": "fa"
   },
   "folder": {
-    "id": "fas, folder",
+    "id": "fal, folder",
     "lib": "fa"
   },
   "folders": {
-    "id": "far, folders",
+    "id": "fal, folders",
     "lib": "fa",
     "tags": [
       "copy"
     ]
   },
   "globe": {
-    "id": "far, globe",
+    "id": "fal, globe",
     "lib": "fa"
   },
   "google": {
@@ -210,19 +207,19 @@
     "lib": "fa"
   },
   "id-badge": {
-    "id": "far, id-badge",
+    "id": "fal, id-badge",
     "lib": "fa"
   },
   "info": {
-    "id": "far, info",
+    "id": "fal, info",
     "lib": "fa"
   },
-  "list-ul": {
-    "id": "far, list-ul",
+  "list": {
+    "id": "fal, list",
     "lib": "fa"
   },
   "map-marked": {
-    "id": "far, map-marked",
+    "id": "fal, map-marked",
     "lib": "fa"
   },
   "microsoft": {
@@ -237,48 +234,45 @@
     "lib": "toc"
   },
   "phone": {
-    "id": "fas, phone",
+    "id": "fal, phone",
     "lib": "fa"
   },
   "plus": {
-    "id": "far, plus",
+    "id": "fal, plus",
     "lib": "fa",
     "tags": [
       "new"
     ]
   },
   "question-circle": {
-    "id": "far, question-circle",
+    "id": "fal, question-circle",
     "lib": "fa",
     "tags": [
       "help"
     ]
   },
   "search": {
-    "id": "far, search",
+    "id": "fal, search",
     "lib": "fa"
   },
   "sort-down": {
-    "id": "far, sort-down",
+    "id": "fal, sort-down",
     "lib": "fa"
   },
   "sort-up": {
-    "id": "far, sort-up",
+    "id": "fal, sort-up",
     "lib": "fa"
   },
   "square": {
-    "id": "fas, square",
+    "id": "fal, square",
+    "lib": "fa"
+  },
+  "square-full": {
+    "id": "fas, square-full",
     "lib": "fa"
   },
   "star": {
-    "id": "far, star",
-    "lib": "fa",
-    "tags": [
-      "favorite"
-    ]
-  },
-  "star-filled": {
-    "id": "fas, star",
+    "id": "fal, star",
     "lib": "fa",
     "tags": [
       "favorite"
@@ -292,16 +286,10 @@
     ]
   },
   "times": {
-    "id": "far, times",
-    "lib": "fa",
-    "tags": [
-      "delete"
-    ]
-  },
-  "times-light": {
     "id": "fal, times",
     "lib": "fa",
     "tags": [
+      "delete",
       "close"
     ]
   },
@@ -317,6 +305,13 @@
     "lib": "fa",
     "tags": [
       "info"
+    ]
+  },
+  "check-circle": {
+    "id": "fal, check-circle",
+    "lib": "fa",
+    "tags": [
+      "check"
     ]
   },
   "exclamation-circle": {

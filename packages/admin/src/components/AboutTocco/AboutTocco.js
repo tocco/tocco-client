@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Typography, Link} from 'tocco-ui'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 
 import ToccoLogo from '../../assets/tocco_red.svg'
 import {StyledLogo, StyledBlockWrapper, StyledFormattedMessageWrapper} from './StyledComponents'
@@ -50,7 +50,7 @@ const AboutTocco = ({niceVersion, niceRevision, intl}) => {
 }
 
 AboutTocco.propTypes = {
-  intl: intlShape,
+  intl: PropTypes.object,
   niceVersion: PropTypes.string,
   niceRevision: PropTypes.string
 }

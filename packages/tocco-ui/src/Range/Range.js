@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
+import _omit from 'lodash/omit'
 
 import {
   StyledRange,
@@ -12,26 +13,7 @@ import {
 import EditableValue from '../EditableValue'
 import Ball from '../Ball'
 import Icon from '../Icon'
-
-const getToOptions = (type, options, fromValue) => {
-  switch (type) {
-    case 'date':
-    case 'datetime':
-      return {...options, flatpickrOptions: {minDate: fromValue}}
-    default:
-      return options
-  }
-}
-
-const getFromOptions = (type, options, toValue) => {
-  switch (type) {
-    case 'date':
-    case 'datetime':
-      return {...options, flatpickrOptions: {maxDate: toValue}}
-    default:
-      return options
-  }
-}
+import rangeTypeMappings from './rangeTypeMappings'
 
 /**
  * Allows to render EditableValues as a range. The value can be switched between a range or single value.
@@ -65,20 +47,40 @@ const Range = props => {
     }
   }))
 
-  const getFromOrTo = value => value && value.to ? value.to : value && value.from ? value.from : null
+  const typeMapping = rangeTypeMappings[type]
+
+  const getToOptions = (options, fromValue) =>
+    typeMapping && typeMapping.getToOptions
+      ? typeMapping.getToOptions(options, fromValue)
+      : options
+
+  const getFromOptions = (options, toValue) =>
+    typeMapping && typeMapping.getFromOptions
+      ? typeMapping.getFromOptions(options, toValue)
+      : options
+
+  const getFromOrTo = value => value && value.from ? value.from : value && value.to ? value.to : null
+
+  const getRangeValue = value =>
+    typeMapping && typeMapping.toRange
+      ? typeMapping.toRange(value)
+      : {from: value, to: value, isRangeValue: true}
+
+  const baseType = typeMapping && typeMapping.type ? typeMapping.type : type
 
   return <StyledRange>
     <StyledInputWrapper>
       {!hasRangeValue
         ? <EditableValue
-          {...props}
+          type={baseType}
+          {..._omit(props, ['type'])}
           events={exactEvents}
         />
         : <StyledInput>
           <StyledInputItemWrapper>
             <EditableValue
               {...props}
-              options={getFromOptions(type, options, value.to)}
+              options={getFromOptions(options, value.to)}
               value={value && value.from ? value.from : null}
               events={fromEvents}
             />
@@ -89,7 +91,7 @@ const Range = props => {
           <StyledInputItemWrapper>
             <EditableValue
               {...props}
-              options={getToOptions(type, options, value.from)}
+              options={getToOptions(options, value.from)}
               value={value && value.to ? value.to : null}
               events={toEvents}
             />
@@ -101,7 +103,7 @@ const Range = props => {
         if (hasRangeValue) {
           events.onChange(getFromOrTo(value))
         } else {
-          events.onChange({from: value, to: value, isRangeValue: true})
+          events.onChange(getRangeValue(value))
         }
       }}>
       </Ball>

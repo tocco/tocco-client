@@ -1,9 +1,9 @@
 import React, {useRef, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
-import {Icon, Ball} from 'tocco-ui'
+import {Icon, Ball, BallMenu, MenuItem, Popover} from 'tocco-ui'
 import {withTheme} from 'styled-components'
-import {injectIntl, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 
 import {StyledSplit, AdminSearchGrid, Box, StyledGutter, StyledHeader, StyledSplitWrapper} from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
@@ -24,7 +24,15 @@ const getGutter = () => () => {
   return gutterEl
 }
 
-const AdminSearchForm = ({resetSearch, intl, searchFilters}) => {
+const AdminSearchForm = ({
+  resetSearch,
+  intl,
+  searchFilters,
+  saveSearchFilter,
+  saveDefaultSearchFilter,
+  resetDefaultSearchFilter,
+  searchFormDirty
+}) => {
   const splitWrapperEl = useRef(null)
   const [size, setSize] = useState([MAX_SIZE_SEARCH_FILTER, 100 - MAX_SIZE_SEARCH_FILTER])
   const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
@@ -47,6 +55,8 @@ const AdminSearchForm = ({resetSearch, intl, searchFilters}) => {
     }
   }, [searchFilters, searchFilterExpanded])
 
+  const isSingleSearchFilterActive = searchFilters !== null && searchFilters.filter(s => s.active).length === 1
+
   return <AdminSearchGrid>
     <StyledHeader>
       {showExpandSearchFilter && <Ball
@@ -60,6 +70,21 @@ const AdminSearchForm = ({resetSearch, intl, searchFilters}) => {
         onClick={resetSearch}
         title={msg('client.entity-list.reset')}
       />
+      <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
+        <MenuItem disabled={!isSingleSearchFilterActive} onClick={saveDefaultSearchFilter}>
+          <Popover content={!isSingleSearchFilterActive
+            && <FormattedMessage id="client.entity-list.search.settings.defaultFilter.save.info"/>
+          }>
+            <FormattedMessage id="client.entity-list.search.settings.defaultFilter.save"/>
+          </Popover>
+        </MenuItem>
+        <MenuItem onClick={resetDefaultSearchFilter}>
+          <FormattedMessage id="client.entity-list.search.settings.defaultFilter.reset"/>
+        </MenuItem>
+        <MenuItem onClick={saveSearchFilter} disabled={!searchFormDirty}>
+          <FormattedMessage id="client.entity-list.search.settings.saveAsFilter"/>
+        </MenuItem>
+      </BallMenu>
     </StyledHeader>
     <StyledSplitWrapper ref={splitWrapperEl}>
       <StyledSplit
@@ -70,7 +95,7 @@ const AdminSearchForm = ({resetSearch, intl, searchFilters}) => {
         gutter={getGutter()}
       >
         <Box>
-          <SearchFilterList />
+          <SearchFilterList/>
         </Box>
         <Box>
           <BasicSearchFormContainer disableSimpleSearch={true}/>
@@ -81,10 +106,14 @@ const AdminSearchForm = ({resetSearch, intl, searchFilters}) => {
 }
 
 AdminSearchForm.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   searchFilters: PropTypes.arrayOf(PropTypes.object),
   resetSearch: PropTypes.func.isRequired,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  saveSearchFilter: PropTypes.func.isRequired,
+  saveDefaultSearchFilter: PropTypes.func.isRequired,
+  resetDefaultSearchFilter: PropTypes.func.isRequired,
+  searchFormDirty: PropTypes.bool
 }
 
 export default injectIntl(withTheme(AdminSearchForm))

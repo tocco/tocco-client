@@ -11,7 +11,7 @@ describe('tocco-ui', () => {
       describe('NumberEdit ', () => {
         test('should render NumberEdit', () => {
           const wrapper = mountWithIntl(
-            <NumberEdit value={1234567.89} options={{}} onChange={EMPTY_FUNC} />
+            <NumberEdit value={1234567.89} options={{}} onChange={EMPTY_FUNC}/>
           )
           expect(wrapper.find('input')).to.have.length(1)
         })
@@ -23,7 +23,7 @@ describe('tocco-ui', () => {
           }
 
           const wrapper = mountWithIntl(
-            <NumberEdit value={1234567.89} options={{}} onChange={changeHandler} />
+            <NumberEdit value={1234567.89} options={{}} onChange={changeHandler}/>
           )
 
           wrapper.find('input').simulate('change', {target: {value: '', focus: () => {}}})
@@ -51,7 +51,7 @@ describe('tocco-ui', () => {
                 prePointDigits: 30,
                 postPointDigits: 3
               }}
-              onChange={EMPTY_FUNC} />
+              onChange={EMPTY_FUNC}/>
           )
           expect(wrapper.html()).to.contains(result)
         })
@@ -67,7 +67,7 @@ describe('tocco-ui', () => {
                 prefix: 'pre',
                 suffix: 'post'
               }}
-              onChange={EMPTY_FUNC} />
+              onChange={EMPTY_FUNC}/>
           )
           expect(wrapper.html()).to.contains(result)
         })
@@ -82,7 +82,7 @@ describe('tocco-ui', () => {
                 postPointDigits: 3,
                 fixedDecimalScale: true
               }}
-              onChange={EMPTY_FUNC} />
+              onChange={EMPTY_FUNC}/>
           )
           expect(wrapper.html()).to.contains(result)
         })

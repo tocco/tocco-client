@@ -18,7 +18,19 @@ const StyledButtonsWrapper = styled.div`
   }
 `
 
-export const MoveAction = ({selection, onSuccess, onError, context, initialize, moveElements, isWaiting}) => {
+export const MoveAction = ({
+  selection,
+  onSuccess,
+  onError,
+  context,
+  initialize,
+  moveElements,
+  isWaiting,
+  domainTypes,
+  rootNodes,
+  businessUnit,
+  emitAction
+}) => {
   const initialNode = getNode(context.history.location.pathname)
   const initialParent = {model: 'Docs_list_item', key: `${initialNode.model}/${initialNode.key}`}
   const [parent, setParent] = useState(initialParent)
@@ -56,11 +68,16 @@ export const MoveAction = ({selection, onSuccess, onError, context, initialize, 
       selectionStyle="none"
       searchFormType="none"
       disableViewPersistor={true}
-      listFormName={parent === null ? 'Move_root_docs_list_item' : 'Move_docs_list_item'}
+      getListFormName={parent => parent === null ? 'Move_root_docs_list_item' : 'Move_docs_list_item'}
       onListParentChange={parent => setParent(parent)}
       getCustomLocation={getCustomLocation}
       navigationStrategy={{}}
       embedded={true}
+      emitAction={emitAction}
+      noLeftPadding={true}
+      domainTypes={domainTypes}
+      rootNodes={rootNodes}
+      businessUnit={businessUnit}
     />
     <StyledButtonsWrapper>
       <Button
@@ -88,5 +105,12 @@ MoveAction.propTypes = {
   }).isRequired,
   initialize: PropTypes.func.isRequired,
   moveElements: PropTypes.func.isRequired,
-  isWaiting: PropTypes.bool.isRequired
+  isWaiting: PropTypes.bool.isRequired,
+  domainTypes: PropTypes.arrayOf(PropTypes.string),
+  rootNodes: PropTypes.arrayOf(PropTypes.shape({
+    entityName: PropTypes.string,
+    key: PropTypes.string
+  })),
+  businessUnit: PropTypes.string,
+  emitAction: PropTypes.func.isRequired
 }

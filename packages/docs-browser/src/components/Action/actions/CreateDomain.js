@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 
 import getNode from '../../../utils/getNode'
+import getDetailFormName from '../../../utils/getDetailFormName'
 
-const CreateDomain = ({context, onSuccess, intl}) => {
+const CreateDomain = ({context, onSuccess, intl, emitAction}) => {
   const handleEntityCreated = ({id}) => {
     const remoteEvents = [{
       type: 'entity-create-event',
@@ -30,12 +31,15 @@ const CreateDomain = ({context, onSuccess, intl}) => {
       ]
     : []
 
+  const formName = getDetailFormName(context, 'Domain')
+
   return <EntityDetailApp
     entityName="Domain"
-    formName="Domain"
+    formName={formName}
     mode="create"
     defaultValues={defaultValues}
     onEntityCreated={handleEntityCreated}
+    emitAction={emitAction}
   />
 }
 
@@ -48,7 +52,8 @@ CreateDomain.propTypes = {
     }).isRequired
   }).isRequired,
   onSuccess: PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired,
+  emitAction: PropTypes.func.isRequired
 }
 
 export default injectIntl(CreateDomain)

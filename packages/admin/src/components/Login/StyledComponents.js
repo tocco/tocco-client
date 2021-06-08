@@ -1,7 +1,16 @@
-import styled from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 import {scale, StyledH1, StyledSpan, theme} from 'tocco-ui'
 
 import ToccoLogo from '../../assets/tocco-circle.svg'
+
+// Overwrite index.html overflow which is hidden
+export const GlobalBodyStyle = createGlobalStyle`
+  @media (max-width: 1024px) {
+    body {
+      overflow: auto !important;
+    }
+  }
+`
 
 export const StyledLogin = styled.div`
   height: 100vh;

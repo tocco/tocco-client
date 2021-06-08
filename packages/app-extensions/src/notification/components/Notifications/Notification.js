@@ -7,9 +7,9 @@ import BlockingDisplay from '../../modules/blocking/BlockingDisplay'
 
 const Notification = ({navigationStrategy}) => (
     <>
-        <BlockingDisplay />
-        <ToasterDisplay navigationStrategy={navigationStrategy} />
-        <ModalDisplay />
+        <BlockingDisplay/>
+        <ToasterDisplay navigationStrategy={navigationStrategy}/>
+        <ModalDisplay/>
     </>
 )
 

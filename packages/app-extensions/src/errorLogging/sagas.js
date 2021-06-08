@@ -14,7 +14,6 @@ export default function* sagas(accept, handlers) {
 
 export function* handleError(handlers, {payload}) {
   const {title, description, error} = payload
-
   yield all(handlers.map(handler => call(handlerRegistry[handler], title, description, error)))
 }
 

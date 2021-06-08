@@ -36,7 +36,7 @@ describe('app-extensions', () => {
         test('should render component content', () => {
           const Compo = () => <span>TEST</span>
           const wrapper = mount(
-            <Content><Compo /></Content>
+            <Content><Compo/></Content>
           )
           expect(wrapper.find(Compo)).to.have.length(1)
         })

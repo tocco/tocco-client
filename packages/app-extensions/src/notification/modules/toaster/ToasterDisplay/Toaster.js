@@ -30,11 +30,11 @@ const Toaster = ({toaster, closeToaster, navigationStrategy}) => {
     <StyledToaster onClick={handleToasterClick} type={toaster.type} key={toaster.key}>
       <StyledCloseButton icon="times" onClick={() => {
         closeToaster(toaster.key, true)
-      }} />
+      }}/>
       <StyledIconTitleWrapper>
         {toaster.icon
           && <StyledIconWrapper>
-            <Icon icon={toaster.icon} />
+            <Icon icon={toaster.icon}/>
           </StyledIconWrapper>
         }
         {toaster.title && <Typography.H1><Content>{toaster.title}</Content></Typography.H1>}
@@ -44,7 +44,7 @@ const Toaster = ({toaster, closeToaster, navigationStrategy}) => {
           <Content>
           {
             typeof toaster.body === 'function'
-              ? <toaster.body navigationStrategy={navigationStrategy} />
+              ? <toaster.body navigationStrategy={navigationStrategy}/>
               : toaster.body
           }
           </Content>

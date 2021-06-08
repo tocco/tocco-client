@@ -1,7 +1,8 @@
 import React, {useRef} from 'react'
 import PropTypes from 'prop-types'
 import {Typography, Icon} from 'tocco-ui'
-import {FormattedRelative} from 'react-intl'
+import {FormattedRelativeTime} from 'react-intl'
+import {selectUnit} from '@formatjs/intl-utils'
 
 import useInViewport from './useInViewport'
 import {notificationPropType} from '../../../types'
@@ -17,6 +18,8 @@ const typeIconMap = {
 
 const Notification = ({notification, markAsRead, navigationStrategy}) => {
   const notificationElement = useRef(null)
+
+  const {value, unit} = selectUnit(Date.now() - 48 * 3600 * 1000)
 
   const notificationInViewport = () => {
     if (!notification.read) {
@@ -34,7 +37,9 @@ const Notification = ({notification, markAsRead, navigationStrategy}) => {
         <Typography.H5>{notification.message}</Typography.H5>
       </StyledNotificationHeader>
       <NotificationBody notification={notification} navigationStrategy={navigationStrategy}/>
-      <StyledTimeStamp><FormattedRelative value={notification.timestamp}/></StyledTimeStamp>
+      <StyledTimeStamp>
+        <FormattedRelativeTime value={value} unit={unit}/>
+      </StyledTimeStamp>
     </StyledNotification>
   )
 }

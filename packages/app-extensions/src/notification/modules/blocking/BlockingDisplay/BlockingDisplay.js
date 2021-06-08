@@ -12,12 +12,11 @@ const BlockingDisplay = ({blockers}) => {
   }
 
   const firstBlocker = blockers[0]
-
   return (
     <StyledPageOverlay>
       <StyledBlockingDisplay>
         {firstBlocker.title && <Typography.H1><Content>{firstBlocker.title}</Content></Typography.H1>}
-        {firstBlocker.body && <Content>{firstBlocker.body}</Content>}
+        {firstBlocker.body && <Typography.Span><Content>{firstBlocker.body}</Content></Typography.Span>}
       </StyledBlockingDisplay>
     </StyledPageOverlay>
   )

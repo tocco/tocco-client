@@ -13,6 +13,10 @@ export const ADVANCED_SEARCH_UPDATE = 'searchForm/ADVANCED_SEARCH_UPDATE'
 export const SET_FORM_FIELDS_FLAT = 'searchForm/SET_FORM_FIELDS_FLAT'
 export const SET_SEARCH_FILTERS = 'searchForm/SET_SEARCH_FILTERS'
 export const SET_SEARCH_FILTER_ACTIVE = 'searchForm/SET_SEARCH_FILTER_ACTIVE'
+export const DELETE_SEARCH_FILTER = 'searchForm/DELETE_SEARCH_FILTER'
+export const SAVE_SEARCH_FILTER = 'searchForm/SAVE_SEARCH_FILTER'
+export const SAVE_DEFAULT_SEARCH_FILTER = 'searchForm/SAVE_DEFAULT_SEARCH_FILTER'
+export const RESET_DEFAULT_SEARCH_FILTER = 'searchForm/RESET_DEFAULT_SEARCH_FILTER'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -93,4 +97,23 @@ export const setSearchFilterActive = (searchFilterId, active, exclusive) => ({
     active,
     exclusive
   }
+})
+
+export const deleteSearchFilter = primaryKey => ({
+  type: DELETE_SEARCH_FILTER,
+  payload: {
+    primaryKey
+  }
+})
+
+export const saveSearchFilter = () => ({
+  type: SAVE_SEARCH_FILTER
+})
+
+export const saveDefaultSearchFilter = () => ({
+  type: SAVE_DEFAULT_SEARCH_FILTER
+})
+
+export const resetDefaultSearchFilter = () => ({
+  type: RESET_DEFAULT_SEARCH_FILTER
 })

@@ -1,24 +1,21 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {withKnobs, boolean, number, select, text} from '@storybook/addon-knobs'
 
 import Link from './'
 
-storiesOf('Tocco-UI | Link', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Link',
-    () => <Link
-      alt={text('alt', 'This is a phone link.')}
-      breakWords={boolean('breakWords', false)}
-      download={text('download', 'tocco-101x101.png')}
-      href={text('href', '#Link')}
-      icon={select('icon', ['envelope', 'phone']) || undefined}
-      label={text('label', 'Phone Link')}
-      neutral={boolean('neutral', false)}
-      rel={text('rel', undefined)}
-      tabIndex={number('tabIndex', undefined)}
-      target={select('target', ['_self', '_blank'])}
-      title={text('title', 'This is the phone link.')}
-    />
-  )
+export default {
+  title: 'Tocco-UI/Link',
+  component: Link,
+  argTypes: {
+    alt: {type: 'string', defaultValue: 'This is a phone link.'},
+    breakWords: {type: 'boolean', defaultValue: false},
+    download: {type: 'string', defaultValue: 'tocco-101x101.png'},
+    href: {type: 'string', defaultValue: '#link'},
+    icon: {options: ['envelope', 'phone']},
+    label: {type: 'string', defaultValue: 'Phone link'},
+    neutral: {type: 'boolean', defaultValue: false},
+    target: {options: ['_self', '_blank']},
+    title: {type: 'string', defaultValue: 'This is a phonelink'}
+  }
+}
+
+export const Basic = args => <Link {...args}/>

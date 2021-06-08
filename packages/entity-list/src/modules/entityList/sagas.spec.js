@@ -31,6 +31,7 @@ describe('entity-list', () => {
               .put(listActions.initialize())
               .put(preferenceActions.loadPreferences())
               .put(searchFormActions.initialize())
+              .dispatch({type: listActions.SET_INITIALIZED})
               .dispatch({type: searchFormActions.SET_INITIALIZED})
               .dispatch({type: preferenceActions.SET_PREFERENCES_LOADED})
               .put(listActions.defineSorting())

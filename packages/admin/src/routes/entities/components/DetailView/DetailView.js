@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {intlShape} from 'react-intl'
 import styled from 'styled-components'
 
 import RelationsView from '../RelationsView'
@@ -47,7 +46,7 @@ const DetailView = ({match, history, currentViewInfo}) => {
 }
 
 DetailView.propTypes = {
-  intl: intlShape,
+  intl: PropTypes.object,
   match: PropTypes.object,
   history: PropTypes.object,
   currentViewInfo: currentViewPropType

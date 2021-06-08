@@ -1,3 +1,67 @@
+0.4.50
+- Forward input props to move action
+- Style nav switch button to better fit into UI
+- Disable client questions for merge action
+- Fix various dms problems (navigation and search)
+
+0.4.48
+- Fix merge close function with query selection
+- Add confirm keyboard support
+
+0.4.47
+- New menus for system options and all possible options
+- Last opened menu is now saved in user preferences
+-  Add action selection count confirm
+
+0.4.46
+- Adjust spacing and alignment of button inside modal
+
+0.4.45
+- Fix report settings
+
+0.4.44
+
+0.4.43
+- Edit action only one message
+- Entity-Docs open resource in full view
+
+0.4.41
+- Change cursor to pointer on panel header/footer hover
+- Added options to create a search filter from the current search, edit or delete an existing filter
+- Enable body scrolling on login screen for smaller screens
+- Use explicit selection style
+- datetime search fields now use a date field until the full range is expanded
+- Fix hover delay and hover color of search filter buttons
+
+0.4.40
+- DMS fixes
+
+0.4.39
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Adjust left padding of Breadcrumbs in list view
+- Location field focus problem fix
+- Displayexpression call adjustment
+
+0.4.38
+- EntityDocs not sortable
+- Dms fixes
+
+0.4.37
+- refactor extracting displays
+- Fix select menu disappearing behind modal
+- Fix fulltext search form
+
+0.4.36
+- Fix doc-browsers client questions
+- New input prop `businessUnit` to filter by business unit
+- Prevent range input overflow
+- Adapt table colors to better differentiate from background
+- Remove obsolete left padding in table
+- Ignore field if path is null in copy action
+
+0.4.35
+- Fix doc-browsers client questions
+
 0.4.34
 - Prevent stacking of modal overlays
 - render description field in form

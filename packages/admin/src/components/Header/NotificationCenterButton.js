@@ -57,7 +57,7 @@ const NotificationCenterButton = () => {
         style={styles.popper}
         {...attributes.popper}
       >
-        {visible && <notification.NotificationCenter navigationStrategy={navigationStrategy()} />}
+        {visible && <notification.NotificationCenter navigationStrategy={navigationStrategy()}/>}
       </StyledPopper>,
       document.body
     )}

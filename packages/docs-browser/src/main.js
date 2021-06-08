@@ -6,25 +6,23 @@ import {
   actionEmitter,
   errorLogging,
   externalEvents,
-  notification
+  notification,
+  rest
 } from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
 import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import {Router as ReactRouter, Route, Redirect} from 'react-router'
-import _pickBy from 'lodash/pickBy'
-import _isEqual from 'lodash/isEqual'
-import _isEmpty from 'lodash/isEmpty'
 
 import DocsBrowser from './components/DocsBrowser'
 import reducers, {sagas} from './modules/reducers'
-import {getDispatchActions} from './input'
 
 const packageName = 'docs-browser'
 
 const EXTERNAL_EVENTS = [
-  'onListParentChange'
+  'onListParentChange',
+  'openResource'
 ]
 
 const textResourceSelector = (state, key) => state.intl.messages[key] || key
@@ -57,7 +55,12 @@ const initApp = (id, input, events = {}, publicPath) => {
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
-  notification.addToStore(store, true)
+  const handleNotifications = !events.emitAction
+  notification.addToStore(store, handleNotifications)
+
+  if (input.businessUnit) {
+    rest.setBusinessUnit(input.businessUnit)
+  }
 
   const history = input.history || createHistory(store, input.memoryHistory)
 
@@ -65,23 +68,29 @@ const initApp = (id, input, events = {}, publicPath) => {
     history.push(input.initialLocation)
   }
 
-  const singleRootNode = Array.isArray(input.rootNodes) && input.rootNodes.length === 1 ? input.rootNodes[0] : null
+  const singleRootNode = Array.isArray(input.rootNodes) && input.rootNodes.length === 1
+    && input.rootNodes[0].entityName !== 'Resource'
+    ? input.rootNodes[0]
+    : null
+
   const startUrl = singleRootNode
     ? `/docs/${singleRootNode.entityName.toLowerCase()}/${singleRootNode.key}/list`
     : '/docs'
 
   const content = (
     <ReactRouter history={history}>
-      <notification.Notifications/>
+      {handleNotifications && <notification.Notifications/>}
       <DocsBrowser history={history}/>
       <Route exact path="/">
         <Redirect to={startUrl}/>
       </Route>
-      {singleRootNode && (
-        <Route exact path="/docs">
-          <Redirect to={startUrl}/>
-        </Route>
-      )}
+  {
+    singleRootNode && (
+      <Route exact path="/docs">
+        <Redirect to={startUrl}/>
+      </Route>
+    )
+  }
     </ReactRouter>
   )
 
@@ -92,7 +101,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     {
       input,
       events,
-      actions: getDispatchActions(input),
+      actions: [],
       publicPath,
       textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail', packageName]
     }
@@ -142,15 +151,6 @@ class DocsBrowserApp extends React.Component {
     this.app = initApp('docs-browser', props, events)
   }
 
-  componentDidUpdate(prevProps) {
-    const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
-    if (!_isEmpty(changedProps)) {
-      getDispatchActions(changedProps).forEach(action => {
-        this.app.store.dispatch(action)
-      })
-    }
-  }
-
   render() {
     return this.app.component
   }
@@ -169,10 +169,11 @@ DocsBrowserApp.propTypes = {
   documentDetailFormName: PropTypes.string,
   searchFormType: searchFormTypePropTypes,
   selectionStyle: selectionStylePropType,
-  listFormName: PropTypes.string,
+  getListFormName: PropTypes.func,
   memoryHistory: PropTypes.bool,
   disableViewPersistor: PropTypes.bool,
   getCustomLocation: PropTypes.func,
+  businessUnit: PropTypes.string,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes

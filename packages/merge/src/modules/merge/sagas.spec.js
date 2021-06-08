@@ -81,12 +81,19 @@ describe('merge', () => {
               showPermissionMessage: false
             }
 
+            const mergeRequest = {
+              method: 'POST',
+              headers: {'X-Client-Questions': 'false'},
+              acceptedStatusCodes: [400, 500],
+              body: body
+            }
+
             return expectSaga(sagas.executeMerge)
               .provide([
                 [matchers.call.fn(sagas.getMergeBody), body],
                 [matchers.call.fn(rest.requestSaga), {status: 200, body: response}]
               ])
-              .call(rest.requestSaga, 'merge/merge', {method: 'POST', acceptedStatusCodes: [400, 500], body: body})
+              .call(rest.requestSaga, 'merge/merge', mergeRequest)
               .put(actions.setMergeResponse(response))
               .run()
           })
@@ -116,12 +123,19 @@ describe('merge', () => {
               ]
             }
 
+            const mergeRequest = {
+              method: 'POST',
+              headers: {'X-Client-Questions': 'false'},
+              acceptedStatusCodes: [400, 500],
+              body: body
+            }
+
             return expectSaga(sagas.executeMerge)
               .provide([
                 [matchers.call.fn(sagas.getMergeBody), body],
                 [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
               ])
-              .call(rest.requestSaga, 'merge/merge', {method: 'POST', acceptedStatusCodes: [400, 500], body: body})
+              .call(rest.requestSaga, 'merge/merge', mergeRequest)
               .put(actions.setMergeError(null, response.errors))
               .run()
           })
@@ -133,12 +147,19 @@ describe('merge', () => {
               errorCode: null
             }
 
+            const mergeRequest = {
+              method: 'POST',
+              headers: {'X-Client-Questions': 'false'},
+              acceptedStatusCodes: [400, 500],
+              body: body
+            }
+
             return expectSaga(sagas.executeMerge)
               .provide([
                 [matchers.call.fn(sagas.getMergeBody), body],
                 [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
               ])
-              .call(rest.requestSaga, 'merge/merge', {method: 'POST', acceptedStatusCodes: [400, 500], body: body})
+              .call(rest.requestSaga, 'merge/merge', mergeRequest)
               .put(actions.setMergeError(response.message, []))
               .run()
           })
@@ -205,6 +226,19 @@ describe('merge', () => {
 
         describe('close', () => {
           test('should call close', () => {
+            const sourceData = {
+              entities: [
+                {
+                  model: 'User',
+                  key: 1
+                },
+                {
+                  model: 'User',
+                  key: 2
+                }
+              ]
+            }
+
             const remoteEvents = [
               {
                 type: 'entity-update-event',
@@ -223,7 +257,7 @@ describe('merge', () => {
 
             return expectSaga(sagas.close)
               .provide([
-                [select(sagas.mergeSelector), {selection: selection}]
+                [select(sagas.mergeSelector), {sourceData}]
               ])
               .put(externalEvents.fireExternalEvent('onSuccess', {remoteEvents}))
               .run()

@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {storiesOf} from '@storybook/react'
-import {withKnobs, boolean, select, text} from '@storybook/addon-knobs'
 
 import StatedValue from './StatedValue'
 
@@ -35,7 +33,7 @@ class StatedValueWrapper extends React.Component {
   render() {
     const {
       id,
-      knobs
+      args
     } = this.props
 
     const {
@@ -47,7 +45,7 @@ class StatedValueWrapper extends React.Component {
 
     return (
       <StatedValue
-        {...knobs}
+        {...args}
         dirty={dirty}
         hasValue={hasValue}
         id={id}
@@ -56,12 +54,12 @@ class StatedValueWrapper extends React.Component {
         touched={touched}>
         <input
           id={id}
-          disabled={knobs.immutable}
+          disabled={args.immutable}
           onChange={this.handleChange}
           style={{
             border: 0,
-            cursor: knobs.immutable && !knobs.isDisplay ? 'not-allowed' : 'auto',
-            color: knobs.immutable && !knobs.isDisplay ? '#545454' : '#000',
+            cursor: args.immutable && !args.isDisplay ? 'not-allowed' : 'auto',
+            color: args.immutable && !args.isDisplay ? '#545454' : '#000',
             outline: 0,
             transition: 'color 200ms',
             width: '100%'
@@ -80,44 +78,40 @@ StatedValueWrapper.defaultProps = {
 
 StatedValueWrapper.propTypes = {
   id: PropTypes.string,
-  knobs: PropTypes.object,
+  args: PropTypes.object,
   immutable: PropTypes.bool,
   value: PropTypes.string
 }
 
-storiesOf('Tocco-UI | StatedValue', module)
-  .addDecorator(withKnobs)
-  .add(
-    'StatedValue',
-    () => {
-      const knobs = {
-        description: text('description', 'A helper text to instruct users.'),
-        error: select('error', {
-          'no errors': errors.no,
-          'mixed errors': errors.mixed
-        }),
-        label: text('label', 'label'),
-        mandatory: boolean('mandatory', false),
-        isDisplay: boolean('isDisplay', false),
-        immutable: boolean('immutable', false)
-      }
-      return [
-        <StatedValueWrapper
-          id="input-1"
-          key="input-1"
-          knobs={knobs}
-        />,
-        <StatedValueWrapper
-          id="input-2"
-          key="input-2"
-          knobs={knobs}
-          value="initial value"
-        />,
-        <StatedValueWrapper
-          id="input-3"
-          key="input-3"
-          knobs={knobs}
-        />
-      ]
-    }
-  )
+export default {
+  title: 'Tocco-UI/StatedValue',
+  component: StatedValue,
+  argTypes: {
+    description: {type: 'text', defaultValue: 'A helper text to instruct users.'},
+    error: {type: 'object', defaultValue: errors.mixed},
+    label: {type: 'text', defaultValue: 'label'},
+    mandatory: {type: 'boolean', defaultValue: false},
+    isDisplay: {type: 'boolean', defaultValue: false},
+    immutable: {type: 'boolean', defaultValue: false}
+  }
+}
+
+export const Basic = args => {
+  return [<StatedValueWrapper
+    id="input-1"
+    key="input-1"
+    args={args}
+  />,
+  <StatedValueWrapper
+    id="input-2"
+    key="input-2"
+    args={args}
+    value="initial value"
+  />,
+  <StatedValueWrapper
+    id="input-3"
+    key="input-3"
+    args={args}
+  />
+  ]
+}

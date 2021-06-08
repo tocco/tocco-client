@@ -67,6 +67,7 @@ describe('entity-list', () => {
               ])
               .call(sagas.loadFormDefinition, formName)
               .call(sagas.loadEntityModel, entityName)
+              .put(actions.setInitialized())
               .run()
           })
         })
@@ -659,7 +660,7 @@ describe('entity-list', () => {
           test('should call rest helper with right params and call action to set lazy data', () => {
             const formName = 'User'
             const paths = ['display1', 'display2']
-            const entities = [{__key: '23'}, {__key: '24'}]
+            const entities = [{__key: '23', __model: 'User'}, {__key: '24', __model: 'User'}]
 
             const fakeResult = {formName, displayExpressions: []}
 
@@ -667,7 +668,7 @@ describe('entity-list', () => {
               .provide([
                 [matchers.call.fn(rest.fetchDisplayExpressions), fakeResult]
               ])
-              .call(rest.fetchDisplayExpressions, formName, 'list', ['23', '24'], paths)
+              .call(rest.fetchDisplayExpressions, formName, 'list', ['23', '24'], paths, 'User')
               .put(actions.setLazyData('displayExpressions', formName, fakeResult))
               .run()
           })

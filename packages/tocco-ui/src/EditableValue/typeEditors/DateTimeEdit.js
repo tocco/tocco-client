@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 import moment from 'moment'
 
 import DateAbstract from './DateAbstract'
@@ -49,7 +49,7 @@ export const DateTimeEdit = props => {
 }
 
 DateTimeEdit.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   immutable: PropTypes.bool,

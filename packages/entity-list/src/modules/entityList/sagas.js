@@ -24,6 +24,7 @@ export function* initialize(waitForInputDispatch = true) {
   yield put(preferenceActions.loadPreferences())
   yield put(searchFormActions.initialize())
   yield all([
+    take(listActions.SET_INITIALIZED),
     take(searchFormActions.SET_INITIALIZED),
     take(preferenceActions.SET_PREFERENCES_LOADED)
   ])

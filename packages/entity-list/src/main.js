@@ -111,23 +111,25 @@ const initApp = (id, input, events = {}, publicPath) => {
   }
 })()
 
+const getEvents = props =>
+  EXTERNAL_EVENTS.reduce((events, event) => {
+    if (props[event]) {
+      events[event] = props[event]
+    }
+    return events
+  }, {})
+
 class EntityListApp extends React.Component {
   constructor(props) {
     super(props)
-
-    const events = EXTERNAL_EVENTS.reduce((events, event) => {
-      if (props[event]) {
-        events[event] = props[event]
-      }
-      return events
-    }, {})
-
-    this.app = initApp(props.id, props, events)
+    this.app = initApp(props.id, props, getEvents(props))
   }
 
   componentDidUpdate(prevProps) {
     const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
-    if (!_isEmpty(changedProps)) {
+    if (changedProps.store) {
+      this.app = initApp(this.props.id, this.props, getEvents(this.props))
+    } else if (!_isEmpty(changedProps)) {
       getDispatchActions(changedProps).forEach(action => {
         this.app.store.dispatch(action)
       })

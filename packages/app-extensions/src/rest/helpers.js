@@ -48,12 +48,16 @@ export function* fetchDisplay(entityName, key, type) {
  * @param entityKeys {Array} List of entity keys
  * @param displayExpressionFields {Array} List of desired display-expression fields
  */
-export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExpressionFields) {
+export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExpressionFields, entityName) {
   const options = {
-    method: 'GET',
+    method: 'POST',
     queryParams: {
-      _keys: entityKeys.join(','),
       _paths: displayExpressionFields.join(',')
+    },
+    body: {
+      entityName: entityName,
+      type: 'ID',
+      ids: entityKeys
     }
   }
 
@@ -301,7 +305,7 @@ export const buildRequestQuery = ({
     ...(form ? {form} : {}),
     ...(limit ? {limit} : {}),
     ...(search ? {search} : {}),
-    ...(sorting ? {sort: sorting.map(s => `${s.field} ${s.order}`).join(', ')} : {}),
+    ...(sorting ? {sort: createSortingString(sorting)} : {}),
     ...(page && limit ? {offset: (page - 1) * limit} : {}),
     ...(paths ? {paths} : {}),
     ...(where ? {where} : {}),
@@ -311,6 +315,8 @@ export const buildRequestQuery = ({
     ...(constriction ? {constriction} : {})
   }
 )
+
+export const createSortingString = sorting => sorting.map(s => `${s.field} ${s.order}`).join(', ')
 
 export const requestQueryToUrlParams = queryObject =>
   _reduce(queryObject, (result, value, key) => {

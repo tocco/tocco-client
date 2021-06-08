@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
-import {withKnobs, boolean} from '@storybook/addon-knobs'
 
 import Select from './'
-import {Select as Raw} from './Select'
 
 const options = [
   {key: 1, display: 'Option 1'},
@@ -15,7 +12,12 @@ const options = [
   {key: 5, display: 'Option 5'}
 ]
 
-export class SelectStory extends React.Component {
+export default {
+  title: 'Tocco-UI/Select',
+  component: Select
+}
+
+class SelectStory extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -97,8 +99,8 @@ export class SelectStory extends React.Component {
           searchOptions={this.searchOptions}
           tooltips={this.state.tooltips}
           value={this.state.valueMulti}
-          DetailLink= {({entityKey, children}) =>
-            <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer" >{children}</a>
+          DetailLink={({entityKey, children}) =>
+            <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">{children}</a>
           }
         />
       </div>
@@ -112,15 +114,7 @@ SelectStory.propTypes = {
   immutable: PropTypes.bool
 }
 
-storiesOf('Tocco-UI | Select', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Select',
-    () =>
-      <SelectStory
-        action={action}
-        delay={2000}
-        immutable={boolean('immutable', false)}
-      />,
-    {info: {propTables: [Raw], propTablesExclude: [SelectStory], source: false}}
-  )
+export const Basic = () => <SelectStory
+  action={action}
+  delay={2000}
+/>

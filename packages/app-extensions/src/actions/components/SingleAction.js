@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {Button} from 'tocco-ui'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 
 import {selectionText, isValidSelection} from './selectionHelper'
 
@@ -26,7 +26,7 @@ export const SingleAction = ({definition, onClick, selectedCount, disabled, intl
 }
 
 SingleAction.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   definition: PropTypes.object.isRequired,
   onClick: PropTypes.func,
   selectedCount: PropTypes.number,

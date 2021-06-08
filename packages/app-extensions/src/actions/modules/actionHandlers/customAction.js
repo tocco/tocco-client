@@ -79,10 +79,12 @@ export function* handleCustomActionModal({definition, selection, config}) {
   }
 
   const success = response.status === actionStatus.OK
-  const type = success ? 'success' : 'warning'
-  const title = response.message || 'client.component.actions.successDefault'
+  if (response.message !== null) {
+    const type = success ? 'success' : 'warning'
+    const title = response.message || 'client.component.actions.successDefault'
 
-  yield put(notification.toaster({type, title}))
+    yield put(notification.toaster({type, title}))
+  }
   return {success: success, remoteEvents: response.remoteEvents}
 }
 

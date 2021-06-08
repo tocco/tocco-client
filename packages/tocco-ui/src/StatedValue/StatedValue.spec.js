@@ -117,7 +117,7 @@ describe('tocco-ui', () => {
     })
 
     test('should use prop id for htmlFor on label', () => {
-      const wrapper = mount(<StatedValue id="target-element" label="Label" />)
+      const wrapper = mount(<StatedValue id="target-element" label="Label"/>)
       const el = wrapper.find(StyledStatedValueLabel)
       expect(el.prop('htmlFor')).to.be.equal('target-element')
     })

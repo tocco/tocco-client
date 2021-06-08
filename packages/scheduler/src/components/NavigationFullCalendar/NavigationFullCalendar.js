@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import {Button, ButtonGroup, Icon, Typography, DatePicker} from 'tocco-ui'
 
 import StyledNavigationFullCalendar from './StyledNavigationFullCalendar'
@@ -37,7 +37,6 @@ const NavigationFullCalendar = props => {
         >
           <FormattedMessage id="client.scheduler.today"/>
         </Button>
-
         <ButtonGroup>
           <Button
             look="raised"
@@ -45,7 +44,7 @@ const NavigationFullCalendar = props => {
               choosePrev()
               changeRange()
             }}
-            icon="angle-left"
+            icon="chevron-left"
             title={msg('client.scheduler.previous', intl)}
           />
           <Button
@@ -54,7 +53,7 @@ const NavigationFullCalendar = props => {
               chooseNext()
               changeRange()
             }}
-            icon="angle-right"
+            icon="chevron-right"
             title={msg('client.scheduler.next', intl)}
           />
         </ButtonGroup>
@@ -67,7 +66,6 @@ const NavigationFullCalendar = props => {
         >
           <Typography.Span>{title}</Typography.Span><Icon style={{marginLeft: '5px'}} icon="chevron-down"/>
         </DatePicker>
-
       </div>
       <div>
         <ButtonGroup>
@@ -78,7 +76,6 @@ const NavigationFullCalendar = props => {
           >
             <FormattedMessage id="client.scheduler.day"/>
           </Button>
-
           <Button
             look="raised"
             {...(getButtonInkProps('weekView', type))}
@@ -93,7 +90,6 @@ const NavigationFullCalendar = props => {
           >
             <FormattedMessage id="client.scheduler.week"/>
           </Button>
-
           <Button
             look="raised"
             {...(getButtonInkProps('monthView', type))}
@@ -112,7 +108,6 @@ const NavigationFullCalendar = props => {
           pending={isLoading}
           title={msg('client.scheduler.reload', intl)}
         />
-
       </div>
     </StyledNavigationFullCalendar>
   )
@@ -126,7 +121,7 @@ NavigationFullCalendar.propTypes = {
   choosePrev: PropTypes.func.isRequired,
   chooseToday: PropTypes.func.isRequired,
   goToDate: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   isLoading: PropTypes.bool,
   refresh: PropTypes.func.isRequired,
   title: PropTypes.string,

@@ -7,17 +7,6 @@ import * as actions from './actions'
 export const inputSelector = state => state.docs.move.input
 export const textResourceSelector = (state, key) => state.intl.messages[key]
 
-export function* initialize() {
-  const {selection, onError} = yield select(inputSelector)
-
-  if (selection.type === 'QUERY') {
-    onError({
-      message: yield select(textResourceSelector, 'client.actions.dms-move.explicitSelection.message')
-    })
-    yield put(actions.close())
-  }
-}
-
 export function* moveElements({payload}) {
   const resource = 'documents/move'
   const options = {
@@ -67,7 +56,6 @@ export function* setDone() {
 
 export default function* mainSagas() {
   yield all([
-    takeLatest(actions.INITIALIZE, initialize),
     takeLatest(actions.MOVE_ELEMENTS, moveElements)
   ])
 }

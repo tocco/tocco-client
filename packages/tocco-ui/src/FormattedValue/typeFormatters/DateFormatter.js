@@ -1,14 +1,16 @@
 import React from 'react'
-import {FormattedDate, injectIntl, intlShape} from 'react-intl'
+import PropTypes from 'prop-types'
+import {FormattedDate, useIntl} from 'react-intl'
 
 import {matchesIsoDate} from '../util/DateUtils'
 import Typography from '../../Typography'
 
 export const DateFormatter = props => {
+  const intl = useIntl()
   return (
     <Typography.Time
       dateTime={props.value}
-      title={props.intl.formatDate(props.value)}
+      title={intl.formatDate(props.value)}
     >
       <FormattedDate
         value={props.value}
@@ -22,7 +24,7 @@ export const DateFormatter = props => {
 }
 
 DateFormatter.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   value: (props, propName, componentName) => {
     if (!matchesIsoDate(props[propName])) {
       return new Error(`Invalid prop '${propName}' supplied to ${componentName}.`)
@@ -30,4 +32,4 @@ DateFormatter.propTypes = {
   }
 }
 
-export default injectIntl(DateFormatter)
+export default DateFormatter

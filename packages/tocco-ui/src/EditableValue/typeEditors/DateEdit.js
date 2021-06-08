@@ -1,60 +1,59 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import moment from 'moment'
-import {injectIntl, intlShape} from 'react-intl'
+import {useIntl} from 'react-intl'
 
 import DateAbstract from './DateAbstract'
 import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from '../utils'
 
-export class DateEdit extends React.Component {
-  DATE_FORMAT = 'YYYY-MM-DD'
+export const DateEdit = ({onChange, options, id, value, immutable, events}) => {
+  const DATE_FORMAT = 'YYYY-MM-DD'
+  const intl = useIntl()
 
-  getLocalizedAltFormat = () => moment().locale(this.props.intl.locale)._locale.longDateFormat('L')
+  const getLocalizedAltFormat = () => moment().locale(intl.locale)._locale.longDateFormat('L')
 
-  parseDate = s => {
-    const momentDate = moment(s, [this.getLocalizedAltFormat(), this.DATE_FORMAT])
+  const parseDate = s => {
+    const momentDate = moment(s, [getLocalizedAltFormat(), DATE_FORMAT])
     return momentDate.isValid() ? momentDate.toDate() : null
   }
 
-  handleChange = dates => {
+  const handleChange = dates => {
     const dateTime = atMostOne(dates)
     const date = dateTime ? toLocalDateString(dateTime) : null
-    this.props.onChange(date)
+    onChange(date)
   }
 
-  onBlur = (dateString, values, setValue) => {
-    const parsed = this.parseDate(dateString)
+  const onBlur = (dateString, values, setValue) => {
+    const parsed = parseDate(dateString)
     if (values[0] - parsed !== 0) {
       setValue(parsed)
     }
   }
 
-  render() {
-    const flatpickrOptions = {
-      altFormat: momentJStoToFlatpickrFormat(this.getLocalizedAltFormat()),
-      dateFormat: momentJStoToFlatpickrFormat(this.DATE_FORMAT),
-      allowInput: true,
-      parseDate: this.parseDate,
-      ...(this.props.options ? this.props.options.flatpickrOptions : {})
-    }
-
-    return (
-      <DateAbstract
-        id={this.props.id}
-        value={[this.props.value]}
-        onBlur={this.onBlur}
-        onChange={this.handleChange}
-        options={{...this.props.options, flatpickrOptions}}
-        immutable={this.props.immutable}
-        events={this.props.events}
-      />
-    )
+  const flatpickrOptions = {
+    altFormat: momentJStoToFlatpickrFormat(getLocalizedAltFormat()),
+    dateFormat: momentJStoToFlatpickrFormat(DATE_FORMAT),
+    allowInput: true,
+    parseDate: parseDate,
+    ...(options ? options.flatpickrOptions : {})
   }
+
+  return (
+    <DateAbstract
+      id={id}
+      value={[value]}
+      onBlur={onBlur}
+      onChange={handleChange}
+      options={{...options, flatpickrOptions}}
+      immutable={immutable}
+      events={events}
+    />
+  )
 }
 
 DateEdit.propTypes = {
   id: PropTypes.string,
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   immutable: PropTypes.bool,
@@ -67,4 +66,4 @@ DateEdit.propTypes = {
   })
 }
 
-export default injectIntl(DateEdit)
+export default DateEdit

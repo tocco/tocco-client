@@ -1,3 +1,20 @@
+0.10.27
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Location field focus problem fix
+- Displayexpression call adjustment
+
+0.10.26
+- render description field in form
+- Fix popper menu positioning
+- Prevent layout container overlap in detail view
+- Show not deletable entities with 0
+- Fix html edit initial change
+- Refactoring list initialization
+- Prevent range input overflow
+- Adapt table colors to better differentiate from background
+- Fix select menu disappearing behind modal
+- Fix fulltext search form
+
 0.10.25
 - support createuser & updateuser in tql builder
 - Handle client question cancellation

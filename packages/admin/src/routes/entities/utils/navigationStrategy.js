@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {queryString as queryStringUtil} from 'tocco-util'
 import {AdminLink as StyledLink} from 'tocco-ui'
-import {injectIntl, intlShape} from 'react-intl'
+import {injectIntl} from 'react-intl'
 
 import {goBack} from '../../../utils/routing'
 
@@ -71,12 +71,17 @@ export default (history, match) => {
     })
   }
 
+  const openDetail = (entityName, key) => {
+    window.open(`/e/${entityName}/${key}`, '_blank')
+  }
+
   return {
     DetailLink,
     ListLink,
     DetailLinkRelative,
     navigateToCreateRelative,
-    navigateToActionRelative
+    navigateToActionRelative,
+    openDetail
   }
 }
 
@@ -84,7 +89,7 @@ DetailLinkRelativeWithoutIntl.propTypes = {
   entityKey: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
   relation: PropTypes.string,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 DetailLink.propTypes = {

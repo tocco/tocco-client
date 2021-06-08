@@ -25,7 +25,7 @@ const ButtonMenu = props => {
     setMenuOpen(false)
   }
 
-  const angleIcon = menuOpen ? 'angle-up' : 'angle-down'
+  const chevronIcon = menuOpen ? 'chevron-up' : 'chevron-down'
 
   const ThisMenu = () => <Menu
     referenceElement={referenceElement.current}
@@ -39,7 +39,7 @@ const ButtonMenu = props => {
     return <>
       <ButtonGroup ref={referenceElement}>
         <Button {...buttonProps || {}} onClick={onClick} label={label} data-cy={props['data-cy']}/>
-        <StyledIconButtonWrapper icon={angleIcon} onClick={handleClick} {...buttonProps || {}} />
+        <StyledIconButtonWrapper icon={chevronIcon} onClick={handleClick} {...buttonProps || {}}/>
       </ButtonGroup>
       {menuOpen && <ThisMenu/>}
     </>
@@ -53,7 +53,7 @@ const ButtonMenu = props => {
     >
       {label}
       <StyledIconWrapper>
-        <Icon icon={angleIcon}/>
+        <Icon icon={chevronIcon}/>
       </StyledIconWrapper>
     </Button>
     {menuOpen && <ThisMenu/>}

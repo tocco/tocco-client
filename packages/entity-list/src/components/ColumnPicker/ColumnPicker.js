@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState, useMemo} from 'react'
 import {Button, SearchBox, Typography} from 'tocco-ui'
-import {intlShape} from 'react-intl'
 
 import {
   StyledCheckbox,
@@ -50,7 +49,7 @@ ColumnPicker.propTypes = {
     hidden: PropTypes.bool.isRequired
   })).isRequired,
   onOk: PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: PropTypes.object.isRequired
 }
 
 export default ColumnPicker

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'tocco-ui'
-import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 
 import simpleFormConnector from '../containers/simpleFormConnector'
 import {
@@ -56,15 +56,15 @@ export class ReportSettings extends React.Component {
           mode="create"
         />
         {this.customSettingsDefined
-        && <this.SimpleFormContainer
-          listApp={this.props.listApp}
-          form={settingsDefinition.customSettings.form.form}
-          noButtons
-          onChange={({values, valid}) => {
-            this.handleCustomSettingsChange(values, valid)
-          }}
-          mode="create"
-        />
+          && <this.SimpleFormContainer
+            listApp={this.props.listApp}
+            form={settingsDefinition.customSettings.form.form}
+            noButtons
+            onChange={({values, valid}) => {
+              this.handleCustomSettingsChange(values, valid)
+            }}
+            mode="create"
+          />
         }
         <StyledStickyButtons>
           <Button
@@ -83,7 +83,7 @@ export class ReportSettings extends React.Component {
 }
 
 ReportSettings.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   listApp: PropTypes.func.isRequired,
   formApp: PropTypes.func.isRequired,

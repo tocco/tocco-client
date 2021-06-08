@@ -23,11 +23,11 @@ const Result = ({notification: {result}, navigationStrategy}) => {
           href={download.addParameterToURL(result.file.link, 'download', true)}
           download={result.file.name}
           title="download">
-          <Icon icon="download" />
+          <Icon icon="download"/>
         </a>
         }
         <a href={result.file.link} target="_blank " title="open">
-          <Icon icon="file" />
+          <Icon icon="file"/>
         </a>
         {result.file.description}
       </StyledOutputJobWrapper>)
@@ -42,7 +42,7 @@ const Result = ({notification: {result}, navigationStrategy}) => {
               entityName={entity.model}
               entityKey={entity.key}
             >
-              <Icon icon="external-link" /> {entity.display}
+              <Icon icon="external-link"/> {entity.display}
             </navigationStrategy.DetailLink>
           </StyledDetailLinkWrapper>
         )
@@ -64,20 +64,20 @@ Result.propTypes = {
 const TaskProgress = ({notification: {taskProgress}, navigationStrategy}) => {
   return <>
     <StyledTaskProgressWrapper>
-      <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner />}</StyledSpinnerWrapper>
+      <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner/>}</StyledSpinnerWrapper>
       <StyledProgressMessage>{taskProgress.message}</StyledProgressMessage>
     </StyledTaskProgressWrapper>
     {taskProgress.status === 'running_absolute'
       && <>
         <StyledProgressOuter>
-          <StyledProgressInner percentage={taskProgress.percentage} />
+          <StyledProgressInner percentage={taskProgress.percentage}/>
         </StyledProgressOuter>
         {taskProgress.done} / {taskProgress.total} = {taskProgress.percentage} %
       </>
     }
     <StyledDetailLinkWrapper>
       <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.key}>
-        <Icon icon="external-link" /> Task öffnen
+        <Icon icon="external-link"/> Task öffnen
       </navigationStrategy.DetailLink>
     </StyledDetailLinkWrapper>
   </>
@@ -94,11 +94,11 @@ const NotificationBody = ({notification, navigationStrategy}) => {
   const {result, taskProgress} = notification
 
   if (result) {
-    return <Result notification={notification} navigationStrategy={navigationStrategy} />
+    return <Result notification={notification} navigationStrategy={navigationStrategy}/>
   }
 
   if (taskProgress) {
-    return <TaskProgress notification={notification} navigationStrategy={navigationStrategy} />
+    return <TaskProgress notification={notification} navigationStrategy={navigationStrategy}/>
   }
 
   return null

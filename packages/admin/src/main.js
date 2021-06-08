@@ -19,7 +19,7 @@ const LazyLoginGuard = React.lazy(() => import('./components/LoginGuard'))
 const LazyAdmin = () => (
   <div>
     <Suspense fallback="">
-      <LazyLoginGuard />
+      <LazyLoginGuard/>
     </Suspense>
   </div>
 )

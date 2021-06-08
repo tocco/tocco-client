@@ -23,7 +23,7 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
         close()
       }
     }]
-    return <ModalButtons buttons={buttons} />
+    return <ModalButtons buttons={buttons}/>
   }
 
   Content.propTypes = {close: PropTypes.func.isRequired}
@@ -64,7 +64,7 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
 
     Content.propTypes = {close: PropTypes.func.isRequired}
 
-    return <ModalButtons buttons={buttons} />
+    return <ModalButtons buttons={buttons}/>
   }
 
   return modal(

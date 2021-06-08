@@ -14,9 +14,12 @@ React-registry name: `docs-browser`
 | `navigationStrategy`   |           | Object consisting of various link factories. For more information see tocco-util/navigationStrategy documentation.
 | `domainTypes`          |           | Array of domain types to show
 | `rootNodes`            |           | Array of root nodes to use instead of the domains (array of objects with `entityName` and `key`)
+| `businessUnit`         |           | The business unit to display data from
 | `listLimit`            |           | Amount of records per page in list
-| `listFormName`         |           | Set a form name for the list
+| `getlistFormName`      |           | If set form name is determined by this function which has (parent, keys) as input parameters
 | `documentDetailFormName`|          | Name of the document detail form to use (default: "DmsResource")
+| `domainDetailFormName` |           | Name of the domain detail form to use (default: "DmsDomain")
+| `folderDetailFormName` |           | Name of the folder detail form to use (default: "DmsFolder")
 | `searchFormType`       |           | Possible values: none (no search form shown), simple (only one fulltext search field), basic (usual search form with advanced expansion), admin (full search with search filter)
 | `selectionStyle`       |           | none", "multi" or "single". If not defined and form model selectable is true, "multi" is used. Otherwise no selection is possible.
 | `memoryHistory`        |           | If set to true in-memory history. This is useful in testing and non-DOM environments.
@@ -25,6 +28,8 @@ React-registry name: `docs-browser`
 | `disableViewPersistor` |           | Per default the docs view is persisted with the view persistor. This property allows to disable using the view persistor
 | `embedded`             |           | If true, the styling is more subtle (E.g. no background color for in the breadcrumbs). Default is false.
 | `showActions`          |           | Attribute will be passed along to entity-list.
+| `sortable`             |           | Attribute will be passed along to entity-list.
+| `noLeftPadding`       |           | If false, a left padding will be applied to the Breadcrumbs. Per default false.
 
 ### Events
 

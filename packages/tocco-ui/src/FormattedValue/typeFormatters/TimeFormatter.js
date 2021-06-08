@@ -1,5 +1,6 @@
 import React from 'react'
-import {FormattedTime, injectIntl, intlShape} from 'react-intl'
+import PropTypes from 'prop-types'
+import {FormattedTime, injectIntl} from 'react-intl'
 import moment from 'moment'
 
 import Typography from '../../Typography'
@@ -28,7 +29,7 @@ const TimeFormatter = ({value, intl}) => {
 }
 
 TimeFormatter.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   value: (props, propName, componentName) => {
     if (!/^\d{2}:\d{2}(:\d{2}(:\d{3})?)?$/.test(props[propName])) {
       return new Error('Invalid prop `' + propName + '` supplied to `' + componentName + '`')

@@ -1,62 +1,47 @@
-import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {boolean, text, withKnobs} from '@storybook/addon-knobs'
-import {action} from '@storybook/addon-actions'
+import React, {useState} from 'react'
 
 import Upload from './'
-import {Upload as RawUpload} from './Upload'
 
-export class UploadStory extends React.Component {
-  state = {
-    value: {
-      binaryLink: 'https://unsplash.it/400',
-      thumbnailLink: 'https://unsplash.it/400',
-      fileName: 'example_file.jpg'
-    }
-  }
+export const Story = args => {
+  const [value, setValue] = useState({
+    binaryLink: 'https://unsplash.it/400',
+    thumbnailLink: 'https://unsplash.it/400',
+    fileName: 'example_file.jpg'
+  })
 
-  changeValue(file) {
-    action('File uploaded')(file)
-
+  const changeValue = file => {
     if (file === null) {
-      this.setState({
-        value: null
-      })
+      setValue(null)
     } else {
       setTimeout(() => {
-        this.setState({
-          value: {
-            binaryLink: file.preview,
-            thumbnailLink: file.preview,
-            fileName: file.name
-          }
+        setValue({
+          binaryLink: file.preview,
+          thumbnailLink: file.preview,
+          fileName: file.name
         })
       }, 3000)
     }
   }
 
-  render() {
-    return (
-      <div>
-        <Upload
-          value={this.state.value}
-          onUpload={this.changeValue.bind(this)}
-          immutable={boolean('immutable', false)}
-          textResources={{
-            upload: text('upload', 'D`n`D or click'),
-            uploading: text('uploading', 'uploading...'),
-            download: text('download', 'DOWNLOAD'),
-            delete: text('delete', 'DEL')
-          }}
-        />
-      </div>
-    )
-  }
+  return <Upload
+    value={value}
+    onUpload={changeValue}
+    {...args}
+  />
 }
 
-storiesOf('Tocco-UI | Upload', module)
-  .addDecorator(withKnobs)
-  .add(
-    'Upload',
-    () => <UploadStory/>, {info: {propTables: [RawUpload], propTablesExclude: [UploadStory], source: false}}
-  )
+export default {
+  title: 'Tocco-Ui/Upload',
+  components: Upload,
+  argTypes: {
+    textResources: {
+      type: 'object',
+      defaultValue: {
+        upload: 'D`n`D or click',
+        uploading: 'uploading...',
+        download: 'DOWNLOAD',
+        delete: 'DEL'
+      }
+    }
+  }
+}

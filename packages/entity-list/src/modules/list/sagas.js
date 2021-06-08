@@ -53,6 +53,8 @@ export function* initialize() {
     call(loadFormDefinition, formName),
     call(loadEntityModel, entityName)
   ])
+
+  yield put(actions.setInitialized())
 }
 
 export function* queryChanged() {
@@ -71,7 +73,7 @@ export function* loadData(page) {
 
 export function* getBasicQuery(regardSelection = true) {
   const {inputSearchFilters, inputTql, inputKeys, constriction} = yield select(listSelector)
-  
+
   const {showSelectedRecords, selection} = yield select(selectionSelector)
   if (regardSelection && showSelectedRecords) {
     return {
@@ -170,7 +172,8 @@ export const getTql = (inputTql, searchTql) => [
 export function* loadDisplayExpressions(formName, paths, entities) {
   if (paths && paths.length > 0 && entities.length > 0) {
     const keys = entities.map(e => e.__key)
-    const result = yield call(rest.fetchDisplayExpressions, formName, 'list', keys, paths)
+    const entityName = entities[0].__model
+    const result = yield call(rest.fetchDisplayExpressions, formName, 'list', keys, paths, entityName)
     yield put(actions.setLazyData('displayExpressions', formName, result))
   }
 }

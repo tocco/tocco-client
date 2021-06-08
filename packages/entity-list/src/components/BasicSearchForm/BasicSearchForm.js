@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {intlShape} from 'react-intl'
 import {reduxForm} from 'redux-form'
 import {Ball} from 'tocco-ui'
 import {form} from 'tocco-app-extensions'
@@ -98,7 +97,7 @@ const BasicSearchForm = ({
 }
 
 BasicSearchForm.propTypes = {
-  intl: intlShape.isRequired,
+  intl: PropTypes.object.isRequired,
   searchFormDefinition: PropTypes.shape({
     children: PropTypes.array
   }).isRequired,

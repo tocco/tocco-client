@@ -236,7 +236,9 @@ describe('app-extensions', () => {
             }
           }
 
-          return expectSaga(helpers.fetchDisplayExpressions, formName, scope, entityKeys, fields)
+          const entityName = 'User'
+
+          return expectSaga(helpers.fetchDisplayExpressions, formName, scope, entityKeys, fields, entityName)
             .provide([
               [matchers.call.fn(requestSaga), {body: responseFake}]
             ])
@@ -619,6 +621,27 @@ describe('app-extensions', () => {
               .returns(expectedReturn)
               .run()
           })
+        })
+      })
+
+      describe('createSortingString', () => {
+        test('handles empty list', () => {
+          const results = helpers.createSortingString([])
+          expect(results).to.be.empty
+        })
+
+        test('handles sorting fields', () => {
+          const results = helpers.createSortingString([
+            {
+              field: 'first',
+              order: 'asc'
+            },
+            {
+              field: 'second',
+              order: 'desc'
+            }
+          ])
+          expect(results).to.equal('first asc, second desc')
         })
       })
     })
