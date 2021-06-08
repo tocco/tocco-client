@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {v4 as uuid} from 'uuid'
 
@@ -9,6 +9,24 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
   const id = uuid()
 
   const Content = ({close}) => {
+    const handleKeyDown = event => {
+      if (event.key === 'Enter') {
+        event.preventDefault()
+        onOk()
+        close()
+      } else if (event.key === 'Escape') {
+        onCancel()
+        close()
+      }
+    }
+    useEffect(() => {
+      document.addEventListener('keydown', handleKeyDown)
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown)
+      }
+    }, [])
+
     const buttons = [{
       label: okText,
       primary: true,
