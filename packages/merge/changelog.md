@@ -1,3 +1,7 @@
+0.4.6-hotfix229.2
+- disable client questions for merge action
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+
 0.4.6-hotfix229.1
 - Fix select menu disappearing behind modal
 - Displayexpression call adjustment
