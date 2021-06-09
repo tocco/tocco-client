@@ -1,3 +1,7 @@
+0.4.37-hotfix229.7
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- show client questions for merge action
+
 0.4.37-hotfix229.6
 - disable client questions for merge action
 - Fix various dms problems
