@@ -19,7 +19,7 @@ const typeIconMap = {
 const Notification = ({notification, markAsRead, navigationStrategy}) => {
   const notificationElement = useRef(null)
 
-  const {value, unit} = selectUnit(Date.now() - 48 * 3600 * 1000)
+  const {value: timeStampValue, unit} = selectUnit(new Date(notification.timestamp))
 
   const notificationInViewport = () => {
     if (!notification.read) {
@@ -38,7 +38,7 @@ const Notification = ({notification, markAsRead, navigationStrategy}) => {
       </StyledNotificationHeader>
       <NotificationBody notification={notification} navigationStrategy={navigationStrategy}/>
       <StyledTimeStamp>
-        <FormattedRelativeTime value={value} unit={unit}/>
+        <FormattedRelativeTime value={timeStampValue} unit={unit}/>
       </StyledTimeStamp>
     </StyledNotification>
   )
