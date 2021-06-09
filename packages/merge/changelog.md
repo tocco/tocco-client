@@ -1,3 +1,6 @@
+0.4.8
+- show client questions for merge action
+
 0.4.7
 - Fix select menu disappearing behind modal
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
