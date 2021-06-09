@@ -1,3 +1,6 @@
+0.10.26-hotfix229.3
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+
 0.10.26-hotfix229.1
 - Displayexpression call adjustment
 
