@@ -2,7 +2,8 @@ import styled, {css} from 'styled-components'
 
 import {
   declareFont,
-  theme
+  theme,
+  scale
 } from '../utilStyles'
 
 const StyledEditableWrapperCss = css`
@@ -29,8 +30,9 @@ const StyledInputCss = css`
   outline: 0;
   padding: 0;
   ${() => declareFont({
-    color: theme.color('text')
-  })}
+  color: theme.color('text'),
+  fontSize: scale.font(1.5)
+})}
   &::-ms-clear {
     display: none;
   }

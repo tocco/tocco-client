@@ -6,9 +6,10 @@ import styled from 'styled-components'
 
 import Popover from '../Popover'
 import ClickableWrapper from './ClickableWrapper'
-import {theme} from '../utilStyles'
+import {theme, scale} from '../utilStyles'
 
 const StyledSingleValueWrapper = styled.div`
+  font-size: ${scale.font(1.5)};
   overflow-x: hidden;
   color: ${({isDisabled}) => isDisabled ? theme.color('text') : 'inherit'};
 `
