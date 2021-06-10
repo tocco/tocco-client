@@ -25,7 +25,7 @@ const removeToaster = (state, {payload: {key}}) => {
 
 const ACTION_HANDLERS = {
   [actions.TOASTER]: addToaster,
-  [actions.REMOVE_TOASTER]: removeToaster
+  [actions.REMOVE_TOASTER_FROM_STORE]: removeToaster
 }
 
 const initialState = {

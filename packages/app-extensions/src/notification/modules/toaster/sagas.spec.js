@@ -7,7 +7,6 @@ import actionEmitter from '../../../actionEmitter'
 import {emit, removeToaster} from './sagas'
 import {TOASTER_KEY_PREFIX} from '../socket/socket'
 import {markAsRead} from '../center/actions'
-import {notificationsSelector} from '../center/sagas'
 
 describe('app-extensions', () => {
   describe('notification', () => {
@@ -56,10 +55,10 @@ describe('app-extensions', () => {
       describe('removeToaster', () => {
         test('should call markAsRead', () => {
           const key = '1'
-          const input = {1: {type: 'success'}}
+          const input = {[`${TOASTER_KEY_PREFIX}${key}`]: {type: 'success'}}
           return expectSaga(sagas.removeToaster, {payload: {key: `${TOASTER_KEY_PREFIX}${key}`, manually: true}})
             .provide([
-              [select(notificationsSelector), input]
+              [select(sagas.toastersSelector), input]
             ])
             .put(markAsRead(key))
             .run()

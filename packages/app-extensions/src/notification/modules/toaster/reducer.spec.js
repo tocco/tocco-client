@@ -69,7 +69,7 @@ describe('app-extensions', () => {
             expect(stateAfter).to.have.property('toasters')
             expect(Object.keys(stateAfter.toasters)).to.have.length(1)
 
-            stateAfter = reducer(stateAfter, actions.removeToaster(key))
+            stateAfter = reducer(stateAfter, actions.removeToasterFromStore(key))
             expect(Object.keys(stateAfter.toasters)).to.have.length(0)
           })
         })
