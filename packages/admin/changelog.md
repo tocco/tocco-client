@@ -1,4 +1,4 @@
-0.4.51
+0.4.52
 - disable client questions for merge action
 
 0.4.50
