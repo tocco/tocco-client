@@ -53,7 +53,7 @@ const transformLabel = ({secondaryPosition}) => css`
     will-change: color, font-size, font-weight, margin, top;
     ${secondaryPosition && css`
       top: 0;
-      font-size: ${scale.font(0.78)};
+      font-size: ${scale.font(-0.8)};
       margin: calc(${scale.font(-0.5)} / -2) 0 0;
     `}
   }
@@ -68,7 +68,7 @@ export const StyledLabelWrapper = styled.div`
 const StyledStatedValueLabel = styled.label`
   &&& {
     ${declareFont({
-      fontSize: scale.font(1),
+      fontSize: scale.font(0),
       fontWeight: ({dirty}) => dirty ? theme.fontWeight('bold') : theme.fontWeight('regular'),
       lineHeight: 1
     })}
@@ -76,7 +76,7 @@ const StyledStatedValueLabel = styled.label`
     color: ${props => colorizeText[getTextColor(props)](props)};
     left: ${scale.space(-2)};
     margin: calc(${scale.font(0)} / -2) 0 0;
-    padding: 0 ${scale.space(-2)};
+    padding: 1px ${scale.space(-2)}; // 1px to prevent label bottom from being cut
     position: absolute;
     top: 50%;
     width: ${({secondaryPosition}) => secondaryPosition ? 'auto' : 'inherit'};

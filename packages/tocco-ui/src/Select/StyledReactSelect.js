@@ -32,7 +32,7 @@ const reactSelectStyles = outerTheme => {
   const typography = {
     color: text[0],
     fontFamily: outerTheme.fontFamily.regular,
-    fontSize: scale.font(1.5)({theme: outerTheme}),
+    fontSize: `${outerTheme.fontSize.base}rem`,
     fontWeight: outerTheme.fontWeights.regular,
     lineHeight: outerTheme.lineHeights.regular
   }
