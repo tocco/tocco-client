@@ -53,7 +53,6 @@ export const DateEdit = ({onChange, options, id, value, immutable, events}) => {
 
 DateEdit.propTypes = {
   id: PropTypes.string,
-  intl: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   immutable: PropTypes.bool,
