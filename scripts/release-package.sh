@@ -77,7 +77,7 @@ else
   read -p "Push commits and tags (y/n)?" PUSH
 fi
 
-if [ "$PUSH" = "y" || "$PUSH" == "Y" ]; then
+if [ "$PUSH" = "y" || "$PUSH" = "Y" ]; then
   git fetch --tags -f
   git push --tags
   git push --set-upstream https://github.com/tocco/tocco-client.git ${targetBranch}
@@ -97,7 +97,7 @@ else
   read -p "Create a npm dist tag ${release_tag} for current version (y/n)?" CREATE_TAG
 fi
 
-if [ "$CREATE_TAG" = "y" || "$PUSH" == "Y"  ]; then
+if [ "$CREATE_TAG" = "y" || "$PUSH" = "Y"  ]; then
   echo "Trying to execute: npm dist-tag add tocco-${package}@${new_version} ${release_tag}"
   npm dist-tag add tocco-${package}@${new_version} ${release_tag} --registry=https://registry.npmjs.org/
   echo "${color_green}Npm tag created!${color_reset}"
