@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[23],{3715:function(module,__webpack_exports__,__webpack_require__){"use strict";__webpack_require__.r(__webpack_exports__);var framer_motion__WEBPACK_IMPORTED_MODULE_0__=__webpack_require__(3735);__webpack_exports__.default=framer_motion__WEBPACK_IMPORTED_MODULE_0__.a}}]);
-//# sourceMappingURL=23.ec3579f0aaf8775b13a2.bundle.js.map
