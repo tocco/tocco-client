@@ -7,7 +7,7 @@ const colorizeText = {
   shade1: ({theme}) => shadeColor(_get(theme, 'colors.text'), 3.5),
   shade2: ({theme}) => shadeColor(_get(theme, 'colors.text'), 5.5),
   signal: ({theme, signal}) => _get(theme, `colors.signal.${signal}.text`),
-  hasValue: ({theme}) => _get(theme, 'colors.secondaryLight')
+  hasValue: ({theme}) => _get(theme, 'colors.signal.info.text')
 }
 
 const colorizeBorder = {

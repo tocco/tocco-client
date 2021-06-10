@@ -145,7 +145,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: 'success'
       },
-      output: 'shade1'
+      output: 'signal'
     }, {
       input: {
         immutable: false,
@@ -161,7 +161,7 @@ describe('tocco-ui', () => {
         secondaryPosition: false,
         signal: 'success'
       },
-      output: 'shade0'
+      output: 'signal'
     }, {
       input: {
         immutable: true,
@@ -177,7 +177,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: 'success'
       },
-      output: 'shade1'
+      output: 'signal'
     }, {
       input: {
         immutable: true,
@@ -193,7 +193,7 @@ describe('tocco-ui', () => {
         secondaryPosition: false,
         signal: 'success'
       },
-      output: 'shade1'
+      output: 'signal'
     }, {
       input: {
         immutable: false,
@@ -209,7 +209,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: 'success'
       },
-      output: 'shade0'
+      output: 'signal'
     }, {
       input: {
         immutable: false,
@@ -225,7 +225,7 @@ describe('tocco-ui', () => {
         secondaryPosition: false,
         signal: 'success'
       },
-      output: 'shade1'
+      output: 'signal'
     }, {
       input: {
         immutable: true,
@@ -241,7 +241,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: 'success'
       },
-      output: 'shade0'
+      output: 'signal'
     }, {
       input: {
         immutable: true,
