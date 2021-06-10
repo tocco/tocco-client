@@ -1,3 +1,6 @@
+0.4.51
+- disable client questions for merge action
+
 0.4.50
 - Forward input props to move action
 - Style nav switch button to better fit into UI
