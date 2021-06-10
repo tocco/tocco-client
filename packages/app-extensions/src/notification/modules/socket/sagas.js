@@ -16,6 +16,7 @@ export default function* sagas(accept) {
     yield all([
       takeEvery(actions.SOCKET_MESSAGE_RECEIVED, messageReceived),
       takeEvery(toasterActions.REMOVE_TOASTER, toasterRemoved),
+      takeEvery(actions.CONNECT_SOCKET, connectSocket),
       call(connectSocket)
     ])
   }
