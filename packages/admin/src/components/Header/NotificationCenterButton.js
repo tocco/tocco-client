@@ -49,7 +49,7 @@ const NotificationCenterButton = () => {
   return <>
     <>
       <StyledBall onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement}/>
-      <NotificationCenterRedDotContainer onClick={() => setVisibility(!visible)} innerRef={redDotElement}/>
+      <span ref={redDotElement}><NotificationCenterRedDotContainer onClick={() => setVisibility(!visible)}/></span>
     </>
     {ReactDOM.createPortal(
       <StyledPopper
