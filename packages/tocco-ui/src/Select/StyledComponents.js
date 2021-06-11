@@ -20,8 +20,8 @@ export const StyledTether = styled(TetherComponent)`
 
 export const StyledMenu = styled(components.Menu)`
   && {
-    margin: 8px 0 0 -8.5px;
-    width: calc(${({wrapperWidth}) => wrapperWidth}px + 15.8px);
+    margin: 8px 0 8px -10px;
+    width: calc(${({wrapperWidth}) => wrapperWidth}px + 20px);
     position: relative;
 
     .tether-target-attached-top & {
@@ -33,13 +33,13 @@ export const StyledMenu = styled(components.Menu)`
 export const StyledMoreOptionsAvailable = styled.div`
   && {
     ${props => declareFont(props, {
-  color: theme.color('signal.warning.text'),
-  lineHeight: 'normal'
-})}
+      color: theme.color('signal.warning.text'),
+      lineHeight: 'normal'
+    })}
     cursor: default;
     padding: ${({reactSelectTheme}) =>
-  `${reactSelectTheme.spacing.baseUnit * 2}px ${reactSelectTheme.spacing.baseUnit * 3}px`
-};
+      `${reactSelectTheme.spacing.baseUnit * 2}px ${reactSelectTheme.spacing.baseUnit * 3}px`
+    };
   }
 `
 
@@ -75,8 +75,7 @@ export const reactSelectStyles = outerTheme => {
     container: (base, state) => ({
       ...base,
       ...typography,
-      outline: 0,
-      backgroundColor: 'red'
+      outline: 0
     }),
     control: (base, state) => ({
       ...base,
@@ -100,26 +99,17 @@ export const reactSelectStyles = outerTheme => {
     }),
     option: (base, state) => ({
       ...base,
+      'color': outerTheme.colors.text,
       'backgroundColor': state.isSelected
-        ? `${outerTheme.colors.secondary} !important` // force to stay on hover
+        ? paper[2]
         : state.isFocused
-          ? outerTheme.colors.secondaryLight
+          ? paper[1]
           : paper[0],
-      'color': state.isSelected
-        ? paper[0]
-        : state.isFocused
-          ? paper[0]
-          : text[0],
       'cursor': 'pointer',
-      ':hover': {
-        backgroundColor: outerTheme.colors.secondaryLight,
-        color: paper[0]
-      },
       ':active': {
         backgroundColor: state.isSelected
           ? paper[2]
-          : outerTheme.colors.secondaryLight,
-        color: paper[0]
+          : paper[1]
       }
     }),
     indicatorsContainer: (base, state) => ({
@@ -139,10 +129,14 @@ export const reactSelectStyles = outerTheme => {
       alignItems: 'center',
       minHeight: '2.6rem'
     }),
+    menu: (base, state) => ({
+      backgroundColor: outerTheme.colors.paper,
+      boxShadow: `0 0 6px ${outerTheme.colors.signal.info.text}`
+    }),
     menuList: (base, state) => ({
       ...base,
       ...typography,
-      border: `1px solid ${outerTheme.colors.secondaryLight}`,
+      border: `1px solid ${outerTheme.colors.signal.info.text}`,
       padding: '0',
       ...StyledScrollbar
     }),
