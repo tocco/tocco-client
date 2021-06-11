@@ -16,6 +16,7 @@ import {
 import AboutTocco from '../AboutTocco'
 
 const StyledBallMenuWrapper = styled.span`
+  display: flex;
   margin-top: 2px;
 
   ${StyledBall} {
