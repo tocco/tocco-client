@@ -6,6 +6,7 @@ import Content from '../../../components/Content'
 import {
   StyledModalContent,
   StyledModalWrapper,
+  StyledTitleWrapper,
   StyledCloseButton,
   GlobalTetherStyle
 } from './StyledComponents'
@@ -41,9 +42,15 @@ const ModalContent = ({
           {closable && <StyledCloseButton onClick={handleCloseClick} type="button">
             ✕
           </StyledCloseButton>}
-          {title && <Typography.H1><Content>{title}</Content> </Typography.H1>}
-          {message && <Typography.Span><Content>{message}</Content></Typography.Span>}
-          <Component close={handleCloseClick}/>
+          <div>
+            {title && <StyledTitleWrapper>
+              <Typography.H1>
+                <Content>{title}</Content>
+              </Typography.H1>
+            </StyledTitleWrapper>}
+            {message && <Typography.Span><Content>{message}</Content></Typography.Span>}
+            <Component close={handleCloseClick}/>
+          </div>
         </StyledModalContent>
       </StyledModalWrapper>
     </>

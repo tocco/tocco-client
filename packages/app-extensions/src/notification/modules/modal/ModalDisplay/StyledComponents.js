@@ -1,7 +1,8 @@
 import styled, {createGlobalStyle} from 'styled-components'
 import {
   Button,
-  scale, StyledTether,
+  scale,
+  StyledTether,
   theme
 } from 'tocco-ui'
 
@@ -49,6 +50,10 @@ export const StyledModalWrapper = styled.div`
   z-index: 99999;
 `
 
+export const StyledTitleWrapper = styled.div`
+  padding-bottom: ${scale.space(0.5)};
+`
+
 export const StyledPageOverlay = styled.div`
   background-color: rgba(50, 50, 50, .7);
   height: 100%;
@@ -71,6 +76,7 @@ export const StyledModalButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
 `
+
 export const GlobalTetherStyle = createGlobalStyle`
   ${StyledTether} {
     && {
