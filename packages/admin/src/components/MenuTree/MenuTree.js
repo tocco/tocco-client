@@ -1,24 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {declareFont, theme, scale} from 'tocco-ui'
-import styled from 'styled-components'
 
-const StyledMenuEntry = styled.div`
-  ${declareFont()}
-
-  && {
-    padding-left: ${({level}) => level * 7}px;
-    line-height: ${theme.lineHeight('light')};
-  }
-`
-
-const StyledMenuEntryWrapper = styled.div`
-  margin-bottom: ${scale.space(0.6)};
-
-  > div {
-    margin-bottom: ${scale.space(0)};
-  }
-`
+import {StyledMenuEntry, StyledMenuEntryWrapper} from './StyledComponents'
 
 const MenuItem = ({item, typeMapping}) => {
   if (!item) {
@@ -31,7 +14,7 @@ const MenuItem = ({item, typeMapping}) => {
   }
 
   const Component = mappedType.component
-  return <StyledMenuEntry {...item}>
+  return <StyledMenuEntry {...item} childrenCount={item.children ? item.children.length : 0}>
     <Component item={item} {...mappedType.props}/>
     {item.children && item.children.map(child => <MenuItem key={child.name} item={child} typeMapping={typeMapping}/>)}
   </StyledMenuEntry>
