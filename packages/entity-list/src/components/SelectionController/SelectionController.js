@@ -8,32 +8,39 @@ import {
 
 import StyledSelectionController, {StyledButton} from './StyledSelectionController'
 
-const SelectionController = props => {
-  const msg = id => (props.intl.formatMessage({id}))
-  const selectionPossible = props.selection.length !== 0
+const SelectionController = ({
+  intl,
+  selection,
+  showSelectedRecords,
+  toggleShowSelectedRecords,
+  queryCount,
+  clearSelection
+}) => {
+  const msg = id => intl.formatMessage({id})
+  const selectionPossible = selection.length !== 0
 
   return (
     <StyledSelectionController>
       <StyledButton
-        active={!props.showSelectedRecords}
+        active={!showSelectedRecords}
         onClick={() => {
           if (selectionPossible) {
-            props.toggleShowSelectedRecords()
+            toggleShowSelectedRecords()
           }
         }}
       >
         <Typography.Span>
           <FormattedMessage
             id="client.entity-list.selectionAll"
-            values={{count: props.queryCount}}/>
+            values={{count: queryCount}}/>
         </Typography.Span>
       </StyledButton>
       <StyledButton
-        active={props.showSelectedRecords}
+        active={showSelectedRecords}
         disabled={!selectionPossible}
         onClick={() => {
           if (selectionPossible) {
-            props.toggleShowSelectedRecords()
+            toggleShowSelectedRecords()
           }
         }}
         data-cy="selection-controller-selection"
@@ -41,18 +48,18 @@ const SelectionController = props => {
         <Typography.Span>
           <FormattedMessage
             id="client.entity-list.selectionSelection"
-            values={{count: props.selection.length}}/>
-          {props.selection.length > 0 && <Button
+            values={{count: selection.length}}/>
+          {selection.length > 0 && <Button
             data-cy="selection-controller-delete-selection"
             dense
             icon="times"
             title={msg('client.entity-list.clearSelection')}
             onClick={e => {
               e.stopPropagation()
-              if (props.showSelectedRecords) {
-                props.toggleShowSelectedRecords()
+              if (showSelectedRecords) {
+                toggleShowSelectedRecords()
               }
-              props.clearSelection()
+              clearSelection()
             }}
           />}
         </Typography.Span>
