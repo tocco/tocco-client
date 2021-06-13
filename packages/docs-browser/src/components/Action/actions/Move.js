@@ -78,6 +78,7 @@ export const MoveAction = ({
       domainTypes={domainTypes}
       rootNodes={rootNodes}
       businessUnit={businessUnit}
+      sortable={false}
     />
     <StyledButtonsWrapper>
       <Button
