@@ -46,7 +46,7 @@ export const StyledModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: 99999;
+  z-index: 99; // lower than ExtJS modals and mask (must be able to open legacy ExtJS modals on top of our modals)
 `
 
 export const StyledPageOverlay = styled.div`
