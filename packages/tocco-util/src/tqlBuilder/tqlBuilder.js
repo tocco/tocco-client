@@ -69,7 +69,7 @@ const typeHandlers = type => {
     case 'datetime':
     case 'createts':
     case 'updatets':
-      return (path, value, comp) => `${path} ${comp} datetime:"${moment(value).format('YYYY-MM-DD HH:mm')}"`
+      return (path, value, comp) => `${path} ${comp} datetime:"${moment(value).utc().format('YYYY-MM-DD HH:mm')}"`
     case 'time':
       return (path, value, comp) => `${path} ${comp} time:"${moment(value, 'HH:mm').format('HH:mm:ss.sss')}"`
     case 'compressed-text':
