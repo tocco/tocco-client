@@ -1,3 +1,7 @@
+0.4.37-hotfix229.8
+- Fix legacy actions popup in DMS (was hidden before)
+- Disable sorting in "move" action in DMS
+
 0.4.37-hotfix229.7
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
 - show client questions for merge action
