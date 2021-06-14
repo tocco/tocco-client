@@ -51,11 +51,12 @@ describe('entity-list', () => {
           })
 
           test('should set datetime literal for datetimes', () => {
-            const value = '2020-02-12T12:00:00.000Z'
+            const value = '2021-06-15T09:12:00.000Z'
             const path = 'start'
             const fieldType = 'datetime'
+            const expectedValue = moment(value).utc().format('YYYY-MM-DD HH:mm')
 
-            const expectedResult = `start == datetime:"${moment(value).format('YYYY-MM-DD HH:mm')}"`
+            const expectedResult = `start == datetime:"${expectedValue}"`
             const result = getTql(path, value, fieldType)
 
             expect(result).to.deep.eql(expectedResult)
@@ -172,14 +173,21 @@ describe('entity-list', () => {
           })
 
           test('should adapt date value to datetime range', () => {
-            const tql = getTql('datefield', '2020-04-29', 'datetime')
-            const expected = 'datefield >= datetime:"2020-04-29 00:00" and datefield <= datetime:"2020-04-30 00:00"'
+            const value = '2021-06-16'
+            const tql = getTql('date_from', value, 'datetime')
+
+            const expectedFrom = moment(value).utc().format('YYYY-MM-DD HH:mm')
+            const expectedTo = moment(value).utc().add(1, 'd').format('YYYY-MM-DD HH:mm')
+
+            const expected = `date_from >= datetime:"${expectedFrom}" and date_from <= datetime:"${expectedTo}"`
             expect(tql).to.eql(expected)
           })
 
           test('should not adapt datetime value to range', () => {
-            const tql = getTql('datefield', '2020-04-29 00:00', 'datetime')
-            const expected = 'datefield == datetime:"2020-04-29 00:00"'
+            const value = '2020-04-29 00:00'
+            const tql = getTql('datefield', value, 'datetime')
+            const expectedValue = moment(value).utc().format('YYYY-MM-DD HH:mm')
+            const expected = 'datefield == datetime:"' + expectedValue + '"'
             expect(tql).to.eql(expected)
           })
 
