@@ -50,7 +50,7 @@ function checkPackage() {
 }
 
 function setNiceVersion() {
-  nice_version=$(head -n 1 nice-current-version.txt | sed -r 's/(\.0$|\.)//g')
+  nice_version=$(head -n 1 nice-current-version.txt | sed 's/\.0$//' | sed 's/\.//')
 }
 
 function setCurrentReleaseTag() {
