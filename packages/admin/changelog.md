@@ -1,3 +1,12 @@
+0.4.53
+- Improve input field UX by better highlighting fields and labels
+- Adapt input font-sizes for better readability
+- Fix selection controller button font color
+- Add collapse feature to search panel in list view
+- Harmonize menu tree spacing and switch icon size
+- Fix legacy actions popup in DMS (was hidden before)
+- Disable sorting in "move" action in DMS
+
 0.4.52
 - disable client questions for merge action
 
