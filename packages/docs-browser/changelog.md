@@ -1,3 +1,8 @@
+0.2.4-hotfix229.5
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Fix legacy actions popup (was hidden before)
+- Disable sorting in "move" action
+
 0.2.4-hotfix229.4
 - Fix various DMS navigation and search problems
 
