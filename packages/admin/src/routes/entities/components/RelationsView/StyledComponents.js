@@ -1,10 +1,43 @@
 import styled from 'styled-components'
-import {AdminLink as StyledLink, StyledSpan, theme, scale, StyledScrollbar} from 'tocco-ui'
+import {AdminLink as StyledLink, StyledSpan, theme, scale, StyledScrollbar, Button} from 'tocco-ui'
 
 export const StyledRelationsViewWrapper = styled.div`
+  display: ${({isCollapsed}) => isCollapsed ? 'none' : 'flex'};
   height: 100%;
-  display: flex;
   flex-direction: column;
+`
+
+export const StyledPlaceHolder = styled.div`
+  display: ${({isCollapsed}) => isCollapsed ? 'flex' : 'none'};
+  flex: 1;
+  height: 100%;
+  width: 25px;
+  background: ${theme.color('paper')};
+  padding-top: ${scale.space(-1.5)};
+  padding-left: ${scale.space(-2.5)};
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+export const StyledToggleCollapse = styled.div`
+  display: flex;
+  background-color: ${theme.color('paper')};
+  padding-top: ${scale.space(-1.5)};
+`
+
+export const StyledToggleCollapseButton = styled(Button)`
+  font-size: ${scale.font(2.5)};
+  padding: 0;
+  margin-left: auto;
+  margin-right: ${scale.space(-1.8)};
+
+  &:hover,
+  ${/* sc-selector */StyledPlaceHolder}:hover & {
+    background-color: transparent;
+    color: ${theme.color('secondaryLight')};
+  }
 `
 
 export const StyledPreviewBox = styled.div`
