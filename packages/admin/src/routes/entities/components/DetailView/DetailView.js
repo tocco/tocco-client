@@ -1,48 +1,31 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import RelationsView from '../RelationsView'
 import EditView from '../EditView'
 import {currentViewPropType} from '../../utils/propTypes'
 import ErrorView from '../../../../components/ErrorView'
-
-const DetailViewContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-
-  .react-bs-container-body {
-    height: auto !important;
-  }
-`
-
-const DetailViewPart = styled.div`
-  flex: 1;
-
-  &:first-child {
-    margin-right: 1rem;
-
-    @media (max-width: 1024px) {
-      flex: none;
-      width: 40%;
-    }
-  }
-`
+import {StyledDetailViewContainer, StyledDetailViewLeft, StyledDetailViewRight} from './StyledComponents'
 
 const DetailView = ({match, history, currentViewInfo}) => {
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed)
+  }
   if (currentViewInfo && currentViewInfo.error) {
     return <ErrorView message="client.admin.entity.detailError" technicalReason={currentViewInfo.error.message}/>
   }
 
-  return <DetailViewContainer>
-    <DetailViewPart>
-      <EditView match={match} history={history}/>
-    </DetailViewPart>
-    <DetailViewPart>
-      <RelationsView match={match} history={history}/>
-    </DetailViewPart>
-  </DetailViewContainer>
+  return (
+    <StyledDetailViewContainer>
+      <StyledDetailViewLeft isCollapsed={isCollapsed}>
+        <EditView match={match} history={history}/>
+      </StyledDetailViewLeft>
+      <StyledDetailViewRight isCollapsed={isCollapsed}>
+        <RelationsView match={match} history={history} isCollapsed={isCollapsed} toggleCollapse={toggleCollapse}/>
+      </StyledDetailViewRight>
+    </StyledDetailViewContainer>
+  )
 }
 
 DetailView.propTypes = {
