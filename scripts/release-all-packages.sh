@@ -6,7 +6,7 @@ source ./scripts/helpers.sh
 # Gather all packages with private is not equal true in package.json
 releasePackages=()
 for dir in packages/*/ ; do
-  if [[ $(json -f "${dir}package.json" private) != true ]]; then
+  if [[ -f "${dir}package.json" && $(json -f "${dir}package.json" private) != true ]]; then
     releasePackages+=("$(cut -d'/' -f2 <<<${dir})")
   fi
 done
