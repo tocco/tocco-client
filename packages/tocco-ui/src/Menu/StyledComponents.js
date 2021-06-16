@@ -13,6 +13,10 @@ export const StyledIconButtonWrapper = styled(Button)`
   padding-right: .9rem;
 `
 
+export const StyledPopperWrapper = styled.div`
+  position: relative;
+`
+
 export const StyledPopper = styled.div`
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
   border: 1px solid ${theme.color('secondaryLight')};
