@@ -37,6 +37,8 @@ echo -e  "Generated changelog:\n${color_blue}${changelog}${color_reset}"
 
 if [[ $auto = false ]]; then
   read -p "New version [default value if empty: ${next_version}] : " new_version
+else
+  new_version=''
 fi
 
 if [[ -z "${new_version}" ]]; then
