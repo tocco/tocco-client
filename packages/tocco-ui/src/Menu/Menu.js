@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {usePopper} from 'react-popper'
 
-import {StyledPopper} from './StyledComponents'
+import {StyledPopperWrapper, StyledPopper} from './StyledComponents'
 
 /**
  * Menu realised with popper.
@@ -43,11 +43,11 @@ const Menu = ({referenceElement, onClose, open, children}) => {
   }
 
   return (
-    <div ref={thisEl}>
+    <StyledPopperWrapper ref={thisEl}>
       {children && <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper}>
         {React.Children.map(children, child => child && React.cloneElement(child, {onClose: onClose}))}
       </StyledPopper>}
-    </div>
+    </StyledPopperWrapper>
   )
 }
 
