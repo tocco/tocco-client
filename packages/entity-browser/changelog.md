@@ -1,3 +1,11 @@
+0.10.19-hotfix228.5
+- hide list navigation arrow if row is not clickable
+- Reset label spacing inside column picker for old client
+- render description field in form
+- Fix fulltext search form
+- Fix fulltext search
+- Fix multi-tab problem
+
 0.10.19-hotfix228.4
 - hide list navigation arrow if row is not clickable
 - Reset label spacing inside column picker for old client
