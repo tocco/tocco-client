@@ -10,11 +10,12 @@ const StyledListApp = styled.div`
 
 const SubGrid = props => {
   const formBase = `${props.detailFormName}_${props.formField.path}`
-  const subgridPersistorId = `subgrid-${props.entityName}-${props.entityKey}-${props.formField.reverseRelation}`
+  const id = `${props.appId}-subgrid-${props.entityName}-${props.entityKey}-${props.formField.reverseRelation}`
+
   return (
     <StyledListApp>
       <EntityListApp
-        id={`${props.appId}-subgrid-${formBase}`}
+        id={id}
         entityName={props.formField.targetEntity}
         formName={formBase}
         limit={props.limit}
@@ -37,9 +38,9 @@ const SubGrid = props => {
           model: props.entityName
         }}
         emitAction={props.emitAction}
-        store={viewPersistor.viewInfoSelector(subgridPersistorId).store}
+        store={viewPersistor.viewInfoSelector(id).store}
         onStoreCreate={store => {
-          viewPersistor.persistViewInfo(subgridPersistorId, {store})
+          viewPersistor.persistViewInfo(id, {store})
         }}
       />
     </StyledListApp>

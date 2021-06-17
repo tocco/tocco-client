@@ -111,7 +111,7 @@ class EntityDetailApp extends React.Component {
       return events
     }, {})
 
-    this.app = initApp('id', props, events)
+    this.app = initApp(props.id, props, events)
   }
 
   render() {
