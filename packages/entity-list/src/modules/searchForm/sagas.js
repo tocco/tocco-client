@@ -20,6 +20,7 @@ import {validateSearchFields} from '../../util/searchFormValidation'
 import {SET_ENTITY_MODEL, SET_FORM_DEFINITION} from '../list/actions'
 import {getBasicQuery} from '../list/sagas'
 import searchFormTypes from '../../util/searchFormTypes'
+import ColumnPicker from '../../components/ColumnPicker'
 
 export const inputSelector = state => state.input
 export const searchFormSelector = state => state.searchForm
@@ -40,7 +41,9 @@ export default function* sagas() {
     takeLatest(actions.SAVE_SEARCH_FILTER, saveSearchFilter),
     takeLatest(actions.DELETE_SEARCH_FILTER, deleteSearchFilter),
     takeLatest(actions.SAVE_DEFAULT_SEARCH_FILTER, saveDefaultSearchFilter),
-    takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, resetDefaultSearchFilter)
+    takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, resetDefaultSearchFilter),
+    takeLatest(actions.DISPLAY_SEARCH_FIELDS_MODAL, displaySearchFieldsModal),
+    takeLatest(actions.RESET_SEARCH_FIELDS, resetSearchFields)
   ])
 }
 
@@ -138,14 +141,14 @@ export function* setSimpleForm() {
   yield put(actions.setFormFieldsFlat(formDefinition))
 }
 
-export function* loadSearchForm() {
+export function* loadSearchForm(forceLoad = false) {
   const {searchFormType, formName} = yield select(entityListSelector)
   if (searchFormType === searchFormTypes.SIMPLE) {
     yield call(setSimpleForm)
     return null
   }
 
-  let formDefinition = yield call(rest.fetchForm, formName, 'search', true)
+  let formDefinition = yield call(rest.fetchForm, formName, 'search', true, forceLoad)
 
   if (formDefinition) {
     const {parent} = yield select(inputSelector)
@@ -312,4 +315,63 @@ export function* resetDefaultSearchFilter() {
     type: 'success',
     title: 'client.entity-list.search.settings.defaultFilter.reset.success'
   }))
+}
+
+export function* displaySearchFieldsModal() {
+  const {formDefinition} = yield select(searchFormSelector)
+  const columns = formDefinition.children.flatMap(f => f.children).map(f => ({
+    id: f.id,
+    label: f.label,
+    hidden: f.hidden === true
+  }))
+  const columnsSorted = [
+    ...columns.filter(f => !f.hidden),
+    ...columns.filter(f => f.hidden)
+  ]
+
+  const answerChannel = yield call(channel)
+  yield put(notification.modal(
+    `${formDefinition.id}-search-fields-selection`,
+    'client.entity-list.search.settings.searchForm.edit',
+    null,
+    ({close}) => {
+      const onOk = columns => {
+        close()
+        answerChannel.put(columns)
+      }
+
+      return <ColumnPicker initialColumns={columnsSorted} onOk={onOk} dndEnabled={true}/>
+    },
+    true
+  ))
+
+  yield call(saveSearchFields, formDefinition.modelName, answerChannel)
+  yield call(loadSearchForm, true)
+  yield call(resetSearch)
+}
+
+function* saveSearchFields(modelName, answerChannel) {
+  const columns = yield take(answerChannel)
+  const resource = `forms/${modelName}/search-fields`
+  const options = {
+    method: 'POST',
+    body: {
+      hiddenFields: columns.filter(c => c.hidden).map(c => c.id),
+      displayedFields: columns.filter(c => !c.hidden).map(c => c.id)
+    }
+  }
+
+  yield call(rest.requestSaga, resource, options)
+}
+
+export function* resetSearchFields() {
+  const {formDefinition} = yield select(searchFormSelector)
+  const resource = `forms/${formDefinition.modelName}/search-fields/reset`
+  const options = {
+    method: 'POST'
+  }
+
+  yield call(rest.requestSaga, resource, options)
+  yield call(loadSearchForm, true)
+  yield call(resetSearch)
 }

@@ -40,6 +40,8 @@ const AdminSearchForm = ({
   saveSearchFilter,
   saveDefaultSearchFilter,
   resetDefaultSearchFilter,
+  displaySearchFieldsModal,
+  resetSearchFields,
   searchFormDirty,
   isCollapsed,
   toggleCollapse
@@ -97,6 +99,12 @@ const AdminSearchForm = ({
           <MenuItem onClick={saveSearchFilter} disabled={!searchFormDirty}>
             <FormattedMessage id="client.entity-list.search.settings.saveAsFilter"/>
           </MenuItem>
+          <MenuItem onClick={displaySearchFieldsModal}>
+            <FormattedMessage id="client.entity-list.search.settings.searchForm.edit"/>
+          </MenuItem>
+          <MenuItem onClick={resetSearchFields}>
+            <FormattedMessage id="client.entity-list.search.settings.searchForm.reset"/>
+          </MenuItem>
         </BallMenu>
       </StyledHeader>
       <StyledSplitWrapper ref={splitWrapperEl}>
@@ -130,6 +138,8 @@ AdminSearchForm.propTypes = {
   saveSearchFilter: PropTypes.func.isRequired,
   saveDefaultSearchFilter: PropTypes.func.isRequired,
   resetDefaultSearchFilter: PropTypes.func.isRequired,
+  displaySearchFieldsModal: PropTypes.func.isRequired,
+  resetSearchFields: PropTypes.func.isRequired,
   searchFormDirty: PropTypes.bool,
   isCollapsed: PropTypes.bool,
   toggleCollapse: PropTypes.func.isRequired
