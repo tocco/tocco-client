@@ -1,3 +1,6 @@
+0.4.37-hotfix229.9
+- Fix overlay of modal in widget mode
+
 0.4.37-hotfix229.8
 - Fix legacy actions popup in DMS (was hidden before)
 - Disable sorting in "move" action in DMS
