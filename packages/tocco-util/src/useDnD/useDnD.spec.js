@@ -1,4 +1,3 @@
-
 import {renderHook, act} from '@testing-library/react-hooks'
 
 import useDnD from './useDnD'
@@ -56,12 +55,6 @@ describe('tocco-ui', () => {
         })
 
         expect(result.current.dndState.currentlyDragOver).to.eql(dragOverFieldId)
-
-        act(() => {
-          result.current.dndEvents(dragOverFieldId).onDragLeave({...event, target: {getAttribute: () => true}})
-        })
-
-        expect(result.current.dndState.currentlyDragOver).to.be.null
 
         act(() => {
           result.current.dndEvents(dragOverFieldId).onDrop(event)
