@@ -1,3 +1,7 @@
+0.10.26-hotfix229.4
+- Fix overlay of modal in widget mode
+- Fix multi-tab problem
+
 0.10.26-hotfix229.3
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
 
