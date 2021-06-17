@@ -116,12 +116,21 @@ export function* displayColumnModal() {
 }
 
 function* saveColumnPreferences(answerChannel, preferencesColumns, formDefinition) {
-  const selectedColumns = yield take(answerChannel)
-  yield put(setColumns({...preferencesColumns, ...selectedColumns}))
-  if (Object.entries(selectedColumns).some(([, value]) => value)) {
+  const columns = (yield take(answerChannel)).reduce((accumulator, item) => ({
+    ...accumulator,
+    [item.id]: !item.hidden
+  }), {})
+  const diffColumns = Object.keys(columns).reduce((accumulator, columnName) => ({
+    ...accumulator,
+    ...(columns[columnName] !== preferencesColumns[columnName]
+      ? {[columnName]: columns[columnName]}
+      : {})
+  }), {})
+  yield put(setColumns(columns))
+  if (Object.entries(diffColumns).some(([, value]) => value)) {
     yield put(listActions.refresh())
   }
-  const columnPreferences = yield call(util.getColumnPreferencesToSave, formDefinition.id, selectedColumns)
+  const columnPreferences = yield call(util.getColumnPreferencesToSave, formDefinition.id, diffColumns)
   yield call(rest.savePreferences, columnPreferences)
 }
 
