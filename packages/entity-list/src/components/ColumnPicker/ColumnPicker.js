@@ -10,8 +10,9 @@ import {
   StyledId
 } from './StyledColumnPicker'
 
-const ColumnPicker = ({columns, onOk, intl}) => {
-  const [selectedColumns, setSelectedColumns] = useState({})
+const ColumnPicker = props => {
+  const {onOk, intl} = props
+  const [columns, setColumns] = useState(props.columns)
   const [searchTerm, setSearchTerm] = useState(null)
   const items = useMemo(() => columns
     .filter(column => searchTerm === null || column.label.match(new RegExp(searchTerm, 'i')))
@@ -19,15 +20,14 @@ const ColumnPicker = ({columns, onOk, intl}) => {
       <StyledCheckbox
         type={'checkbox'}
         id={column.id}
-        checked={Object.prototype.hasOwnProperty.call(selectedColumns, column.id)
-          ? selectedColumns[column.id]
-          : !column.hidden}
-        onChange={value => setSelectedColumns({...selectedColumns, [column.id]: value.target.checked})}
+        checked={!column.hidden}
+        onChange={value => setColumns(columns
+          .map(c => c.id === column.id ? ({...c, hidden: !value.target.checked}) : c))}
       />
       <Typography.Label for={column.id}>
         {column.label || <StyledId>{column.id}</StyledId>}
       </Typography.Label>
-    </Typography.Li>), [columns, searchTerm, selectedColumns])
+    </Typography.Li>), [searchTerm, columns])
 
   return <StyledColumnPickerWrapper>
     <SearchBox
@@ -35,7 +35,7 @@ const ColumnPicker = ({columns, onOk, intl}) => {
       onSearch={setSearchTerm}/>
     <StyledUl>{items}</StyledUl>
     <StyledButtonWrapper>
-      <Button onClick={() => onOk(selectedColumns)} look={'raised'}>
+      <Button onClick={() => onOk(columns)} look={'raised'}>
         {intl.formatMessage({id: 'client.entity-list.preferences.columns.okButton'})}
       </Button>
     </StyledButtonWrapper>

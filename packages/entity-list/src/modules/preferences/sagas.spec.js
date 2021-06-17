@@ -9,6 +9,7 @@ import * as listSagas from '../list/sagas'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import * as listActions from '../list/actions'
+import * as util from '../../util/preferences'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -152,11 +153,7 @@ describe('entity-list', () => {
 
         describe('displayColumnModal ', () => {
           test('should open modal', () => {
-            const expectedColumns = {first_field: true, second_field: false}
-            const expectedPreferences = {
-              'Some_list.first_field.hidden': 'false',
-              'Some_list.second_field.hidden': 'true'
-            }
+            const preferencesSelector = {columns: {first_field: true, second_field: false, third_field: false}}
             return expectSaga(sagas.displayColumnModal)
               .provide([
                 [select(listSagas.listSelector), {
@@ -176,11 +173,24 @@ describe('entity-list', () => {
                   }
                 }],
                 [select(listSagas.entityListSelector), {}],
-                [select(sagas.preferencesSelector), {columns: {first_field: true, second_field: false}}],
+                [select(sagas.preferencesSelector), preferencesSelector],
                 [channel, {}],
                 {
                   take() {
-                    return expectedColumns
+                    return [
+                      {
+                        id: 'first_field',
+                        hidden: false
+                      },
+                      {
+                        id: 'second_field',
+                        hidden: true
+                      },
+                      {
+                        id: 'third_field',
+                        hidden: false // change from user input
+                      }
+                    ]
                   }
                 },
                 [matchers.call.fn(rest.savePreferences)]
@@ -197,8 +207,9 @@ describe('entity-list', () => {
                 }
               })
               .call.like({fn: channel})
-              .put(actions.setColumns(expectedColumns))
-              .call(rest.savePreferences, expectedPreferences)
+              .put(actions.setColumns({first_field: true, second_field: false, third_field: true}))
+              .call(util.getColumnPreferencesToSave, 'Some_list', {third_field: true})
+              .call(rest.savePreferences, {'Some_list.third_field.hidden': 'false'})
               .put(listActions.refresh())
               .run()
           })
