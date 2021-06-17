@@ -43,36 +43,40 @@ DetailLinkRelative.propTypes = {
   relation: PropTypes.string
 }
 
-const mapStateToProps = (state, props) => ({
-  id: `${state.entityBrowser.appId}_entity-browser-list`,
-  locale: state.input.locale,
-  entityName: state.entityBrowser.entityName,
-  formName: state.entityBrowser.formBase,
-  searchFormType: state.input.showSearchForm ? 'basic' : 'none',
-  limit: state.input.limit,
-  searchFilters: state.input.searchFilters,
-  preselectedSearchFields: state.input.preselectedSearchFields,
-  disableSimpleSearch: state.input.disableSimpleSearch,
-  simpleSearchFields: state.input.simpleSearchFields,
-  onRowClick: e => {
-    props.router.history.push(`/detail/${e.id}`)
-  },
-  showLink: true,
-  navigationStrategy: {
-    DetailLinkRelative,
-    navigateToActionRelative: (definition, selection) =>
-      navigateToAction(props.router.history, definition, selection),
-    navigateToCreateRelative: relationName => navigateToCreate(
-      {relationName, history: props.router.history, match: props.router.match}
-    )
-  },
+const mapStateToProps = (state, props) => {
+  const id = `${state.entityBrowser.appId}_entity-browser-list`
+  const storeId = `${id}_${props.router.history.location.pathname}`
+  return {
+    id,
+    locale: state.input.locale,
+    entityName: state.entityBrowser.entityName,
+    formName: state.entityBrowser.formBase,
+    searchFormType: state.input.showSearchForm ? 'basic' : 'none',
+    limit: state.input.limit,
+    searchFilters: state.input.searchFilters,
+    preselectedSearchFields: state.input.preselectedSearchFields,
+    disableSimpleSearch: state.input.disableSimpleSearch,
+    simpleSearchFields: state.input.simpleSearchFields,
+    onRowClick: e => {
+      props.router.history.push(`/detail/${e.id}`)
+    },
+    showLink: true,
+    navigationStrategy: {
+      DetailLinkRelative,
+      navigateToActionRelative: (definition, selection) =>
+        navigateToAction(props.router.history, definition, selection),
+      navigateToCreateRelative: relationName => navigateToCreate(
+        {relationName, history: props.router.history, match: props.router.match}
+      )
+    },
 
-  searchFormPosition: 'top',
-  actionAppComponent: Action,
-  store: viewPersistor.viewInfoSelector(props.router.history.location.pathname).store,
-  onStoreCreate: store => {
-    viewPersistor.persistViewInfo(props.router.history.location.pathname, {store}, 0)
+    searchFormPosition: 'top',
+    actionAppComponent: Action,
+    store: viewPersistor.viewInfoSelector(storeId).store,
+    onStoreCreate: store => {
+      viewPersistor.persistViewInfo(storeId, {store}, 0)
+    }
   }
-})
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntityListApp)
