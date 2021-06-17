@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {useDnD} from 'tocco-util'
 
 import {StyledDnD, StyledTableHead, StyledTableHeaderCell, StyledTableRow, StyledDraggable} from './StyledTable'
 import SortingState from './SortingState'
 import ResizingController from './ResizingController'
 import {columnPropType, dataPropType} from './propTypes'
-import useDnD from './useDnD'
 import useResize from './useResize'
 
 const ThContent = ({column, data}) =>

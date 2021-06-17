@@ -29,17 +29,7 @@ export default (changePosition, columns) => {
     },
     onDragEnd: e => {
       setState(initialState)
-    },
-    onDragLeave: e => {
-      const isTargetDraggable = e.target.getAttribute('draggable')
-      if (isTargetDraggable && state.currentlyDragOver === columnId) {
-        setState({
-          ...state,
-          currentlyDragOver: null
-        })
-      }
     }
-
   })
 
   return {dndEvents: events, dndState: state}
