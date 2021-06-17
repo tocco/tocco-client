@@ -1,3 +1,6 @@
+0.4.19-hotfix228.10
+- refactor extracting displays
+
 0.4.19-hotfix228.9
 - Text as html
 
