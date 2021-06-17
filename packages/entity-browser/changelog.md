@@ -1,3 +1,6 @@
+0.10.17-hotfix227.4
+- Fix multi-tab problem
+
 0.10.17-hotfix227.3
 - Make whole row clickable in list
 
