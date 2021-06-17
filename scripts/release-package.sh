@@ -21,6 +21,7 @@ then
   echo "${color_green}Git tree is clean!${color_reset}"
 else
   echo "${color_red}Git tree is dirty, please commit changes before running the release script.${color_reset}"
+  git status -s
   exit 1
 fi
 
