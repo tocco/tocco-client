@@ -107,7 +107,7 @@ export function* displayColumnModal() {
         answerChannel.put(columns)
       }
 
-      return <ColumnPicker columns={formColumns} onOk={onOk}/>
+      return <ColumnPicker initialColumns={formColumns} onOk={onOk} dndEnabled={false}/>
     },
     true
   ))

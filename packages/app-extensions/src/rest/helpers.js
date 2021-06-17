@@ -192,10 +192,10 @@ export function* fetchEntities(
  * @param allowNotFound {Boolean} If true and the form does not exist null is returned.
  *                                Otherwise an exception will be thrown.
  */
-const formCache = {}
-export function* fetchForm(formName, scope, allowNotFound = false) {
+export const formCache = {}
+export function* fetchForm(formName, scope, allowNotFound = false, forceLoad = false) {
   const request = `${formName}/${scope}`
-  if (formCache[request] !== undefined) {
+  if (formCache[request] !== undefined && !forceLoad) {
     return formCache[request]
   }
 

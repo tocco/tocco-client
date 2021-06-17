@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState, useMemo} from 'react'
+import {useDnD} from 'tocco-util'
 import {Button, SearchBox, Typography} from 'tocco-ui'
 
 import {
@@ -7,16 +8,34 @@ import {
   StyledUl,
   StyledButtonWrapper,
   StyledColumnPickerWrapper,
-  StyledId
+  StyledId,
+  StyledItem
 } from './StyledColumnPicker'
 
-const ColumnPicker = props => {
-  const {onOk, intl} = props
-  const [columns, setColumns] = useState(props.columns)
+const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl}) => {
+  const [columns, setColumns] = useState(initialColumns)
   const [searchTerm, setSearchTerm] = useState(null)
+  const changeColumnPosition = (currentlyDragging, currentlyDragOver, columns) => {
+    if (currentlyDragging !== currentlyDragOver) {
+      const currentlyDraggingItem = columns.find(c => c.id === currentlyDragging)
+      setColumns(columns
+        .filter(c => c !== currentlyDraggingItem)
+        .reduce((acc, key) => [
+          ...acc,
+          key,
+          ...(key.id === currentlyDragOver ? [currentlyDraggingItem] : [])
+        ], []))
+    }
+  }
+  const {dndEvents, dndState} = useDnD(changeColumnPosition, columns)
+
   const items = useMemo(() => columns
     .filter(column => searchTerm === null || column.label.match(new RegExp(searchTerm, 'i')))
-    .map(column => <Typography.Li key={column.id}>
+    .map(column => <StyledItem
+      key={column.id}
+      draggable={dndEnabled}
+      isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
+      {...(dndEnabled && {...dndEvents(column.id)})}>
       <StyledCheckbox
         type={'checkbox'}
         id={column.id}
@@ -27,7 +46,7 @@ const ColumnPicker = props => {
       <Typography.Label for={column.id}>
         {column.label || <StyledId>{column.id}</StyledId>}
       </Typography.Label>
-    </Typography.Li>), [searchTerm, columns])
+    </StyledItem>), [searchTerm, columns, dndState])
 
   return <StyledColumnPickerWrapper>
     <SearchBox
@@ -43,12 +62,13 @@ const ColumnPicker = props => {
 }
 
 ColumnPicker.propTypes = {
-  columns: PropTypes.arrayOf(PropTypes.shape({
+  initialColumns: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string,
     hidden: PropTypes.bool.isRequired
   })).isRequired,
   onOk: PropTypes.func.isRequired,
+  dndEnabled: PropTypes.bool.isRequired,
   intl: PropTypes.object.isRequired
 }
 

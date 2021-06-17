@@ -17,6 +17,8 @@ export const DELETE_SEARCH_FILTER = 'searchForm/DELETE_SEARCH_FILTER'
 export const SAVE_SEARCH_FILTER = 'searchForm/SAVE_SEARCH_FILTER'
 export const SAVE_DEFAULT_SEARCH_FILTER = 'searchForm/SAVE_DEFAULT_SEARCH_FILTER'
 export const RESET_DEFAULT_SEARCH_FILTER = 'searchForm/RESET_DEFAULT_SEARCH_FILTER'
+export const DISPLAY_SEARCH_FIELDS_MODAL = 'searchForm/DISPLAY_SEARCH_FIELDS_MODAL'
+export const RESET_SEARCH_FIELDS = 'searchForm/resetSearchFields'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -116,4 +118,12 @@ export const saveDefaultSearchFilter = () => ({
 
 export const resetDefaultSearchFilter = () => ({
   type: RESET_DEFAULT_SEARCH_FILTER
+})
+
+export const displaySearchFieldsModal = () => ({
+  type: DISPLAY_SEARCH_FIELDS_MODAL
+})
+
+export const resetSearchFields = () => ({
+  type: RESET_SEARCH_FIELDS
 })

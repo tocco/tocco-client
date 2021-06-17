@@ -12,6 +12,9 @@ describe('app-extensions', () => {
     describe('helpers', () => {
       beforeEach(() => {
         cache.clearAll()
+        Object.keys(helpers.formCache).forEach(key => {
+          delete helpers.formCache[key]
+        })
       })
 
       describe('buildRequestQuery', () => {
@@ -404,7 +407,7 @@ describe('app-extensions', () => {
 
       describe('fetchForm', () => {
         const formName = 'User'
-        const mode = 'udpate'
+        const mode = 'update'
         const resp = {body: {form: {}}}
         const transformedResponse = {}
 
@@ -441,6 +444,25 @@ describe('app-extensions', () => {
               [matchers.call.fn(requestSaga), {status: 404}]
             ])
             .returns(null)
+            .run()
+        })
+
+        test('force reload of cached form', async() => {
+          const formMock = {form: {}}
+
+          const result = await expectSaga(helpers.fetchForm, 'User', 'update')
+            .provide([
+              [matchers.call.fn(requestSaga), {body: formMock}]
+            ])
+            .call.like({fn: requestSaga})
+            .run()
+
+          return expectSaga(helpers.fetchForm, 'User', 'update', false, true)
+            .provide([
+              [matchers.call.fn(requestSaga), {body: formMock}]
+            ])
+            .returns(result.returnValue)
+            .call.like({fn: requestSaga})
             .run()
         })
 

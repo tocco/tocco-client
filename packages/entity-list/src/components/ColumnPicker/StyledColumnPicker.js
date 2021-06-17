@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {scale, theme, StyledButton} from 'tocco-ui'
-import {StyledLabel} from 'tocco-ui/src/Typography'
+import {StyledLabel, StyledLi} from 'tocco-ui/src/Typography'
 
 export const StyledColumnPickerWrapper = styled.div`
   display: grid;
@@ -44,4 +44,8 @@ export const StyledButtonWrapper = styled.div`
 export const StyledId = styled.span`
   color: ${theme.color('text')};
   font-style: italic;
+`
+
+export const StyledItem = styled(StyledLi)`
+  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? `3px solid ${theme.colors.secondary}` : 'none'};
 `

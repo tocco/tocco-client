@@ -31,7 +31,9 @@ describe('entity-list', () => {
               takeLatest(actions.SAVE_SEARCH_FILTER, sagas.saveSearchFilter),
               takeLatest(actions.DELETE_SEARCH_FILTER, sagas.deleteSearchFilter),
               takeLatest(actions.SAVE_DEFAULT_SEARCH_FILTER, sagas.saveDefaultSearchFilter),
-              takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, sagas.resetDefaultSearchFilter)
+              takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, sagas.resetDefaultSearchFilter),
+              takeLatest(actions.DISPLAY_SEARCH_FIELDS_MODAL, sagas.displaySearchFieldsModal),
+              takeLatest(actions.RESET_SEARCH_FIELDS, sagas.resetSearchFields)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -495,6 +497,172 @@ describe('entity-list', () => {
                 type: 'success',
                 title: 'client.entity-list.search.settings.defaultFilter.reset.success'
               }))
+              .run()
+          })
+        })
+
+        describe('displaySearchFieldsModal saga', () => {
+          test('should open modal and save search fields', () => {
+            const fields = [
+              {
+                id: 'firstname',
+                label: 'firstname',
+                hidden: true
+              },
+              {
+                id: 'lastname',
+                label: 'lastname',
+                hidden: false
+              },
+              {
+                id: 'birthdate',
+                label: 'birthdate',
+                hidden: false
+              }
+            ]
+            const formDefinition = {
+              id: 'User_search',
+              modelName: 'User',
+              children: [
+                {
+                  children: fields
+                }
+              ]
+            }
+
+            const body = {
+              hiddenFields: ['firstname'],
+              displayedFields: ['lastname', 'birthdate']
+            }
+
+            return expectSaga(sagas.displaySearchFieldsModal)
+              .provide([
+                [select(sagas.searchFormSelector), {formDefinition, searchFilters: []}],
+                [channel, {}],
+                {
+                  take() {
+                    return fields
+                  }
+                },
+                [matchers.call.fn(rest.requestSaga), {}],
+                [matchers.call.fn(sagas.loadSearchForm), {}]
+              ])
+              .put.like({
+                action: {
+                  type: 'notification/MODAL',
+                  payload: {
+                    id: 'User_search-search-fields-selection',
+                    title: 'client.entity-list.search.settings.searchForm.edit',
+                    message: null,
+                    closable: true
+                  }
+                }
+              })
+              .call.like({fn: channel})
+              .call(rest.requestSaga, 'forms/User/search-fields', {method: 'POST', body})
+              .call(sagas.loadSearchForm, true)
+              .call(sagas.resetSearch)
+              .run()
+          })
+        })
+
+        describe('resetSearchFields saga', () => {
+          test('should reset search fields', () => {
+            const formDefinition = {
+              modelName: 'User'
+            }
+            return expectSaga(sagas.resetSearchFields)
+              .provide([
+                [select(sagas.searchFormSelector), {formDefinition, searchFilters: []}],
+                [matchers.call.fn(rest.requestSaga), {}],
+                [matchers.call.fn(sagas.loadSearchForm), {}]
+              ])
+              .call(rest.requestSaga, 'forms/User/search-fields/reset', {method: 'POST'})
+              .call(sagas.loadSearchForm, true)
+              .call(sagas.resetSearch)
+              .run()
+          })
+        })
+
+        describe('displaySearchFieldsModal saga', () => {
+          test('should open modal and save search fields', () => {
+            const fields = [
+              {
+                id: 'firstname',
+                label: 'firstname',
+                hidden: true
+              },
+              {
+                id: 'lastname',
+                label: 'lastname',
+                hidden: false
+              },
+              {
+                id: 'birthdate',
+                label: 'birthdate',
+                hidden: false
+              }
+            ]
+            const formDefinition = {
+              id: 'User_search',
+              modelName: 'User',
+              children: [
+                {
+                  children: fields
+                }
+              ]
+            }
+
+            const body = {
+              hiddenFields: ['firstname'],
+              displayedFields: ['lastname', 'birthdate']
+            }
+
+            return expectSaga(sagas.displaySearchFieldsModal)
+              .provide([
+                [select(sagas.searchFormSelector), {formDefinition, searchFilters: []}],
+                [channel, {}],
+                {
+                  take() {
+                    return fields
+                  }
+                },
+                [matchers.call.fn(rest.requestSaga), {}],
+                [matchers.call.fn(sagas.loadSearchForm), {}]
+              ])
+              .put.like({
+                action: {
+                  type: 'notification/MODAL',
+                  payload: {
+                    id: 'User_search-search-fields-selection',
+                    title: 'client.entity-list.search.settings.searchForm.edit',
+                    message: null,
+                    closable: true
+                  }
+                }
+              })
+              .call.like({fn: channel})
+              .call(rest.requestSaga, 'forms/User/search-fields', {method: 'POST', body})
+              .call(sagas.loadSearchForm, true)
+              .call(sagas.resetSearch)
+              .run()
+          })
+        })
+
+        describe('resetSearchFields saga', () => {
+          test('should reset search fields', () => {
+            const formDefinition = {
+              modelName: 'User'
+            }
+            return expectSaga(sagas.resetSearchFields)
+              .provide([
+                [select(sagas.searchFormSelector), {formDefinition, searchFilters: []}],
+                [matchers.call.fn(rest.requestSaga), {}],
+                [matchers.call.fn(sagas.loadSearchForm), {}]
+              ])
+              .call(rest.requestSaga, 'forms/User/search-fields/reset', {method: 'POST'})
+              .call(sagas.loadSearchForm, true)
+              .call(sagas.resetSearch)
               .run()
           })
         })
