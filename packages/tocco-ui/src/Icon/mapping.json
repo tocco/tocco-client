@@ -331,14 +331,6 @@
       "external-link"
     ]
   },
-    "arrow-to-left": {
-    "id": "fal, arrow-to-left",
-    "lib": "fa"
-  },
-  "arrow-to-right": {
-    "id": "fal, arrow-to-right",
-    "lib": "fa"
-  },
   "tocco": {
     "id": "logo",
     "lib": "toc"

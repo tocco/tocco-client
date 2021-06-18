@@ -72,8 +72,8 @@ const RelationsView = ({
 
   return <>
     <StyledRelationsViewWrapper isCollapsed={isCollapsed}>
-      <StyledToggleCollapse onClick={toggleCollapse}>
-        <StyledToggleCollapseButton icon="arrow-to-right"/>
+      <StyledToggleCollapse>
+        <StyledToggleCollapseButton icon="chevron-right" onClick={toggleCollapse}/>
       </StyledToggleCollapse>
       <StyledRelationBox>
         {relations.map(relation => (
@@ -136,7 +136,7 @@ const RelationsView = ({
       }
     </StyledRelationsViewWrapper>
     <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
-      <StyledToggleCollapseButton icon={'arrow-to-left'} isCollapsed={isCollapsed}/>
+      <StyledToggleCollapseButton icon={'chevron-left'} isCollapsed={isCollapsed}/>
     </StyledPlaceHolder>
   </>
 }
