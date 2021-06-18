@@ -1,6 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {actionEmitter, appFactory, externalEvents, notifier} from 'tocco-app-extensions'
+import {actionEmitter, appFactory, externalEvents, notification} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
 import Merge from './components/Merge'
@@ -19,10 +19,10 @@ const initApp = (id, input, events = {}, publicPath) => {
   actionEmitter.addToStore(store, events.emitAction)
   externalEvents.addToStore(store, events)
   const handleNotifications = !events.emitAction
-  notifier.addToStore(store, handleNotifications)
+  notification.addToStore(store, handleNotifications)
 
   const content = <>
-    {handleNotifications && <notifier.Notifier/>}
+    {handleNotifications && <notification.Notifier/>}
     <Merge/>
   </>
 

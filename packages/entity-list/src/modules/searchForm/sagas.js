@@ -1,4 +1,4 @@
-import {form, rest, notifier} from 'tocco-app-extensions'
+import {form, rest, notification} from 'tocco-app-extensions'
 import React, {useState} from 'react'
 import _reduce from 'lodash/reduce'
 import {
@@ -206,7 +206,7 @@ export function* getSearchFormValues() {
 
 export function* saveSearchFilter() {
   const answerChannel = yield call(channel)
-  yield put(notifier.modalComponent(
+  yield put(notification.modal(
     'filter-save',
     'client.entity-list.search.settings.saveAsFilter',
     null,
@@ -257,7 +257,7 @@ export function* deleteSearchFilter({payload: {primaryKey}}) {
   const {actionAppComponent: ActionAppComponent, navigationStrategy} = yield select(inputSelector)
 
   const answerChannel = yield call(channel)
-  yield put(notifier.modalComponent(
+  yield put(notification.modal(
     'filter-delete',
     'client.actions.delete.title',
     null,
@@ -299,23 +299,17 @@ export function* saveDefaultSearchFilter() {
   const key = `${formDefinition.modelName}.${formDefinition.id}.searchfilter`
   const value = searchFilters.find(s => s.active).key
   yield call(rest.savePreferences, {[key]: value})
-  yield put(notifier.info(
-    'success',
-    'client.entity-list.search.settings.defaultFilter.save.success',
-    null,
-    null,
-    3000
-  ))
+  yield put(notification.toaster({
+    type: 'success',
+    title: 'client.entity-list.search.settings.defaultFilter.save.success'
+  }))
 }
 
 export function* resetDefaultSearchFilter() {
   const {formDefinition} = yield select(searchFormSelector)
   yield call(rest.deleteUserPreferences, `${formDefinition.modelName}.${formDefinition.id}.searchfilter`)
-  yield put(notifier.info(
-    'success',
-    'client.entity-list.search.settings.defaultFilter.reset.success',
-    null,
-    null,
-    3000
-  ))
+  yield put(notification.toaster({
+    type: 'success',
+    title: 'client.entity-list.search.settings.defaultFilter.reset.success'
+  }))
 }

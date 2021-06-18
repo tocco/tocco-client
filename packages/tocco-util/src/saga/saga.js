@@ -1,29 +1,7 @@
-import {all, call, put, delay} from 'redux-saga/effects'
+import {all, call, put} from 'redux-saga/effects'
 
 import consoleLogger from '../consoleLogger'
 import {abortController} from './abortController'
-
-/**
- * Sends a request to a location in a repetitive manner until the response has another status
- * than the one given by retryStatus.
- * @param {string} location Url that the request gets send to
- * @param {string} retryStatus As long as the body.status equals the retryStatus, the request gets repeated
- * @returns {object} response Request response
- */
-export function* checkStatusLoop(requestSaga, location, retryStatus) {
-  let delayer = 1
-  while (true) {
-    const response = yield call(requestSaga, location)
-    if (response.body.status === retryStatus) {
-      yield delay(500 * delayer)
-      if (delayer < 10) {
-        delayer++
-      }
-    } else {
-      return response
-    }
-  }
-}
 
 /**
  * Starts the saga again if an exception is thrown

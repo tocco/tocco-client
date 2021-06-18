@@ -4,7 +4,7 @@ import * as actions from './actions'
 import actionHandlers from './actionHandlers'
 import remoteEvents from '../../remoteEvents'
 import prepare from './prepare'
-import notifier from '../../notifier'
+import notification from '../../notification'
 
 export default function* sagas(config) {
   yield all([
@@ -29,6 +29,6 @@ export function* invokeAction(config, {payload}) {
       yield put(actions.actionInvoked(definition, selection, response))
     }
   } else if (abortMessage) {
-    yield put(notifier.info('INFO', abortMessage))
+    yield put(notification.toaster({type: 'info', title: abortMessage}))
   }
 }

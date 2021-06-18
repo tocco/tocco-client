@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {LoadMask} from 'tocco-ui'
-import {notifier} from 'tocco-app-extensions'
+import {notification} from 'tocco-app-extensions'
 
 import Start from '../Start'
 import Secret from '../Secret'
@@ -37,7 +37,7 @@ const TwoFactorConnector = ({initialize, stage}) => {
 
   return (
     <>
-      <notifier.Notifier/>
+      <notification.Notifications/>
       {renderContent()}
     </>
   )

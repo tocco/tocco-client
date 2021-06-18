@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import {IntlStub} from 'tocco-test-util'
 
-import {getGroupedValues, getFormDataDefaults, getFormDefinition, transformValues} from './report'
+import {getGroupedValues, getFormDefinition, transformValues} from './report'
 describe('app-extensions', () => {
   describe('actions', () => {
     describe('utils', () => {
@@ -21,26 +21,6 @@ describe('app-extensions', () => {
 
             const result = getGroupedValues(settingsDefinition, values)
             expect(result).to.eql({generalSettings: {}, recipientSettings: {}})
-          })
-        })
-
-        describe('getFormDataDefaults', () => {
-          test('should return an object with relatinEntites', () => {
-            const options1 = [{key: 1, display: 'a'}, {key: 2, display: 'b'}]
-            const options2 = [{key: 3, display: 'c'}, {key: 4, display: 'd'}]
-
-            const settingsDefinition = {
-              generalSettings: null,
-              recipientSettings: [{id: 'a', options: options1}, {id: 'b', options: options2}]
-            }
-
-            const result = getFormDataDefaults(settingsDefinition)
-            expect(result).to.eql({
-              relationEntities: {
-                a: options1,
-                b: options2
-              }
-            })
           })
         })
 

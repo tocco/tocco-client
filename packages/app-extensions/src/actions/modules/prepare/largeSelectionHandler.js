@@ -3,7 +3,7 @@ import {channel} from 'redux-saga'
 import {FormattedMessage} from 'react-intl'
 import React from 'react'
 
-import notifier from '../../../notifier'
+import notification from '../../../notification'
 
 const SELECTION_THRESHOLD_DEFAULT = 100
 
@@ -26,7 +26,7 @@ export function* promptConfirm(count) {
   const onCancel = () => answerChannel.put(false)
 
   yield put(
-    notifier.confirm(
+    notification.confirm(
       <FormattedMessage id="client.component.actions.confirmTitle"/>,
       <FormattedMessage id="client.component.actions.largeSelectionConfirm" values={{count}}/>,
       <FormattedMessage id="client.common.yes"/>,

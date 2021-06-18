@@ -43,6 +43,13 @@
       "burger"
     ]
   },
+  "bell": {
+    "id": "fal, bell",
+    "lib": "fa",
+    "tags": [
+      "notification"
+    ]
+  },
   "book": {
     "id": "fal, book",
     "lib": "fa"
@@ -118,10 +125,6 @@
     "tags": [
       "warning"
     ]
-  },
-  "external-link": {
-    "id": "fal, external-link",
-    "lib": "fa"
   },
   "facebook": {
     "id": "fab, facebook",
@@ -321,7 +324,14 @@
       "trash"
     ]
   },
-  "arrow-to-left": {
+  "external-link": {
+    "id": "fal, external-link",
+    "lib": "fa",
+    "tags": [
+      "external-link"
+    ]
+  },
+    "arrow-to-left": {
     "id": "fal, arrow-to-left",
     "lib": "fa"
   },

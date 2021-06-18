@@ -1,4 +1,4 @@
-import {form, rest, notifier} from 'tocco-app-extensions'
+import {form, rest, notification} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {
@@ -320,7 +320,7 @@ describe('entity-list', () => {
               ])
               .put.like({
                 action: {
-                  type: 'notifier/MODAL_COMPONENT',
+                  type: 'notification/MODAL',
                   payload: {
                     id: 'filter-save',
                     title: 'client.entity-list.search.settings.saveAsFilter',
@@ -402,7 +402,7 @@ describe('entity-list', () => {
               ])
               .put.like({
                 action: {
-                  type: 'notifier/MODAL_COMPONENT',
+                  type: 'notification/MODAL',
                   payload: {
                     id: 'filter-delete',
                     title: 'client.actions.delete.title',
@@ -430,7 +430,7 @@ describe('entity-list', () => {
               ])
               .put.like({
                 action: {
-                  type: 'notifier/MODAL_COMPONENT',
+                  type: 'notification/MODAL',
                   payload: {
                     id: 'filter-delete',
                     title: 'client.actions.delete.title',
@@ -471,13 +471,10 @@ describe('entity-list', () => {
                 [matchers.call.fn(rest.savePreferences)]
               ])
               .call(rest.savePreferences, expectedPreferences)
-              .put(notifier.info(
-                'success',
-                'client.entity-list.search.settings.defaultFilter.save.success',
-                null,
-                null,
-                3000
-              ))
+              .put(notification.toaster({
+                type: 'success',
+                title: 'client.entity-list.search.settings.defaultFilter.save.success'
+              }))
               .run()
           })
         })
@@ -494,13 +491,10 @@ describe('entity-list', () => {
                 [matchers.call.fn(rest.deleteUserPreferences)]
               ])
               .call(rest.deleteUserPreferences, 'User.User_search.searchfilter')
-              .put(notifier.info(
-                'success',
-                'client.entity-list.search.settings.defaultFilter.reset.success',
-                null,
-                null,
-                3000
-              ))
+              .put(notification.toaster({
+                type: 'success',
+                title: 'client.entity-list.search.settings.defaultFilter.reset.success'
+              }))
               .run()
           })
         })

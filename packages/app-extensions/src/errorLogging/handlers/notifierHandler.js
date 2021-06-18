@@ -1,8 +1,8 @@
 import {put, call} from 'redux-saga/effects'
 
-import notifier from '../../notifier'
+import notification from '../../notification'
 
-export default function* notifierHandler(title, description, error) {
-  const action = yield call(notifier.info, 'error', title, description, null, 0)
+export default function* notificationHandler(title, description, error) {
+  const action = yield call(notification.toaster, {type: 'error', title, body: description})
   yield put(action)
 }

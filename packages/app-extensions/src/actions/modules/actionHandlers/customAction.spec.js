@@ -8,7 +8,7 @@ import customActionHandler, {
   handleCustomActionModal,
   handleFullScreenActions
 } from './customAction'
-import notifier from '../../../notifier'
+import notification from '../../../notification'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -85,7 +85,7 @@ describe('app-extensions', () => {
                     }
                   }
                 ])
-                .put.actionType('notifier/INFO')
+                .put.actionType('notification/TOASTER')
                 .returns({success: true, remoteEvents: undefined})
                 .run()
             })
@@ -100,7 +100,7 @@ describe('app-extensions', () => {
                     }
                   }
                 ])
-                .not.put.actionType('notifier/INFO')
+                .not.put.actionType('notification/TOASTER')
                 .run()
             })
 
@@ -114,7 +114,7 @@ describe('app-extensions', () => {
                     }
                   }
                 ])
-                .put(notifier.info('success', 'client.component.actions.successDefault', null, 'check', 3000))
+                .put(notification.toaster({type: 'success', title: 'client.component.actions.successDefault'}))
                 .run()
             })
 
@@ -128,7 +128,7 @@ describe('app-extensions', () => {
                     }
                   }
                 ])
-                .put.actionType('notifier/INFO')
+                .put.actionType('notification/TOASTER')
                 .returns({success: false, remoteEvents: undefined})
                 .run()
             })
@@ -143,7 +143,7 @@ describe('app-extensions', () => {
                     }
                   }
                 ])
-                .not.put.actionType('notifier/INFO')
+                .not.put.actionType('notification/TOASTER')
                 .returns(null)
                 .run()
             })
@@ -234,7 +234,7 @@ describe('app-extensions', () => {
                   }
                 }
               ])
-              .put.actionType('notifier/MODAL_COMPONENT')
+              .put.actionType('notification/MODAL')
               .returns({success: true, remoteEvents: undefined})
               .run()
           })
@@ -249,7 +249,7 @@ describe('app-extensions', () => {
                   }
                 }
               ])
-              .put.actionType('notifier/MODAL_COMPONENT')
+              .put.actionType('notification/MODAL')
               .returns({success: false, remoteEvents: undefined})
               .run()
           })
@@ -264,7 +264,7 @@ describe('app-extensions', () => {
                   }
                 }
               ])
-              .put.actionType('notifier/MODAL_COMPONENT')
+              .put.actionType('notification/MODAL')
               .returns(null)
               .run()
           })

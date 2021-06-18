@@ -2,16 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'tocco-ui'
 import {FormattedMessage, injectIntl} from 'react-intl'
-import {download} from 'tocco-util'
 
 import simpleFormConnector from '../containers/simpleFormConnector'
 import {
-  getFormDataDefaults,
   getFormDefinition,
   getGroupedValues,
   reportSettingsDefinitionPropType,
-  transformValues,
-  submitActions
+  transformValues
 } from '../utils/report'
 import {StyledStickyButtons, StyledReportSettings} from './StyledReportSettings'
 
@@ -36,13 +33,13 @@ export class ReportSettings extends React.Component {
     this.setState({...this.state, customSettings, customSettingsValid})
   }
 
-  handleButtonClick = action => () => {
+  handleButtonClick = () => () => {
     const groupedValues = {
       ...getGroupedValues(this.props.settingsDefinition, transformValues(this.state.values)),
       customSettings: this.state.customSettings
     }
 
-    this.props.onSubmit(action, groupedValues)
+    this.props.onSubmit(groupedValues)
   }
 
   render() {
@@ -56,39 +53,28 @@ export class ReportSettings extends React.Component {
           onChange={({values, valid}) => {
             this.handleSettingsChange(values, valid)
           }}
-          formData={getFormDataDefaults(settingsDefinition)}
           mode="create"
         />
         {this.customSettingsDefined
-        && <this.SimpleFormContainer
-          listApp={this.props.listApp}
-          form={settingsDefinition.customSettings.form.form}
-          noButtons
-          onChange={({values, valid}) => {
-            this.handleCustomSettingsChange(values, valid)
-          }}
-          mode="create"
-        />
+          && <this.SimpleFormContainer
+            listApp={this.props.listApp}
+            form={settingsDefinition.customSettings.form.form}
+            noButtons
+            onChange={({values, valid}) => {
+              this.handleCustomSettingsChange(values, valid)
+            }}
+            mode="create"
+          />
         }
         <StyledStickyButtons>
-          {download.downloadSupportedByBrowser()
-          && <Button
+          <Button
             ink="primary"
             disabled={!this.state.customSettingsValid || !this.state.valid}
             icon="download"
-            onClick={this.handleButtonClick(submitActions.DOWNLOAD)}
+            onClick={this.handleButtonClick()}
             look="raised"
           >
-            <FormattedMessage id="client.common.report.download"/>
-          </Button>
-          }
-          <Button
-            disabled={!this.state.customSettingsValid || !this.state.valid}
-            icon="file"
-            onClick={this.handleButtonClick(submitActions.DISPLAY)}
-            look="raised"
-          >
-            <FormattedMessage id="client.common.report.display"/>
+            <FormattedMessage id="client.common.report.generate"/>
           </Button>
         </StyledStickyButtons>
       </StyledReportSettings>

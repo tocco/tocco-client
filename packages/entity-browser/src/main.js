@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   appFactory,
-  notifier,
+  notification,
   errorLogging,
   actionEmitter,
   externalEvents,
@@ -27,7 +27,7 @@ const createHistory = (store, memoryHistory) => {
       const okText = textResourceSelector(state, 'client.common.ok')
       const cancelText = textResourceSelector(state, 'client.common.cancel')
 
-      const action = notifier.confirm(
+      const action = notification.confirm(
         '',
         message,
         okText,
@@ -62,9 +62,10 @@ const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(undefined, undefined, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
-  errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
-  notifier.addToStore(store, true)
+  errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
+  notification.addToStore(store, true)
 
+  notification.addToStore(store, true)
   const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)
 
@@ -101,9 +102,8 @@ const initApp = (id, input, events, publicPath) => {
     if (__DEV__) {
       if (!__NO_MOCK__) {
         const fetchMock = require('fetch-mock').default
-        fetchMock.config.overwriteRoutes = false.default
         fetchMock.config.overwriteRoutes = false
-
+        
         const setupFetchMocks = require('./dev/fetchMocks').default
         setupFetchMocks(packageName, fetchMock)
 

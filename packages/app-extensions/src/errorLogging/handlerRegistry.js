@@ -4,6 +4,6 @@ import remoteHandler from './handlers/remoteHandler'
 
 export default {
   console: consoleHandler,
-  notifier: notifierHandler,
+  notification: notifierHandler,
   remote: remoteHandler
 }

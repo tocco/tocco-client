@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import {PasswordUpdateApp} from 'tocco-login/src/main'
 import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
 
+import NotificationCenterButton from './NotificationCenterButton'
 import {
   StyledBackgroundCover,
   StyledHeader,
@@ -15,6 +16,7 @@ import {
 import AboutTocco from '../AboutTocco'
 
 const StyledBallMenuWrapper = styled.span`
+  display: flex;
   margin-top: 2px;
 
   ${StyledBall} {
@@ -124,6 +126,7 @@ const Header = ({
               <FormattedMessage id="client.admin.menu.aboutToccoTitle"/>
             </MenuItem>
           </BallMenu>
+         <NotificationCenterButton/>
         </StyledBallMenuWrapper>
       </StyledConfig>
     </StyledHeader>

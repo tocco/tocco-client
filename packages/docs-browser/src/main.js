@@ -6,7 +6,7 @@ import {
   actionEmitter,
   errorLogging,
   externalEvents,
-  notifier,
+  notification,
   rest
 } from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
@@ -37,7 +37,7 @@ const createHistory = (store, memoryHistory) => {
       const okText = textResourceSelector(state, 'client.common.ok')
       const cancelText = textResourceSelector(state, 'client.common.cancel')
 
-      const action = notifier.confirm(
+      const action = notification.confirm(
         '',
         message,
         okText,
@@ -49,15 +49,14 @@ const createHistory = (store, memoryHistory) => {
     }
   })
 }
-
 const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
-  errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
+  errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   const handleNotifications = !events.emitAction
-  notifier.addToStore(store, handleNotifications)
+  notification.addToStore(store, handleNotifications)
 
   if (input.businessUnit) {
     rest.setBusinessUnit(input.businessUnit)
@@ -80,16 +79,18 @@ const initApp = (id, input, events = {}, publicPath) => {
 
   const content = (
     <ReactRouter history={history}>
-      {handleNotifications && <notifier.Notifier/>}
+      {handleNotifications && <notification.Notifications/>}
       <DocsBrowser history={history}/>
       <Route exact path="/">
         <Redirect to={startUrl}/>
       </Route>
-      {singleRootNode && (
-        <Route exact path="/docs">
-          <Redirect to={startUrl}/>
-        </Route>
-      )}
+  {
+    singleRootNode && (
+      <Route exact path="/docs">
+        <Redirect to={startUrl}/>
+      </Route>
+    )
+  }
     </ReactRouter>
   )
 

@@ -1,28 +1,30 @@
-import {useEffect, useState} from 'react'
-import {Provider} from 'react-redux'
-import {Button} from 'tocco-ui'
-import {Meta, Story, Canvas} from '@storybook/addon-docs/blocks';
+import { useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import { Button } from "tocco-ui";
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
 
-import notifier from '../notifier'
-import appFactory from '../appFactory'
-import errorLogging from '.'
+import notification from "../notification";
+import appFactory from "../appFactory";
+import errorLogging from ".";
 
-
-
-< Meta title="App-Extensions/Error Logging" />
+<Meta title="App-Extensions/Error Logging" />
 
 # Error Logging
 
 ## Usage
+
 ### Import
-  ```javascript
-import {errorLogging} from  'tocco-app-extensions'
+
+```javascript
+import { errorLogging } from "tocco-app-extensions";
 ```
 
 ### Setup
+
 Add error logging to store:
+
 ```javascript
-errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
+errorLogging.addToStore(store, true, ["console", "remote", "notification"]);
 ```
 
 The first parameter is the redux store.The store is needed to adding its reducers and add saga middleware.
@@ -36,37 +38,46 @@ Remote: Sends the error to the nice2 error logger endpoint(nice2 / log)
 Notifier: Displays error in UI.Notifier needs to be added to the store if handler is active.
 
 ### Log Error
-  ```javascript
-store.dispatch(errorLogging.logError('client.errorTitle', 'client.errorDescription', new Error('Some Error')))
+
+```javascript
+store.dispatch(
+  errorLogging.logError(
+    "client.errorTitle",
+    "client.errorDescription",
+    new Error("Some Error")
+  )
+);
 ```
 
 export const ErrorLogStory = () => {
-  const [store, setStore] = useState()
+  const [store, setStore] = useState();
   useEffect(() => {
-    const s = appFactory.createStore({}, undefined, {}, 'errorLogging')
-    errorLogging.addToStore(s, true, ['console', 'remote', 'notifier'])
-    notifier.addToStore(s, true)
-    setStore(s)
-  }, [])
+    const s = appFactory.createStore({}, undefined, {}, "errorLogging");
+    errorLogging.addToStore(s, true, ["console", "remote", "notification"]);
+    notification.addToStore(s, true);
+    setStore(s);
+  }, []);
   const logError = () => {
-    store.dispatch(errorLogging.logError('client.errorTitle', 'client.errorDescription', new Error('Some Error')))
-  }
+    store.dispatch(
+      errorLogging.logError(
+        "client.errorTitle",
+        "client.errorDescription",
+        new Error("Some Error")
+      )
+    );
+  };
   if (!store) {
-    return null
+    return null;
   }
   return (
     <Provider store={store}>
       <div>
-        <notifier.Notifier />
-        <Button
-          label="Log Error"
-          look="raised"
-          onClick={logError}
-        />
+        <notification.Notifications />
+        <Button label="Log Error" look="raised" onClick={logError} />
       </div>
     </Provider>
-  )
-}
+  );
+};
 
 <Canvas>
   <Story name="Basic">

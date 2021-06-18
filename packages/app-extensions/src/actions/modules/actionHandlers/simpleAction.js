@@ -1,16 +1,55 @@
 import {put, call} from 'redux-saga/effects'
 import {download, validation} from 'tocco-util'
+import {v4 as uuid} from 'uuid'
 
 import errorLogging from '../../../errorLogging'
 import rest from '../../../rest'
-import notifier from '../../../notifier'
+import notification from '../../../notification'
+import {TOASTER_KEY_PREFIX} from '../../../notification/modules/socket/socket'
 
 export default function* (definition, selection, parent, params) {
-  const randomId = Math.random()
+  const runAsync = definition.runInBackgroundTask
+  const invokeFnc = runAsync ? invokeActionAsync : invokeActionSync
+
+  return yield call(invokeFnc, definition, selection, parent, params)
+}
+
+export function* invokeActionAsync(definition, selection, parent, params) {
+  const response = yield call(rest.requestSaga, definition.endpoint, {
+    method: 'POST',
+    body: {
+      entity: selection.entityName,
+      selection,
+      parent,
+      ...params,
+      params: {
+        background: true
+      },
+      formProperties: definition.properties
+    },
+    acceptedErrorCodes: ['VALIDATION_FAILED'],
+    headers: {
+      'X-Enable-Notifications': true
+    }
+  })
+
+  if (response.body && response.body.success === false) {
+    yield put(notification.toaster({
+      type: 'error',
+      title: 'client.common.unexpectedError',
+      body: response.body.message || 'client.component.actions.errorText'
+    }))
+  } else {
+    yield call(showToaster, response, 'info')
+  }
+}
+
+export function* invokeActionSync(definition, selection, parent, params) {
+  const randomId = uuid()
   const title = definition.progressMsg || 'client.component.actions.defaultProgressMessage'
-  yield put(notifier.blockingInfo(randomId, title))
+  yield put(notification.blockingInfo(randomId, title))
   const response = yield call(invokeRequest, definition, selection, parent, params)
-  yield put(notifier.removeBlockingInfo(randomId))
+  yield put(notification.removeBlockingInfo(randomId))
 
   return {
     ...response,
@@ -40,13 +79,19 @@ export function* invokeRequest(definition, selection, parent, params) {
         ...params,
         formProperties: definition.properties
       },
-      acceptedErrorCodes: ['VALIDATION_FAILED']
+      acceptedErrorCodes: ['VALIDATION_FAILED'],
+      headers: {
+        'X-Enable-Notifications': true
+      }
     })
     if (response.body && response.body.errorCode === 'VALIDATION_FAILED') {
-      yield put(notifier.info('error',
-        'client.component.actions.validationError',
-        validation.getErrorCompact(response.body.errors),
-        'exclamation'))
+      yield put(
+        notification.toaster(
+          'error',
+          'client.component.actions.validationError',
+          validation.getErrorCompact(response.body.errors),
+          'exclamation')
+      )
     } else if (response.body && response.body.params.downloadUrl) {
       const fileResponse = yield call(rest.requestBytesSaga, response.body.params.downloadUrl, {
         method: 'POST',
@@ -60,12 +105,7 @@ export function* invokeRequest(definition, selection, parent, params) {
       })
       yield call(download.downloadReadableStream, fileResponse.body, response.body.params.filename)
     } else {
-      const success = response.body.success === true
-      const type = success ? 'success' : 'warning'
-      const title = response.body.message || 'client.component.actions.successDefault'
-      const icon = success ? 'check' : 'exclamation'
-
-      yield put(notifier.info(type, title, null, icon, 3000))
+      yield call(showToaster, response, response.body.success === true ? 'success' : 'warning')
     }
 
     return response.body
@@ -78,4 +118,10 @@ export function* invokeRequest(definition, selection, parent, params) {
       ))
     }
   }
+}
+
+export function* showToaster(response, type) {
+  const title = response.body.message || 'client.component.actions.successDefault'
+  const key = response.body.notificationKey ? `${TOASTER_KEY_PREFIX}${response.body.notificationKey}` : undefined
+  yield put(notification.toaster({type, title, key}))
 }

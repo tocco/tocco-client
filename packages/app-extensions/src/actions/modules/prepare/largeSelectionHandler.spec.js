@@ -4,7 +4,7 @@ import {channel} from 'redux-saga'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
 import largeSelectionHandler, {promptConfirm} from './largeSelectionHandler'
-import {CONFIRM} from '../../../notifier/modules/actions'
+import {CONFIRM} from '../../../notification/modules/interactive/actions'
 
 describe('app-extensions', () => {
   describe('actions', () => {

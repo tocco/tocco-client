@@ -48,6 +48,15 @@
               },
               {
                 "componentType": "action",
+                "actionType": "simple",
+                "icon": "cog",
+                "label": "Simple Action Background",
+                "showConfirmMessage": false,
+                "runInBackgroundTask": true,
+                "endpoint": "actions/simpleActionBackground"
+              },
+              {
+                "componentType": "action",
                 "id": "simple",
                 "actionType": "simple",
                 "readonly": false,

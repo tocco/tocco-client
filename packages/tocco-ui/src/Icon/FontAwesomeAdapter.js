@@ -13,7 +13,7 @@ import {
   faPlus, faGlobe, faFileExcel, faFilePdf, faFile, faSortDown, faSortUp, faArrowRight, faArrowLeft, faQuestionCircle,
   faCog, faFolders, faStar, faFileAlt, faFileCode, faFileCsv, faFileExport, faFileImport, faFileSpreadsheet, faIdBadge,
   faCheck, faMapMarked, faBars, faInfo, faCompress, faBook, faEllipsisV, faSquare, faExclamation, faArrowToLeft,
-  faArrowToRight
+  faArrowToRight, faBell
 } from '@fortawesome/pro-light-svg-icons'
 import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple}
   from '@fortawesome/free-brands-svg-icons'
@@ -26,7 +26,7 @@ import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApp
     faCheckCircle, faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple, faBars, faExternalLink,
     faPhone, faMapMarked, faSearch, faCog, faDownload, faUpload, faInfo, faHorizontalRule, faSync, faSquareFull,
     faCompress, faBook, faSortUp, faSortDown, faQuestionCircle, faEllipsisV, faMinus, faTimesCircle, faInfoCircle,
-    faExclamationCircle, faTrash, faList, faSquare, faArrowToLeft, faArrowToRight)
+    faExclamationCircle, faTrash, faList, faSquare, faArrowToLeft, faArrowToRight, faBell)
 })()
 
 const FontAwesomeAdapter = ({icon, style}) =>

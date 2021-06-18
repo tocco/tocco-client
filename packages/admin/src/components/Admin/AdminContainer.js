@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-import {notifier} from 'tocco-app-extensions'
+import {notification} from 'tocco-app-extensions'
 
 import {loadPrincipal, loadServerSettings} from '../../modules/session/actions'
 import {initializeNavigation, setMenuOpen} from '../../modules/navigation/actions'
@@ -8,7 +8,7 @@ import Admin from './Admin'
 
 const mapActionCreators = {
   loadPrincipal,
-  confirm: notifier.confirm,
+  confirm: notification.confirm,
   initializeNavigation,
   setMenuOpen,
   loadServerSettings

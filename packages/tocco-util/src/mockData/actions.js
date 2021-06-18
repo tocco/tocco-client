@@ -1,7 +1,7 @@
 import consoleLogger from '../consoleLogger'
 import {sleep} from './mockData'
-
-export const setupActions = (fetchMock, entityStore, timeout = 2000) => {
+import originId from '../originId'
+export const setupActions = (fetchMock, entityStore, webSocketServer, timeout = 2000) => {
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/actions/simpleActionForm/check*?'),
     simpleActionFormCheck(timeout)
@@ -35,6 +35,16 @@ export const setupActions = (fetchMock, entityStore, timeout = 2000) => {
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/actions/validationError*?'),
     validationError(timeout)
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/actions/simpleActionBackground/check'),
+    simpleActionCheck(timeout)
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/actions/simpleActionBackground*?'),
+    simpleActionBackground(webSocketServer)
   )
 
   fetchMock.post(
@@ -275,6 +285,82 @@ const formResponse = {
   },
   preCheck: null
 }
+
+const simpleActionBackground = webSocketServer =>
+  (url, opts) => {
+    consoleLogger.log(' fetchMock:call background action', url, opts, webSocketServer)
+
+    webSocketServer.emit('message', JSON.stringify({
+      key: '7',
+      timestamp: '2021-03-16T09:40:42.718Z',
+      originId: originId.getOriginId(),
+      message: 'Die Aktion wurde zur Ausführung eingeplant',
+      result: '',
+      type: 'Information',
+      username: 'dkeller@tocco.ch',
+      read: false,
+      taskProgress: {
+        key: '7',
+        taskId: '048853bc-7853-4aaa-83dd-5c6df737ff13',
+        message: '',
+        status: 'Ausstehend',
+        total: 0,
+        done: 0
+      }
+    }))
+  
+    setTimeout(() => {
+      webSocketServer.emit('message', JSON.stringify({
+        key: '7',
+        timestamp: '2021-03-16T09:40:42.718Z',
+        originId: originId.getOriginId(),
+        message: 'Die Aktion wird ausgeführt',
+        result: '',
+        type: 'Information',
+        username: 'dkeller@tocco.ch',
+        read: false,
+        taskProgress: {
+          key: '7',
+          taskId: '048853bc-7853-4aaa-83dd-5c6df737ff13',
+          message: 'Fehlgeschlagen',
+          status: 'Fehlgeschlagen',
+          total: 0,
+          done: 0
+        }
+  
+      }))
+    }, 2000)
+
+    setTimeout(() => {
+      webSocketServer.emit('message', JSON.stringify({
+        key: '7',
+        timestamp: '2021-03-16T09:40:42.718Z',
+        originId: originId.getOriginId(),
+        message: 'Die Aktion ist fehlgeschlagen',
+        result: '',
+        type: 'Fehlgeschlagen',
+        username: 'dkeller@tocco.ch',
+        read: false,
+        taskProgress: {
+          key: '7',
+          taskId: '048853bc-7853-4aaa-83dd-5c6df737ff13',
+          message: 'Fehlgeschlagen',
+          status: 'Fehlgeschlagen',
+          total: 0,
+          done: 0
+        }
+  
+      }))
+    }, 4000)
+
+    return {
+      status: 200,
+      body: {
+        success: true,
+        message: 'In Progress'
+      }
+    }
+  }
 
 const simpleAction = timeout =>
   (url, opts) => {

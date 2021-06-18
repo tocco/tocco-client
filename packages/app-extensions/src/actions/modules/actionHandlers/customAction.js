@@ -3,7 +3,7 @@ import React from 'react'
 import {consoleLogger} from 'tocco-util'
 import {channel} from 'redux-saga'
 
-import notifier from '../../../notifier'
+import notification from '../../../notification'
 
 export default function* (definition, selection, parent, params, config) {
   if (definition.appId) {
@@ -40,7 +40,7 @@ export function* handleCustomActionModal({definition, selection, config}) {
   const answerChannel = yield call(channel)
 
   const ActionComponent = config.appComponent
-  yield put(notifier.modalComponent(
+  yield put(notification.modal(
     `action-${definition.appId}`,
     `client.actions.${definition.appId}.title`,
     null,
@@ -79,14 +79,12 @@ export function* handleCustomActionModal({definition, selection, config}) {
   }
 
   const success = response.status === actionStatus.OK
-
   if (response.message !== null) {
     const type = success ? 'success' : 'warning'
-    const icon = success ? 'check' : 'exclamation'
     const title = response.message || 'client.component.actions.successDefault'
-    yield put(notifier.info(type, title, null, icon, 3000))
-  }
 
+    yield put(notification.toaster({type, title}))
+  }
   return {success: success, remoteEvents: response.remoteEvents}
 }
 
@@ -121,10 +119,9 @@ export function* handleAnswer(answerChannel) {
 
   if (response.message) {
     const type = success ? 'success' : 'warning'
-    const icon = success ? 'check' : 'exclamation'
     const title = response.message === 'default' ? 'client.component.actions.successDefault' : response.message
 
-    yield put(notifier.info(type, title, null, icon, 3000))
+    yield put(notification.toaster({type, title}))
   }
 
   return {success: success, remoteEvents: response.remoteEvents}

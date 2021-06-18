@@ -1,6 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, externalEvents, formData, notifier, actionEmitter, form} from 'tocco-app-extensions'
+import {appFactory, externalEvents, formData, notification, actionEmitter, form} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
 import reducers, {sagas} from './modules/reducers'
@@ -22,7 +22,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   actionEmitter.addToStore(store, events.emitAction)
   externalEvents.addToStore(store, events)
   formData.addToStore(store, {data: input.formData, listApp: input.listApp})
-  notifier.addToStore(store, false)
+  notification.addToStore(store, false)
 
   const app = appFactory.createApp(
     packageName,
