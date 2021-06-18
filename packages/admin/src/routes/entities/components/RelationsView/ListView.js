@@ -60,4 +60,4 @@ ListView.propTypes = {
   emitAction: PropTypes.func.isRequired
 }
 
-export default ListView
+export default React.memo(ListView)
