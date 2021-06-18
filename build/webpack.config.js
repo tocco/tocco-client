@@ -49,10 +49,8 @@ const webpackConfig = {
   ],
   optimization: {
     minimizer: [
-      new TerserPlugin({extractComments: false}),
-      new webpack.optimize.MinChunkSizePlugin({
-        minChunkSize: 10000
-      })
+      ...(!__DEV__ ? [new TerserPlugin({extractComments: false, sourceMap: true})] : []),
+      new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
     ]
   }
 }
