@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script will look for release commits since the last release tag on the current branch and 
+# This script will look for release commits since the last release tag on the current branch and
 # then create the missing tags. Thus all releases have tags that dont have to be merged within the according commit.
 
 echo "---Release Tagging Script---"
@@ -26,12 +26,10 @@ do
         echo "Commit '$msg' ($commit) is a release commit"
         tag_name="$(echo "$full_msg" | grep -e '- ' | sed 's/- //g')"
 
-        echo "Delete existing tag _$tag_name"
-        git push --delete origin _$tag_name
+        echo "Create tag '$tag_name'"
+        git tag -f $tag_name $commit
 
-        echo "Create tag  '$tag_name'"
-        git tag -f $tag_name $commit 
+        echo "Push tag '$tag_name'"
+        git push --set-upstream https://github.com/tocco/tocco-client.git $tag_name
     fi
 done
-echo "pushing tags..."
-git push --tags
