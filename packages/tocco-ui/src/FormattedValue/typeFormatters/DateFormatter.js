@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {FormattedDate, useIntl} from 'react-intl'
 
 import {matchesIsoDate} from '../util/DateUtils'
@@ -24,7 +23,6 @@ export const DateFormatter = props => {
 }
 
 DateFormatter.propTypes = {
-  intl: PropTypes.object.isRequired,
   value: (props, propName, componentName) => {
     if (!matchesIsoDate(props[propName])) {
       return new Error(`Invalid prop '${propName}' supplied to ${componentName}.`)

@@ -1,3 +1,11 @@
+0.2.8
+- Improve input field UX by better highlighting fields and labels
+- Adapt input font-sizes for better readability
+- Fix selection controller button font color
+- Add collapse feature to search panel in list view
+- Fix legacy actions popup (was hidden before)
+- Disable sorting in "move" action
+
 0.2.7
 - Edit action only one message
 - Adjust spacing and alignment of button inside modal

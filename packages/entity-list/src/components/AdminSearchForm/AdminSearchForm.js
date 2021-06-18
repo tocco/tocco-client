@@ -5,7 +5,16 @@ import {Icon, Ball, BallMenu, MenuItem, Popover} from 'tocco-ui'
 import {withTheme} from 'styled-components'
 import {FormattedMessage, injectIntl} from 'react-intl'
 
-import {StyledSplit, AdminSearchGrid, Box, StyledGutter, StyledHeader, StyledSplitWrapper} from './StyedComponents'
+import {
+  StyledSplit,
+  AdminSearchGrid,
+  Box,
+  StyledGutter,
+  StyledHeader,
+  StyledSplitWrapper,
+  StyledToggleCollapseButton,
+  StyledPlaceHolder
+} from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import SearchFilterList from '../SearchFilterList'
 
@@ -31,7 +40,9 @@ const AdminSearchForm = ({
   saveSearchFilter,
   saveDefaultSearchFilter,
   resetDefaultSearchFilter,
-  searchFormDirty
+  searchFormDirty,
+  isCollapsed,
+  toggleCollapse
 }) => {
   const splitWrapperEl = useRef(null)
   const [size, setSize] = useState([MAX_SIZE_SEARCH_FILTER, 100 - MAX_SIZE_SEARCH_FILTER])
@@ -57,52 +68,58 @@ const AdminSearchForm = ({
 
   const isSingleSearchFilterActive = searchFilters !== null && searchFilters.filter(s => s.active).length === 1
 
-  return <AdminSearchGrid>
-    <StyledHeader>
-      {showExpandSearchFilter && <Ball
-        icon={searchFilterExpanded ? 'chevron-up' : 'chevron-down'}
-        onClick={() => setSearchFilterExpanded(!searchFilterExpanded)}
-        title={searchFilterExpanded ? msg('client.entity-list.contract') : msg('client.entity-list.expand')}
-      />}
-      <Ball
-        data-cy="reset-button"
-        icon="times"
-        onClick={resetSearch}
-        title={msg('client.entity-list.reset')}
-      />
-      <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
-        <MenuItem disabled={!isSingleSearchFilterActive} onClick={saveDefaultSearchFilter}>
-          <Popover content={!isSingleSearchFilterActive
+  return <>
+    <AdminSearchGrid isCollapsed={isCollapsed}>
+      <StyledHeader>
+        <StyledToggleCollapseButton icon={'arrow-to-left'} isCollapsed={isCollapsed} onClick={toggleCollapse}/>
+        {showExpandSearchFilter && <Ball
+          icon={searchFilterExpanded ? 'chevron-up' : 'chevron-down'}
+          onClick={() => setSearchFilterExpanded(!searchFilterExpanded)}
+          title={searchFilterExpanded ? msg('client.entity-list.contract') : msg('client.entity-list.expand')}
+        />}
+        <Ball
+          data-cy="reset-button"
+          icon="times"
+          onClick={resetSearch}
+          title={msg('client.entity-list.reset')}
+        />
+        <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
+          <MenuItem disabled={!isSingleSearchFilterActive} onClick={saveDefaultSearchFilter}>
+            <Popover content={!isSingleSearchFilterActive
             && <FormattedMessage id="client.entity-list.search.settings.defaultFilter.save.info"/>
-          }>
-            <FormattedMessage id="client.entity-list.search.settings.defaultFilter.save"/>
-          </Popover>
-        </MenuItem>
-        <MenuItem onClick={resetDefaultSearchFilter}>
-          <FormattedMessage id="client.entity-list.search.settings.defaultFilter.reset"/>
-        </MenuItem>
-        <MenuItem onClick={saveSearchFilter} disabled={!searchFormDirty}>
-          <FormattedMessage id="client.entity-list.search.settings.saveAsFilter"/>
-        </MenuItem>
-      </BallMenu>
-    </StyledHeader>
-    <StyledSplitWrapper ref={splitWrapperEl}>
-      <StyledSplit
-        direction="vertical"
-        gutterSize={20}
-        sizes={size}
-        minSize={[35, 0]}
-        gutter={getGutter()}
-      >
-        <Box>
-          <SearchFilterList/>
-        </Box>
-        <Box>
-          <BasicSearchFormContainer disableSimpleSearch={true}/>
-        </Box>
-      </StyledSplit>
-    </StyledSplitWrapper>
-  </AdminSearchGrid>
+            }>
+              <FormattedMessage id="client.entity-list.search.settings.defaultFilter.save"/>
+            </Popover>
+          </MenuItem>
+          <MenuItem onClick={resetDefaultSearchFilter}>
+            <FormattedMessage id="client.entity-list.search.settings.defaultFilter.reset"/>
+          </MenuItem>
+          <MenuItem onClick={saveSearchFilter} disabled={!searchFormDirty}>
+            <FormattedMessage id="client.entity-list.search.settings.saveAsFilter"/>
+          </MenuItem>
+        </BallMenu>
+      </StyledHeader>
+      <StyledSplitWrapper ref={splitWrapperEl}>
+        <StyledSplit
+          direction="vertical"
+          gutterSize={20}
+          sizes={size}
+          minSize={[35, 0]}
+          gutter={getGutter()}
+        >
+          <Box>
+            <SearchFilterList/>
+          </Box>
+          <Box>
+            <BasicSearchFormContainer disableSimpleSearch={true}/>
+          </Box>
+        </StyledSplit>
+      </StyledSplitWrapper>
+    </AdminSearchGrid>
+    <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed} className="StyledPlaceHolder">
+      <StyledToggleCollapseButton icon={'arrow-to-right'} isCollapsed={isCollapsed}/>
+    </StyledPlaceHolder>
+  </>
 }
 
 AdminSearchForm.propTypes = {
@@ -113,7 +130,9 @@ AdminSearchForm.propTypes = {
   saveSearchFilter: PropTypes.func.isRequired,
   saveDefaultSearchFilter: PropTypes.func.isRequired,
   resetDefaultSearchFilter: PropTypes.func.isRequired,
-  searchFormDirty: PropTypes.bool
+  searchFormDirty: PropTypes.bool,
+  isCollapsed: PropTypes.bool,
+  toggleCollapse: PropTypes.func.isRequired
 }
 
 export default injectIntl(withTheme(AdminSearchForm))

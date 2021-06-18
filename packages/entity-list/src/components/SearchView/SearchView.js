@@ -1,21 +1,20 @@
 import React from 'react'
 import {Panel} from 'tocco-ui'
-import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import AdminSearchForm from '../AdminSearchForm'
 import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTypes'
+import {StyledAdminSearchFormWrapper} from './StyledComponents'
 
-const AdminSearchFormWrapper = styled.div`
-  height: calc(var(--vh, 1vh) * 100 - 77px); // TODO: This is only a temporary workaround, height needs to be 100%
-  overflow-y: auto;
-  overflow-x: hidden;
-`
-
-const SearchView = ({searchFormType}) => {
+const SearchView = ({searchFormType, isCollapsed, toggleCollapse}) => {
   if (searchFormType === searchFormTypes.ADMIN) {
-    return <AdminSearchFormWrapper><AdminSearchForm/></AdminSearchFormWrapper>
+    return (
+      <StyledAdminSearchFormWrapper>
+        <AdminSearchForm isCollapsed={isCollapsed} toggleCollapse={toggleCollapse}/>
+      </StyledAdminSearchFormWrapper>
+    )
   }
 
   return <Panel.Wrapper isToggleable={false} isFramed={false}>
@@ -26,7 +25,9 @@ const SearchView = ({searchFormType}) => {
 }
 
 SearchView.propTypes = {
-  searchFormType: searchFormTypePropTypes
+  searchFormType: searchFormTypePropTypes,
+  isCollapsed: PropTypes.bool,
+  toggleCollapse: PropTypes.func
 }
 
 export default SearchView

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {StyledScrollbar, theme, Menu} from 'tocco-ui'
+import {StyledScrollbar, theme, Menu, Button, scale} from 'tocco-ui'
 import Split from 'react-split'
 
 export const StyledSplit = styled(Split)``
@@ -23,6 +23,7 @@ export const StyledHeader = styled.div`
 `
 
 export const AdminSearchGrid = styled.div`
+  display: ${({isCollapsed}) => isCollapsed ? 'none' : 'block'};
   height: 100%;
   overflow: hidden;
 
@@ -30,6 +31,32 @@ export const AdminSearchGrid = styled.div`
     height: calc(100% - 40px);
     display: flex;
     flex-direction: column;
+  }
+`
+
+export const StyledPlaceHolder = styled.div`
+  display: ${({isCollapsed}) => isCollapsed ? 'flex' : 'none'};
+  flex: 1;
+  background: ${theme.color('paper')};
+  padding-top: ${scale.space(-0.5)};
+  padding-left: ${scale.space(-2.5)};
+
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+export const StyledToggleCollapseButton = styled(Button)`
+  font-size: ${scale.font(2.5)};
+  padding: 0;
+  margin-right: auto;
+  position: relative;
+  left: -${({isCollapsed}) => !isCollapsed ? scale.space(-1.5) : 0};
+
+  &:hover,
+  ${/* sc-selector */StyledPlaceHolder}:hover & {
+    background-color: transparent;
+    color: ${theme.color('secondaryLight')};
   }
 `
 

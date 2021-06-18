@@ -12,6 +12,9 @@ import {
   StyledPreviewBox,
   StyledRelationBox,
   StyledRelationsViewWrapper,
+  StyledToggleCollapse,
+  StyledToggleCollapseButton,
+  StyledPlaceHolder,
   StyledPreviewLink
 } from './StyledComponents'
 import {currentViewPropType} from '../../utils/propTypes'
@@ -26,7 +29,9 @@ const RelationsView = ({
   relations,
   relationsInfo,
   emitAction,
-  intl
+  intl,
+  isCollapsed,
+  toggleCollapse
 }) => {
   const [selectedRelation, selectRelation] = useState(null)
   const entityName = _get(currentViewInfo, 'model.name')
@@ -65,8 +70,11 @@ const RelationsView = ({
     ? (selectedRelation.targetEntity === 'Resource' ? DocsViewAdapter : ListView)
     : () => <React.Fragment/>
 
-  return (
-    <StyledRelationsViewWrapper>
+  return <>
+    <StyledRelationsViewWrapper isCollapsed={isCollapsed}>
+      <StyledToggleCollapse onClick={toggleCollapse}>
+        <StyledToggleCollapseButton icon="arrow-to-right"/>
+      </StyledToggleCollapse>
       <StyledRelationBox>
         {relations.map(relation => (
           <RelationBox
@@ -89,11 +97,11 @@ const RelationsView = ({
                 <Icon icon="arrow-right"/>
               </StyledLink>
               {hasCreateRights(relation.relationName) && relation.targetEntity !== 'Resource'
-                && <StyledLink
-                  aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-                  to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
-                  <Icon icon="plus"/>
-                </StyledLink>
+              && <StyledLink
+                aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
+                to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
+                <Icon icon="plus"/>
+              </StyledLink>
               }
             </RelationLinks>
           </RelationBox>
@@ -101,33 +109,36 @@ const RelationsView = ({
       </StyledRelationBox>
 
       {selectedRelation
-        && <StyledPreviewBox>
-          <Typography.H4>
-            {selectedRelation.relationDisplay.label}
-            <StyledPreviewLink
-              aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
-              to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
-              <Icon icon="arrow-right"/>
-            </StyledPreviewLink>
-            {hasCreateRights(selectedRelation.relationName) && selectedRelation.targetEntity !== 'Resource'
-              && <StyledPreviewLink
-                aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-                to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
-                <Icon icon="plus"/>
-              </StyledPreviewLink>
-            }
-          </Typography.H4>
-          <RelationPreview
-            selectedRelation={selectedRelation}
-            match={match}
-            history={history}
-            currentViewInfo={currentViewInfo}
-            emitAction={emitAction}
-          />
-        </StyledPreviewBox>
+      && <StyledPreviewBox>
+        <Typography.H4>
+          {selectedRelation.relationDisplay.label}
+          <StyledPreviewLink
+            aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
+            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
+            <Icon icon="arrow-right"/>
+          </StyledPreviewLink>
+          {hasCreateRights(selectedRelation.relationName) && selectedRelation.targetEntity !== 'Resource'
+          && <StyledPreviewLink
+            aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
+            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
+            <Icon icon="plus"/>
+          </StyledPreviewLink>
+          }
+        </Typography.H4>
+        <RelationPreview
+          selectedRelation={selectedRelation}
+          match={match}
+          history={history}
+          currentViewInfo={currentViewInfo}
+          emitAction={emitAction}
+        />
+      </StyledPreviewBox>
       }
     </StyledRelationsViewWrapper>
-  )
+    <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
+      <StyledToggleCollapseButton icon={'arrow-to-left'} isCollapsed={isCollapsed}/>
+    </StyledPlaceHolder>
+  </>
 }
 
 RelationsView.propTypes = {
@@ -140,7 +151,9 @@ RelationsView.propTypes = {
     createPermission: PropTypes.bool
   })),
   emitAction: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired
+  intl: PropTypes.object.isRequired,
+  isCollapsed: PropTypes.bool,
+  toggleCollapse: PropTypes.func.isRequired
 }
 
 const areEqual = (prevProps, nextProps) => {

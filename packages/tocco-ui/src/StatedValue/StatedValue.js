@@ -42,12 +42,13 @@ const StatedValue = props => {
     mandatory,
     mandatoryTitle,
     immutable,
-    touched
+    touched,
+    signal: signalProp
   } = props
 
   const showError = !immutable && touched && error && Object.keys(error).length > 0
   const labelAlt = `${js.adjustedHTMLString(label)}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
-  const signal = props.signal || detectSignal(dirty, showError, mandatory, hasValue)
+  const signal = signalProp || detectSignal(dirty, showError, mandatory, hasValue)
 
   return (
     <FocusWithin>
@@ -58,6 +59,8 @@ const StatedValue = props => {
             ref={getRef}
             secondaryPosition={secondaryPosition}>
             <StyledStatedValueBox
+              className="StyledStatedValueBox"
+              hasValue={hasValue}
               immutable={immutable}
               isDisplay={isDisplay}
               signal={signal}>
@@ -65,6 +68,8 @@ const StatedValue = props => {
               {label && <StyledLabelWrapper>
                 <StyledStatedValueLabel
                   {...!isDisplay && !immutable && {htmlFor: id}}
+                  hasValue={hasValue}
+                  dirty={dirty}
                   title={labelAlt}
                   secondaryPosition={secondaryPosition}
                   immutable={immutable}

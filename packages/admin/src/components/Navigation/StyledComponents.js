@@ -64,10 +64,10 @@ export const StyledTabsContainer = styled.div`
 `
 
 export const StyledNavSwitchButton = styled(Button)`
-  font-size: ${scale.font(3)};
+  font-size: ${scale.font(0)};
   justify-content: center;
   border-radius: 0;
-  margin: 5px;
+  margin: 12px 5px 5px;
 
   &:hover {
     background-color: transparent;

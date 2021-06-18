@@ -6,35 +6,41 @@ import {
   declareFocus,
   declareFont,
   scale,
-  theme as getTheme
+  theme
 } from '../utilStyles'
 import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
 
 const borderWidth = '1.1px' // deliberately uneven to force correct rendering in chrome
 const animationDuration = '200ms'
 
-const getTextColor = ({isDisplay, secondaryPosition, immutable, signal}) => {
-  return isDisplay && secondaryPosition && immutable && !signal
-    ? 'shade1'
-    : isDisplay
-      ? secondaryPosition
-          ? 'shade0'
-          : 'shade1'
-      : secondaryPosition
+const getTextColor = ({isDisplay, secondaryPosition, immutable, signal, hasValue}) => {
+  return signal
+    ? 'signal'
+    : hasValue
+      ? 'hasValue'
+      : isDisplay && secondaryPosition && immutable && !signal
         ? 'shade1'
-        : immutable
-          ? 'shade0'
-          : signal
-            ? 'signal'
-            : 'shade1'
+        : isDisplay
+          ? secondaryPosition
+              ? 'shade0'
+              : 'shade1'
+          : secondaryPosition
+            ? 'shade1'
+            : immutable
+              ? 'shade0'
+              : signal
+                ? 'signal'
+                : 'shade1'
 }
 
-const getBorderColor = ({immutable, isDisplay, signal}) => {
-  return isDisplay || immutable
-    ? 'transparent'
-    : signal
-      ? 'signal'
-      : 'shade1'
+const getBorderColor = ({immutable, isDisplay, signal, isDirty}) => {
+  return isDirty
+    ? 'isDirty'
+    : isDisplay || immutable
+      ? 'transparent'
+      : signal
+        ? 'signal'
+        : 'shade1'
 }
 
 const transformLabel = ({secondaryPosition}) => css`
@@ -47,7 +53,7 @@ const transformLabel = ({secondaryPosition}) => css`
     will-change: color, font-size, font-weight, margin, top;
     ${secondaryPosition && css`
       top: 0;
-      font-size: ${scale.font(-1.2)};
+      font-size: ${scale.font(-0.8)};
       margin: calc(${scale.font(-0.5)} / -2) 0 0;
     `}
   }
@@ -62,15 +68,15 @@ export const StyledLabelWrapper = styled.div`
 const StyledStatedValueLabel = styled.label`
   &&& {
     ${declareFont({
-    fontSize: scale.font(0),
-    fontWeight: getTheme.fontWeight('regular'),
-    lineHeight: 1
-  })}
-    background-color: ${getTheme.color('paper')};
+      fontSize: scale.font(0),
+      fontWeight: ({dirty}) => dirty ? theme.fontWeight('bold') : theme.fontWeight('regular'),
+      lineHeight: 1
+    })}
+    background-color: ${theme.color('paper')};
     color: ${props => colorizeText[getTextColor(props)](props)};
     left: ${scale.space(-2)};
     margin: calc(${scale.font(0)} / -2) 0 0;
-    padding: 0 ${scale.space(-2)};
+    padding: 1px ${scale.space(-2)}; // 1px to prevent label bottom from being cut
     position: absolute;
     top: 50%;
     width: ${({secondaryPosition}) => secondaryPosition ? 'auto' : 'inherit'};
@@ -90,7 +96,7 @@ const StyledStatedValueLabel = styled.label`
 const StyledStatedValueBox = styled.div`
   &&& {
     border: ${borderWidth} solid ${props => colorizeBorder[getBorderColor(props)](props)};
-    padding: ${scale.space(-2)} ${scale.space(-1)};
+    padding: ${scale.space(-1)} ${scale.space(-1)} ${scale.space(-2)}  ${scale.space(-1)};
     position: relative;
     ${props => !props.immutable && declareFocus(props)}
     ${props => declareCursor(props)}
@@ -113,8 +119,9 @@ const StyledStatedValueBox = styled.div`
 
 const StyledStatedValueDescription = styled.p`
   &&& {
-    ${declareFont()}
-    font-size: ${scale.font(-1)};
+    ${declareFont({
+      fontSize: scale.font(-1)
+    })}
   }
 `
 

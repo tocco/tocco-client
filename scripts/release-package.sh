@@ -9,8 +9,6 @@ setNiceVersion
 setCurrentReleaseTag
 setNextVersion
 
-git fetch --tags -f
-
 if [[ $* == *--auto* ]]; then
   auto=true
   echo "Questions are disabled and automatically with default values answered"
@@ -23,6 +21,7 @@ then
   echo "${color_green}Git tree is clean!${color_reset}"
 else
   echo "${color_red}Git tree is dirty, please commit changes before running the release script.${color_reset}"
+  git status -s
   exit 1
 fi
 
@@ -38,7 +37,9 @@ echo "release tag: ${color_blue}${release_tag}${color_reset}"
 echo -e  "Generated changelog:\n${color_blue}${changelog}${color_reset}"
 
 if [[ $auto = false ]]; then
-  read -p "New version [${next_version}] : " new_version
+  read -p "New version [default value if empty: ${next_version}] : " new_version
+else
+  new_version=''
 fi
 
 if [[ -z "${new_version}" ]]; then
@@ -79,9 +80,10 @@ else
   read -p "Push commits and tags (y/n)?" PUSH
 fi
 
-if [ "$PUSH" = "y" ]; then
+if [ "$PUSH" = "y" ] || [ "$PUSH" = "Y" ]; then
+  git fetch --tags -f
   git push --tags
-  git push
+  git push --set-upstream https://github.com/tocco/tocco-client.git ${targetBranch}
   echo "${color_green}Commits and tags pushed to ${targetBranch}!${color_reset}"
 else
   echo "${color_red}Nothing pushed!${color_reset}"
@@ -98,7 +100,7 @@ else
   read -p "Create a npm dist tag ${release_tag} for current version (y/n)?" CREATE_TAG
 fi
 
-if [ "$CREATE_TAG" = "y" ]; then
+if [ "$CREATE_TAG" = "y" ] || [ "$CREATE_TAG" = "Y" ]; then
   echo "Trying to execute: npm dist-tag add tocco-${package}@${new_version} ${release_tag}"
   npm dist-tag add tocco-${package}@${new_version} ${release_tag} --registry=https://registry.npmjs.org/
   echo "${color_green}Npm tag created!${color_reset}"

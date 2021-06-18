@@ -6,26 +6,16 @@ import modes from '../../util/modes'
 import ErrorItems from '../ErrorItems'
 import {StyledButton} from './StyledComponents'
 
-const ConditionalWrap = ({condition, wrap, children}) => (
-  condition ? wrap(children) : children
-)
-
 const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
   const msg = id => (intl.formatMessage({id}))
 
-  return <ConditionalWrap condition={hasErrors}
-    wrap={children => (
-      <Popover
-        content={<ErrorItems formErrors={formErrors}/>}
-        placement="bottom"
-      >{children}
-      </Popover>)
-    }
-  >
+  return <Popover
+    content={hasErrors ? <ErrorItems formErrors={formErrors}/> : null}
+    placement="bottom">
     <StyledButton
       data-cy="detail-form_submit-button"
       id="detail-save_button"
-      disabled={submitting }
+      disabled={submitting}
       ink="primary"
       label={msg(`client.entity-detail.${mode === modes.CREATE ? 'create' : 'save'}`)}
       look={hasErrors ? 'flat' : 'raised'}
@@ -34,7 +24,7 @@ const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
       {...(hasErrors && {icon: 'exclamation'})}
       hasErrors={hasErrors}
     />
-  </ConditionalWrap>
+  </Popover>
 }
 
 SaveButton.propTypes = {

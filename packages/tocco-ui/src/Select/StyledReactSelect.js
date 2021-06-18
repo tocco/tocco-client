@@ -99,19 +99,19 @@ const reactSelectStyles = outerTheme => {
     }),
     multiValue: (base, state) => ({
       ...base,
-      borderRadius: outerTheme.radii.regular,
+      borderRadius: 0,
       margin: `${space2} ${space2} 0 0`
     }),
     multiValueLabel: (base, state) => ({
       ...base,
-      borderRadius: outerTheme.radii.regular,
+      borderRadius: 0,
       color: state.isDisabled ? textDisabled : text[0],
       fontSize: 'inherit',
       whiteSpace: 'wrap'
     }),
     multiValueRemove: (base, state) => ({
       ...base,
-      'borderRadius': outerTheme.radii.regular,
+      'borderRadius': 0,
       'color': text[0],
       'display': state.isDisabled ? 'none' : 'flex',
       ':hover': {

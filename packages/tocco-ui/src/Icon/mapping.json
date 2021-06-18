@@ -126,10 +126,6 @@
       "warning"
     ]
   },
-  "external-link": {
-    "id": "fal, external-link",
-    "lib": "fa"
-  },
   "facebook": {
     "id": "fab, facebook",
     "lib": "fa",
@@ -334,6 +330,14 @@
     "tags": [
       "external-link"
     ]
+  },
+    "arrow-to-left": {
+    "id": "fal, arrow-to-left",
+    "lib": "fa"
+  },
+  "arrow-to-right": {
+    "id": "fal, arrow-to-right",
+    "lib": "fa"
   },
   "tocco": {
     "id": "logo",
