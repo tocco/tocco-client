@@ -67,6 +67,8 @@ const initApp = (id, input, events = {}, publicPath) => {
     formData.addToStore(store, {listApp: EntityListApp, navigationStrategy: input.navigationStrategy})
 
     store.dispatch(externalEvents.fireExternalEvent('onStoreCreate', store))
+  } else {
+    store.dispatch(reloadData())
   }
 
   const app = appFactory.createApp(

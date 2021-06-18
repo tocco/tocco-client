@@ -34,9 +34,11 @@ export function* initialize(waitForInputDispatch = true) {
 }
 
 export function* reloadData() {
+  yield put(listActions.setEntities([]))
   yield put(searchFormActions.initialize())
   yield all([
     take(searchFormActions.SET_INITIALIZED)
   ])
-  yield put(searchFormActions.executeSearch())
+
+  yield put(listActions.refresh())
 }
