@@ -4,7 +4,8 @@ import NotificationBody from '../../components/NotificationBody'
 
 export const TOASTER_KEY_PREFIX = 'socket-msg-'
 export const getSocketUrl = () => {
-  const socketUrl = `${__BACKEND_URL__}`.replace('http://', 'ws://').replace('https://', 'wss://')
+  const baseUrl = __BACKEND_URL__ || window.location.origin
+  const socketUrl = baseUrl.replace('http://', 'ws://').replace('https://', 'wss://')
   return `${socketUrl}/nice2/websocket/notification`
 }
 

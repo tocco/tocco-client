@@ -7,7 +7,13 @@ describe('app-extensions', () => {
       describe('socket', () => {
         describe('getSocketUrl', () => {
           test('getSocketUrl', () => {
-            expect(getSocketUrl()).to.be.eql(`${__BACKEND_URL__}/nice2/websocket/notification`)
+            global.__BACKEND_URL__ = 'https://master.tocco.ch'
+            expect(getSocketUrl()).to.be.eql('wss://master.tocco.ch/nice2/websocket/notification')
+            global.__BACKEND_URL__ = ''
+          })
+
+          test('use location fallback for relative backend url', () => {
+            expect(getSocketUrl()).to.be.eql('ws://localhost/nice2/websocket/notification')
           })
         })
 
