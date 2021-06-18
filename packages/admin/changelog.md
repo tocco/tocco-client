@@ -1,3 +1,10 @@
+0.5.0
+- New notifications with notification center
+- Fix date-time search
+- Add panel collapse feature in detail view
+- Align nav switch button horizontally
+- Fix overlay of modal in widget mode
+
 0.4.53
 - Improve input field UX by better highlighting fields and labels
 - Adapt input font-sizes for better readability
