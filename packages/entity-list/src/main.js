@@ -17,6 +17,7 @@ import SimpleFormApp from 'tocco-simple-form/src/main'
 
 import reducers, {sagas} from './modules/reducers'
 import {reloadData, reloadAll} from './modules/entityList/actions'
+import {refresh} from './modules/list/actions'
 import EntityList from './components/EntityList'
 import {getDispatchActions, getReloadOption, reloadOptions} from './input'
 import {selectionStylePropType} from './util/selectionStyles'
@@ -67,6 +68,8 @@ const initApp = (id, input, events = {}, publicPath) => {
     formData.addToStore(store, {listApp: EntityListApp, navigationStrategy: input.navigationStrategy})
 
     store.dispatch(externalEvents.fireExternalEvent('onStoreCreate', store))
+  } else {
+    store.dispatch(refresh())
   }
 
   const app = appFactory.createApp(
