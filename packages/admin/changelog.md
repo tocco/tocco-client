@@ -1,3 +1,6 @@
+0.4.37-hotfix229.11
+- Fix popper menu on safari browsers
+
 0.4.37-hotfix229.9
 - Fix overlay of modal in widget mode
 
