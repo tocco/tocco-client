@@ -98,7 +98,6 @@ git checkout -b releasing/auto-$(date +%s%N)
 # push cherry picked commits
 current_branch=$(git branch --show-current)
 git push origin $current_branch
-git push --tags
 
 # create github PR
 pr=$(curl -s -H "Authorization: token ${GITHUB_BOT_TOKEN}" -X POST \
