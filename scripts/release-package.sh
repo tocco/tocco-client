@@ -72,6 +72,7 @@ fi
 git commit -m "docs(${package}): changelog ${new_version}" ${changelog_file}
 echo "releasing and publishing ${package} with version ${new_version}"
 yarn publish --new-version ${new_version}
+git tag --delete _tocco-$(transformPackageName $package)@${new_version}
 
 if [[ $auto = true ]]; then
   PUSH="n"
@@ -81,8 +82,6 @@ else
 fi
 
 if [ "$PUSH" = "y" ] || [ "$PUSH" = "Y" ]; then
-  git fetch --tags -f
-  git push --tags
   git push --set-upstream https://github.com/tocco/tocco-client.git ${targetBranch}
   echo "${color_green}Commits and tags pushed to ${targetBranch}!${color_reset}"
 else
