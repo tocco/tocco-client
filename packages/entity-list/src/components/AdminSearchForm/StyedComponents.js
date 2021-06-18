@@ -47,11 +47,11 @@ export const StyledPlaceHolder = styled.div`
 `
 
 export const StyledToggleCollapseButton = styled(Button)`
-  font-size: ${scale.font(2.5)};
+  font-size: ${scale.font(0)};
   padding: 0;
   margin-right: auto;
   position: relative;
-  left: -${({isCollapsed}) => !isCollapsed ? scale.space(-1.5) : 0};
+  left: ${({isCollapsed}) => !isCollapsed ? '-5px' : '2.5px'};
 
   &:hover,
   ${/* sc-selector */StyledPlaceHolder}:hover & {

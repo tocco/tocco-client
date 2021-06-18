@@ -73,7 +73,7 @@ const AdminSearchForm = ({
   return <>
     <AdminSearchGrid isCollapsed={isCollapsed}>
       <StyledHeader>
-        <StyledToggleCollapseButton icon={'arrow-to-left'} isCollapsed={isCollapsed} onClick={toggleCollapse}/>
+        <StyledToggleCollapseButton icon={'chevron-left'} isCollapsed={isCollapsed} onClick={toggleCollapse}/>
         {showExpandSearchFilter && <Ball
           icon={searchFilterExpanded ? 'chevron-up' : 'chevron-down'}
           onClick={() => setSearchFilterExpanded(!searchFilterExpanded)}
@@ -124,8 +124,8 @@ const AdminSearchForm = ({
         </StyledSplit>
       </StyledSplitWrapper>
     </AdminSearchGrid>
-    <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed} className="StyledPlaceHolder">
-      <StyledToggleCollapseButton icon={'arrow-to-right'} isCollapsed={isCollapsed}/>
+    <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
+      <StyledToggleCollapseButton icon={'chevron-right'} isCollapsed={isCollapsed}/>
     </StyledPlaceHolder>
   </>
 }

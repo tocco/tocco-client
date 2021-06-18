@@ -26,7 +26,7 @@ export const LeftPositioning = styled.div`
   : `
       grid: 'search list' / 25px auto;
     `
-}
+  }
 
   @media (max-width: 600px) {
     column-gap: 8px;

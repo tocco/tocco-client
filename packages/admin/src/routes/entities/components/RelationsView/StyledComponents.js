@@ -25,13 +25,13 @@ export const StyledToggleCollapse = styled.div`
   display: flex;
   background-color: ${theme.color('paper')};
   padding-top: ${scale.space(-1.5)};
+  padding-bottom: ${scale.space(-1.5)};
 `
 
 export const StyledToggleCollapseButton = styled(Button)`
-  font-size: ${scale.font(2.5)};
+  font-size: ${scale.font(0)};
   padding: 0;
   margin-left: auto;
-  margin-right: ${scale.space(-1.8)};
 
   &:hover,
   ${/* sc-selector */StyledPlaceHolder}:hover & {
