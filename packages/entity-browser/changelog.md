@@ -1,3 +1,6 @@
+0.10.26-hotfix229.5
+- Fix popper menu on safari browsers
+
 0.10.26-hotfix229.4
 - Fix overlay of modal in widget mode
 - Fix multi-tab problem
