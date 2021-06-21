@@ -1,3 +1,29 @@
+0.10.28
+- Style new notification boxes
+- Style notification center
+- Change cursor to pointer on panel header/footer hover
+- Added options to create a search filter from the current search, edit or delete an existing filter
+- datetime search fields now use a date field until the full range is expanded
+- Fix hover delay and hover color of search filter buttons
+- Adjust spacing and alignment of button inside modal
+-  Add action selection count confirm
+- Improve input field UX by better highlighting fields and labels
+- Adapt input font-sizes for better readability
+- Fix selection controller button font color
+- Add collapse feature to search panel in list view
+- Fix broken modal layout
+- Fix date-time search
+- Fix overlay of modal in widget mode
+- Fix multi-tab problem
+- Fix popper menu on safari browsers
+- Fix notification socket url
+- refactor column picker
+- move useDnD
+- add search form customization
+- Make select dropdown menu style more uniform for a more consistent UI
+- Harmonize select box size und colors
+- Change collpase icon for detail and list view
+
 0.10.27
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
 - Location field focus problem fix
