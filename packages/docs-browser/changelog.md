@@ -1,3 +1,18 @@
+0.2.9
+- Style new notification boxes
+- Style notification center
+- Fix broken modal layout
+- Fix date-time search
+- Fix overlay of modal in widget mode
+- Fix popper menu on safari browsers
+- Fix notification socket url
+- refactor column picker
+- Move useDnD
+- Add search form customization
+- Make select dropdown menu style more uniform for a more consistent UI
+- Harmonize select box size und colors
+- Change collapse icon for detail and list view
+
 0.2.8
 - Improve input field UX by better highlighting fields and labels
 - Adapt input font-sizes for better readability
