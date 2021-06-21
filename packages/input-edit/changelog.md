@@ -1,3 +1,22 @@
+0.3.14
+- Style new notification boxes
+- Style notification center
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Displayexpression call adjustment
+- Change cursor to pointer on panel header/footer hover
+- datetime search fields now use a date field until the full range is expanded
+- Add action selection count confirm
+- Improve input field UX by better highlighting fields and labels
+- Adapt input font-sizes for better readability
+- Fix broken modal layout
+- Fix date-time search
+- Fix overlay of modal in widget mode
+- Fix popper menu on safari browsers
+- Fix notification socket url
+- move useDnD
+- Make select dropdown menu style more uniform for a more consistent UI
+- Harmonize select box size und colors
+
 0.3.13
 - Wait for update to finish before loading data in input-edit
 
