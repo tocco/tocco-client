@@ -1,3 +1,7 @@
+0.2.4-hotfix229.6
+- Fix overlay of modal in widget mode
+- Fix popper menu on safari browsers
+
 0.2.4-hotfix229.5
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
 - Fix legacy actions popup (was hidden before)
