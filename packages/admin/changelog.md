@@ -1,3 +1,11 @@
+0.5.2
+- Refactor column picker
+- Move useDnD
+- Add search form customization
+- Make select dropdown menu style more uniform for a more consistent UI
+- Harmonize select box size und colors
+- Change collpase icon for detail and list view
+
 0.5.1
 - Fix popper menu on safari browsers
 - Fix notification socket url
