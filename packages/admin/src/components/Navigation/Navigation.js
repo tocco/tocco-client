@@ -130,73 +130,75 @@ const Navigation = ({
     }
   }
 
-  return <StyledNav ref={navigationEl} onKeyDown={onKeyDown}>
-    <StyledTabsContainer>
-      {visibleMenus === 'main'
-      && <>
-        <StyledNavSwitchButton
-          active={false}
-          onClick={() => setVisibleMenus('additional')}
-          icon={'chevron-right'}
-          narrow={true}
+  return (
+    <StyledNav ref={navigationEl} onKeyDown={onKeyDown}>
+      <StyledTabsContainer>
+        {visibleMenus === 'main'
+        && <>
+          <StyledNavSwitchButton
+            active={false}
+            onClick={() => setVisibleMenus('additional')}
+            icon={'chevron-right'}
+            narrow={true}
+          />
+          <StyledNavButton
+            active={activeMenuTab === tabs.MODULES}
+            onClick={() => setActiveMenuTab(tabs.MODULES)}
+            label={msg('client.admin.navigation.modules')}
+          />
+          <StyledNavButton
+            active={activeMenuTab === tabs.SETTINGS}
+            onClick={() => setActiveMenuTab(tabs.SETTINGS)}
+            label={msg('client.admin.navigation.settings')}
+          />
+        </>}
+        {visibleMenus === 'additional'
+        && <>
+          <StyledNavSwitchButton
+            active={false}
+            onClick={() => setVisibleMenus('main')}
+            icon={'chevron-left'}
+            narrow={true}
+          />
+          <StyledNavButton
+            active={activeMenuTab === tabs.SYSTEM}
+            onClick={() => setActiveMenuTab(tabs.SYSTEM)}
+            label={msg('client.admin.navigation.system')}
+          />
+          <StyledNavButton
+            active={activeMenuTab === tabs.COMPLETE}
+            onClick={() => setActiveMenuTab(tabs.COMPLETE)}
+            label={msg('client.admin.navigation.complete')}
+          />
+        </>}
+      </StyledTabsContainer>
+      <StyledSearchBoxWrapper>
+        <SearchBox
+          minInputLength={2}
+          onSearch={setFilter}
+          ref={inputEl}
+          placeholder={msg('client.admin.navigation.searchBoxPlaceHolder')}
+          aria-label={msg('client.admin.navigation.searchBoxPlaceHolder')}
         />
-        <StyledNavButton
-          active={activeMenuTab === tabs.MODULES}
-          onClick={() => setActiveMenuTab(tabs.MODULES)}
-          label={msg('client.admin.navigation.modules')}
-        />
-        <StyledNavButton
-          active={activeMenuTab === tabs.SETTINGS}
-          onClick={() => setActiveMenuTab(tabs.SETTINGS)}
-          label={msg('client.admin.navigation.settings')}
-        />
-      </>}
-      {visibleMenus === 'additional'
-      && <>
-        <StyledNavSwitchButton
-          active={false}
-          onClick={() => setVisibleMenus('main')}
-          icon={'chevron-left'}
-          narrow={true}
-        />
-        <StyledNavButton
-          active={activeMenuTab === tabs.SYSTEM}
-          onClick={() => setActiveMenuTab(tabs.SYSTEM)}
-          label={msg('client.admin.navigation.system')}
-        />
-        <StyledNavButton
-          active={activeMenuTab === tabs.COMPLETE}
-          onClick={() => setActiveMenuTab(tabs.COMPLETE)}
-          label={msg('client.admin.navigation.complete')}
-        />
-      </>}
-    </StyledTabsContainer>
-    <StyledSearchBoxWrapper>
-      <SearchBox
-        minInputLength={2}
-        onSearch={setFilter}
-        ref={inputEl}
-        placeholder={msg('client.admin.navigation.searchBoxPlaceHolder')}
-        aria-label={msg('client.admin.navigation.searchBoxPlaceHolder')}
-      />
-    </StyledSearchBoxWrapper>
-    {activeMenuTab === tabs.MODULES
-    && <StyledMenuWrapper>
-      <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={map}/>
-    </StyledMenuWrapper>}
-    {activeMenuTab === tabs.SETTINGS
-    && <StyledMenuWrapper>
-      <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={map}/>
-    </StyledMenuWrapper>}
-    {activeMenuTab === tabs.SYSTEM
-    && <StyledMenuWrapper>
-      <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={map}/>
-    </StyledMenuWrapper>}
-    {activeMenuTab === tabs.COMPLETE
-    && <StyledMenuWrapper>
-      <MenuTree items={completeMenuTree} searchFilter={filter} typeMapping={map} requireSearch={true}/>
-    </StyledMenuWrapper>}
-  </StyledNav>
+      </StyledSearchBoxWrapper>
+      {activeMenuTab === tabs.MODULES
+      && <StyledMenuWrapper>
+        <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={map}/>
+      </StyledMenuWrapper>}
+      {activeMenuTab === tabs.SETTINGS
+      && <StyledMenuWrapper>
+        <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={map}/>
+      </StyledMenuWrapper>}
+      {activeMenuTab === tabs.SYSTEM
+      && <StyledMenuWrapper>
+        <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={map}/>
+      </StyledMenuWrapper>}
+      {activeMenuTab === tabs.COMPLETE
+      && <StyledMenuWrapper>
+        <MenuTree items={completeMenuTree} searchFilter={filter} typeMapping={map} requireSearch={true}/>
+      </StyledMenuWrapper>}
+    </StyledNav>
+  )
 }
 
 Navigation.propTypes = {
