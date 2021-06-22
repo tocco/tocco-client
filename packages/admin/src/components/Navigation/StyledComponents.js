@@ -71,6 +71,7 @@ export const StyledNavSwitchButton = styled(Button)`
 
   &:hover {
     background-color: transparent;
+    color: ${secondaryLight};
   }
 `
 
