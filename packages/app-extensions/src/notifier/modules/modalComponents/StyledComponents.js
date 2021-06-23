@@ -42,11 +42,20 @@ export const StyledCloseButton = styled.button`
   }
 `
 
+export const StyledModalHolder = styled.div`
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 4; // higher than StyledHeader
+`
+
 export const StyledModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
-  z-index: 99; // lower than ExtJS modals and mask (must be able to open legacy ExtJS modals on top of our modals)
+  z-index: 1; // lower than ExtJS modals and mask (must be able to open legacy ExtJS modals on top of our modals)
 `
 
 export const StyledPageOverlay = styled.div`
@@ -56,7 +65,6 @@ export const StyledPageOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 4; // higher than header components
 `
 
 export const StyledModalButton = styled(Button)`
