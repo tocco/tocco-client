@@ -1,11 +1,12 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import propTypes from 'prop-types'
 
 import ModalContent from './ModalContent'
-import {StyledPageOverlay} from './StyledComponents'
+import {StyledPageOverlay, StyledModalHolder} from './StyledComponents'
 
 const ModalDisplay = ({modals, close}) => (
-  <>
+  modals.length > 0 && ReactDOM.createPortal(<StyledModalHolder>
     {modals.map((modal, idx) =>
       <ModalContent
         key={idx}
@@ -17,8 +18,8 @@ const ModalDisplay = ({modals, close}) => (
         closable={modal.closable}
       />
     )}
-    {modals.length > 0 && <StyledPageOverlay/>}
-  </>
+    <StyledPageOverlay/>
+  </StyledModalHolder>, document.body)
 )
 
 ModalDisplay.propTypes = {
