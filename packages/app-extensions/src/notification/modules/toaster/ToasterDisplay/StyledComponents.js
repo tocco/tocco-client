@@ -79,7 +79,7 @@ export const StyledToasterBox = styled.div`
   position: absolute;
   height: 100%;
   width: 310px;
-  margin-top: 40px; // height of Header to prevent coverage
+  top: 40px; // height of Header to prevent coverage
   right: 10px;
-  z-index: 1001;
+  z-index: 3; // lower than StyledModalHolder
 `
