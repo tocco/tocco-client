@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 import Toaster from './Toaster'
@@ -10,7 +11,7 @@ const ToasterDisplay = ({toasters, removeToaster, navigationStrategy}) => {
     .sort((n1, n2) => new Date(n1.timestamp) - new Date(n2.timestamp))
 
   return <>
-    {toasters && <StyledToasterBox>
+    {toasters && ReactDOM.createPortal(<StyledToasterBox>
       {toastersSorted.map(toaster => {
         return <Toaster
           key={`toaster-${toaster.key}`}
@@ -21,7 +22,7 @@ const ToasterDisplay = ({toasters, removeToaster, navigationStrategy}) => {
           navigationStrategy={navigationStrategy}
         />
       })}
-    </StyledToasterBox>}
+    </StyledToasterBox>, document.body)}
   </>
 }
 
