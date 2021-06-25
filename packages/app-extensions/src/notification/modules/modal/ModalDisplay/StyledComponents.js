@@ -2,6 +2,7 @@ import styled, {createGlobalStyle} from 'styled-components'
 import {
   Button,
   scale,
+  StyledScrollbar,
   StyledTether,
   theme
 } from 'tocco-ui'
@@ -19,7 +20,7 @@ export const StyledModalContent = styled.div`
   margin: auto;
   top: 10%;
   display: grid;
-  grid-template-rows: [title] auto [message] 1fr;
+  grid-template-rows: [header] auto [body] 1fr;
 `
 
 export const StyledCloseButton = styled.button`
@@ -59,8 +60,19 @@ export const StyledModalWrapper = styled.div`
   z-index: 1; // lower than ExtJS modals and mask (must be able to open legacy ExtJS modals on top of our modals)
 `
 
+export const StyledModalHeader = styled.div`
+  grid-row-start: header;
+`
+
 export const StyledTitleWrapper = styled.div`
   padding-bottom: ${scale.space(0.5)};
+`
+
+export const StyledModalBody = styled.div`
+  grid-row-start: body;
+  overflow: hidden auto;
+  padding-right: ${scale.space(0)};
+  ${StyledScrollbar}
 `
 
 export const StyledPageOverlay = styled.div`
@@ -88,7 +100,7 @@ export const StyledModalButtonWrapper = styled.div`
 export const GlobalTetherStyle = createGlobalStyle`
   ${StyledTether} {
     && {
-      z-index: 99999; // higher than StyledModalWrapper
+      z-index: 5; // higher than StyledModalHolder
     }
   }
 `
