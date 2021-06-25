@@ -33,11 +33,11 @@ export const ManyRelationsCheckBox = React.memo(({
       <input type="checkbox" onChange={onChange} checked={isSelected} id={`${name}${entityKey}`}/>
       <Typography.Label for={`${name}${entityKey}`}>
         <FormattedMessage id="client.merge.allRelations"/> <ManyRelationEntityCount
-          model={entityData.value.relationEntity}
-          keys={entityData.value.keys}
-          totalKeys={entityData.value.totalKeys}
-          navigationStrategy={navigationStrategy}
-        />
+        model={entityData.value.relationEntity}
+        keys={entityData.value.keys}
+        totalKeys={entityData.value.totalKeys}
+        navigationStrategy={navigationStrategy}
+      />
       </Typography.Label>
     </StyledLabelWrapper>
   )
@@ -87,24 +87,22 @@ export const RelationsCheckBoxes = React.memo(({
   return <>
     {
       entityData.value.length > 0 && <StyledLabelWrapper>
-          <MultiCheckbox value={allRowsSelectionState} onChange={allRowsSelectionChange} id={`${name}${entityKey}`}/>
-          <Typography.Label for={`${name}${entityKey}`}>
-            <Typography.B>
-              <FormattedMessage id="client.merge.allRelations"/>
-            </Typography.B>
-          </Typography.Label>
-        </StyledLabelWrapper>
+        <MultiCheckbox value={allRowsSelectionState} onChange={allRowsSelectionChange} id={`${name}${entityKey}`}/>
+        <Typography.Label for={`${name}${entityKey}`}>
+          <FormattedMessage id="client.merge.allRelations"/>
+        </Typography.Label>
+      </StyledLabelWrapper>
     }
     {
       entityData.value.map(relationEntity => <StyledLabelWrapper key={`relation-checkbox-${relationEntity.key}`}>
-            <input type="checkbox"
-                   onChange={e => setSelected(relationEntity.key, e.target.checked)}
-                   checked={isSelected(relationEntity.key)}
-                   id={`${name}${entityKey}-${relationEntity.key}`}/>
-            <Typography.Label for={`${name}${entityKey}-${relationEntity.key}`}>
-              <FormattedValue type="single-select" value={relationEntity}/>
-            </Typography.Label>
-          </StyledLabelWrapper>)
+        <input type="checkbox"
+               onChange={e => setSelected(relationEntity.key, e.target.checked)}
+               checked={isSelected(relationEntity.key)}
+               id={`${name}${entityKey}-${relationEntity.key}`}/>
+        <Typography.Label for={`${name}${entityKey}-${relationEntity.key}`}>
+          <FormattedValue type="single-select" value={relationEntity}/>
+        </Typography.Label>
+      </StyledLabelWrapper>)
     }
   </>
 }, areEqual)
