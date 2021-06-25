@@ -7,7 +7,6 @@ import {
   StyledCheckbox,
   StyledUl,
   StyledButtonWrapper,
-  StyledColumnPickerWrapper,
   StyledId,
   StyledItem
 } from './StyledColumnPicker'
@@ -41,24 +40,31 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl}) => {
         id={column.id}
         checked={!column.hidden}
         onChange={value => setColumns(columns
-          .map(c => c.id === column.id ? ({...c, hidden: !value.target.checked}) : c))}
+          .map(c => c.id === column.id
+            ? ({
+                ...c,
+                hidden: !value.target.checked
+              })
+            : c))}
       />
       <Typography.Label for={column.id}>
         {column.label || <StyledId>{column.id}</StyledId>}
       </Typography.Label>
     </StyledItem>), [searchTerm, columns, dndState])
 
-  return <StyledColumnPickerWrapper>
-    <SearchBox
-      placeholder={intl.formatMessage({id: 'client.entity-list.preferences.columns.search'})}
-      onSearch={setSearchTerm}/>
-    <StyledUl>{items}</StyledUl>
-    <StyledButtonWrapper>
-      <Button onClick={() => onOk(columns)} look={'raised'}>
-        {intl.formatMessage({id: 'client.entity-list.preferences.columns.okButton'})}
-      </Button>
-    </StyledButtonWrapper>
-  </StyledColumnPickerWrapper>
+  return (
+    <div>
+      <SearchBox
+        placeholder={intl.formatMessage({id: 'client.entity-list.preferences.columns.search'})}
+        onSearch={setSearchTerm}/>
+      <StyledUl>{items}</StyledUl>
+      <StyledButtonWrapper>
+        <Button onClick={() => onOk(columns)} look={'raised'}>
+          {intl.formatMessage({id: 'client.entity-list.preferences.columns.okButton'})}
+        </Button>
+      </StyledButtonWrapper>
+    </div>
+  )
 }
 
 ColumnPicker.propTypes = {
