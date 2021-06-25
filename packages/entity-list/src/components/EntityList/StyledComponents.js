@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {scale, StyledScrollbar} from 'tocco-ui'
 
 export const TopPositioning = styled.div`
   height: 100%;
@@ -35,6 +36,14 @@ export const LeftPositioning = styled.div`
 
 export const SearchGrid = styled.div`
   grid-area: search;
+  overflow-y: auto;
+
+  /* Limit height when positioned top */
+  ${/* sc-selector */TopPositioning} & {
+    max-height: 200px;
+    padding-right: ${scale.space(-0.5)};
+    ${StyledScrollbar}
+  }
 `
 
 export const ListGrid = styled.div`

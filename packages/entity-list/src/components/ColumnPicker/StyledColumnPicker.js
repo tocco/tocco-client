@@ -2,11 +2,6 @@ import styled from 'styled-components'
 import {scale, theme, StyledButton} from 'tocco-ui'
 import {StyledLabel, StyledLi} from 'tocco-ui/src/Typography'
 
-export const StyledColumnPickerWrapper = styled.div`
-  display: grid;
-  grid-template-columns: minmax(100%, 700px);
-`
-
 export const StyledUl = styled.ul`
   list-style-type: none;
   margin-top: ${scale.space(-0.5)} !important; // Nice2 Reset
