@@ -174,7 +174,7 @@ export function* initMultiRelations(model, key) {
 }
 
 export function* loadRelationInfos(model, key) {
-  const resource = `/client/entities/${model}/${key}/relations`
+  const resource = `client/entities/${model}/${key}/relations`
   const relationInfoResponse = yield call(rest.requestSaga, resource)
   const relationsInfo = relationInfoResponse.body.relations
   yield put(actions.setRelationsInfo(relationsInfo))
