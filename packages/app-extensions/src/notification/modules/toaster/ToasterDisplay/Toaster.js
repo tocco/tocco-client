@@ -9,6 +9,7 @@ import {
   StyledToaster,
   StyledCloseButton,
   StyledIconTitleWrapper,
+  StyledTitleWrapper,
   StyledIconWrapper,
   StyledContentWrapper
 } from './StyledComponents'
@@ -33,22 +34,25 @@ const Toaster = ({toaster, closeToaster, navigationStrategy}) => {
       }}/>
       <StyledIconTitleWrapper>
         {toaster.icon
-          && <StyledIconWrapper>
-            <Icon icon={toaster.icon}/>
-          </StyledIconWrapper>
+        && <StyledIconWrapper>
+          <Icon icon={toaster.icon}/>
+        </StyledIconWrapper>
         }
-        {toaster.title && <Typography.H1><Content>{toaster.title}</Content></Typography.H1>}
+        {toaster.title && <Typography.H1>
+          <Content><StyledTitleWrapper>{toaster.title}</StyledTitleWrapper></Content>
+        </Typography.H1>
+        }
       </StyledIconTitleWrapper>
       {toaster.body
-        && <StyledContentWrapper>
-          <Content>
+      && <StyledContentWrapper>
+        <Content>
           {
             typeof toaster.body === 'function'
               ? <toaster.body navigationStrategy={navigationStrategy}/>
               : toaster.body
           }
-          </Content>
-        </StyledContentWrapper>
+        </Content>
+      </StyledContentWrapper>
       }
     </StyledToaster>
   )

@@ -14,7 +14,7 @@ export const iconMap = {
   [TYPES.neutral]: null,
   [TYPES.error]: 'times-circle',
   [TYPES.warning]: 'exclamation-circle',
-  [TYPES.success]: 'check-circle-light',
+  [TYPES.success]: 'check-circle',
   [TYPES.info]: 'info-circle'
 }
 
