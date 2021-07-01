@@ -24,7 +24,7 @@ const colorMapper = (type, theme) => colorMap[type]
 
 export const StyledToaster = styled.div`
   background-color: ${({type, theme}) => colorMapper(type, theme)};
-  margin-top: ${scale.space(-0.5)};
+  margin-bottom: ${scale.space(-0.5)};
   padding: ${scale.space(-0.5)};
 
   * {
@@ -37,7 +37,7 @@ export const StyledToaster = styled.div`
 
 export const StyledCloseButton = styled(Ball)`
   padding: 0;
-  font-size: ${scale.font(1.5)};
+  font-size: ${scale.font(3)};
   color: ${theme.color('backgroundBody')};
   float: right;
   opacity: .9;
@@ -56,20 +56,28 @@ export const StyledCloseButton = styled(Ball)`
 
 export const StyledIconTitleWrapper = styled.div`
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  padding-right: ${scale.space(0)};
 
   ${StyledH1} {
     margin-top: 0;
   }
 `
 
+export const StyledTitleWrapper = styled.span`
+  font-size: ${scale.font(1.5)};
+  font-weight: ${theme.fontWeight('regular')};
+  position: relative;
+  bottom: 2px;
+`
+
 export const StyledIconWrapper = styled.div`
   font-size: ${scale.font(7)};
-  padding-right: ${scale.space(-0.5)};
+  padding-right: ${scale.space(-1.5)};
 `
 
 export const StyledContentWrapper = styled.div`
-  padding-top: ${scale.space(-0.5)};
+  padding-top: ${scale.space(-1)};
   color: ${theme.color('paper')};
 `
 
