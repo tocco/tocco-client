@@ -1,3 +1,9 @@
+0.3.15
+- Align modal globally at same position
+- Fix modal overflow
+- Harmonize toaster styling
+- Fix blocking info being covered by header
+
 0.3.14
 - Style new notification boxes
 - Style notification center
