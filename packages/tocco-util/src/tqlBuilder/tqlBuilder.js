@@ -24,7 +24,7 @@ export const getTql = (path, value, fieldType) => {
 const handleRangeValue = (value, typeHandler, path) => (
   [
     ...(isDefined(value.from) ? [typeHandler(path, value.from, '>=')] : []),
-    ...(isDefined(value.to) ? [typeHandler(path, value.to, '<=')] : [])
+    ...(isDefined(value.to) ? [typeHandler(path, value.to, value.exclusive ? '<' : '<=')] : [])
   ].join(' and ')
 )
 
@@ -39,7 +39,8 @@ const rangeMappings = type => {
           return {
             from: value,
             to: momentValue.add(1, 'd'),
-            isRangeValue: true
+            isRangeValue: true,
+            exclusive: true
           }
         } else {
           return value
