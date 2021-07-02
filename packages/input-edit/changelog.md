@@ -1,3 +1,6 @@
+0.3.12-hotfix229.3
+- Adjust height and width of input edit table
+
 0.3.12-hotfix229.2
 - Displayexpression call adjustment
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
