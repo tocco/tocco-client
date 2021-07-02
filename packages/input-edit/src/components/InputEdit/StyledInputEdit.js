@@ -7,7 +7,6 @@ export const StyledPaneWrapper = styled.div`
 `
 
 const sharedSplitPaneStyles = css`
-  height: calc(100% - ${scale.space(-1)}); //remove top padding from total height
   background-color: ${theme.color('paper')};
   padding-top: ${scale.space(-1)};
   ${StyledScrollbar}
@@ -24,7 +23,7 @@ export const StyledPanelWrapperLeft = styled.div`
 
 export const StyledPanelWrapperRight = styled.div`
   && {
-    width: calc(84% - 1rem);
+    width: 100%;
     display: flex;
     flex-direction: column;
     ${sharedSplitPaneStyles}
