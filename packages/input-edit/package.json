@@ -1,6 +1,6 @@
 {
   "name": "tocco-input-edit",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "action to input grades, points and other ratings",
   "main": "dist/index.js",
   "scripts": {
