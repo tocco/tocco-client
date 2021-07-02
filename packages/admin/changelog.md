@@ -1,3 +1,11 @@
+0.5.3
+- Add hover effect to nav switch button
+- Align modal globally at same position
+- Fix modal overflow
+- Style merge errors
+- Harmonize toaster styling
+- Fix blocking info being covered by header
+
 0.5.2
 - Refactor column picker
 - Move useDnD
