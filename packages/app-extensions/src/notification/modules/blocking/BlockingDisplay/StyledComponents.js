@@ -8,7 +8,7 @@ export const StyledPageOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1001;
+  z-index: 4; // higher than StyledHeader
 `
 
 export const StyledBlockingDisplay = styled.div`
@@ -24,4 +24,10 @@ export const StyledBlockingDisplay = styled.div`
   * {
     color: ${theme.color('paper')};
   }
+`
+
+export const StyledTitleWrapper = styled.span`
+  color: ${theme.color('paper')};
+  font-size: ${scale.font(1.5)};
+  font-weight: ${theme.fontWeight('regular')};
 `
