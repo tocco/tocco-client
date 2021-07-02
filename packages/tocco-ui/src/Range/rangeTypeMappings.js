@@ -1,6 +1,7 @@
 import moment from 'moment'
 
 const datetimeFormat = 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
+const dateFormat = 'YYYY-MM-DD'
 
 const rangeTypeMappings = {
   datetime: {
@@ -9,6 +10,15 @@ const rangeTypeMappings = {
       const fromValue = value ? moment(value).utc().format(datetimeFormat) : null
       const toValue = value ? moment(value).utc().add(1, 'd').format(datetimeFormat) : null
       return {from: fromValue, to: toValue, isRangeValue: true}
+    },
+    fromRange: value => {
+      if (value && value.from) {
+        return moment(value.from, datetimeFormat).format(dateFormat)
+      }
+      if (value && value.to) {
+        return moment(value.to, datetimeFormat).format(dateFormat)
+      }
+      return null
     },
     getToOptions: (options, fromValue) => ({...options, flatpickrOptions: {minDate: fromValue}}),
     getFromOptions: (options, toValue) => ({...options, flatpickrOptions: {maxDate: toValue}})

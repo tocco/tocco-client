@@ -18,6 +18,33 @@ describe('tocco-ui', () => {
       expect(moment(result.from).add(1, 'd').isSame(result.to)).to.be.true
     })
 
+    test('should convert datetime range to single from date value', () => {
+      const rangeValue = {
+        from: '2020-09-24T12:23:34.456Z',
+        to: '2020-09-25T12:23:34.456Z'
+      }
+      const result = rangeTypeMappings.datetime.fromRange(rangeValue)
+      expect(result).to.eq('2020-09-24')
+    })
+
+    test('should convert datetime range to single to date value', () => {
+      const rangeValue = {
+        from: null,
+        to: '2020-09-25T12:23:34.456Z'
+      }
+      const result = rangeTypeMappings.datetime.fromRange(rangeValue)
+      expect(result).to.eq('2020-09-25')
+    })
+
+    test('should convert datetime range to null value', () => {
+      const rangeValue = {
+        from: null,
+        to: null
+      }
+      const result = rangeTypeMappings.datetime.fromRange(rangeValue)
+      expect(result).to.be.null
+    })
+
     test('should set to datetime limitation', () => {
       const dateValue = '2020-09-24'
       const result = rangeTypeMappings.datetime.getToOptions({testValue: 'test'}, dateValue)
