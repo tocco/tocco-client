@@ -59,7 +59,10 @@ const Range = props => {
       ? typeMapping.getFromOptions(options, toValue)
       : options
 
-  const getFromOrTo = value => value && value.from ? value.from : value && value.to ? value.to : null
+  const getFromOrTo = value =>
+    typeMapping && typeMapping.fromRange
+      ? typeMapping.fromRange(value)
+      : value && value.from ? value.from : value && value.to ? value.to : null
 
   const getRangeValue = value =>
     typeMapping && typeMapping.toRange
