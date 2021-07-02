@@ -179,7 +179,7 @@ describe('entity-list', () => {
             const expectedFrom = moment(value).utc().format('YYYY-MM-DD HH:mm')
             const expectedTo = moment(value).utc().add(1, 'd').format('YYYY-MM-DD HH:mm')
 
-            const expected = `date_from >= datetime:"${expectedFrom}" and date_from <= datetime:"${expectedTo}"`
+            const expected = `date_from >= datetime:"${expectedFrom}" and date_from < datetime:"${expectedTo}"`
             expect(tql).to.eql(expected)
           })
 
