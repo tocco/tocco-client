@@ -137,7 +137,10 @@ const Navigation = ({
         && <>
           <StyledNavSwitchButton
             active={false}
-            onClick={() => setVisibleMenus('additional')}
+            onClick={() => {
+              setVisibleMenus('additional')
+              setActiveMenuTab(tabs.COMPLETE)
+            }}
             icon={'chevron-right'}
             narrow={true}
           />
@@ -156,7 +159,10 @@ const Navigation = ({
         && <>
           <StyledNavSwitchButton
             active={false}
-            onClick={() => setVisibleMenus('main')}
+            onClick={() => {
+              setVisibleMenus('main')
+              setActiveMenuTab(tabs.MODULES)
+            }}
             icon={'chevron-left'}
             narrow={true}
           />
