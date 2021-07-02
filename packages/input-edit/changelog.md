@@ -1,3 +1,6 @@
+0.3.10-hotfix228.3
+- Adjust height and width of input edit table
+
 0.3.10-hotfix228.2
 
 
