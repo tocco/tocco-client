@@ -1,3 +1,6 @@
+0.3.16
+- Adjust height and width of input edit table
+
 0.3.15
 - Align modal globally at same position
 - Fix modal overflow
