@@ -27,7 +27,7 @@ fi
 
 if [[ -z "${changelog}" && $auto = true ]]; then
 	echo "${color_red}Skip package ${package} because changelog is empty. ${color_reset}"
-	exit 0
+  return
 fi
 
 echo "---------------------"
