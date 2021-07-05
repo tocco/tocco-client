@@ -1,3 +1,22 @@
+0.4.9
+- Style new notification boxes
+- Style notification center
+- Improve input field UX by better highlighting fields and labels
+- Adapt input font-sizes for better readability
+- Fix broken modal layout
+- Fix date-time search
+- Fix overlay of modal in widget mode
+- Fix popper menu on safari browsers
+- Fix notification socket url
+- move useDnD
+- Make select dropdown menu style more uniform for a more consistent UI
+- Harmonize select box size und colors
+- Align modal globally at same position
+- Fix modal overflow
+- Style merge errors
+- Harmonize toaster styling
+- Fix blocking info being covered by header
+
 0.4.8
 - show client questions for merge action
 
