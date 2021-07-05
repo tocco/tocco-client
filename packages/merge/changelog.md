@@ -1,3 +1,8 @@
+0.4.6-hotfix229.3
+- Fix overlay of modal in widget mode
+- Fix popper menu on safari browsers
+- Align modal globally at same position
+
 0.4.6-hotfix229.2
 - disable client questions for merge action
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
