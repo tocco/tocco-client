@@ -1,3 +1,10 @@
+0.10.29
+- Align modal globally at same position
+- Fix modal overflow
+- Harmonize toaster styling
+- Fix blocking info being covered by header
+- Adjust height and width of input edit table
+
 0.10.28
 - Style new notification boxes
 - Style notification center
