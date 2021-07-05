@@ -25,8 +25,8 @@ const resultTypes = {
 const isTaskRunning = taskProgress =>
   taskProgress.status
     && (taskProgress.status === taskProgressStatus.pending
-        || taskProgress.status === taskProgressStatus.running_absolute
-        || taskProgress.status === taskProgressStatus.running_infinite)
+      || taskProgress.status === taskProgressStatus.running_absolute
+      || taskProgress.status === taskProgressStatus.running_infinite)
 
 export function* notificationTransform(notification) {
   const transformed = {
@@ -43,16 +43,24 @@ export function* notificationTransform(notification) {
   }
 
   if (transformed.result && transformed.result.type === resultTypes.outputjob) {
-    const outputJobKey = transformed.result.content[0].key
-    const outputJob = yield call(rest.fetchEntity, 'Output_job', outputJobKey, {paths: ['document']})
-    const {fileName, binaryLink} = outputJob.paths.document.value
-    transformed.result = {
-      ...transformed.result,
-      file: {
+    let file = null
+    try {
+      const outputJobKey = transformed.result.content[0].key
+      const outputJob = yield call(rest.fetchEntity, 'Output_job', outputJobKey, {paths: ['document']})
+      const {fileName, binaryLink} = outputJob.paths.document.value
+
+      file = {
         name: fileName,
         link: binaryLink,
         description: transformed.result.content[0].display
       }
+    } catch (e) {
+      // Unable to fetch output job. This usually means it is already deleted. No actions required.
+    }
+
+    transformed.result = {
+      ...transformed.result,
+      file
     }
   }
 
