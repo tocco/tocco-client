@@ -16,4 +16,5 @@ for package in "${releasePackages[@]}"
 do
 	echo "Start releasing package $package"
 	source ./scripts/release-package.sh $package --auto
+	cd ../../
 done
