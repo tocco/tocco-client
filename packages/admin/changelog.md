@@ -1,4 +1,4 @@
-0.4.37-hotfix229.12
+0.4.37-hotfix229.13
 - Adjust height and width of input edit table
 - Align modal globally at same position
 
