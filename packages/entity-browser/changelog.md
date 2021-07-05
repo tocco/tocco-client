@@ -1,3 +1,6 @@
+0.10.19-hotfix228.6
+- Adjust height and width of input edit table
+
 0.10.19-hotfix228.5
 - hide list navigation arrow if row is not clickable
 - Reset label spacing inside column picker for old client
