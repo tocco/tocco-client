@@ -1,3 +1,7 @@
+0.4.37-hotfix229.12
+- Adjust height and width of input edit table
+- Align modal globally at same position
+
 0.4.37-hotfix229.11
 - Fix popper menu on safari browsers
 
