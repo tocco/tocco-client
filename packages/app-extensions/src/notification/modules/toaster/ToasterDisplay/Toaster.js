@@ -39,7 +39,7 @@ const Toaster = ({toaster, closeToaster, navigationStrategy}) => {
         </StyledIconWrapper>
         }
         {toaster.title && <Typography.H1>
-          <Content><StyledTitleWrapper>{toaster.title}</StyledTitleWrapper></Content>
+          <StyledTitleWrapper><Content>{toaster.title}</Content></StyledTitleWrapper>
         </Typography.H1>
         }
       </StyledIconTitleWrapper>
