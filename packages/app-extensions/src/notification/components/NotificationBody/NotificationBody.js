@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {LoadingSpinner, Icon} from 'tocco-ui'
 import {download} from 'tocco-util'
+import {FormattedMessage} from 'react-intl'
 
 import {notificationPropType} from '../../types'
 import {
@@ -16,21 +17,25 @@ import {
 
 const Result = ({notification: {result}, navigationStrategy}) => {
   if (result.type === 'OUTPUTJOB') {
-    return (
-      <StyledOutputJobWrapper>
-        {download.downloadSupportedByBrowser()
-        && <a
-          href={download.addParameterToURL(result.file.link, 'download', true)}
-          download={result.file.name}
-          title="download">
-          <Icon icon="download"/>
-        </a>
-        }
-        <a href={result.file.link} target="_blank " title="open">
-          <Icon icon="file"/>
-        </a>
-        {result.file.description}
-      </StyledOutputJobWrapper>)
+    if (result.file) {
+      return (
+        <StyledOutputJobWrapper>
+          {download.downloadSupportedByBrowser()
+            && <a
+              href={download.addParameterToURL(result.file.link, 'download', true)}
+              download={result.file.name}
+              title="download">
+              <Icon icon="download"/>
+            </a>
+          }
+          <a href={result.file.link} target="_blank " title="open">
+            <Icon icon="file"/>
+          </a>
+          {result.file.description}
+        </StyledOutputJobWrapper>)
+    } else {
+      return <FormattedMessage id="client.common.notification.outputJobNotFound"/>
+    }
   }
 
   if (result.type === 'ENTITIES') {
