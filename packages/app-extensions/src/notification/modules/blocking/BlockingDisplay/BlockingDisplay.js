@@ -18,7 +18,7 @@ const BlockingDisplay = ({blockers}) => {
       <StyledPageOverlay>
         <StyledBlockingDisplay>
           {firstBlocker.title && <Typography.H1>
-            <Content><StyledTitleWrapper>{firstBlocker.title}</StyledTitleWrapper></Content>
+            <StyledTitleWrapper><Content>{firstBlocker.title}</Content></StyledTitleWrapper>
           </Typography.H1>
           }
           {firstBlocker.body && <Typography.Span><Content>{firstBlocker.body}</Content></Typography.Span>}
