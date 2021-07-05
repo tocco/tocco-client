@@ -1,3 +1,8 @@
+0.5.4
+- Adjust height and width of input edit table
+- Fix datetime search 
+- Fix Menu
+
 0.5.3
 - Add hover effect to nav switch button
 - Align modal globally at same position
