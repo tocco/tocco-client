@@ -274,6 +274,13 @@
       "favorite"
     ]
   },
+  "star-full": {
+    "id": "fas, star",
+    "lib": "fa",
+    "tags": [
+      "favorite"
+    ]
+  },
   "sync": {
     "id": "fal, sync",
     "lib": "fa",
