@@ -32,7 +32,7 @@ describe('entity-detail', () => {
                   _paths: 'f1,f2'
                 },
                 acceptedErrorCodes: ['VALIDATION_FAILED'],
-                acceptedStatusCodes: [409]
+                acceptedStatusCodes: [404, 409]
               }
             ))
 

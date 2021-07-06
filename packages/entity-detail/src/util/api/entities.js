@@ -10,7 +10,7 @@ export function* updateEntity(entity, paths = []) {
     },
     body: entity,
     acceptedErrorCodes: ['VALIDATION_FAILED'],
-    acceptedStatusCodes: [409]
+    acceptedStatusCodes: [404, 409]
   }
   const resource = `entities/2.0/${entity.model}/${entity.key}`
   const resp = yield call(rest.requestSaga, resource, options)
