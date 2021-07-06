@@ -30,6 +30,6 @@ do
         git tag -f $tag_name $commit
 
         echo "Push tag '$tag_name'"
-        git push --set-upstream https://github.com/tocco/tocco-client.git $tag_name
+        git push --set-upstream git@github.com/tocco/tocco-client.git $tag_name
     fi
 done
