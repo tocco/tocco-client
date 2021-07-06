@@ -31,6 +31,23 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
     })
   }
 
+  const handleEntityDeleted = () => {
+    const remoteEvents = [{
+      type: 'entity-delete-event',
+      payload: {
+        entities: [{
+          entityName: 'Docs_list_item',
+          key: selection.ids[0]
+        }]
+      }
+    }]
+
+    onSuccess({
+      message: null,
+      remoteEvents
+    })
+  }
+
   const formName = getDetailFormName(context, entityName)
 
   return <EntityDetailApp
@@ -39,6 +56,7 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
     entityId={entityKey}
     mode="update"
     onEntityUpdated={handleEntityUpdated}
+    onEntityDeleted={handleEntityDeleted}
     emitAction={emitAction}
   />
 }
