@@ -1,3 +1,6 @@
+0.5.6
+
+
 0.5.5
 - Adjust height and width of input edit table
 - Fix notifications for already deleted outputjobs
