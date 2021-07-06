@@ -72,7 +72,8 @@ export default (history, match) => {
   }
 
   const openDetail = (entityName, key) => {
-    window.open(`/e/${entityName}/${key}`, '_blank')
+    const url = history.createHref({pathname: `/e/${entityName}/${key}`})
+    window.open(url, '_blank')
   }
 
   return {
