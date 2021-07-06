@@ -1,3 +1,7 @@
+0.5.5
+- Adjust height and width of input edit table
+- Fix notifications for already deleted outputjobs
+
 0.5.4
 - Adjust height and width of input edit table
 - Fix datetime search 
