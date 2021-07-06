@@ -1,4 +1,4 @@
-import React, {useState, useRef, useLayoutEffect} from 'react'
+import React, {useMemo, useState, useRef, useLayoutEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Typography} from 'tocco-ui'
 
@@ -36,6 +36,8 @@ const ModalContent = ({
     }
   }, [ref])
 
+  const ComponentMemo = useMemo(() => <Component close={handleCloseClick}/>, [])
+
   return (
     <>
       <GlobalTetherStyle/>
@@ -53,7 +55,7 @@ const ModalContent = ({
           </StyledModalHeader>
           <StyledModalBody>
             {message && <Typography.Span><Content>{message}</Content></Typography.Span>}
-            <Component close={handleCloseClick}/>
+            {ComponentMemo}
           </StyledModalBody>
         </StyledModalContent>
       </StyledModalWrapper>
