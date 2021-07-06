@@ -120,13 +120,18 @@ export function* loadDetailView() {
 }
 
 export function* updateFormSubmit(entity) {
-  yield call(updateEntity, entity)
-  yield call(loadData)
+  const updateResponse = yield call(updateEntity, entity)
+  if (updateResponse.status === 404) {
+    // record was most likely moved to another business unit
+    yield put(externalEvents.fireExternalEvent('onEntityDeleted'))
+  } else {
+    yield call(loadData)
 
-  yield put(externalEvents.fireExternalEvent('onEntityUpdated'))
-  yield call(showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
-  yield put(actions.setLastSave())
-  yield put(formActions.stopSubmit(FORM_ID))
+    yield put(externalEvents.fireExternalEvent('onEntityUpdated'))
+    yield call(showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
+    yield put(actions.setLastSave())
+    yield put(formActions.stopSubmit(FORM_ID))
+  }
 }
 
 export function* createFormSubmit(entity) {

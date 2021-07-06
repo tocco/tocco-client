@@ -176,9 +176,10 @@ describe('entity-detail', () => {
         describe('updateFormSubmit saga', () => {
           const entity = {key: '123', model: 'User', paths: {lastname: 'test'}}
           test('should call updateEntity, load data, show notification and set lastsaved', () => {
+            const updateResponse = {status: 200}
             return expectSaga(sagas.updateFormSubmit, entity)
               .provide([
-                [matchers.call.fn(updateEntity), null],
+                [matchers.call.fn(updateEntity), updateResponse],
                 [matchers.call.fn(sagas.loadData), null],
                 [matchers.call.fn(sagas.showNotification), null]
               ])
@@ -187,6 +188,19 @@ describe('entity-detail', () => {
               .call.like({fn: sagas.showNotification})
               .put.like({action: {type: formActions.stopSubmit().type}})
               .put.like({action: {type: actions.setLastSave().type}})
+              .run()
+          })
+
+          test('should call delete event on 404 response', () => {
+            const updateResponse = {status: 404}
+            return expectSaga(sagas.updateFormSubmit, entity)
+              .provide([
+                [matchers.call.fn(updateEntity), updateResponse]
+              ])
+              .call.like({fn: updateEntity})
+              .not.call.like({fn: sagas.loadData})
+
+              .put(externalEvents.fireExternalEvent('onEntityDeleted'))
               .run()
           })
         })
