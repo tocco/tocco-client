@@ -82,7 +82,7 @@ else
 fi
 
 if [ "$PUSH" = "y" ] || [ "$PUSH" = "Y" ]; then
-  git push --set-upstream https://github.com/tocco/tocco-client.git ${targetBranch}
+  git push --set-upstream git@github.com/tocco/tocco-client.git ${targetBranch}
   echo "${color_green}Commits and tags pushed to ${targetBranch}!${color_reset}"
 else
   echo "${color_red}Nothing pushed!${color_reset}"
