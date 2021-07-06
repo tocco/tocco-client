@@ -4,6 +4,7 @@ variables:
   CYPRESS_INSTALL_BINARY: "0"
 
 stages:
+  - chore
   - setup
   - quality
   - build
@@ -122,7 +123,7 @@ cypress:
     - yarn cypress:master:record --parallel
 
 tagging:
-  stage: release
+  stage: chore
   only:
     - master
     - /^nice-releases\/[0-9]+$/
