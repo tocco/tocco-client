@@ -34,7 +34,7 @@ describe('tocco-util', () => {
           input.simulate('change', {target: {value: 'Test3'}})
           input.simulate('change', {target: {value: 'Test4'}})
           resolve()
-        }, 130))
+        }, 250))
 
         await new Promise(resolve => setTimeout(() => {
           expect(onChangeSpy).to.have.been.calledThrice
@@ -42,7 +42,7 @@ describe('tocco-util', () => {
           expect(onChangeSpy).to.have.been.calledWith('Test2')
           expect(onChangeSpy).to.have.been.calledWith('Test4')
           resolve()
-        }, 130))
+        }, 250))
       })
     })
   })
