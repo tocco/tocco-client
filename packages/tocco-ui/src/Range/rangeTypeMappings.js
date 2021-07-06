@@ -13,10 +13,10 @@ const rangeTypeMappings = {
     },
     fromRange: value => {
       if (value && value.from) {
-        return moment(value.from, datetimeFormat).format(dateFormat)
+        return moment.utc(value.from, datetimeFormat).local().format(dateFormat)
       }
       if (value && value.to) {
-        return moment(value.to, datetimeFormat).format(dateFormat)
+        return moment.utc(value.to, datetimeFormat).local().format(dateFormat)
       }
       return null
     },
