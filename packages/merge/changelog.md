@@ -1,3 +1,7 @@
+0.4.10
+- Fix notifications for already deleted outputjobs
+- fix merge error summary
+
 0.4.9
 - Style new notification boxes
 - Style notification center
