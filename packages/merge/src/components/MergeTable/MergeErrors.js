@@ -25,14 +25,14 @@ const MergeErrors = ({sourceData, mergeErrorMsg, mergeValidationErrors}) => {
 
   return (
     <StyledMergeErrorWrapper>
-      <StyledSummaryErrorWrapper>
+      {(allMergerValidationErrors.length > 0 || Boolean(mergeErrorMsg)) && <StyledSummaryErrorWrapper>
         <StyledIconWrapper>
           <Icon icon="times"/>
         </StyledIconWrapper>
         <Typography.P>
           <FormattedMessage id="client.merge.summary.error"/>
         </Typography.P>
-      </StyledSummaryErrorWrapper>
+      </StyledSummaryErrorWrapper>}
       {Boolean(mergeErrorMsg) && <StyledError>{mergeErrorMsg}</StyledError>}
       {allMergerValidationErrors}
     </StyledMergeErrorWrapper>
