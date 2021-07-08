@@ -33,7 +33,8 @@ describe('entity-detail', () => {
               takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
               takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
-              takeEvery(formActionTypes.BLUR, sagas.onBlur)
+              takeEvery(formActionTypes.BLUR, sagas.onBlur),
+              takeLatest(actions.UPDATE_MARKED, sagas.updateMarked)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -367,11 +368,13 @@ describe('entity-detail', () => {
           test('should fetch the entity and call form initialize', () => {
             return expectSaga(sagas.loadData)
               .provide([
-                [select(sagas.entityDetailSelector), {}],
+                [select(sagas.entityDetailSelector), {entityModel: {markable: true}}],
+                [matchers.fork.fn(sagas.loadMarked)],
                 [matchers.call.fn(sagas.loadEntity), {paths: {}}],
                 [matchers.call.fn(sagas.enhanceEntityWithDisplays), {}],
                 [matchers.call.fn(sagas.enhanceEntityWithDisplayExpressions), {}]
               ])
+              .fork.like({fn: sagas.loadMarked})
               .call.like({fn: sagas.loadEntity})
               .call.like({fn: form.entityToFormValues})
               .put.like({action: {type: formActions.initialize().type}})
@@ -677,6 +680,30 @@ describe('entity-detail', () => {
                   [matchers.call.fn(sagas.focusField), true]
                 ])
                 .call(sagas.focusField, locationField)
+                .run()
+            })
+          })
+
+          describe('loadMarked saga', () => {
+            test('should call focus for first error field', () =>
+              expectSaga(sagas.loadMarked, 'User', '235')
+                .provide([
+                  [call(rest.fetchMarked, 'User', '235'), true]
+                ])
+                .put(actions.setMarked(true))
+                .run()
+            )
+          })
+
+          describe('updateMarked saga', () => {
+            test('should call focus for first error field', () => {
+              const action = actions.updateMarked('User', '235', true)
+              return expectSaga(sagas.updateMarked, action)
+                .provide([
+                  [call(rest.setMarked, 'User', '235', true)]
+                ])
+                .put(actions.setMarked(true))
+                .call(rest.setMarked, 'User', '235', true)
                 .run()
             })
           })

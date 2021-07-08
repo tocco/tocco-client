@@ -11,7 +11,8 @@ const EXPECTED_INITIAL_STATE = {
   mode: 'update',
   touched: false,
   defaultValues: {},
-  fieldDefinitions: []
+  fieldDefinitions: [],
+  marked: false
 }
 
 describe('entity-detail', () => {
@@ -46,6 +47,16 @@ describe('entity-detail', () => {
               touched: true
             }
             expect(reducer(stateBefore, actions.setTouched(true))).to.deep.equal(expectedStateAfter)
+          })
+        })
+
+        describe('SET_MARKED', () => {
+          test('should handle SET_MARKED', () => {
+            expect(reducer({
+              marked: false
+            }, actions.setMarked(true))).to.deep.equal({
+              marked: true
+            })
           })
         })
       })

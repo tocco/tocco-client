@@ -14,7 +14,8 @@ const ACTION_HANDLERS = {
   [actions.SET_TOUCHED]: reducerUtil.singleTransferReducer('touched'),
   [actions.SET_APP_ID]: reducerUtil.singleTransferReducer('appId'),
   [actions.SET_DEFAULT_VALUES]: reducerUtil.singleTransferReducer('defaultValues'),
-  [actions.SET_FIELD_DEFINITIONS]: reducerUtil.singleTransferReducer('fieldDefinitions')
+  [actions.SET_FIELD_DEFINITIONS]: reducerUtil.singleTransferReducer('fieldDefinitions'),
+  [actions.SET_MARKED]: reducerUtil.singleTransferReducer('marked')
 }
 
 const initialState = {
@@ -27,7 +28,8 @@ const initialState = {
   entityModel: {},
   touched: false,
   defaultValues: {},
-  fieldDefinitions: []
+  fieldDefinitions: [],
+  marked: false
 }
 
 export default function reducer(state = initialState, action) {
