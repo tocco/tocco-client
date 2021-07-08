@@ -32,6 +32,7 @@ const editableMapping = {
   'login': editableValueFactory('string'),
   'long': editableValueFactory('integer'),
   'longitude': editableValueFactory('string'),
+  'marking': editableValueFactory('boolean'),
   'moneyamount': editableValueFactory('number'),
   'multi-remote-field': editableValueFactory('multi-remote'),
   'multi-select-box': editableValueFactory('multi-select'),
