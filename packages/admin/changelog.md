@@ -1,3 +1,7 @@
+0.5.7
+- Fix merge error summary
+- Add hover effect to column picker list
+
 0.5.6
 
 
