@@ -22,7 +22,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   notification.addToStore(store, handleNotifications)
 
   const content = <>
-    {handleNotifications && <notification.Notifier/>}
+    {handleNotifications && <notification.Notifications/>}
     <Merge/>
   </>
 
