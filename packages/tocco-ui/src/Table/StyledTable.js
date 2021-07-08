@@ -80,7 +80,6 @@ export const PaginationContainer = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   border-top: 1px solid ${borderColor};
 `
 
