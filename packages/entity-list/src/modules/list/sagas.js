@@ -3,7 +3,7 @@ import _union from 'lodash/union'
 import {externalEvents, rest, remoteEvents, actionEmitter} from 'tocco-app-extensions'
 import _omit from 'lodash/omit'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take, delay} from 'redux-saga/effects'
-import {api} from 'tocco-util'
+import {api, consoleLogger} from 'tocco-util'
 
 import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
 import * as actions from './actions'
@@ -43,7 +43,9 @@ export default function* sagas() {
     takeLatest(actions.ON_ROW_CLICK, onRowClick),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, setSorting),
-    takeLatest(actions.DEFINE_SORTING, setSorting)
+    takeLatest(actions.DEFINE_SORTING, setSorting),
+    takeLatest(actions.SET_MARKED, setMarked),
+    takeLatest(actions.TOGGLE_MARKINGS, toggleMarkings)
   ])
 }
 
@@ -189,6 +191,56 @@ export function* loadRelationDisplays(relationFields, entities) {
   }
 }
 
+export function* loadMarkings(entities) {
+  const {formDefinition, entityModel} = yield select(listSelector)
+  if (entityModel.markable && formDefinition.markable && entities.length > 0) {
+    const selection = {
+      type: 'ID',
+      entityName: entityModel.name,
+      ids: entities.map(e => e.__key)
+    }
+    const result = yield call(rest.fetchMarkings, selection)
+    yield call(setLazyDataMarked, entityModel.name, result)
+  }
+}
+
+export function* setMarked({payload: {entityName, entityKey, marked}}) {
+  try {
+    yield all([
+      call(setLazyDataMarked, entityName, {
+        [entityKey]: marked
+      }),
+      call(rest.setMarked, entityName, entityKey, marked)
+    ])
+  } catch (e) {
+    consoleLogger.logError('Failed to set marked', e)
+    yield call(setLazyDataMarked, entityName, {
+      [entityKey]: !marked
+    })
+  }
+}
+
+export function* toggleMarkings({payload: {selection}}) {
+  try {
+    const oldMarkings = yield call(rest.fetchMarkings, selection)
+    const setToMarked = Object.values(oldMarkings).includes(false)
+    const newMarkings = yield call(rest.setSelectionMarked, selection, setToMarked)
+    yield call(setLazyDataMarked, selection.entityName, newMarkings)
+  } catch (e) {
+    consoleLogger.logError('Failed to toggle markings', e)
+  }
+}
+
+export function* setLazyDataMarked(entityName, markings) {
+  const {lazyData} = yield select(listSelector)
+  const currentEntityMarkings = lazyData.markings && lazyData.markings[entityName] ? lazyData.markings[entityName] : {}
+  const newEntityMarkings = {
+    ...currentEntityMarkings,
+    ...markings
+  }
+  yield put(actions.setLazyData('markings', entityName, newEntityMarkings))
+}
+
 export function* fetchEntitiesAndAddToStore(page) {
   const {entityName, formName} = yield select(entityListSelector)
   const {columns: columnPreferences} = yield select(preferencesSelector)
@@ -214,6 +266,7 @@ export function* fetchEntitiesAndAddToStore(page) {
     yield put(actions.addEntitiesToStore(page, entities))
     yield spawn(loadRelationDisplays, relationFields, entities)
     yield spawn(loadDisplayExpressions, formName, displayExpressionFields, entities)
+    yield spawn(loadMarkings, entities)
   }
 }
 

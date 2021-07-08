@@ -31,7 +31,10 @@ export const DEFINE_SORTING = 'list/DEFINE_SORTING'
 export const SET_INPUT_TQL = 'list/SET_INPUT_TQL'
 export const SET_INPUT_KEYS = 'list/SET_INPUT_KEYS'
 export const SET_INPUT_SEARCH_FILTERS = 'list/SET_INPUT_SEARCH_FILTERS'
-export const SET_INITIALIZED = 'list/SET_INITIALIZED'export const SET_SORTABLE = 'list/SET_SORTABLE'
+export const SET_INITIALIZED = 'list/SET_INITIALIZED'
+export const SET_SORTABLE = 'list/SET_SORTABLE'
+export const SET_MARKED = 'list/SET_MARKED'
+export const TOGGLE_MARKINGS = 'list/TOGGLE_MARKINGS'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -259,5 +262,21 @@ export const setSortable = sortable => ({
   type: SET_SORTABLE,
   payload: {
     sortable
+  }
+})
+
+export const setMarked = (entityName, entityKey, marked) => ({
+  type: SET_MARKED,
+  payload: {
+    entityName,
+    entityKey,
+    marked
+  }
+})
+
+export const toggleMarkings = selection => ({
+  type: TOGGLE_MARKINGS,
+  payload: {
+    selection
   }
 })
