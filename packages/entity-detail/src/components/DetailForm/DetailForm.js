@@ -67,6 +67,7 @@ const DetailForm = props => {
     onKeyDown={handleKeyPress}
     ref={formEl}
   >
+    Test
     <form.FormBuilder
       entity={entity}
       formName={formName}
