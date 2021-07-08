@@ -509,6 +509,7 @@ describe('app-extensions', () => {
           const mockModel = {
             name: 'User',
             label: 'Person',
+            markable: true,
             fields: [
               {
                 fieldName: 'pk',
@@ -538,6 +539,7 @@ describe('app-extensions', () => {
             const inputModel = {
               label: 'Test',
               name: 'test',
+              markable: true,
               fields: [
                 {
                   fieldName: 'pk',
@@ -566,6 +568,7 @@ describe('app-extensions', () => {
             const expectedModel = {
               label: 'Test',
               name: 'test',
+              markable: true,
               paths: {
                 active: {
                   fieldName: 'active',
