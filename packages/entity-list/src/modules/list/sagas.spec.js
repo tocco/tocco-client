@@ -19,14 +19,17 @@ import {
 } from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
 
-const generateState = (entityStore = {}, page) => ({
+const generateState = (entityStore = {}, page, markable = true) => ({
   initialized: false,
   formName: '',
   sorting: [],
   limit: '',
   entityStore,
   formDefinition: {},
-  page
+  page,
+  entityModel: {
+    markable
+  }
 })
 
 describe('entity-list', () => {
@@ -49,7 +52,9 @@ describe('entity-list', () => {
               takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
               takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, sagas.setSorting),
-              takeLatest(actions.DEFINE_SORTING, sagas.setSorting)
+              takeLatest(actions.DEFINE_SORTING, sagas.setSorting),
+              takeLatest(actions.SET_MARKED, sagas.setMarked),
+              takeLatest(actions.TOGGLE_MARKINGS, sagas.toggleMarkings)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -138,6 +143,7 @@ describe('entity-list', () => {
                 [matchers.spawn.fn(sagas.loadRelationDisplays), {}],
                 [matchers.spawn.fn(sagas.loadDisplayExpressions), {}]
               ])
+              .spawn(sagas.loadMarkings, entities)
               .put(actions.addEntitiesToStore(page, entities))
               .run()
           })
@@ -829,6 +835,204 @@ describe('entity-list', () => {
               ])
               .put(selectionActions.setQuery(query))
               .put(externalEvents.fireExternalEvent('onSearchChange', {query}))
+              .run()
+          })
+        })
+
+        describe('loadMarkings saga', () => {
+          test('load markings of entities', () => {
+            const listState = {
+              entityModel: {name: 'User', markable: true},
+              formDefinition: {markable: true}
+            }
+
+            const entities = [{__key: '235'}, {__key: '918'}]
+
+            const selection = {
+              entityName: 'User',
+              type: 'ID',
+              ids: ['235', '918']
+            }
+
+            const markings = {
+              235: false,
+              918: true
+            }
+
+            return expectSaga(sagas.loadMarkings, entities)
+              .provide([
+                [select(sagas.listSelector), listState],
+                [call(rest.fetchMarkings, selection), markings],
+                [call(sagas.setLazyDataMarked, 'User', markings)]
+              ])
+              .call(sagas.setLazyDataMarked, 'User', markings)
+              .run()
+          })
+
+          test('do not load markings if entity not markable', () => {
+            const listState = {
+              entityModel: {name: 'User', markable: false},
+              formDefinition: {markable: true}
+            }
+
+            const entities = [{__key: '235'}, {__key: '918'}]
+
+            return expectSaga(sagas.loadMarkings, entities)
+              .provide([
+                [select(sagas.listSelector), listState]
+              ])
+              .run()
+          })
+
+          test('do not load markings if form not markable', () => {
+            const listState = {
+              entityModel: {name: 'User', markable: true},
+              formDefinition: {markable: false}
+            }
+
+            const entities = [{__key: '235'}, {__key: '918'}]
+
+            return expectSaga(sagas.loadMarkings, entities)
+              .provide([
+                [select(sagas.listSelector), listState]
+              ])
+              .run()
+          })
+
+          test('do not load markings if entities empty', () => {
+            const listState = {
+              entityModel: {name: 'User', markable: true},
+              formDefinition: {markable: true}
+            }
+
+            const entities = []
+
+            return expectSaga(sagas.loadMarkings, entities)
+              .provide([
+                [select(sagas.listSelector), listState]
+              ])
+              .run()
+          })
+        })
+
+        describe('setMarked saga', () => {
+          test('should set marked of single entity', () => {
+            const action = actions.setMarked('User', '235', true)
+            return expectSaga(sagas.setMarked, action)
+              .provide([
+                [call(sagas.setLazyDataMarked, 'User', {235: true})],
+                [call(rest.setMarked, 'User', '235', true)]
+              ])
+              .call(sagas.setLazyDataMarked, 'User', {235: true})
+              .call(rest.setMarked, 'User', '235', true)
+              .run()
+          })
+        })
+
+        describe('toggleMarkings saga', () => {
+          test('should set marked to true if at least one unmarked', () =>
+            testToggleMarkings({
+              843: true,
+              912: false
+            }, true)
+          )
+
+          test('should set marked to true if all unmarked', () =>
+            testToggleMarkings({
+              843: false,
+              912: false
+            }, true)
+          )
+
+          test('should set marked to false if all marked', () =>
+            testToggleMarkings({
+              843: true,
+              912: true
+            }, false)
+          )
+
+          const testToggleMarkings = (oldMarkings, expectedNewMarked) => {
+            const selection = {
+              entityName: 'User',
+              type: 'ID',
+              ids: ['843', '912']
+            }
+
+            const expectedNewMarkings = {
+              843: expectedNewMarked,
+              912: expectedNewMarked
+            }
+
+            return expectSaga(sagas.toggleMarkings, actions.toggleMarkings(selection))
+              .provide([
+                [call(rest.fetchMarkings, selection), oldMarkings],
+                [call(rest.setSelectionMarked, selection, expectedNewMarked), expectedNewMarkings],
+                [call(sagas.setLazyDataMarked, selection.entityName, expectedNewMarkings)]
+              ])
+              .call(rest.setSelectionMarked, selection, expectedNewMarked)
+              .call(sagas.setLazyDataMarked, selection.entityName, expectedNewMarkings)
+              .run()
+          }
+
+          test('should set marked to true if all unmarked', () => {
+            const selection = {
+              entityName: 'User',
+              type: 'ID',
+              ids: ['843', '912']
+            }
+
+            const oldMarkings = {
+              843: true,
+              912: false
+            }
+
+            const newMarkings = {
+              843: true,
+              912: true
+            }
+
+            return expectSaga(sagas.toggleMarkings, actions.toggleMarkings(selection))
+              .provide([
+                [call(rest.fetchMarkings, selection), oldMarkings],
+                [call(rest.setSelectionMarked, selection, true), newMarkings],
+                [call(sagas.setLazyDataMarked, selection.entityName, newMarkings)]
+              ])
+              .call(rest.setSelectionMarked, selection, true)
+              .call(sagas.setLazyDataMarked, selection.entityName, newMarkings)
+              .run()
+          })
+        })
+
+        describe('setLazyDataMarked saga', () => {
+          test('should update markings lazy data', () => {
+            const lazyData = {
+              markings: {
+                Address: {
+                  81: false
+                },
+                User: {
+                  642: true,
+                  831: true
+                }
+              }
+            }
+
+            const newMarkings = {
+              642: false,
+              999: false
+            }
+
+            const expectedUserMarkings = {
+              642: false,
+              831: true,
+              999: false
+            }
+
+            return expectSaga(sagas.setLazyDataMarked, 'User', newMarkings)
+              .provide([
+                [select(sagas.listSelector), {lazyData}]
+              ])
+              .put(actions.setLazyData('markings', 'User', expectedUserMarkings))
               .run()
           })
         })

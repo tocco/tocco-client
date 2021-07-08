@@ -40,7 +40,8 @@ const mapStateToProps = (state, props) => ({
   parent: state.entityList.parent,
   showLink: state.list.showLink,
   navigationStrategy: state.input.navigationStrategy,
-  positions: state.preferences.positions
+  positions: state.preferences.positions,
+  markable: state.list.entityModel.markable && state.list.formDefinition.markable
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Table))

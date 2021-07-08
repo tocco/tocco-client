@@ -5,6 +5,7 @@ import {columnPropType, selectionStylePropType, Table as UiTable} from 'tocco-ui
 import _get from 'lodash/get'
 
 import {navigationCell} from './navigationCell'
+import {markingCell} from './markingCell'
 
 const Table = props =>
   <UiTable
@@ -13,6 +14,7 @@ const Table = props =>
       navigationCell(props.showLink && props.navigationStrategy && props.clickable,
         props.navigationStrategy,
         props.parent),
+      ...(props.markable ? [markingCell()] : []),
       ...props.columnDefinitions.sort((a, b) =>
         _get(props.positions, [a.id]) - _get(props.positions, [b.id])
       )
@@ -56,7 +58,8 @@ Table.propTypes = {
   showLink: PropTypes.bool,
   navigationStrategy: PropTypes.objectOf(PropTypes.func),
   changePosition: PropTypes.func.isRequired,
-  positions: PropTypes.objectOf(PropTypes.number)
+  positions: PropTypes.objectOf(PropTypes.number),
+  markable: PropTypes.bool
 }
 
 const areEqual = (prevProps, nextProps) => {
