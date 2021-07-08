@@ -1,21 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage, injectIntl} from 'react-intl'
-import styled from 'styled-components'
 
-import Button from '../Button'
 import ButtonGroup from '../ButtonGroup'
 import Typography from '../Typography'
-
-export const StyledPagination = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  span {
-    padding-right: 6px;
-  }
-`
+import {StyledPagination, StyledPaginationButton} from './StyledComponents'
 
 /**
  * Controlled Pagination component
@@ -29,37 +18,37 @@ const Pagination = ({totalCount, recordsPerPage, currentPage, onPageChange, intl
 
   return (
     <StyledPagination>
+      {totalPages > 1
+      && <ButtonGroup>
+        <StyledPaginationButton
+          disabled={currentPage === 1}
+          title={msg('client.component.pagination.firstPageTitle')}
+          icon="chevron-double-left"
+          onClick={() => onPageChange(1)}/>
+        <StyledPaginationButton
+          disabled={currentPage === 1}
+          title={msg('client.component.pagination.prePageTitle')}
+          icon="chevron-left"
+          onClick={() => onPageChange(currentPage - 1)}/>
+        <StyledPaginationButton
+          disabled={currentPage === totalPages}
+          title={msg('client.component.pagination.nextPageTitle')}
+          icon="chevron-right"
+          onClick={() => onPageChange(currentPage + 1)}/>
+        <StyledPaginationButton
+          disabled={currentPage === totalPages}
+          title={msg('client.component.pagination.lastPageTitle')}
+          icon="chevron-double-right"
+          onClick={() => onPageChange(totalPages)}/>
+      </ButtonGroup>
+      }
+
       <Typography.Span> <FormattedMessage id="client.component.pagination.text" values={{
         start,
         to,
         total: totalCount
       }}/>
       </Typography.Span>
-
-      {totalPages > 1
-      && <ButtonGroup>
-        {currentPage > 2
-        && <Button
-          title={msg('client.component.pagination.firstPageTitle')}
-          icon="chevron-double-left"
-          onClick={() => onPageChange(1)}/>}
-        {currentPage > 1
-        && <Button
-          title={msg('client.component.pagination.prePageTitle')}
-          icon="chevron-left"
-          onClick={() => onPageChange(currentPage - 1)}/>}
-        {currentPage < totalPages
-        && <Button
-          title={msg('client.component.pagination.nextPageTitle')}
-          icon="chevron-right"
-          onClick={() => onPageChange(currentPage + 1)}/>}
-        {currentPage < totalPages - 1
-        && <Button
-          title={msg('client.component.pagination.lastPageTitle')}
-          icon="chevron-double-right"
-          onClick={() => onPageChange(totalPages)}/>}
-      </ButtonGroup>
-      }
     </StyledPagination>
   )
 }
