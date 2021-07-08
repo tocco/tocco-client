@@ -5,6 +5,7 @@ import {form} from 'tocco-app-extensions'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import SaveButton from './SaveButton'
+import MarkButton from './MarkButton'
 import {StyledForm} from './StyledComponents'
 
 const DetailForm = props => {
@@ -47,7 +48,8 @@ const DetailForm = props => {
           mode={mode}
           hasErrors={!valid && anyTouched}
           formErrors={formErrors}
-        />
+        />,
+      mark: () => <MarkButton/>
     }
   ), [submitting, mode, valid, anyTouched, formErrors])
 

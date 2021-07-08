@@ -28,3 +28,7 @@ export const StyledActionWrapper = styled.div`
     }
   }
 `
+
+export const StyledActionSpan = styled.span`
+  cursor: pointer;
+`

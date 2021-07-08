@@ -11,7 +11,7 @@ import * as formActionTypes from 'redux-form/es/actionTypes'
 import {externalEvents, notification, errorLogging, form, rest, remoteEvents}
   from 'tocco-app-extensions'
 import {api} from 'tocco-util'
-import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {call, put, select, takeLatest, takeEvery, all, fork} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {
@@ -38,7 +38,8 @@ export default function* sagas() {
     takeEvery(actions.NAVIGATE_TO_CREATE, navigateToCreate),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
-    takeEvery(formActionTypes.BLUR, onBlur)
+    takeEvery(formActionTypes.BLUR, onBlur),
+    takeLatest(actions.UPDATE_MARKED, updateMarked)
   ])
 }
 
@@ -336,7 +337,12 @@ export function* enhanceEntityWithDisplays(entity) {
 }
 
 export function* loadData(reset = true) {
-  const {entityName, entityId, fieldDefinitions} = yield select(entityDetailSelector)
+  const {entityName, entityId, fieldDefinitions, entityModel} = yield select(entityDetailSelector)
+
+  if (entityModel.markable === true) {
+    yield fork(loadMarked, entityName, entityId)
+  }
+
   const entity = yield call(loadEntity, entityName, entityId, fieldDefinitions)
   const flattenEntity = yield call(api.getFlattenEntity, entity)
 
@@ -346,6 +352,16 @@ export function* loadData(reset = true) {
   const formValues = yield call(form.entityToFormValues, flattenEntity)
   const options = reset ? {} : {keepDirty: true, keepValues: false}
   yield put(formActions.initialize(FORM_ID, formValues, options))
+}
+
+export function* loadMarked(entityName, entityId) {
+  const marked = yield call(rest.fetchMarked, entityName, entityId)
+  yield put(actions.setMarked(marked))
+}
+
+export function* updateMarked({payload: {entityName, entityId, marked}}) {
+  yield put(actions.setMarked(marked))
+  yield call(rest.setMarked, entityName, entityId, marked)
 }
 
 export function* navigateToCreate({payload}) {

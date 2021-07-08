@@ -18,6 +18,8 @@ export const SET_DEFAULT_VALUES = 'entityDetail/SET_DEFAULT_VALUES'
 export const NAVIGATE_TO_CREATE = 'entityDetail/NAVIGATE_TO_CREATE'
 export const SET_FIELD_DEFINITIONS = 'entityDetail/SET_FIELD_DEFINITIONS'
 export const NAVIGATE_TO_ACTION = 'entityDetail/NAVIGATE_TO_ACTION'
+export const UPDATE_MARKED = 'entityDetail/UPDATE_MARKED'
+export const SET_MARKED = 'entityDetail/SET_MARKED'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -141,5 +143,21 @@ export const navigateToAction = (definition, selection) => ({
   payload: {
     definition,
     selection
+  }
+})
+
+export const updateMarked = (entityName, entityId, marked) => ({
+  type: UPDATE_MARKED,
+  payload: {
+    entityName,
+    entityId,
+    marked
+  }
+})
+
+export const setMarked = marked => ({
+  type: SET_MARKED,
+  payload: {
+    marked
   }
 })
