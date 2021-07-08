@@ -1,3 +1,6 @@
+0.4.19-hotfix228.12
+- Adjust height and width of input edit table
+
 0.4.19-hotfix228.10
 - refactor extracting displays
 
