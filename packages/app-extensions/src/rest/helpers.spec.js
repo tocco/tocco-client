@@ -669,6 +669,95 @@ describe('app-extensions', () => {
           expect(results).to.equal('first asc, second desc')
         })
       })
+
+      describe('fetchMarkings', () => {
+        test('should request markings for selection', () => {
+          const selection = {
+            entityName: 'User',
+            type: 'ID',
+            ids: ['23', '644']
+          }
+
+          const options = {
+            method: 'POST',
+            body: {
+              selection
+            }
+          }
+
+          const markings = {23: false, 644: true}
+
+          return expectSaga(helpers.fetchMarkings, selection)
+            .provide([
+              [call(requestSaga, 'client/markings', options), {body: {markings}}]
+            ])
+            .returns(markings)
+            .run()
+        })
+      })
+
+      describe('fetchMarked', () => {
+        test('should request marking for single entity', () => {
+          const options = {
+            method: 'GET'
+          }
+
+          return expectSaga(helpers.fetchMarked, 'User', '672')
+            .provide([
+              [call(requestSaga, 'client/markings/User/672', options), {body: {marked: true}}]
+            ])
+            .returns(true)
+            .run()
+        })
+      })
+
+      describe('setMarked', () => {
+        test('should set marking for single entity', () => {
+          const options = {
+            method: 'PATCH',
+            body: {
+              marked: true
+            }
+          }
+
+          return expectSaga(helpers.setMarked, 'User', '672', true)
+            .provide([
+              [call(requestSaga, 'client/markings/User/672', options)]
+            ])
+            .call(requestSaga, 'client/markings/User/672', options)
+            .run()
+        })
+      })
+
+      describe('setSelectionMarked', () => {
+        test('should set marking for selection', () => {
+          const selection = {
+            entityName: 'User',
+            type: 'ID',
+            ids: ['23', '644']
+          }
+
+          const options = {
+            method: 'POST',
+            body: {
+              selection,
+              marked: true
+            }
+          }
+
+          const markings = {
+            23: true,
+            644: true
+          }
+
+          return expectSaga(helpers.setSelectionMarked, selection, true)
+            .provide([
+              [call(requestSaga, 'client/markings', options), {body: {markings}}]
+            ])
+            .returns(markings)
+            .run()
+        })
+      })
     })
   })
 })

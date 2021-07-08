@@ -361,3 +361,68 @@ export function* fetchPrincipal() {
 
   return principal
 }
+
+/**
+ * Helper to fetch markings for a list of entities
+ *
+ * @param selection {Object}
+ */
+export function* fetchMarkings(selection) {
+  const options = {
+    method: 'POST',
+    body: {
+      selection
+    }
+  }
+  const response = yield call(requestSaga, 'client/markings', options)
+  return response.body.markings
+}
+
+/**
+ * Helper to fetch marking for a single entity.
+ *
+ * @param entityName {String}
+ * @param entityKey {String}
+ */
+export function* fetchMarked(entityName, entityKey) {
+  const options = {
+    method: 'GET'
+  }
+  const response = yield call(requestSaga, `client/markings/${entityName}/${entityKey}`, options)
+  return response.body.marked
+}
+
+/**
+ * Helper to set marking for a single entity.
+ *
+ * @param entityName {String}
+ * @param entityKey {String}
+ * @param marked {Boolean}
+ */
+export function* setMarked(entityName, entityKey, marked) {
+  const options = {
+    method: 'PATCH',
+    body: {
+      marked
+    }
+  }
+  yield call(requestSaga, `client/markings/${entityName}/${entityKey}`, options)
+}
+
+/**
+ * Helper to set markings for a list of entities.
+ *
+ * @param selection {Object}
+ * @param marked {Boolean}
+ */
+export function* setSelectionMarked(selection, marked) {
+  const options = {
+    method: 'POST',
+    body: {
+      selection,
+      marked
+    }
+  }
+  const response = yield call(requestSaga, 'client/markings', options)
+  return response.body.markings
+}
