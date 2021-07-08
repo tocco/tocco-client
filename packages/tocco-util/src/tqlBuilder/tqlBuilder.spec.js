@@ -195,6 +195,16 @@ describe('entity-list', () => {
             const tql = getTql('datefield', '', 'datetime')
             expect(tql).to.be.null
           })
+
+          test('should handle checked marking field', () => {
+            const tql = getTql('relMark', true, 'marking')
+            expect(tql).to.eql('exists(relMark)')
+          })
+
+          test('should handle unchecked marking field', () => {
+            const tql = getTql('relMark', false, 'marking')
+            expect(tql).to.be.null
+          })
         })
       })
     })

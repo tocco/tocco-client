@@ -28,6 +28,7 @@ export default {
   'location': location,
   'long': integer,
   'moneyamount': moneyamount,
+  'marking': boolean,
   'multi-remote-field': remote,
   'multi-select-box': select,
   'named-upload': document,
