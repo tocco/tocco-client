@@ -1,8 +1,8 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import {usePopper} from 'react-popper'
 
-import {StyledPopperWrapper, StyledPopper} from './StyledComponents'
+import {StyledPopper, StyledPopperWrapper} from './StyledComponents'
 
 /**
  * Menu realised with popper.
@@ -10,6 +10,7 @@ import {StyledPopperWrapper, StyledPopper} from './StyledComponents'
 const Menu = ({referenceElement, onClose, open, children}) => {
   const thisEl = useRef(null)
   const [popperElement, setPopperElement] = useState(null)
+  const [bottom, setBottom] = useState(0)
 
   const handleClickOutside = e => {
     if (thisEl && thisEl.current && !thisEl.current.contains(e.target)
@@ -19,6 +20,10 @@ const Menu = ({referenceElement, onClose, open, children}) => {
   }
 
   useEffect(() => {
+    if (thisEl.current) {
+      setBottom(thisEl.current.getBoundingClientRect().bottom)
+    }
+
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
@@ -44,7 +49,11 @@ const Menu = ({referenceElement, onClose, open, children}) => {
 
   return (
     <StyledPopperWrapper ref={thisEl}>
-      {children && <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+      {children && <StyledPopper
+        ref={setPopperElement}
+        style={styles.popper}
+        {...attributes.popper}
+        rectBottom={bottom}>
         {React.Children.map(children, child => child && React.cloneElement(child, {onClose: onClose}))}
       </StyledPopper>}
     </StyledPopperWrapper>
