@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {Button, declareFont, scale, theme} from '../index'
+import {Button, declareFont, scale, theme, StyledScrollbar} from '../index'
 import {interactiveStyling} from '../utilStyles'
 
 export const StyledIconWrapper = styled.div`
@@ -18,9 +18,14 @@ export const StyledPopperWrapper = styled.div`
 `
 
 export const StyledPopper = styled.div`
+  max-height: ${({rectBottom}) => `calc(100vh - ${rectBottom + 15}px)`}; // add 15px for small padding
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: ${theme.color('paper')};
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
   border: 1px solid ${theme.color('secondaryLight')};
   z-index: 99999;
+  ${StyledScrollbar}
 `
 
 export const StyledMenuItem = styled.div`
