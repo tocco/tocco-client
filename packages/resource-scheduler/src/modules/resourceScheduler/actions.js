@@ -9,6 +9,7 @@ export const REMOVE_REQUESTED_CALENDAR = 'resourceScheduler/REMOVE_REQUESTED_CAL
 export const REMOVE_ALL_CALENDARS = 'resourceScheduler/REMOVE_ALL_CALENDARS'
 export const ON_EVENT_CLICK = 'resourceScheduler/ON_EVENT_CLICK'
 export const ON_REFRESH = 'resourceScheduler/ON_REFRESH'
+export const SET_HANDLE_NOTIFICATIONS = 'resourceScheduler/SET_HANDLE_NOTIFICATIONS'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -77,4 +78,11 @@ export const onEventClick = (model, key) => ({
 
 export const onRefresh = () => ({
   type: ON_REFRESH
+})
+
+export const setHandleNotifications = handleNotifications => ({
+  type: SET_HANDLE_NOTIFICATIONS,
+  payload: {
+    handleNotifications
+  }
 })

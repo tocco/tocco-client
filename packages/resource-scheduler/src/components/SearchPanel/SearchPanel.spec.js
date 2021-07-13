@@ -15,6 +15,7 @@ describe('resource-scheduler', () => {
             addCalendarsOfType={EMPTY_FUNC}
             updateRequestedCalendars={EMPTY_FUNC}
             calendarTypes={[]}
+            emitAction={EMPTY_FUNC}
           />
         )
         expect(wrapper.find(Panel.Group)).to.have.length(1)
