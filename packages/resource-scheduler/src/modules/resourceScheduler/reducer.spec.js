@@ -5,7 +5,8 @@ const EXPECTED_INITIAL_STATE = {
   calendarTypes: [],
   requestedCalendars: {},
   calendars: [],
-  dateRange: {}
+  dateRange: {},
+  handleNotifications: false
 }
 
 describe('resource-scheduler', () => {
