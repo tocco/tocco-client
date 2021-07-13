@@ -3,17 +3,6 @@ import _get from 'lodash/get'
 
 import {shadeColor, scale} from '../utilStyles'
 
-const declareInteraction = ({interactive}) => {
-  if (interactive) {
-    return `
-      &:hover,
-      &:focus {
-        opacity: .7;
-      }
-    `
-  }
-}
-
 const StyledPreview = styled.figure`
   && {
     vertical-align: top;
@@ -27,7 +16,6 @@ const StyledPreview = styled.figure`
       border: 1px solid ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)};
       max-width: ${({maxDimensionX}) => maxDimensionX || '100%'};
       max-height: ${({maxDimensionY}) => maxDimensionY || '100%'};
-      ${props => declareInteraction(props)}
     }
 
     figcaption {
