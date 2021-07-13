@@ -1,3 +1,7 @@
+0.4.11
+- Prevent dropdown menu being clipped in viewport
+- fix notifications
+
 0.4.10
 - Fix notifications for already deleted outputjobs
 - fix merge error summary
