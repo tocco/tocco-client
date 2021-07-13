@@ -36,7 +36,8 @@ class HtmlEdit extends React.Component {
 
   handleChange = (value, delta, source) => {
     if (this.props.onChange && source === 'user') {
-      this.props.onChange(value)
+      const v = value === '<p><br></p>' ? '' : value
+      this.props.onChange(v)
     }
   }
 
