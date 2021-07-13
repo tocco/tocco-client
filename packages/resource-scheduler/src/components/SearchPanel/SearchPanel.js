@@ -44,6 +44,7 @@ class SearchPanel extends React.PureComponent {
         </Panel.Header>
         <Panel.Body>
           <EntityListApp
+            emitAction={this.props.emitAction}
             locale={this.props.locale}
             id={`search-panel-${calendarType.name}`}
             entityName={calendarType.targetEntity}
@@ -79,7 +80,8 @@ SearchPanel.propTypes = {
     }
     )),
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  locale: PropTypes.string
+  locale: PropTypes.string,
+  emitAction: PropTypes.func.isRequired
 }
 
 export default SearchPanel

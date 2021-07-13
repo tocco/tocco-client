@@ -1,5 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {actionEmitter} from 'tocco-app-extensions'
 
 import {
   initialize,
@@ -13,7 +14,8 @@ const mapActionCreators = {
   initialize,
   updateRequestedCalendars,
   setDateRange,
-  removeRequestedCalendar
+  removeRequestedCalendar,
+  emitAction: action => actionEmitter.dispatchEmittedAction(action)
 }
 
 const mapStateToProps = state => {
@@ -21,6 +23,7 @@ const mapStateToProps = state => {
     calendars: state.resourceScheduler.calendars,
     calendarTypes: state.resourceScheduler.calendarTypes,
     requestedCalendars: state.resourceScheduler.requestedCalendars,
+    handleNotifications: state.resourceScheduler.handleNotifications,
     locale: state.intl.locale
   }
 }
