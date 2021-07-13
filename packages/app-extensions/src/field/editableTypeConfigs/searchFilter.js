@@ -2,7 +2,7 @@ import _get from 'lodash/get'
 
 export default {
   dataContainerProps: ({formField}) => ({
-    searchFilters: formField.model
+    searchFilters: [formField.model]
   }),
   getOptions: ({formField, formData}) => ({
     isMulti: formField.multiple,
