@@ -11,7 +11,6 @@ describe('tocco-ui', () => {
         <Preview
           alt="alternative text"
           caption="caption text"
-          downloadOnClick={true}
           srcUrl="/link-to-source"
           thumbnailUrl="/link-to-thumbnail"
         />
@@ -25,7 +24,6 @@ describe('tocco-ui', () => {
       expect(a).to.have.length(1)
       expect(a).to.have.attr('href', '/link-to-source')
       expect(a).to.have.attr('alt', 'alternative text')
-      expect(a).to.have.attr('download', 'caption text')
       expect(img).to.have.length(1)
       expect(img).to.have.attr('alt', 'alternative text')
       expect(img).to.have.attr('src', '/link-to-thumbnail')
@@ -52,61 +50,6 @@ describe('tocco-ui', () => {
       expect(wrapper.find('img')).to.have.length(0)
       expect(wrapper.find(Icon)).to.have.length(1)
       expect(wrapper.find(Icon).prop('icon')).to.deep.equal('file-alt')
-    })
-
-    test('link image if demanded and allowed', () => {
-      let wrapper = mount(
-        <Preview
-          alt="alt text"
-          downloadOnClick={false}
-          srcUrl="/link-to-source"
-        />
-      )
-
-      expect(wrapper.find('a')).to.have.length(0)
-
-      wrapper = mount(
-        <Preview
-          alt="alt text"
-          downloadOnClick={true}
-          srcUrl="/link-to-source"
-        />
-      )
-
-      const a = wrapper.find('a')
-
-      expect(a).to.have.length(1)
-      expect(a).to.have.attr('href', '/link-to-source')
-
-      wrapper = shallow(
-        <Preview
-          alt="alt text"
-          downloadOnClick={true}
-          onClick={(srcUrl, thumbnailUrl) => alert(srcUrl + '\n' + thumbnailUrl)}
-          srcUrl="/link-to-source"
-        />
-      ).dive()
-
-      expect(wrapper.find('a')).to.have.length(0)
-    })
-
-    test('trigger callback on click', () => {
-      const srcUrl = '/link-to-source'
-      const thumbnailUrl = '/link-to-thumbnail'
-      const onClickFunction = sinon.spy()
-
-      const wrapper = shallow(
-        <Preview
-          alt="alt text"
-          downloadOnClick={true}
-          onClick={onClickFunction}
-          srcUrl={srcUrl}
-          thumbnailUrl={thumbnailUrl}
-        />
-      )
-
-      wrapper.find('img').simulate('click')
-      expect(onClickFunction).to.be.calledWith(srcUrl, thumbnailUrl)
     })
   })
 })
