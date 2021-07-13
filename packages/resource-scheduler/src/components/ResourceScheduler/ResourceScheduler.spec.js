@@ -20,6 +20,8 @@ describe('resource-scheduler', () => {
             removeRequestedCalendar={EMPTY_FUNC}
             selection={null}
             actionProperties={{}}
+            emitAction={EMPTY_FUNC}
+            handleNotifications={false}
           />
         )
         expect(wrapper.find(SearchPanel)).to.have.length(1)
@@ -37,6 +39,8 @@ describe('resource-scheduler', () => {
             removeRequestedCalendar={EMPTY_FUNC}
             selection={null}
             actionProperties={{calendarType: 'lecturer'}}
+            emitAction={EMPTY_FUNC}
+            handleNotifications={false}
           />
         )
         expect(mockUpdateFunction.mock.calls.length).to.eq(0)
@@ -55,7 +59,9 @@ describe('resource-scheduler', () => {
               entityName: 'User',
               type: 'QUERY'
             }}
+            emitAction={EMPTY_FUNC}
             actionProperties={{calendarType: 'lecturer'}}
+            handleNotifications={false}
           />
         )
         expect(mockUpdateFunction.mock.calls.length).to.eq(0)
@@ -76,6 +82,8 @@ describe('resource-scheduler', () => {
               type: 'ID'
             }}
             actionProperties={{}}
+            emitAction={EMPTY_FUNC}
+            handleNotifications={false}
           />
         )
         expect(mockUpdateFunction.mock.calls.length).to.eq(0)

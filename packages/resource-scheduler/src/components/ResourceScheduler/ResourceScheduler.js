@@ -3,6 +3,7 @@ import SplitPane from 'react-split-pane'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {scale} from 'tocco-ui'
+import {notifier} from 'tocco-app-extensions'
 
 import SearchPanel from '../SearchPanel/SearchPanel'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
@@ -31,8 +32,9 @@ class ResourceScheduler extends React.Component {
 
   render() {
     const props = this.props
-    return (
-      <StyledSplitPane
+    return <>
+      {this.props.handleNotifications && <notifier.Notifier />}
+      <StyledSplitPane StyledSplitPane
         defaultSize={this.paneWidth}
         minSize={325}
         resizerStyle={resizerStyle}
@@ -44,18 +46,20 @@ class ResourceScheduler extends React.Component {
             calendarTypes={props.calendarTypes}
             updateRequestedCalendars={props.updateRequestedCalendars}
             requestedCalendars={this.props.requestedCalendars}
+            emitAction={this.props.emitAction}
           />
         </StyledSplitPanelWrapperLeft>
         <StyledSplitPanelWrapperRight>
-          <SchedulerAppContainer/>
+          <SchedulerAppContainer />
         </StyledSplitPanelWrapperRight>
       </StyledSplitPane>
-    )
+    </>
   }
 }
 
 ResourceScheduler.propTypes = {
   initialize: PropTypes.func.isRequired,
+  handleNotifications: PropTypes.bool.isRequired,
   updateRequestedCalendars: PropTypes.func.isRequired,
   removeRequestedCalendar: PropTypes.func.isRequired,
   setDateRange: PropTypes.func.isRequired,
@@ -85,7 +89,8 @@ ResourceScheduler.propTypes = {
     }
     )),
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  locale: PropTypes.string
+  locale: PropTypes.string,
+  emitAction: PropTypes.func.isRequired
 }
 
 export default ResourceScheduler
