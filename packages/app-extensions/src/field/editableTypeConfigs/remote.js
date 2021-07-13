@@ -9,8 +9,8 @@ const settings = {
 
 export default {
   dataContainerProps: ({formField}) => ({
-    relationEntities: formField.id,
-    tooltips: formField.targetEntity,
+    relationEntities: [formField.id],
+    tooltips: [formField.targetEntity],
     navigationStrategy: true
   }),
   getOptions: ({formField, formName, formData}) => ({
