@@ -1,7 +1,7 @@
 /* stylelint-disable no-descending-specificity */
 /* stylelint-disable rule-empty-line-before */
 import styled from 'styled-components'
-import {Button, scale, StyledSpan, theme, StyledMenuItem} from 'tocco-ui'
+import {Button, scale, StyledSpan, theme, StyledItemLabel} from 'tocco-ui'
 
 export const SearchFilterListWrapper = styled.div`
   margin-top: .4rem;
@@ -32,13 +32,6 @@ export const StyledMenuWrapper = styled.div`
       background-color: transparent;
       padding: 0 ${scale.space(-1)} 0 0;
     }
-    ${/* sc-selector */StyledMenuItem} * {
-      color: ${theme.color('text')};
-
-      &:hover * {
-        color: ${theme.color('paper')};
-      }
-    }
 
     &:hover button {
       color: ${({active}) => active ? theme.color('paper') : theme.color('secondary')};
@@ -64,7 +57,7 @@ export const StyledSearchFilterButton = styled.div`
   justify-content: flex-end;
 
   && {
-    * {
+    *:not(${/* sc-selector */StyledItemLabel}) {
       color: ${({active}) => active && theme.color('paper')};
     }
   }
