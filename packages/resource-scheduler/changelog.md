@@ -1,3 +1,8 @@
+0.3.10-hotfix227.3
+- Make whole row clickable in list
+- Fix calender search bug
+- Fix search-form remote bug
+
 0.3.10-hotfix227.2
 - Fix deselect all bug
 - Map integer, counter and long to string
