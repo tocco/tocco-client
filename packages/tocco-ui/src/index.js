@@ -80,4 +80,4 @@ export {default as Pagination} from './Pagination'
 export {default as QRCode} from './QRCode'
 export {default as Table, columnPropType, selectionStylePropType} from './Table'
 
-export {Menu, MenuItem, BallMenu, ButtonMenu, StyledMenuItem} from './Menu'
+export {Menu, MenuItem, BallMenu, ButtonMenu, StyledItemLabel} from './Menu'

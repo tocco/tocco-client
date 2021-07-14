@@ -31,7 +31,6 @@ export const StyledPopper = styled.div`
 export const StyledMenuItem = styled.div`
   min-width: 200px;
   max-width: 300px;
-  background-color: ${theme.color('secondaryLight')};
 `
 
 export const StyledItemLabel = styled.div`
