@@ -5,7 +5,7 @@ import {notification} from 'tocco-app-extensions'
 
 import navigationStrategy from './../../routes/entities/utils/navigationStrategy'
 import NotificationCenterRedDotContainer from './NotificationCenterRedDotContainer'
-import {StyledBall, StyledPopper} from './StyledComponents'
+import {StyledNotificationBellWrapper, StyledBall, StyledPopper} from './StyledComponents'
 
 const popperModifiers = [
   {
@@ -47,10 +47,10 @@ const NotificationCenterButton = () => {
   const {styles, attributes} = usePopper(referenceElement.current, popperElement.current, {modifiers: popperModifiers})
 
   return <>
-    <>
+    <StyledNotificationBellWrapper>
       <StyledBall onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement}/>
       <span ref={redDotElement}><NotificationCenterRedDotContainer onClick={() => setVisibility(!visible)}/></span>
-    </>
+    </StyledNotificationBellWrapper>
     {ReactDOM.createPortal(
       <StyledPopper
         ref={popperElement}

@@ -45,16 +45,20 @@ export const StyledPopper = styled.div`
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
 `
 
+export const StyledNotificationBellWrapper = styled.span`
+  position: relative;
+`
+
 export const StyledBall = styled(Ball)`
   margin-left: ${scale.space(-0.5)};
 `
 
 export const StyledRedDot = styled.span`
-  width: 8px;
-  height: 8px;
-  position: relative;
-  top: -6px;
-  left: -9px;
+  width: 7px;
+  height: 7px;
+  position: absolute;
+  top: 3px;
+  left: 21.5px;
   background-color: ${theme.color('secondaryLight')};
   border-radius: 50%;
   display: inline-block;
