@@ -1,3 +1,12 @@
+0.4.3-hotfix228.3
+- Hide list navigation arrow if row is not clickable
+- Reset label spacing inside column picker for old client
+- Render description field in form
+- Fix fulltext search form
+- Fix fulltext search
+- Fix calender search bug
+- Fix search-form remote bug
+
 0.4.3-hotfix228.2
 - hide list navigation arrow if row is not clickable
 - Reset label spacing inside column picker for old client
