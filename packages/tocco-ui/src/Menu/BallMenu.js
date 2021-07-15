@@ -7,7 +7,7 @@ import {Menu} from './'
 /**
  * Ball Button with a menu that pops out on click.
  */
-const BallMenu = props => {
+const BallMenu = ({buttonProps, onOpen, children}) => {
   const ballEl = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [onOpenCalled, setOnOpenCalled] = useState(false)
@@ -16,8 +16,8 @@ const BallMenu = props => {
     setMenuOpen(!menuOpen)
     e.stopPropagation()
 
-    if (props.onOpen && !onOpenCalled) {
-      props.onOpen()
+    if (onOpen && !onOpenCalled) {
+      onOpen()
       setOnOpenCalled(true)
     }
   }
@@ -27,14 +27,13 @@ const BallMenu = props => {
   }
 
   return <>
-    <Ball {...props.buttonProps} onClick={handleClick} ref={ballEl}/>
+    <Ball {...buttonProps} onClick={handleClick} ref={ballEl}/>
     {menuOpen && <Menu
       referenceElement={ballEl.current}
       open={menuOpen}
       onClose={handleClose}
     >
-      {props.children
-      }
+      {children}
     </Menu>}
   </>
 }
