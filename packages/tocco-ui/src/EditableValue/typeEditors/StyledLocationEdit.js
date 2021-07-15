@@ -31,9 +31,9 @@ export const StyledLocationEdit = styled.div`
     > span {
       flex: 0 0 auto;
       margin-right: ${scale.space(-2)};
-      color: ${props => props.immutable
-                ? generateDisabledShade(_get(props.theme, 'colors.text'))
-                : theme.color('text')};
+      color: ${({immutable, theme}) => immutable
+                ? generateDisabledShade(_get(theme, 'colors.text'))
+                : _get(theme, 'colors.text')};
     }
 
     .react-autosuggest__input {
@@ -42,17 +42,17 @@ export const StyledLocationEdit = styled.div`
     }
 
     .react-autosuggest__suggestions-container--open {
+      width: calc(100% + 17.5px);
       background-color: ${theme.color('paper')};
-      border-radius: ${theme.radii('regular')};
-      border: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-      bottom: 0;
-      left: -1px;
+      box-shadow: 0 0 6px ${theme.color('signal.info.text')};
+      border: 1px solid ${theme.color('secondaryLight')};
+      bottom: -9px;
+      left: -10px;
       max-height: 300px;
       overflow-y: auto;
       position: absolute;
-      right: -1px;
       transform: translateY(100%);
-      z-index: 1;
+      z-index: 2; // higher than StyledIndicatorsContainerWrapper
     }
 
     .react-autosuggest__suggestions-list {
@@ -67,7 +67,7 @@ export const StyledLocationEdit = styled.div`
     }
 
     .react-autosuggest__suggestion--highlighted {
-      background-color: ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
+      background-color: ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 1)};
     }
   }
 `
