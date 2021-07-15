@@ -1,3 +1,11 @@
+0.4.6-hotfix229.2
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Fix overlay of modal in widget mode
+- Fix popper menu on safari browsers
+- Align modal globally at same position
+- Fix calender search bug
+- Fix search-form remote bug
+
 0.4.6-hotfix229.1
 - Displayexpression call adjustment
 
