@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 
 import {StyledRedDot} from './StyledComponents'
 
-const NotificationCenterRedDot = ({unreadNotificationKeys, onClick, innerRef}) => {
-  if (unreadNotificationKeys.length > 0) {
-    return <StyledRedDot onClick={onClick} ref={innerRef}/>
-  }
-  return null
-}
+const NotificationCenterRedDot = ({
+  unreadNotificationKeys,
+  onClick,
+  innerRef
+}) => unreadNotificationKeys.length > 0
+  && <StyledRedDot onClick={onClick} ref={innerRef}/>
 
 NotificationCenterRedDot.propTypes = {
   unreadNotificationKeys: PropTypes.arrayOf(PropTypes.string),
