@@ -1,3 +1,15 @@
+0.5.8
+- Added support for "markable" feature
+- Added support for "markable" feature
+- Prevent dropdown menu being clipped in viewport
+- fix notifications
+- Fix business unit change in edit action
+- Support empty html edit field
+- Has value for checkboxes change
+- Improve pagination UX by moving it to the left and changing button behavior
+- Fix search filter menu hover
+- Add preview for documents
+
 0.5.7
 - Fix merge error summary
 - Add hover effect to column picker list
