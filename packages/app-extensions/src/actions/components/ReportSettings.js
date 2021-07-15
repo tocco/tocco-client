@@ -33,7 +33,7 @@ export class ReportSettings extends React.Component {
     this.setState({...this.state, customSettings, customSettingsValid})
   }
 
-  handleButtonClick = () => () => {
+  handleButtonClick = () => {
     const groupedValues = {
       ...getGroupedValues(this.props.settingsDefinition, transformValues(this.state.values)),
       customSettings: this.state.customSettings
@@ -70,8 +70,7 @@ export class ReportSettings extends React.Component {
           <Button
             ink="primary"
             disabled={!this.state.customSettingsValid || !this.state.valid}
-            icon="download"
-            onClick={this.handleButtonClick()}
+            onClick={this.handleButtonClick}
             look="raised"
           >
             <FormattedMessage id="client.common.report.generate"/>
