@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'tocco-ui'
 import {FormattedMessage, injectIntl} from 'react-intl'
@@ -12,73 +12,74 @@ import {
 } from '../utils/report'
 import {StyledStickyButtons, StyledReportSettings} from './StyledReportSettings'
 
-export class ReportSettings extends React.Component {
-  constructor(props) {
-    super(props)
-    this.customSettingsDefined
-      = props.settingsDefinition.customSettings && props.settingsDefinition.customSettings.entity
-    this.state = {
-      valid: false,
-      customSettingsValid: !this.customSettingsDefined
-    }
+export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, intl}) => {
+  const customSettingsDefined = settingsDefinition.customSettings && settingsDefinition.customSettings.entity
+  const [settingsChange, setSettingsChange] = useState({
+    valid: false,
+    customSettingsValid: !customSettingsDefined
+  })
 
-    this.SimpleFormContainer = simpleFormConnector(props.formApp)
+  const SimpleFormContainer = useMemo(() => simpleFormConnector(formApp), [])
+
+  const handleSettingsChange = (values, valid) => {
+    setSettingsChange({
+      ...settingsChange,
+      values,
+      valid
+    })
   }
 
-  handleSettingsChange = (values, valid) => {
-    this.setState({...this.state, values, valid})
+  const handleCustomSettingsChange = (customSettings, customSettingsValid) => {
+    setSettingsChange({
+      ...settingsChange,
+      customSettings,
+      customSettingsValid
+    })
   }
 
-  handleCustomSettingsChange = (customSettings, customSettingsValid) => {
-    this.setState({...this.state, customSettings, customSettingsValid})
-  }
-
-  handleButtonClick = () => {
+  const handleButtonClick = () => {
     const groupedValues = {
-      ...getGroupedValues(this.props.settingsDefinition, transformValues(this.state.values)),
-      customSettings: this.state.customSettings
+      ...getGroupedValues(settingsDefinition, transformValues(settingsChange.values)),
+      customSettings: settingsChange.customSettings
     }
 
-    this.props.onSubmit(groupedValues)
+    onSubmit(groupedValues)
   }
 
-  render() {
-    const {intl, settingsDefinition} = this.props
-    return (
-      <StyledReportSettings>
-        <this.SimpleFormContainer
-          listApp={this.props.listApp}
-          form={getFormDefinition(settingsDefinition, intl)}
-          noButtons
-          onChange={({values, valid}) => {
-            this.handleSettingsChange(values, valid)
-          }}
-          mode="create"
-        />
-        {this.customSettingsDefined
-          && <this.SimpleFormContainer
-            listApp={this.props.listApp}
-            form={settingsDefinition.customSettings.form.form}
-            noButtons
-            onChange={({values, valid}) => {
-              this.handleCustomSettingsChange(values, valid)
-            }}
-            mode="create"
-          />
-        }
-        <StyledStickyButtons>
-          <Button
-            ink="primary"
-            disabled={!this.state.customSettingsValid || !this.state.valid}
-            onClick={this.handleButtonClick}
-            look="raised"
-          >
-            <FormattedMessage id="client.common.report.generate"/>
-          </Button>
-        </StyledStickyButtons>
-      </StyledReportSettings>
-    )
-  }
+  return (
+    <StyledReportSettings>
+      <SimpleFormContainer
+        listApp={listApp}
+        form={getFormDefinition(settingsDefinition, intl)}
+        noButtons
+        onChange={({values, valid}) => {
+          handleSettingsChange(values, valid)
+        }}
+        mode="create"
+      />
+      {customSettingsDefined
+      && <SimpleFormContainer
+        listApp={listApp}
+        form={settingsDefinition.customSettings.form.form}
+        noButtons
+        onChange={({values, valid}) => {
+          handleCustomSettingsChange(values, valid)
+        }}
+        mode="create"
+      />
+      }
+      <StyledStickyButtons>
+        <Button
+          ink="primary"
+          disabled={!settingsChange.customSettingsValid || !settingsChange.valid}
+          onClick={handleButtonClick}
+          look="raised"
+        >
+          <FormattedMessage id="client.common.report.generate"/>
+        </Button>
+      </StyledStickyButtons>
+    </StyledReportSettings>
+  )
 }
 
 ReportSettings.propTypes = {
