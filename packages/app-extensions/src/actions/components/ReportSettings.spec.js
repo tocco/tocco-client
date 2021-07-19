@@ -1,6 +1,7 @@
 import React from 'react'
-import {IntlStub} from 'tocco-test-util'
-import {shallow} from 'enzyme'
+import {IntlStub, intlEnzyme} from 'tocco-test-util'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
 
 import {ReportSettings} from './ReportSettings'
 const EMPTY_FUNC = () => {}
@@ -9,20 +10,39 @@ describe('app-extensions', () => {
   describe('actions', () => {
     describe('components', () => {
       describe('ReportSettings', () => {
+        const store = createStore(() => ({}))
         test('should render simple-form for general and recipient settings and one for custom settings', () => {
-          const wrapper = shallow(<ReportSettings onSubmit={EMPTY_FUNC} intl={IntlStub}
-            settingsDefinition={formDefinitionFull} listApp={EMPTY_FUNC} formApp={EMPTY_FUNC}/>)
+          const FormApp = () => <div>form</div>
+          const wrapper = intlEnzyme.mountWithIntl(
+            <Provider store={store}>
+              <ReportSettings
+                onSubmit={EMPTY_FUNC}
+                intl={IntlStub}
+                settingsDefinition={formDefinitionFull}
+                listApp={EMPTY_FUNC}
+                formApp={FormApp}/>
+            </Provider>
+          )
 
-          expect(wrapper.find(wrapper.instance().SimpleFormContainer)).to.have.length(2)
+          expect(wrapper.find(FormApp)).to.have.length(2)
         })
 
         test('should not render custom settings simple-form if custom settings are null', () => {
           const settingsDefinition = {...formDefinitionFull, customSettings: null}
 
-          const wrapper = shallow(<ReportSettings onSubmit={EMPTY_FUNC} intl={IntlStub}
-            settingsDefinition={settingsDefinition} listApp={EMPTY_FUNC} formApp={EMPTY_FUNC}/>)
+          const FormApp = () => <div>form</div>
+          const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <ReportSettings
+              onSubmit={EMPTY_FUNC}
+              intl={IntlStub}
+              settingsDefinition={settingsDefinition}
+              listApp={EMPTY_FUNC}
+              formApp={FormApp}/>
+          </Provider>
+          )
 
-          expect(wrapper.find(wrapper.instance().SimpleFormContainer)).to.have.length(1)
+          expect(wrapper.find(FormApp)).to.have.length(1)
         })
       })
     })
