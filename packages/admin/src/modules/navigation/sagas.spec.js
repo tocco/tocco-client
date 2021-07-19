@@ -5,23 +5,11 @@ import {select} from 'redux-saga/effects'
 
 import * as sagas from './sagas'
 import * as actions from './actions'
+import {saveUserPreferences, setUserPreferences} from '../preferences/actions'
 
 describe('admin', () => {
   describe('navigation', () => {
     describe('sagas', () => {
-      describe('initializeNavigation', () => {
-        test('should call load menus and get preferences', () => {
-          return expectSaga(sagas.initializeNavigation)
-            .provide([
-              [matchers.call.fn(sagas.loadNavigation)],
-              [matchers.call.fn(sagas.setActiveMenuFromPreferences)]
-            ])
-            .call.like({fn: sagas.loadNavigation})
-            .call.like({fn: sagas.setActiveMenuFromPreferences})
-            .run()
-        })
-      })
-
       describe('loadNavigation', () => {
         test('should load menus', () => {
           const moduleMenu = {menuItems: 'module'}
@@ -46,7 +34,9 @@ describe('admin', () => {
 
       describe('setActiveMenuFromPreferences', () => {
         test('should get preferences', () => {
-          return expectSaga(sagas.setActiveMenuFromPreferences)
+          const userPreferenceAction = setUserPreferences({'admin.activeMenu': 'main#settings'})
+
+          return expectSaga(sagas.setActiveMenuFromPreferences, userPreferenceAction)
             .provide([
               [matchers.call.fn(rest.fetchUserPreferences), {'admin.activeMenu': 'main#settings'}]
             ])
@@ -55,7 +45,8 @@ describe('admin', () => {
             .run()
         })
         test('should do nothing without preferences', () => {
-          return expectSaga(sagas.setActiveMenuFromPreferences)
+          const userPreferenceAction = setUserPreferences({})
+          return expectSaga(sagas.setActiveMenuFromPreferences, userPreferenceAction)
             .provide([
               [matchers.call.fn(rest.fetchUserPreferences), {}]
             ])
@@ -69,12 +60,9 @@ describe('admin', () => {
         test('should save opened tab', () => {
           return expectSaga(sagas.saveOpenMenuPreference, {payload: {activeMenuTab: 'settings'}})
             .provide([
-              [select(sagas.navigationSelector), {visibleMenus: 'main'}],
-              [matchers.call.fn(rest.savePreferences)]
+              [select(sagas.navigationSelector), {visibleMenus: 'main'}]
             ])
-            .call(rest.savePreferences, {
-              'admin.activeMenu': 'main#settings'
-            })
+            .put(saveUserPreferences('admin.activeMenu', 'main#settings'))
             .run()
         })
       })

@@ -2,6 +2,7 @@ import {rest} from 'tocco-app-extensions'
 import {takeLatest, call, all, put, select} from 'redux-saga/effects'
 
 import * as actions from './actions'
+import {SET_USER_PREFERENCES, saveUserPreferences} from '../preferences/actions'
 
 export const navigationSelector = state => state.navigation
 
@@ -26,30 +27,24 @@ export function* loadNavigation() {
   yield put(actions.setCompleteMenuTree(completeMenu))
 }
 
-export function* setActiveMenuFromPreferences() {
-  const {[preferencesKey]: preference} = yield call(rest.fetchUserPreferences, preferencesKey)
-  if (preference) {
-    const [visibleMenus, activeTab] = preference.split('#')
+export function* setActiveMenuFromPreferences({payload: {userPreferences}}) {
+  const menuPreference = userPreferences[preferencesKey]
+  if (menuPreference) {
+    const [visibleMenus, activeTab] = menuPreference.split('#')
     yield put(actions.setVisibleMenus(visibleMenus))
     yield put(actions.setActiveMenuTab(activeTab))
   }
 }
 
-export function* initializeNavigation() {
-  yield call(loadNavigation)
-  yield call(setActiveMenuFromPreferences)
-}
-
 export function* saveOpenMenuPreference({payload: {activeMenuTab}}) {
   const {visibleMenus} = yield select(navigationSelector)
-  yield call(rest.savePreferences, {
-    [preferencesKey]: `${visibleMenus}#${activeMenuTab}`
-  })
+  yield put(saveUserPreferences(preferencesKey, `${visibleMenus}#${activeMenuTab}`))
 }
 
 export default function* mainSagas() {
   yield all([
-    takeLatest(actions.INITIALIZE_NAVIGATION, initializeNavigation),
-    takeLatest(actions.SET_ACTIVE_MENU_TAB, saveOpenMenuPreference)
+    takeLatest(actions.INITIALIZE_NAVIGATION, loadNavigation),
+    takeLatest(actions.SET_ACTIVE_MENU_TAB, saveOpenMenuPreference),
+    takeLatest(SET_USER_PREFERENCES, setActiveMenuFromPreferences)
   ])
 }

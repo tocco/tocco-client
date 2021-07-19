@@ -2,8 +2,9 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {notification} from 'tocco-app-extensions'
 
-import {loadPrincipal, loadServerSettings} from '../../modules/session/actions'
+import {loadPrincipal} from '../../modules/session/actions'
 import {initializeNavigation, setMenuOpen} from '../../modules/navigation/actions'
+import {loadSettingsAndPreferences} from '../../modules/preferences/actions'
 import Admin from './Admin'
 
 const mapActionCreators = {
@@ -11,7 +12,7 @@ const mapActionCreators = {
   confirm: notification.confirm,
   initializeNavigation,
   setMenuOpen,
-  loadServerSettings
+  loadSettingsAndPreferences
 }
 
 const mapStateToProps = (state, props) => ({
