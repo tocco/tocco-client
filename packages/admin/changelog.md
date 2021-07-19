@@ -1,3 +1,10 @@
+0.5.9
+- Style location edit dropdown to match other dropdowns
+- Remove download icon inside button of report settings
+- Adjust notification dot position
+- Fix calender search bug
+- Fix search-form remote bug
+
 0.5.8
 - Added support for "markable" feature
 - Added support for "markable" feature
