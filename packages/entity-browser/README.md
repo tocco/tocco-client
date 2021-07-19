@@ -19,6 +19,7 @@ React-registry name: `entity-browser`
 | `simpleSearchFields`   |           | Comma separated String of searchfields which should be displayed by default.
 | `initialKey`           |           | If set, the entity browser will start on the detail page of the entity with the specified key instead of showing a list.
 | `nullBusinessUnit`     |           | If true, all REST-request have the null business unit header (X-Business-Unit: __n-u-l-l__)
+| `runInBusinessUnit`    |           | The unique id of a business unit. If present, all REST request will use this in their business unit header (X-Business-Unit). If `nullBusinessUnit` is set as well, it has precedence.
 | `memoryHistory`        |           | If set to true in-memory history is used instead of hash history. This is useful in testing and non-DOM environments.
 
 ### Events
