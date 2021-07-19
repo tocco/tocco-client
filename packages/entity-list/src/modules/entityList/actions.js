@@ -7,6 +7,7 @@ export const SET_SEARCH_FORM_POSITION = 'entityList/SET_SEARCH_FORM_POSITION'
 export const SET_FORM_NAME = 'entityList/SET_FORM_NAME'
 export const RELOAD_ALL = 'entityList/RELOAD_ALL'
 export const RELOAD_DATA = 'entityList/RELOAD_DATA'
+export const SEARCH_FORM_COLLAPSED_CHANGE = 'entityList/SEARCH_FORM_COLLAPSED_CHANGE'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -60,4 +61,11 @@ export const reloadData = () => ({
 
 export const reloadAll = () => ({
   type: RELOAD_ALL
+})
+
+export const searchFormCollapsedChange = collapsed => ({
+  type: SEARCH_FORM_COLLAPSED_CHANGE,
+  payload: {
+    collapsed
+  }
 })

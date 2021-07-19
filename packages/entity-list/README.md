@@ -35,6 +35,7 @@ React-registry name: `entity-list`
 | `navigationStrategy`            |             | Object consisting of various link factories. For more information see tocco-util/navigationStrategy documentation.
 | `customActions`                 |             | Map of custom action handlers. Note that this prop should only be used if you have an action without a component (i.e. an action that only puts a redux action to trigger a saga). If rendering of a component is involved (like it is in most cases), you should use `actionAppComponent`. | Object
 | `contextParams`                 |             | Map of parameters that will be added to the context which will be passed on to the called actions.                                                                                                        | Object
+| `searchFormCollapsed`           |             | If true, the admin search form is collapsed and thus not visible by default                                                                                                                               | Boolean
 
 ### Events
 
@@ -44,3 +45,4 @@ React-registry name: `entity-list`
 | `onSelectChange`    | An array containing the ids of the new selection | This event is fired when the selection changes
 | `onStoreCreate`     | The created store | This event is fired when the store for the app is created. Note that the event will neved be fired if a store is passed to the app via the `store` input property.
 | `onSearchChange`    | The search params | This event is fired when the search is changed
+| `onSearchFormCollapsedChange` | `collapsed` boolean. Whether it was opened or closed  | Is fired when the user click in the arrow in the admin search form to collapse the search form.

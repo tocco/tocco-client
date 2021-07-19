@@ -8,10 +8,13 @@ import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTyp
 
 const EntityList = ({
   searchFormType,
-  searchFormPosition
+  searchFormPosition,
+  searchFormCollapsedDefault,
+  searchFormCollapsedChange
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(searchFormCollapsedDefault)
   const toggleCollapse = () => {
+    searchFormCollapsedChange(!isCollapsed)
     setIsCollapsed(!isCollapsed)
   }
 
@@ -35,7 +38,9 @@ const EntityList = ({
 
 EntityList.propTypes = {
   searchFormType: searchFormTypePropTypes,
-  searchFormPosition: PropTypes.oneOf(['top', 'left'])
+  searchFormPosition: PropTypes.oneOf(['top', 'left']),
+  searchFormCollapsedDefault: PropTypes.bool,
+  searchFormCollapsedChange: PropTypes.func
 }
 
 export default EntityList
