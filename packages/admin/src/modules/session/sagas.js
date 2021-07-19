@@ -90,11 +90,6 @@ export function* checkSsoAvailable() {
   }
 }
 
-export function* loadServerSettings() {
-  const settings = yield call(rest.fetchServerSettings)
-  yield put(actions.setServerSettings(settings))
-}
-
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.DO_SESSION_CHECK, sessionCheck),
@@ -103,7 +98,6 @@ export default function* mainSagas() {
     takeLatest(actions.LOAD_PRINCIPAL, loadPrincipal),
     takeLatest(actions.LOAD_BUSINESS_UNITS, loadBusinessUnits),
     takeLatest(actions.CHANGE_BUSINESS_UNIT, changeBusinessUnitId),
-    takeLatest(actions.CHECK_SSO_AVAILABLE, checkSsoAvailable),
-    takeLatest(actions.LOAD_SERVER_SETTINGS, loadServerSettings)
+    takeLatest(actions.CHECK_SSO_AVAILABLE, checkSsoAvailable)
   ])
 }

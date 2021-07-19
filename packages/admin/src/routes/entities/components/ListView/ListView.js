@@ -10,7 +10,7 @@ import ErrorView from '../../../../components/ErrorView'
 import navigationStrategy from '../../utils/navigationStrategy'
 import DocsViewAdapter from './DocsViewAdapter'
 
-const ListView = ({match, history, currentViewInfo, emitAction}) => {
+const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollapsed, saveUserPreferences}) => {
   if (currentViewInfo && currentViewInfo.error) {
     return <ErrorView technicalReason={currentViewInfo.error.message}/>
   }
@@ -56,6 +56,10 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
       }}
       actionAppComponent={Action}
       tql={queryParams.tql}
+      searchFormCollapsed={searchFormCollapsed}
+      onSearchFormCollapsedChange={({collapsed}) => {
+        saveUserPreferences('admin.list.searchFormCollapsed', collapsed)
+      }}
     />
   )
 }
@@ -67,7 +71,9 @@ ListView.propTypes = {
   currentViewInfo: currentViewPropType,
   persistedViewInfo: PropTypes.shape({
     store: PropTypes.object
-  })
+  }),
+  searchFormCollapsed: PropTypes.bool,
+  saveUserPreferences: PropTypes.func
 }
 
 export default ListView

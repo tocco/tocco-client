@@ -29,7 +29,7 @@ const Admin = ({
   baseRoute,
   confirm,
   loadPrincipal,
-  loadServerSettings,
+  loadSettingsAndPreferences,
   theme
 }) => {
   const [history, setHistory] = useState(null)
@@ -38,7 +38,7 @@ const Admin = ({
     initializeHistory()
     initializeNavigation()
     loadPrincipal()
-    loadServerSettings()
+    loadSettingsAndPreferences()
   }, [])
 
   const initializeHistory = () => {
@@ -106,7 +106,7 @@ Admin.propTypes = {
   setMenuOpen: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,
   initializeNavigation: PropTypes.func.isRequired,
-  loadServerSettings: PropTypes.func.isRequired,
+  loadSettingsAndPreferences: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired
 }
 
