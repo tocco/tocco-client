@@ -23,7 +23,7 @@ PanelHeaderContent.propTypes = {
   label: PropTypes.string.isRequired
 }
 
-const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, calendarTypes}) => {
+const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, calendarTypes, emitAction}) => {
   const handleSelect = name => selection => {
     updateRequestedCalendars(name, selection)
   }
@@ -39,6 +39,7 @@ const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, cale
         </Panel.Header>
         <Panel.Body>
           <EntityListApp
+            emitAction={emitAction}
             locale={locale}
             id={`search-panel-${calendarType.name}`}
             entityName={calendarType.targetEntity}
@@ -75,7 +76,8 @@ SearchPanel.propTypes = {
     }
     )),
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  locale: PropTypes.string
+  locale: PropTypes.string,
+  emitAction: PropTypes.func.isRequired
 }
 
 export default memo(SearchPanel)
