@@ -1,3 +1,46 @@
+0.4.7
+- Style new notification boxes
+- Style notification center
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Displayexpression call adjustment
+- Change cursor to pointer on panel header/footer hover
+- Added options to create a search filter from the current search, edit or delete an existing filter
+- datetime search fields now use a date field until the full range is expanded
+- Fix hover delay and hover color of search filter buttons
+- Adjust spacing and alignment of button inside modal
+- Add action selection count confirm
+- Improve input field UX by better highlighting fields and labels
+- Adapt input font-sizes for better readability
+- Fix selection controller button font color
+- Add collapse feature to search panel in list view
+- Fix broken modal layout
+- Fix date-time search
+- Fix overlay of modal in widget mode
+- Fix popper menu on safari browsers
+- Fix notification socket url
+- refactor column picker
+- Add search form customization
+- Make select dropdown menu style more uniform for a more consistent UI
+- Harmonize select box size und colors
+- Change collpase icon for detail and list view
+- Align modal globally at same position
+- Fix modal overflow
+- Harmonize toaster styling
+- Fix blocking info being covered by header
+- Fix notifications for already deleted outputjobs
+- Add hover effect to column picker list
+- Added support for "markable" feature
+- Prevent dropdown menu being clipped in viewport
+- Support empty html edit field
+- Has value for checkboxes change
+- Improve pagination UX by moving it to the left and changing button behavior
+- Fix search filter menu hover
+- Add preview for documents
+- Style location edit dropdown to match other dropdowns
+- Remove download icon inside button of report settings
+- Fix calender search bug
+- Fix search-form remote bug
+
 0.4.6
 - Adjust label margin in input fields
 - support sorting by search filters and preferences
