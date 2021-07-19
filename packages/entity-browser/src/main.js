@@ -57,6 +57,8 @@ const initApp = (id, input, events, publicPath) => {
   input = {...input, id}
   if (input.nullBusinessUnit) {
     rest.setBusinessUnit(rest.NULL_BUSINESS_UNIT)
+  } else if (input.runInBusinessUnit) {
+    rest.setBusinessUnit(input.runInBusinessUnit)
   }
 
   const store = appFactory.createStore(undefined, undefined, input, packageName)
@@ -140,6 +142,7 @@ EntityBrowserApp.propTypes = {
   simpleSearchFields: PropTypes.string,
   initialKey: PropTypes.string,
   nullBusinessUnit: PropTypes.bool,
+  runInBusinessUnit: PropTypes.string,
   memoryHistory: PropTypes.bool
 }
 
