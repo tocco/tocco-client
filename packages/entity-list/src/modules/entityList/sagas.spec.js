@@ -18,7 +18,8 @@ describe('entity-list', () => {
             expect(generator.next().value).to.deep.equal(all([
               call(sagas.initialize),
               takeLatest(actions.RELOAD_DATA, sagas.reloadData),
-              takeLatest(actions.RELOAD_ALL, sagas.initialize, false)
+              takeLatest(actions.RELOAD_ALL, sagas.initialize, false),
+              takeLatest(actions.SEARCH_FORM_COLLAPSED_CHANGE, sagas.searchFormCollapsed)
             ]))
             expect(generator.next().done).to.be.true
           })

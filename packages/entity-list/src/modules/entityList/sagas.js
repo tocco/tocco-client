@@ -1,5 +1,5 @@
 import {put, call, all, take, takeLatest} from 'redux-saga/effects'
-import {appFactory} from 'tocco-app-extensions'
+import {appFactory, externalEvents} from 'tocco-app-extensions'
 
 import * as actions from './../entityList/actions'
 import * as listActions from './../list/actions'
@@ -12,7 +12,8 @@ export default function* sagas() {
   yield all([
     call(initialize),
     takeLatest(actions.RELOAD_DATA, reloadData),
-    takeLatest(actions.RELOAD_ALL, initialize, false)
+    takeLatest(actions.RELOAD_ALL, initialize, false),
+    takeLatest(actions.SEARCH_FORM_COLLAPSED_CHANGE, searchFormCollapsed)
   ])
 }
 
@@ -39,4 +40,8 @@ export function* reloadData() {
     take(searchFormActions.SET_INITIALIZED)
   ])
   yield put(searchFormActions.executeSearch())
+}
+
+export function* searchFormCollapsed({payload: {collapsed}}) {
+  yield put(externalEvents.fireExternalEvent('onSearchFormCollapsedChange', {collapsed}))
 }

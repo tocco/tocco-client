@@ -30,7 +30,8 @@ const EXTERNAL_EVENTS = [
   'emitAction',
   'onSelectChange',
   'onStoreCreate',
-  'onSearchChange'
+  'onSearchChange',
+  'onSearchFormCollapsedChange'
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
