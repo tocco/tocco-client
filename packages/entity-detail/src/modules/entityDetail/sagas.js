@@ -156,13 +156,12 @@ export function* handleSubmitError(error) {
       ? validationErrors.join('<br>')
       : 'client.entity-detail.saveAbortedMessage')
 
-    yield put(notification.toaster(
-      'warning',
-      'client.entity-detail.saveAbortedTitle',
-      message,
-      null,
-      5000
-    ))
+    yield put(notification.toaster({
+      type: 'warning',
+      title: 'client.entity-detail.saveAbortedTitle',
+      body: message,
+      duration: 5000
+    }))
   } else if (error instanceof rest.InformationError) {
     yield put(notification.toaster({
       type: 'info',
