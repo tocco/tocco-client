@@ -11,7 +11,6 @@
     "compile": "babel-node build/scripts/compile",
     "compile:prod": "cross-env NODE_ENV=production npm run compile --",
     "compile:dev": "cross-env NODE_ENV=development npm run compile --",
-    "compile:standalone": "cross-env NODE_ENV=standalone npm run compile --",
     "lint": "eslint . --cache && stylelint 'packages/**/*.js' --cache --syntax scss",
     "lint:fix": "eslint . --cache --fix && stylelint 'packages/**/*.js' --cache --syntax scss",
     "start": "babel-node build/scripts/dev-server",
