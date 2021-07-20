@@ -24,7 +24,6 @@ config.globals = {
   __CI__       : !!process.env.CI,
   __DEV__      : config.env === 'development',
   __PROD__     : config.env === 'production',
-  __STANDALONE__: config.env === 'standalone',
   __BACKEND_URL__: JSON.stringify(argv.backend) || JSON.stringify(process.env.BACKEND),
   __PACKAGE__   : argv.package,
   __PACKAGE_NAME__   : JSON.stringify(argv.package),

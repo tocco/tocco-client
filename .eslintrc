@@ -28,7 +28,6 @@
     "__CI__"      : false,
     "__DEV__"      : false,
     "__PROD__"     : false,
-    "__STANDALONE__": false,
     "__BACKEND_URL__" : false,
     "__PACKAGE__": false,
     "__PACKAGE_NAME__": false,
