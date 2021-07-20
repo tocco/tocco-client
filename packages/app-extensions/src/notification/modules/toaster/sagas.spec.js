@@ -1,12 +1,10 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {takeEvery, all, select} from 'redux-saga/effects'
+import {takeEvery, all} from 'redux-saga/effects'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import actionEmitter from '../../../actionEmitter'
 import {emit, removeToaster} from './sagas'
-import {TOASTER_KEY_PREFIX} from '../socket/socket'
-import {markAsRead} from '../center/actions'
 
 describe('app-extensions', () => {
   describe('notification', () => {
@@ -55,12 +53,8 @@ describe('app-extensions', () => {
       describe('removeToaster', () => {
         test('should call markAsRead', () => {
           const key = '1'
-          const input = {[`${TOASTER_KEY_PREFIX}${key}`]: {type: 'success'}}
-          return expectSaga(sagas.removeToaster, {payload: {key: `${TOASTER_KEY_PREFIX}${key}`, manually: true}})
-            .provide([
-              [select(sagas.toastersSelector), input]
-            ])
-            .put(markAsRead(key))
+          return expectSaga(sagas.removeToaster, {payload: {key, manually: true}})
+            .put(actions.removeToasterFromStore(key))
             .run()
         })
       })
