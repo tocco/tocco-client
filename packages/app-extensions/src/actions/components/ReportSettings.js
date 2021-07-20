@@ -14,7 +14,7 @@ import {StyledStickyButtons, StyledReportSettings} from './StyledReportSettings'
 
 export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, intl}) => {
   const customSettingsDefined = settingsDefinition.customSettings && settingsDefinition.customSettings.entity
-  const [settingsChange, setSettingsChange] = useState({
+  const [settings, setSettings] = useState({
     valid: false,
     customSettingsValid: !customSettingsDefined
   })
@@ -22,16 +22,16 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
   const SimpleFormContainer = useMemo(() => simpleFormConnector(formApp), [])
 
   const handleSettingsChange = (values, valid) => {
-    setSettingsChange({
-      ...settingsChange,
+    setSettings({
+      ...settings,
       values,
       valid
     })
   }
 
   const handleCustomSettingsChange = (customSettings, customSettingsValid) => {
-    setSettingsChange({
-      ...settingsChange,
+    setSettings({
+      ...settings,
       customSettings,
       customSettingsValid
     })
@@ -39,8 +39,8 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
 
   const handleButtonClick = () => {
     const groupedValues = {
-      ...getGroupedValues(settingsDefinition, transformValues(settingsChange.values)),
-      customSettings: settingsChange.customSettings
+      ...getGroupedValues(settingsDefinition, transformValues(settings.values)),
+      customSettings: settings.customSettings
     }
 
     onSubmit(groupedValues)
@@ -58,20 +58,20 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
         mode="create"
       />
       {customSettingsDefined
-      && <SimpleFormContainer
-        listApp={listApp}
-        form={settingsDefinition.customSettings.form.form}
-        noButtons
-        onChange={({values, valid}) => {
-          handleCustomSettingsChange(values, valid)
-        }}
-        mode="create"
-      />
+        && <SimpleFormContainer
+          listApp={listApp}
+          form={settingsDefinition.customSettings.form.form}
+          noButtons
+          onChange={({values, valid}) => {
+            handleCustomSettingsChange(values, valid)
+          }}
+          mode="create"
+        />
       }
       <StyledStickyButtons>
         <Button
           ink="primary"
-          disabled={!settingsChange.customSettingsValid || !settingsChange.valid}
+          disabled={!settings.customSettingsValid || !settings.valid}
           onClick={handleButtonClick}
           look="raised"
         >
