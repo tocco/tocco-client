@@ -86,11 +86,11 @@ export function* invokeRequest(definition, selection, parent, params) {
     })
     if (response.body && response.body.errorCode === 'VALIDATION_FAILED') {
       yield put(
-        notification.toaster(
-          'error',
-          'client.component.actions.validationError',
-          validation.getErrorCompact(response.body.errors),
-          'exclamation')
+        notification.toaster({
+          type: 'error',
+          title: 'client.component.actions.validationError',
+          body: validation.getErrorCompact(response.body.errors)
+        })
       )
     } else if (response.body && response.body.params.downloadUrl) {
       const fileResponse = yield call(rest.requestBytesSaga, response.body.params.downloadUrl, {
