@@ -7,9 +7,10 @@ import * as actions from './actions'
 import * as toasterActions from '../toaster/actions'
 import {toaster} from '../toaster/actions'
 import {notificationTransform} from '../../api'
-import {updateNotification, updateUnreadNotification} from '../center/actions'
+import {updateNotification, updateUnreadNotification, markAsRead} from '../center/actions'
 
 export const notificationSocketSelector = state => state.notification.socket
+export const toastersSelector = state => state.notification.toaster.toasters
 
 export default function* sagas(accept) {
   if (accept) {
@@ -72,7 +73,15 @@ export function* messageReceived({payload: {data}}) {
 }
 
 export function* toasterRemoved({payload: {key, manually}}) {
-  if (key.startsWith(TOASTER_KEY_PREFIX) && manually) {
-    yield put(actions.addIgnoreToaster(key))
+  if (key.startsWith(TOASTER_KEY_PREFIX)) {
+    if (manually) {
+      yield put(actions.addIgnoreToaster(key))
+    }
+
+    const toasters = yield select(toastersSelector)
+    if ((toasters[key].type === 'success' || manually)) {
+      const notificationKey = key.replace(TOASTER_KEY_PREFIX, '')
+      yield put(markAsRead(notificationKey))
+    }
   }
 }

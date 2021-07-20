@@ -1,11 +1,7 @@
-import {takeEvery, put, all, select} from 'redux-saga/effects'
+import {takeEvery, put, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import actionEmitter from '../../../actionEmitter'
-import {TOASTER_KEY_PREFIX} from '../socket/socket'
-import {markAsRead} from '../center/actions'
-
-export const toastersSelector = state => state.notification.toaster.toasters
 
 export default function* sagas(accept) {
   if (accept) {
@@ -25,12 +21,5 @@ export function* emit(action) {
 }
 
 export function* removeToaster({payload: {key, manually}}) {
-  const toasters = yield select(toastersSelector)
-
-  if (toasters[key].type === 'success' || manually) {
-    const notificationKey = key.replace(TOASTER_KEY_PREFIX, '')
-    yield put(markAsRead(notificationKey))
-  }
-
   yield put(actions.removeToasterFromStore(key))
 }

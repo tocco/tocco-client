@@ -6,7 +6,7 @@ import * as actions from './actions'
 import * as toasterActions from '../toaster/actions'
 import {notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
 import {notificationTransform} from '../../api'
-import {updateNotification, updateUnreadNotification} from '../center/actions'
+import {updateNotification, updateUnreadNotification, markAsRead} from '../center/actions'
 import {TOASTER} from '../toaster/actions'
 
 describe('app-extensions', () => {
@@ -81,9 +81,15 @@ describe('app-extensions', () => {
 
       describe('toasterRemoved', () => {
         test('toasterRemoved', () => {
-          const key = `${TOASTER_KEY_PREFIX}1`
-          return expectSaga(sagas.toasterRemoved, {payload: {key, manually: true}})
-            .put(actions.addIgnoreToaster(key))
+          const key = '123'
+          const toasterId = `${TOASTER_KEY_PREFIX}${key}`
+          const toasters = {[toasterId]: {type: 'success'}}
+          return expectSaga(sagas.toasterRemoved, {payload: {key: toasterId, manually: true}})
+            .provide([
+              [select(sagas.toastersSelector), toasters]
+            ])
+            .put(markAsRead(key))
+            .put(actions.addIgnoreToaster(toasterId))
             .run()
         })
       })
