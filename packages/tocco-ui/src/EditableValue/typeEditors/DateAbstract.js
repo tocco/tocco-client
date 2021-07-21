@@ -161,7 +161,7 @@ class DateAbstract extends React.Component {
   render() {
     return (
       <>
-        <GlobalDatePickerStyles/>
+        <GlobalDatePickerStyles />
         <StyledDateAbstractOuterWrapper
           immutable={this.props.immutable}
           id={this.props.id}
@@ -169,7 +169,9 @@ class DateAbstract extends React.Component {
           onFocus={() => {
             this.focusInput()
             setTimeout(() => {
-              this.flatpickr.open()
+              if (this.flatpickr) {
+                this.flatpickr.open()
+              }
             })
           }}
           onKeyDown={this.handleConfirmKey}
@@ -199,7 +201,7 @@ class DateAbstract extends React.Component {
               onMouseDown={e => {
                 e.preventDefault()
                 this.props.onChange(null)
-              }}/>}
+              }} />}
           </StyledDateAbstractWrapper>
         </StyledDateAbstractOuterWrapper>
       </>
