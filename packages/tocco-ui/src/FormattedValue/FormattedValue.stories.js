@@ -100,12 +100,6 @@ export const Integer = args => (
 
 Integer.argTypes = {value: {type: 'number', defaultValue: 87660000}, type: {defaultValue: 'integer'}}
 
-export const Money = args => (
-  <FormattedValue {...args} type="moneyamount"/>
-)
-
-Money.argTypes = {value: {control: 'number', defaultValue: 1235.67}}
-
 export const MultiRemote = args => (
   <FormattedValue {...args} options={{
     DetailLink: ({entityKey, children}) =>
