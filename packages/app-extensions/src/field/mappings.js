@@ -85,7 +85,7 @@ const readOnlyMapping = {
   'login': formattedValueFactory('string'),
   'long': formattedValueFactory('integer'),
   'longitude': formattedValueFactory('string'),
-  'moneyamount': formattedValueFactory('moneyamount'),
+  'moneyamount': formattedValueFactory('number'),
   'multi-remote-field': formattedValueFactory('multi-remote'),
   'multi-select-box': formattedValueFactory('multi-select'),
   'named-upload': formattedValueFactory('document'),
