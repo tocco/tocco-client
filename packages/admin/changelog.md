@@ -1,3 +1,6 @@
+0.5.10
+- Add collapse user preferences support
+
 0.5.9
 - Style location edit dropdown to match other dropdowns
 - Remove download icon inside button of report settings
