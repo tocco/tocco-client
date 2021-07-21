@@ -8,7 +8,6 @@ import DocumentCompactFormatter from './typeFormatters/DocumentCompactFormatter'
 import DocumentFormatter from './typeFormatters/DocumentFormatter'
 import DurationFormatter from './typeFormatters/DurationFormatter'
 import HtmlFormatter from './typeFormatters/HtmlFormatter'
-import MoneyFormatter from './typeFormatters/MoneyFormatter'
 import MultiSelectFormatter from './typeFormatters/MultiSelectFormatter'
 import PercentFormatter from './typeFormatters/PercentFormatter'
 import PhoneFormatter from './typeFormatters/PhoneFormatter'
@@ -39,7 +38,6 @@ export const map = {
   'duration': DurationFormatter,
   'html': HtmlFormatter,
   'integer': IntegerFormatter,
-  'moneyamount': MoneyFormatter,
   'multi-remote': MultiSelectFormatter,
   'multi-select': MultiSelectFormatter,
   'number': NumberFormatter,
