@@ -1,3 +1,6 @@
+0.5.11
+
+
 0.5.10
 - Add collapse user preferences support
 
