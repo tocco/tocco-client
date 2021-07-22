@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import RelationsView from '../RelationsView'
 import EditView from '../EditView'
 import {currentViewPropType} from '../../utils/propTypes'
-import ErrorView from '../../../../components/ErrorView'
 import {StyledDetailViewContainer, StyledDetailViewLeft, StyledDetailViewRight} from './StyledComponents'
 
 const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, saveUserPreferences}) => {
@@ -20,10 +19,6 @@ const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, sav
 
   const onSearchFormCollapsedChange = collapsed => {
     saveUserPreferences('admin.detail.relationViewCollapsed', collapsed)
-  }
-
-  if (currentViewInfo && currentViewInfo.error) {
-    return <ErrorView message="client.admin.entity.detailError" technicalReason={currentViewInfo.error.message}/>
   }
 
   return (

@@ -59,16 +59,20 @@ describe('admin', () => {
                   .run()
               })
 
-              test('should set current view with error if model or display load failed', () => {
-                const pathname = '/e/User/1/detail'
-                const error = 'Invalid Entity'
-                const currentViewInfo = {error}
+              test('should not spawn initMultiRelations if route info contains an error', () => {
+                const currentViewInfo = {
+                  type: 'detail',
+                  level: 1,
+                  error: {key: '1'}
+                }
 
-                return expectSaga(sagas.loadRoute, loadCurrentRoute({pathname}))
+                return expectSaga(sagas.loadRoute, loadCurrentRoute(''))
                   .provide([
-                    [matchers.call.fn(loadRouteInfo), throwError(error)]
+                    [matchers.call.fn(loadRouteInfo), []],
+                    [matchers.call.fn(deriveCurrentViewInfo), currentViewInfo],
+                    [matchers.call.fn(deriveBreadcrumbs)]
                   ])
-                  .put(actions.setCurrentViewInfo(pathname, currentViewInfo))
+                  .not.spawn(initMultiRelations, currentViewInfo.model, currentViewInfo.key)
                   .run()
               })
             })
@@ -289,6 +293,34 @@ describe('admin', () => {
                   .returns([])
                   .run()
               })
+
+              test('should return an error if entity model can not be loaded', () => {
+                const pathname = '/e/UserAA/12261111111/detail'
+
+                return expectSaga(sagas.loadRouteInfo, pathname)
+                  .provide([
+                    [matchers.call.fn(sagas.fetchModel), throwError('')]
+
+                  ])
+                  .returns([{type: 'list', error: {entityName: 'UserAA'}}])
+                  .run()
+              })
+
+              test('should return an error if display can not be loaded of an entity', async() => {
+                const pathname = '/e/User/12261111111/detail'
+
+                const result = await expectSaga(sagas.loadRouteInfo, pathname)
+                  .provide([
+                    [matchers.call.fn(sagas.fetchDisplaySave), null],
+                    [matchers.call.fn(rest.fetchModel), mockData.userModel]
+                  ])
+
+                  .run()
+
+                expect(result.returnValue[1]).to.eql(
+                  {type: 'detail', error: {key: '12261111111', entityName: 'Person'}}
+                )
+              })
             })
 
             describe('deriveBreadcrumbs', () => {
@@ -351,6 +383,18 @@ describe('admin', () => {
 
                 expect(result).to.eql(expectedResult)
               })
+            })
+          })
+
+          describe('fetchDisplaySave', () => {
+            test('should return null if fetch display throws an error', () => {
+              return expectSaga(sagas.fetchDisplaySave, 'User', 'asd')
+                .provide([
+                  [matchers.call.fn(sagas.fetchModel), throwError('')]
+
+                ])
+                .returns(null)
+                .run()
             })
           })
         })

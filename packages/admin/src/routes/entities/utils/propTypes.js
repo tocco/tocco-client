@@ -19,5 +19,10 @@ export const currentViewPropType = PropTypes.shape({
   model: modelPropType,
   parentModel: modelPropType,
   reverseRelation: PropTypes.string,
-  actionId: PropTypes.string
+  actionId: PropTypes.string,
+  error: PropTypes.shape({
+    key: PropTypes.string,
+    entityName: PropTypes.string,
+    relationName: PropTypes.string
+  })
 })
