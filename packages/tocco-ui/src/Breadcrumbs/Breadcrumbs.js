@@ -48,7 +48,9 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundC
             to={`${pathPrefix}/${b.path}`}
             onClick={handleClick(b)}
           >
-            {b.type === 'list' && <Icon icon="list"/>} {display}
+            {b.type === 'list' && <Icon icon="list"/>}
+            {b.type === 'error' && <Icon icon="exclamation-circle"/>}
+            {display}
           </Comp>
         </Typography.Span>
       })
