@@ -19,12 +19,7 @@ export default function* mainSagas() {
 export function* loadRoute({payload: {location}}) {
   const {pathname} = location
 
-  let routeInfo = []
-  try {
-    routeInfo = yield call(loadRouteInfo, pathname)
-  } catch (error) {
-    yield put(actions.setCurrentViewInfo(pathname, {error}))
-  }
+  const routeInfo = yield call(loadRouteInfo, pathname)
 
   if (routeInfo.length > 0) {
     const currentViewInfo = yield call(deriveCurrentViewInfo, pathname, routeInfo)
@@ -34,11 +29,19 @@ export function* loadRoute({payload: {location}}) {
     const breadcrumbs = yield call(deriveBreadcrumbs, routeInfo)
     yield put(actions.setBreadcrumbsInfo(breadcrumbs))
 
-    if (currentViewInfo.type === 'detail') {
+    if (currentViewInfo.type === 'detail' && !currentViewInfo.error) {
       yield spawn(initMultiRelations, currentViewInfo.model, currentViewInfo.key)
     }
 
     yield call(viewPersistor.clearPersistedViews, currentViewInfo.level + 1)
+  }
+}
+
+export function* fetchDisplaySave(entityName, key) {
+  try {
+    return yield call(rest.fetchDisplay, entityName, key)
+  } catch {
+    return null
   }
 }
 
@@ -51,22 +54,42 @@ export function* loadRouteInfo(pathname) {
   }
 
   if (path.entity) {
-    const baseModel = yield call(rest.fetchModel, path.entity)
-
-    routeInfos.push({
-      type: 'list',
-      model: baseModel
-    })
+    let baseModel
+    try {
+      baseModel = yield call(rest.fetchModel, path.entity)
+      routeInfos.push({
+        type: 'list',
+        model: baseModel
+      })
+    } catch (e) {
+      routeInfos.push({
+        type: 'list',
+        error: {
+          entityName: path.entity
+        }
+      })
+      return routeInfos
+    }
 
     if (path.key) {
-      const display = yield call(rest.fetchDisplay, baseModel.name, path.key)
+      const display = yield call(fetchDisplaySave, baseModel.name, path.key)
 
-      routeInfos.push({
-        type: 'detail',
-        key: path.key,
-        model: baseModel,
-        display
-      })
+      if (display) {
+        routeInfos.push({
+          type: 'detail',
+          key: path.key,
+          model: baseModel,
+          display
+        })
+      } else {
+        routeInfos.push({
+          type: 'detail',
+          error: {
+            entityName: baseModel.label,
+            key: path.key
+          }
+        })
+      }
 
       if (path.relation) {
         const splittedRelation = path.relation.split('/')
@@ -77,7 +100,19 @@ export function* loadRouteInfo(pathname) {
           const parent = routeInfos[routeInfos.length - 1]
           if (isEven(i)) {
             const relationName = relationStringPart
-            const targetEntity = parent.model.paths[relationName].targetEntity
+            const relation = parent.model.paths[relationName]
+            if (!relation) {
+              routeInfos.push({
+                type: 'list',
+                error: {
+                  relationName: relationName,
+                  entityName: parent.model.name
+                }
+              })
+              return routeInfos
+            }
+            const targetEntity = relation.targetEntity
+
             const relationModel = yield call(rest.fetchModel, targetEntity)
 
             routeInfos.push({
@@ -89,14 +124,26 @@ export function* loadRouteInfo(pathname) {
           } else {
             const key = relationStringPart
             const model = parent.model
-            routeInfos.push({
-              type: 'detail',
-              model,
-              key,
-              display: yield call(rest.fetchDisplay, model.name, key),
-              relationName: parent.relationName,
-              parent: parent.parent
-            })
+            const display = yield call(fetchDisplaySave, model.name, key)
+            if (display) {
+              routeInfos.push({
+                type: 'detail',
+                model,
+                key,
+                display,
+                relationName: parent.relationName,
+                parent: parent.parent
+              })
+            } else {
+              routeInfos.push({
+                type: 'detail',
+                error: {
+                  entityName: model.name,
+                  key
+                }
+              })
+              return routeInfos
+            }
           }
         }
       }
@@ -146,6 +193,9 @@ export const deriveCurrentViewInfo = (pathname, routeInfo) => {
 export const deriveBreadcrumbs = routeInfos => {
   let path = ''
   return routeInfos.map(routeInfo => {
+    if (routeInfo.error) {
+      return {type: 'error'}
+    }
     if (routeInfo.type === 'action') {
       return null
     }

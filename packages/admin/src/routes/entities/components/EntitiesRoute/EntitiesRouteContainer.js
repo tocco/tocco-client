@@ -8,4 +8,8 @@ const mapActionCreators = {
   loadCurrentRoute
 }
 
-export default connect(null, mapActionCreators)(injectIntl(EntitiesRoute))
+const mapStateToProps = (state, props) => ({
+  currentViewInfo: state.entities.path.currentViewInfos[props.history.location.pathname]
+})
+
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(EntitiesRoute))
