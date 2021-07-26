@@ -64,7 +64,7 @@ else
 fi
 
 if [[ $auto = false ]]; then
-  targetBranch=releasing/${package}@${new_version}
+  targetBranch=releasing/_${current_branch}_${package}@${new_version}
   echo "Checkin out new branch ${targetBranch}"
   git checkout -b ${targetBranch}
 fi
