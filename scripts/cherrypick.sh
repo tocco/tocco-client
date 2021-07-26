@@ -93,17 +93,11 @@ if [[ $target_branch != "master" ]]; then
   yarn release-all-packages
 fi
 
-git checkout -b releasing/auto-$(date +%s%N)
+git checkout -b releasing/_${target_branch}_auto-$(date +%s%N)
 
 # push cherry picked commits
 current_branch=$(git branch --show-current)
 git push origin $current_branch
-
-# create github PR
-pr=$(curl -s -H "Authorization: token ${GITHUB_BOT_TOKEN}" -X POST \
-  -d "{\"title\": \"Auto merge ${current_branch} to ${target_branch}\", \"body\": \"\", \"head\": \"${current_branch}\", \"base\": \"${target_branch}\"}" \
-  "https://api.github.com/repos/${repo}/pulls" | jq ".url" -r -e)
-echo "Pr created: ${pr}"
 
 moveTag
 
