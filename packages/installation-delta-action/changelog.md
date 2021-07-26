@@ -1,3 +1,6 @@
+0.1.4
+- Release to create tags for further auto releasing
+
 0.1.3
 - Styling
 
