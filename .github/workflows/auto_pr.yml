@@ -1,0 +1,23 @@
+# Github action that automatically creates a pullrequest for "releasing/" branches. Reads destination branch out of target_branch.txt file.
+
+name: Auto Create Pull Request
+
+on:
+  push:
+    branches:
+      - "releasing/*"
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Read and set target branch
+        id: get_target_branch
+        run: echo "::set-output name=target_branch::$(cat target_branch.txt)"
+      - name: pull-request
+        uses: repo-sync/pull-request@v2.6
+        with:
+          destination_branch: ${{ steps.get_target_branch.outputs.target_branch }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
