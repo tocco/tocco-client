@@ -31,6 +31,9 @@ const ActionVisual = ({definition, onClick, selection, parent, mode, callback, d
 }
 
 ActionVisual.propTypes = {
+  /**
+   * Object as derived from the form definition.
+   */
   definition: PropTypes.shape({
     id: PropTypes.string,
     type: PropTypes.string,
@@ -59,14 +62,24 @@ ActionVisual.propTypes = {
   }).isRequired,
   onClick: PropTypes.func.isRequired,
   callback: PropTypes.func,
-  mode: PropTypes.string,
+  /**
+   * Used to render action conditionally if mode fits definition mode.
+   */
+  mode: PropTypes.oneOf(['create', 'update']),
+  /**
+   * Depending on the context a parent entity of the current entity can be passed. This information
+   * can be important when an action is executed.
+   */
   parent: PropTypes.shape({
     key: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
     reverseRelationName: PropTypes.string
   }),
   disabled: PropTypes.bool,
-  customActions: PropTypes.objectOf(PropTypes.func)
+  /**
+   * Used if a custom Rendering is desired. E.g. save button
+   */
+  customRenderedActions: PropTypes.objectOf(PropTypes.func)
 }
 
 const Action = props => {
