@@ -135,7 +135,7 @@ describe('app-extensions', () => {
           }
 
           const wrapper = intlEnzyme.mountWithIntl(
-            <Action {...baseProps} customActions={customActions} definition={definition}/>
+            <Action {...baseProps} customRenderedActions={customActions} definition={definition}/>
           )
           expect(wrapper.find(SaveButton)).to.have.length(1)
         })

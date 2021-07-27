@@ -7,9 +7,9 @@ import {modeFitsScopes} from '../actions'
 import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'
 
-const ActionVisual = ({definition, onClick, selection, parent, mode, callback, disabled, customActions}) => {
-  if (customActions && customActions[definition.id]) {
-    return customActions[definition.id]()
+const ActionVisual = ({definition, onClick, selection, parent, mode, callback, disabled, customRenderedActions}) => {
+  if (customRenderedActions && customRenderedActions[definition.id]) {
+    return customRenderedActions[definition.id]()
   }
 
   if (!modeFitsScopes(mode, definition.scopes)) {

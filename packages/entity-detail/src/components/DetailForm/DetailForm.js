@@ -39,7 +39,7 @@ const DetailForm = props => {
     }
   }, [])
 
-  const customActions = useMemo(() => (
+  const customRenderedActions = useMemo(() => (
     {
       save: () =>
         <SaveButton
@@ -77,7 +77,7 @@ const DetailForm = props => {
       fieldMappingType={formDefinition.readOnly ? 'readonly' : 'editable'}
       mode={mode}
       componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
-      customActions={customActions}
+      customRenderedActions={customRenderedActions}
     />
 
   </StyledForm>
