@@ -27,7 +27,7 @@ const FormBuilder = props => {
     formValues,
     formName,
     fieldMappingType,
-    customActions
+    customRenderedActions
   } = props
 
   const modeFitsScope = (mode, scopes) => (
@@ -133,7 +133,7 @@ const FormBuilder = props => {
         definition={action}
         selection={actions.getSingleEntitySelection(entityName, entityKey)}
         mode={mode}
-        customActions={customActions}
+        customRenderedActions={customRenderedActions}
       />
     </StyledActionsWrapper>
   }
@@ -198,7 +198,7 @@ FormBuilder.propTypes = {
   mode: PropTypes.string,
   componentMapping: PropTypes.objectOf(PropTypes.func),
   beforeRenderField: PropTypes.func,
-  customActions: PropTypes.objectOf(PropTypes.func)
+  customRenderedActions: PropTypes.objectOf(PropTypes.func)
 }
 
 const areEqual = (prevProps, nextProps) => {
