@@ -1,3 +1,6 @@
+0.1.7-hotfix228.7
+- Fix calender search bug
+
 0.1.7-hotfix228.6
 
 
