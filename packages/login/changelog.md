@@ -1,3 +1,6 @@
+0.2.18-hotfix228.7
+- Fix calender search bug
+
 0.2.18-hotfix228.5
 - Text as html
 
