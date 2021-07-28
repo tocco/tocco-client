@@ -3,6 +3,7 @@
   "version": "0.2.10",
   "description": "styling framework",
   "main": "dist/index.js",
+  "private": true,
   "scripts": {
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=tocco-theme",
     "prepublish": "npm run compile:prod"
