@@ -1,3 +1,6 @@
+0.10.19-hotfix228.8
+- Fix calender search bug
+
 0.10.19-hotfix228.6
 - Adjust height and width of input edit table
 
