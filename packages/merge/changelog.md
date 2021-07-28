@@ -1,3 +1,6 @@
+0.4.1-hotfix228.7
+- Fix calender search bug
+
 0.4.1-hotfix228.5
 - refactor extracting displays
 
