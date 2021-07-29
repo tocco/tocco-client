@@ -26,8 +26,8 @@ export const enhanceToaster = toaster => {
 
 export const ToasterPropType = PropTypes.shape({
   type: PropTypes.oneOf(Object.values(TYPES)).isRequired,
-  title: PropTypes.string,
-  body: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  body: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   onClose: PropTypes.func,
   icons: PropTypes.string,
   duration: PropTypes.number,
