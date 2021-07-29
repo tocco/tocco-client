@@ -19,7 +19,7 @@ describe('entity-list', () => {
               call(sagas.initialize),
               takeLatest(actions.RELOAD_DATA, sagas.reloadData),
               takeLatest(actions.RELOAD_ALL, sagas.initialize, false),
-              takeLatest(actions.SEARCH_FORM_COLLAPSED_CHANGE, sagas.searchFormCollapsed)
+              takeLatest(actions.SET_SEARCH_FORM_COLLAPSED, sagas.searchFormCollapsed)
             ]))
             expect(generator.next().done).to.be.true
           })

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useState} from 'react'
+import React from 'react'
 
 import SearchViewContainer from '../../containers/SearchViewContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
@@ -8,14 +8,12 @@ import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTyp
 
 const EntityList = ({
   searchFormType,
+  searchFormCollapsed,
   searchFormPosition,
-  searchFormCollapsedDefault,
-  searchFormCollapsedChange
+  setSearchFormCollapsed
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(searchFormCollapsedDefault)
   const toggleCollapse = () => {
-    searchFormCollapsedChange(!isCollapsed)
-    setIsCollapsed(!isCollapsed)
+    setSearchFormCollapsed(!searchFormCollapsed)
   }
 
   if (searchFormType === searchFormTypes.NONE) {
@@ -25,9 +23,9 @@ const EntityList = ({
   const PositioningContainer = searchFormPosition === 'left' ? LeftPositioning : TopPositioning
 
   return (
-    <PositioningContainer searchFormType={searchFormType} isCollapsed={isCollapsed}>
+    <PositioningContainer searchFormType={searchFormType} isCollapsed={searchFormCollapsed}>
       <SearchGrid>
-        <SearchViewContainer isCollapsed={isCollapsed} toggleCollapse={toggleCollapse}/>
+        <SearchViewContainer isCollapsed={searchFormCollapsed} toggleCollapse={toggleCollapse}/>
       </SearchGrid>
       <ListGrid searchFormType={searchFormType}>
         <ListViewContainer/>
@@ -39,8 +37,8 @@ const EntityList = ({
 EntityList.propTypes = {
   searchFormType: searchFormTypePropTypes,
   searchFormPosition: PropTypes.oneOf(['top', 'left']),
-  searchFormCollapsedDefault: PropTypes.bool,
-  searchFormCollapsedChange: PropTypes.func
+  searchFormCollapsed: PropTypes.bool,
+  setSearchFormCollapsed: PropTypes.func
 }
 
 export default EntityList
