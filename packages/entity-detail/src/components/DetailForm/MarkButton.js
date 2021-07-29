@@ -22,6 +22,7 @@ const MarkButton = ({entityName, entityId, marked, updateMarked}) => {
 
   return <Typography.Span>
     <StyledActionSpan
+      marked={marked}
       onClick={handleClick}
       onMouseEnter={() => setMouseOver(true)}
       onMouseLeave={() => setMouseOver(false)}>
