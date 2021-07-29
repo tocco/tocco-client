@@ -8,6 +8,8 @@ import validators from './validators'
 import formErrors from './formErrors'
 import {formValuesToFlattenEntity, getDirtyFields, validationErrorToFormError} from './reduxForm'
 
+const OUTDATED_ENTITY_ERROR_CODE = 'OUTDATED_ENTITY'
+
 const hasError = errors => (
   errors && Object.keys(errors).length > 0
 )
@@ -40,7 +42,8 @@ const validateRequest = (formValues, initialValues, mode) => {
     queryParams: {_validate: true},
     method: mode === 'create' ? 'POST' : 'PATCH',
     headers: {'X-Client-Questions': 'false'},
-    body: entity
+    body: entity,
+    acceptedErrorCodes: [OUTDATED_ENTITY_ERROR_CODE]
   }
 
   return rest.simpleRequest(`entities/2.0/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
@@ -49,6 +52,11 @@ const validateRequest = (formValues, initialValues, mode) => {
       if (body.valid) {
         return {}
       }
+
+      if (body.errorCode === OUTDATED_ENTITY_ERROR_CODE) {
+        return formErrors.outdatedResponseToFormError(body, entity)
+      }
+
       return validationErrorToFormError(entity, body.errors)
     })
 }

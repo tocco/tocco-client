@@ -1,9 +1,11 @@
 import _forOwn from 'lodash/forOwn'
 import _reduce from 'lodash/reduce'
+import _pick from 'lodash/pick'
 
 export const generalErrorField = '_error'
 export const entityValidatorErrorsField = 'entityValidatorErrors'
 export const relatedEntityErrorsField = 'relatedEntityErrors'
+export const outdatedErrorField = 'outdatedError'
 
 const getFieldErrors = formErrors => {
   const fieldErrors = {...formErrors}
@@ -38,6 +40,25 @@ const getFirstErrorField = formErrors => (
   Object.keys(getFieldErrors(formErrors))[0]
 )
 
+const hasOutdatedError = formErrors => {
+  const errors = getGeneralErrors(formErrors)
+  return !!(errors && errors[outdatedErrorField] && Object.keys(errors[outdatedErrorField]).length >= 1)
+}
+
+const outdatedResponseToFormError = (response, entity) => ({
+  [generalErrorField]: {
+    [outdatedErrorField]: {
+      ..._pick(response, ['updateTimestamp', 'updateUser', 'key', 'model']),
+      sameEntity: entity.model === response.model && entity.key === response.key
+    }
+  }
+})
+
+const getOutdatedError = formErrors => {
+  const errors = getGeneralErrors(formErrors)
+  return errors[outdatedErrorField]
+}
+
 const getRelatedEntityErrorsCompact = formErrors => {
   const relatedEntityErrors = getGeneralErrors(formErrors).relatedEntityErrors
 
@@ -68,10 +89,10 @@ const addErrors = (errors, field, fieldErrors) => (
   {
     ...errors,
     [field]:
-      {
-        ...(errors[field] || {}),
-        ...(fieldErrors || {})
-      }
+    {
+      ...(errors[field] || {}),
+      ...(fieldErrors || {})
+    }
   }
 )
 
@@ -81,7 +102,10 @@ export default {
   getValidatorErrors,
   hasValidatorErrors,
   hasRelatedEntityErrors,
+  hasOutdatedError,
   getFirstErrorField,
   getRelatedEntityErrorsCompact,
-  addErrors
+  addErrors,
+  outdatedResponseToFormError,
+  getOutdatedError
 }
