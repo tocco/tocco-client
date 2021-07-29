@@ -34,7 +34,9 @@ describe('entity-detail', () => {
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
               takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
               takeEvery(formActionTypes.BLUR, sagas.onBlur),
+              takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
               takeLatest(actions.UPDATE_MARKED, sagas.updateMarked)
+
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -718,6 +720,27 @@ describe('entity-detail', () => {
                 ])
                 .put(actions.setMarked(true))
                 .call(rest.setMarked, 'User', '235', true)
+                .run()
+            })
+          })
+
+          describe('asyncValidationStop saga', () => {
+            test('should show a toaster if outdated error is returned by the validation', () => {
+              const asyncValidationStopAction = {
+                payload: {
+                  _error: {
+                    outdatedError: {
+                      model: 'User',
+                      sameEntity: true,
+                      updateTimestamp: '2021-07-27T14:15:18.220Z',
+                      updateUser: 'user3'
+                    }
+                  }
+                }
+              }
+
+              return expectSaga(sagas.asyncValidationStop, asyncValidationStopAction)
+                .put.like({action: {type: 'notification/TOASTER'}})
                 .run()
             })
           })
