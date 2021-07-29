@@ -3,7 +3,8 @@ import {
   setFormName,
   setEntityName,
   setParent,
-  setSearchFormPosition
+  setSearchFormPosition,
+  setSearchFormCollapsedInitialValue
 } from './modules/entityList/actions'
 import {
   setDisableSimpleSearch,
@@ -144,5 +145,11 @@ const actionSettings = [
     action: setInputSearchFilters,
     argsFactory: input => [input.searchFilters],
     reload: reloadOptions.DATA
+  },
+  {
+    name: 'searchFormCollapsed',
+    action: setSearchFormCollapsedInitialValue,
+    argsFactory: input => [input.searchFormCollapsed],
+    reload: reloadOptions.NOTHING
   }
 ]

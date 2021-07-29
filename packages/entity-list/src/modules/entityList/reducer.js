@@ -18,7 +18,9 @@ const ACTION_HANDLERS = {
   [actions.SET_FORM_NAME]: reducerUtil.singleTransferReducer('formName'),
   [actions.SET_SEARCH_FORM_TYPE]: setSearchFormType,
   [actions.SET_SEARCH_FORM_POSITION]: reducerUtil.singleTransferReducer('searchFormPosition'),
-  [actions.SET_PARENT]: reducerUtil.singleTransferReducer('parent')
+  [actions.SET_PARENT]: reducerUtil.singleTransferReducer('parent'),
+  [actions.SET_SEARCH_FORM_COLLAPSED]: reducerUtil.singleTransferReducer('searchFormCollapsed'),
+  [actions.SET_SEARCH_FORM_COLLAPSED_INITIAL_VALUE]: reducerUtil.singleTransferReducer('searchFormCollapsed')
 }
 
 const initialState = {
@@ -27,7 +29,8 @@ const initialState = {
   formName: '',
   searchFormType: searchFormTypes.BASIC,
   searchFormPosition: 'top',
-  parent: null
+  parent: null,
+  searchFormCollapsed: false
 }
 
 export default function reducer(state = initialState, action) {

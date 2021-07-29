@@ -8,7 +8,8 @@ const INITIAL_STATE = {
   initialized: false,
   searchFormType: searchFormTypes.BASIC,
   searchFormPosition: 'top',
-  parent: null
+  parent: null,
+  searchFormCollapsed: false
 }
 
 describe('entity-list', () => {
