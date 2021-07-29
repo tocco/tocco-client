@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   actions as formActions,
   getFormValues,
@@ -12,6 +13,8 @@ import {externalEvents, notification, errorLogging, form, rest, remoteEvents}
   from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 import {call, put, select, takeLatest, takeEvery, all, fork} from 'redux-saga/effects'
+import {selectUnit} from '@formatjs/intl-utils'
+import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
 
 import * as actions from './actions'
 import {
@@ -39,6 +42,7 @@ export default function* sagas() {
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
     takeEvery(formActionTypes.BLUR, onBlur),
+    takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, asyncValidationStop),
     takeLatest(actions.UPDATE_MARKED, updateMarked)
   ])
 }
@@ -395,6 +399,36 @@ export function* remoteEvent(action) {
       case 'entity-update-event':
         yield call(loadData, false)
         break
+    }
+  }
+}
+
+export function* asyncValidationStop({payload}) {
+  if (payload) {
+    const hasOutdatedError = form.formErrorsUtil.hasOutdatedError(payload)
+    if (hasOutdatedError) {
+      const outdatedError = form.formErrorsUtil.getOutdatedError(payload)
+      const {value: timeStampValue, unit} = selectUnit(new Date(outdatedError.updateTimestamp))
+      const titleId = `client.entity-detail.${outdatedError.sameEntity ? 'outdated' : 'relatedOutdated'}ErrorTitle`
+
+      yield put(notification.toaster({
+        type: 'warning',
+        key: 'outdated-warning',
+        title: <FormattedMessage
+          id={titleId}
+          values={{
+            model: outdatedError.model,
+            key: outdatedError.key
+          }}
+        />,
+        body: <FormattedMessage
+          id="client.entity-detail.outdatedErrorDescription"
+          values={{
+            ago: <FormattedRelativeTime value={timeStampValue} unit={unit}/>,
+            user: outdatedError.updateUser
+          }}
+        />
+      }))
     }
   }
 }
