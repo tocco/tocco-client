@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReduxToastr from 'react-redux-toastr'
 import _debounce from 'lodash/debounce'
+import ReactDOM from 'react-dom'
 
 import {defaultToastrOptions} from '../notifier'
 import ModalDisplayContainer from '../modules/modalComponents/ModalDisplayContainer'
@@ -27,14 +28,13 @@ class Notifier extends React.Component {
   debouncedHandleEvent = _debounce(this.handleEvent, 300)
 
   render() {
-    return (
+    return ReactDOM.createPortal(
       <StyledNotifier>
         <div className="tocco-notifier">
           <ReduxToastr {...this.props.toastrOptions} />
           <ModalDisplayContainer/>
         </div>
-      </StyledNotifier>
-    )
+      </StyledNotifier>, document.body)
   }
 }
 
