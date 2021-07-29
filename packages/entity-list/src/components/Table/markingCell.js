@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import {Icon, Typography} from 'tocco-ui'
+import {Icon} from 'tocco-ui'
 import {connect} from 'react-redux'
 
 import {setMarked} from '../../modules/list/actions'
+import {StyledMarkingWrapper} from './StyledComponents'
 
 const CellRenderer = ({rowData, markings, setMarked}) => {
   const [mouseOver, setMouseOver] = useState(false)
@@ -21,13 +22,15 @@ const CellRenderer = ({rowData, markings, setMarked}) => {
     setMarked(rowData.__model, rowData.__key, !marked)
   }
 
-  return <Typography.Span>
-    <span onClick={handleClick}
-          onMouseEnter={() => setMouseOver(true)}
-          onMouseLeave={() => setMouseOver(false)}>
-     <Icon icon={marked || mouseOver ? 'star-full' : 'star'}/>
-    </span>
-  </Typography.Span>
+  return (
+    <StyledMarkingWrapper
+      marked={marked}
+      onClick={handleClick}
+      onMouseEnter={() => setMouseOver(true)}
+      onMouseLeave={() => setMouseOver(false)}>
+      <Icon icon={marked || mouseOver ? 'star-full' : 'star'}/>
+    </StyledMarkingWrapper>
+  )
 }
 
 CellRenderer.propTypes = {
