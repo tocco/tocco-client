@@ -1,3 +1,7 @@
+0.2.4-hotfix229.7
+- Align modal globally at same position
+- Fix calender search bug
+
 0.2.4-hotfix229.6
 - Fix overlay of modal in widget mode
 - Fix popper menu on safari browsers
