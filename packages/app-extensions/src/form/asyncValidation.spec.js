@@ -165,6 +165,27 @@ describe('app-extensions', () => {
           }
         })
       })
+
+      test('should trow a general outdated error if validation call return a 412', async() => {
+        fetchMock.mock('*', {
+          status: 412,
+          message: 'Version of entity User_status with key 2 is outdated. Given version: 111, Current version: 3',
+          errorCode: 'OUTDATED_ENTITY',
+          updateUser: 'api',
+          updateTimestamp: '2021-07-27T14:15:18.220Z',
+          model: 'User_status',
+          key: '2'
+        })
+
+        const values = {}
+
+        try {
+          await asyncValidation(values, mockData.initialValues, mockData.fieldDefinitions, mockData.mode)
+        } catch (error) {
+          expect(error).to.have.property('_error')
+          expect(error._error).to.have.property('outdatedError')
+        }
+      })
     })
   })
 })
