@@ -89,5 +89,6 @@ export const StyledToasterBox = styled.div`
   width: 310px;
   top: 40px; // height of Header to prevent coverage
   right: 10px;
-  z-index: 3; // lower than StyledModalHolder
+  // lower than StyledModalHolder and very high value to prevent other elements blocking it when implemented as a widget
+  z-index: 99999;
 `
