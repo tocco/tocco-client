@@ -50,7 +50,8 @@ export const StyledModalHolder = styled.div`
   top: 0;
   left: 0;
   position: absolute;
-  z-index: 4; // higher than StyledHeader
+  // higher than StyledHeader and very high value to prevent other elements blocking it when implemented as a widget
+  z-index: 999999;
 `
 
 export const StyledModalWrapper = styled.div`
@@ -100,7 +101,7 @@ export const StyledModalButtonWrapper = styled.div`
 export const GlobalTetherStyle = createGlobalStyle`
   ${StyledTether} {
     && {
-      z-index: 5; // higher than StyledModalHolder
+      z-index: 9999999; // higher than StyledModalHolder
     }
   }
 `
