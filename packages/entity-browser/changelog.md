@@ -1,3 +1,24 @@
+0.10.30
+- Fix notifications for already deleted outputjobs
+- Add hover effect to column picker list
+- Added support for "markable" feature
+- Added support for "markable" feature
+- Prevent dropdown menu being clipped in viewport
+- Fix business unit change in edit action
+- Support empty html edit field
+- Has value for checkboxes change
+- Improve pagination UX by moving it to the left and changing button behavior
+- Fix search filter menu hover
+- Add preview for documents
+- Style location edit dropdown to match other dropdowns
+- Remove download icon inside button of report settings
+- Fix calender search bug
+- Harmonize marked icon inside table
+- Harmonize marked icon inside detail view
+- Increase z-index of modal holder to properly display as widget
+- Show outdated error in detail
+- Increase toaster z-index to properly display as widget
+
 0.10.29
 - Align modal globally at same position
 - Fix modal overflow
