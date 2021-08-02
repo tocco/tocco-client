@@ -1,3 +1,11 @@
+0.5.12
+- Better entity error handling
+- Harmonize marked icon inside table
+- Harmonize marked icon inside detail view
+- Increase z-index of modal holder to properly display as widget
+- Show outdated error in detail
+- Increase toaster z-index to properly display as widget
+
 0.5.11
 
 
