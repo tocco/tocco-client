@@ -58,8 +58,8 @@ target_branch=$(head -n 1 target-branch.txt)
 source ./scripts/github.sh
 setupGithub
 # clone and checkout target branch
-git clone git@github.com:${repo}.git ../github --single-branch --branch $target_branch
-cd ../github
+cd $(mktemp -d)
+git clone git@github.com:${repo}.git . --single-branch --branch $target_branch
 
 git config user.email "tocco.github.bot@gmail.com"
 git config user.name "ToccoBot"
