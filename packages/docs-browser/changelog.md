@@ -1,3 +1,6 @@
+0.2.4-hotfix229.8
+- Add preview for documents
+
 0.2.4-hotfix229.7
 - Align modal globally at same position
 - Fix calender search bug
