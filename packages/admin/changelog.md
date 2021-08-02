@@ -1,3 +1,6 @@
+0.4.37-hotfix229.17
+- Add preview for documents
+
 0.4.37-hotfix229.16
 
 
