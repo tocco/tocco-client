@@ -16,6 +16,7 @@ const StyledPreview = styled.figure`
       border: 1px solid ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)};
       max-width: ${({maxDimensionX}) => maxDimensionX || '100%'};
       max-height: ${({maxDimensionY}) => maxDimensionY || '100%'};
+      min-width: 90px; // prevent collapse to 1px if there is no preview generated
     }
 
     figcaption {
