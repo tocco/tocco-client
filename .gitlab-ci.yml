@@ -3,16 +3,6 @@ image: node:14.15.4-alpine
 variables:
   CYPRESS_INSTALL_BINARY: "0"
 
-cache: &global_cache
-  key:
-    files:
-      - yarn.lock
-      - packages/*/yarn.lock
-  policy: pull
-  paths:
-    - node_modules/
-    - packages/*/node_modules/
-
 stages:
   - chore
   - setup
@@ -24,18 +14,30 @@ stages:
 
 yarn_setup:
   stage: setup
+  needs: []
   only:
     - external_pull_requests
     - master
   cache:
-    <<: *global_cache
-    policy: pull-push
+    key:
+      files:
+        - yarn.lock
+        - packages/*/yarn.lock
+    paths:
+      - node_modules/
+      - packages/*/node_modules/
+  artifacts:
+    paths:
+    - node_modules/
+    - packages/*/node_modules/
   script:
     - yarn setup:ci
   interruptible: true
 
 linting:
   stage: quality
+  dependencies:
+    - yarn_setup
   only:
     - external_pull_requests
     - master
@@ -44,6 +46,8 @@ linting:
 
 test:
   stage: quality
+  dependencies:
+    - yarn_setup
   only:
     - external_pull_requests
     - master
@@ -55,6 +59,8 @@ test:
 
 storybook:
   stage: quality
+  dependencies:
+    - yarn_setup
   only:
     - external_pull_requests
     - master
@@ -66,6 +72,9 @@ storybook:
 
 storybook-link:
   stage: pullrequest
+  dependencies: []
+  needs:
+    - storybook
   cache: {}
   before_script:
     - apk update && apk add bash && apk add curl && apk add jq
@@ -76,6 +85,7 @@ storybook-link:
 
 cherrypick:
   stage: release
+  dependencies: []
   only:
     - /^nice-releases\/[0-9]+$/
   before_script:
@@ -87,6 +97,8 @@ cherrypick:
 
 cypress:
   stage: onschedule
+  dependencies:
+    - yarn_setup
   image: cypress/base:10
   variables:
     CYPRESS_INSTALL_BINARY: "6.4.0"
