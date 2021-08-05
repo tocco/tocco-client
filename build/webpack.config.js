@@ -16,7 +16,7 @@ import config from '../config'
 import logger from './lib/logger'
 
 const paths = config.utils_paths
-const {__CI__, __DEV__, __PROD__, __PACKAGE__} = config.globals
+const {__CI__, __DEV__, __PROD__, __PACKAGE__, __NO_MOCK__} = config.globals
 
 const packageDir = `packages/${__PACKAGE__}`
 const absolutePackagePath = paths.client(`${packageDir}/`)
@@ -66,7 +66,12 @@ webpackConfig.output = {
 
 webpackConfig.plugins = [
   new CleanWebpackPlugin(),
-  new webpack.DefinePlugin(config.globals),
+  new webpack.DefinePlugin({
+    ...config.globals,
+    niceFile: JSON.stringify(__NO_MOCK__
+      ? '<script src="/nice2/javascript/nice2-newclient-react-registry.release.js"></script>'
+      : '')
+  }),
   new LodashModuleReplacementPlugin({
     shorthands: true,
     paths: true,
@@ -91,10 +96,8 @@ if (__DEV__) {
       template: paths.client('server/index.html'),
       hash: false,
       filename: 'index.html',
-      inject: 'body',
-      minify: {
-        collapseWhitespace: true
-      }
+      inject: 'body'
+
     })
   )
   webpackConfig.plugins.push(new CaseSensitivePathsPlugin())
