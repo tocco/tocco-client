@@ -1,3 +1,6 @@
+0.2.4-hotfix229.9
+- Increase z-index of modal holder to properly display as widget
+
 0.2.4-hotfix229.8
 - Add preview for documents
 
