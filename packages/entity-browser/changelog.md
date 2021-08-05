@@ -1,3 +1,8 @@
+0.10.26-hotfix229.7
+- Fix calender search bug
+- Add preview for documents
+- Increase z-index of modal holder to properly display as widget
+
 0.10.26-hotfix229.6
 - Adjust height and width of input edit table
 - Align modal globally at same position
