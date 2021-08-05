@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, useRef} from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'tocco-ui'
 import {FormattedMessage, injectIntl} from 'react-intl'
@@ -18,22 +18,24 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
     valid: false,
     customSettingsValid: !customSettingsDefined
   })
+  const settingsRef = useRef()
+  settingsRef.current = settings // workaround to read current state in static callbacks (because of memo hook)
 
-  const SimpleFormContainer = useMemo(() => simpleFormConnector(formApp), [])
+  const SimpleFormContainer = useMemo(() => simpleFormConnector(formApp), [formApp])
 
-  const handleSettingsChange = (values, valid) => {
+  const handleSettingsChange = ({values, valid}) => {
     setSettings({
-      ...settings,
+      ...settingsRef.current,
       values,
       valid
     })
   }
 
-  const handleCustomSettingsChange = (customSettings, customSettingsValid) => {
+  const handleCustomSettingsChange = ({values, valid}) => {
     setSettings({
-      ...settings,
-      customSettings,
-      customSettingsValid
+      ...settingsRef.current,
+      customSettings: values,
+      customSettingsValid: valid
     })
   }
 
@@ -52,9 +54,7 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
         listApp={listApp}
         form={getFormDefinition(settingsDefinition, intl)}
         noButtons
-        onChange={({values, valid}) => {
-          handleSettingsChange(values, valid)
-        }}
+        onChange={handleSettingsChange}
         mode="create"
       />
       {customSettingsDefined
@@ -62,9 +62,7 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
           listApp={listApp}
           form={settingsDefinition.customSettings.form.form}
           noButtons
-          onChange={({values, valid}) => {
-            handleCustomSettingsChange(values, valid)
-          }}
+          onChange={handleCustomSettingsChange}
           mode="create"
         />
       }
