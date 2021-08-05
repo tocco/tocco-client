@@ -92,7 +92,7 @@ export function* invokeRequest(definition, selection, parent, params) {
           body: validation.getErrorCompact(response.body.errors)
         })
       )
-    } else if (response.body && response.body.params.downloadUrl) {
+    } else if (response.body && response.body.params && response.body.params.downloadUrl) {
       const fileResponse = yield call(rest.requestBytesSaga, response.body.params.downloadUrl, {
         method: 'POST',
         body: {

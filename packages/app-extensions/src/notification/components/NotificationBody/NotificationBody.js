@@ -34,13 +34,13 @@ const Result = ({notification: {result}, navigationStrategy}) => {
             </a>
           </div>
           {download.downloadSupportedByBrowser()
-          && <a
-            href={download.addParameterToURL(result.file.link, 'download', true)}
-            download={result.file.name}
-            title="download">
-            <StyledIconWrapper><Icon icon="arrow-to-bottom"/></StyledIconWrapper>
-            <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
-          </a>
+            && <a
+              href={download.addParameterToURL(result.file.link, 'download', true)}
+              download={result.file.name}
+              title="download">
+              <StyledIconWrapper><Icon icon="arrow-to-bottom"/></StyledIconWrapper>
+              <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
+            </a>
           }
         </StyledOutputJobWrapper>)
     } else {
@@ -53,12 +53,12 @@ const Result = ({notification: {result}, navigationStrategy}) => {
       {result.content.map(entity => {
         return (
           <StyledDetailLinkWrapper key={'entitylink-' + entity.key}>
-            <navigationStrategy.DetailLink
+            {navigationStrategy && navigationStrategy.DetailLink && <navigationStrategy.DetailLink
               entityName={entity.model}
               entityKey={entity.key}
             >
               <Icon icon="external-link"/> {entity.display}
-            </navigationStrategy.DetailLink>
+            </navigationStrategy.DetailLink>}
           </StyledDetailLinkWrapper>
         )
       })
@@ -83,18 +83,19 @@ const TaskProgress = ({notification: {taskProgress}, navigationStrategy}) => {
       <StyledProgressMessage>{taskProgress.message}</StyledProgressMessage>
     </StyledTaskProgressWrapper>
     {taskProgress.status === 'running_absolute'
-    && <>
-      <StyledProgressOuter>
-        <StyledProgressInner percentage={taskProgress.percentage}/>
-      </StyledProgressOuter>
-      {taskProgress.done} / {taskProgress.total} = {taskProgress.percentage} %
-    </>
+      && <>
+        <StyledProgressOuter>
+          <StyledProgressInner percentage={taskProgress.percentage}/>
+        </StyledProgressOuter>
+        {taskProgress.done} / {taskProgress.total} = {taskProgress.percentage} %
+      </>
     }
     <StyledDetailLinkWrapper>
-      <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.key}>
+      {navigationStrategy && navigationStrategy.DetailLink
+      && <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.key}>
         <StyledIconWrapper><Icon icon="arrow-right"/></StyledIconWrapper>
         <FormattedMessage id="client.common.notification.outputJobShowTask"/>
-      </navigationStrategy.DetailLink>
+      </navigationStrategy.DetailLink>}
     </StyledDetailLinkWrapper>
   </>
 }
