@@ -36,7 +36,9 @@ const ModalContent = ({
     }
   }, [ref])
 
-  const ComponentMemo = useMemo(() => <Component close={handleCloseClick}/>, [])
+  const ComponentMemo = useMemo(() => {
+    return <Component close={handleCloseClick}/>
+  }, [Component])
 
   return (
     <>
