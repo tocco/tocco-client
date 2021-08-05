@@ -47,17 +47,28 @@
                 "endpoint": "actions/simpleAction"
               },
               {
+                "id": "simple-background",
                 "componentType": "action",
                 "actionType": "simple",
                 "icon": "cog",
-                "label": "Simple Action Background",
+                "label": "Background Action",
                 "showConfirmMessage": false,
                 "runInBackgroundTask": true,
                 "endpoint": "actions/simpleActionBackground"
               },
               {
+                "id": "simple-background-progress",
                 "componentType": "action",
-                "id": "simple",
+                "actionType": "simple",
+                "icon": "cog",
+                "label": "Background Action with Progress",
+                "showConfirmMessage": false,
+                "runInBackgroundTask": true,
+                "endpoint": "actions/simpleActionBackgroundProgress"
+              },
+              {
+                "componentType": "action",
+                "id": "simple-select",
                 "actionType": "simple",
                 "readonly": false,
                 "label": "Simple Action Abort (Select 1-5)",
@@ -67,6 +78,7 @@
                 "maxSelection": 5
               },
               {
+                "id": "select-threshold",
                 "componentType": "action",
                 "actionType": "simple",
                 "readonly": false,
@@ -76,6 +88,7 @@
                 "confirmationThreshold": -1
               },
               {
+                "id": "simple-form",
                 "componentType": "action",
                 "actionType": "simple",
                 "readonly": false,

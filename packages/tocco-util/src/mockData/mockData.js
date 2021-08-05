@@ -30,7 +30,7 @@ export const setupFetchMock = (fetchMock, entityStore, timeout = 1000) => {
   setupEntities(fetchMock, entityStore, timeout)
   setupActions(fetchMock, entityStore, webSocketServer, timeout)
   setupPreferences(fetchMock, entityStore, timeout)
-  setupReports(fetchMock, entityStore, timeout)
+  setupReports(fetchMock, entityStore, webSocketServer, timeout)
   setupUpload(fetchMock, entityStore, timeout)
   setupLocation(fetchMock, entityStore, timeout)
 }

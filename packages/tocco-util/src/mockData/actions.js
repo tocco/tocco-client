@@ -38,8 +38,13 @@ export const setupActions = (fetchMock, entityStore, webSocketServer, timeout = 
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/simpleActionBackground/check'),
+    new RegExp('^.*?/nice2/rest/actions/simpleActionBackground(.*)/check'),
     simpleActionCheck(timeout)
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/actions/simpleActionBackgroundProgress*?'),
+    simpleActionBackgroundProgress(webSocketServer)
   )
 
   fetchMock.post(
@@ -289,76 +294,93 @@ const formResponse = {
 const simpleActionBackground = webSocketServer =>
   (url, opts) => {
     consoleLogger.log(' fetchMock:call background action', url, opts, webSocketServer)
+    const notificationKey = Math.floor(Math.random() * 100).toString()
 
     webSocketServer.emit('message', JSON.stringify({
-      key: '7',
-      timestamp: '2021-03-16T09:40:42.718Z',
+      key: notificationKey,
+      timestamp: new Date().toISOString(),
       originId: originId.getOriginId(),
-      message: 'Die Aktion wurde zur Ausführung eingeplant',
+      message: 'Die Aktion wird ausgeführt',
       result: '',
-      type: 'Information',
+      type: 'info',
       username: 'dkeller@tocco.ch',
       read: false,
       taskProgress: {
         key: '7',
         taskId: '048853bc-7853-4aaa-83dd-5c6df737ff13',
         message: '',
-        status: 'Ausstehend',
+        status: 'running_infinite',
         total: 0,
         done: 0
       }
     }))
-  
-    setTimeout(() => {
-      webSocketServer.emit('message', JSON.stringify({
-        key: '7',
-        timestamp: '2021-03-16T09:40:42.718Z',
-        originId: originId.getOriginId(),
-        message: 'Die Aktion wird ausgeführt',
-        result: '',
-        type: 'Information',
-        username: 'dkeller@tocco.ch',
-        read: false,
-        taskProgress: {
-          key: '7',
-          taskId: '048853bc-7853-4aaa-83dd-5c6df737ff13',
-          message: 'Fehlgeschlagen',
-          status: 'Fehlgeschlagen',
-          total: 0,
-          done: 0
-        }
-  
-      }))
-    }, 2000)
 
     setTimeout(() => {
       webSocketServer.emit('message', JSON.stringify({
-        key: '7',
-        timestamp: '2021-03-16T09:40:42.718Z',
+        key: notificationKey,
+        timestamp: new Date().toISOString(),
         originId: originId.getOriginId(),
-        message: 'Die Aktion ist fehlgeschlagen',
+        message: 'Die Aktion wurde erfolgreich ausgeführt',
         result: '',
-        type: 'Fehlgeschlagen',
+        type: 'success',
         username: 'dkeller@tocco.ch',
         read: false,
         taskProgress: {
           key: '7',
           taskId: '048853bc-7853-4aaa-83dd-5c6df737ff13',
-          message: 'Fehlgeschlagen',
-          status: 'Fehlgeschlagen',
+          message: 'Successful!',
+          status: 'completed',
           total: 0,
           done: 0
         }
-  
       }))
-    }, 4000)
+    }, 3000)
 
     return {
-      status: 200,
-      body: {
-        success: true,
-        message: 'In Progress'
-      }
+      success: true,
+      message: 'Die Aktion wurde zur Ausführung eingeplant',
+      params: {},
+      result: null,
+      notificationKey: notificationKey
+    }
+  }
+
+const simpleActionBackgroundProgress = webSocketServer =>
+  (url, opts) => {
+    consoleLogger.log(' fetchMock: call background action progress', url, opts, webSocketServer)
+    const notificationKey = Math.floor(Math.random() * 100).toString()
+
+    for (let i = 0; i < 30; i++) {
+      (function(ind) {
+        setTimeout(() => {
+          webSocketServer.emit('message', JSON.stringify({
+            key: notificationKey,
+            timestamp: new Date().toISOString(),
+            originId: originId.getOriginId(),
+            message: 'Die Aktion wird ausgeführt',
+            result: '',
+            type: 'info',
+            username: 'dkeller@tocco.ch',
+            read: false,
+            taskProgress: {
+              key: '7',
+              taskId: '048853bc-7853-4aaa-83dd-5c6df737ff13',
+              message: 'Wird ausgeführt',
+              status: 'running_absolute',
+              total: 30,
+              done: ind
+            }
+          }))
+        }, 1000 * ind)
+      })(i)
+    }
+
+    return {
+      success: true,
+      message: 'Die Aktion wurde zur Ausführung eingeplant',
+      params: {},
+      result: null,
+      notificationKey: notificationKey
     }
   }
 

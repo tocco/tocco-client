@@ -1,7 +1,7 @@
 import {getParameterValue} from './utils'
 
 export const setupForms = fetchMock => {
-  fetchMock.get(
+  fetchMock.post(
     new RegExp('^.*?/nice2/rest/forms/(.*)/display-expressions.*$'),
     createDisplayExpressionResponse()
   )
@@ -74,7 +74,9 @@ export const setupForms = fetchMock => {
 const createDisplayExpressionResponse = () =>
   (url, opts) => {
     const paths = getParameterValue('_paths', url).split(',')
-    const keys = getParameterValue('_keys', url).split(',')
+
+    const body = JSON.parse(opts.body)
+    const keys = body.ids
 
     const formName = url.match(/.*forms\/(.*)\/display-expressions.*/)[1]
     return {

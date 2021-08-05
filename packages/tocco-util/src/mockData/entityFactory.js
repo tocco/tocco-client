@@ -1,4 +1,7 @@
 import _sample from 'lodash/sample'
+import faker from 'faker'
+
+import {getRandomInt} from './utils'
 
 const fiftyFifty = () => _sample([true, false])
 
@@ -14,8 +17,6 @@ const getRandomDate = (startYear, endYear) => {
 
   return `${year}-${month}-${day}`
 }
-
-const getRandomInt = (min, max) => (Math.floor(Math.random() * (max - min + 1)) + min)
 
 export const makeTwoDigit = n => n.toString().padStart(2, '0')
 
@@ -55,9 +56,9 @@ export const createDummyEntities = amount => {
           sizeInBytes: 3336,
           fileName: 'Firstname,-Lastname-Vorschaubild.png',
           thumbnailLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGV'
-          + 'Kw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg==',
+            + 'Kw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg==',
           binaryLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGVKw4'
-          + 'bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg=='
+            + 'bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg=='
         },
         type: 'document',
         readable: true,
@@ -81,6 +82,8 @@ export const createUsers = amount => {
   const userTemplate = require('./data/user_template.json')
 
   for (let i = 0; i < amount; i++) {
+    const firstName = faker.name.firstName()
+    const lastName = faker.name.lastName()
     entities.push({
       ...userTemplate,
       key: `${i}`,
@@ -88,17 +91,22 @@ export const createUsers = amount => {
         ...userTemplate.paths,
         user_nr: {
           type: 'counter',
-          value: i * 100,
+          value: i,
           writable: false
         },
         firstname: {
-          value: 'Firstname ' + i,
+          value: firstName,
           type: 'string',
           writable: true
         },
         lastname: {
-          value: 'Lastname ' + (amount - i),
+          value: lastName,
           type: 'string',
+          writable: true
+        },
+        email: {
+          value: `${firstName}.${lastName}@tocco.ch`.toLowerCase(),
+          type: 'email',
           writable: true
         },
         birthdate: {
@@ -125,6 +133,14 @@ export const createUsers = amount => {
           value: (i % 2 === 0),
           type: 'boolean',
           writable: true
+        },
+        phone_company: {
+          value: faker.phone.phoneNumber('+4179#######'),
+          type: 'phone'
+        },
+        website: {
+          value: faker.internet.url(),
+          type: 'url'
         },
         update_timestamp: {
           value: getRandomDate(new Date().getFullYear() - 1, new Date().getFullYear()),

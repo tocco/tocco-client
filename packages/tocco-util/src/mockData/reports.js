@@ -1,13 +1,17 @@
-export const setupReports = (fetchMock, entityStore, timeout = 2000) => {
+import originId from '../originId'
+import {getRandomInt} from './utils'
+
+export const setupReports = (fetchMock, entityStore, webSocketServer, timeout = 2000) => {
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/report/.*/settings*?'),
     require('./data/report_settings.json')
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/report/.*/generations*?'),
-    url => {
-      const reportId = url.match(/^.*\/report\/([a-zA-Z0-9_]+)/)[1]
+    new RegExp('^.*?/nice2/rest/report/generation'),
+    (url, opts) => {
+      const body = JSON.parse(opts.body)
+      const {reportId} = body.additionalProperties
       if (reportId === 'invalid_settings_report') {
         return {
           status: 400,
@@ -18,26 +22,85 @@ export const setupReports = (fetchMock, entityStore, timeout = 2000) => {
           }
         }
       } else {
-        const generationId = Math.floor(Math.random() * 1000)
+        const notificationKey = Math.floor(Math.random() * 100).toString()
+        const generationTime = getRandomInt(2000, 6000)
+
+        setTimeout(
+          () => {
+            webSocketServer.emit('message', JSON.stringify({
+              key: notificationKey,
+              timestamp: new Date().toISOString(),
+              originId: originId.getOriginId(),
+              message: 'Die Aktion wird ausgeführt',
+              result: '',
+              type: 'info',
+              username: 'dkeller@tocco.ch',
+              read: false,
+              taskProgress: {
+                done: 0,
+                key: '184',
+                message: 'In Ausführung',
+                status: 'running_infinite',
+                taskId: '3b50d399-1e9b-4caf-a1d0-5ece470f19f2',
+                total: 0
+              }
+            }))
+          }, timeout)
+
+        setTimeout(
+          () => {
+            if (reportId !== 'generate_fails_report') {
+              webSocketServer.emit('message', JSON.stringify({
+                key: notificationKey,
+                timestamp: new Date().toISOString(),
+                originId: originId.getOriginId(),
+                message: 'Report generiert',
+                // eslint-disable-next-line max-len
+                result: '{"type":"OUTPUTJOB","content":[{"key":"5178","model":"Output_job","display":"Ausbildungshistorie / 2021-08-04 15-10-19"}]}',
+                type: 'success',
+                username: 'dkeller@tocco.ch',
+                read: false,
+                taskProgress: {
+                  done: 0,
+                  key: '184',
+                  message: 'Ausgeführt',
+                  status: 'completed',
+                  taskId: '3b50d399-1e9b-4caf-a1d0-5ece470f19f2',
+                  total: 0
+                }
+              }))
+            } else {
+              webSocketServer.emit('message', JSON.stringify({
+                key: notificationKey,
+                timestamp: new Date().toISOString(),
+                originId: originId.getOriginId(),
+                message: 'Report fehlgeschlagen',
+                result: '',
+                type: 'failed',
+                username: 'dkeller@tocco.ch',
+                read: false,
+                taskProgress: {
+                  done: 0,
+                  key: '184',
+                  message: 'Fehler',
+                  status: 'completed',
+                  taskId: '3b50d399-1e9b-4caf-a1d0-5ece470f19f2',
+                  total: 0
+                }
+              }))
+            }
+          }
+          , generationTime
+        )
+
         return {
-          status: 202,
-          headers: {Location: `${__BACKEND_URL__}/nice2/rest/report/${reportId}/generations/${generationId}`},
-          body: {}
+          success: true,
+          message: 'Die Aktion wurde zur Ausführung eingeplant',
+          params: {},
+          result: null,
+          notificationKey: notificationKey
         }
       }
-    }
-  )
-
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/report/.*/generations/*?'),
-    url => {
-      const reportId = url.match(/^.*\/report\/([a-zA-Z0-9_]+)/)[1]
-      const generationId = url.match(/^.*\/generations\/([a-zA-Z0-9_]+)/)[1]
-      if (progressSimulator[generationId] === undefined) {
-        startReportGeneration(generationId, reportId, timeout)
-      }
-
-      return progressSimulator[generationId]
     }
   )
 
@@ -49,44 +112,4 @@ export const setupReports = (fetchMock, entityStore, timeout = 2000) => {
       return {body: JSON.parse(JSON.stringify(outputJob).replace(/{id}/g, id).replace(/{date}/g, new Date().toJSON()))}
     }
   )
-}
-
-const progressSimulator = {}
-const startReportGeneration = (generationId, reportId, timeout) => {
-  progressSimulator[generationId] = inProgressAnswer
-
-  const generationTime = Math.floor(Math.random() * 3) * timeout
-  setTimeout(
-    () => {
-      progressSimulator[generationId] = reportId === 'generate_fails_report' ? failedAnswer : completedAnswer
-    }
-    , generationTime
-  )
-}
-
-const inProgressAnswer = {
-  body: {
-    status: 'in_progress',
-    owner: 'myuser'
-  }
-}
-
-const completedAnswer = {
-  body: {
-    _links: {
-      result: {
-        href: `${__BACKEND_URL__}/nice2/rest/entities/2.0/ /33`
-      }
-    },
-    status: 'completed',
-    owner: 'myuser',
-    outputJobId: 33
-  }
-}
-
-const failedAnswer = {
-  body: {
-    status: 'failed',
-    owner: 'myuser'
-  }
 }
