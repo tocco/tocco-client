@@ -67,7 +67,6 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   notification.addToStore(store, true)
 
-  notification.addToStore(store, true)
   const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)
 
