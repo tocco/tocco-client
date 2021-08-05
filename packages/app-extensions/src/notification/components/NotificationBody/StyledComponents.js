@@ -35,12 +35,22 @@ export const StyledDetailLinkWrapper = styled.div`
   }
 `
 
+export const StyledFileDescription = styled.div`
+  margin-bottom: ${scale.space(0)};
+
+  a {
+    text-decoration: underline;
+  }
+`
+
 export const StyledOutputJobWrapper = styled.div`
   a {
     color: ${theme.color('text')};
+    text-decoration: none;
 
     &:hover {
       color: ${theme.color('secondaryLight')};
+      text-decoration: underline;
     }
   }
 `

@@ -12,7 +12,8 @@ import {
   StyledSpinnerWrapper,
   StyledProgressMessage,
   StyledProgressOuter,
-  StyledProgressInner
+  StyledProgressInner,
+  StyledFileDescription
 } from './StyledComponents'
 
 const Result = ({notification: {result}, navigationStrategy}) => {
@@ -20,18 +21,24 @@ const Result = ({notification: {result}, navigationStrategy}) => {
     if (result.file) {
       return (
         <StyledOutputJobWrapper>
-          {download.downloadSupportedByBrowser()
-            && <a
-              href={download.addParameterToURL(result.file.link, 'download', true)}
-              download={result.file.name}
-              title="download">
-              <Icon icon="download"/>
+          <StyledFileDescription>
+            <a href={result.file.link} target="_blank " title="open">
+              {result.file.description}
             </a>
-          }
-          <a href={result.file.link} target="_blank " title="open">
-            <Icon icon="file"/>
+          </StyledFileDescription>
+          <div>
+            <a href={result.file.link} target="_blank " title="open">
+              <Icon icon="external-link"/> <FormattedMessage id="client.common.notification.outputJobFileLink"/>
+            </a>
+          </div>
+          {download.downloadSupportedByBrowser()
+          && <a
+            href={download.addParameterToURL(result.file.link, 'download', true)}
+            download={result.file.name}
+            title="download">
+            <Icon icon="arrow-to-bottom"/> <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
           </a>
-          {result.file.description}
+          }
         </StyledOutputJobWrapper>)
     } else {
       return <FormattedMessage id="client.common.notification.outputJobNotFound"/>
@@ -73,16 +80,16 @@ const TaskProgress = ({notification: {taskProgress}, navigationStrategy}) => {
       <StyledProgressMessage>{taskProgress.message}</StyledProgressMessage>
     </StyledTaskProgressWrapper>
     {taskProgress.status === 'running_absolute'
-      && <>
-        <StyledProgressOuter>
-          <StyledProgressInner percentage={taskProgress.percentage}/>
-        </StyledProgressOuter>
-        {taskProgress.done} / {taskProgress.total} = {taskProgress.percentage} %
-      </>
+    && <>
+      <StyledProgressOuter>
+        <StyledProgressInner percentage={taskProgress.percentage}/>
+      </StyledProgressOuter>
+      {taskProgress.done} / {taskProgress.total} = {taskProgress.percentage} %
+    </>
     }
     <StyledDetailLinkWrapper>
       <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.key}>
-        <Icon icon="external-link"/> Task öffnen
+        <Icon icon="arrow-right"/> <FormattedMessage id="client.common.notification.outputJobShowTask"/>
       </navigationStrategy.DetailLink>
     </StyledDetailLinkWrapper>
   </>
