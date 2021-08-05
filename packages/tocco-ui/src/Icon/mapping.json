@@ -36,6 +36,13 @@
       "navigate"
     ]
   },
+  "arrow-to-bottom": {
+    "id": "fal, arrow-to-bottom",
+    "lib": "fa",
+    "tags": [
+      "download"
+    ]
+  },
   "bars": {
     "id": "fal, bars",
     "lib": "fa",
