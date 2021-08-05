@@ -36,8 +36,8 @@ describe('tocco-util', () => {
                 const fistNameSelector = 'paths.firstname.value'
                 expect(records.length).to.eql(5)
 
-                expect(_get(records[0], fistNameSelector)).to.eql('Firstname 39')
-                expect(_get(records[1], fistNameSelector)).to.eql('Firstname 38')
+                expect(_get(records[0], fistNameSelector)).to.have.length.greaterThan(2)
+                expect(_get(records[1], fistNameSelector)).to.have.length.greaterThan(2)
                 done()
               })
           }

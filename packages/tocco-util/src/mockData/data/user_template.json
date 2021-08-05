@@ -2,41 +2,13 @@
   "model": "User",
   "version": 3,
   "paths": {
-    "firstname": {
-      "value": "firstname",
-      "type": "string"
-    },
-    "lastname": {
-      "value": "lastname",
-      "type": "string"
-    },
-    "email": {
-      "value": "mail@tocco.ch",
-      "type": "email"
-    },
-    "callname": {
-      "value": null,
-      "type": "email"
-    },
     "user_nr": {
       "value": 110,
       "type": "counter"
     },
-    "birthdate": {
-      "value": "1988-11-22",
-      "type": "birthdate"
-    },
     "date_time": {
       "value": "2016-04-01T06:07:00.000Z",
       "type": "datetime"
-    },
-    "phone_company": {
-      "value": "+41784755448",
-      "type": "phone"
-    },
-    "website": {
-      "value": "http://www.google.ch",
-      "type": "url"
     },
     "spouse": {
       "value": "This is a long text\nwith newline\nother new line",
