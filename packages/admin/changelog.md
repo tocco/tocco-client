@@ -1,3 +1,6 @@
+0.5.13
+- Prevent preview image collapsing to 1px if preview cannot be generated
+
 0.5.12
 - Better entity error handling
 - Harmonize marked icon inside table
