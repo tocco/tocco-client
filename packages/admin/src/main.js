@@ -35,7 +35,7 @@ const initApp = (id, input, events, publicPath) => {
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
-  notification.addToStore(store, true)
+  notification.addToStore(store, true, {withNotificationCenter: true})
   keyDown.addToStore(store, shortcuts)
 
   return appFactory.createApp(
