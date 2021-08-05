@@ -13,7 +13,7 @@ import toasterSagas from './modules/toaster/sagas'
 import centerSagas from './modules/center/sagas'
 import centerReducer from './modules/center/reducer'
 
-export const addToStore = (store, accept) => {
+export const addToStore = (store, accept, {withNotificationCenter = false} = {}) => {
   if (accept) {
     reducerUtil.injectReducers(
       store,
@@ -34,7 +34,7 @@ export const addToStore = (store, accept) => {
   store.sagaMiddleware.run(modalSagas, accept)
   store.sagaMiddleware.run(socketSagas, accept)
   store.sagaMiddleware.run(toasterSagas, accept)
-  if (accept) {
+  if (accept && withNotificationCenter) {
     store.sagaMiddleware.run(centerSagas)
   }
 }
