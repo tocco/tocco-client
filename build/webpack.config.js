@@ -57,6 +57,7 @@ webpackConfig.output = {
   chunkFilename: 'chunk-[name].[contenthash].js',
   path: outputDir,
   libraryTarget: 'umd',
+  library: `tocco-${__PACKAGE__}`,
   publicPath: '/'
 }
 
