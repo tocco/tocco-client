@@ -1,3 +1,15 @@
+0.2.24-hotfix229.1
+- Displayexpression call adjustment
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Fix overlay of modal in widget mode
+- Fix popper menu on safari browsers
+- Align modal globally at same position
+- Fix calender search bug
+- Add preview for documents
+- Increase z-index of modal holder to properly display as widget
+- Prevent preview image collapsing to 1px if preview cannot be generated
+- Fix build
+
 0.2.24
 - render description field in form
 - Fix popper menu positioning
