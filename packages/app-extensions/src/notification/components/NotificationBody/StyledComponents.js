@@ -4,10 +4,14 @@ import {darken} from 'polished'
 
 export const StyledTaskProgressWrapper = styled.div`
   margin-bottom: ${scale.space(-2)};
+
+  a {
+    padding-right: 1rem;
+  }
 `
 
 export const StyledSpinnerWrapper = styled.span`
-  margin-right: ${scale.space(-2)};
+  margin-right: ${scale.space(-1.5)};
 `
 
 export const StyledProgressOuter = styled.div`
@@ -35,22 +39,27 @@ export const StyledDetailLinkWrapper = styled.div`
   }
 `
 
-export const StyledFileDescription = styled.div`
-  margin-bottom: ${scale.space(0)};
-
-  a {
-    text-decoration: underline;
-  }
-`
-
 export const StyledOutputJobWrapper = styled.div`
   a {
     color: ${theme.color('text')};
     text-decoration: none;
 
     &:hover {
-      color: ${theme.color('secondaryLight')};
       text-decoration: underline;
     }
   }
+`
+
+export const StyledFileDescription = styled.div`
+  margin-bottom: ${scale.space(0)};
+
+  && {
+    a {
+      text-decoration: underline;
+    }
+  }
+`
+
+export const StyledIconWrapper = styled.span`
+  padding-right: ${scale.space(-1.5)};
 `

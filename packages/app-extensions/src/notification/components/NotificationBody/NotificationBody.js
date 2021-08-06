@@ -13,7 +13,8 @@ import {
   StyledProgressMessage,
   StyledProgressOuter,
   StyledProgressInner,
-  StyledFileDescription
+  StyledFileDescription,
+  StyledIconWrapper
 } from './StyledComponents'
 
 const Result = ({notification: {result}, navigationStrategy}) => {
@@ -28,7 +29,8 @@ const Result = ({notification: {result}, navigationStrategy}) => {
           </StyledFileDescription>
           <div>
             <a href={result.file.link} target="_blank " title="open">
-              <Icon icon="external-link"/> <FormattedMessage id="client.common.notification.outputJobFileLink"/>
+              <StyledIconWrapper><Icon icon="external-link"/></StyledIconWrapper>
+              <FormattedMessage id="client.common.notification.outputJobFileLink"/>
             </a>
           </div>
           {download.downloadSupportedByBrowser()
@@ -36,7 +38,8 @@ const Result = ({notification: {result}, navigationStrategy}) => {
             href={download.addParameterToURL(result.file.link, 'download', true)}
             download={result.file.name}
             title="download">
-            <Icon icon="arrow-to-bottom"/> <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
+            <StyledIconWrapper><Icon icon="arrow-to-bottom"/></StyledIconWrapper>
+            <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
           </a>
           }
         </StyledOutputJobWrapper>)
@@ -89,7 +92,8 @@ const TaskProgress = ({notification: {taskProgress}, navigationStrategy}) => {
     }
     <StyledDetailLinkWrapper>
       <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.key}>
-        <Icon icon="arrow-right"/> <FormattedMessage id="client.common.notification.outputJobShowTask"/>
+        <StyledIconWrapper><Icon icon="arrow-right"/></StyledIconWrapper>
+        <FormattedMessage id="client.common.notification.outputJobShowTask"/>
       </navigationStrategy.DetailLink>
     </StyledDetailLinkWrapper>
   </>
