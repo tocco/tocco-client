@@ -1,3 +1,7 @@
+0.10.26-hotfix229.8
+- Prevent preview image collapsing to 1px if preview cannot be generated
+- Fix build
+
 0.10.26-hotfix229.7
 - Fix calender search bug
 - Add preview for documents
