@@ -16,7 +16,7 @@ import config from '../config'
 import logger from './lib/logger'
 
 const paths = config.utils_paths
-const {__CI__, __DEV__, __PROD__, __STANDALONE__, __PACKAGE__} = config.globals
+const {__CI__, __DEV__, __PROD__, __PACKAGE__} = config.globals
 
 const packageDir = `packages/${__PACKAGE__}`
 const absolutePackagePath = paths.client(`${packageDir}/`)
@@ -48,7 +48,10 @@ const webpackConfig = {
     paths.client(`${packageDir}/src/main.js`)
   ],
   optimization: {
-    minimizer: [new TerserPlugin({extractComments: false})]
+    minimizer: [
+      ...(!__DEV__ ? [new TerserPlugin({extractComments: false, sourceMap: true})] : []),
+      new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
+    ]
   }
 }
 
@@ -112,18 +115,6 @@ if (__DEV__) {
       minimize: true,
       debug: false
     }))
-} else if (__STANDALONE__) {
-  webpackConfig.plugins.push(
-    new HtmlWebpackPlugin({
-      template: paths.client('server/standalone.html'),
-      hash: false,
-      filename: 'index.html',
-      inject: 'body',
-      minify: {
-        collapseWhitespace: true
-      }
-    })
-  )
 }
 
 if (argv['bundle-analyzer']) {
@@ -138,6 +129,7 @@ webpackConfig.module.rules = [
     test: /\.(js|jsx)$/,
     exclude: /node_modules/,
     loader: 'babel-loader',
+    sideEffects: false,
     options: {
       plugins: __DEV__ ? ['react-refresh/babel'] : []
     }
