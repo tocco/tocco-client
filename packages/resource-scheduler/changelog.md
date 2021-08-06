@@ -1,3 +1,8 @@
+0.4.6-hotfix229.3
+- Add preview for documents
+- Increase z-index of modal holder to properly display as widget
+- Fix build
+
 0.4.6-hotfix229.2
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
 - Fix overlay of modal in widget mode
