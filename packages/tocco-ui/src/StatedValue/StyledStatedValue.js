@@ -113,6 +113,12 @@ const StyledStatedValueBox = styled.div`
 
     > ${StyledHtmlFormatter} {
       padding-top: ${({isDisplay}) => isDisplay && scale.space(-1)};
+      position: relative;
+      top: 5px;
+
+      p:first-of-type {
+        margin-top: 0;
+      }
     }
   }
 `
