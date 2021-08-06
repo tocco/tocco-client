@@ -1,3 +1,11 @@
+0.3.12-hotfix229.4
+- Align modal globally at same position
+- Fix calender search bug
+- Add preview for documents
+- Increase z-index of modal holder to properly display as widget
+- Prevent preview image collapsing to 1px if preview cannot be generated
+- Fix build
+
 0.3.12-hotfix229.3
 - Adjust height and width of input edit table
 
