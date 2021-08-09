@@ -1,3 +1,7 @@
+0.4.37-hotfix229.18
+- Increase z-index of modal holder to properly display as widget
+- Prevent preview image collapsing to 1px if preview cannot be generated
+
 0.4.37-hotfix229.17
 - Add preview for documents
 
