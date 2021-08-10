@@ -1,3 +1,10 @@
+0.5.14
+- Refresh list on navigation back to list
+- Harmonize html formatter spacing inside stated value
+- Harmonize icon spacing and hover behaviour in notifications
+- Add the feature to close modals via escape key
+- Add underline to links
+
 0.5.13
 - Prevent preview image collapsing to 1px if preview cannot be generated
 
