@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useRef, useLayoutEffect} from 'react'
+import React, {useMemo, useRef, useLayoutEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Typography} from 'tocco-ui'
 
@@ -21,13 +21,24 @@ const ModalContent = ({
   id,
   component: Component
 }) => {
-  const [isClosing, setIsClosing] = useState(false)
   const ref = useRef(null)
 
   const handleCloseClick = () => {
-    setIsClosing(true)
     close(id)
   }
+
+  useLayoutEffect(() => {
+    const handleKeyInput = e => {
+      if (e.key === 'Escape') {
+        close(id)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyInput)
+    return () => {
+      document.removeEventListener('keydown', handleKeyInput)
+    }
+  }, [])
 
   useLayoutEffect(() => {
     if (ref.current) {
@@ -44,7 +55,7 @@ const ModalContent = ({
     <>
       <GlobalTetherStyle/>
       <StyledModalWrapper>
-        <StyledModalContent isClosing={isClosing} ref={ref}>
+        <StyledModalContent ref={ref}>
           <StyledModalHeader>
             {title && <StyledTitleWrapper>
               <Typography.H1>
