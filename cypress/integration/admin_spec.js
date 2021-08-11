@@ -1,7 +1,7 @@
 import helpers from '../helpers/helpers'
 
 const visitAdmin = (suffix = '') => {
-  cy.visit(`${helpers.getStoryUrl(['Apps', 'Admin'], 'Admin')}${suffix}`)
+  cy.visit(`${helpers.getStoryUrl(['Admin', 'Admin'], 'Story')}${suffix}`)
 }
 
 describe('Admin', () => {
@@ -15,7 +15,8 @@ describe('Admin', () => {
       visitAdmin()
       cy.contains('cypress_client') // wait till username is shown in top right corner
       cy.get('body').type('{ctrl}m')
-        .wait(250).type('Veranstaltung')
+        .wait(50).type('{ctrl}', {release: true}) // sometimes cypress searches for "mVeranstaltung"
+        .type('Veranstaltung')
         .wait(50).type('{downarrow}')
         .focused().click()
       cy.url().should('include', 'e/Event/list')
