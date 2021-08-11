@@ -34,7 +34,6 @@ describe('entity-detail', () => {
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
               takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
               takeEvery(formActionTypes.BLUR, sagas.onBlur),
-              takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
               takeLatest(actions.UPDATE_MARKED, sagas.updateMarked)
 
             ]))
@@ -724,22 +723,20 @@ describe('entity-detail', () => {
             })
           })
 
-          describe('asyncValidationStop saga', () => {
+          describe('handleOutdatedError saga', () => {
             test('should show a toaster if outdated error is returned by the validation', () => {
-              const asyncValidationStopAction = {
-                payload: {
-                  _error: {
-                    outdatedError: {
-                      model: 'User',
-                      sameEntity: true,
-                      updateTimestamp: '2021-07-27T14:15:18.220Z',
-                      updateUser: 'user3'
-                    }
+              const error = {
+                _error: {
+                  outdatedError: {
+                    model: 'User',
+                    sameEntity: true,
+                    updateTimestamp: '2021-07-27T14:15:18.220Z',
+                    updateUser: 'user3'
                   }
                 }
               }
 
-              return expectSaga(sagas.asyncValidationStop, asyncValidationStopAction)
+              return expectSaga(sagas.handleOutdatedError, error)
                 .put.like({action: {type: 'notification/TOASTER'}})
                 .run()
             })

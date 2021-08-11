@@ -42,7 +42,6 @@ export default function* sagas() {
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
     takeEvery(formActionTypes.BLUR, onBlur),
-    takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, asyncValidationStop),
     takeLatest(actions.UPDATE_MARKED, updateMarked)
   ])
 }
@@ -155,17 +154,22 @@ export function* handleSubmitError(error) {
     yield put(formActions.stopSubmit(FORM_ID, error.errors))
     yield call(handleInvalidForm)
 
-    const validationErrors = yield call(form.formErrorsUtil.getValidatorErrors, error.errors)
-    const message = (validationErrors && validationErrors.length > 0
-      ? validationErrors.join('<br>')
-      : 'client.entity-detail.saveAbortedMessage')
+    const hasOutdatedError = form.formErrorsUtil.hasOutdatedError(error.errors)
+    if (hasOutdatedError) {
+      yield call(handleOutdatedError, error.errors)
+    } else {
+      const validationErrors = yield call(form.formErrorsUtil.getValidatorErrors, error.errors)
+      const message = (validationErrors && validationErrors.length > 0
+        ? validationErrors.join('<br>')
+        : 'client.entity-detail.saveAbortedMessage')
 
-    yield put(notification.toaster({
-      type: 'warning',
-      title: 'client.entity-detail.saveAbortedTitle',
-      body: message,
-      duration: 5000
-    }))
+      yield put(notification.toaster({
+        type: 'warning',
+        title: 'client.entity-detail.saveAbortedTitle',
+        body: message,
+        duration: 5000
+      }))
+    }
   } else if (error instanceof rest.InformationError) {
     yield put(notification.toaster({
       type: 'info',
@@ -403,32 +407,30 @@ export function* remoteEvent(action) {
   }
 }
 
-export function* asyncValidationStop({payload}) {
-  if (payload) {
-    const hasOutdatedError = form.formErrorsUtil.hasOutdatedError(payload)
-    if (hasOutdatedError) {
-      const outdatedError = form.formErrorsUtil.getOutdatedError(payload)
-      const {value: timeStampValue, unit} = selectUnit(new Date(outdatedError.updateTimestamp))
-      const titleId = `client.entity-detail.${outdatedError.sameEntity ? 'outdated' : 'relatedOutdated'}ErrorTitle`
+export function* handleOutdatedError(error) {
+  const outdatedError = form.formErrorsUtil.getOutdatedError(error)
+  const {value: timeStampValue, unit} = selectUnit(new Date(outdatedError.updateTimestamp))
+  const titleId = `client.entity-detail.${outdatedError.sameEntity ? 'outdated' : 'relatedOutdated'}ErrorTitle`
 
-      yield put(notification.toaster({
-        type: 'warning',
-        key: 'outdated-warning',
-        title: <FormattedMessage
-          id={titleId}
-          values={{
-            model: outdatedError.model,
-            key: outdatedError.key
-          }}
-        />,
-        body: <FormattedMessage
-          id="client.entity-detail.outdatedErrorDescription"
-          values={{
-            ago: <FormattedRelativeTime value={timeStampValue} unit={unit}/>,
-            user: outdatedError.updateUser
-          }}
-        />
-      }))
-    }
-  }
+  yield put(notification.toaster({
+    type: 'warning',
+    key: 'outdated-warning',
+    title: 'client.entity-detail.saveAbortedTitle',
+    body: <>
+      <FormattedMessage
+        id={titleId}
+        values={{
+          model: outdatedError.model,
+          key: outdatedError.key
+        }}
+      /><> </>
+      <FormattedMessage
+        id="client.entity-detail.outdatedErrorDescription"
+        values={{
+          ago: <FormattedRelativeTime value={timeStampValue} unit={unit}/>,
+          user: outdatedError.updateUser
+        }}
+      />
+    </>
+  }))
 }
