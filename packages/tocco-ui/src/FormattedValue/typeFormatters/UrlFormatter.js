@@ -4,7 +4,16 @@ import React from 'react'
 import Link from '../../Link'
 
 const UrlFormatter = props =>
-  <Link href={props.value} label={props.value} breakWords={props.breakWords}/>
+    <Link
+      onClick={e => {
+        e.stopPropagation()
+      }}
+      href={props.value}
+      target="_blank"
+      rel="noopener noreferrer"
+      label={props.value}
+      breakWords={props.breakWords}
+    />
 
 UrlFormatter.propTypes = {
   value: PropTypes.string,
