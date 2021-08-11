@@ -163,6 +163,7 @@ describe('Entity Browser', () => {
     })
 
     it('should handle column sorting and multi sorting', () => {
+      cy.get('[data-cy=header-cell-user_nr]').click() // Reset
       cy.get('[data-cy=header-cell-firstname]').click()
       cy.get('[data-cy=header-cell-firstname]').find('svg').should('have.attr', 'data-icon', 'sort-up')
       cy.get('[data-cy=header-cell-firstname]').click()

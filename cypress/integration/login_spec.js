@@ -2,7 +2,13 @@ import helpers from '../helpers/helpers'
 
 describe('Login', () => {
   beforeEach(() => {
-    cy.visit(`${helpers.getStoryUrl(['Apps', 'Login'], 'Login')}`)
+    cy.visit(`${helpers.getStoryUrl(['Apps', 'Login'], 'Login')}`, {
+      onBeforeLoad(win) {
+        Object.defineProperty(win.navigator, 'language', {
+          value: 'de-CH'
+        })
+      }
+    })
   })
 
   describe('Login', () => {
@@ -14,7 +20,7 @@ describe('Login', () => {
 
     it('should not be possible to click login button', () => {
       cy.get('[data-cy=login-form_user-input]')
-        .type('{selectall}{del}cypress_test')
+        .type('{selectall}{del}some_user')
       cy.get('[data-cy=login-form_login-button]')
         .should('be.disabled')
       cy.contains('Dieser Bereich ist privat.')
@@ -29,7 +35,7 @@ describe('Login', () => {
 
     it('should send login request', () => {
       cy.get('[data-cy=login-form_user-input]')
-        .type('{selectall}{del}cypress_test')
+        .type('{selectall}{del}some_user')
       cy.get('[data-cy=login-form_password-input]')
         .type('{selectall}{del}Test_pw1')
       cy.get('[data-cy=login-form_login-button]')
@@ -51,7 +57,6 @@ describe('Login', () => {
     it('should change to login page on abort of password request ', () => {
       cy.get('[data-cy=login-form_request-button]')
         .click()
-      cy.contains('Passwort vergessen?')
       cy.get('[data-cy=password-request_abort-button]')
         .click()
       cy.get('[data-cy=login-form_user-input]')
