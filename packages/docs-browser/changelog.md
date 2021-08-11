@@ -1,3 +1,7 @@
+0.2.4-hotfix229.10
+- Prevent preview image collapsing to 1px if preview cannot be generated
+- Refresh list on navigation back to list
+
 0.2.4-hotfix229.9
 - Increase z-index of modal holder to properly display as widget
 
