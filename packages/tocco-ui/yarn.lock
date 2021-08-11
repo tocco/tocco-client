@@ -634,9 +634,9 @@ parse-json@^5.0.0:
     lines-and-columns "^1.1.6"
 
 path-parse@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
-  integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
+  integrity sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==
 
 path-type@^4.0.0:
   version "4.0.0"
@@ -918,6 +918,21 @@ to-fast-properties@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
+
+tocco-test-util@*:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/tocco-test-util/-/tocco-test-util-0.1.2.tgz#6388309f1598d612cbc29e27564fb10706ade6f6"
+  integrity sha1-Y4gwnxWY1hLLwp4nVk+xBwat5vY=
+
+tocco-theme@*:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.2.10.tgz#9e20ef4a5a93040b7dcc0fd947b260233a6e0e30"
+  integrity sha512-5aBspMHAqGfR7fZg1p8L6dXbtU+lGSj2XnKHYqeKy9O2NKJoFBw4W3s7i9bAMliAYYApj4py3icHZ/pLH+j4VQ==
+
+tocco-util@*:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/tocco-util/-/tocco-util-0.1.11.tgz#c159134e9bb8359384aab0996286de233b19d0a8"
+  integrity sha512-7VbdKXPPAyXXibJ1AIiPDdwb4ksU0RmbvHr/mznU//slM9I8ncoOLR/159lcnDnXiI6HokWE+fKqRCuyZ9oQNw==
 
 ts-essentials@^2.0.3:
   version "2.0.12"
