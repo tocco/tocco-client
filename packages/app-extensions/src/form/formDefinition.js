@@ -23,8 +23,7 @@ const getFieldsOfChildren = definition => {
     }
 
     const componentType = definition.children[i].componentType
-
-    if (validFieldTypes.includes(componentType)) {
+    if (validFieldTypes.includes(componentType) && definition.hidden !== true) {
       result.push({
         ...definition.children[i],
         readonly: definition.readonly,

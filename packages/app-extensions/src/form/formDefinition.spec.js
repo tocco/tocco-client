@@ -60,6 +60,12 @@ const testFormDefinition = {
               ignoreCopy: false,
               children: [testField2]
             },
+            {
+              readonly: false,
+              ignoreCopy: false,
+              hidden: true,
+              children: [{id: 'hidden_field', componentType: 'field'}]
+            },
             testDisplay,
             {
               name: 'relAffiliation',
