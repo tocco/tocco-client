@@ -35,7 +35,7 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundC
 
   return <StyledBreadcrumbs backgroundColor={backgroundColor}>
     <Helmet defer={false}>
-      <title>{getTitle(breadcrumbsInfo)}</title>
+      <title>{getTitle(breadcrumbs)}</title>
     </Helmet>
     <div>  {
       breadcrumbs.map((b, idx) => {
