@@ -1,3 +1,14 @@
+0.2.12
+- Prevent preview image collapsing to 1px if preview cannot be generated
+- Refresh list on navigation back to list
+- Harmonize html formatter spacing inside stated value
+- Harmonize icon spacing and hover behaviour in notifications
+- Add the feature to close modals via escape key
+- Add underline to links
+- Open Url in list in new window
+- Fix simple-search extend button in remote search
+- Improve browser tab title
+
 0.2.11
 - Harmonize marked icon inside table
 - Harmonize marked icon inside detail view
