@@ -89,6 +89,8 @@ export function* loadRouteInfo(pathname) {
             key: path.key
           }
         })
+
+        return routeInfos
       }
 
       if (path.relation) {
