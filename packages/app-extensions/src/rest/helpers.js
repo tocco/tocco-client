@@ -30,6 +30,28 @@ export function* fetchEntity(entityName, key, query, transformer = json => json)
 }
 
 /**
+* Helper to check of an entity exists or the user has read rights
+*
+* @param entityName {String} Name of the entity
+* @param key {String} key of the entity
+*/
+export function* entityExists(entityName, key) {
+  const options = {
+    method: 'GET',
+    queryParams: {
+      _omitLinks: true
+    }
+  }
+
+  try {
+    yield call(requestSaga, `entities/2.0/${entityName}/${key}`, options)
+    return true
+  } catch (e) {
+    return false
+  }
+}
+
+/**
  * Helper to fetch the default-display of an entity
  *
  * @param entityName {String} Name of the entity

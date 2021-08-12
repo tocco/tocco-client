@@ -22,7 +22,8 @@ import {
   fetchMarkings,
   fetchMarked,
   setMarked,
-  setSelectionMarked
+  setSelectionMarked,
+  entityExists
 } from './helpers'
 import {
   fetchUserPreferences,
@@ -65,5 +66,6 @@ export default {
   fetchMarked,
   setMarked,
   setSelectionMarked,
-  NULL_BUSINESS_UNIT
+  NULL_BUSINESS_UNIT,
+  entityExists
 }

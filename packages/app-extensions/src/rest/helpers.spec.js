@@ -3,6 +3,7 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {call} from 'redux-saga/effects'
 import {cache} from 'tocco-util'
+import {throwError} from 'redux-saga-test-plan/providers'
 
 import {requestSaga} from './rest'
 import * as helpers from './helpers'
@@ -142,6 +143,28 @@ describe('app-extensions', () => {
         })
       })
 
+      describe('entityExists', () => {
+        test('should return true if exists', async() => {
+          const responseEntity = {key: '1'}
+
+          await expectSaga(helpers.entityExists, 'User', '1')
+            .provide([
+              [matchers.call.fn(requestSaga), {body: responseEntity}]
+            ])
+            .returns(true)
+            .run()
+        })
+
+        test('should return false if not', async() => {
+          await expectSaga(helpers.entityExists, 'User', '1')
+            .provide([
+              [matchers.call.fn(requestSaga), throwError('404')]
+            ])
+            .returns(false)
+            .run()
+        })
+      })
+
       describe('fetchEntities', () => {
         test('should call fetch', () => {
           const query = {
@@ -267,7 +290,7 @@ describe('app-extensions', () => {
               {
                 model: 'Gender',
                 keys:
-                    ['1', '2']
+                  ['1', '2']
               }
               ]
             }
