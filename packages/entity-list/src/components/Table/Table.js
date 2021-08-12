@@ -7,13 +7,20 @@ import _get from 'lodash/get'
 import {navigationCell} from './navigationCell'
 import {markingCell} from './markingCell'
 
-const Table = props =>
-  <UiTable
+const Table = props => {
+  const showNavigationLink = props.showLink
+    && props.clickable
+    && props.navigationStrategy
+    && props.navigationStrategy.DetailLinkRelative
+  const showPreferencesMenu = !props.disablePreferencesMenu
+  return <UiTable
     data={props.entities}
     columns={[
-      navigationCell(props.showLink && props.navigationStrategy && props.clickable,
-        props.navigationStrategy,
-        props.parent),
+      ...((showNavigationLink || showPreferencesMenu)
+        ? [navigationCell(showNavigationLink,
+            props.navigationStrategy,
+            props.parent)]
+        : []),
       ...(props.markable ? [markingCell()] : []),
       ...props.columnDefinitions.sort((a, b) =>
         _get(props.positions, [a.id]) - _get(props.positions, [b.id])
@@ -34,6 +41,7 @@ const Table = props =>
     clickable={props.clickable}
     onColumnPositionChange={props.changePosition}
   />
+}
 
 Table.propTypes = {
   columnDefinitions: PropTypes.arrayOf(columnPropType).isRequired,
@@ -59,7 +67,8 @@ Table.propTypes = {
   navigationStrategy: PropTypes.objectOf(PropTypes.func),
   changePosition: PropTypes.func.isRequired,
   positions: PropTypes.objectOf(PropTypes.number),
-  markable: PropTypes.bool
+  markable: PropTypes.bool,
+  disablePreferencesMenu: PropTypes.bool
 }
 
 const areEqual = (prevProps, nextProps) => {

@@ -7,6 +7,7 @@
   "form": {
     "id": "User_detail_relDummySubGrid_list",
     "hidden": false,
+    "disablePreferencesMenu": false,
     "children": [
       {
         "id": "main-action-bar",
@@ -40,6 +41,7 @@
         "layoutType": "table",
         "hidden": false,
         "endpoint": "entities/2.0/User/{parentKey}/entitydocs",
+        "clickable": false,
         "children": [
           {
             "id": "label",

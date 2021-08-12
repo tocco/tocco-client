@@ -41,7 +41,8 @@ const mapStateToProps = (state, props) => ({
   showLink: state.list.showLink,
   navigationStrategy: state.input.navigationStrategy,
   positions: state.preferences.positions,
-  markable: state.list.entityModel.markable && state.list.formDefinition.markable
+  markable: state.list.entityModel.markable && state.list.formDefinition.markable,
+  disablePreferencesMenu: state.list.disablePreferencesMenu
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Table))

@@ -17,7 +17,8 @@ import {
   getEndpoint,
   getSearchEndpoint,
   getConstriction,
-  getFields
+  getFields,
+  getDisablePreferencesMenu
 } from '../../util/api/forms'
 import {entitiesListTransformer} from '../../util/api/entities'
 import * as preferencesActions from '../preferences/actions'
@@ -352,6 +353,8 @@ export function* extractFormInformation(formDefinition) {
   yield put(actions.setSearchEndpoint(searchEndpoint))
   const constriction = yield call(getConstriction, formDefinition)
   yield put(actions.setConstriction(constriction))
+  const disablePreferencesMenu = yield call(getDisablePreferencesMenu, formDefinition)
+  yield put(actions.setDisablePreferencesMenu(disablePreferencesMenu))
 }
 
 export function* loadEntityModel(entityName) {
