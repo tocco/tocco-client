@@ -90,6 +90,10 @@ describe('admin', () => {
                     return entityName === 'User' ? mockData.userDisplay : mockData.addressDisplay
                   }
 
+                  if (effect.fn === rest.entityExists) {
+                    return true
+                  }
+
                   return next()
                 }
               }
@@ -311,7 +315,7 @@ describe('admin', () => {
 
                 const result = await expectSaga(sagas.loadRouteInfo, pathname)
                   .provide([
-                    [matchers.call.fn(sagas.fetchDisplaySave), null],
+                    [matchers.call.fn(sagas.entityExists), false],
                     [matchers.call.fn(rest.fetchModel), mockData.userModel]
                   ])
 
@@ -383,18 +387,6 @@ describe('admin', () => {
 
                 expect(result).to.eql(expectedResult)
               })
-            })
-          })
-
-          describe('fetchDisplaySave', () => {
-            test('should return null if fetch display throws an error', () => {
-              return expectSaga(sagas.fetchDisplaySave, 'User', 'asd')
-                .provide([
-                  [matchers.call.fn(sagas.fetchModel), throwError('')]
-
-                ])
-                .returns(null)
-                .run()
             })
           })
         })
