@@ -1,17 +1,16 @@
 import styled from 'styled-components'
-import _get from 'lodash/get'
+import {lighten} from 'polished'
 
 import {
-  shadeColor,
   theme
 } from '../utilStyles'
 
 const StyledPanel = styled.div`
   && {
     background-color: ${theme.color('paper')};
-    border-width: 1px;
-    border-style: ${({isFramed}) => isFramed ? 'solid' : 'none'};
-    border-color: ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 1)};
+    border: 1px
+      ${({isFramed}) => isFramed ? 'solid' : 'none'}
+      ${({theme}) => lighten(0.93, theme.colors.text)};
   }
 `
 export default StyledPanel

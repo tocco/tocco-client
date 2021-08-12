@@ -8,7 +8,7 @@ const StyledLayoutContainer = styled.div`
   ${({containerWidth, theme}) => containerWidth < 600
 ? 'grid-template-columns: 100%;'
     : `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      grid-gap: ${scale.space(-0.5)({theme})}`
+      grid-gap: ${scale.space(0.25)({theme})}`
   };
   ${({occupiesRemainingHeight}) => occupiesRemainingHeight && `
     flex: 1;

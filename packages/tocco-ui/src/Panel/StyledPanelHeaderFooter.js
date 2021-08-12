@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 import _get from 'lodash/get'
 
-import {StyledButton} from '../Button'
-import {shadeColor} from '../utilStyles'
+import {shadeColor, scale, theme} from '../utilStyles'
 
 const declareDivider = ({theme, isOpen, isFramed}) => {
   const cssShared = `
@@ -48,27 +47,35 @@ const declareDivider = ({theme, isOpen, isFramed}) => {
   }
 }
 
+export const StyledIconWrapper = styled.span`
+  display: none;
+  font-size: ${scale.font(1)};
+
+  &:hover {
+    color: ${theme.color('secondaryLight')};
+  }
+`
+
 const StyledPanelHeaderFooter = styled.div`
   && {
+    background-color: #f2f2f2;
     display: flex;
     padding: ${({isFramed}) => isFramed ? '4px 8px 4px 8px' : 0};
     align-items: center;
 
     &:hover {
       cursor: pointer;
+
+      ${StyledIconWrapper} {
+        display: block;
+      }
     }
 
     > div {
       flex: 1 1 auto;
     }
-
-    ${StyledButton} {
-      margin-left: auto;
-      align-self: center;
-    }
     ${props => declareDivider(props)}
-    transition: border ${({isOpen}) => isOpen ? '300ms ease-in-out' : '1ms ease-in-out 299ms'};
-    will-change: border;
   }
 `
+
 export default StyledPanelHeaderFooter
