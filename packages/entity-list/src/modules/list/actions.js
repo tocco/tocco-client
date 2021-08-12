@@ -35,6 +35,7 @@ export const SET_INITIALIZED = 'list/SET_INITIALIZED'
 export const SET_SORTABLE = 'list/SET_SORTABLE'
 export const SET_MARKED = 'list/SET_MARKED'
 export const TOGGLE_MARKINGS = 'list/TOGGLE_MARKINGS'
+export const SET_DISABLE_PREFERENCES_MENU = 'list/SET_DISABLE_PREFERENCES_MENU'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -278,5 +279,12 @@ export const toggleMarkings = selection => ({
   type: TOGGLE_MARKINGS,
   payload: {
     selection
+  }
+})
+
+export const setDisablePreferencesMenu = disablePreferencesMenu => ({
+  type: SET_DISABLE_PREFERENCES_MENU,
+  payload: {
+    disablePreferencesMenu
   }
 })

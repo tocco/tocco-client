@@ -25,6 +25,9 @@ export const getClickable = formDefinition => {
   return table.clickable !== false
 }
 
+export const getDisablePreferencesMenu = formDefinition =>
+  formDefinition.disablePreferencesMenu === true
+
 export const getEndpoint = formDefinition => {
   const table = getTable(formDefinition)
   return table.endpoint || null

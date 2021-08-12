@@ -7,25 +7,32 @@ import {FormattedMessage} from 'react-intl'
 import {displayColumnModal, resetSorting, resetPreferences, resetColumns} from '../../modules/preferences/actions'
 
 const NavigationCellHeader = props =>
-  <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
-    <MenuItem onClick={props.displayColumnModal}>
-      <FormattedMessage id="client.entity-list.preferences.columns"/>
-    </MenuItem>
-    <MenuItem onClick={props.resetColumns}>
-      <FormattedMessage id="client.entity-list.preferences.columns.reset"/>
-    </MenuItem>
-    {props.sortable
-      && <MenuItem onClick={props.resetSorting}><FormattedMessage id="client.entity-list.sorting.reset"/></MenuItem>
-    }
-    <MenuItem onClick={props.resetPreferences}><FormattedMessage id="client.entity-list.preferences.reset"/></MenuItem>
-  </BallMenu>
+  !props.disablePreferencesMenu
+    ? <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
+      <MenuItem onClick={props.displayColumnModal}>
+        <FormattedMessage id="client.entity-list.preferences.columns"/>
+      </MenuItem>
+      <MenuItem onClick={props.resetColumns}>
+        <FormattedMessage id="client.entity-list.preferences.columns.reset"/>
+      </MenuItem>
+      {props.sortable
+        && <MenuItem onClick={props.resetSorting}>
+          <FormattedMessage id="client.entity-list.sorting.reset"/>
+        </MenuItem>
+      }
+      <MenuItem onClick={props.resetPreferences}>
+        <FormattedMessage id="client.entity-list.preferences.reset"/>
+      </MenuItem>
+    </BallMenu>
+    : null
 
 NavigationCellHeader.propTypes = {
   displayColumnModal: PropTypes.func.isRequired,
   resetSorting: PropTypes.func.isRequired,
   resetPreferences: PropTypes.func.isRequired,
   resetColumns: PropTypes.func.isRequired,
-  sortable: PropTypes.bool
+  sortable: PropTypes.bool,
+  disablePreferencesMenu: PropTypes.bool
 }
 
 const mapActionCreators = {
@@ -36,7 +43,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  sortable: state.list.sortable
+  sortable: state.list.sortable,
+  disablePreferencesMenu: state.list.disablePreferencesMenu
 })
 
 export default connect(mapStateToProps, mapActionCreators)(NavigationCellHeader)

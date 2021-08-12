@@ -74,7 +74,8 @@ const ACTION_HANDLERS = {
   [actions.SET_SORTABLE]: reducerUtil.singleTransferReducer('sortable'),
   [actions.SET_INPUT_TQL]: reducerUtil.singleTransferReducer('inputTql'),
   [actions.SET_INPUT_KEYS]: reducerUtil.singleTransferReducer('inputKeys'),
-  [actions.SET_INPUT_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('inputSearchFilters')
+  [actions.SET_INPUT_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('inputSearchFilters'),
+  [actions.SET_DISABLE_PREFERENCES_MENU]: reducerUtil.singleTransferReducer('disablePreferencesMenu')
 }
 
 const initialState = {
