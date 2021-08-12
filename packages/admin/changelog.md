@@ -1,3 +1,6 @@
+0.5.16
+- Better breadcrumb error handling
+
 0.5.15
 - Open Url in list in new window
 - Fix simple-search extend button in remote search
