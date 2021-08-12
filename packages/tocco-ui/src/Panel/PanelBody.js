@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {LazyMotion} from 'framer-motion'
 
 import StyledPanelBody from './StyledPanelBody'
 
@@ -8,22 +7,8 @@ import StyledPanelBody from './StyledPanelBody'
  * Only <Panel.Body/> is affected by the visibility state.
  */
 
-const PanelBody = ({children, isFramed, isOpen}) => {
-  const currentVariant = isOpen ? 'open' : 'closed'
-
-  const loadFeatures = () =>
-    import('./framerMotionFeatures.js').then(res => res.default)
-
-  return (
-    <LazyMotion features={loadFeatures}>
+const PanelBody = ({children, isFramed, isOpen}) =>
     <StyledPanelBody
-      initial={currentVariant}
-      animate={currentVariant}
-      variants={{
-        closed: {height: 0},
-        open: {height: 'auto'}
-      }}
-      transition={{ease: 'easeInOut', duration: 0.3}}
       isFramed={isFramed}
       isOpen={isOpen}
     >
@@ -31,9 +16,6 @@ const PanelBody = ({children, isFramed, isOpen}) => {
         {children}
       </div>
     </StyledPanelBody>
-    </LazyMotion>
-  )
-}
 
 PanelBody.propTypes = {
   children: PropTypes.node,

@@ -7,7 +7,7 @@ const StyledLayoutBox = styled.div`
   height: fit-content;
   grid-template-rows: auto;
   grid-template-columns: 100%;
-  margin-bottom: ${scale.space(-0.5)};
+  margin-bottom: ${scale.space(0.25)};
 `
 
 export default StyledLayoutBox
