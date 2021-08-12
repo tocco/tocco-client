@@ -30,34 +30,35 @@ const MenuItem = ({
     e.stopPropagation()
   }
 
-  return <StyledMenuItem
-    onClick={handleClick} level={level}>
-    {
-      childrenArr.map((child, idx) => {
-        const lvl = level ? level + 1 : 1
-        if (child.type && child.type.displayName === 'MenuItem') {
-          return React.cloneElement(child, {
-            ...child.props,
-            onClose: onClose,
-            closeOnClick: closeOnClick,
-            level: lvl,
-            key: `menu-item-${idx}-${lvl}`
-          })
-        }
-        return <StyledItemLabel
-          key={`menu-item-label-${idx}-${lvl}`}
-          hasOnClick={hasOnClick}
-          isGroup={isGroup}
-          title={title}
-          disabled={disabled}
-          look="raised"
-          level={level}
-        >
-          {child}
-        </StyledItemLabel>
+  const menuItem = childrenArr.map((child, idx) => {
+    const lvl = level ? level++ : 1
+    if (child.type && child.type.displayName === 'MenuItem') {
+      return React.cloneElement(child, {
+        ...child.props,
+        onClose: onClose,
+        closeOnClick: closeOnClick,
+        level: lvl,
+        key: `menu-item-${idx}-${lvl}`
       })
     }
-  </StyledMenuItem>
+    return <StyledItemLabel
+      key={`menu-item-label-${idx}-${lvl}`}
+      hasOnClick={hasOnClick}
+      isGroup={isGroup}
+      title={title}
+      disabled={disabled}
+      look="raised"
+      level={level}
+    >
+      {child}
+    </StyledItemLabel>
+  })
+
+  return (
+    <StyledMenuItem onClick={handleClick} level={level}>
+      {menuItem}
+    </StyledMenuItem>
+  )
 }
 
 MenuItem.defaultProps = {

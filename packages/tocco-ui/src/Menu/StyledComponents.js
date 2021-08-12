@@ -19,6 +19,7 @@ export const StyledPopperWrapper = styled.div`
 
 export const StyledPopper = styled.div`
   max-height: ${({rectBottom}) => `calc(100vh - ${rectBottom + 15}px)`}; // add 15px for small padding
+  width: max-content;
   overflow-y: auto;
   overflow-x: hidden;
   background: ${theme.color('paper')};
