@@ -37,14 +37,6 @@ export function* loadRoute({payload: {location}}) {
   }
 }
 
-export function* fetchDisplaySave(entityName, key) {
-  try {
-    return yield call(rest.fetchDisplay, entityName, key)
-  } catch {
-    return null
-  }
-}
-
 export function* loadRouteInfo(pathname) {
   const path = yield call(getPathInfo, pathname)
   const routeInfos = []
@@ -72,9 +64,10 @@ export function* loadRouteInfo(pathname) {
     }
 
     if (path.key) {
-      const display = yield call(fetchDisplaySave, baseModel.name, path.key)
+      const entityExists = yield call(rest.entityExists, baseModel.name, path.key)
 
-      if (display) {
+      if (entityExists) {
+        const display = yield call(rest.fetchDisplay, baseModel.name, path.key)
         routeInfos.push({
           type: 'detail',
           key: path.key,
@@ -126,8 +119,10 @@ export function* loadRouteInfo(pathname) {
           } else {
             const key = relationStringPart
             const model = parent.model
-            const display = yield call(fetchDisplaySave, model.name, key)
-            if (display) {
+            const entityExists = yield call(rest.entityExists, baseModel.name, path.key)
+
+            if (entityExists) {
+              const display = yield call(rest.fetchDisplay, model.name, key)
               routeInfos.push({
                 type: 'detail',
                 model,
