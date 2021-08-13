@@ -36,6 +36,7 @@ export const StyledDetailLinkWrapper = styled.div`
 
   * {
     font-size: ${scale.font(-1)};
+    text-decoration: none;
   }
 `
 
