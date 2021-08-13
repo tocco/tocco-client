@@ -1,3 +1,8 @@
+0.5.17
+- Harmonize collapsible panel styling for better contrast
+- Prevent early line breaks in popover menu
+- Remove initial underline in notification detail link
+
 0.5.16
 - Better breadcrumb error handling
 
