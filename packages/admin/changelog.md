@@ -1,3 +1,6 @@
+0.5.18
+- Handle 404 of path parts better
+
 0.5.17
 - Harmonize collapsible panel styling for better contrast
 - Prevent early line breaks in popover menu
