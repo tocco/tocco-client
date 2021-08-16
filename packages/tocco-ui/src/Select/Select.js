@@ -43,9 +43,12 @@ const Select = ({
 
   const getOptions = () => [...(options || [])]
 
-  const handleInputChange = searchTerm => {
+  const handleInputChange = (searchTerm, event) => {
     if (searchOptions && searchTerm) {
       debouncedSearchOptions(searchTerm)
+    }
+    if (searchTerm === '' && event.action === 'input-change') {
+      fetchOptions()
     }
   }
 
