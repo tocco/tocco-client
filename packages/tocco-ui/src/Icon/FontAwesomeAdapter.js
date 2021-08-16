@@ -4,7 +4,7 @@ import _get from 'lodash/get'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {
-  faSquareFull, faStar as faStarSolid
+  faSquareFull, faStar as faStarSolid, faSquare as faSquareSolid
 } from '@fortawesome/pro-solid-svg-icons'
 import {
   faTimes, faCircle, faHorizontalRule, faSync, faMinus, faTimesCircle, faInfoCircle,
@@ -26,8 +26,12 @@ import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApp
     faCheckCircle, faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple, faBars, faExternalLink,
     faPhone, faMapMarked, faSearch, faCog, faDownload, faUpload, faInfo, faHorizontalRule, faSync, faSquareFull,
     faCompress, faBook, faSortUp, faSortDown, faQuestionCircle, faEllipsisV, faMinus, faTimesCircle, faInfoCircle,
-    faExclamationCircle, faTrash, faList, faSquare, faBell, faArrowToBottom)
+    faExclamationCircle, faTrash, faList, faSquare, faBell, faArrowToBottom, faSquareSolid)
 })()
+
+/**
+ * The following icons are solely used to support custom display expressions and should not be removed: faSquareSolid
+ */
 
 const FontAwesomeAdapter = ({icon, style}) =>
   <FontAwesomeIcon
