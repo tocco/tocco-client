@@ -1,20 +1,4 @@
 {
-  "angle-down": {
-    "id": "fal, angle-down",
-    "lib": "fa"
-  },
-  "angle-left": {
-    "id": "fal, angle-left",
-    "lib": "fa"
-  },
-  "angle-right": {
-    "id": "fal, angle-right",
-    "lib": "fa"
-  },
-  "angle-up": {
-    "id": "fal, angle-up",
-    "lib": "fa"
-  },
   "apple": {
     "id": "fab, apple",
     "lib": "fa",
