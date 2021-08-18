@@ -1,3 +1,7 @@
+0.5.19
+- support disablePreferencesMenu in table
+- Money post point digits fallback
+
 0.5.18
 - Handle 404 of path parts better
 
