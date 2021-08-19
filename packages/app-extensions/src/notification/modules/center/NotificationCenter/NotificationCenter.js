@@ -6,6 +6,7 @@ import {FormattedMessage} from 'react-intl'
 import Notification from './Notification'
 import {notificationPropType} from './../../../types'
 import {StyledNotificationCenter} from './StyledComponents'
+import {resultTypes} from '../../../api'
 
 const NotificationCenter = (
   {
@@ -33,6 +34,7 @@ const NotificationCenter = (
 
   const sortedNotifications = Object.keys(notifications)
     .map(k => notifications[k])
+    .filter(n => !n.result || n.result.type !== resultTypes.outputjob || n.result.file)
     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
 
   return (

@@ -16,9 +16,10 @@ import {
   StyledFileDescription,
   StyledIconWrapper
 } from './StyledComponents'
+import {resultTypes} from '../../api'
 
 const Result = ({notification: {result}, navigationStrategy}) => {
-  if (result.type === 'OUTPUTJOB') {
+  if (result.type === resultTypes.outputjob) {
     if (result.file) {
       return (
         <StyledOutputJobWrapper>
@@ -52,11 +53,11 @@ const Result = ({notification: {result}, navigationStrategy}) => {
           </StyledDetailLinkWrapper>
         </StyledOutputJobWrapper>)
     } else {
-      return <FormattedMessage id="client.common.notification.outputJobNotFound"/>
+      return null
     }
   }
 
-  if (result.type === 'ENTITIES') {
+  if (result.type === resultTypes.entities) {
     return <>
       {result.content.map(entity => {
         return (
