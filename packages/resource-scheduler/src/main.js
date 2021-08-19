@@ -41,7 +41,7 @@ const initApp = (id, input, events, publicPath) => {
       events,
       actions: dispatchActions,
       publicPath,
-      textResourceModules: ['component', 'common', packageName]
+      textResourceModules: ['component', 'common', packageName, 'entity-list', 'scheduler']
     }
   )
 }
