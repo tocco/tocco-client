@@ -49,7 +49,7 @@ const Dialog = ({
       <StyledButtonsWrapper>
         <Button
           onClick={doDelete}
-          disabled={Object.keys(rootEntitiesDeletable).length === 0}
+          disabled={Object.keys(rootEntitiesDeletable).every(entity => rootEntitiesDeletable[entity].keys.length === 0)}
         >
           <FormattedMessage id="client.delete.deleteButton"/>
         </Button>
