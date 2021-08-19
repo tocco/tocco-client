@@ -17,7 +17,7 @@ const taskProgressStatus = {
   cancelled: 'cancelled'
 }
 
-const resultTypes = {
+export const resultTypes = {
   outputjob: 'OUTPUTJOB',
   entities: 'ENTITIES'
 }
