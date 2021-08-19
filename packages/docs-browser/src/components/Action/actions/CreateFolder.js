@@ -7,6 +7,12 @@ import getNode from '../../../utils/getNode'
 import getDetailFormName from '../../../utils/getDetailFormName'
 
 const CreateFolder = ({context, onSuccess, intl, emitAction}) => {
+  const emitActionBarrier = action => {
+    if (action.payload && action.payload.title !== 'client.entity-detail.createSuccessfulTitle') {
+      emitAction(action)
+    }
+  }
+
   const handleEntityCreated = ({id}) => {
     const remoteEvents = [{
       type: 'entity-create-event',
@@ -39,7 +45,7 @@ const CreateFolder = ({context, onSuccess, intl, emitAction}) => {
     mode="create"
     defaultValues={defaultValues}
     onEntityCreated={handleEntityCreated}
-    emitAction={emitAction}
+    emitAction={emitActionBarrier}
   />
 }
 
