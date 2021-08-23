@@ -1,3 +1,8 @@
+0.10.26-hotfix229.9
+- Refresh list on navigation back to list
+- Dms edit and create messages clean up
+- Allow entity-browser to run with specific bu
+
 0.10.26-hotfix229.8
 - Prevent preview image collapsing to 1px if preview cannot be generated
 
