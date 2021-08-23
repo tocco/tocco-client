@@ -1,3 +1,6 @@
+0.10.19-hotfix228.9
+- allow entity-browser to run with specific bu
+
 0.10.19-hotfix228.8
 - Fix calender search bug
 
