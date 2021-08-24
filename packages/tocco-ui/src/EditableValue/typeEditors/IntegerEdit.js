@@ -28,7 +28,7 @@ const IntegerEdit = ({value, onChange, options, immutable, name, id}) => {
     <StyledEditableWrapper immutable={immutable}>
       <StyledNumberEdit
         isAllowed={isAllowed}
-        allowNegative={false}
+        allowNegative={true}
         decimalScale={0}
         disabled={immutable}
         id={id}
