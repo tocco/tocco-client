@@ -31,7 +31,7 @@ class HtmlEdit extends React.Component {
     // eslint-disable-next-line chai-friendly/no-unused-expressions
     import(/* webpackChunkName: "vendor-quill" */ '!style-loader!css-loader!react-quill/dist/quill.core.css')
 
-    this.lazyQuill = lazy(() => import(/* webpackChunkName: "quill" */ 'react-quill'))
+    this.lazyQuill = lazy(() => import(/* webpackChunkName: "vendor-quill" */ 'react-quill'))
   }
 
   handleChange = (value, delta, source) => {
