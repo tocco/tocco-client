@@ -1,4 +1,4 @@
-import path from 'path'
+/* eslint-disable max-len */
 import fs from 'fs'
 
 import {argv} from 'yargs'
@@ -6,7 +6,6 @@ import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
-import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 import DotEnv from 'dotenv-webpack'
@@ -26,17 +25,10 @@ const outputDir = absolutePackagePath + '/dist'
 logger.info('Create webpack configuration.')
 const webpackConfig = {
   mode: __PROD__ ? 'production' : 'development',
-  name: 'client',
   devtool: false,
   resolve: {
-    modules: [
-      path.resolve(paths.client(), packageDir, 'src'),
-      'node_modules',
-      path.resolve(paths.client(), 'node_modules')
-    ],
     alias: {
-      ...(__DEV__ ? {'react-dom': '@hot-loader/react-dom'} : {}),
-      moment: path.join(__dirname, '..', 'node_modules', 'moment', 'moment.js')
+      ...(__DEV__ ? {'react-dom': '@hot-loader/react-dom'} : {})
     }
   },
   module: {},
@@ -50,35 +42,34 @@ const webpackConfig = {
   optimization: {
     minimizer: [
       ...(!__DEV__ ? [new TerserPlugin({extractComments: false, sourceMap: true})] : []),
-      new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000})
+      new webpack.optimize.MinChunkSizePlugin({minChunkSize: 100000})
     ]
   }
 }
 
 webpackConfig.output = {
   filename: 'index.js',
-  chunkFilename: 'chunk-[name].[contenthash].js',
+  chunkFilename: 'chunk-[name].[contenthash].js', // content hash ensures a unique name and reduces cash problems with new releases
   path: outputDir,
   libraryTarget: 'umd',
-  library: `tocco-${__PACKAGE__}`,
-  publicPath: '/'
+  library: `tocco-${__PACKAGE__}`, // needed to run multiple apps on same page
+  publicPath: '/',
+  clean: true
 }
 
 webpackConfig.plugins = [
-  new CleanWebpackPlugin(),
   new webpack.DefinePlugin({
     ...config.globals,
     niceFile: JSON.stringify(__NO_MOCK__
       ? '<script src="/nice2/javascript/nice2-newclient-react-registry.release.js"></script>'
-      : '')
+      : '') // loads  legacy js file in index.html only with real (not mocked) backend
   }),
   new LodashModuleReplacementPlugin({
     shorthands: true,
     paths: true,
     collections: true
-  }),
-  // prevent all moment locales from being loaded when importing momentjs
-  new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(de|en|fr|it)$/),
+  }), // optimize lodash import. reduces bundle size by around 30kb
+  new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(de|en|fr|it)$/), // prevent all moment locales from being loaded when importing momentjs
   new DotEnv()
 ]
 
@@ -91,33 +82,20 @@ if (!__CI__) {
 }
 
 if (__DEV__) {
+  webpackConfig.plugins.push(new webpack.optimize.LimitChunkCountPlugin({
+    maxChunks: 1 // no chunks due to ChunkLoadErrors during development
+  }))
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       template: paths.client('server/index.html'),
       hash: false,
       filename: 'index.html',
       inject: 'body'
-
     })
   )
   webpackConfig.plugins.push(new CaseSensitivePathsPlugin())
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
   webpackConfig.plugins.push(new ReactRefreshWebpackPlugin())
-  webpackConfig.plugins.push(
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        eslint: {
-          emitWarning: true
-        }
-      }
-    })
-  )
-} else if (__PROD__) {
-  webpackConfig.plugins.push(
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
-    }))
 }
 
 if (argv['bundle-analyzer']) {
@@ -174,6 +152,7 @@ webpackConfig.module.rules.push(
   }
 )
 
+// look and append package webpack file config
 const packageWebpackFile = packageDir + '/build/webpack.js'
 if (fs.existsSync(packageWebpackFile)) {
   const adjustConfig = require(`../${packageWebpackFile}`).adjustConfig
