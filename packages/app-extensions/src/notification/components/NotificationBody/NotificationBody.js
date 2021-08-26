@@ -42,6 +42,14 @@ const Result = ({notification: {result}, navigationStrategy}) => {
               <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
             </a>
           }
+          <StyledDetailLinkWrapper>
+            {navigationStrategy && navigationStrategy.DetailLink && <navigationStrategy.DetailLink
+              entityName={result.content[0].model}
+              entityKey={result.content[0].key}
+            >
+              <Icon icon="arrow-right"/> <FormattedMessage id="client.common.notification.outputJobOpen"/>
+            </navigationStrategy.DetailLink>}
+          </StyledDetailLinkWrapper>
         </StyledOutputJobWrapper>)
     } else {
       return <FormattedMessage id="client.common.notification.outputJobNotFound"/>
