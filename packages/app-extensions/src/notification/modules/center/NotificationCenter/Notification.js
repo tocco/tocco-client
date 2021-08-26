@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import {Typography, Icon} from 'tocco-ui'
 import {FormattedRelativeTime} from 'react-intl'
@@ -26,10 +26,11 @@ const Notification = ({notification, markAsRead, navigationStrategy}) => {
       markAsRead(notification.key)
     }
   }
+  const [initialRead] = useState(() => notification.read)
   useInViewport(notificationElement, notificationInViewport)
 
   return (
-    <StyledNotification ref={notificationElement}>
+    <StyledNotification ref={notificationElement} read={initialRead}>
       <StyledNotificationHeader notificationType={notification.type}>
         <StyledIconWrapper>
           <Icon icon={typeIconMap[notification.type]}/>
