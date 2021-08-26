@@ -7,6 +7,12 @@ import {selection} from 'tocco-util'
 import getDetailFormName from '../../../utils/getDetailFormName'
 
 const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction}) => {
+  const emitActionBarrier = action => {
+    if (action.payload && action.payload.title !== 'client.entity-detail.saveSuccessfulTitle') {
+      emitAction(action)
+    }
+  }
+
   const [entityName, entityKey] = selection.ids[0].split('/')
 
   if (entityName === 'Resource') {
@@ -57,7 +63,7 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
     mode="update"
     onEntityUpdated={handleEntityUpdated}
     onEntityDeleted={handleEntityDeleted}
-    emitAction={emitAction}
+    emitAction={emitActionBarrier}
   />
 }
 
