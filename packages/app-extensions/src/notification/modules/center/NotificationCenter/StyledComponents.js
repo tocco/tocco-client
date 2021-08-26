@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {theme, scale, StyledScrollbar, declareFont} from 'tocco-ui'
 
 const typeColorMap = {
@@ -11,6 +11,9 @@ const typeColorMap = {
 export const StyledNotification = styled.article`
   margin-bottom: ${scale.space(0)};
   padding: ${scale.space(-1)};
+  ${({read}) => !read && css`
+    background-color: ${theme.color('signal.info.paper')};
+  `}
 `
 
 export const StyledNotificationHeader = styled.header`
