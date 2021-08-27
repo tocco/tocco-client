@@ -1,3 +1,10 @@
+0.4.6-hotfix229.4
+- Add preview for documents
+- Increase z-index of modal holder to properly display as widget
+- Prevent preview image collapsing to 1px if preview cannot be generated
+- Refresh list on navigation back to list
+- Fix calendar entity-list text resources
+
 0.4.6-hotfix229.3
 - Add preview for documents
 - Increase z-index of modal holder to properly display as widget
