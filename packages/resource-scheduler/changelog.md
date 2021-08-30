@@ -1,3 +1,6 @@
+0.4.3-hotfix228.4
+- Fix calendar entity-list text resources
+
 0.4.3-hotfix228.3
 - Hide list navigation arrow if row is not clickable
 - Reset label spacing inside column picker for old client
