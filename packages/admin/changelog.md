@@ -1,3 +1,6 @@
+0.4.19-hotfix228.15
+- Fix calendar entity-list text resources
+
 0.4.19-hotfix228.14
 - Fix calender search bug
 - Fix search-form remote bug
