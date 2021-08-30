@@ -1,3 +1,7 @@
+0.4.37-hotfix229.20
+- Dms edit and create messages clean up
+- Fix calendar entity-list text resources
+
 0.4.37-hotfix229.19
 - Refresh list on navigation back to list
 
