@@ -1,3 +1,11 @@
+0.5.20
+- Update select
+- Dms edit and create messages clean up
+- Fix calendar entity-list text resources
+- add "open output job" to notification
+- Fix disabled delete button if nothing to delete
+- Add background color to unread notifications
+
 0.5.19
 - support disablePreferencesMenu in table
 - Money post point digits fallback
