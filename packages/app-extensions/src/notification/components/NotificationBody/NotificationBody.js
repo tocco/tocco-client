@@ -101,7 +101,7 @@ const TaskProgress = ({notification: {taskProgress}, navigationStrategy}) => {
     }
     <StyledDetailLinkWrapper>
       {navigationStrategy && navigationStrategy.DetailLink
-      && <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.key}>
+      && <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.taskExecutionKey}>
         <StyledIconWrapper><Icon icon="arrow-right"/></StyledIconWrapper>
         <FormattedMessage id="client.common.notification.outputJobShowTask"/>
       </navigationStrategy.DetailLink>}
