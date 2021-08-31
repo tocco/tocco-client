@@ -3,7 +3,6 @@ import {reducer as reducerUtil} from 'tocco-util'
 import * as actions from './actions'
 
 const ACTION_HANDLERS = {
-  [actions.SET_LOGGED_IN]: reducerUtil.singleTransferReducer('loggedIn'),
   [actions.SET_USERNAME]: reducerUtil.singleTransferReducer('username'),
   [actions.SET_CURRENT_BUSINESS_UNIT]: reducerUtil.singleTransferReducer('currentBusinessUnit'),
   [actions.SET_BUSINESS_UNITS]: reducerUtil.singleTransferReducer('businessUnits'),
@@ -11,7 +10,6 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  loggedIn: undefined,
   username: '',
   currentBusinessUnit: {
     label: '',

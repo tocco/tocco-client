@@ -1,7 +1,5 @@
-export const SET_LOGGED_IN = 'root/SET_LOGGED_IN'
 export const DO_LOGOUT = 'session/DO_LOGOUT'
 export const LOGIN_SUCCESSFUL = 'session/LOGIN_SUCCESSFUL'
-export const DO_SESSION_CHECK = 'session/DO_SESSION_CHECK'
 export const LOAD_PRINCIPAL = 'session/LOAD_PRINCIPAL'
 export const SET_USERNAME = 'session/SET_USERNAME'
 export const SET_CURRENT_BUSINESS_UNIT = 'session/SET_CURRENT_BUSINESS_UNIT'
@@ -10,13 +8,6 @@ export const SET_BUSINESS_UNITS = 'session/SET_BUSINESS_UNITS'
 export const CHANGE_BUSINESS_UNIT = 'session/CHANGE_BUSINESS_UNIT'
 export const CHECK_SSO_AVAILABLE = 'session/CHECK_SSO_AVAILABLE'
 export const SET_SSO_AVAILABLE = 'session/SET_SSO_AVAILABLE'
-
-export const setLoggedIn = loggedIn => ({
-  type: SET_LOGGED_IN,
-  payload: {
-    loggedIn
-  }
-})
 
 export const doLogout = () => ({
   type: DO_LOGOUT
@@ -27,10 +18,6 @@ export const loginSuccessful = sessionTimeout => ({
   payload: {
     sessionTimeout
   }
-})
-
-export const doSessionCheck = () => ({
-  type: DO_SESSION_CHECK
 })
 
 export const loadPrincipal = () => ({

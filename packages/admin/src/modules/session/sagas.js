@@ -1,5 +1,5 @@
-import {consoleLogger, cache} from 'tocco-util'
-import {rest} from 'tocco-app-extensions'
+import {cache} from 'tocco-util'
+import {rest, login} from 'tocco-app-extensions'
 import {takeLatest, call, all, put, select, delay} from 'redux-saga/effects'
 import Cookies from 'js-cookie'
 
@@ -10,53 +10,25 @@ export const sessionSelector = state => state.session
 export function* sessionHeartBeat(sessionTimeout) {
   const threeQuarterSeconds = sessionTimeout * 45000
   yield delay(threeQuarterSeconds)
-  const sessionResponse = yield call(doSessionRequest)
-  yield put(actions.setLoggedIn(sessionResponse.success))
+  const sessionResponse = yield call(login.doSessionRequest)
+  yield put(login.setLoggedIn(sessionResponse.success))
   yield call(sessionHeartBeat, sessionTimeout)
 }
 
-export function doRequest(url, options) {
-  return fetch(url, options)
-    .then(resp => resp.json())
-    .catch(e => {
-      consoleLogger.logError('Failed to execute request', e)
-      return ({success: false})
-    })
-}
-
 export function* doLogoutRequest() {
-  return yield call(doRequest, `${__BACKEND_URL__}/nice2/logout`, getOptions())
-}
-
-export function* doSessionRequest() {
-  return yield call(doRequest, `${__BACKEND_URL__}/nice2/session`, getOptions())
-}
-
-function getOptions() {
-  return {
-    method: 'POST',
-    headers: new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-    }),
-    credentials: 'include'
-  }
+  return yield call(login.doRequest, `${__BACKEND_URL__}/nice2/logout`, login.getOptions())
 }
 
 export function* loginSuccessful({payload}) {
   const {sessionTimeout} = payload
-  yield put(actions.setLoggedIn(true))
+  yield put(login.setLoggedIn(true))
   yield call(sessionHeartBeat, sessionTimeout)
 }
 
 export function* logout({payload}) {
   yield call(Cookies.remove, 'sso-autologin')
   yield call(doLogoutRequest)
-  yield put(actions.setLoggedIn(false))
-}
-
-export function* sessionCheck() {
-  const sessionResponse = yield call(doSessionRequest)
-  yield put(actions.setLoggedIn(sessionResponse.success))
+  yield put(login.setLoggedIn(false))
 }
 
 export function* loadPrincipal() {
@@ -92,7 +64,6 @@ export function* checkSsoAvailable() {
 
 export default function* mainSagas() {
   yield all([
-    takeLatest(actions.DO_SESSION_CHECK, sessionCheck),
     takeLatest(actions.LOGIN_SUCCESSFUL, loginSuccessful),
     takeLatest(actions.DO_LOGOUT, logout),
     takeLatest(actions.LOAD_PRINCIPAL, loadPrincipal),
