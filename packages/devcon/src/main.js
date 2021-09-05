@@ -15,7 +15,9 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   notification.addToStore(store, true)
 
-  const history = createBrowserHistory()
+  const history = createBrowserHistory({
+    ...input.baseRoute && {basename: input.baseRoute}
+  })
   const routes = require('./routes/index').default(store, input)
 
   const content = <Router history={history} routes={routes}/>
