@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {theme, scale} from 'tocco-ui'
 
-const StyledDevCon = styled.div`
+export const StyledDevCon = styled.div`
   && {
     background-color: ${theme.color('paper')};
     padding: ${scale.space(0)};
@@ -12,4 +12,13 @@ const StyledDevCon = styled.div`
   }
 `
 
-export default StyledDevCon
+export const StyledNavigation = styled.div`
+  display: flex;
+`
+
+export const StyledLink = styled.div`
+  padding: 1em;
+  background-color: #ddd;
+  border-radius: 5px;
+  margin: 5px;
+`
