@@ -29,8 +29,7 @@ describe('app-extensions', () => {
               all([
                 takeEvery(actions.SOCKET_MESSAGE_RECEIVED, sagas.messageReceived),
                 takeEvery(toasterActions.REMOVE_TOASTER, sagas.toasterRemoved),
-                takeEvery(actions.CONNECT_SOCKET, sagas.connectSocket),
-                call(sagas.connectSocket)
+                call(sagas.initSocket)
               ])
             )
 

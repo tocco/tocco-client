@@ -1,22 +1,10 @@
-import {getSocketUrl, notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
+import {notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
 import {TYPES} from '../../types'
 
 describe('app-extensions', () => {
   describe('notification', () => {
     describe('modules', () => {
       describe('socket', () => {
-        describe('getSocketUrl', () => {
-          test('getSocketUrl', () => {
-            global.__BACKEND_URL__ = 'https://master.tocco.ch'
-            expect(getSocketUrl()).to.be.eql('wss://master.tocco.ch/nice2/websocket/notification')
-            global.__BACKEND_URL__ = ''
-          })
-
-          test('use location fallback for relative backend url', () => {
-            expect(getSocketUrl()).to.be.eql('ws://localhost/nice2/websocket/notification')
-          })
-        })
-
         describe('notificationToToaster', () => {
           test('notificationToToaster', () => {
             const key = '1'
