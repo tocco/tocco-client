@@ -52,7 +52,11 @@ const initApp = (id, input, events = {}, publicPath) => {
       }
     }
   )
-  formData.addToStore(store, {listApp: EntityListApp, navigationStrategy: input.navigationStrategy})
+  formData.addToStore(store, {
+    listApp: EntityListApp,
+    detailApp: EntityDetailApp,
+    navigationStrategy: input.navigationStrategy
+  })
   keyDown.addToStore(store, shortcuts)
 
   const dispatchActions = getDispatchActions(input)

@@ -5,13 +5,18 @@ import PropTypes from 'prop-types'
 import Ball from '../Ball'
 import {StyledIndicatorsContainerWrapper} from './StyledComponents'
 
-const handleMouseUp = (openAdvancedSearch, value) => event => {
+const handleAdvancedSearch = (openAdvancedSearch, value) => event => {
   openAdvancedSearch(value)
   event.stopPropagation()
 }
 
+const handleCreate = openCreate => event => {
+  openCreate()
+  event.stopPropagation()
+}
+
 const IndicatorsContainer = props => {
-  const {openAdvancedSearch, isDisabled} = props.selectProps
+  const {openAdvancedSearch, openRemoteCreate, isDisabled, createPermission} = props.selectProps
 
   return (
     <StyledIndicatorsContainerWrapper>
@@ -22,9 +27,19 @@ const IndicatorsContainer = props => {
       && <span
         onTouchEnd={e => e.stopPropagation()}
         onMouseDown={e => e.stopPropagation()}
-        onMouseUp={handleMouseUp(openAdvancedSearch, props.value)}>
+        onMouseUp={handleAdvancedSearch(openAdvancedSearch, props.value)}>
         <Ball
           icon="search"
+          tabIndex={-1}
+        />
+      </span>}
+        {createPermission
+        && <span
+          onTouchEnd={e => e.stopPropagation()}
+          onMouseDown={e => e.stopPropagation()}
+          onMouseUp={handleCreate(openRemoteCreate)}>
+        <Ball
+          icon="plus"
           tabIndex={-1}
         />
       </span>}
@@ -45,7 +60,9 @@ IndicatorsContainer.propTypes = {
   children: PropTypes.node,
   selectProps: PropTypes.shape({
     openAdvancedSearch: PropTypes.func,
-    isDisabled: PropTypes.bool
+    openRemoteCreate: PropTypes.func,
+    isDisabled: PropTypes.bool,
+    createPermission: PropTypes.bool
   }),
   value: PropTypes.oneOfType([
     ItemPropType,

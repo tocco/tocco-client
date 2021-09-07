@@ -4,6 +4,7 @@ import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import _isEqual from 'lodash/isEqual'
 import _reduce from 'lodash/reduce'
+import _get from 'lodash/get'
 import _pick from 'lodash/pick'
 import _merge from 'lodash/merge'
 import {
@@ -20,6 +21,7 @@ import {changeFieldValue, touchField} from './values/actions'
 import {uploadDocument} from './upload/actions'
 import {loadSearchFilters} from './searchFilters/actions'
 import {loadLocationsSuggestions} from './locations/actions'
+import {openRemoteCreate} from './remoteCreate/actions'
 
 const FormData = props =>
   <React.Fragment>{React.cloneElement(props.children, {formData: props})}</React.Fragment>
@@ -56,7 +58,8 @@ const mapStateToProps = (
   ...(navigationStrategy && state.formData.navigationStrategy
     ? {navigationStrategy: state.formData.navigationStrategy.navigationStrategy}
     : {}
-  )
+  ),
+  entityModel: _get(state, 'entityDetail.entityModel')
 })
 
 const mapActionCreators = {
@@ -67,7 +70,8 @@ const mapActionCreators = {
   changeFieldValue: changeFieldValue,
   touchField: touchField,
   loadSearchFilters: loadSearchFilters,
-  loadLocationsSuggestions: loadLocationsSuggestions
+  loadLocationsSuggestions: loadLocationsSuggestions,
+  openRemoteCreate: openRemoteCreate
 }
 
 const FormDataContainer = connect(
