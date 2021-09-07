@@ -3,11 +3,6 @@ import React from 'react'
 import NotificationBody from '../../components/NotificationBody'
 
 export const TOASTER_KEY_PREFIX = 'socket-msg-'
-export const getSocketUrl = () => {
-  const baseUrl = __BACKEND_URL__ || window.location.origin
-  const socketUrl = baseUrl.replace('http://', 'ws://').replace('https://', 'wss://')
-  return `${socketUrl}/nice2/websocket/notification`
-}
 
 export const notificationToToaster = notification => {
   return {
