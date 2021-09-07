@@ -2,6 +2,7 @@ import React from 'react'
 import {Redirect} from 'react-router-dom'
 
 import devCon from './devcon'
+import log from './log'
 import dbRefactoring from './dbrefactoring'
 
 export const createRoutes = (store, input) => [{
@@ -11,7 +12,12 @@ export const createRoutes = (store, input) => [{
     {
       path: '/',
       exact: true,
-      render: () => <Redirect to={{pathname: '/dbrefactoring'}}/>
+      render: () => <Redirect to={{pathname: '/log'}}/>
+    },
+    {
+      path: '/log',
+      exact: true,
+      render: log(store, input)
     },
     {
       path: '/dbrefactoring',
