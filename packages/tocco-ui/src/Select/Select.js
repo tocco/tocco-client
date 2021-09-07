@@ -36,7 +36,9 @@ const Select = ({
   theme,
   tooltips,
   value,
-  DetailLink
+  DetailLink,
+  createPermission,
+  openRemoteCreate
 }) => {
   const selectComponent = useRef(null)
   const selectWrapper = useRef(null)
@@ -119,6 +121,8 @@ const Select = ({
           moreOptionsAvailable={moreOptionsAvailable}
           moreOptionsAvailableText={moreOptionsAvailableText}
           blurInputOnSelect={false}
+          createPermission={createPermission}
+          openRemoteCreate={openRemoteCreate}
         />
       </div>
     </div>
@@ -212,7 +216,15 @@ Select.propTypes = {
   /**
    * Open menu with click on input field
    */
-  openMenuOnClick: PropTypes.bool
+  openMenuOnClick: PropTypes.bool,
+  /**
+   * Whether a new option may be created
+   */
+  createPermission: PropTypes.bool,
+  /**
+   * Opens a modal with a create form
+   */
+  openRemoteCreate: PropTypes.func
 }
 
 export default withTheme(Select)
