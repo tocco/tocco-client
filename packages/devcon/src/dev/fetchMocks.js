@@ -18,9 +18,9 @@ export default function setupFetchMock(packageName, fetchMock) {
   }])
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/devcon/dbrefactoring/modules'), [
-    'nice2.userbase',
-    'nice2.optional.address',
-    'nice2.customer.test'
+    'nice.userbase',
+    'nice.optional.address',
+    'nice.customer.test'
   ])
 
   fetchMock.post(new RegExp('^.*?/nice2/rest/devcon/dbrefactoring/executions'), (url, opts) => {
