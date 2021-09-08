@@ -5,6 +5,7 @@ import {yesNoQuestion, confirm} from './modules/interactive/actions'
 import {blockingInfo, removeBlockingInfo} from './modules/blocking/actions'
 import {modal, removeModal} from './modules/modal/actions'
 import {toaster, removeToaster} from './modules/toaster/actions'
+import {connectSocket, closeSocket} from './modules/socket/actions'
 
 export default {
   addToStore,
@@ -17,5 +18,7 @@ export default {
   modal,
   removeModal,
   toaster,
-  removeToaster
+  removeToaster,
+  connectSocket,
+  closeSocket
 }

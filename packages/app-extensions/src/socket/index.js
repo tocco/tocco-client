@@ -1,5 +1,6 @@
-import {connectSocket} from './socket'
+import {connectSocket, closeSocket} from './socket'
 
 export default {
-  connectSocket
+  connectSocket,
+  closeSocket
 }

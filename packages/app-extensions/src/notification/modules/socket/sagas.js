@@ -17,18 +17,23 @@ export default function* sagas(accept) {
     yield all([
       takeEvery(actions.SOCKET_MESSAGE_RECEIVED, messageReceived),
       takeEvery(toasterActions.REMOVE_TOASTER, toasterRemoved),
-      call(initSocket)
+      takeEvery(actions.CONNECT_SOCKET, connectSocket),
+      takeEvery(actions.CLOSE_SOCKET, closeSocket)
     ])
   }
 }
 
-export function* initSocket() {
+export function* connectSocket() {
   const originId = yield call(originIdHelper.getOriginId)
   yield put(actions.setOriginId(originId))
   yield call(socket.connectSocket, {
     name: 'notification',
     messageReceivedAction: actions.socketMessageReceived
   })
+}
+
+export function* closeSocket() {
+  yield call(socket.closeSocket, 'notification')
 }
 
 export function* messageReceived({payload: {data}}) {

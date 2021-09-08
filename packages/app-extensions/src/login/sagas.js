@@ -1,6 +1,7 @@
 import {consoleLogger} from 'tocco-util'
 import {takeLatest, call, all, put} from 'redux-saga/effects'
 
+import notification from '../notification'
 import * as actions from './actions'
 
 export function doRequest(url, options) {
@@ -29,6 +30,9 @@ export function getOptions() {
 export function* sessionCheck() {
   const sessionResponse = yield call(doSessionRequest)
   yield put(actions.setLoggedIn(sessionResponse.success))
+  if (sessionResponse.success) {
+    yield put(notification.connectSocket())
+  }
 }
 
 export default function* mainSagas() {

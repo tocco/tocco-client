@@ -2,6 +2,9 @@ import {call, put, take} from 'redux-saga/effects'
 import {eventChannel} from 'redux-saga'
 import {consoleLogger} from 'tocco-util'
 
+const WEBSOCKET_SUCCESSFUL_CLOSE_CODE = 1000
+const sockets = {}
+
 /**
  * params:
  * - name (string)
@@ -17,17 +20,26 @@ export function* connectSocket(params) {
   }
 }
 
+export function* closeSocket(name) {
+  sockets[name].close(WEBSOCKET_SUCCESSFUL_CLOSE_CODE)
+}
+
 const websocketInitChannel = params =>
   eventChannel(emitter => {
-    const {url, messageReceivedAction} = params
+    const {url, messageReceivedAction, name} = params
 
-    const ws = new WebSocket(url)
+    sockets[name] = new WebSocket(url)
 
-    ws.onmessage = e => {
+    sockets[name].onmessage = e => {
       const data = JSON.parse(e.data)
       emitter(messageReceivedAction(data))
     }
-    ws.onerror = err => {
+    sockets[name].onclose = e => {
+      if (e.code !== WEBSOCKET_SUCCESSFUL_CLOSE_CODE) {
+        emitter(websocketInitChannel(params))
+      }
+    }
+    sockets[name].onerror = err => {
       consoleLogger.log('socket error', err)
     }
 
