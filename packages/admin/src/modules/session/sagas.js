@@ -58,7 +58,7 @@ export function* checkSsoAvailable() {
     yield put(actions.setSsoAvailable(cachedSsoAvailable))
   } else {
     const modules = yield call(rest.requestSaga, 'modules')
-    const ssoAvailable = modules.body.modules.includes('nice2.optional.sso')
+    const ssoAvailable = modules.body.modules.includes('nice.optional.sso')
     cache.addLongTerm('session', 'ssoAvailable', ssoAvailable)
     yield put(actions.setSsoAvailable(ssoAvailable))
   }
