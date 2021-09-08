@@ -1,5 +1,5 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {takeEvery, all, call, select} from 'redux-saga/effects'
+import {takeEvery, all, select} from 'redux-saga/effects'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
@@ -29,7 +29,8 @@ describe('app-extensions', () => {
               all([
                 takeEvery(actions.SOCKET_MESSAGE_RECEIVED, sagas.messageReceived),
                 takeEvery(toasterActions.REMOVE_TOASTER, sagas.toasterRemoved),
-                call(sagas.initSocket)
+                takeEvery(actions.CONNECT_SOCKET, sagas.connectSocket),
+                takeEvery(actions.CLOSE_SOCKET, sagas.closeSocket)
               ])
             )
 

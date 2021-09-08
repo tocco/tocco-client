@@ -1,5 +1,5 @@
 import {cache} from 'tocco-util'
-import {rest, login} from 'tocco-app-extensions'
+import {notification, rest, login} from 'tocco-app-extensions'
 import {takeLatest, call, all, put, select, delay} from 'redux-saga/effects'
 import Cookies from 'js-cookie'
 
@@ -22,6 +22,7 @@ export function* doLogoutRequest() {
 export function* loginSuccessful({payload}) {
   const {sessionTimeout} = payload
   yield put(login.setLoggedIn(true))
+  yield put(notification.connectSocket())
   yield call(sessionHeartBeat, sessionTimeout)
 }
 
@@ -29,6 +30,7 @@ export function* logout({payload}) {
   yield call(Cookies.remove, 'sso-autologin')
   yield call(doLogoutRequest)
   yield put(login.setLoggedIn(false))
+  yield put(notification.closeSocket())
 }
 
 export function* loadPrincipal() {

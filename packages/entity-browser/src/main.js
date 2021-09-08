@@ -5,13 +5,15 @@ import {
   errorLogging,
   actionEmitter,
   externalEvents,
-  rest
+  rest,
+  login
 } from 'tocco-app-extensions'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import PropTypes from 'prop-types'
 
 import Router from './components/Router'
+import {sagas} from './modules/reducers'
 
 const packageName = 'entity-browser'
 
@@ -61,11 +63,12 @@ const initApp = (id, input, events, publicPath) => {
     rest.setBusinessUnit(input.runInBusinessUnit)
   }
 
-  const store = appFactory.createStore(undefined, undefined, input, packageName)
+  const store = appFactory.createStore(undefined, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   notification.addToStore(store, true)
+  login.addToStore(store)
 
   const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)
@@ -80,6 +83,7 @@ const initApp = (id, input, events, publicPath) => {
     store,
     {
       input,
+      actions: [],
       publicPath,
       textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail']
     }
