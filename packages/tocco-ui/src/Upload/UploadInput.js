@@ -21,7 +21,7 @@ const UploadInput = ({onDrop: onDropProp, immutable, text}) => {
         <StyledIconWrapper>
           <Button>
             <Icon
-              icon="upload"
+              icon="arrow-to-top"
               position={design.position.PREPEND}
             />
           </Button>
