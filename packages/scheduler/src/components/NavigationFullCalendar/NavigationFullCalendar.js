@@ -5,7 +5,7 @@ import {Button, ButtonGroup, Icon, Typography, DatePicker} from 'tocco-ui'
 
 import StyledNavigationFullCalendar from './StyledNavigationFullCalendar'
 
-const getButtonInkProps = (viewType, type) => (viewType === type) ? {ink: 'primary'} : {}
+const getButtonInkProps = (viewType, type) => viewType === type ? {ink: 'secondary'} : {}
 
 const msg = (id, intl) => intl.formatMessage({id})
 
@@ -80,13 +80,11 @@ const NavigationFullCalendar = props => {
             look="raised"
             {...(getButtonInkProps('weekView', type))}
             {...(getButtonInkProps('weekViewSimple', type))}
-            onClick={() => {
-              if (type !== 'weekViewSimple') {
-                changeView('weekViewSimple')
-              } else {
-                changeView('weekView')
-              }
-            }}
+            onClick={() =>
+              type !== 'weekViewSimple'
+                ? changeView('weekViewSimple')
+                : changeView('weekView')
+            }
           >
             <FormattedMessage id="client.scheduler.week"/>
           </Button>
