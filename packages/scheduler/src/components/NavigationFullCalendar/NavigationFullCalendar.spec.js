@@ -9,7 +9,7 @@ describe('scheduler', () => {
     describe('FullCalendar', () => {
       describe('NavigationFullCalendar', () => {
         test('should get button ink prop', () => {
-          expect(getButtonInkProps('a', 'a')).to.deep.equal({ink: 'primary'})
+          expect(getButtonInkProps('a', 'a')).to.deep.equal({ink: 'secondary'})
           expect(getButtonInkProps('a', 'b')).to.deep.equal({})
         })
 
