@@ -27,6 +27,13 @@
       "download"
     ]
   },
+  "arrow-to-top": {
+    "id": "fal, arrow-to-top",
+    "lib": "fa",
+    "tags": [
+      "upload"
+    ]
+  },
   "bars": {
     "id": "fal, bars",
     "lib": "fa",
@@ -89,10 +96,6 @@
   },
   "compress": {
     "id": "fal, compress",
-    "lib": "fa"
-  },
-  "download": {
-    "id": "fal, download",
     "lib": "fa"
   },
   "dropbox": {
@@ -332,10 +335,6 @@
   "tocco": {
     "id": "logo",
     "lib": "toc"
-  },
-  "upload": {
-    "id": "fal, upload",
-    "lib": "fa"
   },
   "minus": {
     "id": "fal, minus",

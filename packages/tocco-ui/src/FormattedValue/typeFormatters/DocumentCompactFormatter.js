@@ -7,13 +7,13 @@ import Link from '../../Link'
 const getDownloadUrl = binaryLink =>
   download.addParameterToURL(binaryLink, 'download', true)
 
-const DocumentCompactFormatter = props => (
+const DocumentCompactFormatter = ({value}) => (
   <Link
-    alt={props.value.alt || props.value.fileName}
-    download={props.value.fileName}
-    icon="download"
+    alt={value.alt || value.fileName}
+    download={value.fileName}
+    icon="arrow-to-bottom"
     look="raised"
-    href={getDownloadUrl(props.value.binaryLink)}
+    href={getDownloadUrl(value.binaryLink)}
     stopPropagation={true}
   />
 )

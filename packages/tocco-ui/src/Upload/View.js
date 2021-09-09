@@ -36,7 +36,7 @@ const View = ({value, downloadTitle, immutable, onUpload, deleteTitle}) => {
         <Button>
           <Link
             neutral
-            icon="download"
+            icon="arrow-to-bottom"
             download={value.fileName}
             href={getDownloadUrl(value.binaryLink)}
             tabIndex={-1}

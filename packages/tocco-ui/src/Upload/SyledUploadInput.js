@@ -6,6 +6,8 @@ import {scale} from '../utilStyles'
 
 export const StyledIconWrapper = styled.div`
   ${StyledButton} {
+    position: relative;
+    top: -${scale.space(-3.1)};
     margin: 0;
     border-radius: 50%;
     padding: ${scale.space(-1.5)} ${scale.space(-2)};
