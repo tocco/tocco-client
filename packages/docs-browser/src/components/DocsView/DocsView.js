@@ -10,12 +10,6 @@ import FileInput from '../FileInput'
 import {StyledContentWrapper, StyledIconWrapper} from './StyledComponents'
 import isRootLocation from '../../utils/isRootLocation'
 
-const ICONS = {
-  Domain: 'globe',
-  Folder: 'folder',
-  Resource: 'file'
-}
-
 export const getParent = match => {
   if (match.params && match.params.model) {
     const model = match.params.model.charAt(0).toUpperCase() + match.params.model.slice(1)
@@ -179,7 +173,7 @@ const DocsView = props => {
             'dms-label-with-icon': (rowData, column, cellRenderer) => (
               <StyledContentWrapper>
                 <StyledIconWrapper>
-                  <Icon icon={ICONS[rowData.type]}/>
+                  <Icon icon={rowData.icon}/>
                 </StyledIconWrapper>
                 <span>{cellRenderer(column.children[0])}</span>
               </StyledContentWrapper>
