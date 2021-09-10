@@ -1,11 +1,11 @@
 import React, {useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
-import {LoadingSpinner} from 'tocco-ui'
+import {LoadingSpinner, Typography} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 import Notification from './Notification'
 import {notificationPropType} from './../../../types'
-import {StyledNotificationCenter} from './StyledComponents'
+import {StyledNotificationCenter, StyledNotificationTitleWrapper} from './StyledComponents'
 import {resultTypes} from '../../../api'
 
 const NotificationCenter = (
@@ -39,6 +39,11 @@ const NotificationCenter = (
 
   return (
     <StyledNotificationCenter ref={element} onScroll={handleScroll}>
+      <StyledNotificationTitleWrapper>
+        <Typography.H1>
+          <FormattedMessage id={'client.admin.notification.title'}/>
+        </Typography.H1>
+      </StyledNotificationTitleWrapper>
       {sortedNotifications.map(notification => (
         <Notification
           key={'notification-' + notification.key}

@@ -47,7 +47,7 @@ const NotificationCenterButton = () => {
   const {styles, attributes} = usePopper(referenceElement.current, popperElement.current, {modifiers: popperModifiers})
 
   return <>
-    <StyledNotificationBellWrapper>
+    <StyledNotificationBellWrapper title="notifications">
       <StyledBall onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement}/>
       <span ref={redDotElement}><NotificationCenterRedDotContainer onClick={() => setVisibility(!visible)}/></span>
     </StyledNotificationBellWrapper>

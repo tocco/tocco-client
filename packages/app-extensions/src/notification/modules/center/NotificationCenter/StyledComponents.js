@@ -12,13 +12,13 @@ export const StyledNotification = styled.article`
   margin-bottom: ${scale.space(0)};
   padding: ${scale.space(-1)};
   ${({read}) => !read && css`
-    background-color: ${theme.color('signal.info.paper')};
+    background-color: ${theme.color('backgroundBody')};
   `}
 `
 
 export const StyledNotificationHeader = styled.header`
   display: flex;
-  align-items: baseline;
+  align-items: center;
   margin-bottom: ${scale.space(-1)};
 
   * {
@@ -30,6 +30,20 @@ export const StyledNotificationHeader = styled.header`
 export const StyledIconWrapper = styled.span`
   display: inline-block;
   margin-right: ${scale.space(-1.5)};
+  font-size: ${scale.font(5)};
+`
+
+export const StyledTitleWrapper = styled.span`
+  * {
+    font-weight: ${theme.fontWeight('regular')} !important;
+  }
+`
+
+export const StyledNotificationTitleWrapper = styled.div`
+  * {
+    font-weight: ${theme.fontWeight('regular')} !important;
+  }
+  margin-bottom: ${scale.space(-0.5)};
 `
 
 export const StyledTimeStamp = styled.div`
