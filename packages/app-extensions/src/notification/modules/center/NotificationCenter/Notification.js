@@ -7,7 +7,13 @@ import {selectUnit} from '@formatjs/intl-utils'
 import useInViewport from './useInViewport'
 import {notificationPropType} from '../../../types'
 import NotificationBody from '../../../components/NotificationBody'
-import {StyledNotification, StyledNotificationHeader, StyledIconWrapper, StyledTimeStamp} from './StyledComponents'
+import {
+  StyledNotification,
+  StyledNotificationHeader,
+  StyledIconWrapper,
+  StyledTitleWrapper,
+  StyledTimeStamp
+} from './StyledComponents'
 
 const typeIconMap = {
   warning: 'exclamation-circle',
@@ -35,7 +41,9 @@ const Notification = ({notification, markAsRead, navigationStrategy}) => {
         <StyledIconWrapper>
           <Icon icon={typeIconMap[notification.type]}/>
         </StyledIconWrapper>
-        <Typography.H5>{notification.message}</Typography.H5>
+        <StyledTitleWrapper>
+          <Typography.H5>{notification.message}</Typography.H5>
+        </StyledTitleWrapper>
       </StyledNotificationHeader>
       <NotificationBody notification={notification} navigationStrategy={navigationStrategy}/>
       <StyledTimeStamp>
