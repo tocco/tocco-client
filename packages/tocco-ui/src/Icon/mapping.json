@@ -200,6 +200,14 @@
     "id": "fal, id-badge",
     "lib": "fa"
   },
+  "inbox-in": {
+    "id": "fal, inbox-in",
+    "lib": "fa"
+  },
+  "inbox-out": {
+    "id": "fal, inbox-out",
+    "lib": "fa"
+  },
   "info": {
     "id": "fal, info",
     "lib": "fa"
@@ -218,6 +226,10 @@
     "tags": [
       "sso"
     ]
+  },
+  "newspaper": {
+    "id": "fal, newspaper",
+    "lib": "fa"
   },
   "office": {
     "id": "office",
