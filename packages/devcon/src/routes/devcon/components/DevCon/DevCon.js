@@ -13,6 +13,7 @@ const DevCon = ({routes}) =>
     <StyledNavigation>
       <Link href="/log"><StyledLink>Log</StyledLink></Link>
       <Link href="/dbrefactoring"><StyledLink>DB Refactoring</StyledLink></Link>
+      <Link href="/sqllog"><StyledLink>SQL Log</StyledLink></Link>
     </StyledNavigation>
     {routes.map((route, i) => (
       <RouteWithSubRoutes key={i} {...route}/>
