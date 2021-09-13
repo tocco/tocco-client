@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme, scale} from 'tocco-ui'
+import {theme, scale, RouterLink} from 'tocco-ui'
 
 export const StyledDevCon = styled.div`
   && {
@@ -16,7 +16,7 @@ export const StyledNavigation = styled.div`
   display: flex;
 `
 
-export const StyledLink = styled.div`
+export const StyledRouterLink = styled(RouterLink)`
   padding: 1em;
   background-color: #ddd;
   border-radius: 5px;
