@@ -46,6 +46,16 @@ export const GlobalDatePickerStyles = createGlobalStyle`
       font-weight: ${regular};
     }
 
+    .flatpickr-current-month .numInputWrapper {
+      span.arrowUp:after {
+        border-bottom-color: ${paper};
+      }
+
+      span.arrowDown:after {
+        border-top-color: ${paper};
+      }
+    }
+
     .flatpickr-weekday {
       font-size: ${scale.font(-2)};
       font-weight: ${regular};
@@ -66,10 +76,6 @@ export const GlobalDatePickerStyles = createGlobalStyle`
       line-height: 34px;
       margin-bottom: ${baseSpace};
       font-weight: ${regular};
-    }
-
-    .flatpickr-current-month {
-      left: 17.5%;
     }
 
     .flatpickr-months .flatpickr-month {

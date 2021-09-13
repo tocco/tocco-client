@@ -6,6 +6,8 @@ import {theme as themeSelector} from './index'
 const getBackgroundColor = (ink, look, theme) => {
   if (ink === 'primary' && look === 'raised') {
     return themeSelector.color('primary')({theme})
+  } else if (ink === 'secondary' && look === 'raised') {
+    return themeSelector.color('secondary')({theme})
   }
   return themeSelector.color('paper')({theme})
 }
