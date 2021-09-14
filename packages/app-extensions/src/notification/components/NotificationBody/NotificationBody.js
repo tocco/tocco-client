@@ -4,7 +4,7 @@ import {LoadingSpinner, Icon} from 'tocco-ui'
 import {download} from 'tocco-util'
 import {FormattedMessage} from 'react-intl'
 
-import {notificationPropType} from '../../types'
+import {notificationPropType, TYPES} from '../../types'
 import {
   StyledOutputJobWrapper,
   StyledDetailLinkWrapper,
@@ -14,7 +14,8 @@ import {
   StyledProgressOuter,
   StyledProgressInner,
   StyledFileDescription,
-  StyledIconWrapper
+  StyledIconWrapper,
+  StyledCancelWrapper
 } from './StyledComponents'
 import {resultTypes} from '../../api'
 
@@ -35,13 +36,13 @@ const Result = ({notification: {result}, navigationStrategy}) => {
             </a>
           </div>
           {download.downloadSupportedByBrowser()
-            && <a
-              href={download.addParameterToURL(result.file.link, 'download', true)}
-              download={result.file.name}
-              title="download">
-              <StyledIconWrapper><Icon icon="arrow-to-bottom"/></StyledIconWrapper>
-              <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
-            </a>
+          && <a
+            href={download.addParameterToURL(result.file.link, 'download', true)}
+            download={result.file.name}
+            title="download">
+            <StyledIconWrapper><Icon icon="arrow-to-bottom"/></StyledIconWrapper>
+            <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
+          </a>
           }
           <StyledDetailLinkWrapper>
             {navigationStrategy && navigationStrategy.DetailLink && <navigationStrategy.DetailLink
@@ -85,19 +86,20 @@ Result.propTypes = {
   })
 }
 
-const TaskProgress = ({notification: {taskProgress}, navigationStrategy}) => {
+const TaskProgress = ({notification, cancelTask, navigationStrategy}) => {
+  const {taskProgress} = notification
   return <>
     <StyledTaskProgressWrapper>
       <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner/>}</StyledSpinnerWrapper>
       <StyledProgressMessage>{taskProgress.message}</StyledProgressMessage>
     </StyledTaskProgressWrapper>
     {taskProgress.status === 'running_absolute'
-      && <>
-        <StyledProgressOuter>
-          <StyledProgressInner percentage={taskProgress.percentage}/>
-        </StyledProgressOuter>
-        {taskProgress.done} / {taskProgress.total} = {taskProgress.percentage} %
-      </>
+    && <>
+      <StyledProgressOuter>
+        <StyledProgressInner percentage={taskProgress.percentage}/>
+      </StyledProgressOuter>
+      {taskProgress.done} / {taskProgress.total} = {taskProgress.percentage} %
+    </>
     }
     <StyledDetailLinkWrapper>
       {navigationStrategy && navigationStrategy.DetailLink
@@ -106,17 +108,23 @@ const TaskProgress = ({notification: {taskProgress}, navigationStrategy}) => {
         <FormattedMessage id="client.common.notification.outputJobShowTask"/>
       </navigationStrategy.DetailLink>}
     </StyledDetailLinkWrapper>
+    {notification.type === TYPES.info && taskProgress.isRunning && taskProgress.supportsCancellation
+    && <StyledCancelWrapper onClick={() => cancelTask(taskProgress.taskExecutionKey)}>
+        <StyledIconWrapper><Icon icon="times"/></StyledIconWrapper>
+        <FormattedMessage id="client.common.notification.cancelTask"/>
+    </StyledCancelWrapper>}
   </>
 }
 
 TaskProgress.propTypes = {
   notification: notificationPropType.isRequired,
+  cancelTask: PropTypes.func.isRequired,
   navigationStrategy: PropTypes.shape({
     DetailLink: PropTypes.elementType
   })
 }
 
-const NotificationBody = ({notification, navigationStrategy}) => {
+const NotificationBody = ({notification, cancelTask, navigationStrategy}) => {
   const {result, taskProgress} = notification
 
   if (result) {
@@ -124,7 +132,7 @@ const NotificationBody = ({notification, navigationStrategy}) => {
   }
 
   if (taskProgress) {
-    return <TaskProgress notification={notification} navigationStrategy={navigationStrategy}/>
+    return <TaskProgress notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask}/>
   }
 
   return null
@@ -132,6 +140,7 @@ const NotificationBody = ({notification, navigationStrategy}) => {
 
 NotificationBody.propTypes = {
   notification: notificationPropType.isRequired,
+  cancelTask: PropTypes.func.isRequired,
   navigationStrategy: PropTypes.shape({
     DetailLink: PropTypes.elementType
   })

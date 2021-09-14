@@ -1,11 +1,12 @@
 import {connect} from 'react-redux'
 
-import {loadNotifications, markAsRead} from '../actions'
+import {loadNotifications, markAsRead, cancelTask} from '../actions'
 import NotificationCenter from './NotificationCenter'
 
 const mapActionCreators = {
   loadNotifications,
-  markAsRead
+  markAsRead,
+  cancelTask
 }
 
 const mapStateToProps = state => ({

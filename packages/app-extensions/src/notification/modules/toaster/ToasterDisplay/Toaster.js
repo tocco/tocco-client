@@ -14,7 +14,7 @@ import {
   StyledContentWrapper
 } from './StyledComponents'
 
-const Toaster = ({toaster, closeToaster, navigationStrategy}) => {
+const Toaster = ({toaster, closeToaster, cancelTask, navigationStrategy}) => {
   const [setDuration, abort] = reactUtil.useUserActive(() => {
     closeToaster(toaster.key, false)
   })
@@ -48,7 +48,7 @@ const Toaster = ({toaster, closeToaster, navigationStrategy}) => {
         <Content>
           {
             typeof toaster.body === 'function'
-              ? <toaster.body navigationStrategy={navigationStrategy}/>
+              ? <toaster.body navigationStrategy={navigationStrategy} cancelTask={cancelTask}/>
               : toaster.body
           }
         </Content>
@@ -61,6 +61,7 @@ const Toaster = ({toaster, closeToaster, navigationStrategy}) => {
 Toaster.propTypes = {
   toaster: ToasterPropType,
   closeToaster: PropTypes.func.isRequired,
+  cancelTask: PropTypes.func.isRequired,
   navigationStrategy: PropTypes.object
 }
 

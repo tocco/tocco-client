@@ -15,6 +15,7 @@ const NotificationCenter = (
     moreNotificationsAvailable,
     isLoadingMoreNotifications,
     markAsRead,
+    cancelTask,
     navigationStrategy
   }
 ) => {
@@ -48,6 +49,7 @@ const NotificationCenter = (
         <Notification
           key={'notification-' + notification.key}
           markAsRead={markAsRead}
+          cancelTask={cancelTask}
           notification={notification}
           navigationStrategy={navigationStrategy}
         />
@@ -67,6 +69,7 @@ NotificationCenter.propTypes = {
   moreNotificationsAvailable: PropTypes.bool,
   isLoadingMoreNotifications: PropTypes.bool,
   markAsRead: PropTypes.func.isRequired,
+  cancelTask: PropTypes.func.isRequired,
   navigationStrategy: PropTypes.object
 }
 
