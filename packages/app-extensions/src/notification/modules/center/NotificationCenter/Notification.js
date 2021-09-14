@@ -22,7 +22,7 @@ const typeIconMap = {
   info: 'info-circle'
 }
 
-const Notification = ({notification, markAsRead, navigationStrategy}) => {
+const Notification = ({notification, markAsRead, cancelTask, navigationStrategy}) => {
   const notificationElement = useRef(null)
 
   const {value: timeStampValue, unit} = selectUnit(new Date(notification.timestamp))
@@ -45,7 +45,7 @@ const Notification = ({notification, markAsRead, navigationStrategy}) => {
           <Typography.H5>{notification.message}</Typography.H5>
         </StyledTitleWrapper>
       </StyledNotificationHeader>
-      <NotificationBody notification={notification} navigationStrategy={navigationStrategy}/>
+      <NotificationBody notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask}/>
       <StyledTimeStamp>
         <FormattedRelativeTime value={timeStampValue} unit={unit}/>
       </StyledTimeStamp>
@@ -56,6 +56,7 @@ const Notification = ({notification, markAsRead, navigationStrategy}) => {
 Notification.propTypes = {
   notification: notificationPropType.isRequired,
   markAsRead: PropTypes.func.isRequired,
+  cancelTask: PropTypes.func.isRequired,
   navigationStrategy: PropTypes.object
 }
 

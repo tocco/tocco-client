@@ -6,6 +6,7 @@ export const SET_MORE_NOTIFICATIONS_AVAILABLE = 'notification/SET_MORE_NOTIFICAT
 export const UPDATE_NOTIFICATION = 'notification/UPDATE_NOTIFICATION'
 export const IS_LOADING_MORE_NOTIFICATIONS = 'notification/IS_LOADING_MORE_NOTIFICATIONS'
 export const MARK_AS_READ = 'notification/MARK_AS_READ'
+export const CANCEL_TASK = 'notification/CANCEL_TASK'
 
 export const setUnreadNotificationKeys = unreadNotificationKeys => ({
   type: SET_UNREAD_NOTIFICATION_KEYS,
@@ -61,5 +62,12 @@ export const markAsRead = notificationKey => ({
   type: MARK_AS_READ,
   payload: {
     notificationKey
+  }
+})
+
+export const cancelTask = taskExecutionKey => ({
+  type: CANCEL_TASK,
+  payload: {
+    taskExecutionKey
   }
 })

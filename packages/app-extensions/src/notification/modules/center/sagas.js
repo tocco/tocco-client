@@ -13,7 +13,8 @@ export default function* sagas(accept) {
     yield all([
       call(loadInitialUnreadNotificationKeys),
       takeEvery(actions.LOAD_NOTIFICATIONS, loadNotifications),
-      takeEvery(actions.MARK_AS_READ, markAsRead)
+      takeEvery(actions.MARK_AS_READ, markAsRead),
+      takeEvery(actions.CANCEL_TASK, cancelTask)
     ])
   }
 }
@@ -63,4 +64,10 @@ export function* markAsRead({payload: {notificationKey}}) {
     method: 'PATCH'
   }
   yield call(rest.requestSaga, `client/notifications/${notificationKey}/read`, options)
+}
+
+export function* cancelTask({payload: {taskExecutionKey}}) {
+  yield call(rest.requestSaga, `client/tasks/${taskExecutionKey}`, {
+    method: 'DELETE'
+  })
 }

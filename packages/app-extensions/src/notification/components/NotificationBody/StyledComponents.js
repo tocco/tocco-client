@@ -64,3 +64,13 @@ export const StyledFileDescription = styled.div`
 export const StyledIconWrapper = styled.span`
   padding-right: ${scale.space(-1.5)};
 `
+
+export const StyledCancelWrapper = styled.div`
+  color: ${theme.color('text')};
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+`
