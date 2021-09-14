@@ -20,9 +20,19 @@ export const iconMap = {
 
 export const notificationPropType = PropTypes.shape({
   key: PropTypes.string.isRequired,
-  taskExecutionKey: PropTypes.string.isRequired,
   message: PropTypes.string,
   read: PropTypes.bool,
   timestamp: PropTypes.date,
-  originId: PropTypes.string
+  originId: PropTypes.string,
+  type: PropTypes.string,
+  taskProgress: PropTypes.shape({
+    taskExecutionKey: PropTypes.string.isRequired,
+    status: PropTypes.string,
+    message: PropTypes.string,
+    percentage: PropTypes.number,
+    done: PropTypes.number,
+    total: PropTypes.number,
+    supportsCancellation: PropTypes.bool,
+    isRunning: PropTypes.bool
+  })
 })
