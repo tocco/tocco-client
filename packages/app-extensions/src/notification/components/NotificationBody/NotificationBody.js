@@ -91,7 +91,7 @@ const TaskProgress = ({notification, cancelTask, navigationStrategy}) => {
   return <>
     <StyledTaskProgressWrapper>
       <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner/>}</StyledSpinnerWrapper>
-      <StyledProgressMessage>{taskProgress.message}</StyledProgressMessage>
+      <StyledProgressMessage>{taskProgress.status !== 'cancelled' ? taskProgress.message : ''}</StyledProgressMessage>
     </StyledTaskProgressWrapper>
     {taskProgress.status === 'running_absolute'
     && <>

@@ -36,6 +36,7 @@ const NotificationCenter = (
   const sortedNotifications = Object.keys(notifications)
     .map(k => notifications[k])
     .filter(n => !n.result || n.result.type !== resultTypes.outputjob || n.result.file)
+    .filter(n => !n.taskProgress || n.taskProgress.status !== 'cancelled')
     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
 
   return (
