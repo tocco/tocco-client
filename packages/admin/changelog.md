@@ -1,13 +1,23 @@
+0.5.21
+- Fix opening task execution of notification
+- Add button to remote fields that opens a popup containing a create form
+- Split session saga
+- Fix socket connection handling
+- Fix suqare icon display expressions
+- Swap out donwload and upload icons to harmonize look
+- Change date picker month button color for better visibility
+- Harmonize notification center styling
+
 0.5.20
 - Update select
 - Dms edit and create messages clean up
 - Fix calendar entity-list text resources
-- add "open output job" to notification
+- Add "open output job" to notification
 - Fix disabled delete button if nothing to delete
 - Add background color to unread notifications
 
 0.5.19
-- support disablePreferencesMenu in table
+- Support disablePreferencesMenu in table
 - Money post point digits fallback
 
 0.5.18
@@ -82,7 +92,7 @@
 
 0.5.4
 - Adjust height and width of input edit table
-- Fix datetime search 
+- Fix datetime search
 - Fix Menu
 
 0.5.3
