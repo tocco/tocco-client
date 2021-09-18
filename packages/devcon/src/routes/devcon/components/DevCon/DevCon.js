@@ -12,6 +12,7 @@ const DevCon = ({routes}) =>
     <Typography.Span>Tocco Developer Console</Typography.Span>
     <StyledNavigation>
       <StyledRouterLink to="/log">Log</StyledRouterLink>
+      <StyledRouterLink to="/modelvalidation">Model Validation</StyledRouterLink>
       <StyledRouterLink to="/dbrefactoring">DB Refactoring</StyledRouterLink>
       <StyledRouterLink to="/sqllog">SQL Log</StyledRouterLink>
     </StyledNavigation>
