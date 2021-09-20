@@ -13,7 +13,8 @@ const actions = {
   'delete': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Delete')),
   'merge': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Merge')),
   'copy': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Copy')),
-  'documents': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Documents'))
+  'documents': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Documents')),
+  'password-update': lazy(() => import(/* webpackChunkName: "actions" */'./actions/PasswordUpdate'))
 }
 
 const renderLoader = () => <LoadMask/>
