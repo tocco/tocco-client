@@ -12,12 +12,11 @@ const mapActionCreators = {
   closeModal: notification.removeModal
 }
 
-const PasswordUpdate = ({username, closeModal}) => {
-  return <PasswordUpdateApp
+const PasswordUpdate = ({username, closeModal}) =>
+  <PasswordUpdateApp
     username={username}
     showOldPasswordField={false}
     success={() => closeModal('action-password-update')}/>
-}
 
 PasswordUpdate.propTypes = {
   username: PropTypes.string.isRequired,
