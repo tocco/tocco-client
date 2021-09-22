@@ -1,3 +1,9 @@
+0.3.0
+- Added simple log view
+- Added simple model validation view
+- Added simple SQL log view
+- Prevent complete reload when changing page
+
 0.2.0
 - New input param `baseRoute`
 
