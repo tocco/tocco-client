@@ -3,7 +3,7 @@ import {api} from 'tocco-util'
 export const transformResponseData = response =>
   response.body.data.map(dataRecord => {
     const splitObj = Object.keys(dataRecord).reduce((acc, key) => {
-      const isInputField = !isNaN(parseInt(key))
+      const isInputField = !isNaN(parseInt(key)) || key === 'rating' // textchoice has no exams but is an input
       return {
         ...acc,
         ...(isInputField
