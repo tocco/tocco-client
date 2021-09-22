@@ -5,7 +5,7 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 import * as sagas from './sagas'
 import * as actions from './actions'
 import {fetchEntities} from '../../../rest/helpers'
-import {loadInitialUnreadNotificationKeys, loadNotifications, markAsRead} from './sagas'
+import {loadInitialUnreadNotificationKeys, loadNotifications, markAsRead, cancelTask} from './sagas'
 import rest from '../../../rest'
 
 describe('app-extensions', () => {
@@ -19,7 +19,8 @@ describe('app-extensions', () => {
               saga.next().all([
                 call(loadInitialUnreadNotificationKeys),
                 takeEvery(actions.LOAD_NOTIFICATIONS, loadNotifications),
-                takeEvery(actions.MARK_AS_READ, markAsRead)
+                takeEvery(actions.MARK_AS_READ, markAsRead),
+                takeEvery(actions.CANCEL_TASK, cancelTask)
               ])
             })
           })
