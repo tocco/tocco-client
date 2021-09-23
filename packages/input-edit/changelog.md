@@ -1,3 +1,6 @@
+0.3.17
+- Fix text choice grades
+
 0.3.16
 - Adjust height and width of input edit table
 
