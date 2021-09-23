@@ -70,7 +70,7 @@ export function* generateSql() {
   const options = {
     method: 'POST',
     body: {
-      uuids: selection
+      uuids: Array.from(selection)
     }
   }
   try {
@@ -113,7 +113,7 @@ export function* generateChangelog() {
   const options = {
     method: 'POST',
     body: {
-      uuids: selection
+      uuids: Array.from(selection)
     }
   }
   try {
