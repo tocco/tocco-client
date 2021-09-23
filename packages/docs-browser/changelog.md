@@ -1,3 +1,26 @@
+0.2.13
+- Harmonize collapsible panel styling for better contrast
+- Prevent early line breaks in popover menu
+- Remove initial underline in notification detail link
+- support disablePreferencesMenu in table
+- Money post point digits fallback
+- Update select
+- Dms edit and create messages clean up
+- Fix calendar entity-list text resources
+- add "open output job" to notification
+- Fix disabled delete button if nothing to delete
+- Add background color to unread notifications
+- fix opening task execution of notification
+- Add button to remote fields that opens a popup containing a create form
+- split session saga
+- fix socket connection handling
+- Fix suqare icon display expressions
+- Swap out donwload and upload icons to harmonize look
+- Change date picker month button color for better visibility
+- Harmonize notification center styling
+- Added new cancel button to toasters and notification center when task execution can be cancelled
+- Change table hover colors to a more generic grey tone
+
 0.2.12
 - Prevent preview image collapsing to 1px if preview cannot be generated
 - Refresh list on navigation back to list
