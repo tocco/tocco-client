@@ -2,10 +2,10 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import {Route} from 'react-router'
 
-import {RouteWithSubRoutes} from './RouteWithSubRoutes'
+import RouteWithSubRoutes from './RouteWithSubRoutes'
 
-describe('devcon', () => {
-  describe('components', () => {
+describe('tocco-util', () => {
+  describe('route', () => {
     describe('RouteWithSubRoutes', () => {
       test('should render a component', () => {
         const route = {

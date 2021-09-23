@@ -5,8 +5,7 @@ import {
   appFactory,
   notification
 } from 'tocco-app-extensions'
-
-import Router from './components/Router'
+import {route} from 'tocco-util'
 
 const packageName = 'devcon'
 
@@ -20,7 +19,7 @@ const initApp = (id, input, events, publicPath) => {
   })
   const routes = require('./routes/index').default(store, input)
 
-  const content = <Router history={history} routes={routes}/>
+  const content = <route.Router history={history} routes={routes}/>
 
   return appFactory.createApp(
     packageName,
