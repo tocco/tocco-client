@@ -1,3 +1,6 @@
+0.3.1
+- Fixed generating SQL and changesets in prod env
+
 0.3.0
 - Added simple log view
 - Added simple model validation view
