@@ -1,6 +1,5 @@
 import styled, {css} from 'styled-components'
 import _get from 'lodash/get'
-import {lighten, darken} from 'polished'
 
 import {
   declareFont,
@@ -10,6 +9,7 @@ import {
   scale
 } from '../'
 import {StyledResizeHandle} from './ResizingController'
+import {generateShades} from '../utilStyles'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)
 const basePadding = scale.space(-1.5)
@@ -41,10 +41,10 @@ export const StyledTableHeaderCell = styled.th`
   cursor: ${({sortable}) => sortable ? 'pointer' : 'auto'};
   white-space: nowrap;
   display: flex;
-  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? `3px solid ${theme.colors.secondary}` : 'none'};
+  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? `3px solid ${theme.colors.text}` : 'none'};
   ${({id}) => id === 'header-cell-navigation-column' && 'z-index: 1'};
   ${({isResizing, theme}) => isResizing && `
-    background-color: ${lighten(0.25, theme.colors.secondaryLight)};
+    background-color: ${generateShades(theme.colors.paper)[1]};
 
     > ${StyledResizeHandle} {
       opacity: 1;
@@ -53,7 +53,7 @@ export const StyledTableHeaderCell = styled.th`
   }
   ${({resizingColumn, theme}) => !resizingColumn && `
     &:hover {
-      background-color: ${lighten(0.25, theme.colors.secondaryLight)};
+      background-color: ${generateShades(theme.colors.paper)[2]};
 
       > ${StyledResizeHandle} {
         opacity: 1;
@@ -89,13 +89,13 @@ const selectionStyles = css`
 
   &.selected {
     > ${StyledTableCell} {
-      background-color: ${({theme}) => lighten(0.3, theme.colors.secondaryLight)};
+      background-color: ${({theme}) => generateShades(theme.colors.paper)[2]};
     }
   }
 
   &.selectableRow:not(.selected):hover {
     > ${StyledTableCell} {
-      background-color: ${({theme}) => darken(0.2, theme.colors.backgroundBody)};
+      background-color: ${({theme}) => generateShades(theme.colors.paper)[2]};
     }
   }
 `
@@ -130,7 +130,7 @@ export const StyledTableRow = styled.tr`
   ${selectionStyles}
 
   &:nth-child(even) td {
-    background-color: ${({theme}) => darken(0.04, theme.colors.backgroundBody)};
+    background-color: ${({theme}) => generateShades(theme.colors.paper)[1]};
   }
 `
 
