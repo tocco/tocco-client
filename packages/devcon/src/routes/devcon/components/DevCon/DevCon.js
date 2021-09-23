@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {Typography} from 'tocco-ui'
 import {notification} from 'tocco-app-extensions'
+import {route as routeUtil} from 'tocco-util'
 
-import RouteWithSubRoutes from '../../../../components/RouteWithSubRoutes'
 import {StyledDevCon, StyledNavigation, StyledRouterLink} from './StyledDevCon'
 
 const DevCon = ({routes}) =>
@@ -17,7 +17,7 @@ const DevCon = ({routes}) =>
       <StyledRouterLink to="/sqllog">SQL Log</StyledRouterLink>
     </StyledNavigation>
     {routes.map((route, i) => (
-      <RouteWithSubRoutes key={i} {...route}/>
+      <routeUtil.RouteWithSubRoutes key={i} {...route}/>
     ))
     }
   </StyledDevCon>

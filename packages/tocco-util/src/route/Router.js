@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Router as ReactRouter} from 'react-router'
 
-import RouteWithSubRoutes from '../RouteWithSubRoutes'
+import RouteWithSubRoutes from './RouteWithSubRoutes'
 
 const Router = ({history, routes}) => (
   <ReactRouter history={history}>
@@ -15,7 +15,7 @@ const Router = ({history, routes}) => (
 )
 
 Router.propTypes = {
-  routes: PropTypes.array,
+  routes: PropTypes.array.isRequired,
   history: PropTypes.object
 }
 

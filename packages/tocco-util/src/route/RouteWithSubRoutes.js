@@ -16,10 +16,12 @@ const getRenderFn = route =>
     }
   }
 
-export const RouteWithSubRoutes = route => (
+const RouteWithSubRoutes = route => (
   <Route
     path={route.path}
     exact={route.exact}
     render={getRenderFn(route)}
   />
 )
+
+export default RouteWithSubRoutes
