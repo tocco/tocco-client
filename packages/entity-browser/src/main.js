@@ -11,8 +11,8 @@ import {
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import PropTypes from 'prop-types'
+import {route} from 'tocco-util'
 
-import Router from './components/Router'
 import {sagas} from './modules/reducers'
 
 const packageName = 'entity-browser'
@@ -75,7 +75,7 @@ const initApp = (id, input, events, publicPath) => {
 
   const routes = require('./routes/index').default(store, input)
 
-  const content = <Router history={history} routes={routes}/>
+  const content = <route.Router history={history} routes={routes}/>
 
   const app = appFactory.createApp(
     packageName,
