@@ -1,3 +1,6 @@
+0.5.22
+- Change table hover colors to a more generic grey tone
+
 0.5.21
 - Fix opening task execution of notification
 - Add button to remote fields that opens a popup containing a create form
