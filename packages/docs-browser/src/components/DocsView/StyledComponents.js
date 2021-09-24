@@ -7,6 +7,7 @@ export const StyledContentWrapper = styled.div`
 `
 
 export const StyledIconWrapper = styled.span`
+  font-size: ${scale.font(1)};
   display: inline-block;
   margin-right: ${scale.space(-2)};
 `
