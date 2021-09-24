@@ -21,13 +21,16 @@ const DetailLinkRelativeWithoutIntl = ({entityKey, children, relation, intl}) =>
 const DetailLinkRelative = injectIntl(DetailLinkRelativeWithoutIntl)
 
 export const DetailLink = ({entityName, entityKey, children}) =>
-  <StyledLink to={`/e/${entityName}/${entityKey}`} target="_blank">{children}</StyledLink>
+  <StyledLink to={`/e/${entityName}/${entityKey}`} target="_blank" neutral={false}>{children}</StyledLink>
 
 export const ListLink = ({entityName, entityKeys, children}) => {
   const queryString = entityKeys && entityKeys.length > 0 && 'tql=KEYS(' + entityKeys.join(',') + ')'
   return (
     <StyledLink
-      to={{pathname: `/e/${entityName}/list`, search: `?${queryString}`}}
+      to={{
+        pathname: `/e/${entityName}/list`,
+        search: `?${queryString}`
+      }}
       target="_blank"
     >
       {children}
@@ -66,7 +69,10 @@ export default (history, match) => {
     })
     history.push({
       pathname: entityBaseUrl + '/action/' + definition.appId,
-      state: {definition, selection},
+      state: {
+        definition,
+        selection
+      },
       search
     })
   }
