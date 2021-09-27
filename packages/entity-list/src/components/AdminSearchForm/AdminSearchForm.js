@@ -112,7 +112,7 @@ const AdminSearchForm = ({
           direction="vertical"
           gutterSize={20}
           sizes={size}
-          minSize={[35, 0]}
+          minSize={[90, 0]}
           gutter={getGutter()}
         >
           <Box>
