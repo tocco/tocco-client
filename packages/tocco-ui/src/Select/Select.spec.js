@@ -59,6 +59,14 @@ describe('tocco-ui', () => {
         )
         expect(wrapper.find(Ball).filterWhere(b => b.props().icon === 'plus')).to.have.length(0)
       })
+      test('should not render remote create button when disabled', () => {
+        const wrapper = mount(
+          <TestThemeProvider>
+            <Select immutable={true}/>
+          </TestThemeProvider>
+        )
+        expect(wrapper.find(Ball).filterWhere(b => b.props().icon === 'plus')).to.have.length(0)
+      })
     })
   })
 })
