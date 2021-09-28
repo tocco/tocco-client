@@ -34,6 +34,7 @@ const IndicatorsContainer = props => {
         />
       </span>}
         {createPermission
+        && !isDisabled
         && <span
           onTouchEnd={e => e.stopPropagation()}
           onMouseDown={e => e.stopPropagation()}
