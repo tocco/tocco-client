@@ -52,6 +52,14 @@
     "id": "fal, book",
     "lib": "fa"
   },
+  "box": {
+    "id": "fal, box",
+    "lib": "fa"
+  },
+  "box-open": {
+    "id": "fal, box-open",
+    "lib": "fa"
+  },
   "check": {
     "id": "fal, check",
     "lib": "fa",
@@ -198,14 +206,6 @@
   },
   "id-badge": {
     "id": "fal, id-badge",
-    "lib": "fa"
-  },
-  "inbox-in": {
-    "id": "fal, inbox-in",
-    "lib": "fa"
-  },
-  "inbox-out": {
-    "id": "fal, inbox-out",
     "lib": "fa"
   },
   "info": {

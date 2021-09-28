@@ -13,7 +13,7 @@ import {
   faPlus, faGlobe, faFileExcel, faFilePdf, faFile, faSortDown, faSortUp, faArrowRight, faArrowLeft, faQuestionCircle,
   faCog, faFolders, faStar, faFileAlt, faFileCode, faFileCsv, faFileExport, faFileImport, faFileSpreadsheet, faIdBadge,
   faCheck, faMapMarked, faBars, faInfo, faCompress, faBook, faEllipsisV, faSquare, faExclamation, faBell,
-  faArrowToBottom, faArrowToTop, faInboxIn, faInboxOut, faNewspaper
+  faArrowToBottom, faArrowToTop, faBox, faBoxOpen, faNewspaper
 } from '@fortawesome/pro-light-svg-icons'
 import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple}
   from '@fortawesome/free-brands-svg-icons'
@@ -26,8 +26,8 @@ import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApp
     faCheckCircle, faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple, faBars, faExternalLink,
     faPhone, faMapMarked, faSearch, faCog, faInfo, faHorizontalRule, faSync, faSquareFull,
     faCompress, faBook, faSortUp, faSortDown, faQuestionCircle, faEllipsisV, faMinus, faTimesCircle, faInfoCircle,
-    faExclamationCircle, faTrash, faList, faSquare, faBell, faArrowToBottom, faArrowToTop, faSquareSolid, faInboxIn,
-    faInboxOut, faNewspaper)
+    faExclamationCircle, faTrash, faList, faSquare, faBell, faArrowToBottom, faArrowToTop, faSquareSolid, faBox,
+    faBoxOpen, faNewspaper)
 })()
 
 /**
