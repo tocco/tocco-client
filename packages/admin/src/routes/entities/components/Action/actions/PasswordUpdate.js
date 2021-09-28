@@ -4,23 +4,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {notification} from 'tocco-app-extensions'
 
-const mapStateToProps = state => ({
-  username: state.session.username
-})
-
 const mapActionCreators = {
   closeModal: notification.removeModal
 }
 
-const PasswordUpdate = ({username, closeModal}) =>
+const PasswordUpdate = ({selection, closeModal}) =>
   <PasswordUpdateApp
-    username={username}
+    username={selection.ids[0]}
     showOldPasswordField={false}
     success={() => closeModal('action-password-update')}/>
 
 PasswordUpdate.propTypes = {
-  username: PropTypes.string.isRequired,
+  selection: PropTypes.object.isRequired,
   closeModal: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, mapActionCreators)(PasswordUpdate)
+export default connect(null, mapActionCreators)(PasswordUpdate)
