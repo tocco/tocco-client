@@ -1,3 +1,10 @@
+0.5.23
+- Change icon size within docs-browser
+- Harmonize link styling to be consistent
+- Increase min-height of filter panel in search form
+- fix about tocco
+- change dms icons
+
 0.5.22
 - Change table hover colors to a more generic grey tone
 
