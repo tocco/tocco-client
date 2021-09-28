@@ -1,7 +1,7 @@
 export const SET_SHOW_OLD_PASSWORD = 'PasswordUpdateDialog/SET_SHOW_OLD_PASSWORD'
 export const SET_STANDALONE = 'PasswordUpdateDialog/SET_STANDALONE'
 export const SET_FORCED_UPDATE = 'PasswordUpdateDialog/SET_FORCED_UPDATE'
-export const SET_USERNAME = 'PasswordUpdateDialog/SET_USERNAME'
+export const SET_USERNAME_OR_PK = 'PasswordUpdateDialog/SET_USERNAME_OR_PK'
 
 export const setShowOldPasswordField = showOldPasswordField => ({
   type: SET_SHOW_OLD_PASSWORD,
@@ -24,9 +24,9 @@ export const setStandalone = standalone => ({
   }
 })
 
-export const setUsername = username => ({
-  type: SET_USERNAME,
+export const setUsernameOrPk = usernameOrPk => ({
+  type: SET_USERNAME_OR_PK,
   payload: {
-    username
+    usernameOrPk
   }
 })

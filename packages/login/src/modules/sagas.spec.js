@@ -9,7 +9,7 @@ import rootSaga, * as sagas from './sagas'
 import {changePage, setPassword} from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
-import {setUsername, setForcedUpdate} from './passwordUpdate/dialog/actions'
+import {setUsernameOrPk, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {Pages} from '../types/Pages'
 import * as loginActions from './login/actions'
 import {setSecret} from './twoStepLogin/actions'
@@ -166,7 +166,7 @@ describe('login', () => {
           }
 
           expect(gen.next(login).value).to.deep.equal(put(updateOldPassword(login.password)))
-          expect(gen.next().value).to.deep.equal(put(setUsername(login.username)))
+          expect(gen.next().value).to.deep.equal(put(setUsernameOrPk(login.username)))
           expect(gen.next().value).to.deep.equal(put(setForcedUpdate(true)))
           expect(gen.next().value).to.deep.equal(put(changePage('PASSWORD_UPDATE')))
           expect(gen.next().done).to.deep.equal(true)

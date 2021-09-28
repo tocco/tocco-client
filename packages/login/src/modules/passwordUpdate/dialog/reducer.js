@@ -4,7 +4,7 @@ const initialState = {
   showOldPasswordField: true,
   forcedUpdate: false,
   standalone: true,
-  username: ''
+  usernameOrPk: ''
 }
 
 const singleTransferReducer = attributeName => {
@@ -21,7 +21,7 @@ const ACTION_HANDLERS = {
   [actions.SET_SHOW_OLD_PASSWORD]: singleTransferReducer('showOldPasswordField'),
   [actions.SET_FORCED_UPDATE]: singleTransferReducer('forcedUpdate'),
   [actions.SET_STANDALONE]: singleTransferReducer('standalone'),
-  [actions.SET_USERNAME]: singleTransferReducer('username')
+  [actions.SET_USERNAME_OR_PK]: singleTransferReducer('usernameOrPk')
 }
 
 export default function reducer(state = initialState, action) {

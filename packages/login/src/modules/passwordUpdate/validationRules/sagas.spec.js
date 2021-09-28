@@ -25,7 +25,7 @@ describe('login', () => {
 
               const generator = sagas.fetchValidationRules()
 
-              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameOrPkSelector))
               expect(generator.next(username).value).to.deep.equal(select(sagas.intlSelector))
               expect(generator.next({locale}).value).to.deep.equal(call(sagas.loadValidationRules, username, locale))
 
