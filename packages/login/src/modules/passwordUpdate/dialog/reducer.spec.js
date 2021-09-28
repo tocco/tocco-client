@@ -5,7 +5,7 @@ const EXPECTED_INITIAL_STATE = {
   showOldPasswordField: true,
   forcedUpdate: false,
   standalone: true,
-  username: ''
+  usernameOrPk: ''
 }
 
 describe('login', () => {

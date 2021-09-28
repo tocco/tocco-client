@@ -9,12 +9,12 @@ import {setPassword} from '../../login/actions'
 
 export const validationRulesSelector = state => state.passwordUpdate.validationRules
 export const inputSelector = state => state.input
-export const usernameSelector = state => state.passwordUpdate.dialog.username
+export const usernameOrPkSelector = state => state.passwordUpdate.dialog.usernameOrPk
 export const passwordSelector = state => state.passwordUpdate.password
 export const standaloneSelector = state => state.passwordUpdate.dialog.standalone
 export const intlSelector = state => state.intl
 
-export function* storePassword(username, data, captchaToken) {
+export function* storePassword(usernameOrPk, data, captchaToken) {
   const options = {
     method: 'POST',
     acceptedStatusCodes: [400],
@@ -25,14 +25,14 @@ export function* storePassword(username, data, captchaToken) {
   }
 
   try {
-    const resp = yield call(rest.requestSaga, `principals/${username}/password-update`, options)
+    const resp = yield call(rest.requestSaga, `principals/${usernameOrPk}/password-update`, options)
     return resp.ok ? {error: null} : {error: resp.body}
   } catch (exception) {
     return {error: {errorCode: 'UNEXPECTED_ERROR', exception}}
   }
 }
 
-export function* remoteValidate(username, data) {
+export function* remoteValidate(usernameOrPk, data) {
   const {locale} = yield select(intlSelector)
 
   const options = {
@@ -42,7 +42,7 @@ export function* remoteValidate(username, data) {
   }
 
   try {
-    const resp = yield call(rest.requestSaga, `principals/${username}/password-validation`, options)
+    const resp = yield call(rest.requestSaga, `principals/${usernameOrPk}/password-validation`, options)
     return resp.body
   } catch (exception) {
     // validation request failed for some reason. we ignore that.
@@ -65,9 +65,9 @@ export function* validate() {
   if (!isEmptyObject(errors)) {
     yield put(actions.setNewPasswordValidationErrors(errors))
   } else {
-    const username = yield select(usernameSelector)
+    const usernameOrPk = yield select(usernameOrPkSelector)
     const data = yield call(getData)
-    const result = yield call(remoteValidate, username, data)
+    const result = yield call(remoteValidate, usernameOrPk, data)
     if (result.valid === true) {
       yield put(actions.setNewPasswordValidationErrors({}))
     } else {
@@ -78,9 +78,9 @@ export function* validate() {
 }
 
 export function* savePassword({payload: {captchaToken}}) {
-  const username = yield select(usernameSelector)
+  const usernameOrPk = yield select(usernameOrPkSelector)
   const data = yield call(getData)
-  const result = yield call(storePassword, username, data, captchaToken)
+  const result = yield call(storePassword, usernameOrPk, data, captchaToken)
 
   if (result.error) {
     if (result.error.valid === false) {
@@ -116,11 +116,11 @@ export function* getData() {
 
 export function* getLoginData() {
   const password = yield select(passwordSelector)
-  const username = yield select(usernameSelector)
+  const usernameOrPk = yield select(usernameOrPkSelector)
 
   return {
     payload: {
-      username,
+      username: usernameOrPk,
       password: password.newPasswordRepeat
     }
   }

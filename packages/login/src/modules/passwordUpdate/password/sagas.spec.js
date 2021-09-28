@@ -93,7 +93,7 @@ describe('login', () => {
                   newPassword: 'validnewpw'
                 }
 
-                expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameSelector))
+                expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameOrPkSelector))
 
                 const username = 'user1'
 
@@ -139,7 +139,7 @@ describe('login', () => {
                   newPassword: 'validnewpw'
                 }
 
-                expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameSelector))
+                expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameOrPkSelector))
 
                 const username = 'user1'
 
@@ -174,7 +174,7 @@ describe('login', () => {
               const captchaToken = '1234'
               const generator = sagas.savePassword({payload: {captchaToken}})
 
-              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameOrPkSelector))
 
               const username = 'user1'
 
@@ -207,7 +207,7 @@ describe('login', () => {
               const captchaToken = '1234'
               const generator = sagas.savePassword({payload: {captchaToken}})
 
-              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameOrPkSelector))
 
               const username = 'user1'
 
@@ -242,7 +242,7 @@ describe('login', () => {
               const captchaToken = '1234'
               const generator = sagas.savePassword({payload: {captchaToken}})
 
-              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameOrPkSelector))
 
               const username = 'user1'
 
@@ -277,7 +277,7 @@ describe('login', () => {
               const captchaToken = '1234'
               const generator = sagas.savePassword({payload: {captchaToken}})
 
-              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameOrPkSelector))
 
               const username = 'user1'
 

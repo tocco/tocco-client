@@ -6,7 +6,7 @@ import * as actions from './actions'
 import * as loginActions from './login/actions'
 import {setMessage, setPending, activateRecaptcha} from './loginForm/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
-import {setUsername, setForcedUpdate} from './passwordUpdate/dialog/actions'
+import {setUsernameOrPk, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {changePage, setPassword} from './login/actions'
 import {setSecret} from './twoStepLogin/actions'
 import {Pages} from '../types/Pages'
@@ -62,7 +62,7 @@ export function* handleTwoStepActivationResponse(response) {
 export function* handlePasswordUpdateResponse() {
   const login = yield select(loginSelector)
   yield put(updateOldPassword(login.password))
-  yield put(setUsername(login.username))
+  yield put(setUsernameOrPk(login.username))
   yield put(setForcedUpdate(true))
   yield put(changePage(Pages.PASSWORD_UPDATE))
 }
