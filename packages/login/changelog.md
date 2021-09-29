@@ -1,3 +1,67 @@
+0.2.25
+- Style new notification boxes
+- Style notification center
+- Introduce new prop to determine if layout containers should occupy remaining height on screen
+- Displayexpression call adjustment
+- Change cursor to pointer on panel header/footer hover
+- Enable body scrolling on login screen for smaller screens
+- datetime search fields now use a date field until the full range is expanded
+-  Add action selection count confirm
+- Improve input field UX by better highlighting fields and labels
+- Adapt input font-sizes for better readability
+- Fix broken modal layout
+- Fix date-time search
+- Fix overlay of modal in widget mode
+- Fix popper menu on safari browsers
+- Fix notification socket url
+- move useDnD
+- Make select dropdown menu style more uniform for a more consistent UI
+- Harmonize select box size und colors
+- Align modal globally at same position
+- Fix modal overflow
+- Harmonize toaster styling
+- Fix blocking info being covered by header
+- Fix notifications for already deleted outputjobs
+- Prevent dropdown menu being clipped in viewport
+- Support empty html edit field
+- Has value for checkboxes change
+- Improve pagination UX by moving it to the left and changing button behavior
+- Fix search filter menu hover
+- Add preview for documents
+- Style location edit dropdown to match other dropdowns
+- Remove download icon inside button of report settings
+- Fix calender search bug
+- Increase z-index of modal holder to properly display as widget
+- Increase toaster z-index to properly display as widget
+- Prevent preview image collapsing to 1px if preview cannot be generated
+- Harmonize html formatter spacing inside stated value
+- Harmonize icon spacing and hover behaviour in notifications
+- Add the feature to close modals via escape key
+- Add underline to links
+- Open Url in list in new window
+- Fix simple-search extend button in remote search
+- Improve browser tab title
+- Harmonize collapsible panel styling for better contrast
+- Prevent early line breaks in popover menu
+- Remove initial underline in notification detail link
+- Money post point digits fallback
+- Update select
+- add "open output job" to notification
+- Add background color to unread notifications
+- fix opening task execution of notification
+- Add button to remote fields that opens a popup containing a create form
+- split session saga
+- fix socket connection handling
+- Fix suqare icon display expressions
+- Swap out donwload and upload icons to harmonize look
+- Change date picker month button color for better visibility
+- Harmonize notification center styling
+- Added new cancel button to toasters and notification center when task execution can be cancelled
+- Change table hover colors to a more generic grey tone
+- Harmonize link styling to be consistent
+- change dms icons
+- rename username to usernameOrPk for passwordUpdate
+
 0.2.24
 - render description field in form
 - Fix popper menu positioning
