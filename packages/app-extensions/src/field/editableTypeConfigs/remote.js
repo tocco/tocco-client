@@ -47,9 +47,8 @@ export default {
           {children}
         </formData.navigationStrategy.DetailLink>
       : null,
-    createPermission: formData.entityModel
-      && formField.relationName
-      && formData.entityModel.paths[formField.relationName].createPermission,
+    createPermission: formField.relationName
+      && _get(formData, ['entityModel', 'paths', formField.relationName, 'createPermission'], false),
     openRemoteCreate: () => formData.openRemoteCreate(formField, formName, formData)
   })
 }
