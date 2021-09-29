@@ -1,3 +1,7 @@
+0.5.24
+- fix password update app
+- rename username to usernameOrPk for passwordUpdate
+
 0.5.23
 - Change icon size within docs-browser
 - Harmonize link styling to be consistent
