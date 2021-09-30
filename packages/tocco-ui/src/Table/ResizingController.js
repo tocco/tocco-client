@@ -10,13 +10,16 @@ export const StyledResizeHandle = styled.span`
   top: 0;
   right: 0;
   bottom: 0;
-  background: ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+  background: ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)};
   opacity: 0;
   width: 3px;
   cursor: col-resize;
 `
 
-const ResizingController = ({column, startResize}) => <StyledResizeHandle
+const ResizingController = ({
+  column,
+  startResize
+}) => <StyledResizeHandle
   data-cy={`header-cell-${column.id}-resizing-controller`}
   onMouseDown={startResize(column)}
 />
