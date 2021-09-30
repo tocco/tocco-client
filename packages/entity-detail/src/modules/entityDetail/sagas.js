@@ -43,6 +43,7 @@ export default function* sagas() {
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
     takeEvery(formActionTypes.BLUR, onBlur),
+    takeEvery(formActionTypes.CHANGE, onBlur),
     takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, asyncValidationStop),
     takeLatest(actions.UPDATE_MARKED, updateMarked)
   ])
