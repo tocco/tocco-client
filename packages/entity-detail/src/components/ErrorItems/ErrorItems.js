@@ -6,8 +6,16 @@ import Typography from 'tocco-ui/src/Typography'
 import styled from 'styled-components'
 import {scale} from 'tocco-ui'
 import {selectUnit} from '@formatjs/intl-utils'
+import {decode} from 'html-entities'
 
-export const ErrorItem = styled.div``
+export const ErrorItem = ({message}) =>
+  <div>
+    {decode(message)}
+  </div>
+
+ErrorItem.propTypes = {
+  message: PropTypes.string.isRequired
+}
 
 const StyledErrorItemWrapper = styled.div`
   &:not(:last-child) {
@@ -78,10 +86,7 @@ const ErrorItems = ({formErrors}) => {
         <Typography.H5>
           <FormattedMessage id="client.entity-detail.validatorErrors"/>
         </Typography.H5>
-        {validatorErrors.map((message, idx) =>
-          <ErrorItem key={idx}>
-            {message}
-          </ErrorItem>
+        {validatorErrors.map((message, idx) => <ErrorItem key={idx} message={message}/>
         )}
       </StyledErrorItemWrapper>
     )
@@ -93,10 +98,7 @@ const ErrorItems = ({formErrors}) => {
         <Typography.H5>
           <FormattedMessage id="client.entity-detail.invalidRelationErrors"/>
         </Typography.H5>
-        {relatedEntityErrorsCompact.map((message, idx) =>
-          <ErrorItem key={idx}>
-            {message}
-          </ErrorItem>
+        {relatedEntityErrorsCompact.map((message, idx) => <ErrorItem key={idx} message={message}/>
         )}
       </StyledErrorItemWrapper>
     )

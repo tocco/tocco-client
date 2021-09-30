@@ -22,6 +22,7 @@ import {
   createEntity
 } from '../../util/api/entities'
 import modes from '../../util/modes'
+import {ErrorItem} from '../../components/ErrorItems/ErrorItems'
 
 export const formInitialValueSelector = (state, formId) => state.form[formId].initial
 
@@ -163,7 +164,7 @@ export function* handleSubmitError(error) {
     yield put(notification.toaster({
       type: 'warning',
       title: 'client.entity-detail.saveAbortedTitle',
-      body: message,
+      body: () => <ErrorItem message={message}/>,
       duration: 5000
     }))
   } else if (error instanceof rest.InformationError) {
