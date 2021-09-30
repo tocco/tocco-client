@@ -1,5 +1,6 @@
 import styled, {css} from 'styled-components'
 import _get from 'lodash/get'
+import {darken} from 'polished'
 
 import {
   declareFont,
@@ -11,7 +12,7 @@ import {
 import {StyledResizeHandle} from './ResizingController'
 import {generateShades} from '../utilStyles'
 
-const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)
+const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
 const basePadding = scale.space(-1.5)
 
 export const StyledTableCell = styled.td`
@@ -53,7 +54,7 @@ export const StyledTableHeaderCell = styled.th`
   }
   ${({resizingColumn, theme}) => !resizingColumn && `
     &:hover {
-      background-color: ${generateShades(theme.colors.paper)[2]};
+      background-color: ${generateShades(theme.colors.paper)[1]};
 
       > ${StyledResizeHandle} {
         opacity: 1;
@@ -95,7 +96,7 @@ const selectionStyles = css`
 
   &.selectableRow:not(.selected):hover {
     > ${StyledTableCell} {
-      background-color: ${({theme}) => generateShades(theme.colors.paper)[2]};
+      background-color: ${({theme}) => generateShades(theme.colors.paper)[1]};
     }
   }
 `
@@ -130,7 +131,7 @@ export const StyledTableRow = styled.tr`
   ${selectionStyles}
 
   &:nth-child(even) td {
-    background-color: ${({theme}) => generateShades(theme.colors.paper)[1]};
+    background-color: ${({theme}) => darken(0.05, theme.colors.paper)};
   }
 `
 
