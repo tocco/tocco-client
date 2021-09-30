@@ -7,7 +7,7 @@ const DocsView = ({entityName, entityKey, showActions, noLeftPadding, openResour
   const [folderKey, setFolderKey] = useState(null)
 
   const fetchFolder = async() => {
-    rest.simpleRequest('/entities/2.0/' + entityName + '/' + entityKey + '/entitydocs/folder')
+    rest.simpleRequest('entities/2.0/' + entityName + '/' + entityKey + '/entitydocs/folder')
       .then(res => {
         setFolderKey(res.body.key)
       })
