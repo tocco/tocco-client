@@ -34,6 +34,7 @@ describe('entity-detail', () => {
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
               takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
               takeEvery(formActionTypes.BLUR, sagas.onBlur),
+              takeEvery(formActionTypes.CHANGE, sagas.onBlur),
               takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
               takeLatest(actions.UPDATE_MARKED, sagas.updateMarked)
 
