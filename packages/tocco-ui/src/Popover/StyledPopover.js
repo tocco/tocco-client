@@ -30,6 +30,7 @@ const StyledBox = styled.div`
     h4,
     h5,
     h6,
+    p,
     ${StyledHtmlFormatter} {
       color: ${theme.color('paper')};
     }
