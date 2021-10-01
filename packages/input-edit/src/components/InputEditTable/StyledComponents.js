@@ -2,8 +2,9 @@ import styled from 'styled-components'
 import {scale, shadeColor, theme, declareFont} from 'tocco-ui'
 import _get from 'lodash/get'
 import {lighten} from 'polished'
+import {declareFocus} from 'tocco-ui/src/utilStyles'
 
-const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)
+const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
 const baseSpace = scale.space(-1)
 
 export const StyledTable = styled.table`
@@ -32,17 +33,13 @@ export const StyledCell = styled.div`
     input,
     textarea,
     &.single-select > span > div {
-      border: 1px solid transparent;
+      border: 1px solid ${borderColor};
       padding-left: ${baseSpace};
 
       &:not([disabled]):hover {
         cursor: pointer;
-        border-color: ${borderColor};
       }
-
-      &:not([disabled]):focus {
-        border-color: ${borderColor};
-      }
+      ${declareFocus}
     }
 
     &.single-select > span {
