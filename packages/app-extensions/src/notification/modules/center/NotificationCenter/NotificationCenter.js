@@ -4,7 +4,7 @@ import {LoadingSpinner, Typography} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 import Notification from './Notification'
-import {notificationPropType} from './../../../types'
+import {notificationPropType} from '../../../types'
 import {StyledNotificationCenter, StyledNotificationTitleWrapper} from './StyledComponents'
 import {resultTypes} from '../../../api'
 
@@ -42,9 +42,9 @@ const NotificationCenter = (
   return (
     <StyledNotificationCenter ref={element} onScroll={handleScroll}>
       <StyledNotificationTitleWrapper>
-        <Typography.H1>
+        <Typography.H3>
           <FormattedMessage id={'client.admin.notification.title'}/>
-        </Typography.H1>
+        </Typography.H3>
       </StyledNotificationTitleWrapper>
       {sortedNotifications.map(notification => (
         <Notification
