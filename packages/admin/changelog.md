@@ -1,3 +1,8 @@
+0.5.25
+- fix entity docs url
+- Improve table hover colors for better readability
+- Change popover text color of paragraphs to white
+
 0.5.24
 - fix password update app
 - rename username to usernameOrPk for passwordUpdate
