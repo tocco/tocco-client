@@ -3,6 +3,7 @@ export const SET_POSITIONS = 'preferences/SET_POSITIONS'
 export const CHANGE_POSITION = 'preferences/CHANGE_POSITION'
 export const SET_SORTING = 'preferences/SET_SORTING'
 export const SET_COLUMNS = 'preferences/SET_COLUMNS'
+export const CHANGE_WIDTH = 'preferences/CHANGE_WIDTH'
 export const RESET_SORTING = 'preferences/RESET_SORTING'
 export const RESET_COLUMNS = 'preferences/RESET_COLUMNS'
 export const RESET_PREFERENCES = 'preferences/RESET_PREFERENCES'
@@ -47,6 +48,14 @@ export const setColumns = columns => ({
   type: SET_COLUMNS,
   payload: {
     columns
+  }
+})
+
+export const changeWidth = (field, width) => ({
+  type: CHANGE_WIDTH,
+  payload: {
+    field,
+    width
   }
 })
 
