@@ -17,8 +17,9 @@ describe('tocco-ui', () => {
       test('should return resizingColumn', () => {
         const tableElRef = null
         const resizeCallback = sinon.spy()
+        const resizeFinishedCallback = sinon.spy()
 
-        const {result} = renderHook(() => useResize(tableElRef, resizeCallback))
+        const {result} = renderHook(() => useResize(tableElRef, resizeCallback, resizeFinishedCallback))
 
         const column = {id: 'firstname'}
         act(() => {
@@ -29,8 +30,11 @@ describe('tocco-ui', () => {
       })
 
       test('should return register and remove mouse events and call callback', () => {
+        jest.useFakeTimers()
+
         const tableElRef = {current: {querySelector: () => ({offsetWidth: 50})}}
         const resizeCallback = sinon.spy()
+        const resizeFinishedCallback = sinon.spy()
 
         const map = {}
         window.addEventListener = jest.fn((event, cb) => {
@@ -41,7 +45,7 @@ describe('tocco-ui', () => {
           delete map[event]
         }
 
-        const {result} = renderHook(() => useResize(tableElRef, resizeCallback))
+        const {result} = renderHook(() => useResize(tableElRef, resizeCallback, resizeFinishedCallback))
 
         const column = {id: 'firstname'}
         act(() => {
@@ -56,6 +60,10 @@ describe('tocco-ui', () => {
         expect(resizeCallback).to.have.been.calledWith('firstname', 150)
 
         map.mouseup()
+
+        expect(resizeFinishedCallback).to.have.been.calledWith('firstname')
+
+        jest.runAllTimers()
 
         expect(map).to.not.have.property('mousemove')
         expect(map).to.not.have.property('mouseup')

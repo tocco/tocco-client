@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import {js} from 'tocco-util'
 
@@ -28,14 +28,21 @@ const Table = props => {
   const [columns, setColumns] = useState(props.columns)
   const tableEl = useRef(null)
 
-  const resizeCallback = (columnId, width) => {
+  const onColumnWidthChanged = useCallback(columnId => {
+    const finalWidth = columns.find(c => c.id === columnId)?.width
+    if (props.onColumnWidthChange) {
+      props.onColumnWidthChange(columnId, finalWidth)
+    }
+  }, [columns])
+
+  const onColumnWidthChanging = useCallback((columnId, width) => {
     setColumns([...columns.map(c => c.id === columnId
       ? {
           ...c,
           width
         }
       : c)])
-  }
+  }, [columns])
 
   const {isSelected, selectionChange}
     = useSelection(selection, data ? data.map(e => e.__key) : [], onSelectionChange)
@@ -54,7 +61,8 @@ const Table = props => {
         <TableHeader
           columns={columns}
           data={data}
-          resizeCallback={resizeCallback}
+          onColumnWidthChanging={onColumnWidthChanging}
+          onColumnWidthChanged={onColumnWidthChanged}
           onColumnPositionChange={onColumnPositionChange}
           tableEl={tableEl}
           onSortingChange={onSortingChange}
@@ -130,6 +138,10 @@ Table.propTypes = {
    * Callback if sorting changed
    */
   onSortingChange: PropTypes.func,
+  /**
+   * Callback if column got resized with drag and drop
+   */
+  onColumnWidthChange: PropTypes.func,
   /**
    * Callback if a row is clicked
    */
