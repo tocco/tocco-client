@@ -4,13 +4,7 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
 
-import {
-  getParameterString,
-  simpleRequest,
-  requestSaga,
-  setBusinessUnit,
-  prepareRequest
-} from './rest'
+import {getParameterString, prepareRequest, requestSaga, setBusinessUnit, simpleRequest} from './rest'
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
 import {toaster} from '../notification/modules/toaster/actions'
@@ -417,6 +411,17 @@ describe('app-extensions', () => {
         expect(headers).to.be.an.instanceOf(Headers)
         const contentTypeHeader = headers.get('Content-Type')
         expect(contentTypeHeader).to.eql('application/json')
+      })
+
+      test('should remove leading slash', () => {
+        const resource = '/endpoint'
+        const options = {
+          body: {some: 'thing'}
+        }
+
+        const requestData = prepareRequest(resource, options)
+        const url = requestData.url
+        expect(url).to.eq('/nice2/rest/endpoint')
       })
     })
   })
