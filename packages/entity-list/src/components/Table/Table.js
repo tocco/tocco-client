@@ -13,19 +13,23 @@ const Table = props => {
     && props.navigationStrategy
     && props.navigationStrategy.DetailLinkRelative
   const showPreferencesMenu = !props.disablePreferencesMenu
-  return <UiTable
-    data={props.entities}
-    columns={[
-      ...((showNavigationLink || showPreferencesMenu)
-        ? [navigationCell(showNavigationLink,
-            props.navigationStrategy,
-            props.parent)]
-        : []),
-      ...(props.markable ? [markingCell()] : []),
-      ...props.columnDefinitions.sort((a, b) =>
+  const columns = [
+    ...((showNavigationLink || showPreferencesMenu)
+      ? [navigationCell(showNavigationLink,
+          props.navigationStrategy,
+          props.parent)]
+      : []),
+    ...(props.markable ? [markingCell()] : []),
+    ...props.columnDefinitions
+      .map(a => ({...a, width: _get(props.widths, a.id)}))
+      .sort((a, b) =>
         _get(props.positions, [a.id]) - _get(props.positions, [b.id])
       )
-    ]}
+  ]
+  return <UiTable
+    data={props.entities}
+    columns={columns}
+    onColumnWidthChange={props.changeWidth}
     dataLoadingInProgress={props.inProgress}
     paginationInfo={{
       currentPage: props.currentPage,
@@ -67,6 +71,8 @@ Table.propTypes = {
   navigationStrategy: PropTypes.objectOf(PropTypes.func),
   changePosition: PropTypes.func.isRequired,
   positions: PropTypes.objectOf(PropTypes.number),
+  changeWidth: PropTypes.func.isRequired,
+  widths: PropTypes.objectOf(PropTypes.number),
   markable: PropTypes.bool,
   disablePreferencesMenu: PropTypes.bool
 }

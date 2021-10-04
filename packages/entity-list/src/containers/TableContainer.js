@@ -14,7 +14,8 @@ import {
 } from '../modules/selection/actions'
 import {
   changePosition,
-  resetSorting
+  resetSorting,
+  changeWidth
 } from '../modules/preferences/actions'
 
 const mapActionCreators = {
@@ -25,7 +26,8 @@ const mapActionCreators = {
   onSelectChange,
   setSelection,
   changePosition,
-  resetSorting
+  resetSorting,
+  changeWidth
 }
 
 const mapStateToProps = (state, props) => ({
@@ -41,6 +43,7 @@ const mapStateToProps = (state, props) => ({
   showLink: state.list.showLink,
   navigationStrategy: state.input.navigationStrategy,
   positions: state.preferences.positions,
+  widths: state.preferences.widths,
   markable: state.list.entityModel.markable && state.list.formDefinition.markable,
   disablePreferencesMenu: state.list.disablePreferencesMenu
 })

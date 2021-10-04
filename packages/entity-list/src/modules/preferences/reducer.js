@@ -2,6 +2,14 @@ import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
+const changeWidth = (state, {payload: {field, width}}) => ({
+  ...state,
+  widths: {
+    ...state.widths,
+    [field]: width
+  }
+})
+
 const resetSorting = state => ({
   ...state,
   sorting: []
@@ -24,6 +32,7 @@ const ACTION_HANDLERS = {
   [actions.SET_POSITIONS]: reducerUtil.singleTransferReducer('positions'),
   [actions.SET_SORTING]: reducerUtil.singleTransferReducer('sorting'),
   [actions.SET_COLUMNS]: reducerUtil.singleTransferReducer('columns'),
+  [actions.CHANGE_WIDTH]: changeWidth,
   [actions.SET_PREFERENCES_LOADED]: reducerUtil.singleTransferReducer('preferencesLoaded'),
   [actions.RESET_SORTING]: resetSorting,
   [actions.RESET_COLUMNS]: resetColumns,
@@ -34,6 +43,7 @@ const initialState = {
   positions: {},
   sorting: [],
   columns: {},
+  widths: {},
   preferencesLoaded: false
 }
 

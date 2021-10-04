@@ -5,6 +5,7 @@ const EXPECTED_INITIAL_STATE = {
   positions: {},
   sorting: [],
   columns: {},
+  widths: {},
   preferencesLoaded: false
 }
 
@@ -58,6 +59,18 @@ describe('entity-list', () => {
           expect(newState.positions).to.eql({})
           expect(newState.columns).to.eql({})
           expect(newState.sorting).to.be.deep.eq(previousState.sorting)
+        })
+
+        test('should change width', () => {
+          const newWidth = {
+            field: 'field',
+            width: 250
+          }
+          const expectedStateAfter = {
+            widths: {otherField: 300, field: 250}
+          }
+          expect(reducer({widths: {otherField: 300}},
+            actions.changeWidth(newWidth.field, newWidth.width))).to.deep.equal(expectedStateAfter)
         })
       })
     })
