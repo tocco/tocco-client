@@ -1,7 +1,7 @@
 import {call, put} from 'redux-saga/effects'
 import {originId} from 'tocco-util'
 
-import {sendRequest, sendByteRequest} from './request'
+import {sendByteRequest, sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
 import InformationError from './InformationError'
 import notification from '../notification'
@@ -137,10 +137,12 @@ function getOrCreateHeaders(optionsHeader) {
 }
 
 function getBaseUrl(backendUrl, resource) {
+  if (resource.startsWith('/')) {
+    resource = resource.substring(1)
+  }
   if (resource.startsWith('http')) {
     return resource
-  } else
-  if (resource.startsWith('nice2')) {
+  } else if (resource.startsWith('nice2')) {
     return `${backendUrl}/${resource}`
   } else {
     return `${backendUrl}/nice2/rest/${resource}`
