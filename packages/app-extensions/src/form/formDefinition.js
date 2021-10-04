@@ -1,6 +1,7 @@
 import _uniq from 'lodash/uniq'
 
 import componentTypes from './enums/componentTypes'
+
 export const getFieldId = (formName, fieldName) => (
   `input-${formName}-${fieldName}`
 )
@@ -37,7 +38,7 @@ const getFieldsOfChildren = definition => {
 
 export const getDefaultValues = fieldDefinitions =>
   fieldDefinitions
-    .filter(f => f.defaultValue)
+    .filter(f => f.defaultValue !== null) // have to check for null, because default values might be falsy
     .reduce((valueObj, field) => ({
       ...valueObj,
       [field.path || field.id]: field.defaultValue
