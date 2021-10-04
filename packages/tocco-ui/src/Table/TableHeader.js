@@ -18,10 +18,19 @@ ThContent.propTypes = {
   column: columnPropType
 }
 
-const TableHeader = ({columns, data, onColumnPositionChange, onSortingChange, tableEl, resizeCallback}) => {
+const TableHeader = props => {
+  const {
+    columns,
+    data,
+    onColumnPositionChange,
+    onSortingChange,
+    tableEl,
+    onColumnWidthChanging,
+    onColumnWidthChanged
+  } = props
   const {dndEvents, dndState} = useDnD(onColumnPositionChange, columns)
 
-  const {resizingColumn, startResize} = useResize(tableEl, resizeCallback)
+  const {resizingColumn, startResize} = useResize(tableEl, onColumnWidthChanging, onColumnWidthChanged)
 
   const thOnClick = column => e => {
     if (!resizingColumn && column.sorting && column.sorting.sortable) {
@@ -69,10 +78,11 @@ const TableHeader = ({columns, data, onColumnPositionChange, onSortingChange, ta
 TableHeader.propTypes = {
   columns: PropTypes.arrayOf(columnPropType).isRequired,
   data: dataPropType,
+  onColumnWidthChanging: PropTypes.func,
+  onColumnWidthChanged: PropTypes.func,
   onColumnPositionChange: PropTypes.func,
   onSortingChange: PropTypes.func,
-  tableEl: PropTypes.shape({current: PropTypes.object}),
-  resizeCallback: PropTypes.func
+  tableEl: PropTypes.shape({current: PropTypes.object})
 }
 
 export default TableHeader
