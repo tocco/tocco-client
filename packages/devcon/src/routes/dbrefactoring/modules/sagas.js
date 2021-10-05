@@ -4,13 +4,15 @@ import {consoleLogger} from 'tocco-util'
 
 import * as actions from './actions'
 
-const dbRefactoringSelector = state => state.dbRefactoring
+const dbRefactoringSelector = state => state.dbRefactoring.dbRefactoring
+const languageUpgradeSelector = state => state.dbRefactoring.languageUpgrade
 
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.LOAD_MODULES, loadModules),
     takeLatest(actions.LOAD_FRAGMENTS, loadFragments),
-    takeLatest(actions.EXECUTE_DB_REFACTORING, executeDbRefactoring)
+    takeLatest(actions.EXECUTE_DB_REFACTORING, executeDbRefactoring),
+    takeLatest(actions.EXECUTE_LANGUAGE_UPGRADE, executeLanguageUpgrade)
   ])
 }
 
@@ -30,19 +32,35 @@ export function* loadFragments() {
 export function* executeDbRefactoring() {
   const {selectedModules, selectedFragments, version, ignoreErrors} = yield select(dbRefactoringSelector)
 
+  const requestBody = {
+    modules: selectedModules.map(module => module.key),
+    fragments: selectedFragments,
+    version,
+    ignoreErrors
+  }
+
+  yield call(requestExecution, requestBody, 'dbRefactoring')
+}
+
+export function* executeLanguageUpgrade() {
+  const {language} = yield select(languageUpgradeSelector)
+
+  const requestBody = {
+    language
+  }
+
+  yield call(requestExecution, requestBody, 'languageUpgrade')
+}
+
+export function* requestExecution(requestBody, statePath) {
   const options = {
     method: 'POST',
-    body: {
-      modules: selectedModules.map(module => module.key),
-      fragments: selectedFragments,
-      version,
-      ignoreErrors
-    }
+    body: requestBody
   }
 
   try {
     const response = yield call(rest.requestSaga, 'devcon/dbrefactoring/executions', options)
-    yield spawn(pollExecution, response.headers.get('Location'))
+    yield spawn(pollExecution, response.headers.get('Location'), statePath)
   } catch (e) {
     consoleLogger.logError('DB refactoring execution failed', e)
     yield put(notification.toaster({
@@ -52,18 +70,18 @@ export function* executeDbRefactoring() {
   }
 }
 
-export function* pollExecution(location) {
+export function* pollExecution(location, statePath) {
   yield delay(3000)
   const response = yield call(rest.requestSaga, location)
   const state = response.body.state.toLowerCase()
   if (state === 'completed') {
-    yield put(actions.unsetRunning())
+    yield put(actions.unsetRunning(statePath))
     yield put(notification.toaster({
       type: 'success',
       title: 'DB refactoring execution completed'
     }))
   } else if (state === 'failed') {
-    yield put(actions.unsetRunning())
+    yield put(actions.unsetRunning(statePath))
     yield put(notification.toaster({
       type: 'error',
       title: 'DB refactoring execution failed'
