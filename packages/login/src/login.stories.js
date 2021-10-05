@@ -8,7 +8,8 @@ export default {
   title: 'Apps/Login',
   component: LoginApp,
   argTypes: {
-    username: {defaultValue: 'tocco'}
+    username: {defaultValue: 'tocco'},
+    showTitle: {defaultValue: true}
   }
 }
 
