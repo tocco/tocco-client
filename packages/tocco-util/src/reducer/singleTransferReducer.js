@@ -1,9 +1,14 @@
-export default attributeName => {
+import _set from 'lodash/set'
+
+export default (attributeName, path) => {
   return (state, {payload}) => {
     const val = payload[attributeName]
-    return {
-      ...state,
-      [attributeName]: val
-    }
+    const newState = {...state}
+    _set(
+      newState,
+      path ? path + '.' + attributeName : attributeName,
+      val
+    )
+    return newState
   }
 }

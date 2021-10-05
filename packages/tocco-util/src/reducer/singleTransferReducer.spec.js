@@ -22,6 +22,32 @@ describe('tocco-util', () => {
 
         expect(singleTransferReducer('xy')(initialState, actionCreator('xy')(newValue))).to.eql(expectedState)
       })
+
+      test('should set an attribute in state to a specific path', () => {
+        const initialState = {
+          foo: {
+            bar: {
+              xy: 'test',
+              z: 'blah'
+            }
+          }
+        }
+
+        const newValue = 'testNewValue'
+        const expectedState = {
+          foo: {
+            bar: {
+              xy: newValue,
+              z: 'blah'
+            }
+          }
+        }
+
+        expect(singleTransferReducer('xy', 'foo.bar')(
+          initialState,
+          actionCreator('xy')(newValue)
+        )).to.eql(expectedState)
+      })
     })
   })
 })
