@@ -27,6 +27,14 @@ const testField3 = {
   defaultValue: {key: '9', display: 'Display'}
 }
 
+const testField4 = {
+  id: 'integer',
+  componentType: 'field',
+  path: 'integer',
+  dataType: 'integer',
+  defaultValue: 0
+}
+
 const testDisplay = {
   id: 'displayxy',
   componentType: 'display'
@@ -68,6 +76,11 @@ const testFormDefinition = {
             },
             testDisplay,
             {
+              readonly: true,
+              ignoreCopy: false,
+              children: [testField4]
+            },
+            {
               name: 'relAffiliation',
               component: 'sub-table'
             }
@@ -107,6 +120,12 @@ describe('app-extensions', () => {
               ignoreCopy: false
             },
             {
+              ...testField4,
+              readonly: true,
+              ignoreCopy: false
+
+            },
+            {
               ...testField3,
               readonly: false,
               ignoreCopy: false
@@ -135,7 +154,7 @@ describe('app-extensions', () => {
         test('should return a list of all paths that are used in the form and ignore display-expressions', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
           const fieldNames = formDefinition.getUsedPaths(fields)
-          expect(fieldNames).to.eql([testField1.path, testField2.path, testField3.path])
+          expect(fieldNames).to.eql([testField1.path, testField2.path, testField4.path, testField3.path])
         })
 
         test('should return location mappings in paths', () => {
@@ -170,7 +189,8 @@ describe('app-extensions', () => {
           const fieldNames = formDefinition.getDefaultValues(fields)
           expect(fieldNames).to.eql({
             [testField2.path]: testField2.defaultValue,
-            [testField3.path]: testField3.defaultValue
+            [testField3.path]: testField3.defaultValue,
+            [testField4.path]: testField4.defaultValue
           })
         })
       })

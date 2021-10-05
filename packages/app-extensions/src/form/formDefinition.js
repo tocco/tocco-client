@@ -38,7 +38,7 @@ const getFieldsOfChildren = definition => {
 
 export const getDefaultValues = fieldDefinitions =>
   fieldDefinitions
-    .filter(f => f.defaultValue !== null) // have to check for null, because default values might be falsy
+    .filter(f => f.defaultValue !== null && f.defaultValue !== undefined) // have to check both, values may be falsy
     .reduce((valueObj, field) => ({
       ...valueObj,
       [field.path || field.id]: field.defaultValue
