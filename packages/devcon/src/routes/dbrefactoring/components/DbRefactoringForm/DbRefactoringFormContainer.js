@@ -11,15 +11,22 @@ import {
   executeDbRefactoring
 } from '../../modules/actions'
 
-const mapStateToProps = state => ({
-  version: state.dbRefactoring.version,
-  modules: state.dbRefactoring.modules,
-  selectedModules: state.dbRefactoring.selectedModules,
-  fragments: state.dbRefactoring.fragments,
-  selectedFragments: state.dbRefactoring.selectedFragments,
-  ignoreErrors: state.dbRefactoring.ignoreErrors,
-  running: state.dbRefactoring.running
-})
+const mapStateToProps = state => {
+  const {
+    dbRefactoring, languageUpgrade
+  } = state.dbRefactoring
+
+  return {
+    version: dbRefactoring.version,
+    modules: dbRefactoring.modules,
+    selectedModules: dbRefactoring.selectedModules,
+    fragments: dbRefactoring.fragments,
+    selectedFragments: dbRefactoring.selectedFragments,
+    ignoreErrors: dbRefactoring.ignoreErrors,
+    running: dbRefactoring.running,
+    disabled: dbRefactoring.running || languageUpgrade.running
+  }
+}
 
 const mapActionCreators = {
   loadModules,

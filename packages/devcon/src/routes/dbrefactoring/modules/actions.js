@@ -7,6 +7,8 @@ export const SET_SELECTED_MODULES = 'dbrefactoring/SET_SELECTED_MODULES'
 export const SET_FRAGMENT_SELECTED = 'dbrefactoring/SET_FRAGMENT_SELECTED'
 export const SET_IGNORE_ERRORS = 'dbrefactoring/SET_IGNORE_ERRORS'
 export const EXECUTE_DB_REFACTORING = 'dbrefactoring/EXECUTE_DB_REFACTORING'
+export const SET_LANGUAGE = 'dbrefactoring/SET_LANGUAGE'
+export const EXECUTE_LANGUAGE_UPGRADE = 'dbrefactoring/EXECUTE_LANGUAGE_UPGRADE'
 export const UNSET_RUNNING = 'dbrefactoring/UNSET_RUNNING'
 
 export const loadModules = () => ({
@@ -63,6 +65,20 @@ export const executeDbRefactoring = () => ({
   type: EXECUTE_DB_REFACTORING
 })
 
-export const unsetRunning = () => ({
-  type: UNSET_RUNNING
+export const setLanguage = language => ({
+  type: SET_LANGUAGE,
+  payload: {
+    language
+  }
+})
+
+export const executeLanguageUpgrade = () => ({
+  type: EXECUTE_LANGUAGE_UPGRADE
+})
+
+export const unsetRunning = path => ({
+  type: UNSET_RUNNING,
+  payload: {
+    path
+  }
 })

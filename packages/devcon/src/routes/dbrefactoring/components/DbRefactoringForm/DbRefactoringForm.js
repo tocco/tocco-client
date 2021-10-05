@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {StatedValue, Select, Button} from 'tocco-ui'
 
-import {StyledInput, StyledInputWrapper} from './StyledInput'
+import {StyledInput, StyledInputWrapper} from '../StyledInput'
 import Fragments from './Fragments'
 
 const DbRefactoringForm = ({
@@ -13,6 +13,7 @@ const DbRefactoringForm = ({
   selectedFragments,
   ignoreErrors,
   running,
+  disabled,
   executeDbRefactoring,
   loadModules,
   loadFragments,
@@ -47,25 +48,25 @@ const DbRefactoringForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <StatedValue label="Modules (none selected => all)" hasValue={selectedModules.length > 0}>
-          <Select options={modules} value={selectedModules} onChange={setSelectedModules} isMulti immutable={running}/>
+          <Select options={modules} value={selectedModules} onChange={setSelectedModules} isMulti immutable={disabled}/>
       </StatedValue>
       <StatedValue label="Fragments" fixLabel>
         <Fragments
           fragments={fragments}
           selectedFragments={selectedFragments}
-          disabled={running}
+          disabled={disabled}
           setFragmentSelected={setFragmentSelected}
         />
       </StatedValue>
       <StatedValue label="Version" hasValue={version.length > 0}>
         <StyledInputWrapper>
-          <StyledInput value={version} onChange={handleVersionChange} disabled={running}/>
+          <StyledInput value={version} onChange={handleVersionChange} disabled={disabled}/>
         </StyledInputWrapper>
       </StatedValue>
       <StatedValue label="Ignore errors" fixLabel>
-        <input type="checkbox" checked={ignoreErrors} onChange={handleIgnoreErrorsChange} disabled={running}/>
+        <input type="checkbox" checked={ignoreErrors} onChange={handleIgnoreErrorsChange} disabled={disabled}/>
       </StatedValue>
-      <Button type="submit" label="Execute" look="raised" pending={running} disabled={running}/>
+      <Button type="submit" label="Execute" look="raised" pending={running} disabled={disabled}/>
     </form>
   )
 }
@@ -87,6 +88,7 @@ DbRefactoringForm.propTypes = {
   selectedFragments: PropTypes.arrayOf(PropTypes.string).isRequired,
   ignoreErrors: PropTypes.bool.isRequired,
   running: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   executeDbRefactoring: PropTypes.func.isRequired,
   loadModules: PropTypes.func.isRequired,
   loadFragments: PropTypes.func.isRequired,
