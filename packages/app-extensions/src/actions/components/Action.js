@@ -9,7 +9,7 @@ import SingleAction from './SingleAction'
 
 const ActionVisual = ({definition, onClick, selection, parent, mode, callback, disabled, customRenderedActions}) => {
   if (customRenderedActions && customRenderedActions[definition.id]) {
-    return customRenderedActions[definition.id]()
+    return customRenderedActions[definition.id](definition)
   }
 
   if (!modeFitsScopes(mode, definition.scopes)) {

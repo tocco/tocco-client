@@ -41,15 +41,16 @@ const DetailForm = props => {
 
   const customRenderedActions = useMemo(() => (
     {
-      save: () =>
+      save: actionDefinition =>
         <SaveButton
           intl={intl}
           submitting={submitting}
           mode={mode}
           hasErrors={!valid && anyTouched}
           formErrors={formErrors}
+          {...actionDefinition}
         />,
-      mark: () => <MarkButton/>
+      mark: actionDefinition => <MarkButton {...actionDefinition}/>
     }
   ), [submitting, mode, valid, anyTouched, formErrors])
 

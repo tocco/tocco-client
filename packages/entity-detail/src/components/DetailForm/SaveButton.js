@@ -6,7 +6,7 @@ import modes from '../../util/modes'
 import ErrorItems from '../ErrorItems'
 import {StyledButton} from './StyledComponents'
 
-const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
+const SaveButton = ({submitting, mode, intl, hasErrors, formErrors, icon}) => {
   const msg = id => (intl.formatMessage({id}))
 
   return <Popover
@@ -23,6 +23,7 @@ const SaveButton = ({submitting, mode, intl, hasErrors, formErrors}) => {
       type="submit"
       {...(hasErrors && {icon: 'exclamation'})}
       hasErrors={hasErrors}
+      icon={icon}
     />
   </Popover>
 }
@@ -32,7 +33,8 @@ SaveButton.propTypes = {
   submitting: PropTypes.bool,
   mode: PropTypes.oneOf(Object.values(modes)),
   hasErrors: PropTypes.bool,
-  formErrors: PropTypes.object
+  formErrors: PropTypes.object,
+  icon: PropTypes.string
 }
 
 export default SaveButton
