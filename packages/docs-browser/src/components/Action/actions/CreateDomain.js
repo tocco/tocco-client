@@ -8,7 +8,8 @@ import getDetailFormName from '../../../utils/getDetailFormName'
 
 const CreateDomain = ({context, onSuccess, intl, emitAction}) => {
   const emitActionBarrier = action => {
-    if (action.payload && action.payload.title !== 'client.entity-detail.createSuccessfulTitle') {
+    if (action.payload && action.payload.toaster
+      && action.payload.toaster.title !== 'client.entity-detail.createSuccessfulTitle') {
       emitAction(action)
     }
   }
