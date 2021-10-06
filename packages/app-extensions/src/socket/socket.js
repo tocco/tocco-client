@@ -26,22 +26,26 @@ export function* closeSocket(name) {
 
 const websocketInitChannel = params =>
   eventChannel(emitter => {
-    const {url, messageReceivedAction, name} = params
+    const createWebsocketChannel = () => {
+      const {url, messageReceivedAction, name} = params
 
-    sockets[name] = new WebSocket(url)
+      sockets[name] = new WebSocket(url)
 
-    sockets[name].onmessage = e => {
-      const data = JSON.parse(e.data)
-      emitter(messageReceivedAction(data))
-    }
-    sockets[name].onclose = e => {
-      if (e.code !== WEBSOCKET_SUCCESSFUL_CLOSE_CODE) {
-        emitter(websocketInitChannel(params))
+      sockets[name].onmessage = e => {
+        const data = JSON.parse(e.data)
+        emitter(messageReceivedAction(data))
+      }
+      sockets[name].onclose = e => {
+        if (e.code !== WEBSOCKET_SUCCESSFUL_CLOSE_CODE) {
+          createWebsocketChannel()
+        }
+      }
+      sockets[name].onerror = err => {
+        consoleLogger.log('socket error', err)
       }
     }
-    sockets[name].onerror = err => {
-      consoleLogger.log('socket error', err)
-    }
+
+    createWebsocketChannel()
 
     return () => {}
   })
