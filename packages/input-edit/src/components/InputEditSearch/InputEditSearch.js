@@ -37,6 +37,7 @@ const transformFormValuesToTql = (values, form) =>
     ))
     .filter(({path, fieldType, value}) => value && (!Array.isArray(value) || value.length > 0))
     .map(({path, fieldType, value}) => tqlBuilder.getTql(path, value, fieldType))
+    .filter(tql => tql.length > 0)
 
 const getFieldType = (path, form) => {
   const container = form.children.find(child => child.children.length > 0)
