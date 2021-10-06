@@ -21,8 +21,9 @@ const ACTION_HANDLERS = {
 const initialState = {
   appId: '',
   entityName: '',
+  entityId: '',
   formName: '',
-  mode: 'update',
+  mode: '',
   formDefinition: {},
   entity: {},
   entityModel: {},
