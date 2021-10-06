@@ -106,6 +106,10 @@
     "id": "fal, compress",
     "lib": "fa"
   },
+  "comment": {
+    "id": "fal, comment",
+    "lib": "fa"
+  },
   "dropbox": {
     "id": "fab, dropbox",
     "lib": "fa",
@@ -235,6 +239,10 @@
     "id": "office",
     "lib": "toc"
   },
+  "pen": {
+    "id": "fal, pen",
+    "lib": "fa"
+  },
   "phone": {
     "id": "fal, phone",
     "lib": "fa"
@@ -252,6 +260,10 @@
     "tags": [
       "help"
     ]
+  },
+  "save": {
+    "id": "fal, save",
+    "lib": "fa"
   },
   "search": {
     "id": "fal, search",
