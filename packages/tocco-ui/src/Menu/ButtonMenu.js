@@ -1,14 +1,14 @@
 import React, {useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 
-import {Menu, Icon, Button, ButtonGroup} from '../'
+import {Button, ButtonGroup, Icon, Menu} from '../'
 import {StyledIconButtonWrapper, StyledIconWrapper} from './StyledComponents'
 
 /**
  *  Button with a menu that pops out on click.
  */
 const ButtonMenu = props => {
-  const {onOpen, children, onClick, buttonProps, label} = props
+  const {onOpen, children, onClick, buttonProps, label, icon} = props
   const referenceElement = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [onOpenCalled, setOnOpenCalled] = useState(false)
@@ -38,7 +38,7 @@ const ButtonMenu = props => {
   if (onClick) {
     return <>
       <ButtonGroup ref={referenceElement}>
-        <Button {...buttonProps || {}} onClick={onClick} label={label} data-cy={props['data-cy']}/>
+        <Button {...buttonProps || {}} onClick={onClick} label={label} data-cy={props['data-cy']} icon={icon}/>
         <StyledIconButtonWrapper icon={chevronIcon} onClick={handleClick} {...buttonProps || {}}/>
       </ButtonGroup>
       {menuOpen && <ThisMenu/>}
@@ -50,6 +50,7 @@ const ButtonMenu = props => {
       data-cy={props['data-cy']}
       {...buttonProps || {}} ref={referenceElement}
       onClick={handleClick}
+      icon={icon}
     >
       {label}
       <StyledIconWrapper>
@@ -84,7 +85,11 @@ ButtonMenu.propTypes = {
   /**
    * cypress selector string
    */
-  'data-cy': PropTypes.string
+  'data-cy': PropTypes.string,
+  /**
+   * icon to display for the menu
+   */
+  'icon': PropTypes.string
 }
 
 export default ButtonMenu
