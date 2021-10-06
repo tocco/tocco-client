@@ -1,5 +1,6 @@
 {
   "entityName": "User",
   "entityId": "1",
-  "formName": "User"
+  "formName": "User",
+  "mode": "update"
 }

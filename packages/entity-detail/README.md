@@ -10,8 +10,8 @@ React-registry name: `entity-detail`
 |------------------------|:---------:|-------------
 | `entityName`           | x         | Entity name of the record
 | `entityId`             | x         | The key/ID of the entity
-| `formName`             |           | Detail-form that should be loaded (without scope)
-| `mode`                 |           | Determines if the detail is in `create` or `update` mode
+| `formName`             | x         | Detail-form that should be loaded (without scope)
+| `mode`                 | x         | Determines if the detail is in `create` or `update` mode
 | `defaultValues`        |           | Array of object with attributes id, value. Only for Create mode. e.g. [{id: 'lastname', value: 'Simpson}, {id:'relGender', value: '1'}]
 | `actionAppComponent`   |           | Component to render custom actions. Needs the appId and selection object property.
 | `navigationStrategy`   |           | Object consisting of various link factories. For more information see tocco-util/navigationStrategy documentation.
