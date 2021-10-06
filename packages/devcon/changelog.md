@@ -1,3 +1,6 @@
+0.4.0
+- Added language upgrade form (in DB refactoring view)
+
 0.3.1
 - Fixed generating SQL and changesets in prod env
 
