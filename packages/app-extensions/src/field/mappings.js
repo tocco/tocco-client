@@ -55,7 +55,7 @@ const editableMapping = {
   'upload': editableValueFactory('document'),
   'url': editableValueFactory('url'),
   'uuid': editableValueFactory('string'),
-  'version': editableValueFactory('string')
+  'version': editableValueFactory('integer')
 }
 const readOnlyMapping = {
   'binary': formattedValueFactory('document'),
@@ -109,7 +109,7 @@ const readOnlyMapping = {
   'upload': formattedValueFactory('document'),
   'url': formattedValueFactory('url'),
   'uuid': formattedValueFactory('string'),
-  'version': formattedValueFactory('string')
+  'version': formattedValueFactory('integer')
 }
 
 const listMapping = {
