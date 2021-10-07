@@ -268,6 +268,7 @@ export const defaultModelTransformer = json => {
     name: json.name,
     label: json.label,
     markable: json.markable,
+    useNiceFields: json.useNiceFields,
     paths: {}
   }
   json.fields.forEach(field => {

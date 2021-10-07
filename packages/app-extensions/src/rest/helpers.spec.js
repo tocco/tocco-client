@@ -533,6 +533,7 @@ describe('app-extensions', () => {
             name: 'User',
             label: 'Person',
             markable: true,
+            useNiceFields: true,
             fields: [
               {
                 fieldName: 'pk',
@@ -563,6 +564,7 @@ describe('app-extensions', () => {
               label: 'Test',
               name: 'test',
               markable: true,
+              useNiceFields: true,
               fields: [
                 {
                   fieldName: 'pk',
@@ -592,6 +594,7 @@ describe('app-extensions', () => {
               label: 'Test',
               name: 'test',
               markable: true,
+              useNiceFields: true,
               paths: {
                 active: {
                   fieldName: 'active',
