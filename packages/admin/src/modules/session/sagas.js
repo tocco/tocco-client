@@ -57,11 +57,20 @@ export function* checkSsoAvailable() {
   if (cachedSsoAvailable !== undefined) {
     yield put(actions.setSsoAvailable(cachedSsoAvailable))
   } else {
-    const modules = yield call(rest.requestSaga, 'modules')
-    const ssoAvailable = modules.body.modules.includes('nice.optional.sso')
+    const ssoAvailable = yield call(isSsoAvailable)
     cache.addLongTerm('session', 'ssoAvailable', ssoAvailable)
     yield put(actions.setSsoAvailable(ssoAvailable))
   }
+}
+
+export function* isSsoAvailable() {
+  const modules = yield call(rest.requestSaga, 'modules')
+  const ssoModuleAvailable = modules.body.modules.includes('nice.optional.sso')
+  if (!ssoModuleAvailable) {
+    return false
+  }
+  const ssoProviderCount = yield call(rest.fetchEntityCount, 'Openid_provider', {where: 'active == true'})
+  return ssoProviderCount > 0
 }
 
 export default function* mainSagas() {
