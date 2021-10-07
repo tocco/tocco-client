@@ -1,0 +1,153 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/nice2/rest/forms/User/update"
+    }
+  },
+  "form": {
+    "id": "User_detail",
+    "label": "Person",
+    "componentType": "form",
+    "children": [
+      {
+        "id": "main-action-bar",
+        "label": null,
+        "componentType": "action-bar",
+        "children": [
+          {
+            "id": "createcopy",
+            "label": "Neu",
+            "componentType": "action-group",
+            "children": [
+              {
+                "id": "new",
+                "label": "Neu",
+                "componentType": "action",
+                "children": [],
+                "actionType": "custom",
+                "icon": "application_add",
+                "minSelection": null,
+                "maxSelection": null,
+                "confirmationThreshold": -1,
+                "runInBackgroundTask": false,
+                "fullscreen": false,
+                "endpoint": null,
+                "appId": null,
+                "path": null,
+                "properties": {}
+              }
+            ],
+            "actions": [],
+            "defaultAction": {
+              "id": "new",
+              "label": "Neu",
+              "componentType": "action",
+              "children": [],
+              "actionType": "custom",
+              "icon": null,
+              "minSelection": null,
+              "maxSelection": null,
+              "confirmationThreshold": -1,
+              "runInBackgroundTask": false,
+              "fullscreen": false,
+              "endpoint": null,
+              "appId": null,
+              "path": null,
+              "properties": {}
+            },
+            "icon": null
+          }
+        ]
+      },
+      {
+        "id": "box1",
+        "label": null,
+        "componentType": "layout",
+        "children": [
+          {
+            "id": "box1",
+            "label": null,
+            "componentType": "layout",
+            "children": [
+              {
+                "id": "user_information",
+                "label": "Personenangaben",
+                "componentType": "layout",
+                "children": [
+                  {
+                    "id": "firstname",
+                    "label": "Vorname",
+                    "componentType": "field-set",
+                    "children": [
+                      {
+                        "id": "firstname",
+                        "label": null,
+                        "componentType": "field",
+                        "path": "firstname",
+                        "dataType": "string",
+                        "validation": {
+                          "length": {
+                            "toIncluding": 255
+                          },
+                          "mandatory": true
+                        },
+                        "defaultValue": null,
+                        "autoCompleteEndpoint": null
+                      }
+                    ],
+                    "readonly": false,
+                    "hidden": false,
+                    "useLabel": "yes",
+                    "scopes": [],
+                    "ignoreCopy": false
+                  },
+                  {
+                    "id": "lastname",
+                    "label": "Nachname",
+                    "componentType": "field-set",
+                    "children": [
+                      {
+                        "id": "lastname",
+                        "label": null,
+                        "componentType": "field",
+                        "path": "lastname",
+                        "dataType": "string",
+                        "validation": {
+                          "length": {
+                            "toIncluding": 255
+                          },
+                          "mandatory": true
+                        },
+                        "defaultValue": null,
+                        "autoCompleteEndpoint": null
+                      }
+                    ],
+                    "readonly": false,
+                    "hidden": false,
+                    "useLabel": "yes",
+                    "scopes": [],
+                    "ignoreCopy": false
+                  }
+                ],
+                "layoutType": "vertical-box",
+                "readonly": false,
+                "occupiesRemainingHeight": false
+              }
+            ],
+            "layoutType": "vertical-box",
+            "readonly": false,
+            "occupiesRemainingHeight": false
+          }
+        ],
+        "layoutType": "horizontal-box",
+        "readonly": false,
+        "occupiesRemainingHeight": false
+      }
+    ],
+    "modelName": "User",
+    "readonly": false,
+    "markable": true,
+    "disablePreferencesMenu": false
+  },
+  "model": "User"
+}
