@@ -1,3 +1,6 @@
+0.3.10-hotfix228.6
+- Fix empty range search field error
+
 0.3.10-hotfix228.5
 - Fix calender search bug
 
