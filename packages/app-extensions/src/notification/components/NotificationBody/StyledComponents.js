@@ -3,7 +3,7 @@ import {scale, theme} from 'tocco-ui'
 import {darken} from 'polished'
 
 export const StyledTaskProgressWrapper = styled.div`
-  margin-bottom: ${scale.space(-2)};
+  margin-bottom: ${scale.space(-1.5)};
 
   a {
     padding-right: 1rem;
@@ -17,13 +17,13 @@ export const StyledSpinnerWrapper = styled.span`
 export const StyledProgressOuter = styled.div`
   background-color: ${({theme}) => darken(0.2, theme.colors.backgroundBody)};
   width: 100%;
-  height: 7px;
+  height: 5px;
 `
 
 export const StyledProgressInner = styled.div`
-  background-color: ${theme.color('signal.info.text')};
+  background-color: ${theme.color('paper')};
   width: ${({percentage}) => percentage}%;
-  height: 7px;
+  height: 5px;
 `
 
 export const StyledProgressMessage = styled.span`

@@ -19,26 +19,35 @@ import {
 } from './StyledComponents'
 import {resultTypes} from '../../api'
 
-const Result = ({notification: {result}, navigationStrategy}) => {
-  if (result.type === resultTypes.outputjob) {
-    if (result.file) {
+const Result = ({
+  notification: {result},
+  navigationStrategy
+}) => {
+  const {
+    type,
+    file,
+    content
+  } = result
+
+  if (type === resultTypes.outputjob) {
+    if (file) {
       return (
         <StyledOutputJobWrapper>
           <StyledFileDescription>
-            <a href={result.file.link} target="_blank " title="open">
-              {result.file.description}
+            <a href={file.link} target="_blank " title="open">
+              {file.description}
             </a>
           </StyledFileDescription>
           <div>
-            <a href={result.file.link} target="_blank " title="open">
+            <a href={file.link} target="_blank " title="open">
               <StyledIconWrapper><Icon icon="external-link"/></StyledIconWrapper>
               <FormattedMessage id="client.common.notification.outputJobFileLink"/>
             </a>
           </div>
           {download.downloadSupportedByBrowser()
           && <a
-            href={download.addParameterToURL(result.file.link, 'download', true)}
-            download={result.file.name}
+            href={download.addParameterToURL(file.link, 'download', true)}
+            download={file.name}
             title="download">
             <StyledIconWrapper><Icon icon="arrow-to-bottom"/></StyledIconWrapper>
             <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
@@ -46,8 +55,8 @@ const Result = ({notification: {result}, navigationStrategy}) => {
           }
           <StyledDetailLinkWrapper>
             {navigationStrategy && navigationStrategy.DetailLink && <navigationStrategy.DetailLink
-              entityName={result.content[0].model}
-              entityKey={result.content[0].key}
+              entityName={content[0].model}
+              entityKey={content[0].key}
             >
               <Icon icon="arrow-right"/> <FormattedMessage id="client.common.notification.outputJobOpen"/>
             </navigationStrategy.DetailLink>}
@@ -58,20 +67,18 @@ const Result = ({notification: {result}, navigationStrategy}) => {
     }
   }
 
-  if (result.type === resultTypes.entities) {
+  if (type === resultTypes.entities) {
     return <>
-      {result.content.map(entity => {
-        return (
-          <StyledDetailLinkWrapper key={'entitylink-' + entity.key}>
-            {navigationStrategy && navigationStrategy.DetailLink && <navigationStrategy.DetailLink
-              entityName={entity.model}
-              entityKey={entity.key}
-            >
-              <Icon icon="external-link"/> {entity.display}
-            </navigationStrategy.DetailLink>}
-          </StyledDetailLinkWrapper>
-        )
-      })
+      {content.map(entity => (
+        <StyledDetailLinkWrapper key={'entitylink-' + entity.key}>
+          {navigationStrategy && navigationStrategy.DetailLink && <navigationStrategy.DetailLink
+            entityName={entity.model}
+            entityKey={entity.key}
+          >
+            <Icon icon="external-link"/> {entity.display}
+          </navigationStrategy.DetailLink>}
+        </StyledDetailLinkWrapper>
+      ))
       }
     </>
   }
@@ -86,34 +93,39 @@ Result.propTypes = {
   })
 }
 
-const TaskProgress = ({notification, cancelTask, navigationStrategy}) => {
+const TaskProgress = ({
+  notification,
+  cancelTask,
+  navigationStrategy
+}) => {
   const {taskProgress} = notification
-  return <>
-    <StyledTaskProgressWrapper>
-      <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner/>}</StyledSpinnerWrapper>
-      <StyledProgressMessage>{taskProgress.status !== 'cancelled' ? taskProgress.message : ''}</StyledProgressMessage>
-    </StyledTaskProgressWrapper>
-    {taskProgress.status === 'running_absolute'
-    && <>
-      <StyledProgressOuter>
-        <StyledProgressInner percentage={taskProgress.percentage}/>
-      </StyledProgressOuter>
-      {taskProgress.done} / {taskProgress.total} = {taskProgress.percentage} %
-    </>
-    }
-    <StyledDetailLinkWrapper>
-      {navigationStrategy && navigationStrategy.DetailLink
-      && <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.taskExecutionKey}>
-        <StyledIconWrapper><Icon icon="arrow-right"/></StyledIconWrapper>
-        <FormattedMessage id="client.common.notification.outputJobShowTask"/>
-      </navigationStrategy.DetailLink>}
-    </StyledDetailLinkWrapper>
-    {notification.type === TYPES.info && taskProgress.isRunning && taskProgress.supportsCancellation
-    && <StyledCancelWrapper onClick={() => cancelTask(taskProgress.taskExecutionKey)}>
+  return (
+    <>
+      <StyledTaskProgressWrapper>
+        <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner/>}</StyledSpinnerWrapper>
+        <StyledProgressMessage>{taskProgress.status !== 'cancelled' && taskProgress.message}</StyledProgressMessage>
+      </StyledTaskProgressWrapper>
+      {taskProgress.status === 'running_absolute'
+      && <>
+        <StyledProgressOuter>
+          <StyledProgressInner percentage={taskProgress.percentage}/>
+        </StyledProgressOuter>
+      </>
+      }
+      <StyledDetailLinkWrapper>
+        {navigationStrategy && navigationStrategy.DetailLink
+        && <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.taskExecutionKey}>
+          <StyledIconWrapper><Icon icon="arrow-right"/></StyledIconWrapper>
+          <FormattedMessage id="client.common.notification.outputJobShowTask"/>
+        </navigationStrategy.DetailLink>}
+      </StyledDetailLinkWrapper>
+      {notification.type === TYPES.info && taskProgress.isRunning && taskProgress.supportsCancellation
+      && <StyledCancelWrapper onClick={() => cancelTask(taskProgress.taskExecutionKey)}>
         <StyledIconWrapper><Icon icon="times"/></StyledIconWrapper>
         <FormattedMessage id="client.common.notification.cancelTask"/>
-    </StyledCancelWrapper>}
-  </>
+      </StyledCancelWrapper>}
+    </>
+  )
 }
 
 TaskProgress.propTypes = {
@@ -124,8 +136,15 @@ TaskProgress.propTypes = {
   })
 }
 
-const NotificationBody = ({notification, cancelTask, navigationStrategy}) => {
-  const {result, taskProgress} = notification
+const NotificationBody = ({
+  notification,
+  cancelTask,
+  navigationStrategy
+}) => {
+  const {
+    result,
+    taskProgress
+  } = notification
 
   if (result) {
     return <Result notification={notification} navigationStrategy={navigationStrategy}/>
