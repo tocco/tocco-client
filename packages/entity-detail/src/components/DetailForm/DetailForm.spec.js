@@ -83,6 +83,11 @@ describe('entity-detail', () => {
             key: 6,
             model: 'User',
             paths: {
+              pk: {
+                type: 'serial',
+                writable: true,
+                value: 6
+              },
               firstname: {
                 type: 'string',
                 value: 'Firstname 6'
@@ -106,6 +111,19 @@ describe('entity-detail', () => {
             },
             form: {
               detailForm: {values: {}}
+            },
+            entityDetail: {
+              mode: 'update',
+              entityModel: {
+                useNiceFields: false
+              },
+              entity: {
+                paths: {
+                  pk: {
+                    value: 1
+                  }
+                }
+              }
             }
           }))
 

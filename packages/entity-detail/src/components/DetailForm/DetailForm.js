@@ -7,6 +7,7 @@ import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import SaveButton from './SaveButton'
 import MarkButton from './MarkButton'
 import {StyledForm} from './StyledComponents'
+import DetailFooterContainer from '../../containers/DetailFooterContainer'
 
 const DetailForm = props => {
   const {
@@ -80,7 +81,7 @@ const DetailForm = props => {
       componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
       customRenderedActions={customRenderedActions}
     />
-
+    <DetailFooterContainer/>
   </StyledForm>
 }
 

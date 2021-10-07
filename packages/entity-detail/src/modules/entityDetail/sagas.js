@@ -23,6 +23,7 @@ import {
 } from '../../util/api/entities'
 import modes from '../../util/modes'
 import {ErrorItem} from '../../components/ErrorItems/ErrorItems'
+import {getFooterPaths} from '../../util/detailFooter/helpers'
 
 export const formInitialValueSelector = (state, formId) => state.form[formId].initial
 
@@ -90,7 +91,10 @@ export function* loadDetailFormDefinition(formName, mode) {
 }
 
 export function* loadEntity(entityName, entityId, fieldDefinitions) {
-  const paths = yield call(form.getUsedPaths, fieldDefinitions)
+  const formPaths = yield call(form.getUsedPaths, fieldDefinitions)
+  const {mode, entityModel} = yield select(entityDetailSelector)
+  const footerPaths = yield call(getFooterPaths, mode, entityModel)
+  const paths = [...formPaths, ...footerPaths]
   const entity = yield call(rest.fetchEntity, entityName, entityId, {paths})
   yield put(actions.setEntity(entity))
   return entity

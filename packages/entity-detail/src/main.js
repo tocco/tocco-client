@@ -70,7 +70,7 @@ const initApp = (id, input, events = {}, publicPath) => {
       events,
       actions: dispatchActions,
       publicPath,
-      textResourceModules: ['component', 'common', 'entity-list']
+      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
     }
   )
 
