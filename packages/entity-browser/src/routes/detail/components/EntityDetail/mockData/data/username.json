@@ -1,0 +1,10 @@
+{
+  "principalEntityPk": "1",
+  "success": true,
+  "userEntityPk": "1",
+  "locale": "de_CH",
+  "businessUnitId": "test1",
+  "runEnv": "DEV",
+  "timeout": 30,
+  "username": "test@tocco.ch"
+}

@@ -1,0 +1,13 @@
+{
+  "_links": null,
+  "key": "1",
+  "model": "User",
+  "version": 850,
+  "paths": {
+    "pk": {
+      "type": "serial",
+      "writable": true,
+      "value": 1
+    }
+  }
+}
