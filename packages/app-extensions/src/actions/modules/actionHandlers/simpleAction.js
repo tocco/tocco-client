@@ -39,8 +39,6 @@ export function* invokeActionAsync(definition, selection, parent, params) {
       title: 'client.common.unexpectedError',
       body: response.body.message || 'client.component.actions.errorText'
     }))
-  } else {
-    yield call(showToaster, response, 'info')
   }
 }
 
