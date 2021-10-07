@@ -1,3 +1,12 @@
+0.5.26
+- Improve text input UX within input edit table
+- Reduce notification center title size
+- fix state propagation in resize hook
+- persist columns widths
+- Dms edit and create messages clean up
+- clean up documentation and fix dispatched actions
+- fix websocket reconnection
+
 0.5.25
 - fix entity docs url
 - Improve table hover colors for better readability
