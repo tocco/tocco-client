@@ -52,7 +52,7 @@ const ButtonMenu = props => {
       onClick={handleClick}
       icon={icon}
     >
-      {label}
+      <span>{label}</span>
       <StyledIconWrapper>
         <Icon icon={chevronIcon}/>
       </StyledIconWrapper>
