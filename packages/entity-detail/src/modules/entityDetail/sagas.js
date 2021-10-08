@@ -1,26 +1,30 @@
 import React from 'react'
 import {
   actions as formActions,
-  getFormValues,
-  isValid as isValidSelector,
-  getFormSyncErrors,
   getFormAsyncErrors,
-  getFormSubmitErrors
+  getFormSubmitErrors,
+  getFormSyncErrors,
+  getFormValues,
+  isValid as isValidSelector
 } from 'redux-form'
 import {SubmissionError} from 'redux-form/es/SubmissionError'
 import * as formActionTypes from 'redux-form/es/actionTypes'
-import {externalEvents, notification, errorLogging, form, rest, remoteEvents}
-  from 'tocco-app-extensions'
+import {
+  actions as actionExtensions,
+  errorLogging,
+  externalEvents,
+  form,
+  notification,
+  remoteEvents,
+  rest
+} from 'tocco-app-extensions'
 import {api} from 'tocco-util'
-import {call, put, select, takeLatest, takeEvery, all, fork} from 'redux-saga/effects'
+import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {selectUnit} from '@formatjs/intl-utils'
 import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
 
 import * as actions from './actions'
-import {
-  updateEntity,
-  createEntity
-} from '../../util/api/entities'
+import {createEntity, updateEntity} from '../../util/api/entities'
 import modes from '../../util/modes'
 import {ErrorItem} from '../../components/ErrorItems/ErrorItems'
 import {getFooterPaths} from '../../util/detailFooter/helpers'
@@ -46,7 +50,8 @@ export default function* sagas() {
     takeEvery(formActionTypes.BLUR, onBlur),
     takeEvery(formActionTypes.CHANGE, onBlur),
     takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, asyncValidationStop),
-    takeLatest(actions.UPDATE_MARKED, updateMarked)
+    takeLatest(actions.UPDATE_MARKED, updateMarked),
+    takeLatest(actionExtensions.actions.ACTION_INVOKED, loadDetailView)
   ])
 }
 
