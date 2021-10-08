@@ -1,3 +1,6 @@
+0.3.12-hotfix229.5
+- ignore empty tql strings in InputEditSearch
+
 0.3.12-hotfix229.4
 - Align modal globally at same position
 - Fix calender search bug
