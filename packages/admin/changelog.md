@@ -1,3 +1,8 @@
+0.5.27
+- add footer with meta info
+- Don't show 'or with Tocco login' text if no SSO provider
+- refactor initial notification
+
 0.5.26
 - Improve text input UX within input edit table
 - Reduce notification center title size
