@@ -45,6 +45,8 @@ export const getQuery = options => (
   {
     ...(options.limit ? {limit: options.limit + 1} : {}),
     ...(options.searchTerm ? {search: options.searchTerm} : {}),
-    ...(options.sorting ? {sorting: options.sorting} : {})
+    ...(options.sorting ? {sorting: options.sorting} : {}),
+    ...(options.constriction ? {constriction: options.constriction} : {}),
+    ...(options.formName ? {form: options.formName} : {})
   }
 )
