@@ -1,13 +1,13 @@
 import {channel} from 'redux-saga'
 import {v4 as uuid} from 'uuid'
-import {all, call, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
+import {all, call, put, select, spawn, take, takeEvery} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
 import notification from './../../notification'
 import rest from '../../rest'
 import * as advancedSearchActions from './actions'
 import * as valueActions from '../values/actions'
-import {getSelection, getValue, getAdvancedSearchComponent} from './utils'
+import {getAdvancedSearchComponent, getSelection, getValue} from './utils'
 
 export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
@@ -21,9 +21,16 @@ export function* openAdvancedSearch(config, {payload}) {
   const {listApp} = config
   const {formName, formField, value} = payload
 
-  const {id: fieldId, label, formBase: fieldFormBase, targetEntity: entity, dataType} = formField
+  const {
+    id: fieldId,
+    label,
+    formBase: fieldFormBase,
+    targetEntity: entity,
+    dataType,
+    formName: formNameField
+  } = formField
   const multi = dataType === 'multi-remote-field'
-  const remoteFieldFormName = fieldFormBase || entity
+  const remoteFieldFormName = formNameField ? `${entity}_${formNameField}` : fieldFormBase || entity
   const listFormDefinition = yield call(rest.fetchForm, remoteFieldFormName, 'remotefield')
   const answerChannel = yield call(channel)
   const modalId = yield call(uuid)

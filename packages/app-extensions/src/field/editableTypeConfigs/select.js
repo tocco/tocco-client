@@ -17,7 +17,8 @@ export default {
     noResultsText: formData.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'}),
     fetchOptions: () => formData.loadRelationEntities(formField.id, formField.targetEntity, {
       forceReload: false,
-      limit: settings.LIMIT
+      limit: settings.LIMIT,
+      constriction: formField.constriction
     })
   })
 }
