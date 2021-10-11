@@ -22,7 +22,7 @@ export function* promptConfirm(message) {
   yield put(
     notification.confirm(
       'client.component.actions.confirmTitle',
-      <FormattedMessage id={message}/>,
+      message,
       <FormattedMessage id="client.common.yes"/>,
       <FormattedMessage id="client.common.cancel"/>,
       onYes,
