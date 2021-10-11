@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {useDnD} from 'tocco-util'
+import {dragAndDrop} from 'tocco-util'
 
 import {StyledDnD, StyledTableHead, StyledTableHeaderCell, StyledTableRow, StyledDraggable} from './StyledTable'
 import SortingState from './SortingState'
@@ -28,7 +28,7 @@ const TableHeader = props => {
     onColumnWidthChanging,
     onColumnWidthChanged
   } = props
-  const {dndEvents, dndState} = useDnD(onColumnPositionChange, columns)
+  const {dndEvents, dndState} = dragAndDrop.useDnD(onColumnPositionChange)
 
   const {resizingColumn, startResize} = useResize(tableEl, onColumnWidthChanging, onColumnWidthChanged)
 
