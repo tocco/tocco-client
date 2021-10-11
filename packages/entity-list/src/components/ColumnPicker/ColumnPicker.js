@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useState, useMemo} from 'react'
-import {useDnD} from 'tocco-util'
+import {dragAndDrop} from 'tocco-util'
 import {Button, SearchBox, Typography} from 'tocco-ui'
 
 import {
@@ -14,10 +14,10 @@ import {
 const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl}) => {
   const [columns, setColumns] = useState(initialColumns)
   const [searchTerm, setSearchTerm] = useState(null)
-  const changeColumnPosition = (currentlyDragging, currentlyDragOver, columns) => {
+  const changeColumnPosition = (currentlyDragging, currentlyDragOver) => {
     if (currentlyDragging !== currentlyDragOver) {
       const currentlyDraggingItem = columns.find(c => c.id === currentlyDragging)
-      setColumns(columns
+      setColumns(cols => cols
         .filter(c => c !== currentlyDraggingItem)
         .reduce((acc, key) => [
           ...acc,
@@ -26,7 +26,7 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl}) => {
         ], []))
     }
   }
-  const {dndEvents, dndState} = useDnD(changeColumnPosition, columns)
+  const {dndEvents, dndState} = dragAndDrop.useDnD(changeColumnPosition)
 
   const items = useMemo(() => columns
     .filter(column => searchTerm === null || column.label.match(new RegExp(searchTerm, 'i')))
