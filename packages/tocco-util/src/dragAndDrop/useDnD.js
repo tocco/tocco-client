@@ -1,9 +1,11 @@
+import {isEqual} from 'lodash'
 import {useState} from 'react'
 
 const initialState = {
   currentlyDragging: null,
   currentlyDragOver: null,
-  dropPosition: null // 'after' or 'before'
+  dropPosition: null, // 'after' or 'before'
+  offset: null
 }
 
 export const DropPosition = {
@@ -19,19 +21,17 @@ export default changePosition => {
       setState({...state, currentlyDragging: item})
     },
     onDragEnter: e => {
-      if (state.currentlyDragOver !== item) {
-        setState({...state, currentlyDragOver: item})
+      if (!isEqual(state.currentlyDragOver, item)) {
+        const bounding = e.target ? e.target.getBoundingClientRect() : {}
+        const offset = bounding.y + (bounding.height / 2)
+        setState({...state, currentlyDragOver: item, offset})
       }
       e.stopPropagation()
     },
     onDragOver: e => {
-      if (e.target) {
-        const bounding = e.target.getBoundingClientRect()
-        const offset = bounding.y + (bounding.height / 2)
-        const after = e.clientY - offset > 0
-        const dropPosition = after ? DropPosition.After : DropPosition.Before
-        setState({...state, dropPosition})
-      }
+      const after = e.clientY - state.offset > 0
+      const dropPosition = after ? DropPosition.After : DropPosition.Before
+      setState(state => ({...state, dropPosition}))
       e.preventDefault()
       e.stopPropagation()
       return true
