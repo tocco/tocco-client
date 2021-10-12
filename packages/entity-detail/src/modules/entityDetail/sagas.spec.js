@@ -1,17 +1,14 @@
 import {actions as formActions, isValid as isValidSelector} from 'redux-form'
 import {SubmissionError} from 'redux-form/es/SubmissionError'
-import {externalEvents, form, rest, remoteEvents} from 'tocco-app-extensions'
+import {actions as actionExtensions, externalEvents, form, remoteEvents, rest} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {throwError} from 'redux-saga-test-plan/providers'
 import * as formActionTypes from 'redux-form/lib/actionTypes'
 
 import * as actions from './actions'
-import {
-  updateEntity,
-  createEntity
-} from '../../util/api/entities'
+import {createEntity, updateEntity} from '../../util/api/entities'
 import modes from '../../util/modes'
 import rootSaga, * as sagas from './sagas'
 
@@ -36,7 +33,8 @@ describe('entity-detail', () => {
               takeEvery(formActionTypes.BLUR, sagas.onBlur),
               takeEvery(formActionTypes.CHANGE, sagas.onBlur),
               takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
-              takeLatest(actions.UPDATE_MARKED, sagas.updateMarked)
+              takeLatest(actions.UPDATE_MARKED, sagas.updateMarked),
+              takeLatest(actionExtensions.actions.ACTION_INVOKED, sagas.loadDetailView)
 
             ]))
             expect(generator.next().done).to.be.true
