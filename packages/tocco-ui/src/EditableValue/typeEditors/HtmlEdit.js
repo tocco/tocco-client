@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {lazy, Suspense} from 'react'
 import styled from 'styled-components'
+import {html} from 'tocco-util'
 
 import Typography, {declareTypograhpy} from '../../Typography'
 
@@ -44,7 +45,7 @@ class HtmlEdit extends React.Component {
   render() {
     if (this.props.immutable) {
       return <Typography.Span>
-        <div dangerouslySetInnerHTML={{__html: this.props.value}}></div>
+        <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(this.props.value)}}></div>
       </Typography.Span>
     }
 

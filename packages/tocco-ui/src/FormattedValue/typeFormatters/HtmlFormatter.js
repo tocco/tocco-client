@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
+import {html} from 'tocco-util'
 
 import {scale, theme} from '../../utilStyles'
 import {declareTypograhpy, StyledSpan} from '../../Typography'
@@ -41,7 +42,7 @@ const StyledHtmlFormatter = styled(StyledSpan)`
 `
 
 const HtmlFormatter = ({value, breakWords}) => <StyledHtmlFormatter
-  dangerouslySetInnerHTML={{__html: value}}
+  dangerouslySetInnerHTML={{__html: html.sanitizeHtml(value)}}
   breakWords={breakWords}/>
 
 HtmlFormatter.propTypes = {
