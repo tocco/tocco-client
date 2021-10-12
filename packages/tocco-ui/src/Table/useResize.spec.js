@@ -68,6 +68,41 @@ describe('tocco-ui', () => {
         expect(map).to.not.have.property('mousemove')
         expect(map).to.not.have.property('mouseup')
       })
+
+      test('should stop resizing immediately when mouse up event invoked', () => {
+        jest.useFakeTimers()
+
+        const tableElRef = {current: {querySelector: () => ({offsetWidth: 50})}}
+        const resizeCallback = sinon.spy()
+        const resizeFinishedCallback = sinon.spy()
+        window.removeEventListener = sinon.spy()
+
+        const map = {}
+        window.addEventListener = jest.fn((event, cb) => {
+          map[event] = cb
+        })
+
+        const {result} = renderHook(() => useResize(tableElRef, resizeCallback, resizeFinishedCallback))
+
+        const column = {id: 'firstname'}
+        act(() => {
+          result.current.startResize(column)()
+        })
+
+        expect(map).to.have.property('mousemove')
+        expect(map).to.have.property('mouseup')
+
+        map.mousemove({clientX: 100})
+        map.mousemove({clientX: 200})
+        expect(resizeCallback.called).to.equal(true)
+        
+        resizeCallback.resetHistory()
+
+        map.mouseup()
+        map.mousemove({clientX: 300})
+        
+        expect(resizeCallback.called).to.equal(false)
+      })
     })
   })
 })
