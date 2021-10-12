@@ -31,6 +31,7 @@ describe('app-extensions', () => {
               .provide([
                 [select(sagas.fieldDataSelector, fieldName), fieldData],
                 [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(rest.fetchModel), {paths: {}}],
                 [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
               ])
               .put(relationEntitiesActions.setRelationEntityLoading(fieldName))
@@ -65,6 +66,7 @@ describe('app-extensions', () => {
               .provide([
                 [select(sagas.fieldDataSelector, fieldName), fieldData],
                 [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(rest.fetchModel), {paths: {}}],
                 [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
               ])
               .put(relationEntitiesActions.setRelationEntityLoading(fieldName))
@@ -85,6 +87,7 @@ describe('app-extensions', () => {
               .provide([
                 [select(sagas.fieldDataSelector, fieldName), fieldData],
                 [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(rest.fetchModel), {paths: {}}],
                 [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
               ])
               .put(relationEntitiesActions.setRelationEntityLoading(fieldName))
@@ -98,25 +101,47 @@ describe('app-extensions', () => {
             const entities = [{display: 'User1', key: 1}]
             const options = {limit: 5, searchTerm: 'Tes', sorting: [{name: 'update_timestamp', direction: 'desc'}]}
 
+            const expectedFetchParams = {
+              limit: options.limit + 1,
+              sorting: options.sorting,
+              search: options.searchTerm
+            }
+
             return expectSaga(
               sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User', options)
             )
               .provide([
                 [select(sagas.fieldDataSelector, fieldName), fieldData],
                 [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(rest.fetchModel), {paths: {}}],
                 [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
               ])
-              .run()
-              .then(result => {
-                const {effects} = result
-                const expectedFetchParams = {
-                  limit: options.limit + 1,
-                  sorting: options.sorting,
-                  search: options.searchTerm
-                }
-
-                expect(effects.call[1].payload.args[1]).to.eql(expectedFetchParams)
+              .call.like({
+                fn: rest.fetchEntities,
+                args: ['User', expectedFetchParams]
               })
+              .run()
+          })
+
+          test('should load only active entities', () => {
+            const fieldData = undefined
+            const fieldName = 'relUser_status'
+            const entities = [{display: 'Status', key: 1}]
+
+            return expectSaga(
+              sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User_status')
+            )
+              .provide([
+                [select(sagas.fieldDataSelector, fieldName), fieldData],
+                [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(rest.fetchModel), {paths: {active: {type: 'boolean'}}}],
+                [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
+              ])
+              .call.like({
+                fn: rest.fetchEntities,
+                args: ['User_status', {where: 'active'}]
+              })
+              .run()
           })
         })
 
