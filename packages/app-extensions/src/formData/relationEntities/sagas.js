@@ -1,5 +1,6 @@
 import {all, call, put, select, takeEvery} from 'redux-saga/effects'
 import _pick from 'lodash/pick'
+import _get from 'lodash/get'
 import {api} from 'tocco-util'
 
 import * as relationEntitiesActions from './actions'
@@ -26,6 +27,10 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
       method: 'GET'
     }
 
+    const model = yield call(rest.fetchModel, entityName)
+    if (_get(model, 'paths.active.type') === 'boolean') {
+      query.where = 'active'
+    }
     let entities = yield call(rest.fetchEntities, entityName, query, requestOptions)
     entities = yield call(enhanceEntitiesWithDisplays, entities)
     entities = entities.map(entity => _pick(entity, api.relevantRelationAttributes))
