@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import FocusWithin from 'react-simple-focus-within'
-import {js} from 'tocco-util'
+import {js, html} from 'tocco-util'
 
 import ErrorList from './ErrorList'
 import {
@@ -76,7 +76,7 @@ const StatedValue = props => {
                   isDisplay={isDisplay}
                   signal={signal}
                 >
-                  <span dangerouslySetInnerHTML={{__html: `${label}${mandatory ? ' *' : ''}`}}/>
+                  <span dangerouslySetInnerHTML={{__html: `${html.sanitizeHtml(label)}${mandatory ? ' *' : ''}`}}/>
                 </StyledStatedValueLabel>
               </StyledLabelWrapper>
               }

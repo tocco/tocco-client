@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {components} from 'react-select'
 import _get from 'lodash/get'
 import styled from 'styled-components'
+import {html} from 'tocco-util'
 
 import Popover from '../Popover'
 import ClickableWrapper from './ClickableWrapper'
@@ -32,7 +33,7 @@ export const SingleValue = props => {
       isDisabled={isDisabled}
     >
       <Popover content={tooltip
-        ? <div dangerouslySetInnerHTML={{__html: tooltip}}/>
+        ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}}/>
         : null}>
         {content}
       </Popover>
