@@ -22,22 +22,27 @@ export default (tableElRef, resizeCallback, resizeFinishedCallback) => {
   const onMouseUp = useCallback(() => {
     if (resizingColumn) {
       resizeFinishedCallback(resizingColumn.id)
+      /**
+       * Internally the resizing is finished and `onMouseMove` should not
+       * invoke any resize callback handler anymore.
+       */
+      setIsResizing(false)
+      lastPositionX.current = undefined
 
       /**
-       * So that the last mouse event is still within the context of "resizing".
+       * Workaround:
+       * The follow up click event should still be within the context of "resizing".
        * Otherwise the resizingColumn which is returned is already cleared
-       * and the follow up click event could be interpreted for something else (e.g. sorting)
+       * and the follow up click event could be interpreted for something else (e.g. sorting).
        */
       setTimeout(() => {
-        setIsResizing(false)
         setResizingColumn(null)
-        lastPositionX.current = undefined
       }, 100)
     }
   }, [resizingColumn, resizeFinishedCallback])
 
   const onMouseMove = useCallback(e => {
-    if (resizingColumn) {
+    if (resizingColumn && isResizing) {
       handler.current = requestAnimationFrame(() => {
         if (lastPositionX.current) {
           const diff = e.clientX - lastPositionX.current
