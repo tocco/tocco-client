@@ -2,12 +2,13 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory} from 'tocco-app-extensions'
 
+import Dashboard from './components/Dashboard/Dashboard'
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'dashboard'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <div>Dashboard</div>
+  const content = <Dashboard/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -53,3 +54,20 @@ const initApp = (id, input, events, publicPath) => {
     }
   }
 })()
+
+class DashboardApp extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.app = initApp('dashboard', props)
+  }
+
+  render() {
+    return this.app.component
+  }
+}
+
+DashboardApp.propTypes = {
+}
+
+export default DashboardApp

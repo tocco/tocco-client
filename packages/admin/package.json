@@ -13,6 +13,7 @@
     "react-helmet": "^5.2.1",
     "tocco-app-extensions": "*",
     "tocco-copy": "*",
+    "tocco-dashboard": "*",
     "tocco-delete": "*",
     "tocco-docs-browser": "*",
     "tocco-entity-detail": "*",
