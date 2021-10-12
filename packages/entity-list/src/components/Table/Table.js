@@ -11,7 +11,7 @@ const Table = props => {
   const showNavigationLink = props.showLink
     && props.clickable
     && props.navigationStrategy
-    && props.navigationStrategy.DetailLinkRelative
+    && !!props.navigationStrategy.DetailLinkRelative
   const showPreferencesMenu = !props.disablePreferencesMenu
   const columns = [
     ...((showNavigationLink || showPreferencesMenu)
