@@ -9,25 +9,28 @@ describe('entity-detail', () => {
           test('should return all paths for `update` mode and `useNiceFields=true`', () => {
             const mode = 'update'
             const entityModel = {
-              useNiceFields: true
+              useNiceFields: true,
+              keyField: 'pk'
             }
             const result = getFooterPaths(mode, entityModel)
             expect(result).to.have.length(6)
           })
 
-          test('should only return `pk` path for `update` mode and `useNiceFields=false`', () => {
+          test('should only return `keyField` path for `update` mode and `useNiceFields=false`', () => {
             const mode = 'update'
             const entityModel = {
-              useNiceFields: false
+              useNiceFields: false,
+              keyField: 'id'
             }
             const result = getFooterPaths(mode, entityModel)
-            expect(result).to.deep.equal(['pk'])
+            expect(result).to.deep.equal(['id'])
           })
 
           test('should not return any path for `create` mode', () => {
             const mode = 'create'
             const entityModel = {
-              useNiceFields: true
+              useNiceFields: true,
+              keyField: 'pk'
             }
             const result = getFooterPaths(mode, entityModel)
             expect(result).to.have.length(0)
@@ -38,7 +41,8 @@ describe('entity-detail', () => {
           test('should return `FULL` footer type for `update` mode and `useNiceFields=true`', () => {
             const mode = 'update'
             const entityModel = {
-              useNiceFields: true
+              useNiceFields: true,
+              keyField: 'pk'
             }
             const result = getFooterType(mode, entityModel)
             expect(result).to.equal(types.FULL)
@@ -47,7 +51,8 @@ describe('entity-detail', () => {
           test('should return `REDUCED` footer type for `update` mode and `useNiceFields=false`', () => {
             const mode = 'update'
             const entityModel = {
-              useNiceFields: false
+              useNiceFields: false,
+              keyField: 'pk'
             }
             const result = getFooterType(mode, entityModel)
             expect(result).to.equal(types.REDUCED)
@@ -56,7 +61,8 @@ describe('entity-detail', () => {
           test('should return `NONE` footer type for `create` mode', () => {
             const mode = 'create'
             const entityModel = {
-              useNiceFields: true
+              useNiceFields: true,
+              keyField: 'pk'
             }
             const result = getFooterType(mode, entityModel)
             expect(result).to.equal(types.NONE)

@@ -7,7 +7,7 @@ import FooterItem from './FooterItem'
 import TimestampValue from './TimestampValue'
 import TextValue from './TextValue'
 
-const DetailFooterFull = ({entity}) => (
+const DetailFooterFull = ({entity, keyField}) => (
   <StyledFooterWrapper>
     <Layout.Container>
       <Layout.Box>
@@ -32,14 +32,15 @@ const DetailFooterFull = ({entity}) => (
           valueComponent={() => <TextValue value={entity.paths.version.value}/>}/>
         <FooterItem
           labelId="client.entity-detail.footer.key"
-          valueComponent={() => <TextValue value={entity.paths.pk.value}/>}/>
+          valueComponent={() => <TextValue value={entity.paths[keyField].value}/>}/>
       </Layout.Box>
     </Layout.Container>
   </StyledFooterWrapper>
 )
 
 DetailFooterFull.propTypes = {
-  entity: PropTypes.object.isRequired
+  entity: PropTypes.object.isRequired,
+  keyField: PropTypes.string.isRequired
 }
 
 export default DetailFooterFull

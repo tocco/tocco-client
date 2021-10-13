@@ -11,15 +11,16 @@ export const getFooterType = (mode, entityModel) => {
   return useNiceFields ? types.FULL : types.REDUCED
 }
 
-const paths = ['pk', 'create_timestamp', 'update_timestamp', 'create_user', 'update_user', 'version']
+const paths = ['create_timestamp', 'update_timestamp', 'create_user', 'update_user', 'version']
 
 export const getFooterPaths = (mode, entityModel) => {
   const type = getFooterType(mode, entityModel)
+  const keyField = entityModel.keyField
   switch (type) {
     case types.FULL:
-      return paths
+      return [keyField, ...paths]
     case types.REDUCED:
-      return ['pk']
+      return [keyField]
     case types.NONE:
     default:
       return []

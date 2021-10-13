@@ -11,9 +11,9 @@ const DetailFooter = ({mode, entity, entityModel}) => {
 
   switch (type) {
     case types.FULL:
-      return <DetailFooterFull entity={entity}/>
+      return <DetailFooterFull entity={entity} keyField={entityModel.keyField}/>
     case types.REDUCED:
-      return <DetailFooterReduced entity={entity}/>
+      return <DetailFooterReduced entity={entity} keyField={entityModel.keyField}/>
     case types.NONE:
     default:
       return null

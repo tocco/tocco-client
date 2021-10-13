@@ -12,7 +12,8 @@ describe('entity-detail', () => {
         () => {
           const mode = 'update'
           const entityModel = {
-            useNiceFields: false
+            useNiceFields: false,
+            keyField: 'pk'
           }
           const entity = {
             paths: {
@@ -35,7 +36,8 @@ describe('entity-detail', () => {
         () => {
           const mode = 'update'
           const entityModel = {
-            useNiceFields: true
+            useNiceFields: true,
+            keyField: 'pk'
           }
           const entity = {
             paths: {
@@ -73,7 +75,8 @@ describe('entity-detail', () => {
         () => {
           const mode = 'create'
           const entityModel = {
-            useNiceFields: true
+            useNiceFields: true,
+            keyField: 'pk'
           }
           const entity = {
             paths: {
@@ -103,6 +106,30 @@ describe('entity-detail', () => {
           )
 
           expect(wrapper.find(FooterItem)).to.have.length(0)
+        }
+      )
+
+      test(
+        'should handle different key field',
+        () => {
+          const mode = 'update'
+          const entityModel = {
+            useNiceFields: false,
+            keyField: 'id'
+          }
+          const entity = {
+            paths: {
+              id: {
+                value: 1
+              }
+            }
+          }
+
+          const wrapper = intlEnzyme.mountWithIntl(
+            <DetailFooter mode={mode} entity={entity} entityModel={entityModel}/>
+          )
+
+          expect(wrapper.find(FooterItem)).to.have.length(1)
         }
       )
     })
