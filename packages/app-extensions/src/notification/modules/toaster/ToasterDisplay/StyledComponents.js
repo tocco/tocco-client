@@ -23,11 +23,16 @@ const colorMapper = (type, theme) => colorMap[type]
   : '#ccc'
 
 export const StyledToaster = styled.div`
-  background-color: ${({type, theme}) => colorMapper(type, theme)};
+  background-color: ${({
+    type,
+    theme
+  }) => colorMapper(type, theme)};
   margin-bottom: ${scale.space(-0.5)};
   padding: ${scale.space(-0.5)};
 
-  * {
+  *,
+  a:link // reset legacy styling
+  {
     color: ${theme.color('paper')} !important;
   }
   animation-name: ${fadeIn};
