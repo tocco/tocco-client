@@ -1,3 +1,13 @@
+0.5.28
+- fix confirm handler
+- calculate drop position before or after element
+- provide sanitize function for html
+- render sanitized html only
+- don't resize column after mouse release
+- Remote fields and select boxes now only load active relation values.
+- add keyField to model transformer
+- use dynamic key field
+
 0.5.27
 - add footer with meta info
 - Don't show 'or with Tocco login' text if no SSO provider
