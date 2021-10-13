@@ -1,0 +1,10 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/nice2/rest/client/markings"
+    }
+  },
+  "markings": {
+    "2957": false
+  }
+}

@@ -9,7 +9,7 @@
       "content": {
         "type": "htmlfield",
         "unique_id": "welcome",
-        "text": "<p>Test</p>"
+        "text": "<p>Klicken sie <a href=\"/tocco-legacy\" rel=\"noopener noreferrer\" target=\"_blank\">HIER</a> um zur alten Adminoberfläche weitergeleitet zu werden.</p>"
       }
     },
     {
@@ -20,10 +20,10 @@
       "position": "1:1",
       "content": {
         "type": "searchfilter",
-        "searchfilter": "next_birthdays",
+        "searchfilter": "birthday_in_seven_days",
         "entityName": "User",
         "scope": "infobox",
-        "limit": "25"
+        "limit": 25
       }
     },
     {

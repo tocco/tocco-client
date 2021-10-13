@@ -1,0 +1,8 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/nice2/rest/client/preferences/User_list*"
+    }
+  },
+  "preferences": {}
+}

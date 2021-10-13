@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'tocco-ui'
+import {scale, theme} from 'tocco-ui'
 
 export const StyledDashboardWrapper = styled.div`
   width: 100%;
@@ -7,6 +7,7 @@ export const StyledDashboardWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
   background: ${theme.color('paper')};
+  padding: ${scale.space(-0.5)};
 `
 export const StyledColumn = styled.div`
   width: 50%;

@@ -1,0 +1,70 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://test300.tocco.ch/nice2/rest/entities/User/model"
+    }
+  },
+  "name": "User",
+  "label": "Person",
+  "createPermission": true,
+  "markable": true,
+  "useNiceFields": true,
+  "keyField": "pk",
+  "fields": [
+    {
+      "fieldName": "pk",
+      "type": "serial",
+      "defaultValue": null,
+      "validation": {
+        "numberRange": {
+          "fromIncluding": 1.0,
+          "toIncluding": 9.223372036854776E18
+        }
+      }
+    },
+    {
+      "fieldName": "firstname",
+      "type": "string",
+      "defaultValue": null,
+      "validation": {
+        "length": {
+          "toIncluding": 255
+        },
+        "mandatory": true
+      }
+    },
+    {
+      "fieldName": "lastname",
+      "type": "string",
+      "defaultValue": null,
+      "validation": {
+        "length": {
+          "toIncluding": 255
+        },
+        "mandatory": true
+      }
+    },
+    {
+      "fieldName": "birthdate",
+      "type": "birthdate",
+      "defaultValue": null,
+      "validation": {}
+    },
+    {
+      "fieldName": "birthdate_sorting",
+      "type": "sorting",
+      "defaultValue": null,
+      "validation": {
+        "decimalDigits": {
+          "prePointDigits": -1,
+          "postPointDigits": 0
+        },
+        "numberRange": {
+          "fromIncluding": -2.147483648E9,
+          "toIncluding": 2.147483647E9
+        }
+      }
+    }
+  ],
+  "relations": []
+}

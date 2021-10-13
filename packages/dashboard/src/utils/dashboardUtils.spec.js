@@ -11,7 +11,7 @@ describe('dashboard', () => {
           () => {
             const draggingId = 1
             const dragOverId = 2
-            const position = dragAndDrop.DropPosition.After
+            const position = dragAndDrop.DropPosition.Bottom
             const boxes = [
               {id: 1, col: 0, row: 0},
               {id: 2, col: 0, row: 1},
@@ -34,7 +34,7 @@ describe('dashboard', () => {
           () => {
             const draggingId = 3
             const dragOverId = 1
-            const position = dragAndDrop.DropPosition.Before
+            const position = dragAndDrop.DropPosition.Top
             const boxes = [
               {id: 1, col: 0, row: 0},
               {id: 2, col: 0, row: 1},
@@ -57,7 +57,7 @@ describe('dashboard', () => {
           () => {
             const draggingId = 2
             const dragOverId = 4
-            const position = dragAndDrop.DropPosition.After
+            const position = dragAndDrop.DropPosition.Bottom
             const boxes = [
               {id: 1, col: 0, row: 0},
               {id: 2, col: 0, row: 1},
@@ -84,7 +84,7 @@ describe('dashboard', () => {
           () => {
             const draggingId = 2
             const dragOverId = 4
-            const position = dragAndDrop.DropPosition.After
+            const position = dragAndDrop.DropPosition.Bottom
             const boxes = [
               {id: 3, col: 0, row: 2},
               {id: 1, col: 0, row: 0},

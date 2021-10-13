@@ -46,7 +46,7 @@ const Dashboard = ({infoboxes}) => {
               onDragOver={onDragOver}
               onDrop={onDrop}
             >
-              {boxes.map(({id, label, height, type}) => {
+              {boxes.map(({id, label, height, content, type}) => {
                 if (type === InfoBoxRenderTypes.DropPreview) {
                   return <DropPreview
                     key={`${type}-${id}`}
@@ -59,6 +59,7 @@ const Dashboard = ({infoboxes}) => {
                   id={id}
                   label={label}
                   height={height}
+                  content={content}
                   draggable
                   {...dndEvents({type: DropTypes.InfoBox, id})}
                 />

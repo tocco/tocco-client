@@ -1,0 +1,115 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/nice2/rest/forms/User/infobox"
+    }
+  },
+  "form": {
+    "id": "User_infobox",
+    "label": "Person",
+    "componentType": "form",
+    "children": [
+      {
+        "id": "table1",
+        "label": null,
+        "componentType": "table",
+        "children": [
+          {
+            "id": "firstname",
+            "label": "Vorname",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "firstname",
+                "label": null,
+                "componentType": "field",
+                "path": "firstname",
+                "dataType": "string",
+                "validation": {
+                  "length": {
+                    "toIncluding": 255
+                  },
+                  "mandatory": true
+                },
+                "defaultValue": null,
+                "autoCompleteEndpoint": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "useLabel": "yes",
+            "sortable": true,
+            "shrinkToContent": false,
+            "widthFixed": false,
+            "clientRenderer": null
+          },
+          {
+            "id": "lastname",
+            "label": "Nachname",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "lastname",
+                "label": null,
+                "componentType": "field",
+                "path": "lastname",
+                "dataType": "string",
+                "validation": {
+                  "length": {
+                    "toIncluding": 255
+                  },
+                  "mandatory": true
+                },
+                "defaultValue": null,
+                "autoCompleteEndpoint": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "useLabel": "yes",
+            "sortable": true,
+            "shrinkToContent": false,
+            "widthFixed": false,
+            "clientRenderer": null
+          },
+          {
+            "id": "birthdate",
+            "label": "Geburtsdatum",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "birthdate",
+                "componentType": "field",
+                "path": "birthdate",
+                "label": null,
+                "dataType": "birthdate",
+                "validation": {}
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "useLabel": "yes",
+            "sortable": true,
+            "shrinkToContent": false,
+            "widthFixed": false,
+            "clientRenderer": null
+          }
+        ],
+        "layoutType": "table",
+        "readonly": false,
+        "occupiesRemainingHeight": false,
+        "sorting": null,
+        "selectable": true,
+        "clickable": true,
+        "endpoint": null,
+        "searchEndpoint": null,
+        "constriction": null
+      }
+    ],
+    "modelName": "User",
+    "readonly": false,
+    "markable": true,
+    "disablePreferencesMenu": false
+  },
+  "model": "User"
+}

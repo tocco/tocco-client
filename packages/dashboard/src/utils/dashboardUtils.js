@@ -43,11 +43,11 @@ const insertDraggedAtDropped = curry((draggingId, dragOverId, position, sortedBo
 
       return [
         ...boxes,
-        ...(position === dragAndDrop.DropPosition.Before && moveBoxHere
+        ...(position === dragAndDrop.DropPosition.Top && moveBoxHere
           ? [{...draggingBox, col: dragOverColumn, row: -1}]
           : []),
         box,
-        ...(position === dragAndDrop.DropPosition.After && moveBoxHere
+        ...(position === dragAndDrop.DropPosition.Bottom && moveBoxHere
           ? [{...draggingBox, col: dragOverColumn, row: -1}]
           : [])
       ]
@@ -81,11 +81,11 @@ export const getRenderInfoBoxesForColumn = (draggingId, currentlyDragOver, posit
       const showPreviewHere = key.id === dragOverId && dragOverType === DropTypes.InfoBox && !isOverItself
       return [
         ...acc,
-        ...(position === dragAndDrop.DropPosition.Before && showPreviewHere
+        ...(position === dragAndDrop.DropPosition.Top && showPreviewHere
           ? [draggingPreviewBox]
           : []),
         (key.id === draggingId && isOverItself) ? {...key, type: InfoBoxRenderTypes.DropPreview} : key,
-        ...(position === dragAndDrop.DropPosition.After && showPreviewHere
+        ...(position === dragAndDrop.DropPosition.Bottom && showPreviewHere
           ? [draggingPreviewBox]
           : [])
       ]
