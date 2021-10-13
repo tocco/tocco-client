@@ -2,13 +2,13 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory} from 'tocco-app-extensions'
 
-import Dashboard from './components/Dashboard/Dashboard'
+import DashboardContainer from './components/Dashboard/DashboardContainer'
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'dashboard'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <Dashboard/>
+  const content = <DashboardContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -36,9 +36,9 @@ const initApp = (id, input, events, publicPath) => {
       if (!__NO_MOCK__) {
         const fetchMock = require('fetch-mock').default
         fetchMock.config.overwriteRoutes = false
+       
         const setupFetchMocks = require('./dev/fetchMocks').default
         setupFetchMocks(packageName, fetchMock)
-        fetchMock.spy()
       }
   
       const app = initApp(packageName, input)

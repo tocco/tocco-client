@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import PropTypes from 'prop-types'
 import {dragAndDrop} from 'tocco-util'
 
 import {StyledDashboardWrapper, StyledColumn} from './StyledComponents'
@@ -11,16 +12,12 @@ import {
 } from '../../utils/dashboardUtils'
 import DropPreview from '../InfoBox/DropPreview'
 import {InfoBoxRenderTypes} from '../../utils/infoBoxTypes'
+import {mapPositionToColAndRow} from '../../utils/positionUtils'
 
 const MockColumns = [0, 1]
-const MockInfoBoxes = [
-  {id: 1, col: 0, row: 0},
-  {id: 2, col: 0, row: 1},
-  {id: 3, col: 0, row: 2},
-  {id: 4, col: 1, row: 0}]
 
-const Dashboard = () => {
-  const [infoBoxes, setInfoBoxes] = useState(MockInfoBoxes)
+const Dashboard = ({infoboxes}) => {
+  const [infoBoxes, setInfoBoxes] = useState(infoboxes.map(box => ({...box, ...mapPositionToColAndRow(box.position)})))
   const columns = MockColumns
 
   const changeInfoBoxPosition = (currentlyDragging, currentlyDragOver, position) => {
@@ -49,7 +46,7 @@ const Dashboard = () => {
               onDragOver={onDragOver}
               onDrop={onDrop}
             >
-              {boxes.map(({id, type}) => {
+              {boxes.map(({id, label, height, type}) => {
                 if (type === InfoBoxRenderTypes.DropPreview) {
                   return <DropPreview
                     key={`${type}-${id}`}
@@ -59,7 +56,9 @@ const Dashboard = () => {
                 
                 return <InfoBox
                   key={`${type}-${id}`}
-                  index={id}
+                  id={id}
+                  label={label}
+                  height={height}
                   draggable
                   {...dndEvents({type: DropTypes.InfoBox, id})}
                 />
@@ -71,6 +70,8 @@ const Dashboard = () => {
   )
 }
 
-Dashboard.propTypes = {}
+Dashboard.propTypes = {
+  infoboxes: PropTypes.array.isRequired
+}
 
 export default Dashboard

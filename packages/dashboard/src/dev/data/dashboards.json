@@ -1,0 +1,42 @@
+{
+  "infoboxes": [
+    {
+      "id": "welcome",
+      "label": "Willkommen",
+      "height": "100",
+      "folded": true,
+      "position": "0:1",
+      "content": {
+        "type": "htmlfield",
+        "unique_id": "welcome",
+        "text": "<p>Test</p>"
+      }
+    },
+    {
+      "id": "birthdays",
+      "label": "Nächste Geburtstage",
+      "height": "100",
+      "folded": true,
+      "position": "1:1",
+      "content": {
+        "type": "searchfilter",
+        "searchfilter": "next_birthdays",
+        "entityName": "User",
+        "scope": "infobox",
+        "limit": "25"
+      }
+    },
+    {
+      "id": "joke",
+      "label": "Witz des Tages",
+      "height": "100",
+      "folded": true,
+      "position": "0:2",
+      "content": {
+        "type": "htmlfield",
+        "unique_id": "joke",
+        "text": "<p>Witz</p>"
+      }
+    }
+  ]
+}
