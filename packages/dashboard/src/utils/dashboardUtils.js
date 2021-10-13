@@ -1,4 +1,4 @@
-import {flow, last, curry} from 'lodash'
+import {flow, curry} from 'lodash'
 import {dragAndDrop} from 'tocco-util'
 
 import DropTypes from './dropTypes'
@@ -10,10 +10,6 @@ const sortInfoBoxes = boxes => boxes.sort((a, b) => {
   }
   return a.col - b.col
 })
-
-const getLastInfoBox = boxes => flow([sortInfoBoxes, last])(boxes)
-
-const getInfoBoxesForColumn = curry((column, boxes) => sortInfoBoxes(boxes).filter(i => i.col === column))
 
 const reindex = curry(sortedBoxes => {
   return sortedBoxes
@@ -33,21 +29,26 @@ const reindex = curry(sortedBoxes => {
     }, {index: {}, boxes: []}).boxes
 })
 
-const removeInfoBox = curry((idToRemove, boxes) => reindex(sortInfoBoxes(boxes).filter(({id}) => id !== idToRemove)))
-
 const insertDraggedAtDropped = curry((draggingId, dragOverId, position, sortedBoxes) => {
   const dragOverColumn = sortedBoxes.find(b => b.id === dragOverId)?.col
+  const draggingBox = sortedBoxes.find(b => b.id === draggingId)
   return reindex(sortedBoxes
     .reduce((boxes, box) => {
       const moveBoxHere = box.id === dragOverId
+      const isDraggingBox = box.id === draggingId
+      if (isDraggingBox) {
+        // filter out dragging box from the old place
+        return boxes
+      }
+
       return [
         ...boxes,
         ...(position === dragAndDrop.DropPosition.Before && moveBoxHere
-          ? [{id: draggingId, col: dragOverColumn, row: -1}]
+          ? [{...draggingBox, col: dragOverColumn, row: -1}]
           : []),
         box,
         ...(position === dragAndDrop.DropPosition.After && moveBoxHere
-          ? [{id: draggingId, col: dragOverColumn, row: -1}]
+          ? [{...draggingBox, col: dragOverColumn, row: -1}]
           : [])
       ]
     }, [])
@@ -56,40 +57,42 @@ const insertDraggedAtDropped = curry((draggingId, dragOverId, position, sortedBo
 
 export const moveDraggedToDropped = (draggingId, dragOverId, position, boxes) => flow([
   sortInfoBoxes,
-  removeInfoBox(draggingId),
   insertDraggedAtDropped(draggingId, dragOverId, position)])(boxes)
 
 export const appendDraggedAsLastItemToDropped = (draggingId, dragOverId, boxes) => {
-  const lastInfoBox = flow([getInfoBoxesForColumn(dragOverId), getLastInfoBox])(boxes)
-  const nextRowIndex = lastInfoBox ? lastInfoBox.row + 1 : 0
-  return [...removeInfoBox(draggingId, boxes), {id: draggingId, col: dragOverId, row: nextRowIndex}]
+  const draggingBox = boxes.find(b => b.id === draggingId)
+  return reindex([
+    ...sortInfoBoxes(boxes).filter(({id}) => id !== draggingId),
+    {...draggingBox, col: dragOverId, row: -1}
+  ])
 }
 
 export const getRenderInfoBoxesForColumn = (draggingId, currentlyDragOver, position, column, boxes) => {
   const {type: dragOverType, id: dragOverId} = currentlyDragOver || {}
   const isOverItself = dragOverId === draggingId && dragOverType === DropTypes.InfoBox
-  const DropPreviewInfoBox = {type: InfoBoxRenderTypes.DropPreview, id: draggingId}
+  const draggingBox = boxes.find(b => b.id === draggingId)
+  const draggingPreviewBox = {...draggingBox, type: InfoBoxRenderTypes.DropPreview}
 
   let renderBoxes = boxes
     .filter(i => i.col === column)
-    .map(box => ({type: InfoBoxRenderTypes.InfoBox, id: box.id}))
+    .map(box => ({...box, type: InfoBoxRenderTypes.InfoBox}))
     .filter(({id}) => (typeof dragOverId !== 'undefined' && !isOverItself) ? id !== draggingId : true)
     .reduce((acc, key) => {
       const showPreviewHere = key.id === dragOverId && dragOverType === DropTypes.InfoBox && !isOverItself
       return [
         ...acc,
         ...(position === dragAndDrop.DropPosition.Before && showPreviewHere
-          ? [DropPreviewInfoBox]
+          ? [draggingPreviewBox]
           : []),
         (key.id === draggingId && isOverItself) ? {...key, type: InfoBoxRenderTypes.DropPreview} : key,
         ...(position === dragAndDrop.DropPosition.After && showPreviewHere
-          ? [DropPreviewInfoBox]
+          ? [draggingPreviewBox]
           : [])
       ]
     }, [])
   
   if (dragOverType === DropTypes.Column && dragOverId === column) {
-    renderBoxes = [...renderBoxes, DropPreviewInfoBox]
+    renderBoxes = [...renderBoxes, draggingPreviewBox]
   }
 
   return renderBoxes
