@@ -12,6 +12,7 @@ import {
 } from './modules/searchForm/actions'
 import {
   setLimit,
+  setScope,
   setSearchFilters,
   setFormDefinition as setListFormDefinition,
   setShowLink,
@@ -66,6 +67,12 @@ const actionSettings = [
     action: setLimit,
     argsFactory: input => [input.limit],
     reload: reloadOptions.DATA
+  },
+  {
+    name: 'scope',
+    action: setScope,
+    argsFactory: input => [input.scope],
+    reload: reloadOptions.ALL
   },
   {
     name: 'searchFilters',
