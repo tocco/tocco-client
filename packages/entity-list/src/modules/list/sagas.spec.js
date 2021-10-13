@@ -64,13 +64,15 @@ describe('entity-list', () => {
           test('should load form and model', () => {
             const formName = 'UserSearch'
             const entityName = 'User'
+            const scope = 'list'
             return expectSaga(sagas.initialize)
               .provide([
                 [select(sagas.entityListSelector), {entityName, formName}],
+                [select(sagas.listSelector), {scope}],
                 [matchers.call.fn(sagas.loadFormDefinition)],
                 [matchers.call.fn(sagas.loadEntityModel)]
               ])
-              .call(sagas.loadFormDefinition, formName)
+              .call(sagas.loadFormDefinition, formName, scope)
               .call(sagas.loadEntityModel, entityName)
               .put(actions.setInitialized())
               .run()
@@ -126,7 +128,7 @@ describe('entity-list', () => {
           })
 
           test('should add entities to store', () => {
-            const listViewState = generateState({}, 1)
+            const listViewState = generateState({scope: 'list'}, 1)
             const entities = []
             const fields = ['firstname', 'lastname']
 
@@ -665,16 +667,17 @@ describe('entity-list', () => {
         describe('loadDisplayExpressions saga', () => {
           test('should call rest helper with right params and call action to set lazy data', () => {
             const formName = 'User'
+            const scope = 'list'
             const paths = ['display1', 'display2']
             const entities = [{__key: '23', __model: 'User'}, {__key: '24', __model: 'User'}]
 
             const fakeResult = {formName, displayExpressions: []}
 
-            return expectSaga(sagas.loadDisplayExpressions, formName, paths, entities)
+            return expectSaga(sagas.loadDisplayExpressions, formName, scope, paths, entities)
               .provide([
                 [matchers.call.fn(rest.fetchDisplayExpressions), fakeResult]
               ])
-              .call(rest.fetchDisplayExpressions, formName, 'list', ['23', '24'], paths, 'User')
+              .call(rest.fetchDisplayExpressions, formName, scope, ['23', '24'], paths, 'User')
               .put(actions.setLazyData('displayExpressions', formName, fakeResult))
               .run()
           })

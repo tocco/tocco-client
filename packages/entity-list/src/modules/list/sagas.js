@@ -52,8 +52,9 @@ export default function* sagas() {
 
 export function* initialize() {
   const {entityName, formName} = yield select(entityListSelector)
+  const {scope} = yield select(listSelector)
   yield all([
-    call(loadFormDefinition, formName),
+    call(loadFormDefinition, formName, scope),
     call(loadEntityModel, entityName)
   ])
 
@@ -172,11 +173,11 @@ export const getTql = (inputTql, searchTql) => [
   ...(searchTql && searchTql.length > 0 ? [`(${searchTql})`] : [])
 ].join(' and ')
 
-export function* loadDisplayExpressions(formName, paths, entities) {
+export function* loadDisplayExpressions(formName, scope, paths, entities) {
   if (paths && paths.length > 0 && entities.length > 0) {
     const keys = entities.map(e => e.__key)
     const entityName = entities[0].__model
-    const result = yield call(rest.fetchDisplayExpressions, formName, 'list', keys, paths, entityName)
+    const result = yield call(rest.fetchDisplayExpressions, formName, scope, keys, paths, entityName)
     yield put(actions.setLazyData('displayExpressions', formName, result))
   }
 }
@@ -245,7 +246,7 @@ export function* setLazyDataMarked(entityName, markings) {
 export function* fetchEntitiesAndAddToStore(page) {
   const {entityName, formName} = yield select(entityListSelector)
   const {columns: columnPreferences} = yield select(preferencesSelector)
-  const {entityStore, sorting, limit, formDefinition, endpoint, searchEndpoint} = yield select(listSelector)
+  const {entityStore, sorting, limit, formDefinition, endpoint, searchEndpoint, scope} = yield select(listSelector)
   if (!entityStore[page]) {
     const {paths, relationFields, displayExpressionFields} = yield call(getFields, formDefinition, columnPreferences)
     const basicQuery = yield call(getBasicQuery)
@@ -266,7 +267,7 @@ export function* fetchEntitiesAndAddToStore(page) {
 
     yield put(actions.addEntitiesToStore(page, entities))
     yield spawn(loadRelationDisplays, relationFields, entities)
-    yield spawn(loadDisplayExpressions, formName, displayExpressionFields, entities)
+    yield spawn(loadDisplayExpressions, formName, scope, displayExpressionFields, entities)
     yield spawn(loadMarkings, entities)
   }
 }
@@ -336,8 +337,8 @@ export function* setSorting() {
   }
 }
 
-export function* loadFormDefinition(formName) {
-  const fetchedFormDefinition = yield call(rest.fetchForm, formName, 'list')
+export function* loadFormDefinition(formName, scope) {
+  const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
   yield put(actions.setFormDefinition(fetchedFormDefinition))
   yield call(extractFormInformation, fetchedFormDefinition)
 }

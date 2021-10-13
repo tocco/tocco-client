@@ -5,6 +5,7 @@ export const SET_FORM_DEFINITION = 'list/SET_FORM_DEFINITION'
 export const SET_ENTITY_MODEL = 'list/SET_ENTITY_MODEL'
 export const SET_SORTING = 'list/SET_SORTING'
 export const SET_LIMIT = 'list/SET_LIMIT'
+export const SET_SCOPE = 'list/SET_SCOPE'
 export const SET_CURRENT_PAGE = 'list/SET_CURRENT_PAGE'
 export const SET_ENTITY_COUNT = 'list/SET_ENTITY_COUNT'
 export const ADD_ENTITIES_TO_STORE = 'list/ADD_ENTITIES_TO_STORE'
@@ -100,6 +101,13 @@ export const setLimit = limit => ({
   type: SET_LIMIT,
   payload: {
     limit
+  }
+})
+
+export const setScope = scope => ({
+  type: SET_SCOPE,
+  payload: {
+    scope
   }
 })
 

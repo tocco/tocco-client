@@ -5,6 +5,7 @@ const EXPECTED_INITIAL_STATE = {
   entityModel: {},
   entities: [],
   limit: 10,
+  scope: 'list',
   currentPage: 1,
   sorting: [],
   sortable: true,
@@ -156,6 +157,20 @@ describe('entity-list', () => {
           }
 
           expect(reducer(stateBefore, actions.setLimit(newLimit))).to.deep.equal(expectedStateAfter)
+        })
+
+        test('should handle SET_SCOPE', () => {
+          const newScope = 'infobox'
+
+          const stateBefore = {
+            scope: 'list'
+          }
+
+          const expectedStateAfter = {
+            scope: newScope
+          }
+
+          expect(reducer(stateBefore, actions.setScope(newScope))).to.deep.equal(expectedStateAfter)
         })
 
         test('should handle SET_CURRENT_PAGE', () => {
