@@ -115,7 +115,8 @@ describe('entity-detail', () => {
             entityDetail: {
               mode: 'update',
               entityModel: {
-                useNiceFields: false
+                useNiceFields: false,
+                keyField: 'pk'
               },
               entity: {
                 paths: {
