@@ -43,7 +43,7 @@ const Table = props => {
     selection={props.selection}
     onRowClick={props.onRowClick}
     clickable={props.clickable}
-    onColumnPositionChange={props.changePosition}
+    onColumnPositionChange={(dragging, dragOver) => props.changePosition(dragging, dragOver, columns)}
   />
 }
 
