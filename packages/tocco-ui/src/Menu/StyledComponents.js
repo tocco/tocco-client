@@ -4,13 +4,13 @@ import {Button, declareFont, scale, theme, StyledScrollbar} from '../index'
 import {interactiveStyling} from '../utilStyles'
 
 export const StyledIconWrapper = styled.div`
-  margin-left: 4px;
-  margin-right: -3px;
+  margin-left: ${scale.space(-1.7)};
+  margin-right: -${scale.space(-2.1)};
 `
 
 export const StyledIconButtonWrapper = styled(Button)`
-  padding-left: .9rem;
-  padding-right: .9rem;
+  padding-left: ${scale.space(-0.5)};
+  padding-right: ${scale.space(-0.5)};
 `
 
 export const StyledPopperWrapper = styled.div`
@@ -25,7 +25,7 @@ export const StyledPopper = styled.div`
   background: ${theme.color('paper')};
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
   border: 1px solid ${theme.color('secondaryLight')};
-  z-index: 99999;
+  z-index: 1101; /* higher than .bm-menu-wrap 1100 */
   ${StyledScrollbar}
 `
 
