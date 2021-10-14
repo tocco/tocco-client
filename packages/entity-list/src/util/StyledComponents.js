@@ -13,3 +13,9 @@ export const StyledActionWrapper = styled.div`
     }
   }
 `
+
+export const StyledSpan = styled.span`
+  p {
+    margin-block-start: 0; // reset user agent style to prevent margin within table
+  }
+`
