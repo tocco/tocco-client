@@ -1,13 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import {usePopper} from 'react-popper'
+import ReactDOM from 'react-dom'
 
 import {StyledPopper, StyledPopperWrapper} from './StyledComponents'
 
 /**
  * Menu realised with popper.
  */
-const Menu = ({referenceElement, onClose, open, children}) => {
+const Menu = ({
+  referenceElement,
+  onClose,
+  open,
+  children
+}) => {
   const thisEl = useRef(null)
   const [popperElement, setPopperElement] = useState(null)
   const [bottom, setBottom] = useState(0)
@@ -30,7 +36,10 @@ const Menu = ({referenceElement, onClose, open, children}) => {
     }
   }, [referenceElement])
 
-  const {styles, attributes} = usePopper(referenceElement, popperElement, {
+  const {
+    styles,
+    attributes
+  } = usePopper(referenceElement, popperElement, {
     placement: 'bottom-start',
     modifiers: [
       {
@@ -38,10 +47,8 @@ const Menu = ({referenceElement, onClose, open, children}) => {
         options: {
           offset: [0, 5]
         }
-      }
-    ]
-  }
-  )
+      }]
+  })
 
   if (!open) {
     return null
@@ -49,13 +56,15 @@ const Menu = ({referenceElement, onClose, open, children}) => {
 
   return (
     <StyledPopperWrapper ref={thisEl}>
-      {children && <StyledPopper
-        ref={setPopperElement}
-        style={styles.popper}
-        {...attributes.popper}
-        rectBottom={bottom}>
-        {React.Children.map(children, child => child && React.cloneElement(child, {onClose: onClose}))}
-      </StyledPopper>}
+      {children && ReactDOM.createPortal(
+        <StyledPopper
+          ref={setPopperElement}
+          style={styles.popper}
+          {...attributes.popper}
+          rectBottom={bottom}>
+          {React.Children.map(children, child => child && React.cloneElement(child, {onClose: onClose}))}
+        </StyledPopper>,
+        document.body)}
     </StyledPopperWrapper>
   )
 }
