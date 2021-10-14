@@ -21,9 +21,8 @@ const SaveButton = ({submitting, mode, intl, hasErrors, formErrors, icon}) => {
       look={hasErrors ? 'flat' : 'raised'}
       pending={submitting}
       type="submit"
-      {...(hasErrors && {icon: 'exclamation'})}
       hasErrors={hasErrors}
-      icon={icon}
+      icon={hasErrors ? 'exclamation' : icon}
     />
   </Popover>
 }
