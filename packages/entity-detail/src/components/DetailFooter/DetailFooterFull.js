@@ -9,7 +9,7 @@ import TextValue from './TextValue'
 
 const DetailFooterFull = ({entity, keyField}) => (
   <StyledFooterWrapper>
-    <Layout.Container>
+    <Layout.Container minBoxWidth={225}>
       <Layout.Box>
         <FooterItem
           labelId="client.entity-detail.footer.created"
