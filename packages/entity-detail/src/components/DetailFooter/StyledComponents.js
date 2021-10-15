@@ -1,15 +1,20 @@
 import styled from 'styled-components'
-import {colorizeText, StyledLayoutBox, StyledSpan, theme} from 'tocco-ui'
+import {colorizeText, StyledLayoutContainer, StyledLayoutBox, StyledSpan, theme, scale} from 'tocco-ui'
 import {declareNoneWrappingText} from 'tocco-ui/src/utilStyles'
 
 export const StyledFooterWrapper = styled.div`
   && {
     * {
       color: ${colorizeText.shade2};
+      font-size: ${scale.font(-0.8)};
     }
 
     ${StyledLayoutBox} {
-      margin-bottom: 0;
+      margin-bottom: ${scale.space(-1)};
+    }
+
+    ${StyledLayoutContainer} {
+      padding-right: 0;
     }
   }
 `
@@ -19,18 +24,14 @@ export const StyledFooterItemWrapper = styled.div`
 `
 export const StyledFooterItemLabel = styled(StyledSpan)`
   && {
-    margin-right: 5px;
-    width: 80px;
-    flex-shrink: 0;
+    margin-right: ${scale.space(-1.37)};
     font-weight: ${theme.fontWeight('bold')};
     ${declareNoneWrappingText}
   }
 `
 
 export const StyledFooterItemValue = styled.span`
-  width: 80%;
-  flex-shrink: 1;
-  flex-grow: 1;
+  flex: 1;
   overflow: hidden;
 `
 
