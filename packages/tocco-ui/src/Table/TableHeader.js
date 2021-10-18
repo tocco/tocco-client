@@ -1,12 +1,11 @@
-import React from 'react'
+import React, {useCallback} from 'react'
 import PropTypes from 'prop-types'
-import {dragAndDrop} from 'tocco-util'
+import {dragAndDrop, resize} from 'tocco-util'
 
 import {StyledDnD, StyledTableHead, StyledTableHeaderCell, StyledTableRow, StyledDraggable} from './StyledTable'
 import SortingState from './SortingState'
 import ResizingController from './ResizingController'
 import {columnPropType, dataPropType} from './propTypes'
-import useResize from './useResize'
 
 const ThContent = ({column, data}) =>
   column.HeaderRenderer
@@ -30,15 +29,30 @@ const TableHeader = props => {
   } = props
   const {dndEvents, dndState} = dragAndDrop.useDnD(onColumnPositionChange)
 
-  const {resizingColumn, startResize} = useResize(tableEl, onColumnWidthChanging, onColumnWidthChanged)
+  const currentResizeElementSelector = resizeElement =>
+    tableEl.current.querySelector(`th[id='header-cell-${resizeElement.id}']`)
+
+  const handleResize = useCallback((el, {width}) => onColumnWidthChanging(el.id, width), [onColumnWidthChanging])
+  const handleResizeFinsihed = useCallback(el => onColumnWidthChanged(el.id), [onColumnWidthChanged])
+  
+  const {
+    startResize,
+    resizingEvents,
+    resizeState
+  } = resize.useResize(
+    currentResizeElementSelector,
+    handleResize,
+    handleResizeFinsihed)
+
+  const {isResizing, resizingElement} = resizeState
 
   const thOnClick = column => e => {
-    if (!resizingColumn && column.sorting && column.sorting.sortable) {
+    if (!isResizing && column.sorting && column.sorting.sortable) {
       onSortingChange(column.id, e.shiftKey)
     }
   }
 
-  return <StyledTableHead>
+  return <StyledTableHead {...resizingEvents}>
     <StyledTableRow>
       {columns.map(column => {
         const key = `header-cell-${column.id}`
@@ -47,8 +61,8 @@ const TableHeader = props => {
           data-cy={key}
           id={key}
           onClick={thOnClick(column)}
-          resizingColumn={resizingColumn}
-          isResizing={resizingColumn && column.id === resizingColumn.id}
+          isResizingAnyCell={isResizing}
+          isResizingThisCell={isResizing && column.id === resizingElement?.id}
           sortable={column.sorting && column.sorting.sortable}
           isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
         >
