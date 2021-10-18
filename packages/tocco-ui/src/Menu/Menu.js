@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import {usePopper} from 'react-popper'
 import ReactDOM from 'react-dom'
@@ -18,12 +18,13 @@ const Menu = ({
   const [popperElement, setPopperElement] = useState(null)
   const [bottom, setBottom] = useState(0)
 
-  const handleClickOutside = e => {
+  const handleClickOutside = useCallback(e => {
     if (thisEl && thisEl.current && !thisEl.current.contains(e.target)
+      && popperElement && !popperElement.contains(e.target)
       && referenceElement && !referenceElement.contains(e.target)) {
       onClose()
     }
-  }
+  }, [referenceElement, popperElement, onClose])
 
   useEffect(() => {
     if (thisEl.current) {
@@ -34,7 +35,7 @@ const Menu = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [referenceElement])
+  }, [handleClickOutside])
 
   const {
     styles,
