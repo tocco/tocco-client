@@ -2,9 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 
+import {StyledInfoBoxContentWrapper} from './StyledComponents'
+
 const InfoBoxSearchFilterContent = ({id, content}) => {
   const {searchfilter, entityName, scope, limit} = content
-  return <div>
+  return <StyledInfoBoxContentWrapper>
     <EntityListApp
       id={id}
       limit={limit}
@@ -19,7 +21,7 @@ const InfoBoxSearchFilterContent = ({id, content}) => {
       sortable
       disableSelectionController
     />
-  </div>
+  </StyledInfoBoxContentWrapper>
 }
 
 InfoBoxSearchFilterContent.propTypes = {

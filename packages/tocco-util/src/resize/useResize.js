@@ -14,18 +14,34 @@ import measureSize from './measureSize'
  */
 export default (resizingElementSelector, resizeCallback, resizeFinishedCallback) => {
   const [resizingElement, setResizingElement] = useState(null)
-  const [isResizing, setIsResizing] = useState(false)
-  const [isResizingInternal, setIsResizingInternal] = useState(false)
   const lastPosition = useRef(null)
   const handler = useRef()
 
+  /**
+   * Workaround:
+   * Problem:
+   *  The `onClick` event after the `onMouseUp` should still be handled within the "resizing"-context.
+   *  However any follow up `onMouseMove` should not be handled within the "resizing"-context anymore.
+   * Solution:
+   *  Therefore we have an `isResizing` state which we will propagate to the outside
+   *  which will switch to `false` AFTER the follow up `onClick` event.
+   *  And we have an `isResizingInternal` state which will switch to `false` IMMEDIATELY and
+   *  can be used in any follow up `onMouseMove` handler.
+   */
+  const [isResizing, setIsResizing] = useState(false)
+  const [isResizingInternal, setIsResizingInternal] = useState(false)
+
   const resizeState = useMemo(() => ({resizingElement, isResizing}), [resizingElement, isResizing])
 
-  const startResize = element => () => {
+  const startResize = element => e => {
     setResizingElement(element)
     setIsResizing(true)
     setIsResizingInternal(true)
     lastPosition.current = undefined
+
+    // stop any further events e.g. `onDragStart`
+    e.stopPropagation()
+    e.preventDefault()
   }
 
   const onMouseUp = useCallback(() => {
@@ -35,9 +51,8 @@ export default (resizingElementSelector, resizeCallback, resizeFinishedCallback)
 
       /**
        * Workaround:
-       * The follow up click event should still be within the context of "resizing".
-       * Otherwise the resizingElement which is returned is already cleared
-       * and the follow up click event could be interpreted for something else (e.g. sorting).
+       * The follow up `onClick` event should still be within the context of "resizing".
+       * Therefore change these state in the next cycle after the `onClick` event fired already.
        */
       setTimeout(() => {
         setIsResizing(false)

@@ -44,7 +44,7 @@ export const StyledTableHeaderCell = styled.th`
   display: flex;
   border-right: ${({isDraggedOver, theme}) => isDraggedOver ? `3px solid ${theme.colors.text}` : 'none'};
   ${({id}) => id === 'header-cell-navigation-column' && 'z-index: 1'};
-  ${({isResizing, theme}) => isResizing && `
+  ${({isResizingThisCell, theme}) => isResizingThisCell && `
     background-color: ${generateShades(theme.colors.paper)[1]};
 
     > ${StyledResizeHandle} {
@@ -52,7 +52,7 @@ export const StyledTableHeaderCell = styled.th`
     }
   `
   }
-  ${({resizingColumn, theme}) => !resizingColumn && `
+  ${({isResizingAnyCell, theme}) => !isResizingAnyCell && `
     &:hover {
       background-color: ${generateShades(theme.colors.paper)[1]};
 
@@ -62,13 +62,13 @@ export const StyledTableHeaderCell = styled.th`
     }
   `
   }
-  ${({isResizing, sortable, fixedPosition, theme}) => !sortable
+  ${({isResizingThisCell, sortable, fixedPosition, theme}) => !sortable
     ? `
     &:hover {
       background-color: ${theme.colors.paper};
     }
     `
-    : !isResizing && !sortable && !fixedPosition && `
+    : !isResizingThisCell && !sortable && !fixedPosition && `
         &:hover {
           background-color: transparent;
         }

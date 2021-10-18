@@ -2,7 +2,7 @@ import reducer from './index'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
-  infoboxes: []
+  infoBoxes: []
 }
 
 describe('dashboard', () => {
@@ -17,18 +17,18 @@ describe('dashboard', () => {
 
         describe('SET_DASHBOARD', () => {
           test('should handle SET_DASHBOARD', () => {
-            const infoboxes = {infoboxes: [{id: 'welcome'}]}
+            const infoBoxes = {infoBoxes: [{id: 'welcome'}]}
             const stateBefore = {
               otherProp: 'foo',
-              infoboxes: []
+              infoBoxes: []
             }
 
             const expectedStateAfter = {
               otherProp: 'foo',
-              infoboxes
+              infoBoxes
             }
 
-            expect(reducer(stateBefore, actions.setDashboard(infoboxes))).to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setDashboard(infoBoxes))).to.deep.equal(expectedStateAfter)
           })
         })
       })

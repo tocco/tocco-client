@@ -2,12 +2,14 @@ import styled from 'styled-components'
 import {colorizeBorder, scale, theme} from 'tocco-ui'
 
 export const StyledInfoBoxWrapper = styled.div`
+  box-sizing: border-box;
   border: 1px solid ${colorizeBorder.shade1};
-  height: 300px;
-  width: 100%;
+  height: ${({height}) => `${height}px`};
   padding: ${scale.space(-0.5)};
-  margin: ${scale.space(-0.5)};
   background: ${theme.color('paper')};
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   /**
    * Workaround:
@@ -20,7 +22,8 @@ export const StyledInfoBoxWrapper = styled.div`
 
 export const StyledDroppedPreview = styled.div`
   border: 2px dashed ${theme.color('primary')};
-  height: 300px;
+  box-sizing: border-box;
+  height: ${({height}) => `${height}px`};
   width: 100%;
   padding: ${scale.space(-0.5)};
   margin: ${scale.space(-0.5)};

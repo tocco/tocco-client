@@ -3,19 +3,19 @@
     {
       "id": "welcome",
       "label": "Willkommen",
-      "height": "100",
+      "height": 100,
       "folded": true,
       "position": "0:1",
       "content": {
         "type": "htmlfield",
         "unique_id": "welcome",
-        "text": "<p>Klicken sie <a href=\"/tocco-legacy\" rel=\"noopener noreferrer\" target=\"_blank\">HIER</a> um zur alten Adminoberfläche weitergeleitet zu werden.</p>"
+        "text": "<p>Klicken sie <a href=\"/tocco-legacy\" rel=\"noopener noreferrer\" target=\"_blank\">HIER</a> um zur alten Adminoberfläche weitergeleitet zu werden.<br/><br/><br/><br/>Weiter unten gibt es auch noch Zeilen.<br/><br/><br/>Die wichtig sind und per Scrollbalken erreichbar.<br/><br/><br/>Deswegen ist dies ein guter Test.</p>"
       }
     },
     {
       "id": "birthdays",
       "label": "Nächste Geburtstage",
-      "height": "100",
+      "height": 300,
       "folded": true,
       "position": "1:1",
       "content": {
@@ -29,7 +29,7 @@
     {
       "id": "joke",
       "label": "Witz des Tages",
-      "height": "100",
+      "height": 150,
       "folded": true,
       "position": "0:2",
       "content": {

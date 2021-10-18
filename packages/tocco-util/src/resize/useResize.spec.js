@@ -19,6 +19,8 @@ describe('tocco-util', () => {
         const resizeCallback = sinon.spy()
         const resizeFinishedCallback = sinon.spy()
 
+        const event = {stopPropagation: sinon.spy(), preventDefault: sinon.spy()}
+
         const expectedResizingState = {
           resizingElement: '1',
           isResizing: true
@@ -28,7 +30,7 @@ describe('tocco-util', () => {
 
         const element = '1'
         act(() => {
-          result.current.startResize(element)()
+          result.current.startResize(element)(event)
         })
 
         expect(result.current.resizeState).to.deep.equal(expectedResizingState)
@@ -39,11 +41,13 @@ describe('tocco-util', () => {
         const resizeCallback = sinon.spy()
         const resizeFinishedCallback = sinon.spy()
 
+        const event = {stopPropagation: sinon.spy(), preventDefault: sinon.spy()}
+
         const {result} = renderHook(() => useResize(selector, resizeCallback, resizeFinishedCallback))
 
         const element = '1'
         act(() => {
-          result.current.startResize(element)()
+          result.current.startResize(element)(event)
         })
 
         act(() => {
@@ -67,11 +71,13 @@ describe('tocco-util', () => {
         const resizeCallback = sinon.spy()
         const resizeFinishedCallback = sinon.spy()
 
+        const event = {stopPropagation: sinon.spy(), preventDefault: sinon.spy()}
+
         const {result} = renderHook(() => useResize(selector, resizeCallback, resizeFinishedCallback))
 
         const element = '1'
         act(() => {
-          result.current.startResize(element)()
+          result.current.startResize(element)(event)
         })
 
         act(() => {
