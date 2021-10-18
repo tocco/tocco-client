@@ -6,18 +6,18 @@ import {StyledInfoBoxWrapper} from './StyledComponents'
 import InfoBoxContent from './InfoBoxContent'
 
 const InfoBox = ({id, label, height, content, ...props}) => {
-  return (<StyledInfoBoxWrapper {...props}>
-    <div>
+  return (
+    <StyledInfoBoxWrapper {...props} height={height}>
       <Typography.H3>{label}</Typography.H3>
       <InfoBoxContent id={id} content={content}/>
-    </div>
-  </StyledInfoBoxWrapper>)
+    </StyledInfoBoxWrapper>
+  )
 }
 
 InfoBox.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
+  height: PropTypes.number.isRequired,
   content: PropTypes.object.isRequired
 }
 

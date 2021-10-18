@@ -15,7 +15,9 @@ describe('dashboard', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               call(sagas.loadDashboard),
-              takeLatest(actions.LOAD_DASHBOARD, sagas.loadDashboard)
+              takeLatest(actions.LOAD_DASHBOARD, sagas.loadDashboard),
+              takeLatest(actions.SAVE_INFOBOX_POSITIONS, sagas.saveInfoBoxPositions),
+              takeLatest(actions.SAVE_INFOBOX_HEIGHT, sagas.saveInfoBoxHeight)
             ]))
             expect(generator.next().done).to.be.true
           })
