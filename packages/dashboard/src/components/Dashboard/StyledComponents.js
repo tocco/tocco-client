@@ -1,18 +1,24 @@
 import styled from 'styled-components'
-import {scale, shadeColor, theme} from 'tocco-ui'
+import {scale, StyledScrollbar, shadeColor, theme} from 'tocco-ui'
 import _get from 'lodash/get'
 
 export const StyledDashboardWrapper = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-wrap: nowrap;
   background: ${theme.color('paper')};
   padding: ${scale.space(-0.5)};
+  overflow: auto;
+  ${StyledScrollbar}
+  box-sizing: border-box;
 `
+
+export const StyledColumnWrapper = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+`
+
 export const StyledColumn = styled.div`
   width: 50%;
-  height: 100%;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
