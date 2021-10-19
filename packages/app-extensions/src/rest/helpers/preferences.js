@@ -25,7 +25,8 @@ export function* deleteUserPreferences(path) {
  * To add or overwrite preferences.
  *
  * @param preferences {object} Key/Value pairs.
+ * @param path {string} preference path
  */
-export function* savePreferences(preferences) {
-  yield call(requestSaga, 'client/preferences', {method: 'PATCH', body: {values: preferences}})
+export function* savePreferences(preferences, path = '/nice2/ui/settings') {
+  yield call(requestSaga, 'client/preferences', {method: 'PATCH', body: {path, values: preferences}})
 }
