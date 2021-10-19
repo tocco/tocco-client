@@ -1,5 +1,5 @@
-import {consoleLogger, cache} from 'tocco-util'
-import {takeLatest, call, all, put} from 'redux-saga/effects'
+import {cache, consoleLogger} from 'tocco-util'
+import {all, call, put, takeLatest} from 'redux-saga/effects'
 
 import notification from '../notification'
 import * as actions from './actions'
@@ -28,11 +28,12 @@ export function getOptions() {
 }
 
 export function* sessionCheck() {
-  const {success, businessUnit} = yield call(doSessionRequest)
+  const {success, businessUnit, adminAllowed} = yield call(doSessionRequest)
   const cachedPrincipal = cache.getShortTerm('session', 'principal')
   if (cachedPrincipal && cachedPrincipal.currentBusinessUnit.id !== businessUnit) {
     yield call(cache.clearShortTerm)
   }
+  yield put(actions.setAdminAllowed(adminAllowed))
   yield put(actions.setLoggedIn(success))
   if (success) {
     yield put(notification.connectSocket())

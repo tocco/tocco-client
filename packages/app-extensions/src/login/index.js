@@ -1,18 +1,11 @@
 import {addToStore} from './login'
-import {
-  doSessionRequest,
-  doRequest,
-  getOptions
-} from './sagas'
-import {
-  setLoggedIn,
-  doSessionCheck
-
-} from './actions'
+import {doRequest, doSessionRequest, getOptions} from './sagas'
+import {doSessionCheck, setAdminAllowed, setLoggedIn} from './actions'
 
 export default {
   addToStore,
   setLoggedIn,
+  setAdminAllowed,
   doSessionCheck,
   doSessionRequest,
   doRequest,

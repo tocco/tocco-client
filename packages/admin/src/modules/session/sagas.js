@@ -1,6 +1,6 @@
 import {cache} from 'tocco-util'
-import {notification, rest, login} from 'tocco-app-extensions'
-import {takeLatest, call, all, put, select, delay} from 'redux-saga/effects'
+import {login, notification, rest} from 'tocco-app-extensions'
+import {all, call, delay, put, select, takeLatest} from 'redux-saga/effects'
 import Cookies from 'js-cookie'
 
 import * as actions from './actions'
@@ -10,8 +10,9 @@ export const sessionSelector = state => state.session
 export function* sessionHeartBeat(sessionTimeout) {
   const threeQuarterSeconds = sessionTimeout * 45000
   yield delay(threeQuarterSeconds)
-  const sessionResponse = yield call(login.doSessionRequest)
-  yield put(login.setLoggedIn(sessionResponse.success))
+  const {success, adminAllowed} = yield call(login.doSessionRequest)
+  yield put(login.setLoggedIn(success))
+  yield put(login.setAdminAllowed(adminAllowed))
   yield call(sessionHeartBeat, sessionTimeout)
 }
 
