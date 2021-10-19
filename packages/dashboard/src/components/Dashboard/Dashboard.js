@@ -1,8 +1,14 @@
-import React, {useCallback, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import {dragAndDrop, resize} from 'tocco-util'
 
-import {StyledDashboardWrapper, StyledColumn, StyledResizeHandle, StyledInfoBoxWrapper} from './StyledComponents'
+import {
+  StyledDashboardWrapper,
+  StyledColumnWrapper,
+  StyledColumn,
+  StyledResizeHandle,
+  StyledInfoBoxWrapper
+} from './StyledComponents'
 import InfoBox from '../InfoBox/InfoBox'
 import DropTypes from '../../utils/dropTypes'
 import {
@@ -12,15 +18,17 @@ import {
 } from '../../utils/dashboardUtils'
 import DropPreview from '../InfoBox/DropPreview'
 import {InfoBoxRenderTypes} from '../../utils/infoBoxTypes'
-import {mapPositionToColAndRow} from '../../utils/positionUtils'
-
-const numberOfColumns = 2
+import Menu from '../Menu/MenuContainer'
+import {DEFAULT_HEIGHT, NUMBER_OF_COLUMNS} from '../../utils/constants'
 
 const Dashboard = props => {
-  const [infoBoxes, setInfoBoxes] = useState(props.infoBoxes
-    .map(box => ({...box, ...mapPositionToColAndRow(box.position)})))
+  const [infoBoxes, setInfoBoxes] = useState(props.infoBoxes)
 
-  const columns = [...Array(numberOfColumns).keys()]
+  useEffect(() => {
+    setInfoBoxes(props.infoBoxes)
+  }, [props.infoBoxes])
+
+  const columns = [...Array(NUMBER_OF_COLUMNS).keys()]
 
   const ref = useRef(null)
   const selector = id => ref.current.querySelector(`#infobox-${id}`)
@@ -64,42 +72,46 @@ const Dashboard = props => {
 
   return (
       <StyledDashboardWrapper ref={ref} {...resizingEvents}>
-        {columns.map(column => {
-          const {onDragEnter, onDragOver, onDrop} = dndEvents({type: DropTypes.Column, id: column})
-          const boxes = getRenderInfoBoxesForColumn(draggingId, currentlyDragOver, dropPosition, column, infoBoxes)
+        <Menu/>
+        <StyledColumnWrapper>
+          {columns.map(column => {
+            const {onDragEnter, onDragOver, onDrop} = dndEvents({type: DropTypes.Column, id: column})
+            const boxes = getRenderInfoBoxesForColumn(draggingId, currentlyDragOver, dropPosition, column, infoBoxes)
 
-          return <StyledColumn
-              key={column}
-              onDragEnter={onDragEnter}
-              onDragOver={onDragOver}
-              onDrop={onDrop}
-            >
-              {boxes.map(({id, label, height, content, type}) => {
-                if (type === InfoBoxRenderTypes.DropPreview) {
-                  return <DropPreview
-                    key={`${type}-${id}`}
-                    height={height}
-                    {...dndEvents(currentlyDragOver)}
-                  />
-                }
-                
-                return <StyledInfoBoxWrapper key={`${type}-${id}`} id={`infobox-${id}`}>
-                  <InfoBox
-                    id={id}
-                    label={label}
-                    height={height}
-                    content={content}
-                    draggable
-                    {...dndEvents({type: DropTypes.InfoBox, id})}
-                  />
-                  <StyledResizeHandle
-                    onMouseDown={startResize(id)}
-                    isReszing={resizeState.isResizing && resizeState.resizingElement === id}
-                  />
-                </StyledInfoBoxWrapper>
-              })}
-            </StyledColumn>
-        })}
+            return <StyledColumn
+                key={column}
+                onDragEnter={onDragEnter}
+                onDragOver={onDragOver}
+                onDrop={onDrop}
+              >
+                {boxes.map(({id, label, height, content, type}) => {
+                  if (type === InfoBoxRenderTypes.DropPreview) {
+                    return <DropPreview
+                      key={`${type}-${id}`}
+                      height={height || DEFAULT_HEIGHT}
+                      {...dndEvents(currentlyDragOver)}
+                    />
+                  }
+                  
+                  return <StyledInfoBoxWrapper key={`${type}-${id}`} id={`infobox-${id}`}>
+                    <InfoBox
+                      id={id}
+                      label={label}
+                      height={height || DEFAULT_HEIGHT}
+                      content={content}
+                      draggable
+                      navigationStrategy={props.navigationStrategy}
+                      {...dndEvents({type: DropTypes.InfoBox, id})}
+                    />
+                    <StyledResizeHandle
+                      onMouseDown={startResize(id)}
+                      isReszing={resizeState.isResizing && resizeState.resizingElement === id}
+                    />
+                  </StyledInfoBoxWrapper>
+                })}
+              </StyledColumn>
+          })}
+        </StyledColumnWrapper>
       </StyledDashboardWrapper>
   )
 }
@@ -107,7 +119,8 @@ const Dashboard = props => {
 Dashboard.propTypes = {
   infoBoxes: PropTypes.array.isRequired,
   saveInfoBoxPositions: PropTypes.func.isRequired,
-  saveInfoBoxHeight: PropTypes.func.isRequired
+  saveInfoBoxHeight: PropTypes.func.isRequired,
+  navigationStrategy: PropTypes.object
 }
 
 export default Dashboard

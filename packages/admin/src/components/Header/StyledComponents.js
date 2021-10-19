@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Ball, scale, theme} from 'tocco-ui'
+import {AdminLink, Ball, scale, theme} from 'tocco-ui'
 
 import ToccoLogo from '../../assets/tocco-circle.svg'
 
@@ -62,4 +62,8 @@ export const StyledRedDot = styled.span`
   background-color: ${theme.color('secondaryLight')};
   border-radius: 50%;
   display: inline-block;
+`
+export const StyledHeaderLink = styled(AdminLink)`
+  display: inline-block;
+  padding: .3rem 1.3rem;
 `
