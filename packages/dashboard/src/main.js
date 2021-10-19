@@ -1,16 +1,24 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory} from 'tocco-app-extensions'
+import {appFactory, notification, actionEmitter} from 'tocco-app-extensions'
 
 import DashboardContainer from './components/Dashboard/DashboardContainer'
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'dashboard'
 
-const initApp = (id, input, events, publicPath) => {
+const EXTERNAL_EVENTS = [
+  'emitAction'
+]
+
+const initApp = (id, input, events = {}, publicPath) => {
   const content = <DashboardContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  actionEmitter.addToStore(store, events.emitAction)
+  const handleNotifications = !events.emitAction
+  notification.addToStore(store, handleNotifications)
 
   return appFactory.createApp(
     packageName,
@@ -55,19 +63,23 @@ const initApp = (id, input, events, publicPath) => {
   }
 })()
 
-class DashboardApp extends React.Component {
-  constructor(props) {
-    super(props)
+const DashboardApp = props => {
+  const events = EXTERNAL_EVENTS.reduce((events, event) => {
+    if (props[event]) {
+      events[event] = props[event]
+    }
+    return events
+  }, {})
 
-    this.app = initApp('dashboard', props)
-  }
-
-  render() {
-    return this.app.component
-  }
+  return initApp('dashboard', props, events).component
 }
 
 DashboardApp.propTypes = {
+  navigationStrategy: PropTypes.object,
+  ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
+    propTypes[event] = PropTypes.func
+    return propTypes
+  }, {})
 }
 
 export default DashboardApp
