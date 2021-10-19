@@ -1,10 +1,13 @@
 import styled from 'styled-components'
 import {colorizeBorder, scale, theme} from 'tocco-ui'
 
+const minHeight = '50px'
+
 export const StyledInfoBoxWrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid ${colorizeBorder.shade1};
   height: ${({height}) => `${height}px`};
+  min-height: ${minHeight};
   padding: ${scale.space(-0.5)};
   background: ${theme.color('paper')};
   overflow: hidden;
@@ -24,6 +27,7 @@ export const StyledDroppedPreview = styled.div`
   border: 2px dashed ${theme.color('primary')};
   box-sizing: border-box;
   height: ${({height}) => `${height}px`};
+  min-height: ${minHeight};
   width: 100%;
   padding: ${scale.space(-0.5)};
   margin: ${scale.space(-0.5)};
