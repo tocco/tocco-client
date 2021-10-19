@@ -1,6 +1,6 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {rest} from 'tocco-app-extensions'
+import {login, rest} from 'tocco-app-extensions'
 
 import * as sagas from './sagas'
 
@@ -55,6 +55,26 @@ describe('admin', () => {
               ]
             ])
             .returns(false)
+            .run()
+        })
+      })
+      describe('sessionHeartBeat', () => {
+        test('should set flags and call itself', () => {
+          const timeout = 10
+          const sessionResponse = {
+            success: true,
+            adminAllowed: true
+          }
+          return expectSaga(sagas.sessionHeartBeat, timeout)
+            .provide([
+              [matchers.call.fn(login.doSessionRequest), sessionResponse],
+              [matchers.call.fn(sagas.sessionHeartBeat)],
+              [matchers.call.fn(sagas.delayByTimeout)]
+            ])
+            .put(login.setLoggedIn(true))
+            .put(login.setAdminAllowed(true))
+            .call(sagas.sessionHeartBeat, timeout)
+            .call(sagas.delayByTimeout, timeout * 45000)
             .run()
         })
       })
