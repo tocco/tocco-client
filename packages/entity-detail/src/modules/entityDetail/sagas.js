@@ -22,6 +22,7 @@ import {api} from 'tocco-util'
 import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {selectUnit} from '@formatjs/intl-utils'
 import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
+import _get from 'lodash/get'
 
 import * as actions from './actions'
 import {createEntity, updateEntity} from '../../util/api/entities'
@@ -65,7 +66,7 @@ export function* autoComplete(fieldName, autoCompleteEndpoint) {
   }
 
   const response = yield call(rest.requestSaga, autoCompleteEndpoint, options)
-  const {values} = response.body
+  const values = _get(response, 'body.values', [])
   const formValues = yield select(getFormValues(FORM_ID))
 
   yield all(Object.keys(values).map(fieldName => {
