@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import {Router, Route, Redirect, Switch} from 'react-router-dom'
+import {Redirect, Route, Router, Switch} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
 import {BurgerButton, LoadMask} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
@@ -15,12 +15,8 @@ import EntitiesRoute from '../../routes/entities'
 import DocsRoute from '../../routes/docs'
 import Settings from '../../routes/settings'
 import Header from '../Header'
-import {
-  StyledWrapper,
-  StyledContent,
-  StyledMenu,
-  burgerMenuStyles
-} from './StyledComponents'
+import ErrorView from '../ErrorView'
+import {burgerMenuStyles, StyledContent, StyledMenu, StyledWrapper} from './StyledComponents'
 
 const Admin = ({
   initializeNavigation,
@@ -30,7 +26,8 @@ const Admin = ({
   confirm,
   loadPrincipal,
   loadSettingsAndPreferences,
-  theme
+  theme,
+  adminAllowed
 }) => {
   const [history, setHistory] = useState(null)
 
@@ -69,7 +66,7 @@ const Admin = ({
       <notification.Notifications navigationStrategy={navigationStrategy()}/>
       <StyledWrapper id="outer-container">
         <Header/>
-        <StyledMenu
+        {adminAllowed && <StyledMenu
           isOpen={menuOpen}
           onStateChange={isMenuOpen}
           customCrossIcon={false}
@@ -81,18 +78,26 @@ const Admin = ({
             setMenuOpen(false)
             viewPersistor.clearPersistedViews()
           }}/>
-        </StyledMenu>
-        <StyledContent id="page-wrap">
-          <Switch>
-            <Route exact path="/"
-              render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
-            <Route exact={true} path="/dashboard" component={DashboardRoute}/>
-            <Route path="/e" component={EntitiesRoute}/>
-            <Route path="/s" component={Settings}/>
-            <Route path="/docs" component={DocsRoute}/>
-            <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
-          </Switch>
-        </StyledContent>
+        </StyledMenu>}
+        {
+          adminAllowed && <StyledContent id="page-wrap">
+            <Switch>
+              <Route exact path="/"
+                     render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
+              <Route exact={true} path="/dashboard" component={DashboardRoute}/>
+              <Route path="/e" component={EntitiesRoute}/>
+              <Route path="/s" component={Settings}/>
+              <Route path="/docs" component={DocsRoute}/>
+              <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
+            </Switch>
+          </StyledContent>
+        }
+        {
+          !adminAllowed && <StyledContent id="page-wrap">
+            <ErrorView title={<FormattedMessage id={'client.admin.error.no_roles.title'}/>}
+                       message={<FormattedMessage id={'client.admin.error.no_roles.message'}/>}/>
+          </StyledContent>
+        }
       </StyledWrapper>
     </Router>
   </LoadMask>
@@ -107,7 +112,8 @@ Admin.propTypes = {
   confirm: PropTypes.func.isRequired,
   initializeNavigation: PropTypes.func.isRequired,
   loadSettingsAndPreferences: PropTypes.func.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
+  adminAllowed: PropTypes.bool.isRequired
 }
 
 export default withTheme(Admin)
