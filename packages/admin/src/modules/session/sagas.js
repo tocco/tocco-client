@@ -9,11 +9,20 @@ export const sessionSelector = state => state.session
 
 export function* sessionHeartBeat(sessionTimeout) {
   const threeQuarterSeconds = sessionTimeout * 45000
-  yield delay(threeQuarterSeconds)
+  yield call(delayByTimeout, threeQuarterSeconds)
   const {success, adminAllowed} = yield call(login.doSessionRequest)
   yield put(login.setLoggedIn(success))
   yield put(login.setAdminAllowed(adminAllowed))
   yield call(sessionHeartBeat, sessionTimeout)
+}
+
+/**
+ * this is only here because 'yield delay(timeout)' is a pain to be called when testing
+ * see https://github.com/jfairbank/redux-saga-test-plan/issues/257
+ * @param timeout the time to wait
+ */
+export function* delayByTimeout(timeout) {
+  yield delay(timeout)
 }
 
 export function* doLogoutRequest() {
