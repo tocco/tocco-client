@@ -1,3 +1,11 @@
+0.5.29
+- Reset legacy overwrite of link color inside toasters
+- Fix popper menu disappearing behind bm-menu elements
+- Harmonize paragraph spacing whithin fields
+- Lighten scrollbar color
+- Fix column position change
+- Fix popper menu closing immediately when clicking an action
+
 0.5.28
 - fix confirm handler
 - calculate drop position before or after element
