@@ -1,3 +1,36 @@
+0.10.32
+- Harmonize link styling to be consistent
+- Increase min-height of filter panel in search form
+- change dms icons
+- Improve table hover colors for better readability
+- Change popover text color of paragraphs to white
+- Improve text input UX within input edit table
+- Reduce notification center title size
+- fix state propagation in resize hook
+- persist columns widths
+- Dms edit and create messages clean up
+- clean up documentation and fix dispatched actions
+- fix websocket reconnection
+- add footer with meta info
+- refactor initial notification
+- fix confirm handler
+- calculate drop position before or after element
+- provide sanitize function for html
+- render sanitized html only
+- don't resize column after mouse release
+- Remote fields and select boxes now only load active relation values.
+- add keyField to model transformer
+- use dynamic key field
+- Reset legacy overwrite of link color inside toasters
+- Fix popper menu disappearing behind bm-menu elements
+- Harmonize paragraph spacing whithin fields
+- Lighten scrollbar color
+- fix column position change
+- Fix popper menu closing immediately when clicking an action
+- add scope as input
+- Style detail footer for better UX
+- Add minimum box width property to Layout Container to better control column width
+
 0.10.31
 - Prevent preview image collapsing to 1px if preview cannot be generated
 - Refresh list on navigation back to list
