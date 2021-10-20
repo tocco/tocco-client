@@ -1,3 +1,9 @@
+0.5.30
+- add scope as input
+- Style detail footer for better UX
+- Add minimum box width property to Layout Container to better control column width
+- add optional path to save preferences
+
 0.5.29
 - Reset legacy overwrite of link color inside toasters
 - Fix popper menu disappearing behind bm-menu elements
