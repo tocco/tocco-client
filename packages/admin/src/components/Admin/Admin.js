@@ -84,6 +84,7 @@ const Admin = ({
             <Switch>
               <Route exact path="/"
                      render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
+              <Redirect exact from="/dashboard/reload" to="/dashboard"/>
               <Route exact={true} path="/dashboard" component={DashboardRoute}/>
               <Route path="/e" component={EntitiesRoute}/>
               <Route path="/s" component={Settings}/>
