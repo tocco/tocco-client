@@ -52,6 +52,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadPreferences)
               .provide([
                 [select(entityListSelector), {formName: 'User'}],
+                [select(listSelector), {scope: 'list'}],
                 [matchers.call.fn(rest.fetchUserPreferences), preferences]
               ])
               .put.actionType(actions.SET_POSITIONS)
@@ -65,6 +66,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.changePosition, {payload: {field: 'firstname', afterFieldPosition: 'mail'}})
               .provide([
                 [select(entityListSelector), {formName: 'User'}],
+                [select(listSelector), {scope: 'list'}],
                 [select(sagas.preferencesSelector), {positions: {firstname: 1, mail: 2}}],
                 [matchers.call.fn(rest.deleteUserPreferences)],
                 [matchers.call.fn(rest.savePreferences)]
@@ -97,7 +99,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.saveSorting)
               .provide([
                 [select(entityListSelector), {formName: 'User'}],
-                [select(listSelector), {sorting: providedSorting}],
+                [select(listSelector), {scope: 'list', sorting: providedSorting}],
                 [matchers.call.fn(rest.deleteUserPreferences)],
                 [matchers.call.fn(rest.savePreferences)]
               ])
@@ -110,7 +112,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.saveSorting)
               .provide([
                 [select(entityListSelector), {formName: 'User'}],
-                [select(listSelector), {sorting: []}]
+                [select(listSelector), {scope: 'list', sorting: []}]
               ])
               .not.call.like({fn: rest.savePreferences})
               .not.call.like({fn: rest.deleteUserPreferences})
@@ -122,6 +124,7 @@ describe('entity-list', () => {
           test('should remove sorting preferences', () => {
             return expectSaga(sagas.resetSorting)
               .provide([
+                [select(listSelector), {scope: 'list'}],
                 [select(entityListSelector), {formName: 'User'}],
                 [matchers.call.fn(rest.deleteUserPreferences)],
                 [matchers.call.fn(listSagas.setSorting)],
@@ -139,6 +142,7 @@ describe('entity-list', () => {
           test('should remove all preferences', () => {
             return expectSaga(sagas.resetPreferences)
               .provide([
+                [select(listSelector), {scope: 'list'}],
                 [select(entityListSelector), {formName: 'User'}],
                 [matchers.call.fn(rest.deleteUserPreferences)],
                 [matchers.call.fn(listSagas.setSorting)],
@@ -170,7 +174,8 @@ describe('entity-list', () => {
                         }
                       ]
                     }]
-                  }
+                  },
+                  scope: 'list'
                 }],
                 [select(listSagas.entityListSelector), {}],
                 [select(sagas.preferencesSelector), preferencesSelector],
@@ -219,6 +224,7 @@ describe('entity-list', () => {
           test('should delete preferences', () => {
             return expectSaga(sagas.resetColumns)
               .provide([
+                [select(listSelector), {scope: 'list'}],
                 [select(entityListSelector), {formName: 'User'}],
                 [matchers.call.fn(rest.deleteUserPreferences)]
               ])
