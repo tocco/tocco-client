@@ -3,7 +3,6 @@ import {dragAndDrop} from 'tocco-util'
 
 import DropTypes from './dropTypes'
 import {InfoBoxRenderTypes} from './infoBoxTypes'
-import {mapPositionToColAndRow} from './positionUtils'
 
 export const sortInfoBoxes = boxes => boxes.sort((a, b) => {
   if (a.col === b.col) {
@@ -55,9 +54,6 @@ const insertDraggedAtDropped = curry((draggingId, dragOverId, position, sortedBo
     }, [])
   )
 })
-
-export const prepareInfoBoxes = infoBoxes => sortInfoBoxes(infoBoxes
-  .map(box => ({...box, ...mapPositionToColAndRow(box.position)})))
 
 export const moveDraggedToDropped = (draggingId, dragOverId, position, boxes) => flow([
   sortInfoBoxes,
