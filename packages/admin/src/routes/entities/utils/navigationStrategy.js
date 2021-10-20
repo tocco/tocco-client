@@ -6,7 +6,7 @@ import {injectIntl} from 'react-intl'
 
 import {goBack} from '../../../utils/routing'
 
-const DetailLinkRelativeWithoutIntl = ({entityKey, children, relation, intl}) => {
+const DetailLinkRelativeWithoutIntl = ({entityKey, entityModel, children, relation, intl}) => {
   const msg = id => intl.formatMessage({id})
 
   return (
@@ -77,9 +77,16 @@ export default (history, match) => {
     })
   }
 
-  const openDetail = (entityName, key) => {
-    const url = history.createHref({pathname: `/e/${entityName}/${key}`})
-    window.open(url, '_blank')
+  const openDetail = (entityName, key, inNewTab = true) => {
+    const pathname = `/e/${entityName}/${key}`
+    if (inNewTab) {
+      const url = history.createHref({pathname})
+      window.open(url, '_blank')
+    } else {
+      history.push({
+        pathname
+      })
+    }
   }
 
   return {
@@ -94,6 +101,7 @@ export default (history, match) => {
 
 DetailLinkRelativeWithoutIntl.propTypes = {
   entityKey: PropTypes.string.isRequired,
+  entityModel: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
   relation: PropTypes.string,
   intl: PropTypes.object.isRequired
