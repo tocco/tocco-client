@@ -73,13 +73,12 @@ const Header = ({
 
   const msg = id => intl.formatMessage({id})
 
-  // TODO: feature/dashboard refresh Dashboard page, when already there
   return <>
     <StyledBackgroundLogo runEnv={runEnv}/>
     <StyledBackgroundCover/>
     <StyledHeader>
       <StyledConfig>
-        <StyledHeaderLink to="/dashboard"><FormattedMessage id="client.admin.dashboard"/></StyledHeaderLink>
+        <StyledHeaderLink to="/dashboard/reload"><FormattedMessage id="client.admin.dashboard"/></StyledHeaderLink>
         <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
           {
             businessUnits.map(bU =>
