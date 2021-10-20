@@ -3,7 +3,7 @@ import {shallow} from 'enzyme'
 
 import InfoBoxContent from './InfoBoxContent'
 import InfoBoxHtmlFieldContent from './typeContent/InfoBoxHtmlFieldContent'
-import InfoBoxSearchFilterContent from './typeContent/InfoBoxSearchFilterContent'
+import InfoBoxSearchFilterContentContainer from './typeContent/InfoBoxSearchFilterContentContainer'
 
 describe('dashboard', () => {
   describe('components', () => {
@@ -22,7 +22,7 @@ describe('dashboard', () => {
             type: 'searchfilter'
           }
           const wrapper = shallow(<InfoBoxContent content={content} id="info-box"/>)
-          expect(wrapper.find(InfoBoxSearchFilterContent)).to.have.length(1)
+          expect(wrapper.find(InfoBoxSearchFilterContentContainer)).to.have.length(1)
         })
 
         test('should render nothing for unknown type', () => {

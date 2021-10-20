@@ -10,8 +10,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => ({
-  infoBoxes: state.dashboard.infoBoxes,
-  navigationStrategy: state.input.navigationStrategy
+  infoBoxes: state.dashboard.infoBoxes
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Dashboard))

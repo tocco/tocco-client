@@ -27,7 +27,7 @@ DetailLinkRelativeWithoutIntl.propTypes = {
   intl: PropTypes.object.isRequired
 }
 
-const InfoBoxSearchFilterContent = ({id, content, navigationStrategy}) => {
+const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction}) => {
   const {searchfilter, entityName, scope, limit} = content
 
   const handleRowClick = ({id}) => {
@@ -49,6 +49,7 @@ const InfoBoxSearchFilterContent = ({id, content, navigationStrategy}) => {
       selectionStyle="none"
       sortable
       disableSelectionController
+      emitAction={emitAction}
       navigationStrategy={{...navigationStrategy, DetailLinkRelative}}
       showLink={true}
     />
@@ -58,6 +59,7 @@ const InfoBoxSearchFilterContent = ({id, content, navigationStrategy}) => {
 InfoBoxSearchFilterContent.propTypes = {
   id: PropTypes.string.isRequired,
   content: PropTypes.object.isRequired,
+  emitAction: PropTypes.func.isRequired,
   navigationStrategy: PropTypes.object
 }
 

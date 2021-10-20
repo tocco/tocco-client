@@ -2,11 +2,11 @@ import React from 'react'
 import {consoleLogger} from 'tocco-util'
 
 import InfoBoxHtmlFieldContent from './typeContent/InfoBoxHtmlFieldContent'
-import InfoBoxSearchFilterContent from './typeContent/InfoBoxSearchFilterContent'
+import InfoBoxSearchFilterContentContainer from './typeContent/InfoBoxSearchFilterContentContainer'
 
-export default (type, id, content, navigationStrategy) => {
+export default (type, id, content) => {
   if (map[type]) {
-    return React.createElement(map[type], {id, content, navigationStrategy})
+    return React.createElement(map[type], {id, content})
   }
 
   consoleLogger.logError('No Content mapper defined for type', type, id)
@@ -15,5 +15,5 @@ export default (type, id, content, navigationStrategy) => {
 
 export const map = {
   htmlfield: InfoBoxHtmlFieldContent,
-  searchfilter: InfoBoxSearchFilterContent
+  searchfilter: InfoBoxSearchFilterContentContainer
 }

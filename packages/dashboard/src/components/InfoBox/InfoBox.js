@@ -5,11 +5,11 @@ import {Typography} from 'tocco-ui'
 import {StyledInfoBoxWrapper} from './StyledComponents'
 import InfoBoxContent from './InfoBoxContent'
 
-const InfoBox = ({id, label, height, content, navigationStrategy, ...props}) => {
+const InfoBox = ({id, label, height, content, ...props}) => {
   return (
     <StyledInfoBoxWrapper {...props} height={height}>
       <Typography.H3>{label}</Typography.H3>
-      <InfoBoxContent id={id} content={content} navigationStrategy={navigationStrategy}/>
+      <InfoBoxContent id={id} content={content}/>
     </StyledInfoBoxWrapper>
   )
 }
@@ -18,8 +18,7 @@ InfoBox.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
-  content: PropTypes.object.isRequired,
-  navigationStrategy: PropTypes.object
+  content: PropTypes.object.isRequired
 }
 
 export default InfoBox
