@@ -18,8 +18,6 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => ({
   baseRoute: state.input.baseRoute,
   menuOpen: state.navigation.menuOpen,
-  session: state.session,
-  preferences: state.preferences,
   adminAllowed: state.login.adminAllowed
 })
 
