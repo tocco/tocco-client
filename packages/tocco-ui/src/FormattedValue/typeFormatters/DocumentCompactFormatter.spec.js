@@ -37,7 +37,7 @@ describe('tocco-ui', () => {
             thumbnailLink: 'thumbnail url'
           }}/>)
 
-          expect(wrapper.find('a')).to.have.length(1)
+          expect(wrapper.find('a')).to.have.length(2)
           expect(wrapper.find('img')).to.have.length(0)
         })
       })
