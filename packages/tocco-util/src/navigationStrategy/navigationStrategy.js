@@ -32,6 +32,7 @@ export const propTypes = PropTypes.shape({
    * Displays a link to a detail relative to the current path. e.g. to open a detail in a list view
    * Properties:
    *  entityKey {string}
+   *  entityModel {string}
    *  children {element}
    * Optional properties:
    *  relationName {string} to link a related entity
@@ -57,6 +58,7 @@ export const propTypes = PropTypes.shape({
    * Params:
    *  entityName {string} the model of the entity to open
    *  key {string} the key of the entity to open
+   *  inNewTab {boolean} true if detail show be open in a new tab (optional, default true)
    */
   openDetail: PropTypes.func
 })
