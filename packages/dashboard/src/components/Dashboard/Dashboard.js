@@ -100,7 +100,6 @@ const Dashboard = props => {
                       height={height || DEFAULT_HEIGHT}
                       content={content}
                       draggable
-                      navigationStrategy={props.navigationStrategy}
                       {...dndEvents({type: DropTypes.InfoBox, id})}
                     />
                     <StyledResizeHandle
@@ -119,8 +118,7 @@ const Dashboard = props => {
 Dashboard.propTypes = {
   infoBoxes: PropTypes.array.isRequired,
   saveInfoBoxPositions: PropTypes.func.isRequired,
-  saveInfoBoxHeight: PropTypes.func.isRequired,
-  navigationStrategy: PropTypes.object
+  saveInfoBoxHeight: PropTypes.func.isRequired
 }
 
 export default Dashboard
