@@ -5,8 +5,7 @@ import {channel} from 'redux-saga'
 
 import * as actions from './actions'
 import InfoBoxSettings from '../../components/InfoBoxSettings/InfoBoxSettings'
-import {prepareInfoBoxes} from '../../utils/dashboardUtils'
-import {mapColAndRowToPosition} from '../../utils/positionUtils'
+import {mapColAndRowToPosition, prepareInfoBoxes} from '../../utils/positionUtils'
 
 export const dashboardSelector = state => state.dashboard
 
