@@ -12,6 +12,7 @@ const CellRenderer = ({showNavigation, rowData, navigationStrategy, parent}) =>
     >
       <navigationStrategy.DetailLinkRelative
         entityKey={rowData.__key}
+        entityModel={rowData.__model}
         {...(parent && parent.relationName && {relation: parent.relationName})}
       >
         <Icon icon="arrow-right"/>
@@ -21,7 +22,8 @@ const CellRenderer = ({showNavigation, rowData, navigationStrategy, parent}) =>
 
 CellRenderer.propTypes = {
   rowData: PropTypes.shape({
-    __key: PropTypes.string.isRequired
+    __key: PropTypes.string.isRequired,
+    __model: PropTypes.string.isRequired
   }).isRequired,
   showNavigation: PropTypes.bool.isRequired,
   navigationStrategy: PropTypes.shape({
