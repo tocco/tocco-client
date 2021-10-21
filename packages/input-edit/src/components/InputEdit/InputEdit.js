@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {actions, notification} from 'tocco-app-extensions'
 import {selection as selectionPropType} from 'tocco-util'
+import {GlobalStyles} from 'tocco-ui'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
 import InputEditSearch from '../InputEditSearch'
@@ -34,6 +35,7 @@ const InputEdit = ({
   }, [selection])
 
   return <>
+    <GlobalStyles/>
     {handleNotifications && <notification.Notifications/>}
     <StyledPaneWrapper>
       <StyledPanelWrapperLeft>

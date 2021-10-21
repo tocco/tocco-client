@@ -2,6 +2,7 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {actionEmitter, appFactory, externalEvents, notification} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import {GlobalStyles} from 'tocco-ui'
 
 import Merge from './components/Merge'
 import reducers, {sagas} from './modules/reducers'
@@ -22,6 +23,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   notification.addToStore(store, handleNotifications)
 
   const content = <>
+    <GlobalStyles/>
     {handleNotifications && <notification.Notifications/>}
     <Merge/>
   </>

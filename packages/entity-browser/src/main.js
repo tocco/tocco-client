@@ -12,6 +12,7 @@ import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import PropTypes from 'prop-types'
 import {route} from 'tocco-util'
+import {GlobalStyles} from 'tocco-ui'
 
 import {sagas} from './modules/reducers'
 
@@ -75,7 +76,10 @@ const initApp = (id, input, events, publicPath) => {
 
   const routes = require('./routes/index').default(store, input)
 
-  const content = <route.Router history={history} routes={routes}/>
+  const content = <>
+    <GlobalStyles/>
+    <route.Router history={history} routes={routes}/>
+  </>
 
   const app = appFactory.createApp(
     packageName,

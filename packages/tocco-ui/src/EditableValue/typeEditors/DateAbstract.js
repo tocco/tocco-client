@@ -11,7 +11,6 @@ import {
   StyledDateAbstractWrapper,
   StyledDateAbstractOuterWrapper
 } from './StyledDateAbstract'
-import {GlobalDatePickerStyles} from '../../DatePicker/GlobalDatePickerStyles'
 import Ball from '../../Ball'
 
 class DateAbstract extends React.Component {
@@ -161,7 +160,6 @@ class DateAbstract extends React.Component {
   render() {
     return (
       <>
-        <GlobalDatePickerStyles/>
         <StyledDateAbstractOuterWrapper
           immutable={this.props.immutable}
           id={this.props.id}
