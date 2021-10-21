@@ -10,8 +10,8 @@ describe('dashboard', () => {
           expect(col).to.equal(0)
           expect(row).to.equal(2)
         })
-        test('should handle 0:0 as 1:0', () => {
-          const position = '0:0'
+        test('should handle null as 1:0', () => {
+          const position = null
           const {col, row} = mapPositionToColAndRow(position)
           expect(col).to.equal(0)
           expect(row).to.equal(0)
@@ -30,12 +30,12 @@ describe('dashboard', () => {
       describe('prepareInfoBoxes', () => {
         test('should sort and distribute infoBoxes', () => {
           const boxes = [
-            {id: 1, position: '0:0'},
+            {id: 1, position: null},
             {id: 2, position: '1:0'},
             {id: 5, position: '1:2'},
             {id: 4, position: '1:1'},
             {id: 7, position: '2:1'},
-            {id: 3, position: '0:0'},
+            {id: 3, position: null},
             {id: 6, position: '2:0'}
           ]
 
@@ -48,7 +48,7 @@ describe('dashboard', () => {
 
         test('should map `position` to `col` and `row`', () => {
           const boxes = [
-            {id: 1, position: '0:0'},
+            {id: 1, position: null},
             {id: 2, position: '1:0'},
             {id: 3, position: '1:1'},
             {id: 4, position: '1:2'}
@@ -58,7 +58,7 @@ describe('dashboard', () => {
             {id: 2, position: '1:0', col: 0, row: 0},
             {id: 3, position: '1:1', col: 0, row: 1},
             {id: 4, position: '1:2', col: 0, row: 2},
-            {id: 1, position: '0:0', col: 1, row: 0}
+            {id: 1, position: null, col: 1, row: 0}
           ]
 
           const infoBoxes = prepareInfoBoxes(boxes)
@@ -68,13 +68,13 @@ describe('dashboard', () => {
 
         test('should distribute infoBoxes on empty columns', () => {
           const boxes = [
-            {id: 1, position: '0:0'},
-            {id: 2, position: '0:0'}
+            {id: 1, position: null},
+            {id: 2, position: null}
           ]
 
           const expectedBoxes = [
-            {id: 1, position: '0:0', col: 0, row: 0},
-            {id: 2, position: '0:0', col: 1, row: 0}
+            {id: 1, position: null, col: 0, row: 0},
+            {id: 2, position: null, col: 1, row: 0}
           ]
 
           const sortedBoxes = prepareInfoBoxes(boxes)
