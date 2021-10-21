@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {Redirect, Route, Router, Switch} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
-import {BurgerButton, LoadMask} from 'tocco-ui'
+import {BurgerButton, GlobalStyles, LoadMask} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import {withTheme} from 'styled-components'
 import {notification} from 'tocco-app-extensions'
@@ -63,6 +63,7 @@ const Admin = ({
 
   return <LoadMask required={[history !== null]}>
     <Router history={history || {}}>
+      <GlobalStyles/>
       <notification.Notifications navigationStrategy={navigationStrategy()}/>
       <StyledWrapper id="outer-container">
         <Header/>

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {reducer as reducerUtil, selection as selectionPropType} from 'tocco-util'
 import {appFactory, externalEvents, notification, errorLogging, actionEmitter} from 'tocco-app-extensions'
+import {GlobalStyles} from 'tocco-ui'
 
 import reducers, {sagas} from './modules/reducers'
 import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
@@ -14,7 +15,10 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <ResourceSchedulerContainer/>
+  const content = <>
+    <GlobalStyles/>
+    <ResourceSchedulerContainer/>
+  </>
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store, events.emitAction)

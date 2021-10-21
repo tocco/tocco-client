@@ -14,6 +14,7 @@ import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import {Router as ReactRouter, Route, Redirect} from 'react-router'
+import {GlobalStyles} from 'tocco-ui'
 
 import DocsBrowser from './components/DocsBrowser'
 import reducers, {sagas} from './modules/reducers'
@@ -80,6 +81,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   const content = (
     <ReactRouter history={history}>
       {handleNotifications && <notification.Notifications/>}
+      <GlobalStyles/>
       <DocsBrowser history={history}/>
       <Route exact path="/">
         <Redirect to={startUrl}/>
