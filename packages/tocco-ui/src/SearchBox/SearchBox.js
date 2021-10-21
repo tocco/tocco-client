@@ -7,22 +7,27 @@ import {StyledEditableWrapper} from '../EditableValue/StyledEditableValue'
 import StatedValue from '../StatedValue'
 
 const SearchBox = React.forwardRef((props, ref) => {
-  const {value, minInputLength, onSearch, placeholder} = props
+  const {
+    value,
+    minInputLength,
+    onSearch,
+    placeholder
+  } = props
   const [inputValue, setInputValue] = useState(value || '')
 
   const onChange = e => {
     const newValue = e.target.value
     setInputValue(newValue)
 
-    if ((newValue.length === 0 || newValue.length >= minInputLength)) {
+    if (newValue.length === 0 || newValue.length >= minInputLength) {
       onSearch(newValue)
     }
   }
 
   return (
-    <StyledSearchBox className="StyledSearchBox">
+    <StyledSearchBox>
       <StatedValue
-        hasValue={!!inputValue}
+        hasValue={Boolean(inputValue)}
         label={placeholder}
       >
         <StyledEditableWrapper>
