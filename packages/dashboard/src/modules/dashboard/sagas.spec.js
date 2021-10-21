@@ -56,9 +56,9 @@ describe('dashboard', () => {
             const action = {
               payload: {
                 infoBoxes: [
-                  {id: '1', col: 0, row: 0, position: '0:0'},
-                  {id: '2', col: 0, row: 1, position: '0:0'},
-                  {id: '3', col: 1, row: 0, position: '0:0'}
+                  {id: '1', col: 0, row: 0, position: null},
+                  {id: '2', col: 0, row: 1, position: null},
+                  {id: '3', col: 1, row: 0, position: null}
                 ]
               }
             }
