@@ -1,3 +1,6 @@
+0.10.33
+- add open in new tab to document compact
+
 0.10.32
 - Harmonize link styling to be consistent
 - Increase min-height of filter panel in search form
