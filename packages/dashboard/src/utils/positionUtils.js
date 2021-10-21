@@ -7,6 +7,10 @@ import {sortInfoBoxes} from './dashboardUtils'
  * @param position {String}: has the format "column:row" with column 1-based and row 0-based index
  */
 export const mapPositionToColAndRow = position => {
+  if (!position) {
+    return {col: 0, row: 0}
+  }
+  
   const split = position.split(':')
   const col = parseInt(split[0], 10) - 1
   const row = parseInt(split[1], 10)
@@ -21,7 +25,7 @@ export const mapPositionToColAndRow = position => {
  */
 export const mapColAndRowToPosition = (col, row) => `${col + 1}:${row}`
 
-const isUnpositionedInfoBox = box => box.position === null || box.position === '0:0'
+const isUnpositionedInfoBox = box => box.position === null
 
 const getColumnWithMinAmountOfInfoBoxes = infoBoxes => {
   const columns = [...Array(NUMBER_OF_COLUMNS).keys()]
@@ -46,11 +50,10 @@ const distributeInfoBoxes = infoBoxes => {
   const positionedInfoBoxes = infoBoxes.filter(box => !isUnpositionedInfoBox(box))
   return unpositionedInfoBoxes
     .reduce((acc, box) => {
-      const needsNewPosition = box.position === null || box.position === '0:0'
       const {col, numberOfBoxes} = getColumnWithMinAmountOfInfoBoxes(acc)
       return [
         ...acc,
-        needsNewPosition ? {...box, col, row: numberOfBoxes} : box
+        {...box, col, row: numberOfBoxes}
       ]
     }, positionedInfoBoxes)
 }
