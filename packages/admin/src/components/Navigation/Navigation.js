@@ -1,6 +1,7 @@
 import React, {useRef, useState, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import SearchBox from 'tocco-ui/src/SearchBox'
+import {Icon} from 'tocco-ui'
 
 import MenuTree from '../MenuTree'
 import {
@@ -11,13 +12,17 @@ import {
   StyledMenuWrapper,
   StyledNavSwitchButton,
   StyledNavButton,
-  StyledSearchBoxWrapper
+  StyledSearchBoxWrapper,
+  StyledStyledMenuLinkWrapper,
+  StyledIconLink
 }
   from './StyledComponents'
 
-const MenuMenuEntry = ({item}) => <StyledMenuEntry>
-  {item.label}
-</StyledMenuEntry>
+const MenuMenuEntry = ({item}) => (
+  <StyledMenuEntry>
+    {item.label}
+  </StyledMenuEntry>
+)
 
 MenuMenuEntry.propTypes = {
   item: PropTypes.shape({
@@ -25,12 +30,22 @@ MenuMenuEntry.propTypes = {
   })
 }
 
-const EntityExplorerMenuEntry = ({onClick, item}) => {
-  const entityNameDisplay = item.matchingAttribute === 'entity' ? <React.Fragment> ({item.entity})</React.Fragment> : ''
+const EntityExplorerMenuEntry = ({
+  onClick,
+  item
+}) => {
+  const entityNameDisplay = item.matchingAttribute === 'entity' ? <> ({item.entity})</> : ''
 
-  return <StyledMenuLink onClick={onClick}
-                         to={`/e/${item.entity}`}>{item.label}{entityNameDisplay}
-  </StyledMenuLink>
+  return (
+    <StyledStyledMenuLinkWrapper>
+      <StyledMenuLink data-quick-navigation={true} onClick={onClick} to={`/e/${item.entity}`}>
+        {item.label}{entityNameDisplay}
+      </StyledMenuLink>
+      <StyledIconLink to={`/e/${item.entity}`} target="_blank" rel="noreferrer">
+        <Icon icon="external-link"/>
+      </StyledIconLink>
+    </StyledStyledMenuLinkWrapper>
+  )
 }
 
 EntityExplorerMenuEntry.propTypes = {
@@ -42,11 +57,21 @@ EntityExplorerMenuEntry.propTypes = {
   onClick: PropTypes.func
 }
 
-const ActionMenuEntry = ({onClick, item}) => <StyledMenuLink
-  onClick={onClick}
-  to={`/e/action/${item.name}`}>
-  {item.label}
-</StyledMenuLink>
+const ActionMenuEntry = ({
+  onClick,
+  item
+}) => (
+  <StyledStyledMenuLinkWrapper>
+    <StyledMenuLink
+      onClick={onClick}
+      to={`/e/action/${item.name}`}>
+      {item.label}
+    </StyledMenuLink>
+    <StyledIconLink to={`/e/action/${item.name}`} target="_blank" rel="noreferrer">
+      <Icon icon="external-link"/>
+    </StyledIconLink>
+  </StyledStyledMenuLinkWrapper>
+)
 
 ActionMenuEntry.propTypes = {
   item: PropTypes.shape({
@@ -114,12 +139,13 @@ const Navigation = ({
   const msg = id => intl.formatMessage({id})
 
   const handleCursorNavigation = key => {
-    const focusableElements = navigationEl.current.querySelectorAll('a, input')
-    const currentIndex = [...focusableElements].findIndex(el => document.activeElement.isEqualNode(el))
-    if (currentIndex !== -1) {
+    const focusableElements = navigationEl.current.querySelectorAll('a[data-quick-navigation="true"], input')
+    const currentIdx = [...focusableElements].findIndex(el => document.activeElement.isEqualNode(el))
+
+    if (currentIdx > -1) {
       const indexDiff = key === 'ArrowDown' ? 1 : focusableElements.length - 1
-      const targetIndex = (currentIndex + indexDiff) % focusableElements.length
-      focusableElements[targetIndex].focus()
+      const targetIdx = (currentIdx + indexDiff) % focusableElements.length
+      focusableElements[targetIdx].focus()
     }
   }
 

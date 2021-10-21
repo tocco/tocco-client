@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
-import {Button, theme, StyledScrollbar, scale} from 'tocco-ui'
+import {Button, theme, StyledScrollbar, scale, StyledSearchBox} from 'tocco-ui'
 
 const secondary = theme.color('secondary')
 const secondaryLight = theme.color('secondaryLight')
@@ -10,7 +10,7 @@ export const StyledNav = styled.nav`
   display: flex;
   flex-direction: column;
 
-  .StyledSearchBox {
+  ${StyledSearchBox} {
     margin: 1.5rem 3rem 1.8rem 1.8rem;
   }
 `
@@ -23,8 +23,11 @@ export const StyledMenuWrapper = styled.div`
 `
 
 export const StyledMenuEntry = styled.span`
+  display: inline-block;
   color: ${theme.color('text')};
   font-weight: ${theme.fontWeight('bold')};
+  margin-bottom: ${scale.space(-1.2)};
+  margin-top: ${scale.space(-1.2)};
 `
 
 export const StyledMenuLink = styled(Link)`
@@ -106,4 +109,32 @@ export const StyledNavButton = styled(Button)`
 export const StyledSearchBoxWrapper = styled.div`
   height: 50px;
   padding-bottom: ${scale.space(-0.5)};
+`
+
+export const StyledIconLink = styled(Link)`
+  opacity: 0;
+  color: ${theme.color('text')};
+  text-decoration: none;
+  position: relative;
+  margin-left: ${scale.space(-1)};
+
+  &:hover,
+  &:focus {
+    color: ${theme.color('secondaryLight')};
+  }
+
+  &:focus {
+    opacity: 1;
+    outline: none;
+  }
+`
+
+export const StyledStyledMenuLinkWrapper = styled.span`
+  display: inline-block;
+  padding-top: ${scale.space(-2)};
+  padding-bottom: ${scale.space(-2)};
+
+  &:hover ${StyledIconLink} {
+    opacity: 1;
+  }
 `

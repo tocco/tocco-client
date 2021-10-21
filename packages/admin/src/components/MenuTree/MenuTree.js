@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 
 import {StyledMenuEntry, StyledMenuEntryWrapper} from './StyledComponents'
 
-const MenuItem = ({item, typeMapping}) => {
+const MenuItem = ({
+  item,
+  typeMapping
+}) => {
   if (!item) {
     return null
   }
@@ -14,10 +17,15 @@ const MenuItem = ({item, typeMapping}) => {
   }
 
   const Component = mappedType.component
-  return <StyledMenuEntry {...item} childrenCount={item.children ? item.children.length : 0}>
-    <Component item={item} {...mappedType.props}/>
-    {item.children && item.children.map(child => <MenuItem key={child.name} item={child} typeMapping={typeMapping}/>)}
-  </StyledMenuEntry>
+  const MenuItems = item.children?.map((child, idx) =>
+    <MenuItem key={child.name} item={child} typeMapping={typeMapping}/>)
+
+  return (
+    <StyledMenuEntry {...item} childrenCount={item.children?.length || 0}>
+      <Component item={item} {...mappedType.props}/>
+      {MenuItems}
+    </StyledMenuEntry>
+  )
 }
 
 MenuItem.propTypes = {
@@ -42,7 +50,7 @@ const prepareTree = (item, searchFilter, typeMapping, level = 0) => {
 
   const children = (item.children || [])
     .map(child => prepareTree(child, searchFilter, typeMapping, level + 1))
-    .filter(c => (c !== null))
+    .filter(c => c !== null)
 
   let matchingAttribute
   if (children.length === 0 && searchFilter) {
@@ -56,10 +64,20 @@ const prepareTree = (item, searchFilter, typeMapping, level = 0) => {
     }
   }
 
-  return {...item, level, children, matchingAttribute}
+  return {
+    ...item,
+    level,
+    children,
+    matchingAttribute
+  }
 }
 
-const MenuTree = ({items, searchFilter, typeMapping, requireSearch}) => {
+const MenuTree = ({
+  items,
+  searchFilter,
+  typeMapping,
+  requireSearch
+}) => {
   if (requireSearch && !searchFilter) {
     return null
   }
@@ -68,14 +86,16 @@ const MenuTree = ({items, searchFilter, typeMapping, requireSearch}) => {
     return null
   }
 
+  const MenuItems = items.map(item => (
+    <MenuItem
+      key={item.name}
+      item={prepareTree(item, searchFilter, typeMapping)}
+      typeMapping={typeMapping}/>
+  ))
+
   return (
     <StyledMenuEntryWrapper>
-      {items.map(item => (
-        <MenuItem
-          key={item.name}
-          item={prepareTree(item, searchFilter, typeMapping)}
-          typeMapping={typeMapping}/>
-      ))}
+      {MenuItems}
     </StyledMenuEntryWrapper>
   )
 }
