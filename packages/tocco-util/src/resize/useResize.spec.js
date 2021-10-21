@@ -98,6 +98,44 @@ describe('tocco-util', () => {
 
         expect(resizeCallback.called).to.equal(false)
       })
+
+      test('should stop resizing after `onClick` has been fired', () => {
+        jest.useFakeTimers()
+
+        const selector = () => ({clientWidth: 50, clientHeight: 50})
+        const resizeCallback = sinon.spy()
+        const resizeFinishedCallback = sinon.spy()
+
+        const event = {stopPropagation: sinon.spy(), preventDefault: sinon.spy()}
+
+        const {result} = renderHook(() => useResize(selector, resizeCallback, resizeFinishedCallback))
+
+        const element = '1'
+        act(() => {
+          result.current.startResize(element)(event)
+        })
+
+        act(() => {
+          result.current.resizingEvents.onMouseMove({clientX: 100, clientY: 100})
+          result.current.resizingEvents.onMouseMove({clientX: 200, clientY: 200})
+        })
+
+        expect(resizeCallback.called).to.equal(true)
+        
+        resizeCallback.resetHistory()
+
+        act(() => {
+          result.current.resizingEvents.onMouseUp()
+        })
+
+        expect(result.current.resizeState.isResizing).to.equal(true)
+        
+        act(() => {
+          jest.runAllTimers()
+        })
+        
+        expect(result.current.resizeState.isResizing).to.equal(false)
+      })
     })
   })
 })
