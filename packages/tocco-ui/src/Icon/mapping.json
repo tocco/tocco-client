@@ -363,5 +363,9 @@
   "minus": {
     "id": "fal, minus",
     "lib": "fa"
+  },
+  "paper-clip": {
+    "id": "fa, paper-clip",
+    "lib": "fa"
   }
 }

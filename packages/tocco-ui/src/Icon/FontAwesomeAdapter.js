@@ -3,76 +3,20 @@ import PropTypes from 'prop-types'
 import _get from 'lodash/get'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {faSquare as faSquareSolid, faSquareFull, faStar as faStarSolid} from '@fortawesome/pro-solid-svg-icons'
 import {
-  faArrowLeft,
-  faArrowRight,
-  faArrowToBottom,
-  faArrowToTop,
-  faBars,
-  faBell,
-  faBook,
-  faBox,
-  faBoxOpen,
-  faCheck,
-  faCheckCircle,
-  faChevronDoubleLeft,
-  faChevronDoubleRight,
-  faChevronDown,
-  faChevronLeft,
-  faChevronRight,
-  faChevronUp,
-  faCircle,
-  faCog,
-  faComment,
-  faCompress,
-  faEllipsisV,
-  faExclamation,
-  faExclamationCircle,
-  faExternalLink,
-  faFile,
-  faFileAlt,
-  faFileCode,
-  faFileCsv,
-  faFileExcel,
-  faFileExport,
-  faFileImport,
-  faFilePdf,
-  faFileSpreadsheet,
-  faFolder,
-  faFolders,
-  faGlobe,
-  faHorizontalRule,
-  faIdBadge,
-  faInfo,
-  faInfoCircle,
-  faList,
-  faMapMarked,
-  faMinus,
-  faNewspaper,
-  faPen,
-  faPhone,
-  faPlus,
-  faQuestionCircle,
-  faSave,
-  faSearch,
-  faSortDown,
-  faSortUp,
-  faSquare,
-  faStar,
-  faSync,
-  faTimes,
-  faTimesCircle,
-  faTrash
+  faSquare as faSquareSolid, faSquareFull, faStar as faStarSolid, faPaperclip
+} from '@fortawesome/pro-solid-svg-icons'
+import {
+  faTimes, faCircle, faHorizontalRule, faSync, faMinus, faTimesCircle, faInfoCircle,
+  faCheckCircle, faExclamationCircle, faTrash, faList, faPhone, faSearch, faFolder,
+  faExternalLink, faChevronDoubleRight, faChevronDoubleLeft, faChevronRight, faChevronLeft, faChevronUp, faChevronDown,
+  faPlus, faGlobe, faFileExcel, faFilePdf, faFile, faSortDown, faSortUp, faArrowRight, faArrowLeft, faQuestionCircle,
+  faCog, faFolders, faStar, faFileAlt, faFileCode, faFileCsv, faFileExport, faFileImport, faFileSpreadsheet, faIdBadge,
+  faCheck, faMapMarked, faBars, faInfo, faCompress, faBook, faEllipsisV, faSquare, faExclamation, faBell,
+  faArrowToBottom, faArrowToTop, faBox, faBoxOpen, faNewspaper, faComment, faSave, faPen
 } from '@fortawesome/pro-light-svg-icons'
 import {
-  faApple,
-  faDropbox,
-  faFacebook,
-  faFacebookF,
-  faGoogle,
-  faJira,
-  faMicrosoft
+  faApple, faDropbox, faFacebook, faFacebookF, faGoogle, faJira, faMicrosoft
 } from '@fortawesome/free-brands-svg-icons'
 
 (() => {
@@ -85,14 +29,17 @@ import {
     faPhone, faMapMarked, faSearch, faCog, faInfo, faHorizontalRule, faSync, faSquareFull,
     faCompress, faBook, faSortUp, faSortDown, faQuestionCircle, faEllipsisV, faMinus, faTimesCircle, faInfoCircle,
     faExclamationCircle, faTrash, faList, faSquare, faBell, faArrowToBottom, faArrowToTop, faSquareSolid, faBox,
-    faBoxOpen, faNewspaper, faComment, faSave, faPen)
+    faBoxOpen, faNewspaper, faComment, faSave, faPen, faPaperclip)
 })()
 
 /**
  * The following icons are solely used to support custom display expressions and should not be removed: faSquareSolid
  */
 
-const FontAwesomeAdapter = ({icon, style}) =>
+const FontAwesomeAdapter = ({
+  icon,
+  style
+}) =>
   <FontAwesomeIcon
     icon={icon.includes(',') ? icon.replace(/\s+/, '').split(',') : icon}
     style={style}
