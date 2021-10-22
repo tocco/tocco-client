@@ -74,10 +74,12 @@ export const getRenderInfoBoxesForColumn = (draggingId, currentlyDragOver, posit
   const draggingPreviewBox = {...draggingBox, type: InfoBoxRenderTypes.DropPreview}
 
   let renderBoxes = boxes
-    .filter(i => !i.folded)
-    .filter(i => i.col === column)
+    .filter(({folded, col, id}) => !folded
+      && col === column
+      && ((typeof dragOverId !== 'undefined' && !isOverItself)
+        ? id !== draggingId
+        : true))
     .map(box => ({...box, type: InfoBoxRenderTypes.InfoBox}))
-    .filter(({id}) => (typeof dragOverId !== 'undefined' && !isOverItself) ? id !== draggingId : true)
     .reduce((acc, key) => {
       const showPreviewHere = key.id === dragOverId && dragOverType === DropTypes.InfoBox && !isOverItself
       return [
