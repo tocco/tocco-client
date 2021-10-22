@@ -62,7 +62,8 @@ export function* autoComplete(fieldName, autoCompleteEndpoint) {
     body: {
       triggerField: fieldName,
       entity: yield call(getEntityForSubmit)
-    }
+    },
+    acceptedStatusCodes: [403]
   }
 
   const response = yield call(rest.requestSaga, autoCompleteEndpoint, options)
