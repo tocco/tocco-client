@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Suspense, useMemo, useRef, useReducer} from 'react'
+import React, {Suspense, useEffect, useMemo, useReducer, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import {viewPersistor} from 'tocco-util'
 import {Icon, LoadMask} from 'tocco-ui'
@@ -177,7 +177,15 @@ const DocsView = props => {
                 </StyledIconWrapper>
                 <span>{cellRenderer(column.children[0])}</span>
               </StyledContentWrapper>
-            )
+            ),
+            'dms-actions': (rowData, column, cellRenderer) => {
+              return (<StyledContentWrapper>
+                  {column.children
+                    .filter(c => !c.dmsEntityModel || c.dmsEntityModel === rowData.type)
+                    .map(c => cellRenderer(c))}
+                </StyledContentWrapper>
+              )
+            }
           }}
           emitAction={emitAction}
           actionAppComponent={Action}
