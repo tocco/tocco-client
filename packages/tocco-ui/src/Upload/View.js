@@ -7,9 +7,6 @@ import Link from '../Link'
 import Preview from '../Preview'
 import {StyledView, StyledButtonsWrapper} from './StyledView'
 
-export const getDownloadUrl = binaryLink =>
-  download.addParameterToURL(binaryLink, 'download', true)
-
 const View = ({value, downloadTitle, immutable, onUpload, deleteTitle}) => {
   const isNotUploadedFile = value.binaryLink && value.binaryLink.startsWith('blob:')
 
@@ -38,7 +35,7 @@ const View = ({value, downloadTitle, immutable, onUpload, deleteTitle}) => {
             neutral
             icon="arrow-to-bottom"
             download={value.fileName}
-            href={getDownloadUrl(value.binaryLink)}
+            href={download.getDownloadUrl(value.binaryLink)}
             tabIndex={-1}
             title={downloadTitle || 'download'}
           />

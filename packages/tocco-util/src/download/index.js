@@ -1,9 +1,17 @@
-import {downloadUrl, downloadReadableStream, openUrl, downloadSupportedByBrowser, addParameterToURL} from './download'
+import {
+  addParameterToURL,
+  downloadReadableStream,
+  downloadSupportedByBrowser,
+  downloadUrl,
+  getDownloadUrl,
+  openUrl
+} from './download'
 
 export default {
   downloadUrl,
   downloadReadableStream,
   openUrl,
   downloadSupportedByBrowser,
+  getDownloadUrl,
   addParameterToURL
 }

@@ -91,7 +91,8 @@ export function* invokeRequest(definition, selection, parent, params) {
         })
       )
     } else if (response.body && response.body.params && response.body.params.downloadUrl) {
-      const fileResponse = yield call(rest.requestBytesSaga, response.body.params.downloadUrl, {
+      const downloadUrl = download.getDownloadUrl(response.body.params.downloadUrl)
+      const fileResponse = yield call(rest.requestBytesSaga, downloadUrl, {
         method: 'POST',
         body: {
           entity: selection.entityName,

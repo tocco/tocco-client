@@ -4,9 +4,6 @@ import {download} from 'tocco-util'
 
 import Link from '../../Link'
 
-const getDownloadUrl = binaryLink =>
-  download.addParameterToURL(binaryLink, 'download', true)
-
 const DocumentCompactFormatter = ({value}) => (
   <>
     <Link
@@ -25,7 +22,7 @@ const DocumentCompactFormatter = ({value}) => (
       download={value.fileName}
       icon="arrow-to-bottom"
       look="raised"
-      href={getDownloadUrl(value.binaryLink)}
+      href={download.getDownloadUrl(value.binaryLink)}
       onClick={e => {
         e.stopPropagation()
       }}
