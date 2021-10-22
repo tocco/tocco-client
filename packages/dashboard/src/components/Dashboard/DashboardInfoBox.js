@@ -5,17 +5,16 @@ import {StyledInfoBoxWrapper, StyledResizeHandle} from './StyledComponents'
 import {DEFAULT_HEIGHT} from '../../utils/constants'
 import InfoBox from '../InfoBox/InfoBox'
 
-const DashboardInfoBox = props => {
-  const {
-    infoBox,
-    isResizing,
-    startResize,
-    onDragStart,
-    onDragEnter,
-    onDragOver,
-    onDrop,
-    onDragEnd
-  } = props
+const DashboardInfoBox = ({
+  infoBox,
+  isResizing,
+  startResize,
+  onDragStart,
+  onDragEnter,
+  onDragOver,
+  onDrop,
+  onDragEnd
+}) => {
   const {id, type, label, height, content} = infoBox
   return (
     <StyledInfoBoxWrapper key={`${type}-${id}`} id={`infobox-${id}`}>

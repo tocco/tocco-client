@@ -16,12 +16,12 @@ import Menu from '../Menu/MenuContainer'
 import {NUMBER_OF_COLUMNS} from '../../utils/constants'
 import DashboardColumn from './DashboardColumn'
 
-const Dashboard = props => {
-  const [infoBoxes, setInfoBoxes] = useState(props.infoBoxes)
-
+const Dashboard = ({infoBoxes: storedInfoBoxes, saveInfoBoxHeight, saveInfoBoxPositions}) => {
+  // save infoBoxes in local state to show drag and drop and resize immediately to the user
+  const [infoBoxes, setInfoBoxes] = useState(storedInfoBoxes)
   useEffect(() => {
-    setInfoBoxes(props.infoBoxes)
-  }, [props.infoBoxes])
+    setInfoBoxes(storedInfoBoxes)
+  }, [storedInfoBoxes])
 
   const columns = [...Array(NUMBER_OF_COLUMNS).keys()]
 
@@ -29,7 +29,7 @@ const Dashboard = props => {
   const selector = id => ref.current.querySelector(`#infobox-${id}`)
   const onInfoBoxHeightChanged = useCallback(id => {
     const finalHeight = infoBoxes.find(c => c.id === id)?.height
-    props.saveInfoBoxHeight(id, finalHeight)
+    saveInfoBoxHeight(id, finalHeight)
   }, [infoBoxes])
 
   const onInfoBoxHeightChanging = useCallback((id, {height}) => {
@@ -53,11 +53,11 @@ const Dashboard = props => {
     if (dragOverType === DropTypes.Column) {
       const updatedInfoBoxes = appendDraggedAsLastItemToDropped(draggingId, dragOverId, infoBoxes)
       setInfoBoxes(updatedInfoBoxes)
-      props.saveInfoBoxPositions(updatedInfoBoxes)
+      saveInfoBoxPositions(updatedInfoBoxes)
     } else if (draggingId !== dragOverId) {
       const updatedInfoBoxes = moveDraggedToDropped(draggingId, dragOverId, position, infoBoxes)
       setInfoBoxes(updatedInfoBoxes)
-      props.saveInfoBoxPositions(updatedInfoBoxes)
+      saveInfoBoxPositions(updatedInfoBoxes)
     }
   }
   const {dndEvents, dndState} = dragAndDrop.useDnD(changeInfoBoxPosition, infoBoxes)

@@ -8,16 +8,16 @@ import DropPreview from '../InfoBox/DropPreview'
 import {DEFAULT_HEIGHT} from '../../utils/constants'
 import DropTypes from '../../utils/dropTypes'
 
-const DashboardColumn = props => {
-  const {
-    onDragEnter, onDragOver, onDrop,
-    infoBoxes,
-    resizeState,
-    startResize,
-    dndState,
-    makeDndEvents
-  } = props
-
+const DashboardColumn = ({
+  onDragEnter,
+  onDragOver,
+  onDrop,
+  infoBoxes,
+  resizeState,
+  startResize,
+  dndState,
+  makeDndEvents
+}) => {
   const {currentlyDragOver} = dndState
   const {isResizing, resizingElement} = resizeState
 
