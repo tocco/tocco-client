@@ -43,8 +43,8 @@ const StyledButton = styled.button`
   white-space: nowrap;
   border: none;
   border-radius: ${themeSelector.radii('medium')};
-  margin-right: .5em;
-  padding: .3rem 1.3rem;
+  margin-right: ${scale.space(-1.38)};
+  padding: ${scale.space(-2.1)} ${scale.space(0)};
   cursor: pointer;
   height: fit-content;
   ${declareFont()}

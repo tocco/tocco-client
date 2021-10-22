@@ -65,5 +65,5 @@ export const StyledRedDot = styled.span`
 `
 export const StyledHeaderLink = styled(AdminLink)`
   display: inline-block;
-  padding: ${scale.space(-1.2)};
+  padding: ${scale.space(-2.1)} ${scale.space(0)};
 `

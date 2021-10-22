@@ -5,8 +5,8 @@ import {FormattedMessage} from 'react-intl'
 
 import {StyledButtonWrapper, StyledCheckbox, StyledUl} from './StyledComponents'
 
-const InfoBoxSettings = props => {
-  const [infoBoxes, setInfoBoxes] = useState(props.initialInfoBoxes || [])
+const InfoBoxSettings = ({initialInfoBoxes, onOk}) => {
+  const [infoBoxes, setInfoBoxes] = useState(initialInfoBoxes || [])
   
   const toggle = id => {
     setInfoBoxes(boxes => boxes.reduce((acc, box) => [
@@ -29,7 +29,7 @@ const InfoBoxSettings = props => {
         </Typography.Li>))}
       </StyledUl>
       <StyledButtonWrapper>
-        <Button type="button" onClick={() => props.onOk(infoBoxes)} look="raised">
+        <Button type="button" onClick={() => onOk(infoBoxes)} look="raised">
           <FormattedMessage id="client.common.ok"/>
         </Button>
       </StyledButtonWrapper>
