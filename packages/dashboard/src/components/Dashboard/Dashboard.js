@@ -4,22 +4,17 @@ import {dragAndDrop, resize} from 'tocco-util'
 
 import {
   StyledDashboardWrapper,
-  StyledColumnWrapper,
-  StyledColumn,
-  StyledResizeHandle,
-  StyledInfoBoxWrapper
+  StyledColumnWrapper
 } from './StyledComponents'
-import InfoBox from '../InfoBox/InfoBox'
 import DropTypes from '../../utils/dropTypes'
 import {
   appendDraggedAsLastItemToDropped,
   getRenderInfoBoxesForColumn,
   moveDraggedToDropped
 } from '../../utils/dashboardUtils'
-import DropPreview from '../InfoBox/DropPreview'
-import {InfoBoxRenderTypes} from '../../utils/infoBoxTypes'
 import Menu from '../Menu/MenuContainer'
-import {DEFAULT_HEIGHT, NUMBER_OF_COLUMNS} from '../../utils/constants'
+import {NUMBER_OF_COLUMNS} from '../../utils/constants'
+import DashboardColumn from './DashboardColumn'
 
 const Dashboard = props => {
   const [infoBoxes, setInfoBoxes] = useState(props.infoBoxes)
@@ -78,37 +73,19 @@ const Dashboard = props => {
             const {onDragEnter, onDragOver, onDrop} = dndEvents({type: DropTypes.Column, id: column})
             const boxes = getRenderInfoBoxesForColumn(draggingId, currentlyDragOver, dropPosition, column, infoBoxes)
 
-            return <StyledColumn
+            return (
+              <DashboardColumn
                 key={column}
                 onDragEnter={onDragEnter}
                 onDragOver={onDragOver}
                 onDrop={onDrop}
-              >
-                {boxes.map(({id, label, height, content, type}) => {
-                  if (type === InfoBoxRenderTypes.DropPreview) {
-                    return <DropPreview
-                      key={`${type}-${id}`}
-                      height={height || DEFAULT_HEIGHT}
-                      {...dndEvents(currentlyDragOver)}
-                    />
-                  }
-                  
-                  return <StyledInfoBoxWrapper key={`${type}-${id}`} id={`infobox-${id}`}>
-                    <InfoBox
-                      id={id}
-                      label={label}
-                      height={height || DEFAULT_HEIGHT}
-                      content={content}
-                      draggable
-                      {...dndEvents({type: DropTypes.InfoBox, id})}
-                    />
-                    <StyledResizeHandle
-                      onMouseDown={startResize(id)}
-                      isReszing={resizeState.isResizing && resizeState.resizingElement === id}
-                    />
-                  </StyledInfoBoxWrapper>
-                })}
-              </StyledColumn>
+                infoBoxes={boxes}
+                resizeState={resizeState}
+                startResize={startResize}
+                dndState={dndState}
+                makeDndEvents={dndEvents}
+              />
+            )
           })}
         </StyledColumnWrapper>
       </StyledDashboardWrapper>
