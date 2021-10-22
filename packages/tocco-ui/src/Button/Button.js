@@ -10,7 +10,7 @@ import {design} from '../utilStyles'
  * Use the Button to trigger any actions. Choose look and ink according Material Design.
  */
 const Button = React.forwardRef((props, ref) => {
-  const {aria, ink, label, icon, pending, look, iconPosition, children} = props
+  const {aria, ink, label, icon, pending, look, iconPosition, iconOnly, children} = props
   return <StyledButton
     ref={ref}
     {...aria}
@@ -27,7 +27,7 @@ const Button = React.forwardRef((props, ref) => {
       look={look}
       position={iconPosition}
       size="1em"/>}
-    {label ? <span>{label}</span> : children || '\u200B' }
+    {!iconOnly && label ? <span>{label}</span> : children || '\u200B' }
   </StyledButton>
 })
 
@@ -106,7 +106,15 @@ Button.propTypes = {
   /**
    * cypress selector string
    */
-  'data-cy': PropTypes.string
+  'data-cy': PropTypes.string,
+  /**
+   * If true, leaves the background of the button transparent and does not add any hove effect.
+   */
+  'withoutBackground': PropTypes.bool,
+  /**
+   * If true, renders only the icon and minimal space around it
+   */
+  'iconOnly': PropTypes.bool
 }
 
 export default Button

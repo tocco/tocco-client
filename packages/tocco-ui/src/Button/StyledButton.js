@@ -1,12 +1,6 @@
 import styled, {css} from 'styled-components'
 
-import {
-  declareFont,
-  design,
-  scale,
-  theme as themeSelector,
-  interactiveStyling
-} from '../utilStyles'
+import {declareFont, design, interactiveStyling, scale, theme as themeSelector} from '../utilStyles'
 
 const declareIconPosition = ({icon, pending, iconPosition}) => {
   if (icon || pending) {
@@ -34,6 +28,18 @@ const getDensityStyle = ({dense, theme}) =>
 `
     : null
 
+const getIconOnlyStyle = ({iconOnly}) =>
+  iconOnly
+    ? css`
+  padding: 0;
+  margin: 0;
+`
+    : null
+
+const transparentBackground = () => css`
+  background: transparent;
+`
+
 const StyledButton = styled.button`
   box-sizing: border-box;
   display: inline-flex;
@@ -48,8 +54,9 @@ const StyledButton = styled.button`
   cursor: pointer;
   height: fit-content;
   ${declareFont()}
-  ${interactiveStyling}
+  ${props => props.withoutBackground ? transparentBackground() : interactiveStyling(props)}
   ${props => getDensityStyle(props)}
+  ${props => getIconOnlyStyle(props)}
   ${props => declareIconPosition(props)}
 
   & > span:first-child {
