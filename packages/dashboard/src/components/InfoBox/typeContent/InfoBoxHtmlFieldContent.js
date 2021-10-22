@@ -6,9 +6,11 @@ import {StyledInfoBoxContentWrapper} from './StyledComponents'
 
 const InfoBoxHtmlFieldContent = ({content}) => {
   const {text} = content
-  return <StyledInfoBoxContentWrapper scrollable>
-    <FormattedValue type="html" value={text}/>
-  </StyledInfoBoxContentWrapper>
+  return (
+    <StyledInfoBoxContentWrapper scrollable>
+      <FormattedValue type="html" value={text}/>
+    </StyledInfoBoxContentWrapper>
+  )
 }
 
 InfoBoxHtmlFieldContent.propTypes = {

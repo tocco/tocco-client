@@ -5,8 +5,8 @@ import {FormattedMessage} from 'react-intl'
 
 import {StyledMenuWrapper} from './StyledComponents'
 
-const Menu = ({displayInfoBoxSettings, resetInfoBoxSettings}) => {
-  return <StyledMenuWrapper>
+const Menu = ({displayInfoBoxSettings, resetInfoBoxSettings}) => (
+  <StyledMenuWrapper>
     <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
       <MenuItem onClick={displayInfoBoxSettings}>
         <FormattedMessage id="client.dashboard.preferences.show"/>
@@ -16,7 +16,7 @@ const Menu = ({displayInfoBoxSettings, resetInfoBoxSettings}) => {
       </MenuItem>
     </BallMenu>
   </StyledMenuWrapper>
-}
+)
 
 Menu.propTypes = {
   displayInfoBoxSettings: PropTypes.func.isRequired,
