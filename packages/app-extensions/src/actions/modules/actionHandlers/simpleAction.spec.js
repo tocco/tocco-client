@@ -4,8 +4,8 @@ import {download} from 'tocco-util'
 
 import simpleAction, {invokeRequest, showToaster} from './simpleAction'
 import rest from '../../../rest'
-import notification from '../../../notification'
 import {TOASTER_KEY_PREFIX} from '../../../notification/modules/socket/socket'
+import {TOASTER} from '../../../notification/modules/toaster/actions'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -45,13 +45,24 @@ describe('app-extensions', () => {
           })
 
           test('showToaster', () => {
-            const message = 'rest.action.task.scheduled'
+            const title = 'rest.action.task.scheduled'
             const notificationKey = '1'
             const key = `${TOASTER_KEY_PREFIX}${notificationKey}`
-            const response = {body: {message, notificationKey}}
+            const response = {body: {title, notificationKey}}
             const type = 'info'
             return expectSaga(showToaster, response, type)
-              .put(notification.toaster({type, title: message, key}))
+              .put.like({
+                action: {
+                  type: TOASTER,
+                  payload: {
+                    toaster: {
+                      type,
+                      title,
+                      key
+                    }
+                  }
+                }
+              })
               .run()
           })
         })

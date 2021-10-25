@@ -1,4 +1,5 @@
-import {put, call} from 'redux-saga/effects'
+import React from 'react'
+import {call, put} from 'redux-saga/effects'
 import {download, validation} from 'tocco-util'
 import {v4 as uuid} from 'uuid'
 
@@ -6,6 +7,7 @@ import errorLogging from '../../../errorLogging'
 import rest from '../../../rest'
 import notification from '../../../notification'
 import {TOASTER_KEY_PREFIX} from '../../../notification/modules/socket/socket'
+import NotificationBody from '../../../notification/components/NotificationBody'
 
 export default function* (definition, selection, parent, params) {
   const runAsync = definition.runInBackgroundTask
@@ -37,7 +39,7 @@ export function* invokeActionAsync(definition, selection, parent, params) {
     yield put(notification.toaster({
       type: 'error',
       title: 'client.common.unexpectedError',
-      body: response.body.message || 'client.component.actions.errorText'
+      body: response.body.title || 'client.component.actions.errorText'
     }))
   }
 }
@@ -119,7 +121,16 @@ export function* invokeRequest(definition, selection, parent, params) {
 }
 
 export function* showToaster(response, type) {
-  const title = response.body.message || 'client.component.actions.successDefault'
+  const title = response.body.title || 'client.component.actions.successDefault'
+  const message = response.body.message
   const key = response.body.notificationKey ? `${TOASTER_KEY_PREFIX}${response.body.notificationKey}` : undefined
-  yield put(notification.toaster({type, title, key}))
+  const result = response.body.result
+  const body = ({navigationStrategy, cancelTask}) => (
+    <NotificationBody
+      notification={{key, message, result}}
+      navigationStrategy={navigationStrategy}
+      cancelTask={cancelTask}
+    />
+  )
+  yield put(notification.toaster({type, title, message, body, key}))
 }
