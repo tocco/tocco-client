@@ -12,7 +12,8 @@ describe('app-extensions', () => {
           const key = '393'
           const timestamp = '2021-05-05T12:10:02.221Z'
           const originId = 'client__69376f9c-dcc3-4251-bda2-f85702d66fcf'
-          const message = 'Die Aktion wurde erfolgreich ausgeführt'
+          const title = 'Die Aktion wurde erfolgreich ausgeführt'
+          const message = 'Rechnungen erstellen'
           const type = 'success'
           const username = 'swuersten@tocco.ch'
           const read = true
@@ -21,6 +22,7 @@ describe('app-extensions', () => {
             key,
             timestamp,
             originId,
+            title,
             message,
             result: '{"type":"ENTITIES","content":[{"key":"13229","model":"User","display":"display"}]}',
             type,
@@ -40,6 +42,7 @@ describe('app-extensions', () => {
           expect(returnValue.key).to.be.eql(key)
           expect(returnValue.timestamp).to.be.eql(timestamp)
           expect(returnValue.originId).to.be.eql(originId)
+          expect(returnValue.title).to.be.eql(title)
           expect(returnValue.message).to.be.eql(message)
           expect(returnValue.type).to.be.eql(type)
           expect(returnValue.username).to.be.eql(username)

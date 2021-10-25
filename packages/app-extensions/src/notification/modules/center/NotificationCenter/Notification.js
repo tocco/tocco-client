@@ -42,7 +42,7 @@ const Notification = ({notification, markAsRead, cancelTask, navigationStrategy}
           <Icon icon={typeIconMap[notification.type]}/>
         </StyledIconWrapper>
         <StyledTitleWrapper>
-          <Typography.H5>{notification.message}</Typography.H5>
+          <Typography.H5>{notification.title}</Typography.H5>
         </StyledTitleWrapper>
       </StyledNotificationHeader>
       <NotificationBody notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask}/>

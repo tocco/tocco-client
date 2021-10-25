@@ -26,7 +26,7 @@ export const StyledProgressInner = styled.div`
   height: 5px;
 `
 
-export const StyledProgressMessage = styled.span`
+export const StyledMessage = styled.span`
   margin-right: ${scale.space(-2)};
 `
 

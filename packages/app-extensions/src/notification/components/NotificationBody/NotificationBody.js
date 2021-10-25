@@ -1,21 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {LoadingSpinner, Icon} from 'tocco-ui'
+import {Icon, LoadingSpinner} from 'tocco-ui'
 import {download} from 'tocco-util'
 import {FormattedMessage} from 'react-intl'
+import _groupBy from 'lodash/groupBy'
 
 import {notificationPropType, TYPES} from '../../types'
 import {
-  StyledOutputJobWrapper,
+  StyledCancelWrapper,
   StyledDetailLinkWrapper,
-  StyledTaskProgressWrapper,
-  StyledSpinnerWrapper,
-  StyledProgressMessage,
-  StyledProgressOuter,
-  StyledProgressInner,
   StyledFileDescription,
   StyledIconWrapper,
-  StyledCancelWrapper
+  StyledMessage,
+  StyledOutputJobWrapper,
+  StyledProgressInner,
+  StyledProgressOuter,
+  StyledSpinnerWrapper,
+  StyledTaskProgressWrapper
 } from './StyledComponents'
 import {resultTypes} from '../../api'
 
@@ -69,16 +70,17 @@ const Result = ({
 
   if (type === resultTypes.entities) {
     return <>
-      {content.map(entity => (
-        <StyledDetailLinkWrapper key={'entitylink-' + entity.key}>
-          {navigationStrategy && navigationStrategy.DetailLink && <navigationStrategy.DetailLink
-            entityName={entity.model}
-            entityKey={entity.key}
-          >
-            <Icon icon="external-link"/> {entity.display}
-          </navigationStrategy.DetailLink>}
-        </StyledDetailLinkWrapper>
-      ))
+      {Object.entries(_groupBy(content, e => e.model))
+        .map(([model, entities]) => (
+          <StyledDetailLinkWrapper key={'entitylink-' + model}>
+            {navigationStrategy && navigationStrategy.ListOrDetailLink && <navigationStrategy.ListOrDetailLink
+              entityName={model}
+              entityKeys={entities.map(e => e.key)}
+            >
+              <Icon icon="external-link"/> <FormattedMessage id="client.common.notification.entitiesOpen"/>
+            </navigationStrategy.ListOrDetailLink>}
+          </StyledDetailLinkWrapper>
+        ))
       }
     </>
   }
@@ -89,7 +91,8 @@ const Result = ({
 Result.propTypes = {
   notification: notificationPropType.isRequired,
   navigationStrategy: PropTypes.shape({
-    DetailLink: PropTypes.elementType
+    DetailLink: PropTypes.elementType,
+    ListOrDetailLink: PropTypes.elementType
   })
 }
 
@@ -103,7 +106,7 @@ const TaskProgress = ({
     <>
       <StyledTaskProgressWrapper>
         <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner/>}</StyledSpinnerWrapper>
-        <StyledProgressMessage>{taskProgress.status !== 'cancelled' && taskProgress.message}</StyledProgressMessage>
+        <Message notification={notification}/>
       </StyledTaskProgressWrapper>
       {taskProgress.status === 'running_absolute'
       && <>
@@ -113,7 +116,7 @@ const TaskProgress = ({
       </>
       }
       <StyledDetailLinkWrapper>
-        {navigationStrategy && navigationStrategy.DetailLink
+        {navigationStrategy && navigationStrategy.DetailLink && taskProgress.status !== 'completed'
         && <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.taskExecutionKey}>
           <StyledIconWrapper><Icon icon="arrow-right"/></StyledIconWrapper>
           <FormattedMessage id="client.common.notification.outputJobShowTask"/>
@@ -136,6 +139,18 @@ TaskProgress.propTypes = {
   })
 }
 
+const Message = ({notification}) => {
+  const {message} = notification
+  if (!message || message.trim().length === 0) {
+    return null
+  }
+  return <StyledMessage>{message}</StyledMessage>
+}
+
+Message.propTypes = {
+  notification: notificationPropType.isRequired
+}
+
 const NotificationBody = ({
   notification,
   cancelTask,
@@ -147,21 +162,27 @@ const NotificationBody = ({
   } = notification
 
   if (result) {
-    return <Result notification={notification} navigationStrategy={navigationStrategy}/>
+    return (
+      <>
+        <Message notification={notification}/>
+        <Result notification={notification} navigationStrategy={navigationStrategy}/>
+      </>
+    )
   }
 
   if (taskProgress) {
     return <TaskProgress notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask}/>
   }
 
-  return null
+  return <Message notification={notification}/>
 }
 
 NotificationBody.propTypes = {
   notification: notificationPropType.isRequired,
   cancelTask: PropTypes.func.isRequired,
   navigationStrategy: PropTypes.shape({
-    DetailLink: PropTypes.elementType
+    DetailLink: PropTypes.elementType,
+    ListOrDetailLink: PropTypes.elementType
   })
 }
 
