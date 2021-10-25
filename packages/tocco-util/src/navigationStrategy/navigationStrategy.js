@@ -29,6 +29,14 @@ export const propTypes = PropTypes.shape({
    */
   ListLink: PropTypes.elementType,
   /**
+   * Displays a link to a list or a detail view if exact one entity is passed.
+   * Required properties:
+   *  entityName {string}
+   *  entityKey {string}
+   *  entityKeys {[string]}
+   */
+  ListOrDetailLink: PropTypes.elementType,
+  /**
    * Displays a link to a detail relative to the current path. e.g. to open a detail in a list view
    * Properties:
    *  entityKey {string}

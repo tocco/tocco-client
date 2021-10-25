@@ -44,6 +44,28 @@ ListLink.propTypes = {
   entityKeys: PropTypes.arrayOf(PropTypes.string)
 }
 
+export const ListOrDetailLink = ({entityName, entityKeys, children}) => {
+  if (entityKeys && entityKeys.length === 1) {
+    return (
+      <DetailLink entityName={entityName} entityKey={entityKeys[0]}>
+        {children}
+      </DetailLink>
+    )
+  } else {
+    return (
+      <ListLink entityName={entityName} entityKeys={entityKeys}>
+        {children}
+      </ListLink>
+    )
+  }
+}
+
+ListOrDetailLink.propTypes = {
+  entityName: PropTypes.string.isRequired,
+  children: PropTypes.any.isRequired,
+  entityKeys: PropTypes.arrayOf(PropTypes.string)
+}
+
 export default (history, match) => {
   const navigateToCreateRelative = (relationName, state) => {
     if (relationName) {
@@ -85,6 +107,7 @@ export default (history, match) => {
   return {
     DetailLink,
     ListLink,
+    ListOrDetailLink,
     DetailLinkRelative,
     navigateToCreateRelative,
     navigateToActionRelative,
