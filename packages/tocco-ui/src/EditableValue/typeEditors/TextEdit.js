@@ -2,12 +2,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {react} from 'tocco-util'
 
+import TextareaAutosize from '../../TextareaAutosize'
 import {StyledEditableWrapper} from '../StyledEditableValue'
-import StyledTextareaAutosize from './StyledTextEdit'
 
 const TextEdit = props =>
   <StyledEditableWrapper immutable={props.immutable}>
-    <StyledTextareaAutosize
+    <TextareaAutosize
       id={props.id}
       immutable={props.immutable}
       maxRows={20}
