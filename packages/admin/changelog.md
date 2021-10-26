@@ -1,3 +1,16 @@
+0.5.31
+- add open in new tab to document compact
+- only load huge global styles once per app
+- Added actions to DMS lists
+- Added a preview image on hovering over download icons.
+- create dashboard package
+- prevent position from switching between after/before
+- generic resize util
+- use scope for preferences
+- add dashboard
+- add ListOrDetailLink to navigation strategy
+- refactor notification
+
 0.5.30
 - add scope as input
 - Style detail footer for better UX
