@@ -1,3 +1,8 @@
+0.10.34
+- only load huge global styles once per app
+- Added a preview image on hovering over download icons.
+- fix opening entity-browser the second time
+
 0.10.33
 - add open in new tab to document compact
 
