@@ -124,9 +124,7 @@ export const reactSelectStyles = outerTheme => {
       }
     }),
     input: (base, state) => ({
-      margin: `0 ${space2} 0 0`,
-      display: 'flex',
-      alignItems: 'center',
+      ...base,
       minHeight: '2.6rem'
     }),
     menu: (base, state) => ({

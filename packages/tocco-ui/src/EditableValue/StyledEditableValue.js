@@ -92,12 +92,6 @@ export const StyledEditableValue = styled.span`
   width: 100%;
 
   && {
-    //textarea
-    textarea {
-      resize: vertical; // react-textarea-autosize consumes resize property
-      max-height: 25rem; // react-textarea-autosize respects max-height property
-    }
-
     //url
     [type='url'] + .input-group-addon > a {
       color: inherit;  // reset bootstrap default
