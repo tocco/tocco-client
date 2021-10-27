@@ -1,7 +1,9 @@
 import React from 'react'
 import {action} from '@storybook/addon-actions'
+import {MemoryRouter} from 'react-router'
 
 import Button from './'
+import RouterLinkButton from './RouterLinkButton'
 
 export default {
   title: 'Tocco-UI/Button',
@@ -32,6 +34,16 @@ export const Basic = args => (
 )
 
 Basic.args = {label: 'Button', icon: 'cog'}
+
+export const RouterLinkButtonBasic = args => (
+  <MemoryRouter>
+    <RouterLinkButton
+      {...args}
+    />
+  </MemoryRouter>
+)
+
+RouterLinkButtonBasic.args = {label: 'RouterLinkButton', icon: 'cog'}
 
 export const Showcase = () => <span>
   <Button
