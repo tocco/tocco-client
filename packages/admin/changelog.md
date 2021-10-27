@@ -1,3 +1,6 @@
+0.5.32
+- performance improvements
+
 0.5.31
 - add open in new tab to document compact
 - only load huge global styles once per app
