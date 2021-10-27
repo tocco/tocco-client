@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {reducer as reducerUtil, selection} from 'tocco-util'
-import {appFactory, externalEvents} from 'tocco-app-extensions'
+import {actionEmitter, appFactory, externalEvents, notification} from 'tocco-app-extensions'
 
 import reducers, {sagas} from './modules/reducers'
 import Delete from './components/Delete'
@@ -11,13 +11,17 @@ const packageName = 'delete'
 const EXTERNAL_EVENTS = [
   'onSuccess',
   'onCancel',
-  'onError'
+  'onError',
+  'emitAction'
 ]
 
 const initApp = (id, input, events, publicPath) => {
   const content = <Delete/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  actionEmitter.addToStore(store, events.emitAction)
+  const handleNotifications = !events.emitAction
+  notification.addToStore(store, handleNotifications)
   externalEvents.addToStore(store, events)
 
   return appFactory.createApp(
