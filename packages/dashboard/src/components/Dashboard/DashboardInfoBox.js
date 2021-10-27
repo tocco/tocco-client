@@ -12,8 +12,7 @@ const DashboardInfoBox = ({
   onDragStart,
   onDragEnter,
   onDragOver,
-  onDrop,
-  onDragEnd
+  onDrop
 }) => {
   const {id, type, label, height, content} = infoBox
   return (
@@ -28,7 +27,6 @@ const DashboardInfoBox = ({
         onDragEnter={onDragEnter}
         onDragOver={onDragOver}
         onDrop={onDrop}
-        onDragEnd={onDragEnd}
       />
       <StyledResizeHandle
         onMouseDown={startResize}
@@ -45,8 +43,7 @@ DashboardInfoBox.propTypes = {
   onDragStart: PropTypes.func,
   onDragEnter: PropTypes.func,
   onDragOver: PropTypes.func,
-  onDrop: PropTypes.func,
-  onDragEnd: PropTypes.func
+  onDrop: PropTypes.func
 }
 
 export default DashboardInfoBox

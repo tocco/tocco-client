@@ -61,6 +61,40 @@ describe('tocco-ui', () => {
         })
         expect(result.current.dndState.currentlyDragging).to.be.null
       })
+
+      test('should clear state on dragend', () => {
+        let dragend
+        const addEventListenerSpy = sinon.spy()
+        const event = {
+          stopPropagation: () => {},
+          target: {
+            addEventListener: (_event, func) => {
+              dragend = func
+              addEventListenerSpy()
+            },
+            removeEventListener: sinon.spy()
+          }
+        }
+        const changePosition = sinon.spy()
+        const draggingFieldId = 'firstname'
+
+        const {result} = renderHook(() => useDnD(changePosition))
+
+        expect(result.current.dndState.currentlyDragging).to.be.null
+
+        act(() => {
+          result.current.dndEvents(draggingFieldId).onDragStart(event)
+        })
+
+        expect(result.current.dndState.currentlyDragging).to.eql(draggingFieldId)
+        expect(addEventListenerSpy).to.be.calledOnce
+        act(() => {
+          dragend({stopPropagation: () => {}})
+        })
+
+        expect(event.target.removeEventListener).to.be.calledOnce
+        expect(result.current.dndState.currentlyDragging).to.be.null
+      })
     })
   })
 })
