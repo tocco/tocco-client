@@ -13,14 +13,14 @@ import {
 const getTitle = breadcrumbsInfo =>
   breadcrumbsInfo
     .slice(breadcrumbsInfo.length - 2)
-    .map(breadcrumb => breadcrumb.display)
+    .map(breadcrumb => breadcrumb.title || breadcrumb.display)
     .reverse()
     .join(' - ')
 
-const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundColor, onClick}) => {
+const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor, onClick}) => {
   const breadcrumbs = [
     ...(breadcrumbsInfo || []),
-    ...(currentViewTitle ? [{display: currentViewTitle}] : [])
+    ...(currentView ? [currentView] : [])
   ]
 
   if (breadcrumbs.length === 0) {
@@ -45,7 +45,7 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentViewTitle, backgroundC
           <Comp
             neutral="true"
             {...(idx === breadcrumbs.length - 1 && {active: 'true'})}
-            to={`${pathPrefix}/${b.path}`}
+            {...(b.path ? {to: `${pathPrefix}/${b.path}`} : {})}
             onClick={handleClick(b)}
           >
             {b.type === 'list' && <Icon icon="list"/>}
@@ -73,11 +73,15 @@ Breadcrumbs.propTypes = {
   breadcrumbsInfo: PropTypes.arrayOf(
     PropTypes.shape({
       display: PropTypes.string,
+      title: PropTypes.string,
       path: PropTypes.string,
       type: PropTypes.string
     })
   ),
-  currentViewTitle: PropTypes.string,
+  currentView: {
+    display: PropTypes.string,
+    title: PropTypes.string
+  },
   backgroundColor: PropTypes.string,
   onClick: PropTypes.func
 }
