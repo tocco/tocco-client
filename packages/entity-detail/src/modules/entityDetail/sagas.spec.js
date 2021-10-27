@@ -34,7 +34,7 @@ describe('entity-detail', () => {
               takeEvery(formActionTypes.CHANGE, sagas.onBlur),
               takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
               takeLatest(actions.UPDATE_MARKED, sagas.updateMarked),
-              takeLatest(actionExtensions.actions.ACTION_INVOKED, sagas.loadDetailView)
+              takeLatest(actionExtensions.actions.ACTION_INVOKED, sagas.reloadAfterAction)
 
             ]))
             expect(generator.next().done).to.be.true
