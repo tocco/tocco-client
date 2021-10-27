@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale} from 'tocco-ui'
+import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale, RouterLinkButton} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'
 import {PasswordUpdateApp} from 'tocco-login/src/main'
@@ -11,8 +11,7 @@ import {
   StyledBackgroundCover,
   StyledHeader,
   StyledConfig,
-  StyledBackgroundLogo,
-  StyledHeaderLink
+  StyledBackgroundLogo
 } from './StyledComponents'
 import AboutTocco from '../AboutTocco'
 
@@ -78,7 +77,7 @@ const Header = ({
     <StyledBackgroundCover/>
     <StyledHeader>
       <StyledConfig>
-        <StyledHeaderLink to="/dashboard/reload"><FormattedMessage id="client.admin.dashboard"/></StyledHeaderLink>
+        <RouterLinkButton to="/dashboard/reload"><FormattedMessage id="client.admin.dashboard"/></RouterLinkButton>
         <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
           {
             businessUnits.map(bU =>
