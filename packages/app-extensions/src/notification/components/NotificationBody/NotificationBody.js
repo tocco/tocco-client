@@ -77,7 +77,7 @@ const Result = ({
               entityName={model}
               entityKeys={entities.map(e => e.key)}
             >
-              <Icon icon="external-link"/> <FormattedMessage id="client.common.notification.entitiesOpen"/>
+              <Icon icon="arrow-right"/> <FormattedMessage id="client.common.notification.entitiesOpen"/>
             </navigationStrategy.ListOrDetailLink>}
           </StyledDetailLinkWrapper>
         ))
