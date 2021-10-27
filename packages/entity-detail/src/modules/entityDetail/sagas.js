@@ -52,7 +52,7 @@ export default function* sagas() {
     takeEvery(formActionTypes.CHANGE, onBlur),
     takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, asyncValidationStop),
     takeLatest(actions.UPDATE_MARKED, updateMarked),
-    takeLatest(actionExtensions.actions.ACTION_INVOKED, loadDetailView)
+    takeLatest(actionExtensions.actions.ACTION_INVOKED, reloadAfterAction)
   ])
 }
 
@@ -383,6 +383,13 @@ export function* loadMarked(entityName, entityId) {
 export function* updateMarked({payload: {entityName, entityId, marked}}) {
   yield put(actions.setMarked(marked))
   yield call(rest.setMarked, entityName, entityId, marked)
+}
+
+function* reloadAfterAction({payload}) {
+  const {definition} = payload
+  if (definition.id !== 'delete') {
+    yield call(loadData, false)
+  }
 }
 
 export function* navigateToCreate({payload}) {
