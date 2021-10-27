@@ -385,7 +385,7 @@ export function* updateMarked({payload: {entityName, entityId, marked}}) {
   yield call(rest.setMarked, entityName, entityId, marked)
 }
 
-function* reloadAfterAction({payload}) {
+export function* reloadAfterAction({payload}) {
   const {definition} = payload
   if (definition.id !== 'delete') {
     yield call(loadData, false)
