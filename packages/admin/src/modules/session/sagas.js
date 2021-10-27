@@ -9,10 +9,10 @@ export const sessionSelector = state => state.session
 
 export function* sessionHeartBeat(sessionTimeout) {
   const threeQuarterSeconds = sessionTimeout * 45000
-  yield call(delayByTimeout, threeQuarterSeconds)
   const {success, adminAllowed} = yield call(login.doSessionRequest)
   yield put(login.setLoggedIn(success))
   yield put(login.setAdminAllowed(adminAllowed))
+  yield call(delayByTimeout, threeQuarterSeconds)
   yield call(sessionHeartBeat, sessionTimeout)
 }
 
