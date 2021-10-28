@@ -1,8 +1,13 @@
 import {css} from 'styled-components'
 
+import {StyledLabelWrapper} from './StyledButton'
 import {declareFont, design, interactiveStyling, scale, theme as themeSelector} from '../utilStyles'
 
-const declareIconPosition = ({icon, pending, iconPosition}) => {
+const declareIconPosition = ({
+  icon,
+  pending,
+  iconPosition
+}) => {
   if (icon || pending) {
     if (iconPosition === design.position.APPEND) {
       return `
@@ -20,7 +25,11 @@ const declareIconPosition = ({icon, pending, iconPosition}) => {
       `
   }
 }
-const getDensityStyle = ({dense, theme}) =>
+
+const getDensityStyle = ({
+  dense,
+  theme
+}) =>
   dense
     ? css`
   line-height: ${themeSelector.lineHeight('dense')({theme})};
@@ -52,7 +61,6 @@ export const buttonStyle = css`
   margin-right: ${scale.space(-1.38)};
   padding: ${scale.space(-2.1)} ${scale.space(0)};
   cursor: pointer;
-  height: fit-content;
   ${declareFont()}
   ${props => props.withoutBackground ? transparentBackground() : interactiveStyling(props)}
   ${props => getDensityStyle(props)}
@@ -62,4 +70,11 @@ export const buttonStyle = css`
   & > span:first-child {
     margin-left: 0;
   }
+  ${({icon}) => icon && `
+    @media screen and (max-width: 1024px) {
+      ${StyledLabelWrapper} {
+        display: none;
+      }
+    }
+  `}
 `

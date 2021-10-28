@@ -3,14 +3,25 @@ import React from 'react'
 
 import Icon from '../Icon'
 import LoadingSpinner from '../LoadingSpinner'
-import StyledButton from './StyledButton'
+import StyledButton, {StyledLabelWrapper} from './StyledButton'
 import {design} from '../utilStyles'
 
 /**
  * Use the Button to trigger any actions. Choose look and ink according Material Design.
  */
 const Button = React.forwardRef((props, ref) => {
-  const {aria, ink, label, icon, pending, look, iconPosition, iconOnly, children} = props
+  const {
+    aria,
+    ink,
+    label,
+    icon,
+    pending,
+    look,
+    iconPosition,
+    iconOnly,
+    children
+  } = props
+
   return <StyledButton
     ref={ref}
     {...aria}
@@ -27,7 +38,7 @@ const Button = React.forwardRef((props, ref) => {
       look={look}
       position={iconPosition}
       size="1em"/>}
-    {!iconOnly && label ? <span>{label}</span> : children || '\u200B' }
+    {!iconOnly && label ? <StyledLabelWrapper>{label}</StyledLabelWrapper> : children || '\u200B'}
   </StyledButton>
 })
 
@@ -87,8 +98,8 @@ Button.propTypes = {
    */
   'onClick': PropTypes.func,
   /**
-  * If true, an animated spinner icon is prepended.
-  */
+   * If true, an animated spinner icon is prepended.
+   */
   'pending': PropTypes.bool,
   /**
    * Describe button action in detail to instruct users. It is shown as popover on mouse over.

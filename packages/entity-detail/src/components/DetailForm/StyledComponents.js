@@ -10,14 +10,15 @@ export const StyledForm = styled.form`
   ${StyledScrollbar}
 `
 
-export const StyledButton = styled(Button)`
+export const StyledSaveButton = styled(Button)`
   ${({hasErrors}) => hasErrors && `
     background-color: ${theme.color('paper')};
-  `};
+  `}
+  display: block;
 `
 
 export const StyledActionWrapper = styled.div`
-  ${StyledButton} {
+  ${StyledSaveButton} {
     width: 100%;
     max-width: fit-content;
     justify-content: center;
