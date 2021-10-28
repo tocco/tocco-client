@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 
 import Icon from '../Icon'
 import {design} from '../utilStyles'
-import RouterStyledLinkButton from './RouterStyledLinkButton'
+import StyledRouterLinkButton from './StyledRouterLinkButton'
 
 const RouterLinkButton = React.forwardRef((props, ref) => {
   const {aria, icon, ink, label, iconOnly, children} = props
   return (
-    <RouterStyledLinkButton
+    <StyledRouterLinkButton
       ref={ref}
       {...aria}
       {...props}
@@ -20,7 +20,7 @@ const RouterLinkButton = React.forwardRef((props, ref) => {
         icon={icon}
       />}
       {!iconOnly && label ? <span>{label}</span> : children || '\u200B' }
-    </RouterStyledLinkButton>
+    </StyledRouterLinkButton>
   )
 })
 
