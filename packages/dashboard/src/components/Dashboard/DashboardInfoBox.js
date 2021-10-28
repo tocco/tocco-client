@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {StyledInfoBoxWrapper, StyledResizeHandle} from './StyledComponents'
-import {DEFAULT_HEIGHT} from '../../utils/constants'
 import InfoBox from '../InfoBox/InfoBox'
 
 const DashboardInfoBox = ({
@@ -20,7 +19,7 @@ const DashboardInfoBox = ({
       <InfoBox
         id={id}
         label={label}
-        height={height || DEFAULT_HEIGHT}
+        height={height}
         content={content}
         draggable
         onDragStart={onDragStart}
