@@ -1,4 +1,4 @@
-import nice from '../nice'
+import {nice} from 'tocco-util'
 
 /*
  * Short term caching is per browser tab. The short term cache is clear after login or business unit change

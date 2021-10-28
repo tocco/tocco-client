@@ -2,11 +2,11 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {call} from 'redux-saga/effects'
-import {cache} from 'tocco-util'
 import {throwError} from 'redux-saga-test-plan/providers'
 
 import {requestSaga} from './rest'
 import * as helpers from './helpers'
+import cache from '../cache'
 
 describe('app-extensions', () => {
   describe('rest', () => {

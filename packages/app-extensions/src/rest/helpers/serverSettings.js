@@ -1,8 +1,8 @@
 import {call} from 'redux-saga/effects'
-import {cache} from 'tocco-util'
 import _omit from 'lodash/omit'
 
 import {requestSaga} from '../rest'
+import cache from '../../cache'
 
 /**
  * To fetch server settings containing:
