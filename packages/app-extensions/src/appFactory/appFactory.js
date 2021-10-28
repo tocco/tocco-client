@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import _union from 'lodash/union'
-import {intl, consoleLogger} from 'tocco-util'
+import {consoleLogger} from 'tocco-util'
 
 import errorLogging from '../errorLogging'
+import intl from '../intl'
 import App from './App'
 
 export const inputDispatchActionType = 'app/INPUT_DISPATCHED'

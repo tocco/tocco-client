@@ -1,6 +1,5 @@
 import {updateIntl} from 'react-intl-redux'
-
-import cache from '../cache'
+import {cache} from 'tocco-util'
 
 const supportedLanguage = ['de', 'fr', 'en', 'it']
 const FALLBACK_LANGUAGE = 'en'

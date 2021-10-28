@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock'
+import {cache} from 'tocco-util'
 
 import {setLocale, getUserLocale, loadTextResources} from './intl'
-import cache from '../cache'
 
 describe('tocco-util', () => {
   describe('intl', () => {
