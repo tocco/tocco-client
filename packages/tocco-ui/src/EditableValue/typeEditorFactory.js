@@ -11,6 +11,7 @@ import DateEdit from './typeEditors/DateEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
 import TimeEdit from './typeEditors/TimeEdit'
 import BoolEdit from './typeEditors/BoolEdit'
+import CodeEdit from './typeEditors/CodeEdit'
 import Document from './typeEditors/Document'
 import HtmlEdit from './typeEditors/HtmlEdit'
 import RemoteSelect from './typeEditors/RemoteSelect'
@@ -25,6 +26,7 @@ import LocationEdit from './typeEditors/LocationEdit'
 
 export const map = {
   'boolean': BoolEdit,
+  'code': CodeEdit,
   'date': DateEdit,
   'datetime': DateTimeEdit,
   'document': Document,

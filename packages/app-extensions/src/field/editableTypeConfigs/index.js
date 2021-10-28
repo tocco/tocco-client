@@ -1,3 +1,4 @@
+import code from './code'
 import decimal from './decimal'
 import document from './document'
 import duration from './duration'
@@ -16,6 +17,7 @@ import percent from './percent'
 export default {
   'binary': document,
   'boolean': boolean,
+  'code': code,
   'counter': number,
   'data-amount': number,
   'decimal': decimal,
