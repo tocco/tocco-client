@@ -29,10 +29,12 @@ React-registry name: `docs-browser`
 | `embedded`             |           | If true, the styling is more subtle (E.g. no background color for in the breadcrumbs). Default is false.
 | `showActions`          |           | Attribute will be passed along to entity-list.
 | `sortable`             |           | Attribute will be passed along to entity-list.
-| `noLeftPadding`       |           | If false, a left padding will be applied to the Breadcrumbs. Per default false.
+| `noLeftPadding`        |           | If false, a left padding will be applied to the Breadcrumbs. Per default false.
+| `searchFormCollapsed`  |           | If true, the admin search form is collapsed and thus not visible by default                                                                                                                               | Boolean
 
 ### Events
 
 | Name                | Payload                       | Description
 |---------------------|-------------------------------|-------------
 | `onListParentChange`| null (= root) or  {model: 'User', key: '1'} | This event is fired when the parent of the list is changed
+| `onSearchFormCollapsedChange` | `collapsed` boolean. Whether it was opened or closed  | Is fired when the user click in the arrow in the admin search form to collapse the search form.

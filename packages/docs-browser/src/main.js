@@ -15,15 +15,20 @@ import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import {Router as ReactRouter, Route, Redirect} from 'react-router'
 import {GlobalStyles} from 'tocco-ui'
+import _pickBy from 'lodash/pickBy'
+import _isEqual from 'lodash/isEqual'
+import _isEmpty from 'lodash/isEmpty'
 
-import DocsBrowser from './components/DocsBrowser'
 import reducers, {sagas} from './modules/reducers'
+import DocsBrowser from './components/DocsBrowser'
+import {getDispatchActions} from './input'
 
 const packageName = 'docs-browser'
 
 const EXTERNAL_EVENTS = [
   'onListParentChange',
-  'openResource'
+  'openResource',
+  'onSearchFormCollapsedChange'
 ]
 
 const textResourceSelector = (state, key) => state.intl.messages[key] || key
@@ -103,7 +108,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     {
       input,
       events,
-      actions: [],
+      actions: getDispatchActions(input),
       publicPath,
       textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail', packageName]
     }
@@ -139,18 +144,30 @@ const initApp = (id, input, events = {}, publicPath) => {
   }
 })()
 
+const getEvents = props =>
+  EXTERNAL_EVENTS.reduce((events, event) => {
+    if (props[event]) {
+      events[event] = props[event]
+    }
+    return events
+  }, {})
+
 class DocsBrowserApp extends React.Component {
   constructor(props) {
     super(props)
 
-    const events = EXTERNAL_EVENTS.reduce((events, event) => {
-      if (props[event]) {
-        events[event] = props[event]
-      }
-      return events
-    }, {})
+    this.app = initApp('docs-browser', props, getEvents(props))
+  }
 
-    this.app = initApp('docs-browser', props, events)
+  componentDidUpdate(prevProps) {
+    const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
+    if (changedProps.store) {
+      this.app = initApp(this.props.id, this.props, getEvents(this.props))
+    } else if (!_isEmpty(changedProps)) {
+      getDispatchActions(changedProps).forEach(action => {
+        this.app.store.dispatch(action)
+      })
+    }
   }
 
   render() {
@@ -176,6 +193,7 @@ DocsBrowserApp.propTypes = {
   disableViewPersistor: PropTypes.bool,
   getCustomLocation: PropTypes.func,
   businessUnit: PropTypes.string,
+  searchFormCollapsed: PropTypes.bool,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
