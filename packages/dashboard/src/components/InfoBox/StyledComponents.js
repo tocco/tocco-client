@@ -6,7 +6,7 @@ const minHeight = '50px'
 export const StyledInfoBoxWrapper = styled.div`
   box-sizing: border-box;
   border: 1px solid ${colorizeBorder.shade1};
-  height: ${({height}) => `${height}px`};
+  height: ${({height}) => height ? `${height}px` : 'auto'};
   min-height: ${minHeight};
   padding: ${scale.space(-0.5)};
   background: ${theme.color('paper')};

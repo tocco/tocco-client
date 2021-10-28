@@ -5,7 +5,6 @@ import {StyledColumn} from './StyledComponents'
 import DashboardInfoBox from './DashboardInfoBox'
 import {InfoBoxRenderTypes} from '../../utils/infoBoxTypes'
 import DropPreview from '../InfoBox/DropPreview'
-import {DEFAULT_HEIGHT} from '../../utils/constants'
 import DropTypes from '../../utils/dropTypes'
 
 const DashboardColumn = ({
@@ -32,7 +31,7 @@ const DashboardColumn = ({
         if (type === InfoBoxRenderTypes.DropPreview) {
           return <DropPreview
             key={`${type}-${id}`}
-            height={height || DEFAULT_HEIGHT}
+            height={height}
             {...makeDndEvents(currentlyDragOver)}
           />
         }

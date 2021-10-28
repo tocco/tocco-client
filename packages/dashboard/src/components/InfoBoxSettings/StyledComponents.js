@@ -19,6 +19,8 @@ export const StyledUl = styled.ul`
   list-style-type: none;
   margin-top: ${scale.space(-0.5)};
   padding-left: ${scale.space(-0.5)};
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
   ${StyledLabel} {
     padding: 0;
