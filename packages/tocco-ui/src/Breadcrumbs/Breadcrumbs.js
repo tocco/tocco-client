@@ -78,10 +78,10 @@ Breadcrumbs.propTypes = {
       type: PropTypes.string
     })
   ),
-  currentView: {
+  currentView: PropTypes.shape({
     display: PropTypes.string,
     title: PropTypes.string
-  },
+  }),
   backgroundColor: PropTypes.string,
   onClick: PropTypes.func
 }
