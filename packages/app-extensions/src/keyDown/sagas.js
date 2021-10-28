@@ -12,7 +12,7 @@ export function* emitAction(configs, {payload}) {
   const {event} = payload
   const config = configs.find(
     config =>
-      config.key === event.key
+      (config.code === event.code || config.key === event.key)
       && (!config.ctrl || (event.ctrlKey || event.metaKey))
       && (!config.alt || (event.altKey))
       && event.global === config.global
