@@ -2,7 +2,7 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import DocsView from './DocsView'
-import {changeListParent} from '../../modules/list/actions'
+import {changeListParent, changeSearchFormCollapsed} from '../../modules/list/actions'
 
 const mapStateToProps = state => ({
   domainTypes: state.input.domainTypes,
@@ -17,11 +17,13 @@ const mapStateToProps = state => ({
   folderDetailFormName: state.input.folderDetailFormName,
   showActions: state.input.showActions,
   sortable: state.input.sortable,
-  openResource: state.input.openResource
+  openResource: state.input.openResource,
+  searchFormCollapsed: state.docs.list.searchFormCollapsed
 })
 
 const mapActionCreators = {
-  changeListParent
+  changeListParent,
+  changeSearchFormCollapsed
 }
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(DocsView))

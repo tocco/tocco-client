@@ -72,7 +72,9 @@ const DocsView = props => {
     showActions,
     sortable,
     searchMode,
-    openResource
+    openResource,
+    searchFormCollapsed,
+    changeSearchFormCollapsed
   } = props
   // eslint-disable-next-line no-unused-vars
   const [entityListNumber, forceEntityListUpdate] = useReducer(x => x + 1, 0)
@@ -208,6 +210,8 @@ const DocsView = props => {
           selection={selection}
           showActions={showActions}
           sortable={sortable}
+          searchFormCollapsed={searchFormCollapsed}
+          onSearchFormCollapsedChange={changeSearchFormCollapsed}
         />
       </Suspense>
       <FileInput/>
@@ -239,7 +243,9 @@ DocsView.propTypes = {
   showActions: PropTypes.bool,
   sortable: PropTypes.bool,
   searchMode: PropTypes.bool,
-  openResource: PropTypes.func
+  openResource: PropTypes.func,
+  searchFormCollapsed: PropTypes.bool,
+  changeSearchFormCollapsed: PropTypes.func.isRequired
 }
 
 export default DocsView

@@ -15,7 +15,8 @@ describe('admin', () => {
               test('should fork sagas', () => {
                 const saga = testSaga(sagas.default)
                 saga.next().all([
-                  takeLatest(actions.CHANGE_LIST_PARENT, sagas.changeListParent)
+                  takeLatest(actions.CHANGE_LIST_PARENT, sagas.changeListParent),
+                  takeLatest(actions.CHANGE_SEARCH_FORM_COLLAPSED, sagas.changeSearchFormCollapsed)
                 ])
               })
             })
@@ -25,6 +26,15 @@ describe('admin', () => {
                 const parent = {model: 'User', key: '1'}
                 return expectSaga(sagas.changeListParent, {payload: {parent: parent}})
                   .put(externalEvents.fireExternalEvent('onListParentChange', parent))
+                  .run()
+              })
+            })
+
+            describe('changeSearchFormCollapsed', () => {
+              test('should fire external changeSearchFormCollapsed event', () => {
+                const collapsed = true
+                return expectSaga(sagas.changeSearchFormCollapsed, {payload: {collapsed}})
+                  .put(externalEvents.fireExternalEvent('onSearchFormCollapsedChange', collapsed))
                   .run()
               })
             })
