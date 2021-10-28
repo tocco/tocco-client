@@ -4,27 +4,36 @@ import PropTypes from 'prop-types'
 
 import modes from '../../util/modes'
 import ErrorItems from '../ErrorItems'
-import {StyledButton} from './StyledComponents'
+import {StyledSaveButton} from './StyledComponents'
 
-const SaveButton = ({submitting, mode, intl, hasErrors, formErrors, icon}) => {
+const SaveButton = ({
+  submitting,
+  mode,
+  intl,
+  hasErrors,
+  formErrors,
+  icon
+}) => {
   const msg = id => (intl.formatMessage({id}))
 
-  return <Popover
-    content={hasErrors ? <ErrorItems formErrors={formErrors}/> : null}
-    placement="bottom">
-    <StyledButton
-      data-cy="detail-form_submit-button"
-      id="detail-save_button"
-      disabled={submitting}
-      ink="primary"
-      label={msg(`client.entity-detail.${mode === modes.CREATE ? 'create' : 'save'}`)}
-      look={hasErrors ? 'flat' : 'raised'}
-      pending={submitting}
-      type="submit"
-      hasErrors={hasErrors}
-      icon={hasErrors ? 'exclamation' : icon}
-    />
-  </Popover>
+  return (
+    <Popover
+      content={hasErrors ? <ErrorItems formErrors={formErrors}/> : null}
+      placement="bottom">
+      <StyledSaveButton
+        data-cy="detail-form_submit-button"
+        id="detail-save_button"
+        disabled={submitting}
+        ink="primary"
+        label={msg(`client.entity-detail.${mode === modes.CREATE ? 'create' : 'save'}`)}
+        look={hasErrors ? 'flat' : 'raised'}
+        pending={submitting}
+        type="submit"
+        hasErrors={hasErrors}
+        icon={hasErrors ? 'exclamation' : icon}
+      />
+    </Popover>
+  )
 }
 
 SaveButton.propTypes = {

@@ -3,12 +3,20 @@ import PropTypes from 'prop-types'
 
 import {Button, ButtonGroup, Icon, Menu} from '../'
 import {StyledIconButtonWrapper, StyledIconWrapper} from './StyledComponents'
+import {StyledLabelWrapper} from '../Button/StyledButton'
 
 /**
  *  Button with a menu that pops out on click.
  */
 const ButtonMenu = props => {
-  const {onOpen, children, onClick, buttonProps, label, icon} = props
+  const {
+    onOpen,
+    children,
+    onClick,
+    buttonProps,
+    label,
+    icon
+  } = props
   const referenceElement = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [onOpenCalled, setOnOpenCalled] = useState(false)
@@ -52,7 +60,7 @@ const ButtonMenu = props => {
       onClick={handleClick}
       icon={icon}
     >
-      <span>{label}</span>
+      <StyledLabelWrapper>{label}</StyledLabelWrapper>
       <StyledIconWrapper>
         <Icon icon={chevronIcon}/>
       </StyledIconWrapper>
