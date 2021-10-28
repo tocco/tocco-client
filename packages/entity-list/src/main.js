@@ -191,7 +191,8 @@ EntityListApp.propTypes = {
   }),
   actionAppComponent: PropTypes.func,
   navigationStrategy: navigationStrategy.propTypes,
-  contextParams: PropTypes.object
+  contextParams: PropTypes.object,
+  searchFormCollapsed: PropTypes.bool
 }
 
 export default EntityListApp
