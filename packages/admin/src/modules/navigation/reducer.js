@@ -9,6 +9,15 @@ export const toogleMenu = state => (
   }
 )
 
+export const toggleShortcutMenu = (state, {payload: {visibleMenus, activeMenuTab}}) => (
+  {
+    ...state,
+    menuOpen: state.visibleMenus === visibleMenus && state.activeMenuTab === activeMenuTab ? !state.menuOpen : true,
+    visibleMenus,
+    activeMenuTab
+  }
+)
+
 const ACTION_HANDLERS = {
   [actions.SET_MENU_OPEN]: reducerUtil.singleTransferReducer('menuOpen'),
   [actions.SET_MODULES_MENU_TREE]: reducerUtil.singleTransferReducer('modulesMenuTree'),
@@ -17,7 +26,8 @@ const ACTION_HANDLERS = {
   [actions.SET_COMPLETE_MENU_TREE]: reducerUtil.singleTransferReducer('completeMenuTree'),
   [actions.TOGGLE_MENU_OPEN]: toogleMenu,
   [actions.SET_ACTIVE_MENU_TAB]: reducerUtil.singleTransferReducer('activeMenuTab'),
-  [actions.SET_VISIBLE_MENUS]: reducerUtil.singleTransferReducer('visibleMenus')
+  [actions.SET_VISIBLE_MENUS]: reducerUtil.singleTransferReducer('visibleMenus'),
+  [actions.TOGGLE_SHORTCUT_MENU]: toggleShortcutMenu
 }
 
 const initialState = {

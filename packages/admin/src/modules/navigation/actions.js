@@ -7,6 +7,7 @@ export const SET_SYSTEM_MENU_TREE = 'navigation/SET_SYSTEM_MENU_TREE'
 export const SET_COMPLETE_MENU_TREE = 'navigation/SET_COMPLETE_MENU_TREE'
 export const SET_ACTIVE_MENU_TAB = 'navigation/SET_ACTIVE_MENU_TAB'
 export const SET_VISIBLE_MENUS = 'navigation/SET_VISIBLE_MENUS'
+export const TOGGLE_SHORTCUT_MENU = 'navigation/TOGGLE_SHORTCUT_MENU'
 
 export const initializeNavigation = () => ({
   type: INITIALIZE_NAVIGATION
@@ -62,5 +63,13 @@ export const setVisibleMenus = visibleMenus => ({
   type: SET_VISIBLE_MENUS,
   payload: {
     visibleMenus
+  }
+})
+
+export const toggleShortcutMenu = (visibleMenus, activeMenuTab) => ({
+  type: TOGGLE_SHORTCUT_MENU,
+  payload: {
+    visibleMenus,
+    activeMenuTab
   }
 })
