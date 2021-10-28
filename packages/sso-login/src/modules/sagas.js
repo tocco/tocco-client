@@ -1,5 +1,4 @@
-import {externalEvents, intl, rest} from 'tocco-app-extensions'
-import {cache} from 'tocco-util'
+import {cache, externalEvents, intl, rest} from 'tocco-app-extensions'
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
 
 import {transformProviderEntities} from '../utils/providers'

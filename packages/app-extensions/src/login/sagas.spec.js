@@ -1,11 +1,11 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {takeLatest} from 'redux-saga/effects'
-import {cache} from 'tocco-util'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import notification from '../notification'
+import cache from '../cache'
 
 describe('app-extensions', () => {
   describe('login', () => {
