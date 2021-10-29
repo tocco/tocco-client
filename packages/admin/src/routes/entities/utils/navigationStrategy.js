@@ -6,7 +6,13 @@ import {injectIntl} from 'react-intl'
 
 import {goBack} from '../../../utils/routing'
 
-const DetailLinkRelativeWithoutIntl = ({entityKey, entityModel, children, relation, intl}) => {
+const DetailLinkRelativeWithoutIntl = ({
+  entityKey,
+  entityModel,
+  children,
+  relation,
+  intl
+}) => {
   const msg = id => intl.formatMessage({id})
 
   return (
@@ -20,11 +26,26 @@ const DetailLinkRelativeWithoutIntl = ({entityKey, entityModel, children, relati
 
 const DetailLinkRelative = injectIntl(DetailLinkRelativeWithoutIntl)
 
-export const DetailLink = ({entityName, entityKey, children}) =>
-  <StyledLink to={`/e/${entityName}/${entityKey}`} target="_blank" neutral="false">{children}</StyledLink>
+export const DetailLink = ({
+  entityName,
+  entityKey,
+  children
+}) => (
+  <StyledLink
+    to={`/e/${entityName}/${entityKey}`}
+    target="_blank"
+    neutral={false}>
+    {children}
+  </StyledLink>
+)
 
-export const ListLink = ({entityName, entityKeys, children}) => {
-  const queryString = entityKeys && entityKeys.length > 0 && 'tql=KEYS(' + entityKeys.join(',') + ')'
+export const ListLink = ({
+  entityName,
+  entityKeys,
+  children
+}) => {
+  const queryString = entityKeys?.length && 'tql=KEYS(' + entityKeys.join(',') + ')'
+
   return (
     <StyledLink
       to={{
@@ -44,20 +65,23 @@ ListLink.propTypes = {
   entityKeys: PropTypes.arrayOf(PropTypes.string)
 }
 
-export const ListOrDetailLink = ({entityName, entityKeys, children}) => {
-  if (entityKeys && entityKeys.length === 1) {
+export const ListOrDetailLink = ({
+  entityName,
+  entityKeys,
+  children
+}) => {
+  if (entityKeys?.length === 1) {
     return (
       <DetailLink entityName={entityName} entityKey={entityKeys[0]}>
         {children}
       </DetailLink>
     )
-  } else {
-    return (
-      <ListLink entityName={entityName} entityKeys={entityKeys}>
-        {children}
-      </ListLink>
-    )
   }
+  return (
+    <ListLink entityName={entityName} entityKeys={entityKeys}>
+      {children}
+    </ListLink>
+  )
 }
 
 ListOrDetailLink.propTypes = {
