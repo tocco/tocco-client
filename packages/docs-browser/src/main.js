@@ -1,19 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {reducer as reducerUtil} from 'tocco-util'
-import {
-  appFactory,
-  actionEmitter,
-  errorLogging,
-  externalEvents,
-  notification,
-  rest
-} from 'tocco-app-extensions'
+import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification, rest} from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
 import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
-import {Router as ReactRouter, Route, Redirect} from 'react-router'
+import {Redirect, Route, Router as ReactRouter} from 'react-router'
 import {GlobalStyles} from 'tocco-ui'
 import _pickBy from 'lodash/pickBy'
 import _isEqual from 'lodash/isEqual'
@@ -63,6 +56,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
+  cache.addToStore(store)
 
   if (input.businessUnit) {
     rest.setBusinessUnit(input.businessUnit)

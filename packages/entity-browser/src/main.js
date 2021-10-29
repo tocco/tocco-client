@@ -1,12 +1,13 @@
 import React from 'react'
 import {
-  appFactory,
-  notification,
-  errorLogging,
   actionEmitter,
+  appFactory,
+  cache,
+  errorLogging,
   externalEvents,
-  rest,
-  login
+  login,
+  notification,
+  rest
 } from 'tocco-app-extensions'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
@@ -70,6 +71,7 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   notification.addToStore(store, true)
   login.addToStore(store)
+  cache.addToStore(store)
 
   const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)

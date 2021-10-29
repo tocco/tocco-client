@@ -2,18 +2,20 @@ import React, {Suspense} from 'react'
 import ReactDOM from 'react-dom'
 import {reducer as reducerUtil} from 'tocco-util'
 import {
-  appFactory,
-  notification,
-  errorLogging,
   actionEmitter,
+  appFactory,
+  cache,
+  errorLogging,
   externalEvents,
   keyDown,
-  login
+  login,
+  notification
 } from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
 import shortcuts from './shortcuts'
 import reducers, {sagas} from './modules/reducers'
+
 const packageName = 'admin'
 
 const LazyLoginGuard = React.lazy(() => import('./components/LoginGuard'))
@@ -38,6 +40,7 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   notification.addToStore(store, true, {withNotificationCenter: true})
   login.addToStore(store)
+  cache.addToStore(store)
   keyDown.addToStore(store, shortcuts)
 
   return appFactory.createApp(

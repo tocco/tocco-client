@@ -1,6 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {actionEmitter, appFactory, externalEvents, notification} from 'tocco-app-extensions'
+import {actionEmitter, appFactory, cache, externalEvents, notification} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 import {GlobalStyles} from 'tocco-ui'
 
@@ -21,6 +21,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   externalEvents.addToStore(store, events)
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
+  cache.addToStore(store)
 
   const content = <>
     <GlobalStyles/>
