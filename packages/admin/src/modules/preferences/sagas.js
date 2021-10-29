@@ -8,9 +8,13 @@ export function* loadSettingsAndPreferences() {
   const settings = yield call(rest.fetchServerSettings)
   yield put(actions.setServerSettings(settings))
 
-  const preferences = yield call(rest.fetchUserPreferences, 'admin.*')
-  const transformedPreferences = yield call(transformValues, preferences)
-  yield put(actions.setUserPreferences(transformedPreferences))
+  const adminPreferences = yield call(rest.fetchUserPreferences, 'admin.*')
+  const transformedAdminPreferences = yield call(transformValues, adminPreferences)
+
+  const adminTreePreferences = yield call(rest.fetchUserPreferences, 'admintree.*')
+  const transformedAdminTreePreferences = yield call(transformValues, adminTreePreferences)
+
+  yield put(actions.setUserPreferences({...transformedAdminTreePreferences, ...transformedAdminPreferences}))
 }
 
 export function* saveUserPreference({payload: {key, value}}) {

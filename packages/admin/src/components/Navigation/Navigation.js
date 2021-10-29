@@ -1,92 +1,60 @@
 import React, {useRef, useState, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import SearchBox from 'tocco-ui/src/SearchBox'
-import {Icon} from 'tocco-ui'
 
 import MenuTree from '../MenuTree'
 import {
   StyledTabsContainer,
-  StyledMenuEntry,
-  StyledMenuLink,
   StyledNav,
   StyledMenuWrapper,
   StyledNavSwitchButton,
   StyledNavButton,
-  StyledSearchBoxWrapper,
-  StyledStyledMenuLinkWrapper,
-  StyledIconLink
-}
-  from './StyledComponents'
-
-const MenuMenuEntry = ({item}) => (
-  <StyledMenuEntry>
-    {item.label}
-  </StyledMenuEntry>
-)
-
-MenuMenuEntry.propTypes = {
-  item: PropTypes.shape({
-    label: PropTypes.string
-  })
-}
-
-const EntityExplorerMenuEntry = ({
-  onClick,
-  item
-}) => {
-  const entityNameDisplay = item.matchingAttribute === 'entity' ? <> ({item.entity})</> : ''
-
-  return (
-    <StyledStyledMenuLinkWrapper>
-      <StyledMenuLink data-quick-navigation={true} onClick={onClick} to={`/e/${item.entity}`}>
-        {item.label}{entityNameDisplay}
-      </StyledMenuLink>
-      <StyledIconLink to={`/e/${item.entity}`} target="_blank" rel="noreferrer">
-        <Icon icon="external-link"/>
-      </StyledIconLink>
-    </StyledStyledMenuLinkWrapper>
-  )
-}
-
-EntityExplorerMenuEntry.propTypes = {
-  item: PropTypes.shape({
-    entity: PropTypes.string,
-    label: PropTypes.string,
-    matchingAttribute: PropTypes.string
-  }),
-  onClick: PropTypes.func
-}
-
-const ActionMenuEntry = ({
-  onClick,
-  item
-}) => (
-  <StyledStyledMenuLinkWrapper>
-    <StyledMenuLink
-      data-quick-navigation={true}
-      onClick={onClick}
-      to={`/e/action/${item.name}`}>
-      {item.label}
-    </StyledMenuLink>
-    <StyledIconLink to={`/e/action/${item.name}`} target="_blank" rel="noreferrer">
-      <Icon icon="external-link"/>
-    </StyledIconLink>
-  </StyledStyledMenuLinkWrapper>
-)
-
-ActionMenuEntry.propTypes = {
-  item: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
-  }).isRequired,
-  onClick: PropTypes.func
-}
+  StyledSearchBoxWrapper
+} from './StyledComponents'
+import {ActionEntry, EntityExplorerEntry, MenuEntry, MenuChildrenWrapper} from './menuType'
 
 const tabs = {
   MODULES: 'modules',
   SETTINGS: 'settings',
   SYSTEM: 'system',
   COMPLETE: 'complete'
+}
+
+const createMenuTypeMap = ({onClick, hasFilterApplied, preferencesPrefix}) => {
+  const usePreferences = typeof preferencesPrefix !== 'undefined'
+  const canCollapse = !hasFilterApplied && usePreferences
+
+  return {
+    'menu': {
+      component: MenuEntry,
+      childrenWrapperComponent: MenuChildrenWrapper,
+      filterAttributes: ['label'],
+      props: {
+        preferencesPrefix,
+        canCollapse
+      }
+    },
+    'entity-explorer': {
+      component: EntityExplorerEntry,
+      childrenWrapperComponent: MenuChildrenWrapper,
+      props: {
+        onClick,
+        preferencesPrefix,
+        canCollapse
+      },
+      filterAttributes: ['label', 'entity']
+    },
+    'action': {
+      component: ActionEntry,
+      childrenWrapperComponent: MenuChildrenWrapper,
+      props: {
+        onClick,
+        preferencesPrefix,
+        canCollapse
+      },
+      filterAttributes: ['label']
+    }
+  }
 }
 
 const Navigation = ({
@@ -105,27 +73,16 @@ const Navigation = ({
   const inputEl = useRef(null)
   const navigationEl = useRef(null)
   const [filter, setFilter] = useState('')
+  const hasFilterApplied = Boolean(filter)
 
-  const map = useMemo(() => ({
-    'menu': {
-      component: MenuMenuEntry,
-      filterAttributes: []
-    },
-    'entity-explorer': {
-      component: EntityExplorerMenuEntry,
-      props: {
-        onClick
-      },
-      filterAttributes: ['label', 'entity']
-    },
-    'action': {
-      component: ActionMenuEntry,
-      props: {
-        onClick
-      },
-      filterAttributes: ['label']
-    }
-  }), [])
+  const modulesTypeMap = useMemo(() =>
+    createMenuTypeMap({onClick, hasFilterApplied, preferencesPrefix: ''}), [onClick, hasFilterApplied])
+  const settingsTypeMap = useMemo(() =>
+    createMenuTypeMap({onClick, hasFilterApplied, preferencesPrefix: 'settings'}), [onClick, hasFilterApplied])
+  const systemTypeMap = useMemo(() =>
+    createMenuTypeMap({onClick, hasFilterApplied}), [onClick, hasFilterApplied])
+  const completeTypeMap = useMemo(() =>
+    createMenuTypeMap({onClick, hasFilterApplied}), [onClick, hasFilterApplied])
 
   useEffect(() => {
     if (menuOpen) {
@@ -216,19 +173,19 @@ const Navigation = ({
       </StyledSearchBoxWrapper>
       {activeMenuTab === tabs.MODULES
       && <StyledMenuWrapper>
-        <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={map}/>
+        <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={modulesTypeMap}/>
       </StyledMenuWrapper>}
       {activeMenuTab === tabs.SETTINGS
       && <StyledMenuWrapper>
-        <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={map}/>
+        <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={settingsTypeMap}/>
       </StyledMenuWrapper>}
       {activeMenuTab === tabs.SYSTEM
       && <StyledMenuWrapper>
-        <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={map}/>
+        <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={systemTypeMap}/>
       </StyledMenuWrapper>}
       {activeMenuTab === tabs.COMPLETE
       && <StyledMenuWrapper>
-        <MenuTree items={completeMenuTree} searchFilter={filter} typeMapping={map} requireSearch={true}/>
+        <MenuTree items={completeMenuTree} searchFilter={filter} typeMapping={completeTypeMap} requireSearch={true}/>
       </StyledMenuWrapper>}
     </StyledNav>
   )
