@@ -1,3 +1,6 @@
+0.10.19-hotfix228.10
+- Fix calendar entity-list text resources
+
 0.10.19-hotfix228.9
 - allow entity-browser to run with specific bu
 
