@@ -78,8 +78,8 @@ export function* handleFailedResponse() {
 }
 
 export function* handleSuccessfulLogin(response) {
-  const [revisionChanged, localChanged] = yield all([call(rest.hasRevisionIdChanged), call(intl.hasUserLocaleChanged)])
-  if (revisionChanged || localChanged) {
+  const localChanged = yield call(intl.hasUserLocaleChanged)
+  if (localChanged) {
     yield call(cache.clearAll)
   } else {
     yield call(cache.clearShortTerm)

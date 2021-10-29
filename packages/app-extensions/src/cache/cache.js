@@ -1,5 +1,7 @@
 import {nice} from 'tocco-util'
 
+import sagas from './sagas'
+
 /*
  * Short term caching is per browser tab. The short term cache is clear after login or business unit change
  * Long term cache is cleared if language or revision has changed
@@ -41,4 +43,8 @@ const clear = storage => storage.clear()
 export const clearAll = () => {
   localStorage.clear()
   sessionStorage.clear()
+}
+
+export const addToStore = store => {
+  store.sagaMiddleware.run(sagas)
 }

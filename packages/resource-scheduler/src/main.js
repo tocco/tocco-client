@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {reducer as reducerUtil, selection as selectionPropType} from 'tocco-util'
-import {appFactory, externalEvents, notification, errorLogging, actionEmitter} from 'tocco-app-extensions'
+import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'
 
 import reducers, {sagas} from './modules/reducers'
 import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
-import {updateRequestedCalendars, setHandleNotifications} from './modules/resourceScheduler/actions'
+import {setHandleNotifications, updateRequestedCalendars} from './modules/resourceScheduler/actions'
 
 const packageName = 'resource-scheduler'
 
@@ -27,6 +27,7 @@ const initApp = (id, input, events, publicPath) => {
 
   notification.addToStore(store, handleNotifications)
   errorLogging.addToStore(store, handleNotifications)
+  cache.addToStore(store)
 
   const dispatchActions = [
     ...(input.selection && input.selection.type === 'ID'

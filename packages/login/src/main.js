@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {consoleLogger, reducer as reducerUtil} from 'tocco-util'
-import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
+import {appFactory, cache, errorLogging, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
@@ -30,6 +30,7 @@ const initLoginApp = (id, input, events, publicPath, customTheme) => {
   const store = appFactory.createStore(loginReducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   errorLogging.addToStore(store, true, ['console', 'remote'])
+  cache.addToStore(store)
 
   return appFactory.createApp(
     packageName,

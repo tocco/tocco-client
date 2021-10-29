@@ -6,7 +6,8 @@ import {
   removeShortTerm,
   removeLongTerm,
   clearShortTerm,
-  clearAll
+  clearAll,
+  addToStore
 } from './cache'
 export default {
   addShortTerm,
@@ -16,5 +17,6 @@ export default {
   removeShortTerm,
   removeLongTerm,
   clearShortTerm,
-  clearAll
+  clearAll,
+  addToStore
 }

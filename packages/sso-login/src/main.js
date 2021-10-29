@@ -1,6 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, externalEvents} from 'tocco-app-extensions'
+import {appFactory, cache, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
 import reducers, {sagas} from './modules'
@@ -17,6 +17,7 @@ const initApp = (id, input, events, publicPath) => {
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
+  cache.addToStore(store)
 
   return appFactory.createApp(
     packageName,
@@ -46,16 +47,16 @@ const initApp = (id, input, events, publicPath) => {
         setupFetchMocks(packageName, fetchMock)
         fetchMock.spy()
       }
-  
+
       const app = initApp(packageName, input)
-  
+
       if (module.hot) {
         module.hot.accept('./modules/index', () => {
           const reducers = require('./modules').default
           reducerUtil.hotReloadReducers(app.store, reducers)
         })
       }
-  
+
       appFactory.renderApp(app.component)
     }
   }
