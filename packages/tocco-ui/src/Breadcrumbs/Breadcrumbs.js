@@ -45,7 +45,7 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor,
           <Comp
             neutral="true"
             {...(idx === breadcrumbs.length - 1 && {active: 'true'})}
-            {...(b.path ? {to: `${pathPrefix}/${b.path}`} : {})}
+            {...(typeof b.path !== 'undefined' ? {to: `${pathPrefix}/${b.path}`} : {})}
             onClick={handleClick(b)}
           >
             {b.type === 'list' && <Icon icon="list"/>}
