@@ -18,6 +18,10 @@ export const GlobalDatePickerStyles = createGlobalStyle`
       border-radius: 0;
     }
 
+    &.open {
+      z-index: 999999 !important; // higher than StyledModalHolder
+    }
+
     &.arrowTop:before,
     &.arrowTop:after {
       border-bottom-color: ${secondaryLight} !important;
