@@ -1,3 +1,8 @@
+0.2.4-hotfix229.11
+- Dms edit and create messages clean up
+- Fix calendar entity-list text resources
+- Fix datepickr disappearing behind modal
+
 0.2.4-hotfix229.10
 - Prevent preview image collapsing to 1px if preview cannot be generated
 - Refresh list on navigation back to list
