@@ -63,6 +63,7 @@ const ActionMenuEntry = ({
 }) => (
   <StyledStyledMenuLinkWrapper>
     <StyledMenuLink
+      data-quick-navigation={true}
       onClick={onClick}
       to={`/e/action/${item.name}`}>
       {item.label}
