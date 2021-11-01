@@ -2,14 +2,14 @@ import React, {useCallback, useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import {js} from 'tocco-util'
 
-import StyledTable, {PaginationContainer, StretchingTableContainer, StyledTableWrapper} from './StyledTable'
-import {Pagination} from '../'
+import StyledTable, {StretchingTableContainer, StyledTableWrapper} from './StyledTable'
 import useSelection from './selection/useSelection'
 import {selectionStylePropType} from './selection/selectionStyles'
 import {getSelectionCell} from './selection/selectionColumnEnhancer'
 import {columnPropType, dataPropType, keyPropType} from './propTypes'
 import TableHeader from './TableHeader'
 import TableBody from './TableBody'
+import TableFooter from './TableFooter'
 
 const Table = props => {
   const {
@@ -23,7 +23,8 @@ const Table = props => {
     dataLoadingInProgress,
     onRowClick,
     clickable,
-    onPageChange
+    onPageChange,
+    onPageRefresh
   } = props
   const [columns, setColumns] = useState(props.columns)
   const tableEl = useRef(null)
@@ -52,9 +53,6 @@ const Table = props => {
     setColumns([...(selectionColumn ? [selectionColumn] : []), ...props.columns])
   }, [props.columns, selection])
 
-  const showPagination = paginationInfo
-    && (paginationInfo.totalCount - paginationInfo.recordsPerPage) > 0
-
   return <StyledTableWrapper>
     <StretchingTableContainer>
       <StyledTable ref={tableEl} columns={columns}>
@@ -78,14 +76,7 @@ const Table = props => {
         />
       </StyledTable>
     </StretchingTableContainer>
-    {showPagination && <PaginationContainer>
-      <Pagination
-        onPageChange={onPageChange}
-        currentPage={paginationInfo.currentPage}
-        totalCount={paginationInfo.totalCount}
-        recordsPerPage={paginationInfo.recordsPerPage}
-      />
-    </PaginationContainer>}
+    <TableFooter onPageChange={onPageChange} onPageRefresh={onPageRefresh} paginationInfo={paginationInfo}/>
   </StyledTableWrapper>
 }
 
@@ -130,6 +121,10 @@ Table.propTypes = {
    * Callback on page change
    */
   onPageChange: PropTypes.func,
+  /**
+   * Callback on page reload
+   */
+  onPageRefresh: PropTypes.func,
   /**
    * Callback if a column is drag and dropped to a new position
    */
