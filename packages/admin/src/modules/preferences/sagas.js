@@ -1,5 +1,5 @@
 import {rest} from 'tocco-app-extensions'
-import {all, call, put, takeLatest, takeLeading} from 'redux-saga/effects'
+import {takeLatest, call, all, put} from 'redux-saga/effects'
 
 import {transformValues} from './preferences'
 import * as actions from './actions'
@@ -22,6 +22,6 @@ export function* saveUserPreference({payload: {key, value}}) {
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.LOAD_SETTINGS_AND_PREFERENCES, loadSettingsAndPreferences),
-    takeLeading(actions.SAVE_USER_PREFERENCE, saveUserPreference)
+    takeLatest(actions.SAVE_USER_PREFERENCE, saveUserPreference)
   ])
 }

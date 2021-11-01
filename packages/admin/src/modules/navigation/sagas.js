@@ -1,5 +1,5 @@
 import {rest} from 'tocco-app-extensions'
-import {takeLatest, call, all, put, select} from 'redux-saga/effects'
+import {takeLatest, call, all, put, select, debounce} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {SET_USER_PREFERENCES, saveUserPreferences} from '../preferences/actions'
@@ -44,7 +44,7 @@ export function* saveOpenMenuPreference({payload: {activeMenuTab}}) {
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.INITIALIZE_NAVIGATION, loadNavigation),
-    takeLatest(actions.SET_ACTIVE_MENU_TAB, saveOpenMenuPreference),
+    debounce(500, actions.SET_ACTIVE_MENU_TAB, saveOpenMenuPreference),
     takeLatest(SET_USER_PREFERENCES, setActiveMenuFromPreferences)
   ])
 }
