@@ -1,3 +1,6 @@
+0.4.6-hotfix229.5
+- Fix datepickr disappearing behind modal
+
 0.4.6-hotfix229.4
 - Add preview for documents
 - Increase z-index of modal holder to properly display as widget
