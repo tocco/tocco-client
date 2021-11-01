@@ -1,4 +1,5 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import {intlEnzyme} from 'tocco-test-util'
 
 import Pagination from './'
@@ -49,6 +50,35 @@ describe('tocco-ui', () => {
       expect(onChangeSpy).to.be.calledWith(1)
       wrapper.findWhere(n => n.name() === buttonCompName && n.prop('icon') === 'chevron-double-right').simulate('click')
       expect(onChangeSpy).to.be.calledWith(100)
+    })
+
+    test('should show correct page information', () => {
+      const start = 1
+      const to = 25
+      const total = 50
+      const wrapper = intlEnzyme.mountWithIntl(
+        <Pagination currentPage={1} recordsPerPage={25} totalCount={50}/>
+      )
+      const message = wrapper.find(FormattedMessage).first()
+      expect(message.prop('values')).to.deep.equal({start, to, total})
+    })
+
+    test('should handle less entries than page size', () => {
+      const start = 1
+      const to = 10
+      const total = 10
+      const wrapper = intlEnzyme.mountWithIntl(
+        <Pagination currentPage={1} recordsPerPage={25} totalCount={10}/>
+      )
+      const message = wrapper.find(FormattedMessage).first()
+      expect(message.prop('values')).to.deep.equal({start, to, total})
+    })
+
+    test('should handle no entries', () => {
+      const wrapper = intlEnzyme.mountWithIntl(
+        <Pagination currentPage={1} recordsPerPage={25} totalCount={0}/>
+      )
+      expect(wrapper.find(FormattedMessage)).length(0)
     })
   })
 })

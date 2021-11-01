@@ -3,7 +3,7 @@ import {renderHook, act} from '@testing-library/react-hooks'
 import useDnD from './useDnD'
 
 describe('tocco-ui', () => {
-  describe('Table', () => {
+  describe('dragAndDrop', () => {
     describe('useDnD', () => {
       test('should set state and event for drag and drop event', () => {
         const event = {stopPropagation: () => {}}

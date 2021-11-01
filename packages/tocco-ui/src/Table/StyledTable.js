@@ -76,7 +76,7 @@ export const StyledTableHeaderCell = styled.th`
   }
 `
 
-export const PaginationContainer = styled.div`
+export const StyledTableFooter = styled.div`
   grid-row-start: pagination-start;
   height: 40px;
   display: flex;

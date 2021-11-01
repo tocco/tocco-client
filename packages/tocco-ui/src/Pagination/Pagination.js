@@ -11,15 +11,14 @@ import {StyledPagination, StyledPaginationButton} from './StyledComponents'
  */
 const Pagination = ({totalCount, recordsPerPage, currentPage, onPageChange, intl}) => {
   const totalPages = Math.ceil(totalCount / recordsPerPage)
-  const start = (currentPage - 1) * recordsPerPage + 1
-  const to = currentPage * recordsPerPage
+  const start = Math.min((currentPage - 1) * recordsPerPage + 1, totalCount)
+  const to = Math.min(currentPage * recordsPerPage, totalCount)
 
   const msg = id => intl.formatMessage({id})
 
   return (
     <StyledPagination>
-      {totalPages > 1
-      && <ButtonGroup>
+       <ButtonGroup>
         <StyledPaginationButton
           disabled={currentPage === 1}
           title={msg('client.component.pagination.firstPageTitle')}
@@ -31,24 +30,25 @@ const Pagination = ({totalCount, recordsPerPage, currentPage, onPageChange, intl
           icon="chevron-left"
           onClick={() => onPageChange(currentPage - 1)}/>
         <StyledPaginationButton
-          disabled={currentPage === totalPages}
+          disabled={currentPage >= totalPages}
           title={msg('client.component.pagination.nextPageTitle')}
           icon="chevron-right"
           onClick={() => onPageChange(currentPage + 1)}/>
         <StyledPaginationButton
-          disabled={currentPage === totalPages}
+          disabled={currentPage >= totalPages}
           title={msg('client.component.pagination.lastPageTitle')}
           icon="chevron-double-right"
           onClick={() => onPageChange(totalPages)}/>
       </ButtonGroup>
-      }
 
-      <Typography.Span> <FormattedMessage id="client.component.pagination.text" values={{
-        start,
-        to,
-        total: totalCount
-      }}/>
-      </Typography.Span>
+      {totalCount > 0 && (
+        <Typography.Span>
+          <FormattedMessage id="client.component.pagination.text" values={{
+            start,
+            to,
+            total: totalCount
+          }}/>
+      </Typography.Span>)}
     </StyledPagination>
   )
 }

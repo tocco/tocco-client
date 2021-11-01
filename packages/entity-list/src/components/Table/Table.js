@@ -37,6 +37,7 @@ const Table = props => {
       recordsPerPage: props.limit
     }}
     onPageChange={props.changePage}
+    onPageRefresh={props.refresh}
     onSortingChange={props.setSortingInteractive}
     selectionStyle={props.tableSelectionStyle}
     onSelectionChange={props.onSelectChange}
@@ -57,6 +58,7 @@ Table.propTypes = {
   onRowClick: PropTypes.func,
   clickable: PropTypes.bool,
   setSortingInteractive: PropTypes.func,
+  refresh: PropTypes.func,
   changePage: PropTypes.func.isRequired,
   tableSelectionStyle: selectionStylePropType,
   onSelectChange: PropTypes.func,

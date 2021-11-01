@@ -4,6 +4,7 @@ import {injectIntl} from 'react-intl'
 import Table from '../components/Table'
 import {
   changePage,
+  refresh,
   initialize,
   onRowClick,
   setSortingInteractive
@@ -21,6 +22,7 @@ import {
 const mapActionCreators = {
   initialize,
   changePage,
+  refresh,
   setSortingInteractive,
   onRowClick,
   onSelectChange,

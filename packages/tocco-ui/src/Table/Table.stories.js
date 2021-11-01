@@ -105,6 +105,7 @@ export const Basic = () => {
       }}
       onPageChange={onPageChange}
       onColumnPositionChange={onColumnPositionChange}
+      onPageRefresh={action('page refreshed')}
       onRowClick={action('row clicked')}
       onSortingChange={action('sorting changed')}
     />
