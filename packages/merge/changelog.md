@@ -1,3 +1,10 @@
+0.4.6-hotfix229.4
+- Fix calender search bug
+- Add preview for documents
+- Increase z-index of modal holder to properly display as widget
+- Prevent preview image collapsing to 1px if preview cannot be generated
+- Fix datepickr disappearing behind modal
+
 0.4.6-hotfix229.3
 - Fix overlay of modal in widget mode
 - Fix popper menu on safari browsers
