@@ -1,3 +1,7 @@
+0.10.26-hotfix229.10
+- Fix calendar entity-list text resources
+- Fix datepickr disappearing behind modal
+
 0.10.26-hotfix229.9
 - Refresh list on navigation back to list
 - Dms edit and create messages clean up
