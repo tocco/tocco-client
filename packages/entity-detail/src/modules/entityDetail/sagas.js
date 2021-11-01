@@ -19,7 +19,7 @@ import {
   rest
 } from 'tocco-app-extensions'
 import {api} from 'tocco-util'
-import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {all, call, debounce, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {selectUnit} from '@formatjs/intl-utils'
 import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
 import _get from 'lodash/get'
@@ -48,8 +48,7 @@ export default function* sagas() {
     takeEvery(actions.NAVIGATE_TO_CREATE, navigateToCreate),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
-    takeEvery(formActionTypes.BLUR, onBlur),
-    takeEvery(formActionTypes.CHANGE, onBlur),
+    debounce(500, formActionTypes.CHANGE, onBlur),
     takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, asyncValidationStop),
     takeLatest(actions.UPDATE_MARKED, updateMarked),
     takeLatest(actionExtensions.actions.ACTION_INVOKED, reloadAfterAction)
