@@ -1,3 +1,6 @@
+0.2.24-hotfix229.2
+- Fix datepickr disappearing behind modal
+
 0.2.24-hotfix229.1
 - Displayexpression call adjustment
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
