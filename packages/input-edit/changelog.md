@@ -1,3 +1,6 @@
+0.3.12-hotfix229.6
+- Fix datepickr disappearing behind modal
+
 0.3.12-hotfix229.5
 - ignore empty tql strings in InputEditSearch
 
