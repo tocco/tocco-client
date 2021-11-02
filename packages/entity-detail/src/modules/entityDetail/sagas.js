@@ -48,7 +48,7 @@ export default function* sagas() {
     takeEvery(actions.NAVIGATE_TO_CREATE, navigateToCreate),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
-    debounce(500, formActionTypes.CHANGE, onBlur),
+    debounce(500, formActionTypes.CHANGE, onChange),
     takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, asyncValidationStop),
     takeLatest(actions.UPDATE_MARKED, updateMarked),
     takeLatest(actionExtensions.actions.ACTION_INVOKED, reloadAfterAction)
@@ -80,7 +80,7 @@ export function* autoComplete(fieldName, autoCompleteEndpoint) {
   ))
 }
 
-export function* onBlur({meta}) {
+export function* onChange({meta}) {
   const {field} = meta
   const fieldDefinition = (yield (select(entityDetailSelector))).fieldDefinitions.find(fd => fd.id === field)
   if (fieldDefinition && fieldDefinition.autoCompleteEndpoint) {
