@@ -158,7 +158,7 @@ const Navigation = ({
   }
 
   return (
-    <StyledNav ref={navigationEl} onKeyDown={onKeyDown}>
+    <StyledNav ref={navigationEl} onKeyDown={onKeyDown} data-cy="admin-nav">
       <StyledTabsContainer>
         {visibleMenus === 'main'
         && <>

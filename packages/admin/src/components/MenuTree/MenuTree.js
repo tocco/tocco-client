@@ -21,7 +21,7 @@ const MenuItem = ({
     <MenuItem key={child.name} item={child} typeMapping={typeMapping}/>)
 
   return (
-    <StyledMenuEntry {...item} childrenCount={item.children?.length || 0}>
+    <StyledMenuEntry {...item} childrenCount={item.children?.length || 0} data-cy={`admin-menuitem-${item.name}`}>
       <Component item={item} {...mappedType.props}/>
       {MenuItems}
     </StyledMenuEntry>
@@ -30,6 +30,7 @@ const MenuItem = ({
 
 MenuItem.propTypes = {
   item: PropTypes.shape({
+    name: PropTypes.string,
     menuType: PropTypes.string,
     children: PropTypes.array
   }),

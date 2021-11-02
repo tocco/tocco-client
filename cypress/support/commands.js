@@ -18,3 +18,8 @@ Cypress.Commands.add('login', () => {
     }
   })
 })
+
+Cypress.Commands.add('getByAttr', (...attrs) => {
+  const selector = attrs.map(attr => `[data-cy="${attr}"]`).join(' ')
+  return cy.get(selector)
+})

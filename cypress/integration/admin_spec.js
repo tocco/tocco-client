@@ -14,13 +14,20 @@ describe('Admin', () => {
              Navigate to list and with a click on row, open detail`, () => {
       visitAdmin()
       cy.contains('cypress_client') // wait till username is shown in top right corner
-      cy.get('body').type('{ctrl}m')
-        .wait(50).type('{ctrl}', {release: true}) // sometimes cypress searches for "mVeranstaltung"
+      cy.get('body').type('{ctrl}{alt}m')
+      cy.getByAttr('admin-nav', 'ui-search-box')
+        .should('be.focused')
+        .clear()
         .type('Veranstaltung')
-        .wait(50).type('{downarrow}')
-        .focused().click()
+      cy.getByAttr('admin-menuitem-address').should('not.exist')
+      cy.getByAttr('admin-menuitem-event').should('exist')
+      cy.get('body').type('{downarrow}')
+      cy.get('[data-cy=admin-menuitem-event] a[data-quick-navigation]')
+        .should('be.focused')
+      cy.focused().click()
+
       cy.url().should('include', 'e/Event/list')
-      cy.get(' [data-cy=list-navigation-arrow]').first().click()
+      cy.getByAttr('list-navigation-arrow').first().click()
       cy.url().should('include', '/detail')
     })
   })

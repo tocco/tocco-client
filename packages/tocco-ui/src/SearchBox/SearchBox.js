@@ -32,6 +32,7 @@ const SearchBox = React.forwardRef((props, ref) => {
       >
         <StyledEditableWrapper>
           <StyledSearchBoxInput
+            data-cy="ui-search-box"
             ref={ref}
             onChange={onChange}
             value={inputValue}
