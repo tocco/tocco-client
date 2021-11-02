@@ -1,3 +1,16 @@
+0.5.33
+- Harmonize main menu spacing and add new tab icon
+- add breadcrumbs to dashboard
+- fix drag and drop
+- create link button
+- use link button for dashboard link
+- Add responsivity to all buttons so that the label disappears on smaller screens and only the icon is displayed
+- small dashboard adjustments
+- show minimum 5 rows
+- cleanup menu shortcuts
+- use 3-key-shortcuts everywhere
+- Fix datepickr disappearing behind modal
+
 0.5.32
 - performance improvements
 
