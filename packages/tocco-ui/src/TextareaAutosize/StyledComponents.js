@@ -30,8 +30,5 @@ export const StyledTextarea = styled.textarea`
   ${StyledText}
   resize: none;
   margin: 0;
-
-  &:empty {
-    height: 2em;
-  }
+  min-height: 4em;
 `
