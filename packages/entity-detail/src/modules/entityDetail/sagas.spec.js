@@ -3,7 +3,7 @@ import {SubmissionError} from 'redux-form/es/SubmissionError'
 import {actions as actionExtensions, externalEvents, form, remoteEvents, rest} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {all, call, debounce, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {throwError} from 'redux-saga-test-plan/providers'
 import * as formActionTypes from 'redux-form/lib/actionTypes'
 
@@ -30,8 +30,7 @@ describe('entity-detail', () => {
               takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
               takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
-              takeEvery(formActionTypes.BLUR, sagas.onBlur),
-              takeEvery(formActionTypes.CHANGE, sagas.onBlur),
+              debounce(500, formActionTypes.CHANGE, sagas.onChange),
               takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
               takeLatest(actions.UPDATE_MARKED, sagas.updateMarked),
               takeLatest(actionExtensions.actions.ACTION_INVOKED, sagas.reloadAfterAction)
@@ -603,7 +602,7 @@ describe('entity-detail', () => {
           })
         })
 
-        describe('onBlur saga', () => {
+        describe('onChange saga', () => {
           test('should call autoComplete if endpoint is defined', () => {
             const field = 'firstname'
             const input = {
@@ -622,7 +621,7 @@ describe('entity-detail', () => {
                 }
               ]
             }
-            return expectSaga(sagas.onBlur, input)
+            return expectSaga(sagas.onChange, input)
               .provide([
                 [select(sagas.entityDetailSelector), entityDetailState],
                 [matchers.call.fn(sagas.autoComplete)]
@@ -646,7 +645,7 @@ describe('entity-detail', () => {
                 }
               ]
             }
-            return expectSaga(sagas.onBlur, input)
+            return expectSaga(sagas.onChange, input)
               .provide([
                 [select(sagas.entityDetailSelector), entityDetailState],
                 [matchers.call.fn(sagas.autoComplete)]
