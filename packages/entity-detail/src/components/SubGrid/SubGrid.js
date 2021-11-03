@@ -41,7 +41,7 @@ const SubGrid = props => {
           relationName: props.formField.path
         }}
         emitAction={props.emitAction}
-        store={viewPersistor.viewInfoSelector(id).store}
+        initialStore={viewPersistor.viewInfoSelector(id).store}
         onStoreCreate={store => {
           viewPersistor.persistViewInfo(id, {store})
         }}

@@ -165,6 +165,7 @@ const DocsView = props => {
           searchFormType={searchFormType || 'admin'}
           parent={parent}
           onSearchChange={handleSearch}
+          // use store and not initialStore to propagate store changes to entity-list properly
           store={store}
           onStoreCreate={store => {
             if (!disableViewPersistor) {

@@ -32,7 +32,9 @@ const ListView = ({selectedRelation, currentViewInfo, match, history, emitAction
           }}
           searchFormType="simple"
           selectionStyle="none"
-          store={viewPersistor.viewInfoSelector(history.location.pathname)[`store-${selectedRelation.relationName}`]}
+          initialStore={
+            viewPersistor.viewInfoSelector(history.location.pathname)[`store-${selectedRelation.relationName}`]
+          }
           onStoreCreate={store => {
             viewPersistor.persistViewInfo(
               currentViewInfo.pathname,

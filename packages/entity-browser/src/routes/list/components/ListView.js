@@ -55,7 +55,7 @@ const ListView = ({storeId, router, ...props}) => {
       }}
       searchFormPosition="top"
       actionAppComponent={Action}
-      store={viewPersistor.viewInfoSelector(storeId).store}
+      initialStore={viewPersistor.viewInfoSelector(storeId).store}
       onStoreCreate={store => {
         viewPersistor.persistViewInfo(storeId, {store}, 0)
       }}

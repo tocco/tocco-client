@@ -45,7 +45,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollap
       navigationStrategy={navigationStrategy(history, match)}
       searchFormPosition="left"
       searchFormType="admin"
-      store={viewPersistor.viewInfoSelector(history.location.pathname).store}
+      initialStore={viewPersistor.viewInfoSelector(history.location.pathname).store}
       onStoreCreate={store => {
         viewPersistor.persistViewInfo(history.location.pathname, {store}, currentViewInfo.level)
       }}

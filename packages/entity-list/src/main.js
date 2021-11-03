@@ -38,7 +38,7 @@ const EXTERNAL_EVENTS = [
 const initApp = (id, input, events = {}, publicPath) => {
   const content = <EntityList/>
 
-  let store = input.store
+  let store = input.store || input.initialStore
 
   const allCustomActions = {
     ...customActions(input),
@@ -156,6 +156,7 @@ EntityListApp.propTypes = {
   id: PropTypes.string.isRequired,
   entityName: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
+  initialStore: PropTypes.object,
   store: PropTypes.object,
   limit: PropTypes.number,
   searchFormType: searchFormTypePropTypes,
