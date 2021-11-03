@@ -29,8 +29,8 @@ const DetailForm = props => {
   const formEl = useRef(null)
 
   useEffect(() => {
-    fireTouched(dirty)
-  }, [dirty])
+    fireTouched(dirty && anyTouched)
+  }, [dirty, anyTouched])
 
   useLayoutEffect(() => {
     const firstInput = formEl.current.querySelector('input:not([disabled]),textarea:not([disabled])')
