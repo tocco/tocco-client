@@ -131,7 +131,16 @@ class EntityListApp extends React.Component {
 
   componentDidUpdate(prevProps) {
     const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
-    if (changedProps.store) {
+    if (changedProps.store && typeof prevProps.store !== 'undefined') {
+      /**
+       * Whenever the store gets explicitly changed from outside
+       * the entity-list needs to be re-initialized in order to show correct information.
+       *   - e.g. docs-browser: start a search, navigate to folder and then go back to search
+       * However this should not happen, whenever the entity-list has not been initialized before.
+       *   - e.g. admin: loading preferences (e.g. searchFormCollapsed) and set prop to entity-list
+       *                 while being in initialization phase
+       *   Therefore only re-init when store has been set already.
+       */
       this.app = initApp(this.props.id, this.props, getEvents(this.props))
     } else if (!_isEmpty(changedProps)) {
       getDispatchActions(changedProps).forEach(action => {
