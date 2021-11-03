@@ -1,3 +1,19 @@
+0.2.15
+- only load huge global styles once per app
+- Added actions to DMS lists
+- Added a preview image on hovering over download icons.
+- prevent position from switching between after/before
+- generic resize util
+- use scope for preferences
+- refactor notification
+- performance improvements
+- fix drag and drop
+- create link button
+- create link button
+- Add responsivity to all buttons so that the label disappears on smaller screens and only the icon is displayed
+- show minimum 5 rows
+- Fix datepickr disappearing behind modal
+
 0.2.14
 - Change icon size within docs-browser
 - Harmonize link styling to be consistent
