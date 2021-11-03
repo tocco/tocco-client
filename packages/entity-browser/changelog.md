@@ -1,3 +1,7 @@
+0.10.17-hotfix227.5
+- Fix calender search bug
+- Fix detail form firing touched event without user interaction
+
 0.10.17-hotfix227.4
 - Fix multi-tab problem
 
