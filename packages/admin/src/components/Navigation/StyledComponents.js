@@ -14,13 +14,6 @@ export const StyledNav = styled.nav`
   }
 `
 
-export const StyledMenuWrapper = styled.div`
-  height: 100%;
-  overflow: auto;
-  padding: ${scale.space(0.6)} ${scale.space(0.6)} 0 ${scale.space(0.6)};
-  ${StyledScrollbar}
-`
-
 export const StyledMenuEntry = styled.span`
   display: inline-block;
   color: ${theme.color('text')};
@@ -89,4 +82,29 @@ export const StyledNavButton = styled(Button)`
 export const StyledSearchBoxWrapper = styled.div`
   height: 50px;
   padding-bottom: ${scale.space(-0.5)};
+`
+
+export const StyledMenuWrapper = styled.div`
+  height: 100%;
+  overflow: auto;
+  padding: ${scale.space(0.6)} ${scale.space(0.6)} 0 ${scale.space(0.6)};
+  ${StyledScrollbar}
+`
+
+export const StyledMenuButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+`
+
+export const StyledMenuButton = styled(Button)`
+  font-size: ${scale.font(0)};
+  justify-content: center;
+  border-radius: 0;
+  padding: 0;
+
+  &:hover {
+    background-color: transparent;
+    color: ${secondaryLight};
+  }
 `

@@ -17,7 +17,7 @@ describe('admin', () => {
             const generator = mainSaga()
             expect(generator.next().value).to.deep.equal(all([
               takeLatest(actions.LOAD_SETTINGS_AND_PREFERENCES, sagas.loadSettingsAndPreferences),
-              takeLatest(actions.SAVE_USER_PREFERENCE, sagas.saveUserPreference)
+              takeLatest(actions.SAVE_USER_PREFERENCES, sagas.saveUserPreferences)
             ]))
             expect(generator.next().done).to.equal(true)
           })
@@ -62,11 +62,11 @@ describe('admin', () => {
           })
         })
 
-        describe('saveUserPreference', () => {
+        describe('saveUserPreferences', () => {
           test('should save key-value preferences', () => {
             const key = 'admintree.address.collapsed'
             const value = false
-            return expectSaga(sagas.saveUserPreference, actions.saveUserPreferences(key, value))
+            return expectSaga(sagas.saveUserPreferences, actions.saveUserPreferences({[key]: value}))
               .provide([
                 [matchers.call(rest.savePreferences, {'admintree.address.collapsed': false})]
               ])

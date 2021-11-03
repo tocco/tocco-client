@@ -18,7 +18,7 @@ const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, sav
   }, [relationViewCollapsed])
 
   const onSearchFormCollapsedChange = collapsed => {
-    saveUserPreferences('admin.detail.relationViewCollapsed', collapsed)
+    saveUserPreferences({'admin.detail.relationViewCollapsed': collapsed})
   }
 
   return (

@@ -29,7 +29,7 @@ const DocsBrowserApp = props => {
     {...queryParams.rootNodes && {rootNodes: JSON.parse(queryParams.rootNodes)}}
     searchFormCollapsed={props.searchFormCollapsed}
     onSearchFormCollapsedChange={({collapsed}) => {
-      props.saveUserPreferences('admin.list.searchFormCollapsed', collapsed)
+      props.saveUserPreferences({'admin.list.searchFormCollapsed': collapsed})
     }}
   />
 }

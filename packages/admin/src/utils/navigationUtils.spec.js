@@ -1,4 +1,4 @@
-import {getMenuPreferencesKey, prepareMenuTree} from './navigationUtils'
+import {getCompleteMenuPreferences, getMenuPreferencesKey, prepareMenuTree} from './navigationUtils'
 
 describe('admin', () => {
   describe('utils', () => {
@@ -20,6 +20,106 @@ describe('admin', () => {
           const key = getMenuPreferencesKey(preferencesPrefix, menuTreePath)
 
           expect(key).to.equal('admintree.settings.system.business_unit.collapsed')
+        })
+      })
+
+      describe('getCompleteMenuPreferences', () => {
+        test('should flatten menu tree', () => {
+          const items = [
+            {
+              name: 'b',
+              children: [
+                {
+                  name: 'aa'
+                },
+                {
+                  name: 'b',
+                  children: [
+                    {
+                      name: 'aa'
+                    }
+                  ]
+                },
+                {
+                  name: 'c'
+                }
+              ]
+            },
+            {
+              name: 'a',
+              children: []
+            },
+            {
+              name: 'c',
+              children: [
+                {
+                  name: 'a'
+                },
+                {
+                  name: 'b'
+                }
+              ]
+            }
+          ]
+
+          const expectedPreferences = {
+            'admintree.prefix.b.collapsed': false,
+            'admintree.prefix.b.b.collapsed': false,
+            'admintree.prefix.c.collapsed': false
+          }
+
+          const preferences = getCompleteMenuPreferences(items, 'prefix', false)
+
+          expect(preferences).to.deep.equal(expectedPreferences)
+        })
+
+        test('should handle empty prefix', () => {
+          const items = [
+            {
+              name: 'b',
+              children: [
+                {
+                  name: 'aa'
+                },
+                {
+                  name: 'b',
+                  children: [
+                    {
+                      name: 'aa'
+                    }
+                  ]
+                },
+                {
+                  name: 'c'
+                }
+              ]
+            },
+            {
+              name: 'a',
+              children: []
+            },
+            {
+              name: 'c',
+              children: [
+                {
+                  name: 'a'
+                },
+                {
+                  name: 'b'
+                }
+              ]
+            }
+          ]
+
+          const expectedPreferences = {
+            'admintree.b.collapsed': false,
+            'admintree.b.b.collapsed': false,
+            'admintree.c.collapsed': false
+          }
+
+          const preferences = getCompleteMenuPreferences(items, '', false)
+
+          expect(preferences).to.deep.equal(expectedPreferences)
         })
       })
 

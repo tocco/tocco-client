@@ -53,7 +53,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollap
       tql={queryParams.tql}
       searchFormCollapsed={searchFormCollapsed}
       onSearchFormCollapsedChange={({collapsed}) => {
-        saveUserPreferences('admin.list.searchFormCollapsed', collapsed)
+        saveUserPreferences({'admin.list.searchFormCollapsed': collapsed})
       }}
     />
   )
