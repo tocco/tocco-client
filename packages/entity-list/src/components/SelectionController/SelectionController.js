@@ -1,10 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-import {
-  Button,
-  Typography
-} from 'tocco-ui'
+import {Button, Typography} from 'tocco-ui'
 
 import StyledSelectionController, {StyledButton} from './StyledSelectionController'
 
@@ -24,7 +21,7 @@ const SelectionController = ({
       <StyledButton
         active={!showSelectedRecords}
         onClick={() => {
-          if (selectionPossible) {
+          if (showSelectedRecords || selectionPossible) {
             toggleShowSelectedRecords()
           }
         }}
