@@ -32,8 +32,8 @@ const DetailForm = props => {
   } = props
 
   useEffect(() => {
-    fireTouched(dirty)
-  }, [dirty])
+    fireTouched(dirty && anyTouched)
+  }, [dirty, anyTouched])
 
   const customActions = useMemo(() => (
     {
