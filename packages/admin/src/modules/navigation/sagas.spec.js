@@ -62,7 +62,7 @@ describe('admin', () => {
             .provide([
               [select(sagas.navigationSelector), {visibleMenus: 'main'}]
             ])
-            .put(saveUserPreferences('admin.activeMenu', 'main#settings'))
+            .put(saveUserPreferences({'admin.activeMenu': 'main#settings'}))
             .run()
         })
       })

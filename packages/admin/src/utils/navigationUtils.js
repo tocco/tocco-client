@@ -3,6 +3,36 @@ export const getMenuPreferencesKey = (preferencesPrefix, menuTreePath) =>
   `admintree${preferencesPrefix ? `.${preferencesPrefix}` : ''}.${menuTreePath}.collapsed`
 
 /**
+ * Gets flat preferences object for complete menu tree
+ * @param {array} items - menu tree items
+ * @param {string} preferencesPrefix - prefix for admintree preferences
+ * @param {boolean} collapse
+ * @returns {object} - flat prefrences object
+ */
+export const getCompleteMenuPreferences = (items, preferencesPrefix, collapse) => {
+  if (!items || items.length === 0) {
+    return {}
+  }
+
+  const preferences = items
+    .reduce((acc, item) => {
+      const {name} = item
+      
+      const hasChildren = item.children && item.children.length > 0
+      const children = getCompleteMenuPreferences(item.children || [],
+        `${preferencesPrefix}${preferencesPrefix ? `.${name}` : name}`, collapse)
+
+      const key = getMenuPreferencesKey(preferencesPrefix, name)
+      return {
+        ...acc,
+        ...children,
+        ...(hasChildren ? {[key]: collapse} : {})
+      }
+    }, {})
+  return preferences
+}
+
+/**
  * Preparing the actual visible menu tree:
  *  - Applying the `searchFilter` and removing items which are not matching
  *    - When a parent is matching all children get included

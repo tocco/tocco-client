@@ -9,7 +9,7 @@ const MenuEntry = props => {
   const {item, isOpen, canCollapse, preferencesPrefix, menuTreePath, saveUserPreferences} = props
 
   const toggleMenyEntryCollapsed = () => {
-    saveUserPreferences(getMenuPreferencesKey(preferencesPrefix, menuTreePath), isOpen)
+    saveUserPreferences({[getMenuPreferencesKey(preferencesPrefix, menuTreePath)]: isOpen})
   }
 
   return (

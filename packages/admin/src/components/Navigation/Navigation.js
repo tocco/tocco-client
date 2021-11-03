@@ -9,9 +9,12 @@ import {
   StyledMenuWrapper,
   StyledNavSwitchButton,
   StyledNavButton,
-  StyledSearchBoxWrapper
+  StyledSearchBoxWrapper,
+  StyledMenuButtonsWrapper,
+  StyledMenuButton
 } from './StyledComponents'
 import {ActionEntry, EntityExplorerEntry, MenuEntry, MenuChildrenWrapper} from './menuType'
+import {getCompleteMenuPreferences} from '../../utils/navigationUtils'
 
 const tabs = {
   MODULES: 'modules',
@@ -68,21 +71,34 @@ const Navigation = ({
   setActiveMenuTab,
   intl,
   setVisibleMenus,
-  visibleMenus
+  visibleMenus,
+  saveUserPreferences
 }) => {
   const inputEl = useRef(null)
   const navigationEl = useRef(null)
   const [filter, setFilter] = useState('')
   const hasFilterApplied = Boolean(filter)
+  const showMenu = !hasFilterApplied && [tabs.MODULES, tabs.SETTINGS].includes(activeMenuTab)
+
+  const tabMenuMap = {
+    [tabs.MODULES]: {items: modulesMenuTree, preferencesPrefix: ''},
+    [tabs.SETTINGS]: {items: settingsMenuTree, preferencesPrefix: 'settings'},
+    [tabs.SYSTEM]: {items: systemMenuTree},
+    [tabs.COMPLETE]: {items: completeMenuTree}
+  }
 
   const modulesTypeMap = useMemo(() =>
-    createMenuTypeMap({onClick, hasFilterApplied, preferencesPrefix: ''}), [onClick, hasFilterApplied])
+    createMenuTypeMap({onClick, hasFilterApplied, preferencesPrefix: tabMenuMap[tabs.MODULES].preferencesPrefix}),
+  [onClick, hasFilterApplied])
   const settingsTypeMap = useMemo(() =>
-    createMenuTypeMap({onClick, hasFilterApplied, preferencesPrefix: 'settings'}), [onClick, hasFilterApplied])
+    createMenuTypeMap({onClick, hasFilterApplied, preferencesPrefix: tabMenuMap[tabs.SETTINGS].preferencesPrefix}),
+  [onClick, hasFilterApplied])
   const systemTypeMap = useMemo(() =>
-    createMenuTypeMap({onClick, hasFilterApplied}), [onClick, hasFilterApplied])
+    createMenuTypeMap({onClick, hasFilterApplied}),
+  [onClick, hasFilterApplied])
   const completeTypeMap = useMemo(() =>
-    createMenuTypeMap({onClick, hasFilterApplied}), [onClick, hasFilterApplied])
+    createMenuTypeMap({onClick, hasFilterApplied}),
+  [onClick, hasFilterApplied])
 
   useEffect(() => {
     if (menuOpen) {
@@ -111,6 +127,22 @@ const Navigation = ({
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault()
       handleCursorNavigation(e.key)
+    }
+  }
+
+  const handleExpandAll = () => {
+    const {items, preferencesPrefix} = tabMenuMap[activeMenuTab] || {}
+    if (items && typeof preferencesPrefix !== 'undefined') {
+      const preferences = getCompleteMenuPreferences(items, preferencesPrefix, false)
+      saveUserPreferences(preferences)
+    }
+  }
+
+  const handleCollapseAll = () => {
+    const {items, preferencesPrefix} = tabMenuMap[activeMenuTab] || {}
+    if (items && typeof preferencesPrefix !== 'undefined') {
+      const preferences = getCompleteMenuPreferences(items, preferencesPrefix, true)
+      saveUserPreferences(preferences)
     }
   }
 
@@ -171,22 +203,32 @@ const Navigation = ({
           aria-label={msg('client.admin.navigation.searchBoxPlaceHolder')}
         />
       </StyledSearchBoxWrapper>
-      {activeMenuTab === tabs.MODULES
-      && <StyledMenuWrapper>
-        <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={modulesTypeMap}/>
-      </StyledMenuWrapper>}
-      {activeMenuTab === tabs.SETTINGS
-      && <StyledMenuWrapper>
-        <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={settingsTypeMap}/>
-      </StyledMenuWrapper>}
-      {activeMenuTab === tabs.SYSTEM
-      && <StyledMenuWrapper>
-        <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={systemTypeMap}/>
-      </StyledMenuWrapper>}
-      {activeMenuTab === tabs.COMPLETE
-      && <StyledMenuWrapper>
-        <MenuTree items={completeMenuTree} searchFilter={filter} typeMapping={completeTypeMap} requireSearch={true}/>
-      </StyledMenuWrapper>}
+      <StyledMenuWrapper>
+        {showMenu && <StyledMenuButtonsWrapper>
+          <StyledMenuButton
+            icon="chevron-double-down"
+            type="button"
+            onClick={handleExpandAll}
+            title={msg('client.admin.navigation.expandAll')}
+          />
+          <StyledMenuButton
+            icon="chevron-double-up"
+            type="button"
+            onClick={handleCollapseAll}
+            title={msg('client.admin.navigation.collapseAll')}
+          />
+        </StyledMenuButtonsWrapper>}
+
+        {activeMenuTab === tabs.MODULES
+        && <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={modulesTypeMap}/>}
+        {activeMenuTab === tabs.SETTINGS
+        && <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={settingsTypeMap}/>}
+        {activeMenuTab === tabs.SYSTEM
+        && <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={systemTypeMap}/>}
+        {activeMenuTab === tabs.COMPLETE
+          && <MenuTree items={completeMenuTree} searchFilter={filter}
+              typeMapping={completeTypeMap} requireSearch={true}/>}
+      </StyledMenuWrapper>
     </StyledNav>
   )
 }
@@ -200,6 +242,7 @@ Navigation.propTypes = {
   completeMenuTree: PropTypes.array,
   onClick: PropTypes.func,
   setActiveMenuTab: PropTypes.func,
+  saveUserPreferences: PropTypes.func,
   menuOpen: PropTypes.bool,
   visibleMenus: PropTypes.string,
   setVisibleMenus: PropTypes.func

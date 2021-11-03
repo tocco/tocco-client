@@ -2,10 +2,12 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import Navigation from './Navigation'
+import {saveUserPreferences} from '../../modules/preferences/actions'
 import {setActiveMenuTab, setVisibleMenus} from '../../modules/navigation/actions'
 const mapActionCreators = {
   setActiveMenuTab,
-  setVisibleMenus
+  setVisibleMenus,
+  saveUserPreferences
 }
 
 const mapStateToProps = (state, props) => ({

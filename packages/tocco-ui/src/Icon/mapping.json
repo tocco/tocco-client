@@ -67,12 +67,20 @@
       "ok"
     ]
   },
+  "chevron-double-down": {
+    "id": "fal, chevron-double-down",
+    "lib": "fa"
+  },
   "chevron-double-left": {
     "id": "fal, chevron-double-left",
     "lib": "fa"
   },
   "chevron-double-right": {
     "id": "fal, chevron-double-right",
+    "lib": "fa"
+  },
+  "chevron-double-up": {
+    "id": "fal, chevron-double-up",
     "lib": "fa"
   },
   "chevron-down": {

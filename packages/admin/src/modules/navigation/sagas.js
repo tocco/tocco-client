@@ -38,7 +38,7 @@ export function* setActiveMenuFromPreferences({payload: {userPreferences}}) {
 
 export function* saveOpenMenuPreference({payload: {activeMenuTab}}) {
   const {visibleMenus} = yield select(navigationSelector)
-  yield put(saveUserPreferences(preferencesKey, `${visibleMenus}#${activeMenuTab}`))
+  yield put(saveUserPreferences({[preferencesKey]: `${visibleMenus}#${activeMenuTab}`}))
 }
 
 export default function* mainSagas() {

@@ -69,12 +69,12 @@ describe('admin', () => {
 
             // expand
             wrapper.simulate('click')
-            expect(props.saveUserPreferences).to.have.been.calledWith('admintree.address.collapsed', false)
+            expect(props.saveUserPreferences).to.have.been.calledWith({'admintree.address.collapsed': false})
 
             // collapse
             wrapper.setProps({isOpen: true})
             wrapper.simulate('click')
-            expect(props.saveUserPreferences).to.have.been.calledWith('admintree.address.collapsed', true)
+            expect(props.saveUserPreferences).to.have.been.calledWith({'admintree.address.collapsed': true})
           })
         })
       })

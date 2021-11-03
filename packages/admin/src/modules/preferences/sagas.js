@@ -17,15 +17,13 @@ export function* loadSettingsAndPreferences() {
   yield put(actions.setUserPreferences({...transformedAdminTreePreferences, ...transformedAdminPreferences}))
 }
 
-export function* saveUserPreference({payload: {key, value}}) {
-  yield call(rest.savePreferences, {
-    [key]: value
-  })
+export function* saveUserPreferences({payload: {preferences}}) {
+  yield call(rest.savePreferences, preferences)
 }
 
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.LOAD_SETTINGS_AND_PREFERENCES, loadSettingsAndPreferences),
-    takeLatest(actions.SAVE_USER_PREFERENCE, saveUserPreference)
+    takeLatest(actions.SAVE_USER_PREFERENCES, saveUserPreferences)
   ])
 }
