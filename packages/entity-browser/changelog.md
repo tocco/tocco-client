@@ -1,3 +1,7 @@
+0.10.10-hotfix226.5
+- Fix search form endless loading with empty filter field
+- Fix detail form firing touched event without user interaction
+
 0.10.10-hotfix226.4
 - Map integer, counter and long to string
 
