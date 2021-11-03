@@ -155,9 +155,7 @@ class DocsBrowserApp extends React.Component {
 
   componentDidUpdate(prevProps) {
     const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
-    if (changedProps.store) {
-      this.app = initApp(this.props.id, this.props, getEvents(this.props))
-    } else if (!_isEmpty(changedProps)) {
+    if (!_isEmpty(changedProps)) {
       getDispatchActions(changedProps).forEach(action => {
         this.app.store.dispatch(action)
       })
