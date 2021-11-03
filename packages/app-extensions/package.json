@@ -8,6 +8,6 @@
     "tocco-theme": "*",
     "tocco-ui": "*",
     "tocco-util": "*",
-    "validator": "10.0.0"
+    "validator": "13.7.0"
   }
 }

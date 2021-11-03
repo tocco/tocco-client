@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
-validator@10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-10.0.0.tgz#f57664d1d4bee46291f76be95ed27733cc8156aa"
+tocco-theme@*:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.2.10.tgz#9e20ef4a5a93040b7dcc0fd947b260233a6e0e30"
+
+tocco-ui@*:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/tocco-ui/-/tocco-ui-0.1.14.tgz#5e8ceceee76cf1acb2ae2b79fe5f5c63b035ca3b"
+
+tocco-util@*:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/tocco-util/-/tocco-util-0.1.11.tgz#c159134e9bb8359384aab0996286de233b19d0a8"
+
+validator@13.7.0:
+  version "13.7.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-13.7.0.tgz#4f9658ba13ba8f3d82ee881d3516489ea85c0857"
