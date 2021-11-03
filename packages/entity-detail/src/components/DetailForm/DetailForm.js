@@ -17,8 +17,8 @@ const StyledForm = styled.form`
 
 const DetailForm = props => {
   useEffect(() => {
-    props.fireTouched(props.dirty)
-  }, [props.dirty])
+    props.fireTouched(props.dirty && props.anyTouched)
+  }, [props.dirty, props.anyTouched])
 
   const customActions = useMemo(() => (
     {
