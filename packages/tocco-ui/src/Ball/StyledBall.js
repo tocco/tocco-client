@@ -23,6 +23,7 @@ export const StyledButton = styled.button`
   ${declareFont()}
   ${interactiveStyling}
   ${props => declareBall(props)}
+  cursor: pointer;
 `
 
 export default StyledButton
