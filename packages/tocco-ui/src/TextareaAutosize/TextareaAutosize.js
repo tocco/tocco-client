@@ -1,20 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {userAgent} from 'tocco-util'
 
 import {StyledSizeWrapper, StyledTextarea} from './StyledComponents'
 
 const TextareaAutosize = ({value, onChange, name, id, disabled, immutable}) => (
-  <StyledSizeWrapper data-replicated-value={value}>
-    <StyledTextarea
-      value={value}
-      name={name}
-      id={id}
-      onChange={onChange}
-      disabled={disabled}
-      immutable={immutable}
-      rows="1"
-    />
-  </StyledSizeWrapper>
+    <StyledSizeWrapper
+      // remove autosize feature for safari to be able to type fluently
+      data-replicated-value={userAgent.isSafari() ? '' : value}
+    >
+      <StyledTextarea
+        value={value}
+        name={name}
+        id={id}
+        onChange={onChange}
+        disabled={disabled}
+        immutable={immutable}
+        rows="1"
+      />
+    </StyledSizeWrapper>
 )
 
 TextareaAutosize.propTypes = {
