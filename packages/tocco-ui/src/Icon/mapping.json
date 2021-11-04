@@ -1,4 +1,12 @@
 {
+  "abacus": {
+    "id": "fal, abacus",
+    "lib": "fa"
+  },
+  "address-card": {
+    "id": "fal, address-card",
+    "lib": "fa"
+  },
   "apple": {
     "id": "fab, apple",
     "lib": "fa",
@@ -34,6 +42,10 @@
       "upload"
     ]
   },
+  "barcode-alt": {
+    "id": "fal, barcode-alt",
+    "lib": "fa"
+  },
   "bars": {
     "id": "fal, bars",
     "lib": "fa",
@@ -60,11 +72,26 @@
     "id": "fal, box-open",
     "lib": "fa"
   },
+  "calendar-check": {
+    "id": "fal, calendar-check",
+    "lib": "fa"
+  },
+  "chalkboard-teacher": {
+    "id": "fal, chalkboard-teacher",
+    "lib": "fa"
+  },
   "check": {
     "id": "fal, check",
     "lib": "fa",
     "tags": [
       "ok"
+    ]
+  },
+  "check-circle": {
+    "id": "fal, check-circle",
+    "lib": "fa",
+    "tags": [
+      "check"
     ]
   },
   "chevron-double-down": {
@@ -138,6 +165,20 @@
     "lib": "fa",
     "tags": [
       "warning"
+    ]
+  },
+  "exclamation-circle": {
+    "id": "fal, exclamation-circle",
+    "lib": "fa",
+    "tags": [
+      "warning"
+    ]
+  },
+  "external-link": {
+    "id": "fal, external-link",
+    "lib": "fa",
+    "tags": [
+      "external-link"
     ]
   },
   "facebook": {
@@ -228,6 +269,17 @@
     "id": "fal, list",
     "lib": "fa"
   },
+  "info-circle": {
+    "id": "fal, info-circle",
+    "lib": "fa",
+    "tags": [
+      "info"
+    ]
+  },
+  "mail-bulk": {
+    "id": "fal, mail-bulk",
+    "lib": "fa"
+  },
   "map-marked": {
     "id": "fal, map-marked",
     "lib": "fa"
@@ -239,6 +291,10 @@
       "sso"
     ]
   },
+  "minus": {
+    "id": "fal, minus",
+    "lib": "fa"
+  },
   "newspaper": {
     "id": "fal, newspaper",
     "lib": "fa"
@@ -247,12 +303,20 @@
     "id": "office",
     "lib": "toc"
   },
+  "paper-clip": {
+    "id": "fa, paper-clip",
+    "lib": "fa"
+  },
   "pen": {
     "id": "fal, pen",
     "lib": "fa"
   },
   "phone": {
     "id": "fal, phone",
+    "lib": "fa"
+  },
+  "phone-laptop": {
+    "id": "fal, phone-laptop",
     "lib": "fa"
   },
   "plus": {
@@ -275,6 +339,10 @@
   },
   "search": {
     "id": "fal, search",
+    "lib": "fa"
+  },
+  "sitemap": {
+    "id": "fal, sitemap",
     "lib": "fa"
   },
   "sort-down": {
@@ -314,6 +382,10 @@
       "refresh"
     ]
   },
+  "tasks": {
+    "id": "fal, tasks",
+    "lib": "fa"
+  },
   "times": {
     "id": "fal, times",
     "lib": "fa",
@@ -329,26 +401,9 @@
       "error"
     ]
   },
-  "info-circle": {
-    "id": "fal, info-circle",
-    "lib": "fa",
-    "tags": [
-      "info"
-    ]
-  },
-  "check-circle": {
-    "id": "fal, check-circle",
-    "lib": "fa",
-    "tags": [
-      "check"
-    ]
-  },
-  "exclamation-circle": {
-    "id": "fal, exclamation-circle",
-    "lib": "fa",
-    "tags": [
-      "warning"
-    ]
+  "tocco": {
+    "id": "logo",
+    "lib": "toc"
   },
   "trash": {
     "id": "fal, trash",
@@ -357,23 +412,8 @@
       "trash"
     ]
   },
-  "external-link": {
-    "id": "fal, external-link",
-    "lib": "fa",
-    "tags": [
-      "external-link"
-    ]
-  },
-  "tocco": {
-    "id": "logo",
-    "lib": "toc"
-  },
-  "minus": {
-    "id": "fal, minus",
-    "lib": "fa"
-  },
-  "paper-clip": {
-    "id": "fa, paper-clip",
+  "users": {
+    "id": "fal, users",
     "lib": "fa"
   }
 }
