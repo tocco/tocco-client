@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Icon} from 'tocco-ui'
 
-import {StyledMenuEntry, StyledTogglerIconWrapper} from './StyledComponents'
+import {StyledMenuEntry, StyledMenuIconWrapper, StyledTogglerIconWrapper} from './StyledComponents'
 import {getMenuPreferencesKey} from '../../../utils/navigationUtils'
 
 const MenuEntry = props => {
   const {item, isOpen, canCollapse, preferencesPrefix, menuTreePath, saveUserPreferences} = props
+  const {icon, label} = item
 
   const toggleMenyEntryCollapsed = () => {
     saveUserPreferences({[getMenuPreferencesKey(preferencesPrefix, menuTreePath)]: isOpen})
@@ -16,7 +17,10 @@ const MenuEntry = props => {
     <StyledMenuEntry
       {...(canCollapse ? {onClick: toggleMenyEntryCollapsed} : {})}
     >
-      <span>{item.label}</span>
+      <span>
+        {icon && <StyledMenuIconWrapper><Icon icon={icon}/></StyledMenuIconWrapper>}
+        {label}
+      </span>
       {canCollapse && (
         <StyledTogglerIconWrapper>
           <Icon
@@ -30,6 +34,7 @@ const MenuEntry = props => {
 
 MenuEntry.propTypes = {
   item: PropTypes.shape({
+    icon: PropTypes.string,
     label: PropTypes.string,
     name: PropTypes.string
   }).isRequired,

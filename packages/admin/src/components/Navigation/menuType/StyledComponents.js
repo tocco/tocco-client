@@ -76,6 +76,10 @@ export const StyledMenuEntry = styled.span`
   }
 `
 
+export const StyledMenuIconWrapper = styled.span`
+  margin-right: ${scale.space(-1.2)};
+`
+
 export const StyledMenuChildrenWrapper = styled.div`
   display: ${({isOpen}) => isOpen ? 'block' : 'none'};
 `
