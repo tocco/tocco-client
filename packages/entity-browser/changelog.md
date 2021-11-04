@@ -1,3 +1,20 @@
+0.10.35
+- prevent position from switching between after/before
+- generic resize util
+- use scope for preferences
+- refactor notification
+- performance improvements
+- fix drag and drop
+- create link button
+- add responsivity to all buttons so that the label disappears on smaller screens and only the icon is displayed
+- show minimum 5 rows
+- fix datepickr disappearing behind modal
+- show textarea bigger for better distinction
+- table can be refreshed
+- only reload on explicit store updates
+- register more icons
+- increase z-index of popper menu to prevent it slipping behind modal
+
 0.10.34
 - only load huge global styles once per app
 - Added a preview image on hovering over download icons.
