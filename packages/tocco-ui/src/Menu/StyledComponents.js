@@ -25,7 +25,7 @@ export const StyledPopper = styled.div`
   background: ${theme.color('paper')};
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
   border: 1px solid ${theme.color('secondaryLight')};
-  z-index: 1101; /* higher than .bm-menu-wrap 1100 */
+  z-index: 9999999; /* higher than StyledModalHolder */
   ${StyledScrollbar}
 `
 
