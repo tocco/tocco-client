@@ -1,20 +1,19 @@
 import styled from 'styled-components'
-import {colorizeText, StyledLayoutContainer, StyledLayoutBox, StyledSpan, theme, scale} from 'tocco-ui'
+import {colorizeText, StyledSpan, theme, scale} from 'tocco-ui'
 import {declareNoneWrappingText} from 'tocco-ui/src/utilStyles'
 
 export const StyledFooterWrapper = styled.div`
+  max-width: 650px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: ${scale.font(0)};
+  margin-right: ${scale.font(0)};
+
   && {
     * {
       color: ${colorizeText.shade2};
       font-size: ${scale.font(-0.8)};
-    }
-
-    ${StyledLayoutBox} {
-      margin-bottom: ${scale.space(-1)};
-    }
-
-    ${StyledLayoutContainer} {
-      padding-right: 0;
     }
   }
 `
@@ -41,6 +40,6 @@ export const StyledTimestampValueWrapper = styled.span`
 
 export const StyledTimestampRelativeValue = styled(StyledSpan)`
   && {
-    margin-left: 5px;
+    margin-left: ${scale.space(-1.37)};
   }
 `
