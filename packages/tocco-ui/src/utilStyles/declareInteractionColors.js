@@ -35,14 +35,24 @@ const colorSchemes = {
 const declareFocus = props => {
   const infoText = _get(props.theme, 'colors.signal.info.text', design.fallbackColors.INFO)
   return css`
-    transition: border-color ease-in-out 100ms, box-shadow ease-in-out 100ms;
-    will-change: border-color, box-shadow;
+    transition: border-color ease-in-out 100ms;
+    will-change: border-color;
 
     &:focus,
     &:focus-within {
       border-color: ${infoText};
       box-shadow: 0 0 6px ${transparentize(0.4, infoText)};
       outline: 0;
+
+      /**
+       * Disable box-shadow for Safari
+       * in order to be able to tab through the form fluently
+       */
+      @media not all and (min-resolution: .001dpcm) {
+        @supports (-webkit-appearance:none) {
+          box-shadow: none;
+        }
+      }
     }
   `
 }
