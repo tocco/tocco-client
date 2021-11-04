@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Button, theme, StyledScrollbar, scale, StyledSearchBox} from 'tocco-ui'
+import {Button, theme, StyledScrollbar, scale, StyledSearchBox, Ball} from 'tocco-ui'
 
 const secondary = theme.color('secondary')
 const secondaryLight = theme.color('secondaryLight')
@@ -97,7 +97,7 @@ export const StyledMenuButtonsWrapper = styled.div`
   padding: 0;
 `
 
-export const StyledMenuButton = styled(Button)`
+export const StyledMenuButton = styled(Ball)`
   font-size: ${scale.font(0)};
   justify-content: center;
   border-radius: 0;
