@@ -21,22 +21,26 @@ const Pagination = ({totalCount, recordsPerPage, currentPage, onPageChange, intl
        <ButtonGroup>
         <StyledPaginationButton
           disabled={currentPage === 1}
-          title={msg('client.component.pagination.firstPageTitle')}
+          label={msg('client.component.pagination.firstPageTitle')}
+          iconOnly
           icon="chevron-double-left"
           onClick={() => onPageChange(1)}/>
         <StyledPaginationButton
           disabled={currentPage === 1}
-          title={msg('client.component.pagination.prePageTitle')}
+          label={msg('client.component.pagination.prePageTitle')}
+          iconOnly
           icon="chevron-left"
           onClick={() => onPageChange(currentPage - 1)}/>
         <StyledPaginationButton
           disabled={currentPage >= totalPages}
-          title={msg('client.component.pagination.nextPageTitle')}
+          label={msg('client.component.pagination.nextPageTitle')}
+          iconOnly
           icon="chevron-right"
           onClick={() => onPageChange(currentPage + 1)}/>
         <StyledPaginationButton
           disabled={currentPage >= totalPages}
-          title={msg('client.component.pagination.lastPageTitle')}
+          label={msg('client.component.pagination.lastPageTitle')}
+          iconOnly
           icon="chevron-double-right"
           onClick={() => onPageChange(totalPages)}/>
       </ButtonGroup>

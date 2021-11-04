@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 
-import Button from '../Button'
 import {Pagination} from '../'
 import {StyledTableFooter} from './StyledTable'
+import Ball from '../Ball'
 
 const TableFooter = ({onPageChange, onPageRefresh, paginationInfo, intl}) => {
   const showPagination = Boolean(paginationInfo)
@@ -24,7 +24,7 @@ const TableFooter = ({onPageChange, onPageRefresh, paginationInfo, intl}) => {
       totalCount={paginationInfo.totalCount}
       recordsPerPage={paginationInfo.recordsPerPage}
     />}
-    {showRefresh && <Button
+    {showRefresh && <Ball
       type="button"
       title={msg('client.component.table.refreshTitle')}
       icon="sync"
