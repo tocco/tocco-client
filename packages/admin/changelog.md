@@ -1,3 +1,13 @@
+0.5.34
+- show textarea bigger for better distinction
+- table can be refreshed
+- make menu collapsible
+- collapse all and expand all menu entries
+- only reload on explicit store updates
+- register more icons
+- show menu item icons
+- increase z-index of popper menu to prevent it slipping behind modal
+
 0.5.33
 - Harmonize main menu spacing and add new tab icon
 - add breadcrumbs to dashboard
