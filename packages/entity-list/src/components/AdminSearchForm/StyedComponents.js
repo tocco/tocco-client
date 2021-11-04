@@ -37,6 +37,7 @@ export const AdminSearchGrid = styled.div`
 export const StyledPlaceHolder = styled.div`
   display: ${({isCollapsed}) => isCollapsed ? 'flex' : 'none'};
   flex: 1;
+  align-items: flex-start;
   background: ${theme.color('paper')};
   padding-top: ${scale.space(-0.5)};
   padding-left: ${scale.space(-2.5)};

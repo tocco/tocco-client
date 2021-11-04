@@ -68,7 +68,7 @@ const AdminSearchForm = ({
     }
   }, [searchFilters, searchFilterExpanded])
 
-  const isSingleSearchFilterActive = searchFilters !== null && searchFilters.filter(s => s.active).length === 1
+  const isSingleSearchFilterActive = searchFilters?.filter(s => s.active).length === 1
 
   return <>
     <AdminSearchGrid isCollapsed={isCollapsed}>
