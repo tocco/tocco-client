@@ -146,6 +146,17 @@ const Navigation = ({
     }
   }
 
+  const setFocusToSerachInput = () => {
+    if (inputEl.current) {
+      inputEl.current.focus()
+    }
+  }
+
+  const changeMenuTab = tab => {
+    setActiveMenuTab(tab)
+    setFocusToSerachInput()
+  }
+
   return (
     <StyledNav ref={navigationEl} onKeyDown={onKeyDown} data-cy="admin-nav">
       <StyledTabsContainer>
@@ -155,19 +166,19 @@ const Navigation = ({
             active={false}
             onClick={() => {
               setVisibleMenus('additional')
-              setActiveMenuTab(tabs.COMPLETE)
+              changeMenuTab(tabs.COMPLETE)
             }}
             icon={'chevron-right'}
             narrow={true}
           />
           <StyledNavButton
             active={activeMenuTab === tabs.MODULES}
-            onClick={() => setActiveMenuTab(tabs.MODULES)}
+            onClick={() => changeMenuTab(tabs.MODULES)}
             label={msg('client.admin.navigation.modules')}
           />
           <StyledNavButton
             active={activeMenuTab === tabs.SETTINGS}
-            onClick={() => setActiveMenuTab(tabs.SETTINGS)}
+            onClick={() => changeMenuTab(tabs.SETTINGS)}
             label={msg('client.admin.navigation.settings')}
           />
         </>}
@@ -177,19 +188,19 @@ const Navigation = ({
             active={false}
             onClick={() => {
               setVisibleMenus('main')
-              setActiveMenuTab(tabs.MODULES)
+              changeMenuTab(tabs.MODULES)
             }}
             icon={'chevron-left'}
             narrow={true}
           />
           <StyledNavButton
             active={activeMenuTab === tabs.SYSTEM}
-            onClick={() => setActiveMenuTab(tabs.SYSTEM)}
+            onClick={() => changeMenuTab(tabs.SYSTEM)}
             label={msg('client.admin.navigation.system')}
           />
           <StyledNavButton
             active={activeMenuTab === tabs.COMPLETE}
-            onClick={() => setActiveMenuTab(tabs.COMPLETE)}
+            onClick={() => changeMenuTab(tabs.COMPLETE)}
             label={msg('client.admin.navigation.complete')}
           />
         </>}
