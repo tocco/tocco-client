@@ -1,6 +1,6 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {channel} from 'redux-saga'
-import {call, spawn, select} from 'redux-saga/effects'
+import {call, select, spawn} from 'redux-saga/effects'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
 import newNotification from '../../../notification'
@@ -20,8 +20,8 @@ describe('app-extensions', () => {
               testSaga(legacyAction.initLegacyActionsEnv).next()
                 .call(legacyAction.loadSequentially, legacyAction.sources).next()
                 .call(window.setUpLegacyActionsEnv).next()
-                .call(legacyAction.registerRemoteEventsListener).next()
                 .call(legacyAction.registerNotificationsListener).next()
+                .call(legacyAction.registerRemoteEventsListener).next()
                 .isDone()
             })
 
@@ -29,8 +29,8 @@ describe('app-extensions', () => {
               window.legacyActionsEnvInitialized = true
 
               testSaga(legacyAction.initLegacyActionsEnv).next()
-                .call(legacyAction.registerRemoteEventsListener).next()
                 .call(legacyAction.registerNotificationsListener).next()
+                .call(legacyAction.registerRemoteEventsListener).next()
                 .isDone()
             })
           })
@@ -101,11 +101,13 @@ describe('app-extensions', () => {
                 getDataRegistry: () => dataRegistry
               }
               const fakeChannel = {}
+              const fakeResponseChannel = {}
               const callback = () => {}
               return expectSaga(legacyAction.registerRemoteEventsListener)
                 .provide([
                   [call(channel), fakeChannel],
-                  [call(legacyAction.channelFeedingCallback, fakeChannel), callback],
+                  [call(channel), fakeResponseChannel],
+                  [call(legacyAction.channelFeedingCallback, fakeChannel, fakeResponseChannel), callback],
                   [spawn(legacyAction.readRemoteEvents, fakeChannel)]
                 ])
                 .call([dataRegistry, dataRegistry.setNewClientCallback], callback)
