@@ -1,6 +1,8 @@
-import {testSaga} from 'redux-saga-test-plan'
+import {expectSaga, testSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
 import {actions as formActions} from 'redux-form'
 import {call, put, takeEvery} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
 import {documentToFormValueTransformer, uploadRequest} from './documents'
 import * as actions from './actions'
@@ -14,7 +16,8 @@ describe('app-extensions', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
             saga.next().all([
-              takeEvery(actions.UPLOAD_DOCUMENT, sagas.uploadDocument)
+              takeEvery(actions.UPLOAD_DOCUMENT, sagas.uploadDocument),
+              takeEvery(actions.SET_DOCUMENT, sagas.setDocument)
             ])
           })
         })
@@ -38,6 +41,36 @@ describe('app-extensions', () => {
             )
 
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('setDocument', () => {
+          test('should link existing resource to field', () => {
+            const field = 'relDocument'
+            const formName = 'detailForm'
+            const resourceId = 1
+            const documentFormValue = {preview_picture: '123-4324'}
+            return expectSaga(sagas.setDocument, {payload: {formName, field, resourceId}})
+              .provide([
+                [
+                  matchers.call(rest.fetchEntity, 'Resource', resourceId, {paths: ['relContent.data']}),
+                  {
+                    paths: {
+                      relContent: {
+                        value: {
+                          paths: {
+                            data: {
+                              value: documentFormValue
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              ])
+              .put(formActions.change(formName, field, {...documentFormValue, key: resourceId}))
+              .run()
           })
         })
       })

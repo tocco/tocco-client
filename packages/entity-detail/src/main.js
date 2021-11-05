@@ -56,7 +56,8 @@ const initApp = (id, input, events = {}, publicPath) => {
   formData.addToStore(store, {
     listApp: EntityListApp,
     detailApp: EntityDetailApp,
-    navigationStrategy: input.navigationStrategy
+    navigationStrategy: input.navigationStrategy,
+    chooseDocument: input.chooseDocument
   })
   keyDown.addToStore(store, shortcuts)
 
@@ -137,6 +138,7 @@ EntityDetailApp.propTypes = {
     return propTypes
   }, {}),
   navigationStrategy: navigationStrategy.propTypes,
+  chooseDocument: PropTypes.func,
   actionAppComponent: PropTypes.func
 }
 

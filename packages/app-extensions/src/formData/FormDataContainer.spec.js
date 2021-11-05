@@ -27,6 +27,9 @@ describe('app-extensions', () => {
               postcode: '8000'
             }
           }
+        },
+        input: {
+          chooseDocument: () => {}
         }
       }))
 

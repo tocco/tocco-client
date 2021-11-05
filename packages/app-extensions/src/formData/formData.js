@@ -9,6 +9,8 @@ import relationEntitiesSagas from './relationEntities/sagas'
 import tooltipsSaga from './tooltips/sagas'
 import advancedSearchSagas from './advancedSearch/sagas'
 import valueSagas from './values/sagas'
+import {setChooseDocument} from './upload/actions'
+import upload from './upload/reducer'
 import uploadSagas from './upload/sagas'
 import searchFilters from './searchFilters/reducer'
 import searchFilterSagas from './searchFilters/sagas'
@@ -30,7 +32,8 @@ export const addToStore = (store, config) => {
       tooltips,
       searchFilters,
       locations,
-      navigationStrategy
+      navigationStrategy,
+      upload
     })
   })
 
@@ -45,6 +48,9 @@ export const addToStore = (store, config) => {
 
   if (config.navigationStrategy) {
     store.dispatch(setNavigationStrategy(config.navigationStrategy))
+  }
+  if (config.chooseDocument) {
+    store.dispatch(setChooseDocument(config.chooseDocument))
   }
 
   const relationEntitiesData = _get(config, 'data.relationEntities', null)
