@@ -388,6 +388,7 @@ export function* reloadAfterAction({payload}) {
   const {definition} = payload
   if (definition.id !== 'delete') {
     yield call(loadData, false)
+    yield put(externalEvents.fireExternalEvent('onRefresh'))
   }
 }
 

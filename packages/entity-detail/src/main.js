@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {reducer as reducerUtil, navigationStrategy} from 'tocco-util'
+import {navigationStrategy, reducer as reducerUtil} from 'tocco-util'
 import {
-  appFactory,
-  notification,
-  errorLogging,
   actionEmitter,
-  externalEvents,
   actions,
+  appFactory,
+  errorLogging,
+  externalEvents,
   formData,
-  keyDown
+  keyDown,
+  notification
 } from 'tocco-app-extensions'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 import EntityListApp from 'tocco-entity-list/src/main'
@@ -28,6 +28,7 @@ const EXTERNAL_EVENTS = [
   'onEntityUpdated',
   'onEntityDeleted',
   'onTouchedChange',
+  'onRefresh',
   'emitAction'
 ]
 
