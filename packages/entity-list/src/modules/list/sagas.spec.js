@@ -92,11 +92,12 @@ describe('entity-list', () => {
         })
 
         describe('reloadData saga', () => {
-          test('should  load data with first page', () => {
+          test('should load data with first page', () => {
             return expectSaga(sagas.reloadData)
               .provide([
                 [matchers.call.fn(sagas.loadData)]
               ])
+              .put(actions.setCurrentPage(1))
               .call(sagas.loadData, 1)
               .run()
           })
