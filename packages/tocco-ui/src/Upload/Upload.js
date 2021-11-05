@@ -13,7 +13,8 @@ export const Upload = props => {
   const {
     value,
     textResources,
-    onUpload
+    onUpload,
+    onChoose
   } = props
   const [states, setStates] = useState({
     isUploading: false,
@@ -44,7 +45,7 @@ export const Upload = props => {
   } else if (states.isUploading) {
     return <UploadProgress file={states.previewFile} text={textResources.uploading} {...props}/>
   }
-  return <UploadInput {...props} onDrop={onDrop}/>
+  return <UploadInput {...props} onDrop={onDrop} onChoose={onChoose}/>
 }
 
 Upload.defaultProps = {
@@ -56,6 +57,10 @@ Upload.propTypes = {
    * Callback function if user uploads a file. Return the file {File}
    */
   onUpload: PropTypes.func.isRequired,
+  /**
+   * Callback function if user chooses resource from dms. If not set option is not available
+   */
+  onChoose: PropTypes.func,
   /**
    * Object that contains the following
    */

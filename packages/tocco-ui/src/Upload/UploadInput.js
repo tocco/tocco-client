@@ -7,7 +7,7 @@ import StyledUploadInput from './StyledUploadInput'
 import {design} from '../utilStyles'
 import {StyledDropzone, StyledIconWrapper} from './SyledUploadInput'
 
-const UploadInput = ({onDrop: onDropProp, immutable, text}) => {
+const UploadInput = ({onDrop: onDropProp, immutable, text, onChoose}) => {
   const onDrop = files => onDropProp(files[0])
 
   return (
@@ -25,6 +25,19 @@ const UploadInput = ({onDrop: onDropProp, immutable, text}) => {
               position={design.position.PREPEND}
             />
           </Button>
+          {onChoose && <Button
+            onClick={
+              e => {
+                onChoose()
+                e.stopPropagation()
+              }
+            }
+          >
+            <Icon
+              icon="folder"
+              position={design.position.PREPEND}
+            />
+          </Button>}
         </StyledIconWrapper>
       </StyledDropzone>
     </StyledUploadInput>
@@ -34,6 +47,7 @@ const UploadInput = ({onDrop: onDropProp, immutable, text}) => {
 UploadInput.propTypes = {
   immutable: PropTypes.bool,
   onDrop: PropTypes.func.isRequired,
+  onChoose: PropTypes.func,
   text: PropTypes.string
 }
 
