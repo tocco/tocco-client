@@ -19,6 +19,7 @@ const Document = props => {
   return (
     <Upload
       onUpload={onUpload}
+      onChoose={props.options.choose}
       immutable={props.immutable}
       textResources={{
         upload: props.options.uploadText,
@@ -39,6 +40,7 @@ Document.propTypes = {
   immutable: PropTypes.bool,
   options: PropTypes.shape({
     upload: PropTypes.func.isRequired,
+    choose: PropTypes.func,
     uploadText: PropTypes.string,
     uploadingText: PropTypes.string,
     deleteText: PropTypes.string,
