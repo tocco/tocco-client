@@ -3,16 +3,19 @@ import {viewPersistor} from 'tocco-util'
 import _pickBy from 'lodash/pickBy'
 import _omit from 'lodash/omit'
 import _pick from 'lodash/pick'
-import {takeLatest, all, call, put, spawn} from 'redux-saga/effects'
+import {all, call, put, select, spawn, takeLatest} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {getPathInfo} from '../../utils/url'
+
+export const entitiesPathSelector = state => state.entities.path
 
 const isEven = n => n % 2 === 0
 
 export default function* mainSagas() {
   yield all([
-    takeLatest(actions.LOAD_CURRENT_ROUTE, loadRoute)
+    takeLatest(actions.LOAD_CURRENT_ROUTE, loadRoute),
+    takeLatest(actions.PROPAGATE_REFRESH, reloadRelationsInfo)
   ])
 }
 
@@ -218,6 +221,18 @@ export function* initMultiRelations(model, key) {
 
   yield put(actions.setRelations(relationsTransformed))
   yield call(loadRelationInfos, model.name, key)
+}
+
+export function* reloadRelationsInfo({payload: {location}}) {
+  const {pathname} = location
+  const {currentViewInfos, relations} = yield select(entitiesPathSelector)
+  const currentViewInfo = currentViewInfos[pathname]
+  if (currentViewInfo.type === 'detail' && !currentViewInfo.error) {
+    yield spawn(loadRelationInfos, currentViewInfo.model.name, currentViewInfo.key)
+    // adjusting the relations causes the RelationsView to re-render and reload potential newly created entities
+    yield put(actions.setRelations([]))
+    yield put(actions.setRelations(relations))
+  }
 }
 
 export function* loadRelationInfos(model, key) {

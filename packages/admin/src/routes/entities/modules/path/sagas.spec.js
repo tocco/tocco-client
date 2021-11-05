@@ -3,11 +3,20 @@ import {viewPersistor} from 'tocco-util'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
+import {select} from 'redux-saga/effects'
 
 import * as sagas from './sagas'
-import {loadCurrentRoute} from './actions'
-import {deriveBreadcrumbs, deriveCurrentViewInfo, initMultiRelations, loadRouteInfo} from './sagas'
+import {
+  deriveBreadcrumbs,
+  deriveCurrentViewInfo,
+  entitiesPathSelector,
+  initMultiRelations,
+  loadRelationInfos,
+  loadRouteInfo,
+  reloadRelationsInfo
+} from './sagas'
 import * as actions from './actions'
+import {loadCurrentRoute} from './actions'
 
 describe('admin', () => {
   describe('routes', () => {
@@ -386,6 +395,51 @@ describe('admin', () => {
                 const result = sagas.deriveCurrentViewInfo(pathname, routeInfo)
 
                 expect(result).to.eql(expectedResult)
+              })
+            })
+            describe('reloadRelationsInfo', () => {
+              test('should reset relations and load relation info', () => {
+                const payload = {
+                  location: {
+                    pathname: 'path'
+                  }
+                }
+
+                const relations = [
+                  {
+                    relationDisplay: {
+                      label: 'Other model',
+                      order: 10
+                    },
+                    relationName: 'relOther',
+                    reverseRelationName: 'relModel',
+                    targetEntity: 'Other'
+                  }
+                ]
+
+                const state = {
+                  currentViewInfos: {
+                    path: {
+                      type: 'detail',
+                      error: false,
+                      model: {
+                        name: 'Model'
+                      },
+                      key: '123'
+                    }
+                  },
+                  relations
+                }
+
+                return expectSaga(reloadRelationsInfo, {payload})
+                  .provide([
+                    [select(entitiesPathSelector), state],
+                    [matchers.spawn.fn(loadRelationInfos, 'Model', '123'), null]
+                  ])
+                  .put(actions.setRelations([]))
+                  .put(actions.setRelations(relations))
+                  .spawn(loadRelationInfos, 'Model', '123')
+                  .run()
               })
             })
           })
