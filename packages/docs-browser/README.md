@@ -38,3 +38,4 @@ React-registry name: `docs-browser`
 |---------------------|-------------------------------|-------------
 | `onListParentChange`| null (= root) or  {model: 'User', key: '1'} | This event is fired when the parent of the list is changed
 | `onSearchFormCollapsedChange` | `collapsed` boolean. Whether it was opened or closed  | Is fired when the user click in the arrow in the admin search form to collapse the search form.
+| `onSelectChange`    | An array containing the ids of the new selection | This event is fired when the selection changes

@@ -21,6 +21,7 @@ const packageName = 'docs-browser'
 const EXTERNAL_EVENTS = [
   'onListParentChange',
   'openResource',
+  'onSelectChange',
   'onSearchFormCollapsedChange'
 ]
 

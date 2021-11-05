@@ -74,6 +74,7 @@ const DocsView = props => {
     searchMode,
     openResource,
     searchFormCollapsed,
+    changeSelection,
     changeSearchFormCollapsed
   } = props
   // eslint-disable-next-line no-unused-vars
@@ -105,7 +106,14 @@ const DocsView = props => {
     setSelection([])
   }, [parent])
 
+  const onSelectChange = selection => {
+    setSelection(selection)
+    changeSelection(selection)
+  }
+
   const handleRowClick = ({id}) => {
+    onSelectChange([id])
+
     if (searchModeRef.current && isRootLocation(history.location.pathname)) {
       if (!viewPersistor.viewInfoSelector('search').store) {
         // persist search store to allow a "go back to search"
@@ -206,7 +214,7 @@ const DocsView = props => {
           tql={tql}
           keys={keys}
           selectionStyle={selectionStyle || 'multi_explicit'}
-          onSelectChange={setSelection}
+          onSelectChange={onSelectChange}
           selection={selection}
           showActions={showActions}
           sortable={sortable}
@@ -245,6 +253,7 @@ DocsView.propTypes = {
   searchMode: PropTypes.bool,
   openResource: PropTypes.func,
   searchFormCollapsed: PropTypes.bool,
+  changeSelection: PropTypes.func.isRequired,
   changeSearchFormCollapsed: PropTypes.func.isRequired
 }
 

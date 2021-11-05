@@ -16,6 +16,7 @@ describe('admin', () => {
                 const saga = testSaga(sagas.default)
                 saga.next().all([
                   takeLatest(actions.CHANGE_LIST_PARENT, sagas.changeListParent),
+                  takeLatest(actions.CHANGE_SELECTION, sagas.changeSelection),
                   takeLatest(actions.CHANGE_SEARCH_FORM_COLLAPSED, sagas.changeSearchFormCollapsed)
                 ])
               })
@@ -26,6 +27,15 @@ describe('admin', () => {
                 const parent = {model: 'User', key: '1'}
                 return expectSaga(sagas.changeListParent, {payload: {parent: parent}})
                   .put(externalEvents.fireExternalEvent('onListParentChange', parent))
+                  .run()
+              })
+            })
+
+            describe('changeSelection', () => {
+              test('should fire external onSelectChange event', () => {
+                const selection = ['Resource/1', 'Domain/2']
+                return expectSaga(sagas.changeSelection, {payload: {selection}})
+                  .put(externalEvents.fireExternalEvent('onSelectChange', selection))
                   .run()
               })
             })
