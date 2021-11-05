@@ -18,7 +18,7 @@ import {loadRelationEntities} from './relationEntities/actions'
 import {loadTooltip} from './tooltips/actions'
 import {openAdvancedSearch} from './advancedSearch/actions'
 import {changeFieldValue, touchField} from './values/actions'
-import {uploadDocument} from './upload/actions'
+import {setDocument, uploadDocument} from './upload/actions'
 import {loadSearchFilters} from './searchFilters/actions'
 import {loadLocationsSuggestions} from './locations/actions'
 import {openRemoteCreate} from './remoteCreate/actions'
@@ -59,6 +59,10 @@ const mapStateToProps = (
     ? {navigationStrategy: state.formData.navigationStrategy.navigationStrategy}
     : {}
   ),
+  ...(state.formData.upload?.chooseDocument
+    ? {chooseDocument: state.formData.upload.chooseDocument}
+    : {}
+  ),
   entityModel: _get(state, 'entityDetail.entityModel')
 })
 
@@ -67,6 +71,7 @@ const mapActionCreators = {
   loadTooltip: loadTooltip,
   openAdvancedSearch: openAdvancedSearch,
   uploadDocument: uploadDocument,
+  setDocument: setDocument,
   changeFieldValue: changeFieldValue,
   touchField: touchField,
   loadSearchFilters: loadSearchFilters,

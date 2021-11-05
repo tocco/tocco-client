@@ -5,10 +5,12 @@ import {documentToFormValueTransformer, uploadRequest} from './documents'
 import * as actions from './actions'
 import errorLogging from '../../errorLogging'
 import form from '../../form'
+import rest from '../../rest'
 
 export default function* sagas() {
   yield all([
-    takeEvery(actions.UPLOAD_DOCUMENT, uploadDocument)
+    takeEvery(actions.UPLOAD_DOCUMENT, uploadDocument),
+    takeEvery(actions.SET_DOCUMENT, setDocument)
   ])
 }
 
@@ -33,4 +35,11 @@ export function* uploadDocument({payload}) {
       error
     ))
   }
+}
+
+export function* setDocument({payload}) {
+  const {formName, field, resourceId} = payload
+  const resource = yield call(rest.fetchEntity, 'Resource', resourceId, {paths: ['relContent.data']})
+  const documentFormValue = {...resource.paths.relContent.value.paths.data.value, key: resourceId}
+  yield put(formActions.change(formName, form.transformFieldName(field), documentFormValue))
 }
