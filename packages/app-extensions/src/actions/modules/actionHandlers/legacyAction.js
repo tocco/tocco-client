@@ -1,6 +1,6 @@
 import _isPlainObject from 'lodash/isPlainObject'
 import {channel} from 'redux-saga'
-import {call, all, put, spawn, take, select} from 'redux-saga/effects'
+import {all, call, put, select, spawn, take} from 'redux-saga/effects'
 
 import newNotification from '../../../notification'
 import remoteEvents from '../../../remoteEvents'
@@ -57,8 +57,11 @@ export const sources = [
   {src: '/css/nice2-new-client-legacy-actions.css', handler: loadCss, envs: ['new']}
 ]
 
-export const channelFeedingCallback = channel => arg => {
+export const channelFeedingCallback = (channel, responseChannel) => arg => {
   channel.put(arg)
+  if (responseChannel) {
+    responseChannel.put(arg)
+  }
 }
 
 export function* readRemoteEvents(remoteEventsChannel) {
@@ -73,9 +76,11 @@ export function* registerRemoteEventsListener() {
   const dataRegistry = yield call([window.app, window.app.getDataRegistry])
   if (dataRegistry.setNewClientCallback) {
     const remoteEventsChannel = yield call(channel)
-    const callback = yield call(channelFeedingCallback, remoteEventsChannel)
+    const responseChannel = yield call(channel)
+    const callback = yield call(channelFeedingCallback, remoteEventsChannel, responseChannel)
     yield call([dataRegistry, dataRegistry.setNewClientCallback], callback)
     yield spawn(readRemoteEvents, remoteEventsChannel)
+    return responseChannel
   }
 }
 
@@ -123,8 +128,8 @@ export function* initLegacyActionsEnv() {
     yield call(loadSequentially, sources)
     yield call(window.setUpLegacyActionsEnv)
   }
-  yield call(registerRemoteEventsListener)
   yield call(registerNotificationsListener)
+  return yield call(registerRemoteEventsListener)
 }
 
 export const listSelector = state => state.list
@@ -197,7 +202,7 @@ export function* getScope() {
 }
 
 export default function* (definition, selection, parent, params, config) {
-  yield call(initLegacyActionsEnv)
+  const responseChannel = yield call(initLegacyActionsEnv)
 
   const actionDefinition = new window.nice2.netui.actions.model.ClientActionDefinition(definition.path, definition.id)
   actionDefinition.setEnabled(!definition.readOnly)
@@ -235,4 +240,11 @@ export default function* (definition, selection, parent, params, config) {
   action.getSelection = () => legacySelection
 
   action.perform()
+
+  if (responseChannel) {
+    yield take(responseChannel)
+    return {
+      success: true
+    }
+  }
 }
