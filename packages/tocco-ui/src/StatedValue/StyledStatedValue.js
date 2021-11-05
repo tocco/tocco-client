@@ -1,4 +1,4 @@
-import styled, {css, keyframes} from 'styled-components'
+import styled, {css} from 'styled-components'
 
 import {
   colorizeBorder,
@@ -11,9 +11,14 @@ import {
 import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
 
 const borderWidth = '1.1px' // deliberately uneven to force correct rendering in chrome
-const animationDuration = '200ms'
 
-const getTextColor = ({isDisplay, secondaryPosition, immutable, signal, hasValue}) => {
+export const getTextColor = ({
+  isDisplay,
+  secondaryPosition,
+  immutable,
+  signal,
+  hasValue
+}) => {
   return signal
     ? 'signal'
     : hasValue
@@ -33,7 +38,12 @@ const getTextColor = ({isDisplay, secondaryPosition, immutable, signal, hasValue
                 : 'shade1'
 }
 
-const getBorderColor = ({immutable, isDisplay, signal, isDirty}) => {
+export const getBorderColor = ({
+  immutable,
+  isDisplay,
+  signal,
+  isDirty
+}) => {
   return isDirty
     ? 'isDirty'
     : isDisplay || immutable
@@ -45,12 +55,6 @@ const getBorderColor = ({immutable, isDisplay, signal, isDirty}) => {
 
 const transformLabel = ({secondaryPosition}) => css`
   &&& {
-    transition: color ${animationDuration},
-      font-size ${animationDuration},
-      font-weight ${animationDuration},
-      margin ${animationDuration},
-      top ${animationDuration};
-    will-change: color, font-size, font-weight, margin, top;
     ${secondaryPosition && css`
       top: 0;
       font-size: ${scale.font(-0.8)};
@@ -59,13 +63,16 @@ const transformLabel = ({secondaryPosition}) => css`
   }
 `
 
-const declareCursor = ({isDisplay, immutable}) => `cursor: ${(!isDisplay && immutable) ? 'not-allowed' : 'auto'};`
+const declareCursor = ({
+  isDisplay,
+  immutable
+}) => `cursor: ${(!isDisplay && immutable) ? 'not-allowed' : 'auto'};`
 
 export const StyledLabelWrapper = styled.div`
   width: calc(100% - ${scale.space(0.5)});
 `
 
-const StyledStatedValueLabel = styled.label`
+export const StyledStatedValueLabel = styled.label`
   &&& {
     ${declareFont({
       fontSize: scale.font(0),
@@ -93,18 +100,19 @@ const StyledStatedValueLabel = styled.label`
   }
 `
 
-const StyledStatedValueBox = styled.div`
+export const StyledStatedValueBox = styled.div`
   &&& {
     border: ${borderWidth} solid ${props => colorizeBorder[getBorderColor(props)](props)};
-    padding: ${scale.space(-1)} ${scale.space(-1)} ${scale.space(-2)}  ${scale.space(-1)};
+    padding: ${scale.space(-1)} ${scale.space(-1)} ${scale.space(-2)} ${scale.space(-1)};
     position: relative;
     ${props => !props.immutable && declareFocus(props)}
     ${props => declareCursor(props)}
-    transition: border-color ${animationDuration};
-    will-change: border-color;
     margin-top: ${({isDisplay}) => isDisplay && scale.space(-1)};
     padding-left: ${({immutable}) => immutable && scale.space(-2)};
-    padding-top: ${({isDisplay, immutable}) => isDisplay && immutable && scale.space(-1)};
+    padding-top: ${({
+      isDisplay,
+      immutable
+    }) => isDisplay && immutable && scale.space(-1)};
 
     * {
       padding-left: ${({isDisplay}) => isDisplay && '0'};
@@ -123,7 +131,7 @@ const StyledStatedValueBox = styled.div`
   }
 `
 
-const StyledStatedValueDescription = styled.p`
+export const StyledStatedValueDescription = styled.p`
   &&& {
     ${declareFont({
       fontSize: scale.font(-1)
@@ -131,21 +139,9 @@ const StyledStatedValueDescription = styled.p`
   }
 `
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
+export const StyledStatedValueError = styled.div``
 
-  to {
-    opacity: 1;
-  }
-`
-
-const StyledStatedValueError = styled.div`
-  animation: ${fadeIn} 500ms ease-in-out both;
-`
-
-const StyledStatedValueWrapper = styled.div`
+export const StyledStatedValueWrapper = styled.div`
   &&& {
     margin-bottom: ${scale.space(-1)};
     padding-top: ${scale.space(-2)};
@@ -166,13 +162,3 @@ const StyledStatedValueWrapper = styled.div`
     }
   }
 `
-
-export {
-  getTextColor,
-  getBorderColor,
-  StyledStatedValueBox,
-  StyledStatedValueDescription,
-  StyledStatedValueError,
-  StyledStatedValueLabel,
-  StyledStatedValueWrapper
-}
