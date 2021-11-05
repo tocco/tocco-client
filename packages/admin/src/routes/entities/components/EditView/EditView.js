@@ -4,7 +4,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import queryString from 'query-string'
 import styled from 'styled-components'
-import {theme, scale} from 'tocco-ui'
+import {scale, theme} from 'tocco-ui'
 
 import {goBack} from '../../../../utils/routing'
 import Action from '../Action'
@@ -25,7 +25,8 @@ const EditView = props => {
     history,
     match,
     intl,
-    emitAction
+    emitAction,
+    propagateRefresh
   } = props
 
   const [touched, setTouched] = useState(false)
@@ -62,6 +63,11 @@ const EditView = props => {
     history.push(entityBaseUrl)
   }
 
+  const handleRefresh = () => {
+    const location = history.location
+    propagateRefresh(location)
+  }
+
   const handleSubGridRowClick = ({id, relationName}) => {
     const entityBaseUrl = goBack(match.url)
     history.push(`${entityBaseUrl}/${relationName}/${id}`)
@@ -90,6 +96,7 @@ const EditView = props => {
       onTouchedChange = {handleToucheChanged}
       navigationStrategy={{...navigationStrategy(history, match), navigateToCreateRelative}}
       onEntityDeleted={handleEntityDeleted}
+      onRefresh={handleRefresh}
       actionAppComponent={Action}
       onSubGridRowClick={handleSubGridRowClick}
     />
@@ -101,7 +108,8 @@ EditView.propTypes = {
   match: PropTypes.object,
   history: PropTypes.object,
   currentViewInfo: currentViewPropType,
-  emitAction: PropTypes.func.isRequired
+  emitAction: PropTypes.func.isRequired,
+  propagateRefresh: PropTypes.func.isRequired
 }
 
 export default EditView

@@ -2,9 +2,12 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {actionEmitter} from 'tocco-app-extensions'
 
+import {propagateRefresh} from '../../modules/path/actions'
 import EditView from './EditView'
+
 const mapActionCreators = {
-  emitAction: action => actionEmitter.dispatchEmittedAction(action)
+  emitAction: action => actionEmitter.dispatchEmittedAction(action),
+  propagateRefresh
 }
 
 const mapStateToProps = (state, props) => ({
