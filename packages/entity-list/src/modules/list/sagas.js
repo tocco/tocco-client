@@ -153,6 +153,7 @@ export function* refreshData() {
 }
 
 export function* reloadData() {
+  yield put(actions.setCurrentPage(1))
   yield call(loadData, 1)
 }
 
