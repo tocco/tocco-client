@@ -43,6 +43,12 @@ export const StyledMoreOptionsAvailable = styled.div`
   }
 `
 
+export const StyledSingleValueWrapper = styled.div`
+  overflow-x: hidden;
+  position: relative;
+  color: ${({isDisabled}) => isDisabled ? theme.color('text') : 'inherit'};
+`
+
 export const reactSelectTheme = (theme, outerTheme) => ({
   ...theme,
   borderRadius: 0,
@@ -170,8 +176,7 @@ export const reactSelectStyles = outerTheme => {
     valueContainer: (base, state) => ({
       ...base,
       padding: 0,
-      margin: 0,
-      overflow: 'visible'
+      margin: 0
     })
   }
 }
