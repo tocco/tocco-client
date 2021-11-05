@@ -66,7 +66,7 @@ Pagination.propTypes = {
   /**
    * Total of records available
    */
-  totalCount: PropTypes.number.isRequired,
+  totalCount: PropTypes.number,
   /**
    * Limit for a page
    */
