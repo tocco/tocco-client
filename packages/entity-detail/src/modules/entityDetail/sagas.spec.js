@@ -34,7 +34,6 @@ describe('entity-detail', () => {
               takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
               takeLatest(actions.UPDATE_MARKED, sagas.updateMarked),
               takeLatest(actionExtensions.actions.ACTION_INVOKED, sagas.reloadAfterAction)
-
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -718,6 +717,38 @@ describe('entity-detail', () => {
                 ])
                 .put(actions.setMarked(true))
                 .call(rest.setMarked, 'User', '235', true)
+                .run()
+            })
+          })
+
+          describe('reloadAfterAction', () => {
+            test('should load data and send remote event', () => {
+              const payload = {
+                definition: {
+                  id: 'action'
+                }
+              }
+              return expectSaga(sagas.reloadAfterAction, {payload})
+                .provide([
+                  [call(sagas.loadData, false)]
+                ])
+                .put(externalEvents.fireExternalEvent('onRefresh'))
+                .call(sagas.loadData, false)
+                .run()
+            })
+
+            test('should do nothing on delete', () => {
+              const payload = {
+                definition: {
+                  id: 'delete'
+                }
+              }
+              return expectSaga(sagas.reloadAfterAction, {payload})
+                .provide([
+                  [call(sagas.loadData, false)]
+                ])
+                .not.put(externalEvents.fireExternalEvent('onRefresh'))
+                .not.call(sagas.loadData, false)
                 .run()
             })
           })
