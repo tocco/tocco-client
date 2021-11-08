@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {AdminLink as StyledLink, Icon, Typography} from 'tocco-ui'
 import {js} from 'tocco-util'
@@ -9,13 +9,13 @@ import {
   RelationBox,
   RelationLabel,
   RelationLinks,
+  StyledPlaceHolder,
   StyledPreviewBox,
+  StyledPreviewLink,
   StyledRelationBox,
   StyledRelationsViewWrapper,
   StyledToggleCollapse,
-  StyledToggleCollapseButton,
-  StyledPlaceHolder,
-  StyledPreviewLink
+  StyledToggleCollapseButton
 } from './StyledComponents'
 import {currentViewPropType} from '../../utils/propTypes'
 import {getRelation, setRelation} from '../../utils/relationPersistor'
@@ -31,9 +31,10 @@ const RelationsView = ({
   emitAction,
   intl,
   isCollapsed,
-  toggleCollapse
+  toggleCollapse,
+  selectRelation,
+  selectedRelation
 }) => {
-  const [selectedRelation, selectRelation] = useState(null)
   const entityName = _get(currentViewInfo, 'model.name')
   useEffect(
     () => {
@@ -153,7 +154,9 @@ RelationsView.propTypes = {
   emitAction: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
   isCollapsed: PropTypes.bool,
-  toggleCollapse: PropTypes.func.isRequired
+  toggleCollapse: PropTypes.func.isRequired,
+  selectRelation: PropTypes.func.isRequired,
+  selectedRelation: PropTypes.object
 }
 
 const areEqual = (prevProps, nextProps) => {

@@ -436,8 +436,7 @@ describe('admin', () => {
                     [select(entitiesPathSelector), state],
                     [matchers.spawn.fn(loadRelationInfos, 'Model', '123'), null]
                   ])
-                  .put(actions.setRelations([]))
-                  .put(actions.setRelations(relations))
+                  .put(actions.selectRelation(null))
                   .spawn(loadRelationInfos, 'Model', '123')
                   .run()
               })
