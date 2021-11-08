@@ -1,16 +1,25 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {js} from 'tocco-util'
+import {js, html} from 'tocco-util'
+import _get from 'lodash/get'
 
 import Typography from '../../Typography'
+import Popover from '../../Popover'
 
 const SingleSelectFormatter = ({value, options, breakWords}) => {
   value = js.getOrFirst(value)
   const display = <Typography.Span breakWords={breakWords}>{value.display}</Typography.Span>
 
-  return options && options.DetailLink
+  const {tooltips, loadTooltip, DetailLink} = options || {}
+  const tooltip = _get(tooltips, value.key, null)
+
+  return DetailLink
     ? <span onClick={e => e.stopPropagation()}>
-      <options.DetailLink entityKey={value.key}>{display}</options.DetailLink>
+      <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}}/> : null}>
+        <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(value.key)}>
+          <DetailLink entityKey={value.key}>{display}</DetailLink>
+        </span>
+      </Popover>
     </span>
     : display
 }
@@ -26,7 +35,9 @@ SingleSelectFormatter.propTypes = {
     PropTypes.arrayOf(valuePropType)
   ]),
   options: PropTypes.shape({
-    DetailLink: PropTypes.func
+    DetailLink: PropTypes.func,
+    tooltips: PropTypes.objectOf(PropTypes.string),
+    loadTooltip: PropTypes.func
   }),
   breakWords: PropTypes.bool
 }
