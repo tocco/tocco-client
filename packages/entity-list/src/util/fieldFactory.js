@@ -20,8 +20,18 @@ export default (fieldDefinition, entity, intl) => {
   const isMultiType = multiTypes.includes(dataType)
   const pathValue = entity[path]
   const values = !isMultiType && Array.isArray(pathValue) ? pathValue : [pathValue]
+
+  const config = field.formattedTypeConfigs[dataType]
+  const dataContainerProps = config && config.dataContainerProps
+    ? config.dataContainerProps({formField: fieldDefinition})
+    : {}
+
   const formDataContainer = values.map((v, idx) =>
-    <formData.FormDataContainer key={`formDataContainer-${entity.__key}-${path}-${idx}`} navigationStrategy={true}>
+    <formData.FormDataContainer
+      key={`formDataContainer-${entity.__key}-${path}-${idx}`}
+      {...dataContainerProps}
+      navigationStrategy={true}
+    >
       <FormattedValueWrapper type={dataType} value={v} intl={intl} formField={fieldDefinition}/>
     </formData.FormDataContainer>
   ).reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
