@@ -5,7 +5,8 @@ import {FormattedMessage} from 'react-intl'
 import {takeLatest, all, put} from 'redux-saga/effects'
 
 import * as actions from './actions'
-import DocsBrowser from '../../main'
+
+const LazyDocsBrowser = React.lazy(() => import('../../main'))
 
 export default function* mainSagas() {
   yield all([
@@ -35,7 +36,7 @@ export function* chooseDocument({payload: {setDocument, formName, formFieldId}})
 
       return (
         <>
-          <DocsBrowser
+          <LazyDocsBrowser
             memoryHistory={true}
             listLimit={10}
             selectionStyle="none"
