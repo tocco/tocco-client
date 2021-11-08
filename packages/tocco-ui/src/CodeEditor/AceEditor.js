@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import _get from 'lodash/get'
 import ace from 'ace-builds/src-min-noconflict/ace'
-import {Mode as FtlMode} from 'ace-builds/src-min-noconflict/mode-ftl'
+import 'ace-builds/webpack-resolver'
 import {Mode as GroovyMode} from 'ace-builds/src-min-noconflict/mode-groovy'
 import {Mode as HtmlMode} from 'ace-builds/src-min-noconflict/mode-html'
 import {Mode as LessMode} from 'ace-builds/src-min-noconflict/mode-less'
@@ -24,6 +24,7 @@ import 'ace-builds/src-min-noconflict/snippets/drools'
 import 'ace-builds/src-min-noconflict/theme-textmate'
 import 'ace-builds/src-min-noconflict/ext-language_tools'
 import TqlMode from './TqlMode'
+import ToccoFtlMode from './ToccoFtlMode'
 
 const StyledEditor = styled.div`
   width: 100%;
@@ -36,9 +37,9 @@ const modeMappings = {
   xml: new XmlMode(),
   properties: new PropertiesMode(),
   json: new JsonMode(),
-  htmlmixed: new FtlMode(),
-  freemarkermixed: new FtlMode(),
-  ftl: new FtlMode(),
+  htmlmixed: new ToccoFtlMode(),
+  freemarkermixed: new ToccoFtlMode(),
+  ftl: new ToccoFtlMode(),
   tql: new TqlMode(),
   less: new LessMode(),
   drools: new DroolsMode(),
@@ -47,34 +48,49 @@ const modeMappings = {
 
 const getMode = mode => _get(modeMappings, mode, mode)
 
-const AceEditor = ({
+const setEditorConfiguration = (editor, {
   mode,
-  theme = 'textmate',
-  value,
-  onChange,
+  theme,
+  showGutter,
   editorOptions = {}
 }) => {
+  editor.getSession().setMode(getMode(mode))
+  editor.setTheme(`ace/theme/${theme}`)
+  Object.entries(editorOptions).forEach(([k, v]) => {
+    editor.setOption(k, v)
+  })
+  editor.renderer.setShowGutter(showGutter)
+  editor.resize()
+}
+
+const AceEditor = props => {
+  const {
+    mode,
+    theme = 'textmate',
+    value,
+    onChange,
+    showGutter = true,
+    editorOptions = {}
+  } = props
   const [reference, setReference] = useState(null)
+  const [editor, setEditor] = useState(null)
+
   useEffect(() => {
     if (reference) {
       const aceEditor = ace.edit(reference)
-      aceEditor.getSession().setMode(getMode(mode))
       aceEditor.getSession().setValue(value)
-      aceEditor.setTheme(`ace/theme/${theme}`)
-      aceEditor.renderer.setShowGutter(true)
       aceEditor.on('change', () => onChange(aceEditor.getValue()))
-
-      if (editorOptions) {
-        Object.entries(editorOptions).forEach(([k, v]) => {
-          aceEditor.setOption(k, v)
-        })
-      }
-
-      aceEditor.resize()
+      setEditorConfiguration(aceEditor, props)
+      setEditor(aceEditor)
 
       return () => aceEditor.destroy()
     }
   }, [reference])
+  useEffect(() => {
+    if (editor) {
+      setEditorConfiguration(editor, props)
+    }
+  }, [mode, theme, showGutter, editorOptions])
   return <StyledEditor ref={setReference}/>
 }
 

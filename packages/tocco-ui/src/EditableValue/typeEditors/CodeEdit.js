@@ -18,6 +18,7 @@ const CodeEdit = ({
               onChange={onChange}
               mode={options.mode}
               theme={'textmate'}
+              showGutter={true}
               editorOptions={{
                 enableBasicAutocompletion: true,
                 enableLiveAutocompletion: true,
