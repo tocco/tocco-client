@@ -11,6 +11,7 @@ import {
   login,
   notification
 } from 'tocco-app-extensions'
+import chooseDocument from 'tocco-docs-browser/src/modules/chooseDocument'
 import PropTypes from 'prop-types'
 
 import shortcuts from './shortcuts'
@@ -42,6 +43,7 @@ const initApp = (id, input, events, publicPath) => {
   login.addToStore(store)
   cache.addToStore(store)
   keyDown.addToStore(store, shortcuts)
+  chooseDocument.addToStore(store)
 
   return appFactory.createApp(
     packageName,
@@ -54,7 +56,7 @@ const initApp = (id, input, events, publicPath) => {
       publicPath,
       textResourceModules: [
         'component', 'common', 'actions.[^.]*\\.title', 'login', 'sso-login', 'entity-browser',
-        'entity-list', 'entity-detail', 'dashboard', packageName
+        'entity-list', 'entity-detail', 'dashboard', 'docs-browser', packageName
       ]
     }
   )
