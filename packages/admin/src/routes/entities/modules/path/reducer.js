@@ -15,14 +15,16 @@ const ACTION_HANDLERS = {
   [actions.SET_BREADCRUMBS_INFO]: reducerUtil.singleTransferReducer('breadcrumbsInfo'),
   [actions.SET_RELATIONS]: reducerUtil.singleTransferReducer('relations'),
   [actions.SET_RELATIONS_INFO]: reducerUtil.singleTransferReducer('relationsInfo'),
-  [actions.SET_CURRENT_VIEW_TITLE]: reducerUtil.singleTransferReducer('currentViewTitle')
+  [actions.SET_CURRENT_VIEW_TITLE]: reducerUtil.singleTransferReducer('currentViewTitle'),
+  [actions.SELECT_RELATION]: reducerUtil.singleTransferReducer('selectedRelation')
 }
 
 const initialState = {
   currentViewInfos: {},
   breadcrumbsInfo: [],
   relations: null,
-  relationsInfo: {}
+  relationsInfo: {},
+  selectedRelation: null
 }
 
 export default function reducer(state = initialState, action) {

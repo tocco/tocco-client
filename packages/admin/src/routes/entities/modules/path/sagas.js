@@ -225,13 +225,11 @@ export function* initMultiRelations(model, key) {
 
 export function* reloadRelationsInfo({payload: {location}}) {
   const {pathname} = location
-  const {currentViewInfos, relations} = yield select(entitiesPathSelector)
+  const {currentViewInfos} = yield select(entitiesPathSelector)
   const currentViewInfo = currentViewInfos[pathname]
   if (currentViewInfo.type === 'detail' && !currentViewInfo.error) {
     yield spawn(loadRelationInfos, currentViewInfo.model.name, currentViewInfo.key)
-    // adjusting the relations causes the RelationsView to re-render and reload potential newly created entities
-    yield put(actions.setRelations([]))
-    yield put(actions.setRelations(relations))
+    yield put(actions.selectRelation(null))
   }
 }
 
