@@ -23,6 +23,7 @@ const CreateView = props => {
     history,
     match,
     intl,
+    chooseDocument,
     dispatchEmittedAction
   } = props
   const {location} = history
@@ -69,6 +70,7 @@ const CreateView = props => {
         dispatchEmittedAction(action)
       }}
       navigationStrategy={navigationStrategy(history, match)}
+      chooseDocument={chooseDocument}
       onEntityCreated={handleEntityCreated}
       onTouchedChange={handleToucheChanged}
     />
@@ -80,6 +82,7 @@ CreateView.propTypes = {
   match: PropTypes.object,
   history: PropTypes.object,
   currentViewInfo: currentViewPropType,
+  chooseDocument: PropTypes.func.isRequired,
   dispatchEmittedAction: PropTypes.func.isRequired
 }
 

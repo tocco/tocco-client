@@ -25,6 +25,7 @@ const EditView = props => {
     history,
     match,
     intl,
+    chooseDocument,
     emitAction,
     propagateRefresh
   } = props
@@ -95,6 +96,7 @@ const EditView = props => {
       emitAction={emitAction}
       onTouchedChange = {handleToucheChanged}
       navigationStrategy={{...navigationStrategy(history, match), navigateToCreateRelative}}
+      chooseDocument={chooseDocument}
       onEntityDeleted={handleEntityDeleted}
       onRefresh={handleRefresh}
       actionAppComponent={Action}
@@ -108,6 +110,7 @@ EditView.propTypes = {
   match: PropTypes.object,
   history: PropTypes.object,
   currentViewInfo: currentViewPropType,
+  chooseDocument: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired,
   propagateRefresh: PropTypes.func.isRequired
 }
