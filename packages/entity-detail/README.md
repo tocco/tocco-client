@@ -24,6 +24,7 @@ React-registry name: `entity-detail`
 | `onEntityCreated`           | `id` (of the newly created record)                                                                                 | Is fired when a a record got created
 | `onEntityUpdated`           |                                                                                                                    | Is fired when a a record got sucessfully updated
 | `onEntityDeleted`           |                                                                                                                    | Is fired when the loaded record got deleted
+| `onRefresh`                 |                                                                                                                    | Is fired when the loaded record got deleted
 | `onTouchedChange`           | `touched` (boolean flag which indicates if the form is touched)                                                    | This event is fired when the touched state changes
 
 ## Development
