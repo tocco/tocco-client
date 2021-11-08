@@ -1,3 +1,14 @@
+0.5.35
+- show button hover title and pointer cursor
+- use correct button component for icon button
+- harmonize detail footer spacing
+- fix placing of chevron icon in placeholder panel of admin search form
+- keep focus in search input on switching menu tabs
+- reset pagination on reload first page
+- user agent detection
+- improve performance on Safari
+- fix missing popover in single values and overflowing in firefox
+
 0.5.34
 - show textarea bigger for better distinction
 - table can be refreshed
