@@ -205,7 +205,7 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
   }
 }
 
-// TODO implement
+// TODO implement TOCDEV-4494
 const TqlCompleter = () => ({
   getCompletions: function(editor, session, pos, prefix) {
     return [
@@ -218,6 +218,6 @@ export default class TqlMode extends ace.require('ace/mode/text').Mode {
     super()
     this.HighlightRules = TqlHighlightRules
     this.getCompletions = TqlCompleter().getCompletions
-    this.snippedIdField = null // TODO implement?
+    this.snippedIdField = null // TODO implement? TOCDEV-4499
   }
 }

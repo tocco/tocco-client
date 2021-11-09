@@ -7,8 +7,8 @@ import 'ace-builds/src-min-noconflict/mode-html'
  * brackets replaced with square brackets as described in
  * https://freemarker.apache.org/docs/dgui_misc_alternativesyntax.html
  *
- * TODO add auto-complete? only for tocco functions?
- * TODO implement possibility to switch between the two and open PR with ACE repository?
+ * TODO add auto-complete? only for tocco functions? TOCDEV-4496
+ * TODO implement possibility to switch between the two and open PR with ACE repository? TOCDEV-4495
  **/
 class ToccoFtlLangHighlightRules extends ace.require('ace/mode/text_highlight_rules').TextHighlightRules {
   constructor() {
