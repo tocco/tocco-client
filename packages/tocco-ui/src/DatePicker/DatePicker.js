@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
@@ -15,7 +15,15 @@ export const DatePicker = props => {
 
   const fontFamily = theme.fontFamily('regular')(props)
 
-  useDatePickr(wrapperElement, {value, onChange, fontFamily, locale})
+  const flatpickrOptions = {}
+  const initializeFlatPickr = useDatePickr(wrapperElement,
+    {value, onChange, fontFamily, locale, flatpickrOptions, shouldAppend: true})
+
+  useEffect(() => {
+    if (wrapperElement.current) {
+      initializeFlatPickr()
+    }
+  }, []) // only on mount
 
   return (
     <>
