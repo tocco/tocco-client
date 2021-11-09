@@ -5,17 +5,25 @@ import {
   StyledInputCss
 } from '../StyledEditableValue'
 
-export const StyledDateAbstractInput = styled.input`
+export const StyledDatePickerInput = styled.input`
   &&& {
     ${StyledInputCss}
   }
 `
 
-export const StyledDateAbstractOuterWrapper = styled.div`
+export const StyledDatePickerValue = styled.div`
+  && {
+    ${StyledInputCss}
+    display: flex;
+    align-items: center;
+  }
+`
+
+export const StyledDatePickerOuterWrapper = styled.div`
   outline: ${({immutable}) => immutable ? 0 : 'initial'};
 `
 
-export const StyledDateAbstractWrapper = styled.div`
+export const StyledDatePickerWrapper = styled.div`
   && {
     ${StyledEditableWrapperCss}
 

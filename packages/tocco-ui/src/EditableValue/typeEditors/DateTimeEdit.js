@@ -3,8 +3,8 @@ import React, {useMemo} from 'react'
 import {injectIntl} from 'react-intl'
 import moment from 'moment'
 
-import DateAbstract from './DateAbstract'
 import {atMostOne, momentJStoToFlatpickrFormat} from '../utils'
+import LazyDatePicker from './LazyDatePicker'
 
 export const DateTimeEdit = props => {
   const momentDateFormat = moment().locale(props.intl.locale)._locale.longDateFormat('L')
@@ -17,12 +17,7 @@ export const DateTimeEdit = props => {
     return momentDate.isValid() ? momentDate.toDate() : null
   }, [])
 
-  const onBlur = (dateString, values, setValue) => {
-    const parsed = parseDate(dateString)
-    if (values[0] - parsed !== 0) {
-      setValue(parsed)
-    }
-  }
+  const formatDate = s => moment(s).format(`${momentDateFormat} ${momentTimeFormat}`)
 
   const flatpickrOptions = {
     enableTime: true,
@@ -37,10 +32,11 @@ export const DateTimeEdit = props => {
   const handleChange = dates => props.onChange(atMostOne(dates))
 
   return (
-    <DateAbstract
+    <LazyDatePicker
       value={[props.value]}
       onChange={handleChange}
-      onBlur={onBlur}
+      parseDate={parseDate}
+      formatDate={formatDate}
       immutable={props.immutable}
       options={{...props.options, flatpickrOptions}}
       events={props.events}

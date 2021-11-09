@@ -1,9 +1,10 @@
-import {useEffect, useState} from 'react'
 import '!style-loader!css-loader!flatpickr/dist/themes/light.css'
 import flatpickr from 'flatpickr'
 import {German} from 'flatpickr/dist/l10n/de.js'
 import {French} from 'flatpickr/dist/l10n/fr.js'
 import {Italian} from 'flatpickr/dist/l10n/it.js'
+import {useEffect, useRef} from 'react'
+import {react, js} from 'tocco-util'
 
 const localeMap = {
   'de-CH': German,
@@ -20,19 +21,18 @@ const handleOnChange = onChange => selectedDates => {
   }
 }
 
-const initializeFlatPickr = (element, {onChange, value, fontFamily, locale, flatpickrOptions}) => {
+const initializeFlatPickr = (element, {shouldAppend, onChange, value, fontFamily, locale, flatpickrOptions}) => {
   const calendarLocale = localeMap[locale]
 
   const options = {
-    ...(calendarLocale ? {locale: calendarLocale} : {}),
     wrap: true,
     onChange: handleOnChange(onChange),
     altInput: false,
     enableTime: false,
     defaultDate: value,
-    appendTo: element.current,
-
-    ...(localeMap[locale] && {locale: localeMap[locale]}),
+    
+    ...(shouldAppend ? {appendTo: element.current} : {}),
+    ...(calendarLocale ? {locale: calendarLocale} : {}),
     ...flatpickrOptions
   }
 
@@ -46,16 +46,51 @@ const initializeFlatPickr = (element, {onChange, value, fontFamily, locale, flat
 }
 
 export const useDatePickr = (element, config) => {
-  const [flatpickrInstance, setflatpickrInstance] = useState(null)
-  useEffect(() => {
-    if (element) {
-      setflatpickrInstance(initializeFlatPickr(element, config))
-    }
+  const {value, locale, flatpickrOptions} = config
+  const flatpickr = useRef(null)
 
+  const prevFlatpickrOptions = react.usePrevious(flatpickrOptions)
+
+  const init = () => {
+    flatpickr.current = initializeFlatPickr(element, config)
+    return flatpickr.current
+  }
+
+  useEffect(() => {
     return () => {
-      if (flatpickrInstance) {
-        flatpickrInstance.destroy()
+      if (flatpickr.current) {
+        flatpickr.current.destroy()
       }
     }
-  }, [element, config.locale, config.value])
+  }, []) // only on unmount
+
+  useEffect(() => {
+    if (flatpickr.current) {
+      flatpickr.current.setDate(value, false)
+      flatpickr.current.redraw()
+    }
+  }, [JSON.stringify(value)]) // only trigger useEffect when value array changed (deep comparison workaround)
+
+  useEffect(() => {
+    const calendarLocale = localeMap[locale] || flatpickr.current?.l10ns?.en // fallback to english
+    if (flatpickr.current && calendarLocale) {
+      flatpickr.current.localize(calendarLocale)
+      flatpickr.current.set('locale', calendarLocale)
+      flatpickr.current.redraw()
+    }
+  }, [locale])
+
+  useEffect(() => {
+    if (flatpickr.current) {
+      const optionsDiff = js.difference(flatpickrOptions, prevFlatpickrOptions)
+      if (Object.keys(optionsDiff).length > 0) {
+        Object.entries(optionsDiff).forEach(([key, value]) => {
+          flatpickr.current.set(key, value)
+        })
+        flatpickr.current.redraw()
+      }
+    }
+  }, [flatpickrOptions])
+
+  return init
 }
