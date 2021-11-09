@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import _get from 'lodash/get'
 import ace from 'ace-builds/src-min-noconflict/ace'
@@ -72,26 +72,26 @@ const AceEditor = props => {
     showGutter = true,
     editorOptions = {}
   } = props
-  const [reference, setReference] = useState(null)
-  const [editor, setEditor] = useState(null)
+  const containerReference = useRef(null)
+  const editorReference = useRef(null)
 
   useEffect(() => {
-    if (reference) {
-      const aceEditor = ace.edit(reference)
+    if (containerReference.current) {
+      const aceEditor = ace.edit(containerReference.current)
       aceEditor.getSession().setValue(value)
       aceEditor.on('change', () => onChange(aceEditor.getValue()))
       setEditorConfiguration(aceEditor, props)
-      setEditor(aceEditor)
+      editorReference.current = aceEditor
 
       return () => aceEditor.destroy()
     }
-  }, [reference])
+  }, [containerReference])
   useEffect(() => {
-    if (editor) {
-      setEditorConfiguration(editor, props)
+    if (editorReference.current) {
+      setEditorConfiguration(editorReference.current, props)
     }
   }, [mode, theme, showGutter, editorOptions])
-  return <StyledEditor ref={setReference}/>
+  return <StyledEditor ref={containerReference}/>
 }
 
 AceEditor.propTypes = AceEditorPropTypes
