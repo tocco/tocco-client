@@ -11,37 +11,33 @@ const INITIAL_STATE = {
   }
 }
 
-describe('admin', () => {
-  describe('routes', () => {
-    describe('docs', () => {
-      describe('modules', () => {
-        describe('create', () => {
-          describe('reducer', () => {
-            test('should create a valid initial state', () => {
-              expect(reducer(undefined, {})).to.deep.equal(INITIAL_STATE)
-            })
+describe('docs-browser', () => {
+  describe('modules', () => {
+    describe('create', () => {
+      describe('reducer', () => {
+        test('should create a valid initial state', () => {
+          expect(reducer(undefined, {})).to.deep.equal(INITIAL_STATE)
+        })
 
-            test('should handle OPEN_DIALOG action', () => {
-              const location = '/docs/folders/23523/list'
-              const onSuccess = () => {}
-              const onError = () => {}
+        test('should handle OPEN_DIALOG action', () => {
+          const location = '/docs/folders/23523/list'
+          const onSuccess = () => {}
+          const onError = () => {}
 
-              const expectedStateAfter = {
-                ...INITIAL_STATE,
-                dialog: {
-                  instanceCount: 1,
-                  directory: true,
-                  location,
-                  onSuccess,
-                  onError
-                }
-              }
+          const expectedStateAfter = {
+            ...INITIAL_STATE,
+            dialog: {
+              instanceCount: 1,
+              directory: true,
+              location,
+              onSuccess,
+              onError
+            }
+          }
 
-              const action = actions.openDialog(location, true, onSuccess, onError)
+          const action = actions.openDialog(location, true, onSuccess, onError)
 
-              expect(reducer(INITIAL_STATE, action)).to.deep.equal(expectedStateAfter)
-            })
-          })
+          expect(reducer(INITIAL_STATE, action)).to.deep.equal(expectedStateAfter)
         })
       })
     })
