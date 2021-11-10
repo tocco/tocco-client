@@ -76,16 +76,14 @@ const AceEditor = props => {
   const editorReference = useRef(null)
 
   useEffect(() => {
-    if (containerReference.current) {
-      const aceEditor = ace.edit(containerReference.current)
-      aceEditor.getSession().setValue(value)
-      aceEditor.on('change', () => onChange(aceEditor.getValue()))
-      setEditorConfiguration(aceEditor, props)
-      editorReference.current = aceEditor
+    const aceEditor = ace.edit(containerReference.current)
+    aceEditor.getSession().setValue(value)
+    aceEditor.on('change', () => onChange(aceEditor.getValue()))
+    setEditorConfiguration(aceEditor, props)
+    editorReference.current = aceEditor
 
-      return () => aceEditor.destroy()
-    }
-  }, [containerReference])
+    return () => aceEditor.destroy()
+  }, [])
   useEffect(() => {
     if (editorReference.current) {
       setEditorConfiguration(editorReference.current, props)
