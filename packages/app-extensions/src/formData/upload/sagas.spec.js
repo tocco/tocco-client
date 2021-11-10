@@ -69,7 +69,7 @@ describe('app-extensions', () => {
                   }
                 ]
               ])
-              .put(formActions.change(formName, field, {...documentFormValue, key: resourceId}))
+              .put(formActions.change(formName, field, {...documentFormValue, resourceKey: resourceId}))
               .run()
           })
         })
