@@ -40,6 +40,6 @@ export function* uploadDocument({payload}) {
 export function* setDocument({payload}) {
   const {formName, field, resourceId} = payload
   const resource = yield call(rest.fetchEntity, 'Resource', resourceId, {paths: ['relContent.data']})
-  const documentFormValue = {...resource.paths.relContent.value.paths.data.value, key: resourceId}
+  const documentFormValue = {...resource.paths.relContent.value.paths.data.value, resourceKey: resourceId}
   yield put(formActions.change(formName, form.transformFieldName(field), documentFormValue))
 }
