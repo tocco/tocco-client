@@ -38,7 +38,7 @@ const RelationsView = ({
   const entityName = _get(currentViewInfo, 'model.name')
   useEffect(
     () => {
-      if (relations && relations.length > 0) {
+      if (!selectedRelation && relations && relations.length > 0) {
         const queryRelation = queryString.parse(history.location.search).relation
         if (queryRelation) {
           selectRelation(relations.find(r => r.relationName === queryRelation))
@@ -52,7 +52,7 @@ const RelationsView = ({
         }
       }
     },
-    [relations]
+    [relations, selectedRelation]
   )
 
   const msg = id => intl.formatMessage({id})
