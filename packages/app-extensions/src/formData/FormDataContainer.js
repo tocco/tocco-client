@@ -7,12 +7,7 @@ import _reduce from 'lodash/reduce'
 import _get from 'lodash/get'
 import _pick from 'lodash/pick'
 import _merge from 'lodash/merge'
-import {
-  isDirty as isDirtySelector,
-  getFormSyncErrors,
-  getFormAsyncErrors,
-  getFormSubmitErrors
-} from 'redux-form'
+import {getFormAsyncErrors, getFormSubmitErrors, getFormSyncErrors, isDirty as isDirtySelector} from 'redux-form'
 
 import {loadRelationEntities} from './relationEntities/actions'
 import {loadTooltip} from './tooltips/actions'
@@ -22,6 +17,7 @@ import {setDocument, uploadDocument} from './upload/actions'
 import {loadSearchFilters} from './searchFilters/actions'
 import {loadLocationsSuggestions} from './locations/actions'
 import {openRemoteCreate} from './remoteCreate/actions'
+import {loadModel} from './model/actions'
 
 const FormData = props =>
   <React.Fragment>{React.cloneElement(props.children, {formData: props})}</React.Fragment>
@@ -76,7 +72,8 @@ const mapActionCreators = {
   touchField: touchField,
   loadSearchFilters: loadSearchFilters,
   loadLocationsSuggestions: loadLocationsSuggestions,
-  openRemoteCreate: openRemoteCreate
+  openRemoteCreate: openRemoteCreate,
+  loadModel
 }
 
 const FormDataContainer = connect(

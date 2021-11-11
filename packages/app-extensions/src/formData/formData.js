@@ -20,6 +20,7 @@ import locations from './locations/reducer'
 import navigationStrategy from './navigationStrategy/reducer'
 import {setNavigationStrategy} from './navigationStrategy/actions'
 import remoteCreateSagas from './remoteCreate/sagas'
+import modelSagas from './model/sagas'
 
 export const relationEntitiesSelector = store => store.formData.relationEntities.data
 export const tooltipSelector = store => store.formData.tooltips.data
@@ -45,6 +46,7 @@ export const addToStore = (store, config) => {
   store.sagaMiddleware.run(searchFilterSagas)
   store.sagaMiddleware.run(locationSagas)
   store.sagaMiddleware.run(remoteCreateSagas, config)
+  store.sagaMiddleware.run(modelSagas)
 
   if (config.navigationStrategy) {
     store.dispatch(setNavigationStrategy(config.navigationStrategy))

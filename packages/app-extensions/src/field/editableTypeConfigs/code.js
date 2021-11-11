@@ -1,6 +1,7 @@
 export default {
   fixLabel: () => true,
-  getOptions: ({formField}) => ({
-    mode: formField.mode
+  getOptions: ({formField, formData}) => ({
+    mode: formField.mode,
+    loadModel: formData.loadModel
   })
 }
