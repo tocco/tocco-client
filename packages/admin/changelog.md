@@ -1,3 +1,14 @@
+0.5.36
+- add tooltip for remote fields
+- relation counts and current visible relation entities refreshes together with its detail form
+- Add Ace editor to code fields.
+- add usePrevious helper hook
+- cleanup flatpickr components
+- propagate onSelectChange
+- add option to choose document from dms
+- fix dnd in input edit
+- fix dashboard searchfilter
+
 0.5.35
 - show button hover title and pointer cursor
 - use correct button component for icon button
