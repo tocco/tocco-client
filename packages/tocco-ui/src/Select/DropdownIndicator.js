@@ -2,14 +2,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {components} from 'react-select'
 
-import Ball from '../Ball'
+import {StyledDropdownIndicatorBall, StyledDropdownIndicatorWrapper} from './StyledComponents'
 
 const DropdownIndicator = props => {
-  return !props.selectProps.isDisabled && <components.DropdownIndicator {...props}>
-    <Ball
-      icon={props.selectProps.menuIsOpen ? 'chevron-up' : 'chevron-down'}
-      tabIndex={-1}
-    />
+  if (props.selectProps.isDisabled) {
+    return null
+  }
+
+  return <components.DropdownIndicator {...props}>
+    <StyledDropdownIndicatorWrapper>
+      <StyledDropdownIndicatorBall
+        icon={'chevron-down'}
+        visible={!props.selectProps.menuIsOpen}
+        tabIndex={-1}
+      />
+      <StyledDropdownIndicatorBall
+        icon={'chevron-up'}
+        visible={props.selectProps.menuIsOpen}
+        tabIndex={-1}
+      />
+    </StyledDropdownIndicatorWrapper>
   </components.DropdownIndicator>
 }
 
