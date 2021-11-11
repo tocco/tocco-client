@@ -15,6 +15,7 @@ export const StyledPlaceHolder = styled.div`
   background: ${theme.color('paper')};
   padding-top: ${scale.space(-1.5)};
   padding-left: ${scale.space(-2.5)};
+  align-items: flex-start;
 
   &:hover {
     cursor: pointer;
@@ -49,7 +50,7 @@ export const StyledPreviewBox = styled.div`
   flex: 1;
 `
 
-export const StyledRelationBox = styled.div`
+export const StyledRelationBoxes = styled.div`
   background-color: ${theme.color('paper')};
   padding: ${scale.space(-1)};
   display: grid;
