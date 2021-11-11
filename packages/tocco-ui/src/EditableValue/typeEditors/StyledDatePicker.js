@@ -8,6 +8,7 @@ import {
 export const StyledDatePickerInput = styled.input`
   &&& {
     ${StyledInputCss}
+    margin: 0;
   }
 `
 
