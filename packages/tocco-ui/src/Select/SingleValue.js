@@ -23,16 +23,15 @@ const areEqual = (prevProps, nextProps) => {
   return Object.entries(clean).length === 0
 }
 
-const Content = memo(({linkComp: DetailLink, entityKey, children}) => {
-  return (DetailLink
-    ? <ClickableWrapper onMouseDown={e => {
-      e.stopPropagation()
-      e.preventDefault()
-    }}>
+const Content = memo(({linkComp: DetailLink, entityKey, children}) => (DetailLink
+  ? <ClickableWrapper onMouseDown={e => {
+    e.stopPropagation()
+    e.preventDefault()
+  }}>
     <DetailLink entityKey={entityKey}>{children}</DetailLink>
   </ClickableWrapper>
-    : children)
-}, areEqual)
+  : children),
+areEqual)
 
 Content.propTypes = {
   children: PropTypes.node,
