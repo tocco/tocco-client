@@ -95,7 +95,7 @@ const Admin = ({
           </StyledContent>
         }
         {
-          !adminAllowed && <StyledContent id="page-wrap">
+          adminAllowed === false && <StyledContent id="page-wrap">
             <ErrorView title={<FormattedMessage id={'client.admin.error.no_roles.title'}/>}
                        message={<FormattedMessage id={'client.admin.error.no_roles.message'}/>}/>
           </StyledContent>

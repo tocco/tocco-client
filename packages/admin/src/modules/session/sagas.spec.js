@@ -71,6 +71,7 @@ describe('admin', () => {
               [matchers.call.fn(sagas.sessionHeartBeat)],
               [matchers.call.fn(sagas.delayByTimeout)]
             ])
+            .put(login.setAdminAllowed(undefined))
             .put(login.setLoggedIn(true))
             .put(login.setAdminAllowed(true))
             .call(sagas.sessionHeartBeat, timeout)
