@@ -23,7 +23,11 @@ const tabs = {
   COMPLETE: 'complete'
 }
 
-const createMenuTypeMap = ({onClick, hasFilterApplied, preferencesPrefix}) => {
+const createMenuTypeMap = ({
+  onClick,
+  hasFilterApplied,
+  preferencesPrefix
+}) => {
   const usePreferences = typeof preferencesPrefix !== 'undefined'
   const canCollapse = !hasFilterApplied && usePreferences
 
@@ -81,24 +85,40 @@ const Navigation = ({
   const showMenu = !hasFilterApplied && [tabs.MODULES, tabs.SETTINGS].includes(activeMenuTab)
 
   const tabMenuMap = {
-    [tabs.MODULES]: {items: modulesMenuTree, preferencesPrefix: ''},
-    [tabs.SETTINGS]: {items: settingsMenuTree, preferencesPrefix: 'settings'},
+    [tabs.MODULES]: {
+      items: modulesMenuTree,
+      preferencesPrefix: ''
+    },
+    [tabs.SETTINGS]: {
+      items: settingsMenuTree,
+      preferencesPrefix: 'settings'
+    },
     [tabs.SYSTEM]: {items: systemMenuTree},
     [tabs.COMPLETE]: {items: completeMenuTree}
   }
 
   const modulesTypeMap = useMemo(() =>
-    createMenuTypeMap({onClick, hasFilterApplied, preferencesPrefix: tabMenuMap[tabs.MODULES].preferencesPrefix}),
-  [onClick, hasFilterApplied])
+    createMenuTypeMap({
+      onClick,
+      hasFilterApplied,
+      preferencesPrefix: tabMenuMap[tabs.MODULES].preferencesPrefix
+    }), [onClick, hasFilterApplied])
   const settingsTypeMap = useMemo(() =>
-    createMenuTypeMap({onClick, hasFilterApplied, preferencesPrefix: tabMenuMap[tabs.SETTINGS].preferencesPrefix}),
-  [onClick, hasFilterApplied])
+    createMenuTypeMap({
+      onClick,
+      hasFilterApplied,
+      preferencesPrefix: tabMenuMap[tabs.SETTINGS].preferencesPrefix
+    }), [onClick, hasFilterApplied])
   const systemTypeMap = useMemo(() =>
-    createMenuTypeMap({onClick, hasFilterApplied}),
-  [onClick, hasFilterApplied])
+    createMenuTypeMap({
+      onClick,
+      hasFilterApplied
+    }), [onClick, hasFilterApplied])
   const completeTypeMap = useMemo(() =>
-    createMenuTypeMap({onClick, hasFilterApplied}),
-  [onClick, hasFilterApplied])
+    createMenuTypeMap({
+      onClick,
+      hasFilterApplied
+    }), [onClick, hasFilterApplied])
 
   useEffect(() => {
     if (menuOpen) {
@@ -131,7 +151,10 @@ const Navigation = ({
   }
 
   const handleExpandAll = () => {
-    const {items, preferencesPrefix} = tabMenuMap[activeMenuTab] || {}
+    const {
+      items,
+      preferencesPrefix
+    } = tabMenuMap[activeMenuTab] || {}
     if (items && typeof preferencesPrefix !== 'undefined') {
       const preferences = getCompleteMenuPreferences(items, preferencesPrefix, false)
       saveUserPreferences(preferences)
@@ -139,14 +162,17 @@ const Navigation = ({
   }
 
   const handleCollapseAll = () => {
-    const {items, preferencesPrefix} = tabMenuMap[activeMenuTab] || {}
+    const {
+      items,
+      preferencesPrefix
+    } = tabMenuMap[activeMenuTab] || {}
     if (items && typeof preferencesPrefix !== 'undefined') {
       const preferences = getCompleteMenuPreferences(items, preferencesPrefix, true)
       saveUserPreferences(preferences)
     }
   }
 
-  const setFocusToSerachInput = () => {
+  const setFocusToSearchInput = () => {
     if (inputEl.current) {
       inputEl.current.focus()
     }
@@ -154,7 +180,7 @@ const Navigation = ({
 
   const changeMenuTab = tab => {
     setActiveMenuTab(tab)
-    setFocusToSerachInput()
+    setFocusToSearchInput()
   }
 
   return (
@@ -237,8 +263,8 @@ const Navigation = ({
         {activeMenuTab === tabs.SYSTEM
         && <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={systemTypeMap}/>}
         {activeMenuTab === tabs.COMPLETE
-          && <MenuTree items={completeMenuTree} searchFilter={filter}
-              typeMapping={completeTypeMap} requireSearch={true}/>}
+        && <MenuTree items={completeMenuTree} searchFilter={filter}
+                     typeMapping={completeTypeMap} requireSearch={true}/>}
       </StyledMenuWrapper>
     </StyledNav>
   )
