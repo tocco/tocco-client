@@ -28,7 +28,7 @@ DetailLinkRelativeWithoutIntl.propTypes = {
 }
 
 const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction}) => {
-  const {searchfilter, entityName, scope, limit} = content
+  const {searchFilterUniqueId, entityName, scope, limit} = content
 
   const handleRowClick = ({id}) => {
     navigationStrategy.openDetail(entityName, id, false)
@@ -40,7 +40,7 @@ const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction
       limit={limit}
       entityName={entityName}
       formName={entityName}
-      searchFilters={[searchfilter]}
+      searchFilters={[searchFilterUniqueId]}
       scope={scope}
       showActions={false}
       onRowClick={handleRowClick}
