@@ -3,7 +3,7 @@ import {MemoryRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
 import {IntlStub, intlEnzyme, TestThemeProvider} from 'tocco-test-util'
-import {Ball, StatedValue} from 'tocco-ui'
+import {EditableValue, StatedValue} from 'tocco-ui'
 
 import SearchForm from './'
 
@@ -96,7 +96,7 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(StatedValue)).to.have.length(3)
-        expect(wrapper.find(Ball)).to.have.length(1)
+        expect(wrapper.find(EditableValue)).to.have.length(3)
       })
 
       test('should render only the fulltext field', () => {
@@ -140,11 +140,10 @@ describe('entity-list', () => {
               </MemoryRouter>
             </TestThemeProvider>
           </Provider>
-
         )
 
         expect(wrapper.find(StatedValue)).to.have.length(1)
-        expect(wrapper.find(Ball)).to.have.length(1)
+        expect(wrapper.find(EditableValue)).to.have.length(1)
       })
 
       test('should render two fields', () => {
@@ -191,7 +190,7 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(StatedValue)).to.have.length(2)
-        expect(wrapper.find(Ball)).to.have.length(2)
+        expect(wrapper.find(EditableValue)).to.have.length(2)
       })
 
       test('should not show hidden value', () => {

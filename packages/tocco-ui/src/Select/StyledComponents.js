@@ -3,6 +3,7 @@ import TetherComponent from 'react-tether'
 import {components} from 'react-select'
 import {getLuminance} from 'polished'
 
+import Ball from '../Ball'
 import {declareFont, generateDisabledShade, generateShades, scale, theme} from '../utilStyles'
 import {StyledScrollbar} from '../Layout'
 
@@ -47,6 +48,26 @@ export const StyledSingleValueWrapper = styled.div`
   overflow-x: hidden;
   position: relative;
   color: ${({isDisabled}) => isDisabled ? theme.color('text') : 'inherit'};
+`
+
+/**
+ * Toggling the icon is very slow on Safari.
+ * To change the icon with `transform` css property is very fast.
+ */
+export const StyledDropdownIndicatorWrapper = styled.div`
+  && {
+    position: relative;
+    width: 26px;
+    height: 23px;
+  }
+`
+export const StyledDropdownIndicatorBall = styled(Ball)`
+  && {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: ${({visible}) => visible ? 'scale(1)' : 'scale(0)'};
+  }
 `
 
 export const reactSelectTheme = (theme, outerTheme) => ({
