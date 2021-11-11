@@ -103,7 +103,8 @@ export const StyledMenuButton = styled(Ball)`
   border-radius: 0;
   padding: 0;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: transparent;
     color: ${secondaryLight};
   }

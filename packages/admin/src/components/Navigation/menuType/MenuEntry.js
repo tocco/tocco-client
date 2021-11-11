@@ -6,16 +6,25 @@ import {StyledMenuEntry, StyledMenuIconWrapper, StyledTogglerIconWrapper} from '
 import {getMenuPreferencesKey} from '../../../utils/navigationUtils'
 
 const MenuEntry = props => {
-  const {item, isOpen, canCollapse, preferencesPrefix, menuTreePath, saveUserPreferences} = props
-  const {icon, label} = item
+  const {
+    item,
+    isOpen,
+    canCollapse,
+    preferencesPrefix,
+    menuTreePath,
+    saveUserPreferences
+  } = props
+  const {
+    icon,
+    label
+  } = item
 
-  const toggleMenyEntryCollapsed = () => {
+  const toggleMenuEntryCollapsed = () =>
     saveUserPreferences({[getMenuPreferencesKey(preferencesPrefix, menuTreePath)]: isOpen})
-  }
 
   return (
     <StyledMenuEntry
-      {...(canCollapse ? {onClick: toggleMenyEntryCollapsed} : {})}
+      {...(canCollapse ? {onClick: toggleMenuEntryCollapsed} : {})}
     >
       <span>
         {icon && <StyledMenuIconWrapper><Icon icon={icon}/></StyledMenuIconWrapper>}
@@ -25,7 +34,7 @@ const MenuEntry = props => {
         <StyledTogglerIconWrapper>
           <Icon
             icon={isOpen ? 'chevron-up' : 'chevron-down'}
-            onClick={toggleMenyEntryCollapsed}
+            onClick={toggleMenuEntryCollapsed}
           />
         </StyledTogglerIconWrapper>)}
     </StyledMenuEntry>
