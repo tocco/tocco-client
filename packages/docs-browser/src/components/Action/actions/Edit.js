@@ -7,8 +7,11 @@ import {selection} from 'tocco-util'
 import getDetailFormName from '../../../utils/getDetailFormName'
 
 const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction}) => {
+  const isActionBlocked = action =>
+    action.payload?.toaster?.title === 'client.entity-detail.createSuccessfulTitle'
+
   const emitActionBarrier = action => {
-    if (action.payload && action.payload.title !== 'client.entity-detail.saveSuccessfulTitle') {
+    if (!isActionBlocked(action)) {
       emitAction(action)
     }
   }

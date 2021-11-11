@@ -7,9 +7,11 @@ import getNode from '../../../utils/getNode'
 import getDetailFormName from '../../../utils/getDetailFormName'
 
 const CreateFolder = ({context, onSuccess, intl, emitAction}) => {
+  const isActionBlocked = action =>
+    action.payload?.toaster?.title === 'client.entity-detail.createSuccessfulTitle'
+
   const emitActionBarrier = action => {
-    if (action.payload && action.payload.toaster
-      && action.payload.toaster.title !== 'client.entity-detail.createSuccessfulTitle') {
+    if (!isActionBlocked(action)) {
       emitAction(action)
     }
   }
