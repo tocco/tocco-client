@@ -3,28 +3,30 @@ import 'ace-builds/src-min-noconflict/mode-text'
 import _mergeWith from 'lodash/mergeWith'
 import _isArray from 'lodash/isArray'
 
+import TqlAutoCompleter from './TqlAutoCompleter'
+
+export const operators = ['==', '!=', '<=', '>=', '<', '>', '~=']
+export const atoms = ['true', 'false', 'null']
+export const types = [
+  'string', 'long', 'serial', 'bool', 'boolean', 'double', 'float', 'time', 'timestamp', 'char', 'varchar', 'date',
+  'datetime'
+]
+export const placeholders = [
+  'now_date', 'yesterday_date', 'tomorrow_date', 'today_date', 'now_start', 'yesterday_start', 'tomorrow_start',
+  'today_start', 'now', 'yesterday', 'tomorrow', 'today', 'currentUsername', 'currentUser', 'currentBu'
+]
+export const functions = [
+  'in', 'dateadd', 'datetimeadd', 'duedate', 'birthdayin', 'fulltext', 'likeall', 'distance', 'inboundingbox'
+]
+
 export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rules').TextHighlightRules {
   constructor() {
     super()
 
-    const operators = ['==', '!=', '<=', '>=', '<', '>', '~=']
-    const atoms = ['true', 'false', 'null']
-    const types = [
-      'string', 'long', 'serial', 'bool', 'boolean', 'double', 'float', 'time', 'timestamp', 'char', 'varchar', 'date',
-      'datetime'
-    ]
-    const placeholders = [
-      'now_date', 'yesterday_date', 'tomorrow_date', 'today_date', 'now_start', 'yesterday_start', 'tomorrow_start',
-      'today_start', 'now', 'yesterday', 'tomorrow', 'today', 'currentUsername', 'currentUser', 'currentBu'
-    ]
-    const functions = [
-      'in', 'dateadd', 'datetimeadd', 'duedate', 'birthdayin', 'fulltext', 'likeall', 'distance', 'inboundingbox'
-    ]
-
     const commonWhere = [
       {
-        token: 'keyword.operator',
-        regex: /\s*(and|or|not)($|\s+)/,
+        token: 'keyword.operator.conjunction',
+        regex: /(\s*)(and|or|not)($|\s+)/,
         caseInsensitive: true
       },
       {
@@ -45,13 +47,23 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
         caseInsensitive: true
       },
       {
-        token: ['keyword.function', 'paren.lparen', 'text', 'paren.rparen', 'text'],
+        token: [
+          'keyword.function.nice_function',
+          'paren.lparen.function_arguments',
+          'text.function_arguments',
+          'paren.rparen',
+          'text.whitespace'
+        ],
         regex: `((?:${functions.join('|')})\\s*)(\\()(.*?)(\\))($|\\s+)`,
         caseInsensitive: true
       },
       {
-        token: ['keyword.other', 'support.function.field', 'text'],
-        regex: /(\.)?([a-z_]+)($|\s+)/,
+        token: 'keyword.other.chaining',
+        regex: /\./
+      },
+      {
+        token: 'support.function.field',
+        regex: /([a-z_]+)($|\s+)/,
         push: 'comparison'
       }
     ]
@@ -74,7 +86,7 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
       model: [
         {
           token: 'support.class.model',
-          regex: /[A-Z][a-z_]*\s*/,
+          regex: /[A-Z][a-z_0-9]*\s*/,
           next: 'pop'
         }
       ],
@@ -89,7 +101,7 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
       ],
       comparison: [
         {
-          token: 'keyword.operator',
+          token: 'keyword.operator.comparison',
           regex: `(${operators.join('|')})\\s*`,
           next: 'value'
         }
@@ -106,8 +118,8 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
           next: 'pop'
         },
         {
-          token: 'constant.language',
-          regex: `:(${placeholders.join('|')})\\s*`,
+          token: 'constant.language.tocco_placeholder',
+          regex: `\\:(${placeholders.join('|')})\\s*`,
           next: 'pop',
           caseInsensitive: true
         },
@@ -132,6 +144,10 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
           token: 'support.class.relation',
           regex: /rel/,
           push: 'model'
+        },
+        {
+          token: 'keyword.other.chaining',
+          regex: /\./
         },
         {
           token: 'keyword.where',
@@ -164,6 +180,10 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
           push: 'model'
         },
         {
+          token: 'keyword.other.chaining',
+          regex: /\./
+        },
+        {
           token: 'keyword.where',
           regex: /where($|\s+)/,
           next: 'countwhere',
@@ -190,8 +210,12 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
           push: 'model'
         },
         {
-          token: ['keyword.other', 'support.function.field', 'keyword', 'text'],
-          regex: /(\.)?([a-z_]+\s*)(asc|desc)?($|,|\s+)/
+          token: 'keyword.other.chaining',
+          regex: /\./
+        },
+        {
+          token: ['support.function.field', 'keyword.direction', 'separator'],
+          regex: /([a-z_]+\s*)(asc|desc)?($|,|\s+)/
         }
       ]
     }
@@ -205,19 +229,11 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
   }
 }
 
-// TODO implement TOCDEV-4494
-const TqlCompleter = () => ({
-  getCompletions: function(editor, session, pos, prefix) {
-    return [
-    ]
-  }
-})
-
 export default class TqlMode extends ace.require('ace/mode/text').Mode {
-  constructor() {
+  constructor(loadModel) {
     super()
     this.HighlightRules = TqlHighlightRules
-    this.getCompletions = TqlCompleter().getCompletions
+    this.completer = TqlAutoCompleter(loadModel)
     this.snippedIdField = null // TODO implement? TOCDEV-4499
   }
 }

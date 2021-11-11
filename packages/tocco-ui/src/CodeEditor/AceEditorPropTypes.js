@@ -52,7 +52,11 @@ const AceEditorPropTypes = {
      * whether to display the editor in redonly mode
      */
     readOnly: PropTypes.bool
-  })
+  }),
+  /**
+   * used to load paths for TQL autocompletion
+   */
+  loadModel: PropTypes.func.isRequired
 }
 
 export default AceEditorPropTypes
