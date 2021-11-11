@@ -26,25 +26,21 @@ export function* loadModel({
   if (path.length > 0) {
     const [sourceModel, ...relationSteps] = path
     const {body} = yield call(requestSaga, `entities/${sourceModel}/model/resolve?path=${relationSteps.join('.')}`)
-    if (body) {
-      const {
-        fields,
-        relations
-      } = body
-      const availablePaths = [
-        ...(fields.map(f => ({
-          label: `${f.fieldName} (${f.type})`,
-          value: f.fieldName,
-          type: 'field'
-        }))),
-        ...(relations.map(r => ({
-          label: buildRelationLabel(r),
-          value: r.relationName,
-          type: 'relation'
-        })))
-      ]
-      callback(availablePaths)
-    }
+    const fields = body.fields || []
+    const relations = body.relations || []
+    const availablePaths = [
+      ...(fields.map(f => ({
+        label: `${f.fieldName} (${f.type})`,
+        value: f.fieldName,
+        type: 'field'
+      }))),
+      ...(relations.map(r => ({
+        label: buildRelationLabel(r),
+        value: r.relationName,
+        type: 'relation'
+      })))
+    ]
+    callback(availablePaths)
   } else {
     const {body: {entities}} = yield call(requestSaga, 'entities')
     callback(Object.keys(entities))
