@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import TetherComponent from 'react-tether'
 import {components} from 'react-select'
 import {getLuminance} from 'polished'
 
@@ -13,21 +12,11 @@ export const StyledIndicatorsContainerWrapper = styled.div`
   background-color: ${theme.color('paper')};
 `
 
-export const StyledTether = styled(TetherComponent)`
-  && {
-    z-index: 1;
-  }
-`
-
 export const StyledMenu = styled(components.Menu)`
   && {
     margin: 8px 0 8px -10px;
-    width: calc(${({wrapperWidth}) => wrapperWidth}px + 20px);
-    position: relative;
-
-    .tether-target-attached-top & {
-      transform: translateY(-${({wrapperHeight}) => wrapperHeight + 6}px);
-    }
+    width: calc(100% + 20px);
+    position: absolute;
   }
 `
 

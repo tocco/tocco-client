@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef} from 'react'
+import React, {useMemo, useRef} from 'react'
 import ReactSelect from 'react-select'
 import _debounce from 'lodash/debounce'
 import {withTheme} from 'styled-components'
@@ -60,11 +60,10 @@ const Select = ({
     }
   }
 
+  const styles = useMemo(() => reactSelectStyles(theme), [theme])
+
   const debouncedSearchOptions
     = searchOptions ? _debounce(searchOptions, SEARCH_DEBOUNCE) : () => {}
-
-  const wrapperWidth = selectWrapper.current ? selectWrapper.current.clientWidth : 300
-  const wrapperHeight = selectWrapper.current ? selectWrapper.current.clientHeight : 35
 
   return (
     <div
@@ -81,8 +80,6 @@ const Select = ({
         <ReactSelect
           getOptionLabel={option => option.display}
           getOptionValue={option => option.key}
-          wrapperWidth={wrapperWidth}
-          wrapperHeight={wrapperHeight}
           components={{
             ClearIndicator,
             LoadingIndicator,
@@ -112,7 +109,8 @@ const Select = ({
           isDisabled={immutable}
           ref={selectComponent}
           onMenuOpen={handleMenuOpen}
-          styles={reactSelectStyles(theme)}
+          menuPortalTarget={document.body}
+          styles={styles}
           theme={themeSelect => reactSelectTheme(themeSelect, theme)}
           loadTooltip={loadTooltip}
           tooltips={tooltips}
