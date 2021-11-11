@@ -1,1 +1,0 @@
-ace.require(["ace/snippets/forth"],(function(m){"object"==typeof module&&"object"==typeof exports&&module&&(module.exports=m)}));

@@ -1,1 +1,0 @@
-ace.require(["ace/snippets/nix"],(function(m){"object"==typeof module&&"object"==typeof exports&&module&&(module.exports=m)}));

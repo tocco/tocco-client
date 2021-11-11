@@ -1,1 +1,0 @@
-ace.define("ace/snippets/fsl",["require","exports","module"],(function(require,exports,module){"use strict";exports.snippetText=void 0,exports.scope=""})),ace.require(["ace/snippets/fsl"],(function(m){"object"==typeof module&&"object"==typeof exports&&module&&(module.exports=m)}));

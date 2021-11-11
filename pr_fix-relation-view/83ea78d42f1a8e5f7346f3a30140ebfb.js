@@ -1,1 +1,0 @@
-ace.require(["ace/snippets/apache_conf"],(function(m){"object"==typeof module&&"object"==typeof exports&&module&&(module.exports=m)}));
