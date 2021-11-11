@@ -6,13 +6,13 @@ import queryString from 'query-string'
 import _get from 'lodash/get'
 
 import {
-  RelationBox,
-  RelationLabel,
-  RelationLinks,
+  StyledRelationBox,
+  StyledRelationLabel,
+  StyledRelationLinks,
   StyledPlaceHolder,
   StyledPreviewBox,
   StyledPreviewLink,
-  StyledRelationBox,
+  StyledRelationBoxes,
   StyledRelationsViewWrapper,
   StyledToggleCollapse,
   StyledToggleCollapseButton
@@ -38,7 +38,7 @@ const RelationsView = ({
   const entityName = _get(currentViewInfo, 'model.name')
   useEffect(
     () => {
-      if (!selectedRelation && relations && relations.length > 0) {
+      if (!selectedRelation && relations?.length > 0) {
         const queryRelation = queryString.parse(history.location.search).relation
         if (queryRelation) {
           selectRelation(relations.find(r => r.relationName === queryRelation))
@@ -57,58 +57,70 @@ const RelationsView = ({
 
   const msg = id => intl.formatMessage({id})
 
-  const getRelationCountLabel = relationName => relationsInfo[relationName] && relationsInfo[relationName].count > 0
-    ? <RelationLabel>&nbsp;({relationsInfo[relationName].count})</RelationLabel>
+  const getRelationCountLabel = relationName => relationsInfo[relationName]?.count > 0
+    ? <StyledRelationLabel>&nbsp;({relationsInfo[relationName].count})</StyledRelationLabel>
     : null
 
   if (!relations || relations.length === 0 || !currentViewInfo) {
     return null
   }
 
-  const hasCreateRights = relationName => relationsInfo[relationName] && relationsInfo[relationName].createPermission
+  const hasCreateRights = relationName => relationsInfo[relationName]?.createPermission
 
   const RelationPreview = selectedRelation
     ? (selectedRelation.targetEntity === 'Resource' ? DocsViewAdapter : ListView)
     : () => <React.Fragment/>
+
+  const RelationBox = relation => {
+    const {
+      relationName,
+      targetEntity,
+      relationDisplay
+    } = relation
+    const handleBoxClick = () => {
+      selectRelation(relation)
+      history.replace({
+        search: `?relation=${relationName}`
+      })
+      setRelation(entityName, relationName)
+    }
+
+    return (
+      <StyledRelationBox
+        key={`relation-${relationName}`}
+        selected={selectedRelation?.relationName === relationName}
+        onClick={handleBoxClick}
+      >
+        <StyledRelationLabel title={relationDisplay.label}>
+          {relationDisplay.label}</StyledRelationLabel>{getRelationCountLabel(relationName)}
+        <StyledRelationLinks>
+          <StyledLink
+            aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
+            to={match.url.replace(/(relations|detail)$/, relationName)}>
+            <Icon icon="arrow-right"/>
+          </StyledLink>
+          {hasCreateRights(relationName) && targetEntity !== 'Resource'
+          && <StyledLink
+            aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
+            to={match.url.replace(/(relations|detail)$/, relationName) + '/create'}>
+            <Icon icon="plus"/>
+          </StyledLink>
+          }
+        </StyledRelationLinks>
+      </StyledRelationBox>
+    )
+  }
+
+  const RelationBoxes = relations.map(relation => RelationBox(relation))
 
   return <>
     <StyledRelationsViewWrapper isCollapsed={isCollapsed}>
       <StyledToggleCollapse>
         <StyledToggleCollapseButton icon="chevron-right" onClick={toggleCollapse}/>
       </StyledToggleCollapse>
-      <StyledRelationBox>
-        {relations.map(relation => (
-          <RelationBox
-            key={`relation-${relation.relationName}`}
-            selected={selectedRelation && relation.relationName === selectedRelation.relationName}
-            onClick={() => {
-              selectRelation(relation)
-              history.replace({
-                search: '?relation=' + relation.relationName
-              })
-              setRelation(entityName, relation.relationName)
-            }}
-          >
-            <RelationLabel title={relation.relationDisplay.label}>
-              {relation.relationDisplay.label}</RelationLabel>{getRelationCountLabel(relation.relationName)}
-            <RelationLinks>
-              <StyledLink
-                aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
-                to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
-                <Icon icon="arrow-right"/>
-              </StyledLink>
-              {hasCreateRights(relation.relationName) && relation.targetEntity !== 'Resource'
-              && <StyledLink
-                aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-                to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
-                <Icon icon="plus"/>
-              </StyledLink>
-              }
-            </RelationLinks>
-          </RelationBox>
-        ))}
-      </StyledRelationBox>
-
+      <StyledRelationBoxes>
+        {RelationBoxes}
+      </StyledRelationBoxes>
       {selectedRelation
       && <StyledPreviewBox>
         <Typography.H4>

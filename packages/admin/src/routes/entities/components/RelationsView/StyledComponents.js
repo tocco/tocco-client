@@ -73,7 +73,7 @@ export const StyledPreviewLink = styled(StyledLink)`
   }
 `
 
-export const RelationLinks = styled.div`
+export const StyledRelationLinks = styled.div`
   display: none;
   margin-left: auto;
 
@@ -83,7 +83,7 @@ export const RelationLinks = styled.div`
   }
 `
 
-export const RelationBox = styled.div`
+export const StyledRelationBox = styled.div`
   border-radius: ${theme.radii('large')};
   padding: ${scale.space(-2.7)} ${scale.space(-1)};
   display: flex;
@@ -97,7 +97,7 @@ export const RelationBox = styled.div`
     }
   }
   ${({selected}) => selected && `
-    ${RelationLinks} {
+    ${StyledRelationLinks} {
       display: flex;
     }
     `
@@ -105,7 +105,7 @@ export const RelationBox = styled.div`
 
   // allow hover styles only on non-touch devices
   @media (hover: hover) and (pointer: fine) {
-    &:hover ${RelationLinks} {
+    &:hover ${StyledRelationLinks} {
       display: flex;
     }
 
@@ -126,7 +126,7 @@ export const RelationBox = styled.div`
   }
 `
 
-export const RelationLabel = styled(StyledSpan)`
+export const StyledRelationLabel = styled(StyledSpan)`
   && {
     max-width: 110px;
   }
