@@ -11,7 +11,7 @@ describe('dashboard', () => {
         describe('InfoBoxSearchFilterContent', () => {
           test('should render entity-list content', () => {
             const content = {
-              searchfilter: 'birthdays',
+              searchFilterUniqueId: 'birthdays',
               entityName: 'User',
               scope: 'infobox',
               limit: 25
@@ -20,7 +20,7 @@ describe('dashboard', () => {
                 <InfoBoxSearchFilterContent id="infobox" content={content}/>
             )
 
-            expect(wrapper.find(EntityListApp).prop('searchFilters')).to.deep.equal([content.searchfilter])
+            expect(wrapper.find(EntityListApp).prop('searchFilters')).to.deep.equal([content.searchFilterUniqueId])
             expect(wrapper.find(EntityListApp).prop('scope')).to.deep.equal(content.scope)
             expect(wrapper.find(EntityListApp).prop('entityName')).to.deep.equal(content.entityName)
             expect(wrapper.find(EntityListApp).prop('formName')).to.deep.equal(content.entityName)
