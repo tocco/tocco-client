@@ -15,7 +15,7 @@ import {
   faCheck, faMapMarked, faBars, faInfo, faCompress, faBook, faEllipsisV, faSquare, faExclamation, faBell,
   faArrowToBottom, faArrowToTop, faBox, faBoxOpen, faNewspaper, faComment, faSave, faPen, faAddressCard,
   faMailBulk, faSitemap, faBarcodeAlt, faAbacus, faCalendarCheck, faPhoneLaptop, faTasks, faChalkboardTeacher, faUsers,
-  faChevronDoubleDown, faChevronDoubleUp
+  faChevronDoubleDown, faChevronDoubleUp, faCube, faChartNetwork, faWrench, faLaptopCode
 } from '@fortawesome/pro-light-svg-icons'
 import {
   faApple, faDropbox, faFacebook, faFacebookF, faGoogle, faJira, faMicrosoft
@@ -35,7 +35,8 @@ import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
     faExclamationCircle, faTrash, faList, faSquare, faBell, faArrowToBottom, faArrowToTop, faSquareSolid, faBox,
     faBoxOpen, faNewspaper, faComment, faSave, faPen, faPaperclip, faAddressCard,
     faMailBulk, faSitemap, faBarcodeAlt, faAbacus, faCalendarCheck, faPhoneLaptop, faTasks,
-    faChalkboardTeacher, faUsers, faChevronDoubleDown, faChevronDoubleUp)
+    faChalkboardTeacher, faUsers, faChevronDoubleDown, faChevronDoubleUp, faCube, faChartNetwork,
+    faWrench, faLaptopCode)
 })()
 
 /**

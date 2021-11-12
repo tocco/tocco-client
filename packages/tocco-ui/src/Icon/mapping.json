@@ -80,6 +80,10 @@
     "id": "fal, chalkboard-teacher",
     "lib": "fa"
   },
+  "chart-network": {
+    "id": "fal, chart-network",
+    "lib": "fa"
+  },
   "check": {
     "id": "fal, check",
     "lib": "fa",
@@ -143,6 +147,10 @@
   },
   "comment": {
     "id": "fal, comment",
+    "lib": "fa"
+  },
+  "cube": {
+    "id": "fal, cube",
     "lib": "fa"
   },
   "dropbox": {
@@ -263,6 +271,10 @@
   },
   "info": {
     "id": "fal, info",
+    "lib": "fa"
+  },
+  "laptop-code": {
+    "id": "fal, laptop-code",
     "lib": "fa"
   },
   "list": {
@@ -414,6 +426,10 @@
   },
   "users": {
     "id": "fal, users",
+    "lib": "fa"
+  },
+  "wrench": {
+    "id": "fal, wrench",
     "lib": "fa"
   }
 }
