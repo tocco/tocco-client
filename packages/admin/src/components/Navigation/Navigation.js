@@ -7,20 +7,20 @@ import {
   StyledTabsContainer,
   StyledNav,
   StyledMenuWrapper,
-  StyledNavSwitchButton,
-  StyledNavButton,
   StyledSearchBoxWrapper,
   StyledMenuButtonsWrapper,
-  StyledMenuButton
+  StyledMenuButton,
+  StyledNavIconButton,
+  StyledActiveTabLabel
 } from './StyledComponents'
 import {ActionEntry, EntityExplorerEntry, MenuEntry, MenuChildrenWrapper} from './menuType'
 import {getCompleteMenuPreferences} from '../../utils/navigationUtils'
 
-const tabs = {
+const menuTabs = {
   MODULES: 'modules',
+  COMPLETE: 'complete',
   SETTINGS: 'settings',
-  SYSTEM: 'system',
-  COMPLETE: 'complete'
+  SYSTEM: 'system'
 }
 
 const createMenuTypeMap = ({
@@ -74,40 +74,52 @@ const Navigation = ({
   activeMenuTab,
   setActiveMenuTab,
   intl,
-  setVisibleMenus,
-  visibleMenus,
   saveUserPreferences
 }) => {
   const inputEl = useRef(null)
   const navigationEl = useRef(null)
   const [filter, setFilter] = useState('')
   const hasFilterApplied = Boolean(filter)
-  const showMenu = !hasFilterApplied && [tabs.MODULES, tabs.SETTINGS].includes(activeMenuTab)
+  const showMenu = !hasFilterApplied && [menuTabs.MODULES, menuTabs.SETTINGS].includes(activeMenuTab)
 
-  const tabMenuMap = {
-    [tabs.MODULES]: {
+  const msg = id => intl.formatMessage({id})
+
+  const menuTabsConfig = {
+    [menuTabs.MODULES]: {
       items: modulesMenuTree,
-      preferencesPrefix: ''
+      preferencesPrefix: '',
+      label: msg('client.admin.navigation.modules'),
+      icon: 'cube'
     },
-    [tabs.SETTINGS]: {
+    [menuTabs.COMPLETE]: {
+      items: completeMenuTree,
+      label: msg('client.admin.navigation.complete'),
+      icon: 'chart-network'
+    },
+    [menuTabs.SETTINGS]: {
       items: settingsMenuTree,
-      preferencesPrefix: 'settings'
+      preferencesPrefix: 'settings',
+      label: msg('client.admin.navigation.settings'),
+      icon: 'wrench'
     },
-    [tabs.SYSTEM]: {items: systemMenuTree},
-    [tabs.COMPLETE]: {items: completeMenuTree}
+    [menuTabs.SYSTEM]: {
+      items: systemMenuTree,
+      label: msg('client.admin.navigation.system'),
+      icon: 'laptop-code'
+    }
   }
 
   const modulesTypeMap = useMemo(() =>
     createMenuTypeMap({
       onClick,
       hasFilterApplied,
-      preferencesPrefix: tabMenuMap[tabs.MODULES].preferencesPrefix
+      preferencesPrefix: menuTabsConfig[menuTabs.MODULES].preferencesPrefix
     }), [onClick, hasFilterApplied])
   const settingsTypeMap = useMemo(() =>
     createMenuTypeMap({
       onClick,
       hasFilterApplied,
-      preferencesPrefix: tabMenuMap[tabs.SETTINGS].preferencesPrefix
+      preferencesPrefix: menuTabsConfig[menuTabs.SETTINGS].preferencesPrefix
     }), [onClick, hasFilterApplied])
   const systemTypeMap = useMemo(() =>
     createMenuTypeMap({
@@ -123,14 +135,12 @@ const Navigation = ({
   useEffect(() => {
     if (menuOpen) {
       if (!activeMenuTab) {
-        setActiveMenuTab(tabs.MODULES)
+        setActiveMenuTab(menuTabs.MODULES)
       }
       inputEl.current.select()
-      inputEl.current.focus()
+      setFocusToSearchInput()
     }
   }, [menuOpen])
-
-  const msg = id => intl.formatMessage({id})
 
   const handleCursorNavigation = key => {
     const focusableElements = navigationEl.current.querySelectorAll('a[data-quick-navigation="true"], input')
@@ -154,7 +164,7 @@ const Navigation = ({
     const {
       items,
       preferencesPrefix
-    } = tabMenuMap[activeMenuTab] || {}
+    } = menuTabsConfig[activeMenuTab] || {}
     if (items && typeof preferencesPrefix !== 'undefined') {
       const preferences = getCompleteMenuPreferences(items, preferencesPrefix, false)
       saveUserPreferences(preferences)
@@ -165,7 +175,7 @@ const Navigation = ({
     const {
       items,
       preferencesPrefix
-    } = tabMenuMap[activeMenuTab] || {}
+    } = menuTabsConfig[activeMenuTab] || {}
     if (items && typeof preferencesPrefix !== 'undefined') {
       const preferences = getCompleteMenuPreferences(items, preferencesPrefix, true)
       saveUserPreferences(preferences)
@@ -186,50 +196,31 @@ const Navigation = ({
   return (
     <StyledNav ref={navigationEl} onKeyDown={onKeyDown} data-cy="admin-nav">
       <StyledTabsContainer>
-        {visibleMenus === 'main'
-        && <>
-          <StyledNavSwitchButton
-            active={false}
-            onClick={() => {
-              setVisibleMenus('additional')
-              changeMenuTab(tabs.COMPLETE)
-            }}
-            icon={'chevron-right'}
-            narrow={true}
-          />
-          <StyledNavButton
-            active={activeMenuTab === tabs.MODULES}
-            onClick={() => changeMenuTab(tabs.MODULES)}
-            label={msg('client.admin.navigation.modules')}
-          />
-          <StyledNavButton
-            active={activeMenuTab === tabs.SETTINGS}
-            onClick={() => changeMenuTab(tabs.SETTINGS)}
-            label={msg('client.admin.navigation.settings')}
-          />
-        </>}
-        {visibleMenus === 'additional'
-        && <>
-          <StyledNavSwitchButton
-            active={false}
-            onClick={() => {
-              setVisibleMenus('main')
-              changeMenuTab(tabs.MODULES)
-            }}
-            icon={'chevron-left'}
-            narrow={true}
-          />
-          <StyledNavButton
-            active={activeMenuTab === tabs.SYSTEM}
-            onClick={() => changeMenuTab(tabs.SYSTEM)}
-            label={msg('client.admin.navigation.system')}
-          />
-          <StyledNavButton
-            active={activeMenuTab === tabs.COMPLETE}
-            onClick={() => changeMenuTab(tabs.COMPLETE)}
-            label={msg('client.admin.navigation.complete')}
-          />
-        </>}
+        <StyledActiveTabLabel>{menuTabsConfig[activeMenuTab]?.label}</StyledActiveTabLabel>
+        <div>
+          {Object.keys(menuTabs).map(key => {
+            const menuTab = menuTabs[key]
+            return (
+              <StyledNavIconButton
+                key={key}
+                active={activeMenuTab === menuTab}
+                onMouseDown={e => {
+                  changeMenuTab(menuTab)
+                  
+                  /**
+                   * Prevent floating label on search input jumping
+                   * up and down while switching between menu tabs.
+                   * This prevents loosing the focus when "clicking"
+                   * on the menu tab button.
+                   */
+                  e.preventDefault()
+                }}
+                title={menuTabsConfig[menuTab].label}
+                icon={menuTabsConfig[menuTab].icon}
+              />
+            )
+          })}
+        </div>
       </StyledTabsContainer>
       <StyledSearchBoxWrapper>
         <SearchBox
@@ -256,13 +247,13 @@ const Navigation = ({
           />
         </StyledMenuButtonsWrapper>}
 
-        {activeMenuTab === tabs.MODULES
+        {activeMenuTab === menuTabs.MODULES
         && <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={modulesTypeMap}/>}
-        {activeMenuTab === tabs.SETTINGS
+        {activeMenuTab === menuTabs.SETTINGS
         && <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={settingsTypeMap}/>}
-        {activeMenuTab === tabs.SYSTEM
+        {activeMenuTab === menuTabs.SYSTEM
         && <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={systemTypeMap}/>}
-        {activeMenuTab === tabs.COMPLETE
+        {activeMenuTab === menuTabs.COMPLETE
         && <MenuTree items={completeMenuTree} searchFilter={filter}
                      typeMapping={completeTypeMap} requireSearch={true}/>}
       </StyledMenuWrapper>
@@ -280,9 +271,7 @@ Navigation.propTypes = {
   onClick: PropTypes.func,
   setActiveMenuTab: PropTypes.func,
   saveUserPreferences: PropTypes.func,
-  menuOpen: PropTypes.bool,
-  visibleMenus: PropTypes.string,
-  setVisibleMenus: PropTypes.func
+  menuOpen: PropTypes.bool
 }
 
 export default Navigation

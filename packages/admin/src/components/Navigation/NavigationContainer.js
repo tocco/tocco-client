@@ -3,10 +3,9 @@ import {injectIntl} from 'react-intl'
 
 import Navigation from './Navigation'
 import {saveUserPreferences} from '../../modules/preferences/actions'
-import {setActiveMenuTab, setVisibleMenus} from '../../modules/navigation/actions'
+import {setActiveMenuTab} from '../../modules/navigation/actions'
 const mapActionCreators = {
   setActiveMenuTab,
-  setVisibleMenus,
   saveUserPreferences
 }
 
@@ -16,8 +15,7 @@ const mapStateToProps = (state, props) => ({
   systemMenuTree: state.navigation.systemMenuTree,
   completeMenuTree: state.navigation.completeMenuTree,
   menuOpen: state.navigation.menuOpen,
-  activeMenuTab: state.navigation.activeMenuTab,
-  visibleMenus: state.navigation.visibleMenus
+  activeMenuTab: state.navigation.activeMenuTab
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Navigation))

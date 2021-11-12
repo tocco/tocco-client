@@ -5,21 +5,21 @@ export default [
     ctrl: true,
     alt: true,
     code: 'KeyM',
-    actions: [toggleShortcutMenu('main', 'modules')],
+    actions: [toggleShortcutMenu('modules')],
     global: true
   },
   {
     ctrl: true,
     alt: true,
     code: 'KeyN',
-    actions: [toggleShortcutMenu('main', 'settings')],
+    actions: [toggleShortcutMenu('settings')],
     global: true
   },
   {
     ctrl: true,
     alt: true,
     code: 'KeyO',
-    actions: [toggleShortcutMenu('additional', 'complete')],
+    actions: [toggleShortcutMenu('complete')],
     global: true
   }
 ]
