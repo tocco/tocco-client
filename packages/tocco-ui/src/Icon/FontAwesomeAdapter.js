@@ -21,6 +21,8 @@ import {
   faApple, faDropbox, faFacebook, faFacebookF, faGoogle, faJira, faMicrosoft
 } from '@fortawesome/free-brands-svg-icons'
 
+import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
+
 (() => {
   library.add(
     faChevronDoubleLeft, faChevronDoubleRight, faChevronRight,
@@ -44,12 +46,14 @@ const FontAwesomeAdapter = ({
   icon,
   style
 }) =>
-  <FontAwesomeIcon
-    icon={icon.includes(',') ? icon.replace(/\s+/, '').split(',') : icon}
-    style={style}
-    {..._get(style, 'color') && {color: style.color}}
-    fixedWidth
-  />
+  <StyledFontAwesomeAdapterWrapper>
+    <FontAwesomeIcon
+      icon={icon.includes(',') ? icon.replace(/\s+/, '').split(',') : icon}
+      style={style}
+      {..._get(style, 'color') && {color: style.color}}
+      fixedWidth
+    />
+  </StyledFontAwesomeAdapterWrapper>
 
 FontAwesomeAdapter.propTypes = {
   icon: PropTypes.string.isRequired,
