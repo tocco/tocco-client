@@ -1,14 +1,9 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import {AdminLink as StyledLink, Icon, Typography} from 'tocco-ui'
+import {Icon, Typography} from 'tocco-ui'
 import {js} from 'tocco-util'
-import queryString from 'query-string'
-import _get from 'lodash/get'
 
 import {
-  StyledRelationBox,
-  StyledRelationLabel,
-  StyledRelationLinks,
   StyledPlaceHolder,
   StyledPreviewBox,
   StyledPreviewLink,
@@ -18,100 +13,41 @@ import {
   StyledToggleCollapseButton
 } from './StyledComponents'
 import {currentViewPropType} from '../../utils/propTypes'
-import {getRelation, setRelation} from '../../utils/relationPersistor'
 import ListView from './ListView'
 import DocsViewAdapter from './DocsViewAdapter'
+import RelationBox from './RelationBox'
 
-const RelationsView = ({
-  history,
-  match,
-  currentViewInfo,
-  relations,
-  relationsInfo,
-  emitAction,
-  intl,
-  isCollapsed,
-  toggleCollapse,
-  selectRelation,
-  selectedRelation
-}) => {
-  const entityName = _get(currentViewInfo, 'model.name')
-  useEffect(
-    () => {
-      if (!selectedRelation && relations?.length > 0) {
-        const queryRelation = queryString.parse(history.location.search).relation
-        if (queryRelation) {
-          selectRelation(relations.find(r => r.relationName === queryRelation))
-        } else {
-          const persistedSelectedRelation = getRelation(entityName)
-          if (persistedSelectedRelation) {
-            selectRelation(relations.find(r => r.relationName === persistedSelectedRelation))
-          } else {
-            selectRelation(relations[0])
-          }
-        }
-      }
-    },
-    [relations, selectedRelation]
-  )
-
-  const msg = id => intl.formatMessage({id})
-
-  const getRelationCountLabel = relationName => relationsInfo[relationName]?.count > 0
-    ? <StyledRelationLabel>&nbsp;({relationsInfo[relationName].count})</StyledRelationLabel>
-    : null
-
+const RelationsView = props => {
+  const {
+    history,
+    match,
+    currentViewInfo,
+    relations,
+    relationsInfo,
+    emitAction,
+    intl,
+    isCollapsed,
+    toggleCollapse,
+    selectedRelation
+  }
+  = props
   if (!relations || relations.length === 0 || !currentViewInfo) {
     return null
   }
 
+  const msg = id => intl.formatMessage({id})
   const hasCreateRights = relationName => relationsInfo[relationName]?.createPermission
-
   const RelationPreview = selectedRelation
     ? (selectedRelation.targetEntity === 'Resource' ? DocsViewAdapter : ListView)
     : () => <React.Fragment/>
 
-  const RelationBox = relation => {
-    const {
-      relationName,
-      targetEntity,
-      relationDisplay
-    } = relation
-    const handleBoxClick = () => {
-      selectRelation(relation)
-      history.replace({
-        search: `?relation=${relationName}`
-      })
-      setRelation(entityName, relationName)
-    }
-
-    return (
-      <StyledRelationBox
-        key={`relation-${relationName}`}
-        selected={selectedRelation?.relationName === relationName}
-        onClick={handleBoxClick}
-      >
-        <StyledRelationLabel title={relationDisplay.label}>
-          {relationDisplay.label}</StyledRelationLabel>{getRelationCountLabel(relationName)}
-        <StyledRelationLinks>
-          <StyledLink
-            aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
-            to={match.url.replace(/(relations|detail)$/, relationName)}>
-            <Icon icon="arrow-right"/>
-          </StyledLink>
-          {hasCreateRights(relationName) && targetEntity !== 'Resource'
-          && <StyledLink
-            aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-            to={match.url.replace(/(relations|detail)$/, relationName) + '/create'}>
-            <Icon icon="plus"/>
-          </StyledLink>
-          }
-        </StyledRelationLinks>
-      </StyledRelationBox>
-    )
-  }
-
-  const RelationBoxes = relations.map(relation => RelationBox(relation))
+  const RelationBoxes = relations.map(relation =>
+    <RelationBox
+      key={`relation-${relation.relationName}`}
+      relation={relation}
+      {...props}
+    />
+  )
 
   return <>
     <StyledRelationsViewWrapper isCollapsed={isCollapsed}>
