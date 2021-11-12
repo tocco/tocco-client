@@ -1,7 +1,6 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {rest} from 'tocco-app-extensions'
-import {select} from 'redux-saga/effects'
 
 import * as sagas from './sagas'
 import * as actions from './actions'
@@ -34,13 +33,12 @@ describe('admin', () => {
 
       describe('setActiveMenuFromPreferences', () => {
         test('should get preferences', () => {
-          const userPreferenceAction = setUserPreferences({'admin.activeMenu': 'main#settings'})
+          const userPreferenceAction = setUserPreferences({'admin.activeMenu': 'settings'})
 
           return expectSaga(sagas.setActiveMenuFromPreferences, userPreferenceAction)
             .provide([
-              [matchers.call.fn(rest.fetchUserPreferences), {'admin.activeMenu': 'main#settings'}]
+              [matchers.call.fn(rest.fetchUserPreferences), {'admin.activeMenu': 'settings'}]
             ])
-            .put(actions.setVisibleMenus('main'))
             .put(actions.setActiveMenuTab('settings'))
             .run()
         })
@@ -50,7 +48,6 @@ describe('admin', () => {
             .provide([
               [matchers.call.fn(rest.fetchUserPreferences), {}]
             ])
-            .not.put(actions.setVisibleMenus('main'))
             .not.put(actions.setActiveMenuTab('settings'))
             .run()
         })
@@ -59,10 +56,7 @@ describe('admin', () => {
       describe('saveOpenMenuPreference', () => {
         test('should save opened tab', () => {
           return expectSaga(sagas.saveOpenMenuPreference, {payload: {activeMenuTab: 'settings'}})
-            .provide([
-              [select(sagas.navigationSelector), {visibleMenus: 'main'}]
-            ])
-            .put(saveUserPreferences({'admin.activeMenu': 'main#settings'}))
+            .put(saveUserPreferences({'admin.activeMenu': 'settings'}))
             .run()
         })
       })

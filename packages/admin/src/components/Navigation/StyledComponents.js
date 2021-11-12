@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import {Button, theme, StyledScrollbar, scale, StyledSearchBox, Ball} from 'tocco-ui'
+import styled, {css} from 'styled-components'
+import {theme, StyledScrollbar, scale, StyledSearchBox, Ball, declareFont} from 'tocco-ui'
 
 const secondary = theme.color('secondary')
 const secondaryLight = theme.color('secondaryLight')
@@ -24,42 +24,37 @@ export const StyledMenuEntry = styled.span`
 
 export const StyledTabsContainer = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  padding: 0 ${scale.space(0.6)};
   border-bottom: 3px solid ${theme.color('backgroundBody')};
 
   &:focus {
     background-color: transparent;
   }
-
-  span {
-    padding-top: .4rem;
-    padding-bottom: .4rem;
-  }
 `
 
-export const StyledNavSwitchButton = styled(Button)`
-  font-size: ${scale.font(0)};
-  justify-content: center;
-  border-radius: 0;
-  margin: 12px 5px 5px;
-
-  &:hover {
-    background-color: transparent;
-    color: ${secondaryLight};
-  }
+export const StyledActiveTabLabel = styled.div`
+  ${declareFont()}
+  font-weight: ${theme.fontWeight('bold')};
+  color: ${secondary};
+  flex-grow: 1;
 `
 
-export const StyledNavButton = styled(Button)`
+export const StyledNavIconButton = styled(Ball)`
   overflow: hidden;
   flex: ${({narrow}) => narrow ? 0.2 : 1};
   justify-content: center;
   border-radius: 0;
   margin: 5px;
   border-top: 5px solid ${({active}) => active ? secondary : 'transparent'};
-  color: ${({active}) => active ? secondary : secondaryLight};
   font-weight: ${theme.fontWeight('bold')};
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+  ${({active}) => active
+    && css`color: ${secondary};`
+  };
 
   &:hover {
     border-color: ${({active}) => active ? secondary : secondaryLight};
