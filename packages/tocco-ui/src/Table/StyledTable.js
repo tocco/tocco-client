@@ -7,7 +7,8 @@ import {
   theme,
   shadeColor,
   StyledScrollbar,
-  scale
+  scale,
+  StyledFontAwesomeAdapterWrapper
 } from '../'
 import {StyledResizeHandle} from './ResizingController'
 import {generateShades} from '../utilStyles'
@@ -21,6 +22,11 @@ export const StyledTableCell = styled.td`
   border-bottom: 1px solid ${borderColor};
   align-content: center;
   box-sizing: content-box;
+
+  ${StyledFontAwesomeAdapterWrapper} {
+    display: inline-block;
+    margin-right: ${scale.space(-2)};
+  }
 `
 
 export const StyledDnD = styled.div`
