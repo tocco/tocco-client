@@ -95,11 +95,10 @@ the modifiers match.
 ```javascript
 keyDown.addToStore(store, {
   ctrl: true,
-  key: "m",
+  alt: true,
+  code: "KeyM",
   actions: [
-    toggleMenuOpen(),
-    setVisibleMenus("main"),
-    setActiveMenuTab("modules"),
+    toggleShortcutMenu("modules"),
   ],
   global: true,
 });
