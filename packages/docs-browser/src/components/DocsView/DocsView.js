@@ -25,7 +25,7 @@ export const getParent = match => {
 
 export const getTql = domainTypes =>
   Array.isArray(domainTypes)
-    && domainTypes.length > 0
+  && domainTypes.length > 0
     ? `exists(relDomain_type where IN(unique_id, ${domainTypes.map(type => `"${type}"`).join(',')}))`
     : null
 
@@ -159,6 +159,13 @@ const DocsView = props => {
       ? viewPersistor.viewInfoSelector('search').store
       : null
 
+  const handleStoreCreation = store => {
+    if (!disableViewPersistor) {
+      viewPersistor.persistViewInfo(entityListKey, {store})
+    }
+    return null
+  }
+
   return (
     <>
       <Suspense fallback={<LoadMask/>}>
@@ -174,11 +181,7 @@ const DocsView = props => {
           parent={parent}
           onSearchChange={handleSearch}
           store={store}
-          onStoreCreate={store => {
-            if (!disableViewPersistor) {
-              viewPersistor.persistViewInfo(entityListKey, {store})
-            }
-          }}
+          onStoreCreate={handleStoreCreation(store)}
           cellRenderers={{
             'dms-label-with-icon': (rowData, column, cellRenderer) => (
               <StyledContentWrapper>
@@ -188,14 +191,13 @@ const DocsView = props => {
                 <span>{cellRenderer(column.children[0])}</span>
               </StyledContentWrapper>
             ),
-            'dms-actions': (rowData, column, cellRenderer) => {
-              return (<StyledContentWrapper>
-                  {column.children
-                    .filter(c => !c.dmsEntityModel || c.dmsEntityModel === rowData.type)
-                    .map(c => cellRenderer(c))}
-                </StyledContentWrapper>
-              )
-            }
+            'dms-actions': (rowData, column, cellRenderer) => (
+              <StyledContentWrapper>
+                {column.children
+                  .filter(c => !c.dmsEntityModel || c.dmsEntityModel === rowData.type)
+                  .map(c => cellRenderer(c))}
+              </StyledContentWrapper>
+            )
           }}
           emitAction={emitAction}
           actionAppComponent={Action}
