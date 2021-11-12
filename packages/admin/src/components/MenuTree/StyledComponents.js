@@ -14,6 +14,7 @@ export const StyledMenuEntry = styled.div`
 
 export const StyledMenuEntryWrapper = styled.div`
   margin-bottom: ${scale.space(0.6)};
+  margin-top: ${scale.space(0.6)};
 
   > div {
     margin-bottom: ${scale.space(0.5)};
