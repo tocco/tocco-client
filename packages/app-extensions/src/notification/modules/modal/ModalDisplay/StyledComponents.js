@@ -51,7 +51,8 @@ export const StyledModalHolder = styled.div`
   left: 0;
   position: absolute;
   // higher than StyledHeader and very high value to prevent other elements blocking it when implemented as a widget
-  z-index: 999999;
+  // lower than ext-js legacy actions
+  z-index: 9000;
 `
 
 export const StyledModalWrapper = styled.div`
