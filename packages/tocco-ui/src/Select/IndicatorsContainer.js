@@ -10,13 +10,13 @@ const handleAdvancedSearch = (openAdvancedSearch, value) => event => {
   event.stopPropagation()
 }
 
-const handleCreate = openCreate => event => {
-  openCreate()
+const handleCreate = (openCreate, value) => event => {
+  openCreate(value)
   event.stopPropagation()
 }
 
 const IndicatorsContainer = props => {
-  const {openAdvancedSearch, openRemoteCreate, isDisabled, createPermission} = props.selectProps
+  const {openAdvancedSearch, openRemoteCreate, isDisabled, createPermission, value} = props.selectProps
 
   return (
     <StyledIndicatorsContainerWrapper>
@@ -38,7 +38,7 @@ const IndicatorsContainer = props => {
         && <span
           onTouchEnd={e => e.stopPropagation()}
           onMouseDown={e => e.stopPropagation()}
-          onMouseUp={handleCreate(openRemoteCreate)}>
+          onMouseUp={handleCreate(openRemoteCreate, value)}>
         <Ball
           icon="plus"
           tabIndex={-1}
@@ -63,7 +63,11 @@ IndicatorsContainer.propTypes = {
     openAdvancedSearch: PropTypes.func,
     openRemoteCreate: PropTypes.func,
     isDisabled: PropTypes.bool,
-    createPermission: PropTypes.bool
+    createPermission: PropTypes.bool,
+    value: PropTypes.oneOfType([
+      ItemPropType,
+      PropTypes.arrayOf(ItemPropType)
+    ])
   }),
   value: PropTypes.oneOfType([
     ItemPropType,

@@ -29,14 +29,12 @@ describe('app-extensions', () => {
         })
 
         describe('openRemoteCreate', () => {
-          test('should prompt a modal and spawn close saga', () => {
+          const runTest = (dataType, currentValue, expectedId, expectedDisplay, expectedValue) => {
             const DetailApp = () => <div>ListApp</div>
-            const formField = {label: 'Person', path: 'relUser', targetEntity: 'User'}
+            const formField = {label: 'Person', path: 'relUser', targetEntity: 'User', dataType}
             const formName = 'detailForm'
-            const expectedId = 'some-id'
-            const expectedDisplay = 'display'
 
-            const action = remoteCreateActions.openRemoteCreate(formField, formName)
+            const action = remoteCreateActions.openRemoteCreate(formField, formName, currentValue)
             const config = {DetailApp}
             return expectSaga(sagas.openRemoteCreate, config, action)
               .provide([
@@ -50,9 +48,36 @@ describe('app-extensions', () => {
               ])
               .call(rest.fetchDisplay, formField.targetEntity, expectedId)
               .put.actionType(notification.modal().type)
-              .put(valueActions.changeFieldValue(formName, formField.path, {key: expectedId, display: expectedDisplay}))
+              .put(valueActions.changeFieldValue(
+                formName,
+                formField.path,
+                expectedValue
+              ))
               .run()
-          })
+          }
+
+          test('should prompt a modal and spawn close saga for single-remote-fields', () =>
+            runTest(
+              'single-remote-field',
+              {key: 'old-id', display: 'old display', model: 'User', version: 0},
+              'some-id',
+              'display',
+              {key: 'some-id', display: 'display', model: 'User', version: 0}
+            )
+          )
+
+          test('should prompt a modal and spawn close saga for multi-remote-fields', () =>
+            runTest(
+              'multi-remote-field',
+              [{key: 'existing-id', display: 'existing display', model: 'User', version: 0}],
+              'some-id',
+              'display',
+              [
+                {key: 'existing-id', display: 'existing display', model: 'User', version: 0},
+                {key: 'some-id', display: 'display', model: 'User', version: 0}
+              ]
+            )
+          )
         })
       })
     })
