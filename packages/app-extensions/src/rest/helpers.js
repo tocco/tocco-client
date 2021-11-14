@@ -222,7 +222,7 @@ export function* fetchForm(formName, scope, allowNotFound = false, forceLoad = f
   }
 
   const options = {
-    ...(scope === 'create' ? {queryParams: {_display: true}} : {}),
+    ...(['create', 'search'].includes(scope) ? {queryParams: {_display: true}} : {}),
     ...(allowNotFound && {acceptedStatusCodes: [404]})
   }
 
