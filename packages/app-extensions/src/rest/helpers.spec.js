@@ -444,6 +444,25 @@ describe('app-extensions', () => {
             .run()
         })
 
+        test('should fetch create form with default values', () => {
+          const gen = helpers.fetchForm('Address', 'create')
+          expect(gen.next().value).to.eql(call(requestSaga, 'forms/Address/create', {
+            queryParams: {_display: true}
+          }))
+        })
+
+        test('should fetch search form with default values', () => {
+          const gen = helpers.fetchForm('Address', 'search')
+          expect(gen.next().value).to.eql(call(requestSaga, 'forms/Address/search', {
+            queryParams: {_display: true}
+          }))
+        })
+
+        test('should fetch update form without default values', () => {
+          const gen = helpers.fetchForm('Address', 'update')
+          expect(gen.next().value).to.eql(call(requestSaga, 'forms/Address/update', {}))
+        })
+
         describe('defaulFormTransformer', () => {
           test('should return form propery', () => {
             const inputForm = {form: {children: []}}
