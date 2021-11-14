@@ -15,7 +15,7 @@ export default function* sagas(config) {
   ])
 }
 
-export function* openRemoteCreate({detailApp}, {payload: {formName, formField}}) {
+export function* openRemoteCreate({detailApp}, {payload: {formName, formField, value}}) {
   const answerChannel = yield call(channel)
   const modalId = yield call(uuid)
   const buildCreateForm = ({close}) => <RemoteCreate
@@ -27,5 +27,7 @@ export function* openRemoteCreate({detailApp}, {payload: {formName, formField}})
 
   const {id} = yield take(answerChannel)
   const display = yield call(rest.fetchDisplay, formField.targetEntity, id)
-  yield put(valueActions.changeFieldValue(formName, formField.path, {key: id, display}))
+  const newEntry = {key: id, model: formField.targetEntity, version: 0, display}
+  const newValue = formField.dataType === 'multi-remote-field' ? [...(value || []), newEntry] : newEntry
+  yield put(valueActions.changeFieldValue(formName, formField.path, newValue))
 }
