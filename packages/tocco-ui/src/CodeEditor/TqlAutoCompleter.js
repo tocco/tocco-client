@@ -31,7 +31,7 @@ const findLastPathStep = iterator => {
   }
 }
 
-function stepBackUntilToken(iterator, type) {
+const stepBackUntilToken = (iterator, type) => {
   while (!isCurrentTokenOfType(iterator, type)) {
     if (!iterator.stepBackward()) {
       return false
@@ -94,42 +94,28 @@ export const findCurrentModelScope = iterator => backtrack(iterator, findLastMod
  **/
 const defaultScore = 1000
 
-const getFetchOptions = () => {
-  const headers = new Headers()
-  headers.set('X-Origin-Id', originId.getOriginId())
-  return {
-    headers,
-    credentials: 'include'
-  }
-}
+const getFetchOptions = () => ({
+  headers: {
+    'X-Origin-Id': originId.getOriginId()
+  },
+  credentials: 'include'
+})
 
-const sendRequest = endpoint => {
-  return fetch(`${__BACKEND_URL__}/nice2/rest/${endpoint}`, getFetchOptions())
-}
+const sendRequest = endpoint => fetch(`${__BACKEND_URL__}/nice2/rest/${endpoint}`, getFetchOptions())
 
-const extractBody = response => {
-  if (response.status === 200) {
-    return response.json()
-  } else {
-    return null
-  }
-}
+const extractBody = response => response.status === 200 ? response.json() : null
 
-const loadModels = () => {
-  return sendRequest('entities').then(extractBody).then(body => body ? body.entities : [])
-}
+const loadModels = () => sendRequest('entities')
+  .then(extractBody)
+  .then(body => body ? body.entities : {})
+  .then(entities => entities ? Object.keys(entities) : [])
 
-const buildRelationLabel = relation => {
-  if (relation.relationName.substring(3) !== relation.targetEntity) {
-    return `${relation.relationName} (${relation.targetEntity})`
-  } else {
-    return relation.relationName
-  }
-}
+const buildRelationLabel = relation => relation.relationName.substring(3) !== relation.targetEntity
+  ? `${relation.relationName} (${relation.targetEntity})`
+  : relation.relationName
 
-const resolvePath = path => {
-  const [sourceModel, ...relationSteps] = path
-  return sendRequest(`entities/${sourceModel}/model/resolve?path=${relationSteps.join('.')}`)
+const resolvePath = ([sourceModel, ...relationSteps]) =>
+  sendRequest(`entities/${sourceModel}/model/resolve?path=${relationSteps.join('.')}`)
     .then(extractBody)
     .then(body => {
       if (!body) {
@@ -150,7 +136,6 @@ const resolvePath = path => {
         })))
       ]
     })
-}
 
 const determineAvailablePaths = (createIterator, callback) => {
   const [baseModel, ...modelScope] = findCurrentModelScope(createIterator())
@@ -171,16 +156,15 @@ const determineAvailablePaths = (createIterator, callback) => {
   })
 }
 
-const determineAllAvailableModels = callback =>
-  loadModels().then(models => {
-    const modelCompletions = models.map(model => ({
-      caption: model,
-      value: model,
-      meta: 'model',
-      score: defaultScore
-    }))
-    callback(null, modelCompletions)
-  })
+const loadAllAvailableModels = callback => loadModels().then(models => {
+  const modelCompletions = models.map(model => ({
+    caption: model,
+    value: model,
+    meta: 'model',
+    score: defaultScore
+  }))
+  callback(null, modelCompletions)
+})
 
 const getAvailableFunctions = () => functions.map(f => f.toUpperCase()).map(f =>
   ({
@@ -213,7 +197,9 @@ export default () => ({
   getCompletions: (editor, session, pos, prefix, callback) => {
     const createIteratorAtCurrentPosition = () => new TokenIterator(session, pos.row, pos.column)
 
-    const currentToken = session.getTokenAt(pos.row, pos.column)
+    const iterator = createIteratorAtCurrentPosition()
+    const currentToken = iterator.getCurrentToken()
+    const previousToken = iterator.stepBackward() ? iterator.getCurrentToken() : null
     switch (getTokenType(currentToken)) {
       case 'chaining':
       case 'relation':
@@ -234,7 +220,7 @@ export default () => ({
         callback(null, getAvailableFunctions())
         break
       case 'find':
-        determineAllAvailableModels(callback)
+        loadAllAvailableModels(callback)
         break
       case 'type':
       case 'tocco_placeholder':
@@ -244,7 +230,9 @@ export default () => ({
         break
       case 'model':
         determineAvailablePaths(createIteratorAtCurrentPosition, callback)
-        determineAllAvailableModels(callback)
+        if (previousToken && getTokenType(previousToken) !== 'relation') {
+          loadAllAvailableModels(callback)
+        }
         break
     }
   }
