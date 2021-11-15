@@ -121,6 +121,7 @@ describe('Entity Browser', () => {
       cy.get('#input-detailForm-email').type('test@tocco.ch')
       cy.get('#input-detailForm-callname').type('cyp')
       cy.get('#input-detailForm-relGender').type('{downarrow}').get('#react-select-3-option-1').click()
+      cy.get('#input-detailForm-birthdate').focus()
       cy.get('#input-detailForm-birthdate .flatpickr-input').eq(1).type('14111988{enter}')
       cy.get('#input-detailForm-abbreviation').focus()
       cy.get('#input-detailForm-publish').check()
