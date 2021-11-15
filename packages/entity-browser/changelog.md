@@ -1,3 +1,6 @@
+0.10.26-hotfix229.11
+- default values that are defined in search forms are taken into account again
+
 0.10.26-hotfix229.10
 - Fix calendar entity-list text resources
 - Fix datepickr disappearing behind modal
