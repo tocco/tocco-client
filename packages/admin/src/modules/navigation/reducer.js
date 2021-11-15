@@ -12,8 +12,7 @@ export const toogleMenu = state => (
 export const toggleShortcutMenu = (state, {payload: {activeMenuTab}}) => (
   {
     ...state,
-    menuOpen: state.activeMenuTab === activeMenuTab ? !state.menuOpen : true,
-    activeMenuTab
+    menuOpen: state.activeMenuTab === activeMenuTab ? !state.menuOpen : true
   }
 )
 
