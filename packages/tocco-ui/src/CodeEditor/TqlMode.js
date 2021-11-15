@@ -73,7 +73,7 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
         {
           token: 'keyword.find',
           regex: /find($|\s+)/,
-          next: 'model',
+          push: 'model',
           caseInsensitive: true
         },
         {

@@ -2,6 +2,11 @@ import ace from 'ace-builds/src-min-noconflict/ace'
 import 'ace-builds/src-min-noconflict/mode-ftl'
 import 'ace-builds/src-min-noconflict/mode-text'
 import 'ace-builds/src-min-noconflict/mode-html'
+import _mergeWith from 'lodash/mergeWith'
+import _isArray from 'lodash/isArray'
+
+import {TqlHighlightRules} from './TqlMode'
+import TqlAutoCompleter from './TqlAutoCompleter'
 
 /** this is a copy from https://github.com/ajaxorg/ace/blob/master/lib/ace/mode/ftl_highlight_rules.js but with angled
  * brackets replaced with square brackets as described in
@@ -133,7 +138,14 @@ export class ToccoFtlHighlightRules extends ace.require('ace/mode/html_highlight
       + 'ftl|global|if|import|include|list|local|lt|macro|nested|noescape|noparse|nt|recover|recurse|return|rt|'
       + 'setting|stop|switch|t|visit'
 
+    const tqlDirectives = ['query', 'queryCount']
+
     const startRules = [
+      {
+        token: 'keyword.function',
+        regex: `\\[@(${tqlDirectives.join('|')}).*?]`,
+        push: 'tql-start'
+      },
       {
         token: 'comment',
         regex: '\\[#--',
@@ -185,6 +197,38 @@ export class ToccoFtlHighlightRules extends ace.require('ace/mode/html_highlight
       ]
     })
 
+    const tqlEndRules = [
+      {
+        token: 'keyword.function',
+        regex: `\\[/@(${tqlDirectives.join('|')})]`,
+        next: 'pop'
+      }
+    ]
+
+    this.embedRules(TqlHighlightRules, 'tql-', tqlEndRules, ['start'])
+
+    const mergingRules = {
+      'tql-rootwhere': [
+        {
+          token: 'keyword.function',
+          regex: `\\[/@(${tqlDirectives.join('|')})]`,
+          next: 'pop'
+        }
+      ],
+      'tql-order': [
+        {
+          token: 'keyword.function',
+          regex: `\\[/@(${tqlDirectives.join('|')})]`,
+          next: 'pop'
+        }
+      ]
+    }
+    this.$rules = _mergeWith(
+      this.$rules,
+      mergingRules,
+      (objValue, srcValue) => _isArray(objValue) ? objValue.concat(srcValue) : undefined
+    )
+
     this.normalizeRules()
   }
 }
@@ -193,5 +237,6 @@ export default class ToccoFtlMode extends ace.require('ace/mode/ftl').Mode {
   constructor() {
     super()
     this.HighlightRules = ToccoFtlHighlightRules
+    this.completer = TqlAutoCompleter()
   }
 }
