@@ -17,7 +17,6 @@ import {setDocument, uploadDocument} from './upload/actions'
 import {loadSearchFilters} from './searchFilters/actions'
 import {loadLocationsSuggestions} from './locations/actions'
 import {openRemoteCreate} from './remoteCreate/actions'
-import {loadModel} from './model/actions'
 
 const FormData = props =>
   <React.Fragment>{React.cloneElement(props.children, {formData: props})}</React.Fragment>
@@ -72,8 +71,7 @@ const mapActionCreators = {
   touchField: touchField,
   loadSearchFilters: loadSearchFilters,
   loadLocationsSuggestions: loadLocationsSuggestions,
-  openRemoteCreate: openRemoteCreate,
-  loadModel
+  openRemoteCreate: openRemoteCreate
 }
 
 const FormDataContainer = connect(

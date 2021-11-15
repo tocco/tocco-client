@@ -19,7 +19,6 @@ const CodeEdit = ({
               mode={options.mode}
               theme={'textmate'}
               showGutter={true}
-              loadModel={options.loadModel}
               editorOptions={{
                 enableBasicAutocompletion: true,
                 enableLiveAutocompletion: true,
@@ -35,8 +34,7 @@ CodeEdit.propTypes = {
   value: PropTypes.string.isRequired,
   immutable: PropTypes.bool,
   options: PropTypes.shape({
-    mode: PropTypes.string.isRequired,
-    loadModel: PropTypes.func.isRequired
+    mode: PropTypes.string.isRequired
   })
 }
 

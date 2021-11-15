@@ -40,13 +40,10 @@ const modeMappings = {
   htmlmixed: new ToccoFtlMode(),
   freemarkermixed: new ToccoFtlMode(),
   ftl: new ToccoFtlMode(),
+  tql: new TqlMode(),
   less: new LessMode(),
   drools: new DroolsMode(),
   text: new TextMode()
-}
-
-const setupTqlMode = loadModel => {
-  modeMappings.tql = new TqlMode(loadModel)
 }
 
 const getMode = mode => _get(modeMappings, mode, mode)
@@ -73,13 +70,10 @@ const AceEditor = props => {
     value,
     onChange,
     showGutter = true,
-    editorOptions = {},
-    loadModel
+    editorOptions = {}
   } = props
   const containerReference = useRef(null)
   const editorReference = useRef(null)
-
-  useEffect(() => setupTqlMode(loadModel), [])
 
   useEffect(() => {
     const aceEditor = ace.edit(containerReference.current)

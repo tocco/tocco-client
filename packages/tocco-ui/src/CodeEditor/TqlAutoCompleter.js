@@ -1,4 +1,5 @@
 import ace from 'ace-builds/src-min-noconflict/ace'
+import {originId} from 'tocco-util'
 
 import {functions, placeholders, types} from './TqlMode'
 
@@ -93,7 +94,65 @@ export const findCurrentModelScope = iterator => backtrack(iterator, findLastMod
  **/
 const defaultScore = 1000
 
-const determineAvailablePaths = (createIterator, loadModel, callback) => {
+const getFetchOptions = () => {
+  const headers = new Headers()
+  headers.set('X-Origin-Id', originId.getOriginId())
+  return {
+    headers,
+    credentials: 'include'
+  }
+}
+
+const sendRequest = endpoint => {
+  return fetch(`${__BACKEND_URL__}/nice2/rest/${endpoint}`, getFetchOptions())
+}
+
+const extractBody = response => {
+  if (response.status === 200) {
+    return response.json()
+  } else {
+    return null
+  }
+}
+
+const loadModels = () => {
+  return sendRequest('entities').then(extractBody).then(body => body ? body.entities : [])
+}
+
+const buildRelationLabel = relation => {
+  if (relation.relationName.substring(3) !== relation.targetEntity) {
+    return `${relation.relationName} (${relation.targetEntity})`
+  } else {
+    return relation.relationName
+  }
+}
+
+const resolvePath = path => {
+  const [sourceModel, ...relationSteps] = path
+  return sendRequest(`entities/${sourceModel}/model/resolve?path=${relationSteps.join('.')}`)
+    .then(extractBody)
+    .then(body => {
+      if (!body) {
+        return []
+      }
+      const fields = body.fields || []
+      const relations = body.relations || []
+      return [
+        ...(fields.map(f => ({
+          label: `${f.fieldName} (${f.type})`,
+          value: f.fieldName,
+          type: 'field'
+        }))),
+        ...(relations.map(r => ({
+          label: buildRelationLabel(r),
+          value: r.relationName,
+          type: 'relation'
+        })))
+      ]
+    })
+}
+
+const determineAvailablePaths = (createIterator, callback) => {
   const [baseModel, ...modelScope] = findCurrentModelScope(createIterator())
   if (!baseModel) {
     return
@@ -101,19 +160,19 @@ const determineAvailablePaths = (createIterator, loadModel, callback) => {
   const currentPath = findCurrentPath(createIterator())
   const relationSteps = [...modelScope, ...currentPath].map(model => `rel${model}`)
   const fullPath = [baseModel, ...relationSteps]
-  loadModel(fullPath, paths => {
-    const modelCompletions = paths.map(path => ({
+  resolvePath(fullPath).then(paths => {
+    const pathCompletions = paths.map(path => ({
       caption: path.label,
       value: path.value,
       meta: path.type,
       score: defaultScore
     }))
-    callback(null, modelCompletions)
+    callback(null, pathCompletions)
   })
 }
 
-const determineAllAvailableModels = (loadModel, callback) =>
-  loadModel([], models => {
+const determineAllAvailableModels = callback =>
+  loadModels().then(models => {
     const modelCompletions = models.map(model => ({
       caption: model,
       value: model,
@@ -150,7 +209,7 @@ const getAvailablePlaceholders = () => placeholders.map(placeholder =>
   })
 )
 
-export default loadModel => ({
+export default () => ({
   getCompletions: (editor, session, pos, prefix, callback) => {
     const createIteratorAtCurrentPosition = () => new TokenIterator(session, pos.row, pos.column)
 
@@ -164,18 +223,18 @@ export default loadModel => ({
       case 'exists':
       case 'field':
       case 'function_arguments':
-        determineAvailablePaths(createIteratorAtCurrentPosition, loadModel, callback)
+        determineAvailablePaths(createIteratorAtCurrentPosition, callback)
         break
       case 'where':
       case 'conjunction':
-        determineAvailablePaths(createIteratorAtCurrentPosition, loadModel, callback)
+        determineAvailablePaths(createIteratorAtCurrentPosition, callback)
         callback(null, getAvailableFunctions())
         break
       case 'nice_function':
         callback(null, getAvailableFunctions())
         break
       case 'find':
-        determineAllAvailableModels(loadModel, callback)
+        determineAllAvailableModels(callback)
         break
       case 'type':
       case 'tocco_placeholder':
@@ -184,8 +243,8 @@ export default loadModel => ({
         callback(null, getAvailablePlaceholders())
         break
       case 'model':
-        determineAvailablePaths(createIteratorAtCurrentPosition, loadModel, callback)
-        determineAllAvailableModels(loadModel, callback)
+        determineAvailablePaths(createIteratorAtCurrentPosition, callback)
+        determineAllAvailableModels(callback)
         break
     }
   }
