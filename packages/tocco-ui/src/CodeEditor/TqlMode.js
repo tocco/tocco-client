@@ -230,10 +230,10 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
 }
 
 export default class TqlMode extends ace.require('ace/mode/text').Mode {
-  constructor(loadModel) {
+  constructor() {
     super()
     this.HighlightRules = TqlHighlightRules
-    this.completer = TqlAutoCompleter(loadModel)
+    this.completer = TqlAutoCompleter()
     this.snippedIdField = null // TODO implement? TOCDEV-4499
   }
 }
