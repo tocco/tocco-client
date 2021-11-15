@@ -1,3 +1,17 @@
+0.5.37
+- fix jumping datepicker on Safari
+- show create form for remote fields again in the folder creation form
+- debounce autosize on textarea
+- fix chevron icon position in relationsview
+- move RelationBox to a separate file for cleaner RelationsView
+- position collapse buttons in absolute fashion to prevent jumps when scrollbar appears
+- harmonize fontawesome icon spacing within table data cell
+- register more icons
+- restructure menu
+- improve dropdown performance for selects on Safari
+- fix performance bottleneck on linked sleect values
+- save active menu tab on shortcut navigation
+
 0.5.36
 - add tooltip for remote fields
 - relation counts and current visible relation entities refreshes together with its detail form
