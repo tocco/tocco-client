@@ -114,8 +114,13 @@ const buildRelationLabel = relation => relation.relationName.substring(3) !== re
   ? `${relation.relationName} (${relation.targetEntity})`
   : relation.relationName
 
+const buildResolveUrl = (sourceModel, relationSteps) => {
+  const resolvePart = relationSteps.length > 0 ? '/resolve?path=' + relationSteps.join('.') : ''
+  return `entities/${sourceModel}/model${resolvePart}`
+}
+
 const resolvePath = ([sourceModel, ...relationSteps]) =>
-  sendRequest(`entities/${sourceModel}/model/resolve?path=${relationSteps.join('.')}`)
+  sendRequest(buildResolveUrl(sourceModel, relationSteps))
     .then(extractBody)
     .then(body => {
       if (!body) {
@@ -153,7 +158,7 @@ const determineAvailablePaths = (createIterator, callback) => {
       score: defaultScore
     }))
     callback(null, pathCompletions)
-  })
+  }).catch(errors => callback(errors))
 }
 
 const loadAllAvailableModels = callback => loadModels().then(models => {
@@ -164,7 +169,7 @@ const loadAllAvailableModels = callback => loadModels().then(models => {
     score: defaultScore
   }))
   callback(null, modelCompletions)
-})
+}).catch(errors => callback(errors))
 
 const getAvailableFunctions = () => functions.map(f => f.toUpperCase()).map(f =>
   ({
