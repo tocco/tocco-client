@@ -4,6 +4,7 @@
   "client.docs-browser.createDomainSuccessful",
   "client.docs-browser.createFolderSuccessful",
   "client.docs-browser.editSuccessful",
+  "client.docs-browser.failedNoPermission",
   "client.docs-browser.uploadInProgress",
   "client.docs-browser.uploadInProgressMultiple",
   "client.docs-browser.uploadInProgressDirectory",
