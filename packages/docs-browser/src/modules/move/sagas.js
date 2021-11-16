@@ -11,7 +11,7 @@ export function* moveElements({payload}) {
   const resource = 'documents/move'
   const options = {
     method: 'POST',
-    acceptedStatusCodes: [400],
+    acceptedStatusCodes: [400, 403],
     body: {
       targetEntityKey: payload.target,
       selectedEntityKeys: payload.selected
@@ -26,8 +26,11 @@ export function* moveElements({payload}) {
   } else {
     yield put(actions.setWaiting(false))
     let message = 'client.actions.dms-move.failed.message'
-    if (response.body.errorCode === 'VALIDATION_FAILED') {
+    if (response.body?.errorCode === 'VALIDATION_FAILED') {
       message = validation.getErrorCompact(response.body.errors)
+    }
+    if (response.status === 403) {
+      message = 'client.docs-browser.failedNoPermission'
     }
     yield put(notification.toaster({type: 'error', title: 'client.actions.dms-move.failed.title', body: message}))
   }
@@ -47,7 +50,7 @@ export function* setDone() {
   }]
 
   onSuccess({
-    message: yield select(textResourceSelector, 'client.docs-browser.moveSuccessful'),
+    title: yield select(textResourceSelector, 'client.docs-browser.moveSuccessful'),
     remoteEvents
   })
 

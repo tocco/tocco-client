@@ -36,6 +36,8 @@ describe('docs-browser', () => {
             ]
           }
 
+          const requestSaga = {method: 'POST', acceptedStatusCodes: [400, 403], body: body}
+
           test('moveElements successful', () => {
             return expectSaga(sagas.moveElements, {payload: payload})
               .provide([
@@ -43,7 +45,24 @@ describe('docs-browser', () => {
                 [matchers.call.fn(sagas.setDone), {}]
               ])
               .put(actions.setWaiting(true))
-              .call(rest.requestSaga, 'documents/move', {method: 'POST', acceptedStatusCodes: [400], body: body})
+              .call(rest.requestSaga, 'documents/move', requestSaga)
+              .run()
+          })
+
+          test('moveElements no permission', () => {
+            return expectSaga(sagas.moveElements, {payload: payload})
+              .provide([
+                [matchers.call.fn(rest.requestSaga), {status: 403}],
+                [matchers.call.fn(sagas.setDone), {}]
+              ])
+              .put(actions.setWaiting(true))
+              .call(rest.requestSaga, 'documents/move', requestSaga)
+              .put(actions.setWaiting(false))
+              .put(notification.toaster({
+                type: 'error',
+                title: 'client.actions.dms-move.failed.title',
+                body: 'client.docs-browser.failedNoPermission'
+              }))
               .run()
           })
 
@@ -53,7 +72,7 @@ describe('docs-browser', () => {
                 [matchers.call.fn(rest.requestSaga), {status: 400, body: {errorCode: null}}]
               ])
               .put(actions.setWaiting(true))
-              .call(rest.requestSaga, 'documents/move', {method: 'POST', acceptedStatusCodes: [400], body: body})
+              .call(rest.requestSaga, 'documents/move', requestSaga)
               .put(actions.setWaiting(false))
               .put(notification.toaster({
                 type: 'error',
@@ -74,7 +93,7 @@ describe('docs-browser', () => {
                 [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
               ])
               .put(actions.setWaiting(true))
-              .call(rest.requestSaga, 'documents/move', {method: 'POST', acceptedStatusCodes: [400], body: body})
+              .call(rest.requestSaga, 'documents/move', requestSaga)
               .put(actions.setWaiting(false))
               .put(notification.toaster({type: 'error', title: 'client.actions.dms-move.failed.title', body: msg}))
               .run()
