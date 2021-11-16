@@ -46,11 +46,16 @@ describe('admin', () => {
                 }
 
                 const onSuccess = jest.fn()
+                const onError = jest.fn()
 
                 return expectSaga(sagas.handleFilesSelected, actions.filesSelected(files))
                   .provide([
                     [call(uuid), 'my-random-uuid'],
-                    [select(sagas.dialogSelector), {location, onSuccess}],
+                    [select(sagas.dialogSelector), {
+                      location,
+                      onSuccess,
+                      onError
+                    }],
                     [call(sagas.createDocuments, location, files), response],
                     [select(sagas.textResourceSelector, 'client.docs-browser.uploadSuccessful'), 'upload successful']
                   ])
@@ -59,6 +64,36 @@ describe('admin', () => {
                   .run()
                   .then(() => {
                     expect(onSuccess.mock.calls.length).to.eql(1)
+                    expect(onError.mock.calls.length).to.eql(0)
+                  })
+              })
+
+              test('no permission so upload failed', () => {
+                const files = [{}]
+                const location = '/docs/folders/23523/list'
+                const response = {
+                  status: 403
+                }
+
+                const onSuccess = jest.fn()
+                const onError = jest.fn()
+
+                return expectSaga(sagas.handleFilesSelected, actions.filesSelected(files))
+                  .provide([
+                    [call(uuid), 'my-random-uuid'],
+                    [select(sagas.dialogSelector), {
+                      location,
+                      onSuccess,
+                      onError
+                    }],
+                    [call(sagas.createDocuments, location, files), response],
+                    [select(sagas.textResourceSelector, 'client.docs-browser.failedNoPermission'), 'no permission']
+                  ])
+                  .put(notifier.removeBlockingInfo('my-random-uuid'))
+                  .run()
+                  .then(() => {
+                    expect(onSuccess.mock.calls.length).to.eql(0)
+                    expect(onError.mock.calls.length).to.eql(1)
                   })
               })
             })
