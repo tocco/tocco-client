@@ -1,3 +1,26 @@
+0.10.36
+- show button hover title and pointer cursor
+- harmonize detail footer spacing
+- fix placing of chevron icon in placeholder panel of admin search form
+- reset pagination on reload first page
+- user agent detection
+- improve performance on Safari
+- fix missing popover in single values and overflowing in firefox
+- add tooltip for remote fields
+- Add Ace editor to code fields.
+- add usePrevious helper hook
+- cleanup flatpickr components
+- add option to choose document from dms
+- fix dnd in input edit
+- fix jumping datepicker on Safari
+- Show create form for remote fields again in the folder creation form
+- debounce autosize on textarea
+- harmonize fontawesome icon spacing within table data cell
+- register more icons
+- improve dropdown performance for selects on Safari
+- fix performance bottleneck on linked sleect values
+- adjust z-index of modal to prevent legacy actions falling behind it
+
 0.10.35
 - prevent position from switching between after/before
 - generic resize util
