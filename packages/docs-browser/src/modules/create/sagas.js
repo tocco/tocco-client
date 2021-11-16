@@ -28,25 +28,34 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
   try {
     const response = yield call(createDocuments, location, files)
 
-    const remoteEvents = [{
-      type: 'entity-create-event',
-      payload: {
-        entities: response.body.items
-          .filter(item => item.status === CREATED_STATUS)
-          .map(item => ({
-            entityName: item.bean.model,
-            key: item.bean.key
-          }))
-      }
-    }]
+    if (response.status === 403) {
+      yield put(notifier.removeBlockingInfo(blockingInfoId))
+      onError({
+        message: yield select(textResourceSelector, 'client.docs-browser.failedNoPermission')
+      })
+    } else {
+      const remoteEvents = [{
+        type: 'entity-create-event',
+        payload: {
+          entities: response.body.items
+            .filter(item => item.status === CREATED_STATUS)
+            .map(item => ({
+              entityName: item.bean.model,
+              key: item.bean.key
+            }))
+        }
+      }]
 
-    yield put(notifier.removeBlockingInfo(blockingInfoId))
+      yield put(notifier.removeBlockingInfo(blockingInfoId))
 
-    const msgId = isDirectory ? 'client.docs-browser.uploadSuccessfulDirectory' : 'client.docs-browser.uploadSuccessful'
-    onSuccess({
-      message: yield select(textResourceSelector, msgId),
-      remoteEvents
-    })
+      const msgId = isDirectory
+        ? 'client.docs-browser.uploadSuccessfulDirectory'
+        : 'client.docs-browser.uploadSuccessful'
+      onSuccess({
+        message: yield select(textResourceSelector, msgId),
+        remoteEvents
+      })
+    }
   } catch (e) {
     consoleLogger.logError('Failed to upload files', e)
     yield put(notifier.removeBlockingInfo(blockingInfoId))
@@ -71,7 +80,8 @@ export function* createDocuments(location, files) {
   const resource = `documents/${node.model}/${node.key}`
   const options = {
     method: 'POST',
-    body: formData
+    body: formData,
+    acceptedStatusCodes: [403]
   }
 
   return yield call(rest.requestSaga, resource, options)
