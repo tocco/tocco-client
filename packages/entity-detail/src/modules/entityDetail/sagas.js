@@ -185,6 +185,13 @@ export function* handleSubmitError(error) {
       body: error.message
     }))
     yield put(formActions.stopSubmit(FORM_ID))
+  } else if (error instanceof rest.ForbiddenException) {
+    yield put(notification.toaster({
+      type: 'error',
+      title: 'client.entity-detail.saveAbortedTitle',
+      body: 'client.entity-detail.noPermission'
+    }))
+    yield put(formActions.stopSubmit(FORM_ID))
   } else if (error instanceof rest.ClientQuestionCancelledException) {
     yield put(formActions.stopSubmit(FORM_ID))
   } else {

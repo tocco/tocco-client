@@ -35,6 +35,7 @@ import {
   hasRevisionIdChanged
 } from './helpers/serverSettings'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
+import ForbiddenException from './ForbiddenException'
 import InformationError from './InformationError'
 
 export default {
@@ -43,6 +44,7 @@ export default {
   setBusinessUnit,
   simpleRequest,
   ClientQuestionCancelledException,
+  ForbiddenException,
   InformationError,
   fetchEntity,
   fetchEntities,
