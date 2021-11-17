@@ -1,3 +1,10 @@
+0.5.38
+- adjust z-index of modal to prevent legacy actions falling behind it
+- fix duplicated search entries
+- add auto completion for TQL in code fields.
+- prevent default behaviour on shortcuts
+- set focus to search input on menu change
+
 0.5.37
 - fix jumping datepicker on Safari
 - show create form for remote fields again in the folder creation form
