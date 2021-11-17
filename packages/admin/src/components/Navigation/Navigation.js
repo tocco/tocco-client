@@ -138,9 +138,16 @@ const Navigation = ({
         setActiveMenuTab(menuTabs.MODULES)
       }
       inputEl.current.select()
-      setFocusToSearchInput()
     }
   }, [menuOpen])
+
+  useEffect(() => {
+    if (menuOpen) {
+      if (inputEl.current) {
+        inputEl.current.focus()
+      }
+    }
+  }, [activeMenuTab, menuOpen])
 
   const handleCursorNavigation = key => {
     const focusableElements = navigationEl.current.querySelectorAll('a[data-quick-navigation="true"], input')
@@ -182,15 +189,8 @@ const Navigation = ({
     }
   }
 
-  const setFocusToSearchInput = () => {
-    if (inputEl.current) {
-      inputEl.current.focus()
-    }
-  }
-
   const changeMenuTab = tab => {
     setActiveMenuTab(tab)
-    setFocusToSearchInput()
   }
 
   return (
