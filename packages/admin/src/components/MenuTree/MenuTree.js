@@ -21,9 +21,9 @@ const MenuTree = ({
 
   const actualItems = prepareMenuTree(items, searchFilter, typeMapping)
 
-  const MenuItems = actualItems.map(item => (
+  const MenuItems = actualItems.map((item, index) => (
     <MenuItem
-      key={item.name}
+      key={index}
       item={item}
       typeMapping={typeMapping}
       menuTreePath={item.name}
