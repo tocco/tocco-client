@@ -36,7 +36,7 @@ export function* createEntity(entity, paths = []) {
     },
     body: entity,
     acceptedErrorCodes: ['VALIDATION_FAILED'],
-    acceptedStatusCodes: [409]
+    acceptedStatusCodes: [403, 409]
   }
   const resource = `entities/2.0/${entity.model}`
   const resp = yield call(rest.requestSaga, resource, options)
@@ -48,6 +48,10 @@ export function* createEntity(entity, paths = []) {
   } else {
     if (resp.body && resp.body.errorCode === 'VALIDATION_FAILED') {
       throw new SubmissionError(form.validationErrorToFormError(entity, resp.body.errors))
+    }
+
+    if (resp.status === 403) {
+      throw new rest.ForbiddenException()
     }
 
     if (resp.status === 409 && resp.body.information) {
