@@ -163,6 +163,26 @@ describe('entity-detail', () => {
               .run()
           })
 
+          test('should notify about no permission', () => {
+            const error = new rest.ForbiddenException()
+
+            return expectSaga(sagas.handleSubmitError, error)
+              .put(formActions.stopSubmit(FORM_ID))
+              .put.like({
+                action: {
+                  type: 'notifier/INFO',
+                  payload: {
+                    type: 'error',
+                    title: 'client.entity-detail.saveAbortedTitle',
+                    message: 'client.entity-detail.noPermission',
+                    icon: null,
+                    timeOut: 5000
+                  }
+                }
+              })
+              .run()
+          })
+
           test('should stop submit on ClientQuestionCancelledException and not log an error', () => {
             const error = new rest.ClientQuestionCancelledException()
 

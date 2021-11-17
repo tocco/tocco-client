@@ -40,12 +40,16 @@ const validateRequest = (formValues, initialValues, mode) => {
     queryParams: {_validate: true},
     method: mode === 'create' ? 'POST' : 'PATCH',
     headers: {'X-Client-Questions': 'false'},
-    body: entity
+    body: entity,
+    acceptedStatusCodes: [403]
   }
 
   return rest.simpleRequest(`entities/2.0/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
-    .then(resp => resp.body)
-    .then(body => {
+    .then(resp => {
+      const body = resp.body
+      if (resp.status === 403) {
+        return {}
+      }
       if (body.valid) {
         return {}
       }

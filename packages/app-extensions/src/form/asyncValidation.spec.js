@@ -68,6 +68,16 @@ describe('app-extensions', () => {
           await submitValidation(values, mockData.initialValues, mockData.mode)
         })
 
+        test('should not throw an error if user has no permission', async() => {
+          fetchMock.mock('*', 403)
+          const values = {
+            ...mockData.baseFormValues,
+            firstname: ''
+          }
+
+          await submitValidation(values, mockData.initialValues, mockData.mode)
+        })
+
         test('should throw a SubmissionError', async() => {
           fetchMock.patch('*', {
             valid: false,
