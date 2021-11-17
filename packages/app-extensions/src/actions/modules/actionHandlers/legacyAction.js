@@ -137,15 +137,10 @@ export const listSelector = state => state.list
 export const entityListSelector = state => state.entityList
 export const entityDetailSelector = state => state.entityDetail
 
-export const getOrderByString = sortingArray => sortingArray && sortingArray.length > 0
-  ? rest.createSortingString(sortingArray)
-  : null
-
-export const getManualQuery = (selection, listState) => ({
+export const getManualQuery = selection => ({
   ...new window.nice2.netui.ManualQuery(),
   entityName: selection.entityName,
-  queryWhere: selection.query.where,
-  queryOrderBy: getOrderByString(listState.sorting)
+  queryWhere: selection.query.where
 })
 
 export const getListFormId = listState => ({
@@ -166,7 +161,7 @@ export function* getSelection(selection) {
     const listState = yield select(listSelector)
 
     legacySelection.selectionType = 'NEW_CLIENT_QUERY'
-    legacySelection.manualQuery = getManualQuery(selection, listState)
+    legacySelection.manualQuery = getManualQuery(selection)
     legacySelection.listForm = getListFormId(listState)
     legacySelection.searchFilters = selection.query.filter
   } else {
