@@ -7,4 +7,10 @@ const mapActionCreators = {
   keyDownHandler: keyDown
 }
 
-export default connect(null, mapActionCreators)(KeyDownWatcher)
+const mapStateToProps = state => {
+  return {
+    config: state.keyDown?.config || []
+  }
+}
+
+export default connect(mapStateToProps, mapActionCreators)(KeyDownWatcher)
