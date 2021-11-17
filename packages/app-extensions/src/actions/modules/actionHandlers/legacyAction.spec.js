@@ -218,8 +218,7 @@ describe('app-extensions', () => {
               const expectedManualQuery = {
                 ...new window.nice2.netui.ManualQuery(),
                 entityName: 'User',
-                queryWhere: 'firstname == "Hans"',
-                queryOrderBy: 'firstname desc, lastname asc'
+                queryWhere: 'firstname == "Hans"'
               }
 
               const expectedListForm = {
