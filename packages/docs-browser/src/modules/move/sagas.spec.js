@@ -38,7 +38,7 @@ describe('admin', () => {
                 ]
               }
 
-              const requestSaga = {method: 'POST', acceptedStatusCodes: [400, 403], body: body}
+              const requestOptions = {method: 'POST', acceptedStatusCodes: [400, 403], body: body}
 
               test('moveElements successful', () => {
                 return expectSaga(sagas.moveElements, {payload: payload})
@@ -47,7 +47,7 @@ describe('admin', () => {
                     [matchers.call.fn(sagas.setDone), {}]
                   ])
                   .put(actions.setWaiting(true))
-                  .call(rest.requestSaga, 'documents/move', requestSaga)
+                  .call(rest.requestSaga, 'documents/move', requestOptions)
                   .run()
               })
 
@@ -58,7 +58,7 @@ describe('admin', () => {
                     [matchers.call.fn(sagas.setDone), {}]
                   ])
                   .put(actions.setWaiting(true))
-                  .call(rest.requestSaga, 'documents/move', requestSaga)
+                  .call(rest.requestSaga, 'documents/move', requestOptions)
                   .put(notifier.info('error',
                     'client.actions.dms-move.failed.title',
                     'client.docs-browser.failedNoPermission',
@@ -72,7 +72,7 @@ describe('admin', () => {
                     [matchers.call.fn(rest.requestSaga), {status: 400, body: {errorCode: null}}]
                   ])
                   .put(actions.setWaiting(true))
-                  .call(rest.requestSaga, 'documents/move', requestSaga)
+                  .call(rest.requestSaga, 'documents/move', requestOptions)
                   .put(actions.setWaiting(false))
                   .put(notifier.info('error',
                     'client.actions.dms-move.failed.title',
@@ -92,7 +92,7 @@ describe('admin', () => {
                     [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
                   ])
                   .put(actions.setWaiting(true))
-                  .call(rest.requestSaga, 'documents/move', requestSaga)
+                  .call(rest.requestSaga, 'documents/move', requestOptions)
                   .put(actions.setWaiting(false))
                   .put(notifier.info('error', 'client.actions.dms-move.failed.title', msg, 'exclamation'))
                   .run()
