@@ -219,6 +219,7 @@ export function* initMultiRelations(model, key) {
     )
     .sort((a, b) => a.relationDisplay.order > b.relationDisplay.order ? 1 : -1)
 
+  yield put(actions.selectRelation(null))
   yield put(actions.setRelations(relationsTransformed))
   yield call(loadRelationInfos, model.name, key)
 }
