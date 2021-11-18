@@ -5,14 +5,8 @@ import React from 'react'
 
 import notification from '../../../notification'
 
-const SELECTION_THRESHOLD_DEFAULT = 100
-
 export default function* largeSelectionHandler(preparationResponse, params, definition, selection, config) {
-  const threshold = definition.confirmationThreshold === null || definition.confirmationThreshold === undefined
-    ? SELECTION_THRESHOLD_DEFAULT
-    : definition.confirmationThreshold
-
-  if (threshold !== -1 && selection && selection.count > threshold) {
+  if (definition.showConfirmation && selection && selection.count > definition.confirmationThreshold) {
     const confirmResponse = yield call(promptConfirm, selection.count)
     return {abort: !confirmResponse}
   }

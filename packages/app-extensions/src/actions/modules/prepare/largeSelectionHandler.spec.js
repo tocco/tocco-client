@@ -13,8 +13,12 @@ describe('app-extensions', () => {
         test('should prompt a confirm when the selection count exceed a threshold',
           () => {
             const channelMock = channel()
+            const definition = {
+              showConfirmation: true,
+              confirmationThreshold: 100
+            }
 
-            return expectSaga(largeSelectionHandler, {}, null, {}, {count: 200})
+            return expectSaga(largeSelectionHandler, {}, null, definition, {count: 200})
               .provide([{
                 call(effect, next) {
                   return effect.fn === channel ? channelMock : next()
@@ -30,8 +34,12 @@ describe('app-extensions', () => {
         test('should return abort true on negative answer',
           () => {
             const channelMock = channel()
+            const definition = {
+              showConfirmation: true,
+              confirmationThreshold: 100
+            }
 
-            return expectSaga(largeSelectionHandler, {}, null, {}, {count: 200})
+            return expectSaga(largeSelectionHandler, {}, null, definition, {count: 200})
               .provide([{
                 call(effect, next) {
                   return effect.fn === channel ? channelMock : next()
@@ -47,7 +55,11 @@ describe('app-extensions', () => {
 
         test('should not prompt a confirm if selection is not exceeding the threshold',
           () => {
-            return expectSaga(largeSelectionHandler, {}, null, {}, {count: 2})
+            const definition = {
+              showConfirmation: true,
+              confirmationThreshold: 100
+            }
+            return expectSaga(largeSelectionHandler, {}, null, definition, {count: 2})
               .not.put.like({action: {type: CONFIRM}})
               .returns({
                 abort: false
@@ -55,9 +67,10 @@ describe('app-extensions', () => {
               .run()
           })
 
-        test('should consider definition.confirmationThreshold and call confirm',
+        test('should consider definition.showConfirmation and definition.confirmationThreshold and call confirm',
           () => {
             const definition = {
+              showConfirmation: true,
               confirmationThreshold: 5
             }
             const selection = {
@@ -72,9 +85,10 @@ describe('app-extensions', () => {
               .run()
           })
 
-        test('should consider definition.confirmationThreshold and NOT call confirm',
+        test('should consider definition.showConfirmation and definition.confirmationThreshold and NOT call confirm',
           () => {
             const definition = {
+              showConfirmation: true,
               confirmationThreshold: 110
             }
             const selection = {
@@ -89,11 +103,26 @@ describe('app-extensions', () => {
               .run()
           })
 
-        test('should consider definition.confirmationThreshold never call confirm if value is -1',
+        test('should consider definition.showConfirmation and definition.confirmationThreshold never call confirm',
           () => {
             const definition = {
-              confirmationThreshold: -1
+              showConfirmation: false
             }
+            const selection = {
+              count: 100000000000
+            }
+
+            return expectSaga(largeSelectionHandler, {}, null, definition, selection)
+              .provide([
+                [matchers.call.fn(promptConfirm), false]
+              ])
+              .not.call(promptConfirm, selection.count)
+              .run()
+          })
+
+        test('should consider definition.showConfirmation but is undefined so never call confirm',
+          () => {
+            const definition = {}
             const selection = {
               count: 100000000000
             }

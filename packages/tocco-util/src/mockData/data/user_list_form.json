@@ -43,6 +43,7 @@
                 "label": "Simple Action",
                 "icon": null,
                 "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
+                "showConfirmation": true,
                 "confirmationThreshold": 5,
                 "endpoint": "actions/simpleAction"
               },
@@ -85,7 +86,7 @@
                 "label": "Confirm Simple Action (no threshold confirm)",
                 "icon": null,
                 "endpoint": "actions/simpleActionConfirm",
-                "confirmationThreshold": -1
+                "showConfirmation": false
               },
               {
                 "id": "simple-form",
