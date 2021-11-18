@@ -1,3 +1,100 @@
+0.4.8
+- Harmonize marked icon inside table
+- Increase z-index of modal holder to properly display as widget
+- Increase toaster z-index to properly display as widget
+- Prevent preview image collapsing to 1px if preview cannot be generated
+- Refresh list on navigation back to list
+- Harmonize html formatter spacing inside stated value
+- Harmonize icon spacing and hover behaviour in notifications
+- Add the feature to close modals via escape key
+- Add underline to links
+- Open Url in list in new window
+- Fix simple-search extend button in remote search
+- Improve browser tab title
+- Harmonize collapsible panel styling for better contrast
+- Prevent early line breaks in popover menu
+- Remove initial underline in notification detail link
+- support disablePreferencesMenu in table
+- Money post point digits fallback
+- Update select
+- Fix calendar entity-list text resources
+- add "open output job" to notification
+- Add background color to unread notifications
+- fix opening task execution of notification
+- Add button to remote fields that opens a popup containing a create form
+- split session saga
+- Fix suqare icon display expressions
+- Swap out donwload and upload icons to harmonize look
+- Harmonize button color of calendar navigation
+- Change date picker month button color for better visibility
+- Harmonize notification center styling
+- Added new cancel button to toasters and notification center when task execution can be cancelled
+- Change table hover colors to a more generic grey tone
+- Harmonize link styling to be consistent
+- Increase min-height of filter panel in search form
+- change dms icons
+- Improve table hover colors for better readability
+- Change popover text color of paragraphs to white
+- Reduce notification center title size
+- fix state propagation in resize hook
+- fix state propagation in resize hook
+- persist columns widths
+- fix websocket reconnection
+- refactor initial notification
+- fix confirm handler
+- calculate drop position before or after element
+- provide sanitize function for html
+- render sanitized html only
+- don't resize column after mouse release
+- Remote fields and select boxes now only load active relation values.
+- add keyField to model transformer
+- Reset legacy overwrite of link color inside toasters
+- Fix popper menu disappearing behind bm-menu elements
+- Harmonize paragraph spacing whithin fields
+- Lighten scrollbar color
+- fix column position change
+- Fix popper menu closing immediately when clicking an action
+- add scope as input
+- Add minimum box width property to Layout Container to better control column width
+- add open in new tab to document compact
+- only load huge global styles once per app
+- Added a preview image on hovering over download icons.
+- prevent position from switching between after/before
+- generic resize util
+- use scope for preferences
+- refactor notification
+- performance improvements
+- fix drag and drop
+- create link button
+- create link button
+- Add responsivity to all buttons so that the label disappears on smaller screens and only the icon is displayed
+- show minimum 5 rows
+- Fix datepickr disappearing behind modal
+- show textarea bigger for better distinction
+- table can be refreshed
+- only reload on explicit store updates
+- register more icons
+- increase z-index of popper menu to prevent it slipping behind modal
+- show button hover title and pointer cursor
+- fix placing of chevron icon in placeholder panel of admin search form
+- reset pagination on reload first page
+- user agent detection
+- improve performance on Safari
+- fix missing popover in single values and overflowing in firefox
+- add tooltip for remote fields
+- Add Ace editor to code fields.
+- add usePrevious helper hook
+- cleanup flatpickr components
+- fix jumping datepicker on Safari
+- debounce autosize on textarea
+- harmonize fontawesome icon spacing within table data cell
+- register more icons
+- improve dropdown performance for selects on Safari
+- fix performance bottleneck on linked sleect values
+- adjust z-index of modal to prevent legacy actions falling behind it
+- add auto completion for TQL in code fields.
+- prevent default behaviour on shortcuts
+
 0.4.7
 - Style new notification boxes
 - Style notification center
