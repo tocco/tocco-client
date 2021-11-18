@@ -19,7 +19,7 @@ export const StyledLocationEdit = styled.div`
 
     div {
       :nth-of-type(1) {
-        flex: 0 0 6ch;
+        flex: 0 0 13ch;
         margin-right: ${scale.space(-2)};
       }
 
