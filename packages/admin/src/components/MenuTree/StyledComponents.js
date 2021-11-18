@@ -6,7 +6,7 @@ export const StyledMenuEntry = styled.div`
   position: relative;
 
   && {
-    padding-left: ${({level}) => level * 8}px;
+    padding-left: calc(${({level}) => level} * ${scale.space(0.75)});
     line-height: ${theme.lineHeight('light')};
   }
   ${({childrenCount}) => childrenCount === 0 && 'margin-bottom: 0 !important'}
