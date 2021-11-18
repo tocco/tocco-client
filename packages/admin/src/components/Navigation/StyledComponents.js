@@ -10,7 +10,7 @@ export const StyledNav = styled.nav`
   flex-direction: column;
 
   ${StyledSearchBox} {
-    margin: 1.5rem 3rem 1.8rem 1.8rem;
+    margin: ${scale.space(0.2)} ${scale.space(1.25)} ${scale.space(0.5)} ${scale.space(0.5)};
   }
 `
 
@@ -26,7 +26,7 @@ export const StyledTabsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: ${scale.space(-0.37)};
   padding: 0 ${scale.space(0.6)};
   border-bottom: 3px solid ${theme.color('backgroundBody')};
 
@@ -36,9 +36,11 @@ export const StyledTabsContainer = styled.div`
 `
 
 export const StyledActiveTabLabel = styled.div`
-  ${declareFont()}
-  font-weight: ${theme.fontWeight('bold')};
-  color: ${secondary};
+  ${declareFont({
+    fontSize: scale.font(2.9),
+    fontWeight: theme.fontWeight('bold'),
+    color: theme.color('secondary')
+  })}
   flex-grow: 1;
 `
 
@@ -47,11 +49,12 @@ export const StyledNavIconButton = styled(Ball)`
   flex: ${({narrow}) => narrow ? 0.2 : 1};
   justify-content: center;
   border-radius: 0;
-  margin: 5px;
+  margin: ${scale.space(-0.7)};
   border-top: 5px solid ${({active}) => active ? secondary : 'transparent'};
   font-weight: ${theme.fontWeight('bold')};
-  padding-top: .6rem;
-  padding-bottom: .6rem;
+  font-size: ${scale.font(3)};
+  padding-top: ${scale.space(-1.1)};
+  padding-bottom: cal(${scale.space(-1.1)} - 5px); /* subtract border-top width of 5px */
   ${({active}) => active
     && css`color: ${secondary};`
   };

@@ -193,33 +193,35 @@ const Navigation = ({
     setActiveMenuTab(tab)
   }
 
+  const MenuTabs = Object.keys(menuTabs).map(key => {
+    const menuTab = menuTabs[key]
+    return (
+      <StyledNavIconButton
+        key={key}
+        active={activeMenuTab === menuTab}
+        onMouseDown={e => {
+          changeMenuTab(menuTab)
+
+          /**
+           * Prevent floating label on search input jumping
+           * up and down while switching between menu tabs.
+           * This prevents loosing the focus when "clicking"
+           * on the menu tab button.
+           */
+          e.preventDefault()
+        }}
+        title={menuTabsConfig[menuTab].label}
+        icon={menuTabsConfig[menuTab].icon}
+      />
+    )
+  })
+
   return (
     <StyledNav ref={navigationEl} onKeyDown={onKeyDown} data-cy="admin-nav">
       <StyledTabsContainer>
         <StyledActiveTabLabel>{menuTabsConfig[activeMenuTab]?.label}</StyledActiveTabLabel>
         <div>
-          {Object.keys(menuTabs).map(key => {
-            const menuTab = menuTabs[key]
-            return (
-              <StyledNavIconButton
-                key={key}
-                active={activeMenuTab === menuTab}
-                onMouseDown={e => {
-                  changeMenuTab(menuTab)
-                  
-                  /**
-                   * Prevent floating label on search input jumping
-                   * up and down while switching between menu tabs.
-                   * This prevents loosing the focus when "clicking"
-                   * on the menu tab button.
-                   */
-                  e.preventDefault()
-                }}
-                title={menuTabsConfig[menuTab].label}
-                icon={menuTabsConfig[menuTab].icon}
-              />
-            )
-          })}
+          {MenuTabs}
         </div>
       </StyledTabsContainer>
       <StyledSearchBoxWrapper>
