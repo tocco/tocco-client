@@ -14,7 +14,7 @@ export const getGoogleMapsAddress = locationInput => {
 
   const queryParams = locationInput
     ? Object.values(locationInput)
-        .filter(value => value)
+        .filter(Boolean)
         .map(value => (typeof value === 'object' && value.display) ? value.display : value)
         .join('+')
     : ''
@@ -22,96 +22,103 @@ export const getGoogleMapsAddress = locationInput => {
   return `${mapsBaseAddress}${queryParams}`
 }
 
-class LocationEdit extends React.Component {
-  returnGetSuggestion = attr => suggestion => suggestion[attr]
+const LocationEdit = ({
+  onChange: onChangeProp,
+  options,
+  value: valueProp,
+  id,
+  immutable,
+  name
+}) => {
+  const returnGetSuggestion = attr => suggestion => suggestion[attr]
 
-  renderSuggestion = suggestion => {
-    const cantonString = suggestion.state ? `- ${suggestion.state}` : ''
-    const countryString = suggestion.country ? `/ ${suggestion.country.display}` : ''
+  const renderSuggestion = suggestion => {
+    const {state, country, postcode, city} = suggestion
+    const cantonString = state ? `- ${state}` : ''
+    const countryString = country ? `/ ${country.display}` : ''
 
-    return <Typography.Span>{suggestion.postcode} {suggestion.city} {cantonString} {countryString}</Typography.Span>
+    return <Typography.Span>{postcode} {city} {cantonString} {countryString}</Typography.Span>
   }
 
-  onChange = field => (event, {newValue}) => {
-    this.props.onChange({[field]: newValue})
+  const onChange = field => (event, {newValue}) => {
+    onChangeProp({[field]: newValue})
   }
 
-  onSuggestionSelected = (event, {suggestion}) => {
-    this.props.onChange(suggestion)
+  const onSuggestionSelected = (event, {suggestion}) => {
+    onChangeProp(suggestion)
   }
 
-  returnOnSuggestionFetchRequested = field => ({value}) => {
-    this.props.options.fetchSuggestions({[field]: value}, this.props.value.country)
+  const returnOnSuggestionFetchRequested = field => ({value}) => {
+    options.fetchSuggestions({[field]: value}, valueProp.country)
   }
 
-  onSuggestionsClearRequested = () => {}
+  const showGoogleMaps = value => Boolean(value.city || value.postcode)
 
-  showGoogleMaps = value => !!(value.city || value.postcode)
+  const inputPropsZip = {
+    id: id,
+    value: valueProp.postcode || '',
+    onChange: onChange('postcode'),
+    disabled: immutable
+  }
 
-  render() {
-    const inputPropsZip = {
-      id: this.props.id,
-      value: this.props.value.postcode || '',
-      onChange: this.onChange('postcode'),
-      disabled: this.props.immutable
-    }
+  const inputPropsCity = {
+    value: valueProp.city || '',
+    onChange: onChange('city'),
+    disabled: immutable
+  }
 
-    const inputPropsCity = {
-      value: this.props.value.city || '',
-      onChange: this.onChange('city'),
-      disabled: this.props.immutable
-    }
-
-    return (
-      <FocusWithin>
-        {({focused, getRef}) => {
-          return <StyledLocationEdit
-            immutable={this.props.immutable}
-            name={this.props.name}
-            ref={getRef}
-          >
-            <Autosuggest
-              suggestions={this.props.options.suggestions || []}
-              onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('postcode')}
-              getSuggestionValue={this.returnGetSuggestion('postcode')}
-              renderSuggestion={this.renderSuggestion}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              inputProps={inputPropsZip}
-              onSuggestionSelected={this.onSuggestionSelected}
-              focusInputOnSuggestionClick={false}
-              shouldRenderSuggestions={v => v && !this.props.immutable}
+  return (
+    <FocusWithin>
+      {({
+        focused,
+        getRef
+      }) => (
+        <StyledLocationEdit
+          immutable={immutable}
+          name={name}
+          ref={getRef}
+        >
+          <Autosuggest
+            suggestions={options.suggestions || []}
+            onSuggestionsFetchRequested={returnOnSuggestionFetchRequested('postcode')}
+            getSuggestionValue={returnGetSuggestion('postcode')}
+            renderSuggestion={renderSuggestion}
+            onSuggestionsClearRequested={() => {}}
+            inputProps={inputPropsZip}
+            onSuggestionSelected={onSuggestionSelected}
+            focusInputOnSuggestionClick={false}
+            shouldRenderSuggestions={v => v && !immutable}
+          />
+          {(focused || valueProp.city || valueProp.postcode) && <Typography.Span>/</Typography.Span>}
+          <Autosuggest
+            suggestions={options.suggestions || []}
+            onSuggestionsFetchRequested={returnOnSuggestionFetchRequested('city')}
+            getSuggestionValue={returnGetSuggestion('city')}
+            renderSuggestion={renderSuggestion}
+            onSuggestionsClearRequested={() => {}}
+            inputProps={inputPropsCity}
+            onSuggestionSelected={onSuggestionSelected}
+            focusInputOnSuggestionClick={false}
+            shouldRenderSuggestions={v => v && !immutable}
+          />
+          <StyledEditableControl>
+            {options.isLoading && <LoadingSpinner size="1.8rem"/>}
+            {showGoogleMaps(valueProp)
+            && <Link
+              href={getGoogleMapsAddress(valueProp)}
+              icon="map-marked"
+              tabIndex={-1}
+              target="_blank"
+              dense={false}
+              title={options.mapButtonTitle || 'Show on map'}
+              neutral
             />
-            {(focused || this.props.value.city || this.props.value.postcode) && <Typography.Span>/</Typography.Span>}
-            <Autosuggest
-              suggestions={this.props.options.suggestions || []}
-              onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('city')}
-              getSuggestionValue={this.returnGetSuggestion('city')}
-              renderSuggestion={this.renderSuggestion}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              inputProps={inputPropsCity}
-              onSuggestionSelected={this.onSuggestionSelected}
-              focusInputOnSuggestionClick={false}
-              shouldRenderSuggestions={v => v && !this.props.immutable}
-            />
-            <StyledEditableControl>
-              {this.props.options.isLoading && <LoadingSpinner size="1.8rem"/>}
-              {this.showGoogleMaps(this.props.value)
-                && <Link
-                  href={getGoogleMapsAddress(this.props.value)}
-                  icon="map-marked"
-                  tabIndex={-1}
-                  target="_blank"
-                  dense={false}
-                  title={this.props.options.mapButtonTitle || 'Show on map'}
-                  neutral
-                />
-              }
-            </StyledEditableControl>
-          </StyledLocationEdit>
-        }}
-      </FocusWithin>
-    )
-  }
+            }
+          </StyledEditableControl>
+        </StyledLocationEdit>
+      )}
+    </FocusWithin>
+  )
 }
 
 const locationObjectPropType = PropTypes.shape({
