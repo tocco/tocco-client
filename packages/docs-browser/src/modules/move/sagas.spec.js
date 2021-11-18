@@ -36,7 +36,7 @@ describe('docs-browser', () => {
             ]
           }
 
-          const requestSaga = {method: 'POST', acceptedStatusCodes: [400, 403], body: body}
+          const requestOptions = {method: 'POST', acceptedStatusCodes: [400, 403], body: body}
 
           test('moveElements successful', () => {
             return expectSaga(sagas.moveElements, {payload: payload})
@@ -45,7 +45,7 @@ describe('docs-browser', () => {
                 [matchers.call.fn(sagas.setDone), {}]
               ])
               .put(actions.setWaiting(true))
-              .call(rest.requestSaga, 'documents/move', requestSaga)
+              .call(rest.requestSaga, 'documents/move', requestOptions)
               .run()
           })
 
@@ -56,7 +56,7 @@ describe('docs-browser', () => {
                 [matchers.call.fn(sagas.setDone), {}]
               ])
               .put(actions.setWaiting(true))
-              .call(rest.requestSaga, 'documents/move', requestSaga)
+              .call(rest.requestSaga, 'documents/move', requestOptions)
               .put(actions.setWaiting(false))
               .put(notification.toaster({
                 type: 'error',
@@ -72,7 +72,7 @@ describe('docs-browser', () => {
                 [matchers.call.fn(rest.requestSaga), {status: 400, body: {errorCode: null}}]
               ])
               .put(actions.setWaiting(true))
-              .call(rest.requestSaga, 'documents/move', requestSaga)
+              .call(rest.requestSaga, 'documents/move', requestOptions)
               .put(actions.setWaiting(false))
               .put(notification.toaster({
                 type: 'error',
@@ -93,7 +93,7 @@ describe('docs-browser', () => {
                 [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
               ])
               .put(actions.setWaiting(true))
-              .call(rest.requestSaga, 'documents/move', requestSaga)
+              .call(rest.requestSaga, 'documents/move', requestOptions)
               .put(actions.setWaiting(false))
               .put(notification.toaster({type: 'error', title: 'client.actions.dms-move.failed.title', body: msg}))
               .run()
