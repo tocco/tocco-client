@@ -4,13 +4,12 @@ import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
 import {form} from 'tocco-app-extensions'
 import Typography from 'tocco-ui/src/Typography'
 import styled from 'styled-components'
-import {scale} from 'tocco-ui'
+import {FormattedValue, scale} from 'tocco-ui'
 import {selectUnit} from '@formatjs/intl-utils'
-import {decode} from 'html-entities'
 
 export const ErrorItem = ({message}) =>
   <div>
-    {decode(message)}
+    <FormattedValue type="html" value={message}/>
   </div>
 
 ErrorItem.propTypes = {
