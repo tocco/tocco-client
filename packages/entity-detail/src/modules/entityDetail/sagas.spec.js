@@ -750,10 +750,10 @@ describe('entity-detail', () => {
               }
               return expectSaga(sagas.reloadAfterAction, {payload})
                 .provide([
-                  [call(sagas.loadData, false)]
+                  [call(sagas.loadData, true)]
                 ])
                 .put(externalEvents.fireExternalEvent('onRefresh'))
-                .call(sagas.loadData, false)
+                .call(sagas.loadData, true)
                 .run()
             })
 
@@ -765,10 +765,10 @@ describe('entity-detail', () => {
               }
               return expectSaga(sagas.reloadAfterAction, {payload})
                 .provide([
-                  [call(sagas.loadData, false)]
+                  [call(sagas.loadData, true)]
                 ])
                 .not.put(externalEvents.fireExternalEvent('onRefresh'))
-                .not.call(sagas.loadData, false)
+                .not.call(sagas.loadData, true)
                 .run()
             })
           })
