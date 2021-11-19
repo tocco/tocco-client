@@ -5,29 +5,43 @@ import PropTypes from 'prop-types'
 import Ball from '../Ball'
 import {StyledIndicatorsContainerWrapper} from './StyledComponents'
 
-const handleAdvancedSearch = (openAdvancedSearch, value) => event => {
+const handleAdvancedSearch = (openAdvancedSearch, value) => e => {
   openAdvancedSearch(value)
-  event.stopPropagation()
+  e.stopPropagation()
 }
 
-const handleCreate = (openCreate, value) => event => {
+const handleCreate = (openCreate, value) => e => {
   openCreate(value)
-  event.stopPropagation()
+  e.stopPropagation()
+}
+
+const handlePropagation = e => {
+  e.stopPropagation()
 }
 
 const IndicatorsContainer = props => {
-  const {openAdvancedSearch, openRemoteCreate, isDisabled, createPermission, value} = props.selectProps
+  const {
+    openAdvancedSearch,
+    openRemoteCreate,
+    isDisabled,
+    createPermission,
+    value,
+    isMulti,
+    wrapperHeight
+  } = props.selectProps
+  const rowHeight = 30 // roughly the height of a single row in px
+  const isBottomAligned = isMulti && value?.length && wrapperHeight > rowHeight
 
   return (
-    <StyledIndicatorsContainerWrapper>
+    <StyledIndicatorsContainerWrapper isBottomAligned={isBottomAligned}>
       <components.IndicatorsContainer {...props}>
         {props.children}
         {openAdvancedSearch
-      && !isDisabled
-      && <span
-        onTouchEnd={e => e.stopPropagation()}
-        onMouseDown={e => e.stopPropagation()}
-        onMouseUp={handleAdvancedSearch(openAdvancedSearch, props.value)}>
+        && !isDisabled
+        && <span
+          onTouchEnd={handlePropagation}
+          onMouseDown={handlePropagation}
+          onMouseUp={handleAdvancedSearch(openAdvancedSearch, props.value)}>
         <Ball
           icon="search"
           tabIndex={-1}
@@ -36,8 +50,8 @@ const IndicatorsContainer = props => {
         {createPermission
         && !isDisabled
         && <span
-          onTouchEnd={e => e.stopPropagation()}
-          onMouseDown={e => e.stopPropagation()}
+          onTouchEnd={handlePropagation}
+          onMouseDown={handlePropagation}
           onMouseUp={handleCreate(openRemoteCreate, value)}>
         <Ball
           icon="plus"
@@ -63,6 +77,8 @@ IndicatorsContainer.propTypes = {
     openAdvancedSearch: PropTypes.func,
     openRemoteCreate: PropTypes.func,
     isDisabled: PropTypes.bool,
+    isMulti: PropTypes.bool,
+    wrapperHeight: PropTypes.number,
     createPermission: PropTypes.bool,
     value: PropTypes.oneOfType([
       ItemPropType,
