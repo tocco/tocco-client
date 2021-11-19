@@ -122,7 +122,7 @@ export function* loadRouteInfo(pathname) {
           } else {
             const key = relationStringPart
             const model = parent.model
-            const entityExists = yield call(rest.entityExists, baseModel.name, path.key)
+            const entityExists = yield call(rest.entityExists, model.name, key)
 
             if (entityExists) {
               const display = yield call(rest.fetchDisplay, model.name, key)
