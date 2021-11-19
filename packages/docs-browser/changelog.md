@@ -1,3 +1,8 @@
+0.2.4-hotfix229.12
+- add no permission message for uploading document
+- add no permission message for moving document
+- show no permission error if entity is created
+
 0.2.4-hotfix229.11
 - Dms edit and create messages clean up
 - Fix calendar entity-list text resources
