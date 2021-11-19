@@ -27,7 +27,8 @@ const EditView = props => {
     intl,
     chooseDocument,
     emitAction,
-    propagateRefresh
+    propagateRefresh,
+    invalidateLastBreadcrumb
   } = props
 
   const [touched, setTouched] = useState(false)
@@ -64,6 +65,11 @@ const EditView = props => {
     history.push(entityBaseUrl)
   }
 
+  const handleEntityUpdated = () => {
+    const location = history.location
+    invalidateLastBreadcrumb(location)
+  }
+
   const handleRefresh = () => {
     const location = history.location
     propagateRefresh(location)
@@ -98,6 +104,7 @@ const EditView = props => {
       navigationStrategy={{...navigationStrategy(history, match), navigateToCreateRelative}}
       chooseDocument={chooseDocument}
       onEntityDeleted={handleEntityDeleted}
+      onEntityUpdated={handleEntityUpdated}
       onRefresh={handleRefresh}
       actionAppComponent={Action}
       onSubGridRowClick={handleSubGridRowClick}
@@ -112,7 +119,8 @@ EditView.propTypes = {
   currentViewInfo: currentViewPropType,
   chooseDocument: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired,
-  propagateRefresh: PropTypes.func.isRequired
+  propagateRefresh: PropTypes.func.isRequired,
+  invalidateLastBreadcrumb: PropTypes.func.isRequired
 }
 
 export default EditView

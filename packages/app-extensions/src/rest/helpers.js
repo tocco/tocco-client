@@ -63,6 +63,17 @@ export function* fetchDisplay(entityName, key, type) {
 }
 
 /**
+ * Helper to invalidate the cache of the display of an entity
+ *
+ * @param entityName {String} Name of the entity
+ * @param key {String} key of the entity
+ * @param type {String} type of the display, default display if none passed
+ */
+export function* invalidateDisplay(entityName, key, type) {
+  yield invalidateDisplays({[entityName]: [key]}, type)
+}
+
+/**
  * Helper to fetch display-expressions of a form for a list of entities
  *
  * @param formName {String} Name of the form
@@ -115,6 +126,18 @@ export function* fetchDisplays(request, type) {
       }), {}))
     }
   }), loadedDisplays)
+}
+
+/**
+ * Helper to invalidate cached display of entities.
+ *
+ * @param request {Object} Object containing model and keys of desired entities e.g. {User: ["123"], Gender: ["1", "2"]}
+ * @param type {String} type of the display, default display if none passed
+ */
+export function* invalidateDisplays(request, type) {
+  Object.entries(request).forEach(([model, keys]) => {
+    keys.forEach(key => cache.removeShortTerm('display', `${model}.${key}${type ? `.${type}` : ''}`))
+  })
 }
 
 function* loadDisplays(currentDisplays, type) {

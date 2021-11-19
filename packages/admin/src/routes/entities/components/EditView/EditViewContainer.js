@@ -3,13 +3,14 @@ import {injectIntl} from 'react-intl'
 import {actionEmitter} from 'tocco-app-extensions'
 import {chooseDocument} from 'tocco-docs-browser/src/modules/chooseDocument/actions'
 
-import {propagateRefresh} from '../../modules/path/actions'
+import {propagateRefresh, invalidateLastBreadcrumb} from '../../modules/path/actions'
 import EditView from './EditView'
 
 const mapActionCreators = {
   chooseDocument,
   emitAction: action => actionEmitter.dispatchEmittedAction(action),
-  propagateRefresh
+  propagateRefresh,
+  invalidateLastBreadcrumb
 }
 
 const mapStateToProps = (state, props) => ({
