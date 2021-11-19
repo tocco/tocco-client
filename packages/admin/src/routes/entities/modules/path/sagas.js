@@ -1,5 +1,5 @@
 import {rest} from 'tocco-app-extensions'
-import {viewPersistor} from 'tocco-util'
+import {viewPersistor, consoleLogger} from 'tocco-util'
 import _pickBy from 'lodash/pickBy'
 import _omit from 'lodash/omit'
 import _pick from 'lodash/pick'
@@ -10,12 +10,14 @@ import {getPathInfo} from '../../utils/url'
 
 export const entitiesPathSelector = state => state.entities.path
 
+const relationPathRegex = /[^/]+\/?[^/]+/g
 const isEven = n => n % 2 === 0
 
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.LOAD_CURRENT_ROUTE, loadRoute),
-    takeLatest(actions.PROPAGATE_REFRESH, reloadRelationsInfo)
+    takeLatest(actions.PROPAGATE_REFRESH, reloadRelationsInfo),
+    takeLatest(actions.INVALIDATE_LAST_BREADCRUMB, invalidateLastBreadcrumb)
   ])
 }
 
@@ -25,19 +27,27 @@ export function* loadRoute({payload: {location}}) {
   const routeInfo = yield call(loadRouteInfo, pathname)
 
   if (routeInfo.length > 0) {
-    const currentViewInfo = yield call(deriveCurrentViewInfo, pathname, routeInfo)
-
-    yield put(actions.setCurrentViewInfo(pathname, currentViewInfo))
-
-    const breadcrumbs = yield call(deriveBreadcrumbs, routeInfo)
-    yield put(actions.setBreadcrumbsInfo(breadcrumbs))
-
+    const currentViewInfo = yield call(updateCurrentViewInfo, pathname, routeInfo)
+    yield call(updateBreadcrumbsInfo, routeInfo)
+       
     if (currentViewInfo.type === 'detail' && !currentViewInfo.error) {
       yield spawn(initMultiRelations, currentViewInfo.model, currentViewInfo.key)
     }
 
     yield call(viewPersistor.clearPersistedViews, currentViewInfo.level + 1)
   }
+}
+
+function* updateCurrentViewInfo(pathname, routeInfo) {
+  const currentViewInfo = yield call(deriveCurrentViewInfo, pathname, routeInfo)
+  yield put(actions.setCurrentViewInfo(pathname, currentViewInfo))
+  return currentViewInfo
+}
+
+function* updateBreadcrumbsInfo(routeInfo) {
+  const breadcrumbs = yield call(deriveBreadcrumbs, routeInfo)
+  yield put(actions.setBreadcrumbsInfo(breadcrumbs))
+  return breadcrumbs
 }
 
 export function* loadRouteInfo(pathname) {
@@ -232,6 +242,78 @@ export function* reloadRelationsInfo({payload: {location}}) {
     yield spawn(loadRelationInfos, currentViewInfo.model.name, currentViewInfo.key)
     yield put(actions.selectRelation(null))
   }
+}
+
+export function* invalidateLastBreadcrumb({payload: {location}}) {
+  const {pathname} = location
+
+  const path = yield call(getPathInfo, pathname)
+
+  if (path?.entity && path?.key) {
+    try {
+      const lastEntity = yield call(getLastEntityInPath, path)
+      if (lastEntity) {
+        const {entityName, key} = lastEntity
+        yield call(rest.invalidateDisplay, entityName, key)
+        const display = yield call(rest.fetchDisplay, entityName, key)
+
+        yield put(actions.setCurrentViewInfo(pathname, {display}))
+        
+        const breadcrumbsPath = yield call(getLastBreadcrumbsPath, pathname)
+        yield put(actions.updateBreadcrumbsInfo(breadcrumbsPath, {display}))
+      }
+    } catch (e) {
+      // could not load model or delete cache
+      consoleLogger.logError('breadcrumbs invalidation failed', e)
+    }
+  }
+}
+
+function* getLastBreadcrumbsPath(pathname) {
+  const path = yield call(getPathInfo, pathname)
+
+  if (path === null || !path.entity) {
+    return ''
+  }
+  
+  // concatenates defined path segments separated with a slash => ${entity}/${key}/${relation}/${view}
+  return [path.entity, path.key, path.relation, path.view].filter(Boolean).join('/')
+}
+
+function* getLastEntityInPath(path) {
+  if (!path || !path.entity || !path.key || path.view === 'action') {
+    return null
+  }
+
+  const baseModel = yield call(rest.fetchModel, path.entity)
+    
+  if (!path.relation) {
+    // no relations => base entity is the last entity
+    return {entityName: baseModel.name, key: path.key}
+  }
+
+  const splittedEntities = path.relation.match(relationPathRegex)
+  if (splittedEntities.length < 1) {
+    return null
+  }
+
+  let parentModel = baseModel
+  let lastEntity = null
+
+  for (let i = 0; i < splittedEntities.length; i++) {
+    const [relationName, key] = splittedEntities[i].split('/')
+    const relation = parentModel.paths[relationName]
+      
+    if (!relation || !key) {
+      // no key = no entity (e.g. list or create view)
+      return null
+    }
+
+    parentModel = yield call(rest.fetchModel, relation.targetEntity)
+    lastEntity = {entityName: parentModel.name, key}
+  }
+
+  return lastEntity
 }
 
 export function* loadRelationInfos(model, key) {

@@ -17,6 +17,7 @@ import {
 } from './sagas'
 import * as actions from './actions'
 import {loadCurrentRoute} from './actions'
+import {getPathInfo} from '../../utils/url'
 
 describe('admin', () => {
   describe('routes', () => {
@@ -29,15 +30,26 @@ describe('admin', () => {
                 label: 'Person',
                 name: 'User',
                 paths: {
-                  relAddress_user: {}
+                  relAddress_user: {
+                    targetEntity: 'Address'
+                  }
                 }
               },
               userDisplay: 'Peter Lustig',
               addressModel: {
                 label: 'Adresse',
-                name: 'Address'
+                name: 'Address',
+                paths: {
+                  relContact_address: {
+                    targetEntity: 'Contact'
+                  }
+                }
               },
-              addressDisplay: 'Street 1'
+              addressDisplay: 'Street 1',
+              contactModel: {
+                label: 'Kontakt',
+                name: 'Contact'
+              }
             }
 
             describe('loadRoute', () => {
@@ -341,15 +353,15 @@ describe('admin', () => {
                 const routeInfo = [
                   {type: 'list', model: mockData.userModel},
                   {type: 'detail', key: '1', display: mockData.userDisplay, model: mockData.userModel},
-                  {type: 'list', relationName: 'relAddress', model: mockData.addressModel},
+                  {type: 'list', relationName: 'relAddress_user', model: mockData.addressModel},
                   {type: 'detail', key: '99', model: mockData.addressModel, display: mockData.addressDisplay}
                 ]
 
                 const expectedResult = [
                   {display: 'Person', path: 'User/list', type: 'list'},
                   {display: mockData.userDisplay, path: 'User/1/detail', type: 'detail'},
-                  {display: 'Adresse', path: 'User/1/relAddress/list', type: 'list'},
-                  {display: mockData.addressDisplay, path: 'User/1/relAddress/99/detail', type: 'detail'}]
+                  {display: 'Adresse', path: 'User/1/relAddress_user/list', type: 'list'},
+                  {display: mockData.addressDisplay, path: 'User/1/relAddress_user/99/detail', type: 'detail'}]
 
                 const result = sagas.deriveBreadcrumbs(routeInfo)
 
@@ -377,11 +389,11 @@ describe('admin', () => {
                 const routeInfo = [
                   {type: 'list', model: mockData.userModel},
                   {type: 'detail', key: '1', display: mockData.userDisplay, model: mockData.userModel},
-                  {type: 'list', relationName: 'relAddress', model: mockData.addressModel},
+                  {type: 'list', relationName: 'relAddress_user', model: mockData.addressModel},
                   {type: 'detail', key: '99', model: mockData.addressModel, display: mockData.addressDisplay}
                 ]
 
-                const pathname = 'User/1/relAddress/99/detail'
+                const pathname = 'User/1/relAddress_user/99/detail'
 
                 const expectedResult = {
                   display: mockData.addressDisplay,
@@ -397,6 +409,7 @@ describe('admin', () => {
                 expect(result).to.eql(expectedResult)
               })
             })
+
             describe('reloadRelationsInfo', () => {
               test('should reset relations and load relation info', () => {
                 const payload = {
@@ -438,6 +451,71 @@ describe('admin', () => {
                   ])
                   .put(actions.selectRelation(null))
                   .spawn(loadRelationInfos, 'Model', '123')
+                  .run()
+              })
+            })
+
+            describe('invalidateLastBreadcrumb', () => {
+              test('shoud invalidate cache and set display for last relation entity', () => {
+                const pathname = '/e/User/1/relAddress_user/99/relContact_address/13/detail'
+
+                return expectSaga(sagas.invalidateLastBreadcrumb, {payload: {location: {pathname}}})
+                  .provide([
+                    [matchers.call(rest.fetchModel, 'User'), mockData.userModel],
+                    [matchers.call(rest.fetchModel, 'Address'), mockData.addressModel],
+                    [matchers.call(rest.fetchModel, 'Contact'), mockData.contactModel],
+                    [matchers.call(rest.fetchDisplay, 'Contact', '13'), 'Lorem']
+                  ])
+                  .call(getPathInfo, pathname)
+                  .call(rest.invalidateDisplay, 'Contact', '13')
+                  .put(actions.setCurrentViewInfo(pathname, {display: 'Lorem'}))
+                  .put(actions.updateBreadcrumbsInfo('User/1/relAddress_user/99/relContact_address/13/detail',
+                    {display: 'Lorem'}))
+                  .run()
+              })
+
+              test('shoud invalidate cache and set display for the entity', () => {
+                const pathname = '/e/User/1/detail'
+
+                return expectSaga(sagas.invalidateLastBreadcrumb, {payload: {location: {pathname}}})
+                  .provide([
+                    [matchers.call(rest.fetchModel, 'User'), mockData.userModel],
+                    [matchers.call(rest.fetchDisplay, 'User', '1'), 'Hans Muster']
+                  ])
+                  .call(getPathInfo, pathname)
+                  .call(rest.invalidateDisplay, 'User', '1')
+                  .put(actions.setCurrentViewInfo(pathname, {display: 'Hans Muster'}))
+                  .put(actions.updateBreadcrumbsInfo('User/1/detail', {display: 'Hans Muster'}))
+                  .run()
+              })
+
+              test('shoud not invalidate cache for create view', () => {
+                const pathname = '/e/User/1/relAddress_user/create'
+
+                return expectSaga(sagas.invalidateLastBreadcrumb, {payload: {location: {pathname}}})
+                  .provide([
+                    [matchers.call(rest.fetchModel, 'User'), mockData.userModel]
+                  ])
+                  .call(getPathInfo, pathname)
+                  .run()
+              })
+
+              test('shoud not invalidate cache for action view on entity', () => {
+                const pathname = '/e/User/1/action/any-action'
+
+                return expectSaga(sagas.invalidateLastBreadcrumb, {payload: {location: {pathname}}})
+                  .provide([
+                    [matchers.call(rest.fetchModel, 'User'), mockData.userModel]
+                  ])
+                  .call(getPathInfo, pathname)
+                  .run()
+              })
+              
+              test('shoud not invalidate cache for action view', () => {
+                const pathname = '/e/action/any-action'
+
+                return expectSaga(sagas.invalidateLastBreadcrumb, {payload: {location: {pathname}}})
+                  .call(getPathInfo, pathname)
                   .run()
               })
             })
