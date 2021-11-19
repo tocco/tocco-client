@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Icon, Typography} from 'tocco-ui'
 import {js} from 'tocco-util'
+import _get from 'lodash/get'
+import queryString from 'query-string'
 
 import {
   StyledPlaceHolder,
@@ -16,6 +18,7 @@ import {currentViewPropType} from '../../utils/propTypes'
 import ListView from './ListView'
 import DocsViewAdapter from './DocsViewAdapter'
 import RelationBox from './RelationBox'
+import {getRelation} from '../../utils/relationPersistor'
 
 const RelationsView = props => {
   const {
@@ -28,9 +31,30 @@ const RelationsView = props => {
     intl,
     isCollapsed,
     toggleCollapse,
-    selectedRelation
+    selectedRelation,
+    selectRelation
+  } = props
+  const entityName = _get(currentViewInfo, 'model.name')
+
+  const updateSelectedRelation = () => {
+    if (relations?.length > 0) {
+      const queryRelation = queryString.parse(history.location.search).relation
+      if (queryRelation) {
+        selectRelation(relations.find(r => r.relationName === queryRelation))
+      } else {
+        const persistedSelectedRelation = getRelation(entityName)
+        if (persistedSelectedRelation) {
+          selectRelation(relations.find(r => r.relationName === persistedSelectedRelation))
+        } else {
+          selectRelation(relations[0])
+        }
+      }
+    }
   }
-  = props
+
+  useEffect(updateSelectedRelation, [relations])
+  useEffect(() => !selectedRelation ? updateSelectedRelation() : null, [selectedRelation])
+
   if (!relations || relations.length === 0 || !currentViewInfo) {
     return null
   }
@@ -45,6 +69,7 @@ const RelationsView = props => {
     <RelationBox
       key={`relation-${relation.relationName}`}
       relation={relation}
+      entityName={entityName}
       {...props}
     />
   )
