@@ -394,7 +394,7 @@ export function* updateMarked({payload: {entityName, entityId, marked}}) {
 export function* reloadAfterAction({payload}) {
   const {definition} = payload
   if (definition.id !== 'delete') {
-    yield call(loadData, false)
+    yield call(loadData, true)
     yield put(externalEvents.fireExternalEvent('onRefresh'))
   }
 }
