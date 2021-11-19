@@ -12,7 +12,12 @@ import Menu from './Menu'
 import MenuList from './MenuList'
 import MultiValueLabel from './MultiValueLabel'
 import SingleValue from './SingleValue'
-import {reactSelectStyles, reactSelectTheme} from './StyledComponents'
+import {
+  reactSelectStyles,
+  reactSelectTheme,
+  StyledReactSelectOuterWrapper,
+  StyledReactSelectInnerWrapper
+} from './StyledComponents'
 
 const SEARCH_DEBOUNCE = 300
 
@@ -60,24 +65,22 @@ const Select = ({
     }
   }
 
-  const debouncedSearchOptions
-    = searchOptions ? _debounce(searchOptions, SEARCH_DEBOUNCE) : () => {}
+  const handleFocus = () => {
+    selectComponent.current.focus()
+  }
+
+  const debouncedSearchOptions = searchOptions ? _debounce(searchOptions, SEARCH_DEBOUNCE) : () => {}
 
   const wrapperWidth = selectWrapper.current ? selectWrapper.current.clientWidth : 300
   const wrapperHeight = selectWrapper.current ? selectWrapper.current.clientHeight : 35
 
   return (
-    <div
+    <StyledReactSelectOuterWrapper
       tabIndex="-1"
       id={id}
-      onFocus={() => {
-        selectComponent.current.focus()
-      }}
-      style={{
-        outlineStyle: 'none',
-        cursor: immutable ? 'not-allowed' : 'default'
-      }}>
-      <div ref={selectWrapper} style={{outlineStyle: 'none'}}>
+      onFocus={handleFocus}
+    >
+      <StyledReactSelectInnerWrapper ref={selectWrapper}>
         <ReactSelect
           getOptionLabel={option => option.display}
           getOptionValue={option => option.key}
@@ -98,7 +101,7 @@ const Select = ({
           isMulti={isMulti}
           closeMenuOnSelect={!isMulti}
           isSearchable
-          {...(searchOptions ? {filterOption: () => (true)} : {})}
+          {...(searchOptions ? {filterOption: () => true} : {})}
           isClearable
           loadingMessage={() => null}
           placeholder=""
@@ -124,8 +127,8 @@ const Select = ({
           createPermission={createPermission}
           openRemoteCreate={openRemoteCreate}
         />
-      </div>
-    </div>
+      </StyledReactSelectInnerWrapper>
+    </StyledReactSelectOuterWrapper>
   )
 }
 

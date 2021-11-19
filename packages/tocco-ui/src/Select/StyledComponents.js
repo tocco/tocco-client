@@ -7,10 +7,20 @@ import Ball from '../Ball'
 import {declareFont, generateDisabledShade, generateShades, scale, theme} from '../utilStyles'
 import {StyledScrollbar} from '../Layout'
 
+export const StyledReactSelectOuterWrapper = styled.div`
+  outline-style: none;
+  cursor: ${({immutable}) => immutable ? 'not-allowed' : 'default'};
+`
+
+export const StyledReactSelectInnerWrapper = styled.div`
+  outline-style: none;
+`
+
 export const StyledIndicatorsContainerWrapper = styled.div`
   position: relative;
   z-index: 1;
   background-color: ${theme.color('paper')};
+  ${({isBottomAligned}) => isBottomAligned && 'align-self: flex-end'};
 `
 
 export const StyledTether = styled(TetherComponent)`
@@ -33,7 +43,7 @@ export const StyledMenu = styled(components.Menu)`
 
 export const StyledMoreOptionsAvailable = styled.div`
   && {
-    ${props => declareFont(props, {
+    ${declareFont({
       color: theme.color('signal.warning.text'),
       lineHeight: 'normal'
     })}
