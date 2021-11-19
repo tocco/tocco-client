@@ -77,6 +77,7 @@ const typeHandlers = type => {
     case 'string':
     case 'createuser':
     case 'updateuser':
+    case 'login':
       return (path, value) => `${path} ~= "${value}"`
     case 'boolean':
       return (path, value) => value === false ? null : `${path} == ${value}`
