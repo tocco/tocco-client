@@ -45,14 +45,14 @@ export function* handleCustomActionModal({definition, selection, config}) {
     `client.actions.${definition.appId}.title`,
     null,
     ({close}) => {
-      const onSuccess = ({message, remoteEvents}) => {
+      const onSuccess = ({title, message, remoteEvents}) => {
         close()
-        answerChannel.put({status: actionStatus.OK, message, remoteEvents})
+        answerChannel.put({status: actionStatus.OK, title, message, remoteEvents})
       }
 
-      const onError = ({message}) => {
+      const onError = (title, {message}) => {
         close()
-        answerChannel.put({status: actionStatus.NOT_OK, message})
+        answerChannel.put({status: actionStatus.NOT_OK, title, message})
       }
 
       const onCancel = () => {
@@ -79,11 +79,11 @@ export function* handleCustomActionModal({definition, selection, config}) {
   }
 
   const success = response.status === actionStatus.OK
-  if (response.message !== null) {
-    const type = success ? 'success' : 'warning'
-    const title = response.message || 'client.component.actions.successDefault'
+  if (response.title !== null) {
+    const type = success ? 'success' : 'error'
+    const title = response.title || 'client.component.actions.successDefault'
 
-    yield put(notification.toaster({type, title}))
+    yield put(notification.toaster({type, title, body: response.message}))
   }
   return {success: success, remoteEvents: response.remoteEvents}
 }
@@ -94,11 +94,11 @@ export function* handleFullScreenActions({definition, selection, config}) {
 
 export function* handleAppActionsFallback({definition, selection, config, parent, params, handler}) {
   const answerChannel = yield call(channel)
-  const onSuccess = ({message, remoteEvents}) => {
-    answerChannel.put({status: actionStatus.OK, message, remoteEvents})
+  const onSuccess = ({title, message, remoteEvents}) => {
+    answerChannel.put({status: actionStatus.OK, title, message, remoteEvents})
   }
-  const onError = ({message}) => {
-    answerChannel.put({status: actionStatus.NOT_OK, message})
+  const onError = ({title, message}) => {
+    answerChannel.put({status: actionStatus.NOT_OK, title, message})
   }
   const onCancel = () => {
     answerChannel.put({status: actionStatus.CANCEL})
@@ -117,11 +117,11 @@ export function* handleAnswer(answerChannel) {
 
   const success = response.status === actionStatus.OK
 
-  if (response.message) {
-    const type = success ? 'success' : 'warning'
-    const title = response.message === 'default' ? 'client.component.actions.successDefault' : response.message
+  if (response.title) {
+    const type = success ? 'success' : 'error'
+    const title = response.title === 'default' ? 'client.component.actions.successDefault' : response.title
 
-    yield put(notification.toaster({type, title}))
+    yield put(notification.toaster({type, title, body: response.message}))
   }
 
   return {success: success, remoteEvents: response.remoteEvents}
