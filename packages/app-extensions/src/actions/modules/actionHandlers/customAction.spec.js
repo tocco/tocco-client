@@ -81,7 +81,7 @@ describe('app-extensions', () => {
                   [channel, {}],
                   {
                     take({channel}, next) {
-                      return {status: 'ok', message: 'msg'}
+                      return {status: 'ok', title: 'msg'}
                     }
                   }
                 ])
@@ -96,7 +96,7 @@ describe('app-extensions', () => {
                   [channel, {}],
                   {
                     take({channel}, next) {
-                      return {status: 'ok', message: null}
+                      return {status: 'ok', title: null}
                     }
                   }
                 ])
@@ -110,11 +110,15 @@ describe('app-extensions', () => {
                   [channel, {}],
                   {
                     take({channel}, next) {
-                      return {status: 'ok', message: 'default'}
+                      return {status: 'ok', title: 'default', message: 'msg'}
                     }
                   }
                 ])
-                .put(notification.toaster({type: 'success', title: 'client.component.actions.successDefault'}))
+                .put(notification.toaster({
+                  type: 'success',
+                  title: 'client.component.actions.successDefault',
+                  body: 'msg'
+                }))
                 .run()
             })
 
@@ -124,7 +128,7 @@ describe('app-extensions', () => {
                   [channel, {}],
                   {
                     take({channel}, next) {
-                      return {status: 'not_ok', message: 'msg'}
+                      return {status: 'not_ok', title: 'msg'}
                     }
                   }
                 ])
@@ -139,7 +143,7 @@ describe('app-extensions', () => {
                   [channel, {}],
                   {
                     take({channel}, next) {
-                      return {status: 'cancel', message: 'msg'}
+                      return {status: 'cancel', title: 'msg'}
                     }
                   }
                 ])
@@ -230,7 +234,7 @@ describe('app-extensions', () => {
                 [channel, {}],
                 {
                   take({channel}, next) {
-                    return {status: 'ok', message: 'msg'}
+                    return {status: 'ok', title: 'msg'}
                   }
                 }
               ])
@@ -245,7 +249,7 @@ describe('app-extensions', () => {
                 [channel, {}],
                 {
                   take({channel}, next) {
-                    return {status: 'not_ok', message: 'msg'}
+                    return {status: 'not_ok', title: 'msg'}
                   }
                 }
               ])
@@ -260,7 +264,7 @@ describe('app-extensions', () => {
                 [channel, {}],
                 {
                   take({channel}, next) {
-                    return {status: 'cancel', message: 'msg'}
+                    return {status: 'cancel', title: 'msg'}
                   }
                 }
               ])
