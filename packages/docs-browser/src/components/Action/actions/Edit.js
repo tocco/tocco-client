@@ -35,7 +35,7 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
     }]
 
     onSuccess({
-      message: null,
+      title: null,
       remoteEvents
     })
   }
@@ -52,7 +52,7 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
     }]
 
     onSuccess({
-      message: null,
+      title: null,
       remoteEvents
     })
   }
