@@ -87,6 +87,7 @@ describe('admin', () => {
                       onError
                     }],
                     [call(sagas.createDocuments, location, files), response],
+                    [select(sagas.textResourceSelector, 'client.entity-detail.saveAbortedTitle'), 'save failed'],
                     [select(sagas.textResourceSelector, 'client.docs-browser.failedNoPermission'), 'no permission']
                   ])
                   .put(notifier.removeBlockingInfo('my-random-uuid'))
