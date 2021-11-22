@@ -1,3 +1,6 @@
+0.2.4-hotfix229.13
+- add title to custom action response
+
 0.2.4-hotfix229.12
 - add no permission message for uploading document
 - add no permission message for moving document
