@@ -61,8 +61,7 @@ describe('admin', () => {
                   .call(rest.requestSaga, 'documents/move', requestOptions)
                   .put(notifier.info('error',
                     'client.actions.dms-move.failed.title',
-                    'client.docs-browser.failedNoPermission',
-                    'exclamation'))
+                    'client.docs-browser.failedNoPermission'))
                   .run()
               })
 
@@ -76,8 +75,7 @@ describe('admin', () => {
                   .put(actions.setWaiting(false))
                   .put(notifier.info('error',
                     'client.actions.dms-move.failed.title',
-                    'client.actions.dms-move.failed.message',
-                    'exclamation'))
+                    'client.actions.dms-move.failed.message'))
                   .run()
               })
 
@@ -94,7 +92,7 @@ describe('admin', () => {
                   .put(actions.setWaiting(true))
                   .call(rest.requestSaga, 'documents/move', requestOptions)
                   .put(actions.setWaiting(false))
-                  .put(notifier.info('error', 'client.actions.dms-move.failed.title', msg, 'exclamation'))
+                  .put(notifier.info('error', 'client.actions.dms-move.failed.title', msg))
                   .run()
               })
             })

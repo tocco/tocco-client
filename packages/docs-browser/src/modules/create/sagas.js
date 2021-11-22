@@ -31,6 +31,7 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
     if (response.status === 403) {
       yield put(notifier.removeBlockingInfo(blockingInfoId))
       onError({
+        title: yield select(textResourceSelector, 'client.entity-detail.saveAbortedTitle'),
         message: yield select(textResourceSelector, 'client.docs-browser.failedNoPermission')
       })
     } else {
@@ -52,7 +53,7 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
         ? 'client.docs-browser.uploadSuccessfulDirectory'
         : 'client.docs-browser.uploadSuccessful'
       onSuccess({
-        message: yield select(textResourceSelector, msgId),
+        title: yield select(textResourceSelector, msgId),
         remoteEvents
       })
     }
@@ -60,7 +61,7 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
     consoleLogger.logError('Failed to upload files', e)
     yield put(notifier.removeBlockingInfo(blockingInfoId))
     onError({
-      message: yield select(textResourceSelector, 'client.docs-browser.uploadFailed')
+      title: yield select(textResourceSelector, 'client.docs-browser.uploadFailed')
     })
   }
 }

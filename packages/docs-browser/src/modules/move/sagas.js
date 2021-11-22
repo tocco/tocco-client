@@ -32,7 +32,7 @@ export function* moveElements({payload}) {
     if (response.status === 403) {
       message = 'client.docs-browser.failedNoPermission'
     }
-    yield put(notifier.info('error', 'client.actions.dms-move.failed.title', message, 'exclamation'))
+    yield put(notifier.info('error', 'client.actions.dms-move.failed.title', message))
   }
 }
 
@@ -50,7 +50,7 @@ export function* setDone() {
   }]
 
   onSuccess({
-    message: yield select(textResourceSelector, 'client.docs-browser.moveSuccessful'),
+    title: yield select(textResourceSelector, 'client.docs-browser.moveSuccessful'),
     remoteEvents
   })
 

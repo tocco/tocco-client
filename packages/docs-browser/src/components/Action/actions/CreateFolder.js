@@ -25,7 +25,7 @@ const CreateFolder = ({context, onSuccess, intl, emitAction}) => {
     }]
 
     onSuccess({
-      message: intl.formatMessage({id: 'client.docs-browser.createFolderSuccessful'}),
+      title: intl.formatMessage({id: 'client.docs-browser.createFolderSuccessful'}),
       remoteEvents
     })
   }

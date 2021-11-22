@@ -12,7 +12,7 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
       emitAction(action)
     }
   }
-  
+
   const [entityName, entityKey] = selection.ids[0].split('/')
 
   if (entityName === 'Resource') {
@@ -32,7 +32,7 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
     }]
 
     onSuccess({
-      message: intl.formatMessage({id: 'client.docs-browser.editSuccessful'}),
+      title: intl.formatMessage({id: 'client.docs-browser.editSuccessful'}),
       remoteEvents
     })
   }
