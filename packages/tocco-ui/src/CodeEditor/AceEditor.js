@@ -77,7 +77,7 @@ const AceEditor = props => {
 
   useEffect(() => {
     const aceEditor = ace.edit(containerReference.current)
-    aceEditor.getSession().setValue(value)
+    aceEditor.getSession().setValue(value || '')
     aceEditor.on('change', () => onChange(aceEditor.getValue()))
     setEditorConfiguration(aceEditor, props)
     editorReference.current = aceEditor
