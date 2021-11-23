@@ -29,10 +29,7 @@ export function* invokeActionAsync(definition, selection, parent, params) {
       },
       formProperties: definition.properties
     },
-    acceptedErrorCodes: ['VALIDATION_FAILED'],
-    headers: {
-      'X-Enable-Notifications': true
-    }
+    acceptedErrorCodes: ['VALIDATION_FAILED']
   })
 
   if (response.body && response.body.success === false) {
@@ -79,10 +76,7 @@ export function* invokeRequest(definition, selection, parent, params) {
         ...params,
         formProperties: definition.properties
       },
-      acceptedErrorCodes: ['VALIDATION_FAILED'],
-      headers: {
-        'X-Enable-Notifications': true
-      }
+      acceptedErrorCodes: ['VALIDATION_FAILED']
     })
     if (response.body && response.body.errorCode === 'VALIDATION_FAILED') {
       yield put(
