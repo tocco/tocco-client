@@ -5,10 +5,10 @@ import {StyledMenuChildrenWrapper} from './StyledComponents'
 
 const MenuChildrenWrapper = ({isOpen, canCollapse, children}) => (
   <StyledMenuChildrenWrapper
-    isOpen={!canCollapse || isOpen}
-  >
-    {children}
-  </StyledMenuChildrenWrapper>
+      isOpen={!canCollapse || isOpen}
+    >
+      {(!canCollapse || isOpen) && children}
+    </StyledMenuChildrenWrapper>
 )
 
 MenuChildrenWrapper.propTypes = {
