@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useLayoutEffect, useMemo, useRef} from 'react'
+import React, {useEffect, useMemo, useRef} from 'react'
 import {reduxForm} from 'redux-form'
 import {form} from 'tocco-app-extensions'
+import {react as customHooks} from 'tocco-util'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import SaveButton from './SaveButton'
@@ -32,13 +33,7 @@ const DetailForm = props => {
     fireTouched(dirty && anyTouched)
   }, [dirty, anyTouched])
 
-  useLayoutEffect(() => {
-    const firstInput = formEl.current.querySelector('input:not([disabled]),textarea:not([disabled])')
-
-    if (firstInput != null) {
-      firstInput.focus()
-    }
-  }, [])
+  customHooks.useAutofocus(formEl)
 
   const customRenderedActions = useMemo(() => (
     {
