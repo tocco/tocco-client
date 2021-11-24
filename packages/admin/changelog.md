@@ -1,3 +1,20 @@
+0.5.39
+- harmonize menu entry padding for cleaner left alignment
+- harmonize navigation tab spacing and sizing
+- adjust min width of location edit postcode and refactor component
+- refactor largeSelectionHandler
+- handle-non-existent relation entity gracefully
+- enable select dropdown indicators to be aligned at bottom of multiselect fields
+- fix html in toaster message
+- tql builder support login type
+- add no permission message for uploading document
+- add title to custom action response
+- show no permission error if entity is created
+- add no permission message for moving document
+- fix menu navigation with arrow keys when some groups were collapsed
+- throttle autosize to fix performance issues
+- reload breadcrumbs after entity update
+
 0.5.38
 - adjust z-index of modal to prevent legacy actions falling behind it
 - fix duplicated search entries
