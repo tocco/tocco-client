@@ -1,19 +1,19 @@
-import React, {useRef, useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
-import {Icon, Ball, BallMenu, MenuItem, Popover} from 'tocco-ui'
+import {Ball, BallMenu, Icon, MenuItem, Popover} from 'tocco-ui'
 import {withTheme} from 'styled-components'
 import {FormattedMessage, injectIntl} from 'react-intl'
 
 import {
-  StyledSplit,
   AdminSearchGrid,
   Box,
   StyledGutter,
   StyledHeader,
+  StyledPlaceHolder,
+  StyledSplit,
   StyledSplitWrapper,
-  StyledToggleCollapseButton,
-  StyledPlaceHolder
+  StyledToggleCollapseButton
 } from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import SearchFilterList from '../SearchFilterList'
@@ -47,9 +47,17 @@ const AdminSearchForm = ({
   toggleCollapse
 }) => {
   const splitWrapperEl = useRef(null)
+  const searchFormEl = useRef(null)
   const [size, setSize] = useState([MAX_SIZE_SEARCH_FILTER, 100 - MAX_SIZE_SEARCH_FILTER])
   const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
   const [showExpandSearchFilter, setShowExpandSearchFilter] = useState(false)
+
+  useEffect(() => {
+    if (searchFormEl.current) {
+      const firstTextInput = searchFormEl.current.querySelector('input[type = "text"]')
+      firstTextInput.focus()
+    }
+  }, [])
 
   const msg = id => intl.formatMessage({id})
 
@@ -118,7 +126,7 @@ const AdminSearchForm = ({
           <Box>
             <SearchFilterList/>
           </Box>
-          <Box>
+          <Box ref={searchFormEl}>
             <BasicSearchFormContainer disableSimpleSearch={true}/>
           </Box>
         </StyledSplit>
