@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {userAgent} from 'tocco-util'
-import _debounce from 'lodash/debounce'
+import _throttle from 'lodash/throttle'
 
 import {StyledSizeWrapper, StyledTextarea} from './StyledComponents'
 
@@ -11,11 +11,11 @@ const TextareaAutosize = ({value, onChange, name, id, disabled, immutable}) => {
   // remove autosize feature for Safari to be able to type fluently
   const useAutosizeFeature = !userAgent.isSafari()
   
-  const setDebouncedReplicatedValue = _debounce(setReplicatedValue, 500)
+  const setThrottledReplicatedValue = useCallback(_throttle(setReplicatedValue, 500, {trailing: true}), [])
 
   useEffect(() => {
     if (useAutosizeFeature) {
-      setDebouncedReplicatedValue(value)
+      setThrottledReplicatedValue(value)
     }
   }, [value])
 
