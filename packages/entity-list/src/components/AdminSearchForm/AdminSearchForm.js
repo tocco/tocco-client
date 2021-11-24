@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import {Ball, BallMenu, Icon, MenuItem, Popover} from 'tocco-ui'
 import {withTheme} from 'styled-components'
 import {FormattedMessage, injectIntl} from 'react-intl'
+import {react as customHooks} from 'tocco-util'
 
 import {
   AdminSearchGrid,
@@ -52,12 +53,7 @@ const AdminSearchForm = ({
   const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
   const [showExpandSearchFilter, setShowExpandSearchFilter] = useState(false)
 
-  useEffect(() => {
-    if (searchFormEl.current) {
-      const firstTextInput = searchFormEl.current.querySelector('input[type = "text"]')
-      firstTextInput.focus()
-    }
-  }, [])
+  customHooks.useAutofocus(searchFormEl)
 
   const msg = id => intl.formatMessage({id})
 
