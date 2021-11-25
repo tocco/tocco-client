@@ -1,6 +1,5 @@
 import _pick from 'lodash/pick'
-
-const UPLOAD_ENDPOINT_URL = `${__BACKEND_URL__}/nice2/upload`
+import {request} from 'tocco-util'
 
 /**
  * Upload a file.
@@ -21,14 +20,8 @@ export const uploadRequest = file => {
   const data = new FormData()
   data.append('file', file)
 
-  const fetchOptions = {
-    method: 'POST',
-    credentials: 'include',
-    body: data
-  }
-
-  return fetch(UPLOAD_ENDPOINT_URL, fetchOptions)
-    .then(response => response.json())
+  const fetchOptions = {method: 'POST', body: data}
+  return request.executeRequest('upload', fetchOptions).then(request.extractBody)
 }
 
 export const documentToFormValueTransformer = (uploadResponse, file) => {

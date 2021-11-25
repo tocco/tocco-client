@@ -1,4 +1,4 @@
-import {consoleLogger} from 'tocco-util'
+import {consoleLogger, request} from 'tocco-util'
 import {all, call, put, takeLatest} from 'redux-saga/effects'
 
 import cache from '../cache'
@@ -6,8 +6,8 @@ import notification from '../notification'
 import * as actions from './actions'
 
 export function doRequest(url, options) {
-  return fetch(url, options)
-    .then(resp => resp.json())
+  return request.executeRequest(url, options)
+    .then(request.extractBody)
     .catch(e => {
       consoleLogger.logError('Failed to execute request', e)
       return ({success: false})
@@ -15,17 +15,7 @@ export function doRequest(url, options) {
 }
 
 export function* doSessionRequest() {
-  return yield call(doRequest, `${__BACKEND_URL__}/nice2/session`, getOptions())
-}
-
-export function getOptions() {
-  return {
-    method: 'POST',
-    headers: new Headers({
-      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-    }),
-    credentials: 'include'
-  }
+  return yield call(doRequest, 'session', {method: 'POST'})
 }
 
 export function* sessionCheck() {
