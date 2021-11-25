@@ -1,5 +1,5 @@
 import ace from 'ace-builds/src-min-noconflict/ace'
-import {originId} from 'tocco-util'
+import {request} from 'tocco-util'
 
 import {functions, placeholders, types} from './TqlMode'
 
@@ -94,14 +94,7 @@ export const findCurrentModelScope = iterator => backtrack(iterator, findLastMod
  **/
 const defaultScore = 1000
 
-const getFetchOptions = () => ({
-  headers: {
-    'X-Origin-Id': originId.getOriginId()
-  },
-  credentials: 'include'
-})
-
-const sendRequest = endpoint => fetch(`${__BACKEND_URL__}/nice2/rest/${endpoint}`, getFetchOptions())
+const sendRequest = endpoint => request.executeRequest(`rest/${endpoint}`)
 
 const extractBody = response => response.status === 200 ? response.json() : null
 
