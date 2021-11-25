@@ -1,9 +1,7 @@
 import {
   requestSaga,
   requestBytesSaga,
-  setBusinessUnit,
-  simpleRequest,
-  NULL_BUSINESS_UNIT
+  simpleRequest
 } from './rest'
 import {
   fetchEntity,
@@ -43,7 +41,6 @@ import InformationError from './InformationError'
 export default {
   requestSaga,
   requestBytesSaga,
-  setBusinessUnit,
   simpleRequest,
   ClientQuestionCancelledException,
   ForbiddenException,
@@ -72,6 +69,5 @@ export default {
   fetchMarked,
   setMarked,
   setSelectionMarked,
-  NULL_BUSINESS_UNIT,
   entityExists
 }

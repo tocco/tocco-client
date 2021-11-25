@@ -3,8 +3,9 @@ import {call} from 'redux-saga/effects'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
+import {env} from 'tocco-util'
 
-import {getParameterString, prepareRequest, requestSaga, setBusinessUnit, simpleRequest} from './rest'
+import {getParameterString, prepareRequest, requestSaga, simpleRequest} from './rest'
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
 import {toaster} from '../notification/modules/toaster/actions'
@@ -129,9 +130,9 @@ describe('app-extensions', () => {
         const headers = fetchMock.lastOptions().headers
         expect(headers.get('x-business-unit')).to.be.null
 
-        setBusinessUnit('my_test_bu')
+        env.setBusinessUnit('my_test_bu')
         simpleRequest('')
-        setBusinessUnit(null)
+        env.setBusinessUnit(null)
 
         const headers2 = fetchMock.lastOptions().headers
         expect(headers2.get('x-business-unit')).to.eql('my_test_bu')
@@ -301,9 +302,9 @@ describe('app-extensions', () => {
       })
 
       test('should add X-Business-Unit header if business unit set', () => {
-        setBusinessUnit('my_test_bu')
+        env.setBusinessUnit('my_test_bu')
         const requestData = prepareRequest('entities/2.0/Contact')
-        setBusinessUnit(null)
+        env.setBusinessUnit(null)
 
         expect(requestData.options.headers.get('X-Business-Unit')).to.eql('my_test_bu')
       })
