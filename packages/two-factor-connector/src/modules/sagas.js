@@ -1,5 +1,6 @@
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
 import {rest, externalEvents} from 'tocco-app-extensions'
+import {request} from 'tocco-util'
 import _get from 'lodash/get'
 
 import * as actions from './actions'
@@ -22,6 +23,10 @@ export function* requestSecret() {
   yield put(actions.goToSecret())
 }
 
+export function sendRequest(url, options) {
+  return request.executeRequest(url, options).then(request.extractBody)
+}
+
 /* the regular two-factor endpoint can only be accessed while logged in to secure against anonymous activation of
    two-factor validation on arbitrary accounts, so without a session we send a request to the login servlet which uses
    the forced two-factor authenticator to validate login data and activate the two-factor login */
@@ -32,7 +37,8 @@ function* activateTwoFactorWithoutSession(secret, userCode, username, password) 
     username,
     password
   }
-  const response = yield call(rest.requestSaga, 'nice2/login',
+
+  const response = yield call(sendRequest, 'login',
     {
       method: 'POST',
       headers: new Headers({
