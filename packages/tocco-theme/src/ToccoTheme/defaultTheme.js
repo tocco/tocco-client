@@ -8,6 +8,7 @@ export default {
     text: '#000',
     backgroundBody: '#EDF1F5',
     backgroundBreadcrumbs: '#DEE6ED',
+    backgroundPopover: '#424242',
     signal: {
       danger: {
         paper: '#EF9A9A',
