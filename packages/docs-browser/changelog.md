@@ -1,3 +1,44 @@
+1.0.0
+- register more icons
+- increase z-index of popper menu to prevent it slipping behind modal
+- show button hover title and pointer cursor
+- harmonize detail footer spacing
+- fix placing of chevron icon in placeholder panel of admin search form
+- reset pagination on reload first page
+- user agent detection
+- improve performance on Safari
+- fix missing popover in single values and overflowing in firefox
+- add tooltip for remote fields
+- Add Ace editor to code fields.
+- add usePrevious helper hook
+- cleanup flatpickr components
+- propagate onSelectChange
+- add option to choose document from dms
+- fix jumping datepicker on Safari
+- Show create form for remote fields again in the folder creation form
+- debounce autosize on textarea
+- harmonize fontawesome icon spacing within table data cell
+- register more icons
+- improve dropdown performance for selects on Safari
+- fix performance bottleneck on linked sleect values
+- adjust z-index of modal to prevent legacy actions falling behind it
+- add auto completion for TQL in code fields.
+- prevent default behaviour on shortcuts
+- adjust min width of location edit postcode and refactor component
+- refactor largeSelectionHandler
+- enable select dropdown indicators to be aligned at bottom of multiselect fields
+- fix html in toaster message
+- tql builder support login type
+- add no permission message for uploading document
+- add title to custom action response
+- add title to custom action response
+- show no permission error if entity is created
+- add no permission message for moving document
+- throttle autosize to fix performance issues
+- change toaster behavior to stay on hover and refactor ToasterDisplay
+- the first search field in admin search forms now gets automatically focused on opening
+- remove X-Enable-Notifications header
+
 0.2.15
 - only load huge global styles once per app
 - Added actions to DMS lists
