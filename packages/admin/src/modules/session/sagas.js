@@ -26,7 +26,7 @@ export function* delayByTimeout(timeout) {
 }
 
 export function* doLogoutRequest() {
-  return yield call(login.doRequest, `${__BACKEND_URL__}/nice2/logout`, login.getOptions())
+  return yield call(login.doRequest, 'logout', {method: 'POST'})
 }
 
 export function* loginSuccessful({payload}) {
