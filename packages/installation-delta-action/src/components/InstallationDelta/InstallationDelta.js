@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import {rest} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 
 import CommitMsg from '../CommitMsg'
@@ -25,11 +26,9 @@ const StyledRow = styled.div`
 const InstallationDelta = ({keys}) => {
   const [delta, setDelta] = useState(null)
 
-  const fetchData = async() => {
-    const options = {credentials: 'include'}
-    const url = `${__BACKEND_URL__}/nice2/rest/tocco/commit-info/installation/${keys[0]}/delta?installation=${keys[1]}`
-    const response = await fetch(url, options)
-    return response.json()
+  const fetchData = () => {
+    const url = `tocco/commit-info/installation/${keys[0]}/delta?installation=${keys[1]}`
+    return rest.simpleRequest(url)
   }
 
   useEffect(() => {
