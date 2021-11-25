@@ -12,10 +12,10 @@ const ARROW_WIDTH = 16
 const StyledBoxWrapper = styled.div`
   && {
     pointer-events: none; // prevent flickering of tooltip
-    background-color: ${theme.color('secondaryLight')};
+    background-color: ${theme.color('backgroundPopover')};
     max-width: 400px;
     z-index: 100000010;
-    padding: ${({rimless}) => rimless ? '0' : scale.space(-1)};
+    padding: ${({rimless}) => rimless ? '0' : scale.space(0)};
   }
 `
 
@@ -48,16 +48,16 @@ const StyledArrow = styled.i`
 
     &:before {
       border-width: 0 ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px;
-      border-color: transparent transparent ${theme.color('secondaryLight')} transparent;
+      border-color: transparent transparent ${theme.color('backgroundPopover')} transparent;
     }
   }
 
   &[data-placement*='top'] {
-    bottom: ${ARROW_WIDTH / -2}px;
+    bottom: ${ARROW_WIDTH / -2.5}px;
 
     &:before {
       border-width: ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px 0 ${ARROW_WIDTH / 2}px;
-      border-color: ${theme.color('secondaryLight')} transparent transparent transparent;
+      border-color: ${theme.color('backgroundPopover')} transparent transparent transparent;
     }
   }
 
@@ -67,7 +67,7 @@ const StyledArrow = styled.i`
 
     &:before {
       border-width: ${ARROW_WIDTH / 2}px;
-      border-color: transparent ${theme.color('secondaryLight')} transparent transparent;
+      border-color: transparent ${theme.color('backgroundPopover')} transparent transparent;
     }
   }
 
