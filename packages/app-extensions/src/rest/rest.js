@@ -1,5 +1,5 @@
 import {call, put} from 'redux-saga/effects'
-import {originId} from 'tocco-util'
+import {env, request} from 'tocco-util'
 
 import {sendByteRequest, sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
@@ -22,14 +22,6 @@ export const getParameterString = params => {
     return `?${paramString}`
   }
   return ''
-}
-
-export const NULL_BUSINESS_UNIT = '__n-u-l-l__'
-
-let businessUnit = null
-
-export const setBusinessUnit = value => {
-  businessUnit = value
 }
 
 function* runInformationErrorFallback(error) {
@@ -125,57 +117,33 @@ export const simpleRequest = (resource, options = {}) => {
   return sendRequest(requestData.url, requestData.options, options.acceptedErrorCodes, options.acceptedStatusCodes)
 }
 
-function getOrCreateHeaders(optionsHeader) {
-  if (optionsHeader) {
-    if (optionsHeader instanceof Headers) {
-      return optionsHeader
-    } else if (typeof optionsHeader === 'object') {
-      return new Headers(optionsHeader)
-    }
-  }
-  return new Headers()
-}
-
-function getBaseUrl(backendUrl, resource) {
+function prepareRestUrl(backendUrl, resource) {
   if (resource.startsWith('/')) {
     resource = resource.substring(1)
   }
-  if (resource.startsWith('http')) {
-    return resource
-  } else if (resource.startsWith('nice2')) {
-    return `${backendUrl}/${resource}`
-  } else {
+
+  if (!resource.startsWith('http') && !resource.startsWith('nice2')) {
     return `${backendUrl}/nice2/rest/${resource}`
   }
+
+  return request.prepareUrl(backendUrl, resource)
 }
 
 export function prepareRequest(resource, options = {}) {
   const {
     queryParams = {},
     method = 'GET',
-    backendUrl = `${__BACKEND_URL__}`
+    backendUrl = env.getBackendUrl()
   } = options
 
-  let body = options.body
-  const headers = getOrCreateHeaders(options.headers)
-
-  if (!headers.has('Content-Type') && body && !(body instanceof FormData)) {
-    if (typeof body === 'string') {
-      headers.set('Content-Type', 'text/plain')
-    } else {
-      headers.set('Content-Type', 'application/json')
-      body = JSON.stringify(body)
-    }
-  }
-
-  if (businessUnit) {
-    headers.set('X-Business-Unit', businessUnit)
-  }
-
-  headers.set('X-Origin-Id', originId.getOriginId())
-
+  const headers = request.prepareHeaders(options)
   if (!headers.has('X-Client-Questions')) {
     headers.set('X-Client-Questions', 'true')
+  }
+  
+  let body = options.body
+  if (body && !(body instanceof FormData) && typeof body !== 'string') {
+    body = JSON.stringify(body)
   }
 
   const fetchOptions = {
@@ -186,7 +154,7 @@ export function prepareRequest(resource, options = {}) {
   }
 
   const paramString = getParameterString(queryParams)
-  const baseUrl = getBaseUrl(backendUrl, resource)
+  const baseUrl = prepareRestUrl(backendUrl, resource)
   const url = `${baseUrl}${paramString}`
 
   return {
