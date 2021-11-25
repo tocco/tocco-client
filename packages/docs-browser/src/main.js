@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {reducer as reducerUtil} from 'tocco-util'
-import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification, rest} from 'tocco-app-extensions'
+import {reducer as reducerUtil, env} from 'tocco-util'
+import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
 import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles'
 import createHashHistory from 'history/createHashHistory'
@@ -60,7 +60,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   cache.addToStore(store)
 
   if (input.businessUnit) {
-    rest.setBusinessUnit(input.businessUnit)
+    env.setBusinessUnit(input.businessUnit)
   }
 
   const history = input.history || createHistory(store, input.memoryHistory)
