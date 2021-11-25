@@ -14,8 +14,13 @@ import {
   StyledContentWrapper
 } from './StyledComponents'
 
-const Toaster = ({toaster, closeToaster, cancelTask, navigationStrategy}) => {
-  const [setDuration, abort] = reactUtil.useUserActive(() => {
+const Toaster = ({
+  toaster,
+  closeToaster,
+  cancelTask,
+  navigationStrategy
+}) => {
+  const [setDuration, abort, start] = reactUtil.useUserActive(() => {
     closeToaster(toaster.key, false)
   })
 
@@ -23,15 +28,25 @@ const Toaster = ({toaster, closeToaster, cancelTask, navigationStrategy}) => {
     setDuration(toaster.duration)
   }, [toaster.duration])
 
-  const handleToasterClick = () => {
+  const handleMouseOver = () => {
     abort()
   }
 
+  const handleMouseLeave = () => {
+    start()
+  }
+
+  const handleCloseButtonClick = () => {
+    closeToaster(toaster.key, true)
+  }
+
   return (
-    <StyledToaster onClick={handleToasterClick} type={toaster.type} key={toaster.key}>
-      <StyledCloseButton icon="times" onClick={() => {
-        closeToaster(toaster.key, true)
-      }}/>
+    <StyledToaster
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+      type={toaster.type}
+      key={toaster.key}>
+      <StyledCloseButton icon="times" onClick={handleCloseButtonClick}/>
       <StyledIconTitleWrapper>
         {toaster.icon
         && <StyledIconWrapper>

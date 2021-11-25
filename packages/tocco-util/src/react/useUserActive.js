@@ -1,40 +1,38 @@
-import {useState, useEffect} from 'react'
+import {useState, useRef, useEffect} from 'react'
 
-function useUserActive(callback) {
-  const [timer, setTimer] = useState(null)
+const useUserActive = callback => {
+  const timer = useRef(null)
   const [duration, setDuration] = useState(null)
-  const [userActivity, setUserActivity] = useState(null)
-
-  useEffect(() => {
-    if (duration > 0) {
-      const t = setTimeout(() => {
-        callback()
-      }, duration)
-
-      setTimer(t)
-    }
-  }, [userActivity])
 
   const listenForUserActivity = () => {
-    window.addEventListener('mousemove', setUserActivity, {once: true})
-    window.addEventListener('touchstart', setUserActivity, {once: true})
+    window.addEventListener('mousemove', start, {once: true})
+    window.addEventListener('touchstart', start, {once: true})
   }
 
   useEffect(() => {
     abort()
     listenForUserActivity()
+
+    return () => {
+      abort()
+    }
   }, [duration])
 
-  const setDurationHandler = duration => {
-    setDuration(duration)
-  }
-
-  const abort = () => {
-    if (timer) {
-      clearTimeout(timer)
+  const start = () => {
+    if (duration > 0) {
+      timer.current = setTimeout(() => {
+        callback()
+      }, duration)
     }
   }
 
-  return [setDurationHandler, abort]
+  const abort = () => {
+    if (timer.current) {
+      clearTimeout(timer.current)
+    }
+  }
+
+  return [setDuration, abort, start]
 }
+
 export default useUserActive
