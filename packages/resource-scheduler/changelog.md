@@ -1,3 +1,14 @@
+1.0.0
+- adjust min width of location edit postcode and refactor component
+- refactor largeSelectionHandler
+- enable select dropdown indicators to be aligned at bottom of multiselect fields
+- tql builder support login type
+- add title to custom action response
+- throttle autosize to fix performance issues
+- change toaster behavior to stay on hover and refactor ToasterDisplay
+- the first search field in admin search forms now gets automatically focused on opening
+- remove X-Enable-Notifications header
+
 0.4.8
 - Harmonize marked icon inside table
 - Increase z-index of modal holder to properly display as widget
