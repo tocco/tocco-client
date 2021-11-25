@@ -58,6 +58,11 @@ const navigateToDetailIfKeySet = (history, input) => {
 
 const initApp = (id, input, events, publicPath) => {
   input = {...input, id}
+
+  if (input.backendUrl) {
+    env.setBackendUrl(input.backendUrl)
+  }
+
   if (input.nullBusinessUnit) {
     env.setBusinessUnit(env.NULL_BUSINESS_UNIT)
   } else if (input.runInBusinessUnit) {
@@ -151,7 +156,8 @@ EntityBrowserApp.propTypes = {
   initialKey: PropTypes.string,
   nullBusinessUnit: PropTypes.bool,
   runInBusinessUnit: PropTypes.string,
-  memoryHistory: PropTypes.bool
+  memoryHistory: PropTypes.bool,
+  backendUrl: PropTypes.string
 }
 
 export default EntityBrowserApp
