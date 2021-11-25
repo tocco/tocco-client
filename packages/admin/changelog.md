@@ -1,3 +1,8 @@
+1.0.0
+- change toaster behavior to stay on hover and refactor ToasterDisplay
+- the first search field in admin search forms now gets automatically focused on opening
+- remove X-Enable-Notifications header
+
 0.5.39
 - harmonize menu entry padding for cleaner left alignment
 - harmonize navigation tab spacing and sizing
