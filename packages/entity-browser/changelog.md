@@ -1,3 +1,18 @@
+1.0.0
+- add auto completion for TQL in code fields.
+- prevent default behaviour on shortcuts
+- adjust min width of location edit postcode and refactor component
+- refactor largeSelectionHandler
+- enable select dropdown indicators to be aligned at bottom of multiselect fields
+- fix html in toaster message
+- tql builder support login type
+- add title to custom action response
+- show no permission error if entity is created
+- throttle autosize to fix performance issues
+- change toaster behavior to stay on hover and refactor ToasterDisplay
+- the first search field in admin search forms now gets automatically focused on opening
+- remove X-Enable-Notifications header
+
 0.10.36
 - show button hover title and pointer cursor
 - harmonize detail footer spacing
