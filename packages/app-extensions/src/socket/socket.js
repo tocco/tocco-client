@@ -1,6 +1,6 @@
 import {call, put, take} from 'redux-saga/effects'
 import {eventChannel} from 'redux-saga'
-import {consoleLogger} from 'tocco-util'
+import {consoleLogger, env} from 'tocco-util'
 
 const WEBSOCKET_SUCCESSFUL_CLOSE_CODE = 1000
 const sockets = {}
@@ -51,7 +51,7 @@ const websocketInitChannel = params =>
   })
 
 export const getSocketUrl = name => {
-  const baseUrl = __BACKEND_URL__ || window.location.origin
+  const baseUrl = env.getBackendUrl() || window.location.origin
   const socketUrl = baseUrl.replace('http://', 'ws://').replace('https://', 'wss://')
   return `${socketUrl}/nice2/websocket/${name}`
 }
