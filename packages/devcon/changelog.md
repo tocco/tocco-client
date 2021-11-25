@@ -1,3 +1,60 @@
+1.0.0
+- fix websocket reconnection
+- refactor initial notification
+- fix confirm handler
+- calculate drop position before or after element
+- provide sanitize function for html
+- render sanitized html only
+- don't resize column after mouse release
+- Remote fields and select boxes now only load active relation values.
+- add keyField to model transformer
+- Reset legacy overwrite of link color inside toasters
+- Fix popper menu disappearing behind bm-menu elements
+- Lighten scrollbar color
+- Fix popper menu closing immediately when clicking an action
+- Add minimum box width property to Layout Container to better control column width
+- add open in new tab to document compact
+- only load huge global styles once per app
+- Added a preview image on hovering over download icons.
+- prevent position from switching between after/before
+- generic resize util
+- refactor notification
+- performance improvements
+- fix drag and drop
+- create link button
+- create link button
+- Add responsivity to all buttons so that the label disappears on smaller screens and only the icon is displayed
+- Fix datepickr disappearing behind modal
+- show textarea bigger for better distinction
+- table can be refreshed
+- register more icons
+- increase z-index of popper menu to prevent it slipping behind modal
+- show button hover title and pointer cursor
+- user agent detection
+- improve performance on Safari
+- fix missing popover in single values and overflowing in firefox
+- add tooltip for remote fields
+- Add Ace editor to code fields.
+- add usePrevious helper hook
+- cleanup flatpickr components
+- fix jumping datepicker on Safari
+- debounce autosize on textarea
+- harmonize fontawesome icon spacing within table data cell
+- register more icons
+- improve dropdown performance for selects on Safari
+- fix performance bottleneck on linked sleect values
+- adjust z-index of modal to prevent legacy actions falling behind it
+- add auto completion for TQL in code fields.
+- prevent default behaviour on shortcuts
+- adjust min width of location edit postcode and refactor component
+- refactor largeSelectionHandler
+- enable select dropdown indicators to be aligned at bottom of multiselect fields
+- tql builder support login type
+- add title to custom action response
+- throttle autosize to fix performance issues
+- change toaster behavior to stay on hover and refactor ToasterDisplay
+- remove X-Enable-Notifications header
+
 0.4.0
 - Added language upgrade form (in DB refactoring view)
 
