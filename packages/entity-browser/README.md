@@ -21,6 +21,7 @@ React-registry name: `entity-browser`
 | `nullBusinessUnit`     |           | If true, all REST-request have the null business unit header (X-Business-Unit: __n-u-l-l__)
 | `runInBusinessUnit`    |           | The unique id of a business unit. If present, all REST request will use this in their business unit header (X-Business-Unit). If `nullBusinessUnit` is set as well, it has precedence.
 | `memoryHistory`        |           | If set to true in-memory history is used instead of hash history. This is useful in testing and non-DOM environments.
+| `backendUrl`           |           | Set backend url dynamic to point to nice2 installation. If not set it fallbacks to the build time environment __BACKEND_URL__.
 
 ### Events
 
