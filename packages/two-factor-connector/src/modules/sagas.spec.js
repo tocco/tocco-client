@@ -182,13 +182,9 @@ describe('two-factor-connector', () => {
             .provide([
               [select(sagas.usernameSelector), 'dake'],
               [select(sagas.secretSelector), {secret: '7ad4b588f0774cf19ac518289c751486'}],
-              [matchers.call.fn(rest.requestSaga), {body: {TWOSTEPLOGIN_ACTIVATION: {success: true}}}],
+              [matchers.call.fn(sagas.sendRequest), {body: {TWOSTEPLOGIN_ACTIVATION: {success: true}}}],
               [select(sagas.inputSelector), {password: 'password', forced: true}]
             ])
-            .call.like({
-              fn: rest.requestSaga,
-              args: ['nice2/login']
-            })
             .put(actions.setSetupSuccessful(true))
             .put(actions.goToResult())
             .run()
