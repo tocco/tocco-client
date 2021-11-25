@@ -6,13 +6,12 @@ import {
   errorLogging,
   externalEvents,
   login,
-  notification,
-  rest
+  notification
 } from 'tocco-app-extensions'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import PropTypes from 'prop-types'
-import {route} from 'tocco-util'
+import {route, env} from 'tocco-util'
 import {GlobalStyles} from 'tocco-ui'
 
 import {sagas} from './modules/reducers'
@@ -60,9 +59,9 @@ const navigateToDetailIfKeySet = (history, input) => {
 const initApp = (id, input, events, publicPath) => {
   input = {...input, id}
   if (input.nullBusinessUnit) {
-    rest.setBusinessUnit(rest.NULL_BUSINESS_UNIT)
+    env.setBusinessUnit(env.NULL_BUSINESS_UNIT)
   } else if (input.runInBusinessUnit) {
-    rest.setBusinessUnit(input.runInBusinessUnit)
+    env.setBusinessUnit(input.runInBusinessUnit)
   }
 
   const store = appFactory.createStore(undefined, sagas, input, packageName)
