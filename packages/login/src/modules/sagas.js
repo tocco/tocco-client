@@ -1,4 +1,4 @@
-import {consoleLogger} from 'tocco-util'
+import {consoleLogger, request} from 'tocco-util'
 import {cache, externalEvents, intl, rest} from 'tocco-app-extensions'
 import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 
@@ -18,8 +18,9 @@ export const loginSelector = state => state.login
 
 export function doRequest(url, options) {
   return new Promise(resolve => {
-    fetch(url, options)
-      .then(resp => resp.json().then(json => resolve(json)))
+    request.executeRequest(url, options)
+      .then(request.extractBody)
+      .then(json => resolve(json))
       .catch(e => {
         consoleLogger.logError('Failed to execute request', e)
         resolve({success: false})
@@ -28,11 +29,11 @@ export function doRequest(url, options) {
 }
 
 export function* doLoginRequest(data) {
-  return yield call(doRequest, `${__BACKEND_URL__}/nice2/login`, getOptions(data))
+  return yield call(doRequest, 'login', getOptions(data))
 }
 
 export function* doSessionRequest() {
-  return yield call(doRequest, `${__BACKEND_URL__}/nice2/session`, getOptions())
+  return yield call(doRequest, 'session', {method: 'POST'})
 }
 
 function getOptions(data = {}) {
@@ -41,7 +42,6 @@ function getOptions(data = {}) {
     headers: new Headers({
       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
     }),
-    credentials: 'include',
     body: Object.keys(data)
       .filter(k => !!data[k])
       .sort()
