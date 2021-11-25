@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {Typography} from 'tocco-ui'
+import {rest} from 'tocco-app-extensions'
 import styled from 'styled-components'
 
 const DICTIONARY = {
@@ -17,11 +18,9 @@ const Header = ({keys, delta}) => {
   const [labelDelta, setLabelDelta] = useState('')
   const [statusDelta, setStatusDelta] = useState('')
 
-  const getFetchRequest = async key => {
-    const options = {credentials: 'include'}
-    const url = `${__BACKEND_URL__}/nice2/rest/entities/2.0/Installation/${key}?relations=!&_fields=!`
-    const response = await fetch(url, options)
-    return response.json()
+  const getFetchRequest = key => {
+    const url = `entities/2.0/Installation/${key}?relations=!&_fields=!`
+    return rest.simpleRequest(url)
   }
 
   const fetchLabels = async() => {
