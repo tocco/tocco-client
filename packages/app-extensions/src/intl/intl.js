@@ -1,4 +1,5 @@
 import {updateIntl} from 'react-intl-redux'
+import {request} from 'tocco-util'
 
 import cache from '../cache'
 
@@ -33,14 +34,6 @@ export const setLocale = async(store, modules, locale) => {
   }))
 }
 
-const fetchOptions = {
-  method: 'GET',
-  headers: new Headers({
-    'Content-Type': 'application/json'
-  }),
-  credentials: 'include'
-}
-
 export const getUserLocale = async() => {
   const cachedUserLocale = cache.getLongTerm('user', 'locale')
 
@@ -62,8 +55,7 @@ export const hasUserLocaleChanged = async() => {
 }
 
 const loadUserLocale = async() => {
-  const response = await fetch(`${__BACKEND_URL__}/nice2/username`, fetchOptions)
-  const userInfo = await response.json()
+  const userInfo = await request.executeRequest('username').then(request.extractBody)
   let {locale, username} = userInfo
   if (username === 'anonymous') {
     locale = getBrowserLocale()
@@ -103,11 +95,10 @@ export const loadTextResources = async(locale, modules) => {
   return result
 }
 
-const fetchTextResources = async(locale, modules) => {
+const fetchTextResources = (locale, modules) => {
   const moduleRegex = `(${modules.join('|')})`
   const moduleParam = moduleRegex ? `&module=${moduleRegex}` : ''
-  const url = `${__BACKEND_URL__}/nice2/textresource?locale=${locale}${moduleParam}`
+  const url = `textresource?locale=${locale}${moduleParam}`
 
-  const response = await fetch(url, fetchOptions)
-  return response.json()
+  return request.executeRequest(url).then(request.extractBody)
 }
