@@ -1,5 +1,6 @@
 import {Server} from 'mock-socket'
 
+import env from '../env'
 import {setupForms} from './forms'
 import {setupEntities} from './entities'
 import {setupActions} from './actions'
@@ -17,7 +18,7 @@ let webSocketServer = null
 
 const createMockSocketServer = () => {
   try {
-    const socketUrl = `${__BACKEND_URL__}`.replace('http://', 'ws://').replace('https://', 'wss://')
+    const socketUrl = env.getBackendUrl().replace('http://', 'ws://').replace('https://', 'wss://')
     const notificationWebSocketUrl = `${socketUrl}/nice2/websocket/notification`
     webSocketServer = new Server(notificationWebSocketUrl)
   } catch (e) {}
