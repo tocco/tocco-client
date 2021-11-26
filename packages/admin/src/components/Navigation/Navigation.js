@@ -100,7 +100,7 @@ const Navigation = ({
       items: settingsMenuTree,
       preferencesPrefix: 'settings',
       label: msg('client.admin.navigation.settings'),
-      icon: 'wrench'
+      icon: 'cog'
     },
     [menuTabs.SYSTEM]: {
       items: systemMenuTree,
