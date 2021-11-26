@@ -428,8 +428,8 @@
     "id": "fal, users",
     "lib": "fa"
   },
-  "wrench": {
-    "id": "fal, wrench",
+  "bolt": {
+    "id": "fal, bolt",
     "lib": "fa"
   }
 }
