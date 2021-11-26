@@ -1,3 +1,8 @@
+1.0.0-hotfix30.1
+- harmonize popover background color and spacing
+- register icons
+- replace settings menu icon
+
 1.0.0
 - change toaster behavior to stay on hover and refactor ToasterDisplay
 - the first search field in admin search forms now gets automatically focused on opening
