@@ -60,6 +60,10 @@
       "notification"
     ]
   },
+  "bolt": {
+    "id": "fal, bolt",
+    "lib": "fa"
+  },
   "book": {
     "id": "fal, book",
     "lib": "fa"
@@ -424,12 +428,12 @@
       "trash"
     ]
   },
-  "users": {
-    "id": "fal, users",
+  "upload": {
+    "id": "fal, upload",
     "lib": "fa"
   },
-  "bolt": {
-    "id": "fal, bolt",
+  "users": {
+    "id": "fal, users",
     "lib": "fa"
   }
 }
