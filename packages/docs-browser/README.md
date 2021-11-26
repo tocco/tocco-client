@@ -31,6 +31,7 @@ React-registry name: `docs-browser`
 | `sortable`             |           | Attribute will be passed along to entity-list.
 | `noLeftPadding`        |           | If false, a left padding will be applied to the Breadcrumbs. Per default false.
 | `searchFormCollapsed`  |           | If true, the admin search form is collapsed and thus not visible by default                                                                                                                               | Boolean
+| `backendUrl`           |           | Set backend url dynamic to point to nice2 installation. If not set it fallbacks to the build time environment __BACKEND_URL__.
 
 ### Events
 

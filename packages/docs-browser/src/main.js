@@ -52,16 +52,20 @@ const createHistory = (store, memoryHistory) => {
 const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
+  if (input.backendUrl) {
+    env.setBackendUrl(input.backendUrl)
+  }
+
+  if (input.businessUnit) {
+    env.setBusinessUnit(input.businessUnit)
+  }
+
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
   cache.addToStore(store)
-
-  if (input.businessUnit) {
-    env.setBusinessUnit(input.businessUnit)
-  }
 
   const history = input.history || createHistory(store, input.memoryHistory)
 
@@ -187,6 +191,7 @@ DocsBrowserApp.propTypes = {
   getCustomLocation: PropTypes.func,
   businessUnit: PropTypes.string,
   searchFormCollapsed: PropTypes.bool,
+  backendUrl: PropTypes.string,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
