@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {actions, notification} from 'tocco-app-extensions'
 import {selection as selectionPropType} from 'tocco-util'
@@ -12,7 +12,10 @@ import {
   StyledLeftPane,
   StyledActionsWrapper,
   StyledInputEditSearchWrapper,
-  StyledPaneWrapper
+  StyledPaneWrapper,
+  StyledToggleCollapse,
+  StyledToggleCollapseButton,
+  StyledPlaceHolder
 } from './StyledInputEdit'
 import InputEditInformation from '../InputEditInformation'
 
@@ -34,11 +37,31 @@ const InputEdit = ({
     initializeInformation()
   }, [selection])
 
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed)
+  }
+
+  const Actions = actionDefinitions.map(definition =>
+    <actions.Action
+      key={definition.id}
+      definition={definition}
+      selection={selection}/>
+  )
+
   return <>
     <GlobalStyles/>
     {handleNotifications && <notification.Notifications/>}
     <StyledPaneWrapper>
-      <StyledPanelWrapperLeft>
+      <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
+        <StyledToggleCollapse isCollapsed={isCollapsed}>
+          <StyledToggleCollapseButton icon="chevron-right" isCollapsed={isCollapsed}/>
+        </StyledToggleCollapse>
+      </StyledPlaceHolder>
+      <StyledPanelWrapperLeft isCollapsed={isCollapsed}>
+        <StyledToggleCollapse>
+          <StyledToggleCollapseButton icon="chevron-left" onClick={toggleCollapse}/>
+        </StyledToggleCollapse>
         <StyledLeftPane>
           <StyledInputEditSearchWrapper>
             <InputEditSearch/>
@@ -48,12 +71,7 @@ const InputEdit = ({
       </StyledPanelWrapperLeft>
       <StyledPanelWrapperRight>
         <StyledActionsWrapper>
-          {actionDefinitions.map(definition =>
-            <actions.Action
-              key={definition.id}
-              definition={definition}
-              selection={selection}/>
-          )}
+          {Actions}
         </StyledActionsWrapper>
         <InputEditTable/>
       </StyledPanelWrapperRight>
