@@ -1,3 +1,7 @@
+1.0.0-hotfix30.1
+- harmonize popover background color and spacing
+- register icons
+
 1.0.0
 - Style new notification boxes
 - Style notification center
