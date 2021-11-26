@@ -1,3 +1,7 @@
+1.0.0-hotfix30.1
+- harmonize popover background color and spacing
+- register icons
+
 1.0.0
 - Increase z-index of modal holder to properly display as widget
 - Increase toaster z-index to properly display as widget
