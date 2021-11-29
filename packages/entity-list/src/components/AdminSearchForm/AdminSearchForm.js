@@ -45,7 +45,8 @@ const AdminSearchForm = ({
   resetSearchFields,
   searchFormDirty,
   isCollapsed,
-  toggleCollapse
+  toggleCollapse,
+  initialized
 }) => {
   const splitWrapperEl = useRef(null)
   const searchFormEl = useRef(null)
@@ -53,7 +54,7 @@ const AdminSearchForm = ({
   const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
   const [showExpandSearchFilter, setShowExpandSearchFilter] = useState(false)
 
-  customHooks.useAutofocus(searchFormEl)
+  customHooks.useAutofocus(searchFormEl, [initialized])
 
   const msg = id => intl.formatMessage({id})
 
@@ -135,6 +136,7 @@ const AdminSearchForm = ({
 }
 
 AdminSearchForm.propTypes = {
+  initialized: PropTypes.bool.isRequired,
   intl: PropTypes.object.isRequired,
   searchFilters: PropTypes.arrayOf(PropTypes.object),
   resetSearch: PropTypes.func.isRequired,
