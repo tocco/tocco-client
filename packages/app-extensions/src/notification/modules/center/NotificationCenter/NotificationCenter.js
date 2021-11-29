@@ -1,11 +1,14 @@
 import React, {useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
-import {LoadingSpinner, Typography} from 'tocco-ui'
+import {LoadingSpinner} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 import Notification from './Notification'
 import {notificationPropType} from '../../../types'
-import {StyledNotificationCenter, StyledNotificationTitleWrapper} from './StyledComponents'
+import {
+  StyledNotificationCenter,
+  StyledNotificationTitleWrapper
+} from './StyledComponents'
 import {resultTypes} from '../../../api'
 
 const NotificationCenter = (
@@ -26,39 +29,40 @@ const NotificationCenter = (
   }, [])
 
   const handleScroll = () => {
-    if (element.current.scrollTop + element.current.offsetHeight >= element.current.scrollHeight) {
-      if (!isLoadingMoreNotifications && moreNotificationsAvailable) {
-        loadNotifications(Object.keys(notifications).length)
-      }
+    const notificationCount = Object.keys(notifications).length
+    const isAtBottom = element.current.scrollTop + element.current.offsetHeight >= element.current.scrollHeight
+    const canLoad = !isLoadingMoreNotifications && moreNotificationsAvailable
+
+    if (isAtBottom && canLoad) {
+      loadNotifications(notificationCount)
     }
   }
 
-  const sortedNotifications = Object.keys(notifications)
+  const SortedNotifications = Object.keys(notifications)
     .map(k => notifications[k])
     .filter(n => !n.result || n.result.type !== resultTypes.outputjob || n.result.file)
     .filter(n => !n.taskProgress || n.taskProgress.status !== 'cancelled')
     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .map(notification => (
+      <Notification
+        key={'notification-' + notification.key}
+        markAsRead={markAsRead}
+        cancelTask={cancelTask}
+        notification={notification}
+        navigationStrategy={navigationStrategy}
+      />
+    ))
 
   return (
     <StyledNotificationCenter ref={element} onScroll={handleScroll}>
       <StyledNotificationTitleWrapper>
-        <Typography.H3>
-          <FormattedMessage id={'client.admin.notification.title'}/>
-        </Typography.H3>
+        <FormattedMessage id={'client.admin.notification.title'}/>
       </StyledNotificationTitleWrapper>
-      {sortedNotifications.map(notification => (
-        <Notification
-          key={'notification-' + notification.key}
-          markAsRead={markAsRead}
-          cancelTask={cancelTask}
-          notification={notification}
-          navigationStrategy={navigationStrategy}
-        />
-      ))}
+      {SortedNotifications}
       {isLoadingMoreNotifications && <LoadingSpinner/>}
-      {sortedNotifications.length > 0 && !moreNotificationsAvailable
+      {SortedNotifications.length > 0 && !moreNotificationsAvailable
       && <FormattedMessage id={'client.admin.notification.noMoreNotifications'}/>}
-      {sortedNotifications.length === 0 && !isLoadingMoreNotifications
+      {SortedNotifications.length === 0 && !isLoadingMoreNotifications
       && <FormattedMessage id={'client.admin.notification.noNotification'}/>}
     </StyledNotificationCenter>
   )
