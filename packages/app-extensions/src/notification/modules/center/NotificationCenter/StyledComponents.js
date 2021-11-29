@@ -40,9 +40,11 @@ export const StyledTitleWrapper = styled.span`
 `
 
 export const StyledNotificationTitleWrapper = styled.div`
-  * {
-    font-weight: ${theme.fontWeight('regular')} !important;
-  }
+  ${declareFont({
+    fontSize: scale.font(2.9),
+    fontWeight: theme.fontWeight('bold'),
+    color: theme.color('secondary')
+  })}
   margin-bottom: ${scale.space(-0.5)};
 `
 
