@@ -4,9 +4,9 @@ import {isDirty} from 'redux-form'
 import AdminSearchForm from './AdminSearchForm'
 import {
   displaySearchFieldsModal,
+  resetDefaultSearchFilter,
   resetSearch,
   resetSearchFields,
-  resetDefaultSearchFilter,
   saveDefaultSearchFilter,
   saveSearchFilter
 } from '../../modules/searchForm/actions'
@@ -21,6 +21,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
+  initialized: state.searchForm.initialized,
   searchFilters: state.searchForm.searchFilters,
   searchFormDirty: isDirty('searchForm')(state)
 })
