@@ -54,7 +54,9 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(FormattedValue).props()).to.have.property('options')
-        expect(wrapper.find(FormattedValue).props().options).to.not.be.null
+        expect(wrapper.find(FormattedValue).props().options).to.have.property('downloadTitle')
+        expect(wrapper.find(FormattedValue).props().options).to.have.property('tooltips')
+        expect(wrapper.find(FormattedValue).props().options).to.have.property('loadTooltip')
       })
 
       test('should return array with separator', () => {
