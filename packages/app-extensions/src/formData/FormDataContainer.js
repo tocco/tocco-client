@@ -30,7 +30,7 @@ const mapStateToProps = (
   {formValues, tooltips, locations, relationEntities, searchFilters, isDirty, errors, navigationStrategy}
 ) => ({
   ...(relationEntities ? {relationEntities: _pick(state.formData.relationEntities.data, relationEntities)} : {}),
-  ...(tooltips ? {tooltips: _pick(state.formData.tooltips.data, tooltips)} : {}),
+  ...(tooltips ? {tooltips: _pick(state.formData.tooltips?.data, tooltips)} : {}),
   ...(searchFilters ? {searchFilters: _pick(state.formData.searchFilters, searchFilters)} : {}),
   ...(locations ? {locations: _pick(state.formData.locations, locations)} : {}),
   ...(formValues && state.form[formValues.formName]
