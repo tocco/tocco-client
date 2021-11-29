@@ -5,7 +5,9 @@ import number from './number'
 import moneyamount from './moneyamount'
 
 export default {
-  'document-compact': document,
+  'binary': document,
+  'document': document,
+  'image': document,
   'multi-remote-field': remote,
   'single-remote-field': remote,
   'description': description,
