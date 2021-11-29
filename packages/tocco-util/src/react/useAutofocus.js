@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 
-const useAutofocus = reference =>
+const useAutofocus = (reference, dependencies = []) =>
   useEffect(() => {
     if (reference.current) {
       const firstInput = reference.current
@@ -9,6 +9,6 @@ const useAutofocus = reference =>
         firstInput.focus()
       }
     }
-  }, [])
+  }, dependencies)
 
 export default useAutofocus
