@@ -53,7 +53,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@hot-loader/react-dom": "^17.0.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
-    "@popperjs/core": "^2.9.2",
+    "@popperjs/core": "^2.11.0",
     "@storybook/addon-a11y": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
