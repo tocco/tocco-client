@@ -63,7 +63,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
     "ace-builds": "^1.4.13",
     "app-manifest-loader": "^2.4.1",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "^8.2.3",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-transform-imports": "^2.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
