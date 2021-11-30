@@ -1,3 +1,12 @@
+1.0.1
+- harmonize popover background color and spacing
+- register icons
+- register more icons
+- change notification title and refactor NotificationCenter
+- create env utils
+- add generic nice2 fetch wrapper
+- add dynamic backend-url as input parameter
+
 1.0.0
 - register more icons
 - increase z-index of popper menu to prevent it slipping behind modal
