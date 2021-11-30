@@ -81,7 +81,7 @@
     "css-loader": "^3.2.0",
     "cypress": "^9.1.0",
     "dompurify": "^2.3.3",
-    "dotenv": "^8.1.0",
+    "dotenv": "^10.0.0",
     "dotenv-webpack": "^7.0.3",
     "enzyme": "^3.11.0",
     "es6-error": "^4.1.1",
