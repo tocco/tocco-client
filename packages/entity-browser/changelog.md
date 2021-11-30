@@ -1,3 +1,13 @@
+1.0.1
+- harmonize popover background color and spacing
+- register icons
+- add panel collapse feature to input edit
+- register more icons
+- change notification title and refactor NotificationCenter
+- create env utils
+- add generic nice2 fetch wrapper
+- add dynamic backend-url as input parameter
+
 1.0.0
 - add auto completion for TQL in code fields.
 - prevent default behaviour on shortcuts
