@@ -20,7 +20,6 @@
     "function-name-case": "lower",
     "function-whitespace-after": "always",
 
-    "number-leading-zero": "never",
     "number-max-precision": 3,
     "number-no-trailing-zeros": true,
     "length-zero-no-unit": true,
