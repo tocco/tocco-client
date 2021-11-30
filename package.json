@@ -79,7 +79,7 @@
     "core-js": "3",
     "cross-env": "^7.0.3",
     "css-loader": "^3.2.0",
-    "cypress": "^8.2.0",
+    "cypress": "^9.1.0",
     "dompurify": "^2.3.3",
     "dotenv": "^8.1.0",
     "dotenv-webpack": "^7.0.3",
