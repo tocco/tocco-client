@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react'
+import React, {useMemo, useState} from 'react'
 import styled from 'styled-components'
 import Fuse from 'fuse.js'
 
@@ -60,7 +60,7 @@ const IconsShowcase = () => {
     return new Fuse(trans, options)
   }, [])
 
-  const icons = filter ? fuse.search(filter) : trans
+  const icons = filter ? fuse.search(filter).map(result => result.item) : trans
 
   return <div>
     <Header>
