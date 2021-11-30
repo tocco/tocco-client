@@ -2,7 +2,8 @@
   "parser"  : "@babel/eslint-parser",
   "extends" : [
     "standard",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "prettier"
   ],
   "plugins": [
     "babel",
@@ -48,22 +49,18 @@
     "brace-style": [2, "1tbs"],
     "key-spacing": [2, {"beforeColon": false, "afterColon": true, "mode": "strict"}],
     "semi":  [2, "never"],
-    "max-len":  [2, 120, 2],
+    "max-len":  ["error", {"code": 120, "ignoreUrls": true}],
     "arrow-parens":  [2, "as-needed"],
-    "quote-props": [2, "consistent-as-needed"],
     "object-curly-spacing": [2, "never"],
     "no-var": 2,
     "prefer-const": 2,
     "no-trailing-spaces": [2, { "skipBlankLines": true }],
-    "space-before-function-paren":  [2, "never"],
-    "operator-linebreak":  [2, "before"],
     "generator-star-spacing":  [2, {"before": false, "after": true}],
     "no-console": 2,
 
     "react/jsx-no-bind":  [2, { "allowArrowFunctions": true, "allowBind": true }],
     "react/display-name": 0,
     "jsx-quotes": [2, "prefer-double"],
-    "react/jsx-tag-spacing":[2, {"closingSlash": "never", "beforeSelfClosing": "never", "afterOpening": "never", "beforeClosing": "never"}],
     "react-hooks/rules-of-hooks": 2,
 
     "no-unused-expressions": 0, // "no-unused-expressions" is included with "chai-friendly/no-unused-expressions"
@@ -71,7 +68,17 @@
 
     "import/default": 2,
     "import/no-duplicates": 2,
-    "import/order": [2, {"groups": ["builtin", "external", ["sibling", "parent", "index"]], "newlines-between": "always"}],
+    "import/order": [
+      2,
+      {
+        "groups": ["builtin", "external", ["sibling", "parent", "index"]],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
     "import/first": 2,
     "import/no-webpack-loader-syntax": 0,
     "monorepo/no-relative-import": 2,
