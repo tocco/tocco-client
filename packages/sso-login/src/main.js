@@ -62,23 +62,9 @@ const initApp = (id, input, events, publicPath) => {
   }
 })()
 
-class SsoLoginApp extends React.Component {
-  constructor(props) {
-    super(props)
-
-    const events = EXTERNAL_EVENTS.reduce((events, event) => {
-      if (props[event]) {
-        events[event] = props[event]
-      }
-      return events
-    }, {})
-
-    this.app = initApp('id', props, events)
-  }
-
-  render() {
-    return this.app.component
-  }
+const SsoLoginApp = props => {
+  const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
+  return component
 }
 
 SsoLoginApp.propTypes = {

@@ -41,23 +41,24 @@ const initApp = (id, input, events, publicPath) => {
         setupFetchMocks(packageName, fetchMock)
         fetchMock.spy()
       }
-  
+
       const app = initApp(packageName, input)
-  
+
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
           const reducers = require('./modules/reducers').default
           reducerUtil.hotReloadReducers(app.store, reducers)
         })
       }
-  
+
       appFactory.renderApp(app.component)
     }
   }
 })()
 
 const UserQrActionApp = props => {
-  return initApp('user-qr-action', props).component
+  const {component} = appFactory.useApp({initApp, props, packageName})
+  return component
 }
 
 UserQrActionApp.propTypes = {

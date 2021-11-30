@@ -1,5 +1,5 @@
 import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
+import {react, reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
@@ -17,7 +17,7 @@ const EXTERNAL_EVENTS = [
   'onRefresh'
 ]
 
-const initApp = (input, events, publicPath) => {
+const initApp = (id, input, events, publicPath) => {
   const content = <SchedulerContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
@@ -44,7 +44,7 @@ const initApp = (input, events, publicPath) => {
 
     if (__DEV__) {
       const input = require('./dev/input.json')
-  
+
       if (!__NO_MOCK__) {
         const fetchMock = require('fetch-mock').default
         fetchMock.config.overwriteRoutes = false
@@ -52,42 +52,33 @@ const initApp = (input, events, publicPath) => {
         setupFetchMocks(packageName, fetchMock)
         fetchMock.spy()
       }
-  
+
       const app = initApp(input)
-  
+
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
           const reducers = require('./modules/reducers').default
           reducerUtil.hotReloadReducers(app.store, reducers)
         })
       }
-  
+
       appFactory.renderApp(app.component)
     }
   }
 })()
 
-class SchedulerApp extends React.Component {
-  constructor(props) {
-    super(props)
+const SchedulerApp = props => {
+  const {component, store} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
 
-    const events = EXTERNAL_EVENTS.reduce((events, event) => {
-      if (props[event]) {
-        events[event] = props[event]
+  react.useDidUpdate(() => {
+    getDispatchActions(props).forEach(action => {
+      if (component != null) {
+        store.dispatch(action)
       }
-      return events
-    }, {})
-
-    this.app = initApp(props, events)
-  }
-
-  componentDidUpdate(prevProps) {
-    getDispatchActions(this.props).forEach(action => {
-      this.app.store.dispatch(action)
     })
-  }
+  }, [props])
 
-  render = () => this.app.component
+  return component
 }
 
 SchedulerApp.propTypes = {
@@ -107,9 +98,7 @@ SchedulerApp.propTypes = {
       label: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired
     })),
-  onDateRangeChange: PropTypes.func,
-  onCalendarRemove: PropTypes.func,
-  onEventClick: PropTypes.func,
+  ...EXTERNAL_EVENTS.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {}),
   locale: PropTypes.string
 }
 

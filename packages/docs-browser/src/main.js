@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {reducer as reducerUtil, env} from 'tocco-util'
+import {react, reducer as reducerUtil, env} from 'tocco-util'
 import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
 import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles'
@@ -143,33 +143,20 @@ const initApp = (id, input, events = {}, publicPath) => {
   }
 })()
 
-const getEvents = props =>
-  EXTERNAL_EVENTS.reduce((events, event) => {
-    if (props[event]) {
-      events[event] = props[event]
-    }
-    return events
-  }, {})
+const DocsBrowserApp = props => {
+  const {component, store} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
 
-class DocsBrowserApp extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.app = initApp('docs-browser', props, getEvents(props))
-  }
-
-  componentDidUpdate(prevProps) {
-    const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
+  const prevProps = react.usePrevious(props)
+  react.useDidUpdate(() => {
+    const changedProps = _pickBy(props, (value, key) => !_isEqual(value, prevProps[key]))
     if (!_isEmpty(changedProps)) {
       getDispatchActions(changedProps).forEach(action => {
-        this.app.store.dispatch(action)
+        store.dispatch(action)
       })
     }
-  }
+  }, [props])
 
-  render() {
-    return this.app.component
-  }
+  return component
 }
 
 DocsBrowserApp.propTypes = {

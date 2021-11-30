@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
@@ -68,16 +68,8 @@ const EXTERNAL_EVENTS = [
 ]
 
 const TwoFactorConnectorApp = props => {
-  const [app, setApp] = useState(null)
-  useEffect(() => {
-    const events = EXTERNAL_EVENTS.reduce((events, event) => (
-      {...events, ...(props[event] && {[event]: props[event]})}
-    ), {})
-
-    setApp(initApp('two-factor-connector', props, events))
-  }, [])
-
-  return app ? app.component : null
+  const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
+  return component
 }
 
 TwoFactorConnectorApp.propTypes = {

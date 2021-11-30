@@ -66,12 +66,8 @@ const initApp = (id, input, events, publicPath) => {
 })()
 
 const DeleteApp = props => {
-  const events = EXTERNAL_EVENTS.reduce((acc, event) => ({
-    ...acc,
-    ...(props[event] ? {[event]: props[event]} : {})
-  }), {})
-
-  return initApp('delete', props, events).component
+  const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
+  return component
 }
 
 DeleteApp.propTypes = {

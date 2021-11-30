@@ -133,15 +133,9 @@ const initApp = (id, input, events, publicPath) => {
   }
 })()
 
-class EntityBrowserApp extends React.Component {
-  constructor(props) {
-    super(props)
-    this.app = initApp('id', props)
-  }
-
-  render() {
-    return this.app.component
-  }
+const EntityBrowserApp = props => {
+  const {component} = appFactory.useApp({initApp, props, packageName})
+  return component
 }
 
 EntityBrowserApp.propTypes = {

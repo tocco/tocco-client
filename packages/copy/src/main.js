@@ -63,14 +63,8 @@ const initApp = (id, input, events, publicPath) => {
 })()
 
 const CopyApp = props => {
-  const events = EXTERNAL_EVENTS.reduce((events, event) => {
-    if (props[event]) {
-      events[event] = props[event]
-    }
-    return events
-  }, {})
-
-  return initApp(packageName, props, events).component
+  const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
+  return component
 }
 
 CopyApp.propTypes = {

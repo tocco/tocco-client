@@ -40,38 +40,32 @@ const initApp = (id, input, events = {}, publicPath) => {
 
     if (__DEV__) {
       const input = require('./dev/input.json')
-  
+
       if (!__NO_MOCK__) {
         const fetchMock = require('fetch-mock').default
         fetchMock.config.overwriteRoutes = false
-       
+
         const setupFetchMocks = require('./dev/fetchMocks').default
         setupFetchMocks(packageName, fetchMock)
       }
-  
+
       const app = initApp(packageName, input)
-  
+
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
           const reducers = require('./modules/reducers').default
           reducerUtil.hotReloadReducers(app.store, reducers)
         })
       }
-  
+
       appFactory.renderApp(app.component)
     }
   }
 })()
 
 const DashboardApp = props => {
-  const events = EXTERNAL_EVENTS.reduce((events, event) => {
-    if (props[event]) {
-      events[event] = props[event]
-    }
-    return events
-  }, {})
-
-  return initApp('dashboard', props, events).component
+  const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
+  return component
 }
 
 DashboardApp.propTypes = {

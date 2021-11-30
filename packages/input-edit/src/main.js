@@ -71,14 +71,8 @@ const initApp = (id, input, events = {}, publicPath) => {
 })()
 
 const InputEditApp = props => {
-  const events = EXTERNAL_EVENTS.reduce((events, event) => {
-    if (props[event]) {
-      events[event] = props[event]
-    }
-    return events
-  }, {})
-
-  return initApp('input-edit', props, events).component
+  const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
+  return component
 }
 
 InputEditApp.propTypes = {
