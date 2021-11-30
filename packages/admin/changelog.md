@@ -1,3 +1,15 @@
+1.0.1
+- harmonize popover background color and spacing
+- register icons
+- replace settings menu icon
+- add panel collapse feature to input edit
+- register more icons
+- change notification title and refactor NotificationCenter
+- create env utils
+- add generic nice2 fetch wrapper
+- use generic request for non-rest requests
+- add dynamic backend-url as input parameter
+
 1.0.0
 - change toaster behavior to stay on hover and refactor ToasterDisplay
 - the first search field in admin search forms now gets automatically focused on opening
