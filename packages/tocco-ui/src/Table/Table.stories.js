@@ -5,7 +5,7 @@ import _difference from 'lodash/difference'
 import {action} from '@storybook/addon-actions'
 
 import Table from './'
-import {Typography, Icon} from '../'
+import {Icon, Typography} from '../'
 
 const columnsT = [
   {
@@ -51,7 +51,7 @@ const data = [...Array(100).keys()].map(k => {
     __key: k,
     firstname: faker.name.firstName(),
     lastname: faker.name.lastName(),
-    number: faker.random.number()
+    number: faker.random.datatype.number()
   }
 })
 
