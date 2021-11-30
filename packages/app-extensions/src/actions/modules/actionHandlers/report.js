@@ -59,9 +59,9 @@ export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId,
     definition.endpoint = 'report/generations'
     const customSettingsEntity = settingsDefinition.customSettings
       ? api.toEntity({
-          __model: settingsDefinition.customSettings.entity.name,
-          ...customSettings
-        })
+        __model: settingsDefinition.customSettings.entity.name,
+        ...customSettings
+      })
       : null
     const params = {
       additionalProperties: {

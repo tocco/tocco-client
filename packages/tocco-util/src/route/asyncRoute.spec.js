@@ -19,7 +19,7 @@ describe('tocco-util', () => {
       })
 
       test('should render component when loaded', done => {
-        const promise = Promise.resolve(InnerComp)
+        const promise = Promise.resolve(() => InnerComp)
 
         const AsyncComp = asyncRoute(() => promise)
         const wrapper = mount(<AsyncComp/>)
@@ -29,17 +29,6 @@ describe('tocco-util', () => {
           expect(wrapper.find(InnerComp)).to.have.length(1)
           done()
         })
-      })
-
-      test('should set mounted var accordingly and not log an error', done => {
-        const promise = new Promise(resolve => setTimeout(resolve(InnerComp), 100))
-
-        const AsyncComp = asyncRoute(() => promise)
-        const wrapper = mount(<AsyncComp/>)
-        expect(wrapper.instance().mounted).to.be.true
-        wrapper.unmount()
-
-        promise.then(done())
       })
     })
   })

@@ -1,7 +1,6 @@
 import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
-import {reduxForm, Field} from 'redux-form'
-import {form} from 'tocco-app-extensions'
+import {Field, reduxForm} from 'redux-form'
 import {SearchBox} from 'tocco-ui'
 
 const FullTextSearchForm = props => {

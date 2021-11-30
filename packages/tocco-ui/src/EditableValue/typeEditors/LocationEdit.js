@@ -14,9 +14,9 @@ export const getGoogleMapsAddress = locationInput => {
 
   const queryParams = locationInput
     ? Object.values(locationInput)
-        .filter(Boolean)
-        .map(value => (typeof value === 'object' && value.display) ? value.display : value)
-        .join('+')
+      .filter(Boolean)
+      .map(value => (typeof value === 'object' && value.display) ? value.display : value)
+      .join('+')
     : ''
 
   return `${mapsBaseAddress}${queryParams}`
