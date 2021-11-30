@@ -11,10 +11,6 @@ export default {
       message: 'Component Name',
       validate: value => (value ? true : 'action name is required')
     }, {
-      type: 'confirm',
-      name: 'stateless',
-      message: 'Stateless component?'
-    }, {
       type: 'checkbox',
       name: 'features',
       message: 'What features would you like to use?',
@@ -32,7 +28,7 @@ export default {
     actions.push({
       type: 'add',
       path: `${targetFolder}/{{pascalCase componentName}}.js`,
-      templateFile: data.stateless ? `${baseTemplateFolder}/stateless.js` : `${baseTemplateFolder}/stateful.js`
+      templateFile: `${baseTemplateFolder}/stateless.js`
     })
 
     actions.push({
