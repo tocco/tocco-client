@@ -59,7 +59,7 @@
     "@storybook/addon-links": "^6.2.9",
     "@storybook/react": "^6.2.9",
     "@storybook/theming": "^6.2.9",
-    "@testing-library/react-hooks": "^5.0.0",
+    "@testing-library/react-hooks": "^7.0.2",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "ace-builds": "^1.4.13",
     "app-manifest-loader": "^2.4.1",
