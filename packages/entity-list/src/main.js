@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {reducer as reducerUtil, navigationStrategy} from 'tocco-util'
+import {react, reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 import {
   appFactory,
   notification,
@@ -115,22 +115,17 @@ const initApp = (id, input, events = {}, publicPath) => {
   }
 })()
 
-const getEvents = props =>
-  EXTERNAL_EVENTS.reduce((events, event) => {
-    if (props[event]) {
-      events[event] = props[event]
-    }
-    return events
-  }, {})
+const EntityListApp = props => {
+  const {component, setApp, store} = appFactory.useApp({
+    initApp,
+    props,
+    packageName: props.id,
+    externalEvents: EXTERNAL_EVENTS
+  })
 
-class EntityListApp extends React.Component {
-  constructor(props) {
-    super(props)
-    this.app = initApp(props.id, props, getEvents(props))
-  }
-
-  componentDidUpdate(prevProps) {
-    const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
+  const prevProps = react.usePrevious(props)
+  react.useDidUpdate(() => {
+    const changedProps = _pickBy(props, (value, key) => !_isEqual(value, prevProps[key]))
     if (changedProps.store && typeof prevProps.store !== 'undefined') {
       /**
        * Whenever the store gets explicitly changed from outside
@@ -141,24 +136,22 @@ class EntityListApp extends React.Component {
        *                 while being in initialization phase
        *   Therefore only re-init when store has been set already.
        */
-      this.app = initApp(this.props.id, this.props, getEvents(this.props))
+      setApp(initApp(props.id, props, appFactory.getEvents(props)))
     } else if (!_isEmpty(changedProps)) {
       getDispatchActions(changedProps).forEach(action => {
-        this.app.store.dispatch(action)
+        store.dispatch(action)
       })
 
       const reloadOption = getReloadOption(changedProps)
       if (reloadOption === reloadOptions.ALL) {
-        this.app.store.dispatch(reloadAll())
+        store.dispatch(reloadAll())
       } else if (reloadOption === reloadOptions.DATA) {
-        this.app.store.dispatch(reloadData())
+        store.dispatch(reloadData())
       }
     }
-  }
+  }, [props])
 
-  render() {
-    return this.app.component
-  }
+  return component
 }
 
 EntityListApp.propTypes = {

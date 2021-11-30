@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {consoleLogger, reducer as reducerUtil} from 'tocco-util'
 import {appFactory, cache, errorLogging, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
@@ -21,7 +21,7 @@ const initLoginApp = (id, input, events, publicPath, customTheme) => {
     passwordUpdate.setShowOldPasswordField(false),
     passwordUpdate.setStandalone(false),
     passwordRequest.setPasswordRequest(!!input.passwordRequest),
-    login.setUsername(input.username)
+    login.setUsername(input.username || '')
   ]
 
   const showTitle = !!input.showTitle
@@ -113,29 +113,14 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
   }
 })()
 
-class LoginApp extends React.Component {
-  constructor(props) {
-    super(props)
-    this.input = {
-      showTitle: props.showTitle,
-      locale: props.locale,
-      passwordRequest: props.passwordRequest,
-      username: props.username || ''
-    }
-
-    const events = EXTERNAL_EVENTS.reduce((events, event) => {
-      if (props[event]) {
-        events[event] = props[event]
-      }
-      return events
-    }, {})
-
-    this.app = initLoginApp('id', this.input, events)
-  }
-
-  render() {
-    return this.app.component
-  }
+const LoginApp = props => {
+  const {component} = appFactory.useApp({
+    initApp: initLoginApp,
+    props,
+    packageName: 'id',
+    externalEvents: EXTERNAL_EVENTS
+  })
+  return component
 }
 
 LoginApp.propTypes = {
@@ -158,16 +143,13 @@ const EXTERNAL_EVENTS_PASSWORD_UPDATE = [
 ]
 
 export const PasswordUpdateApp = props => {
-  const [app, setApp] = useState(null)
-  useEffect(() => {
-    const events = EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((events, event) => (
-      {...events, ...(props[event] && {[event]: props[event]})}
-    ), {})
-
-    setApp(initPasswordUpdateApp('password-update', props, events))
-  }, [])
-
-  return app ? app.component : null
+  const {component} = appFactory.useApp({
+    initApp: initPasswordUpdateApp,
+    props,
+    packageName: 'password-update',
+    externalEvents: EXTERNAL_EVENTS_PASSWORD_UPDATE
+  })
+  return component
 }
 
 PasswordUpdateApp.propTypes = {

@@ -52,7 +52,7 @@ const initApp = (id, input, events = {}, publicPath) => {
 (() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
-    
+
     if (__DEV__) {
       const input = require('./dev/input.json')
 
@@ -71,23 +71,9 @@ const initApp = (id, input, events = {}, publicPath) => {
   }
 })()
 
-class SimpleFormApp extends React.Component {
-  constructor(props) {
-    super(props)
-
-    const events = EXTERNAL_EVENTS.reduce((events, event) => {
-      if (props[event]) {
-        events[event] = props[event]
-      }
-      return events
-    }, {})
-
-    this.app = initApp('id', props, events)
-  }
-
-  render() {
-    return this.app.component
-  }
+const SimpleFormApp = props => {
+  const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
+  return component
 }
 
 SimpleFormApp.propTypes = {

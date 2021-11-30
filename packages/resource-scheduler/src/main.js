@@ -80,23 +80,9 @@ const initApp = (id, input, events, publicPath) => {
   }
 })()
 
-export class ResourceSchedulerApp extends React.Component {
-  constructor(props) {
-    super(props)
-
-    const events = EXTERNAL_EVENTS.reduce((events, event) => {
-      if (props[event]) {
-        events[event] = props[event]
-      }
-      return events
-    }, {})
-
-    this.app = initApp(props.id, props, events)
-  }
-
-  render() {
-    return this.app.component
-  }
+const ResourceSchedulerApp = props => {
+  const {component} = appFactory.useApp({initApp, props, packageName: props.id, externalEvents: EXTERNAL_EVENTS})
+  return component
 }
 
 ResourceSchedulerApp.propTypes = {

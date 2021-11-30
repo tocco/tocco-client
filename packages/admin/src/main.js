@@ -90,15 +90,9 @@ const initApp = (id, input, events, publicPath) => {
   }
 })()
 
-class AdminApp extends React.Component {
-  constructor(props) {
-    super(props)
-    this.app = initApp('id', props)
-  }
-
-  render() {
-    return this.app.component
-  }
+const AdminApp = props => {
+  const {component} = appFactory.useApp({initApp, props, packageName})
+  return component
 }
 
 AdminApp.propTypes = {

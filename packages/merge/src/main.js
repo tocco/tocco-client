@@ -77,14 +77,8 @@ const initApp = (id, input, events = {}, publicPath) => {
 })()
 
 const MergeApp = props => {
-  const events = EXTERNAL_EVENTS.reduce((events, event) => {
-    if (props[event]) {
-      events[event] = props[event]
-    }
-    return events
-  }, {})
-
-  return initApp('merge', props, events).component
+  const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
+  return component
 }
 
 MergeApp.propTypes = {
