@@ -56,8 +56,8 @@ export const prepareMenuTree = (items, searchFilter, typeMapping, level = 0, isP
 
   const getMatchingAttribute = (item, filterAttributes) => searchFilter
     ? filterAttributes.find(attr =>
-        item[attr] && item[attr].toLowerCase().includes(searchFilter?.toLowerCase())
-      )
+      item[attr] && item[attr].toLowerCase().includes(searchFilter?.toLowerCase())
+    )
     : undefined
 
   return items

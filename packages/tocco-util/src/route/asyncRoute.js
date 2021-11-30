@@ -1,38 +1,19 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 export default function asyncRoute(getComponent) {
-  return class AsyncComponent extends React.Component {
-    static Component = null
-    mounted = false
+  return props => {
+    const [Component, setComponent] = useState(null)
 
-    state = {
-      Component: AsyncComponent.Component
+    useEffect(() => {
+      getComponent().then(result => {
+        setComponent(result)
+      })
+    })
+
+    if (Component !== null) {
+      return <Component {...props}/>
     }
 
-    componentDidMount() {
-      this.mounted = true
-      if (this.state.Component === null) {
-        getComponent().then(Component => {
-          AsyncComponent.Component = Component
-          if (this.mounted) {
-            this.setState({Component})
-          }
-        })
-      }
-    }
-
-    componentWillUnmount() {
-      this.mounted = false
-    }
-
-    render() {
-      const {Component} = this.state
-
-      if (Component !== null) {
-        return <Component {...this.props}/>
-      }
-
-      return null
-    }
+    return null
   }
 }

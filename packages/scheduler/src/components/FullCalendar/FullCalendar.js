@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useMemo} from 'react'
+import React, {useEffect, useMemo, useRef} from 'react'
 import PropTypes from 'prop-types'
 import ReactFullCalendar from '@fullcalendar/react'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
@@ -11,7 +11,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import adaptivePlugin from '@fullcalendar/adaptive'
 
 import NavigationFullCalendar from '../NavigationFullCalendar'
-import {StyledFullCalendarWrapper, StyledMemoizedFullCalender, CalendarGlobalPrintStyle} from './StyledFullCalendar'
+import {CalendarGlobalPrintStyle, StyledFullCalendarWrapper, StyledMemoizedFullCalender} from './StyledFullCalendar'
 import Conflict from '../Conflict'
 import {getFormattedTime} from '../../utils/time'
 import ResourceLabelContent from './ResourceLabelContent'
@@ -96,7 +96,7 @@ const FullCalendar = ({
     changeRange()
   }
 
-  function renderEventContent(eventInfo) {
+  const renderEventContent = eventInfo => {
     const time = moment(eventInfo.event.start)
       .twix(moment(eventInfo.event.end))
       .format({monthFormat: 'MMMM', dayFormat: 'Do'})

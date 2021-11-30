@@ -15,7 +15,8 @@ const TextFormatter = props => {
 }
 
 TextFormatter.propTypes = {
-  value: PropTypes.string
+  value: PropTypes.string,
+  breakWords: PropTypes.bool
 }
 
 export default TextFormatter

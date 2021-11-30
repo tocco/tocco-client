@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 
-import {Typography, LoadingSpinner} from '../'
+import {LoadingSpinner, Typography} from '../'
 import {StyledFullRow, StyledFullRowProgress, StyledTableBody, StyledTableRow} from './StyledTable'
 import StaticCell from './StaticCell'
 import {columnPropType, dataPropType} from './propTypes'
@@ -60,7 +60,7 @@ const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInPro
                 )
               }
             </StyledTableRow>
-            )
+          )
           : <NoDataRow/>
     }
   </StyledTableBody>

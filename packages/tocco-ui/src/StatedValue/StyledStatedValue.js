@@ -1,13 +1,6 @@
 import styled, {css} from 'styled-components'
 
-import {
-  colorizeBorder,
-  colorizeText,
-  declareFocus,
-  declareFont,
-  scale,
-  theme
-} from '../utilStyles'
+import {colorizeBorder, colorizeText, declareFocus, declareFont, scale, theme} from '../utilStyles'
 import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
 
 const borderWidth = '1.1px' // deliberately uneven to force correct rendering in chrome
@@ -27,8 +20,8 @@ export const getTextColor = ({
         ? 'shade1'
         : isDisplay
           ? secondaryPosition
-              ? 'shade0'
-              : 'shade1'
+            ? 'shade0'
+            : 'shade1'
           : secondaryPosition
             ? 'shade1'
             : immutable
