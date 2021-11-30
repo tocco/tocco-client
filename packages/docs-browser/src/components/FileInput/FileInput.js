@@ -1,18 +1,11 @@
 import React, {useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
-
-const usePrevious = value => {
-  const ref = useRef()
-  useEffect(() => {
-    ref.current = value
-  })
-  return ref.current
-}
+import {react} from 'tocco-util'
 
 const FileInput = ({instanceCount, directory, onChange}) => {
   const fileInput = useRef()
 
-  const prevInstanceCount = usePrevious(instanceCount)
+  const prevInstanceCount = react.usePrevious(instanceCount)
 
   useEffect(() => {
     if (fileInput.current && instanceCount > prevInstanceCount) {
@@ -27,7 +20,7 @@ const FileInput = ({instanceCount, directory, onChange}) => {
     }
     e.target.value = null
   }
-  
+
   return <input
     type="file"
     ref={fileInput}
