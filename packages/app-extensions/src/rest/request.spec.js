@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock'
 
-import {sendRequest, sendByteRequest} from './request'
+import {sendByteRequest, sendRequest} from './request'
 import InformationError from './InformationError'
 
 describe('app-extensions', () => {
@@ -32,7 +32,7 @@ describe('app-extensions', () => {
         expect(result.body).to.eql(body)
       })
 
-      test('should throw error if non accepted response is received ', async done => {
+      test('should throw error if non accepted response is received ', async() => {
         fetchMock.post(
           new RegExp('.*'),
           new Response(JSON.stringify({}), {status: 400})
@@ -47,7 +47,6 @@ describe('app-extensions', () => {
           await sendRequest(url, options, acceptedErrorCodes, acceptedStatusCodes)
         } catch (e) {
           expect(e.message).to.contain('Bad Request')
-          done()
         }
       })
 

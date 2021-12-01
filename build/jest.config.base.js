@@ -15,5 +15,6 @@ module.exports = {
   verbose: true,
   collectCoverage: true,
   coverageDirectory: '<rootDir>/coverage/',
-  cacheDirectory: '.jestcache'
+  cacheDirectory: '.jestcache',
+  testEnvironment: 'jsdom'
 }
