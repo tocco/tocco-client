@@ -96,7 +96,7 @@ export const loadTextResources = async(locale, modules) => {
 }
 
 const fetchTextResources = (locale, modules) => {
-  const moduleRegex = `(${modules.join('|')})`
+  const moduleRegex = `${modules.join(',')}`
   const moduleParam = moduleRegex ? `&module=${moduleRegex}` : ''
   const url = `textresource?locale=${locale}${moduleParam}`
 
