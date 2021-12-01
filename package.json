@@ -25,13 +25,8 @@
     "storybook:master": "cross-env BACKEND=https://master.tocco.ch yarn storybook",
     "cypress:localhost": "cross-env CYPRESS_baseUrl=http://localhost:3003 yarn cypress open",
     "cypress:master": "yarn cypress open",
-    "cypress:master:record": "yarn cypress run --record --key 7657cc15-e969-4203-ae80-f3e0651a9667"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "babel-node scripts/msg-validation",
-      "pre-commit": "npm run lint"
-    }
+    "cypress:master:record": "yarn cypress run --record --key 7657cc15-e969-4203-ae80-f3e0651a9667",
+    "prepare": "husky install"
   },
   "peerDependencies": {
     "react": "^17.0.1",
@@ -108,7 +103,7 @@
     "fuse.js": "^6.4.6",
     "history": "4.7.2",
     "html-webpack-plugin": "^5.3.2",
-    "husky": "^4.3.7",
+    "husky": "^7.0.0",
     "imports-loader": "^0.8.0",
     "intl": "1.2.5",
     "isomorphic-fetch": "^3.0.0",
