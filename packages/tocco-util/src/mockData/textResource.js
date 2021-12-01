@@ -4,7 +4,7 @@ export const setupTextResources = (packageName, fetchMock, textResourceKeys = []
   textResourceKeys.forEach(key => {
     textResources[key] = transformKeyToReadableText(key)
   })
-  fetchMock.get(new RegExp(`^.*?/nice2/textresource.*\\(${packageName}.*`), textResources)
+  fetchMock.get(new RegExp(`^.*?/nice2/textresource.*${packageName}.*`), textResources)
 }
 
 const transformKeyToReadableText = key => {
