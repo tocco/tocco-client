@@ -8,6 +8,20 @@ run sagas. They also use tocco-ui for the visual parts.
 With actionEmitter it is possible to dispatch actions in the store of a parent app.
 For example logging-actions or errors that can't be handled by a package itself.
 
+Import:
+
+```javascript
+import { actionEmitter } from "tocco-app-extensions";
+```
+
+Initialization:
+
+```javascript
+actionEmitter.addToStore(store, events.emitAction);
+```
+
+the second (optional) parameter is an action which is dispatched to interact with the parent app. 
+
 ## actions
 
 Can render action buttons and runs action executions.
@@ -30,6 +44,10 @@ config, the second parameter, is an object that can have the following propertie
 - listApp: Entity-List App, is needed to render remote fields in action settings.
 - customActions: An object with App specific custom actions. The key is the id of the custom action as defined
   in the form.
+- context: Map of parameters which will be passed to the called action.
+- navigationStrategy: Object consisting of various link factories. For more information see 
+  tocco-util/navigationStrategy documentation.
+- appComponent: Component to render custom apps (E.g. rendering delete app for deleting a search filter)
 
 Render an action:
 
@@ -41,15 +59,41 @@ Render an action:
 
 Helper methods to create a react/redux/saga app.
 
+## cache
+
+If the app is initialized it is once checked if the revision id on server has changed and the cache should be cleared.
+
+Import:
+
+```javascript
+import { cache } from "tocco-app-extensions";
+```
+
+Initialization:
+
+```javascript
+cache.addToStore(store);
+```
+
 ## errorLogging
 
 An abstraction to handle errors with multiple handlers such as remote logging.
 
-See the corresponding story for more details.
+See the corresponding [story](src/errorLogging/errorLogging.stories.mdx) for more details.
 
 ## externalEvents
 
 Can be added to the store to call external events/callback from anywhere with an action.
+
+```javascript
+import { externalEvents } from "tocco-app-extensions";
+```
+
+Initialization:
+
+```javascript
+externalEvents.addToStore(store, events);
+```
 
 ## field
 
@@ -78,7 +122,10 @@ formData.addToStore(store, { listApp, navigationStrategy });
 config, the second parameter, is an object an can have the following properties:
 
 - listApp: Entity-List App component. Is used to connect the remote field with a list search.
+- detailApp: Entity-detail App component. Is used for the remote create.
 - navigationStrategy: See tocco-util > navigationStrategy for more information
+- data: Option to set related entities
+- chooseDocument: Used to pass the choose document component
 
 ## formField
 
@@ -92,6 +139,14 @@ and a global key down event on document.
 A list of shortcuts can be registered containing a list of actions that will be triggered if the key is pressed and
 the modifiers match.
 
+Import:
+
+```javascript
+import { keyDown } from "tocco-app-extensions";
+```
+
+Initialization:
+
 ```javascript
 keyDown.addToStore(store, {
   ctrl: true,
@@ -104,13 +159,30 @@ keyDown.addToStore(store, {
 });
 ```
 
+## login
+
+Helps to handle the login (e.g. check if user is logged in, user is allowed to see admin)
+
+Import:
+
+```javascript
+import { login } from "tocco-app-extensions";
+```
+
+Initialization:
+
+```javascript
+login.addToStore(store);
+```
+
 ## notification
 
 Allows to dispatch actions to show a toaster or confirm dialog. Just needs to be added to the store and then one of
 the exported actions can be dispatched anywhere. When added to store, it can be configured if those actions are
 handled or if they get emitted.
 
-See the corresponding story for more details.
+See the corresponding [story](src/notification/notification.stories.mdx) and [readme](src/notification/README.md) for 
+more details.
 
 ## remote events
 

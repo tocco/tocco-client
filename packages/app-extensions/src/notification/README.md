@@ -12,10 +12,15 @@ Firstly the Notifier util must be added to the store:
 ```javascript
 notification.addToStore(store, accept)
 ```
+or
+```javascript
+notification.addToStore(store, accept, {withNotificationCenter: true})
+```
 
 The first parameter is the redux store. The store is needed to adding its reducers and add saga middleware.
 The second parameter (accept) determines whether the app is handling the Notifier action itself or just emits the
-actions to the parent app. The latter also needs the `emitAction` util added to the store.
+actions to the parent app. The latter also needs the `emitAction` util added to the store. Optionally the notification
+center can be enabled.
 
 Secondly the Notifier Components must be added to dom:
 
