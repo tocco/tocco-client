@@ -6,6 +6,7 @@ import {
   inputDispatchActionType
 } from './appFactory'
 import {createStore} from './store/store'
+import useApp, {getEvent} from './useApp'
 
 export default {
   renderApp,
@@ -13,5 +14,7 @@ export default {
   createApp,
   createStore,
   registerAppInRegistry,
-  inputDispatchActionType
+  inputDispatchActionType,
+  useApp,
+  getEvent
 }
