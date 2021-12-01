@@ -5,13 +5,14 @@ import useResize from './useResize'
 describe('tocco-util', () => {
   describe('resize', () => {
     describe('useResize', () => {
+      let clock
+
       beforeEach(() => {
-        jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb())
+        clock = sinon.useFakeTimers()
       })
 
       afterEach(() => {
-        jest.useRealTimers()
-        window.requestAnimationFrame.mockRestore()
+        clock.restore()
       })
 
       test('should return resizeState', () => {
@@ -55,6 +56,8 @@ describe('tocco-util', () => {
           result.current.resizingEvents.onMouseMove({clientX: 200, clientY: 200})
         })
 
+        clock.runToFrame()
+
         expect(resizeCallback).to.have.been.calledWith('1', {width: 150, height: 150})
 
         act(() => {
@@ -64,9 +67,7 @@ describe('tocco-util', () => {
         expect(resizeFinishedCallback).to.have.been.calledWith('1')
       })
 
-      test.skip('should stop resizing immediately when mouse up event invoked', () => {
-        jest.useFakeTimers()
-
+      test('should stop resizing immediately when mouse up event invoked', () => {
         const selector = () => ({clientWidth: 50, clientHeight: 50})
         const resizeCallback = sinon.spy()
         const resizeFinishedCallback = sinon.spy()
@@ -84,6 +85,8 @@ describe('tocco-util', () => {
           result.current.resizingEvents.onMouseMove({clientX: 100, clientY: 100})
           result.current.resizingEvents.onMouseMove({clientX: 200, clientY: 200})
         })
+
+        clock.runToFrame()
 
         expect(resizeCallback.called).to.equal(true)
 
@@ -92,16 +95,17 @@ describe('tocco-util', () => {
         act(() => {
           result.current.resizingEvents.onMouseUp()
         })
+
         act(() => {
           result.current.resizingEvents.onMouseMove({clientX: 300, clientY: 300})
         })
 
+        clock.runToFrame()
+
         expect(resizeCallback.called).to.equal(false)
       })
 
-      test.skip('should stop resizing after `onClick` has been fired', () => {
-        jest.useFakeTimers()
-
+      test('should stop resizing after `onClick` has been fired', () => {
         const selector = () => ({clientWidth: 50, clientHeight: 50})
         const resizeCallback = sinon.spy()
         const resizeFinishedCallback = sinon.spy()
@@ -119,6 +123,8 @@ describe('tocco-util', () => {
           result.current.resizingEvents.onMouseMove({clientX: 100, clientY: 100})
           result.current.resizingEvents.onMouseMove({clientX: 200, clientY: 200})
         })
+
+        clock.runToFrame()
 
         expect(resizeCallback.called).to.equal(true)
 
@@ -130,9 +136,7 @@ describe('tocco-util', () => {
 
         expect(result.current.resizeState.isResizing).to.equal(true)
 
-        act(() => {
-          jest.runAllTimers()
-        })
+        clock.runAll()
 
         expect(result.current.resizeState.isResizing).to.equal(false)
       })
