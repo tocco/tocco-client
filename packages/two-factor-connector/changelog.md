@@ -1,3 +1,14 @@
+1.0.1
+- harmonize popover background color and spacing
+- register icons
+- register more icons
+- change notification title and refactor NotificationCenter
+- create env utils
+- add generic nice2 fetch wrapper
+- use generic request for non-rest requests
+- add useDidUpdate helper hook
+- add useApp helper hook
+
 1.0.0
 - Style new notification boxes
 - Style notification center
