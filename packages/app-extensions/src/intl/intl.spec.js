@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock'
 
 import cache from '../cache'
-import {setLocale, getUserLocale, loadTextResources} from './intl'
+import {getUserLocale, loadTextResources, setLocale} from './intl'
 
 describe('tocco-util', () => {
   describe('intl', () => {
@@ -74,7 +74,7 @@ describe('tocco-util', () => {
         }
 
         fetchMock.getOnce(
-          '/nice2/textresource?locale=en-GB&module=(merge|components|actions.[^.]*\\.title)',
+          '/nice2/textresource?locale=en-GB&module=merge,components,actions.[^.]*\\.title',
           textResourceResponse
         )
 
