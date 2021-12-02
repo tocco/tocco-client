@@ -16,7 +16,11 @@ import Menu from '../Menu/MenuContainer'
 import {NUMBER_OF_COLUMNS} from '../../utils/constants'
 import DashboardColumn from './DashboardColumn'
 
-const Dashboard = ({infoBoxes: storedInfoBoxes, saveInfoBoxHeight, saveInfoBoxPositions}) => {
+const Dashboard = ({
+  infoBoxes: storedInfoBoxes,
+  saveInfoBoxHeight,
+  saveInfoBoxPositions
+}) => {
   // save infoBoxes in local state to show drag and drop and resize immediately to the user
   const [infoBoxes, setInfoBoxes] = useState(storedInfoBoxes)
   useEffect(() => {
@@ -49,7 +53,10 @@ const Dashboard = ({infoBoxes: storedInfoBoxes, saveInfoBoxHeight, saveInfoBoxPo
 
   const changeInfoBoxPosition = (currentlyDragging, currentlyDragOver, position) => {
     const {id: draggingId} = currentlyDragging
-    const {type: dragOverType, id: dragOverId} = currentlyDragOver
+    const {
+      type: dragOverType,
+      id: dragOverId
+    } = currentlyDragOver
     if (dragOverType === DropTypes.Column) {
       const updatedInfoBoxes = appendDraggedAsLastItemToDropped(draggingId, dragOverId, infoBoxes)
       setInfoBoxes(updatedInfoBoxes)
@@ -60,35 +67,48 @@ const Dashboard = ({infoBoxes: storedInfoBoxes, saveInfoBoxHeight, saveInfoBoxPo
       saveInfoBoxPositions(updatedInfoBoxes)
     }
   }
-  const {dndEvents, dndState} = dragAndDrop.useDnD(changeInfoBoxPosition, infoBoxes)
-  const {currentlyDragOver, currentlyDragging, dropPosition} = dndState
+  const {
+    dndEvents,
+    dndState
+  } = dragAndDrop.useDnD(changeInfoBoxPosition, infoBoxes)
+  const {
+    currentlyDragOver,
+    currentlyDragging,
+    dropPosition
+  } = dndState
 
   const {id: draggingId} = currentlyDragging || {}
+  const DashboardColumns = columns.map(column => {
+    const {
+      onDragEnter,
+      onDragOver,
+      onDrop
+    } = dndEvents({
+      type: DropTypes.Column,
+      id: column
+    })
+    const boxes = getRenderInfoBoxesForColumn(draggingId, currentlyDragOver, dropPosition, column, infoBoxes)
+
+    return <DashboardColumn
+      key={column}
+      onDragEnter={onDragEnter}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      infoBoxes={boxes}
+      resizeState={resizeState}
+      startResize={startResize}
+      dndState={dndState}
+      makeDndEvents={dndEvents}
+    />
+  })
 
   return (
-      <StyledDashboardWrapper ref={ref} {...resizingEvents}>
-        <Menu/>
-        <StyledColumnWrapper>
-          {columns.map(column => {
-            const {onDragEnter, onDragOver, onDrop} = dndEvents({type: DropTypes.Column, id: column})
-            const boxes = getRenderInfoBoxesForColumn(draggingId, currentlyDragOver, dropPosition, column, infoBoxes)
-
-            return (
-              <DashboardColumn
-                key={column}
-                onDragEnter={onDragEnter}
-                onDragOver={onDragOver}
-                onDrop={onDrop}
-                infoBoxes={boxes}
-                resizeState={resizeState}
-                startResize={startResize}
-                dndState={dndState}
-                makeDndEvents={dndEvents}
-              />
-            )
-          })}
-        </StyledColumnWrapper>
-      </StyledDashboardWrapper>
+    <StyledDashboardWrapper ref={ref} {...resizingEvents}>
+      <Menu/>
+      <StyledColumnWrapper>
+        {DashboardColumns}
+      </StyledColumnWrapper>
+    </StyledDashboardWrapper>
   )
 }
 
