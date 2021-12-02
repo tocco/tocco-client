@@ -5,9 +5,9 @@ export default function asyncRoute(getComponent) {
     const [Component, setComponent] = useState(null)
 
     useEffect(() => {
-      getComponent().then(result => {
-        setComponent(result)
-      })
+      let mounted = true
+      getComponent().then(result => mounted ? setComponent(result) : null)
+      return () => (mounted = false)
     })
 
     if (Component !== null) {
