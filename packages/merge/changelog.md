@@ -1,3 +1,13 @@
+1.0.1
+- harmonize popover background color and spacing
+- register icons
+- register more icons
+- change notification title and refactor NotificationCenter
+- create env utils
+- add generic nice2 fetch wrapper
+- add useDidUpdate helper hook
+- add useApp helper hook
+
 1.0.0
 - Increase z-index of modal holder to properly display as widget
 - Increase toaster z-index to properly display as widget
