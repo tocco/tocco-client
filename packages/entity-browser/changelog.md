@@ -1,3 +1,7 @@
+1.0.2
+- add useDidUpdate helper hook
+- add useApp helper hook
+
 1.0.1
 - harmonize popover background color and spacing
 - register icons
