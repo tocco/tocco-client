@@ -155,6 +155,6 @@
     "webpack-dev-middleware": "^4.1.0",
     "webpack-hot-middleware": "^2.25.0",
     "whatwg-fetch": "^3.6.2",
-    "yargs": "^16.2.0"
+    "yargs": "^17.3.0"
   }
 }
