@@ -108,7 +108,7 @@
     "intl": "1.2.5",
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.4.2",
-    "js-cookie": "^2.2.1",
+    "js-cookie": "^3.0.1",
     "json": "^10.0.0",
     "json-loader": "^0.5.7",
     "lerna": "^3.22.1",
