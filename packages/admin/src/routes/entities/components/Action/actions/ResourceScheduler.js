@@ -1,7 +1,7 @@
 import React from 'react'
 import ResourceSchedulerApp from 'tocco-resource-scheduler/src/main'
 import PropTypes from 'prop-types'
-import {selection as selectionPropType} from 'tocco-util'
+import {selection as selectionPropType} from 'tocco-app-extensions'
 
 import {goBack} from '../../../../../utils/routing'
 

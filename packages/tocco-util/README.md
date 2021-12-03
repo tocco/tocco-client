@@ -67,10 +67,6 @@ Helper to load a route async.
 
 Helpers for sagas.
 
-## selection
-
-Helpers and proptypes for list selection.
-
 ## tqlBuilder
 
 Helper to build tocco query language string out of query.

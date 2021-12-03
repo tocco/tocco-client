@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {reducer as reducerUtil, selection} from 'tocco-util'
-import {actionEmitter, appFactory, externalEvents, notification} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
+import {actionEmitter, appFactory, externalEvents, notification, selection} from 'tocco-app-extensions'
 
 import reducers, {sagas} from './modules/reducers'
 import Delete from './components/Delete'

@@ -192,3 +192,7 @@ This util provides the action creator and action definition.
 ## rest
 
 TOCCO REST Api abstraction. Helps compose url, set headers, order params with proper error handling.
+
+## selection
+
+Helpers and proptypes for list selection.

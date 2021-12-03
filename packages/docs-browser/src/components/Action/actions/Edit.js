@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
-import {selection} from 'tocco-util'
+import {selection} from 'tocco-app-extensions'
 
 import getDetailFormName from '../../../utils/getDetailFormName'
 
