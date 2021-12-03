@@ -12,6 +12,7 @@ import _pickBy from 'lodash/pickBy'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
 
+import chooseDocument from './modules/chooseDocument'
 import reducers, {sagas} from './modules/reducers'
 import DocsBrowser from './components/DocsBrowser'
 import {getDispatchActions} from './input'
@@ -186,3 +187,4 @@ DocsBrowserApp.propTypes = {
 }
 
 export default DocsBrowserApp
+export {chooseDocument}
