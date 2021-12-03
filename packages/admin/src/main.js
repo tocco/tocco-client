@@ -11,7 +11,7 @@ import {
   login,
   notification
 } from 'tocco-app-extensions'
-import chooseDocument from 'tocco-docs-browser/src/modules/chooseDocument'
+import {chooseDocument} from 'tocco-docs-browser/src/main'
 import PropTypes from 'prop-types'
 
 import shortcuts from './shortcuts'
