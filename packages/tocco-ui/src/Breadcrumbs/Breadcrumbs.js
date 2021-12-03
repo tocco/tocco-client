@@ -43,7 +43,7 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor,
         const Comp = idx === breadcrumbs.length - 1 ? StyledBreadcrumbsTitle : StyledBreadcrumbsLink
         return <Typography.Span key={`breadcrumbItem-${idx}`}>
           <Comp
-            neutral="true"
+            neutral
             {...(idx === breadcrumbs.length - 1 && {active: 'true'})}
             {...(typeof b.path !== 'undefined' ? {to: `${pathPrefix}/${b.path}`} : {})}
             onClick={handleClick(b)}

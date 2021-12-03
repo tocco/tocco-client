@@ -34,7 +34,7 @@ export const DetailLink = ({
   <StyledLink
     to={`/e/${entityName}/${entityKey}`}
     target="_blank"
-    neutral={false}>
+  >
     {children}
   </StyledLink>
 )
