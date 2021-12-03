@@ -19,6 +19,25 @@ const DashboardColumn = ({
 }) => {
   const {currentlyDragOver} = dndState
   const {isResizing, resizingElement} = resizeState
+  const InfoBoxes = infoBoxes.map(infoBox => {
+    const {id, height, type} = infoBox
+    if (type === InfoBoxRenderTypes.DropPreview) {
+      return <DropPreview
+        key={`${type}-${id}`}
+        height={height}
+        {...makeDndEvents(currentlyDragOver)}
+      />
+    }
+
+    return <DashboardInfoBox
+      key={`${type}-${id}`}
+      id={`infobox-${id}`}
+      infoBox={infoBox}
+      isResizing={isResizing && resizingElement === id}
+      {...makeDndEvents({type: DropTypes.InfoBox, id})}
+      startResize={startResize(id)}
+    />
+  })
 
   return (
     <StyledColumn
@@ -26,25 +45,7 @@ const DashboardColumn = ({
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
-      {infoBoxes.map(infoBox => {
-        const {id, height, type} = infoBox
-        if (type === InfoBoxRenderTypes.DropPreview) {
-          return <DropPreview
-            key={`${type}-${id}`}
-            height={height}
-            {...makeDndEvents(currentlyDragOver)}
-          />
-        }
-        
-        return <DashboardInfoBox
-          key={`${type}-${id}`}
-          id={`infobox-${id}`}
-          infoBox={infoBox}
-          isResizing={isResizing && resizingElement === id}
-          {...makeDndEvents({type: DropTypes.InfoBox, id})}
-          startResize={startResize(id)}
-        />
-      })}
+      {InfoBoxes}
     </StyledColumn>
   )
 }
