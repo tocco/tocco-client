@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import {actions, notification} from 'tocco-app-extensions'
-import {selection as selectionPropType} from 'tocco-util'
+import {actions, notification, selection as selectionPropType} from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'

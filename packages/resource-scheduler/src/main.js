@@ -1,7 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {reducer as reducerUtil, selection as selectionPropType} from 'tocco-util'
-import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
+import {
+  actionEmitter,
+  appFactory,
+  cache,
+  errorLogging,
+  externalEvents,
+  notification,
+  selection as selectionPropType
+} from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'
 
 import reducers, {sagas} from './modules/reducers'

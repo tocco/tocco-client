@@ -1,6 +1,6 @@
 import React from 'react'
-import {reducer as reducerUtil, selection, navigationStrategy} from 'tocco-util'
-import {appFactory, externalEvents} from 'tocco-app-extensions'
+import {reducer as reducerUtil, navigationStrategy} from 'tocco-util'
+import {appFactory, externalEvents, selection} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
 import CopyProgress from './components/CopyProgress'

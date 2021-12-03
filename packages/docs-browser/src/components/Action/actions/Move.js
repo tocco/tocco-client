@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-import {selection} from 'tocco-util'
+import {selection} from 'tocco-app-extensions'
 import {Button, LoadMask, StyledButton} from 'tocco-ui'
 import styled from 'styled-components'
 import _isEqual from 'lodash/isEqual'

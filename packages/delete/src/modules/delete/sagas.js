@@ -1,6 +1,5 @@
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
-import {rest, externalEvents} from 'tocco-app-extensions'
-import {selection as selectionUtil} from 'tocco-util'
+import {rest, externalEvents, selection as selectionUtil} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import {getDialogInfo, getEntitiesToDelete} from '../../utils/deleteRequestParser'

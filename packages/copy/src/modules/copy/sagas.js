@@ -1,6 +1,5 @@
 import {all, call, put, select, takeLatest} from 'redux-saga/effects'
-import {rest, form, externalEvents} from 'tocco-app-extensions'
-import {selection as selectionUtil} from 'tocco-util'
+import {rest, form, externalEvents, selection as selectionUtil} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 

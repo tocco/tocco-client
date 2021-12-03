@@ -1,6 +1,6 @@
 import {call} from 'redux-saga/effects'
+import {consoleLogger} from 'tocco-util'
 
-import consoleLogger from '../consoleLogger'
 import selectionTypes from './selectionTypes'
 
 const limit = 100000
