@@ -1,6 +1,7 @@
 # Tocco-Util
 
 This package contains helpers, utils and other useful stuff that might be used in multiple packages.
+These utils do not reference any other tocco package nor do they interact with redux (except reducer/saga helpers).
 
 ## api
 
