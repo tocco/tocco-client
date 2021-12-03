@@ -1,7 +1,8 @@
-import {cache, externalEvents, intl, rest} from 'tocco-app-extensions'
+import {externalEvents, rest} from 'tocco-app-extensions'
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {takeLatest, select} from 'redux-saga/effects'
+import {cache, intl} from 'tocco-util'
 
 import * as actions from './actions'
 import mainSaga, * as sagas from './sagas'

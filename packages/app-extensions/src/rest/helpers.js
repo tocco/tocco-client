@@ -2,9 +2,9 @@ import _reduce from 'lodash/reduce'
 import _isObject from 'lodash/isObject'
 import {call} from 'redux-saga/effects'
 import _get from 'lodash/get'
+import {cache} from 'tocco-util'
 
 import {requestSaga} from './rest'
-import cache from '../cache'
 
 /**
  * Helper to fetch a single entity

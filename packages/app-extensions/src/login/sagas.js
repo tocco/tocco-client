@@ -1,7 +1,6 @@
-import {consoleLogger, request} from 'tocco-util'
+import {consoleLogger, request, cache} from 'tocco-util'
 import {all, call, put, takeLatest} from 'redux-saga/effects'
 
-import cache from '../cache'
 import notification from '../notification'
 import * as actions from './actions'
 
