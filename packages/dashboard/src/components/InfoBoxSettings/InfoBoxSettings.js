@@ -5,35 +5,42 @@ import {FormattedMessage} from 'react-intl'
 
 import {StyledButtonWrapper, StyledCheckbox, StyledUl} from './StyledComponents'
 
-const InfoBoxSettings = ({initialInfoBoxes, onOk}) => {
+const InfoBoxSettings = ({
+  initialInfoBoxes,
+  onOk
+}) => {
   const [infoBoxes, setInfoBoxes] = useState(initialInfoBoxes || [])
-  
+
   const toggle = id => {
-    setInfoBoxes(boxes => boxes.reduce((acc, box) => [
+    const checkBoxes = boxes => boxes.reduce((acc, box) => [
       ...acc,
       {...box, folded: box.id === id ? !box.folded : box.folded}
-    ], []))
+    ], [])
+    setInfoBoxes(checkBoxes)
   }
+  const InfoBoxesList = infoBoxes.map(box => (
+    <Typography.Li key={box.id}>
+      <StyledCheckbox
+        type="checkbox"
+        checked={!box.folded}
+        onChange={() => toggle(box.id)}
+        id={box.id}
+      />
+      <Typography.Label for={box.id}>{box.label}</Typography.Label>
+    </Typography.Li>
+  ))
 
   return (
-    <div>
-      <StyledUl>{infoBoxes.map(box => (
-        <Typography.Li key={box.id}>
-          <StyledCheckbox
-            type="checkbox"
-            checked={!box.folded}
-            onChange={() => toggle(box.id)}
-            id={box.id}
-          />
-          <Typography.Label for={box.id}>{box.label}</Typography.Label>
-        </Typography.Li>))}
+    <>
+      <StyledUl>
+        {InfoBoxesList}
       </StyledUl>
       <StyledButtonWrapper>
         <Button type="button" onClick={() => onOk(infoBoxes)} look="raised">
           <FormattedMessage id="client.common.ok"/>
         </Button>
       </StyledButtonWrapper>
-    </div>
+    </>
   )
 }
 

@@ -4,12 +4,13 @@ import _get from 'lodash/get'
 
 export const StyledDashboardWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100% - 75px); // ~75px the height of header and breadcrumbs
   background: ${theme.color('paper')};
-  padding: ${scale.space(-0.5)};
-  overflow: auto;
-  ${StyledScrollbar}
+  padding: ${scale.space(-0.5)} ${scale.space(-2)} ${scale.space(-0.5)} ${scale.space(-0.5)};
+  overflow-y: scroll;
   box-sizing: border-box;
+  position: absolute;
+  ${StyledScrollbar}
 `
 
 export const StyledColumnWrapper = styled.div`
