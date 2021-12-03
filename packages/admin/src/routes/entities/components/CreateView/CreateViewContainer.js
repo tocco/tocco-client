@@ -1,12 +1,12 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {actionEmitter} from 'tocco-app-extensions'
-import {chooseDocument} from 'tocco-docs-browser/src/modules/chooseDocument/actions'
+import {chooseDocument} from 'tocco-docs-browser/src/main'
 
 import CreateView from './CreateView'
 
 const mapActionCreators = {
-  chooseDocument,
+  chooseDocument: chooseDocument.actions.chooseDocument,
   dispatchEmittedAction: actionEmitter.dispatchEmittedAction
 }
 
