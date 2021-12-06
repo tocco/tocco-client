@@ -1,3 +1,6 @@
+1.0.3
+- dependency updrade
+
 1.0.2
 - add useDidUpdate helper hook
 - reuse existing usePrevious hook
