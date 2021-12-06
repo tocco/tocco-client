@@ -2,9 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
 import {form} from 'tocco-app-extensions'
-import Typography from 'tocco-ui/src/Typography'
 import styled from 'styled-components'
-import {FormattedValue, scale} from 'tocco-ui'
+import {FormattedValue, scale, Typography} from 'tocco-ui'
 import {selectUnit} from '@formatjs/intl-utils'
 
 export const ErrorItem = ({message}) =>

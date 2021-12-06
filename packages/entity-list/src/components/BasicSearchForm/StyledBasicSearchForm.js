@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {StyledLayoutBox, StyledScrollbar} from 'tocco-ui/src/Layout'
+import {StyledLayoutBox, StyledScrollbar} from 'tocco-ui'
 
 export const StyledBasicSearchForm = styled.div`
   ${StyledScrollbar}

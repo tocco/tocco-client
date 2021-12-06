@@ -1,12 +1,6 @@
 import styled from 'styled-components'
 import _get from 'lodash/get'
-import {StyledButton} from 'tocco-ui/src/Button'
-import {
-  declareInteractionColors,
-  generateInteractionColors,
-  theme,
-  scale
-} from 'tocco-ui/src/utilStyles'
+import {StyledButton, theme, scale, generateInteractionColors, declareInteractionColors} from 'tocco-ui'
 
 export default styled(StyledButton)`
   && {

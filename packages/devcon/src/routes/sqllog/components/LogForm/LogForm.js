@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {StatedValue} from 'tocco-ui'
-import Range from 'tocco-ui/src/Range'
+import {StatedValue, Range} from 'tocco-ui'
 
 const LogForm = ({active, elapsed, setActive, setElapsed}) => {
   const handleActiveChange = e => {

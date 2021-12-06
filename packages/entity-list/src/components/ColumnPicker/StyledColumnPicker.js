@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import {scale, theme, StyledButton} from 'tocco-ui'
-import {StyledLabel, StyledLi} from 'tocco-ui/src/Typography'
+import {scale, theme, StyledButton, StyledLi, StyledLabel} from 'tocco-ui'
 import {lighten} from 'polished'
 
 export const StyledUl = styled.ul`

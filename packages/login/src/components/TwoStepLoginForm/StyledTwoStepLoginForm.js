@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import {StyledButton} from 'tocco-ui/src/Button'
-import {StyledEditableValue, StyledInputCss} from 'tocco-ui/src/EditableValue/StyledEditableValue'
+import {StyledButton, StyledInputCss, StyledEditableValue} from 'tocco-ui'
 
 export const StyledTwoStepLogin = styled.div`
   ${StyledButton} {

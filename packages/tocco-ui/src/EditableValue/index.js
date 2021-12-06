@@ -1,5 +1,5 @@
 import EditableValue from './EditableValue'
-import {
+import StyledEditableValue, {
   StyledEditableWrapperCss,
   StyledInputCss
 } from './StyledEditableValue'
@@ -7,5 +7,6 @@ import {
 export {
   EditableValue as default,
   StyledEditableWrapperCss,
+  StyledEditableValue,
   StyledInputCss
 }

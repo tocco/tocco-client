@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {StyledButton} from 'tocco-ui/src/Button'
+import {StyledButton} from 'tocco-ui'
 
 export default styled.div`
   ${StyledButton} {
