@@ -17,7 +17,7 @@ export const getCompleteMenuPreferences = (items, preferencesPrefix, collapse) =
   const preferences = items
     .reduce((acc, item) => {
       const {name} = item
-      
+
       const hasChildren = item.children && item.children.length > 0
       const children = getCompleteMenuPreferences(item.children || [],
         `${preferencesPrefix}${preferencesPrefix ? `.${name}` : name}`, collapse)
@@ -67,9 +67,9 @@ export const prepareMenuTree = (items, searchFilter, typeMapping, level = 0, isP
       const matchingAttribute = getMatchingAttribute(item, filterAttributes)
 
       const itemMatching = Boolean(matchingAttribute)
-      
+
       const children = prepareMenuTree(item.children || [], searchFilter, typeMapping, level + 1, itemMatching)
-      
+
       return {
         ...item,
         matchingAttribute,
