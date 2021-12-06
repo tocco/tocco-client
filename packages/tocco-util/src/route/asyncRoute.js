@@ -6,7 +6,7 @@ export default function asyncRoute(getComponent) {
     const mounted = useRef(true)
 
     useEffect(() => {
-      getComponent().then(result => mounted.current ? setComponent(result) : null)
+      getComponent().then(result => mounted.current ? setComponent(() => result) : null)
       return () => {
         mounted.current = false
       }
