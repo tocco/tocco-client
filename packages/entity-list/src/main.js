@@ -198,3 +198,4 @@ EntityListApp.propTypes = {
 }
 
 export default EntityListApp
+export {selectionStylePropType, searchFormTypePropTypes}
