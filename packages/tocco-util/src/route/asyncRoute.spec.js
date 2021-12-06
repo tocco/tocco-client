@@ -19,7 +19,7 @@ describe('tocco-util', () => {
       })
 
       test('should render component when loaded', done => {
-        const promise = Promise.resolve(() => InnerComp)
+        const promise = Promise.resolve(InnerComp)
 
         const AsyncComp = asyncRoute(() => promise)
         const wrapper = mount(<AsyncComp/>)
