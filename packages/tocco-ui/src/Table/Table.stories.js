@@ -51,7 +51,7 @@ const data = [...Array(100).keys()].map(k => {
     __key: k,
     firstname: faker.name.firstName(),
     lastname: faker.name.lastName(),
-    number: faker.random.datatype.number()
+    number: faker.datatype.number()
   }
 })
 
