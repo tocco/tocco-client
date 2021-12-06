@@ -6,6 +6,7 @@ export {default as ButtonGroup, StyledButtonGroup} from './ButtonGroup'
 export {
   default as EditableValue,
   StyledEditableWrapperCss,
+  StyledEditableValue,
   StyledInputCss
 } from './EditableValue'
 export {default as FormattedValue} from './FormattedValue'
@@ -44,6 +45,7 @@ export {
   StyledI,
   StyledIns,
   StyledKbd,
+  StyledLabel,
   StyledLi,
   StyledMark,
   StyledOl,
@@ -66,8 +68,12 @@ export {
   colorizeText,
   declareFont,
   declareWrappingText,
+  declareNoneWrappingText,
+  declareFocus,
+  declareInteractionColors,
   design,
   generateShades,
+  generateInteractionColors,
   scale,
   shadeColor,
   theme

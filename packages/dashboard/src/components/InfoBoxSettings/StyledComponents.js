@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import {scale, StyledButton, theme} from 'tocco-ui'
-import {StyledLabel} from 'tocco-ui/src/Typography'
+import {scale, StyledButton, theme, StyledLabel} from 'tocco-ui'
 
 export const StyledButtonWrapper = styled.div`
   position: sticky;

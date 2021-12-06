@@ -3,11 +3,11 @@ import {
   StyledInputCss,
   StyledEditableWrapperCss,
   Button,
+  StyledButton,
+  StyledButtonGroup,
   theme,
   scale
 } from 'tocco-ui'
-import {StyledButton} from 'tocco-ui/src/Button'
-import {StyledButtonGroup} from 'tocco-ui/src/ButtonGroup'
 
 export const StyledLoginFormInput = styled.input`
   /* stylelint-disable-next-line block-no-empty */

@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
-import SearchBox from 'tocco-ui/src/SearchBox'
+import {SearchBox} from 'tocco-ui'
 
 import MenuTree from '../MenuTree'
 import {

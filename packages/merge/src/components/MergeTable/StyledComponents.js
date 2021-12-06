@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import {scale, theme} from 'tocco-ui'
-import declareFont from 'tocco-ui/src/utilStyles/declareFont'
+import {scale, theme, declareFont} from 'tocco-ui'
 
 export const StyledMergeErrorWrapper = styled.div`
   ${declareFont()}

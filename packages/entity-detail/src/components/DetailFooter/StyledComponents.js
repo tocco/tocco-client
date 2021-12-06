@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import {colorizeText, StyledSpan, theme, scale} from 'tocco-ui'
-import {declareNoneWrappingText} from 'tocco-ui/src/utilStyles'
+import {colorizeText, StyledSpan, theme, scale, declareNoneWrappingText} from 'tocco-ui'
 
 export const StyledFooterWrapper = styled.div`
   max-width: 650px;

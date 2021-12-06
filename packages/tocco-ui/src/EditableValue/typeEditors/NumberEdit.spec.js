@@ -1,5 +1,5 @@
 import React from 'react'
-import {mountWithIntl} from 'tocco-test-util/src/intlEnzyme/intlEnzyme'
+import {intlEnzyme} from 'tocco-test-util'
 
 import NumberEdit, {calculateMaxValue, isAllowedValue} from './NumberEdit'
 
@@ -10,7 +10,7 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('NumberEdit ', () => {
         test('should render NumberEdit', () => {
-          const wrapper = mountWithIntl(
+          const wrapper = intlEnzyme.mountWithIntl(
             <NumberEdit value={1234567.89} options={{}} onChange={EMPTY_FUNC}/>
           )
           expect(wrapper.find('input')).to.have.length(1)
@@ -22,7 +22,7 @@ describe('tocco-ui', () => {
             done()
           }
 
-          const wrapper = mountWithIntl(
+          const wrapper = intlEnzyme.mountWithIntl(
             <NumberEdit value={1234567.89} options={{}} onChange={changeHandler}/>
           )
 
@@ -35,7 +35,7 @@ describe('tocco-ui', () => {
             done()
           }
 
-          const wrapper = mountWithIntl(
+          const wrapper = intlEnzyme.mountWithIntl(
             <NumberEdit value={1234567.89} options={{}} onChange={changeHandler}/>
           )
 
@@ -44,7 +44,7 @@ describe('tocco-ui', () => {
 
         test('should return number string in en', () => {
           const result = '1,234,567.89'
-          const wrapper = mountWithIntl(
+          const wrapper = intlEnzyme.mountWithIntl(
             <NumberEdit
               value={1234567.89}
               options={{
@@ -58,7 +58,7 @@ describe('tocco-ui', () => {
 
         test('should add suffix and prefix', () => {
           const result = 'pre0post'
-          const wrapper = mountWithIntl(
+          const wrapper = intlEnzyme.mountWithIntl(
             <NumberEdit
               value={0}
               options={{
@@ -74,7 +74,7 @@ describe('tocco-ui', () => {
 
         test('fill in postPointDigit zeros on fixedDecimalScale', () => {
           const result = '1,234,567.800'
-          const wrapper = mountWithIntl(
+          const wrapper = intlEnzyme.mountWithIntl(
             <NumberEdit
               value={1234567.8}
               options={{
