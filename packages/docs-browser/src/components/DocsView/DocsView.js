@@ -2,8 +2,7 @@ import React, {Suspense, useEffect, useMemo, useReducer, useRef, useState} from 
 import PropTypes from 'prop-types'
 import {viewPersistor} from 'tocco-util'
 import {Icon, LoadMask} from 'tocco-ui'
-import {searchFormTypePropTypes} from 'tocco-entity-list/src/util/searchFormTypes'
-import {selectionStylePropType} from 'tocco-entity-list/src/util/selectionStyles'
+import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
 
 import Action from '../Action'
 import FileInput from '../FileInput'
