@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
-import {Manager, Popper, Reference} from 'react-popper'
+import {usePopper} from 'react-popper'
 
 import {StyledArrow, StyledBox, StyledBoxWrapper} from './StyledPopover'
 
@@ -12,6 +12,9 @@ const placements = {
 }
 
 const Popover = ({children, content, isPlainHtml, rimless, placement}) => {
+  const [referenceElement, setReferenceElement] = useState(null)
+  const [popperElement, setPopperElement] = useState(null)
+  const [arrowElement, setArrowElement] = useState(null)
   const [showToolTip, setShowToolTip] = useState(false)
 
   const handleMouseEnter = () => {
@@ -34,32 +37,33 @@ const Popover = ({children, content, isPlainHtml, rimless, placement}) => {
       options: {
         padding: 10
       }
+    },
+    {
+      name: 'arrow',
+      options: {
+        element: arrowElement
+      }
     }
   ]
 
+  const {styles, attributes} = usePopper(referenceElement, popperElement, {placement, modifiers})
+
   return (
-    <Manager>
-      <Reference>
-        {({ref}) => (
-          <span onMouseOut={handleMouseLeave} onMouseOver={handleMouseEnter} ref={ref}>
-            {children}
-          </span>
-        )}
-      </Reference>
+    <>
+      <span ref={setReferenceElement} onMouseOut={handleMouseLeave} onMouseOver={handleMouseEnter}>
+        {children}
+      </span>
+
       {showToolTip &&
         content &&
         ReactDOM.createPortal(
-          <Popper placement={placement} modifiers={modifiers}>
-            {({ref, style, placement, arrowProps}) => (
-              <StyledBoxWrapper ref={ref} style={style} rimless={rimless} placement={placement}>
-                <StyledBox isPlainHtml={isPlainHtml}>{content}</StyledBox>
-                <StyledArrow ref={arrowProps.ref} data-placement={placement} style={arrowProps.style} />
-              </StyledBoxWrapper>
-            )}
-          </Popper>,
+          <StyledBoxWrapper ref={setPopperElement} style={styles.popper} rimless={rimless} {...attributes.popper}>
+            <StyledBox isPlainHtml={isPlainHtml}>{content}</StyledBox>
+            <StyledArrow ref={setArrowElement} data-placement={placement} style={styles.arrow} />
+          </StyledBoxWrapper>,
           document.body
         )}
-    </Manager>
+    </>
   )
 }
 
