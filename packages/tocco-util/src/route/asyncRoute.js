@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 
 export default function asyncRoute(getComponent) {
   return props => {
     const [Component, setComponent] = useState(null)
+    const mounted = useRef(true)
 
     useEffect(() => {
-      let mounted = true
-      getComponent().then(result => mounted ? setComponent(result) : null)
-      return () => (mounted = false)
-    })
+      getComponent().then(result => mounted.current ? setComponent(result) : null)
+      return () => {
+        mounted.current = false
+      }
+    }, [])
 
     if (Component !== null) {
       return <Component {...props}/>
