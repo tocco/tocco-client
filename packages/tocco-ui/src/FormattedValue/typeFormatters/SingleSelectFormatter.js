@@ -15,11 +15,11 @@ const SingleSelectFormatter = ({value, options, breakWords}) => {
 
   return DetailLink
     ? <span onClick={e => e.stopPropagation()}>
-      <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}}/> : null}>
-        <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(value.key)}>
-          <DetailLink entityKey={value.key}>{display}</DetailLink>
-        </span>
-      </Popover>
+      <DetailLink entityKey={value.key}>
+        <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}}/> : null}>
+          <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(value.key)}>{display}</span>
+        </Popover>
+      </DetailLink>
     </span>
     : display
 }
