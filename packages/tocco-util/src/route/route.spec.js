@@ -13,7 +13,7 @@ describe('tocco-util', () => {
         test('should load and render component', done => {
           const promise = Promise.resolve({
             default: {
-              container: () => InnerComp
+              container: InnerComp
             }
           })
 
@@ -30,10 +30,10 @@ describe('tocco-util', () => {
 
         test('should return component class from cache if loaded with key', done => {
           const promise1 = Promise.resolve({
-            default: {container: () => InnerComp}
+            default: {container: InnerComp}
           })
           const promise2 = Promise.resolve({
-            default: {container: () => InnerComp2}
+            default: {container: InnerComp2}
           })
 
           const Cmp = loadRoute(null, {}, () => promise1, 'my-route')
@@ -56,10 +56,10 @@ describe('tocco-util', () => {
 
         test('should not return component class from cache if loaded without key', done => {
           const promise1 = Promise.resolve({
-            default: {container: () => InnerComp}
+            default: {container: InnerComp}
           })
           const promise2 = Promise.resolve({
-            default: {container: () => InnerComp2}
+            default: {container: InnerComp2}
           })
 
           const Cmp = loadRoute(null, {}, () => promise1)
@@ -82,10 +82,10 @@ describe('tocco-util', () => {
 
         test('should not return component class from cache if loaded with different key', done => {
           const promise1 = Promise.resolve({
-            default: {container: () => InnerComp}
+            default: {container: InnerComp}
           })
           const promise2 = Promise.resolve({
-            default: {container: () => InnerComp2}
+            default: {container: InnerComp2}
           })
 
           const Cmp = loadRoute(null, {}, () => promise1, 'my-route-1')
