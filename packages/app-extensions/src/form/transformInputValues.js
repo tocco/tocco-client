@@ -13,15 +13,11 @@ function* loadDisplays(fields, entityModel) {
 
       return {
         ...acc,
-        [targetEntity]: [
-          ...(acc[targetEntity] || []),
-          ...arrayValue
-        ]
+        [targetEntity]: [...(acc[targetEntity] || []), ...arrayValue]
       }
     }
     return acc
-  }
-  , {})
+  }, {})
 
   if (Object.keys(displayRequest).length === 0) {
     return null
@@ -31,8 +27,10 @@ function* loadDisplays(fields, entityModel) {
 }
 
 export const NOT_FOUND_DISPLAY = '??'
-const relationFieldTransformer = (value, displays, targetEntity) =>
-  ({key: value, display: _get(displays, [targetEntity, value], NOT_FOUND_DISPLAY)})
+const relationFieldTransformer = (value, displays, targetEntity) => ({
+  key: value,
+  display: _get(displays, [targetEntity, value], NOT_FOUND_DISPLAY)
+})
 
 const fieldTypeTransformer = (value, fieldModel, displays) => {
   if (fieldModel && fieldModel.type === 'relation') {

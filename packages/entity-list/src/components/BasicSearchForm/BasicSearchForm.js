@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {reduxForm} from 'redux-form'
-import {Ball} from 'tocco-ui'
 import {form} from 'tocco-app-extensions'
+import {Ball} from 'tocco-ui'
 
-import {
-  StyledBasicSearchForm,
-  StyledSearchFormButtons
-} from './StyledBasicSearchForm'
+import {StyledBasicSearchForm, StyledSearchFormButtons} from './StyledBasicSearchForm'
 
 const REDUX_FORM_NAME = 'searchForm'
 
@@ -44,18 +41,10 @@ const BasicSearchForm = ({
     return field && field.hidden
   }
 
-  const shouldRenderField = (
-    preselectedSearchFields,
-    disableSimpleSearch,
-    showExtendedSearchForm,
-    simpleSearchFields) => name => (
-    !isHidden(preselectedSearchFields, name)
-    && (
-      disableSimpleSearch
-      || showExtendedSearchForm
-      || simpleSearchFields.includes(name)
-    )
-  )
+  const shouldRenderField =
+    (preselectedSearchFields, disableSimpleSearch, showExtendedSearchForm, simpleSearchFields) => name =>
+      !isHidden(preselectedSearchFields, name) &&
+      (disableSimpleSearch || showExtendedSearchForm || simpleSearchFields.includes(name))
 
   const toggleExtendedSearchForm = () => {
     setShowExtendedSearchForm(!showExtendedSearchForm)
@@ -67,16 +56,16 @@ const BasicSearchForm = ({
   return (
     <StyledBasicSearchForm>
       <form onSubmit={handleSubmit}>
-        {hasExtendedOnlySearchFields && !disableSimpleSearch
-        && <StyledSearchFormButtons>
-          <Ball
-            data-cy="extend-search-button"
-            icon={`chevron-${showExtendedSearchForm ? 'up' : 'down'}`}
-            onClick={toggleExtendedSearchForm}
-            title={msg('client.entity-list.extendedSearch')}
-          />
-        </StyledSearchFormButtons>
-        }
+        {hasExtendedOnlySearchFields && !disableSimpleSearch && (
+          <StyledSearchFormButtons>
+            <Ball
+              data-cy="extend-search-button"
+              icon={`chevron-${showExtendedSearchForm ? 'up' : 'down'}`}
+              onClick={toggleExtendedSearchForm}
+              title={msg('client.entity-list.extendedSearch')}
+            />
+          </StyledSearchFormButtons>
+        )}
         <form.FormBuilder
           entity={entity}
           formName={formName}
@@ -87,8 +76,8 @@ const BasicSearchForm = ({
             preselectedSearchFields,
             disableSimpleSearch,
             showExtendedSearchForm,
-            simpleSearchFields)
-          }
+            simpleSearchFields
+          )}
           mode="search"
         />
       </form>
@@ -103,9 +92,7 @@ BasicSearchForm.propTypes = {
   }).isRequired,
   submitSearchForm: PropTypes.func.isRequired,
   disableSimpleSearch: PropTypes.bool,
-  simpleSearchFields: PropTypes.arrayOf(
-    PropTypes.string
-  ),
+  simpleSearchFields: PropTypes.arrayOf(PropTypes.string),
   showExtendedSearchForm: PropTypes.bool,
   setShowExtendedSearchForm: PropTypes.func.isRequired,
   preselectedSearchFields: PropTypes.arrayOf(

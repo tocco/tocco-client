@@ -1,7 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, Typography, Icon} from 'tocco-ui'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
+import {Button, Typography, Icon} from 'tocco-ui'
 
 import {StyledButtonWrapper} from '../GlobalStyledComponents'
 import {StyledMessageWrapper, StyledIconWrapper, StyledTextWrapper} from './StyledComponents'
@@ -14,21 +14,16 @@ const Result = ({success, goToStart, setupSuccessful, intl}) => {
       <>
         <StyledMessageWrapper>
           <StyledIconWrapper isSuccessful={true}>
-            <Icon icon={'check'}/>
+            <Icon icon={'check'} />
           </StyledIconWrapper>
           <StyledTextWrapper>
             <Typography.P>
-              <FormattedMessage id="client.two-factor-connector.successfulText"/>
+              <FormattedMessage id="client.two-factor-connector.successfulText" />
             </Typography.P>
           </StyledTextWrapper>
         </StyledMessageWrapper>
         <StyledButtonWrapper>
-          <Button
-            label={msg('client.two-factor-connector.okButton')}
-            ink="primary"
-            look="raised"
-            onClick={success}
-          />
+          <Button label={msg('client.two-factor-connector.okButton')} ink="primary" look="raised" onClick={success} />
         </StyledButtonWrapper>
       </>
     )
@@ -38,21 +33,16 @@ const Result = ({success, goToStart, setupSuccessful, intl}) => {
     <>
       <StyledMessageWrapper>
         <StyledIconWrapper isSuccessful={false}>
-          <Icon icon={'times'}/>
+          <Icon icon={'times'} />
         </StyledIconWrapper>
         <StyledTextWrapper>
           <Typography.P>
-            <FormattedMessage id="client.two-factor-connector.errorText"/>
+            <FormattedMessage id="client.two-factor-connector.errorText" />
           </Typography.P>
         </StyledTextWrapper>
       </StyledMessageWrapper>
       <StyledButtonWrapper>
-        <Button
-          label={msg('client.two-factor-connector.okButton')}
-          ink="primary"
-          look="raised"
-          onClick={goToStart}
-        />
+        <Button label={msg('client.two-factor-connector.okButton')} ink="primary" look="raised" onClick={goToStart} />
       </StyledButtonWrapper>
     </>
   )

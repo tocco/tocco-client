@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {FormattedValue} from 'tocco-ui'
 
 import formattedTypeConfigs from './formattedTypeConfigs'
@@ -19,7 +19,7 @@ const FormattedValueFactory = ({type, formField, value, formData, key, breakWord
   const options = getOptions(fieldType, formField, formData, value)
   const overwrittenValue = getValue(fieldType, formField, formData, value)
 
-  return <FormattedValue key={key} type={type} value={overwrittenValue} options={options} breakWords={breakWords}/>
+  return <FormattedValue key={key} type={type} value={overwrittenValue} options={options} breakWords={breakWords} />
 }
 
 FormattedValueFactory.propTypes = {
@@ -34,4 +34,4 @@ FormattedValueFactory.propTypes = {
   breakWords: PropTypes.bool
 }
 
-export default type => props => <FormattedValueFactory {...props} type={type}/>
+export default type => props => <FormattedValueFactory {...props} type={type} />

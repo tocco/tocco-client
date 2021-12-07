@@ -1,5 +1,5 @@
-import React, {useRef, useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useRef, useState} from 'react'
 
 import {Ball} from '../'
 import {Menu} from './'
@@ -26,26 +26,23 @@ const BallMenu = ({buttonProps, onOpen, children}) => {
     setMenuOpen(false)
   }
 
-  return <>
-    <Ball {...buttonProps} onClick={handleClick} ref={ballEl}/>
-    {menuOpen && <Menu
-      referenceElement={ballEl.current}
-      open={menuOpen}
-      onClose={handleClose}
-    >
-      {children}
-    </Menu>}
-  </>
+  return (
+    <>
+      <Ball {...buttonProps} onClick={handleClick} ref={ballEl} />
+      {menuOpen && (
+        <Menu referenceElement={ballEl.current} open={menuOpen} onClose={handleClose}>
+          {children}
+        </Menu>
+      )}
+    </>
+  )
 }
 
 BallMenu.propTypes = {
   /**
    * Tree of <MenuItem>
    */
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]).isRequired,
   /**
    * Object of properties as described in Ball component
    */

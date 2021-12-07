@@ -1,11 +1,11 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-import {StyledColumn} from './StyledComponents'
-import DashboardInfoBox from './DashboardInfoBox'
+import DropTypes from '../../utils/dropTypes'
 import {InfoBoxRenderTypes} from '../../utils/infoBoxTypes'
 import DropPreview from '../InfoBox/DropPreview'
-import DropTypes from '../../utils/dropTypes'
+import DashboardInfoBox from './DashboardInfoBox'
+import {StyledColumn} from './StyledComponents'
 
 const DashboardColumn = ({
   onDragEnter,
@@ -22,29 +22,23 @@ const DashboardColumn = ({
   const InfoBoxes = infoBoxes.map(infoBox => {
     const {id, height, type} = infoBox
     if (type === InfoBoxRenderTypes.DropPreview) {
-      return <DropPreview
-        key={`${type}-${id}`}
-        height={height}
-        {...makeDndEvents(currentlyDragOver)}
-      />
+      return <DropPreview key={`${type}-${id}`} height={height} {...makeDndEvents(currentlyDragOver)} />
     }
 
-    return <DashboardInfoBox
-      key={`${type}-${id}`}
-      id={`infobox-${id}`}
-      infoBox={infoBox}
-      isResizing={isResizing && resizingElement === id}
-      {...makeDndEvents({type: DropTypes.InfoBox, id})}
-      startResize={startResize(id)}
-    />
+    return (
+      <DashboardInfoBox
+        key={`${type}-${id}`}
+        id={`infobox-${id}`}
+        infoBox={infoBox}
+        isResizing={isResizing && resizingElement === id}
+        {...makeDndEvents({type: DropTypes.InfoBox, id})}
+        startResize={startResize(id)}
+      />
+    )
   })
 
   return (
-    <StyledColumn
-      onDragEnter={onDragEnter}
-      onDragOver={onDragOver}
-      onDrop={onDrop}
-    >
+    <StyledColumn onDragEnter={onDragEnter} onDragOver={onDragOver} onDrop={onDrop}>
       {InfoBoxes}
     </StyledColumn>
   )

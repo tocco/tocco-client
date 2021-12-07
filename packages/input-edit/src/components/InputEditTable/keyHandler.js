@@ -1,6 +1,8 @@
 export const arrowKeyHandler = event => {
-  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)
-    && ['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp'].includes(event.key)) {
+  if (
+    ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName) &&
+    ['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp'].includes(event.key)
+  ) {
     event.preventDefault()
     const [rowIndex, columnIndex] = document.activeElement.id.split(':')
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {

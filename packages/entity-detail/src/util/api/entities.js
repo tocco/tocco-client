@@ -1,6 +1,6 @@
 import {SubmissionError} from 'redux-form/es/SubmissionError'
-import {form, rest} from 'tocco-app-extensions'
 import {call} from 'redux-saga/effects'
+import {form, rest} from 'tocco-app-extensions'
 
 export function* updateEntity(entity, paths = []) {
   const options = {

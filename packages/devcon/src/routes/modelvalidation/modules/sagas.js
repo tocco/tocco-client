@@ -1,10 +1,10 @@
-import {socket, rest, notification} from 'tocco-app-extensions'
 import {all, call, put, takeEvery, select} from 'redux-saga/effects'
+import {socket, rest, notification} from 'tocco-app-extensions'
 import {consoleLogger} from 'tocco-util'
 
-import * as actions from './actions'
-import SqlDialog from '../components/SqlDialog'
 import ChangelogDialog from '../components/ChangelogDialog'
+import SqlDialog from '../components/SqlDialog'
+import * as actions from './actions'
 
 const selectionSelector = state => state.modelValidation.selection
 const sqlSelector = state => state.modelValidation.sql
@@ -33,10 +33,12 @@ export function* startValidation() {
     yield call(rest.requestSaga, 'devcon/modelvalidation/validation', {method: 'POST'})
   } catch (e) {
     consoleLogger.logError('Failed to start model validation', e)
-    yield put(notification.toaster({
-      type: 'error',
-      title: 'Failed to start model validation'
-    }))
+    yield put(
+      notification.toaster({
+        type: 'error',
+        title: 'Failed to start model validation'
+      })
+    )
   }
 }
 
@@ -49,18 +51,14 @@ export function* receiveMessage({payload}) {
       yield put(actions.setTotal(payload.message.params.total))
       break
     case 'entering_check':
-      yield put(actions.setCurrent(
-        payload.message.params.total,
-        payload.message.params.num,
-        payload.message.params.model
-      ))
+      yield put(
+        actions.setCurrent(payload.message.params.total, payload.message.params.num, payload.message.params.model)
+      )
       break
     case 'check_event':
-      yield put(actions.addCheckEvent(
-        payload.message.params.id,
-        payload.message.params.type,
-        payload.message.params.label
-      ))
+      yield put(
+        actions.addCheckEvent(payload.message.params.id, payload.message.params.type, payload.message.params.label)
+      )
       break
   }
 }
@@ -79,10 +77,12 @@ export function* generateSql() {
     yield put(notification.modal('sql', 'SQL', null, SqlDialog, true))
   } catch (e) {
     consoleLogger.logError('Failed to generate SQL', e)
-    yield put(notification.toaster({
-      type: 'error',
-      title: 'Failed to generate SQL'
-    }))
+    yield put(
+      notification.toaster({
+        type: 'error',
+        title: 'Failed to generate SQL'
+      })
+    )
   }
 }
 
@@ -101,10 +101,12 @@ export function* executeSql({payload}) {
     }
   } catch (e) {
     consoleLogger.logError('Failed to execute SQL', e)
-    yield put(notification.toaster({
-      type: 'error',
-      title: 'Failed to execute SQL'
-    }))
+    yield put(
+      notification.toaster({
+        type: 'error',
+        title: 'Failed to execute SQL'
+      })
+    )
   }
 }
 
@@ -122,9 +124,11 @@ export function* generateChangelog() {
     yield put(notification.modal('changelog', 'Changelog', null, ChangelogDialog, true))
   } catch (e) {
     consoleLogger.logError('Failed to generate Changelog', e)
-    yield put(notification.toaster({
-      type: 'error',
-      title: 'Failed to generate changelog'
-    }))
+    yield put(
+      notification.toaster({
+        type: 'error',
+        title: 'Failed to generate changelog'
+      })
+    )
   }
 }

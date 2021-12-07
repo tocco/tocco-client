@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {useState, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
+import React, {useState, useEffect, useRef} from 'react'
 
 import useDebounce from './useDebounce'
 
@@ -28,9 +28,7 @@ const Debouncer = (Component, delay = 200, func = 'onChange') => {
       }
     }, [debouncedValue])
 
-    return (
-      <Component {...props} value={internalValue} {...{[func]: setInternalValue}} ref={ref}/>
-    )
+    return <Component {...props} value={internalValue} {...{[func]: setInternalValue}} ref={ref} />
   })
 
   Comp.propTypes = {

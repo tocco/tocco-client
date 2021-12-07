@@ -23,11 +23,7 @@ export const Story = args => {
     }
   }
 
-  return <Upload
-    value={value}
-    onUpload={changeValue}
-    {...args}
-  />
+  return <Upload value={value} onUpload={changeValue} {...args} />
 }
 
 export default {

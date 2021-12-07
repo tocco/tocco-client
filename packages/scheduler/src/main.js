@@ -1,44 +1,33 @@
-import React from 'react'
-import {react, reducer as reducerUtil} from 'tocco-util'
-import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {appFactory, externalEvents} from 'tocco-app-extensions'
+import {react, reducer as reducerUtil} from 'tocco-util'
 
-import reducers, {sagas} from './modules/reducers'
 import SchedulerContainer from './containers/SchedulerContainer'
 import {getDispatchActions} from './input'
+import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'scheduler'
 
-const EXTERNAL_EVENTS = [
-  'onDateRangeChange',
-  'onCalendarRemove',
-  'onCalendarRemoveAll',
-  'onEventClick',
-  'onRefresh'
-]
+const EXTERNAL_EVENTS = ['onDateRangeChange', 'onCalendarRemove', 'onCalendarRemoveAll', 'onEventClick', 'onRefresh']
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <SchedulerContainer/>
+  const content = <SchedulerContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   externalEvents.addToStore(store, events)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: getDispatchActions(input),
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: getDispatchActions(input),
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === 'scheduler') {
     appFactory.registerAppInRegistry(packageName, initApp)
 
@@ -91,13 +80,13 @@ SchedulerApp.propTypes = {
           start: PropTypes.number,
           end: PropTypes.number,
           allDay: PropTypes.bool
-        }
-        )
+        })
       ),
       key: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired
-    })),
+    })
+  ),
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {}),
   locale: PropTypes.string
 }

@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {components} from 'react-select'
-import PropTypes from 'prop-types'
 
 import {StyledMoreOptionsAvailable} from './StyledComponents'
 
@@ -10,11 +10,9 @@ const MenuList = props => {
   return (
     <components.MenuList {...props}>
       {children}
-      {moreOptionsAvailable
-      && <StyledMoreOptionsAvailable reactSelectTheme={theme}>
-        {moreOptionsAvailableText}
-      </StyledMoreOptionsAvailable>
-      }
+      {moreOptionsAvailable && (
+        <StyledMoreOptionsAvailable reactSelectTheme={theme}>{moreOptionsAvailableText}</StyledMoreOptionsAvailable>
+      )}
     </components.MenuList>
   )
 }

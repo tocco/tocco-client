@@ -10,11 +10,10 @@ export default {
 
 export const Basic = () => {
   const [value, setValue] = useState('1988-11-14')
-  return <DatePicker
-    value={value}
-    onChange={setValue}
-  >
-    <Button icon="calendar"/>
-    {value}
-  </DatePicker>
+  return (
+    <DatePicker value={value} onChange={setValue}>
+      <Button icon="calendar" />
+      {value}
+    </DatePicker>
+  )
 }

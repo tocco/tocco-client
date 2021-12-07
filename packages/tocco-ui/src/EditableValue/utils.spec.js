@@ -1,5 +1,6 @@
 import moment from 'moment'
 
+import {getExpectedDate} from './specUtils'
 import {
   atMostOne,
   toLocalDateString,
@@ -11,7 +12,6 @@ import {
   numbersToTimeFormat,
   padLeadingZeros
 } from './utils'
-import {getExpectedDate} from './specUtils'
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {

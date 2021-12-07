@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import Menu from './Menu'
 import {displayInfoBoxSettings, resetInfoBoxSettings} from '../../modules/dashboard/actions'
+import Menu from './Menu'
 
 const mapActionCreators = {
   displayInfoBoxSettings,

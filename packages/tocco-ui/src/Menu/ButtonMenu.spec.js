@@ -1,11 +1,11 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
-import ButtonMenu from './ButtonMenu'
-import MenuItem from './MenuItem'
 import Button from '../Button'
 import ButtonGroup from '../ButtonGroup'
 import Icon from '../Icon'
+import ButtonMenu from './ButtonMenu'
+import MenuItem from './MenuItem'
 
 describe('tocco-ui', () => {
   describe('Menu', () => {

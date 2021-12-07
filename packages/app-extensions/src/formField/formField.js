@@ -1,6 +1,6 @@
-import React, {useMemo} from 'react'
-import PropTypes from 'prop-types'
 import _get from 'lodash/get'
+import PropTypes from 'prop-types'
+import React, {useMemo} from 'react'
 import {StatedValue, Typography} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
@@ -8,17 +8,21 @@ import field from '../field'
 import fromData from '../formData'
 
 const FormFieldWrapper = props => {
-  const hasValueOverwrite = props.typeEditable && props.typeEditable.hasValue
-    && props.typeEditable.hasValue(props.formData.formValues, props.formField)
+  const hasValueOverwrite =
+    props.typeEditable &&
+    props.typeEditable.hasValue &&
+    props.typeEditable.hasValue(props.formData.formValues, props.formField)
 
-  return <StatedValue
-    {...props}
-    dirty={props.formData.isDirty || props.dirty}
-    error={props.formData.errors || props.error}
-    hasValue={hasValueOverwrite || props.hasValue}
-  >
-    {React.cloneElement(props.children, {formData: props.formData})}
-  </StatedValue>
+  return (
+    <StatedValue
+      {...props}
+      dirty={props.formData.isDirty || props.dirty}
+      error={props.formData.errors || props.error}
+      hasValue={hasValueOverwrite || props.hasValue}
+    >
+      {React.cloneElement(props.children, {formData: props.formData})}
+    </StatedValue>
+  )
 }
 
 FormFieldWrapper.propTypes = {
@@ -34,8 +38,7 @@ FormFieldWrapper.propTypes = {
 const displayFieldTypes = ['display', 'description']
 const multiTypes = ['multi-select-box', 'multi-remote-field', 'search-filter']
 
-const isMultipleFields = (value, dataType) =>
-  Array.isArray(value) && !multiTypes.includes(dataType)
+const isMultipleFields = (value, dataType) => Array.isArray(value) && !multiTypes.includes(dataType)
 
 const displayFieldAsDisplayOnly = (value, componentType, dataType, parentReadOnly) => {
   if (parentReadOnly) {
@@ -70,24 +73,13 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
       mode
     } = data
 
-    const {
-      componentType,
-      dataType,
-      readonly
-    } = formDefinitionField
+    const {componentType, dataType, readonly} = formDefinitionField
 
-    const readOnly = (
-      parentReadOnly
-      || readonly
-      || submitting
-      || !_get(entityField, 'writable', true)
-    )
+    const readOnly = parentReadOnly || readonly || submitting || !_get(entityField, 'writable', true)
 
     const mandatory = !readOnly && _get(formDefinitionField, 'validation.mandatory', false) && mode !== 'search'
-    const hasValue = value !== null
-      && value !== undefined
-      && value !== false
-      && (value.length === undefined || value.length > 0)
+    const hasValue =
+      value !== null && value !== undefined && value !== false && (value.length === undefined || value.length > 0)
     const isDisplay = displayFieldAsDisplayOnly(value, componentType, dataType, parentReadOnly)
 
     const type = formDefinitionField.dataType || formDefinitionField.componentType
@@ -132,47 +124,34 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
     )
   } catch (exception) {
     consoleLogger.logError('Error creating formField', exception)
-    return <span/>
+    return <span />
   }
 }
 
-export const MultiSeparator = () => (<Typography.Span>, </Typography.Span>)
+export const MultiSeparator = () => <Typography.Span>, </Typography.Span>
 
-const ValueField = ({
-  fieldMappingType,
-  formName,
-  formField,
-  value,
-  info,
-  events,
-  formData
-}) => {
-  const Field = useMemo(() =>
-    field.factory(fieldMappingType, formField.dataType || formField.componentType), []
-  )
+const ValueField = ({fieldMappingType, formName, formField, value, info, events, formData}) => {
+  const Field = useMemo(() => field.factory(fieldMappingType, formField.dataType || formField.componentType), [])
 
   if (isMultipleFields(value, formField.dataType)) {
     return value
-      .map((v, idx) => <Field
-        formField={formField}
-        formName={formName}
-        value={v}
-        info={info}
-        events={events}
-        formData={formData}
-        key={'valueField-' + formField.id + idx}
-      />)
-      .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
+      .map((v, idx) => (
+        <Field
+          formField={formField}
+          formName={formName}
+          value={v}
+          info={info}
+          events={events}
+          formData={formData}
+          key={'valueField-' + formField.id + idx}
+        />
+      ))
+      .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx} />, curr])
   }
 
-  return <Field
-    formField={formField}
-    formName={formName}
-    value={value}
-    info={info}
-    events={events}
-    formData={formData}
-  />
+  return (
+    <Field formField={formField} formName={formName} value={value} info={info} events={events} formData={formData} />
+  )
 }
 
 ValueField.propTypes = {

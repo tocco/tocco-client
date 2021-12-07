@@ -4,9 +4,7 @@ import {cache} from 'tocco-util'
 import rest from '../rest'
 
 export default function* mainSagas() {
-  yield all([
-    init()
-  ])
+  yield all([init()])
 }
 
 let clearCacheChecked = false

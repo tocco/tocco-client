@@ -1,8 +1,8 @@
-import React from 'react'
 import {shallow, mount} from 'enzyme'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
-import {Button} from 'tocco-ui'
 import {intlEnzyme, IntlStub} from 'tocco-test-util'
+import {Button} from 'tocco-ui'
 
 import {Pages} from '../../types/Pages'
 import LoginForm from './LoginForm'
@@ -25,25 +25,22 @@ describe('login', () => {
         expect(wrapper.find(Button)).to.have.length(2)
       })
 
-      test(
-        'should render two <FormattedMessage> components if title is shown',
-        () => {
-          const wrapper = intlEnzyme.mountWithIntl(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={() => undefined}
-              setUsername={() => undefined}
-              setPassword={() => undefined}
-              loginPending={false}
-              showTitle
-              googleReCaptchaProps={{executeRecaptcha: () => {}}}
-            />
-          )
-          expect(wrapper.find(Button)).to.have.length(2)
-          expect(wrapper.find(FormattedMessage)).to.have.length(2)
-        }
-      )
+      test('should render two <FormattedMessage> components if title is shown', () => {
+        const wrapper = intlEnzyme.mountWithIntl(
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
+            showTitle
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
+          />
+        )
+        expect(wrapper.find(Button)).to.have.length(2)
+        expect(wrapper.find(FormattedMessage)).to.have.length(2)
+      })
 
       test('should disable button if username and password are not set', () => {
         const wrapper = mount(

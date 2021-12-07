@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import InputEditSearch from './InputEditSearch'
 import {setSearchQueries} from '../../modules/inputEditSearch/actions'
+import InputEditSearch from './InputEditSearch'
 
 const mapActionCreators = {
   setSearchFields: setSearchQueries

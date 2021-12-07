@@ -1,6 +1,6 @@
 {
   "id": "User_search",
-  "componentType" :"form",
+  "componentType": "form",
   "displayType": "EDITABLE",
   "children": [
     {
@@ -38,7 +38,7 @@
     {
       "id": "relUser_code1",
       "componentType": "field-set",
-      "label":  "Personen-Code 1",
+      "label": "Personen-Code 1",
       "scopes": [],
       "hidden": false,
       "children": [

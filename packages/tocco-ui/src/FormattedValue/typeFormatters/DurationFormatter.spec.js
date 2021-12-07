@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 import {IntlProvider} from 'react-intl'
 
 import DurationFormatter from './DurationFormatter'
@@ -15,8 +15,11 @@ describe('tocco-ui', () => {
 
           const durationFormatedS = '00:01:23'
 
-          const wrapper = mount(<IntlProvider locale="de"><DurationFormatter
-            value={durationMilliseconds}/></IntlProvider>)
+          const wrapper = mount(
+            <IntlProvider locale="de">
+              <DurationFormatter value={durationMilliseconds} />
+            </IntlProvider>
+          )
 
           expect(wrapper.text().replace(leftToRightMark, '')).to.equal(durationFormatedS)
         })

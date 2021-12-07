@@ -1,34 +1,19 @@
 import {getParameterValue} from './utils'
 
 export const setupForms = fetchMock => {
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/forms/(.*)/display-expressions.*$'),
-    createDisplayExpressionResponse()
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/forms/(.*)/display-expressions.*$'), createDisplayExpressionResponse())
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User/(list|remotefield)$'),
-    require('./data/user_list_form.json')
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User/(list|remotefield)$'), require('./data/user_list_form.json'))
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_withconstriction/(list|remotefield)'),
     require('./data/user_list_form.json')
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User/search$'),
-    require('./data/user_search_form.json')
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User/search$'), require('./data/user_search_form.json'))
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_withconstriction/search'),
-    404
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_withconstriction/search'), 404)
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User/(update|create)$'),
-    require('./data/user_detail_form.json')
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User/(update|create)$'), require('./data/user_detail_form.json'))
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_detail_relDummySubGrid/list$'),
@@ -45,10 +30,7 @@ export const setupForms = fetchMock => {
     require('./data/user_list_small_form.json')
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_small/search$'),
-    404
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_small/search$'), 404)
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/Dummy_entity/(list|remotefield)$'),
@@ -71,22 +53,24 @@ export const setupForms = fetchMock => {
   )
 }
 
-const createDisplayExpressionResponse = () =>
-  (url, opts) => {
-    const paths = getParameterValue('_paths', url).split(',')
+const createDisplayExpressionResponse = () => (url, opts) => {
+  const paths = getParameterValue('_paths', url).split(',')
 
-    const body = JSON.parse(opts.body)
-    const keys = body.ids
+  const body = JSON.parse(opts.body)
+  const keys = body.ids
 
-    const formName = url.match(/.*forms\/(.*)\/display-expressions.*/)[1]
-    return {
-      formName,
-      displayExpressions: keys.map(key => (
-        {
-          key: key.toString(),
-          displayExpressions: paths.reduce((acc, path) => (
-            {...acc, [path]: path.includes('empty') ? '' : `<i class="far fa-check"></i><b>bold</b> <i>${key}</i>`}
-          ), {})
-        }))
-    }
+  const formName = url.match(/.*forms\/(.*)\/display-expressions.*/)[1]
+  return {
+    formName,
+    displayExpressions: keys.map(key => ({
+      key: key.toString(),
+      displayExpressions: paths.reduce(
+        (acc, path) => ({
+          ...acc,
+          [path]: path.includes('empty') ? '' : `<i class="far fa-check"></i><b>bold</b> <i>${key}</i>`
+        }),
+        {}
+      )
+    }))
   }
+}

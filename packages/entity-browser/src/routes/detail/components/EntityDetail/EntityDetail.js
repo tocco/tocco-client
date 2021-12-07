@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {Prompt} from 'react-router-dom'
-import {Button, RouterLink} from 'tocco-ui'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
+import {Button, RouterLink} from 'tocco-ui'
 import {queryString as queryStringUtil} from 'tocco-util'
 
 import {StyledEntityDetailBackButton} from './StyledEntityDetail'
 
-const DetailLinkRelative = ({currentKey, entityKey, children, relation}) =>
+const DetailLinkRelative = ({currentKey, entityKey, children, relation}) => (
   <RouterLink to={`${currentKey}/${relation}/${entityKey}`}>{children}</RouterLink>
+)
 
 DetailLinkRelative.propTypes = {
   currentKey: PropTypes.string.isRequired,
@@ -45,7 +46,7 @@ class EntityDetail extends React.Component {
   handleEntityCreated = ({id}) => {
     this.props.setFormTouched(false)
     let url = this.props.router.match.url
-    url = (url.substr(-1) !== '/') ? url += '/' : url
+    url = url.substr(-1) !== '/' ? (url += '/') : url
     this.props.router.history.push(`${url}${id}`)
   }
 
@@ -77,12 +78,11 @@ class EntityDetail extends React.Component {
       formName={formName}
       mode={mode}
       navigationStrategy={{
-        DetailLinkRelative: props => <DetailLinkRelative {...props} currentKey={entityId}/>,
+        DetailLinkRelative: props => <DetailLinkRelative {...props} currentKey={entityId} />,
         navigateToCreateRelative: this.navigateToCreate,
         navigateToActionRelative: this.navigateToAction
       }}
       onSubGridRowClick={this.handleSubGridRowClick}
-
       onEntityCreated={this.handleEntityCreated}
       onEntityDeleted={this.handleGoBack}
       onTouchedChange={this.handleTouchedChange}
@@ -93,30 +93,32 @@ class EntityDetail extends React.Component {
     />
   )
 
-  msg = id => (this.props.intl.formatMessage({id}))
+  msg = id => this.props.intl.formatMessage({id})
 
-  render = () =>
+  render = () => (
     <React.Fragment>
       <Prompt
         when={this.props.formTouched}
         message={this.msg('client.entity-browser.detail.confirmTouchedFormLeave')}
       />
-      {this.props.detailParams
-      && <React.Fragment>
-        {this.props.detailParams.showBackButton
-        && <StyledEntityDetailBackButton>
-          <Button
-            data-cy="entity-detail_back-button"
-            icon="chevron-left"
-            label={this.msg('client.entity-browser.back')}
-            look="raised"
-            onClick={this.handleGoBack}
-          />
-        </StyledEntityDetailBackButton>}
-        {this.getApp(this.props.detailParams)}
-      </React.Fragment>
-      }
+      {this.props.detailParams && (
+        <React.Fragment>
+          {this.props.detailParams.showBackButton && (
+            <StyledEntityDetailBackButton>
+              <Button
+                data-cy="entity-detail_back-button"
+                icon="chevron-left"
+                label={this.msg('client.entity-browser.back')}
+                look="raised"
+                onClick={this.handleGoBack}
+              />
+            </StyledEntityDetailBackButton>
+          )}
+          {this.getApp(this.props.detailParams)}
+        </React.Fragment>
+      )}
     </React.Fragment>
+  )
 }
 
 EntityDetail.propTypes = {

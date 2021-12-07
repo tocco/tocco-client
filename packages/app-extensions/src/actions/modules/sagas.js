@@ -1,15 +1,13 @@
 import {takeEvery, all, call, put} from 'redux-saga/effects'
 
-import * as actions from './actions'
-import actionHandlers from './actionHandlers'
-import remoteEvents from '../../remoteEvents'
-import prepare from './prepare'
 import notification from '../../notification'
+import remoteEvents from '../../remoteEvents'
+import actionHandlers from './actionHandlers'
+import * as actions from './actions'
+import prepare from './prepare'
 
 export default function* sagas(config) {
-  yield all([
-    takeEvery(actions.ACTION_INVOKE, invokeAction, config)
-  ])
+  yield all([takeEvery(actions.ACTION_INVOKE, invokeAction, config)])
 }
 
 export function* invokeAction(config, {payload}) {

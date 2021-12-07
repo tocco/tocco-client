@@ -8,7 +8,7 @@ import {
   setDefaultValues
 } from './modules/entityDetail/actions'
 
-export const getDispatchActions = input => ([
+export const getDispatchActions = input => [
   setEntityName(input.entityName),
   setEntityId(input.entityId ? input.entityId : null),
   setMode(input.mode),
@@ -16,4 +16,4 @@ export const getDispatchActions = input => ([
   setAppId(input.id),
   setDefaultValues(input.defaultValues),
   loadDetailView()
-])
+]

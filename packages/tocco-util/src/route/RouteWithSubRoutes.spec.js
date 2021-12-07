@@ -1,5 +1,5 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 import {Route} from 'react-router'
 
 import RouteWithSubRoutes from './RouteWithSubRoutes'
@@ -12,11 +12,7 @@ describe('tocco-util', () => {
           path: '/',
           component: () => <div>test</div>
         }
-        const wrapper = shallow(
-          <RouteWithSubRoutes
-            {...route}
-          />
-        )
+        const wrapper = shallow(<RouteWithSubRoutes {...route} />)
 
         expect(wrapper.find(Route)).to.have.length(1)
         const render = wrapper.find(Route).first().props().render
@@ -31,11 +27,7 @@ describe('tocco-util', () => {
           path: '/',
           render: props => <div>test2</div>
         }
-        const wrapper = shallow(
-          <RouteWithSubRoutes
-            {...route}
-          />
-        )
+        const wrapper = shallow(<RouteWithSubRoutes {...route} />)
 
         expect(wrapper.find(Route)).to.have.length(1)
         const render = wrapper.find(Route).first().props().render

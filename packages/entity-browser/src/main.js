@@ -1,18 +1,10 @@
-import React from 'react'
-import {
-  actionEmitter,
-  appFactory,
-  cache,
-  errorLogging,
-  externalEvents,
-  login,
-  notification
-} from 'tocco-app-extensions'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import PropTypes from 'prop-types'
-import {route, env} from 'tocco-util'
+import React from 'react'
+import {actionEmitter, appFactory, cache, errorLogging, externalEvents, login, notification} from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'
+import {route, env} from 'tocco-util'
 
 import {sagas} from './modules/reducers'
 
@@ -82,22 +74,19 @@ const initApp = (id, input, events, publicPath) => {
 
   const routes = require('./routes/index').default(store, input)
 
-  const content = <>
-    <GlobalStyles/>
-    <route.Router history={history} routes={routes}/>
-  </>
-
-  const app = appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail']
-    }
+  const content = (
+    <>
+      <GlobalStyles />
+      <route.Router history={history} routes={routes} />
+    </>
   )
+
+  const app = appFactory.createApp(packageName, content, store, {
+    input,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail']
+  })
 
   if (module.hot) {
     module.hot.accept('./routes/index', () =>
@@ -110,7 +99,7 @@ const initApp = (id, input, events, publicPath) => {
   return app
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === 'entity-browser') {
     appFactory.registerAppInRegistry(packageName, initApp)
 

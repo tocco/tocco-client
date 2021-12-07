@@ -1,13 +1,9 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {externalEvents, rest, remoteEvents} from 'tocco-app-extensions'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {put, select, call, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {externalEvents, rest, remoteEvents} from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
-import * as actions from './actions'
-import * as searchFormActions from '../searchForm/actions'
-import * as selectionActions from '../selection/actions'
-import rootSaga, * as sagas from './sagas'
 import {
   getSorting,
   getSelectable,
@@ -17,7 +13,11 @@ import {
   getSearchEndpoint,
   getConstriction
 } from '../../util/api/forms'
+import * as searchFormActions from '../searchForm/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
+import * as selectionActions from '../selection/actions'
+import * as actions from './actions'
+import rootSaga, * as sagas from './sagas'
 
 const generateState = (entityStore = {}, page, markable = true) => ({
   initialized: false,
@@ -39,23 +39,25 @@ describe('entity-list', () => {
         describe('rootSaga', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              takeLatest(actions.INITIALIZE, sagas.initialize),
-              takeLatest(actions.CHANGE_PAGE, sagas.changePage),
-              takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.reloadData),
-              takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.queryChanged),
-              takeLatest(actions.SET_SORTING_INTERACTIVE, sagas.reloadData),
-              takeLatest(actions.REFRESH, sagas.refreshData),
-              takeLatest(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
-              takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
-              takeLatest(selectionActions.RELOAD_DATA, sagas.reloadData),
-              takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
-              takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
-              takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, sagas.setSorting),
-              takeLatest(actions.DEFINE_SORTING, sagas.setSorting),
-              takeLatest(actions.SET_MARKED, sagas.setMarked),
-              takeLatest(actions.TOGGLE_MARKINGS, sagas.toggleMarkings)
-            ]))
+            expect(generator.next().value).to.deep.equal(
+              all([
+                takeLatest(actions.INITIALIZE, sagas.initialize),
+                takeLatest(actions.CHANGE_PAGE, sagas.changePage),
+                takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.reloadData),
+                takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.queryChanged),
+                takeLatest(actions.SET_SORTING_INTERACTIVE, sagas.reloadData),
+                takeLatest(actions.REFRESH, sagas.refreshData),
+                takeLatest(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
+                takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
+                takeLatest(selectionActions.RELOAD_DATA, sagas.reloadData),
+                takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
+                takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
+                takeLatest(searchFormActions.SET_SEARCH_FILTER_ACTIVE, sagas.setSorting),
+                takeLatest(actions.DEFINE_SORTING, sagas.setSorting),
+                takeLatest(actions.SET_MARKED, sagas.setMarked),
+                takeLatest(actions.TOGGLE_MARKINGS, sagas.toggleMarkings)
+              ])
+            )
             expect(generator.next().done).to.be.true
           })
         })
@@ -94,9 +96,7 @@ describe('entity-list', () => {
         describe('reloadData saga', () => {
           test('should load data with first page', () => {
             return expectSaga(sagas.reloadData)
-              .provide([
-                [matchers.call.fn(sagas.loadData)]
-              ])
+              .provide([[matchers.call.fn(sagas.loadData)]])
               .put(actions.setCurrentPage(1))
               .call(sagas.loadData, 1)
               .run()
@@ -106,10 +106,7 @@ describe('entity-list', () => {
         describe('refresh saga', () => {
           test('should  load data with first page', () => {
             return expectSaga(sagas.refreshData)
-              .provide([
-                [select(sagas.listSelector), {currentPage: 3}],
-                [matchers.call.fn(sagas.loadData)]
-              ])
+              .provide([[select(sagas.listSelector), {currentPage: 3}], [matchers.call.fn(sagas.loadData)]])
               .call(sagas.loadData, 3)
               .run()
           })
@@ -158,28 +155,25 @@ describe('entity-list', () => {
             const searchFilter = ['filter1', 'filter3']
             const expectedReturnValue = ['filter1', 'filter2', 'filter3']
 
-            return expectSaga(sagas.getSearchFilter, inputFilers, searchFilter)
-              .returns(expectedReturnValue)
-              .run()
+            return expectSaga(sagas.getSearchFilter, inputFilers, searchFilter).returns(expectedReturnValue).run()
           })
         })
 
         describe('hasActiveSearchFilterOrderBy saga', () => {
           test('search filters not set', () => {
             return expectSaga(sagas.hasActiveSearchFilterOrderBy)
-              .provide([
-                [select(sagas.searchFormSelector), {searchFilters: null}]
-              ])
+              .provide([[select(sagas.searchFormSelector), {searchFilters: null}]])
               .returns(null)
               .run()
           })
 
           test('no active search filter with order by', () => {
-            const searchFilters = [{active: true, orderBy: ''}, {active: false, orderBy: 'firstname'}]
+            const searchFilters = [
+              {active: true, orderBy: ''},
+              {active: false, orderBy: 'firstname'}
+            ]
             return expectSaga(sagas.hasActiveSearchFilterOrderBy)
-              .provide([
-                [select(sagas.searchFormSelector), {searchFilters: searchFilters}]
-              ])
+              .provide([[select(sagas.searchFormSelector), {searchFilters: searchFilters}]])
               .returns(false)
               .run()
           })
@@ -187,9 +181,7 @@ describe('entity-list', () => {
           test('active search filter with order by', () => {
             const searchFilters = [{active: true, orderBy: 'firstname'}]
             return expectSaga(sagas.hasActiveSearchFilterOrderBy)
-              .provide([
-                [select(sagas.searchFormSelector), {searchFilters: searchFilters}]
-              ])
+              .provide([[select(sagas.searchFormSelector), {searchFilters: searchFilters}]])
               .returns(true)
               .run()
           })
@@ -214,9 +206,7 @@ describe('entity-list', () => {
             const entityStore = {1: []}
             const page = 1
             return expectSaga(sagas.requestEntities, page)
-              .provide([
-                [select(sagas.listSelector), {entityStore}]
-              ])
+              .provide([[select(sagas.listSelector), {entityStore}]])
               .not.call.like({fn: sagas.fetchEntitiesAndAddToStore})
               .call(sagas.displayEntity, page)
               .spawn(sagas.delayedPreloadNextPage, page)
@@ -270,7 +260,10 @@ describe('entity-list', () => {
           })
 
           test('should set fallback if no active search filter has order by', () => {
-            const searchFilters = [{active: true, orderBy: ''}, {active: false, orderBy: 'firstname'}]
+            const searchFilters = [
+              {active: true, orderBy: ''},
+              {active: false, orderBy: 'firstname'}
+            ]
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), []],
@@ -312,17 +305,13 @@ describe('entity-list', () => {
         describe('loadData saga', () => {
           test('should load data of provided page', () =>
             expectSaga(sagas.loadData, 2)
-              .provide([
-                [matchers.fork.fn(sagas.countEntities)],
-                [matchers.call.fn(sagas.requestEntities)]
-              ])
+              .provide([[matchers.fork.fn(sagas.countEntities)], [matchers.call.fn(sagas.requestEntities)]])
               .put(actions.setInProgress(true))
               .put(actions.clearEntityStore())
               .call(sagas.requestEntities, 2)
               .put(actions.setInProgress(false))
               .fork(sagas.countEntities)
-              .run()
-          )
+              .run())
         })
 
         describe('countEntities saga', () => {
@@ -415,9 +404,7 @@ describe('entity-list', () => {
           test('should load the entity model', () => {
             const model = {name: 'User'}
             return expectSaga(sagas.loadEntityModel)
-              .provide([
-                [matchers.call.fn(rest.fetchModel), model]
-              ])
+              .provide([[matchers.call.fn(rest.fetchModel), model]])
               .put(actions.setEntityModel(model))
               .run()
           })
@@ -427,8 +414,9 @@ describe('entity-list', () => {
           test('should not change selection if selectOnRowClick not true', () => {
             const gen = sagas.onRowClick(actions.onRowClick('1'))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({selectOnRowClick: false}).value)
-              .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
+            expect(gen.next({selectOnRowClick: false}).value).to.eql(
+              put(externalEvents.fireExternalEvent('onRowClick', {id: '1'}))
+            )
             expect(gen.next().done).to.be.true
           })
 
@@ -436,10 +424,8 @@ describe('entity-list', () => {
             const gen = sagas.onRowClick(actions.onRowClick('1'))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.selectionSelector))
-            expect(gen.next({selection: ['2']}).value)
-              .to.eql(put(selectionActions.onSelectChange(['1'], true)))
-            expect(gen.next().value)
-              .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
+            expect(gen.next({selection: ['2']}).value).to.eql(put(selectionActions.onSelectChange(['1'], true)))
+            expect(gen.next().value).to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
             expect(gen.next().done).to.be.true
           })
 
@@ -447,10 +433,8 @@ describe('entity-list', () => {
             const gen = sagas.onRowClick(actions.onRowClick('1'))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.selectionSelector))
-            expect(gen.next({selection: ['1']}).value)
-              .to.eql(put(selectionActions.onSelectChange(['1'], false)))
-            expect(gen.next().value)
-              .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
+            expect(gen.next({selection: ['1']}).value).to.eql(put(selectionActions.onSelectChange(['1'], false)))
+            expect(gen.next().value).to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
             expect(gen.next().done).to.be.true
           })
         })
@@ -462,9 +446,7 @@ describe('entity-list', () => {
             const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint)
-              .provide([
-                [select(sagas.entityListSelector), entityList]
-              ])
+              .provide([[select(sagas.entityListSelector), entityList]])
               .returns(expectedResult)
               .run()
           })
@@ -475,9 +457,7 @@ describe('entity-list', () => {
             const expectedResult = 'nice2/rest/entities/2.0/User//test' // REST API doesn't care about duplicate slash
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint)
-              .provide([
-                [select(sagas.entityListSelector), entityList]
-              ])
+              .provide([[select(sagas.entityListSelector), entityList]])
               .returns(expectedResult)
               .run()
           })
@@ -489,9 +469,7 @@ describe('entity-list', () => {
             const expectedResult = 'nice2/rest/entities/2.0/User/123/test/searchresults'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint, searchEndpoint, true)
-              .provide([
-                [select(sagas.entityListSelector), entityList]
-              ])
+              .provide([[select(sagas.entityListSelector), entityList]])
               .returns(expectedResult)
               .run()
           })
@@ -503,9 +481,7 @@ describe('entity-list', () => {
             const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint, searchEndpoint, true)
-              .provide([
-                [select(sagas.entityListSelector), entityList]
-              ])
+              .provide([[select(sagas.entityListSelector), entityList]])
               .returns(expectedResult)
               .run()
           })
@@ -517,9 +493,7 @@ describe('entity-list', () => {
             const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint, searchEndpoint, false)
-              .provide([
-                [select(sagas.entityListSelector), entityList]
-              ])
+              .provide([[select(sagas.entityListSelector), entityList]])
               .returns(expectedResult)
               .run()
           })
@@ -575,8 +549,7 @@ describe('entity-list', () => {
             const selection = {
               showSelectedRecords: false
             }
-            const searchFormValues = {
-            }
+            const searchFormValues = {}
 
             const expectedResult = {
               filter: ['filter1', 'filter2'],
@@ -595,7 +568,7 @@ describe('entity-list', () => {
               .run()
           })
 
-          test('should return tql if show selected is true', async() => {
+          test('should return tql if show selected is true', async () => {
             const selection = {
               showSelectedRecords: true,
               selection: ['1', '22', '99']
@@ -657,9 +630,7 @@ describe('entity-list', () => {
             }
 
             return expectSaga(sagas.navigateToCreate, {payload})
-              .provide([
-                [select(sagas.inputSelector), {navigationStrategy}]
-              ])
+              .provide([[select(sagas.inputSelector), {navigationStrategy}]])
               .call(navigationStrategy.navigateToCreateRelative, payload.relationName)
               .run()
           })
@@ -670,14 +641,15 @@ describe('entity-list', () => {
             const formName = 'User'
             const scope = 'list'
             const paths = ['display1', 'display2']
-            const entities = [{__key: '23', __model: 'User'}, {__key: '24', __model: 'User'}]
+            const entities = [
+              {__key: '23', __model: 'User'},
+              {__key: '24', __model: 'User'}
+            ]
 
             const fakeResult = {formName, displayExpressions: []}
 
             return expectSaga(sagas.loadDisplayExpressions, formName, scope, paths, entities)
-              .provide([
-                [matchers.call.fn(rest.fetchDisplayExpressions), fakeResult]
-              ])
+              .provide([[matchers.call.fn(rest.fetchDisplayExpressions), fakeResult]])
               .call(rest.fetchDisplayExpressions, formName, scope, ['23', '24'], paths, 'User')
               .put(actions.setLazyData('displayExpressions', formName, fakeResult))
               .run()
@@ -729,9 +701,7 @@ describe('entity-list', () => {
             }
 
             return expectSaga(sagas.navigateToAction, {payload})
-              .provide([
-                [select(sagas.inputSelector), {navigationStrategy}]
-              ])
+              .provide([[select(sagas.inputSelector), {navigationStrategy}]])
               .call(navigationStrategy.navigateToActionRelative, payload.definition, payload.selection)
               .run()
           })
@@ -764,20 +734,17 @@ describe('entity-list', () => {
             entityModel: {name: 'Classroom'}
           }
 
-          const expectReload = (listState, remoteEvent) => expectSaga(sagas.remoteEvent, remoteEvent)
-            .provide([
-              [select(sagas.listSelector), listState],
-              [call(sagas.reloadData)]
-            ])
-            .call(sagas.reloadData)
-            .run()
+          const expectReload = (listState, remoteEvent) =>
+            expectSaga(sagas.remoteEvent, remoteEvent)
+              .provide([[select(sagas.listSelector), listState], [call(sagas.reloadData)]])
+              .call(sagas.reloadData)
+              .run()
 
-          const expectNoReload = listState => expectSaga(sagas.remoteEvent, createEventAction)
-            .provide([
-              [select(sagas.listSelector), listState]
-            ])
-            .not.call(sagas.reloadData)
-            .run()
+          const expectNoReload = listState =>
+            expectSaga(sagas.remoteEvent, createEventAction)
+              .provide([[select(sagas.listSelector), listState]])
+              .not.call(sagas.reloadData)
+              .run()
 
           test('should reload list if relevant create event', () => {
             return expectReload(userListState, createEventAction)
@@ -820,10 +787,7 @@ describe('entity-list', () => {
             }
 
             return expectSaga(sagas.remoteEvent, deleteEventAction)
-              .provide([
-                [select(sagas.listSelector), listState],
-                [call(sagas.reloadData)]
-              ])
+              .provide([[select(sagas.listSelector), listState], [call(sagas.reloadData)]])
               .put(selectionActions.onSelectChange(['1', '99'], false))
               .run()
           })
@@ -834,9 +798,7 @@ describe('entity-list', () => {
             const query = {tql: 'firstname == "Max"'}
 
             return expectSaga(sagas.queryChanged)
-              .provide([
-                [call(sagas.getBasicQuery), query]
-              ])
+              .provide([[call(sagas.getBasicQuery), query]])
               .put(selectionActions.setQuery(query))
               .put(externalEvents.fireExternalEvent('onSearchChange', {query}))
               .run()
@@ -882,9 +844,7 @@ describe('entity-list', () => {
             const entities = [{__key: '235'}, {__key: '918'}]
 
             return expectSaga(sagas.loadMarkings, entities)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
+              .provide([[select(sagas.listSelector), listState]])
               .run()
           })
 
@@ -897,9 +857,7 @@ describe('entity-list', () => {
             const entities = [{__key: '235'}, {__key: '918'}]
 
             return expectSaga(sagas.loadMarkings, entities)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
+              .provide([[select(sagas.listSelector), listState]])
               .run()
           })
 
@@ -912,9 +870,7 @@ describe('entity-list', () => {
             const entities = []
 
             return expectSaga(sagas.loadMarkings, entities)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
+              .provide([[select(sagas.listSelector), listState]])
               .run()
           })
         })
@@ -935,25 +891,31 @@ describe('entity-list', () => {
 
         describe('toggleMarkings saga', () => {
           test('should set marked to true if at least one unmarked', () =>
-            testToggleMarkings({
-              843: true,
-              912: false
-            }, true)
-          )
+            testToggleMarkings(
+              {
+                843: true,
+                912: false
+              },
+              true
+            ))
 
           test('should set marked to true if all unmarked', () =>
-            testToggleMarkings({
-              843: false,
-              912: false
-            }, true)
-          )
+            testToggleMarkings(
+              {
+                843: false,
+                912: false
+              },
+              true
+            ))
 
           test('should set marked to false if all marked', () =>
-            testToggleMarkings({
-              843: true,
-              912: true
-            }, false)
-          )
+            testToggleMarkings(
+              {
+                843: true,
+                912: true
+              },
+              false
+            ))
 
           const testToggleMarkings = (oldMarkings, expectedNewMarked) => {
             const selection = {
@@ -1033,9 +995,7 @@ describe('entity-list', () => {
             }
 
             return expectSaga(sagas.setLazyDataMarked, 'User', newMarkings)
-              .provide([
-                [select(sagas.listSelector), {lazyData}]
-              ])
+              .provide([[select(sagas.listSelector), {lazyData}]])
               .put(actions.setLazyData('markings', 'User', expectedUserMarkings))
               .run()
           })

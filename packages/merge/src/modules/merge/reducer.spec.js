@@ -1,13 +1,10 @@
-import reducer from './index'
 import * as actions from './actions'
+import reducer from './index'
 
 const selection = {
   entityName: 'USER',
   type: 'ID',
-  ids: [
-    1,
-    2
-  ]
+  ids: [1, 2]
 }
 
 describe('merge', () => {
@@ -40,8 +37,7 @@ describe('merge', () => {
               mergePending: true
             }
 
-            expect(reducer(stateBefore, actions.executeMerge()))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.executeMerge())).to.deep.equal(expectedStateAfter)
           })
         })
 
@@ -79,8 +75,7 @@ describe('merge', () => {
               mergeResponse: mergeResponse
             }
 
-            expect(reducer(stateBefore, actions.setMergeResponse(mergeResponse)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setMergeResponse(mergeResponse))).to.deep.equal(expectedStateAfter)
           })
         })
 
@@ -117,8 +112,9 @@ describe('merge', () => {
               mergeValidationErrors: mergeValidationErrors
             }
 
-            expect(reducer(stateBefore, actions.setMergeError(mergeErrorMsg, mergeValidationErrors)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setMergeError(mergeErrorMsg, mergeValidationErrors))).to.deep.equal(
+              expectedStateAfter
+            )
           })
         })
 
@@ -146,8 +142,7 @@ describe('merge', () => {
               }
             }
 
-            expect(reducer(stateBefore, actions.setSelectedSingle('firstname', '2')))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setSelectedSingle('firstname', '2'))).to.deep.equal(expectedStateAfter)
           })
         })
 
@@ -186,8 +181,9 @@ describe('merge', () => {
               }
             }
 
-            expect(reducer(stateBefore, actions.setSelectedMultiple('relAddress', '1', '4000', true)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setSelectedMultiple('relAddress', '1', '4000', true))).to.deep.equal(
+              expectedStateAfter
+            )
           })
 
           test('should set multiple selected (remove)', () => {
@@ -224,8 +220,9 @@ describe('merge', () => {
               }
             }
 
-            expect(reducer(stateBefore, actions.setSelectedMultiple('relAddress', '1', '5000', false)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setSelectedMultiple('relAddress', '1', '5000', false))).to.deep.equal(
+              expectedStateAfter
+            )
           })
 
           test('should set multiple selected (override)', () => {
@@ -263,8 +260,9 @@ describe('merge', () => {
               }
             }
 
-            expect(reducer(stateBefore, actions.setSelectedMultiple('relAddress', '2', '6000', true)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setSelectedMultiple('relAddress', '2', '6000', true))).to.deep.equal(
+              expectedStateAfter
+            )
           })
         })
 
@@ -292,8 +290,9 @@ describe('merge', () => {
               }
             }
 
-            expect(reducer(stateBefore, actions.setSelectedMultipleAll('relMail', '2', true)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setSelectedMultipleAll('relMail', '2', true))).to.deep.equal(
+              expectedStateAfter
+            )
           })
 
           test('should set multiple all selected (add)', () => {
@@ -319,8 +318,9 @@ describe('merge', () => {
               }
             }
 
-            expect(reducer(stateBefore, actions.setSelectedMultipleAll('relMail', '2', true)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setSelectedMultipleAll('relMail', '2', true))).to.deep.equal(
+              expectedStateAfter
+            )
           })
 
           test('should set multiple all selected (remove)', () => {
@@ -346,8 +346,9 @@ describe('merge', () => {
               }
             }
 
-            expect(reducer(stateBefore, actions.setSelectedMultipleAll('relMail', '2', false)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setSelectedMultipleAll('relMail', '2', false))).to.deep.equal(
+              expectedStateAfter
+            )
           })
         })
 

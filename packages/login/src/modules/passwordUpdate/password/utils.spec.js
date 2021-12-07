@@ -10,20 +10,25 @@ describe('login', () => {
           })
 
           test('should return false if object is not empty', () => {
-            expect(utils.isEmptyObject({
-              foo: 'bar'
-            })).to.equal(false)
+            expect(
+              utils.isEmptyObject({
+                foo: 'bar'
+              })
+            ).to.equal(false)
           })
 
           describe('validationMessagesToErrorMap', () => {
             test('should convert list to error map', () => {
-              const messages = [{
-                ruleName: 'RULE_1',
-                message: 'Rule 1 failed'
-              }, {
-                ruleName: 'RULE_2',
-                message: 'Rule 2 failed'
-              }]
+              const messages = [
+                {
+                  ruleName: 'RULE_1',
+                  message: 'Rule 1 failed'
+                },
+                {
+                  ruleName: 'RULE_2',
+                  message: 'Rule 2 failed'
+                }
+              ]
 
               const errors = {
                 RULE_1: 'Rule 1 failed',

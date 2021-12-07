@@ -3,8 +3,8 @@ import {appFactory, externalEvents} from 'tocco-app-extensions'
 
 import * as actions from './../entityList/actions'
 import * as listActions from './../list/actions'
-import * as searchFormActions from './../searchForm/actions'
 import * as preferenceActions from './../preferences/actions'
+import * as searchFormActions from './../searchForm/actions'
 
 export const entityListSelector = state => state.entityList
 
@@ -36,9 +36,7 @@ export function* initialize(waitForInputDispatch = true) {
 
 export function* reloadData() {
   yield put(searchFormActions.initialize())
-  yield all([
-    take(searchFormActions.SET_INITIALIZED)
-  ])
+  yield all([take(searchFormActions.SET_INITIALIZED)])
   yield put(searchFormActions.executeSearch())
 }
 

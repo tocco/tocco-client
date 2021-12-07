@@ -1,6 +1,6 @@
+import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {form} from 'tocco-app-extensions'
-import {injectIntl} from 'react-intl'
 
 import Form from '../components/Form'
 import {initializeForm, submit, cancel} from '../modules/simpleForm/actions'

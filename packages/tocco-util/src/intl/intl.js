@@ -1,7 +1,7 @@
 import {updateIntl} from 'react-intl-redux'
 
-import request from '../request'
 import cache from '../cache'
+import request from '../request'
 
 const supportedLanguage = ['de', 'fr', 'en', 'it']
 const FALLBACK_LANGUAGE = 'en'
@@ -12,7 +12,7 @@ const getBrowserLocale = () => {
   return supportedLanguage.includes(lang) ? lang : FALLBACK_LANGUAGE
 }
 
-export const initIntl = async(store, modules, forcedLocale) => {
+export const initIntl = async (store, modules, forcedLocale) => {
   let locale = forcedLocale
   if (!locale) {
     locale = await getUserLocale()
@@ -20,21 +20,23 @@ export const initIntl = async(store, modules, forcedLocale) => {
   return setLocale(store, modules, locale)
 }
 
-export const changeLocale = async(store, modules, locale) => {
+export const changeLocale = async (store, modules, locale) => {
   cache.clearAll()
   setLocale(store, modules, locale)
 }
 
-export const setLocale = async(store, modules, locale) => {
+export const setLocale = async (store, modules, locale) => {
   const textResources = await loadTextResources(locale, modules)
 
-  store.dispatch(updateIntl({
-    locale: locale.replace('_', '-'),
-    messages: textResources
-  }))
+  store.dispatch(
+    updateIntl({
+      locale: locale.replace('_', '-'),
+      messages: textResources
+    })
+  )
 }
 
-export const getUserLocale = async() => {
+export const getUserLocale = async () => {
   const cachedUserLocale = cache.getLongTerm('user', 'locale')
 
   if (cachedUserLocale) {
@@ -46,7 +48,7 @@ export const getUserLocale = async() => {
   return locale
 }
 
-export const hasUserLocaleChanged = async() => {
+export const hasUserLocaleChanged = async () => {
   const cachedUserLocale = cache.getLongTerm('user', 'locale')
   const locale = await loadUserLocale()
 
@@ -54,7 +56,7 @@ export const hasUserLocaleChanged = async() => {
   return !cachedUserLocale || cachedUserLocale !== locale
 }
 
-const loadUserLocale = async() => {
+const loadUserLocale = async () => {
   const userInfo = await request.executeRequest('username').then(request.extractBody)
   let {locale, username} = userInfo
   if (username === 'anonymous') {
@@ -63,7 +65,7 @@ const loadUserLocale = async() => {
   return locale
 }
 
-export const loadTextResources = async(locale, modules) => {
+export const loadTextResources = async (locale, modules) => {
   let result = {}
   const notLoadedModules = []
 
@@ -82,10 +84,13 @@ export const loadTextResources = async(locale, modules) => {
     notLoadedModules.forEach(module => {
       const filtered = Object.keys(resources)
         .filter(key => key.match(new RegExp('^client\\.' + module + '.*', 'g')))
-        .reduce((acc, key) => ({
-          ...acc,
-          [key]: resources[key]
-        }), {})
+        .reduce(
+          (acc, key) => ({
+            ...acc,
+            [key]: resources[key]
+          }),
+          {}
+        )
 
       cache.addLongTerm('textResource', module, filtered)
       result = {...result, ...filtered}

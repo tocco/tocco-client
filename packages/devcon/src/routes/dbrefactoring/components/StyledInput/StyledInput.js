@@ -1,8 +1,5 @@
 import styled from 'styled-components'
-import {
-  StyledInputCss,
-  StyledEditableWrapperCss
-} from 'tocco-ui'
+import {StyledInputCss, StyledEditableWrapperCss} from 'tocco-ui'
 
 export const StyledInput = styled.input`
   && {

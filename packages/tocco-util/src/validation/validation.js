@@ -15,4 +15,4 @@ export const getErrorCompact = errors => {
   return null
 }
 
-const getFirstElement = obj => Object.keys(obj).length >= 1 ? obj[Object.keys(obj)[0]] : undefined
+const getFirstElement = obj => (Object.keys(obj).length >= 1 ? obj[Object.keys(obj)[0]] : undefined)

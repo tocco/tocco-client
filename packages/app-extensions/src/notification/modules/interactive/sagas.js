@@ -1,23 +1,14 @@
 import {takeEvery, call, put, all} from 'redux-saga/effects'
 
-import {
-  getConfirmationAction,
-  getYesNoAction
-} from './interactive'
-import * as actions from './actions'
 import actionEmitter from '../../../actionEmitter'
+import * as actions from './actions'
+import {getConfirmationAction, getYesNoAction} from './interactive'
 
 export default function* sagas(accept) {
   if (accept) {
-    yield all([
-      takeEvery(actions.CONFIRM, handleConfirm),
-      takeEvery(actions.YES_NO_QUESTION, handleYesNoQuestion)
-    ])
+    yield all([takeEvery(actions.CONFIRM, handleConfirm), takeEvery(actions.YES_NO_QUESTION, handleYesNoQuestion)])
   } else {
-    yield all([
-      takeEvery(actions.CONFIRM, emit),
-      takeEvery(actions.YES_NO_QUESTION, emit)
-    ])
+    yield all([takeEvery(actions.CONFIRM, emit), takeEvery(actions.YES_NO_QUESTION, emit)])
   }
 }
 

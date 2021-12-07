@@ -1,5 +1,5 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import {initialize, requestSecret} from '../../modules/actions'
 import Start from './Start'

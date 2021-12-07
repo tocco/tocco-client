@@ -1,7 +1,7 @@
-import {call, put, take} from 'redux-saga/effects'
 import React from 'react'
-import {consoleLogger} from 'tocco-util'
 import {channel} from 'redux-saga'
+import {call, put, take} from 'redux-saga/effects'
+import {consoleLogger} from 'tocco-util'
 
 import notification from '../../../notification'
 
@@ -40,39 +40,43 @@ export function* handleCustomActionModal({definition, selection, config}) {
   const answerChannel = yield call(channel)
 
   const ActionComponent = config.appComponent
-  yield put(notification.modal(
-    `action-${definition.appId}`,
-    `client.actions.${definition.appId}.title`,
-    null,
-    ({close}) => {
-      const onSuccess = ({title, message, remoteEvents}) => {
-        close()
-        answerChannel.put({status: actionStatus.OK, title, message, remoteEvents})
-      }
+  yield put(
+    notification.modal(
+      `action-${definition.appId}`,
+      `client.actions.${definition.appId}.title`,
+      null,
+      ({close}) => {
+        const onSuccess = ({title, message, remoteEvents}) => {
+          close()
+          answerChannel.put({status: actionStatus.OK, title, message, remoteEvents})
+        }
 
-      const onError = (title, {message}) => {
-        close()
-        answerChannel.put({status: actionStatus.NOT_OK, title, message})
-      }
+        const onError = (title, {message}) => {
+          close()
+          answerChannel.put({status: actionStatus.NOT_OK, title, message})
+        }
 
-      const onCancel = () => {
-        close()
-        answerChannel.put({status: actionStatus.CANCEL})
-      }
+        const onCancel = () => {
+          close()
+          answerChannel.put({status: actionStatus.CANCEL})
+        }
 
-      return <ActionComponent
-        appId={definition.appId}
-        context={config.context}
-        actionProperties={definition.properties}
-        selection={selection}
-        navigationStrategy={config.navigationStrategy || {}}
-        onSuccess={onSuccess}
-        onError={onError}
-        onCancel={onCancel}
-      />
-    },
-    true
-  ))
+        return (
+          <ActionComponent
+            appId={definition.appId}
+            context={config.context}
+            actionProperties={definition.properties}
+            selection={selection}
+            navigationStrategy={config.navigationStrategy || {}}
+            onSuccess={onSuccess}
+            onError={onError}
+            onCancel={onCancel}
+          />
+        )
+      },
+      true
+    )
+  )
   const response = yield take(answerChannel)
   if (response.status === actionStatus.CANCEL) {
     return null

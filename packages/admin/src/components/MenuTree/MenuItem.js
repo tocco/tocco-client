@@ -1,13 +1,9 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import {StyledMenuEntry} from './StyledComponents'
 
-const MenuItem = ({
-  item,
-  menuTreePath = '',
-  typeMapping
-}) => {
+const MenuItem = ({item, menuTreePath = '', typeMapping}) => {
   const mappedType = typeMapping[item.menuType]
   if (!mappedType) {
     return null
@@ -15,20 +11,18 @@ const MenuItem = ({
 
   const Component = mappedType.component
   const ChildrenWrapperComponent = mappedType.childrenWrapperComponent
-  const MenuItems = item.children?.map(child => (<MenuItem
-    key={child.name}
-    item={child}
-    typeMapping={typeMapping}
-    menuTreePath={`${menuTreePath}.${child.name}`}
-  />))
+  const MenuItems = item.children?.map(child => (
+    <MenuItem key={child.name} item={child} typeMapping={typeMapping} menuTreePath={`${menuTreePath}.${child.name}`} />
+  ))
 
   return (
     <StyledMenuEntry {...item} childrenCount={item.children?.length || 0} data-cy={`admin-menuitem-${item.name}`}>
-      <Component item={item} menuTreePath={menuTreePath} {...mappedType.props}/>
+      <Component item={item} menuTreePath={menuTreePath} {...mappedType.props} />
       {MenuItems?.length > 0 && (
         <ChildrenWrapperComponent item={item} menuTreePath={menuTreePath} {...mappedType.props}>
           {MenuItems}
-        </ChildrenWrapperComponent>)}
+        </ChildrenWrapperComponent>
+      )}
     </StyledMenuEntry>
   )
 }

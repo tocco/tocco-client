@@ -1,5 +1,5 @@
-import _sample from 'lodash/sample'
 import faker from 'faker'
+import _sample from 'lodash/sample'
 
 import {getRandomInt} from './utils'
 
@@ -38,7 +38,7 @@ export const createDummyEntities = amount => {
         writable: true
       },
       active: {
-        value: (i % 2 === 0),
+        value: i % 2 === 0,
         type: 'boolean',
         readable: true,
         writable: true
@@ -55,10 +55,12 @@ export const createDummyEntities = amount => {
           fileExtension: 'png',
           sizeInBytes: 3336,
           fileName: 'Firstname,-Lastname-Vorschaubild.png',
-          thumbnailLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGV'
-            + 'Kw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg==',
-          binaryLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGVKw4'
-            + 'bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg=='
+          thumbnailLink:
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGV' +
+            'Kw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg==',
+          binaryLink:
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGVKw4' +
+            'bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg=='
         },
         type: 'document',
         readable: true,
@@ -130,7 +132,7 @@ export const createUsers = amount => {
           writable: true
         },
         publish: {
-          value: (i % 2 === 0),
+          value: i % 2 === 0,
           type: 'boolean',
           writable: true
         },
@@ -166,56 +168,60 @@ export const createUsers = amount => {
           value: 28123.33,
           type: 'moneyamount',
           writable: true
-
         },
         relMulti_entity1: {
           type: 'entity-list',
-          value: [...fiftyFifty()
-            ? [{
-                key: '3150',
-                model: 'Multi_entity',
-                version: 12,
-                paths: {
-                  relPayment_status: {
-                    type: 'entity',
-                    value: {
-                      key: '1',
-                      model: 'Payment_status',
-                      paths: {
-                        unique_id: {
-                          type: 'identifier',
-                          writable: null,
-                          value: 'fully_paid'
+          value: [
+            ...(fiftyFifty()
+              ? [
+                  {
+                    key: '3150',
+                    model: 'Multi_entity',
+                    version: 12,
+                    paths: {
+                      relPayment_status: {
+                        type: 'entity',
+                        value: {
+                          key: '1',
+                          model: 'Payment_status',
+                          paths: {
+                            unique_id: {
+                              type: 'identifier',
+                              writable: null,
+                              value: 'fully_paid'
+                            }
+                          }
                         }
                       }
                     }
                   }
-                }
-              }]
-            : [],
-          ...fiftyFifty()
-            ? [{
-                key: '3152',
-                model: 'Multi_entity',
-                version: 10,
-                paths: {
-                  relPayment_status: {
-                    type: 'entity',
-                    value: {
-                      key: '2',
-                      model: 'Payment_status',
-                      paths: {
-                        unique_id: {
-                          type: 'identifier',
-                          writable: null,
-                          value: 'partially_paid'
+                ]
+              : []),
+            ...(fiftyFifty()
+              ? [
+                  {
+                    key: '3152',
+                    model: 'Multi_entity',
+                    version: 10,
+                    paths: {
+                      relPayment_status: {
+                        type: 'entity',
+                        value: {
+                          key: '2',
+                          model: 'Payment_status',
+                          paths: {
+                            unique_id: {
+                              type: 'identifier',
+                              writable: null,
+                              value: 'partially_paid'
+                            }
+                          }
                         }
                       }
                     }
                   }
-                }
-              }]
-            : []
+                ]
+              : [])
           ]
         }
       }

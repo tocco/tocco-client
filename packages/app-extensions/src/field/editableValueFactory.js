@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {EditableValue, Range} from 'tocco-ui'
 
 import editableTypeConfigs from './editableTypeConfigs'
@@ -57,4 +57,4 @@ EditableValueFactory.propTypes = {
   formData: PropTypes.object
 }
 
-export default (type, range) => props => <EditableValueFactory type={type} range={range} {...props}/>
+export default (type, range) => props => <EditableValueFactory type={type} range={range} {...props} />

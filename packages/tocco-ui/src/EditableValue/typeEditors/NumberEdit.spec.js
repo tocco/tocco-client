@@ -10,9 +10,7 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('NumberEdit ', () => {
         test('should render NumberEdit', () => {
-          const wrapper = intlEnzyme.mountWithIntl(
-            <NumberEdit value={1234567.89} options={{}} onChange={EMPTY_FUNC}/>
-          )
+          const wrapper = intlEnzyme.mountWithIntl(<NumberEdit value={1234567.89} options={{}} onChange={EMPTY_FUNC} />)
           expect(wrapper.find('input')).to.have.length(1)
         })
 
@@ -23,7 +21,7 @@ describe('tocco-ui', () => {
           }
 
           const wrapper = intlEnzyme.mountWithIntl(
-            <NumberEdit value={1234567.89} options={{}} onChange={changeHandler}/>
+            <NumberEdit value={1234567.89} options={{}} onChange={changeHandler} />
           )
 
           wrapper.find('input').simulate('change', {target: {value: '', focus: () => {}}})
@@ -36,7 +34,7 @@ describe('tocco-ui', () => {
           }
 
           const wrapper = intlEnzyme.mountWithIntl(
-            <NumberEdit value={1234567.89} options={{}} onChange={changeHandler}/>
+            <NumberEdit value={1234567.89} options={{}} onChange={changeHandler} />
           )
 
           wrapper.find('input').simulate('change', {target: {value: '0', focus: () => {}}})
@@ -51,7 +49,8 @@ describe('tocco-ui', () => {
                 prePointDigits: 30,
                 postPointDigits: 3
               }}
-              onChange={EMPTY_FUNC}/>
+              onChange={EMPTY_FUNC}
+            />
           )
           expect(wrapper.html()).to.contains(result)
         })
@@ -67,7 +66,8 @@ describe('tocco-ui', () => {
                 prefix: 'pre',
                 suffix: 'post'
               }}
-              onChange={EMPTY_FUNC}/>
+              onChange={EMPTY_FUNC}
+            />
           )
           expect(wrapper.html()).to.contains(result)
         })
@@ -82,7 +82,8 @@ describe('tocco-ui', () => {
                 postPointDigits: 3,
                 fixedDecimalScale: true
               }}
-              onChange={EMPTY_FUNC}/>
+              onChange={EMPTY_FUNC}
+            />
           )
           expect(wrapper.html()).to.contains(result)
         })
@@ -125,44 +126,35 @@ describe('tocco-ui', () => {
           expect(isAllowedValue(minValue)(valuesObject)).to.be.eql(true)
         })
         test('should return true on valid value and minValue/maxValue', () => {
-          expect(isAllowedValue(
-            minValue,
-            maxValue
-          )(valuesObject)).to.be.eql(true)
+          expect(isAllowedValue(minValue, maxValue)(valuesObject)).to.be.eql(true)
         })
         test('should return true on valid value and minValue', () => {
-          expect(isAllowedValue(
-            minValue
-          )(valuesObject)).to.be.eql(true)
+          expect(isAllowedValue(minValue)(valuesObject)).to.be.eql(true)
         })
         test('should return false on invalid value because of maxValue', () => {
-          expect(isAllowedValue(
-            undefined,
-            100
-          )(valuesObject)).to.be.eql(false)
+          expect(isAllowedValue(undefined, 100)(valuesObject)).to.be.eql(false)
         })
         test('should return true on too short invalid value', () => {
-          expect(isAllowedValue(
-            1234,
-            5000
-          )(valuesObject)).to.be.eql(true)
+          expect(isAllowedValue(1234, 5000)(valuesObject)).to.be.eql(true)
         })
         test('should return false on negative number with minValue 0', () => {
-          expect(isAllowedValue(
-            0
-          )({
-            formattedValue: '-1',
-            floatValue: -1
-          })).to.be.eql(false)
+          expect(
+            isAllowedValue(0)({
+              formattedValue: '-1',
+              floatValue: -1
+            })
+          ).to.be.eql(false)
         })
         test('should return false on positive number with maxValue 0', () => {
-          expect(isAllowedValue(
-            undefined,
-            0
-          )({
-            formattedValue: '1',
-            floatValue: 1
-          })).to.be.eql(false)
+          expect(
+            isAllowedValue(
+              undefined,
+              0
+            )({
+              formattedValue: '1',
+              floatValue: 1
+            })
+          ).to.be.eql(false)
         })
 
         const zeroObject = {
@@ -170,21 +162,13 @@ describe('tocco-ui', () => {
           floatValue: 0
         }
         test('should return false on 0 with minValue', () => {
-          expect(isAllowedValue(
-            1
-          )(zeroObject)).to.be.eql(false)
+          expect(isAllowedValue(1)(zeroObject)).to.be.eql(false)
         })
         test('should return false on 0 with maxValue', () => {
-          expect(isAllowedValue(
-            undefined,
-            -1
-          )(zeroObject)).to.be.eql(false)
+          expect(isAllowedValue(undefined, -1)(zeroObject)).to.be.eql(false)
         })
         test('should return true on 0 when in range', () => {
-          expect(isAllowedValue(
-            -10,
-            10
-          )(zeroObject)).to.be.eql(true)
+          expect(isAllowedValue(-10, 10)(zeroObject)).to.be.eql(true)
         })
 
         const nullObject = {
@@ -195,22 +179,15 @@ describe('tocco-ui', () => {
           expect(isAllowedValue()(nullObject)).to.be.eql(true)
         })
         test('should return true on null with minValue and maxValue', () => {
-          expect(isAllowedValue(
-            minValue,
-            maxValue
-          )(nullObject)).to.be.eql(true)
+          expect(isAllowedValue(minValue, maxValue)(nullObject)).to.be.eql(true)
         })
 
-        const undefinedObject = {
-        }
+        const undefinedObject = {}
         test('should return true on undefined', () => {
           expect(isAllowedValue()(undefinedObject)).to.be.eql(true)
         })
         test('should return true on undefined with minValue and maxValue', () => {
-          expect(isAllowedValue(
-            minValue,
-            maxValue
-          )(undefinedObject)).to.be.eql(true)
+          expect(isAllowedValue(minValue, maxValue)(undefinedObject)).to.be.eql(true)
         })
       })
     })

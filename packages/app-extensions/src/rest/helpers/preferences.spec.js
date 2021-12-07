@@ -14,9 +14,7 @@ describe('app-extensions', () => {
             const path = 'User_list'
             const preferences = {'User_list.firstname.position': '5'}
             return expectSaga(fetchUserPreferences, path)
-              .provide([
-                [call(requestSaga, 'client/preferences/User_list'), {body: {preferences}}]
-              ])
+              .provide([[call(requestSaga, 'client/preferences/User_list'), {body: {preferences}}]])
               .returns(preferences)
               .run()
           })
@@ -26,9 +24,7 @@ describe('app-extensions', () => {
           test('should call endpoint', () => {
             const path = 'User_list'
             return expectSaga(deleteUserPreferences, path)
-              .provide([
-                [matchers.call.fn(requestSaga)]
-              ])
+              .provide([[matchers.call.fn(requestSaga)]])
               .call.like({fn: requestSaga})
               .run()
           })
@@ -38,9 +34,7 @@ describe('app-extensions', () => {
           test('should call endpoint', () => {
             const preferences = {'User_list.firstname.position': '5'}
             return expectSaga(savePreferences, preferences)
-              .provide([
-                [matchers.call.fn(requestSaga)]
-              ])
+              .provide([[matchers.call.fn(requestSaga)]])
               .call.like({fn: requestSaga})
               .run()
           })

@@ -1,5 +1,5 @@
-import rootSaga from './sagas'
 import ssoLogin from './reducer'
+import rootSaga from './sagas'
 
 export default {
   ssoLogin

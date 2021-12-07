@@ -1,10 +1,10 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import DashboardApp from 'tocco-dashboard/src/main'
 import {Breadcrumbs} from 'tocco-ui'
 
-import {StyledDashboardWrapper, StyledWrapper, StyledBreadcrumbs} from './StyledComponents'
 import navigationStrategy from '../../../entities/utils/navigationStrategy'
+import {StyledDashboardWrapper, StyledWrapper, StyledBreadcrumbs} from './StyledComponents'
 
 const Dashboard = ({match, history, emitAction, intl}) => {
   const msg = id => intl.formatMessage({id})
@@ -12,16 +12,10 @@ const Dashboard = ({match, history, emitAction, intl}) => {
   return (
     <StyledWrapper>
       <StyledBreadcrumbs>
-        <Breadcrumbs
-          currentView={{display: msg('client.admin.dashboard'), title: 'Tocco'}}
-          pathPrefix="/dashboard"
-        />
+        <Breadcrumbs currentView={{display: msg('client.admin.dashboard'), title: 'Tocco'}} pathPrefix="/dashboard" />
       </StyledBreadcrumbs>
       <StyledDashboardWrapper>
-        <DashboardApp
-          emitAction={emitAction}
-          navigationStrategy={navigationStrategy(history, match)}
-        />
+        <DashboardApp emitAction={emitAction} navigationStrategy={navigationStrategy(history, match)} />
       </StyledDashboardWrapper>
     </StyledWrapper>
   )

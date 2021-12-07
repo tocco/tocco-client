@@ -46,23 +46,25 @@ export const StyledActiveTabLabel = styled.div`
 
 export const StyledNavIconButton = styled(Ball)`
   overflow: hidden;
-  flex: ${({narrow}) => narrow ? 0.2 : 1};
+  flex: ${({narrow}) => (narrow ? 0.2 : 1)};
   justify-content: center;
   border-radius: 0;
   margin: ${scale.space(-0.7)};
-  border-top: 5px solid ${({active}) => active ? secondary : 'transparent'};
+  border-top: 5px solid ${({active}) => (active ? secondary : 'transparent')};
   font-weight: ${theme.fontWeight('bold')};
   font-size: ${scale.font(3)};
   padding-top: ${scale.space(-1.1)};
   padding-bottom: cal(${scale.space(-1.1)} - 5px); /* subtract border-top width of 5px */
-  ${({active}) => active
-    && css`color: ${secondary};`
-  };
+  ${({active}) =>
+    active &&
+    css`
+      color: ${secondary};
+    `};
 
   &:hover {
-    border-color: ${({active}) => active ? secondary : secondaryLight};
+    border-color: ${({active}) => (active ? secondary : secondaryLight)};
     background-color: transparent;
-    color: ${({active}) => active ? secondary : secondaryLight};
+    color: ${({active}) => (active ? secondary : secondaryLight)};
   }
 
   &:focus {

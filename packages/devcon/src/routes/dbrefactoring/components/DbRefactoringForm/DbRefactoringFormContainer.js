@@ -1,6 +1,5 @@
 import {connect} from 'react-redux'
 
-import DbRefactoringForm from './DbRefactoringForm'
 import {
   loadModules,
   loadFragments,
@@ -10,11 +9,10 @@ import {
   setIgnoreErrors,
   executeDbRefactoring
 } from '../../modules/actions'
+import DbRefactoringForm from './DbRefactoringForm'
 
 const mapStateToProps = state => {
-  const {
-    dbRefactoring, languageUpgrade
-  } = state.dbRefactoring
+  const {dbRefactoring, languageUpgrade} = state.dbRefactoring
 
   return {
     version: dbRefactoring.version,

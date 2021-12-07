@@ -1,11 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import Ball from '../../Ball'
-import {
-  StyledEditableControl,
-  StyledEditableWrapper
-} from '../StyledEditableValue'
+import {StyledEditableControl, StyledEditableWrapper} from '../StyledEditableValue'
 import StyledTimeEdit from './StyledTimeEdit'
 
 const TimeEdit = props => {
@@ -33,13 +30,11 @@ const TimeEdit = props => {
         onChange={handleChange}
         value={value}
       />
-      {showClearButton && <StyledEditableControl>
-        <Ball
-          icon="times"
-          onClick={clearInput}
-          tabIndex={-1}
-        />
-      </StyledEditableControl>}
+      {showClearButton && (
+        <StyledEditableControl>
+          <Ball icon="times" onClick={clearInput} tabIndex={-1} />
+        </StyledEditableControl>
+      )}
     </StyledEditableWrapper>
   )
 }

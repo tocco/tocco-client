@@ -25,7 +25,7 @@ export const getExpectedDate = (westernDate, easternDate, thresholdOffset) => {
 }
 
 const stdTimezoneOffset = () => {
-  const jan = new Date((new Date()).getFullYear(), 0, 1)
-  const jul = new Date((new Date()).getFullYear(), 6, 1)
+  const jan = new Date(new Date().getFullYear(), 0, 1)
+  const jul = new Date(new Date().getFullYear(), 6, 1)
   return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset())
 }

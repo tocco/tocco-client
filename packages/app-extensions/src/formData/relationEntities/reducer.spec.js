@@ -70,7 +70,6 @@ describe('app-extensions', () => {
                 relUser2: {
                   data: []
                 }
-
               }
             }
             const newState = setRelationEntitiesLoading(initialState, actions.setRelationEntityLoading('relUser2'))

@@ -1,5 +1,5 @@
-import React from 'react'
 import {render} from 'enzyme'
+import React from 'react'
 
 import InfoBoxHtmlFieldContent from './InfoBoxHtmlFieldContent'
 
@@ -12,9 +12,7 @@ describe('dashboard', () => {
             const content = {
               text: '<p id="test">Hallo</p>'
             }
-            const wrapper = render(
-                <InfoBoxHtmlFieldContent content={content}/>
-            )
+            const wrapper = render(<InfoBoxHtmlFieldContent content={content} />)
 
             expect(wrapper.find('#test')).to.have.length(1)
             expect(wrapper.find('#test').text()).to.equal('Hallo')
@@ -24,9 +22,7 @@ describe('dashboard', () => {
             const content = {
               text: '<p id="test" onclick="alert(\'Hi!\')">Hallo</p>'
             }
-            const wrapper = render(
-                <InfoBoxHtmlFieldContent content={content}/>
-            )
+            const wrapper = render(<InfoBoxHtmlFieldContent content={content} />)
 
             expect(wrapper.find('#test').prop('id')).to.equal('test')
             expect(wrapper.find('#test').prop('onclick')).to.be.undefined

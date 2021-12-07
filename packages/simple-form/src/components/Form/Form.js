@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect} from 'react'
+import {reduxForm} from 'redux-form'
 import {form} from 'tocco-app-extensions'
 import {Button} from 'tocco-ui'
-import {reduxForm} from 'redux-form'
 
 import {StyledButtonsWrapper} from './StyledComponents'
 
@@ -10,7 +10,8 @@ const REDUX_FORM_NAME = 'simpleForm'
 
 const Form = ({
   initializeForm,
-  intl, onCancel,
+  intl,
+  onCancel,
   onSubmit,
   handleSubmit: handleSubmitProp,
   form: formName,
@@ -43,22 +44,22 @@ const Form = ({
         fieldMappingType={mappingType || 'editable'}
         mode={mode}
       />
-      {!noButtons
-      && <StyledButtonsWrapper>
-        <Button
-          disabled={submitting}
-          ink="primary"
-          label={submitText || msg('client.simple-form.defaultOk')}
-          pending={submitting}
-          type="submit"
-        />
-        <Button
-          disabled={submitting}
-          label={cancelText || msg('client.simple-form.defaultCancel')}
-          onClick={handleCancel}
-        />
-      </StyledButtonsWrapper>
-      }
+      {!noButtons && (
+        <StyledButtonsWrapper>
+          <Button
+            disabled={submitting}
+            ink="primary"
+            label={submitText || msg('client.simple-form.defaultOk')}
+            pending={submitting}
+            type="submit"
+          />
+          <Button
+            disabled={submitting}
+            label={cancelText || msg('client.simple-form.defaultCancel')}
+            onClick={handleCancel}
+          />
+        </StyledButtonsWrapper>
+      )}
     </form>
   )
 }

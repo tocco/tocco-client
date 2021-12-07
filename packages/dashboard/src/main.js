@@ -1,40 +1,33 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {reducer as reducerUtil} from 'tocco-util'
+import React from 'react'
 import {appFactory, notification, actionEmitter} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
 
 import DashboardContainer from './components/Dashboard/DashboardContainer'
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'dashboard'
 
-const EXTERNAL_EVENTS = [
-  'emitAction'
-]
+const EXTERNAL_EVENTS = ['emitAction']
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = <DashboardContainer/>
+  const content = <DashboardContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', 'entity-list', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', 'entity-list', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 

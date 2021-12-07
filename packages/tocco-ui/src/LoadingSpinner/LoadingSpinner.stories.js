@@ -11,4 +11,4 @@ export default {
   }
 }
 
-export const Basic = args => <LoadingSpinner {...args}/>
+export const Basic = args => <LoadingSpinner {...args} />

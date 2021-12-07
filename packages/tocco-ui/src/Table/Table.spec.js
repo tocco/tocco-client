@@ -1,5 +1,5 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
 import StyledTable from './StyledTable'
 import Table from './Table'
@@ -18,7 +18,7 @@ const defaultProps = {
 describe('tocco-ui', () => {
   describe('Table', () => {
     test('should render table', () => {
-      const wrapper = shallow(<Table {...defaultProps}/>)
+      const wrapper = shallow(<Table {...defaultProps} />)
       expect(wrapper.find(StyledTable)).to.have.length(1)
     })
   })

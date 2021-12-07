@@ -6,15 +6,7 @@ describe('app-extensions', () => {
       describe('mandatory', () => {
         describe('valueDefined', () => {
           test('should return true for defined values', () => {
-            const definedValues = [
-              123,
-              0,
-              false,
-              -1,
-              'abc',
-              [1],
-              {a: 1}
-            ]
+            const definedValues = [123, 0, false, -1, 'abc', [1], {a: 1}]
 
             definedValues.forEach(definedValue => {
               const result = valueDefined(definedValue)
@@ -23,13 +15,7 @@ describe('app-extensions', () => {
           })
 
           test('should return false for undefined / empty values', () => {
-            const undefinedValues = [
-              null,
-              undefined,
-              '',
-              [],
-              {}
-            ]
+            const undefinedValues = [null, undefined, '', [], {}]
 
             undefinedValues.forEach(undefinedValue => {
               const result = valueDefined(undefinedValue)

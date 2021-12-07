@@ -12,7 +12,7 @@ describe('entity-list', () => {
     test('should return reload DATA if data input changed', () => {
       expect(getReloadOption({parent: {model: 'User', key: '3'}})).to.eql(reloadOptions.DATA)
     })
-    
+
     test('should return NOTHING no relevant data input changed', () => {
       expect(getReloadOption({})).to.eql(reloadOptions.NOTHING)
     })

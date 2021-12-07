@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {Button} from 'tocco-ui'
 
 import CheckEventGroup from './CheckEventGroup'
@@ -16,25 +16,31 @@ const CheckEvents = ({checkEvents, selection, setSelected, generateSql, generate
         </Button>
       </>
     )}
-    <div>{Object.keys(checkEvents).sort().map(eventType => (
-      <CheckEventGroup
-        key={eventType}
-        type={eventType}
-        events={checkEvents[eventType]}
-        selection={selection}
-        setSelected={setSelected}
-      />
-    ))}</div>
+    <div>
+      {Object.keys(checkEvents)
+        .sort()
+        .map(eventType => (
+          <CheckEventGroup
+            key={eventType}
+            type={eventType}
+            events={checkEvents[eventType]}
+            selection={selection}
+            setSelected={setSelected}
+          />
+        ))}
+    </div>
   </div>
 )
 
 CheckEvents.propTypes = {
   checkEvents: PropTypes.objectOf(
-    PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired
-    })).isRequired
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired
+      })
+    ).isRequired
   ).isRequired,
   selection: PropTypes.object.isRequired,
   setSelected: PropTypes.func.isRequired,

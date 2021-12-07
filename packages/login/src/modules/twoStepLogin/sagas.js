@@ -1,7 +1,7 @@
 import {takeLatest, call, put, all} from 'redux-saga/effects'
 
-import {loginSaga} from '../sagas'
 import {setPending} from '../loginForm/actions'
+import {loginSaga} from '../sagas'
 import * as actions from './actions'
 
 export function* twoStepSaga(args) {
@@ -10,7 +10,5 @@ export function* twoStepSaga(args) {
 }
 
 export default function* rootSaga() {
-  yield all([
-    takeLatest(actions.TWOSTEPLOGIN, twoStepSaga)
-  ])
+  yield all([takeLatest(actions.TWOSTEPLOGIN, twoStepSaga)])
 }

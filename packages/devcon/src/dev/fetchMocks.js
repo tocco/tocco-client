@@ -3,19 +3,23 @@ import {mockData} from 'tocco-util'
 export default function setupFetchMock(packageName, fetchMock) {
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
 
-  fetchMock.get(new RegExp('^.*?/nice2/rest/devcon/dbrefactoring/fragments'), [{
-    id: 'SchemaUpgradeFragment',
-    label: 'SchemaUpgradeFragment',
-    selected: true
-  }, {
-    id: 'UpgradeLanguageFragment',
-    label: 'UpgradeLanguageFragment',
-    selected: false
-  }, {
-    id: 'FixCountersFragment',
-    label: 'FixCountersFragment',
-    selected: true
-  }])
+  fetchMock.get(new RegExp('^.*?/nice2/rest/devcon/dbrefactoring/fragments'), [
+    {
+      id: 'SchemaUpgradeFragment',
+      label: 'SchemaUpgradeFragment',
+      selected: true
+    },
+    {
+      id: 'UpgradeLanguageFragment',
+      label: 'UpgradeLanguageFragment',
+      selected: false
+    },
+    {
+      id: 'FixCountersFragment',
+      label: 'FixCountersFragment',
+      selected: true
+    }
+  ])
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/devcon/dbrefactoring/modules'), [
     'nice.userbase',

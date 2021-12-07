@@ -7,15 +7,11 @@ import StyledPanelBody from './StyledPanelBody'
  * Only <Panel.Body/> is affected by the visibility state.
  */
 
-const PanelBody = ({children, isFramed, isOpen}) =>
-    <StyledPanelBody
-      isFramed={isFramed}
-      isOpen={isOpen}
-    >
-      <div>
-        {children}
-      </div>
-    </StyledPanelBody>
+const PanelBody = ({children, isFramed, isOpen}) => (
+  <StyledPanelBody isFramed={isFramed} isOpen={isOpen}>
+    <div>{children}</div>
+  </StyledPanelBody>
+)
 
 PanelBody.propTypes = {
   children: PropTypes.node,

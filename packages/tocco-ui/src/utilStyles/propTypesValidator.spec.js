@@ -4,20 +4,7 @@ describe('tocco-ui', () => {
   describe('utilStyles', () => {
     describe('validateCssDimension (propTypes)', () => {
       const props = {}
-      const valid = [
-        '1%',
-        '1em',
-        '1fr',
-        '1px',
-        '12px',
-        '123px',
-        '1234px',
-        '1rem',
-        '1vh',
-        '1vmax',
-        '1vmin',
-        '1vw'
-      ]
+      const valid = ['1%', '1em', '1fr', '1px', '12px', '123px', '1234px', '1rem', '1vh', '1vmax', '1vmin', '1vw']
       const invalid = [
         '%',
         'em',

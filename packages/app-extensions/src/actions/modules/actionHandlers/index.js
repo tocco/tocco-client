@@ -1,8 +1,8 @@
 import actionTypes from '../../actionTypes'
-import handleSimpleAction from './simpleAction'
-import handleReportAction from './report'
 import handleCustomAction from './customAction'
 import handleLegacyAction from './legacyAction'
+import handleReportAction from './report'
+import handleSimpleAction from './simpleAction'
 
 export default {
   [actionTypes.SIMPLE]: handleSimpleAction,

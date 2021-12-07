@@ -1,7 +1,7 @@
-import {connect} from 'react-redux'
-import {injectIntl} from 'react-intl'
-import {actionEmitter} from 'tocco-app-extensions'
 import _get from 'lodash/get'
+import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
+import {actionEmitter} from 'tocco-app-extensions'
 
 import {saveUserPreferences} from '../../../../modules/preferences/actions'
 import ListView from './ListView'

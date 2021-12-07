@@ -1,31 +1,24 @@
-import styled from 'styled-components'
 import _get from 'lodash/get'
+import styled from 'styled-components'
 
-import {
-  declareFont,
-  declareNoneWrappingText,
-  declareWrappingText,
-  scale,
-  theme,
-  shadeColor
-} from '../utilStyles'
+import {declareFont, declareNoneWrappingText, declareWrappingText, scale, theme, shadeColor} from '../utilStyles'
 
 const StyledB = styled.b`
   && {
     ${declareFont({
-    fontWeight: theme.fontWeight('bold')
-  })}
+      fontWeight: theme.fontWeight('bold')
+    })}
   }
-  ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+  ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
 `
 
 const StyledCode = styled.code`
   && {
     ${declareFont({
-    fontFamily: theme.fontFamily('monospace'),
-    fontSize: scale.font(-1)
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontFamily: theme.fontFamily('monospace'),
+      fontSize: scale.font(-1)
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     background-color: ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
     border-radius: ${theme.radii('regular')};
     padding: ${scale.space(-4)} ${scale.space(-2)};
@@ -35,7 +28,7 @@ const StyledCode = styled.code`
 const StyledDel = styled.del`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     text-decoration: line-through;
   }
 `
@@ -43,18 +36,18 @@ const StyledDel = styled.del`
 const StyledEm = styled.em`
   && {
     ${declareFont({
-    fontStyle: 'italic'
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontStyle: 'italic'
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
 const StyledFigcaption = styled.figcaption`
   && {
     ${declareFont({
-    fontSize: scale.font(-1)
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontSize: scale.font(-1)
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     margin: ${scale.space(-2)} 0 ${scale.space(-1)} 0;
 
     &:last-child {
@@ -65,16 +58,16 @@ const StyledFigcaption = styled.figcaption`
 const StyledI = styled.i`
   && {
     ${declareFont({
-    fontStyle: 'italic'
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontStyle: 'italic'
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
 const StyledIns = styled.ins`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     text-decoration: underline;
   }
 `
@@ -82,10 +75,10 @@ const StyledIns = styled.ins`
 const StyledKbd = styled.kbd`
   && {
     ${declareFont({
-    fontFamily: theme.fontFamily('monospace'),
-    fontSize: scale.font(-1)
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontFamily: theme.fontFamily('monospace'),
+      fontSize: scale.font(-1)
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     background-color: ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
     border-radius: ${theme.radii('regular')};
     padding: ${scale.space(-4)} ${scale.space(-2)};
@@ -95,7 +88,7 @@ const StyledKbd = styled.kbd`
 const StyledLabel = styled.label`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     margin: 0 0 ${scale.space(-1)};
 
     &:last-child {
@@ -107,9 +100,9 @@ const StyledLabel = styled.label`
 const StyledMark = styled.mark`
   && {
     ${declareFont({
-    fontFamily: theme.fontFamily('monospace')
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontFamily: theme.fontFamily('monospace')
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     background-color: ${theme.color('signal.info.paper')};
     border-radius: ${theme.radii('regular')};
     padding: ${scale.space(-4)} ${scale.space(-2)};
@@ -119,7 +112,7 @@ const StyledMark = styled.mark`
 const StyledP = styled.p`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     margin: 0 0 ${scale.space(-1)};
 
     &:last-child {
@@ -131,10 +124,10 @@ const StyledP = styled.p`
 const StyledPre = styled.pre`
   && {
     ${declareFont({
-    fontFamily: theme.fontFamily('monospace'),
-    fontSize: scale.font(-1)
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontFamily: theme.fontFamily('monospace'),
+      fontSize: scale.font(-1)
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     background-color: ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
     border-radius: ${theme.radii('regular')};
     border: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
@@ -151,7 +144,7 @@ const StyledPre = styled.pre`
 const StyledS = styled.s`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     text-decoration: line-through;
   }
 `
@@ -160,26 +153,26 @@ const StyledSmall = styled.small`
   && {
     ${declareFont()}
     font-size: calc(1em / ${theme.fontSize('factor')});
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
 const StyledSpan = styled.span`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
 const StyledSub = styled.sub`
   && {
     ${declareFont({
-    fontSize: scale.font(-1)
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontSize: scale.font(-1)
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     line-height: 0;
     position: relative;
-    bottom: -.25em;
+    bottom: -0.25em;
     vertical-align: baseline;
   }
 `
@@ -187,12 +180,12 @@ const StyledSub = styled.sub`
 const StyledSup = styled.sup`
   && {
     ${declareFont({
-    fontSize: scale.font(-1)
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontSize: scale.font(-1)
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     line-height: 0;
     position: relative;
-    top: -.5em;
+    top: -0.5em;
     vertical-align: baseline;
   }
 `
@@ -200,23 +193,23 @@ const StyledSup = styled.sup`
 const StyledStrong = styled.strong`
   && {
     ${declareFont({
-    fontWeight: theme.fontWeight('bold')
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontWeight: theme.fontWeight('bold')
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
 const StyledTime = styled.time`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
 const StyledU = styled.u`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     text-decoration: underline;
   }
 `
@@ -224,10 +217,10 @@ const StyledU = styled.u`
 const StyledVar = styled.var`
   && {
     ${declareFont({
-    fontFamily: theme.fontFamily('monospace'),
-    fontSize: scale.font(-1)
-  })}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+      fontFamily: theme.fontFamily('monospace'),
+      fontSize: scale.font(-1)
+    })}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
 
     &:after {
       content: ']';
@@ -242,7 +235,7 @@ const StyledVar = styled.var`
 const StyledQ = styled.q`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
 
     &:after {
       content: close-quote;

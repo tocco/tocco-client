@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types'
 import _omit from 'lodash/omit'
+import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 
 import formField from '../formField'
 
-const extractEventsFromInput = input => (
-  _omit(input, ['name', 'value'])
-)
+const extractEventsFromInput = input => _omit(input, ['name', 'value'])
 
 const ReduxFormFieldAdapter = props => {
   const {
@@ -53,9 +51,7 @@ ReduxFormFieldAdapter.propTypes = {
   }).isRequired,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
-    error: PropTypes.objectOf(
-      PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
-    ),
+    error: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string]))),
     dirty: PropTypes.bool,
     submitting: PropTypes.bool
   }).isRequired,

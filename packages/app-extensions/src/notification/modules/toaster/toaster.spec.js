@@ -1,5 +1,5 @@
-import {DEFAULT_DURATION, enhanceToaster} from './toaster'
 import {TYPES} from '../../types'
+import {DEFAULT_DURATION, enhanceToaster} from './toaster'
 
 describe('app-extensions', () => {
   describe('notification', () => {
@@ -11,8 +11,7 @@ describe('app-extensions', () => {
             const title = 'title'
             const body = 'body'
             const icon = 'times-circle'
-            const onClose = () => {
-            }
+            const onClose = () => {}
             const duration = 1
             const time = new Date()
 

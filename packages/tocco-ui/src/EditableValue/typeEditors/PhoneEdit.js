@@ -1,13 +1,10 @@
+import _get from 'lodash/get'
+import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _isEmpty from 'lodash/isEmpty'
-import _get from 'lodash/get'
 
 import Link from '../../Link'
-import {
-  StyledEditableControl,
-  StyledEditableWrapper
-} from '../StyledEditableValue'
+import {StyledEditableControl, StyledEditableWrapper} from '../StyledEditableValue'
 import StyledPhoneEdit from './StyledPhoneEdit'
 
 class PhoneEdit extends React.Component {
@@ -48,10 +45,12 @@ class PhoneEdit extends React.Component {
 
       const offset = spacesCurrent - spacesPrevious
 
-      window.requestAnimationFrame(function() {
-        const start = caretPosition + offset
-        this.setSelectionRange(start, start)
-      }.bind(this.inputElement.current))
+      window.requestAnimationFrame(
+        function () {
+          const start = caretPosition + offset
+          this.setSelectionRange(start, start)
+        }.bind(this.inputElement.current)
+      )
     }
   }
 
@@ -94,14 +93,11 @@ class PhoneEdit extends React.Component {
           ref={this.inputElement}
           value={displayValue}
         />
-        {displayValue && <StyledEditableControl>
-          <Link
-            href={`tel:${this.props.value}`}
-            icon="phone"
-            tabIndex={-1}
-            neutral
-          />
-        </StyledEditableControl>}
+        {displayValue && (
+          <StyledEditableControl>
+            <Link href={`tel:${this.props.value}`} icon="phone" tabIndex={-1} neutral />
+          </StyledEditableControl>
+        )}
       </StyledEditableWrapper>
     )
   }

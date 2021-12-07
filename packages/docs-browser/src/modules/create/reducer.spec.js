@@ -1,5 +1,5 @@
-import reducer from './reducer'
 import * as actions from './actions'
+import reducer from './reducer'
 
 const INITIAL_STATE = {
   dialog: {

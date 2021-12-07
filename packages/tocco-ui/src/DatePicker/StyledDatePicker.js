@@ -5,7 +5,7 @@ import {scale} from '../utilStyles'
 export const StyledWrapper = styled.div`
   cursor: pointer;
 
-  .flatpickr-calendar.open  {
+  .flatpickr-calendar.open {
     margin-top: ${scale.space(1.2)};
   }
 

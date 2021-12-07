@@ -7,10 +7,6 @@ import {
   setSearchFormCollapsedInitialValue
 } from './modules/entityList/actions'
 import {
-  setDisableSimpleSearch,
-  setSimpleSearchFields
-} from './modules/searchForm/actions'
-import {
   setLimit,
   setScope,
   setSearchFilters,
@@ -21,6 +17,7 @@ import {
   setInputKeys,
   setInputSearchFilters
 } from './modules/list/actions'
+import {setDisableSimpleSearch, setSimpleSearchFields} from './modules/searchForm/actions'
 import {setSelection} from './modules/selection/actions'
 
 const isDefined = value => value !== undefined

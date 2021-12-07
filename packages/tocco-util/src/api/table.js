@@ -10,8 +10,20 @@ const getSortingAttributes = (column, sorting) => {
     : null
 }
 
-const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude', 'long', 'longitude', 'moneyamount',
-  'percent', 'serial', 'sorting', 'version']
+const rightAlignedTypes = [
+  'counter',
+  'decimal',
+  'double',
+  'integer',
+  'latitude',
+  'long',
+  'longitude',
+  'moneyamount',
+  'percent',
+  'serial',
+  'sorting',
+  'version'
+]
 
 const isRightAligned = column =>
   column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
@@ -29,19 +41,17 @@ export const getColumnDefinition = (columns, sorting, cellRenderer, ...args) => 
   return columns
     .filter(column => !column.hidden)
     .filter(column => column.children.filter(isDisplayableChild).length > 0)
-    .map((c, idx) => (
-      {
-        idx: idx,
-        id: c.id,
-        label: c.label,
-        sorting: {
-          sortable: c.sortable,
-          ...getSortingAttributes(c, sorting)
-        },
-        children: c.children.filter(isDisplayableChild),
-        resizable: !c.widthFixed,
-        rightAligned: isRightAligned(c),
-        CellRenderer: ({rowData, column}) => column.children.map(child => cellRenderer(child, rowData, ...args))
-      }
-    ))
+    .map((c, idx) => ({
+      idx: idx,
+      id: c.id,
+      label: c.label,
+      sorting: {
+        sortable: c.sortable,
+        ...getSortingAttributes(c, sorting)
+      },
+      children: c.children.filter(isDisplayableChild),
+      resizable: !c.widthFixed,
+      rightAligned: isRightAligned(c),
+      CellRenderer: ({rowData, column}) => column.children.map(child => cellRenderer(child, rowData, ...args))
+    }))
 }

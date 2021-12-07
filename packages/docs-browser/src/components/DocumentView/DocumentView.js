@@ -1,5 +1,5 @@
-import React, {Suspense} from 'react'
 import PropTypes from 'prop-types'
+import React, {Suspense} from 'react'
 import {LoadMask} from 'tocco-ui'
 
 import Action from '../Action/'
@@ -9,7 +9,9 @@ const LazyDetailApp = React.lazy(() => import('./LazyDetailApp'))
 
 const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy, emitAction}) => {
   const handleEntityDeleted = () => {
-    const lastList = breadcrumbs.slice().reverse()
+    const lastList = breadcrumbs
+      .slice()
+      .reverse()
       .find(breadcrumb => breadcrumb.type === 'list')
     const lastListUrl = `/docs/${lastList.path}`
     history.push(lastListUrl)
@@ -17,7 +19,7 @@ const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy
 
   return (
     <StyledDocumentViewWrapper>
-      <Suspense fallback={<LoadMask/>}>
+      <Suspense fallback={<LoadMask />}>
         <LazyDetailApp
           entityName="Resource"
           entityId={match.params.key}
@@ -42,10 +44,12 @@ DocumentView.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired,
-  breadcrumbs: PropTypes.arrayOf(PropTypes.shape({
-    path: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
-  })).isRequired,
+  breadcrumbs: PropTypes.arrayOf(
+    PropTypes.shape({
+      path: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired
+    })
+  ).isRequired,
   formName: PropTypes.string,
   navigationStrategy: PropTypes.object,
   emitAction: PropTypes.func.isRequired

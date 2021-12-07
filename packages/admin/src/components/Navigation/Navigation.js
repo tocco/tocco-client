@@ -1,8 +1,10 @@
-import React, {useRef, useState, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
+import React, {useRef, useState, useEffect, useMemo} from 'react'
 import {SearchBox} from 'tocco-ui'
 
+import {getCompleteMenuPreferences} from '../../utils/navigationUtils'
 import MenuTree from '../MenuTree'
+import {ActionEntry, EntityExplorerEntry, MenuEntry, MenuChildrenWrapper} from './menuType'
 import {
   StyledTabsContainer,
   StyledNav,
@@ -13,8 +15,6 @@ import {
   StyledNavIconButton,
   StyledActiveTabLabel
 } from './StyledComponents'
-import {ActionEntry, EntityExplorerEntry, MenuEntry, MenuChildrenWrapper} from './menuType'
-import {getCompleteMenuPreferences} from '../../utils/navigationUtils'
 
 const menuTabs = {
   MODULES: 'modules',
@@ -23,16 +23,12 @@ const menuTabs = {
   SYSTEM: 'system'
 }
 
-const createMenuTypeMap = ({
-  onClick,
-  hasFilterApplied,
-  preferencesPrefix
-}) => {
+const createMenuTypeMap = ({onClick, hasFilterApplied, preferencesPrefix}) => {
   const usePreferences = typeof preferencesPrefix !== 'undefined'
   const canCollapse = !hasFilterApplied && usePreferences
 
   return {
-    'menu': {
+    menu: {
       component: MenuEntry,
       childrenWrapperComponent: MenuChildrenWrapper,
       filterAttributes: ['label'],
@@ -51,7 +47,7 @@ const createMenuTypeMap = ({
       },
       filterAttributes: ['label', 'entity']
     },
-    'action': {
+    action: {
       component: ActionEntry,
       childrenWrapperComponent: MenuChildrenWrapper,
       props: {
@@ -109,28 +105,40 @@ const Navigation = ({
     }
   }
 
-  const modulesTypeMap = useMemo(() =>
-    createMenuTypeMap({
-      onClick,
-      hasFilterApplied,
-      preferencesPrefix: menuTabsConfig[menuTabs.MODULES].preferencesPrefix
-    }), [onClick, hasFilterApplied])
-  const settingsTypeMap = useMemo(() =>
-    createMenuTypeMap({
-      onClick,
-      hasFilterApplied,
-      preferencesPrefix: menuTabsConfig[menuTabs.SETTINGS].preferencesPrefix
-    }), [onClick, hasFilterApplied])
-  const systemTypeMap = useMemo(() =>
-    createMenuTypeMap({
-      onClick,
-      hasFilterApplied
-    }), [onClick, hasFilterApplied])
-  const completeTypeMap = useMemo(() =>
-    createMenuTypeMap({
-      onClick,
-      hasFilterApplied
-    }), [onClick, hasFilterApplied])
+  const modulesTypeMap = useMemo(
+    () =>
+      createMenuTypeMap({
+        onClick,
+        hasFilterApplied,
+        preferencesPrefix: menuTabsConfig[menuTabs.MODULES].preferencesPrefix
+      }),
+    [onClick, hasFilterApplied]
+  )
+  const settingsTypeMap = useMemo(
+    () =>
+      createMenuTypeMap({
+        onClick,
+        hasFilterApplied,
+        preferencesPrefix: menuTabsConfig[menuTabs.SETTINGS].preferencesPrefix
+      }),
+    [onClick, hasFilterApplied]
+  )
+  const systemTypeMap = useMemo(
+    () =>
+      createMenuTypeMap({
+        onClick,
+        hasFilterApplied
+      }),
+    [onClick, hasFilterApplied]
+  )
+  const completeTypeMap = useMemo(
+    () =>
+      createMenuTypeMap({
+        onClick,
+        hasFilterApplied
+      }),
+    [onClick, hasFilterApplied]
+  )
 
   useEffect(() => {
     if (menuOpen) {
@@ -168,10 +176,7 @@ const Navigation = ({
   }
 
   const handleExpandAll = () => {
-    const {
-      items,
-      preferencesPrefix
-    } = menuTabsConfig[activeMenuTab] || {}
+    const {items, preferencesPrefix} = menuTabsConfig[activeMenuTab] || {}
     if (items && typeof preferencesPrefix !== 'undefined') {
       const preferences = getCompleteMenuPreferences(items, preferencesPrefix, false)
       saveUserPreferences(preferences)
@@ -179,10 +184,7 @@ const Navigation = ({
   }
 
   const handleCollapseAll = () => {
-    const {
-      items,
-      preferencesPrefix
-    } = menuTabsConfig[activeMenuTab] || {}
+    const {items, preferencesPrefix} = menuTabsConfig[activeMenuTab] || {}
     if (items && typeof preferencesPrefix !== 'undefined') {
       const preferences = getCompleteMenuPreferences(items, preferencesPrefix, true)
       saveUserPreferences(preferences)
@@ -220,9 +222,7 @@ const Navigation = ({
     <StyledNav ref={navigationEl} onKeyDown={onKeyDown} data-cy="admin-nav">
       <StyledTabsContainer>
         <StyledActiveTabLabel>{menuTabsConfig[activeMenuTab]?.label}</StyledActiveTabLabel>
-        <div>
-          {MenuTabs}
-        </div>
+        <div>{MenuTabs}</div>
       </StyledTabsContainer>
       <StyledSearchBoxWrapper>
         <SearchBox
@@ -234,30 +234,35 @@ const Navigation = ({
         />
       </StyledSearchBoxWrapper>
       <StyledMenuWrapper>
-        {showMenu && <StyledMenuButtonsWrapper>
-          <StyledMenuButton
-            icon="chevron-double-down"
-            type="button"
-            onClick={handleExpandAll}
-            title={msg('client.admin.navigation.expandAll')}
-          />
-          <StyledMenuButton
-            icon="chevron-double-up"
-            type="button"
-            onClick={handleCollapseAll}
-            title={msg('client.admin.navigation.collapseAll')}
-          />
-        </StyledMenuButtonsWrapper>}
+        {showMenu && (
+          <StyledMenuButtonsWrapper>
+            <StyledMenuButton
+              icon="chevron-double-down"
+              type="button"
+              onClick={handleExpandAll}
+              title={msg('client.admin.navigation.expandAll')}
+            />
+            <StyledMenuButton
+              icon="chevron-double-up"
+              type="button"
+              onClick={handleCollapseAll}
+              title={msg('client.admin.navigation.collapseAll')}
+            />
+          </StyledMenuButtonsWrapper>
+        )}
 
-        {activeMenuTab === menuTabs.MODULES
-        && <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={modulesTypeMap}/>}
-        {activeMenuTab === menuTabs.SETTINGS
-        && <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={settingsTypeMap}/>}
-        {activeMenuTab === menuTabs.SYSTEM
-        && <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={systemTypeMap}/>}
-        {activeMenuTab === menuTabs.COMPLETE
-        && <MenuTree items={completeMenuTree} searchFilter={filter}
-                     typeMapping={completeTypeMap} requireSearch={true}/>}
+        {activeMenuTab === menuTabs.MODULES && (
+          <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={modulesTypeMap} />
+        )}
+        {activeMenuTab === menuTabs.SETTINGS && (
+          <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={settingsTypeMap} />
+        )}
+        {activeMenuTab === menuTabs.SYSTEM && (
+          <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={systemTypeMap} />
+        )}
+        {activeMenuTab === menuTabs.COMPLETE && (
+          <MenuTree items={completeMenuTree} searchFilter={filter} typeMapping={completeTypeMap} requireSearch={true} />
+        )}
       </StyledMenuWrapper>
     </StyledNav>
   )

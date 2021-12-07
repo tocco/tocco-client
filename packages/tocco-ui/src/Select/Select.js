@@ -1,7 +1,7 @@
+import _debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import React, {useRef} from 'react'
 import ReactSelect from 'react-select'
-import _debounce from 'lodash/debounce'
 import {withTheme} from 'styled-components'
 
 import ClearIndicator from './ClearIndicator'
@@ -75,11 +75,7 @@ const Select = ({
   const wrapperHeight = selectWrapper.current ? selectWrapper.current.clientHeight : 35
 
   return (
-    <StyledReactSelectOuterWrapper
-      tabIndex="-1"
-      id={id}
-      onFocus={handleFocus}
-    >
+    <StyledReactSelectOuterWrapper tabIndex="-1" id={id} onFocus={handleFocus}>
       <StyledReactSelectInnerWrapper ref={selectWrapper}>
         <ReactSelect
           getOptionLabel={option => option.display}
@@ -97,7 +93,7 @@ const Select = ({
             MultiValueLabel,
             SingleValue
           }}
-          noOptionsMessage={() => (noResultsText || ' - ')}
+          noOptionsMessage={() => noResultsText || ' - '}
           isMulti={isMulti}
           closeMenuOnSelect={!isMulti}
           isSearchable
@@ -133,10 +129,7 @@ const Select = ({
 }
 
 const ItemPropType = PropTypes.shape({
-  key: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]).isRequired,
+  key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   display: PropTypes.string
 })
 
@@ -152,10 +145,7 @@ Select.propTypes = {
   /**
    * Expects an array or single object containing a display and key attribute.
    */
-  value: PropTypes.oneOfType([
-    ItemPropType,
-    PropTypes.arrayOf(ItemPropType)
-  ]),
+  value: PropTypes.oneOfType([ItemPropType, PropTypes.arrayOf(ItemPropType)]),
   /**
    * Possible options that the user can select
    */

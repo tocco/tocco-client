@@ -1,15 +1,10 @@
 import {connect} from 'react-redux'
 
+import {setLanguage, executeLanguageUpgrade} from '../../modules/actions'
 import UpgradeLanguageForm from './UpgradeLanguageForm'
-import {
-  setLanguage,
-  executeLanguageUpgrade
-} from '../../modules/actions'
 
 const mapStateToProps = state => {
-  const {
-    dbRefactoring, languageUpgrade
-  } = state.dbRefactoring
+  const {dbRefactoring, languageUpgrade} = state.dbRefactoring
 
   return {
     language: languageUpgrade.language,

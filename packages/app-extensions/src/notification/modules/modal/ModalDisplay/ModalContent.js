@@ -1,5 +1,5 @@
-import React, {useMemo, useRef, useLayoutEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useMemo, useRef, useLayoutEffect} from 'react'
 import {Typography} from 'tocco-ui'
 
 import Content from '../../../components/Content'
@@ -13,14 +13,7 @@ import {
   GlobalTetherStyle
 } from './StyledComponents'
 
-const ModalContent = ({
-  closable,
-  message,
-  title,
-  close,
-  id,
-  component: Component
-}) => {
+const ModalContent = ({closable, message, title, close, id, component: Component}) => {
   const ref = useRef(null)
 
   const handleCloseClick = () => {
@@ -48,26 +41,34 @@ const ModalContent = ({
   }, [ref])
 
   const ComponentMemo = useMemo(() => {
-    return <Component close={handleCloseClick}/>
+    return <Component close={handleCloseClick} />
   }, [Component])
 
   return (
     <>
-      <GlobalTetherStyle/>
+      <GlobalTetherStyle />
       <StyledModalWrapper>
         <StyledModalContent ref={ref}>
           <StyledModalHeader>
-            {title && <StyledTitleWrapper>
-              <Typography.H1>
-                <Content>{title}</Content>
-              </Typography.H1>
-            </StyledTitleWrapper>}
-            {closable && <StyledCloseButton onClick={handleCloseClick} type="button">
-              ✕
-            </StyledCloseButton>}
+            {title && (
+              <StyledTitleWrapper>
+                <Typography.H1>
+                  <Content>{title}</Content>
+                </Typography.H1>
+              </StyledTitleWrapper>
+            )}
+            {closable && (
+              <StyledCloseButton onClick={handleCloseClick} type="button">
+                ✕
+              </StyledCloseButton>
+            )}
           </StyledModalHeader>
           <StyledModalBody>
-            {message && <Typography.Span><Content>{message}</Content></Typography.Span>}
+            {message && (
+              <Typography.Span>
+                <Content>{message}</Content>
+              </Typography.Span>
+            )}
             {ComponentMemo}
           </StyledModalBody>
         </StyledModalContent>

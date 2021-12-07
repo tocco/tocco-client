@@ -14,9 +14,7 @@ describe('tocco-util', () => {
           keys: ['1', '3']
         }
 
-        return expectSaga(getEntities, selection)
-          .returns(expectedResult)
-          .run()
+        return expectSaga(getEntities, selection).returns(expectedResult).run()
       })
 
       test('should fetch entities for query type', () => {
@@ -30,9 +28,7 @@ describe('tocco-util', () => {
           keys: ['1', '4']
         }
 
-        return expectSaga(getEntities, selection, fetchEntities)
-          .returns(expectedResult)
-          .run()
+        return expectSaga(getEntities, selection, fetchEntities).returns(expectedResult).run()
       })
 
       test('should call console log if entities are to many', () => {
@@ -42,9 +38,7 @@ describe('tocco-util', () => {
         const fakeEntities = [...Array(100002).keys()].map(key => ({key}))
         const fetchEntities = sinon.fake.returns(fakeEntities)
 
-        return expectSaga(getEntities, selection, fetchEntities)
-          .call.like({fn: consoleLogger.logError})
-          .run()
+        return expectSaga(getEntities, selection, fetchEntities).call.like({fn: consoleLogger.logError}).run()
       })
     })
   })

@@ -1,6 +1,6 @@
+import {darken} from 'polished'
 import styled from 'styled-components'
 import {scale, theme} from 'tocco-ui'
-import {darken} from 'polished'
 
 export const StyledTaskProgressWrapper = styled.div`
   margin-bottom: ${scale.space(-1.5)};

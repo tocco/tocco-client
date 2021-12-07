@@ -1,22 +1,22 @@
 import PropTypes from 'prop-types'
-import {injectIntl} from 'react-intl'
 import React from 'react'
+import {injectIntl} from 'react-intl'
 import {react} from 'tocco-util'
 
-import {parseLocalePlaceholder, convertStringToNumber} from '../utils'
 import {StyledEditableWrapper} from '../StyledEditableValue'
+import {parseLocalePlaceholder, convertStringToNumber} from '../utils'
 import StyledNumberEdit from './StyledNumberEdit'
 
 export const calculateMaxValue = (prePointDigits, postPointDigits, maxValue) => {
   if (prePointDigits) {
-    const calculatedMaxValue = (10 ** prePointDigits) - (postPointDigits ? (1 / (10 ** postPointDigits)) : 1)
+    const calculatedMaxValue = 10 ** prePointDigits - (postPointDigits ? 1 / 10 ** postPointDigits : 1)
     return maxValue && maxValue > calculatedMaxValue ? maxValue : calculatedMaxValue
   }
 
   return maxValue
 }
 
-const getPreDecimalPositions = number => number !== 0 ? Math.ceil(Math.log10(Math.abs(number) + 1)) : 1
+const getPreDecimalPositions = number => (number !== 0 ? Math.ceil(Math.log10(Math.abs(number) + 1)) : 1)
 
 const isNumber = number => number !== null && number !== undefined && !isNaN(parseFloat(number))
 
@@ -36,13 +36,15 @@ const checkValueRange = (minValue, maxValue, value) => {
   return true
 }
 
-export const isAllowedValue = (minValue, maxValue) => ({floatValue}) => {
-  if (getPreDecimalPositions(floatValue) < getPreDecimalPositions(minValue)) {
-    return true
-  }
+export const isAllowedValue =
+  (minValue, maxValue) =>
+  ({floatValue}) => {
+    if (getPreDecimalPositions(floatValue) < getPreDecimalPositions(minValue)) {
+      return true
+    }
 
-  return checkValueRange(minValue, maxValue, floatValue)
-}
+    return checkValueRange(minValue, maxValue, floatValue)
+  }
 
 const NumberEdit = props => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(props.intl.locale)

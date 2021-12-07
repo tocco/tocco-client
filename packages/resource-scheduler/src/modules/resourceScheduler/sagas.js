@@ -1,8 +1,8 @@
-import {rest, externalEvents} from 'tocco-app-extensions'
 import {call, put, takeLatest, all, select} from 'redux-saga/effects'
+import {rest, externalEvents} from 'tocco-app-extensions'
 
-import * as actions from './actions'
 import {transformRequestedCalendars} from '../../utils/rest'
+import * as actions from './actions'
 
 export const resourceSchedulerSelector = state => state.resourceScheduler
 

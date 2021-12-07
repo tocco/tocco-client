@@ -8,7 +8,4 @@ const selectionStyles = {
 
 const selectionStylePropType = PropTypes.oneOf(Object.keys(selectionStyles).map(key => selectionStyles[key]))
 
-export {
-  selectionStyles as default,
-  selectionStylePropType
-}
+export {selectionStyles as default, selectionStylePropType}

@@ -1,5 +1,5 @@
-import reducer from './index'
 import * as actions from './actions'
+import reducer from './index'
 
 const EXPECTED_INITIAL_STATE = {
   appId: '',
@@ -53,9 +53,14 @@ describe('entity-detail', () => {
 
         describe('SET_MARKED', () => {
           test('should handle SET_MARKED', () => {
-            expect(reducer({
-              marked: false
-            }, actions.setMarked(true))).to.deep.equal({
+            expect(
+              reducer(
+                {
+                  marked: false
+                },
+                actions.setMarked(true)
+              )
+            ).to.deep.equal({
               marked: true
             })
           })

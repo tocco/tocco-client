@@ -36,7 +36,7 @@
               "id": "new",
               "label": "New",
               "componentType": "action",
-              "children": [ ],
+              "children": [],
               "actionType": "custom"
             }
           },
@@ -96,7 +96,7 @@
                         "path": "user_nr",
                         "dataType": "counter",
                         "label": null,
-                        "validation": { }
+                        "validation": {}
                       }
                     ]
                   },
@@ -114,8 +114,8 @@
                         "defaultValue": "Homer",
                         "autoCompleteEndpoint": "client/user/callnameComplete",
                         "validation": {
-                          "length" : {
-                            "toIncluding" : 255
+                          "length": {
+                            "toIncluding": 255
                           },
                           "mandatory": true
                         },
@@ -136,8 +136,8 @@
                         "path": "lastname",
                         "label": null,
                         "validation": {
-                          "length" : {
-                            "toIncluding" : 255
+                          "length": {
+                            "toIncluding": 255
                           },
                           "mandatory": true
                         }
@@ -156,7 +156,7 @@
                         "componentType": "field",
                         "path": "birthdate",
                         "label": null,
-                        "validation": { }
+                        "validation": {}
                       }
                     ]
                   },
@@ -198,11 +198,11 @@
                         "path": "callname",
                         "label": null,
                         "validation": {
-                          "length" : {
-                            "toIncluding" : 255
+                          "length": {
+                            "toIncluding": 255
                           },
-                          "regex" : {
-                            "pattern" : "^[A-Za-z]+$"
+                          "regex": {
+                            "pattern": "^[A-Za-z]+$"
                           }
                         }
                       }
@@ -221,8 +221,8 @@
                         "path": "address",
                         "label": null,
                         "validation": {
-                          "length" : {
-                            "toIncluding" : 104857600
+                          "length": {
+                            "toIncluding": 104857600
                           }
                         }
                       }
@@ -232,9 +232,7 @@
                     "componentType": "action",
                     "actionType": "simple",
                     "icon": "cog",
-                    "scopes": [
-                      "update"
-                    ],
+                    "scopes": ["update"],
                     "label": "Simple Action (Update only)",
                     "showConfirmMessage": false,
                     "endpoint": "actions/simpleAction"
@@ -260,7 +258,7 @@
                         "componentType": "field",
                         "path": "preview_picture",
                         "label": null,
-                        "validation": { }
+                        "validation": {}
                       }
                     ]
                   },
@@ -311,10 +309,7 @@
                     "readonly": false,
                     "hidden": false,
                     "useLabel": "NO",
-                    "scopes": [
-                      "update",
-                      "read"
-                    ]
+                    "scopes": ["update", "read"]
                   },
                   {
                     "id": "groovy_logic_description",
@@ -333,8 +328,7 @@
                     "readonly": false,
                     "hidden": false,
                     "useLabel": "HIDE",
-                    "scopes": [
-                    ]
+                    "scopes": []
                   }
                 ],
                 "label": "Form Stuff"
@@ -353,11 +347,9 @@
                     "reverseRelation": "relUser",
                     "showSearchForm": true,
                     "readonly": true,
-                    "children": [ ],
+                    "children": [],
                     "label": null,
-                    "scopes": [
-                      "update"
-                    ]
+                    "scopes": ["update"]
                   }
                 ],
                 "label": "Sub Grid"
@@ -473,7 +465,7 @@
                         "validation": {
                           "phone": {
                             "defaultRegion": "",
-                            "customRegex":  "^\\d{3}$"
+                            "customRegex": "^\\d{3}$"
                           }
                         }
                       }
@@ -713,11 +705,7 @@
                           "state": "canton_c",
                           "district": "district_c"
                         },
-                        "countries": [
-                          "DE",
-                          "AT",
-                          "CH"
-                        ]
+                        "countries": ["DE", "AT", "CH"]
                       }
                     ],
                     "readonly": false,
@@ -745,7 +733,7 @@
                     ],
                     "readonly": false,
                     "hidden": false,
-                    "scopes": [ ]
+                    "scopes": []
                   },
                   {
                     "componentType": "field-set",

@@ -1,7 +1,7 @@
-import {connect} from 'react-redux'
-import {injectIntl} from 'react-intl'
-import {queryString as queryStringUtil} from 'tocco-util'
 import _get from 'lodash/get'
+import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
+import {queryString as queryStringUtil} from 'tocco-util'
 
 import ActionView from './ActionView'
 

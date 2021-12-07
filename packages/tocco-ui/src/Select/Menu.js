@@ -1,26 +1,29 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import _omit from 'lodash/omit'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import {StyledTether, StyledMenu} from './StyledComponents'
 
-const TetherPosition = () => <div/>
+const TetherPosition = () => <div />
 
 const Menu = props => (
   <StyledTether
     attachment="top left"
     targetAttachment="bottom left"
-    constraints={[{
-      to: 'window',
-      attachment: 'together'
-    }]}
+    constraints={[
+      {
+        to: 'window',
+        attachment: 'together'
+      }
+    ]}
   >
-    <TetherPosition/>
+    <TetherPosition />
     <div>
       <StyledMenu
-        {...(_omit(props, ['innerRef']))}
+        {..._omit(props, ['innerRef'])}
         wrapperWidth={props.selectProps.wrapperWidth}
-        wrapperHeight={props.selectProps.wrapperHeight}>
+        wrapperHeight={props.selectProps.wrapperHeight}
+      >
         {props.children}
       </StyledMenu>
     </div>

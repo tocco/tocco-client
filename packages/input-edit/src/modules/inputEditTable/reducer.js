@@ -17,10 +17,13 @@ const setValue = (state, action) => {
     ...state,
     data: state.data.reduce((acc, val) => {
       if (val.pk === inputDataKey) {
-        return [...acc, {
-          ...val,
-          [node]: value
-        }]
+        return [
+          ...acc,
+          {
+            ...val,
+            [node]: value
+          }
+        ]
       }
       return [...acc, val]
     }, [])
@@ -28,13 +31,14 @@ const setValue = (state, action) => {
 }
 
 const defaultOrder = 'asc'
-const getOpposite = order => order === 'asc' ? 'desc' : 'asc'
+const getOpposite = order => (order === 'asc' ? 'desc' : 'asc')
 const setSorting = (state, {payload: {field, add}}) => {
   if (!add) {
     const currentSorting = state.sorting
-    const order = (currentSorting.length > 0 && currentSorting[0].field === field
-      ? getOpposite(currentSorting[0].order)
-      : defaultOrder)
+    const order =
+      currentSorting.length > 0 && currentSorting[0].field === field
+        ? getOpposite(currentSorting[0].order)
+        : defaultOrder
     return {
       ...state,
       sorting: [{field, order}]

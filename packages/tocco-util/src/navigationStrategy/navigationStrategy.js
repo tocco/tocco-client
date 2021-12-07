@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
  * with a DetailLink attribute. The navigation strategy can be set on the entity-detail oder entity-list app where its
  * passed down to the select component. React element attributes (e.g DetailLink) help to render visual links and
  * functions are for programmatically navigations.
-*/
+ */
 
 export const propTypes = PropTypes.shape({
   /**

@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {Button} from 'tocco-ui'
 
 import ProgressBar from './ProgressBar'
@@ -7,8 +7,10 @@ import ProgressBar from './ProgressBar'
 const ValidationProgress = ({state, startValidation}) => {
   return (
     <div>
-      <Button look="raised" pending={state.running} disabled={state.running} onClick={startValidation}>Execute</Button>
-      <ProgressBar state={state}/>
+      <Button look="raised" pending={state.running} disabled={state.running} onClick={startValidation}>
+        Execute
+      </Button>
+      <ProgressBar state={state} />
     </div>
   )
 }

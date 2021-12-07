@@ -1,15 +1,15 @@
-import {takeLatest, all, select} from 'redux-saga/effects'
-import {rest} from 'tocco-app-extensions'
+import {channel} from 'redux-saga'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {channel} from 'redux-saga'
+import {takeLatest, all, select} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
+import * as util from '../../util/preferences'
+import * as listActions from '../list/actions'
 import {entityListSelector, listSelector} from '../list/sagas'
 import * as listSagas from '../list/sagas'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import * as listActions from '../list/actions'
-import * as util from '../../util/preferences'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -17,15 +17,17 @@ describe('entity-list', () => {
       describe('rootSaga', () => {
         test('should fork child sagas', () => {
           const generator = rootSaga()
-          expect(generator.next().value).to.deep.equal(all([
-            takeLatest(actions.LOAD_PREFERENCES, sagas.loadPreferences),
-            takeLatest(actions.CHANGE_POSITION, sagas.changePosition),
-            takeLatest(listActions.SET_SORTING_INTERACTIVE, sagas.saveSorting),
-            takeLatest(actions.RESET_SORTING, sagas.resetSorting),
-            takeLatest(actions.RESET_COLUMNS, sagas.resetColumns),
-            takeLatest(actions.RESET_PREFERENCES, sagas.resetPreferences),
-            takeLatest(actions.DISPLAY_COLUMN_MODAL, sagas.displayColumnModal)
-          ]))
+          expect(generator.next().value).to.deep.equal(
+            all([
+              takeLatest(actions.LOAD_PREFERENCES, sagas.loadPreferences),
+              takeLatest(actions.CHANGE_POSITION, sagas.changePosition),
+              takeLatest(listActions.SET_SORTING_INTERACTIVE, sagas.saveSorting),
+              takeLatest(actions.RESET_SORTING, sagas.resetSorting),
+              takeLatest(actions.RESET_COLUMNS, sagas.resetColumns),
+              takeLatest(actions.RESET_PREFERENCES, sagas.resetPreferences),
+              takeLatest(actions.DISPLAY_COLUMN_MODAL, sagas.displayColumnModal)
+            ])
+          )
           expect(generator.next().done).to.be.true
         })
         describe('loadPreferences', () => {
@@ -160,23 +162,28 @@ describe('entity-list', () => {
             const preferencesSelector = {columns: {first_field: true, second_field: false, third_field: false}}
             return expectSaga(sagas.displayColumnModal)
               .provide([
-                [select(listSagas.listSelector), {
-                  formDefinition: {
-                    id: 'Some_list',
-                    children: [{
-                      componentType: 'table',
+                [
+                  select(listSagas.listSelector),
+                  {
+                    formDefinition: {
+                      id: 'Some_list',
                       children: [
                         {
-                          id: 'first_field'
-                        },
-                        {
-                          id: 'second_field'
+                          componentType: 'table',
+                          children: [
+                            {
+                              id: 'first_field'
+                            },
+                            {
+                              id: 'second_field'
+                            }
+                          ]
                         }
                       ]
-                    }]
-                  },
-                  scope: 'list'
-                }],
+                    },
+                    scope: 'list'
+                  }
+                ],
                 [select(listSagas.entityListSelector), {}],
                 [select(sagas.preferencesSelector), preferencesSelector],
                 [channel, {}],

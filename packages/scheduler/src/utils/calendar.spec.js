@@ -1,7 +1,6 @@
 import {getEvents, getResources} from './calendar'
 
 const mockCalendars = [
-
   {
     label: 'Peter Griffin',
     model: 'User',

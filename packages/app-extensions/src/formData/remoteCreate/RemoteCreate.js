@@ -1,25 +1,21 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 const handleEntityCreated = (close, answerChannel) => result => {
   close()
   answerChannel.put(result)
 }
 
-const RemoteCreate = ({
-  DetailApp,
-  targetEntity,
-  answerChannel,
-  close,
-  emitAction
-}) => {
-  return <DetailApp
-    entityName={targetEntity}
-    formName={targetEntity}
-    mode={'create'}
-    onEntityCreated={handleEntityCreated(close, answerChannel)}
-    emitAction={emitAction}
-  />
+const RemoteCreate = ({DetailApp, targetEntity, answerChannel, close, emitAction}) => {
+  return (
+    <DetailApp
+      entityName={targetEntity}
+      formName={targetEntity}
+      mode={'create'}
+      onEntityCreated={handleEntityCreated(close, answerChannel)}
+      emitAction={emitAction}
+    />
+  )
 }
 
 RemoteCreate.propTypes = {

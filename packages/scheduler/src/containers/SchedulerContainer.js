@@ -1,6 +1,7 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
+import Scheduler from '../components/Scheduler'
 import {
   onDateRangeChange,
   onCalendarRemove,
@@ -8,7 +9,6 @@ import {
   onEventClick,
   onRefresh
 } from '../modules/scheduler/actions'
-import Scheduler from '../components/Scheduler'
 
 const mapActionCreators = {
   onDateRangeChange,

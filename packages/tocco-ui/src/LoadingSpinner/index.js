@@ -1,5 +1,3 @@
 import LazyLoadingSpinner from './LazyLoadingSpinner'
 
-export {
-  LazyLoadingSpinner as default
-}
+export {LazyLoadingSpinner as default}

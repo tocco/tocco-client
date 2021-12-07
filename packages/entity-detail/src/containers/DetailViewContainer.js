@@ -1,13 +1,10 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 import {getFormInitialValues} from 'redux-form'
 import {errorLogging} from 'tocco-app-extensions'
 
-import {
-  loadDetailView,
-  unloadDetailView
-} from '../modules/entityDetail/actions'
 import DetailView from '../components/DetailView/DetailView'
+import {loadDetailView, unloadDetailView} from '../modules/entityDetail/actions'
 
 const mapActionCreators = {
   loadDetailView,

@@ -1,11 +1,11 @@
+import {expectSaga} from 'redux-saga-test-plan'
 import {call, takeLatest, all} from 'redux-saga/effects'
 import {appFactory} from 'tocco-app-extensions'
-import {expectSaga} from 'redux-saga-test-plan'
 
 import * as actions from './../entityList/actions'
 import * as listActions from './../list/actions'
-import * as searchFormActions from './../searchForm/actions'
 import * as preferenceActions from './../preferences/actions'
+import * as searchFormActions from './../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
 
 describe('entity-list', () => {
@@ -15,12 +15,14 @@ describe('entity-list', () => {
         describe('rootSaga', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              call(sagas.initialize),
-              takeLatest(actions.RELOAD_DATA, sagas.reloadData),
-              takeLatest(actions.RELOAD_ALL, sagas.initialize, false),
-              takeLatest(actions.SET_SEARCH_FORM_COLLAPSED, sagas.searchFormCollapsed)
-            ]))
+            expect(generator.next().value).to.deep.equal(
+              all([
+                call(sagas.initialize),
+                takeLatest(actions.RELOAD_DATA, sagas.reloadData),
+                takeLatest(actions.RELOAD_ALL, sagas.initialize, false),
+                takeLatest(actions.SET_SEARCH_FORM_COLLAPSED, sagas.searchFormCollapsed)
+              ])
+            )
             expect(generator.next().done).to.be.true
           })
         })

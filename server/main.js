@@ -1,14 +1,14 @@
 const path = require('path')
 
-const opn = require('opn')
-const express = require('express')
-const webpack = require('webpack')
 const compress = require('compression')
+const express = require('express')
+const opn = require('opn')
 const request = require('request')
+const webpack = require('webpack')
 
+const logger = require('../build/lib/logger').default
 const webpackConfig = require('../build/webpack.config').default
 const config = require('../config').default
-const logger = require('../build/lib/logger').default
 
 const app = express()
 app.use(compress()) // Apply gzip compression
@@ -45,22 +45,20 @@ if (config.env === 'development') {
   if (config.globals.__NO_MOCK__) {
     // Most probably the following requests should be answered by the Nice2 instance
     // -> pipe them through
-    app.use(['/nice2/*', '/js/*', '/img/*', '/css/*'], function(req, res, next) {
+    app.use(['/nice2/*', '/js/*', '/img/*', '/css/*'], function (req, res, next) {
       // `window.location.hostname` might be used in __BACKEND_URL__ variable
       // eslint-disable-next-line
       const window = {location: {hostname: 'localhost'}}
       // eslint-disable-next-line
       const newUrl = eval(config.globals.__BACKEND_URL__) + req.originalUrl
-      req.pipe(
-        request[req.method.toLowerCase()](newUrl))
-        .pipe(res)
+      req.pipe(request[req.method.toLowerCase()](newUrl)).pipe(res)
     })
   }
 
   // This rewrites all routes requests to the root /index.html file
   // (ignoring file requests). If you want to implement universal
   // rendering, you'll want to remove this middleware.
-  app.use('*', function(req, res, next) {
+  app.use('*', function (req, res, next) {
     const filename = path.join(compiler.outputPath, 'index.html')
     compiler.outputFileSystem.readFile(filename, (err, result) => {
       if (err) {
@@ -73,11 +71,11 @@ if (config.env === 'development') {
   })
 } else {
   logger.warn(
-    'Server is being run outside of live development mode, meaning it will '
-    + 'only serve the compiled application bundle in ~/dist. Generally you '
-    + 'do not need an application server for this and can instead use a web '
-    + 'server such as nginx to serve your static files. See the "deployment" '
-    + 'section in the README for more information on deployment strategies.'
+    'Server is being run outside of live development mode, meaning it will ' +
+      'only serve the compiled application bundle in ~/dist. Generally you ' +
+      'do not need an application server for this and can instead use a web ' +
+      'server such as nginx to serve your static files. See the "deployment" ' +
+      'section in the README for more information on deployment strategies.'
   )
 }
 

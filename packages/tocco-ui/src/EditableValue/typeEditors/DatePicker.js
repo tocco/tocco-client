@@ -1,17 +1,17 @@
-import React, {useRef, useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useRef, useState} from 'react'
 import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
 
+import Ball from '../../Ball'
+import {useDatePickr} from '../../DatePicker/useDatePickr'
+import {theme} from '../../utilStyles'
 import {
   StyledDatePickerInput,
   StyledDatePickerWrapper,
   StyledDatePickerOuterWrapper,
   StyledDatePickerValue
 } from './StyledDatePicker'
-import Ball from '../../Ball'
-import {useDatePickr} from '../../DatePicker/useDatePickr'
-import {theme} from '../../utilStyles'
 
 const focusFlatpickrInput = wrapper => {
   // flatpickr add two input in the DOM. One for the actual value (hidden) and one for the altInput
@@ -43,8 +43,13 @@ const DatePicker = props => {
     clickOpens: !immutable,
     ...(options ? options.flatpickrOptions : {})
   }
-  const initializeFlatPickr = useDatePickr(wrapper,
-    {value, onChange: handleOnChange, fontFamily, locale, flatpickrOptions})
+  const initializeFlatPickr = useDatePickr(wrapper, {
+    value,
+    onChange: handleOnChange,
+    fontFamily,
+    locale,
+    flatpickrOptions
+  })
 
   const init = () => {
     flatpickr.current = initializeFlatPickr()
@@ -93,54 +98,48 @@ const DatePicker = props => {
 
   const hasValue = value && value.length > 0 && value.every(v => v)
 
-  return <>
-    <StyledDatePickerOuterWrapper
-      immutable={immutable}
-      id={id}
-      tabIndex="-1"
-      onFocus={() => {
-        focusInput()
-        
-        if (flatpickr.current) {
-          flatpickr.current.open()
-        }
-      }}
-      onKeyDown={handleConfirmKey}
-    >
-      <StyledDatePickerWrapper
-        data-wrap
-        onBlur={handleOnBlur}
+  return (
+    <>
+      <StyledDatePickerOuterWrapper
         immutable={immutable}
-        ref={wrapper}
+        id={id}
+        tabIndex="-1"
+        onFocus={() => {
+          focusInput()
+
+          if (flatpickr.current) {
+            flatpickr.current.open()
+          }
+        }}
+        onKeyDown={handleConfirmKey}
       >
-        <StyledDatePickerInput
-          {...immutable ? {disabled: 'disabled'} : {}}
-          type="hidden"
-          data-input
-          immutable={immutable}
-          {...(options ? {placeholder: options.placeholderText} : {})}
-        />
-        {!initialized && (
-          <StyledDatePickerValue tabIndex={0}>
-            {hasValue ? formatDate(value[0]) : ''}
-          </StyledDatePickerValue>
-        )}
-        <StyledDatePickerInput
-          disabled
-          immutable={immutable}
-          value={altInput}
-        />
-        {!immutable && hasValue && <Ball
-          icon="times"
-          tabIndex={-1}
-          aria-label={msg('client.component.dateAbstract.clearDateLabel')}
-          onMouseDown={e => {
-            e.preventDefault()
-            onChange(null)
-          }}/>}
-      </StyledDatePickerWrapper>
-    </StyledDatePickerOuterWrapper>
-  </>
+        <StyledDatePickerWrapper data-wrap onBlur={handleOnBlur} immutable={immutable} ref={wrapper}>
+          <StyledDatePickerInput
+            {...(immutable ? {disabled: 'disabled'} : {})}
+            type="hidden"
+            data-input
+            immutable={immutable}
+            {...(options ? {placeholder: options.placeholderText} : {})}
+          />
+          {!initialized && (
+            <StyledDatePickerValue tabIndex={0}>{hasValue ? formatDate(value[0]) : ''}</StyledDatePickerValue>
+          )}
+          <StyledDatePickerInput disabled immutable={immutable} value={altInput} />
+          {!immutable && hasValue && (
+            <Ball
+              icon="times"
+              tabIndex={-1}
+              aria-label={msg('client.component.dateAbstract.clearDateLabel')}
+              onMouseDown={e => {
+                e.preventDefault()
+                onChange(null)
+              }}
+            />
+          )}
+        </StyledDatePickerWrapper>
+      </StyledDatePickerOuterWrapper>
+    </>
+  )
 }
 
 DatePicker.propTypes = {

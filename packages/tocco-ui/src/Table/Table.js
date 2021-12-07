@@ -1,15 +1,15 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {js} from 'tocco-util'
 
-import StyledTable, {StretchingTableContainer, StyledTableWrapper} from './StyledTable'
-import useSelection from './selection/useSelection'
-import {selectionStylePropType} from './selection/selectionStyles'
-import {getSelectionCell} from './selection/selectionColumnEnhancer'
 import {columnPropType, dataPropType, keyPropType} from './propTypes'
-import TableHeader from './TableHeader'
+import {getSelectionCell} from './selection/selectionColumnEnhancer'
+import {selectionStylePropType} from './selection/selectionStyles'
+import useSelection from './selection/useSelection'
+import StyledTable, {StretchingTableContainer, StyledTableWrapper} from './StyledTable'
 import TableBody from './TableBody'
 import TableFooter from './TableFooter'
+import TableHeader from './TableHeader'
 
 const Table = props => {
   const {
@@ -29,55 +29,66 @@ const Table = props => {
   const [columns, setColumns] = useState(props.columns)
   const tableEl = useRef(null)
 
-  const onColumnWidthChanged = useCallback(columnId => {
-    const finalWidth = columns.find(c => c.id === columnId)?.width
-    if (props.onColumnWidthChange) {
-      props.onColumnWidthChange(columnId, finalWidth)
-    }
-  }, [columns])
+  const onColumnWidthChanged = useCallback(
+    columnId => {
+      const finalWidth = columns.find(c => c.id === columnId)?.width
+      if (props.onColumnWidthChange) {
+        props.onColumnWidthChange(columnId, finalWidth)
+      }
+    },
+    [columns]
+  )
 
-  const onColumnWidthChanging = useCallback((columnId, width) => {
-    setColumns([...columns.map(c => c.id === columnId
-      ? {
-          ...c,
-          width
-        }
-      : c)])
-  }, [columns])
+  const onColumnWidthChanging = useCallback(
+    (columnId, width) => {
+      setColumns([
+        ...columns.map(c =>
+          c.id === columnId
+            ? {
+                ...c,
+                width
+              }
+            : c
+        )
+      ])
+    },
+    [columns]
+  )
 
-  const {isSelected, selectionChange}
-    = useSelection(selection, data ? data.map(e => e.__key) : [], onSelectionChange)
+  const {isSelected, selectionChange} = useSelection(selection, data ? data.map(e => e.__key) : [], onSelectionChange)
 
   useEffect(() => {
     const selectionColumn = getSelectionCell(selectionStyle, props.columns, isSelected, selectionChange)
     setColumns([...(selectionColumn ? [selectionColumn] : []), ...props.columns])
   }, [props.columns, selection])
 
-  return <StyledTableWrapper>
-    <StretchingTableContainer>
-      <StyledTable ref={tableEl} columns={columns}>
-        <TableHeader
-          columns={columns}
-          data={data}
-          onColumnWidthChanging={onColumnWidthChanging}
-          onColumnWidthChanged={onColumnWidthChanged}
-          onColumnPositionChange={onColumnPositionChange}
-          tableEl={tableEl}
-          onSortingChange={onSortingChange}
-        />
-        <TableBody
-          columns={columns}
-          data={data}
-          isSelected={isSelected}
-          selectionChange={selectionChange}
-          dataLoadingInProgress={dataLoadingInProgress}
-          onRowClick={onRowClick}
-          clickable={clickable}
-        />
-      </StyledTable>
-    </StretchingTableContainer>
-    <TableFooter onPageChange={onPageChange} onPageRefresh={onPageRefresh} paginationInfo={paginationInfo}/>
-  </StyledTableWrapper>
+  return (
+    <StyledTableWrapper>
+      <StretchingTableContainer>
+        <StyledTable ref={tableEl} columns={columns}>
+          <TableHeader
+            columns={columns}
+            data={data}
+            onColumnWidthChanging={onColumnWidthChanging}
+            onColumnWidthChanged={onColumnWidthChanged}
+            onColumnPositionChange={onColumnPositionChange}
+            tableEl={tableEl}
+            onSortingChange={onSortingChange}
+          />
+          <TableBody
+            columns={columns}
+            data={data}
+            isSelected={isSelected}
+            selectionChange={selectionChange}
+            dataLoadingInProgress={dataLoadingInProgress}
+            onRowClick={onRowClick}
+            clickable={clickable}
+          />
+        </StyledTable>
+      </StretchingTableContainer>
+      <TableFooter onPageChange={onPageChange} onPageRefresh={onPageRefresh} paginationInfo={paginationInfo} />
+    </StyledTableWrapper>
+  )
 }
 
 Table.propTypes = {

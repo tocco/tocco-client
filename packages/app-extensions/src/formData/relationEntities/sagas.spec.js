@@ -2,8 +2,8 @@ import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {select, takeEvery} from 'redux-saga/effects'
 
-import * as relationEntitiesActions from './actions'
 import rest from '../../rest'
+import * as relationEntitiesActions from './actions'
 import * as sagas from './sagas'
 
 describe('app-extensions', () => {
@@ -13,9 +13,7 @@ describe('app-extensions', () => {
         describe('main saga', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
-            saga.next().all([
-              takeEvery(relationEntitiesActions.LOAD_RELATION_ENTITIES, sagas.loadRelationEntity)
-            ])
+            saga.next().all([takeEvery(relationEntitiesActions.LOAD_RELATION_ENTITIES, sagas.loadRelationEntity)])
           })
         })
 
@@ -25,9 +23,7 @@ describe('app-extensions', () => {
             const fieldName = 'relUser'
             const entities = [{display: 'User1', key: 1}]
 
-            return expectSaga(
-              sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User')
-            )
+            return expectSaga(sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User'))
               .provide([
                 [select(sagas.fieldDataSelector, fieldName), fieldData],
                 [matchers.call.fn(rest.fetchEntities), entities],
@@ -43,12 +39,8 @@ describe('app-extensions', () => {
             const fieldData = {data: [{key: '1', display: 'one'}]}
             const fieldName = 'relUser'
 
-            return expectSaga(
-              sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User')
-            )
-              .provide([
-                [select(sagas.fieldDataSelector, fieldName), fieldData]
-              ])
+            return expectSaga(sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User'))
+              .provide([[select(sagas.fieldDataSelector, fieldName), fieldData]])
               .not.put.like({action: {type: relationEntitiesActions.SET_RELATION_ENTITIES_LOADING}})
               .not.put.like({action: {type: relationEntitiesActions.SET_RELATION_ENTITIES}})
               .run()
@@ -61,7 +53,8 @@ describe('app-extensions', () => {
             const forceReload = true
 
             return expectSaga(
-              sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User', {forceReload})
+              sagas.loadRelationEntity,
+              relationEntitiesActions.loadRelationEntities(fieldName, 'User', {forceReload})
             )
               .provide([
                 [select(sagas.fieldDataSelector, fieldName), fieldData],
@@ -77,12 +70,16 @@ describe('app-extensions', () => {
           test('should set moreEntities available', () => {
             const fieldData = undefined
             const fieldName = 'relUser'
-            const entities = [{display: 'User1', key: 1}, {display: 'User2', key: 2}]
+            const entities = [
+              {display: 'User1', key: 1},
+              {display: 'User2', key: 2}
+            ]
             const options = {limit: 1}
 
             const moreEntitiesAvailable = true
             return expectSaga(
-              sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User', options)
+              sagas.loadRelationEntity,
+              relationEntitiesActions.loadRelationEntities(fieldName, 'User', options)
             )
               .provide([
                 [select(sagas.fieldDataSelector, fieldName), fieldData],
@@ -108,7 +105,8 @@ describe('app-extensions', () => {
             }
 
             return expectSaga(
-              sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User', options)
+              sagas.loadRelationEntity,
+              relationEntitiesActions.loadRelationEntities(fieldName, 'User', options)
             )
               .provide([
                 [select(sagas.fieldDataSelector, fieldName), fieldData],
@@ -129,7 +127,8 @@ describe('app-extensions', () => {
             const entities = [{display: 'Status', key: 1}]
 
             return expectSaga(
-              sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User_status')
+              sagas.loadRelationEntity,
+              relationEntitiesActions.loadRelationEntities(fieldName, 'User_status')
             )
               .provide([
                 [select(sagas.fieldDataSelector, fieldName), fieldData],
@@ -170,7 +169,11 @@ describe('app-extensions', () => {
 
         describe('enhanceEntitiesWithDisplays', () => {
           test('should ', () => {
-            const entities = [{key: '1', model: 'Gender'}, {key: '22', model: 'Local'}, {key: '2', model: 'Gender'}]
+            const entities = [
+              {key: '1', model: 'Gender'},
+              {key: '22', model: 'Local'},
+              {key: '2', model: 'Gender'}
+            ]
 
             const displays = {
               Gender: {
@@ -188,12 +191,8 @@ describe('app-extensions', () => {
               {display: 'Female', key: '2', model: 'Gender'}
             ]
 
-            return expectSaga(
-              sagas.enhanceEntitiesWithDisplays, entities
-            )
-              .provide([
-                [matchers.call.fn(rest.fetchDisplays), displays]
-              ])
+            return expectSaga(sagas.enhanceEntitiesWithDisplays, entities)
+              .provide([[matchers.call.fn(rest.fetchDisplays), displays]])
               .run()
               .then(result => {
                 expect(result.returnValue).to.eql(expectedReturnValue)

@@ -6,9 +6,7 @@ import * as actions from '../inputEditInformation/actions'
 const inputEditSelector = state => state.inputEdit
 
 export default function* sagas() {
-  yield all([
-    takeLatest(actions.INITIALIZE_INFORMATION, initialize)
-  ])
+  yield all([takeLatest(actions.INITIALIZE_INFORMATION, initialize)])
 }
 
 export function* initialize() {

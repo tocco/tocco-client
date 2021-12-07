@@ -1,18 +1,12 @@
 import styled, {createGlobalStyle} from 'styled-components'
-import {
-  Button,
-  scale,
-  StyledScrollbar,
-  StyledTether,
-  theme
-} from 'tocco-ui'
+import {Button, scale, StyledScrollbar, StyledTether, theme} from 'tocco-ui'
 
 export const basePadding = scale.space(0.5)
 
 export const StyledModalContent = styled.div`
   position: relative;
   background-color: ${theme.color('paper')};
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
   padding: ${basePadding};
   max-height: 80vh;
   min-width: 350px;
@@ -28,7 +22,7 @@ export const StyledCloseButton = styled.button`
   border: none;
   cursor: pointer;
   font-size: 22px;
-  opacity: .8;
+  opacity: 0.8;
   outline: none;
   position: absolute;
   right: ${basePadding};
@@ -78,7 +72,7 @@ export const StyledModalBody = styled.div`
 `
 
 export const StyledPageOverlay = styled.div`
-  background-color: rgba(50, 50, 50, .7);
+  background-color: rgba(50, 50, 50, 0.7);
   height: 100%;
   width: 100%;
   position: fixed;

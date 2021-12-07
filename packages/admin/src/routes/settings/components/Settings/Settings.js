@@ -3,7 +3,6 @@ import {Typography} from 'tocco-ui'
 
 const Settings = props => <Typography.H2>Settings</Typography.H2>
 
-Settings.propTypes = {
-}
+Settings.propTypes = {}
 
 export default Settings

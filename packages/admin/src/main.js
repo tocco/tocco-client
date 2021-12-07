@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types'
 import React, {Suspense} from 'react'
 import ReactDOM from 'react-dom'
-import {reducer as reducerUtil} from 'tocco-util'
 import {
   actionEmitter,
   appFactory,
@@ -12,10 +12,10 @@ import {
   notification
 } from 'tocco-app-extensions'
 import {chooseDocument} from 'tocco-docs-browser/src/main'
-import PropTypes from 'prop-types'
+import {reducer as reducerUtil} from 'tocco-util'
 
-import shortcuts from './shortcuts'
 import reducers, {sagas} from './modules/reducers'
+import shortcuts from './shortcuts'
 
 const packageName = 'admin'
 
@@ -23,7 +23,7 @@ const LazyLoginGuard = React.lazy(() => import('./components/LoginGuard'))
 const LazyAdmin = () => (
   <div>
     <Suspense fallback="">
-      <LazyLoginGuard/>
+      <LazyLoginGuard />
     </Suspense>
   </div>
 )
@@ -33,7 +33,7 @@ const initApp = (id, input, events, publicPath) => {
     window.reactRegistry.setReact(React, ReactDOM)
   }
 
-  const content = <LazyAdmin/>
+  const content = <LazyAdmin />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
@@ -45,24 +45,28 @@ const initApp = (id, input, events, publicPath) => {
   keyDown.addToStore(store, shortcuts)
   chooseDocument.addToStore(store)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: [
-        'component', 'common', 'actions', 'login', 'sso-login', 'entity-browser',
-        'entity-list', 'entity-detail', 'dashboard', 'docs-browser', packageName
-      ]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: [
+      'component',
+      'common',
+      'actions',
+      'login',
+      'sso-login',
+      'entity-browser',
+      'entity-list',
+      'entity-detail',
+      'dashboard',
+      'docs-browser',
+      packageName
+    ]
+  })
 }
 
-(() => {
+;(() => {
   if (__DEV__) {
     const input = require('./dev/input.json')
 
@@ -84,7 +88,7 @@ const initApp = (id, input, events, publicPath) => {
     }
 
     const App = () => app.component
-    appFactory.renderApp(<App/>)
+    appFactory.renderApp(<App />)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
   }

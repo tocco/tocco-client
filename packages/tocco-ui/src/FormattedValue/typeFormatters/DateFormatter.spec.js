@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 import {IntlProvider} from 'react-intl'
 
 import DateFormatter from './DateFormatter'
@@ -17,7 +17,7 @@ describe('tocco-ui', () => {
         test('should format value', () => {
           const wrapper = mount(
             <IntlProvider locale="en">
-              <DateFormatter value={dateInput}/>
+              <DateFormatter value={dateInput} />
             </IntlProvider>
           )
           expect(wrapper.text().replace(leftToRightMark, '')).to.equal(dateOutputEn)
@@ -28,7 +28,7 @@ describe('tocco-ui', () => {
         test('should format value according to locale', () => {
           const wrapper = mount(
             <IntlProvider locale="de">
-              <DateFormatter value={dateInput}/>
+              <DateFormatter value={dateInput} />
             </IntlProvider>
           )
           expect(wrapper.text().replace(leftToRightMark, '')).to.equal(dateOutputDe)

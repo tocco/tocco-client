@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import conflicts from '../../utils/conflicts'
 
@@ -16,7 +16,9 @@ const Conflict = ({conflictStatus, intl}) => {
   const icon = accepted ? CHECK : CROSS
 
   return (
-    <span>{icon} {intl.formatMessage({id: textResource})}</span>
+    <span>
+      {icon} {intl.formatMessage({id: textResource})}
+    </span>
   )
 }
 

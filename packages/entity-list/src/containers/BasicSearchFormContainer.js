@@ -1,11 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import BasicSearchForm from '../components/BasicSearchForm'
-import {
-  submitSearchForm,
-  setShowExtendedSearchForm
-} from '../modules/searchForm/actions'
+import {submitSearchForm, setShowExtendedSearchForm} from '../modules/searchForm/actions'
 
 const mapActionCreators = {
   submitSearchForm,

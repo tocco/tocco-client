@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import SearchFilterList from './SearchFilterList'
 import {setSearchFilterActive, executeSearch, deleteSearchFilter} from '../../modules/searchForm/actions'
+import SearchFilterList from './SearchFilterList'
 
 const mapActionCreators = {
   setSearchFilterActive,

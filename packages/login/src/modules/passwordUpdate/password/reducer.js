@@ -37,9 +37,7 @@ const savePassword = state => ({
   passwordUpdateFailed: false
 })
 
-const savePasswordSuccess = state => (
-  initialState
-)
+const savePasswordSuccess = state => initialState
 
 const savePasswordFailure = (state, {payload}) => {
   if (payload.validationMessages) {

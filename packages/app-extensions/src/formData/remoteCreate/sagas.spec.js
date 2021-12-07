@@ -1,13 +1,13 @@
 import React from 'react'
+import {channel} from 'redux-saga'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {rest, notification} from 'tocco-app-extensions'
 import {takeEvery, all} from 'redux-saga/effects'
-import {channel} from 'redux-saga'
+import {rest, notification} from 'tocco-app-extensions'
 
+import * as valueActions from '../values/actions'
 import * as remoteCreateActions from './actions'
 import rootSaga, * as sagas from './sagas'
-import * as valueActions from '../values/actions'
 
 describe('app-extensions', () => {
   describe('formData', () => {
@@ -19,9 +19,7 @@ describe('app-extensions', () => {
             const generator = rootSaga(config)
 
             expect(generator.next().value).to.deep.equal(
-              all([
-                takeEvery(remoteCreateActions.OPEN_REMOTE_CREATE, sagas.openRemoteCreate, config)
-              ])
+              all([takeEvery(remoteCreateActions.OPEN_REMOTE_CREATE, sagas.openRemoteCreate, config)])
             )
 
             expect(generator.next().done).to.be.true
@@ -48,11 +46,7 @@ describe('app-extensions', () => {
               ])
               .call(rest.fetchDisplay, formField.targetEntity, expectedId)
               .put.actionType(notification.modal().type)
-              .put(valueActions.changeFieldValue(
-                formName,
-                formField.path,
-                expectedValue
-              ))
+              .put(valueActions.changeFieldValue(formName, formField.path, expectedValue))
               .run()
           }
 
@@ -63,8 +57,7 @@ describe('app-extensions', () => {
               'some-id',
               'display',
               {key: 'some-id', display: 'display', model: 'User', version: 0}
-            )
-          )
+            ))
 
           test('should prompt a modal and spawn close saga for multi-remote-fields', () =>
             runTest(
@@ -76,8 +69,7 @@ describe('app-extensions', () => {
                 {key: 'existing-id', display: 'existing display', model: 'User', version: 0},
                 {key: 'some-id', display: 'display', model: 'User', version: 0}
               ]
-            )
-          )
+            ))
         })
       })
     })

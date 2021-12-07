@@ -1,6 +1,6 @@
+import _uniq from 'lodash/uniq'
 import {takeLatest, all, select, call, put} from 'redux-saga/effects'
 import {externalEvents, rest} from 'tocco-app-extensions'
-import _uniq from 'lodash/uniq'
 
 import * as actions from './actions'
 
@@ -55,9 +55,11 @@ export function* getMergeBody() {
 
   for (const [name, obj] of Object.entries(selected.multiple)) {
     paths[name] = []
-    Object.keys(obj).forEach(value => paths[name].push({
-      key: value
-    }))
+    Object.keys(obj).forEach(value =>
+      paths[name].push({
+        key: value
+      })
+    )
   }
 
   const mergeRelations = _uniq(sourceData.relations.map(r => r.relationName)).map(relationName => ({
@@ -100,12 +102,14 @@ export function* executeMerge() {
 export function* close() {
   const {sourceData} = yield select(mergeSelector)
   const entities = sourceData.entities.map(entitiy => ({entityName: entitiy.model, key: entitiy.key}))
-  const remoteEvents = [{
-    type: 'entity-update-event',
-    payload: {
-      entities
+  const remoteEvents = [
+    {
+      type: 'entity-update-event',
+      payload: {
+        entities
+      }
     }
-  }]
+  ]
 
   yield put(externalEvents.fireExternalEvent('onSuccess', {remoteEvents}))
 }

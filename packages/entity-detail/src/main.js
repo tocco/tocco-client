@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {navigationStrategy, reducer as reducerUtil} from 'tocco-util'
 import {
   actionEmitter,
   actions,
@@ -11,13 +10,14 @@ import {
   keyDown,
   notification
 } from 'tocco-app-extensions'
-import SimpleFormApp from 'tocco-simple-form/src/main'
 import EntityListApp from 'tocco-entity-list/src/main'
+import SimpleFormApp from 'tocco-simple-form/src/main'
+import {navigationStrategy, reducer as reducerUtil} from 'tocco-util'
 
-import reducers, {sagas} from './modules/reducers'
 import DetailViewContainer from './containers/DetailViewContainer'
-import {getDispatchActions} from './input'
 import customActions from './customActions'
+import {getDispatchActions} from './input'
+import reducers, {sagas} from './modules/reducers'
 import shortcuts from './shortcuts'
 
 const packageName = 'entity-detail'
@@ -33,26 +33,24 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = <DetailViewContainer/>
+  const content = <DetailViewContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store, events.emitAction)
   errorLogging.addToStore(store, false)
   notification.addToStore(store, false)
-  actions.addToStore(store,
-    {
-      formApp: SimpleFormApp,
-      listApp: EntityListApp,
-      customActions,
-      appComponent: input.actionAppComponent,
-      navigationStrategy: input.navigationStrategy,
-      context: {
-        viewName: 'detail',
-        formName: input.formName
-      }
+  actions.addToStore(store, {
+    formApp: SimpleFormApp,
+    listApp: EntityListApp,
+    customActions,
+    appComponent: input.actionAppComponent,
+    navigationStrategy: input.navigationStrategy,
+    context: {
+      viewName: 'detail',
+      formName: input.formName
     }
-  )
+  })
   formData.addToStore(store, {
     listApp: EntityListApp,
     detailApp: EntityDetailApp,
@@ -63,18 +61,13 @@ const initApp = (id, input, events = {}, publicPath) => {
 
   const dispatchActions = getDispatchActions(input)
 
-  const app = appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: dispatchActions,
-      publicPath,
-      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
-    }
-  )
+  const app = appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: dispatchActions,
+    publicPath,
+    textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
+  })
 
   if (module.hot) {
     module.hot.accept('./modules/reducers', () => {
@@ -86,7 +79,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   return app
 }
 
-(() => {
+;(() => {
   if (__DEV__ && __PACKAGE_NAME__ === 'entity-detail') {
     const input = require('./dev/input.json')
 

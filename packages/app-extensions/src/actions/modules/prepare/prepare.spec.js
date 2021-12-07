@@ -31,11 +31,7 @@ describe('app-extensions', () => {
         test('should abort with the first abord handler and return abort false', () => {
           const spy1 = sinon.spy(() => ({abort: false}))
           const spy2 = sinon.spy()
-          const fakeHandlers = [
-            spy1,
-            () => ({abort: true}),
-            spy2
-          ]
+          const fakeHandlers = [spy1, () => ({abort: true}), spy2]
 
           return expectSaga(prepare, definition, fakeSelection, null, {})
             .provide([
@@ -55,10 +51,7 @@ describe('app-extensions', () => {
         })
 
         test('should build params', () => {
-          const fakeHandlers = [
-            () => ({abort: false, params: {test: 1}}),
-            () => ({abort: false, params: {test2: 2}})
-          ]
+          const fakeHandlers = [() => ({abort: false, params: {test: 1}}), () => ({abort: false, params: {test2: 2}})]
 
           return expectSaga(prepare, definition, fakeSelection, null, {})
             .provide([
@@ -74,9 +67,7 @@ describe('app-extensions', () => {
         })
 
         test('should return abort message ', () => {
-          const fakeHandlers = [
-            () => ({abort: true, abortMessage: 'test'})
-          ]
+          const fakeHandlers = [() => ({abort: true, abortMessage: 'test'})]
 
           return expectSaga(prepare, definition, fakeSelection, null, {})
             .provide([

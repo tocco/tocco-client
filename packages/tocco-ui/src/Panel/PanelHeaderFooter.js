@@ -1,40 +1,25 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import StyledPanelHeaderFooter, {StyledIconWrapper} from './StyledPanelHeaderFooter'
 import Icon from '../Icon'
+import StyledPanelHeaderFooter, {StyledIconWrapper} from './StyledPanelHeaderFooter'
 
 /**
  * <Panel.Header/> and <Panel.Footer/> contain by default a button to toggle the visibility state of <Panel.Body>.
  * Header and footer can contain any content. If both are displayed is up to the implementer.
  */
-const PanelHeaderFooter = ({
-  children,
-  isFramed,
-  isOpen,
-  isToggleable,
-  showToggler,
-  toggleOpenState,
-  options
-}) => (
-  <StyledPanelHeaderFooter
-    isFramed={isFramed}
-    isOpen={isOpen}
-    onClick={toggleOpenState}
-  >
-    <div>
-      {React.Children.map(children, child => React.cloneElement(child))}
-    </div>
-    {isToggleable
-    && showToggler
-    && <StyledIconWrapper>
-      <Icon
-        icon={isOpen ? 'chevron-up' : 'chevron-down'}
-        onClick={toggleOpenState}
-        title={isOpen ? options.collapseButtonText : options.unfoldButtonText}
-      />
-    </StyledIconWrapper>
-    }
+const PanelHeaderFooter = ({children, isFramed, isOpen, isToggleable, showToggler, toggleOpenState, options}) => (
+  <StyledPanelHeaderFooter isFramed={isFramed} isOpen={isOpen} onClick={toggleOpenState}>
+    <div>{React.Children.map(children, child => React.cloneElement(child))}</div>
+    {isToggleable && showToggler && (
+      <StyledIconWrapper>
+        <Icon
+          icon={isOpen ? 'chevron-up' : 'chevron-down'}
+          onClick={toggleOpenState}
+          title={isOpen ? options.collapseButtonText : options.unfoldButtonText}
+        />
+      </StyledIconWrapper>
+    )}
   </StyledPanelHeaderFooter>
 )
 

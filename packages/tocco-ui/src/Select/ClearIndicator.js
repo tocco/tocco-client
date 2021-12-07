@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {injectIntl} from 'react-intl'
 
 import Ball from '../Ball'
@@ -9,12 +9,8 @@ const ClearIndicator = props => {
 
   return (
     <span {...props.innerProps}>
-      <Ball
-        icon="times"
-        tabIndex={-1}
-        aria-label={msg('client.component.select.clearFieldLabel')}
-      />
-  </span>
+      <Ball icon="times" tabIndex={-1} aria-label={msg('client.component.select.clearFieldLabel')} />
+    </span>
   )
 }
 

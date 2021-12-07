@@ -17,10 +17,7 @@ const RemoteSelect = props => (
 RemoteSelect.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.shape({
-    key: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ])
+    key: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   }),
   options: PropTypes.shape({
     options: PropTypes.array,

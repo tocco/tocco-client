@@ -4,9 +4,7 @@
     "type": "ID",
     "ids": [1]
   },
-  "navigationStrategy": {
-
-  },
+  "navigationStrategy": {},
   "context": {
     "formName": "User"
   }

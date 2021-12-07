@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import Autosuggest from 'react-autosuggest'
 import FocusWithin from 'react-simple-focus-within'
 
@@ -14,22 +14,15 @@ export const getGoogleMapsAddress = locationInput => {
 
   const queryParams = locationInput
     ? Object.values(locationInput)
-      .filter(Boolean)
-      .map(value => (typeof value === 'object' && value.display) ? value.display : value)
-      .join('+')
+        .filter(Boolean)
+        .map(value => (typeof value === 'object' && value.display ? value.display : value))
+        .join('+')
     : ''
 
   return `${mapsBaseAddress}${queryParams}`
 }
 
-const LocationEdit = ({
-  onChange: onChangeProp,
-  options,
-  value: valueProp,
-  id,
-  immutable,
-  name
-}) => {
+const LocationEdit = ({onChange: onChangeProp, options, value: valueProp, id, immutable, name}) => {
   const returnGetSuggestion = attr => suggestion => suggestion[attr]
 
   const renderSuggestion = suggestion => {
@@ -37,20 +30,28 @@ const LocationEdit = ({
     const cantonString = state ? `- ${state}` : ''
     const countryString = country ? `/ ${country.display}` : ''
 
-    return <Typography.Span>{postcode} {city} {cantonString} {countryString}</Typography.Span>
+    return (
+      <Typography.Span>
+        {postcode} {city} {cantonString} {countryString}
+      </Typography.Span>
+    )
   }
 
-  const onChange = field => (event, {newValue}) => {
-    onChangeProp({[field]: newValue})
-  }
+  const onChange =
+    field =>
+    (event, {newValue}) => {
+      onChangeProp({[field]: newValue})
+    }
 
   const onSuggestionSelected = (event, {suggestion}) => {
     onChangeProp(suggestion)
   }
 
-  const returnOnSuggestionFetchRequested = field => ({value}) => {
-    options.fetchSuggestions({[field]: value}, valueProp.country)
-  }
+  const returnOnSuggestionFetchRequested =
+    field =>
+    ({value}) => {
+      options.fetchSuggestions({[field]: value}, valueProp.country)
+    }
 
   const showGoogleMaps = value => Boolean(value.city || value.postcode)
 
@@ -69,15 +70,8 @@ const LocationEdit = ({
 
   return (
     <FocusWithin>
-      {({
-        focused,
-        getRef
-      }) => (
-        <StyledLocationEdit
-          immutable={immutable}
-          name={name}
-          ref={getRef}
-        >
+      {({focused, getRef}) => (
+        <StyledLocationEdit immutable={immutable} name={name} ref={getRef}>
           <Autosuggest
             suggestions={options.suggestions || []}
             onSuggestionsFetchRequested={returnOnSuggestionFetchRequested('postcode')}
@@ -102,18 +96,18 @@ const LocationEdit = ({
             shouldRenderSuggestions={v => v && !immutable}
           />
           <StyledEditableControl>
-            {options.isLoading && <LoadingSpinner size="1.8rem"/>}
-            {showGoogleMaps(valueProp)
-            && <Link
-              href={getGoogleMapsAddress(valueProp)}
-              icon="map-marked"
-              tabIndex={-1}
-              target="_blank"
-              dense={false}
-              title={options.mapButtonTitle || 'Show on map'}
-              neutral
-            />
-            }
+            {options.isLoading && <LoadingSpinner size="1.8rem" />}
+            {showGoogleMaps(valueProp) && (
+              <Link
+                href={getGoogleMapsAddress(valueProp)}
+                icon="map-marked"
+                tabIndex={-1}
+                target="_blank"
+                dense={false}
+                title={options.mapButtonTitle || 'Show on map'}
+                neutral
+              />
+            )}
           </StyledEditableControl>
         </StyledLocationEdit>
       )}

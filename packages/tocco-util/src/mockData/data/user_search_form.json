@@ -30,7 +30,7 @@
             ],
             "readonly": false,
             "hidden": false,
-            "scopes": [ ]
+            "scopes": []
           },
           {
             "id": "searchFilter",
@@ -69,7 +69,7 @@
             ],
             "readonly": false,
             "hidden": false,
-            "scopes": [ ]
+            "scopes": []
           },
           {
             "id": "relSingle_entity2",
@@ -86,7 +86,7 @@
             ],
             "readonly": false,
             "hidden": false,
-            "scopes": [ ]
+            "scopes": []
           },
           {
             "id": "relMulti_entity2",
@@ -103,7 +103,7 @@
             ],
             "readonly": false,
             "hidden": false,
-            "scopes": [ ]
+            "scopes": []
           },
           {
             "id": "birthdate",
@@ -122,7 +122,7 @@
             ],
             "readonly": false,
             "hidden": false,
-            "scopes": [ ]
+            "scopes": []
           },
           {
             "id": "user_nr",
@@ -139,7 +139,7 @@
             ],
             "readonly": false,
             "hidden": true,
-            "scopes": [ ]
+            "scopes": []
           },
           {
             "componentType": "field-set",
@@ -172,7 +172,7 @@
             ],
             "readonly": false,
             "hidden": true,
-            "scopes": [ ]
+            "scopes": []
           }
         ],
         "label": null

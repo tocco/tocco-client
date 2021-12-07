@@ -1,6 +1,6 @@
+import _get from 'lodash/get'
 import styled from 'styled-components'
 import {scale, StyledScrollbar, shadeColor, theme} from 'tocco-ui'
-import _get from 'lodash/get'
 
 export const StyledDashboardWrapper = styled.div`
   width: 100%;
@@ -39,7 +39,7 @@ export const StyledResizeHandle = styled.div`
   bottom: 0;
   z-index: 2;
   background: ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)};
-  opacity: ${({isReszing}) => isReszing ? 1 : 0};
+  opacity: ${({isReszing}) => (isReszing ? 1 : 0)};
   height: 3px;
   cursor: row-resize;
 `

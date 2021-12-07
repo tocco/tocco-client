@@ -17,6 +17,6 @@ export default {
   }
 }
 
-export const Basic = args => <Preview {...args}/>
+export const Basic = args => <Preview {...args} />
 
-export const NoThumbnail = args => <Preview {...args} thumbnailUrl={null}/>
+export const NoThumbnail = args => <Preview {...args} thumbnailUrl={null} />

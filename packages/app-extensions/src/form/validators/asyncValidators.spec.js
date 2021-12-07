@@ -1,18 +1,12 @@
-import {
-  phoneValidator
-} from './asyncValidators'
+import {phoneValidator} from './asyncValidators'
 
 describe('app-extensions', () => {
   describe('form', () => {
     describe('validators', () => {
       describe('type', () => {
         describe('phone', () => {
-          test('should not return an error for valid inputs', async() => {
-            const validValues = [
-              '+41444005555',
-              '+41 44 400 55 55',
-              '079 478 22 69'
-            ]
+          test('should not return an error for valid inputs', async () => {
+            const validValues = ['+41444005555', '+41 44 400 55 55', '079 478 22 69']
 
             for (let i; i < validValues.length; i++) {
               const result = await phoneValidator(validValues[i])
@@ -20,14 +14,8 @@ describe('app-extensions', () => {
             }
           })
 
-          test('should return an error for invalid inputs', async() => {
-            const invalidValues = [
-              ' ',
-              '1',
-              '1234',
-              '079 478 22 69 88',
-              '(541) 754-3010'
-            ]
+          test('should return an error for invalid inputs', async () => {
+            const invalidValues = [' ', '1', '1234', '079 478 22 69 88', '(541) 754-3010']
 
             for (let i; i < invalidValues.length; i++) {
               const result = await phoneValidator(invalidValues[i])
@@ -35,11 +23,11 @@ describe('app-extensions', () => {
             }
           })
 
-          test('should consider default region', async() => {
+          test('should consider default region', async () => {
             expect(await phoneValidator('(541) 754-3010', {defaultRegion: 'US'})).to.be.null
           })
 
-          test('should validate agains regex if given', async() => {
+          test('should validate agains regex if given', async () => {
             const customPhoneRegex = '^\\d{3}$'
 
             const testData = [

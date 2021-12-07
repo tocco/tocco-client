@@ -1,6 +1,6 @@
-import {login, notification, rest} from 'tocco-app-extensions'
-import {all, call, delay, put, select, takeLatest} from 'redux-saga/effects'
 import Cookies from 'js-cookie'
+import {all, call, delay, put, select, takeLatest} from 'redux-saga/effects'
+import {login, notification, rest} from 'tocco-app-extensions'
 import {cache} from 'tocco-util'
 
 import * as actions from './actions'

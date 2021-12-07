@@ -1,13 +1,13 @@
 import {takeEvery, all, call, put, select} from 'redux-saga/effects'
 import {originId as originIdHelper} from 'tocco-util'
 
-import {notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
-import * as actions from './actions'
-import * as toasterActions from '../toaster/actions'
-import {toaster} from '../toaster/actions'
+import socket from '../../../socket'
 import {notificationTransform} from '../../api'
 import {updateNotification, updateUnreadNotification, markAsRead} from '../center/actions'
-import socket from '../../../socket'
+import * as toasterActions from '../toaster/actions'
+import {toaster} from '../toaster/actions'
+import * as actions from './actions'
+import {notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
 
 export const notificationSocketSelector = state => state.notification.socket
 export const toastersSelector = state => state.notification.toaster.toasters
@@ -63,7 +63,7 @@ export function* toasterRemoved({payload: {key, manually}}) {
     }
 
     const toasters = yield select(toastersSelector)
-    if ((toasters[key].type === 'success' || manually)) {
+    if (toasters[key].type === 'success' || manually) {
       const notificationKey = key.replace(TOASTER_KEY_PREFIX, '')
       yield put(markAsRead(notificationKey))
     }

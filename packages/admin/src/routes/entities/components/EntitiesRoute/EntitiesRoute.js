@@ -1,14 +1,14 @@
+import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import {currentViewPropType} from '../../utils/propTypes'
-import ErrorView from '../ErrorView'
-import Overview from '../../subroutes/overview'
-import Entity from '../../subroutes/entity'
 import Action from '../../subroutes/action'
+import Entity from '../../subroutes/entity'
+import Overview from '../../subroutes/overview'
+import {currentViewPropType} from '../../utils/propTypes'
 import Breadcrumbs from '../Breadcrumbs'
+import ErrorView from '../ErrorView'
 
 const StyledWrapper = styled.div`
   display: grid;
@@ -36,28 +36,25 @@ const EntitiesRoute = ({match, history, loadCurrentRoute, currentViewInfo}) => {
     loadCurrentRoute(location)
   }, [location])
 
-  const content = currentViewInfo && currentViewInfo.error
-    ? <ErrorView history={history}/>
-    : <Switch>
-      <Route
-        path={`${match.url}/action/:actionId`}
-        component={Action}
-      />
-      <Route
-        path={`${match.url}/:entity`}
-        component={Entity}
-      />
-      <Route exact path={match.url} component={Overview}/>
-    </Switch>
+  const content =
+    currentViewInfo && currentViewInfo.error ? (
+      <ErrorView history={history} />
+    ) : (
+      <Switch>
+        <Route path={`${match.url}/action/:actionId`} component={Action} />
+        <Route path={`${match.url}/:entity`} component={Entity} />
+        <Route exact path={match.url} component={Overview} />
+      </Switch>
+    )
 
-  return <StyledWrapper>
-    <StyledBreadcrumbs>
-      <Breadcrumbs/>
-    </StyledBreadcrumbs>
-    <StyledContent>
-      {content}
-    </StyledContent>
-  </StyledWrapper>
+  return (
+    <StyledWrapper>
+      <StyledBreadcrumbs>
+        <Breadcrumbs />
+      </StyledBreadcrumbs>
+      <StyledContent>{content}</StyledContent>
+    </StyledWrapper>
+  )
 }
 
 EntitiesRoute.propTypes = {

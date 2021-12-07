@@ -1,5 +1,5 @@
-import {rest} from 'tocco-app-extensions'
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
 import getNode from '../../utils/getNode'
 import * as actions from './actions'
@@ -9,15 +9,18 @@ export const docsPathSelector = state => state.docs.path
 export const rootNodesSelector = state => state.input.rootNodes
 
 export function* getSearchBreadcrumbs() {
-  return [{
-    display: yield select(textResourceSelector, 'client.docs-browser.breadcrumbs.start'),
-    path: '',
-    type: 'list'
-  }, {
-    display: yield select(textResourceSelector, 'client.docs-browser.breadcrumbs.searchResults'),
-    path: '',
-    type: 'list'
-  }]
+  return [
+    {
+      display: yield select(textResourceSelector, 'client.docs-browser.breadcrumbs.start'),
+      path: '',
+      type: 'list'
+    },
+    {
+      display: yield select(textResourceSelector, 'client.docs-browser.breadcrumbs.searchResults'),
+      path: '',
+      type: 'list'
+    }
+  ]
 }
 
 export function* loadBreadcrumbs({payload: {location}}) {
@@ -50,7 +53,5 @@ function* getRootNodesParam() {
 }
 
 export default function* mainSagas() {
-  yield all([
-    takeLatest(actions.LOAD_BREADCRUMBS, loadBreadcrumbs)
-  ])
+  yield all([takeLatest(actions.LOAD_BREADCRUMBS, loadBreadcrumbs)])
 }

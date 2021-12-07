@@ -5,10 +5,7 @@
   "showSearchForm": true,
   "disableSimpleSearch": false,
   "simpleSearchFields": "txtFulltext,birthdate",
-  "searchFilters": [
-    "user_with_pk_1",
-    "has_contract"
-  ],
+  "searchFilters": ["user_with_pk_1", "has_contract"],
   "selectable": true,
   "selectOnRowClick": false,
   "preselectedSearchFields": [
@@ -24,10 +21,7 @@
     },
     {
       "id": "relMulti_entity2",
-      "value": [
-        "1",
-        "3"
-      ],
+      "value": ["1", "3"],
       "hidden": false
     }
   ]

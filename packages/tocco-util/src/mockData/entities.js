@@ -7,15 +7,9 @@ import {getParameterValue, evaluateFulltext} from './utils'
 const evenFilter = (value, idx) => idx % 2 === 0
 
 export const setupEntities = (fetchMock, entityStore, timeout) => {
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User/model$'),
-    require('./data/user_model.json')
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/model$'), require('./data/user_model.json'))
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/model$'),
-    require('./data/dummy_entity_model.json')
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/Dummy_entity/model$'), require('./data/dummy_entity_model.json'))
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entity/User/[0-9]+/display/tooltip(\\?.*)?'),
@@ -27,29 +21,24 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
     createToolTipResponse('Dummy_entity', entityStore)
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity/count(\\?.*)?'),
-    () => ({count: entityStore.Dummy_entity.length})
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity/count(\\?.*)?'), () => ({
+    count: entityStore.Dummy_entity.length
+  }))
+
+  fetchMock.post(new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity/count$'), () => ({
+    count: entityStore.Dummy_entity.length
+  }))
+
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/2.0/User/count(\\?.*)?'), () =>
+    sleep(timeout).then(() => ({count: entityStore.User.length}))
   )
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity/count$'),
-    () => ({count: entityStore.Dummy_entity.length})
+  fetchMock.post(new RegExp('^.*?/nice2/rest/entities/2.0/User/count$'), () =>
+    sleep(timeout).then(() => ({count: entityStore.User.length}))
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/2.0/User/count(\\?.*)?'),
-    () => sleep(timeout).then(() => ({count: entityStore.User.length}))
-  )
-
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/2.0/User/count$'),
-    () => sleep(timeout).then(() => ({count: entityStore.User.length}))
-  )
-
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+/entitydocs/count(\\?.*)?'),
-    () => sleep(timeout).then(() => ({count: -1}))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+/entitydocs/count(\\?.*)?'), () =>
+    sleep(timeout).then(() => ({count: -1}))
   )
 
   fetchMock.get(
@@ -97,20 +86,14 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
     createEntitiesDisplayResponse(entityStore, timeout)
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/2.0/Search_filter(\\?.*)?$'),
-    createSearchFilterResponse(timeout)
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/2.0/Search_filter(\\?.*)?$'), createSearchFilterResponse(timeout))
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/2.0/Country/[0-9]+\\?.*'),
     require('./data/countries.json').data[1]
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/2.0/Country(\\?.*)?$'),
-    require('./data/countries.json')
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/2.0/Country(\\?.*)?$'), require('./data/countries.json'))
 }
 
 const createToolTipResponse = (entityName, entityStore) => {
@@ -144,30 +127,27 @@ const createEntityResponse = (entityName, entityStore) => {
   }
 }
 
-const extractUrlParams = url => () => (
-  {
-    limit: parseInt(getParameterValue('_limit', url)) || 25,
-    offset: parseInt(getParameterValue('_offset', url)) || 0,
-    sort: getParameterValue('_sort', url),
-    search: getParameterValue('_search', url),
-    where: getParameterValue('_where', url),
-    keys: getParameterValue('_keys', url)
-  }
-)
+const extractUrlParams = url => () => ({
+  limit: parseInt(getParameterValue('_limit', url)) || 25,
+  offset: parseInt(getParameterValue('_offset', url)) || 0,
+  sort: getParameterValue('_sort', url),
+  search: getParameterValue('_search', url),
+  where: getParameterValue('_where', url),
+  keys: getParameterValue('_keys', url)
+})
 
 const extractBodyParams = body => () => {
   const {limit = 25, offset = 0, sort, search, where, keys} = body
   return {limit, offset, sort, search, where, keys}
 }
 
-const createEntitiesDisplayResponse = (entityStore, timeout) =>
-  (url, opts) =>
-    sleep(timeout).then(() => ({
-      data: JSON.parse(opts.body).data.map(val => ({
-        model: val.model,
-        values: val.keys.map(key => ({key, display: `${val.model} (${key})`}))
-      }))
+const createEntitiesDisplayResponse = (entityStore, timeout) => (url, opts) =>
+  sleep(timeout).then(() => ({
+    data: JSON.parse(opts.body).data.map(val => ({
+      model: val.model,
+      values: val.keys.map(key => ({key, display: `${val.model} (${key})`}))
     }))
+  }))
 
 const entityListMutaters = [
   {
@@ -181,7 +161,7 @@ const entityListMutaters = [
         const path = 'paths.' + [fieldName] + '.value.value'
         const A = _get(a, path, 0)
         const B = _get(b, path, 0)
-        return ((A < B) ? -1 : ((A > B) ? 1 : 0))
+        return A < B ? -1 : A > B ? 1 : 0
       })
       if (direction === 'desc') {
         sortedEntities.reverse()
@@ -228,21 +208,20 @@ const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
   }
 }
 
-const createSearchFilterResponse = () =>
-  url => {
-    consoleLogger.log('fetchMock: called fetch search filter', url)
-    const requestedGroup = getParameterValue('relSearch_filter_group.unique_id', url)
-    if (requestedGroup) {
-      const filters = require('./data/search_filters.json')
-      return {
-        data: filters.data.filter(f =>
-          f.paths.relSearch_filter_group && f.paths.relSearch_filter_group.value[0].display.includes(requestedGroup)
-        )
-      }
-    } else {
-      return require('./data/search_filters.json')
+const createSearchFilterResponse = () => url => {
+  consoleLogger.log('fetchMock: called fetch search filter', url)
+  const requestedGroup = getParameterValue('relSearch_filter_group.unique_id', url)
+  if (requestedGroup) {
+    const filters = require('./data/search_filters.json')
+    return {
+      data: filters.data.filter(
+        f => f.paths.relSearch_filter_group && f.paths.relSearch_filter_group.value[0].display.includes(requestedGroup)
+      )
     }
+  } else {
+    return require('./data/search_filters.json')
   }
+}
 
 const wrapEntitiesResponse = (entityName, entities) => ({
   metaData: {

@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 
 import SearchBox from './SearchBox'
 
@@ -9,34 +9,26 @@ describe('tocco-ui', () => {
     const SEARCH_STRING = 'My Search String'
 
     test('should render', () => {
-      const wrapper = mount(<SearchBox onSearch={() => {
-      }}/>)
+      const wrapper = mount(<SearchBox onSearch={() => {}} />)
       expect(wrapper.find('input')).to.have.length(1)
     })
 
-    test(
-      'should not call search function on keyDown events with live search but to short input',
-      done => {
-        const searchFunc = sinon.spy()
-        const wrapper = mount(<SearchBox
-          onSearch={searchFunc}
-        />)
+    test('should not call search function on keyDown events with live search but to short input', done => {
+      const searchFunc = sinon.spy()
+      const wrapper = mount(<SearchBox onSearch={searchFunc} />)
 
-        const input = wrapper.find('input')
-        input.simulate('change', {target: {value: 'a'}})
+      const input = wrapper.find('input')
+      input.simulate('change', {target: {value: 'a'}})
 
-        setTimeout(() => {
-          expect(searchFunc).to.not.have.been.called
-          done()
-        }, TIMEOUT)
-      }
-    )
+      setTimeout(() => {
+        expect(searchFunc).to.not.have.been.called
+        done()
+      }, TIMEOUT)
+    })
 
     test('should await debounce time onSearch', done => {
       const searchFunc = sinon.spy()
-      const wrapper = mount(<SearchBox
-        onSearch={searchFunc}
-      />)
+      const wrapper = mount(<SearchBox onSearch={searchFunc} />)
 
       const input = wrapper.find('input')
       input.simulate('change', {target: {value: SEARCH_STRING}})
@@ -53,7 +45,7 @@ describe('tocco-ui', () => {
 
     test('should accept an input value', () => {
       const inputValue = 'TEST'
-      const wrapper = mount(<SearchBox onSearch={() => {}} value={inputValue}/>)
+      const wrapper = mount(<SearchBox onSearch={() => {}} value={inputValue} />)
 
       expect(wrapper.find('input').props().value).to.eql(inputValue)
     })

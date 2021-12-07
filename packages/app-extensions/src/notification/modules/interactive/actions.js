@@ -12,7 +12,7 @@ export const confirm = (title, message, okText, cancelText, onOk, onCancel) => (
     onCancel
   }
 })
-  
+
 export const yesNoQuestion = (title, message, yesText, noText, cancelText, onYes, onNo, onCancel) => ({
   type: YES_NO_QUESTION,
   payload: {

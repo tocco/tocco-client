@@ -1,14 +1,14 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
-import {notificationTransform} from './api'
 import rest from '../rest'
+import {notificationTransform} from './api'
 
 describe('app-extensions', () => {
   describe('notification', () => {
     describe('api', () => {
       describe('notificationTransform', () => {
-        test('simple', async() => {
+        test('simple', async () => {
           const key = '393'
           const timestamp = '2021-05-05T12:10:02.221Z'
           const originId = 'client__69376f9c-dcc3-4251-bda2-f85702d66fcf'
@@ -36,8 +36,7 @@ describe('app-extensions', () => {
             content: [{key: '13229', model: 'User', display: 'display'}]
           }
 
-          const {returnValue} = await expectSaga(notificationTransform, notification)
-            .run()
+          const {returnValue} = await expectSaga(notificationTransform, notification).run()
 
           expect(returnValue.key).to.be.eql(key)
           expect(returnValue.timestamp).to.be.eql(timestamp)
@@ -51,23 +50,21 @@ describe('app-extensions', () => {
           expect(returnValue.result).to.be.eql(result)
         })
 
-        test('without type, use fallback type info', async() => {
+        test('without type, use fallback type info', async () => {
           const notification = {}
-          const {returnValue} = await expectSaga(notificationTransform, notification)
-            .run()
+          const {returnValue} = await expectSaga(notificationTransform, notification).run()
 
           expect(returnValue.type).to.be.eql('info')
         })
 
-        test('without result', async() => {
+        test('without result', async () => {
           const notification = {}
-          const {returnValue} = await expectSaga(notificationTransform, notification)
-            .run()
+          const {returnValue} = await expectSaga(notificationTransform, notification).run()
 
           expect(returnValue.result).to.be.null
         })
 
-        test('with task progress', async() => {
+        test('with task progress', async () => {
           const key = '350'
           const taskId = '7435237b-b946-41b5-86c5-d79ba11d3dad'
           const message = 'Ausgeführt'
@@ -82,13 +79,12 @@ describe('app-extensions', () => {
           }
           const expected = {key, taskId, message, status, total, done, percentage, isRunning}
 
-          const {returnValue} = await expectSaga(notificationTransform, notification)
-            .run()
+          const {returnValue} = await expectSaga(notificationTransform, notification).run()
 
           expect(returnValue.taskProgress).to.be.eql(expected)
         })
 
-        test('with outputjob as result', async() => {
+        test('with outputjob as result', async () => {
           const notification = {
             result: '{"type":"OUTPUTJOB","content":[{"key":"13229","model":"Output_job","display":"display"}]}'
           }
@@ -116,9 +112,7 @@ describe('app-extensions', () => {
           }
 
           const {returnValue} = await expectSaga(notificationTransform, notification)
-            .provide([
-              [matchers.call.fn(rest.fetchEntity), entity]
-            ])
+            .provide([[matchers.call.fn(rest.fetchEntity), entity]])
             .run()
 
           expect(returnValue.result.file).to.be.eql(file)

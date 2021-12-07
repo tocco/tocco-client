@@ -1,8 +1,8 @@
-import {route, js} from 'tocco-util'
-import React, {memo} from 'react'
-import {ReactReduxContext} from 'react-redux'
 import _omit from 'lodash/omit'
 import _omitBy from 'lodash/omitBy'
+import React, {memo} from 'react'
+import {ReactReduxContext} from 'react-redux'
+import {route, js} from 'tocco-util'
 
 const ignoredAttributes = ['location.key', 'location.search', 'location.hash']
 
@@ -16,8 +16,8 @@ export default memo(
   props => (
     <ReactReduxContext.Consumer>
       {({store}) => {
-        const Component = route.loadRoute(store, {}, () => (import('./route')))
-        return <Component {...props}/>
+        const Component = route.loadRoute(store, {}, () => import('./route'))
+        return <Component {...props} />
       }}
     </ReactReduxContext.Consumer>
   ),

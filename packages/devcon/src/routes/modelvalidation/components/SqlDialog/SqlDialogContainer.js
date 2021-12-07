@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import SqlDialog from './SqlDialog'
 import {setSql, executeSql} from '../../modules/actions'
+import SqlDialog from './SqlDialog'
 
 const mapStateToProps = state => ({
   sql: state.modelValidation.sql

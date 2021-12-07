@@ -21,18 +21,20 @@ const MultiCheckbox = ({value, id, onChange, label}) => {
   }
 
   useLayoutEffect(() => {
-    inputEl.current.indeterminate = (value === checkboxValues.INDETERMINATE)
-    inputEl.current.checked = (value === checkboxValues.CHECKED)
+    inputEl.current.indeterminate = value === checkboxValues.INDETERMINATE
+    inputEl.current.checked = value === checkboxValues.CHECKED
   }, [value])
 
-  return <input
-    ref={inputEl}
-    onChange={handleOnChange}
-    id={id}
-    type="checkbox"
-    aria-checked={value === 'checked'}
-    aria-label={label}
-  />
+  return (
+    <input
+      ref={inputEl}
+      onChange={handleOnChange}
+      id={id}
+      type="checkbox"
+      aria-checked={value === 'checked'}
+      aria-label={label}
+    />
+  )
 }
 
 MultiCheckbox.propTypes = {

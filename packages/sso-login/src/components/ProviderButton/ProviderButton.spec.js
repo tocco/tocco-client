@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 
 import ProviderButton from './ProviderButton'
 
@@ -21,9 +21,7 @@ describe('sso-login', () => {
 
     describe('ProviderButton', () => {
       test('should render a button', () => {
-        const wrapper = mount(
-          <ProviderButton {...baseProps}/>
-        )
+        const wrapper = mount(<ProviderButton {...baseProps} />)
         expect(wrapper.find('button')).to.have.length(1)
       })
 
@@ -31,9 +29,7 @@ describe('sso-login', () => {
         global.open = jest.fn(() => ({close: jest.fn()}))
 
         const loginCompleted = jest.fn()
-        const wrapper = mount(
-          <ProviderButton {...baseProps} loginCompleted={loginCompleted}/>
-        )
+        const wrapper = mount(<ProviderButton {...baseProps} loginCompleted={loginCompleted} />)
 
         wrapper.find('button').simulate('click')
 

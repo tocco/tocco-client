@@ -8,18 +8,18 @@ export const linkStyle = css`
 
   * {
     color: ${theme.color('text')};
-    text-decoration: ${({neutral}) => neutral ? 'none' : 'underline'};
+    text-decoration: ${({neutral}) => (neutral ? 'none' : 'underline')};
   }
 
   &:hover,
   &:hover *,
   &:focus,
   &:focus * {
-    text-decoration: ${({neutral}) => neutral ? 'none' : 'underline'};
+    text-decoration: ${({neutral}) => (neutral ? 'none' : 'underline')};
   }
 
   &:active,
   &:active * {
-    text-decoration: ${({neutral}) => neutral ? 'none' : 'underline'};
+    text-decoration: ${({neutral}) => (neutral ? 'none' : 'underline')};
   }
 `

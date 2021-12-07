@@ -9,9 +9,7 @@ module.exports = {
   ...base,
   name: packageName,
   displayName: packageName,
-  testMatch: [
-    `<rootDir>/packages/${packageName}/src/**/*.spec.{js,jsx}`
-  ],
+  testMatch: [`<rootDir>/packages/${packageName}/src/**/*.spec.{js,jsx}`],
   collectCoverageFrom: [
     `<rootDir>/packages/${packageName}/src/**/*.js`,
     `!<rootDir>/packages/${packageName}/src/main.js`

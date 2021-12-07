@@ -1,8 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {injectIntl} from 'react-intl'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {AdminLink as StyledLink} from 'tocco-ui'
-import {injectIntl} from 'react-intl'
 
 import {StyledInfoBoxContentWrapper} from './StyledComponents'
 
@@ -12,7 +12,8 @@ const DetailLinkRelativeWithoutIntl = ({entityKey, entityModel, children, intl})
   return (
     <StyledLink
       aria-label={msg('client.component.navigationStrategy.detailLinkRelative')}
-      to={`/e/${entityModel}/${entityKey}`}>
+      to={`/e/${entityModel}/${entityKey}`}
+    >
       {children}
     </StyledLink>
   )
@@ -34,26 +35,28 @@ const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction
     navigationStrategy.openDetail(entityName, id, false)
   }
 
-  return <StyledInfoBoxContentWrapper>
-    <EntityListApp
-      id={id}
-      limit={limit}
-      entityName={entityName}
-      formName={entityName}
-      searchFilters={[searchFilterUniqueId]}
-      scope={scope}
-      showActions={false}
-      onRowClick={handleRowClick}
-      searchFormType="simple"
-      searchFormPosition="top"
-      selectionStyle="none"
-      sortable
-      disableSelectionController
-      emitAction={emitAction}
-      navigationStrategy={{...navigationStrategy, DetailLinkRelative}}
-      showLink={true}
-    />
-  </StyledInfoBoxContentWrapper>
+  return (
+    <StyledInfoBoxContentWrapper>
+      <EntityListApp
+        id={id}
+        limit={limit}
+        entityName={entityName}
+        formName={entityName}
+        searchFilters={[searchFilterUniqueId]}
+        scope={scope}
+        showActions={false}
+        onRowClick={handleRowClick}
+        searchFormType="simple"
+        searchFormPosition="top"
+        selectionStyle="none"
+        sortable
+        disableSelectionController
+        emitAction={emitAction}
+        navigationStrategy={{...navigationStrategy, DetailLinkRelative}}
+        showLink={true}
+      />
+    </StyledInfoBoxContentWrapper>
+  )
 }
 
 InfoBoxSearchFilterContent.propTypes = {

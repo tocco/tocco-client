@@ -23,7 +23,8 @@ MultiSelect.propTypes = {
       PropTypes.shape({
         value: PropTypes.any,
         label: PropTypes.string
-      })),
+      })
+    ),
     fetchOptions: PropTypes.func,
     isLoading: PropTypes.bool,
     noResultsText: PropTypes.string,

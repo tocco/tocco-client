@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 import Panel from '../Panel'
@@ -14,28 +13,52 @@ export default {
 export const Basic = () => (
   <div>
     <Layout.Container>
-      <Layout.Box><ExampleCell/></Layout.Box>
-      <Layout.Box><ExampleCell/></Layout.Box>
-      <Layout.Box><ExampleCell/></Layout.Box>
-      <Layout.Box><ExampleCell/></Layout.Box>
-      <Layout.Box><ExampleCell/></Layout.Box>
-      <Layout.Box><ExampleCell/></Layout.Box>
-      <Layout.Box><ExampleCell/></Layout.Box>
-      <Layout.Box><ExampleCell/></Layout.Box>
-      <Layout.Box><ExampleCell/></Layout.Box>
+      <Layout.Box>
+        <ExampleCell />
+      </Layout.Box>
+      <Layout.Box>
+        <ExampleCell />
+      </Layout.Box>
+      <Layout.Box>
+        <ExampleCell />
+      </Layout.Box>
+      <Layout.Box>
+        <ExampleCell />
+      </Layout.Box>
+      <Layout.Box>
+        <ExampleCell />
+      </Layout.Box>
+      <Layout.Box>
+        <ExampleCell />
+      </Layout.Box>
+      <Layout.Box>
+        <ExampleCell />
+      </Layout.Box>
+      <Layout.Box>
+        <ExampleCell />
+      </Layout.Box>
+      <Layout.Box>
+        <ExampleCell />
+      </Layout.Box>
     </Layout.Container>
 
     <Layout.Container>
-      <Layout.Box><ExamplePanel1/></Layout.Box>
-      <Layout.Box><ExamplePanel2/></Layout.Box>
-      <Layout.Box><ExamplePanel3/></Layout.Box>
+      <Layout.Box>
+        <ExamplePanel1 />
+      </Layout.Box>
+      <Layout.Box>
+        <ExamplePanel2 />
+      </Layout.Box>
+      <Layout.Box>
+        <ExamplePanel3 />
+      </Layout.Box>
     </Layout.Container>
   </div>
 )
 
 const ExampleCell = () => <div style={{backgroundColor: '#ddd'}}>Cell</div>
 
-const ExamplePanel1 = () =>
+const ExamplePanel1 = () => (
   <Panel.Wrapper>
     <Panel.Header>
       <Typography.H4>Header</Typography.H4>
@@ -45,8 +68,9 @@ const ExamplePanel1 = () =>
       <Typography.P>Body</Typography.P>
     </Panel.Body>
   </Panel.Wrapper>
+)
 
-const ExamplePanel2 = () =>
+const ExamplePanel2 = () => (
   <Panel.Wrapper>
     <Panel.Body>
       <Typography.Span>Body</Typography.Span>
@@ -55,8 +79,9 @@ const ExamplePanel2 = () =>
       <Typography.H5>Footer</Typography.H5>
     </Panel.Footer>
   </Panel.Wrapper>
+)
 
-const ExamplePanel3 = () =>
+const ExamplePanel3 = () => (
   <Panel.Wrapper>
     <Panel.Header>
       <Typography.H4>Header</Typography.H4>
@@ -68,3 +93,4 @@ const ExamplePanel3 = () =>
       <Typography.H5>Footer</Typography.H5>
     </Panel.Footer>
   </Panel.Wrapper>
+)

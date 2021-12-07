@@ -1,7 +1,7 @@
-import {externalEvents, rest} from 'tocco-app-extensions'
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {takeLatest, select} from 'redux-saga/effects'
+import {externalEvents, rest} from 'tocco-app-extensions'
 import {cache, intl} from 'tocco-util'
 
 import * as actions from './actions'
@@ -13,10 +13,12 @@ describe('sso-login', () => {
       describe('mainSaga', () => {
         test('should fork sagas', () => {
           const saga = testSaga(mainSaga)
-          saga.next().all([
-            takeLatest(actions.LOAD_PROVIDERS, sagas.loadProviders),
-            takeLatest(actions.LOGIN_COMPLETED, sagas.loginCompleted)
-          ])
+          saga
+            .next()
+            .all([
+              takeLatest(actions.LOAD_PROVIDERS, sagas.loadProviders),
+              takeLatest(actions.LOGIN_COMPLETED, sagas.loginCompleted)
+            ])
         })
       })
 

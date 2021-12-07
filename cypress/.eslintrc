@@ -1,5 +1,5 @@
 {
-  "globals" : {
+  "globals": {
     "before": false,
     "cy": false,
     "Cypress": false

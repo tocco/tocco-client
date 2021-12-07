@@ -1,13 +1,11 @@
 import _get from 'lodash/get'
 import {all, call, put, select, takeEvery} from 'redux-saga/effects'
 
-import * as tooltipActions from './actions'
 import rest from '../../rest'
+import * as tooltipActions from './actions'
 
 export default function* sagas() {
-  yield all([
-    takeEvery(tooltipActions.LOAD_TOOLTIP, loadToolTip)
-  ])
+  yield all([takeEvery(tooltipActions.LOAD_TOOLTIP, loadToolTip)])
 }
 
 export const tooltipSelector = (state, entityName, id) =>

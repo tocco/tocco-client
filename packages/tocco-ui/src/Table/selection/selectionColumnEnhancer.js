@@ -1,9 +1,9 @@
 import React from 'react'
 
-import selectionStyles from './selectionStyles'
-import SingleSelectCell from './SingleSelectCell'
 import MultiSelectCell from './MultiSelectCell'
 import MultiSelectHeader from './MultiSelectHeader'
+import selectionStyles from './selectionStyles'
+import SingleSelectCell from './SingleSelectCell'
 
 export const getSelectionCell = (selectionStyle, columns, isSelected, selectionChange) => {
   if (selectionStyle && selectionStyle !== selectionStyles.NONE) {
@@ -24,7 +24,7 @@ const getSingleSelectionCell = (isSelected, selectionChange) => ({
     sortable: false
   },
   HeaderRenderer: () => null,
-  CellRenderer: props => <SingleSelectCell {...props} isSelected={isSelected} selectionChange={selectionChange}/>
+  CellRenderer: props => <SingleSelectCell {...props} isSelected={isSelected} selectionChange={selectionChange} />
 })
 
 const getMultiSelectionCell = (isSelected, selectionChange) => ({
@@ -36,6 +36,6 @@ const getMultiSelectionCell = (isSelected, selectionChange) => ({
   sorting: {
     sortable: false
   },
-  HeaderRenderer: props => <MultiSelectHeader {...props} isSelected={isSelected} selectionChange={selectionChange}/>,
-  CellRenderer: props => <MultiSelectCell {...props} isSelected={isSelected} selectionChange={selectionChange}/>
+  HeaderRenderer: props => <MultiSelectHeader {...props} isSelected={isSelected} selectionChange={selectionChange} />,
+  CellRenderer: props => <MultiSelectCell {...props} isSelected={isSelected} selectionChange={selectionChange} />
 })

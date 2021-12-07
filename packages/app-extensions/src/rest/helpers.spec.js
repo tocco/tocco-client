@@ -1,12 +1,11 @@
-
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {call} from 'redux-saga/effects'
 import {throwError} from 'redux-saga-test-plan/providers'
+import {call} from 'redux-saga/effects'
 import {cache} from 'tocco-util'
 
-import {requestSaga} from './rest'
 import * as helpers from './helpers'
+import {requestSaga} from './rest'
 
 describe('app-extensions', () => {
   describe('rest', () => {
@@ -105,7 +104,6 @@ describe('app-extensions', () => {
             _offset: 40,
             _paths: 'firstname,lastname',
             _search: 'asd'
-
           }
           expect(helpers.requestQueryToUrlParams(input)).to.eql(expectedResult)
         })
@@ -127,7 +125,7 @@ describe('app-extensions', () => {
       })
 
       describe('fetchEntity', () => {
-        test('should call fetch', async() => {
+        test('should call fetch', async () => {
           const query = {
             paths: ['firstname', 'lastname'],
             forms: 'User_detail'
@@ -135,31 +133,25 @@ describe('app-extensions', () => {
           const responseEntity = {paths: {firstname: 'Jack'}}
 
           await expectSaga(helpers.fetchEntity, 'User', '1', query)
-            .provide([
-              [matchers.call.fn(requestSaga), {body: responseEntity}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: responseEntity}]])
             .returns(responseEntity)
             .run()
         })
       })
 
       describe('entityExists', () => {
-        test('should return true if exists', async() => {
+        test('should return true if exists', async () => {
           const responseEntity = {key: '1'}
 
           await expectSaga(helpers.entityExists, 'User', '1')
-            .provide([
-              [matchers.call.fn(requestSaga), {body: responseEntity}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: responseEntity}]])
             .returns(true)
             .run()
         })
 
-        test('should return false if not', async() => {
+        test('should return false if not', async () => {
           await expectSaga(helpers.entityExists, 'User', '1')
-            .provide([
-              [matchers.call.fn(requestSaga), throwError('404')]
-            ])
+            .provide([[matchers.call.fn(requestSaga), throwError('404')]])
             .returns(false)
             .run()
         })
@@ -175,9 +167,7 @@ describe('app-extensions', () => {
           const responseEntities = [{}, {}]
 
           return expectSaga(helpers.fetchEntities, 'User', query)
-            .provide([
-              [matchers.call.fn(requestSaga), {body: {data: responseEntities}}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: {data: responseEntities}}]])
             .returns(responseEntities)
             .run()
         })
@@ -200,9 +190,7 @@ describe('app-extensions', () => {
           }
 
           return expectSaga(helpers.fetchDisplay, 'User', '1')
-            .provide([
-              [matchers.call.fn(requestSaga), {body: response}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: response}]])
             .returns('Test')
             .run()
         })
@@ -210,17 +198,13 @@ describe('app-extensions', () => {
         test('should serve display from cache if already loaded', () => {
           cache.addShortTerm('display', 'User.1', 'Test')
 
-          return expectSaga(helpers.fetchDisplay, 'User', '1')
-            .returns('Test')
-            .run()
+          return expectSaga(helpers.fetchDisplay, 'User', '1').returns('Test').run()
         })
 
         test('should serve display with type from cache if already loaded', () => {
           cache.addShortTerm('display', 'User.1.tooltip', 'Test')
 
-          return expectSaga(helpers.fetchDisplay, 'User', '1', 'tooltip')
-            .returns('Test')
-            .run()
+          return expectSaga(helpers.fetchDisplay, 'User', '1', 'tooltip').returns('Test').run()
         })
       })
 
@@ -228,15 +212,13 @@ describe('app-extensions', () => {
         test('should clear cache for display', () => {
           cache.addShortTerm('display', 'User.1', 'Test')
 
-          expectSaga(helpers.invalidateDisplay, 'User', '1')
-            .run()
+          expectSaga(helpers.invalidateDisplay, 'User', '1').run()
 
           expect(cache.getShortTerm('display', 'User.1')).to.be.undefined
         })
 
         test('should clear cache for display even if it did not exist', () => {
-          expectSaga(helpers.invalidateDisplay, 'User', '1')
-            .run()
+          expectSaga(helpers.invalidateDisplay, 'User', '1').run()
 
           expect(cache.getShortTerm('display', 'User.1')).to.be.undefined
         })
@@ -244,8 +226,7 @@ describe('app-extensions', () => {
         test('should clear cache for specific display type', () => {
           cache.addShortTerm('display', 'User.1.test', 'Test')
 
-          expectSaga(helpers.invalidateDisplay, 'User', '1', 'test')
-            .run()
+          expectSaga(helpers.invalidateDisplay, 'User', '1', 'test').run()
 
           expect(cache.getShortTerm('display', 'User.1.test')).to.be.undefined
         })
@@ -292,9 +273,7 @@ describe('app-extensions', () => {
           const entityName = 'User'
 
           return expectSaga(helpers.fetchDisplayExpressions, formName, scope, entityKeys, fields, entityName)
-            .provide([
-              [matchers.call.fn(requestSaga), {body: responseFake}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: responseFake}]])
             .returns(expectedResult)
             .run()
         })
@@ -310,38 +289,45 @@ describe('app-extensions', () => {
           const expectedOptions = {
             method: 'POST',
             body: {
-              data: [{
-                model: 'User_status',
-                keys: ['2293']
-              },
-              {
-                model: 'Gender',
-                keys:
-                  ['1', '2']
-              }
+              data: [
+                {
+                  model: 'User_status',
+                  keys: ['2293']
+                },
+                {
+                  model: 'Gender',
+                  keys: ['1', '2']
+                }
               ]
             }
           }
 
           const responseFake = {
             body: {
-              data: [{
-                model: 'User_status',
-                values: [{
-                  key: '2293',
-                  display: 'Hans Muster 123'
-                }]
-              },
-              {
-                model: 'Gender',
-                values: [{
-                  key: '1',
-                  display: 'Male'
-                }, {
-                  key: '2',
-                  display: 'Female'
-                }]
-              }]
+              data: [
+                {
+                  model: 'User_status',
+                  values: [
+                    {
+                      key: '2293',
+                      display: 'Hans Muster 123'
+                    }
+                  ]
+                },
+                {
+                  model: 'Gender',
+                  values: [
+                    {
+                      key: '1',
+                      display: 'Male'
+                    },
+                    {
+                      key: '2',
+                      display: 'Female'
+                    }
+                  ]
+                }
+              ]
             }
           }
 
@@ -356,9 +342,7 @@ describe('app-extensions', () => {
           }
 
           return expectSaga(helpers.fetchDisplays, request)
-            .provide([
-              [matchers.call.fn(requestSaga), responseFake]
-            ])
+            .provide([[matchers.call.fn(requestSaga), responseFake]])
             .call(requestSaga, 'entities/2.0/displays', expectedOptions)
             .returns(expectedResult)
             .run()
@@ -377,8 +361,7 @@ describe('app-extensions', () => {
               data: [
                 {
                   model: 'Gender',
-                  keys:
-                    ['2']
+                  keys: ['2']
                 }
               ]
             }
@@ -408,9 +391,7 @@ describe('app-extensions', () => {
           }
 
           return expectSaga(helpers.fetchDisplays, request)
-            .provide([
-              [matchers.call.fn(requestSaga), responseFake]
-            ])
+            .provide([[matchers.call.fn(requestSaga), responseFake]])
             .call(requestSaga, 'entities/2.0/displays', expectedOptions)
             .returns(expectedResult)
             .run()
@@ -431,9 +412,7 @@ describe('app-extensions', () => {
             }
           }
 
-          return expectSaga(helpers.fetchDisplays, request)
-            .returns(expectedResult)
-            .run()
+          return expectSaga(helpers.fetchDisplays, request).returns(expectedResult).run()
         })
       })
 
@@ -442,8 +421,7 @@ describe('app-extensions', () => {
           cache.addShortTerm('display', 'User.1', 'Test')
           cache.addShortTerm('display', 'User.2', 'Test')
 
-          expectSaga(helpers.invalidateDisplays, {User: ['1', '2']})
-            .run()
+          expectSaga(helpers.invalidateDisplays, {User: ['1', '2']}).run()
 
           expect(cache.getShortTerm('display', 'User.1')).to.be.undefined
           expect(cache.getShortTerm('display', 'User.2')).to.be.undefined
@@ -452,9 +430,8 @@ describe('app-extensions', () => {
         test('should clear cache for multiple models', () => {
           cache.addShortTerm('display', 'User.1', 'Test')
           cache.addShortTerm('display', 'Address.2', 'Test')
-          
-          expectSaga(helpers.invalidateDisplays, {User: ['1'], Address: ['2']})
-            .run()
+
+          expectSaga(helpers.invalidateDisplays, {User: ['1'], Address: ['2']}).run()
 
           expect(cache.getShortTerm('display', 'User.1')).to.be.undefined
           expect(cache.getShortTerm('display', 'Address.2')).to.be.undefined
@@ -463,9 +440,8 @@ describe('app-extensions', () => {
         test('should clear cache specific display type', () => {
           cache.addShortTerm('display', 'User.1.test', 'Test')
           cache.addShortTerm('display', 'Address.2.test', 'Test')
-          
-          expectSaga(helpers.invalidateDisplays, {User: ['1'], Address: ['2']}, 'test')
-            .run()
+
+          expectSaga(helpers.invalidateDisplays, {User: ['1'], Address: ['2']}, 'test').run()
 
           expect(cache.getShortTerm('display', 'User.1.test')).to.be.undefined
           expect(cache.getShortTerm('display', 'Address.2.test')).to.be.undefined
@@ -482,9 +458,7 @@ describe('app-extensions', () => {
           const responseCount = {count: 1}
 
           return expectSaga(helpers.fetchEntityCount, 'User', query)
-            .provide([
-              [matchers.call.fn(requestSaga), {body: responseCount}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: responseCount}]])
             .returns(responseCount.count)
             .run()
         })
@@ -507,13 +481,11 @@ describe('app-extensions', () => {
           expect(next.done).to.be.true
         })
 
-        test('should cache the form after first fetch', async() => {
+        test('should cache the form after first fetch', async () => {
           const formMock = {form: {}}
 
           const result = await expectSaga(helpers.fetchForm, 'User', 'update')
-            .provide([
-              [matchers.call.fn(requestSaga), {body: formMock}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: formMock}]])
             .call.like({fn: requestSaga})
             .run()
 
@@ -523,29 +495,23 @@ describe('app-extensions', () => {
             .run()
         })
 
-        test('should return null on allowed 404', async() => {
+        test('should return null on allowed 404', async () => {
           return expectSaga(helpers.fetchForm, 'User', 'search', true)
-            .provide([
-              [matchers.call.fn(requestSaga), {status: 404}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {status: 404}]])
             .returns(null)
             .run()
         })
 
-        test('force reload of cached form', async() => {
+        test('force reload of cached form', async () => {
           const formMock = {form: {}}
 
           const result = await expectSaga(helpers.fetchForm, 'User', 'update')
-            .provide([
-              [matchers.call.fn(requestSaga), {body: formMock}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: formMock}]])
             .call.like({fn: requestSaga})
             .run()
 
           return expectSaga(helpers.fetchForm, 'User', 'update', false, true)
-            .provide([
-              [matchers.call.fn(requestSaga), {body: formMock}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: formMock}]])
             .returns(result.returnValue)
             .call.like({fn: requestSaga})
             .run()
@@ -553,16 +519,20 @@ describe('app-extensions', () => {
 
         test('should fetch create form with default values', () => {
           const gen = helpers.fetchForm('Address', 'create')
-          expect(gen.next().value).to.eql(call(requestSaga, 'forms/Address/create', {
-            queryParams: {_display: true}
-          }))
+          expect(gen.next().value).to.eql(
+            call(requestSaga, 'forms/Address/create', {
+              queryParams: {_display: true}
+            })
+          )
         })
 
         test('should fetch search form with default values', () => {
           const gen = helpers.fetchForm('Address', 'search')
-          expect(gen.next().value).to.eql(call(requestSaga, 'forms/Address/search', {
-            queryParams: {_display: true}
-          }))
+          expect(gen.next().value).to.eql(
+            call(requestSaga, 'forms/Address/search', {
+              queryParams: {_display: true}
+            })
+          )
         })
 
         test('should fetch update form without default values', () => {
@@ -585,9 +555,7 @@ describe('app-extensions', () => {
 
         test('should call request saga and return filters property ', () => {
           return expectSaga(helpers.fetchSearchFilters, entity)
-            .provide([
-              [matchers.call.fn(requestSaga), resp]
-            ])
+            .provide([[matchers.call.fn(requestSaga), resp]])
             .returns(resp.body.filters)
             .run()
         })
@@ -609,7 +577,7 @@ describe('app-extensions', () => {
           expect(next.done).to.be.true
         })
 
-        test('should cache the model after first fetch', async() => {
+        test('should cache the model after first fetch', async () => {
           const mockModel = {
             name: 'User',
             label: 'Person',
@@ -624,13 +592,10 @@ describe('app-extensions', () => {
               }
             ],
             relations: []
-
           }
 
           const result = await expectSaga(helpers.fetchModel, 'User')
-            .provide([
-              [matchers.call.fn(requestSaga), {body: mockModel}]
-            ])
+            .provide([[matchers.call.fn(requestSaga), {body: mockModel}]])
             .call.like({fn: requestSaga})
             .run()
 
@@ -670,7 +635,6 @@ describe('app-extensions', () => {
                   multi: false
                 }
               ]
-
             }
 
             const expectedModel = {
@@ -711,12 +675,12 @@ describe('app-extensions', () => {
           test('should extract value attributes of object values', () => {
             const values = {
               'relUser.pk': {value: '1', display: 'Tocco'},
-              'firstname': 'Test'
+              firstname: 'Test'
             }
 
             const expectedResult = {
               'relUser.pk': '1',
-              'firstname': 'Test'
+              firstname: 'Test'
             }
 
             const result = helpers.flattenObjectValues(values)
@@ -737,14 +701,12 @@ describe('app-extensions', () => {
             }
 
             return expectSaga(helpers.fetchPrincipal)
-              .provide([
-                [matchers.call.fn(requestSaga), {body: response}]
-              ])
+              .provide([[matchers.call.fn(requestSaga), {body: response}]])
               .returns(expectedReturn)
               .run()
           })
 
-          test('should load cached principal info object after fetch', async() => {
+          test('should load cached principal info object after fetch', async () => {
             const expectedReturn = {
               username: 'tocco',
               currentBusinessUnit: 'test1'
@@ -752,9 +714,7 @@ describe('app-extensions', () => {
 
             cache.addShortTerm('session', 'principal', expectedReturn)
 
-            return expectSaga(helpers.fetchPrincipal)
-              .returns(expectedReturn)
-              .run()
+            return expectSaga(helpers.fetchPrincipal).returns(expectedReturn).run()
           })
         })
       })
@@ -798,9 +758,7 @@ describe('app-extensions', () => {
           const markings = {23: false, 644: true}
 
           return expectSaga(helpers.fetchMarkings, selection)
-            .provide([
-              [call(requestSaga, 'client/markings', options), {body: {markings}}]
-            ])
+            .provide([[call(requestSaga, 'client/markings', options), {body: {markings}}]])
             .returns(markings)
             .run()
         })
@@ -813,9 +771,7 @@ describe('app-extensions', () => {
           }
 
           return expectSaga(helpers.fetchMarked, 'User', '672')
-            .provide([
-              [call(requestSaga, 'client/markings/User/672', options), {body: {marked: true}}]
-            ])
+            .provide([[call(requestSaga, 'client/markings/User/672', options), {body: {marked: true}}]])
             .returns(true)
             .run()
         })
@@ -831,9 +787,7 @@ describe('app-extensions', () => {
           }
 
           return expectSaga(helpers.setMarked, 'User', '672', true)
-            .provide([
-              [call(requestSaga, 'client/markings/User/672', options)]
-            ])
+            .provide([[call(requestSaga, 'client/markings/User/672', options)]])
             .call(requestSaga, 'client/markings/User/672', options)
             .run()
         })
@@ -861,9 +815,7 @@ describe('app-extensions', () => {
           }
 
           return expectSaga(helpers.setSelectionMarked, selection, true)
-            .provide([
-              [call(requestSaga, 'client/markings', options), {body: {markings}}]
-            ])
+            .provide([[call(requestSaga, 'client/markings', options), {body: {markings}}]])
             .returns(markings)
             .run()
         })

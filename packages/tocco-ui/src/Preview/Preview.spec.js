@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount, shallow} from 'enzyme'
+import React from 'react'
 
 import Icon from '../Icon'
 import Preview from './Preview'
@@ -30,23 +30,11 @@ describe('tocco-ui', () => {
     })
 
     test('display image or icon depending on thumbnailUrl', () => {
-      let wrapper = shallow(
-        <Preview
-          alt="alt text"
-          srcUrl="/link-to-source"
-          thumbnailUrl="/link-to-thumbnail"
-        />
-      )
+      let wrapper = shallow(<Preview alt="alt text" srcUrl="/link-to-source" thumbnailUrl="/link-to-thumbnail" />)
       expect(wrapper.find('img')).to.have.length(1)
       expect(wrapper.find(Icon)).to.have.length(0)
 
-      wrapper = shallow(
-        <Preview
-          alt="alt text"
-          srcUrl="/link-to-source"
-          thumbnailUrl=""
-        />
-      )
+      wrapper = shallow(<Preview alt="alt text" srcUrl="/link-to-source" thumbnailUrl="" />)
       expect(wrapper.find('img')).to.have.length(0)
       expect(wrapper.find(Icon)).to.have.length(1)
       expect(wrapper.find(Icon).prop('icon')).to.deep.equal('file-alt')

@@ -1,10 +1,10 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-import FullCalendar from '../FullCalendar'
 import {getEvents, getResources} from '../../utils/calendar'
+import FullCalendar from '../FullCalendar'
 
-const Scheduler = props =>
+const Scheduler = props => (
   <FullCalendar
     events={getEvents(props.calendars)}
     resources={getResources(props.calendars)}
@@ -16,6 +16,7 @@ const Scheduler = props =>
     locale={props.locale}
     isLoading={props.isLoading}
   />
+)
 
 Scheduler.propTypes = {
   calendars: PropTypes.arrayOf(
@@ -32,7 +33,8 @@ Scheduler.propTypes = {
       key: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired
-    })).isRequired,
+    })
+  ).isRequired,
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
   onCalendarRemoveAll: PropTypes.func,

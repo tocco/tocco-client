@@ -9,20 +9,17 @@ describe('tocco-util', () => {
 
       test('should first path error', () => {
         const msg = 'message'
-        expect(getErrorCompact([{model: 'User', paths: {firstname: {firstname: [msg, 'message2']}}}]))
-          .to.be.eql(msg)
+        expect(getErrorCompact([{model: 'User', paths: {firstname: {firstname: [msg, 'message2']}}}])).to.be.eql(msg)
       })
 
       test('should return first validator error', () => {
         const msg = 'message'
-        expect(getErrorCompact([{model: 'User', entityValidatorErrors: {firstname: [msg, 'message2']}}]))
-          .to.be.eql(msg)
+        expect(getErrorCompact([{model: 'User', entityValidatorErrors: {firstname: [msg, 'message2']}}])).to.be.eql(msg)
       })
 
       test('should return first validator error', () => {
         const msg = 'message'
-        expect(getErrorCompact([{model: 'User', entityValidatorErrors: {firstname: [msg, 'message2']}}]))
-          .to.be.eql(msg)
+        expect(getErrorCompact([{model: 'User', entityValidatorErrors: {firstname: [msg, 'message2']}}])).to.be.eql(msg)
       })
     })
   })

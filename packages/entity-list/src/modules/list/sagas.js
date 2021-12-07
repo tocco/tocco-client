@@ -1,15 +1,12 @@
 import _isEqual from 'lodash/isEqual'
-import _union from 'lodash/union'
-import {externalEvents, rest, remoteEvents, actionEmitter} from 'tocco-app-extensions'
 import _omit from 'lodash/omit'
+import _union from 'lodash/union'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take, delay} from 'redux-saga/effects'
+import {externalEvents, rest, remoteEvents, actionEmitter} from 'tocco-app-extensions'
 import {api, consoleLogger} from 'tocco-util'
 
+import {entitiesListTransformer} from '../../util/api/entities'
 import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
-import * as actions from './actions'
-import * as searchFormActions from '../searchForm/actions'
-import * as selectionActions from '../selection/actions'
-import {getSearchFormValues} from '../searchForm/sagas'
 import {
   getSorting,
   getSelectable,
@@ -20,8 +17,11 @@ import {
   getFields,
   getDisablePreferencesMenu
 } from '../../util/api/forms'
-import {entitiesListTransformer} from '../../util/api/entities'
 import * as preferencesActions from '../preferences/actions'
+import * as searchFormActions from '../searchForm/actions'
+import {getSearchFormValues} from '../searchForm/sagas'
+import * as selectionActions from '../selection/actions'
+import * as actions from './actions'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -53,10 +53,7 @@ export default function* sagas() {
 export function* initialize() {
   const {entityName, formName} = yield select(entityListSelector)
   const {scope} = yield select(listSelector)
-  yield all([
-    call(loadFormDefinition, formName, scope),
-    call(loadEntityModel, entityName)
-  ])
+  yield all([call(loadFormDefinition, formName, scope), call(loadEntityModel, entityName)])
 
   yield put(actions.setInitialized())
 }
@@ -94,9 +91,10 @@ export function* getBasicQuery(regardSelection = true) {
   const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters, searchFormSearchFilter)
   const where = yield call(getTql, inputTql, searchFormFetchOptions.tql)
 
-  const hasUserChanges = Object.keys(relevantSearchFormFetchOptions).length > 0
-    || !_isEqual(inputSearchFilters || [], filter)
-    || (!!searchFormFetchOptions.tql && searchFormFetchOptions.tql.length > 0)
+  const hasUserChanges =
+    Object.keys(relevantSearchFormFetchOptions).length > 0 ||
+    !_isEqual(inputSearchFilters || [], filter) ||
+    (!!searchFormFetchOptions.tql && searchFormFetchOptions.tql.length > 0)
 
   return {
     ...relevantSearchFormFetchOptions,
@@ -158,8 +156,8 @@ export function* reloadData() {
 }
 
 export function* getSearchFilter(inputSearchFilters, searchInputsFilters, adminSearchFormFilters = []) {
-  const activeSearchFormFilters = adminSearchFormFilters && adminSearchFormFilters
-    .filter(f => f.active).map(f => f.uniqueId)
+  const activeSearchFormFilters =
+    adminSearchFormFilters && adminSearchFormFilters.filter(f => f.active).map(f => f.uniqueId)
 
   return yield call(_union, inputSearchFilters, searchInputsFilters, activeSearchFormFilters)
 }
@@ -169,10 +167,11 @@ export function* hasActiveSearchFilterOrderBy() {
   return searchFilters && searchFilters.some(f => f.active && f.orderBy)
 }
 
-export const getTql = (inputTql, searchTql) => [
-  ...(inputTql && inputTql.length > 0 ? [`(${inputTql})`] : []),
-  ...(searchTql && searchTql.length > 0 ? [`(${searchTql})`] : [])
-].join(' and ')
+export const getTql = (inputTql, searchTql) =>
+  [
+    ...(inputTql && inputTql.length > 0 ? [`(${inputTql})`] : []),
+    ...(searchTql && searchTql.length > 0 ? [`(${searchTql})`] : [])
+  ].join(' and ')
 
 export function* loadDisplayExpressions(formName, scope, paths, entities) {
   if (paths && paths.length > 0 && entities.length > 0) {
@@ -188,9 +187,9 @@ export function* loadRelationDisplays(relationFields, entities) {
     const {lazyData} = yield select(listSelector)
     const request = yield call(api.getPathDisplayRequest, entities, relationFields, lazyData)
     const displays = yield call(rest.fetchDisplays, request)
-    yield all(Object.keys(displays).map(entity =>
-      put(actions.setLazyData('defaultDisplays', entity, displays[entity]))
-    ))
+    yield all(
+      Object.keys(displays).map(entity => put(actions.setLazyData('defaultDisplays', entity, displays[entity])))
+    )
   }
 }
 

@@ -1,7 +1,7 @@
 import {takeEvery, all, call, put} from 'redux-saga/effects'
 
-import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
+import rootSaga, * as sagas from './sagas'
 
 describe('app-extensions', () => {
   describe('actionEmitter', () => {

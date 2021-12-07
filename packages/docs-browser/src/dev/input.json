@@ -1,10 +1,13 @@
 {
   "domainTypes": ["public_file_repository"],
-  "rootNodes": [{
-    "entityName": "Folder",
-    "key": "892"
-  }, {
-    "entityName": "Domain",
-    "key": "118"
-  }]
+  "rootNodes": [
+    {
+      "entityName": "Folder",
+      "key": "892"
+    },
+    {
+      "entityName": "Domain",
+      "key": "118"
+    }
+  ]
 }

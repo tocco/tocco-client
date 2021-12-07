@@ -1,5 +1,5 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
 import Select from '../../Select'
 import SearchFilterEdit from './SearchFilterEdit'
@@ -13,7 +13,7 @@ describe('tocco-ui', () => {
             isMulti: false
           }
 
-          const wrapper = shallow(<SearchFilterEdit options={options} value={{key: '1'}} onChange={() => {}}/>)
+          const wrapper = shallow(<SearchFilterEdit options={options} value={{key: '1'}} onChange={() => {}} />)
           expect(wrapper.find(Select)).to.have.length(1)
         })
 
@@ -22,7 +22,7 @@ describe('tocco-ui', () => {
             isMulti: true
           }
 
-          const wrapper = shallow(<SearchFilterEdit options={options} value={[{key: '1'}]} onChange={() => {}}/>)
+          const wrapper = shallow(<SearchFilterEdit options={options} value={[{key: '1'}]} onChange={() => {}} />)
           expect(wrapper.find(Select)).to.have.length(1)
         })
       })

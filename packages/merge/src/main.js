@@ -1,19 +1,16 @@
-import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
-import {actionEmitter, appFactory, cache, externalEvents, notification} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {actionEmitter, appFactory, cache, externalEvents, notification} from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'
+import {reducer as reducerUtil} from 'tocco-util'
 
 import Merge from './components/Merge'
-import reducers, {sagas} from './modules/reducers'
 import {setSelection} from './modules/merge/actions'
+import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'merge'
 
-const EXTERNAL_EVENTS = [
-  'emitAction',
-  'onSuccess'
-]
+const EXTERNAL_EVENTS = ['emitAction', 'onSuccess']
 
 const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
@@ -23,29 +20,24 @@ const initApp = (id, input, events = {}, publicPath) => {
   notification.addToStore(store, handleNotifications)
   cache.addToStore(store)
 
-  const content = <>
-    <GlobalStyles/>
-    {handleNotifications && <notification.Notifications/>}
-    <Merge/>
-  </>
-
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [
-        setSelection(input.selection)
-      ],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
+  const content = (
+    <>
+      <GlobalStyles />
+      {handleNotifications && <notification.Notifications />}
+      <Merge />
+    </>
   )
+
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [setSelection(input.selection)],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 

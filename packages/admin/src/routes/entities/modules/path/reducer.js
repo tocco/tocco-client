@@ -15,7 +15,7 @@ export const setCurrentViewInfo = (state, {payload: {location, currentViewInfo}}
 
 export const updateBreadcrumbsInfo = (state, {payload: {path, breadcrumbsInfo}}) => ({
   ...state,
-  breadcrumbsInfo: state.breadcrumbsInfo.map(info => info.path === path ? {...info, ...breadcrumbsInfo} : info)
+  breadcrumbsInfo: state.breadcrumbsInfo.map(info => (info.path === path ? {...info, ...breadcrumbsInfo} : info))
 })
 
 const ACTION_HANDLERS = {

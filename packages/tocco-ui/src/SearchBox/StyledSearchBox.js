@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-import {theme, scale} from '../utilStyles'
 import {StyledInputCss} from '../EditableValue/StyledEditableValue'
 import {StyledStatedValueBox} from '../StatedValue'
+import {theme, scale} from '../utilStyles'
 
 export const StyledSearchBox = styled.div`
   && {
@@ -14,7 +14,7 @@ export const StyledSearchBox = styled.div`
       border: 0;
       width: 100%;
       border-bottom: 1px solid ${theme.color('text')};
-      padding-right: .3rem;
+      padding-right: 0.3rem;
 
       input[type='search']::-webkit-search-decoration {
         display: none;

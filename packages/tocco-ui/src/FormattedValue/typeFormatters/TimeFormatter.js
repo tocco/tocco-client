@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {FormattedTime, injectIntl} from 'react-intl'
 import moment from 'moment'
+import PropTypes from 'prop-types'
+import React from 'react'
+import {FormattedTime, injectIntl} from 'react-intl'
 
 import Typography from '../../Typography'
 
@@ -17,13 +17,8 @@ const TimeFormatter = ({value, intl}) => {
   const timeIso = moment(date).format(moment.HTML5_FMT.TIME_MS)
 
   return (
-    <Typography.Time
-      dateTime={timeIso}
-      title={intl.formatTime(date)}
-    >
-      <FormattedTime
-        value={date}
-      />
+    <Typography.Time dateTime={timeIso} title={intl.formatTime(date)}>
+      <FormattedTime value={date} />
     </Typography.Time>
   )
 }

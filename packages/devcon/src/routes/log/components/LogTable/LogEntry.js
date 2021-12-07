@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useState} from 'react'
 
 import ExceptionDetails from './ExceptionDetails'
 import {StyledLogEntry, StyledMessage, StyledTime} from './StyledLogEntry'
@@ -15,9 +15,11 @@ const LogEntry = ({entry}) => {
 
   return (
     <StyledLogEntry level={entry.level}>
-      <StyledMessage onClick={handleClick} expandable={!!entry.exception}>{entry.message}</StyledMessage>
+      <StyledMessage onClick={handleClick} expandable={!!entry.exception}>
+        {entry.message}
+      </StyledMessage>
       <StyledTime>{new Date(entry.timestamp).toLocaleString()}</StyledTime>
-      {expanded && <ExceptionDetails exception={entry.exception}/>}
+      {expanded && <ExceptionDetails exception={entry.exception} />}
     </StyledLogEntry>
   )
 }
@@ -29,11 +31,13 @@ LogEntry.propTypes = {
     level: PropTypes.string.isRequired,
     exception: PropTypes.shape({
       detailMessage: PropTypes.string.isRequired,
-      stackTrace: PropTypes.arrayOf(PropTypes.shape({
-        declaringClass: PropTypes.string.isRequired,
-        methodName: PropTypes.string.isRequired,
-        lineNumber: PropTypes.number.isRequired
-      })).isRequired
+      stackTrace: PropTypes.arrayOf(
+        PropTypes.shape({
+          declaringClass: PropTypes.string.isRequired,
+          methodName: PropTypes.string.isRequired,
+          lineNumber: PropTypes.number.isRequired
+        })
+      ).isRequired
     })
   }).isRequired
 }

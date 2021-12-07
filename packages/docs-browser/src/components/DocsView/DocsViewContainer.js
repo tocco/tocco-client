@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import DocsView from './DocsView'
 import {changeListParent, changeSearchFormCollapsed, changeSelection} from '../../modules/list/actions'
+import DocsView from './DocsView'
 
 const mapStateToProps = state => ({
   domainTypes: state.input.domainTypes,

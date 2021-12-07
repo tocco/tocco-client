@@ -4,6 +4,4 @@ export default {
   dashboard: dashboardReducer
 }
 
-export const sagas = [
-  dashboardSagas
-]
+export const sagas = [dashboardSagas]

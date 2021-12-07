@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import SlideMenu from 'react-burger-menu/lib/menus/slide'
+import styled from 'styled-components'
 import {theme} from 'tocco-ui'
 
 const calcViewportHeight = () => {

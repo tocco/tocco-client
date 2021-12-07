@@ -1,12 +1,12 @@
-import {rest} from 'tocco-app-extensions'
-import {viewPersistor, consoleLogger} from 'tocco-util'
-import _pickBy from 'lodash/pickBy'
 import _omit from 'lodash/omit'
 import _pick from 'lodash/pick'
+import _pickBy from 'lodash/pickBy'
 import {all, call, put, select, spawn, takeLatest} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
+import {viewPersistor, consoleLogger} from 'tocco-util'
 
-import * as actions from './actions'
 import {getPathInfo} from '../../utils/url'
+import * as actions from './actions'
 
 export const entitiesPathSelector = state => state.entities.path
 
@@ -29,7 +29,7 @@ export function* loadRoute({payload: {location}}) {
   if (routeInfo.length > 0) {
     const currentViewInfo = yield call(updateCurrentViewInfo, pathname, routeInfo)
     yield call(updateBreadcrumbsInfo, routeInfo)
-       
+
     if (currentViewInfo.type === 'detail' && !currentViewInfo.error) {
       yield spawn(initMultiRelations, currentViewInfo.model, currentViewInfo.key)
     }
@@ -192,30 +192,33 @@ export const deriveCurrentViewInfo = (pathname, routeInfo) => {
     ..._omit(lastEntry, ['parent']),
     pathname,
     level: routeInfo.length - 1,
-    ...(parent && lastEntry.relationName && {
-      parentKey: parent.key,
-      reverseRelation: parent.model.paths[lastEntry.relationName].reverseRelationName,
-      parentModel: parent.model
-    })
+    ...(parent &&
+      lastEntry.relationName && {
+        parentKey: parent.key,
+        reverseRelation: parent.model.paths[lastEntry.relationName].reverseRelationName,
+        parentModel: parent.model
+      })
   }
 }
 
 export const deriveBreadcrumbs = routeInfos => {
   let path = ''
-  return routeInfos.map(routeInfo => {
-    if (routeInfo.error) {
-      return {type: 'error'}
-    }
-    if (routeInfo.type === 'action') {
-      return null
-    }
-    path = (path ? path + '/' : '') + (routeInfo.key ? routeInfo.key : routeInfo.relationName || routeInfo.model.name)
-    return {
-      type: routeInfo.type,
-      display: routeInfo.display || routeInfo.model.label,
-      path: path + '/' + routeInfo.type
-    }
-  }).filter(e => e)
+  return routeInfos
+    .map(routeInfo => {
+      if (routeInfo.error) {
+        return {type: 'error'}
+      }
+      if (routeInfo.type === 'action') {
+        return null
+      }
+      path = (path ? path + '/' : '') + (routeInfo.key ? routeInfo.key : routeInfo.relationName || routeInfo.model.name)
+      return {
+        type: routeInfo.type,
+        display: routeInfo.display || routeInfo.model.label,
+        path: path + '/' + routeInfo.type
+      }
+    })
+    .filter(e => e)
 }
 
 export function* initMultiRelations(model, key) {
@@ -223,11 +226,15 @@ export function* initMultiRelations(model, key) {
 
   const relationsTransformed = Object.keys(relations)
     .map(k =>
-      _pick(relations[k],
-        ['relationName', 'reverseRelationName', 'targetEntity', 'relationDisplay.label', 'relationDisplay.order']
-      )
+      _pick(relations[k], [
+        'relationName',
+        'reverseRelationName',
+        'targetEntity',
+        'relationDisplay.label',
+        'relationDisplay.order'
+      ])
     )
-    .sort((a, b) => a.relationDisplay.order > b.relationDisplay.order ? 1 : -1)
+    .sort((a, b) => (a.relationDisplay.order > b.relationDisplay.order ? 1 : -1))
 
   yield put(actions.selectRelation(null))
   yield put(actions.setRelations(relationsTransformed))
@@ -258,7 +265,7 @@ export function* invalidateLastBreadcrumb({payload: {location}}) {
         const display = yield call(rest.fetchDisplay, entityName, key)
 
         yield put(actions.setCurrentViewInfo(pathname, {display}))
-        
+
         const breadcrumbsPath = yield call(getLastBreadcrumbsPath, pathname)
         yield put(actions.updateBreadcrumbsInfo(breadcrumbsPath, {display}))
       }
@@ -275,7 +282,7 @@ function* getLastBreadcrumbsPath(pathname) {
   if (path === null || !path.entity) {
     return ''
   }
-  
+
   // concatenates defined path segments separated with a slash => ${entity}/${key}/${relation}/${view}
   return [path.entity, path.key, path.relation, path.view].filter(Boolean).join('/')
 }
@@ -286,7 +293,7 @@ function* getLastEntityInPath(path) {
   }
 
   const baseModel = yield call(rest.fetchModel, path.entity)
-    
+
   if (!path.relation) {
     // no relations => base entity is the last entity
     return {entityName: baseModel.name, key: path.key}
@@ -303,7 +310,7 @@ function* getLastEntityInPath(path) {
   for (let i = 0; i < splittedEntities.length; i++) {
     const [relationName, key] = splittedEntities[i].split('/')
     const relation = parentModel.paths[relationName]
-      
+
     if (!relation || !key) {
       // no key = no entity (e.g. list or create view)
       return null

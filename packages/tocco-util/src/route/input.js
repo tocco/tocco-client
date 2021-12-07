@@ -1,9 +1,11 @@
 import consoleLogger from '../consoleLogger'
 
-export const dispatchInput = (store,
+export const dispatchInput = (
+  store,
   input,
   {key, actionCreator, mandatory = false, defaultValue},
-  logger = consoleLogger.logError) => {
+  logger = consoleLogger.logError
+) => {
   if (Object.prototype.hasOwnProperty.call(input, key) || defaultValue) {
     const action = actionCreator(input[key] || defaultValue)
     store.dispatch(action)

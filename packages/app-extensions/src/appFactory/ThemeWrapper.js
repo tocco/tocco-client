@@ -1,10 +1,10 @@
-import {ThemeProvider, withTheme, createGlobalStyle} from 'styled-components'
 import _merge from 'lodash/merge'
+import {darken} from 'polished'
+import PropTypes from 'prop-types'
+import React, {useMemo} from 'react'
+import {ThemeProvider, withTheme, createGlobalStyle} from 'styled-components'
 import {ToccoTheme} from 'tocco-theme'
 import {theme} from 'tocco-ui'
-import React, {useMemo} from 'react'
-import PropTypes from 'prop-types'
-import {darken} from 'polished'
 
 const GlobalStyle = createGlobalStyle`
 
@@ -21,10 +21,12 @@ const GlobalStyle = createGlobalStyle`
 const ThemeWrapper = ({theme, appTheme, children}) => {
   const mergedTheme = useMemo(() => _merge({}, theme, appTheme), [theme, appTheme])
 
-  return <ThemeProvider theme={mergedTheme}>
-    <GlobalStyle/>
-    {children}
-  </ThemeProvider>
+  return (
+    <ThemeProvider theme={mergedTheme}>
+      <GlobalStyle />
+      {children}
+    </ThemeProvider>
+  )
 }
 
 ThemeWrapper.defaultProps = {

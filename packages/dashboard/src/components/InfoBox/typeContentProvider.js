@@ -10,7 +10,7 @@ export default (type, id, content) => {
   }
 
   consoleLogger.logError('No Content mapper defined for type', type, id)
-  return <div/>
+  return <div />
 }
 
 export const map = {

@@ -3,8 +3,8 @@ import React from 'react'
 import styled from 'styled-components'
 import {html} from 'tocco-util'
 
-import {scale, theme} from '../../utilStyles'
 import {declareTypograhpy, StyledSpan} from '../../Typography'
+import {scale, theme} from '../../utilStyles'
 
 const StyledHtmlFormatter = styled(StyledSpan)`
   &&& {
@@ -41,16 +41,13 @@ const StyledHtmlFormatter = styled(StyledSpan)`
   }
 `
 
-const HtmlFormatter = ({value, breakWords}) => <StyledHtmlFormatter
-  dangerouslySetInnerHTML={{__html: html.sanitizeHtml(value)}}
-  breakWords={breakWords}/>
+const HtmlFormatter = ({value, breakWords}) => (
+  <StyledHtmlFormatter dangerouslySetInnerHTML={{__html: html.sanitizeHtml(value)}} breakWords={breakWords} />
+)
 
 HtmlFormatter.propTypes = {
   value: PropTypes.string.isRequired,
   breakWords: PropTypes.bool
 }
 
-export {
-  HtmlFormatter as default,
-  StyledHtmlFormatter
-}
+export {HtmlFormatter as default, StyledHtmlFormatter}

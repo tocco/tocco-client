@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
 import {mount} from 'enzyme'
-import {RouterLink} from 'tocco-ui'
+import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
+import {RouterLink} from 'tocco-ui'
 
 import InfoPart from './InfoPart'
 
@@ -33,8 +33,7 @@ describe('delete', () => {
               }}
               maxCountLink={100}
               navigationStrategy={{
-                ListLink: ({entityName, children}) =>
-                  <RouterLink to={`${entityName}/list`}>{children}</RouterLink>
+                ListLink: ({entityName, children}) => <RouterLink to={`${entityName}/list`}>{children}</RouterLink>
               }}
             />
           </MemoryRouter>

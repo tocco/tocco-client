@@ -1,11 +1,11 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
-import SearchView from './SearchView'
-import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
-import AdminSearchForm from '../AdminSearchForm'
+import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import searchFormTypes from '../../util/searchFormTypes'
+import AdminSearchForm from '../AdminSearchForm'
+import SearchView from './SearchView'
 
 const EMPTY_FUNC = () => {}
 
@@ -14,10 +14,7 @@ describe('entity-list', () => {
     describe('SearchView', () => {
       test('should show search form depending on type', () => {
         const wrapper = shallow(
-          <SearchView
-            initializeSearchForm={EMPTY_FUNC}
-            searchFormType={searchFormTypes.SIMPLE}
-          />
+          <SearchView initializeSearchForm={EMPTY_FUNC} searchFormType={searchFormTypes.SIMPLE} />
         )
         expect(wrapper.find(FullTextSearchForm)).to.have.length(1)
         wrapper.setProps({searchFormType: searchFormTypes.BASIC})

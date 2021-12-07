@@ -1,11 +1,11 @@
+import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _isEmpty from 'lodash/isEmpty'
 import {form} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 
-import modes from '../../util/modes'
 import DetailFormContainer from '../../containers/DetailFormContainer'
+import modes from '../../util/modes'
 
 class DetailView extends React.Component {
   componentWillUnmount() {
@@ -33,10 +33,7 @@ class DetailView extends React.Component {
     const props = this.props
 
     return (
-      <LoadMask
-        required={[props.formInitialValues]}
-        loadingText={this.msg('client.entity-detail.loadingText')}
-      >
+      <LoadMask required={[props.formInitialValues]} loadingText={this.msg('client.entity-detail.loadingText')}>
         <DetailFormContainer
           mode={this.props.mode}
           validate={this.getSyncValidation()}

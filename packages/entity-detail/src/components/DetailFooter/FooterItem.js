@@ -1,13 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
 
 import {StyledFooterItemWrapper, StyledFooterItemLabel, StyledFooterItemValue} from './StyledComponents'
 
 const FooterItem = ({labelId, valueComponent: ValueComp}) => (
   <StyledFooterItemWrapper>
-    <StyledFooterItemLabel><FormattedMessage id={labelId}/>:</StyledFooterItemLabel>
-    <StyledFooterItemValue><ValueComp/></StyledFooterItemValue>
+    <StyledFooterItemLabel>
+      <FormattedMessage id={labelId} />:
+    </StyledFooterItemLabel>
+    <StyledFooterItemValue>
+      <ValueComp />
+    </StyledFooterItemValue>
   </StyledFooterItemWrapper>
 )
 

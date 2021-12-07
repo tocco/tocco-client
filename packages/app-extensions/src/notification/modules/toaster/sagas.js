@@ -1,18 +1,13 @@
 import {takeEvery, put, all} from 'redux-saga/effects'
 
-import * as actions from './actions'
 import actionEmitter from '../../../actionEmitter'
+import * as actions from './actions'
 
 export default function* sagas(accept) {
   if (accept) {
-    yield all([
-      takeEvery(actions.REMOVE_TOASTER, removeToaster)
-    ])
+    yield all([takeEvery(actions.REMOVE_TOASTER, removeToaster)])
   } else {
-    yield all([
-      takeEvery(actions.TOASTER, emit),
-      takeEvery(actions.REMOVE_TOASTER, emit)
-    ])
+    yield all([takeEvery(actions.TOASTER, emit), takeEvery(actions.REMOVE_TOASTER, emit)])
   }
 }
 

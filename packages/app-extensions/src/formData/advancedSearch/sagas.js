@@ -1,20 +1,18 @@
 import {channel} from 'redux-saga'
-import {v4 as uuid} from 'uuid'
 import {all, call, put, select, spawn, take, takeEvery} from 'redux-saga/effects'
 import {api} from 'tocco-util'
+import {v4 as uuid} from 'uuid'
 
-import notification from './../../notification'
 import rest from '../../rest'
-import * as advancedSearchActions from './actions'
 import * as valueActions from '../values/actions'
+import notification from './../../notification'
+import * as advancedSearchActions from './actions'
 import {getAdvancedSearchComponent, getSelection, getValue} from './utils'
 
 export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
 export default function* sagas(config) {
-  yield all([
-    takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch, config)
-  ])
+  yield all([takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch, config)])
 }
 
 export function* openAdvancedSearch(config, {payload}) {
@@ -50,7 +48,8 @@ export function* openAdvancedSearch(config, {payload}) {
       answerChannel.put(advancedSearchActions.advancedSearchClose())
     },
     fieldId,
-    multi)
+    multi
+  )
 
   yield put(notification.modal(modalId, `${label}: ${advancedSearchTitle}`, null, advancedSearchComponent, true))
   yield spawn(closeAdvancedSearch, answerChannel, modalId, fieldId, formName, entity, multi)

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import {declareFont, scale} from '../utilStyles'
 import {StyledSpan} from '../Typography'
+import {declareFont, scale} from '../utilStyles'
 
 export const StyledUploadProgress = styled.div`
   && {

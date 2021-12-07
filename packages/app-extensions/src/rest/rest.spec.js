@@ -1,15 +1,15 @@
 import fetchMock from 'fetch-mock'
-import {call} from 'redux-saga/effects'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
+import {call} from 'redux-saga/effects'
 import {env} from 'tocco-util'
 
-import {getParameterString, prepareRequest, requestSaga, simpleRequest} from './rest'
-import {sendRequest} from './request'
-import {handleClientQuestion} from './clientQuestions'
 import {toaster} from '../notification/modules/toaster/actions'
+import {handleClientQuestion} from './clientQuestions'
 import InformationError from './InformationError'
+import {sendRequest} from './request'
+import {getParameterString, prepareRequest, requestSaga, simpleRequest} from './rest'
 
 describe('app-extensions', () => {
   describe('rest', () => {
@@ -184,52 +184,46 @@ describe('app-extensions', () => {
     })
 
     describe('requestSaga', () => {
-      test(
-        'should call prepareRequest, handleClientQuestions and sendRequest',
-        () => {
-          const resource = 'entities/2.0/Contact'
-          const options = {
-            queryParams: {
-              _search: 'test',
-              xyz: 'abc'
-            },
-            method: 'POST',
-            body: {
-              foo: 'bar'
-            },
-            acceptedErrorCodes: ['MY_ERROR_CODE'],
-            acceptedStatusCodes: [400]
-          }
+      test('should call prepareRequest, handleClientQuestions and sendRequest', () => {
+        const resource = 'entities/2.0/Contact'
+        const options = {
+          queryParams: {
+            _search: 'test',
+            xyz: 'abc'
+          },
+          method: 'POST',
+          body: {
+            foo: 'bar'
+          },
+          acceptedErrorCodes: ['MY_ERROR_CODE'],
+          acceptedStatusCodes: [400]
+        }
 
-          const gen = requestSaga(resource, options)
+        const gen = requestSaga(resource, options)
 
-          expect(gen.next().value).to.eql(call(prepareRequest, resource, options))
+        expect(gen.next().value).to.eql(call(prepareRequest, resource, options))
 
-          const requestData = prepareRequest(resource, options)
+        const requestData = prepareRequest(resource, options)
 
-          expect(gen.next(requestData).value).to.eql(call(
+        expect(gen.next(requestData).value).to.eql(
+          call(
             sendRequest,
             requestData.url,
             requestData.options,
             options.acceptedErrorCodes,
             options.acceptedStatusCodes
-          ))
+          )
+        )
 
-          const resp = {}
+        const resp = {}
 
-          expect(gen.next(resp).value).to.eql(call(
-            handleClientQuestion,
-            resp,
-            requestData,
-            options
-          ))
+        expect(gen.next(resp).value).to.eql(call(handleClientQuestion, resp, requestData, options))
 
-          const next = gen.next(resp)
+        const next = gen.next(resp)
 
-          expect(next.value).to.equal(resp) // expect same (not just equal)
-          expect(next.done).to.be.true
-        }
-      )
+        expect(next.value).to.equal(resp) // expect same (not just equal)
+        expect(next.done).to.be.true
+      })
 
       test('should notify about unexpected information errors', () => {
         const resource = 'entities/2.0/Contact'
@@ -246,11 +240,13 @@ describe('app-extensions', () => {
             [matchers.call.fn(prepareRequest), {}],
             [matchers.call.fn(sendRequest), throwError(error)]
           ])
-          .put(toaster({
-            type: 'info',
-            title: 'client.common.information',
-            body: 'message'
-          }))
+          .put(
+            toaster({
+              type: 'info',
+              title: 'client.common.information',
+              body: 'message'
+            })
+          )
           .run()
       })
     })

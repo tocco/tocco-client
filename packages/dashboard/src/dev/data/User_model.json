@@ -18,7 +18,7 @@
       "validation": {
         "numberRange": {
           "fromIncluding": 1.0,
-          "toIncluding": 9.223372036854776E18
+          "toIncluding": 9.223372036854776e18
         }
       }
     },
@@ -60,8 +60,8 @@
           "postPointDigits": 0
         },
         "numberRange": {
-          "fromIncluding": -2.147483648E9,
-          "toIncluding": 2.147483647E9
+          "fromIncluding": -2.147483648e9,
+          "toIncluding": 2.147483647e9
         }
       }
     }

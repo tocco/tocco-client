@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import _isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
+import React, {useEffect, useState} from 'react'
 import {FormattedMessage} from 'react-intl'
+import styled from 'styled-components'
 import {selection} from 'tocco-app-extensions'
 import {Button, LoadMask, StyledButton} from 'tocco-ui'
-import styled from 'styled-components'
-import _isEqual from 'lodash/isEqual'
 
 import DocsBrowser from '../../../main'
 import getNode from '../../../utils/getNode'
@@ -60,37 +60,39 @@ export const MoveAction = ({
     return getCustomLocation(model, key)
   }
 
-  return <LoadMask required={[!isWaiting]}>
-    <DocsBrowser
-      memoryHistory={true}
-      initialLocation={getInitialLocation()}
-      listLimit={10}
-      selectionStyle="none"
-      searchFormType="none"
-      disableViewPersistor={true}
-      getListFormName={parent => parent === null ? 'Move_root_docs_list_item' : 'Move_docs_list_item'}
-      onListParentChange={parent => setParent(parent)}
-      getCustomLocation={getCustomLocation}
-      navigationStrategy={{}}
-      embedded={true}
-      emitAction={emitAction}
-      noLeftPadding={true}
-      domainTypes={domainTypes}
-      rootNodes={rootNodes}
-      businessUnit={businessUnit}
-      sortable={false}
-    />
-    <StyledButtonsWrapper>
-      <Button
-        onClick={() => moveElements(parent.key, selection.ids)}
-        look="raised"
-        ink="primary"
-        disabled={parent === null || _isEqual(parent, initialParent)}
-      >
-        <FormattedMessage id="client.actions.dms-move.button"/>
-      </Button>
-    </StyledButtonsWrapper>
-  </LoadMask>
+  return (
+    <LoadMask required={[!isWaiting]}>
+      <DocsBrowser
+        memoryHistory={true}
+        initialLocation={getInitialLocation()}
+        listLimit={10}
+        selectionStyle="none"
+        searchFormType="none"
+        disableViewPersistor={true}
+        getListFormName={parent => (parent === null ? 'Move_root_docs_list_item' : 'Move_docs_list_item')}
+        onListParentChange={parent => setParent(parent)}
+        getCustomLocation={getCustomLocation}
+        navigationStrategy={{}}
+        embedded={true}
+        emitAction={emitAction}
+        noLeftPadding={true}
+        domainTypes={domainTypes}
+        rootNodes={rootNodes}
+        businessUnit={businessUnit}
+        sortable={false}
+      />
+      <StyledButtonsWrapper>
+        <Button
+          onClick={() => moveElements(parent.key, selection.ids)}
+          look="raised"
+          ink="primary"
+          disabled={parent === null || _isEqual(parent, initialParent)}
+        >
+          <FormattedMessage id="client.actions.dms-move.button" />
+        </Button>
+      </StyledButtonsWrapper>
+    </LoadMask>
+  )
 }
 
 MoveAction.propTypes = {
@@ -108,10 +110,12 @@ MoveAction.propTypes = {
   moveElements: PropTypes.func.isRequired,
   isWaiting: PropTypes.bool.isRequired,
   domainTypes: PropTypes.arrayOf(PropTypes.string),
-  rootNodes: PropTypes.arrayOf(PropTypes.shape({
-    entityName: PropTypes.string,
-    key: PropTypes.string
-  })),
+  rootNodes: PropTypes.arrayOf(
+    PropTypes.shape({
+      entityName: PropTypes.string,
+      key: PropTypes.string
+    })
+  ),
   businessUnit: PropTypes.string,
   emitAction: PropTypes.func.isRequired
 }

@@ -1,13 +1,13 @@
-import React, {Suspense, useEffect, useMemo, useReducer, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
-import {viewPersistor} from 'tocco-util'
-import {Icon, LoadMask} from 'tocco-ui'
+import React, {Suspense, useEffect, useMemo, useReducer, useRef, useState} from 'react'
 import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
+import {Icon, LoadMask} from 'tocco-ui'
+import {viewPersistor} from 'tocco-util'
 
+import isRootLocation from '../../utils/isRootLocation'
 import Action from '../Action'
 import FileInput from '../FileInput'
 import {StyledContentWrapper, StyledIconWrapper} from './StyledComponents'
-import isRootLocation from '../../utils/isRootLocation'
 
 export const getParent = match => {
   if (match.params && match.params.model) {
@@ -23,16 +23,12 @@ export const getParent = match => {
 }
 
 export const getTql = domainTypes =>
-  Array.isArray(domainTypes)
-  && domainTypes.length > 0
+  Array.isArray(domainTypes) && domainTypes.length > 0
     ? `exists(relDomain_type where IN(unique_id, ${domainTypes.map(type => `"${type}"`).join(',')}))`
     : null
 
-export const getFormName = (parent, keys) => parent
-  ? 'Docs_list_item'
-  : keys
-    ? 'Root_docs_list_item_specific'
-    : 'Root_docs_list_item'
+export const getFormName = (parent, keys) =>
+  parent ? 'Docs_list_item' : keys ? 'Root_docs_list_item_specific' : 'Root_docs_list_item'
 
 export const getDefaultLocation = (model, key) => {
   switch (model) {
@@ -85,10 +81,10 @@ const DocsView = props => {
   const parent = useMemo(() => getParent(match), [match.params])
 
   const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
-  const formName = useMemo(() => getListFormName
-    ? getListFormName(parent, keys)
-    : getFormName(parent, keys)
-  , [match.params, getListFormName])
+  const formName = useMemo(
+    () => (getListFormName ? getListFormName(parent, keys) : getFormName(parent, keys)),
+    [match.params, getListFormName]
+  )
 
   const mounted = useRef(false)
   const searchModeRef = useRef(searchMode)
@@ -155,8 +151,8 @@ const DocsView = props => {
   const store = disableViewPersistor
     ? undefined
     : isRootLocation(history.location.pathname)
-      ? viewPersistor.viewInfoSelector('search').store
-      : null
+    ? viewPersistor.viewInfoSelector('search').store
+    : null
 
   const handleStoreCreation = store => {
     if (!disableViewPersistor) {
@@ -167,7 +163,7 @@ const DocsView = props => {
 
   return (
     <>
-      <Suspense fallback={<LoadMask/>}>
+      <Suspense fallback={<LoadMask />}>
         <LazyListApp
           key={entityListKey}
           id="documents"
@@ -185,7 +181,7 @@ const DocsView = props => {
             'dms-label-with-icon': (rowData, column, cellRenderer) => (
               <StyledContentWrapper>
                 <StyledIconWrapper>
-                  <Icon icon={rowData.icon}/>
+                  <Icon icon={rowData.icon} />
                 </StyledIconWrapper>
                 <span>{cellRenderer(column.children[0])}</span>
               </StyledContentWrapper>
@@ -223,7 +219,7 @@ const DocsView = props => {
           onSearchFormCollapsedChange={changeSearchFormCollapsed}
         />
       </Suspense>
-      <FileInput/>
+      <FileInput />
     </>
   )
 }
@@ -233,10 +229,12 @@ DocsView.propTypes = {
   history: PropTypes.object.isRequired,
   navigationStrategy: PropTypes.object,
   domainTypes: PropTypes.arrayOf(PropTypes.string),
-  rootNodes: PropTypes.arrayOf(PropTypes.shape({
-    entityName: PropTypes.string,
-    key: PropTypes.string
-  })),
+  rootNodes: PropTypes.arrayOf(
+    PropTypes.shape({
+      entityName: PropTypes.string,
+      key: PropTypes.string
+    })
+  ),
   changeListParent: PropTypes.func.isRequired,
   onSearchChange: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired,

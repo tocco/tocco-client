@@ -1,7 +1,7 @@
-import _reduce from 'lodash/reduce'
-import _isObject from 'lodash/isObject'
-import {call} from 'redux-saga/effects'
 import _get from 'lodash/get'
+import _isObject from 'lodash/isObject'
+import _reduce from 'lodash/reduce'
+import {call} from 'redux-saga/effects'
 import {cache} from 'tocco-util'
 
 import {requestSaga} from './rest'
@@ -30,11 +30,11 @@ export function* fetchEntity(entityName, key, query, transformer = json => json)
 }
 
 /**
-* Helper to check of an entity exists or the user has read rights
-*
-* @param entityName {String} Name of the entity
-* @param key {String} key of the entity
-*/
+ * Helper to check of an entity exists or the user has read rights
+ *
+ * @param entityName {String} Name of the entity
+ * @param key {String} key of the entity
+ */
 export function* entityExists(entityName, key) {
   const options = {
     method: 'GET',
@@ -116,16 +116,22 @@ export function* fetchDisplays(request, type) {
 
   const loadedDisplays = yield loadDisplays(currentDisplays, type)
 
-  return currentDisplays.reduce((acc, {model, displays}) => ({
-    ...acc,
-    [model]: {
-      ...acc[model],
-      ...(displays.reduce((acc, {key, display}) => ({
-        ...acc,
-        [key]: display
-      }), {}))
-    }
-  }), loadedDisplays)
+  return currentDisplays.reduce(
+    (acc, {model, displays}) => ({
+      ...acc,
+      [model]: {
+        ...acc[model],
+        ...displays.reduce(
+          (acc, {key, display}) => ({
+            ...acc,
+            [key]: display
+          }),
+          {}
+        )
+      }
+    }),
+    loadedDisplays
+  )
 }
 
 /**
@@ -149,12 +155,13 @@ function* loadDisplays(currentDisplays, type) {
     }
     const response = yield call(requestSaga, `entities/2.0/displays${type ? `/${type}` : ''}`, options)
 
-    const loadedDisplays = response.body.data.reduce((acc, value) => (
-      {
+    const loadedDisplays = response.body.data.reduce(
+      (acc, value) => ({
         ...acc,
         [value.model]: value.values.reduce((acc, value) => ({...acc, [value.key]: value.display}), {})
-      }
-    ), {})
+      }),
+      {}
+    )
     Object.entries(loadedDisplays).forEach(([entityName, values]) => {
       Object.entries(values).forEach(([key, display]) => {
         cache.addShortTerm('display', `${entityName}.${key}${type ? `.${type}` : ''}`, display)
@@ -175,14 +182,7 @@ function* loadDisplays(currentDisplays, type) {
  * - method {String} HTTP Method of request. Default is POST
  * - endpoint {String} To overwrite default endpoint entities/2.0/{entityName}/count
  */
-export function* fetchEntityCount(
-  entityName,
-  query,
-  {
-    method = 'POST',
-    endpoint
-  } = {}
-) {
+export function* fetchEntityCount(entityName, query, {method = 'POST', endpoint} = {}) {
   const requestQuery = yield call(buildRequestQuery, query)
   const resource = (endpoint || `entities/2.0/${entityName}`) + '/count'
 
@@ -208,10 +208,7 @@ export function* fetchEntityCount(
 export function* fetchEntities(
   entityName,
   query,
-  {
-    method = 'POST',
-    endpoint
-  } = {},
+  {method = 'POST', endpoint} = {},
   transformer = defaultEntityTransformer
 ) {
   const requestQuery = yield call(buildRequestQuery, query)
@@ -310,9 +307,9 @@ export const defaultModelTransformer = json => {
   return model
 }
 
-export const defaultFormTransformer = json => (json.form)
+export const defaultFormTransformer = json => json.form
 
-export const defaultEntityTransformer = json => (json.data)
+export const defaultEntityTransformer = json => json.data
 
 /**
  * Function that converts a query object into request query object that can be attached to a request.
@@ -346,46 +343,52 @@ export const buildRequestQuery = ({
   filter,
   keys,
   constriction
-} = {}) => (
-  {
-    ...(conditions ? {conditions} : {}),
-    ...(Array.isArray(fields) ? {fields: fields.length === 0 ? '!' : fields} : {}),
-    ...(form ? {form} : {}),
-    ...(limit ? {limit} : {}),
-    ...(search ? {search} : {}),
-    ...(sorting ? {sort: createSortingString(sorting)} : {}),
-    ...(page && limit ? {offset: (page - 1) * limit} : {}),
-    ...(paths ? {paths} : {}),
-    ...(where ? {where} : {}),
-    ...(Array.isArray(relations) ? {relations: relations.length === 0 ? '!' : relations} : {}),
-    ...(filter ? {filter} : {}),
-    ...(keys ? {keys} : {}),
-    ...(constriction ? {constriction} : {})
-  }
-)
+} = {}) => ({
+  ...(conditions ? {conditions} : {}),
+  ...(Array.isArray(fields) ? {fields: fields.length === 0 ? '!' : fields} : {}),
+  ...(form ? {form} : {}),
+  ...(limit ? {limit} : {}),
+  ...(search ? {search} : {}),
+  ...(sorting ? {sort: createSortingString(sorting)} : {}),
+  ...(page && limit ? {offset: (page - 1) * limit} : {}),
+  ...(paths ? {paths} : {}),
+  ...(where ? {where} : {}),
+  ...(Array.isArray(relations) ? {relations: relations.length === 0 ? '!' : relations} : {}),
+  ...(filter ? {filter} : {}),
+  ...(keys ? {keys} : {}),
+  ...(constriction ? {constriction} : {})
+})
 
 export const createSortingString = sorting => sorting.map(s => `${s.field} ${s.order}`).join(', ')
 
 export const requestQueryToUrlParams = queryObject =>
-  _reduce(queryObject, (result, value, key) => {
-    let add = {}
-    if (key === 'conditions') {
-      add = flattenObjectValues(value)
-    } else {
-      add['_' + key] = Array.isArray(value) ? value.join(',') : value
-    }
+  _reduce(
+    queryObject,
+    (result, value, key) => {
+      let add = {}
+      if (key === 'conditions') {
+        add = flattenObjectValues(value)
+      } else {
+        add['_' + key] = Array.isArray(value) ? value.join(',') : value
+      }
 
-    return {
-      ...result,
-      ...add
-    }
-  }, {})
+      return {
+        ...result,
+        ...add
+      }
+    },
+    {}
+  )
 
 export const flattenObjectValues = value =>
-  _reduce(value, (result, value, key) => ({
-    ...result,
-    [key]: _isObject(value) && value.value ? value.value : value
-  }), {})
+  _reduce(
+    value,
+    (result, value, key) => ({
+      ...result,
+      [key]: _isObject(value) && value.value ? value.value : value
+    }),
+    {}
+  )
 
 /**
  * Helper to fetch information about the currently logged in user including username and active business unit.

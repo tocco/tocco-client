@@ -4,10 +4,10 @@ import {download, validation} from 'tocco-util'
 import {v4 as uuid} from 'uuid'
 
 import errorLogging from '../../../errorLogging'
-import rest from '../../../rest'
 import notification from '../../../notification'
-import {TOASTER_KEY_PREFIX} from '../../../notification/modules/socket/socket'
 import NotificationBody from '../../../notification/components/NotificationBody'
+import {TOASTER_KEY_PREFIX} from '../../../notification/modules/socket/socket'
+import rest from '../../../rest'
 
 export default function* (definition, selection, parent, params) {
   const runAsync = definition.runInBackgroundTask
@@ -33,11 +33,13 @@ export function* invokeActionAsync(definition, selection, parent, params) {
   })
 
   if (response.body && response.body.success === false) {
-    yield put(notification.toaster({
-      type: 'error',
-      title: 'client.common.unexpectedError',
-      body: response.body.title || 'client.component.actions.errorText'
-    }))
+    yield put(
+      notification.toaster({
+        type: 'error',
+        title: 'client.common.unexpectedError',
+        body: response.body.title || 'client.component.actions.errorText'
+      })
+    )
   }
 }
 
@@ -52,15 +54,16 @@ export function* invokeActionSync(definition, selection, parent, params) {
     ...response,
     remoteEvents: [
       ...(response && response.success
-        ? [{
-            type: 'entity-update-event',
-            payload: {
-              parent,
-              entities: [{entityName: selection.entityName}]
+        ? [
+            {
+              type: 'entity-update-event',
+              payload: {
+                parent,
+                entities: [{entityName: selection.entityName}]
+              }
             }
-          }]
-        : []
-      )
+          ]
+        : [])
     ]
   }
 }
@@ -106,11 +109,7 @@ export function* invokeRequest(definition, selection, parent, params) {
     return response.body
   } catch (error) {
     if (!(error instanceof rest.ClientQuestionCancelledException)) {
-      yield put(errorLogging.logError(
-        'client.common.unexpectedError',
-        'client.component.actions.errorText',
-        error
-      ))
+      yield put(errorLogging.logError('client.common.unexpectedError', 'client.component.actions.errorText', error))
     }
   }
 }

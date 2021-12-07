@@ -1,11 +1,13 @@
-import {rest} from 'tocco-app-extensions'
-import {viewPersistor} from 'tocco-util'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
 import {select} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
+import {viewPersistor} from 'tocco-util'
 
-import * as sagas from './sagas'
+import {getPathInfo} from '../../utils/url'
+import * as actions from './actions'
+import {loadCurrentRoute} from './actions'
 import {
   deriveBreadcrumbs,
   deriveCurrentViewInfo,
@@ -15,9 +17,7 @@ import {
   loadRouteInfo,
   reloadRelationsInfo
 } from './sagas'
-import * as actions from './actions'
-import {loadCurrentRoute} from './actions'
-import {getPathInfo} from '../../utils/url'
+import * as sagas from './sagas'
 
 describe('admin', () => {
   describe('routes', () => {
@@ -148,7 +148,6 @@ describe('admin', () => {
                   {
                     type: 'list',
                     model: mockData.userModel
-
                   },
                   {
                     type: 'detail',
@@ -179,7 +178,8 @@ describe('admin', () => {
                       model: mockData.userModel,
                       display: mockData.userDisplay
                     }
-                  }]
+                  }
+                ]
 
                 return expectSaga(sagas.loadRouteInfo, pathname)
                   .provide(modelDisplayProvider)
@@ -240,14 +240,14 @@ describe('admin', () => {
                   {
                     type: 'list',
                     model: mockData.userModel
-
                   },
                   {
                     type: 'create',
                     model: mockData.userModel,
                     parent: undefined,
                     relationName: undefined
-                  }]
+                  }
+                ]
 
                 return expectSaga(sagas.loadRouteInfo, pathname)
                   .provide(modelDisplayProvider)
@@ -262,7 +262,6 @@ describe('admin', () => {
                   {
                     type: 'list',
                     model: mockData.userModel
-
                   },
                   {
                     type: 'detail',
@@ -291,7 +290,8 @@ describe('admin', () => {
                       display: mockData.userDisplay
                     },
                     relationName: 'relAddress_user'
-                  }]
+                  }
+                ]
 
                 return expectSaga(sagas.loadRouteInfo, pathname)
                   .provide(modelDisplayProvider)
@@ -301,37 +301,32 @@ describe('admin', () => {
 
               test('should return only action id for action route [1]', () => {
                 const pathname = '/e/action/input-edit'
-                const expectedResult = [{
-                  type: 'action',
-                  actionId: 'input-edit'
-                }]
+                const expectedResult = [
+                  {
+                    type: 'action',
+                    actionId: 'input-edit'
+                  }
+                ]
 
-                return expectSaga(sagas.loadRouteInfo, pathname)
-                  .returns(expectedResult)
-                  .run()
+                return expectSaga(sagas.loadRouteInfo, pathname).returns(expectedResult).run()
               })
 
               test('should return and empty array for an invalid path', () => {
                 const pathname = '/e/invalid-url'
 
-                return expectSaga(sagas.loadRouteInfo, pathname)
-                  .returns([])
-                  .run()
+                return expectSaga(sagas.loadRouteInfo, pathname).returns([]).run()
               })
 
               test('should return an error if entity model can not be loaded', () => {
                 const pathname = '/e/UserAA/12261111111/detail'
 
                 return expectSaga(sagas.loadRouteInfo, pathname)
-                  .provide([
-                    [matchers.call.fn(sagas.fetchModel), throwError('')]
-
-                  ])
+                  .provide([[matchers.call.fn(sagas.fetchModel), throwError('')]])
                   .returns([{type: 'list', error: {entityName: 'UserAA'}}])
                   .run()
               })
 
-              test('should return an error if display can not be loaded of an entity', async() => {
+              test('should return an error if display can not be loaded of an entity', async () => {
                 const pathname = '/e/User/12261111111/detail'
 
                 const result = await expectSaga(sagas.loadRouteInfo, pathname)
@@ -342,9 +337,10 @@ describe('admin', () => {
 
                   .run()
 
-                expect(result.returnValue[1]).to.eql(
-                  {type: 'detail', error: {key: '12261111111', entityName: 'Person'}}
-                )
+                expect(result.returnValue[1]).to.eql({
+                  type: 'detail',
+                  error: {key: '12261111111', entityName: 'Person'}
+                })
               })
             })
 
@@ -361,7 +357,8 @@ describe('admin', () => {
                   {display: 'Person', path: 'User/list', type: 'list'},
                   {display: mockData.userDisplay, path: 'User/1/detail', type: 'detail'},
                   {display: 'Adresse', path: 'User/1/relAddress_user/list', type: 'list'},
-                  {display: mockData.addressDisplay, path: 'User/1/relAddress_user/99/detail', type: 'detail'}]
+                  {display: mockData.addressDisplay, path: 'User/1/relAddress_user/99/detail', type: 'detail'}
+                ]
 
                 const result = sagas.deriveBreadcrumbs(routeInfo)
 
@@ -374,9 +371,7 @@ describe('admin', () => {
                   {type: 'action', actionId: 'resourcescheduler'}
                 ]
 
-                const expectedResult = [
-                  {display: 'Person', path: 'User/list', type: 'list'}
-                ]
+                const expectedResult = [{display: 'Person', path: 'User/list', type: 'list'}]
 
                 const result = sagas.deriveBreadcrumbs(routeInfo)
 
@@ -469,8 +464,11 @@ describe('admin', () => {
                   .call(getPathInfo, pathname)
                   .call(rest.invalidateDisplay, 'Contact', '13')
                   .put(actions.setCurrentViewInfo(pathname, {display: 'Lorem'}))
-                  .put(actions.updateBreadcrumbsInfo('User/1/relAddress_user/99/relContact_address/13/detail',
-                    {display: 'Lorem'}))
+                  .put(
+                    actions.updateBreadcrumbsInfo('User/1/relAddress_user/99/relContact_address/13/detail', {
+                      display: 'Lorem'
+                    })
+                  )
                   .run()
               })
 
@@ -493,9 +491,7 @@ describe('admin', () => {
                 const pathname = '/e/User/1/relAddress_user/create'
 
                 return expectSaga(sagas.invalidateLastBreadcrumb, {payload: {location: {pathname}}})
-                  .provide([
-                    [matchers.call(rest.fetchModel, 'User'), mockData.userModel]
-                  ])
+                  .provide([[matchers.call(rest.fetchModel, 'User'), mockData.userModel]])
                   .call(getPathInfo, pathname)
                   .run()
               })
@@ -504,13 +500,11 @@ describe('admin', () => {
                 const pathname = '/e/User/1/action/any-action'
 
                 return expectSaga(sagas.invalidateLastBreadcrumb, {payload: {location: {pathname}}})
-                  .provide([
-                    [matchers.call(rest.fetchModel, 'User'), mockData.userModel]
-                  ])
+                  .provide([[matchers.call(rest.fetchModel, 'User'), mockData.userModel]])
                   .call(getPathInfo, pathname)
                   .run()
               })
-              
+
               test('shoud not invalidate cache for action view', () => {
                 const pathname = '/e/action/any-action'
 

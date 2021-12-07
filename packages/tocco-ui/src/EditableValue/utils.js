@@ -27,11 +27,7 @@ export const toLocalDateString = date => {
   const month = dateObj.getMonth() + 1 // getMonth() is zero-based
   const day = dateObj.getDate()
 
-  return [
-    year,
-    (month > 9 ? '' : '0') + month,
-    (day > 9 ? '' : '0') + day
-  ].join('-')
+  return [year, (month > 9 ? '' : '0') + month, (day > 9 ? '' : '0') + day].join('-')
 }
 
 /**
@@ -69,9 +65,8 @@ export const parseLocalePlaceholder = countryCode => {
 /*
  * String to number converter
  */
-export const convertStringToNumber = stringValue => (
+export const convertStringToNumber = stringValue =>
   !stringValue || isNaN(stringValue) ? null : parseFloat(stringValue)
-)
 
 /*
  * Convert two numbers as hours and minutes to milliseconds
@@ -99,7 +94,7 @@ export const millisecondsToDuration = milliseconds => {
   }
 
   const hoursOfDay = Math.floor(milliseconds / (60 * 60 * 1000))
-  const minutesOfHour = Math.floor((milliseconds - (hoursOfDay * (60 * 60 * 1000))) / (60 * 1000))
+  const minutesOfHour = Math.floor((milliseconds - hoursOfDay * (60 * 60 * 1000)) / (60 * 1000))
   return {hoursOfDay, minutesOfHour}
 }
 

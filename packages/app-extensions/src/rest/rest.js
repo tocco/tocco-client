@@ -1,10 +1,10 @@
 import {call, put} from 'redux-saga/effects'
 import {env, request} from 'tocco-util'
 
-import {sendByteRequest, sendRequest} from './request'
+import notification from '../notification'
 import {handleClientQuestion} from './clientQuestions'
 import InformationError from './InformationError'
-import notification from '../notification'
+import {sendByteRequest, sendRequest} from './request'
 
 export const getParameterString = params => {
   const paramString = Object.keys(params || {})
@@ -26,11 +26,13 @@ export const getParameterString = params => {
 
 function* runInformationErrorFallback(error) {
   if (error instanceof InformationError) {
-    yield put(notification.toaster({
-      type: 'info',
-      title: 'client.common.information',
-      body: error.message
-    }))
+    yield put(
+      notification.toaster({
+        type: 'info',
+        title: 'client.common.information',
+        body: error.message
+      })
+    )
   } else {
     throw error
   }
@@ -130,17 +132,13 @@ function prepareRestUrl(backendUrl, resource) {
 }
 
 export function prepareRequest(resource, options = {}) {
-  const {
-    queryParams = {},
-    method = 'GET',
-    backendUrl = env.getBackendUrl()
-  } = options
+  const {queryParams = {}, method = 'GET', backendUrl = env.getBackendUrl()} = options
 
   const headers = request.prepareHeaders(options)
   if (!headers.has('X-Client-Questions')) {
     headers.set('X-Client-Questions', 'true')
   }
-  
+
   let body = options.body
   if (body && !(body instanceof FormData) && typeof body !== 'string') {
     body = JSON.stringify(body)

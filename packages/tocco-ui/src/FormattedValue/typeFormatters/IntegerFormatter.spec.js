@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 import {IntlProvider} from 'react-intl'
 
 import IntegerFormatter from './IntegerFormatter'
@@ -11,7 +11,7 @@ describe('tocco-ui', () => {
         test('should show value unformatted', () => {
           const wrapper = mount(
             <IntlProvider locale="en">
-              <IntegerFormatter value={99999}/>
+              <IntegerFormatter value={99999} />
             </IntlProvider>
           )
           expect(wrapper.text()).to.equal('99999')

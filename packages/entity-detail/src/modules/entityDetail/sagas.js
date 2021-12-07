@@ -1,4 +1,7 @@
+import {selectUnit} from '@formatjs/intl-utils'
+import _get from 'lodash/get'
 import React from 'react'
+import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
 import {
   actions as formActions,
   getFormAsyncErrors,
@@ -7,8 +10,9 @@ import {
   getFormValues,
   isValid as isValidSelector
 } from 'redux-form'
-import {SubmissionError} from 'redux-form/es/SubmissionError'
 import * as formActionTypes from 'redux-form/es/actionTypes'
+import {SubmissionError} from 'redux-form/es/SubmissionError'
+import {all, call, debounce, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {
   actions as actionExtensions,
   errorLogging,
@@ -19,16 +23,12 @@ import {
   rest
 } from 'tocco-app-extensions'
 import {api} from 'tocco-util'
-import {all, call, debounce, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
-import {selectUnit} from '@formatjs/intl-utils'
-import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
-import _get from 'lodash/get'
 
-import * as actions from './actions'
-import {createEntity, updateEntity} from '../../util/api/entities'
-import modes from '../../util/modes'
 import {ErrorItem} from '../../components/ErrorItems/ErrorItems'
+import {createEntity, updateEntity} from '../../util/api/entities'
 import {getFooterPaths} from '../../util/detailFooter/helpers'
+import modes from '../../util/modes'
+import * as actions from './actions'
 
 export const formInitialValueSelector = (state, formId) => state.form[formId].initial
 
@@ -69,20 +69,21 @@ export function* autoComplete(fieldName, autoCompleteEndpoint) {
   const values = _get(response, 'body.values', [])
   const formValues = yield select(getFormValues(FORM_ID))
 
-  yield all(Object.keys(values).map(fieldName => {
-    const value = values[fieldName]
-    const currentFieldValue = formValues[fieldName]
-    if (value.mode === 'override' || (value.mode === 'if_empty' && form.isValueEmpty(currentFieldValue))) {
-      return put(formActions.change(FORM_ID, fieldName, value.value))
-    }
-    return null
-  }
-  ))
+  yield all(
+    Object.keys(values).map(fieldName => {
+      const value = values[fieldName]
+      const currentFieldValue = formValues[fieldName]
+      if (value.mode === 'override' || (value.mode === 'if_empty' && form.isValueEmpty(currentFieldValue))) {
+        return put(formActions.change(FORM_ID, fieldName, value.value))
+      }
+      return null
+    })
+  )
 }
 
 export function* onChange({meta}) {
   const {field} = meta
-  const fieldDefinition = (yield (select(entityDetailSelector))).fieldDefinitions.find(fd => fd.id === field)
+  const fieldDefinition = (yield select(entityDetailSelector)).fieldDefinitions.find(fd => fd.id === field)
   if (fieldDefinition && fieldDefinition.autoCompleteEndpoint) {
     yield call(autoComplete, field, fieldDefinition.autoCompleteEndpoint)
   }
@@ -159,7 +160,7 @@ export function* createFormSubmit(entity) {
 
 export function* touchAllFields() {
   const {fieldDefinitions} = yield select(entityDetailSelector)
-  yield put(formActions.touch(FORM_ID, ...(fieldDefinitions.map(f => form.transformFieldName(f.path || f.id)))))
+  yield put(formActions.touch(FORM_ID, ...fieldDefinitions.map(f => form.transformFieldName(f.path || f.id))))
 }
 
 export function* handleSubmitError(error) {
@@ -168,37 +169,41 @@ export function* handleSubmitError(error) {
     yield call(handleInvalidForm)
 
     const validationErrors = yield call(form.formErrorsUtil.getValidatorErrors, error.errors)
-    const message = (validationErrors && validationErrors.length > 0
-      ? validationErrors.join('<br>')
-      : 'client.entity-detail.saveAbortedMessage')
+    const message =
+      validationErrors && validationErrors.length > 0
+        ? validationErrors.join('<br>')
+        : 'client.entity-detail.saveAbortedMessage'
 
-    yield put(notification.toaster({
-      type: 'warning',
-      title: 'client.entity-detail.saveAbortedTitle',
-      body: () => <ErrorItem message={message}/>,
-      duration: 5000
-    }))
+    yield put(
+      notification.toaster({
+        type: 'warning',
+        title: 'client.entity-detail.saveAbortedTitle',
+        body: () => <ErrorItem message={message} />,
+        duration: 5000
+      })
+    )
   } else if (error instanceof rest.InformationError) {
-    yield put(notification.toaster({
-      type: 'info',
-      title: 'client.entity-detail.saveAbortedTitle',
-      body: error.message
-    }))
+    yield put(
+      notification.toaster({
+        type: 'info',
+        title: 'client.entity-detail.saveAbortedTitle',
+        body: error.message
+      })
+    )
     yield put(formActions.stopSubmit(FORM_ID))
   } else if (error instanceof rest.ForbiddenException) {
-    yield put(notification.toaster({
-      type: 'error',
-      title: 'client.entity-detail.saveAbortedTitle',
-      body: 'client.entity-detail.noPermission'
-    }))
+    yield put(
+      notification.toaster({
+        type: 'error',
+        title: 'client.entity-detail.saveAbortedTitle',
+        body: 'client.entity-detail.noPermission'
+      })
+    )
     yield put(formActions.stopSubmit(FORM_ID))
   } else if (error instanceof rest.ClientQuestionCancelledException) {
     yield put(formActions.stopSubmit(FORM_ID))
   } else {
-    yield put(errorLogging.logError(
-      'client.common.unexpectedError',
-      'client.entity-detail.saveError',
-      error))
+    yield put(errorLogging.logError('client.common.unexpectedError', 'client.entity-detail.saveError', error))
     yield put(formActions.stopSubmit(FORM_ID))
   }
 }
@@ -255,8 +260,7 @@ export function focusField(fieldName) {
 
 export function* locationFieldFocus(errorField) {
   const {fieldDefinitions} = yield select(entityDetailSelector)
-  const locationField = fieldDefinitions
-    .find(f => f.locationMapping && f.locationMapping.postcode === errorField)
+  const locationField = fieldDefinitions.find(f => f.locationMapping && f.locationMapping.postcode === errorField)
   yield call(focusField, locationField.id)
 }
 
@@ -303,20 +307,23 @@ export function* fireTouched({payload}) {
   const {touched: stateTouched} = yield select(entityDetailSelector)
 
   if (actionTouched !== stateTouched) {
-    yield put(externalEvents.fireExternalEvent('onTouchedChange', {
-      touched: actionTouched
-    }))
+    yield put(
+      externalEvents.fireExternalEvent('onTouchedChange', {
+        touched: actionTouched
+      })
+    )
     yield put(actions.setTouched(actionTouched))
   }
 }
 
 export function* showNotification(type, titleResourceName, messageResourceName) {
-  yield put(notification.toaster({
-    type,
-    title: `client.entity-detail.${titleResourceName}`,
-    body: `client.entity-detail.${messageResourceName}`
-  }
-  ))
+  yield put(
+    notification.toaster({
+      type,
+      title: `client.entity-detail.${titleResourceName}`,
+      body: `client.entity-detail.${messageResourceName}`
+    })
+  )
 }
 
 export function* loadDisplayExpressions(formName, mode, paths, entities) {
@@ -411,8 +418,8 @@ export function* navigateToAction({payload}) {
 }
 
 export const isCurrentEntity = (event, entityName, entityId) =>
-  !!event.payload.entities.find(entity => entity.entityName === entityName && entity.key === entityId)
-  || (event.payload.parent && event.payload.parent.model === entityName && event.payload.parent.key === entityId)
+  !!event.payload.entities.find(entity => entity.entityName === entityName && entity.key === entityId) ||
+  (event.payload.parent && event.payload.parent.model === entityName && event.payload.parent.key === entityId)
 
 export function* remoteEvent(action) {
   const event = action.payload.event
@@ -438,24 +445,30 @@ export function* asyncValidationStop({payload}) {
       const {value: timeStampValue, unit} = selectUnit(new Date(outdatedError.updateTimestamp))
       const titleId = `client.entity-detail.${outdatedError.sameEntity ? 'outdated' : 'relatedOutdated'}ErrorTitle`
 
-      yield put(notification.toaster({
-        type: 'warning',
-        key: 'outdated-warning',
-        title: <FormattedMessage
-          id={titleId}
-          values={{
-            model: outdatedError.model,
-            key: outdatedError.key
-          }}
-        />,
-        body: <FormattedMessage
-          id="client.entity-detail.outdatedErrorDescription"
-          values={{
-            ago: <FormattedRelativeTime value={timeStampValue} unit={unit}/>,
-            user: outdatedError.updateUser
-          }}
-        />
-      }))
+      yield put(
+        notification.toaster({
+          type: 'warning',
+          key: 'outdated-warning',
+          title: (
+            <FormattedMessage
+              id={titleId}
+              values={{
+                model: outdatedError.model,
+                key: outdatedError.key
+              }}
+            />
+          ),
+          body: (
+            <FormattedMessage
+              id="client.entity-detail.outdatedErrorDescription"
+              values={{
+                ago: <FormattedRelativeTime value={timeStampValue} unit={unit} />,
+                user: outdatedError.updateUser
+              }}
+            />
+          )
+        })
+      )
     }
   }
 }

@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import _get from 'lodash/get'
+import styled from 'styled-components'
 
 import {shadeColor, scale} from '../utilStyles'
 

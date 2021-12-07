@@ -7,9 +7,7 @@ import * as actions from './actions'
 export const inputSelector = state => state.input
 
 export default function* sagas() {
-  yield all([
-    takeEvery(actions.FETCH_DATA, fetchData)
-  ])
+  yield all([takeEvery(actions.FETCH_DATA, fetchData)])
 }
 
 export function* fetchData() {

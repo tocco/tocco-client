@@ -1,5 +1,5 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
 import Select from '../../Select'
 import MultiRemoteSelect from './MultiRemoteSelect'
@@ -14,11 +14,8 @@ describe('tocco-ui', () => {
           }
 
           const wrapper = shallow(
-            <MultiRemoteSelect
-              options={options}
-              value={[{key: 2, display: 'Two'}]}
-              onChange={() => {}}
-            />)
+            <MultiRemoteSelect options={options} value={[{key: 2, display: 'Two'}]} onChange={() => {}} />
+          )
 
           expect(wrapper.find(Select)).to.have.length(1)
           expect(wrapper.find(Select).prop('noResultsText')).to.be.eql('NO_RESULTS_TEXT')

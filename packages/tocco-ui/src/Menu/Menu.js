@@ -1,30 +1,34 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
-import {usePopper} from 'react-popper'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import ReactDOM from 'react-dom'
+import {usePopper} from 'react-popper'
 
 import {StyledPopper, StyledPopperWrapper} from './StyledComponents'
 
 /**
  * Menu realised with popper.
  */
-const Menu = ({
-  referenceElement,
-  onClose,
-  open,
-  children
-}) => {
+const Menu = ({referenceElement, onClose, open, children}) => {
   const thisEl = useRef(null)
   const [popperElement, setPopperElement] = useState(null)
   const [bottom, setBottom] = useState(0)
 
-  const handleClickOutside = useCallback(e => {
-    if (thisEl && thisEl.current && !thisEl.current.contains(e.target)
-      && popperElement && !popperElement.contains(e.target)
-      && referenceElement && !referenceElement.contains(e.target)) {
-      onClose()
-    }
-  }, [referenceElement, popperElement, onClose])
+  const handleClickOutside = useCallback(
+    e => {
+      if (
+        thisEl &&
+        thisEl.current &&
+        !thisEl.current.contains(e.target) &&
+        popperElement &&
+        !popperElement.contains(e.target) &&
+        referenceElement &&
+        !referenceElement.contains(e.target)
+      ) {
+        onClose()
+      }
+    },
+    [referenceElement, popperElement, onClose]
+  )
 
   useEffect(() => {
     if (thisEl.current) {
@@ -37,10 +41,7 @@ const Menu = ({
     }
   }, [handleClickOutside])
 
-  const {
-    styles,
-    attributes
-  } = usePopper(referenceElement, popperElement, {
+  const {styles, attributes} = usePopper(referenceElement, popperElement, {
     placement: 'bottom-start',
     modifiers: [
       {
@@ -48,7 +49,8 @@ const Menu = ({
         options: {
           offset: [0, 5]
         }
-      }]
+      }
+    ]
   })
 
   if (!open) {
@@ -57,15 +59,13 @@ const Menu = ({
 
   return (
     <StyledPopperWrapper ref={thisEl}>
-      {children && ReactDOM.createPortal(
-        <StyledPopper
-          ref={setPopperElement}
-          style={styles.popper}
-          {...attributes.popper}
-          rectBottom={bottom}>
-          {React.Children.map(children, child => child && React.cloneElement(child, {onClose: onClose}))}
-        </StyledPopper>,
-        document.body)}
+      {children &&
+        ReactDOM.createPortal(
+          <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper} rectBottom={bottom}>
+            {React.Children.map(children, child => child && React.cloneElement(child, {onClose: onClose}))}
+          </StyledPopper>,
+          document.body
+        )}
     </StyledPopperWrapper>
   )
 }

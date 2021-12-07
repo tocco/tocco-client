@@ -1,17 +1,13 @@
+import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
 import SplitPane from 'react-split-pane'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {scale} from 'tocco-ui'
 import {notification} from 'tocco-app-extensions'
+import {scale} from 'tocco-ui'
 
-import SearchPanel from '../SearchPanel/SearchPanel'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
-import {
-  resizerStyle,
-  StyledSplitPanelWrapperLeft,
-  StyledSplitPanelWrapperRight
-} from './StyledResourceScheduler'
+import SearchPanel from '../SearchPanel/SearchPanel'
+import {resizerStyle, StyledSplitPanelWrapperLeft, StyledSplitPanelWrapperRight} from './StyledResourceScheduler'
 
 const StyledSplitPane = styled(SplitPane)`
   position: static !important;
@@ -35,28 +31,25 @@ const ResourceScheduler = ({
     initialize()
   }, [])
 
-  return <>
-    {handleNotifications && <notification.Notifications/>}
-    <StyledSplitPane
-      defaultSize={325}
-      minSize={325}
-      resizerStyle={resizerStyle}
-      split="vertical"
-    >
-      <StyledSplitPanelWrapperLeft>
-        <SearchPanel
-          locale={locale}
-          calendarTypes={calendarTypes}
-          updateRequestedCalendars={updateRequestedCalendars}
-          requestedCalendars={requestedCalendars}
-          emitAction={emitAction}
-        />
-      </StyledSplitPanelWrapperLeft>
-      <StyledSplitPanelWrapperRight>
-        <SchedulerAppContainer/>
-      </StyledSplitPanelWrapperRight>
-    </StyledSplitPane>
-  </>
+  return (
+    <>
+      {handleNotifications && <notification.Notifications />}
+      <StyledSplitPane defaultSize={325} minSize={325} resizerStyle={resizerStyle} split="vertical">
+        <StyledSplitPanelWrapperLeft>
+          <SearchPanel
+            locale={locale}
+            calendarTypes={calendarTypes}
+            updateRequestedCalendars={updateRequestedCalendars}
+            requestedCalendars={requestedCalendars}
+            emitAction={emitAction}
+          />
+        </StyledSplitPanelWrapperLeft>
+        <StyledSplitPanelWrapperRight>
+          <SchedulerAppContainer />
+        </StyledSplitPanelWrapperRight>
+      </StyledSplitPane>
+    </>
+  )
 }
 
 ResourceScheduler.propTypes = {
@@ -74,13 +67,13 @@ ResourceScheduler.propTypes = {
           start: PropTypes.number,
           end: PropTypes.number,
           allDay: PropTypes.bool
-        }
-        )
+        })
       ),
       key: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired
-    })),
+    })
+  ),
   calendarTypes: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -88,8 +81,8 @@ ResourceScheduler.propTypes = {
       name: PropTypes.string.isRequired,
       targetEntity: PropTypes.string.isRequired,
       color: PropTypes.string
-    }
-    )),
+    })
+  ),
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   locale: PropTypes.string,
   emitAction: PropTypes.func.isRequired

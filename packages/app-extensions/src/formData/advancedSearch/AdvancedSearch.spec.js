@@ -1,5 +1,5 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
 import AdvancedSearch from './AdvancedSearch'
 
@@ -10,7 +10,7 @@ describe('app-extensions', () => {
         test('should render ListApp', () => {
           const ListApp = () => <div>ListApp</div>
           const wrapper = shallow(
-            <AdvancedSearch ListApp={ListApp} entityName="User" formName="User" emitAction={() => {}}/>
+            <AdvancedSearch ListApp={ListApp} entityName="User" formName="User" emitAction={() => {}} />
           )
           expect(wrapper.find(ListApp)).to.have.length(1)
         })

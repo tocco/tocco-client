@@ -1,15 +1,15 @@
-import styled from 'styled-components'
-import TetherComponent from 'react-tether'
-import {components} from 'react-select'
 import {getLuminance} from 'polished'
+import {components} from 'react-select'
+import TetherComponent from 'react-tether'
+import styled from 'styled-components'
 
 import Ball from '../Ball'
-import {declareFont, generateDisabledShade, generateShades, scale, theme} from '../utilStyles'
 import {StyledScrollbar} from '../Layout'
+import {declareFont, generateDisabledShade, generateShades, scale, theme} from '../utilStyles'
 
 export const StyledReactSelectOuterWrapper = styled.div`
   outline-style: none;
-  cursor: ${({immutable}) => immutable ? 'not-allowed' : 'default'};
+  cursor: ${({immutable}) => (immutable ? 'not-allowed' : 'default')};
 `
 
 export const StyledReactSelectInnerWrapper = styled.div`
@@ -49,15 +49,14 @@ export const StyledMoreOptionsAvailable = styled.div`
     })}
     cursor: default;
     padding: ${({reactSelectTheme}) =>
-      `${reactSelectTheme.spacing.baseUnit * 2}px ${reactSelectTheme.spacing.baseUnit * 3}px`
-    };
+      `${reactSelectTheme.spacing.baseUnit * 2}px ${reactSelectTheme.spacing.baseUnit * 3}px`};
   }
 `
 
 export const StyledSingleValueWrapper = styled.div`
   overflow-x: hidden;
   position: relative;
-  color: ${({isDisabled}) => isDisabled ? theme.color('text') : 'inherit'};
+  color: ${({isDisabled}) => (isDisabled ? theme.color('text') : 'inherit')};
 `
 
 /**
@@ -76,7 +75,7 @@ export const StyledDropdownIndicatorBall = styled(Ball)`
     position: absolute;
     top: 0;
     left: 0;
-    transform: ${({visible}) => visible ? 'scale(1)' : 'scale(0)'};
+    transform: ${({visible}) => (visible ? 'scale(1)' : 'scale(0)')};
   }
 `
 
@@ -136,22 +135,16 @@ export const reactSelectStyles = outerTheme => {
     }),
     option: (base, state) => ({
       ...base,
-      'color': outerTheme.colors.text,
-      'backgroundColor': state.isSelected
-        ? paper[2]
-        : state.isFocused
-          ? paper[1]
-          : paper[0],
-      'cursor': 'pointer',
+      color: outerTheme.colors.text,
+      backgroundColor: state.isSelected ? paper[2] : state.isFocused ? paper[1] : paper[0],
+      cursor: 'pointer',
       ':active': {
-        backgroundColor: state.isSelected
-          ? paper[2]
-          : paper[1]
+        backgroundColor: state.isSelected ? paper[2] : paper[1]
       }
     }),
     indicatorsContainer: (base, state) => ({
       ...base,
-      'alignSelf': 'flex-end',
+      alignSelf: 'flex-end',
       '> *': {
         padding: '0 !important;', // resets react-select padding
         marginRight: space2
@@ -189,9 +182,9 @@ export const reactSelectStyles = outerTheme => {
     }),
     multiValueRemove: (base, state) => ({
       ...base,
-      'borderRadius': 0,
-      'color': text[0],
-      'display': state.isDisabled ? 'none' : 'flex',
+      borderRadius: 0,
+      color: text[0],
+      display: state.isDisabled ? 'none' : 'flex',
       ':hover': {
         ...base[':hover'],
         color: text[1],

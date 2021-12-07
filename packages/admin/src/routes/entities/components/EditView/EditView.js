@@ -1,15 +1,15 @@
-import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import EntityDetailApp from 'tocco-entity-detail/src/main'
-import {Prompt} from 'react-router'
 import queryString from 'query-string'
+import React, {useState} from 'react'
+import {Prompt} from 'react-router'
 import styled from 'styled-components'
+import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {scale, theme} from 'tocco-ui'
 
 import {goBack} from '../../../../utils/routing'
-import Action from '../Action'
-import {currentViewPropType} from '../../utils/propTypes'
 import navigationStrategy from '../../utils/navigationStrategy'
+import {currentViewPropType} from '../../utils/propTypes'
+import Action from '../Action'
 
 export const StyledEntityDetailAppWrapper = styled.div`
   margin: 0;
@@ -83,33 +83,35 @@ const EditView = props => {
   const entityName = currentViewInfo.model.name
   const msg = id => intl.formatMessage({id})
 
-  return <StyledEntityDetailAppWrapper>
-    <Prompt
-      when={touched}
-      message={location => {
-        if (history.location.pathname !== location.pathname) {
-          return msg('client.entity-browser.detail.confirmTouchedFormLeave')
-        }
+  return (
+    <StyledEntityDetailAppWrapper>
+      <Prompt
+        when={touched}
+        message={location => {
+          if (history.location.pathname !== location.pathname) {
+            return msg('client.entity-browser.detail.confirmTouchedFormLeave')
+          }
 
-        return false
-      }}
-    />
-    <EntityDetailApp
-      entityName={entityName}
-      entityId={currentViewInfo.key}
-      formName={queryFormName || entityName}
-      mode={mode}
-      emitAction={emitAction}
-      onTouchedChange = {handleToucheChanged}
-      navigationStrategy={{...navigationStrategy(history, match), navigateToCreateRelative}}
-      chooseDocument={chooseDocument}
-      onEntityDeleted={handleEntityDeleted}
-      onEntityUpdated={handleEntityUpdated}
-      onRefresh={handleRefresh}
-      actionAppComponent={Action}
-      onSubGridRowClick={handleSubGridRowClick}
-    />
-  </StyledEntityDetailAppWrapper>
+          return false
+        }}
+      />
+      <EntityDetailApp
+        entityName={entityName}
+        entityId={currentViewInfo.key}
+        formName={queryFormName || entityName}
+        mode={mode}
+        emitAction={emitAction}
+        onTouchedChange={handleToucheChanged}
+        navigationStrategy={{...navigationStrategy(history, match), navigateToCreateRelative}}
+        chooseDocument={chooseDocument}
+        onEntityDeleted={handleEntityDeleted}
+        onEntityUpdated={handleEntityUpdated}
+        onRefresh={handleRefresh}
+        actionAppComponent={Action}
+        onSubGridRowClick={handleSubGridRowClick}
+      />
+    </StyledEntityDetailAppWrapper>
+  )
 }
 
 EditView.propTypes = {

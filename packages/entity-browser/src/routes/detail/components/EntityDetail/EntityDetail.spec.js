@@ -1,9 +1,9 @@
-import React from 'react'
-import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {mount} from 'enzyme'
-import {IntlStub} from 'tocco-test-util'
-import {MemoryRouter} from 'react-router-dom'
 import fetchMock from 'fetch-mock'
+import React from 'react'
+import {MemoryRouter} from 'react-router-dom'
+import EntityDetailApp from 'tocco-entity-detail/src/main'
+import {IntlStub} from 'tocco-test-util'
 
 import EntityDetail from './'
 import {setupFetchMock} from './mockData/setupFetchMock'
@@ -29,7 +29,7 @@ describe('entity-browser', () => {
         const routerMock = {
           match: {url: '/detail', history: {}}
         }
-      
+
         setupFetchMock(fetchMock)
 
         const wrapper = mount(
@@ -41,7 +41,8 @@ describe('entity-browser', () => {
               clearDetailParams={EMPTY_FUNC}
               setFormTouched={EMPTY_FUNC}
               intl={IntlStub}
-              detailParams={detailParams}/>
+              detailParams={detailParams}
+            />
           </MemoryRouter>
         )
 

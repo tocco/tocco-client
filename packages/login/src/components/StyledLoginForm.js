@@ -1,18 +1,11 @@
 import styled from 'styled-components'
-import {
-  StyledInputCss,
-  StyledEditableWrapperCss,
-  Button,
-  StyledButton,
-  StyledButtonGroup,
-  theme,
-  scale
-} from 'tocco-ui'
+import {StyledInputCss, StyledEditableWrapperCss, Button, StyledButton, StyledButtonGroup, theme, scale} from 'tocco-ui'
 
 export const StyledLoginFormInput = styled.input`
   /* stylelint-disable-next-line block-no-empty */
   @keyframes onAutoFillStart {
-    from {}
+    from {
+    }
   }
 
   && {
@@ -22,8 +15,8 @@ export const StyledLoginFormInput = styled.input`
       animation-duration: 50000s;
       animation-name: onAutoFillStart;
     }
-    padding-top: .7rem;
-    padding-bottom: .7rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
   }
   ${StyledInputCss}
 `

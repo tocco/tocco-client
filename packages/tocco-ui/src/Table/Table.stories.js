@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, {useState} from 'react'
+import {action} from '@storybook/addon-actions'
 import faker from 'faker'
 import _difference from 'lodash/difference'
-import {action} from '@storybook/addon-actions'
+import React, {useState} from 'react'
 
-import Table from './'
 import {Icon, Typography} from '../'
+import Table from './'
 
 const columnsT = [
   {
@@ -38,10 +38,18 @@ const columnsT = [
     },
     resizable: true,
     HeaderRenderer: ({column, data}) => {
-      return <span>{column.label} <Icon icon="id-badge"/></span>
+      return (
+        <span>
+          {column.label} <Icon icon="id-badge" />
+        </span>
+      )
     },
     CellRenderer: ({rowData, column, props}) => {
-      return <Typography.Span>{rowData[column.id]} <Icon icon="id-badge"/></Typography.Span>
+      return (
+        <Typography.Span>
+          {rowData[column.id]} <Icon icon="id-badge" />
+        </Typography.Span>
+      )
     }
   }
 ]
@@ -74,13 +82,11 @@ export const Basic = () => {
     const from = columns.findIndex(c => c.id === columnId)
     const to = columns.findIndex(c => c.id === columnIdPosition)
 
-    setColumns(columns.reduce((acc, c, idx) => {
-      return [
-        ...acc,
-        ...(idx !== from ? [c] : []),
-        ...(idx === to ? [columns[from]] : [])
-      ]
-    }, []))
+    setColumns(
+      columns.reduce((acc, c, idx) => {
+        return [...acc, ...(idx !== from ? [c] : []), ...(idx === to ? [columns[from]] : [])]
+      }, [])
+    )
   }
 
   const onSelectionChange = (keys, selected) => {
@@ -91,24 +97,26 @@ export const Basic = () => {
     }
   }
 
-  return <div style={{width: '1000px', height: '500px', backgroundColor: 'red'}}>
-    <Table
-      columns={columns}
-      data={data.slice(currentPage * recordsPerPage, currentPage * recordsPerPage + recordsPerPage)}
-      selection={selection}
-      selectionStyle="multi"
-      onSelectionChange={onSelectionChange}
-      paginationInfo={{
-        totalCount: data.length,
-        currentPage: currentPage,
-        recordsPerPage: recordsPerPage
-      }}
-      onPageChange={onPageChange}
-      onColumnPositionChange={onColumnPositionChange}
-      onPageRefresh={action('page refreshed')}
-      onRowClick={action('row clicked')}
-      onSortingChange={action('sorting changed')}
-    />
-        Selection: {JSON.stringify(selection)}
-  </div>
+  return (
+    <div style={{width: '1000px', height: '500px', backgroundColor: 'red'}}>
+      <Table
+        columns={columns}
+        data={data.slice(currentPage * recordsPerPage, currentPage * recordsPerPage + recordsPerPage)}
+        selection={selection}
+        selectionStyle="multi"
+        onSelectionChange={onSelectionChange}
+        paginationInfo={{
+          totalCount: data.length,
+          currentPage: currentPage,
+          recordsPerPage: recordsPerPage
+        }}
+        onPageChange={onPageChange}
+        onColumnPositionChange={onColumnPositionChange}
+        onPageRefresh={action('page refreshed')}
+        onRowClick={action('row clicked')}
+        onSortingChange={action('sorting changed')}
+      />
+      Selection: {JSON.stringify(selection)}
+    </div>
+  )
 }

@@ -1,13 +1,12 @@
-
 import {expectSaga} from 'redux-saga-test-plan'
 import {takeEvery, all, call, put} from 'redux-saga/effects'
 
+import actionEmitter from '../../../actionEmitter'
+import * as actions from './actions'
 import {getConfirmationAction, getYesNoAction} from './interactive'
 import rootSaga, * as sagas from './sagas'
-import * as actions from './actions'
-import actionEmitter from '../../../actionEmitter'
 
-const EMPTY_FUNC = () => { }
+const EMPTY_FUNC = () => {}
 
 describe('app-extensions', () => {
   describe('notification', () => {
@@ -33,10 +32,7 @@ describe('app-extensions', () => {
               const generator = rootSaga(accept)
 
               expect(generator.next().value).to.deep.equal(
-                all([
-                  takeEvery(actions.CONFIRM, sagas.emit),
-                  takeEvery(actions.YES_NO_QUESTION, sagas.emit)
-                ])
+                all([takeEvery(actions.CONFIRM, sagas.emit), takeEvery(actions.YES_NO_QUESTION, sagas.emit)])
               )
 
               expect(generator.next().done).to.be.true
@@ -79,7 +75,14 @@ describe('app-extensions', () => {
               const onCancel = EMPTY_FUNC
 
               const questionAction = actions.yesNoQuestion(
-                title, message, yesText, noText, cancelText, onYes, onNo, onCancel
+                title,
+                message,
+                yesText,
+                noText,
+                cancelText,
+                onYes,
+                onNo,
+                onCancel
               )
 
               const generator = sagas.handleYesNoQuestion(questionAction)
@@ -99,9 +102,7 @@ describe('app-extensions', () => {
             test('should handel removeBlockingInfo', () => {
               const action = actions.confirm('title', 'message')
 
-              return expectSaga(sagas.emit, action)
-                .put(actionEmitter.emitAction(action))
-                .run()
+              return expectSaga(sagas.emit, action).put(actionEmitter.emitAction(action)).run()
             })
           })
         })

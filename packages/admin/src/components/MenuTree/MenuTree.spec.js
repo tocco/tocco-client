@@ -1,8 +1,8 @@
 import React from 'react'
 import {intlEnzyme} from 'tocco-test-util'
 
-import MenuTree from './MenuTree'
 import MenuItem from './MenuItem'
+import MenuTree from './MenuTree'
 
 /* eslint-disable react/prop-types */
 
@@ -27,18 +27,22 @@ describe('admin', () => {
             items: [
               {
                 name: 'level1',
-                children: [{
-                  name: 'level1.1',
-                  menuType: 'a',
-                  children: [{
-                    name: 'level1.1.1',
-                    menuType: 'a'
-                  },
+                children: [
                   {
-                    name: 'level1.1.2',
-                    menuType: 'a'
-                  }]
-                }],
+                    name: 'level1.1',
+                    menuType: 'a',
+                    children: [
+                      {
+                        name: 'level1.1.1',
+                        menuType: 'a'
+                      },
+                      {
+                        name: 'level1.1.2',
+                        menuType: 'a'
+                      }
+                    ]
+                  }
+                ],
                 menuType: 'a'
               },
               {
@@ -50,10 +54,8 @@ describe('admin', () => {
             typeMapping,
             requireSearch: false
           }
-          
-          const wrapper = intlEnzyme.mountWithIntl(
-            <MenuTree {...props}/>
-          )
+
+          const wrapper = intlEnzyme.mountWithIntl(<MenuTree {...props} />)
 
           expect(wrapper.find(MenuItem)).to.have.length(5)
         })
@@ -63,20 +65,22 @@ describe('admin', () => {
             items: [
               {
                 name: 'level1',
-                children: [{
-                  name: 'level1.1',
-                  menuType: 'a',
-                  children: [
-                    {
-                      name: 'level1.1.1',
-                      menuType: 'a'
-                    },
-                    {
-                      name: 'level1.1.2',
-                      menuType: 'a'
-                    }
-                  ]
-                }],
+                children: [
+                  {
+                    name: 'level1.1',
+                    menuType: 'a',
+                    children: [
+                      {
+                        name: 'level1.1.1',
+                        menuType: 'a'
+                      },
+                      {
+                        name: 'level1.1.2',
+                        menuType: 'a'
+                      }
+                    ]
+                  }
+                ],
                 menuType: 'a'
               },
               {
@@ -89,10 +93,8 @@ describe('admin', () => {
             searchFilter: 'level1.1.1',
             requireSearch: false
           }
-          
-          const wrapper = intlEnzyme.mountWithIntl(
-            <MenuTree {...props}/>
-          )
+
+          const wrapper = intlEnzyme.mountWithIntl(<MenuTree {...props} />)
 
           expect(wrapper.find(MenuItem)).to.have.length(3)
         })

@@ -1,24 +1,19 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {queryString as queryStringUtil} from 'tocco-util'
-import {AdminLink as StyledLink} from 'tocco-ui'
+import React from 'react'
 import {injectIntl} from 'react-intl'
+import {AdminLink as StyledLink} from 'tocco-ui'
+import {queryString as queryStringUtil} from 'tocco-util'
 
 import {goBack} from '../../../utils/routing'
 
-const DetailLinkRelativeWithoutIntl = ({
-  entityKey,
-  entityModel,
-  children,
-  relation,
-  intl
-}) => {
+const DetailLinkRelativeWithoutIntl = ({entityKey, entityModel, children, relation, intl}) => {
   const msg = id => intl.formatMessage({id})
 
   return (
     <StyledLink
       aria-label={msg('client.component.navigationStrategy.detailLinkRelative')}
-      to={`${relation ? relation + '/' : ''}${entityKey}`}>
+      to={`${relation ? relation + '/' : ''}${entityKey}`}
+    >
       {children}
     </StyledLink>
   )
@@ -26,24 +21,13 @@ const DetailLinkRelativeWithoutIntl = ({
 
 const DetailLinkRelative = injectIntl(DetailLinkRelativeWithoutIntl)
 
-export const DetailLink = ({
-  entityName,
-  entityKey,
-  children
-}) => (
-  <StyledLink
-    to={`/e/${entityName}/${entityKey}`}
-    target="_blank"
-  >
+export const DetailLink = ({entityName, entityKey, children}) => (
+  <StyledLink to={`/e/${entityName}/${entityKey}`} target="_blank">
     {children}
   </StyledLink>
 )
 
-export const ListLink = ({
-  entityName,
-  entityKeys,
-  children
-}) => {
+export const ListLink = ({entityName, entityKeys, children}) => {
   const queryString = entityKeys?.length && 'tql=KEYS(' + entityKeys.join(',') + ')'
 
   return (
@@ -65,11 +49,7 @@ ListLink.propTypes = {
   entityKeys: PropTypes.arrayOf(PropTypes.string)
 }
 
-export const ListOrDetailLink = ({
-  entityName,
-  entityKeys,
-  children
-}) => {
+export const ListOrDetailLink = ({entityName, entityKeys, children}) => {
   if (entityKeys?.length === 1) {
     return (
       <DetailLink entityName={entityName} entityKey={entityKeys[0]}>

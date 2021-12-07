@@ -3,10 +3,10 @@ import {filterObjectByKeysStartingWith} from '../utilStyles'
 const input = {
   'data-a': 'A',
   'data-b': 'B',
-  'datac': 'C',
+  datac: 'C',
   'aria-d': 'D',
   'aria-e': 'E',
-  'ariaf': 'F',
+  ariaf: 'F',
   'custom-g': 'G',
   'unknown-h': 'H'
 }
@@ -31,7 +31,7 @@ describe('tocco-ui', () => {
         expect(filterObjectByKeysStartingWith(input, ['custom-', 'aria'])).to.deep.equal({
           'aria-d': 'D',
           'aria-e': 'E',
-          'ariaf': 'F',
+          ariaf: 'F',
           'custom-g': 'G'
         })
       })

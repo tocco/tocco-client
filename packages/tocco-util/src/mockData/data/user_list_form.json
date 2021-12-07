@@ -25,7 +25,7 @@
               "id": "new",
               "label": "New",
               "componentType": "action",
-              "children": [ ],
+              "children": [],
               "actionType": "custom"
             }
           },
@@ -187,7 +187,7 @@
       },
       {
         "id": "table",
-       "componentType": "table",
+        "componentType": "table",
         "layoutType": "table",
         "id": "table1",
         "label": null,
@@ -526,7 +526,7 @@
               {
                 "actionType": "simple",
                 "componentType": "action",
-                "name":"simpleAction",
+                "name": "simpleAction",
                 "label": null,
                 "readonly": false,
                 "icon": "cog",

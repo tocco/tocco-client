@@ -1,8 +1,8 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
-import transformInputValues from './transformInputValues'
 import rest from '../rest'
+import transformInputValues from './transformInputValues'
 
 describe('app-extensions', () => {
   describe('form', () => {
@@ -19,9 +19,7 @@ describe('app-extensions', () => {
           txtFulltext: 'Test'
         }
 
-        return expectSaga(transformInputValues, fields, {})
-          .returns(expectedResult)
-          .run()
+        return expectSaga(transformInputValues, fields, {}).returns(expectedResult).run()
       })
 
       test('should load displays and add to relation field values', () => {
@@ -32,10 +30,7 @@ describe('app-extensions', () => {
           },
           {
             id: 'relMulti_entity',
-            value: [
-              '1',
-              '2'
-            ]
+            value: ['1', '2']
           }
         ]
 
@@ -64,9 +59,7 @@ describe('app-extensions', () => {
         }
 
         return expectSaga(transformInputValues, fields, entityModel)
-          .provide([
-            [matchers.call.fn(rest.fetchDisplays), displayMockResponse]
-          ])
+          .provide([[matchers.call.fn(rest.fetchDisplays), displayMockResponse]])
           .returns(expectedResult)
           .run()
       })
@@ -94,9 +87,7 @@ describe('app-extensions', () => {
         }
 
         return expectSaga(transformInputValues, fields, entityModel)
-          .provide([
-            [matchers.call.fn(rest.fetchDisplays), displayMockResponse]
-          ])
+          .provide([[matchers.call.fn(rest.fetchDisplays), displayMockResponse]])
           .returns(expectedResult)
           .run()
       })

@@ -43,10 +43,9 @@ describe('tocco-util', () => {
           }
         }
 
-        expect(singleTransferReducer('xy', 'foo.bar')(
-          initialState,
-          actionCreator('xy')(newValue)
-        )).to.eql(expectedState)
+        expect(singleTransferReducer('xy', 'foo.bar')(initialState, actionCreator('xy')(newValue))).to.eql(
+          expectedState
+        )
       })
     })
   })

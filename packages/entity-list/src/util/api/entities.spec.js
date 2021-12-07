@@ -117,20 +117,20 @@ describe('entity-list', () => {
 
             const expectedResult = [
               {
-                '__key': '45',
-                '__model': 'User',
-                '__version': 7,
-                'firstname': 'Max',
-                'relAddress_c': {model: 'Address', key: '3195', version: 0},
+                __key: '45',
+                __model: 'User',
+                __version: 7,
+                firstname: 'Max',
+                relAddress_c: {model: 'Address', key: '3195', version: 0},
                 'relAddress_c.canton': 'ZH',
                 'relAddress_c.relCountry_c': {key: '107', model: 'Country', version: 1},
                 'relAddress_c.relCountry_c.label': 'Schweiz',
                 'relAddress_c.relCountry_c.ioc': 'SUI',
-                'relUser_code1': [
+                relUser_code1: [
                   {model: 'User_code1', key: '2', version: 1},
                   {model: 'User_code1', key: '1', version: 1}
                 ],
-                'relUser_code2': [
+                relUser_code2: [
                   {key: '2', model: 'User_code2', version: 1},
                   {key: '1', model: 'User_code2', version: 1}
                 ],
@@ -149,7 +149,8 @@ describe('entity-list', () => {
                 {
                   key: 1,
                   paths: {}
-                }, {
+                },
+                {
                   key: 22,
                   paths: {}
                 }
@@ -176,7 +177,8 @@ describe('entity-list', () => {
                       value: '<p>TEST 1</p>'
                     }
                   }
-                }, {
+                },
+                {
                   paths: {
                     title: {
                       name: 'title',

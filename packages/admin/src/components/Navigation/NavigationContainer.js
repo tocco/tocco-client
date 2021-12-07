@@ -1,9 +1,9 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import Navigation from './Navigation'
-import {saveUserPreferences} from '../../modules/preferences/actions'
 import {setActiveMenuTab} from '../../modules/navigation/actions'
+import {saveUserPreferences} from '../../modules/preferences/actions'
+import Navigation from './Navigation'
 const mapActionCreators = {
   setActiveMenuTab,
   saveUserPreferences

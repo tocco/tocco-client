@@ -1,14 +1,14 @@
 import React from 'react'
 import {Typography} from 'tocco-ui'
 
-import ValidationProgress from '../ValidationProgress'
 import CheckEvents from '../CheckEvents'
+import ValidationProgress from '../ValidationProgress'
 
 const ModelValidationView = () => (
   <>
     <Typography.H1>Model Validation</Typography.H1>
-    <ValidationProgress/>
-    <CheckEvents/>
+    <ValidationProgress />
+    <CheckEvents />
   </>
 )
 

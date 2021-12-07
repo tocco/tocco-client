@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import {Link} from 'react-router-dom'
 import _get from 'lodash/get'
+import {Link} from 'react-router-dom'
+import styled from 'styled-components'
 
 import {declareFont, shadeColor, theme} from '../utilStyles'
 
@@ -22,14 +22,13 @@ export default styled(Link)`
   &:focus,
   &:focus * {
     color: ${theme.color('secondaryLight')};
-    text-decoration: ${({neutral}) => neutral ? 'none' : 'underline'};
+    text-decoration: ${({neutral}) => (neutral ? 'none' : 'underline')};
   }
 
   &:active,
   &:active * {
-    color: ${({neutral, theme}) => neutral
-  ? shadeColor(_get(theme, 'colors.text'), 2)
-  : shadeColor(_get(theme, 'colors.secondary'), 2)};
-    text-decoration: ${({neutral}) => neutral ? 'none' : 'underline'};
+    color: ${({neutral, theme}) =>
+      neutral ? shadeColor(_get(theme, 'colors.text'), 2) : shadeColor(_get(theme, 'colors.secondary'), 2)};
+    text-decoration: ${({neutral}) => (neutral ? 'none' : 'underline')};
   }
 `

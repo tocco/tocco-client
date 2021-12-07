@@ -1,7 +1,7 @@
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
 import {injectIntl} from 'react-intl'
-import moment from 'moment'
 
 import {atMostOne, momentJStoToFlatpickrFormat} from '../utils'
 import LazyDatePicker from './LazyDatePicker'
@@ -12,10 +12,13 @@ export const DateTimeEdit = props => {
   const altDateFormat = momentJStoToFlatpickrFormat(momentDateFormat)
   const altTimeFormat = momentJStoToFlatpickrFormat(momentTimeFormat)
 
-  const parseDate = useMemo(() => s => {
-    const momentDate = moment(s, ['D.M.YYYY H:m', momentDateFormat, momentTimeFormat])
-    return momentDate.isValid() ? momentDate.toDate() : null
-  }, [])
+  const parseDate = useMemo(
+    () => s => {
+      const momentDate = moment(s, ['D.M.YYYY H:m', momentDateFormat, momentTimeFormat])
+      return momentDate.isValid() ? momentDate.toDate() : null
+    },
+    []
+  )
 
   const formatDate = s => moment(s).format(`${momentDateFormat} ${momentTimeFormat}`)
 

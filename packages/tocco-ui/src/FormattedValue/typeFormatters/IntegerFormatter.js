@@ -3,10 +3,9 @@ import React from 'react'
 
 import Typography from '../../Typography'
 
-const IntegerFormatter = props =>
-  <Typography.Span breakWords={props.breakWords}>
-    {props.value.toString()}
-  </Typography.Span>
+const IntegerFormatter = props => (
+  <Typography.Span breakWords={props.breakWords}>{props.value.toString()}</Typography.Span>
+)
 
 IntegerFormatter.propTypes = {
   value: PropTypes.number,

@@ -1,11 +1,7 @@
-import _range from 'lodash/range'
 import _get from 'lodash/get'
+import _range from 'lodash/range'
 
-import {
-  scale,
-  shadeColor,
-  theme
-} from '../utilStyles'
+import {scale, shadeColor, theme} from '../utilStyles'
 
 export const declareTypograhpy = (props, mode) => {
   let css = `
@@ -109,15 +105,15 @@ export const declareTypograhpy = (props, mode) => {
           }
         }
 
-        ${_range(1, 11).map(value =>
-    `.ql-indent-${value} {padding-left: ${(value + 1) * 1.6}rem;}`
-  ).join('')}
+        ${_range(1, 11)
+          .map(value => `.ql-indent-${value} {padding-left: ${(value + 1) * 1.6}rem;}`)
+          .join('')}
       }
 
       ol {
-        ${_range(1, 11).map(value =>
-    `li.ql-indent-${value}:before {content: counter(list-${value}, decimal) '. ';}`
-  ).join('')}
+        ${_range(1, 11)
+          .map(value => `li.ql-indent-${value}:before {content: counter(list-${value}, decimal) '. ';}`)
+          .join('')}
       }
     `
   } else {

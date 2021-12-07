@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 import {TestThemeProvider} from 'tocco-test-util'
 
 import Icon from '../../Icon'
@@ -10,9 +10,10 @@ describe('tocco-ui', () => {
     describe('typeFormatters', () => {
       describe('BooleanFormatter ', () => {
         test('should format true value', () => {
-          const wrapper = mount(<TestThemeProvider>
-            <BooleanFormatter value={true}/>
-          </TestThemeProvider>
+          const wrapper = mount(
+            <TestThemeProvider>
+              <BooleanFormatter value={true} />
+            </TestThemeProvider>
           )
 
           expect(wrapper.find(Icon).prop('icon')).to.equal('check')
@@ -21,7 +22,7 @@ describe('tocco-ui', () => {
         test('should format falsy value', () => {
           const wrapper = mount(
             <TestThemeProvider>
-              <BooleanFormatter value={false}/>
+              <BooleanFormatter value={false} />
             </TestThemeProvider>
           )
           expect(wrapper.find(Icon).prop('icon')).to.equal('times')

@@ -1,8 +1,8 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
-import LoginBox from './LoginBox'
 import ProviderButton from '../ProviderButton/ProviderButton'
+import LoginBox from './LoginBox'
 
 const EMPTY_FUNC = () => {}
 
@@ -19,13 +19,13 @@ describe('sso-login', () => {
     describe('LoginBox', () => {
       test('should call loadProviders', () => {
         const loadProviders = sinon.spy()
-        shallow(<LoginBox {...baseProps} loadProviders={loadProviders}/>)
+        shallow(<LoginBox {...baseProps} loadProviders={loadProviders} />)
         expect(loadProviders).to.have.calledOnce
       })
 
       test('should render render  ProviderButton', () => {
         const providers = [{id: 'google'}, {id: 'microsoft'}]
-        const wrapper = shallow(<LoginBox {...baseProps} providers={providers}/>)
+        const wrapper = shallow(<LoginBox {...baseProps} providers={providers} />)
         expect(wrapper.find(ProviderButton)).to.have.length(2)
       })
     })

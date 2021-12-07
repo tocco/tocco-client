@@ -11,9 +11,7 @@ describe('user-qr-action', () => {
     describe('sagas', () => {
       test('should fork child sagas', () => {
         const generator = rootSaga()
-        expect(generator.next().value).to.deep.equal(all([
-          takeEvery(actions.FETCH_DATA, sagas.fetchData)
-        ]))
+        expect(generator.next().value).to.deep.equal(all([takeEvery(actions.FETCH_DATA, sagas.fetchData)]))
         expect(generator.next().done).to.be.true
       })
 
@@ -23,28 +21,31 @@ describe('user-qr-action', () => {
         })
 
         test('should throw error if not User entity', () => {
-          expect(() => sagas.getSingleKey({entityName: 'Address'}))
-            .to.throw('Only selection of User supported')
+          expect(() => sagas.getSingleKey({entityName: 'Address'})).to.throw('Only selection of User supported')
         })
 
         test('should throw error if not ID selection', () => {
-          expect(() => sagas.getSingleKey({entityName: 'User', type: 'QUERY'}))
-            .to.throw('Only ID selection type supported')
+          expect(() => sagas.getSingleKey({entityName: 'User', type: 'QUERY'})).to.throw(
+            'Only ID selection type supported'
+          )
         })
 
         test('should throw error if ids not present', () => {
-          expect(() => sagas.getSingleKey({entityName: 'User', type: 'ID', ids: undefined}))
-            .to.throw('Exactly one user must be selected')
+          expect(() => sagas.getSingleKey({entityName: 'User', type: 'ID', ids: undefined})).to.throw(
+            'Exactly one user must be selected'
+          )
         })
 
         test('should throw error if ids empty', () => {
-          expect(() => sagas.getSingleKey({entityName: 'User', type: 'ID', ids: []}))
-            .to.throw('Exactly one user must be selected')
+          expect(() => sagas.getSingleKey({entityName: 'User', type: 'ID', ids: []})).to.throw(
+            'Exactly one user must be selected'
+          )
         })
 
         test('should throw error if ids contains more than 1', () => {
-          expect(() => sagas.getSingleKey({entityName: 'User', type: 'ID', ids: ['1', '2']}))
-            .to.throw('Exactly one user must be selected')
+          expect(() => sagas.getSingleKey({entityName: 'User', type: 'ID', ids: ['1', '2']})).to.throw(
+            'Exactly one user must be selected'
+          )
         })
       })
 
@@ -61,8 +62,7 @@ describe('user-qr-action', () => {
               [matchers.call.fn(rest.fetchEntity), fakeEntity]
             ])
             .put(actions.setData(data))
-            .run()
-        )
+            .run())
       })
     })
   })

@@ -1,8 +1,8 @@
 import {reducer as form} from 'redux-form'
 
 import EntityDetailContainer from './containers/EntityDetailContainer'
-import sagas from './modules/sagas'
 import detail from './modules'
+import sagas from './modules/sagas'
 
 export default {
   container: EntityDetailContainer,

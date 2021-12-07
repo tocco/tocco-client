@@ -1,5 +1,5 @@
-import {rest} from 'tocco-app-extensions'
 import {takeLatest, call, put, select, all} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 
@@ -22,7 +22,5 @@ export function* fetchValidationRules() {
 }
 
 export default function* sagas() {
-  yield all([
-    takeLatest(actions.FETCH_VALIDATION_RULES, fetchValidationRules)
-  ])
+  yield all([takeLatest(actions.FETCH_VALIDATION_RULES, fetchValidationRules)])
 }

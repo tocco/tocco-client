@@ -1,45 +1,37 @@
-import {reducer as reducerUtil} from 'tocco-util'
 import _omit from 'lodash/omit'
 import _setWith from 'lodash/setWith'
+import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
-const executeMerge = state => (
-  {
-    ...state,
-    mergePending: true
-  }
-)
+const executeMerge = state => ({
+  ...state,
+  mergePending: true
+})
 
-const mergeResponse = (state, {payload: {mergeResponse}}) => (
-  {
-    ...state,
-    mergePending: false,
-    mergeResponse: mergeResponse
-  }
-)
+const mergeResponse = (state, {payload: {mergeResponse}}) => ({
+  ...state,
+  mergePending: false,
+  mergeResponse: mergeResponse
+})
 
-const mergeErrors = (state, {payload: {errorMsg, validationErrors}}) => (
-  {
-    ...state,
-    mergePending: false,
-    mergeErrorMsg: errorMsg,
-    mergeValidationErrors: validationErrors
-  }
-)
+const mergeErrors = (state, {payload: {errorMsg, validationErrors}}) => ({
+  ...state,
+  mergePending: false,
+  mergeErrorMsg: errorMsg,
+  mergeValidationErrors: validationErrors
+})
 
-const setSelectedSingle = (state, {payload: {name, entityKey}}) => (
-  {
-    ...state,
-    selected: {
-      ...state.selected,
-      single: {
-        ...state.selected.single,
-        [name]: entityKey
-      }
+const setSelectedSingle = (state, {payload: {name, entityKey}}) => ({
+  ...state,
+  selected: {
+    ...state.selected,
+    single: {
+      ...state.selected.single,
+      [name]: entityKey
     }
   }
-)
+})
 
 const setSelectedMultiple = (state, {payload: {name, entityKey, relatedEntityKey, isSelected}}) => {
   let multiple
@@ -67,7 +59,7 @@ const setSelectedMultiple = (state, {payload: {name, entityKey, relatedEntityKey
 const setSelectedMultipleAll = (state, {payload: {name, entityKey, isSelected}}) => {
   let array
   if (isSelected) {
-    array = [...state.selected.multipleAll[name] || [], entityKey]
+    array = [...(state.selected.multipleAll[name] || []), entityKey]
   } else {
     array = state.selected.multipleAll[name].filter(key => key !== entityKey)
   }
@@ -97,32 +89,34 @@ const setTargetEntity = (state, {payload: {entityKey}}) => {
   state.sourceData.entities.filter(e => e.key !== entityKey).forEach(e => setTargetEntityMultiple(multiple, e))
   setTargetEntityMultiple(multiple, targetEntity)
 
-  const multipleAll = state.sourceData.relations
-    .reduce((acc, val) => ({
+  const multipleAll = state.sourceData.relations.reduce(
+    (acc, val) => ({
       ...acc,
       [val.relationName]: [...(acc[val.relationName] || []), val.entityKey]
-    }), {})
-
-  return (
-    {
-      ...state,
-      selected: {
-        ...state.selected,
-        targetEntity: entityKey,
-        single: single,
-        multiple: multiple,
-        multipleAll: multipleAll
-      }
-    }
+    }),
+    {}
   )
+
+  return {
+    ...state,
+    selected: {
+      ...state.selected,
+      targetEntity: entityKey,
+      single: single,
+      multiple: multiple,
+      multipleAll: multipleAll
+    }
+  }
 }
 
 const setTargetEntityMultiple = (multiple, entity) => {
   for (const [key, obj] of Object.entries(entity.paths)) {
     if (obj.type === 'entity-list') {
-      obj.value.map(e => e.key).forEach(relatedEntityKey => {
-        _setWith(multiple, [key, relatedEntityKey], entity.key, Object)
-      })
+      obj.value
+        .map(e => e.key)
+        .forEach(relatedEntityKey => {
+          _setWith(multiple, [key, relatedEntityKey], entity.key, Object)
+        })
     }
   }
 }

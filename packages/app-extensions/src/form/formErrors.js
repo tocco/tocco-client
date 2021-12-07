@@ -1,6 +1,6 @@
 import _forOwn from 'lodash/forOwn'
-import _reduce from 'lodash/reduce'
 import _pick from 'lodash/pick'
+import _reduce from 'lodash/reduce'
 
 export const generalErrorField = '_error'
 export const entityValidatorErrorsField = 'entityValidatorErrors'
@@ -13,9 +13,7 @@ const getFieldErrors = formErrors => {
   return fieldErrors
 }
 
-const hasFieldErrors = formErrors => (
-  Object.keys(getFieldErrors(formErrors)).length >= 1
-)
+const hasFieldErrors = formErrors => Object.keys(getFieldErrors(formErrors)).length >= 1
 
 const hasValidatorErrors = formErrors => {
   const errors = getGeneralErrors(formErrors)
@@ -32,13 +30,9 @@ const hasRelatedEntityErrors = formErrors => {
   return !!(errors && errors[relatedEntityErrorsField] && errors[relatedEntityErrorsField].length >= 1)
 }
 
-const getGeneralErrors = formErrors => (
-  formErrors[generalErrorField]
-)
+const getGeneralErrors = formErrors => formErrors[generalErrorField]
 
-const getFirstErrorField = formErrors => (
-  Object.keys(getFieldErrors(formErrors))[0]
-)
+const getFirstErrorField = formErrors => Object.keys(getFieldErrors(formErrors))[0]
 
 const hasOutdatedError = formErrors => {
   const errors = getGeneralErrors(formErrors)
@@ -62,39 +56,41 @@ const getOutdatedError = formErrors => {
 const getRelatedEntityErrorsCompact = formErrors => {
   const relatedEntityErrors = getGeneralErrors(formErrors).relatedEntityErrors
 
-  return _reduce(relatedEntityErrors, (result, relatedEntityError) => {
-    const {key, model, paths, entityValidatorErrors} = relatedEntityError
+  return _reduce(
+    relatedEntityErrors,
+    (result, relatedEntityError) => {
+      const {key, model, paths, entityValidatorErrors} = relatedEntityError
 
-    const r = [...result]
-    _forOwn(paths, (values, fieldName) => {
-      _forOwn(values, (errors, errorKey) => {
-        r.push(...(errors.map(e => `${e} (${fieldName}, ${model}, ${key})`)))
+      const r = [...result]
+      _forOwn(paths, (values, fieldName) => {
+        _forOwn(values, (errors, errorKey) => {
+          r.push(...errors.map(e => `${e} (${fieldName}, ${model}, ${key})`))
+        })
       })
-    })
 
-    if (entityValidatorErrors && Object.keys(entityValidatorErrors).length >= 1) {
-      r.push(...(
-        _reduce(
-          entityValidatorErrors,
-          (result, value) => [...result, ...(value.map(e => `${e} (${model}, ${key})`))],
-          []))
-      )
-    }
+      if (entityValidatorErrors && Object.keys(entityValidatorErrors).length >= 1) {
+        r.push(
+          ..._reduce(
+            entityValidatorErrors,
+            (result, value) => [...result, ...value.map(e => `${e} (${model}, ${key})`)],
+            []
+          )
+        )
+      }
 
-    return r
-  }, [])
+      return r
+    },
+    []
+  )
 }
 
-const addErrors = (errors, field, fieldErrors) => (
-  {
-    ...errors,
-    [field]:
-    {
-      ...(errors[field] || {}),
-      ...(fieldErrors || {})
-    }
+const addErrors = (errors, field, fieldErrors) => ({
+  ...errors,
+  [field]: {
+    ...(errors[field] || {}),
+    ...(fieldErrors || {})
   }
-)
+})
 
 export default {
   hasFieldErrors,

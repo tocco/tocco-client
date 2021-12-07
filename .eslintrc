@@ -1,35 +1,21 @@
 {
-  "parser"  : "@babel/eslint-parser",
-  "extends" : [
-    "standard",
-    "plugin:react/recommended",
-    "prettier"
-  ],
-  "plugins": [
-    "babel",
-    "react",
-    "promise",
-    "import",
-    "chai-friendly",
-    "import",
-    "monorepo",
-    "jest",
-    "react-hooks"
-  ],
+  "parser": "@babel/eslint-parser",
+  "extends": ["standard", "plugin:react/recommended", "prettier"],
+  "plugins": ["babel", "react", "promise", "import", "chai-friendly", "import", "monorepo", "jest", "react-hooks"],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
-  "env"     : {
-    "browser" : true,
+  "env": {
+    "browser": true,
     "jest/globals": true
   },
-  "globals" : {
-    "__CI__"      : false,
-    "__DEV__"      : false,
-    "__PROD__"     : false,
-    "__BACKEND_URL__" : false,
+  "globals": {
+    "__CI__": false,
+    "__DEV__": false,
+    "__PROD__": false,
+    "__BACKEND_URL__": false,
     "__PACKAGE__": false,
     "__PACKAGE_NAME__": false,
     "__webpack_public_path__": true,
@@ -45,20 +31,20 @@
     "afterEach": false
   },
   "rules": {
-    "curly":  [2, "all"],
+    "curly": [2, "all"],
     "brace-style": [2, "1tbs"],
     "key-spacing": [2, {"beforeColon": false, "afterColon": true, "mode": "strict"}],
-    "semi":  [2, "never"],
-    "max-len":  ["error", {"code": 120, "ignoreUrls": true}],
-    "arrow-parens":  [2, "as-needed"],
+    "semi": [2, "never"],
+    "max-len": ["error", {"code": 120, "ignoreUrls": true}],
+    "arrow-parens": [2, "as-needed"],
     "object-curly-spacing": [2, "never"],
     "no-var": 2,
     "prefer-const": 2,
-    "no-trailing-spaces": [2, { "skipBlankLines": true }],
-    "generator-star-spacing":  [2, {"before": false, "after": true}],
+    "no-trailing-spaces": [2, {"skipBlankLines": true}],
+    "generator-star-spacing": [2, {"before": false, "after": true}],
     "no-console": 2,
 
-    "react/jsx-no-bind":  [2, { "allowArrowFunctions": true, "allowBind": true }],
+    "react/jsx-no-bind": [2, {"allowArrowFunctions": true, "allowBind": true}],
     "react/display-name": 0,
     "jsx-quotes": [2, "prefer-double"],
     "react-hooks/rules-of-hooks": 2,

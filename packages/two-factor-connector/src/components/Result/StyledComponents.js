@@ -10,7 +10,7 @@ export const StyledMessageWrapper = styled.div`
 export const StyledIconWrapper = styled.span`
   display: flex;
   align-items: center;
-  color: ${({isSuccessful}) => isSuccessful ? theme.color('signal.success.text') : theme.color('signal.danger.text')};
+  color: ${({isSuccessful}) => (isSuccessful ? theme.color('signal.success.text') : theme.color('signal.danger.text'))};
   font-size: ${scale.font(10)};
 
   > * {

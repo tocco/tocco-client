@@ -1,51 +1,47 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {js} from 'tocco-util'
-import {columnPropType, selectionStylePropType, Table as UiTable} from 'tocco-ui'
 import _get from 'lodash/get'
+import PropTypes from 'prop-types'
+import React from 'react'
+import {columnPropType, selectionStylePropType, Table as UiTable} from 'tocco-ui'
+import {js} from 'tocco-util'
 
-import {navigationCell} from './navigationCell'
 import {markingCell} from './markingCell'
+import {navigationCell} from './navigationCell'
 
 const Table = props => {
-  const showNavigationLink = props.showLink
-    && props.clickable
-    && props.navigationStrategy
-    && !!props.navigationStrategy.DetailLinkRelative
+  const showNavigationLink =
+    props.showLink && props.clickable && props.navigationStrategy && !!props.navigationStrategy.DetailLinkRelative
   const showPreferencesMenu = !props.disablePreferencesMenu
   const columns = [
-    ...((showNavigationLink || showPreferencesMenu)
-      ? [navigationCell(showNavigationLink,
-          props.navigationStrategy,
-          props.parent)]
+    ...(showNavigationLink || showPreferencesMenu
+      ? [navigationCell(showNavigationLink, props.navigationStrategy, props.parent)]
       : []),
     ...(props.markable ? [markingCell()] : []),
     ...props.columnDefinitions
       .map(a => ({...a, width: _get(props.widths, a.id)}))
-      .sort((a, b) =>
-        _get(props.positions, [a.id]) - _get(props.positions, [b.id])
-      )
+      .sort((a, b) => _get(props.positions, [a.id]) - _get(props.positions, [b.id]))
   ]
-  return <UiTable
-    data={props.entities}
-    columns={columns}
-    onColumnWidthChange={props.changeWidth}
-    dataLoadingInProgress={props.inProgress}
-    paginationInfo={{
-      currentPage: props.currentPage,
-      totalCount: props.entityCount,
-      recordsPerPage: props.limit
-    }}
-    onPageChange={props.changePage}
-    onPageRefresh={props.refresh}
-    onSortingChange={props.setSortingInteractive}
-    selectionStyle={props.tableSelectionStyle}
-    onSelectionChange={props.onSelectChange}
-    selection={props.selection}
-    onRowClick={props.onRowClick}
-    clickable={props.clickable}
-    onColumnPositionChange={(dragging, dragOver) => props.changePosition(dragging, dragOver, columns)}
-  />
+  return (
+    <UiTable
+      data={props.entities}
+      columns={columns}
+      onColumnWidthChange={props.changeWidth}
+      dataLoadingInProgress={props.inProgress}
+      paginationInfo={{
+        currentPage: props.currentPage,
+        totalCount: props.entityCount,
+        recordsPerPage: props.limit
+      }}
+      onPageChange={props.changePage}
+      onPageRefresh={props.refresh}
+      onSortingChange={props.setSortingInteractive}
+      selectionStyle={props.tableSelectionStyle}
+      onSelectionChange={props.onSelectChange}
+      selection={props.selection}
+      onRowClick={props.onRowClick}
+      clickable={props.clickable}
+      onColumnPositionChange={(dragging, dragOver) => props.changePosition(dragging, dragOver, columns)}
+    />
+  )
 }
 
 Table.propTypes = {

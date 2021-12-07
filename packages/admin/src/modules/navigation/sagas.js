@@ -1,8 +1,8 @@
-import {rest} from 'tocco-app-extensions'
 import {takeLatest, call, all, put, debounce} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
-import * as actions from './actions'
 import {SET_USER_PREFERENCES, saveUserPreferences} from '../preferences/actions'
+import * as actions from './actions'
 
 export const navigationSelector = state => state.navigation
 

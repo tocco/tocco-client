@@ -2,11 +2,11 @@ import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
-const simpleSearchFieldsToArray = simpleSearchFields => (
-  simpleSearchFields.split(',')
+const simpleSearchFieldsToArray = simpleSearchFields =>
+  simpleSearchFields
+    .split(',')
     .filter(s => s)
     .map(s => s.trim())
-)
 
 const setSimpleSearchFields = (state, {payload}) => {
   const fieldArray = simpleSearchFieldsToArray(payload.simpleSearchFields)
@@ -21,9 +21,12 @@ const setSimpleSearchFields = (state, {payload}) => {
 
 const setSearchFilterActive = (state, {payload: {searchFilterId, active, exclusive}}) => ({
   ...state,
-  searchFilters: [...state.searchFilters.map(searchFilter =>
-    ({...searchFilter, ...(searchFilterId === searchFilter.uniqueId ? {active} : exclusive ? {active: !active} : {})})
-  )]
+  searchFilters: [
+    ...state.searchFilters.map(searchFilter => ({
+      ...searchFilter,
+      ...(searchFilterId === searchFilter.uniqueId ? {active} : exclusive ? {active: !active} : {})
+    }))
+  ]
 })
 
 const ACTION_HANDLERS = {

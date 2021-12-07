@@ -13,10 +13,12 @@ export default function webpackCompiler(webpackConfig) {
         logger.error('Webpack compiler encountered a fatal error.', err)
         return reject(err)
       } else {
-        logger.log(stats.toString({
-          chunks: false,
-          colors: true
-        }))
+        logger.log(
+          stats.toString({
+            chunks: false,
+            colors: true
+          })
+        )
       }
       resolve()
     })

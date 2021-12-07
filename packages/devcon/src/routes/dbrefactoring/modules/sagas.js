@@ -1,5 +1,5 @@
-import {rest, notification} from 'tocco-app-extensions'
 import {takeLatest, all, call, put, select, delay, spawn} from 'redux-saga/effects'
+import {rest, notification} from 'tocco-app-extensions'
 import {consoleLogger} from 'tocco-util'
 
 import * as actions from './actions'
@@ -18,10 +18,14 @@ export default function* mainSagas() {
 
 export function* loadModules() {
   const response = yield call(rest.requestSaga, 'devcon/dbrefactoring/modules')
-  yield put(actions.setModules(response.body.map(module => ({
-    key: module,
-    display: module
-  }))))
+  yield put(
+    actions.setModules(
+      response.body.map(module => ({
+        key: module,
+        display: module
+      }))
+    )
+  )
 }
 
 export function* loadFragments() {
@@ -63,10 +67,12 @@ export function* requestExecution(requestBody, statePath) {
     yield spawn(pollExecution, response.headers.get('Location'), statePath)
   } catch (e) {
     consoleLogger.logError('DB refactoring execution failed', e)
-    yield put(notification.toaster({
-      type: 'error',
-      title: 'DB refactoring execution failed'
-    }))
+    yield put(
+      notification.toaster({
+        type: 'error',
+        title: 'DB refactoring execution failed'
+      })
+    )
   }
 }
 
@@ -76,16 +82,20 @@ export function* pollExecution(location, statePath) {
   const state = response.body.state.toLowerCase()
   if (state === 'completed') {
     yield put(actions.unsetRunning(statePath))
-    yield put(notification.toaster({
-      type: 'success',
-      title: 'DB refactoring execution completed'
-    }))
+    yield put(
+      notification.toaster({
+        type: 'success',
+        title: 'DB refactoring execution completed'
+      })
+    )
   } else if (state === 'failed') {
     yield put(actions.unsetRunning(statePath))
-    yield put(notification.toaster({
-      type: 'error',
-      title: 'DB refactoring execution failed'
-    }))
+    yield put(
+      notification.toaster({
+        type: 'error',
+        title: 'DB refactoring execution failed'
+      })
+    )
   } else {
     yield call(pollExecution, location)
   }

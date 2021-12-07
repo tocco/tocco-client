@@ -6,7 +6,7 @@
   },
   "form": {
     "id": "Dummy_entity_detail",
-   "componentType": "table",
+    "componentType": "table",
     "layoutType": "table",
     "children": [
       {
@@ -40,8 +40,8 @@
                         "dataType": "string",
                         "label": null,
                         "validation": {
-                          "length" : {
-                            "toIncluding" : 255
+                          "length": {
+                            "toIncluding": 255
                           },
                           "mandatory": true
                         }

@@ -6,13 +6,15 @@ import * as actions from './actions'
 export const inputSelector = state => state.input
 
 export default function* sagas() {
-  yield all([
-    takeLatest(actions.START_COPY, copy)
-  ])
+  yield all([takeLatest(actions.START_COPY, copy)])
 }
 
 export function* copy() {
-  const {selection, navigationStrategy, context: {formName}} = yield select(inputSelector)
+  const {
+    selection,
+    navigationStrategy,
+    context: {formName}
+  } = yield select(inputSelector)
   const entities = yield call(selectionUtil.getEntities, selection, rest.fetchEntities)
 
   if (entities.keys.length === 1) {
@@ -28,20 +30,22 @@ export function* getValues(entityName, entityKey, formName) {
   const paths = yield call(getPaths, formName)
   const sourceEntity = yield call(rest.fetchEntity, entityName, entityKey, {paths})
 
-  return Object.entries(sourceEntity.paths).map(([id, valueObject]) => {
-    const value = valueObject.value
-    if (value === null || value === '' || (Array.isArray(value) && value.length === 0)) {
-      return null
-    }
+  return Object.entries(sourceEntity.paths)
+    .map(([id, valueObject]) => {
+      const value = valueObject.value
+      if (value === null || value === '' || (Array.isArray(value) && value.length === 0)) {
+        return null
+      }
 
-    const valueTransformed = Array.isArray(value)
-      ? value.map(v => v.key)
-      : typeof value === 'object'
+      const valueTransformed = Array.isArray(value)
+        ? value.map(v => v.key)
+        : typeof value === 'object'
         ? value.key
         : value
 
-    return {id, value: valueTransformed}
-  }).filter(d => !!d)
+      return {id, value: valueTransformed}
+    })
+    .filter(d => !!d)
 }
 
 export function* getPaths(formName) {

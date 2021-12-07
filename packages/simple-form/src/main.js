@@ -1,22 +1,17 @@
-import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, externalEvents, formData, notification, actionEmitter, form} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {appFactory, externalEvents, formData, notification, actionEmitter, form} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
 
+import FormContainer from './containers/FormContainer'
 import reducers, {sagas} from './modules/reducers'
 import {setFieldDefinitions} from './modules/simpleForm/actions'
-import FormContainer from './containers/FormContainer'
 const packageName = 'simple-form'
 
-const EXTERNAL_EVENTS = [
-  'onSubmit',
-  'onCancel',
-  'onChange',
-  'emitAction'
-]
+const EXTERNAL_EVENTS = ['onSubmit', 'onCancel', 'onChange', 'emitAction']
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = <FormContainer listApp={input.listApp}/>
+  const content = <FormContainer listApp={input.listApp} />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
@@ -24,20 +19,13 @@ const initApp = (id, input, events = {}, publicPath) => {
   formData.addToStore(store, {data: input.formData, listApp: input.listApp})
   notification.addToStore(store, false)
 
-  const app = appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [
-        setFieldDefinitions(form.getFieldDefinitions(input.form))
-      ],
-      publicPath,
-      textResourceModules: ['component', 'common']
-    }
-  )
+  const app = appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [setFieldDefinitions(form.getFieldDefinitions(input.form))],
+    publicPath,
+    textResourceModules: ['component', 'common']
+  })
 
   if (module.hot) {
     module.hot.accept('./modules/reducers', () => {
@@ -49,7 +37,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   return app
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 

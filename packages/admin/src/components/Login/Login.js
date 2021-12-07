@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import Cookies from 'js-cookie'
 import PropTypes from 'prop-types'
+import React, {useState, useEffect} from 'react'
+import {FormattedMessage} from 'react-intl'
 import ToccoLogin from 'tocco-login/src/main'
 import SsoLogin from 'tocco-sso-login/src/main'
-import {FormattedMessage} from 'react-intl'
-import Cookies from 'js-cookie'
 
 import ToccoSlogan from '../../assets/tocco_white.svg'
 import {
@@ -44,38 +44,38 @@ const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
 
   const SsoLoginPart = () => (
     <>
-      <SsoLogin
-        ssoLoginEndpoint="/sso"
-        loginCompleted={ssoLoginCompleted}
-        autoLogin={autoLogin}
-      />
-      {showRegistrationText
-      && <StyledSsoMsg breakWords={true}><FormattedMessage id="client.sso-login.registration"/></StyledSsoMsg>
-      }
-      {showError
-      && <StyledSsoError breakWords={true}><FormattedMessage id="client.sso-login.error"/></StyledSsoError>
-      }
-      <StyledSpanLogin><FormattedMessage id="client.admin.loginChoice"/></StyledSpanLogin>
+      <SsoLogin ssoLoginEndpoint="/sso" loginCompleted={ssoLoginCompleted} autoLogin={autoLogin} />
+      {showRegistrationText && (
+        <StyledSsoMsg breakWords={true}>
+          <FormattedMessage id="client.sso-login.registration" />
+        </StyledSsoMsg>
+      )}
+      {showError && (
+        <StyledSsoError breakWords={true}>
+          <FormattedMessage id="client.sso-login.error" />
+        </StyledSsoError>
+      )}
+      <StyledSpanLogin>
+        <FormattedMessage id="client.admin.loginChoice" />
+      </StyledSpanLogin>
     </>
   )
 
   return (
     <>
-      <GlobalBodyStyle/>
+      <GlobalBodyStyle />
       <StyledLogin>
-        <StyledMobileSloganImg src={ToccoSlogan} alt="Tocco Slogan" height="42.3" width="460"/>
-        <StyledSloganImg src={ToccoSlogan} alt="Tocco Slogan" height="42.3" width="460"/>
+        <StyledMobileSloganImg src={ToccoSlogan} alt="Tocco Slogan" height="42.3" width="460" />
+        <StyledSloganImg src={ToccoSlogan} alt="Tocco Slogan" height="42.3" width="460" />
         <StyledLoginWrapper>
-          <StyledHeadingLogin><FormattedMessage id="client.admin.welcomeTitle"/></StyledHeadingLogin>
-          {ssoAvailable && <SsoLoginPart/>}
-          <ToccoLogin
-            loginSuccess={loginSuccess}
-            showTitle={false}
-          />
+          <StyledHeadingLogin>
+            <FormattedMessage id="client.admin.welcomeTitle" />
+          </StyledHeadingLogin>
+          {ssoAvailable && <SsoLoginPart />}
+          <ToccoLogin loginSuccess={loginSuccess} showTitle={false} />
         </StyledLoginWrapper>
       </StyledLogin>
     </>
-
   )
 }
 

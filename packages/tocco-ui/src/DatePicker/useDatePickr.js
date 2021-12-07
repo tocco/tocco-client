@@ -8,9 +8,9 @@ import {react, js} from 'tocco-util'
 
 const localeMap = {
   'de-CH': German,
-  'de': German,
-  'fr': French,
-  'it': Italian
+  de: German,
+  fr: French,
+  it: Italian
 }
 
 const handleOnChange = onChange => selectedDates => {
@@ -30,7 +30,7 @@ const initializeFlatPickr = (element, {shouldAppend, onChange, value, fontFamily
     altInput: false,
     enableTime: false,
     defaultDate: value,
-    
+
     ...(shouldAppend ? {appendTo: element.current} : {}),
     ...(calendarLocale ? {locale: calendarLocale} : {}),
     ...flatpickrOptions

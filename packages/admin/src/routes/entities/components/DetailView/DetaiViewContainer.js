@@ -1,9 +1,9 @@
-import {connect} from 'react-redux'
-import {injectIntl} from 'react-intl'
 import _get from 'lodash/get'
+import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import DetailView from './DetailView'
 import {saveUserPreferences} from '../../../../modules/preferences/actions'
+import DetailView from './DetailView'
 const mapActionCreators = {
   saveUserPreferences
 }

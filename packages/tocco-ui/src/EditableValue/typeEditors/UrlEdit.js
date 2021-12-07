@@ -3,10 +3,7 @@ import React from 'react'
 import {react} from 'tocco-util'
 
 import Link from '../../Link'
-import {
-  StyledEditableControl,
-  StyledEditableWrapper
-} from '../StyledEditableValue'
+import {StyledEditableControl, StyledEditableWrapper} from '../StyledEditableValue'
 import StyledUrlEdit from './StyledUrlEdit'
 
 const normalizeUrl = url => {
@@ -18,7 +15,7 @@ const normalizeUrl = url => {
   return url
 }
 
-const UrlEdit = props =>
+const UrlEdit = props => (
   <StyledEditableWrapper immutable={props.immutable}>
     <StyledUrlEdit
       disabled={props.immutable}
@@ -28,17 +25,13 @@ const UrlEdit = props =>
       onChange={e => props.onChange(normalizeUrl(e.target.value))}
       value={props.value}
     />
-    {props.value && <StyledEditableControl>
-      <Link
-        href={props.value}
-        icon="external-link"
-        look="ball"
-        tabIndex={-1}
-        target="_blank"
-        neutral
-      />
-    </StyledEditableControl>}
+    {props.value && (
+      <StyledEditableControl>
+        <Link href={props.value} icon="external-link" look="ball" tabIndex={-1} target="_blank" neutral />
+      </StyledEditableControl>
+    )}
   </StyledEditableWrapper>
+)
 
 UrlEdit.propTypes = {
   onChange: PropTypes.func,

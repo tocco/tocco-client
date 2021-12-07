@@ -18,8 +18,9 @@ describe('app-extensions', () => {
               User: searchFilters
             }
 
-            expect(reducer(stateBefore, actions.setSearchFilter('User', searchFilters)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setSearchFilter('User', searchFilters))).to.deep.equal(
+              expectedStateAfter
+            )
           })
 
           test('should update search filters', () => {
@@ -36,8 +37,9 @@ describe('app-extensions', () => {
               User: searchFilters
             }
 
-            expect(reducer(stateBefore, actions.setSearchFilter('User', searchFilters)))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setSearchFilter('User', searchFilters))).to.deep.equal(
+              expectedStateAfter
+            )
           })
         })
       })

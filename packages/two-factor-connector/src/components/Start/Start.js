@@ -1,7 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, Typography} from 'tocco-ui'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
+import {Button, Typography} from 'tocco-ui'
 
 import {StyledButtonWrapper} from '../GlobalStyledComponents'
 
@@ -11,13 +11,13 @@ const Start = ({twoFactorActive, forced, requestSecret, intl}) => {
   return (
     <>
       <Typography.P>
-        {
-          twoFactorActive
-            ? <FormattedMessage id="client.two-factor-connector.overwriteInfo"/>
-            : forced
-              ? <span dangerouslySetInnerHTML={{__html: msg('client.two-factor-connector.forcedInfo')}}/>
-              : <span dangerouslySetInnerHTML={{__html: msg('client.two-factor-connector.info')}}/>
-        }
+        {twoFactorActive ? (
+          <FormattedMessage id="client.two-factor-connector.overwriteInfo" />
+        ) : forced ? (
+          <span dangerouslySetInnerHTML={{__html: msg('client.two-factor-connector.forcedInfo')}} />
+        ) : (
+          <span dangerouslySetInnerHTML={{__html: msg('client.two-factor-connector.info')}} />
+        )}
       </Typography.P>
       <StyledButtonWrapper>
         <Button

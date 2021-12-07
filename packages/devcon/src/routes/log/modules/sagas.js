@@ -1,12 +1,10 @@
-import {socket} from 'tocco-app-extensions'
 import {all, call} from 'redux-saga/effects'
+import {socket} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 
 export default function* mainSagas() {
-  yield all([
-    call(initSocket)
-  ])
+  yield all([call(initSocket)])
 }
 
 export function* initSocket() {

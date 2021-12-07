@@ -1,11 +1,11 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
-import {takeLatest} from 'redux-saga/effects'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {takeLatest} from 'redux-saga/effects'
 import {cache} from 'tocco-util'
 
-import rootSaga, * as sagas from './sagas'
-import * as actions from './actions'
 import notification from '../notification'
+import * as actions from './actions'
+import rootSaga, * as sagas from './sagas'
 
 describe('app-extensions', () => {
   describe('login', () => {
@@ -13,9 +13,7 @@ describe('app-extensions', () => {
       describe('root saga', () => {
         test('should fork sagas', () => {
           const saga = testSaga(rootSaga)
-          saga.next().all([
-            takeLatest(actions.DO_SESSION_CHECK, sagas.sessionCheck)
-          ])
+          saga.next().all([takeLatest(actions.DO_SESSION_CHECK, sagas.sessionCheck)])
         })
       })
       describe('sessionCheck', () => {
@@ -31,9 +29,7 @@ describe('app-extensions', () => {
             }
           })
           return expectSaga(sagas.sessionCheck)
-            .provide([
-              [matchers.call(sagas.doSessionRequest), sessionResponse]
-            ])
+            .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
             .call(cache.clearShortTerm)
             .run()
         })
@@ -49,9 +45,7 @@ describe('app-extensions', () => {
             }
           })
           return expectSaga(sagas.sessionCheck)
-            .provide([
-              [matchers.call(sagas.doSessionRequest), sessionResponse]
-            ])
+            .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
             .not.call(cache.clearShortTerm)
             .run()
         })
@@ -60,9 +54,7 @@ describe('app-extensions', () => {
             success: false
           }
           return expectSaga(sagas.sessionCheck)
-            .provide([
-              [matchers.call(sagas.doSessionRequest), sessionResponse]
-            ])
+            .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
             .put(actions.setLoggedIn(false))
             .run()
         })
@@ -71,9 +63,7 @@ describe('app-extensions', () => {
             success: false
           }
           return expectSaga(sagas.sessionCheck)
-            .provide([
-              [matchers.call(sagas.doSessionRequest), sessionResponse]
-            ])
+            .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
             .not.put(notification.connectSocket())
             .run()
         })
@@ -82,9 +72,7 @@ describe('app-extensions', () => {
             success: true
           }
           return expectSaga(sagas.sessionCheck)
-            .provide([
-              [matchers.call(sagas.doSessionRequest), sessionResponse]
-            ])
+            .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
             .put(notification.connectSocket())
             .run()
         })
@@ -93,9 +81,7 @@ describe('app-extensions', () => {
             adminAllowed: true
           }
           return expectSaga(sagas.sessionCheck)
-            .provide([
-              [matchers.call(sagas.doSessionRequest), sessionResponse]
-            ])
+            .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
             .put(actions.setAdminAllowed(true))
             .run()
         })

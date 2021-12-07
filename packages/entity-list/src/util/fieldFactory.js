@@ -1,55 +1,42 @@
-import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
-import {Typography} from 'tocco-ui'
+import React, {useMemo} from 'react'
 import {formData, field} from 'tocco-app-extensions'
+import {Typography} from 'tocco-ui'
 import {js} from 'tocco-util'
 
-import {StyledSpan} from './StyledComponents'
 import LazyDataEnhancer from '../components/LazyDataEnhancer'
+import {StyledSpan} from './StyledComponents'
 
-export const MultiSeparator = () => (<Typography.Span>, </Typography.Span>)
+export const MultiSeparator = () => <Typography.Span>, </Typography.Span>
 
 const multiTypes = ['multi-select-box', 'multi-remote-field']
 
 export default (fieldDefinition, entity, intl) => {
-  const {
-    id,
-    path,
-    dataType
-  } = fieldDefinition
+  const {id, path, dataType} = fieldDefinition
   const isMultiType = multiTypes.includes(dataType)
   const pathValue = entity[path]
   const values = !isMultiType && Array.isArray(pathValue) ? pathValue : [pathValue]
 
   const config = field.formattedTypeConfigs[dataType]
-  const dataContainerProps = config && config.dataContainerProps
-    ? config.dataContainerProps({formField: fieldDefinition})
-    : {}
+  const dataContainerProps =
+    config && config.dataContainerProps ? config.dataContainerProps({formField: fieldDefinition}) : {}
 
-  const formDataContainer = values.map((v, idx) =>
-    <formData.FormDataContainer
-      key={`formDataContainer-${entity.__key}-${path}-${idx}`}
-      {...dataContainerProps}
-      navigationStrategy={true}
-    >
-      <FormattedValueWrapper type={dataType} value={v} intl={intl} formField={fieldDefinition}/>
-    </formData.FormDataContainer>
-  ).reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
+  const formDataContainer = values
+    .map((v, idx) => (
+      <formData.FormDataContainer
+        key={`formDataContainer-${entity.__key}-${path}-${idx}`}
+        {...dataContainerProps}
+        navigationStrategy={true}
+      >
+        <FormattedValueWrapper type={dataType} value={v} intl={intl} formField={fieldDefinition} />
+      </formData.FormDataContainer>
+    ))
+    .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx} />, curr])
 
-  return (
-    <StyledSpan key={id}>
-      {formDataContainer}
-    </StyledSpan>
-  )
+  return <StyledSpan key={id}>{formDataContainer}</StyledSpan>
 }
 
-const FormattedValueWrapper = ({
-  value,
-  type,
-  formData,
-  intl,
-  formField
-}) => {
+const FormattedValueWrapper = ({value, type, formData, intl, formField}) => {
   const modelField = {
     targetEntity: value && js.getOrFirst(value).model
   }

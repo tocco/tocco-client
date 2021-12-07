@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect, useState} from 'react'
 import {actions, notification, selection as selectionPropType} from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'
 
-import InputEditTable from '../InputEditTable/InputEditTableContainer'
+import InputEditInformation from '../InputEditInformation'
 import InputEditSearch from '../InputEditSearch'
+import InputEditTable from '../InputEditTable/InputEditTableContainer'
 import {
   StyledPanelWrapperLeft,
   StyledPanelWrapperRight,
@@ -16,7 +17,6 @@ import {
   StyledToggleCollapseButton,
   StyledPlaceHolder
 } from './StyledInputEdit'
-import InputEditInformation from '../InputEditInformation'
 
 const InputEdit = ({
   selection,
@@ -41,41 +41,38 @@ const InputEdit = ({
     setIsCollapsed(!isCollapsed)
   }
 
-  const Actions = actionDefinitions.map(definition =>
-    <actions.Action
-      key={definition.id}
-      definition={definition}
-      selection={selection}/>
-  )
+  const Actions = actionDefinitions.map(definition => (
+    <actions.Action key={definition.id} definition={definition} selection={selection} />
+  ))
 
-  return <>
-    <GlobalStyles/>
-    {handleNotifications && <notification.Notifications/>}
-    <StyledPaneWrapper>
-      <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
-        <StyledToggleCollapse isCollapsed={isCollapsed}>
-          <StyledToggleCollapseButton icon="chevron-right" isCollapsed={isCollapsed}/>
-        </StyledToggleCollapse>
-      </StyledPlaceHolder>
-      <StyledPanelWrapperLeft isCollapsed={isCollapsed}>
-        <StyledToggleCollapse>
-          <StyledToggleCollapseButton icon="chevron-left" onClick={toggleCollapse}/>
-        </StyledToggleCollapse>
-        <StyledLeftPane>
-          <StyledInputEditSearchWrapper>
-            <InputEditSearch/>
-          </StyledInputEditSearchWrapper>
-          <InputEditInformation/>
-        </StyledLeftPane>
-      </StyledPanelWrapperLeft>
-      <StyledPanelWrapperRight>
-        <StyledActionsWrapper>
-          {Actions}
-        </StyledActionsWrapper>
-        <InputEditTable/>
-      </StyledPanelWrapperRight>
-    </StyledPaneWrapper>
-  </>
+  return (
+    <>
+      <GlobalStyles />
+      {handleNotifications && <notification.Notifications />}
+      <StyledPaneWrapper>
+        <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
+          <StyledToggleCollapse isCollapsed={isCollapsed}>
+            <StyledToggleCollapseButton icon="chevron-right" isCollapsed={isCollapsed} />
+          </StyledToggleCollapse>
+        </StyledPlaceHolder>
+        <StyledPanelWrapperLeft isCollapsed={isCollapsed}>
+          <StyledToggleCollapse>
+            <StyledToggleCollapseButton icon="chevron-left" onClick={toggleCollapse} />
+          </StyledToggleCollapse>
+          <StyledLeftPane>
+            <StyledInputEditSearchWrapper>
+              <InputEditSearch />
+            </StyledInputEditSearchWrapper>
+            <InputEditInformation />
+          </StyledLeftPane>
+        </StyledPanelWrapperLeft>
+        <StyledPanelWrapperRight>
+          <StyledActionsWrapper>{Actions}</StyledActionsWrapper>
+          <InputEditTable />
+        </StyledPanelWrapperRight>
+      </StyledPaneWrapper>
+    </>
+  )
 }
 
 InputEdit.propTypes = {
@@ -85,9 +82,11 @@ InputEdit.propTypes = {
   initializeTable: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired,
   initializeInformation: PropTypes.func.isRequired,
-  actionDefinitions: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired
-  })),
+  actionDefinitions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  ),
   notify: PropTypes.func.isRequired
 }
 

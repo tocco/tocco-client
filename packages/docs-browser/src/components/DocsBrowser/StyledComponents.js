@@ -3,7 +3,7 @@ import {StyledScrollbar} from 'tocco-ui'
 
 export const StyledWrapper = styled.div`
   display: grid;
-  grid-template-rows: auto  1fr;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     'breadcrumbs'
     'content';
@@ -19,7 +19,9 @@ export const StyledContent = styled.div`
 
 export const StyledBreadcrumbs = styled.div`
   grid-area: breadcrumbs;
-  ${({noLeftPadding}) => noLeftPadding && `
+  ${({noLeftPadding}) =>
+    noLeftPadding &&
+    `
     > div {
       padding-left: 0;
     }

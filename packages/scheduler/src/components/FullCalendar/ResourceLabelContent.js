@@ -1,15 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-const ResourceLabelContent = ({fieldValue, resource, onCalendarRemove}) => <>
-  <input
-    type="checkbox"
-    defaultChecked={true}
-    className="remove-resource-checkbox"
-    onClick={() => onCalendarRemove(resource.extendedProps.entityKey, resource.extendedProps.entityModel)}
-  />
-  {fieldValue}
-</>
+const ResourceLabelContent = ({fieldValue, resource, onCalendarRemove}) => (
+  <>
+    <input
+      type="checkbox"
+      defaultChecked={true}
+      className="remove-resource-checkbox"
+      onClick={() => onCalendarRemove(resource.extendedProps.entityKey, resource.extendedProps.entityModel)}
+    />
+    {fieldValue}
+  </>
+)
 
 ResourceLabelContent.propTypes = {
   fieldValue: PropTypes.string,
@@ -20,7 +22,6 @@ ResourceLabelContent.propTypes = {
     })
   }).isRequired,
   onCalendarRemove: PropTypes.func.isRequired
-
 }
 
 export default ResourceLabelContent

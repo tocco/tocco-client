@@ -1,12 +1,6 @@
-import styled, {createGlobalStyle} from 'styled-components'
 import _get from 'lodash/get'
-import {
-  declareFont,
-  theme,
-  StyledScrollbar,
-  shadeColor,
-  scale
-} from 'tocco-ui'
+import styled, {createGlobalStyle} from 'styled-components'
+import {declareFont, theme, StyledScrollbar, shadeColor, scale} from 'tocco-ui'
 
 export const StyledFullCalendarWrapper = styled.div`
   height: 100%;
@@ -68,7 +62,7 @@ export const StyledFullCalendarWrapper = styled.div`
       }
 
       .conflict {
-        border: 2px dashed  ${theme.color('signal.danger.text')};
+        border: 2px dashed ${theme.color('signal.danger.text')};
       }
 
       .fc-event-time {

@@ -1,15 +1,16 @@
-import {consoleLogger, request, cache} from 'tocco-util'
 import {all, call, put, takeLatest} from 'redux-saga/effects'
+import {consoleLogger, request, cache} from 'tocco-util'
 
 import notification from '../notification'
 import * as actions from './actions'
 
 export function doRequest(url, options) {
-  return request.executeRequest(url, options)
+  return request
+    .executeRequest(url, options)
     .then(request.extractBody)
     .catch(e => {
       consoleLogger.logError('Failed to execute request', e)
-      return ({success: false})
+      return {success: false}
     })
 }
 
@@ -31,7 +32,5 @@ export function* sessionCheck() {
 }
 
 export default function* mainSagas() {
-  yield all([
-    takeLatest(actions.DO_SESSION_CHECK, sessionCheck)
-  ])
+  yield all([takeLatest(actions.DO_SESSION_CHECK, sessionCheck)])
 }

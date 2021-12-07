@@ -1,12 +1,12 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
+import React from 'react'
+import EntityListApp from 'tocco-entity-list/src/main'
 import {viewPersistor} from 'tocco-util'
 
-import Action from '../Action/LazyAction'
-import {currentViewPropType} from '../../utils/propTypes'
 import navigationStrategy from '../../utils/navigationStrategy'
+import {currentViewPropType} from '../../utils/propTypes'
+import Action from '../Action/LazyAction'
 import DocsViewAdapter from './DocsViewAdapter'
 
 const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollapsed, saveUserPreferences}) => {
@@ -21,9 +21,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollap
   }
 
   if (currentViewInfo.model.name === 'Resource') {
-    return <DocsViewAdapter
-      currentViewInfo={currentViewInfo}
-    />
+    return <DocsViewAdapter currentViewInfo={currentViewInfo} />
   }
 
   return (

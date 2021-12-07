@@ -1,8 +1,8 @@
 import {takeEvery, call, put, all} from 'redux-saga/effects'
 
+import actionEmitter from '../actionEmitter'
 import * as actions from './actions'
 import handlerRegistry from './handlerRegistry'
-import actionEmitter from '../actionEmitter'
 
 export default function* sagas(accept, handlers) {
   if (accept) {

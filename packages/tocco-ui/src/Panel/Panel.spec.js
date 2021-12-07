@@ -1,10 +1,10 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 import {TestThemeProvider} from 'tocco-test-util'
 
-import Panel from './'
-import Typography from '../Typography'
 import Icon from '../Icon'
+import Typography from '../Typography'
+import Panel from './'
 
 const panelIsOpen = wrapper => wrapper.find(Icon).props().icon === 'chevron-up'
 
@@ -20,7 +20,8 @@ describe('tocco-ui', () => {
               </Panel.Header>
               <div>body</div>
             </Panel.Wrapper>
-          </TestThemeProvider>)
+          </TestThemeProvider>
+        )
 
         expect(panelIsOpen(wrapper)).to.be.true
       })
@@ -34,7 +35,8 @@ describe('tocco-ui', () => {
               </Panel.Header>
               <div>body</div>
             </Panel.Wrapper>
-          </TestThemeProvider>)
+          </TestThemeProvider>
+        )
 
         expect(panelIsOpen(wrapper)).to.be.false
       })
@@ -48,7 +50,8 @@ describe('tocco-ui', () => {
               </Panel.Header>
               <div>body</div>
             </Panel.Wrapper>
-          </TestThemeProvider>)
+          </TestThemeProvider>
+        )
 
         expect(panelIsOpen(wrapper)).to.be.true
         wrapper.find(Icon).simulate('click')
@@ -67,7 +70,8 @@ describe('tocco-ui', () => {
               </Panel.Header>
               <div>body</div>
             </Panel.Wrapper>
-          </TestThemeProvider>)
+          </TestThemeProvider>
+        )
 
         expect(panelIsOpen(wrapper)).to.be.false
         wrapper.find(Icon).simulate('click')

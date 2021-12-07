@@ -43,10 +43,11 @@ export const getPathDisplayRequest = (entities, relationPaths, lazyData) => {
  *
  * @param {array} entities - List of all entities.
  */
-export const getDisplayRequest = entities => (
-  entities.reduce((acc, val) => ({
-    ...acc,
-    [val.model]: [...(acc[val.model] || []), val.key]
-  }
-  ), {})
-)
+export const getDisplayRequest = entities =>
+  entities.reduce(
+    (acc, val) => ({
+      ...acc,
+      [val.model]: [...(acc[val.model] || []), val.key]
+    }),
+    {}
+  )

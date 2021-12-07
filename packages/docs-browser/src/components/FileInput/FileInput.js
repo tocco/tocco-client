@@ -1,5 +1,5 @@
-import React, {useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useRef, useEffect} from 'react'
 import {react} from 'tocco-util'
 
 const FileInput = ({instanceCount, directory, onChange}) => {
@@ -21,13 +21,16 @@ const FileInput = ({instanceCount, directory, onChange}) => {
     e.target.value = null
   }
 
-  return <input
-    type="file"
-    ref={fileInput}
-    style={{display: 'none'}}
-    onChange={handleChange}
-    multiple {...(directory ? {webkitdirectory: 'true', directory: 'true'} : {})}
-  />
+  return (
+    <input
+      type="file"
+      ref={fileInput}
+      style={{display: 'none'}}
+      onChange={handleChange}
+      multiple
+      {...(directory ? {webkitdirectory: 'true', directory: 'true'} : {})}
+    />
+  )
 }
 
 FileInput.propTypes = {

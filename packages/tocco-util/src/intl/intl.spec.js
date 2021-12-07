@@ -23,9 +23,11 @@ describe('tocco-util', () => {
           dispatch: dispatchSpy
         }
         setLocale(store, ['merge'], 'de_CH').then(() => {
-          expect(dispatchSpy).to.have.calledWith(sinon.match({
-            type: '@@intl/UPDATE'
-          }))
+          expect(dispatchSpy).to.have.calledWith(
+            sinon.match({
+              type: '@@intl/UPDATE'
+            })
+          )
           expect(fetchMock.called()).to.be.true
           done()
         })
@@ -33,7 +35,7 @@ describe('tocco-util', () => {
     })
 
     describe('getUserLocale', () => {
-      test('should load user locale with fetch', async() => {
+      test('should load user locale with fetch', async () => {
         const usernameRequestBody = {
           locale: 'de_CH'
         }
@@ -43,7 +45,7 @@ describe('tocco-util', () => {
         expect(result).to.eql('de_CH')
       })
 
-      test('should read from cache after first fetch', async() => {
+      test('should read from cache after first fetch', async () => {
         const cachedLocale = 'fr'
         cache.addLongTerm('user', 'locale', cachedLocale)
 
@@ -53,7 +55,7 @@ describe('tocco-util', () => {
     })
 
     describe('loadTextResources', () => {
-      test('should fetch text resources and cache them individually', async() => {
+      test('should fetch text resources and cache them individually', async () => {
         const mergeMessages = {
           'client.merge': 'test'
         }

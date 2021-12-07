@@ -7,11 +7,11 @@ export const minLengthValidator = (value, minLength) =>
   value.length < minLength
     ? {
         minLength: [
-        <FormattedMessage
-          key="syncValidationMinLength"
-          id="client.component.form.syncValidationMinLength"
-          values={{minLength}}
-        />
+          <FormattedMessage
+            key="syncValidationMinLength"
+            id="client.component.form.syncValidationMinLength"
+            values={{minLength}}
+          />
         ]
       }
     : null
@@ -20,11 +20,11 @@ export const minNumberValidator = (value, minValue) =>
   value < minValue
     ? {
         maxNumber: [
-        <FormattedMessage
-          key="syncValidationMaxNumber"
-          id="client.component.form.syncValidationMinNumber"
-          values={{minValue}}
-        />
+          <FormattedMessage
+            key="syncValidationMaxNumber"
+            id="client.component.form.syncValidationMinNumber"
+            values={{minValue}}
+          />
         ]
       }
     : null
@@ -33,11 +33,11 @@ export const maxLengthValidator = (value, maxLength) =>
   value.length > maxLength
     ? {
         maxLength: [
-        <FormattedMessage
-          key="syncValidationMaxLength"
-          id="client.component.form.syncValidationMaxLength"
-          values={{maxLength}}
-        />
+          <FormattedMessage
+            key="syncValidationMaxLength"
+            id="client.component.form.syncValidationMaxLength"
+            values={{maxLength}}
+          />
         ]
       }
     : null
@@ -46,11 +46,11 @@ export const maxNumberValidator = (value, maxValue) =>
   value > maxValue
     ? {
         maxNumber: [
-        <FormattedMessage
-          key="syncValidationMaxNumber"
-          id="client.component.form.syncValidationMaxNumber"
-          values={{maxValue}}
-        />
+          <FormattedMessage
+            key="syncValidationMaxNumber"
+            id="client.component.form.syncValidationMaxNumber"
+            values={{maxValue}}
+          />
         ]
       }
     : null
@@ -59,11 +59,11 @@ export const postPointValidator = (value, limit) =>
   value.toString().includes('.') && value.toString().split('.')[1].length > limit
     ? {
         prePoint: [
-        <FormattedMessage
-          key="syncValidationPrePoint"
-          id="client.component.form.syncValidationPrePoint"
-          values={{limit}}
-        />
+          <FormattedMessage
+            key="syncValidationPrePoint"
+            id="client.component.form.syncValidationPrePoint"
+            values={{limit}}
+          />
         ]
       }
     : null
@@ -72,11 +72,11 @@ export const prePointValidator = (value, limit) =>
   limit > 0 && value.toString().split('.')[0].length > limit
     ? {
         prePoint: [
-        <FormattedMessage
-          key="syncValidationPrePoint"
-          id="client.component.form.syncValidationPrePoint"
-          values={{limit}}
-        />
+          <FormattedMessage
+            key="syncValidationPrePoint"
+            id="client.component.form.syncValidationPrePoint"
+            values={{limit}}
+          />
         ]
       }
     : null
@@ -85,11 +85,11 @@ export const regexValidator = (value, pattern) =>
   !RegExp(pattern).test(value)
     ? {
         prePoint: [
-        <FormattedMessage
-          key="syncValidationRegexPattern"
-          id="client.component.form.syncValidationRegexPattern"
-          values={{pattern}}
-        />
+          <FormattedMessage
+            key="syncValidationRegexPattern"
+            id="client.component.form.syncValidationRegexPattern"
+            values={{pattern}}
+          />
         ]
       }
     : null
@@ -97,23 +97,14 @@ export const regexValidator = (value, pattern) =>
 export const emailValidator = value =>
   !isEmail(value)
     ? {
-        format: [<FormattedMessage
-        key="invalidEmail"
-        id="client.component.form.invalidEmail"
-      />
-        ]
-
+        format: [<FormattedMessage key="invalidEmail" id="client.component.form.invalidEmail" />]
       }
     : null
 
 export const urlValidator = value =>
   !isUrl(value) && !(value.includes('localhost') && isUrl(value, {require_tld: false}))
     ? {
-        format: [<FormattedMessage
-        key="invalidUrl"
-        id="client.component.form.invalidUrl"
-      />
-        ]
+        format: [<FormattedMessage key="invalidUrl" id="client.component.form.invalidUrl" />]
       }
     : null
 
@@ -125,6 +116,6 @@ export default {
   'decimalDigits.postPointDigits': postPointValidator,
   'decimalDigits.prePointDigits': prePointValidator,
   'regex.pattern': regexValidator,
-  'email': emailValidator,
-  'url': urlValidator
+  email: emailValidator,
+  url: urlValidator
 }

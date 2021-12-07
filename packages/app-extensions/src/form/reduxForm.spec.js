@@ -6,16 +6,16 @@ describe('app-extensions', () => {
       describe('entityToFormValues', () => {
         test('should transform names to a redux-form compatible one', () => {
           const entity = {
-            'firstname': 'Max',
-            'customer': false,
+            firstname: 'Max',
+            customer: false,
             'relGender.label': 'Male'
           }
 
           const result = reduxForm.entityToFormValues(entity)
 
           const expectedResult = {
-            'firstname': 'Max',
-            'customer': false,
+            firstname: 'Max',
+            customer: false,
             'relGender--label': 'Male'
           }
 
@@ -26,15 +26,15 @@ describe('app-extensions', () => {
       describe('formValuesToFlattenEntity', () => {
         test('should transform names back to dot notation', () => {
           const formValues = {
-            'firstname': 'Max',
-            'customer': false,
+            firstname: 'Max',
+            customer: false,
             'relGender--label': 'Male'
           }
 
           const result = reduxForm.formValuesToFlattenEntity(formValues)
           const expectedResult = {
-            'firstname': 'Max',
-            'customer': false,
+            firstname: 'Max',
+            customer: false,
             'relGender.label': 'Male'
           }
 

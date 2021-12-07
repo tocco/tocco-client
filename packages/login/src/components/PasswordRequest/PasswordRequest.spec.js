@@ -1,7 +1,7 @@
-import React from 'react'
 import {shallow} from 'enzyme'
-import {Button, Typography} from 'tocco-ui'
+import React from 'react'
 import {intlEnzyme, IntlStub} from 'tocco-test-util'
+import {Button, Typography} from 'tocco-ui'
 
 import {Pages} from '../../types/Pages'
 import {PasswordRequest} from './PasswordRequest'
@@ -11,11 +11,7 @@ describe('login', () => {
     describe('PasswordRequest', () => {
       test('should render components', () => {
         const wrapper = intlEnzyme.mountWithIntl(
-          <PasswordRequest
-            intl={IntlStub}
-            changePage={() => undefined}
-            requestPassword={() => undefined}
-          />
+          <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={() => undefined} />
         )
         expect(wrapper.find('input[name="user"]')).to.have.length(1)
         expect(wrapper.find(Button)).to.have.length(2)
@@ -23,22 +19,14 @@ describe('login', () => {
 
       test('should have an initial password state', () => {
         const wrapper = shallow(
-          <PasswordRequest
-            intl={IntlStub}
-            changePage={() => undefined}
-            requestPassword={() => undefined}
-          />
+          <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={() => undefined} />
         )
         expect(wrapper.state().username).to.equal('')
       })
 
       test('should update username state on username change', () => {
         const wrapper = intlEnzyme.mountWithIntl(
-          <PasswordRequest
-            intl={IntlStub}
-            changePage={() => undefined}
-            requestPassword={() => undefined}
-          />
+          <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={() => undefined} />
         )
 
         expect(wrapper.find('input[name="user"]')).to.have.length(1)
@@ -53,11 +41,7 @@ describe('login', () => {
 
       test('should disable submit button if username is not set', () => {
         const wrapper = shallow(
-          <PasswordRequest
-            intl={IntlStub}
-            changePage={() => undefined}
-            requestPassword={() => undefined}
-          />
+          <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={() => undefined} />
         )
 
         const button = wrapper.find('[type="submit"]')
@@ -67,11 +51,7 @@ describe('login', () => {
 
       test('should enable submit button if username is set', () => {
         const wrapper = shallow(
-          <PasswordRequest
-            intl={IntlStub}
-            changePage={() => undefined}
-            requestPassword={() => undefined}
-          />
+          <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={() => undefined} />
         )
 
         wrapper.setState({
@@ -86,11 +66,7 @@ describe('login', () => {
 
       test('should hide title by default', () => {
         const wrapper = shallow(
-          <PasswordRequest
-            intl={IntlStub}
-            changePage={() => undefined}
-            requestPassword={() => undefined}
-          />
+          <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={() => undefined} />
         )
 
         expect(wrapper.find(Typography.H5)).to.have.length(0)
@@ -98,12 +74,7 @@ describe('login', () => {
 
       test('should display title if showTitle prop is true', () => {
         const wrapper = shallow(
-          <PasswordRequest
-            intl={IntlStub}
-            changePage={() => undefined}
-            requestPassword={() => undefined}
-            showTitle
-          />
+          <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={() => undefined} showTitle />
         )
 
         expect(wrapper.find(Typography.H5)).to.have.length(1)
@@ -114,11 +85,7 @@ describe('login', () => {
         const requestPassword = sinon.spy()
 
         const wrapper = shallow(
-          <PasswordRequest
-            intl={IntlStub}
-            changePage={() => undefined}
-            requestPassword={requestPassword}
-          />
+          <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={requestPassword} />
         )
 
         wrapper.find('form').simulate('submit', {
@@ -133,11 +100,7 @@ describe('login', () => {
         const changePage = sinon.spy()
 
         const wrapper = shallow(
-          <PasswordRequest
-            intl={IntlStub}
-            changePage={changePage}
-            requestPassword={() => undefined}
-          />
+          <PasswordRequest intl={IntlStub} changePage={changePage} requestPassword={() => undefined} />
         )
 
         wrapper.find('[name="abort"]').simulate('click')

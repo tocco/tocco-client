@@ -1,4 +1,3 @@
-
 export const getMenuPreferencesKey = (preferencesPrefix, menuTreePath) =>
   `admintree${preferencesPrefix ? `.${preferencesPrefix}` : ''}.${menuTreePath}.collapsed`
 
@@ -14,21 +13,23 @@ export const getCompleteMenuPreferences = (items, preferencesPrefix, collapse) =
     return {}
   }
 
-  const preferences = items
-    .reduce((acc, item) => {
-      const {name} = item
+  const preferences = items.reduce((acc, item) => {
+    const {name} = item
 
-      const hasChildren = item.children && item.children.length > 0
-      const children = getCompleteMenuPreferences(item.children || [],
-        `${preferencesPrefix}${preferencesPrefix ? `.${name}` : name}`, collapse)
+    const hasChildren = item.children && item.children.length > 0
+    const children = getCompleteMenuPreferences(
+      item.children || [],
+      `${preferencesPrefix}${preferencesPrefix ? `.${name}` : name}`,
+      collapse
+    )
 
-      const key = getMenuPreferencesKey(preferencesPrefix, name)
-      return {
-        ...acc,
-        ...children,
-        ...(hasChildren ? {[key]: collapse} : {})
-      }
-    }, {})
+    const key = getMenuPreferencesKey(preferencesPrefix, name)
+    return {
+      ...acc,
+      ...children,
+      ...(hasChildren ? {[key]: collapse} : {})
+    }
+  }, {})
   return preferences
 }
 
@@ -49,16 +50,12 @@ export const getCompleteMenuPreferences = (items, preferencesPrefix, collapse) =
  * @returns {array} items - actual visible items for complete menu tree
  */
 export const prepareMenuTree = (items, searchFilter, typeMapping, level = 0, isParentMatching = false) => {
-  const includeInTree = item => !searchFilter
-    || item.matchingAttribute
-    || item.children?.length > 0
-    || isParentMatching
+  const includeInTree = item => !searchFilter || item.matchingAttribute || item.children?.length > 0 || isParentMatching
 
-  const getMatchingAttribute = (item, filterAttributes) => searchFilter
-    ? filterAttributes.find(attr =>
-      item[attr] && item[attr].toLowerCase().includes(searchFilter?.toLowerCase())
-    )
-    : undefined
+  const getMatchingAttribute = (item, filterAttributes) =>
+    searchFilter
+      ? filterAttributes.find(attr => item[attr] && item[attr].toLowerCase().includes(searchFilter?.toLowerCase()))
+      : undefined
 
   return items
     .map(item => {

@@ -1,9 +1,9 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 import {TestThemeProvider} from 'tocco-test-util'
 
-import DescriptionFormatter from './DescriptionFormatter'
 import Icon from '../../Icon'
+import DescriptionFormatter from './DescriptionFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {
@@ -19,7 +19,8 @@ describe('tocco-ui', () => {
                   title: 'Test'
                 }}
               />
-            </TestThemeProvider>)
+            </TestThemeProvider>
+          )
           expect(wrapper.find(Icon)).to.have.length(1)
         })
 
@@ -33,7 +34,8 @@ describe('tocco-ui', () => {
                   title: 'Title!'
                 }}
               />
-            </TestThemeProvider>)
+            </TestThemeProvider>
+          )
           expect(wrapper.find(Icon)).to.have.length(0)
           expect(wrapper.text()).to.equal('Title!TEST TEST')
         })

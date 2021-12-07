@@ -11,8 +11,7 @@ const space = (exponent, unit) => props =>
 const declareScale = (exponent, base, factor, unit = 'rem') =>
   `${_round(exponentiate(base, exponent, factor), 3)}${unit}`
 
-const exponentiate = (base, exponent, factor) =>
-  Math.pow(factor, exponent) * base
+const exponentiate = (base, exponent, factor) => Math.pow(factor, exponent) * base
 
 export default {
   declareScale,

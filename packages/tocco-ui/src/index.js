@@ -3,12 +3,7 @@ export {default as Button, StyledButton, RouterLinkButton} from './Button'
 export {default as Ball, StyledBall} from './Ball'
 export {default as Breadcrumbs} from './Breadcrumbs'
 export {default as ButtonGroup, StyledButtonGroup} from './ButtonGroup'
-export {
-  default as EditableValue,
-  StyledEditableWrapperCss,
-  StyledEditableValue,
-  StyledInputCss
-} from './EditableValue'
+export {default as EditableValue, StyledEditableWrapperCss, StyledEditableValue, StyledInputCss} from './EditableValue'
 export {default as FormattedValue} from './FormattedValue'
 export {default as Icon, StyledFontAwesomeAdapterWrapper} from './Icon'
 export {default as LoadingSpinner} from './LoadingSpinner'

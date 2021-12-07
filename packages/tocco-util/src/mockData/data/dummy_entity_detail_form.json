@@ -6,7 +6,7 @@
   },
   "form": {
     "id": "Dummy_entity_detail",
-   "componentType": "table",
+    "componentType": "table",
     "layoutType": "table",
     "readonly": true,
     "children": [
@@ -48,8 +48,8 @@
                         "dataType": "string",
                         "label": null,
                         "validation": {
-                          "length" : {
-                            "toIncluding" : 255
+                          "length": {
+                            "toIncluding": 255
                           },
                           "mandatory": true
                         }
@@ -125,7 +125,7 @@
                   {
                     "id": "empty",
                     "dataType": "string",
-                    "children": [ ],
+                    "children": [],
                     "label": "!!SHOULD NOT BE SHOWN!!",
                     "validation": {}
                   }

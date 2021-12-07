@@ -1,9 +1,9 @@
-import {call, put, take} from 'redux-saga/effects'
-import {channel} from 'redux-saga'
 import React from 'react'
+import {channel} from 'redux-saga'
+import {call, put, take} from 'redux-saga/effects'
 
-import simpleFormConnector from '../../containers/simpleFormConnector'
 import notification from '../../../notification'
+import simpleFormConnector from '../../containers/simpleFormConnector'
 
 export default function* initialFormHandler(preparationResponse, params, definition, selection, config) {
   if (preparationResponse.initialFormValues) {
@@ -28,16 +28,18 @@ export function* handleInitialForm({formDefinition, defaultValues, formTitle, fo
   const onSend = ({values}) => answerChannel.put(formValues(values))
   const onCancel = () => answerChannel.put(formValues(null))
   const SimpleFormContainer = simpleFormConnector(config.formApp)
-  yield put(notification.modal(id, formTitle, formMessage, () =>
-    <SimpleFormContainer
-      form={formDefinition.form}
-      listApp={config.listApp}
-      onSubmit={onSend}
-      onCancel={onCancel}
-      defaultValues={defaultValues}
-      mode="create"
-    />
-  ))
+  yield put(
+    notification.modal(id, formTitle, formMessage, () => (
+      <SimpleFormContainer
+        form={formDefinition.form}
+        listApp={config.listApp}
+        onSubmit={onSend}
+        onCancel={onCancel}
+        defaultValues={defaultValues}
+        mode="create"
+      />
+    ))
+  )
 
   const response = yield take(answerChannel)
   yield put(notification.removeModal(id))

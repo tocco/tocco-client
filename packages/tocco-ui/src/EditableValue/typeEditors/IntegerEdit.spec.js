@@ -1,29 +1,22 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 
 import IntegerEdit from './IntegerEdit'
 
-const EMPTY_FUNC = () => {
-}
+const EMPTY_FUNC = () => {}
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('IntegerEdit ', () => {
         test('should render IntegerEdit', () => {
-          const wrapper = mount(
-            <IntegerEdit value={12345} options={{}} onChange={EMPTY_FUNC}/>
-          )
+          const wrapper = mount(<IntegerEdit value={12345} options={{}} onChange={EMPTY_FUNC} />)
           expect(wrapper.find('input')).to.have.length(1)
         })
 
         test('should return number string in en', () => {
           const result = '123456'
-          const wrapper = mount(
-            <IntegerEdit
-              value={123456}
-              onChange={EMPTY_FUNC}/>
-          )
+          const wrapper = mount(<IntegerEdit value={123456} onChange={EMPTY_FUNC} />)
           expect(wrapper.html()).to.contains(result)
         })
 
@@ -33,13 +26,7 @@ describe('tocco-ui', () => {
             done()
           }
 
-          const wrapper = mount(
-            <IntegerEdit
-              value={1}
-              onChange={changeHandler}
-              options={{maxValue: 100}}
-            />
-          )
+          const wrapper = mount(<IntegerEdit value={1} onChange={changeHandler} options={{maxValue: 100}} />)
 
           wrapper.find('input').simulate('change', {target: {value: '100', focus: () => {}}})
         })
@@ -50,13 +37,7 @@ describe('tocco-ui', () => {
             done()
           }
 
-          const wrapper = mount(
-            <IntegerEdit
-              value={1}
-              onChange={changeHandler}
-              options={{maxValue: 100}}
-            />
-          )
+          const wrapper = mount(<IntegerEdit value={1} onChange={changeHandler} options={{maxValue: 100}} />)
 
           wrapper.find('input').simulate('change', {target: {value: '', focus: () => {}}})
         })
@@ -67,25 +48,14 @@ describe('tocco-ui', () => {
             done()
           }
 
-          const wrapper = mount(
-            <IntegerEdit
-              value={1}
-              onChange={changeHandler}
-              options={{maxValue: 100}}
-            />
-          )
+          const wrapper = mount(<IntegerEdit value={1} onChange={changeHandler} options={{maxValue: 100}} />)
 
           wrapper.find('input').simulate('change', {target: {value: '0', focus: () => {}}})
         })
 
         test('should not call onChange it number is too high', done => {
           const spy = sinon.spy()
-          const wrapper = mount(
-            <IntegerEdit
-              value={2}
-              options={{maxValue: 10}}
-              onChange={spy}/>
-          )
+          const wrapper = mount(<IntegerEdit value={2} options={{maxValue: 10}} onChange={spy} />)
 
           wrapper.find('input').simulate('change', {target: {value: '15', focus: () => {}}})
           expect(wrapper.html()).to.contains('2')
@@ -98,12 +68,7 @@ describe('tocco-ui', () => {
 
         test('should not call onChange it number is too low', done => {
           const spy = sinon.spy()
-          const wrapper = mount(
-            <IntegerEdit
-              value={10}
-              options={{minValue: 10}}
-              onChange={spy}/>
-          )
+          const wrapper = mount(<IntegerEdit value={10} options={{minValue: 10}} onChange={spy} />)
 
           wrapper.find('input').simulate('change', {target: {value: '9', focus: () => {}}})
           expect(wrapper.html()).to.contains('10')

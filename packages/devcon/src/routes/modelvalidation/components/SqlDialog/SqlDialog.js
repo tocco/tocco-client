@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {EditableValue, Button} from 'tocco-ui'
 
 const SqlDialog = ({sql, setSql, executeSql, close}) => {
@@ -9,8 +9,8 @@ const SqlDialog = ({sql, setSql, executeSql, close}) => {
 
   return (
     <div>
-      <EditableValue type="text" value={sql} events={{onChange: setSql}}/>
-      <Button look="raised" onClick={handleExecute} label="Run Statements"/>
+      <EditableValue type="text" value={sql} events={{onChange: setSql}} />
+      <Button look="raised" onClick={handleExecute} label="Run Statements" />
     </div>
   )
 }

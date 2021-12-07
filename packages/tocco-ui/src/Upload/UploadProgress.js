@@ -1,15 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Preview from '../Preview'
-import {bytesToSize} from './helpers'
 import LoadingSpinner from '../LoadingSpinner'
+import Preview from '../Preview'
 import {design} from '../utilStyles'
-import {
-  StyledUploadProgress,
-  StyledUploadProgressIconAndText,
-  StyledUploadProgressText
-} from './StyledUploadProgress'
+import {bytesToSize} from './helpers'
+import {StyledUploadProgress, StyledUploadProgressIconAndText, StyledUploadProgressText} from './StyledUploadProgress'
 
 const UploadProgress = props => (
   <StyledUploadProgress>
@@ -21,8 +17,10 @@ const UploadProgress = props => (
       thumbnailUrl={props.file.type.startsWith('image') ? props.file.preview : null}
     />
     <StyledUploadProgressIconAndText>
-      <LoadingSpinner position={design.position.PREPEND}/>
-      <StyledUploadProgressText>{props.text || 'uploading'} ({bytesToSize(props.file.size)})</StyledUploadProgressText>
+      <LoadingSpinner position={design.position.PREPEND} />
+      <StyledUploadProgressText>
+        {props.text || 'uploading'} ({bytesToSize(props.file.size)})
+      </StyledUploadProgressText>
     </StyledUploadProgressIconAndText>
   </StyledUploadProgress>
 )

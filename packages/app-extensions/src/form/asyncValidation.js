@@ -1,20 +1,18 @@
+import _get from 'lodash/get'
+import _has from 'lodash/has'
 import {SubmissionError} from 'redux-form/es/SubmissionError'
 import {api} from 'tocco-util'
-import _has from 'lodash/has'
-import _get from 'lodash/get'
 
 import rest from '../rest'
-import validators from './validators'
 import formErrors from './formErrors'
 import {formValuesToFlattenEntity, getDirtyFields, validationErrorToFormError} from './reduxForm'
+import validators from './validators'
 
 const OUTDATED_ENTITY_ERROR_CODE = 'OUTDATED_ENTITY'
 
-const hasError = errors => (
-  errors && Object.keys(errors).length > 0
-)
+const hasError = errors => errors && Object.keys(errors).length > 0
 
-const localeValidation = async(values, fieldDefinitions) => {
+const localeValidation = async (values, fieldDefinitions) => {
   let errors = {}
   for (const fieldDefinition of fieldDefinitions) {
     const value = values[fieldDefinition.path]
@@ -47,33 +45,31 @@ const validateRequest = (formValues, initialValues, mode) => {
     acceptedErrorCodes: [OUTDATED_ENTITY_ERROR_CODE]
   }
 
-  return rest.simpleRequest(`entities/2.0/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
-    .then(resp => {
-      const body = resp.body
-      if (resp.status === 403) {
-        return {}
-      }
-      if (body.valid) {
-        return {}
-      }
+  return rest.simpleRequest(`entities/2.0/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options).then(resp => {
+    const body = resp.body
+    if (resp.status === 403) {
+      return {}
+    }
+    if (body.valid) {
+      return {}
+    }
 
-      if (body.errorCode === OUTDATED_ENTITY_ERROR_CODE) {
-        return formErrors.outdatedResponseToFormError(body, entity)
-      }
+    if (body.errorCode === OUTDATED_ENTITY_ERROR_CODE) {
+      return formErrors.outdatedResponseToFormError(body, entity)
+    }
 
-      return validationErrorToFormError(entity, body.errors)
-    })
+    return validationErrorToFormError(entity, body.errors)
+  })
 }
 
 export const submitValidation = (formValues, initialValues, mode) =>
-  validateRequest(formValues, initialValues, mode)
-    .then(errors => {
-      if (hasError(errors)) {
-        throw new SubmissionError(errors)
-      }
-    })
+  validateRequest(formValues, initialValues, mode).then(errors => {
+    if (hasError(errors)) {
+      throw new SubmissionError(errors)
+    }
+  })
 
-export const asyncValidation = async(formValues, initialValues, fieldDefinitions, mode) => {
+export const asyncValidation = async (formValues, initialValues, fieldDefinitions, mode) => {
   const localeValidationErrors = await localeValidation(formValues, fieldDefinitions)
   if (hasError(localeValidationErrors)) {
     throw localeValidationErrors

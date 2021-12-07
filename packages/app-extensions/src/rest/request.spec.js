@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock'
 
-import {sendByteRequest, sendRequest} from './request'
 import InformationError from './InformationError'
+import {sendByteRequest, sendRequest} from './request'
 
 describe('app-extensions', () => {
   describe('rest', () => {
@@ -11,14 +11,11 @@ describe('app-extensions', () => {
     })
 
     describe('request', () => {
-      test('should call fetch and return response with body', async() => {
+      test('should call fetch and return response with body', async () => {
         const body = {
           successful: true
         }
-        fetchMock.put(
-          new RegExp('.*'),
-          body
-        )
+        fetchMock.put(new RegExp('.*'), body)
 
         const url = '/entities/User/1'
         const options = {method: 'PUT'}
@@ -32,11 +29,8 @@ describe('app-extensions', () => {
         expect(result.body).to.eql(body)
       })
 
-      test('should throw error if non accepted response is received ', async() => {
-        fetchMock.post(
-          new RegExp('.*'),
-          new Response(JSON.stringify({}), {status: 400})
-        )
+      test('should throw error if non accepted response is received ', async () => {
+        fetchMock.post(new RegExp('.*'), new Response(JSON.stringify({}), {status: 400}))
 
         const url = '/entities/User/1'
         const options = {method: 'POST'}
@@ -50,12 +44,9 @@ describe('app-extensions', () => {
         }
       })
 
-      test('should NOT throw error if accepted status code is received ', async() => {
+      test('should NOT throw error if accepted status code is received ', async () => {
         const body = {test: 123}
-        fetchMock.post(
-          new RegExp('.*'),
-          new Response(JSON.stringify(body), {status: 400})
-        )
+        fetchMock.post(new RegExp('.*'), new Response(JSON.stringify(body), {status: 400}))
 
         const url = '/entities/User/1'
         const options = {method: 'POST'}
@@ -67,12 +58,9 @@ describe('app-extensions', () => {
         expect(result.body).to.eql(body)
       })
 
-      test('should NOT throw error if accepted error code is received ', async() => {
+      test('should NOT throw error if accepted error code is received ', async () => {
         const body = {errorCode: 44}
-        fetchMock.post(
-          new RegExp('.*'),
-          new Response(JSON.stringify(body), {status: 300})
-        )
+        fetchMock.post(new RegExp('.*'), new Response(JSON.stringify(body), {status: 300}))
 
         const url = '/entities/User/1'
         const options = {method: 'POST'}
@@ -84,11 +72,8 @@ describe('app-extensions', () => {
         expect(result.body).to.eql(body)
       })
 
-      test('should return body null for status 204 ', async() => {
-        fetchMock.post(
-          new RegExp('.*'),
-          204
-        )
+      test('should return body null for status 204 ', async () => {
+        fetchMock.post(new RegExp('.*'), 204)
 
         const url = '/entities/User/1'
         const options = {method: 'POST'}
@@ -98,11 +83,8 @@ describe('app-extensions', () => {
         expect(result.body).to.be.null
       })
 
-      test('should throw information error for status 409 ', async() => {
-        fetchMock.post(
-          new RegExp('.*'),
-          new Response(JSON.stringify({information: 'message'}), {status: 409})
-        )
+      test('should throw information error for status 409 ', async () => {
+        fetchMock.post(new RegExp('.*'), new Response(JSON.stringify({information: 'message'}), {status: 409}))
 
         const url = '/entities/User/1'
         const options = {method: 'POST'}
@@ -117,11 +99,8 @@ describe('app-extensions', () => {
     })
 
     describe('sendByteRequest', () => {
-      test('should call fetch and return response with blob', async() => {
-        fetchMock.post(
-          new RegExp('.*'),
-          'some data'
-        )
+      test('should call fetch and return response with blob', async () => {
+        fetchMock.post(new RegExp('.*'), 'some data')
 
         const url = '/bytes'
         const options = {method: 'POST'}

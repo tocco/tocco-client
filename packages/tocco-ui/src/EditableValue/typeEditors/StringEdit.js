@@ -5,7 +5,7 @@ import {react} from 'tocco-util'
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import StyledStringEdit from './StyledStringEdit'
 
-const StringEdit = props =>
+const StringEdit = props => (
   <StyledEditableWrapper immutable={props.immutable}>
     <StyledStringEdit
       disabled={props.immutable}
@@ -16,6 +16,7 @@ const StringEdit = props =>
       value={props.value || ''}
     />
   </StyledEditableWrapper>
+)
 
 StringEdit.propTypes = {
   onChange: PropTypes.func,

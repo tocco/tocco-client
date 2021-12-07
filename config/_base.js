@@ -16,19 +16,18 @@ const config = {
 
 config.globals = {
   'process.env.NODE_ENV': JSON.stringify(config.env),
-  'NODE_ENV': config.env,
-  '__CI__': !!process.env.CI,
-  '__DEV__': config.env === 'development',
-  '__PROD__': config.env === 'production',
-  '__BACKEND_URL__': JSON.stringify(argv.backend) || JSON.stringify(process.env.BACKEND),
-  '__PACKAGE__': argv.package,
-  '__PACKAGE_NAME__': JSON.stringify(argv.package),
-  '__NO_MOCK__': !!(process.env.BACKEND || argv.backend || argv.noMock)
+  NODE_ENV: config.env,
+  __CI__: !!process.env.CI,
+  __DEV__: config.env === 'development',
+  __PROD__: config.env === 'production',
+  __BACKEND_URL__: JSON.stringify(argv.backend) || JSON.stringify(process.env.BACKEND),
+  __PACKAGE__: argv.package,
+  __PACKAGE_NAME__: JSON.stringify(argv.package),
+  __NO_MOCK__: !!(process.env.BACKEND || argv.backend || argv.noMock)
 }
 
 const resolve = path.resolve
-const base = (...args) =>
-  Reflect.apply(resolve, null, [config.path_base, ...args])
+const base = (...args) => Reflect.apply(resolve, null, [config.path_base, ...args])
 
 config.utils_paths = {
   base,

@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {QRCode, LoadingSpinner, Typography} from 'tocco-ui'
-import styled from 'styled-components'
+import React, {useEffect} from 'react'
 import {FormattedMessage} from 'react-intl'
+import styled from 'styled-components'
+import {QRCode, LoadingSpinner, Typography} from 'tocco-ui'
 
 import {buildUserMecardString} from '../../utils/qrCodeUtils'
 
@@ -29,23 +29,21 @@ const UserQrCode = ({data, fetchData}) => {
   let content
 
   if (data === undefined) {
-    content = <LoadingSpinner/>
+    content = <LoadingSpinner />
   } else if (data === null) {
     content = (
       <Typography.P>
-        <FormattedMessage id="client.user-qr-action.fetchFailed"/>
+        <FormattedMessage id="client.user-qr-action.fetchFailed" />
       </Typography.P>
     )
   } else {
     const string = buildUserMecardString(data)
-    content = <QRCode value={string}/>
+    content = <QRCode value={string} />
   }
 
   return (
     <StyledContainer>
-      <StyledContent>
-        {content}
-      </StyledContent>
+      <StyledContent>{content}</StyledContent>
     </StyledContainer>
   )
 }

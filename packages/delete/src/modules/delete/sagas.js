@@ -1,8 +1,8 @@
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
 import {rest, externalEvents, selection as selectionUtil} from 'tocco-app-extensions'
 
-import * as actions from './actions'
 import {getDialogInfo, getEntitiesToDelete} from '../../utils/deleteRequestParser'
+import * as actions from './actions'
 
 export const inputSelector = state => state.input
 export const textResourceSelector = state => state.intl.messages
@@ -62,23 +62,24 @@ export function* doDelete() {
     const {body} = response
 
     const entities = Object.keys(body.deletedEntities).reduce((acc, entityName) => {
-      return [
-        ...acc,
-        ...body.deletedEntities[entityName].map(key => ({entityName, key}))
-      ]
+      return [...acc, ...body.deletedEntities[entityName].map(key => ({entityName, key}))]
     }, [])
 
-    const remoteEvents = [{
-      type: 'entity-delete-event',
-      payload: {
-        entities
+    const remoteEvents = [
+      {
+        type: 'entity-delete-event',
+        payload: {
+          entities
+        }
       }
-    }]
+    ]
 
-    yield put(externalEvents.fireExternalEvent('onSuccess', {
-      message: textResources['client.delete.successfullyMessage'],
-      remoteEvents
-    }))
+    yield put(
+      externalEvents.fireExternalEvent('onSuccess', {
+        message: textResources['client.delete.successfullyMessage'],
+        remoteEvents
+      })
+    )
   } else {
     if (response.status === 409 && response.body.information) {
       yield put(externalEvents.fireExternalEvent('onError', {message: response.body.information}))

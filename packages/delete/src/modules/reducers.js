@@ -4,6 +4,4 @@ export default {
   del
 }
 
-export const sagas = [
-  deleteSagas
-]
+export const sagas = [deleteSagas]

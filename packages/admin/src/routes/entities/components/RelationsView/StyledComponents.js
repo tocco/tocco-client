@@ -2,13 +2,13 @@ import styled from 'styled-components'
 import {AdminLink as StyledLink, StyledSpan, theme, scale, StyledScrollbar, Button} from 'tocco-ui'
 
 export const StyledRelationsViewWrapper = styled.div`
-  display: ${({isCollapsed}) => isCollapsed ? 'none' : 'flex'};
+  display: ${({isCollapsed}) => (isCollapsed ? 'none' : 'flex')};
   height: 100%;
   flex-direction: column;
 `
 
 export const StyledPlaceHolder = styled.div`
-  display: ${({isCollapsed}) => isCollapsed ? 'flex' : 'none'};
+  display: ${({isCollapsed}) => (isCollapsed ? 'flex' : 'none')};
   flex: 1;
   height: 100%;
   width: 25px;
@@ -35,7 +35,7 @@ export const StyledToggleCollapseButton = styled(Button)`
   margin-left: auto;
 
   &:hover,
-  ${/* sc-selector */StyledPlaceHolder}:hover & {
+  ${/* sc-selector */ StyledPlaceHolder}:hover & {
     background-color: transparent;
     color: ${theme.color('secondaryLight')};
   }
@@ -96,12 +96,13 @@ export const StyledRelationBox = styled.div`
       box-sizing: initial;
     }
   }
-  ${({selected}) => selected && `
+  ${({selected}) =>
+    selected &&
+    `
     ${StyledRelationLinks} {
       display: flex;
     }
-    `
-  };
+    `};
 
   // allow hover styles only on non-touch devices
   @media (hover: hover) and (pointer: fine) {
@@ -110,7 +111,7 @@ export const StyledRelationBox = styled.div`
     }
 
     && {
-      :hover{
+      :hover {
         background-color: ${theme.color('secondaryLight')};
 
         * {
@@ -120,7 +121,7 @@ export const StyledRelationBox = styled.div`
       }
     }
 
-    ${/* sc-selector */StyledLink}:hover * {
+    ${/* sc-selector */ StyledLink}:hover * {
       color: ${theme.color('secondary')};
     }
   }

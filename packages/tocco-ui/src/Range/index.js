@@ -1,5 +1,3 @@
 import Range from './Range'
 
-export {
-  Range as default
-}
+export {Range as default}

@@ -1,5 +1,5 @@
-import reducer from './index'
 import * as actions from './actions'
+import reducer from './index'
 
 const initialState = {
   some: {other: 'test thing'},
@@ -46,11 +46,7 @@ describe('input-edit', () => {
             }
           ]
         }
-        expect(reducer(initialState, actions.setValue(
-          123,
-          'node',
-          'new'
-        ))).to.deep.equal(expectedState)
+        expect(reducer(initialState, actions.setValue(123, 'node', 'new'))).to.deep.equal(expectedState)
       })
     })
   })

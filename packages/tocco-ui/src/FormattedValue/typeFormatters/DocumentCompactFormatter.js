@@ -1,7 +1,7 @@
+import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {download, html} from 'tocco-util'
-import _get from 'lodash/get'
 
 import Link from '../../Link'
 import Popover from '../../Popover'
@@ -12,7 +12,7 @@ const DocumentCompactFormatter = ({value, options}) => {
 
   return (
     <>
-      <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}}/> : null}>
+      <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}} /> : null}>
         <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(value.resourceKey)}>
           <Link
             alt={value.alt || value.fileName}

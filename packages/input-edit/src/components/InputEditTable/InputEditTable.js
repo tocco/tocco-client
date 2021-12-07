@@ -1,28 +1,22 @@
-import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect, useState} from 'react'
+import {field} from 'tocco-app-extensions'
 import {Table, EditableValue, FormattedValue} from 'tocco-ui'
 import {api} from 'tocco-util'
-import {field} from 'tocco-app-extensions'
 
-import {
-  StyledCell,
-  StyledTableWrapper
-} from './StyledComponents'
 import {arrowKeyHandler} from './keyHandler'
+import {StyledCell, StyledTableWrapper} from './StyledComponents'
 
 const dataCellRenderer = (fieldDefinition, data) => {
   const {path, dataType} = fieldDefinition
   const Field = field.factory('list', dataType)
   const value = data[path]
 
-  return <StyledCell key={path}>
-    <Field
-      type={dataType}
-      formField={fieldDefinition}
-      value={value}
-      breakWords={false}
-    />
-  </StyledCell>
+  return (
+    <StyledCell key={path}>
+      <Field type={dataType} formField={fieldDefinition} value={value} breakWords={false} />
+    </StyledCell>
+  )
 }
 
 const keyBuilder = (row, column) => `${row}:${column}`
@@ -34,29 +28,28 @@ const inputCellRenderer = (fieldDefinition, data, updateValue, rowIdx) => {
   const value = data[id]
 
   if (readonly) {
-    return <StyledCell key={id}>
-      <FormattedValue
-        id={id}
-        type={dataType}
-        value={value}
-        options={options}
-      />
-    </StyledCell>
+    return (
+      <StyledCell key={id}>
+        <FormattedValue id={id} type={dataType} value={value} options={options} />
+      </StyledCell>
+    )
   } else {
-    return <StyledCell key={id}>
-      <EditableValue
-        id={keyBuilder(rowIdx, fieldDefinition.idx)}
-        type={dataType}
-        value={value}
-        options={options}
-        events={{
-          onChange: changedValue => {
-            updateValue(pk, id, changedValue)
-          },
-          onFocus: ({target}) => target.select()
-        }}
-      />
-    </StyledCell>
+    return (
+      <StyledCell key={id}>
+        <EditableValue
+          id={keyBuilder(rowIdx, fieldDefinition.idx)}
+          type={dataType}
+          value={value}
+          options={options}
+          events={{
+            onChange: changedValue => {
+              updateValue(pk, id, changedValue)
+            },
+            onFocus: ({target}) => target.select()
+          }}
+        />
+      </StyledCell>
+    )
   }
 }
 
@@ -92,56 +85,52 @@ const InputEditTable = ({
       CellRenderer: ({rowData, column, rowIdx}) => inputCellRenderer(column, rowData, updateValue, rowIdx)
     }))
 
-    const cc = [...dataColumns, ...inputColumns].sort((a, b) =>
-      columnPosition.findIndex(e => e === a.id) - columnPosition.findIndex(e => e === b.id)
+    const cc = [...dataColumns, ...inputColumns].sort(
+      (a, b) => columnPosition.findIndex(e => e === a.id) - columnPosition.findIndex(e => e === b.id)
     )
     setColumns(cc)
   }, [columnPosition, dataFormColumns, inputEditForm, sorting])
 
   const onColumnPositionChange = (dragColumn, dropColumn) => {
-    setColumnPosition(columns.reduce((acc, c) => {
-      return [
-        ...acc,
-        ...(c.id === dropColumn
-          ? [
-              c.id, dragColumn
-            ]
-          : []),
-        ...(c.id === dragColumn ? [] : [c.id])
-      ]
-    }, []))
+    setColumnPosition(
+      columns.reduce((acc, c) => {
+        return [...acc, ...(c.id === dropColumn ? [c.id, dragColumn] : []), ...(c.id === dragColumn ? [] : [c.id])]
+      }, [])
+    )
   }
 
   if (columns.length === 0) {
     return null
   }
 
-  return <StyledTableWrapper onKeyDown={arrowKeyHandler}>
-    <Table
-      dataLoadingInProgress={dataLoadingInProgress}
-      columns={columns}
-      data={data}
-      onSortingChange={setSorting}
-      onColumnPositionChange={onColumnPositionChange}
-      paginationInfo={{
-        currentPage,
-        recordsPerPage,
-        totalCount
-      }}
-      onPageChange={setCurrentPage}
-    />
-  </StyledTableWrapper>
+  return (
+    <StyledTableWrapper onKeyDown={arrowKeyHandler}>
+      <Table
+        dataLoadingInProgress={dataLoadingInProgress}
+        columns={columns}
+        data={data}
+        onSortingChange={setSorting}
+        onColumnPositionChange={onColumnPositionChange}
+        paginationInfo={{
+          currentPage,
+          recordsPerPage,
+          totalCount
+        }}
+        onPageChange={setCurrentPage}
+      />
+    </StyledTableWrapper>
+  )
 }
 
 InputEditTable.propTypes = {
   data: PropTypes.array.isRequired,
-  dataFormColumns: PropTypes.arrayOf(
-    PropTypes.shape({id: PropTypes.string})
+  dataFormColumns: PropTypes.arrayOf(PropTypes.shape({id: PropTypes.string})),
+  sorting: PropTypes.arrayOf(
+    PropTypes.shape({
+      field: PropTypes.string,
+      order: PropTypes.string
+    })
   ),
-  sorting: PropTypes.arrayOf(PropTypes.shape({
-    field: PropTypes.string,
-    order: PropTypes.string
-  })),
   inputEditForm: PropTypes.array.isRequired,
   updateValue: PropTypes.func.isRequired,
   setSorting: PropTypes.func.isRequired,

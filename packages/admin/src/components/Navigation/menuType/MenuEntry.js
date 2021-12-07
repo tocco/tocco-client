@@ -1,42 +1,32 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {Icon} from 'tocco-ui'
 
-import {StyledMenuEntry, StyledMenuIconWrapper, StyledTogglerIconWrapper} from './StyledComponents'
 import {getMenuPreferencesKey} from '../../../utils/navigationUtils'
+import {StyledMenuEntry, StyledMenuIconWrapper, StyledTogglerIconWrapper} from './StyledComponents'
 
 const MenuEntry = props => {
-  const {
-    item,
-    isOpen,
-    canCollapse,
-    preferencesPrefix,
-    menuTreePath,
-    saveUserPreferences
-  } = props
-  const {
-    icon,
-    label
-  } = item
+  const {item, isOpen, canCollapse, preferencesPrefix, menuTreePath, saveUserPreferences} = props
+  const {icon, label} = item
 
   const toggleMenuEntryCollapsed = () =>
     saveUserPreferences({[getMenuPreferencesKey(preferencesPrefix, menuTreePath)]: isOpen})
 
   return (
-    <StyledMenuEntry
-      {...(canCollapse ? {onClick: toggleMenuEntryCollapsed} : {})}
-    >
+    <StyledMenuEntry {...(canCollapse ? {onClick: toggleMenuEntryCollapsed} : {})}>
       <span>
-        {icon && <StyledMenuIconWrapper><Icon icon={icon}/></StyledMenuIconWrapper>}
+        {icon && (
+          <StyledMenuIconWrapper>
+            <Icon icon={icon} />
+          </StyledMenuIconWrapper>
+        )}
         {label}
       </span>
       {canCollapse && (
         <StyledTogglerIconWrapper>
-          <Icon
-            icon={isOpen ? 'chevron-up' : 'chevron-down'}
-            onClick={toggleMenuEntryCollapsed}
-          />
-        </StyledTogglerIconWrapper>)}
+          <Icon icon={isOpen ? 'chevron-up' : 'chevron-down'} onClick={toggleMenuEntryCollapsed} />
+        </StyledTogglerIconWrapper>
+      )}
     </StyledMenuEntry>
   )
 }

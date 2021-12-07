@@ -1,16 +1,10 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {StatedValue, Button} from 'tocco-ui'
 
 import {StyledInput, StyledInputWrapper} from '../StyledInput'
 
-const UpgradeLanguageForm = ({
-  language,
-  running,
-  disabled,
-  executeLanguageUpgrade,
-  setLanguage
-}) => {
+const UpgradeLanguageForm = ({language, running, disabled, executeLanguageUpgrade, setLanguage}) => {
   const handleLanguageChange = e => {
     setLanguage(e.target.value)
   }
@@ -24,10 +18,10 @@ const UpgradeLanguageForm = ({
     <form onSubmit={handleSubmit}>
       <StatedValue label="Language" hasValue={language.length > 0}>
         <StyledInputWrapper>
-          <StyledInput value={language} onChange={handleLanguageChange} disabled={disabled}/>
+          <StyledInput value={language} onChange={handleLanguageChange} disabled={disabled} />
         </StyledInputWrapper>
       </StatedValue>
-      <Button type="submit" label="Execute language upgrade" look="raised" pending={running} disabled={disabled}/>
+      <Button type="submit" label="Execute language upgrade" look="raised" pending={running} disabled={disabled} />
     </form>
   )
 }

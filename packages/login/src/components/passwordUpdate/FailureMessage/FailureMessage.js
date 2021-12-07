@@ -12,7 +12,7 @@ function getMessage(errorCode) {
 const FailureMessage = props => (
   <SignalList.List>
     <SignalList.Item condition={design.condition.DANGER}>
-      <FormattedMessage id={getMessage(props.errorCode)}/>
+      <FormattedMessage id={getMessage(props.errorCode)} />
     </SignalList.Item>
   </SignalList.List>
 )

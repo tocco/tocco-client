@@ -1,5 +1,5 @@
-import reducer from './index'
 import * as actions from './actions'
+import reducer from './index'
 
 const EXPECTED_INITIAL_STATE = {
   calendarTypes: [],
@@ -64,8 +64,7 @@ describe('resource-scheduler', () => {
               ]
             }
 
-            expect(reducer(stateBefore, actions.removeRequestedCalendar('User', '3')))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.removeRequestedCalendar('User', '3'))).to.deep.equal(expectedStateAfter)
           })
 
           test('should remove property if keys are empty', () => {
@@ -99,8 +98,7 @@ describe('resource-scheduler', () => {
               ]
             }
 
-            expect(reducer(stateBefore, actions.removeRequestedCalendar('User', '3')))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.removeRequestedCalendar('User', '3'))).to.deep.equal(expectedStateAfter)
           })
         })
 
@@ -120,8 +118,9 @@ describe('resource-scheduler', () => {
               }
             }
 
-            expect(reducer(stateBefore, actions.updateRequestedCalendars('lecturer', ['2', '7'])))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.updateRequestedCalendars('lecturer', ['2', '7']))).to.deep.equal(
+              expectedStateAfter
+            )
           })
 
           test('should remove property if keys are empty', () => {
@@ -138,8 +137,9 @@ describe('resource-scheduler', () => {
               }
             }
 
-            expect(reducer(stateBefore, actions.updateRequestedCalendars('lecturer', [])))
-              .to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.updateRequestedCalendars('lecturer', []))).to.deep.equal(
+              expectedStateAfter
+            )
           })
         })
       })

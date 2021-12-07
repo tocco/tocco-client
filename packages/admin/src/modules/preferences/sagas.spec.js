@@ -1,12 +1,11 @@
-
-import {rest} from 'tocco-app-extensions'
-import {takeLatest, all} from 'redux-saga/effects'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {takeLatest, all} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
-import mainSaga, * as sagas from './sagas'
 import {transformValues} from './preferences'
+import mainSaga, * as sagas from './sagas'
 
 describe('admin', () => {
   describe('modules', () => {
@@ -15,10 +14,12 @@ describe('admin', () => {
         describe('main saga', () => {
           test('should fork child sagas', () => {
             const generator = mainSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              takeLatest(actions.LOAD_SETTINGS_AND_PREFERENCES, sagas.loadSettingsAndPreferences),
-              takeLatest(actions.SAVE_USER_PREFERENCES, sagas.saveUserPreferences)
-            ]))
+            expect(generator.next().value).to.deep.equal(
+              all([
+                takeLatest(actions.LOAD_SETTINGS_AND_PREFERENCES, sagas.loadSettingsAndPreferences),
+                takeLatest(actions.SAVE_USER_PREFERENCES, sagas.saveUserPreferences)
+              ])
+            )
             expect(generator.next().done).to.equal(true)
           })
         })
@@ -39,7 +40,7 @@ describe('admin', () => {
               'admintree.groupware.collapsed': 'true',
               'admintree.settings.system.business_unit.collapsed': 'true'
             }
-            
+
             const result = {
               'admin.activeMenu': 'main#settings',
               'admin.detail.relationViewCollapsed': false,
@@ -67,9 +68,7 @@ describe('admin', () => {
             const key = 'admintree.address.collapsed'
             const value = false
             return expectSaga(sagas.saveUserPreferences, actions.saveUserPreferences({[key]: value}))
-              .provide([
-                [matchers.call(rest.savePreferences, {'admintree.address.collapsed': false})]
-              ])
+              .provide([[matchers.call(rest.savePreferences, {'admintree.address.collapsed': false})]])
               .run()
           })
         })

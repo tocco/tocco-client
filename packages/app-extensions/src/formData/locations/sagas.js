@@ -4,9 +4,7 @@ import * as actions from './actions'
 import {loadCountries, transformToSuggestions, requestSuggestions, getCountry} from './utils'
 
 export default function* sagas() {
-  yield all([
-    takeLatest(actions.LOAD_LOCATION_SUGGESTIONS, loadLocations)
-  ])
+  yield all([takeLatest(actions.LOAD_LOCATION_SUGGESTIONS, loadLocations)])
 }
 
 export function* loadLocations({payload: {field, searchInput, countryValue, fieldCountries}}) {

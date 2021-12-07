@@ -26,7 +26,7 @@ describe('dashboard', () => {
           expect(position).to.equal('1:2')
         })
       })
-      
+
       describe('prepareInfoBoxes', () => {
         test('should sort and distribute infoBoxes', () => {
           const boxes = [

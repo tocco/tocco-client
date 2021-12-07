@@ -1,10 +1,10 @@
 import {all, call, put, select, takeEvery, takeLatest, take} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
-import * as actions from './actions'
+import * as inputEditActions from '../inputEdit/actions'
 import {setTotalCount} from '../inputEditPagination/actions'
 import * as searchFormActions from '../inputEditSearch/actions'
-import * as inputEditActions from '../inputEdit/actions'
+import * as actions from './actions'
 import {transformResponseData} from './utils'
 
 export const inputSelector = state => state.input
@@ -26,8 +26,7 @@ export default function* sagas() {
 export function* processDataForm(dataForm) {
   const actionDefinitions = dataForm.children
     .find(child => child.id === 'main-action-bar')
-    .children
-    .filter(child => child.componentType === 'action')
+    .children.filter(child => child.componentType === 'action')
     .map(child => ({...child, scope: 'detail'}))
 
   yield put(actions.setActionDefinitions(actionDefinitions))
@@ -41,9 +40,8 @@ export function* initialize() {
   yield put(actions.setDataLoadingInProgress(true))
   const {selection} = yield select(inputEditSelector)
   const {actionProperties} = yield select(inputSelector)
-  const inputEditDataForm = actionProperties && actionProperties.inputEditDataForm
-    ? actionProperties.inputEditDataForm
-    : 'Input_edit_data'
+  const inputEditDataForm =
+    actionProperties && actionProperties.inputEditDataForm ? actionProperties.inputEditDataForm : 'Input_edit_data'
   const [editForm, dataForm] = yield all([
     call(rest.requestSaga, 'inputEdit/form', {method: 'POST', body: selection}),
     call(rest.fetchForm, inputEditDataForm, 'list')
@@ -94,22 +92,20 @@ export function* loadData({newSorting, newSearchQueries, newPage}) {
 
 const getPathsFromTable = dataFormColumns => [
   'pk',
-  ...(dataFormColumns.flatMap(column => column.children.map(field => field.path)))
+  ...dataFormColumns.flatMap(column => column.children.map(field => field.path))
 ]
 
 export function* updateValue({payload: {inputDataKey, node, value}}) {
   yield put(actions.setValue(inputDataKey, node, value))
 
-  const response = yield call(rest.requestSaga, 'inputEdit/data',
-    {
-      method: 'POST',
-      body: {
-        inputDataKey,
-        node,
-        value
-      }
+  const response = yield call(rest.requestSaga, 'inputEdit/data', {
+    method: 'POST',
+    body: {
+      inputDataKey,
+      node,
+      value
     }
-  )
+  })
   yield handleResponse(response)
 }
 

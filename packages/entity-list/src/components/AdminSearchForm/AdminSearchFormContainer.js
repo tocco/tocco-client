@@ -1,7 +1,6 @@
 import {connect} from 'react-redux'
 import {isDirty} from 'redux-form'
 
-import AdminSearchForm from './AdminSearchForm'
 import {
   displaySearchFieldsModal,
   resetDefaultSearchFilter,
@@ -10,6 +9,7 @@ import {
   saveDefaultSearchFilter,
   saveSearchFilter
 } from '../../modules/searchForm/actions'
+import AdminSearchForm from './AdminSearchForm'
 
 const mapActionCreators = {
   resetSearch,

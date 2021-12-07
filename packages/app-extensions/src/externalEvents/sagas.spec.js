@@ -1,8 +1,8 @@
 import {takeEvery, all, call} from 'redux-saga/effects'
 
+import * as actions from './actions'
 import {invokeExternalEvent} from './externalEvents'
 import rootSaga, * as sagas from './sagas'
-import * as actions from './actions'
 
 describe('app-extensions', () => {
   describe('externalEvents', () => {
@@ -16,9 +16,7 @@ describe('app-extensions', () => {
           const generator = rootSaga(events)
 
           expect(generator.next().value).to.deep.equal(
-            all([
-              takeEvery(actions.FIRE_EXTERNAL_EVENT, sagas.fireExternalEvent, events)
-            ])
+            all([takeEvery(actions.FIRE_EXTERNAL_EVENT, sagas.fireExternalEvent, events)])
           )
 
           expect(generator.next().done).to.be.true

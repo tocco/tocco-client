@@ -1,10 +1,10 @@
 import {call} from 'redux-saga/effects'
 
 import rest from '../../../rest'
-import preCheckHandler from './preCheckHandler'
 import confirmHandler from './confirmHandler'
 import initialFormHandler from './initialFormHandler'
 import largeSelectionHandler from './largeSelectionHandler'
+import preCheckHandler from './preCheckHandler'
 
 export function* doRequest(definition, selection, parent) {
   const response = yield call(rest.requestSaga, definition.endpoint + '/check', {
@@ -24,9 +24,7 @@ export default function* run(definition, selection, parent, config) {
   let abortMessage = null
   let params = {}
 
-  const preparationResponse = definition.endpoint
-    ? yield call(doRequest, definition, selection, parent)
-    : {}
+  const preparationResponse = definition.endpoint ? yield call(doRequest, definition, selection, parent) : {}
   const handlers = yield call(getHandlers)
 
   let i = 0

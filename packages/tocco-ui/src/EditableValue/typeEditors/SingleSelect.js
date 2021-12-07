@@ -18,17 +18,15 @@ const SingleSelect = props => (
 SingleSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.shape({
-    key: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ])
+    key: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   }),
   options: PropTypes.shape({
     options: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.any,
         label: PropTypes.string
-      })),
+      })
+    ),
     fetchOptions: PropTypes.func,
     noResultsText: PropTypes.string,
     isLoading: PropTypes.bool,

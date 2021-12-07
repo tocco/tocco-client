@@ -12,33 +12,35 @@ export const getPositions = preferences =>
 export const getPositionsFromColumns = columns =>
   columns
     .filter(c => !c.fixedPosition)
-    .reduce((acc, c, idx) => ({
-      ...acc,
-      [c.id]: idx
-    }), {})
+    .reduce(
+      (acc, c, idx) => ({
+        ...acc,
+        [c.id]: idx
+      }),
+      {}
+    )
 
 export const changePosition = (positions, field, fieldAfterPosition) =>
   Object.keys(positions)
     .sort((a, b) => positions[a] - positions[b])
     .filter(key => key !== field)
-    .reduce((acc, key) => [
-      ...acc,
-      key,
-      ...(key === fieldAfterPosition ? [field] : [])
-    ]
-    , [])
-    .reduce((acc, key, idx) => ({
-      ...acc,
-      [key]: idx
-    })
-    , {})
+    .reduce((acc, key) => [...acc, key, ...(key === fieldAfterPosition ? [field] : [])], [])
+    .reduce(
+      (acc, key, idx) => ({
+        ...acc,
+        [key]: idx
+      }),
+      {}
+    )
 
 export const getPositionsPreferencesToSave = (formName, positions) =>
-  Object.keys(positions)
-    .reduce((acc, key) => ({
+  Object.keys(positions).reduce(
+    (acc, key) => ({
       ...acc,
       [`${formName}.${key}.position`]: positions[key].toString()
-    }), {})
+    }),
+    {}
+  )
 
 export const getSorting = preferences => {
   const keyRegex = /^.*\.sorting(Field|Direction)\.?([1-9]*)$/
@@ -59,7 +61,7 @@ const transformSortingKey = keyMatch => ({
   index: keyMatch[2] ? parseInt(keyMatch[2]) : 0
 })
 
-const transformSortingField = field => field === 'Direction' ? 'order' : field.toLowerCase()
+const transformSortingField = field => (field === 'Direction' ? 'order' : field.toLowerCase())
 
 export const getSortingPreferencesToSave = (formName, sorting) => ({
   [`${formName}.sortingField`]: sorting.field,
@@ -86,9 +88,11 @@ export const getColumns = preferences => {
 }
 
 export const getColumnPreferencesToSave = (formName, columns) =>
-  Object.keys(columns)
-    .reduce((acc, key) => ({
+  Object.keys(columns).reduce(
+    (acc, key) => ({
       ...acc,
       // old preferences marked hidden columns as true, now we mark visible columns as true
       [`${formName}.${key}.hidden`]: (!columns[key]).toString()
-    }), {})
+    }),
+    {}
+  )

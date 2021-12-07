@@ -1,6 +1,8 @@
+import _isEmpty from 'lodash/isEmpty'
+import _isEqual from 'lodash/isEqual'
+import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {react, reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 import {
   appFactory,
   notification,
@@ -10,19 +12,17 @@ import {
   actions,
   formData
 } from 'tocco-app-extensions'
-import _pickBy from 'lodash/pickBy'
-import _isEqual from 'lodash/isEqual'
-import _isEmpty from 'lodash/isEmpty'
 import SimpleFormApp from 'tocco-simple-form/src/main'
+import {react, reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 
-import reducers, {sagas} from './modules/reducers'
+import EntityList from './components/EntityList'
+import customActions from './customActions'
+import {getDispatchActions, getReloadOption, reloadOptions} from './input'
 import {reloadData, reloadAll} from './modules/entityList/actions'
 import {refresh} from './modules/list/actions'
-import EntityList from './components/EntityList'
-import {getDispatchActions, getReloadOption, reloadOptions} from './input'
-import {selectionStylePropType} from './util/selectionStyles'
-import customActions from './customActions'
+import reducers, {sagas} from './modules/reducers'
 import {searchFormTypePropTypes} from './util/searchFormTypes'
+import {selectionStylePropType} from './util/selectionStyles'
 
 const packageName = 'entity-list'
 
@@ -36,7 +36,7 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = <EntityList/>
+  const content = <EntityList />
 
   let store = input.store
 
@@ -73,18 +73,13 @@ const initApp = (id, input, events = {}, publicPath) => {
     store.dispatch(refresh())
   }
 
-  const app = appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: getDispatchActions(input),
-      publicPath,
-      textResourceModules: ['component', 'common']
-    }
-  )
+  const app = appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: getDispatchActions(input),
+    publicPath,
+    textResourceModules: ['component', 'common']
+  })
 
   if (module.hot) {
     module.hot.accept('./modules/reducers', () => {
@@ -96,7 +91,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   return app
 }
 
-(() => {
+;(() => {
   if (__DEV__ && __PACKAGE_NAME__ === 'entity-list') {
     const input = require('./dev/input.json')
 

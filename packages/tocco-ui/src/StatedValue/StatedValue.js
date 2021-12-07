@@ -3,6 +3,7 @@ import React from 'react'
 import FocusWithin from 'react-simple-focus-within'
 import {js, html} from 'tocco-util'
 
+import {design} from '../utilStyles'
 import ErrorList from './ErrorList'
 import {
   StyledStatedValueBox,
@@ -12,7 +13,6 @@ import {
   StyledStatedValueWrapper,
   StyledLabelWrapper
 } from './StyledStatedValue'
-import {design} from '../utilStyles'
 
 const detectSignal = (dirty, hasError, mandatory, hasValue) => {
   if (hasError) {
@@ -55,38 +55,38 @@ const StatedValue = props => {
       {({focused, getRef}) => {
         const secondaryPosition = (!immutable && focused) || hasValue || isDisplay || fixLabel
         return (
-          <StyledStatedValueWrapper
-            ref={getRef}
-            secondaryPosition={secondaryPosition}>
+          <StyledStatedValueWrapper ref={getRef} secondaryPosition={secondaryPosition}>
             <StyledStatedValueBox
               className="StyledStatedValueBox"
               hasValue={hasValue}
               immutable={immutable}
               isDisplay={isDisplay}
-              signal={signal}>
+              signal={signal}
+            >
               {children}
-              {label && <StyledLabelWrapper>
-                <StyledStatedValueLabel
-                  {...!isDisplay && !immutable && {htmlFor: id}}
-                  hasValue={hasValue}
-                  dirty={dirty}
-                  title={labelAlt}
-                  secondaryPosition={secondaryPosition}
-                  immutable={immutable}
-                  isDisplay={isDisplay}
-                  signal={signal}
-                >
-                  <span dangerouslySetInnerHTML={{__html: `${html.sanitizeHtml(label)}${mandatory ? ' *' : ''}`}}/>
-                </StyledStatedValueLabel>
-              </StyledLabelWrapper>
-              }
+              {label && (
+                <StyledLabelWrapper>
+                  <StyledStatedValueLabel
+                    {...(!isDisplay && !immutable && {htmlFor: id})}
+                    hasValue={hasValue}
+                    dirty={dirty}
+                    title={labelAlt}
+                    secondaryPosition={secondaryPosition}
+                    immutable={immutable}
+                    isDisplay={isDisplay}
+                    signal={signal}
+                  >
+                    <span dangerouslySetInnerHTML={{__html: `${html.sanitizeHtml(label)}${mandatory ? ' *' : ''}`}} />
+                  </StyledStatedValueLabel>
+                </StyledLabelWrapper>
+              )}
             </StyledStatedValueBox>
-            {description
-              && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
-            {showError && <StyledStatedValueError>
-              <ErrorList error={error}/>
-            </StyledStatedValueError>
-            }
+            {description && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
+            {showError && (
+              <StyledStatedValueError>
+                <ErrorList error={error} />
+              </StyledStatedValueError>
+            )}
           </StyledStatedValueWrapper>
         )
       }}
@@ -114,9 +114,7 @@ StatedValue.propTypes = {
   /**
    * Error object.
    */
-  error: PropTypes.objectOf(PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
-  ),
+  error: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string]))),
   /**
    * Force label on secondaryPosition.
    */

@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import {actionInvoke} from '../modules/actions'
 import Action from '../components/Action'
+import {actionInvoke} from '../modules/actions'
 
 const mapActionCreators = {
   onClick: actionInvoke

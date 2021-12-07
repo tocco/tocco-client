@@ -39,15 +39,17 @@ export function* moveElements({payload}) {
 export function* setDone() {
   const {selection, onSuccess} = yield select(inputSelector)
 
-  const remoteEvents = [{
-    type: 'entity-update-event',
-    payload: {
-      entities: selection.ids.map(id => ({
-        entityName: 'Docs_list_item',
-        key: id
-      }))
+  const remoteEvents = [
+    {
+      type: 'entity-update-event',
+      payload: {
+        entities: selection.ids.map(id => ({
+          entityName: 'Docs_list_item',
+          key: id
+        }))
+      }
     }
-  }]
+  ]
 
   onSuccess({
     title: yield select(textResourceSelector, 'client.docs-browser.moveSuccessful'),
@@ -58,7 +60,5 @@ export function* setDone() {
 }
 
 export default function* mainSagas() {
-  yield all([
-    takeLatest(actions.MOVE_ELEMENTS, moveElements)
-  ])
+  yield all([takeLatest(actions.MOVE_ELEMENTS, moveElements)])
 }

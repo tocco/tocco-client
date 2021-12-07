@@ -1,31 +1,27 @@
 import * as actions from './actions'
 
-export const setRelationEntities = (state, {payload: {fieldName, entities, moreEntitiesAvailable}}) => (
-  {
-    ...state,
-    data: {
-      ...state.data,
-      [fieldName]: {
-        data: entities,
-        isLoading: false,
-        moreEntitiesAvailable
-      }
+export const setRelationEntities = (state, {payload: {fieldName, entities, moreEntitiesAvailable}}) => ({
+  ...state,
+  data: {
+    ...state.data,
+    [fieldName]: {
+      data: entities,
+      isLoading: false,
+      moreEntitiesAvailable
     }
   }
-)
+})
 
-export const setRelationEntitiesLoading = (state, {payload: {fieldName}}) => (
-  {
-    ...state,
-    data: {
-      ...state.data,
-      [fieldName]: {
-        isLoading: true,
-        data: []
-      }
+export const setRelationEntitiesLoading = (state, {payload: {fieldName}}) => ({
+  ...state,
+  data: {
+    ...state.data,
+    [fieldName]: {
+      isLoading: true,
+      data: []
     }
   }
-)
+})
 
 const ACTION_HANDLERS = {
   [actions.SET_RELATION_ENTITIES]: setRelationEntities,

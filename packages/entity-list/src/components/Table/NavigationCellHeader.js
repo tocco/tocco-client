@@ -1,30 +1,30 @@
-import React from 'react'
-import {BallMenu, MenuItem} from 'tocco-ui'
-import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
+import {connect} from 'react-redux'
+import {BallMenu, MenuItem} from 'tocco-ui'
 
 import {displayColumnModal, resetSorting, resetPreferences, resetColumns} from '../../modules/preferences/actions'
 
 const NavigationCellHeader = props =>
-  !props.disablePreferencesMenu
-    ? <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
+  !props.disablePreferencesMenu ? (
+    <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
       <MenuItem onClick={props.displayColumnModal}>
-        <FormattedMessage id="client.entity-list.preferences.columns"/>
+        <FormattedMessage id="client.entity-list.preferences.columns" />
       </MenuItem>
       <MenuItem onClick={props.resetColumns}>
-        <FormattedMessage id="client.entity-list.preferences.columns.reset"/>
+        <FormattedMessage id="client.entity-list.preferences.columns.reset" />
       </MenuItem>
-      {props.sortable
-        && <MenuItem onClick={props.resetSorting}>
-          <FormattedMessage id="client.entity-list.sorting.reset"/>
+      {props.sortable && (
+        <MenuItem onClick={props.resetSorting}>
+          <FormattedMessage id="client.entity-list.sorting.reset" />
         </MenuItem>
-      }
+      )}
       <MenuItem onClick={props.resetPreferences}>
-        <FormattedMessage id="client.entity-list.preferences.reset"/>
+        <FormattedMessage id="client.entity-list.preferences.reset" />
       </MenuItem>
     </BallMenu>
-    : null
+  ) : null
 
 NavigationCellHeader.propTypes = {
   displayColumnModal: PropTypes.func.isRequired,

@@ -3,7 +3,7 @@ import React from 'react'
 
 import Link from '../../Link'
 
-const UrlFormatter = ({value, breakWords}) =>
+const UrlFormatter = ({value, breakWords}) => (
   <Link
     onClick={e => {
       e.stopPropagation()
@@ -15,6 +15,7 @@ const UrlFormatter = ({value, breakWords}) =>
     breakWords={breakWords}
     neutral={false}
   />
+)
 
 UrlFormatter.propTypes = {
   value: PropTypes.string,

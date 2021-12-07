@@ -1,10 +1,13 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import PasswordUpdateDialog from '../components/passwordUpdate/PasswordUpdateDialog'
 import {initialized} from '../modules/passwordUpdate/actions'
 import {
-  updateOldPassword, updateNewPassword, updateNewPasswordRepeat, savePassword
+  updateOldPassword,
+  updateNewPassword,
+  updateNewPasswordRepeat,
+  savePassword
 } from '../modules/passwordUpdate/password'
 import {fetchValidationRules} from '../modules/passwordUpdate/validationRules'
 

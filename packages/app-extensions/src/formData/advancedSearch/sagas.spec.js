@@ -1,8 +1,8 @@
 import React from 'react'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {rest, notification} from 'tocco-app-extensions'
 import {takeEvery, all, select} from 'redux-saga/effects'
+import {rest, notification} from 'tocco-app-extensions'
 
 import * as advancedSearchActions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -17,9 +17,7 @@ describe('app-extensions', () => {
             const generator = rootSaga(config)
 
             expect(generator.next().value).to.deep.equal(
-              all([
-                takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch, config)
-              ])
+              all([takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch, config)])
             )
 
             expect(generator.next().done).to.be.true

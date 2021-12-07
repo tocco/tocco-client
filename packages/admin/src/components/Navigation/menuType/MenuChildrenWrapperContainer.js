@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import MenuChildrenWrapper from './MenuChildrenWrapper'
 import {menuIsOpenPrefrencesSelector} from '../../../modules/preferences/selectors'
+import MenuChildrenWrapper from './MenuChildrenWrapper'
 
 const mapStateToProps = (state, props) => ({
   isOpen: menuIsOpenPrefrencesSelector(state, props)

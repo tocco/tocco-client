@@ -1,12 +1,12 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {externalEvents} from 'tocco-app-extensions'
 import {select, takeLatest, all} from 'redux-saga/effects'
+import {externalEvents} from 'tocco-app-extensions'
 
+import {showSelectionComponent} from '../../util/selection'
+import {SET_FORM_SELECTABLE} from '../list/actions'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {SET_FORM_SELECTABLE} from '../list/actions'
-import {showSelectionComponent} from '../../util/selection'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -14,12 +14,14 @@ describe('entity-list', () => {
       describe('rootSaga', () => {
         test('should fork child sagas', () => {
           const generator = rootSaga()
-          expect(generator.next().value).to.deep.equal(all([
-            takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, sagas.reloadData),
-            takeLatest(actions.ON_SELECT_CHANGE, sagas.onSelectChange),
-            takeLatest(actions.CLEAR_SELECTION, sagas.clearSelection),
-            takeLatest(SET_FORM_SELECTABLE, sagas.initialize)
-          ]))
+          expect(generator.next().value).to.deep.equal(
+            all([
+              takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, sagas.reloadData),
+              takeLatest(actions.ON_SELECT_CHANGE, sagas.onSelectChange),
+              takeLatest(actions.CLEAR_SELECTION, sagas.clearSelection),
+              takeLatest(SET_FORM_SELECTABLE, sagas.initialize)
+            ])
+          )
           expect(generator.next().done).to.be.true
         })
       })
@@ -56,9 +58,7 @@ describe('entity-list', () => {
 
         describe('clearSelection', () => {
           test('should clear selection an put external event', () => {
-            return expectSaga(sagas.clearSelection)
-              .put(externalEvents.fireExternalEvent('onSelectChange', []))
-              .run()
+            return expectSaga(sagas.clearSelection).put(externalEvents.fireExternalEvent('onSelectChange', [])).run()
           })
         })
 
@@ -86,11 +86,7 @@ describe('entity-list', () => {
         })
 
         describe('reloadData', () => {
-          test('should dispatch reload action', () =>
-            expectSaga(sagas.reloadData)
-              .put(actions.reloadData())
-              .run()
-          )
+          test('should dispatch reload action', () => expectSaga(sagas.reloadData).put(actions.reloadData()).run())
         })
       })
     })

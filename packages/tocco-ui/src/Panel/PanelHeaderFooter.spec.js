@@ -1,9 +1,8 @@
-
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
-import PanelHeaderFooter from './PanelHeaderFooter'
 import Icon from '../Icon'
+import PanelHeaderFooter from './PanelHeaderFooter'
 import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
 
 describe('tocco-ui', () => {
@@ -11,10 +10,7 @@ describe('tocco-ui', () => {
     describe('PanelHeaderFooter', () => {
       test('should render parent and children', () => {
         const wrapper = shallow(
-          <PanelHeaderFooter
-            isToggleable={true}
-            showToggler={true}
-          >
+          <PanelHeaderFooter isToggleable={true} showToggler={true}>
             <span>child-1</span>
             <span>child-2</span>
           </PanelHeaderFooter>
@@ -27,57 +23,25 @@ describe('tocco-ui', () => {
       })
 
       test('should hide or display Icon according precondition', () => {
-        let wrapper = shallow(
-          <PanelHeaderFooter
-            isToggleable={true}
-            showToggler={true}
-          />
-        )
+        let wrapper = shallow(<PanelHeaderFooter isToggleable={true} showToggler={true} />)
         expect(wrapper.find(Icon)).to.have.length(1)
 
-        wrapper = shallow(
-          <PanelHeaderFooter
-            isToggleable={false}
-            showToggler={true}
-          />
-        )
+        wrapper = shallow(<PanelHeaderFooter isToggleable={false} showToggler={true} />)
         expect(wrapper.find(Icon)).to.have.length(0)
 
-        wrapper = shallow(
-          <PanelHeaderFooter
-            isToggleable={true}
-            showToggler={false}
-          />
-        )
+        wrapper = shallow(<PanelHeaderFooter isToggleable={true} showToggler={false} />)
         expect(wrapper.find(Icon)).to.have.length(0)
 
-        wrapper = shallow(
-          <PanelHeaderFooter
-            isToggleable={false}
-            showToggler={false}
-          />
-        )
+        wrapper = shallow(<PanelHeaderFooter isToggleable={false} showToggler={false} />)
         expect(wrapper.find(Icon)).to.have.length(0)
       })
 
       test('should display Ball correctly', () => {
-        let wrapper = shallow(
-          <PanelHeaderFooter
-            isOpen={false}
-            isToggleable={true}
-            showToggler={true}
-          />
-        )
+        let wrapper = shallow(<PanelHeaderFooter isOpen={false} isToggleable={true} showToggler={true} />)
         expect(wrapper.find(Icon).prop('icon')).to.be.equal('chevron-down')
         expect(wrapper.find(Icon).prop('title')).to.be.equal('Show more information')
 
-        wrapper = shallow(
-          <PanelHeaderFooter
-            isOpen={true}
-            isToggleable={true}
-            showToggler={true}
-          />
-        )
+        wrapper = shallow(<PanelHeaderFooter isOpen={true} isToggleable={true} showToggler={true} />)
         expect(wrapper.find(Icon).prop('icon')).to.be.equal('chevron-up')
         expect(wrapper.find(Icon).prop('title')).to.be.equal('Hide information')
       })

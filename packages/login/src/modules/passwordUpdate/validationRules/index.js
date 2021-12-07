@@ -1,6 +1,6 @@
 import {fetchValidationRules} from './actions'
-import sagas from './sagas'
 import reducer from './reducer'
+import sagas from './sagas'
 
 export {fetchValidationRules}
 

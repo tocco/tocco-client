@@ -14,7 +14,7 @@ const View = ({value, downloadTitle, immutable, onUpload, deleteTitle}) => {
     <StyledView className="StyledView">
       <Preview
         alt={value.fileName}
-        {...isNotUploadedFile && {caption: value.fileName}}
+        {...(isNotUploadedFile && {caption: value.fileName})}
         fileName={value.fileName}
         maxDimensionX="96px"
         maxDimensionY="96px"
@@ -22,14 +22,9 @@ const View = ({value, downloadTitle, immutable, onUpload, deleteTitle}) => {
         thumbnailUrl={value.thumbnailLink}
       />
       <StyledButtonsWrapper>
-        {!immutable
-        && <Button
-          icon="trash"
-          onClick={() => onUpload(null)}
-          tabIndex={-1}
-          title={deleteTitle || 'delete'}
-        />
-        }
+        {!immutable && (
+          <Button icon="trash" onClick={() => onUpload(null)} tabIndex={-1} title={deleteTitle || 'delete'} />
+        )}
         <Button>
           <Link
             neutral

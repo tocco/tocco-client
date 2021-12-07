@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useState, useEffect} from 'react'
 
-import RelationsView from '../RelationsView'
-import EditView from '../EditView'
 import {currentViewPropType} from '../../utils/propTypes'
+import EditView from '../EditView'
+import RelationsView from '../RelationsView'
 import {StyledDetailViewContainer, StyledDetailViewLeft, StyledDetailViewRight} from './StyledComponents'
 
 const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, saveUserPreferences}) => {
@@ -24,10 +24,10 @@ const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, sav
   return (
     <StyledDetailViewContainer>
       <StyledDetailViewLeft isCollapsed={isCollapsed}>
-        <EditView match={match} history={history}/>
+        <EditView match={match} history={history} />
       </StyledDetailViewLeft>
       <StyledDetailViewRight isCollapsed={isCollapsed}>
-        <RelationsView match={match} history={history} isCollapsed={isCollapsed} toggleCollapse={toggleCollapse}/>
+        <RelationsView match={match} history={history} isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
       </StyledDetailViewRight>
     </StyledDetailViewContainer>
   )

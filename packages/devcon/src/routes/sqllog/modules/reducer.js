@@ -1,5 +1,5 @@
-import {v4 as uuid} from 'uuid'
 import {reducer as reducerUtil} from 'tocco-util'
+import {v4 as uuid} from 'uuid'
 
 import * as actions from './actions'
 
@@ -7,11 +7,13 @@ const handleReceiveEntry = (state, {payload}) =>
   state.active
     ? {
         ...state,
-        entries: [{
-          ...payload.data,
-          key: uuid()
-        },
-        ...state.entries]
+        entries: [
+          {
+            ...payload.data,
+            key: uuid()
+          },
+          ...state.entries
+        ]
       }
     : state
 

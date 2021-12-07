@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 
 import Document from './Document'
 
@@ -25,7 +25,7 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('Document ', () => {
         test('should render', () => {
-          const wrapper = mount(<Document value={mockValue} options={mockOptions}/>)
+          const wrapper = mount(<Document value={mockValue} options={mockOptions} />)
           expect(wrapper.find('Upload')).to.have.length(1)
         })
       })

@@ -1,4 +1,3 @@
-
 export const NULL_BUSINESS_UNIT = '__n-u-l-l__'
 
 const env = {

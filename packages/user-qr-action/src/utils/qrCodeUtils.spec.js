@@ -25,10 +25,10 @@ describe('user-qr-action', () => {
           birthdate: '1983-06-13'
         }
 
-        expect(buildUserMecardString(data))
-          .to.equal(
-            'MECARD:N:Muster,Max;ADR:Riedtlistrasse 27,8006 Zürich;TEL:+41791234567;TEL:+41443886000;'
-          + 'TEL:+41441230099;EMAIL:max.muster@example.com;EMAIL:mm@test.ch;BDAY:19830613;')
+        expect(buildUserMecardString(data)).to.equal(
+          'MECARD:N:Muster,Max;ADR:Riedtlistrasse 27,8006 Zürich;TEL:+41791234567;TEL:+41443886000;' +
+            'TEL:+41441230099;EMAIL:max.muster@example.com;EMAIL:mm@test.ch;BDAY:19830613;'
+        )
       })
     })
   })

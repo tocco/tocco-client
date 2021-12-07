@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import ModalDisplay from './ModalDisplay'
 import * as actions from '../actions'
+import ModalDisplay from './ModalDisplay'
 
 const mapActionCreators = {
   close: actions.removeModal

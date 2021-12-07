@@ -1,6 +1,6 @@
+import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _omit from 'lodash/omit'
 
 import componentTypes from '../actionComponentTypes'
 import {modeFitsScopes} from '../actions'
@@ -86,12 +86,11 @@ ActionVisual.propTypes = {
 const Action = props => {
   if (props.definition.componentType === componentTypes.ACTION_BAR) {
     return props.definition.children.map(child => (
-      <ActionVisual key={`action-${props.definition.id}-${child.id}`} {...props} definition={child}/>
-    )
-    )
+      <ActionVisual key={`action-${props.definition.id}-${child.id}`} {...props} definition={child} />
+    ))
   }
 
-  return <ActionVisual {...props}/>
+  return <ActionVisual {...props} />
 }
 
 Action.propTypes = {

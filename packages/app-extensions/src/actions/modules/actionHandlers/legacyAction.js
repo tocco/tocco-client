@@ -6,25 +6,27 @@ import newNotification from '../../../notification'
 import remoteEvents from '../../../remoteEvents'
 import rest from '../../../rest'
 
-export const loadScript = src => new Promise((resolve, reject) => {
-  const s = document.createElement('script')
-  s.src = src
-  s.onload = resolve
-  s.onerror = reject
-  document.head.appendChild(s)
-})
+export const loadScript = src =>
+  new Promise((resolve, reject) => {
+    const s = document.createElement('script')
+    s.src = src
+    s.onload = resolve
+    s.onerror = reject
+    document.head.appendChild(s)
+  })
 
-export const loadCss = src => new Promise((resolve, reject) => {
-  const head = document.getElementsByTagName('head')[0]
-  const link = document.createElement('link')
-  link.rel = 'stylesheet'
-  link.type = 'text/css'
-  link.href = src
-  link.media = 'all'
-  link.onload = resolve
-  link.onerror = reject
-  head.appendChild(link)
-})
+export const loadCss = src =>
+  new Promise((resolve, reject) => {
+    const head = document.getElementsByTagName('head')[0]
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.type = 'text/css'
+    link.href = src
+    link.media = 'all'
+    link.onload = resolve
+    link.onerror = reject
+    head.appendChild(link)
+  })
 
 export function* loadSequentially(sources) {
   const currentEnv = window.legacyActionEnv || 'new'
@@ -202,8 +204,9 @@ export default function* (definition, selection, parent, params, config) {
   const actionDefinition = new window.nice2.netui.actions.model.ClientActionDefinition(definition.path, definition.id)
   actionDefinition.setEnabled(!definition.readOnly)
   if (_isPlainObject(definition.properties)) {
-    const setPropertyEffects = Object.entries(definition.properties)
-      .map(([key, value]) => call([actionDefinition, actionDefinition.setProperty], key, value))
+    const setPropertyEffects = Object.entries(definition.properties).map(([key, value]) =>
+      call([actionDefinition, actionDefinition.setProperty], key, value)
+    )
     yield all(setPropertyEffects)
   }
 
@@ -231,7 +234,7 @@ export default function* (definition, selection, parent, params, config) {
 
   const legacySelection = yield call(getSelection, selection)
 
-  action.getSelectionNumber = () => selection.type === 'ID' ? selection.ids.length : 0
+  action.getSelectionNumber = () => (selection.type === 'ID' ? selection.ids.length : 0)
   action.getSelection = () => legacySelection
 
   action.perform()

@@ -1,13 +1,14 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
-import {RouterLink} from 'tocco-ui'
+import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
+import {RouterLink} from 'tocco-ui'
+import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
 
 import Action from '../../../components/LazyAction'
 
-const DetailLinkRelative = ({entityKey, children, relation}) =>
+const DetailLinkRelative = ({entityKey, children, relation}) => (
   <RouterLink to={`${relation ? relation + '/' : ''}detail/${entityKey}`}>{children}</RouterLink>
+)
 
 DetailLinkRelative.propTypes = {
   entityKey: PropTypes.string.isRequired,
@@ -47,11 +48,9 @@ const ListView = ({storeId, router, ...props}) => {
       showLink
       navigationStrategy={{
         DetailLinkRelative,
-        navigateToActionRelative: (definition, selection) =>
-          navigateToAction(router.history, definition, selection),
-        navigateToCreateRelative: relationName => navigateToCreate(
-          {relationName, history: router.history, match: router.match}
-        )
+        navigateToActionRelative: (definition, selection) => navigateToAction(router.history, definition, selection),
+        navigateToCreateRelative: relationName =>
+          navigateToCreate({relationName, history: router.history, match: router.match})
       }}
       searchFormPosition="top"
       actionAppComponent={Action}

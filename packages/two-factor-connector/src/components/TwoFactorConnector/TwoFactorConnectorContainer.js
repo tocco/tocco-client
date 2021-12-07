@@ -1,5 +1,5 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import {initialize} from '../../modules/actions'
 import TwoFactorConnector from './TwoFactorConnector'

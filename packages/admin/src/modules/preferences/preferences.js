@@ -10,9 +10,10 @@ const transform = value => {
 }
 
 export const transformValues = preferences =>
-  Object.entries(preferences).reduce((acc, [key, value]) => (
-    {
+  Object.entries(preferences).reduce(
+    (acc, [key, value]) => ({
       ...acc,
       [key]: transform(value)
-    }
-  ), {})
+    }),
+    {}
+  )

@@ -1,14 +1,12 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import {StyledMenuChildrenWrapper} from './StyledComponents'
 
 const MenuChildrenWrapper = ({isOpen, canCollapse, children}) => (
-  <StyledMenuChildrenWrapper
-      isOpen={!canCollapse || isOpen}
-    >
-      {(!canCollapse || isOpen) && children}
-    </StyledMenuChildrenWrapper>
+  <StyledMenuChildrenWrapper isOpen={!canCollapse || isOpen}>
+    {(!canCollapse || isOpen) && children}
+  </StyledMenuChildrenWrapper>
 )
 
 MenuChildrenWrapper.propTypes = {

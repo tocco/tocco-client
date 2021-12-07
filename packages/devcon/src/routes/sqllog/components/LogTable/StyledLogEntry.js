@@ -72,5 +72,5 @@ const getBackgroundColor = elapsed => {
 export const StyledElapsed = styled.span`
   background-color: ${props => getBackgroundColor(props.elapsed)};
   border-radius: 5px;
-  padding: .5em;
+  padding: 0.5em;
 `

@@ -23,10 +23,10 @@ export const resultTypes = {
 }
 
 const isTaskRunning = taskProgress =>
-  taskProgress.status
-    && (taskProgress.status === taskProgressStatus.pending
-      || taskProgress.status === taskProgressStatus.running_absolute
-      || taskProgress.status === taskProgressStatus.running_infinite)
+  taskProgress.status &&
+  (taskProgress.status === taskProgressStatus.pending ||
+    taskProgress.status === taskProgressStatus.running_absolute ||
+    taskProgress.status === taskProgressStatus.running_infinite)
 
 export function* notificationTransform(notification) {
   const transformed = {
@@ -37,7 +37,7 @@ export function* notificationTransform(notification) {
       ? {
           ...notification.taskProgress,
           isRunning: isTaskRunning(notification.taskProgress),
-          percentage: Math.round(100 / notification.taskProgress.total * notification.taskProgress.done)
+          percentage: Math.round((100 / notification.taskProgress.total) * notification.taskProgress.done)
         }
       : null
   }

@@ -1,13 +1,13 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-import mapping from './mapping'
 import FontAwesomeAdapter from './FontAwesomeAdapter'
+import mapping from './mapping'
 import ToccoIcons from './ToccoIcons'
 
 const iconLibsFactories = {
-  fa: (iconMap, props) => <FontAwesomeAdapter {...props} icon={iconMap.id}/>,
-  toc: (iconMap, props) => <ToccoIcons {...props} icon={iconMap.id}/>
+  fa: (iconMap, props) => <FontAwesomeAdapter {...props} icon={iconMap.id} />,
+  toc: (iconMap, props) => <ToccoIcons {...props} icon={iconMap.id} />
 }
 
 export const Icon = props => {

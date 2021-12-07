@@ -1,25 +1,24 @@
-import React from 'react'
+import _get from 'lodash/get'
+import _isEqual from 'lodash/isEqual'
+import _merge from 'lodash/merge'
+import _pick from 'lodash/pick'
+import _reduce from 'lodash/reduce'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
-import _isEqual from 'lodash/isEqual'
-import _reduce from 'lodash/reduce'
-import _get from 'lodash/get'
-import _pick from 'lodash/pick'
-import _merge from 'lodash/merge'
 import {getFormAsyncErrors, getFormSubmitErrors, getFormSyncErrors, isDirty as isDirtySelector} from 'redux-form'
 
-import {loadRelationEntities} from './relationEntities/actions'
-import {loadTooltip} from './tooltips/actions'
 import {openAdvancedSearch} from './advancedSearch/actions'
-import {changeFieldValue, touchField} from './values/actions'
-import {setDocument, uploadDocument} from './upload/actions'
-import {loadSearchFilters} from './searchFilters/actions'
 import {loadLocationsSuggestions} from './locations/actions'
+import {loadRelationEntities} from './relationEntities/actions'
 import {openRemoteCreate} from './remoteCreate/actions'
+import {loadSearchFilters} from './searchFilters/actions'
+import {loadTooltip} from './tooltips/actions'
+import {setDocument, uploadDocument} from './upload/actions'
+import {changeFieldValue, touchField} from './values/actions'
 
-const FormData = props =>
-  <React.Fragment>{React.cloneElement(props.children, {formData: props})}</React.Fragment>
+const FormData = props => <React.Fragment>{React.cloneElement(props.children, {formData: props})}</React.Fragment>
 
 FormData.propTypes = {
   children: PropTypes.node
@@ -47,17 +46,15 @@ const mapStateToProps = (
             _pick(getFormSyncErrors(errors.formName)(state), errors.fields),
             _pick(getFormAsyncErrors(errors.formName)(state), errors.fields)
           ),
-          (result, value) => ({...result, ...value}), null)
+          (result, value) => ({...result, ...value}),
+          null
+        )
       }
     : null),
   ...(navigationStrategy && state.formData.navigationStrategy
     ? {navigationStrategy: state.formData.navigationStrategy.navigationStrategy}
-    : {}
-  ),
-  ...(state.formData.upload?.chooseDocument
-    ? {chooseDocument: state.formData.upload.chooseDocument}
-    : {}
-  ),
+    : {}),
+  ...(state.formData.upload?.chooseDocument ? {chooseDocument: state.formData.upload.chooseDocument} : {}),
   entityModel: _get(state, 'entityDetail.entityModel')
 })
 
@@ -74,13 +71,8 @@ const mapActionCreators = {
   openRemoteCreate: openRemoteCreate
 }
 
-const FormDataContainer = connect(
-  mapStateToProps,
-  mapActionCreators,
-  null,
-  {
-    areStatePropsEqual: _isEqual
-  }
-)(injectIntl(FormData))
+const FormDataContainer = connect(mapStateToProps, mapActionCreators, null, {
+  areStatePropsEqual: _isEqual
+})(injectIntl(FormData))
 
 export default FormDataContainer

@@ -1,4 +1,4 @@
- {
+{
   "entitiesToDelete": [
     {
       "rootEntity": {
@@ -8,13 +8,14 @@
         "businessUnitId": null,
         "deleteStatus": "DELETABLE"
       },
-      "affectedEntities": [{
-        "entityModel": "Resource",
-        "pk": "17719",
-        "entityName": "Dokument",
-        "businessUnitId": "test1",
-        "deleteStatus": "DELETABLE"
-      },
+      "affectedEntities": [
+        {
+          "entityModel": "Resource",
+          "pk": "17719",
+          "entityName": "Dokument",
+          "businessUnitId": "test1",
+          "deleteStatus": "DELETABLE"
+        },
         {
           "entityModel": "Resource",
           "pk": "33",
@@ -28,7 +29,8 @@
           "entityName": "Einzeldokumente",
           "businessUnitId": "test1",
           "deleteStatus": "DELETABLE"
-        }],
+        }
+      ],
       "unreadableEntities": false
     },
     {
@@ -72,13 +74,14 @@
         "businessUnitId": null,
         "deleteStatus": "DELETABLE"
       },
-      "affectedEntities": [{
-        "entityModel": "Resource",
-        "pk": "20000",
-        "entityName": "Dokument",
-        "businessUnitId": "test1",
-        "deleteStatus": "NO_DELETE_PERMISSION"
-      },
+      "affectedEntities": [
+        {
+          "entityModel": "Resource",
+          "pk": "20000",
+          "entityName": "Dokument",
+          "businessUnitId": "test1",
+          "deleteStatus": "NO_DELETE_PERMISSION"
+        },
         {
           "entityModel": "Resource",
           "pk": "583",

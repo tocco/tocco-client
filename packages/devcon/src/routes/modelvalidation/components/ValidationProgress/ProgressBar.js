@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import {StyledProgressBar, StyledInnerProgress, StyledProgressText} from './StyledProgressBar'
 
@@ -16,13 +16,11 @@ const getProgressText = state => {
   return `${getPercentage(state)}%`
 }
 
-const getPercentage = state => state.running && state.total
-  ? Math.round(state.currentIndex / state.total * 100)
-  : 0
+const getPercentage = state => (state.running && state.total ? Math.round((state.currentIndex / state.total) * 100) : 0)
 
 const ProgressBar = ({state}) => (
   <StyledProgressBar>
-    <StyledInnerProgress percentage={getPercentage(state)}/>
+    <StyledInnerProgress percentage={getPercentage(state)} />
     <StyledProgressText>{getProgressText(state)}</StyledProgressText>
   </StyledProgressBar>
 )

@@ -1,15 +1,10 @@
-import React, {useState, useMemo, useRef} from 'react'
 import PropTypes from 'prop-types'
-import {Button} from 'tocco-ui'
+import React, {useState, useMemo, useRef} from 'react'
 import {FormattedMessage, injectIntl} from 'react-intl'
+import {Button} from 'tocco-ui'
 
 import simpleFormConnector from '../containers/simpleFormConnector'
-import {
-  getFormDefinition,
-  getGroupedValues,
-  reportSettingsDefinitionPropType,
-  transformValues
-} from '../utils/report'
+import {getFormDefinition, getGroupedValues, reportSettingsDefinitionPropType, transformValues} from '../utils/report'
 import {StyledStickyButtons, StyledReportSettings} from './StyledReportSettings'
 
 export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, intl}) => {
@@ -57,15 +52,15 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
         onChange={handleSettingsChange}
         mode="create"
       />
-      {customSettingsDefined
-        && <SimpleFormContainer
+      {customSettingsDefined && (
+        <SimpleFormContainer
           listApp={listApp}
           form={settingsDefinition.customSettings.form.form}
           noButtons
           onChange={handleCustomSettingsChange}
           mode="create"
         />
-      }
+      )}
       <StyledStickyButtons>
         <Button
           ink="primary"
@@ -73,7 +68,7 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
           onClick={handleButtonClick}
           look="raised"
         >
-          <FormattedMessage id="client.common.report.generate"/>
+          <FormattedMessage id="client.common.report.generate" />
         </Button>
       </StyledStickyButtons>
     </StyledReportSettings>

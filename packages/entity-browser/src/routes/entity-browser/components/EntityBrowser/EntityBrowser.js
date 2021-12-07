@@ -5,14 +5,14 @@ import {route as routeUtil} from 'tocco-util'
 
 import StyledEntityBrowser from './StyledEntityBrowser'
 
-const EntityBrowser = ({routes}) =>
+const EntityBrowser = ({routes}) => (
   <StyledEntityBrowser>
-    <notification.Notifications/>
+    <notification.Notifications />
     {routes.map((route, i) => (
-      <routeUtil.RouteWithSubRoutes key={i} {...route}/>
-    ))
-    }
+      <routeUtil.RouteWithSubRoutes key={i} {...route} />
+    ))}
   </StyledEntityBrowser>
+)
 
 EntityBrowser.propTypes = {
   routes: PropTypes.array.isRequired

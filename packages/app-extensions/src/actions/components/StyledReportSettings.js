@@ -18,7 +18,7 @@ export const StyledStickyButtons = styled.div`
   display: flex;
   justify-content: flex-end;
 
-  ${/* sc-selector */StyledButton}:last-child {
+  ${/* sc-selector */ StyledButton}:last-child {
     margin-right: 0;
   }
 `

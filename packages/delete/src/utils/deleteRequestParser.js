@@ -8,32 +8,34 @@ const deleteStatus = {
 }
 
 const transformRelatedEntities = (relatedEntities, entityToDelete, deletable, currentBuId) => ({
-  ...entityToDelete.affectedEntities.reduce((acc, affectedEntity) => ({
-    ...acc,
-    ...(deletable || affectedEntity.deleteStatus !== deleteStatus.DELETABLE
-      ? {
-          [affectedEntity.entityName]: {
-            ..._get(acc,
-              affectedEntity.entityName,
-              {keys: [], keysOtherBu: [], entityLabel: affectedEntity.entityLabel}
-            ),
-            ...(affectedEntity.businessUnitId === null || affectedEntity.businessUnitId === currentBuId
-              ? {
-                  keys: Array.from(
-                    new Set([..._get(acc, [affectedEntity.entityName, 'keys'], []), affectedEntity.key])
-                  )
-                }
-              : {
-                  keysOtherBu: Array.from(
-                    new Set([..._get(acc, [affectedEntity.entityName, 'keysOtherBu'], []), affectedEntity.key])
-                  )
-                }
-            )
+  ...entityToDelete.affectedEntities.reduce(
+    (acc, affectedEntity) => ({
+      ...acc,
+      ...(deletable || affectedEntity.deleteStatus !== deleteStatus.DELETABLE
+        ? {
+            [affectedEntity.entityName]: {
+              ..._get(acc, affectedEntity.entityName, {
+                keys: [],
+                keysOtherBu: [],
+                entityLabel: affectedEntity.entityLabel
+              }),
+              ...(affectedEntity.businessUnitId === null || affectedEntity.businessUnitId === currentBuId
+                ? {
+                    keys: Array.from(
+                      new Set([..._get(acc, [affectedEntity.entityName, 'keys'], []), affectedEntity.key])
+                    )
+                  }
+                : {
+                    keysOtherBu: Array.from(
+                      new Set([..._get(acc, [affectedEntity.entityName, 'keysOtherBu'], []), affectedEntity.key])
+                    )
+                  })
+            }
           }
-        }
-      : {}
-    )
-  }), {...relatedEntities})
+        : {})
+    }),
+    {...relatedEntities}
+  )
 })
 
 const transformRootEntity = (rootEntities, entity, applyKeys = true) => {
@@ -59,38 +61,41 @@ const transformRootEntity = (rootEntities, entity, applyKeys = true) => {
 }
 
 const isEntityDeletable = entityToDelete =>
-  entityToDelete.rootEntity.deleteStatus === deleteStatus.DELETABLE
-  && !entityToDelete.affectedEntities.find(affectedEntity => affectedEntity.deleteStatus !== deleteStatus.DELETABLE)
+  entityToDelete.rootEntity.deleteStatus === deleteStatus.DELETABLE &&
+  !entityToDelete.affectedEntities.find(affectedEntity => affectedEntity.deleteStatus !== deleteStatus.DELETABLE)
 
 export const getDialogInfo = (response, currentBuId) => {
   const {entitiesToDelete} = response
 
-  return entitiesToDelete.reduce((acc, entityToDelete) => {
-    const deletable = isEntityDeletable(entityToDelete)
-    const relatedAttr = deletable ? 'relatedDeletable' : 'relatedNotDeletable'
-    return {
-      ...acc,
-      rootEntitiesDeletable: transformRootEntity(acc.rootEntitiesDeletable, entityToDelete, deletable),
-      ...!deletable && {rootEntitiesNotDeletable: transformRootEntity(acc.rootEntitiesNotDeletable, entityToDelete)},
-      [relatedAttr]: transformRelatedEntities(acc[relatedAttr], entityToDelete, deletable, currentBuId)
+  return entitiesToDelete.reduce(
+    (acc, entityToDelete) => {
+      const deletable = isEntityDeletable(entityToDelete)
+      const relatedAttr = deletable ? 'relatedDeletable' : 'relatedNotDeletable'
+      return {
+        ...acc,
+        rootEntitiesDeletable: transformRootEntity(acc.rootEntitiesDeletable, entityToDelete, deletable),
+        ...(!deletable && {
+          rootEntitiesNotDeletable: transformRootEntity(acc.rootEntitiesNotDeletable, entityToDelete)
+        }),
+        [relatedAttr]: transformRelatedEntities(acc[relatedAttr], entityToDelete, deletable, currentBuId)
+      }
+    },
+    {
+      rootEntitiesDeletable: {},
+      rootEntitiesNotDeletable: {},
+      relatedDeletable: {},
+      relatedNotDeletable: {},
+      hasUnreadableEntities: !!entitiesToDelete.find(e => e.unreadableEntities)
     }
-  },
-  {
-    rootEntitiesDeletable: {},
-    rootEntitiesNotDeletable: {},
-    relatedDeletable: {},
-    relatedNotDeletable: {},
-    hasUnreadableEntities: !!entitiesToDelete.find(e => e.unreadableEntities)
-  })
+  )
 }
 
 export const getEntitiesToDelete = ({entitiesToDelete}) => ({
   entityName: _get(entitiesToDelete, '[0].rootEntity.entityName'),
-  keys: entitiesToDelete.reduce((acc, entityToDelete) => [
-    ...acc,
-    ...(isEntityDeletable(entityToDelete) ? [entityToDelete.rootEntity.key] : [])
-  ]
-  , [])
+  keys: entitiesToDelete.reduce(
+    (acc, entityToDelete) => [...acc, ...(isEntityDeletable(entityToDelete) ? [entityToDelete.rootEntity.key] : [])],
+    []
+  )
 })
 
 export const deleteEntityPropType = PropTypes.shape({

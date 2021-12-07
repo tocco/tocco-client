@@ -1,5 +1,3 @@
 import QRCode from './QRCode'
 
-export {
-  QRCode as default
-}
+export {QRCode as default}

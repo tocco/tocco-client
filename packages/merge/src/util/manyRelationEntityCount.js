@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {Typography} from 'tocco-ui'
 import {navigationStrategy} from 'tocco-util'
 
@@ -9,9 +9,11 @@ export const ManyRelationEntityCount = ({model, keys, totalKeys, navigationStrat
   if (totalKeys === 0) {
     return <Typography.Span>{totalKeys}</Typography.Span>
   } else {
-    return <navigationStrategy.ListLink entityName={model} entityKeys={keys.slice(0, maxCountLink)}>
-      ({totalKeys})
-    </navigationStrategy.ListLink>
+    return (
+      <navigationStrategy.ListLink entityName={model} entityKeys={keys.slice(0, maxCountLink)}>
+        ({totalKeys})
+      </navigationStrategy.ListLink>
+    )
   }
 }
 

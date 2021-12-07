@@ -6,25 +6,20 @@ import InstallationDelta from './components/InstallationDelta'
 const packageName = 'installation-delta-action'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <InstallationDelta/>
+  const content = <InstallationDelta />
 
   const store = appFactory.createStore({}, null, input, packageName)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__DEV__) {
     const input = require('./dev/input.json')
 

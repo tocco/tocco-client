@@ -3,51 +3,33 @@ import React, {useState} from 'react'
 
 import Icon from '../Icon'
 import Typography from '../Typography'
-import StyledPreview from './StyledPreview'
 import {validateCssDimension} from '../utilStyles'
+import StyledPreview from './StyledPreview'
 
 /**
  * Use <Preview> to display a preview of any kind of file. Provide URLs to thumbnail and file.
  */
-const Preview = ({
-  thumbnailUrl,
-  alt,
-  srcUrl,
-  fileName,
-  caption,
-  maxDimensionX,
-  maxDimensionY
-}) => {
+const Preview = ({thumbnailUrl, alt, srcUrl, fileName, caption, maxDimensionX, maxDimensionY}) => {
   const [isLoaded, setIsLoaded] = useState(false)
 
   const handleOnLoad = () => setIsLoaded(Math.random())
 
-  const image = thumbnailUrl
-    ? <img
-      alt={alt}
-      title={alt}
-      src={thumbnailUrl}
-      onLoad={handleOnLoad}
-      data-image-in-cache={isLoaded}
-    />
-    : <div
-      alt={alt}
-      title={alt}
-    >
-      <Icon
-        icon="file-alt"
-      />
+  const image = thumbnailUrl ? (
+    <img alt={alt} title={alt} src={thumbnailUrl} onLoad={handleOnLoad} data-image-in-cache={isLoaded} />
+  ) : (
+    <div alt={alt} title={alt}>
+      <Icon icon="file-alt" />
     </div>
+  )
 
-  return <StyledPreview
-    maxDimensionX={maxDimensionX}
-    maxDimensionY={maxDimensionY}
-  >
-    <a target="_blank" rel="noopener noreferrer" alt={alt} href={srcUrl}>
-      {image}
-    </a>
-    {caption && <Typography.Figcaption>{caption}</Typography.Figcaption>}
-  </StyledPreview>
+  return (
+    <StyledPreview maxDimensionX={maxDimensionX} maxDimensionY={maxDimensionY}>
+      <a target="_blank" rel="noopener noreferrer" alt={alt} href={srcUrl}>
+        {image}
+      </a>
+      {caption && <Typography.Figcaption>{caption}</Typography.Figcaption>}
+    </StyledPreview>
+  )
 }
 
 Preview.propTypes = {

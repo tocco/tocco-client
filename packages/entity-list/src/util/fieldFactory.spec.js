@@ -1,18 +1,19 @@
 import React from 'react'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
 import {intlEnzyme, IntlStub} from 'tocco-test-util'
 import {FormattedValue} from 'tocco-ui'
-import {createStore} from 'redux'
-import {Provider} from 'react-redux'
 
 import fieldFactory, {MultiSeparator} from './fieldFactory'
 
 describe('entity-list', () => {
   describe('util', () => {
-    const getStore = () => createStore(() => ({
-      formData: {navigationStrategy: {}},
-      entityList: {formName: 'User'},
-      list: {lazyData: {}}
-    }))
+    const getStore = () =>
+      createStore(() => ({
+        formData: {navigationStrategy: {}},
+        entityList: {formName: 'User'},
+        list: {lazyData: {}}
+      }))
 
     describe('fieldFactory', () => {
       test('should return FormattedValue', () => {
@@ -29,9 +30,7 @@ describe('entity-list', () => {
         }
 
         const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={getStore()}>
-            {fieldFactory(field, entity, IntlStub)}
-          </Provider>
+          <Provider store={getStore()}>{fieldFactory(field, entity, IntlStub)}</Provider>
         )
         expect(wrapper.find(FormattedValue)).to.have.length(1)
         expect(wrapper.find(FormattedValue).props().options).to.eql({})
@@ -48,9 +47,7 @@ describe('entity-list', () => {
         }
 
         const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={getStore()}>
-            {fieldFactory(field, entity, IntlStub)}
-          </Provider>
+          <Provider store={getStore()}>{fieldFactory(field, entity, IntlStub)}</Provider>
         )
 
         expect(wrapper.find(FormattedValue).props()).to.have.property('options')
@@ -66,13 +63,14 @@ describe('entity-list', () => {
           dataType: 'string'
         }
         const entity = {
-          'relSomething.xy': [{value: 'V1', type: 'string'}, {value: 'V1', type: 'string'}]
+          'relSomething.xy': [
+            {value: 'V1', type: 'string'},
+            {value: 'V1', type: 'string'}
+          ]
         }
 
         const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={getStore()}>
-            {fieldFactory(field, entity, IntlStub)}
-          </Provider>
+          <Provider store={getStore()}>{fieldFactory(field, entity, IntlStub)}</Provider>
         )
 
         expect(wrapper.find(FormattedValue)).to.have.length(2)

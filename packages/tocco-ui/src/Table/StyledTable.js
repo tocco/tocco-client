@@ -1,17 +1,10 @@
-import styled, {css} from 'styled-components'
 import _get from 'lodash/get'
 import {darken} from 'polished'
+import styled, {css} from 'styled-components'
 
-import {
-  declareFont,
-  theme,
-  shadeColor,
-  StyledScrollbar,
-  scale,
-  StyledFontAwesomeAdapterWrapper
-} from '../'
-import {StyledResizeHandle} from './ResizingController'
+import {declareFont, theme, shadeColor, StyledScrollbar, scale, StyledFontAwesomeAdapterWrapper} from '../'
 import {generateShades} from '../utilStyles'
+import {StyledResizeHandle} from './ResizingController'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
 const basePadding = scale.space(-1.5)
@@ -34,7 +27,7 @@ export const StyledDnD = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  opacity: ${({isDragged}) => isDragged ? 0.2 : 1};
+  opacity: ${({isDragged}) => (isDragged ? 0.2 : 1)};
 `
 
 export const StyledTableHeaderCell = styled.th`
@@ -45,20 +38,23 @@ export const StyledTableHeaderCell = styled.th`
   border-bottom: 2px solid ${borderColor};
   ${declareFont({fontWeight: theme.fontWeight('bold')})};
   user-select: none;
-  cursor: ${({sortable}) => sortable ? 'pointer' : 'auto'};
+  cursor: ${({sortable}) => (sortable ? 'pointer' : 'auto')};
   white-space: nowrap;
   display: flex;
-  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? `3px solid ${theme.colors.text}` : 'none'};
+  border-right: ${({isDraggedOver, theme}) => (isDraggedOver ? `3px solid ${theme.colors.text}` : 'none')};
   ${({id}) => id === 'header-cell-navigation-column' && 'z-index: 1'};
-  ${({isResizingThisCell, theme}) => isResizingThisCell && `
+  ${({isResizingThisCell, theme}) =>
+    isResizingThisCell &&
+    `
     background-color: ${generateShades(theme.colors.paper)[1]};
 
     > ${StyledResizeHandle} {
       opacity: 1;
     }
-  `
-  }
-  ${({isResizingAnyCell, theme}) => !isResizingAnyCell && `
+  `}
+  ${({isResizingAnyCell, theme}) =>
+    !isResizingAnyCell &&
+    `
     &:hover {
       background-color: ${generateShades(theme.colors.paper)[1]};
 
@@ -66,20 +62,22 @@ export const StyledTableHeaderCell = styled.th`
         opacity: 1;
       }
     }
-  `
-  }
-  ${({isResizingThisCell, sortable, fixedPosition, theme}) => !sortable
-    ? `
+  `}
+  ${({isResizingThisCell, sortable, fixedPosition, theme}) =>
+    !sortable
+      ? `
     &:hover {
       background-color: ${theme.colors.paper};
     }
     `
-    : !isResizingThisCell && !sortable && !fixedPosition && `
+      : !isResizingThisCell &&
+        !sortable &&
+        !fixedPosition &&
+        `
         &:hover {
           background-color: transparent;
         }
-    `
-  }
+    `}
 `
 
 export const StyledTableFooter = styled.div`
@@ -155,13 +153,11 @@ const StyledTable = styled.table`
   display: grid;
   border-collapse: collapse;
   grid-template-columns: ${({columns}) =>
-  columns.map(column =>
-    column.width
-      ? column.width + 'px'
-      : column.shrinkToContent
-        ? 'max-content'
-        : 'minmax(100px, auto)'
-  ).join(' ')};
+    columns
+      .map(column =>
+        column.width ? column.width + 'px' : column.shrinkToContent ? 'max-content' : 'minmax(100px, auto)'
+      )
+      .join(' ')};
   grid-auto-rows: min-content;
   min-width: 100%;
   ${StyledScrollbar}

@@ -1,29 +1,24 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {react, reducer as reducerUtil, env} from 'tocco-util'
-import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
-import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
-import {Redirect, Route, Router as ReactRouter} from 'react-router'
-import {GlobalStyles} from 'tocco-ui'
-import _pickBy from 'lodash/pickBy'
-import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
+import _isEqual from 'lodash/isEqual'
+import _pickBy from 'lodash/pickBy'
+import PropTypes from 'prop-types'
+import React from 'react'
+import {Redirect, Route, Router as ReactRouter} from 'react-router'
+import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
+import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
+import {GlobalStyles} from 'tocco-ui'
+import {react, reducer as reducerUtil, env} from 'tocco-util'
 
-import chooseDocument from './modules/chooseDocument'
-import reducers, {sagas} from './modules/reducers'
 import DocsBrowser from './components/DocsBrowser'
 import {getDispatchActions} from './input'
+import chooseDocument from './modules/chooseDocument'
+import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'docs-browser'
 
-const EXTERNAL_EVENTS = [
-  'onListParentChange',
-  'openResource',
-  'onSelectChange',
-  'onSearchFormCollapsedChange'
-]
+const EXTERNAL_EVENTS = ['onListParentChange', 'openResource', 'onSelectChange', 'onSearchFormCollapsedChange']
 
 const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
@@ -73,10 +68,10 @@ const initApp = (id, input, events = {}, publicPath) => {
     history.push(input.initialLocation)
   }
 
-  const singleRootNode = Array.isArray(input.rootNodes) && input.rootNodes.length === 1
-    && input.rootNodes[0].entityName !== 'Resource'
-    ? input.rootNodes[0]
-    : null
+  const singleRootNode =
+    Array.isArray(input.rootNodes) && input.rootNodes.length === 1 && input.rootNodes[0].entityName !== 'Resource'
+      ? input.rootNodes[0]
+      : null
 
   const startUrl = singleRootNode
     ? `/docs/${singleRootNode.entityName.toLowerCase()}/${singleRootNode.key}/list`
@@ -84,37 +79,30 @@ const initApp = (id, input, events = {}, publicPath) => {
 
   const content = (
     <ReactRouter history={history}>
-      {handleNotifications && <notification.Notifications/>}
-      <GlobalStyles/>
-      <DocsBrowser history={history}/>
+      {handleNotifications && <notification.Notifications />}
+      <GlobalStyles />
+      <DocsBrowser history={history} />
       <Route exact path="/">
-        <Redirect to={startUrl}/>
+        <Redirect to={startUrl} />
       </Route>
-  {
-    singleRootNode && (
-      <Route exact path="/docs">
-        <Redirect to={startUrl}/>
-      </Route>
-    )
-  }
+      {singleRootNode && (
+        <Route exact path="/docs">
+          <Redirect to={startUrl} />
+        </Route>
+      )}
     </ReactRouter>
   )
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: getDispatchActions(input),
-      publicPath,
-      textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: getDispatchActions(input),
+    publicPath,
+    textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 
@@ -163,10 +151,12 @@ DocsBrowserApp.propTypes = {
   history: PropTypes.object,
   navigationStrategy: PropTypes.object,
   domainTypes: PropTypes.arrayOf(PropTypes.string),
-  rootNodes: PropTypes.arrayOf(PropTypes.shape({
-    entityName: PropTypes.string,
-    key: PropTypes.string
-  })),
+  rootNodes: PropTypes.arrayOf(
+    PropTypes.shape({
+      entityName: PropTypes.string,
+      key: PropTypes.string
+    })
+  ),
   initialLocation: PropTypes.string,
   listLimit: PropTypes.number,
   documentDetailFormName: PropTypes.string,

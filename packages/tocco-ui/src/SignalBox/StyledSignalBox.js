@@ -2,12 +2,7 @@ import _get from 'lodash/get'
 import styled from 'styled-components'
 
 import {StyledSignalListItem} from '../SignalList'
-import {
-  design,
-  scale,
-  shadeColor,
-  theme
-} from '../utilStyles'
+import {design, scale, shadeColor, theme} from '../utilStyles'
 
 const ALLOWED_CONDITIONS = [
   design.condition.BASE,
@@ -49,7 +44,4 @@ StyledSignalBox.propTypes = {
   condition: design.oneOfPropTypeAndCompletelyMapped(ALLOWED_CONDITIONS, COLORS)
 }
 
-export {
-  ALLOWED_CONDITIONS,
-  StyledSignalBox as default
-}
+export {ALLOWED_CONDITIONS, StyledSignalBox as default}

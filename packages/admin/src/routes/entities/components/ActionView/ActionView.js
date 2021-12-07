@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react'
-import PropTypes from 'prop-types'
-import {queryString as queryStringUtil, js} from 'tocco-util'
 import _get from 'lodash/get'
+import PropTypes from 'prop-types'
+import React, {useEffect} from 'react'
+import {queryString as queryStringUtil, js} from 'tocco-util'
 
-import Action from '../Action'
-import {currentViewPropType} from '../../utils/propTypes'
-import navigationStrategy from '../../utils/navigationStrategy'
 import {goBack} from '../../../../utils/routing'
+import navigationStrategy from '../../utils/navigationStrategy'
+import {currentViewPropType} from '../../utils/propTypes'
+import Action from '../Action'
 
 const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}) => {
   const {location} = history

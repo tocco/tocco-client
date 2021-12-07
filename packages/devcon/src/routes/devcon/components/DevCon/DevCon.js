@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Typography} from 'tocco-ui'
 import {notification} from 'tocco-app-extensions'
+import {Typography} from 'tocco-ui'
 import {route as routeUtil} from 'tocco-util'
 
 import {StyledDevCon, StyledNavigation, StyledRouterLink} from './StyledDevCon'
 
-const DevCon = ({routes}) =>
+const DevCon = ({routes}) => (
   <StyledDevCon>
-    <notification.Notifications/>
+    <notification.Notifications />
     <Typography.Span>Tocco Developer Console</Typography.Span>
     <StyledNavigation>
       <StyledRouterLink to="/log">Log</StyledRouterLink>
@@ -17,10 +17,10 @@ const DevCon = ({routes}) =>
       <StyledRouterLink to="/sqllog">SQL Log</StyledRouterLink>
     </StyledNavigation>
     {routes.map((route, i) => (
-      <routeUtil.RouteWithSubRoutes key={i} {...route}/>
-    ))
-    }
+      <routeUtil.RouteWithSubRoutes key={i} {...route} />
+    ))}
   </StyledDevCon>
+)
 
 DevCon.propTypes = {
   routes: PropTypes.array.isRequired

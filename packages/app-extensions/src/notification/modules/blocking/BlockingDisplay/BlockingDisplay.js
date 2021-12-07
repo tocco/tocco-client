@@ -1,7 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography} from 'tocco-ui'
+import React from 'react'
 import ReactDOM from 'react-dom'
+import {Typography} from 'tocco-ui'
 
 import Content from '../../../components/Content'
 import {blockerPropTypes} from '../blocking'
@@ -13,18 +13,29 @@ const BlockingDisplay = ({blockers}) => {
   }
 
   const firstBlocker = blockers[0]
-  return <>
-    {ReactDOM.createPortal(
-      <StyledPageOverlay>
-        <StyledBlockingDisplay>
-          {firstBlocker.title && <Typography.H1>
-            <StyledTitleWrapper><Content>{firstBlocker.title}</Content></StyledTitleWrapper>
-          </Typography.H1>
-          }
-          {firstBlocker.body && <Typography.Span><Content>{firstBlocker.body}</Content></Typography.Span>}
-        </StyledBlockingDisplay>
-      </StyledPageOverlay>, document.body)}
-  </>
+  return (
+    <>
+      {ReactDOM.createPortal(
+        <StyledPageOverlay>
+          <StyledBlockingDisplay>
+            {firstBlocker.title && (
+              <Typography.H1>
+                <StyledTitleWrapper>
+                  <Content>{firstBlocker.title}</Content>
+                </StyledTitleWrapper>
+              </Typography.H1>
+            )}
+            {firstBlocker.body && (
+              <Typography.Span>
+                <Content>{firstBlocker.body}</Content>
+              </Typography.Span>
+            )}
+          </StyledBlockingDisplay>
+        </StyledPageOverlay>,
+        document.body
+      )}
+    </>
+  )
 }
 
 BlockingDisplay.propTypes = {

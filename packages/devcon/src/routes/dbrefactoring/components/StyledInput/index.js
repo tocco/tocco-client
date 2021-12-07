@@ -1,4 +1,1 @@
-export {
-  StyledInput,
-  StyledInputWrapper
-} from './StyledInput'
+export {StyledInput, StyledInputWrapper} from './StyledInput'

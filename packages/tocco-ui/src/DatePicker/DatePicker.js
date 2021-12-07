@@ -1,11 +1,11 @@
-import React, {useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect, useRef} from 'react'
 import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
 
 import {theme} from '../utilStyles'
-import {useDatePickr} from './useDatePickr'
 import {StyledWrapper} from './StyledDatePicker'
+import {useDatePickr} from './useDatePickr'
 
 export const DatePicker = props => {
   const {value, children, intl, onChange} = props
@@ -16,8 +16,14 @@ export const DatePicker = props => {
   const fontFamily = theme.fontFamily('regular')(props)
 
   const flatpickrOptions = {}
-  const initializeFlatPickr = useDatePickr(wrapperElement,
-    {value, onChange, fontFamily, locale, flatpickrOptions, shouldAppend: true})
+  const initializeFlatPickr = useDatePickr(wrapperElement, {
+    value,
+    onChange,
+    fontFamily,
+    locale,
+    flatpickrOptions,
+    shouldAppend: true
+  })
 
   useEffect(() => {
     if (wrapperElement.current) {
@@ -27,10 +33,7 @@ export const DatePicker = props => {
 
   return (
     <>
-      <StyledWrapper
-        data-wrap
-        ref={wrapperElement}
-      >
+      <StyledWrapper data-wrap ref={wrapperElement}>
         <div data-toggle>
           <input
             style={{display: 'none'}}

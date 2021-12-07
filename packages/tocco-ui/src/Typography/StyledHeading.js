@@ -1,12 +1,6 @@
 import styled, {css} from 'styled-components'
 
-import {
-  theme,
-  declareFont,
-  declareNoneWrappingText,
-  declareWrappingText,
-  scale
-} from '../utilStyles'
+import {theme, declareFont, declareNoneWrappingText, declareWrappingText, scale} from '../utilStyles'
 
 const declareHeaderFont = props => {
   let fontSize
@@ -34,32 +28,32 @@ const declareHeaderFont = props => {
 }
 
 const declareSpace = props => css`
-    margin-top: ${scale.space(0)};
-    margin-bottom: ${scale.space(-1)};
+  margin-top: ${scale.space(0)};
+  margin-bottom: ${scale.space(-1)};
 
-    h1 + &,
-    h2 + &,
-    h3 + &,
-    h4 + &,
-    h5 + &,
-    h6 + & {
-      margin-top: 0;
-    }
+  h1 + &,
+  h2 + &,
+  h3 + &,
+  h4 + &,
+  h5 + &,
+  h6 + & {
+    margin-top: 0;
+  }
 
-    &:first-child {
-      margin-top: 0;
-    }
+  &:first-child {
+    margin-top: 0;
+  }
 
-    &:last-child {
-      margin-bottom: 0;
-    }
-  `
+  &:last-child {
+    margin-bottom: 0;
+  }
+`
 
 const StyledH1 = styled.h1`
   && {
     ${props => declareHeaderFont(props)}
     ${props => declareSpace(props)}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
@@ -67,7 +61,7 @@ const StyledH2 = styled.h2`
   && {
     ${props => declareHeaderFont(props)}
     ${props => declareSpace(props)}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
@@ -75,7 +69,7 @@ const StyledH3 = styled.h3`
   && {
     ${props => declareHeaderFont(props)}
     ${props => declareSpace(props)}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
@@ -83,7 +77,7 @@ const StyledH4 = styled.h4`
   && {
     ${props => declareHeaderFont(props)}
     ${props => declareSpace(props)}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
@@ -91,7 +85,7 @@ const StyledH5 = styled.h5`
   && {
     ${props => declareHeaderFont(props)}
     ${props => declareSpace(props)}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
@@ -99,15 +93,8 @@ const StyledH6 = styled.h6`
   && {
     ${props => declareHeaderFont(props)}
     ${props => declareSpace(props)}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
   }
 `
 
-export {
-  StyledH1,
-  StyledH2,
-  StyledH3,
-  StyledH4,
-  StyledH5,
-  StyledH6
-}
+export {StyledH1, StyledH2, StyledH3, StyledH4, StyledH5, StyledH6}

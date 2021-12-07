@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import StatedValue from './StatedValue'
 
@@ -31,17 +31,9 @@ class StatedValueWrapper extends React.Component {
   }
 
   render() {
-    const {
-      id,
-      args
-    } = this.props
+    const {id, args} = this.props
 
-    const {
-      dirty,
-      hasValue,
-      touched,
-      value
-    } = this.state
+    const {dirty, hasValue, touched, value} = this.state
 
     return (
       <StatedValue
@@ -51,7 +43,8 @@ class StatedValueWrapper extends React.Component {
         id={id}
         key={id}
         mandatoryTitle="input is required"
-        touched={touched}>
+        touched={touched}
+      >
         <input
           id={id}
           disabled={args.immutable}
@@ -97,21 +90,9 @@ export default {
 }
 
 export const Basic = args => {
-  return [<StatedValueWrapper
-    id="input-1"
-    key="input-1"
-    args={args}
-  />,
-  <StatedValueWrapper
-    id="input-2"
-    key="input-2"
-    args={args}
-    value="initial value"
-  />,
-  <StatedValueWrapper
-    id="input-3"
-    key="input-3"
-    args={args}
-  />
+  return [
+    <StatedValueWrapper id="input-1" key="input-1" args={args} />,
+    <StatedValueWrapper id="input-2" key="input-2" args={args} value="initial value" />,
+    <StatedValueWrapper id="input-3" key="input-3" args={args} />
   ]
 }

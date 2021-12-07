@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 import {IntlProvider} from 'react-intl'
 
 import ErrorItems, {ErrorItem} from './ErrorItems'
@@ -20,33 +20,32 @@ describe('entity-detail', () => {
       test('should render relation errors', () => {
         const formErrors = {
           _error: {
-            relatedEntityErrors: [{
-              model: 'User_status',
-              key: '3',
-              paths: {
-                label_de: {
-                  mandatory: ['Pflichtfeld ist nicht ausgefüllt.']
+            relatedEntityErrors: [
+              {
+                model: 'User_status',
+                key: '3',
+                paths: {
+                  label_de: {
+                    mandatory: ['Pflichtfeld ist nicht ausgefüllt.']
+                  }
+                }
+              },
+              {
+                model: 'User_status2',
+                key: '4',
+                paths: {
+                  label_de: {
+                    mandatory: ['Pflichtfeld ist nicht ausgefüllt.']
+                  }
                 }
               }
-            },
-            {
-              model: 'User_status2',
-              key: '4',
-              paths: {
-                label_de: {
-                  mandatory: ['Pflichtfeld ist nicht ausgefüllt.']
-                }
-              }
-            }]
+            ]
           }
         }
 
         const wrapper = mount(
           <IntlProvider locale="en" messages={messages}>
-            <ErrorItems
-              formErrors={{...formErrors}}
-              showErrors={EMPTY_FUNC}
-            />
+            <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
           </IntlProvider>
         )
 
@@ -63,15 +62,13 @@ describe('entity-detail', () => {
         const formErrors = {_error: {}, firstname: {mandatory: ['mandatory!']}}
         const wrapper = mount(
           <IntlProvider locale="en" messages={messages}>
-            <ErrorItems
-              formErrors={{...formErrors}}
-              showErrors={EMPTY_FUNC}
-            />
+            <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
           </IntlProvider>
         )
 
-        expect(wrapper.find('FormattedMessage').first().text())
-          .to.equal(messages['client.entity-detail.invalidFieldsError'])
+        expect(wrapper.find('FormattedMessage').first().text()).to.equal(
+          messages['client.entity-detail.invalidFieldsError']
+        )
       })
 
       test('should show entityValidatorErrors', () => {
@@ -86,10 +83,7 @@ describe('entity-detail', () => {
 
         const wrapper = mount(
           <IntlProvider locale="en" messages={messages}>
-            <ErrorItems
-              formErrors={{...formErrors}}
-              showErrors={EMPTY_FUNC}
-            />
+            <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
           </IntlProvider>
         )
         expect(wrapper.find('FormattedMessage').text()).to.equal(messages['client.entity-detail.validatorErrors'])
@@ -113,17 +107,16 @@ describe('entity-detail', () => {
 
         const wrapper = mount(
           <IntlProvider locale="en" messages={messages}>
-            <ErrorItems
-              formErrors={{...formErrors}}
-              showErrors={EMPTY_FUNC}
-            />
+            <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
           </IntlProvider>
         )
 
-        expect(wrapper.find('FormattedMessage').at(0).text())
-          .to.equal(messages['client.entity-detail.outdatedErrorTitle'])
-        expect(wrapper.find('FormattedMessage').at(1).text())
-          .to.equal(messages['client.entity-detail.outdatedErrorTitle'])
+        expect(wrapper.find('FormattedMessage').at(0).text()).to.equal(
+          messages['client.entity-detail.outdatedErrorTitle']
+        )
+        expect(wrapper.find('FormattedMessage').at(1).text()).to.equal(
+          messages['client.entity-detail.outdatedErrorTitle']
+        )
       })
     })
   })

@@ -1,5 +1,3 @@
 import TextareaAutosize from './TextareaAutosize'
 
-export {
-  TextareaAutosize as default
-}
+export {TextareaAutosize as default}

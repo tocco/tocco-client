@@ -1,15 +1,15 @@
-import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
 
-import reducers, {sagas} from './modules'
 import TwoFactorConnector from './components/TwoFactorConnector'
+import reducers, {sagas} from './modules'
 
 const packageName = 'two-factor-connector'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <TwoFactorConnector/>
+  const content = <TwoFactorConnector />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -18,21 +18,16 @@ const initApp = (id, input, events, publicPath) => {
   externalEvents.addToStore(store, events)
   cache.addToStore(store)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 
@@ -61,11 +56,7 @@ const initApp = (id, input, events, publicPath) => {
   }
 })()
 
-const EXTERNAL_EVENTS = [
-  'onSuccess',
-  'onCancel',
-  'onResize'
-]
+const EXTERNAL_EVENTS = ['onSuccess', 'onCancel', 'onResize']
 
 const TwoFactorConnectorApp = props => {
   const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})

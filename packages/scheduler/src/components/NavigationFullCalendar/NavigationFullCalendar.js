@@ -1,11 +1,11 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {Button, ButtonGroup, Icon, Typography, DatePicker} from 'tocco-ui'
 
 import StyledNavigationFullCalendar from './StyledNavigationFullCalendar'
 
-const getButtonInkProps = (viewType, type) => viewType === type ? {ink: 'secondary'} : {}
+const getButtonInkProps = (viewType, type) => (viewType === type ? {ink: 'secondary'} : {})
 
 const msg = (id, intl) => intl.formatMessage({id})
 
@@ -35,7 +35,7 @@ const NavigationFullCalendar = props => {
             changeRange()
           }}
         >
-          <FormattedMessage id="client.scheduler.today"/>
+          <FormattedMessage id="client.scheduler.today" />
         </Button>
         <ButtonGroup>
           <Button
@@ -64,36 +64,25 @@ const NavigationFullCalendar = props => {
             changeRange()
           }}
         >
-          <Typography.Span>{title}</Typography.Span><Icon style={{marginLeft: '5px'}} icon="chevron-down"/>
+          <Typography.Span>{title}</Typography.Span>
+          <Icon style={{marginLeft: '5px'}} icon="chevron-down" />
         </DatePicker>
       </div>
       <div>
         <ButtonGroup>
-          <Button
-            look="raised"
-            {...(getButtonInkProps('dayView', type))}
-            onClick={() => changeView('dayView')}
-          >
-            <FormattedMessage id="client.scheduler.day"/>
+          <Button look="raised" {...getButtonInkProps('dayView', type)} onClick={() => changeView('dayView')}>
+            <FormattedMessage id="client.scheduler.day" />
           </Button>
           <Button
             look="raised"
-            {...(getButtonInkProps('weekView', type))}
-            {...(getButtonInkProps('weekViewSimple', type))}
-            onClick={() =>
-              type !== 'weekViewSimple'
-                ? changeView('weekViewSimple')
-                : changeView('weekView')
-            }
+            {...getButtonInkProps('weekView', type)}
+            {...getButtonInkProps('weekViewSimple', type)}
+            onClick={() => (type !== 'weekViewSimple' ? changeView('weekViewSimple') : changeView('weekView'))}
           >
-            <FormattedMessage id="client.scheduler.week"/>
+            <FormattedMessage id="client.scheduler.week" />
           </Button>
-          <Button
-            look="raised"
-            {...(getButtonInkProps('monthView', type))}
-            onClick={() => changeView('monthView')}
-          >
-            <FormattedMessage id="client.scheduler.month"/>
+          <Button look="raised" {...getButtonInkProps('monthView', type)} onClick={() => changeView('monthView')}>
+            <FormattedMessage id="client.scheduler.month" />
           </Button>
         </ButtonGroup>
         <Button

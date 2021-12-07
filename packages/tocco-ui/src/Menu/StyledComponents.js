@@ -23,7 +23,7 @@ export const StyledPopper = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   background: ${theme.color('paper')};
-  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   border: 1px solid ${theme.color('secondaryLight')};
   z-index: 9999999; /* higher than StyledModalHolder */
   ${StyledScrollbar}
@@ -35,7 +35,7 @@ export const StyledMenuItem = styled.div`
 `
 
 export const StyledItemLabel = styled.div`
-  cursor: ${({hasOnClick}) => hasOnClick ? 'pointer' : 'default'};
+  cursor: ${({hasOnClick}) => (hasOnClick ? 'pointer' : 'default')};
   ${declareFont()}
   ${interactiveStyling}
   padding:
@@ -43,6 +43,6 @@ export const StyledItemLabel = styled.div`
     ${scale.space(-0.5)}
     ${scale.space(-2)}
     calc(${scale.space(-0.5)} + ${({level}) => (level || 0) * 5 + 'px'});
-  font-weight: ${({isGroup}) => isGroup ? theme.fontWeight('bold') : theme.fontWeight('regular')};
+  font-weight: ${({isGroup}) => (isGroup ? theme.fontWeight('bold') : theme.fontWeight('regular'))};
   box-shadow: none;
 `

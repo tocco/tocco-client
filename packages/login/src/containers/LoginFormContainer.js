@@ -1,9 +1,9 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import LoginForm from '../components/LoginForm'
-import {changePage, setUsername, setPassword} from '../modules/login/actions'
 import {login} from '../modules/actions'
+import {changePage, setUsername, setPassword} from '../modules/login/actions'
 
 const mapActionCreators = {
   changePage,

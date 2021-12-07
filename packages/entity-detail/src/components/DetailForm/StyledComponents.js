@@ -11,7 +11,9 @@ export const StyledForm = styled.form`
 `
 
 export const StyledSaveButton = styled(Button)`
-  ${({hasErrors}) => hasErrors && `
+  ${({hasErrors}) =>
+    hasErrors &&
+    `
     background-color: ${theme.color('paper')};
   `}
   display: block;

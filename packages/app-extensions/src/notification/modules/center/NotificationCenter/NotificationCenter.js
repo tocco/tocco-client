@@ -1,27 +1,22 @@
-import React, {useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
-import {LoadingSpinner} from 'tocco-ui'
+import React, {useEffect, useRef} from 'react'
 import {FormattedMessage} from 'react-intl'
+import {LoadingSpinner} from 'tocco-ui'
 
-import Notification from './Notification'
-import {notificationPropType} from '../../../types'
-import {
-  StyledNotificationCenter,
-  StyledNotificationTitleWrapper
-} from './StyledComponents'
 import {resultTypes} from '../../../api'
+import {notificationPropType} from '../../../types'
+import Notification from './Notification'
+import {StyledNotificationCenter, StyledNotificationTitleWrapper} from './StyledComponents'
 
-const NotificationCenter = (
-  {
-    loadNotifications,
-    notifications,
-    moreNotificationsAvailable,
-    isLoadingMoreNotifications,
-    markAsRead,
-    cancelTask,
-    navigationStrategy
-  }
-) => {
+const NotificationCenter = ({
+  loadNotifications,
+  notifications,
+  moreNotificationsAvailable,
+  isLoadingMoreNotifications,
+  markAsRead,
+  cancelTask,
+  navigationStrategy
+}) => {
   const element = useRef(null)
 
   useEffect(() => {
@@ -56,14 +51,16 @@ const NotificationCenter = (
   return (
     <StyledNotificationCenter ref={element} onScroll={handleScroll}>
       <StyledNotificationTitleWrapper>
-        <FormattedMessage id={'client.admin.notification.title'}/>
+        <FormattedMessage id={'client.admin.notification.title'} />
       </StyledNotificationTitleWrapper>
       {SortedNotifications}
-      {isLoadingMoreNotifications && <LoadingSpinner/>}
-      {SortedNotifications.length > 0 && !moreNotificationsAvailable
-      && <FormattedMessage id={'client.admin.notification.noMoreNotifications'}/>}
-      {SortedNotifications.length === 0 && !isLoadingMoreNotifications
-      && <FormattedMessage id={'client.admin.notification.noNotification'}/>}
+      {isLoadingMoreNotifications && <LoadingSpinner />}
+      {SortedNotifications.length > 0 && !moreNotificationsAvailable && (
+        <FormattedMessage id={'client.admin.notification.noMoreNotifications'} />
+      )}
+      {SortedNotifications.length === 0 && !isLoadingMoreNotifications && (
+        <FormattedMessage id={'client.admin.notification.noNotification'} />
+      )}
     </StyledNotificationCenter>
   )
 }

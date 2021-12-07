@@ -1,8 +1,8 @@
-import {EditableValue} from 'tocco-ui'
-import {intlEnzyme} from 'tocco-test-util'
-import {createStore} from 'redux'
-import {Provider} from 'react-redux'
 import React from 'react'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import {intlEnzyme} from 'tocco-test-util'
+import {EditableValue} from 'tocco-ui'
 
 import editableValueFactory from './editableValueFactory'
 
@@ -18,7 +18,6 @@ describe('app-extensions', () => {
             }
           },
           tooltips: {data: {}}
-
         },
         form: {
           detailForm: {
@@ -42,16 +41,18 @@ describe('app-extensions', () => {
         const onChangeSpy = sinon.spy()
         const events = {onChange: onChangeSpy}
 
-        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>
-          <Field
-
-            formField={formField}
-            modelField={modelField}
-            formName={formName}
-            value={value}
-            info={info}
-            events={events}/>
-        </Provider>)
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <Field
+              formField={formField}
+              modelField={modelField}
+              formName={formName}
+              value={value}
+              info={info}
+              events={events}
+            />
+          </Provider>
+        )
 
         expect(wrapper.find(EditableValue)).to.have.length(1)
         expect(wrapper.find(EditableValue).props()).to.have.property('value', 'test')

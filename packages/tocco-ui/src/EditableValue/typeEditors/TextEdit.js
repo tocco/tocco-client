@@ -5,7 +5,7 @@ import {react} from 'tocco-util'
 import TextareaAutosize from '../../TextareaAutosize'
 import {StyledEditableWrapper} from '../StyledEditableValue'
 
-const TextEdit = props =>
+const TextEdit = props => (
   <StyledEditableWrapper immutable={props.immutable}>
     <TextareaAutosize
       id={props.id}
@@ -18,6 +18,7 @@ const TextEdit = props =>
       value={props.value}
     />
   </StyledEditableWrapper>
+)
 
 TextEdit.propTypes = {
   onChange: PropTypes.func,
