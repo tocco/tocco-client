@@ -285,6 +285,10 @@
     "id": "fal, list",
     "lib": "fa"
   },
+  "lock": {
+    "id": "fal, lock",
+    "lib": "fa"
+  },
   "info-circle": {
     "id": "fal, info-circle",
     "lib": "fa",
