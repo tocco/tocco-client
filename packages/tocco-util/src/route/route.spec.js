@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 
 import {loadRoute} from './route'
 
@@ -19,7 +19,7 @@ describe('tocco-util', () => {
 
           const Cmp = loadRoute(null, {}, () => promise)
 
-          const wrapper = mount(<Cmp/>)
+          const wrapper = mount(<Cmp />)
 
           setTimeout(() => {
             wrapper.update()
@@ -41,8 +41,8 @@ describe('tocco-util', () => {
 
           const wrapper = mount(
             <div>
-              <Cmp/>
-              <Cmp2/>
+              <Cmp />
+              <Cmp2 />
             </div>
           )
 
@@ -67,8 +67,8 @@ describe('tocco-util', () => {
 
           const wrapper = mount(
             <div>
-              <Cmp/>
-              <Cmp2/>
+              <Cmp />
+              <Cmp2 />
             </div>
           )
 
@@ -93,8 +93,8 @@ describe('tocco-util', () => {
 
           const wrapper = mount(
             <div>
-              <Cmp/>
-              <Cmp2/>
+              <Cmp />
+              <Cmp2 />
             </div>
           )
 

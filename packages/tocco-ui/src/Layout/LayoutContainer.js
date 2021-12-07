@@ -3,11 +3,7 @@ import React, {useRef, useState, useEffect} from 'react'
 
 import StyledLayoutContainer from './StyledLayoutContainer'
 
-const LayoutContainer = ({
-  children,
-  occupiesRemainingHeight,
-  minBoxWidth
-}) => {
+const LayoutContainer = ({children, occupiesRemainingHeight, minBoxWidth}) => {
   const ref = useRef(null)
   const [containerWidth, setContainerWidth] = useState(0)
 
@@ -26,7 +22,8 @@ const LayoutContainer = ({
       ref={ref}
       containerWidth={containerWidth}
       occupiesRemainingHeight={occupiesRemainingHeight}
-      minBoxWidth={minBoxWidth}>
+      minBoxWidth={minBoxWidth}
+    >
       {children}
     </StyledLayoutContainer>
   )

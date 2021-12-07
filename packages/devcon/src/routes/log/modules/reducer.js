@@ -4,11 +4,13 @@ import * as actions from './actions'
 
 const handleReceiveEntry = (state, {payload}) => ({
   ...state,
-  entries: [{
-    ...payload.data,
-    key: uuid()
-  },
-  ...state.entries]
+  entries: [
+    {
+      ...payload.data,
+      key: uuid()
+    },
+    ...state.entries
+  ]
 })
 
 const ACTION_HANDLERS = {

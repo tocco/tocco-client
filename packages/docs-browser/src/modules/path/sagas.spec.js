@@ -2,8 +2,8 @@ import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {select, call, takeLatest} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
-import * as sagas from './sagas'
 import * as actions from './actions'
+import * as sagas from './sagas'
 
 describe('docs-browser', () => {
   describe('modules', () => {
@@ -12,9 +12,7 @@ describe('docs-browser', () => {
         describe('main saga', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
-            saga.next().all([
-              takeLatest(actions.LOAD_BREADCRUMBS, sagas.loadBreadcrumbs)
-            ])
+            saga.next().all([takeLatest(actions.LOAD_BREADCRUMBS, sagas.loadBreadcrumbs)])
           })
         })
 
@@ -28,9 +26,12 @@ describe('docs-browser', () => {
               .provide([
                 [select(sagas.docsPathSelector), {}],
                 [select(sagas.rootNodesSelector), null],
-                [call(rest.requestSaga, 'documents/breadcrumbs', options), {
-                  body: {breadcrumbs}
-                }]
+                [
+                  call(rest.requestSaga, 'documents/breadcrumbs', options),
+                  {
+                    body: {breadcrumbs}
+                  }
+                ]
               ])
               .put(actions.setBreadcrumbs(breadcrumbs))
               .run()
@@ -45,9 +46,12 @@ describe('docs-browser', () => {
               .provide([
                 [select(sagas.docsPathSelector), {}],
                 [select(sagas.rootNodesSelector), null],
-                [call(rest.requestSaga, 'documents/Folder/45/breadcrumbs', options), {
-                  body: {breadcrumbs}
-                }]
+                [
+                  call(rest.requestSaga, 'documents/Folder/45/breadcrumbs', options),
+                  {
+                    body: {breadcrumbs}
+                  }
+                ]
               ])
               .put(actions.setBreadcrumbs(breadcrumbs))
               .run()
@@ -61,16 +65,25 @@ describe('docs-browser', () => {
             return expectSaga(sagas.loadBreadcrumbs, actions.loadBreadcrumbs(pathname))
               .provide([
                 [select(sagas.docsPathSelector), {}],
-                [select(sagas.rootNodesSelector), [{
-                  entityName: 'Folder',
-                  key: '25'
-                }, {
-                  entityName: 'Folder',
-                  key: '38'
-                }]],
-                [call(rest.requestSaga, 'documents/Folder/45/breadcrumbs', options), {
-                  body: {breadcrumbs}
-                }]
+                [
+                  select(sagas.rootNodesSelector),
+                  [
+                    {
+                      entityName: 'Folder',
+                      key: '25'
+                    },
+                    {
+                      entityName: 'Folder',
+                      key: '38'
+                    }
+                  ]
+                ],
+                [
+                  call(rest.requestSaga, 'documents/Folder/45/breadcrumbs', options),
+                  {
+                    body: {breadcrumbs}
+                  }
+                ]
               ])
               .put(actions.setBreadcrumbs(breadcrumbs))
               .run()
@@ -78,26 +91,29 @@ describe('docs-browser', () => {
 
           test('should load search breadcrumbs', () => {
             const pathname = '/docs/'
-            const breadcrumbs = [{
-              display: 'Dokument',
-              path: '',
-              type: 'list'
-            }, {
-              display: 'Suchresultate',
-              path: '',
-              type: 'list'
-            }]
+            const breadcrumbs = [
+              {
+                display: 'Dokument',
+                path: '',
+                type: 'list'
+              },
+              {
+                display: 'Suchresultate',
+                path: '',
+                type: 'list'
+              }
+            ]
 
             return expectSaga(sagas.loadBreadcrumbs, actions.loadBreadcrumbs(pathname))
               .provide([
-                [select(sagas.docsPathSelector), {
-                  searchMode: true
-                }],
-                [select(sagas.textResourceSelector, 'client.docs-browser.breadcrumbs.start'), 'Dokument'],
                 [
-                  select(sagas.textResourceSelector, 'client.docs-browser.breadcrumbs.searchResults'),
-                  'Suchresultate'
-                ]
+                  select(sagas.docsPathSelector),
+                  {
+                    searchMode: true
+                  }
+                ],
+                [select(sagas.textResourceSelector, 'client.docs-browser.breadcrumbs.start'), 'Dokument'],
+                [select(sagas.textResourceSelector, 'client.docs-browser.breadcrumbs.searchResults'), 'Suchresultate']
               ])
               .put(actions.setBreadcrumbs(breadcrumbs))
               .run()

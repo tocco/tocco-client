@@ -30,9 +30,14 @@ const NotificationCenterButton = () => {
   const redDotElement = useRef(null)
 
   const handleMouseDown = e => {
-    if (popperElement.current && !popperElement.current.contains(e.target)
-      && referenceElement.current && !referenceElement.current.contains(e.target)
-      && redDotElement.current && !redDotElement.current.contains(e.target)) {
+    if (
+      popperElement.current &&
+      !popperElement.current.contains(e.target) &&
+      referenceElement.current &&
+      !referenceElement.current.contains(e.target) &&
+      redDotElement.current &&
+      !redDotElement.current.contains(e.target)
+    ) {
       setVisibility(false)
     }
   }
@@ -46,22 +51,22 @@ const NotificationCenterButton = () => {
 
   const {styles, attributes} = usePopper(referenceElement.current, popperElement.current, {modifiers: popperModifiers})
 
-  return <>
-    <StyledNotificationBellWrapper title="notifications">
-      <StyledBall onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement}/>
-      <span ref={redDotElement}><NotificationCenterRedDotContainer onClick={() => setVisibility(!visible)}/></span>
-    </StyledNotificationBellWrapper>
-    {ReactDOM.createPortal(
-      <StyledPopper
-        ref={popperElement}
-        style={styles.popper}
-        {...attributes.popper}
-      >
-        {visible && <notification.NotificationCenter navigationStrategy={navigationStrategy()}/>}
-      </StyledPopper>,
-      document.body
-    )}
-  </>
+  return (
+    <>
+      <StyledNotificationBellWrapper title="notifications">
+        <StyledBall onClick={() => setVisibility(!visible)} icon="bell" ref={referenceElement} />
+        <span ref={redDotElement}>
+          <NotificationCenterRedDotContainer onClick={() => setVisibility(!visible)} />
+        </span>
+      </StyledNotificationBellWrapper>
+      {ReactDOM.createPortal(
+        <StyledPopper ref={popperElement} style={styles.popper} {...attributes.popper}>
+          {visible && <notification.NotificationCenter navigationStrategy={navigationStrategy()} />}
+        </StyledPopper>,
+        document.body
+      )}
+    </>
+  )
 }
 
 export default NotificationCenterButton

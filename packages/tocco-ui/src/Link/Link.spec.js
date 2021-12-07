@@ -1,6 +1,5 @@
-
-import React from 'react'
 import {mount, shallow} from 'enzyme'
+import React from 'react'
 
 import Icon from '../Icon'
 import Link from './Link'
@@ -8,7 +7,7 @@ import Link from './Link'
 describe('tocco-ui', () => {
   describe('Link', () => {
     test('should have 3 defaultProps', () => {
-      const wrapper = shallow(<Link/>)
+      const wrapper = shallow(<Link />)
       const {breakWords, href, target} = wrapper.props()
       expect(breakWords).to.be.true
       expect(href).to.equal('#')
@@ -33,19 +32,7 @@ describe('tocco-ui', () => {
       )
       wrapper.simulate('click')
       const props = wrapper.props()
-      const {
-        alt,
-        breakWords,
-        children,
-        download,
-        href,
-        neutral,
-        onClick,
-        rel,
-        tabIndex,
-        target,
-        title
-      } = props
+      const {alt, breakWords, children, download, href, neutral, onClick, rel, tabIndex, target, title} = props
       expect(Object.keys(props)).to.have.lengthOf(11)
       expect(alt).to.equal('alt text')
       expect(breakWords).to.be.false
@@ -61,27 +48,27 @@ describe('tocco-ui', () => {
     })
 
     test('should show label as title attribute', () => {
-      const wrapper = mount(<Link breakWords={false} label="label text"/>)
+      const wrapper = mount(<Link breakWords={false} label="label text" />)
       expect(wrapper.find('a').prop('title')).to.be.equal('label text')
     })
 
     test('should not show label as title attribute', () => {
-      const wrapper = mount(<Link breakWords={true} label="label text"/>)
+      const wrapper = mount(<Link breakWords={true} label="label text" />)
       expect(wrapper.find('a').prop('title')).to.be.undefined
     })
 
     test('should display icon', () => {
-      const wrapper = shallow(<Link icon="bar"/>)
+      const wrapper = shallow(<Link icon="bar" />)
       expect(wrapper.find(Icon)).to.have.length(1)
     })
 
     test('should not display icon', () => {
-      const wrapper = shallow(<Link/>)
+      const wrapper = shallow(<Link />)
       expect(wrapper.find('Icon')).to.have.length(0)
     })
 
     test('should display label', () => {
-      const wrapper = shallow(<Link label="label text"/>)
+      const wrapper = shallow(<Link label="label text" />)
       expect(wrapper.text()).to.equal('label text')
     })
 

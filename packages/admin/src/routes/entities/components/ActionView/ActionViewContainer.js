@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import ActionView from './ActionView'
 import {setCurrentViewTitle} from '../../modules/path/actions'
+import ActionView from './ActionView'
 const mapActionCreators = {
   setCurrentViewTitle
 }

@@ -1,5 +1,5 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import FullTextSearchForm from '../components/FullTextSearchForm'
 import {submitSearchForm} from '../modules/searchForm/actions'

@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import MergeSummary from './MergeSummary'
 import {close} from '../../modules/merge/actions'
+import MergeSummary from './MergeSummary'
 
 const mapActionCreators = {
   close

@@ -1,6 +1,6 @@
+import _omit from 'lodash/omit'
 import React from 'react'
 import {mockData} from 'tocco-util'
-import _omit from 'lodash/omit'
 
 import * as forms from './forms'
 
@@ -10,17 +10,20 @@ describe('entity-list', () => {
       describe('forms', () => {
         describe('getSorting', () => {
           test('should return sorting array of table', () => {
-            const sorting = [{
-              field: 'user_nr',
-              order: 'asc'
-            }]
+            const sorting = [
+              {
+                field: 'user_nr',
+                order: 'asc'
+              }
+            ]
             const formDefinition = {
-
-              children: [{
-                layoutType: 'table',
-                componentType: 'table',
-                sorting
-              }]
+              children: [
+                {
+                  layoutType: 'table',
+                  componentType: 'table',
+                  sorting
+                }
+              ]
             }
             const result = forms.getSorting(formDefinition)
             expect(result).to.eql(sorting)
@@ -28,10 +31,12 @@ describe('entity-list', () => {
 
           test('should return empty array in case of no sorting', () => {
             const formDefinition = {
-              children: [{
-                layoutType: 'table',
-                componentType: 'table'
-              }]
+              children: [
+                {
+                  layoutType: 'table',
+                  componentType: 'table'
+                }
+              ]
             }
             const result = forms.getSorting(formDefinition)
             expect(result).to.eql([])
@@ -54,7 +59,8 @@ describe('entity-list', () => {
                   widthFixed: false,
                   width: null,
                   shrinkToContent: true
-                }, {
+                },
+                {
                   id: 'lb2',
                   label: 'label2',
                   children: [field2],
@@ -63,7 +69,6 @@ describe('entity-list', () => {
                   width: 500
                 }
               ]
-
             }
 
             const result = forms.getColumnDefinition({table: formDefinition})
@@ -107,7 +112,8 @@ describe('entity-list', () => {
                   sortable: true,
                   widthFixed: false,
                   width: null
-                }, {
+                },
+                {
                   hidden: false,
                   id: 'lb2',
                   label: 'label2',
@@ -146,7 +152,8 @@ describe('entity-list', () => {
                   widthFixed: false,
                   width: null,
                   children: [displayableField]
-                }, {
+                },
+                {
                   hidden: false,
                   id: 'lb2',
                   label: 'label2',
@@ -190,7 +197,7 @@ describe('entity-list', () => {
 
             const cellRenderers = {
               'my-test-renderer': (rowData, column, defaultRenderer) => {
-                return <CustomComponent text={rowData.text}/>
+                return <CustomComponent text={rowData.text} />
               }
             }
 
@@ -206,7 +213,7 @@ describe('entity-list', () => {
               }
             })
 
-            expect(result).to.eql(<CustomComponent text="foo"/>)
+            expect(result).to.eql(<CustomComponent text="foo" />)
           })
 
           test('should set columns as not sortable if set', () => {
@@ -224,7 +231,8 @@ describe('entity-list', () => {
                   widthFixed: false,
                   width: null,
                   shrinkToContent: true
-                }, {
+                },
+                {
                   id: 'lb2',
                   label: 'label2',
                   children: [field2],
@@ -233,7 +241,6 @@ describe('entity-list', () => {
                   width: 500
                 }
               ]
-
             }
 
             const result = forms.getColumnDefinition({table: formDefinition, sortable: false})
@@ -251,37 +258,51 @@ describe('entity-list', () => {
         describe('getFields', () => {
           test('should return array of all fields but none more than once', () => {
             const formDefinition = {
-              children: [{
-                componentType: 'table',
-                layoutType: 'table',
-                children: [
-                  {
-                    hidden: false,
-                    id: 'lb1',
-                    label: 'Fullname',
-                    useLabel: 'YES',
-                    componentType: 'layout',
-                    layoutType: 'vertical-box',
-                    children: [
-                      {path: 'firstname', dataType: 'text', componentType: 'field', hidden: false, label: 'Firstname'},
-                      {path: 'lastname', dataType: 'text', componentType: 'field', hidden: false, label: 'Lastname'}],
-                    sortable: true
-                  },
-                  {
-                    hidden: false,
-                    name: 'lb3',
-                    label: null,
-                    componentType: 'layout',
-                    layoutType: 'vertical-box',
-                    children: [
-                      {path: 'firstname', dataType: 'text', componentType: 'field', hidden: false, label: 'Firstname'},
-                      {path: 'email', dataType: 'text', componentType: 'field', hidden: false, label: 'Mail'}
-
-                    ],
-                    sortable: true
-                  }
-                ]
-              }]
+              children: [
+                {
+                  componentType: 'table',
+                  layoutType: 'table',
+                  children: [
+                    {
+                      hidden: false,
+                      id: 'lb1',
+                      label: 'Fullname',
+                      useLabel: 'YES',
+                      componentType: 'layout',
+                      layoutType: 'vertical-box',
+                      children: [
+                        {
+                          path: 'firstname',
+                          dataType: 'text',
+                          componentType: 'field',
+                          hidden: false,
+                          label: 'Firstname'
+                        },
+                        {path: 'lastname', dataType: 'text', componentType: 'field', hidden: false, label: 'Lastname'}
+                      ],
+                      sortable: true
+                    },
+                    {
+                      hidden: false,
+                      name: 'lb3',
+                      label: null,
+                      componentType: 'layout',
+                      layoutType: 'vertical-box',
+                      children: [
+                        {
+                          path: 'firstname',
+                          dataType: 'text',
+                          componentType: 'field',
+                          hidden: false,
+                          label: 'Firstname'
+                        },
+                        {path: 'email', dataType: 'text', componentType: 'field', hidden: false, label: 'Mail'}
+                      ],
+                      sortable: true
+                    }
+                  ]
+                }
+              ]
             }
 
             const result = forms.getFields(formDefinition)
@@ -292,40 +313,42 @@ describe('entity-list', () => {
 
           test('should ignore actions and other fields', () => {
             const formDefinition = {
-              children: [{
-                componentType: 'table',
-                layoutType: 'table',
-                children: [
-                  {
-                    hidden: false,
-                    id: 'box2',
-                    label: null,
-                    componentType: 'layout',
-                    layoutType: 'vertical-box',
-                    children: [
-                      {
-                        id: 'description',
-                        path: 'description',
-                        componentType: 'field'
-                      },
-                      {
-                        componentType: 'action',
-                        id: 'exampleSimpelAction'
-                      },
-                      {
-                        componentType: 'field',
-                        id: 'firstname',
-                        path: 'firstname'
-                      },
-                      {
-                        id: 'displayExpression',
-                        componentType: 'display'
-                      }
-                    ],
-                    sortable: true
-                  }
-                ]
-              }]
+              children: [
+                {
+                  componentType: 'table',
+                  layoutType: 'table',
+                  children: [
+                    {
+                      hidden: false,
+                      id: 'box2',
+                      label: null,
+                      componentType: 'layout',
+                      layoutType: 'vertical-box',
+                      children: [
+                        {
+                          id: 'description',
+                          path: 'description',
+                          componentType: 'field'
+                        },
+                        {
+                          componentType: 'action',
+                          id: 'exampleSimpelAction'
+                        },
+                        {
+                          componentType: 'field',
+                          id: 'firstname',
+                          path: 'firstname'
+                        },
+                        {
+                          id: 'displayExpression',
+                          componentType: 'display'
+                        }
+                      ],
+                      sortable: true
+                    }
+                  ]
+                }
+              ]
             }
 
             const result = forms.getFields(formDefinition)
@@ -335,52 +358,54 @@ describe('entity-list', () => {
 
           test('should return relationFields and displayExpressions', () => {
             const formDefinition = {
-              children: [{
-                componentType: 'table',
-                layoutType: 'table',
-                children: [
-                  {
-                    hidden: false,
-                    id: 'box2',
-                    label: null,
-                    componentType: 'layout',
-                    layoutType: 'vertical-box',
-                    children: [
-                      {
-                        id: 'relUser',
-                        path: 'relUser',
-                        componentType: 'field',
-                        dataType: 'single-select-box'
-                      },
-                      {
-                        componentType: 'action',
-                        id: 'exampleSimpelAction'
-                      },
-                      {
-                        componentType: 'field',
+              children: [
+                {
+                  componentType: 'table',
+                  layoutType: 'table',
+                  children: [
+                    {
+                      hidden: false,
+                      id: 'box2',
+                      label: null,
+                      componentType: 'layout',
+                      layoutType: 'vertical-box',
+                      children: [
+                        {
+                          id: 'relUser',
+                          path: 'relUser',
+                          componentType: 'field',
+                          dataType: 'single-select-box'
+                        },
+                        {
+                          componentType: 'action',
+                          id: 'exampleSimpelAction'
+                        },
+                        {
+                          componentType: 'field',
 
-                        id: 'firstname',
-                        path: 'firstname'
-                      },
-                      {
-                        id: 'display1',
-                        componentType: 'display'
-                      },
-                      {
-                        id: 'display2',
-                        componentType: 'display'
-                      },
-                      {
-                        id: 'relXy',
-                        path: 'relXy',
-                        componentType: 'field',
-                        dataType: 'multi-remote-field'
-                      }
-                    ],
-                    sortable: true
-                  }
-                ]
-              }]
+                          id: 'firstname',
+                          path: 'firstname'
+                        },
+                        {
+                          id: 'display1',
+                          componentType: 'display'
+                        },
+                        {
+                          id: 'display2',
+                          componentType: 'display'
+                        },
+                        {
+                          id: 'relXy',
+                          path: 'relXy',
+                          componentType: 'field',
+                          dataType: 'multi-remote-field'
+                        }
+                      ],
+                      sortable: true
+                    }
+                  ]
+                }
+              ]
             }
 
             const result = forms.getFields(formDefinition)
@@ -391,11 +416,13 @@ describe('entity-list', () => {
 
         describe('getSelectable', () => {
           const getFormDefinition = selectable => ({
-            children: [{
-              layoutType: 'table',
-              componentType: 'table',
-              ...(selectable !== null ? {selectable} : {})
-            }]
+            children: [
+              {
+                layoutType: 'table',
+                componentType: 'table',
+                ...(selectable !== null ? {selectable} : {})
+              }
+            ]
           })
 
           test('should return selectable boolean of the form definition', () => {
@@ -416,11 +443,13 @@ describe('entity-list', () => {
 
         describe('getClickable', () => {
           const getFormDefinition = clickable => ({
-            children: [{
-              layoutType: 'table',
-              componentType: 'table',
-              ...(clickable !== null ? {clickable} : {})
-            }]
+            children: [
+              {
+                layoutType: 'table',
+                componentType: 'table',
+                ...(clickable !== null ? {clickable} : {})
+              }
+            ]
           })
 
           test('should return clickable boolean of the form definition', () => {
@@ -441,11 +470,13 @@ describe('entity-list', () => {
 
         describe('getEndpoint', () => {
           const getFormDefinition = endpoint => ({
-            children: [{
-              layoutType: 'table',
-              componentType: 'table',
-              ...(endpoint !== null ? {endpoint} : {})
-            }]
+            children: [
+              {
+                layoutType: 'table',
+                componentType: 'table',
+                ...(endpoint !== null ? {endpoint} : {})
+              }
+            ]
           })
 
           test('should return endpoint', () => {
@@ -467,11 +498,13 @@ describe('entity-list', () => {
 
         describe('getSearchEndpoint', () => {
           const getFormDefinition = searchEndpoint => ({
-            children: [{
-              layoutType: 'table',
-              componentType: 'table',
-              ...(searchEndpoint !== null ? {searchEndpoint} : {})
-            }]
+            children: [
+              {
+                layoutType: 'table',
+                componentType: 'table',
+                ...(searchEndpoint !== null ? {searchEndpoint} : {})
+              }
+            ]
           })
 
           test('should return search endpoint', () => {
@@ -493,11 +526,13 @@ describe('entity-list', () => {
 
         describe('getConstriction', () => {
           const getFormDefinition = constriction => ({
-            children: [{
-              layoutType: 'table',
-              componentType: 'table',
-              ...(constriction !== null ? {constriction} : {})
-            }]
+            children: [
+              {
+                layoutType: 'table',
+                componentType: 'table',
+                ...(constriction !== null ? {constriction} : {})
+              }
+            ]
           })
 
           test('should return constriction', () => {

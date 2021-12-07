@@ -12,9 +12,7 @@ describe('app-extensions', () => {
           test('should return settings from server', () => {
             const settings = {runEnv: 'TEST', captchaKey: 'xaho34nLKN'}
             return expectSaga(fetchServerSettings)
-              .provide([
-                [call(requestSaga, 'client/settings'), {body: settings}]
-              ])
+              .provide([[call(requestSaga, 'client/settings'), {body: settings}]])
               .returns(settings)
               .run()
           })

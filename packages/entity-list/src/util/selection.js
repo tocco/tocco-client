@@ -3,9 +3,11 @@ import _uniq from 'lodash/uniq'
 import selectionStyles from './selectionStyles'
 
 export const showSelectionComponent = (inputSelectionStyle, disableSelectionController, formSelectable) => {
-  return disableSelectionController !== true
-    && (!inputSelectionStyle || inputSelectionStyle === selectionStyles.MULTI)
-    && formSelectable !== false
+  return (
+    disableSelectionController !== true &&
+    (!inputSelectionStyle || inputSelectionStyle === selectionStyles.MULTI) &&
+    formSelectable !== false
+  )
 }
 
 export const getTableSelectionStyle = (inputSelectionStyle, fromSelectable) => {

@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import StyledSignalBox, {ALLOWED_CONDITIONS} from './StyledSignalBox'
 import Typography from '../Typography'
 import {design} from '../utilStyles'
+import StyledSignalBox, {ALLOWED_CONDITIONS} from './StyledSignalBox'
 
 /**
  * Emphasize important information by context. Group them by utilizing several instances of <SignalBox/>.
  */
-const SignalBox = props =>
+const SignalBox = props => (
   <StyledSignalBox condition={props.condition}>
     {props.title && <Typography.H5>{props.title}</Typography.H5>}
     {React.Children.map(props.children, child => React.cloneElement(child))}
     {props.meta && <Typography.Small>{props.meta}</Typography.Small>}
   </StyledSignalBox>
+)
 
 SignalBox.defaultProps = {
   condition: design.condition.BASE

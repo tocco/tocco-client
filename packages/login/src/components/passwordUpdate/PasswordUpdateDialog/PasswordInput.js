@@ -9,8 +9,8 @@ const PasswordInput = props => {
     ? props.valid === undefined
       ? null
       : props.valid
-        ? design.condition.SUCCESS
-        : design.condition.DANGER
+      ? design.condition.SUCCESS
+      : design.condition.DANGER
     : null
 
   return (

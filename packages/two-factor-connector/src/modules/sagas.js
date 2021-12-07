@@ -1,7 +1,7 @@
+import _get from 'lodash/get'
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
 import {rest, externalEvents} from 'tocco-app-extensions'
 import {request} from 'tocco-util'
-import _get from 'lodash/get'
 
 import * as actions from './actions'
 
@@ -38,31 +38,30 @@ function* activateTwoFactorWithoutSession(secret, userCode, username, password) 
     password
   }
 
-  const response = yield call(sendRequest, 'login',
-    {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-      }),
-      body: Object.keys(data)
-        .filter(k => !!data[k])
-        .sort()
-        .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
-    })
+  const response = yield call(sendRequest, 'login', {
+    method: 'POST',
+    headers: new Headers({
+      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+    }),
+    body: Object.keys(data)
+      .filter(k => !!data[k])
+      .sort()
+      .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`)
+      .join('&')
+  })
 
   yield put(actions.setSetupSuccessful(_get(response, 'body.TWOSTEPLOGIN_ACTIVATION.success', false)))
 }
 
 function* activateTwoFactor(username, secret, code) {
-  const codeVerifyResponse = yield call(rest.requestSaga, `principals/${username}/two-factor`,
-    {
-      method: 'POST',
-      body: {
-        secret,
-        code
-      },
-      acceptedStatusCodes: [400]
-    })
+  const codeVerifyResponse = yield call(rest.requestSaga, `principals/${username}/two-factor`, {
+    method: 'POST',
+    body: {
+      secret,
+      code
+    },
+    acceptedStatusCodes: [400]
+  })
 
   yield put(actions.setSetupSuccessful(codeVerifyResponse.status === 204))
 }

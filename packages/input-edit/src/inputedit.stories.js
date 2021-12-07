@@ -14,7 +14,4 @@ export default {
   }
 }
 
-export const Basic = args => <InputEditApp
-  key={uuid()}
-  {...args}
-/>
+export const Basic = args => <InputEditApp key={uuid()} {...args} />

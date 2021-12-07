@@ -1,18 +1,10 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-import {StyledInfoBoxWrapper, StyledResizeHandle} from './StyledComponents'
 import InfoBox from '../InfoBox/InfoBox'
+import {StyledInfoBoxWrapper, StyledResizeHandle} from './StyledComponents'
 
-const DashboardInfoBox = ({
-  infoBox,
-  isResizing,
-  startResize,
-  onDragStart,
-  onDragEnter,
-  onDragOver,
-  onDrop
-}) => {
+const DashboardInfoBox = ({infoBox, isResizing, startResize, onDragStart, onDragEnter, onDragOver, onDrop}) => {
   const {id, type, label, height, content} = infoBox
   return (
     <StyledInfoBoxWrapper key={`${type}-${id}`} id={`infobox-${id}`}>
@@ -27,10 +19,7 @@ const DashboardInfoBox = ({
         onDragOver={onDragOver}
         onDrop={onDrop}
       />
-      <StyledResizeHandle
-        onMouseDown={startResize}
-        isReszing={isResizing}
-      />
+      <StyledResizeHandle onMouseDown={startResize} isReszing={isResizing} />
     </StyledInfoBoxWrapper>
   )
 }

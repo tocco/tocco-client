@@ -1,6 +1,6 @@
+import _union from 'lodash/union'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import _union from 'lodash/union'
 import {consoleLogger, intl} from 'tocco-util'
 
 import errorLogging from '../errorLogging'
@@ -8,15 +8,12 @@ import App from './App'
 
 export const inputDispatchActionType = 'app/INPUT_DISPATCHED'
 
-export const createApp = (name,
+export const createApp = (
+  name,
   content,
   store,
-  {
-    input = {},
-    actions = undefined,
-    publicPath = undefined,
-    textResourceModules = []
-  }) => {
+  {input = {}, actions = undefined, publicPath = undefined, textResourceModules = []}
+) => {
   try {
     const theme = input.customTheme
 
@@ -26,13 +23,13 @@ export const createApp = (name,
 
     if (actions) {
       dispatchActions(actions, store)
-      store.dispatch(({type: inputDispatchActionType}))
+      store.dispatch({type: inputDispatchActionType})
     }
 
     const initIntlPromise = setupIntl(input, store, name, textResourceModules)
 
     return {
-      component: <App store={store} initIntlPromise={initIntlPromise} name={name} content={content} theme={theme}/>,
+      component: <App store={store} initIntlPromise={initIntlPromise} name={name} content={content} theme={theme} />,
       store,
       methods: {
         setLocale: locale => intl.changeLocale(store, textResourceModules, locale)

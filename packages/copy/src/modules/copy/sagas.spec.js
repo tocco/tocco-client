@@ -1,7 +1,7 @@
-import {externalEvents, form, rest, selection as selectionUtil} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {select, takeLatest, all} from 'redux-saga/effects'
+import {externalEvents, form, rest, selection as selectionUtil} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -13,9 +13,7 @@ describe('copy', () => {
         describe('rootSaga', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              takeLatest(actions.START_COPY, sagas.copy)
-            ]))
+            expect(generator.next().value).to.deep.equal(all([takeLatest(actions.START_COPY, sagas.copy)]))
             expect(generator.next().done).to.be.true
           })
         })
@@ -29,8 +27,7 @@ describe('copy', () => {
                 keys: ['1']
               },
               navigationStrategy: {
-                navigateToCreateRelative: () => {
-                }
+                navigateToCreateRelative: () => {}
               },
               context: {
                 formName: 'User_Test'
@@ -144,7 +141,6 @@ describe('copy', () => {
               .provide([
                 [matchers.call.fn(sagas.getPaths), paths],
                 [matchers.call.fn(rest.fetchEntity), sourceEntity]
-
               ])
               .returns(expectedResult)
               .run()

@@ -1,10 +1,6 @@
-import React from 'react'
 import {createBrowserHistory} from 'history'
-import {
-  errorLogging,
-  appFactory,
-  notification
-} from 'tocco-app-extensions'
+import React from 'react'
+import {errorLogging, appFactory, notification} from 'tocco-app-extensions'
 import {route} from 'tocco-util'
 
 const packageName = 'devcon'
@@ -15,27 +11,22 @@ const initApp = (id, input, events, publicPath) => {
   notification.addToStore(store, true)
 
   const history = createBrowserHistory({
-    ...input.baseRoute && {basename: input.baseRoute}
+    ...(input.baseRoute && {basename: input.baseRoute})
   })
   const routes = require('./routes/index').default(store, input)
 
-  const content = <route.Router history={history} routes={routes}/>
+  const content = <route.Router history={history} routes={routes} />
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 

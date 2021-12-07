@@ -1,5 +1,5 @@
-import fetchMock from 'fetch-mock'
 import ace from 'ace-builds/src-min-noconflict/ace'
+import fetchMock from 'fetch-mock'
 import 'ace-builds/src-min-noconflict/ext-language_tools'
 
 import TqlAutoCompleter from './TqlAutoCompleter'
@@ -10,19 +10,15 @@ describe('tocco-ui', () => {
     describe('TqlAutoCompleter', () => {
       let aceSession
 
-      const runTest = async(expectedCompletions, positionToCompleteFrom, completionCallbacksToSkip = 0) => {
-        const completions = await new Promise(resolve => TqlAutoCompleter().getCompletions(
-          null,
-          aceSession,
-          positionToCompleteFrom,
-          '',
-          (errors, result) => {
+      const runTest = async (expectedCompletions, positionToCompleteFrom, completionCallbacksToSkip = 0) => {
+        const completions = await new Promise(resolve =>
+          TqlAutoCompleter().getCompletions(null, aceSession, positionToCompleteFrom, '', (errors, result) => {
             if (completionCallbacksToSkip <= 0) {
               resolve(result)
             }
             completionCallbacksToSkip--
-          }
-        ))
+          })
+        )
         expect(completions).to.deep.equals(expectedCompletions)
       }
 
@@ -77,7 +73,7 @@ describe('tocco-ui', () => {
         aceSession.destroy()
       })
 
-      test('should load available models', async() => {
+      test('should load available models', async () => {
         const expectedCompletions = [
           {caption: 'First', value: 'First', meta: 'model', score: 1000},
           {caption: 'Second', value: 'Second', meta: 'model', score: 1000}
@@ -86,7 +82,7 @@ describe('tocco-ui', () => {
         await runTest(expectedCompletions, {row: 0, column: 5})
       })
 
-      test('should load available functions', async() => {
+      test('should load available functions', async () => {
         const expectedCompletions = functions.map(f => ({
           caption: f.toUpperCase(),
           value: f.toUpperCase() + '()',
@@ -97,7 +93,7 @@ describe('tocco-ui', () => {
         await runTest(expectedCompletions, {row: 0, column: 17})
       })
 
-      test('should load available model paths', async() => {
+      test('should load available model paths', async () => {
         const expectedCompletions = [
           {caption: 'field (string)', value: 'field', meta: 'field', score: 1000},
           {caption: 'relRelation', value: 'relRelation', meta: 'relation', score: 1000}
@@ -106,7 +102,7 @@ describe('tocco-ui', () => {
         await runTest(expectedCompletions, {row: 0, column: 17}, 1)
       })
 
-      test('should load available model paths in order by', async() => {
+      test('should load available model paths in order by', async () => {
         const expectedCompletions = [
           {caption: 'field (string)', value: 'field', meta: 'field', score: 1000},
           {caption: 'relRelation', value: 'relRelation', meta: 'relation', score: 1000}
@@ -115,7 +111,7 @@ describe('tocco-ui', () => {
         await runTest(expectedCompletions, {row: 0, column: 55})
       })
 
-      test('should load available relation paths', async() => {
+      test('should load available relation paths', async () => {
         const expectedCompletions = [
           {caption: 'some_field (int)', value: 'some_field', meta: 'field', score: 1000},
           {caption: 'relAnother_model', value: 'relAnother_model', meta: 'relation', score: 1000},
@@ -125,7 +121,7 @@ describe('tocco-ui', () => {
         await runTest(expectedCompletions, {row: 0, column: 29})
       })
 
-      test('should load available types', async() => {
+      test('should load available types', async () => {
         const expectedCompletions = types.map(t => ({
           caption: t,
           value: t + ':',
@@ -136,7 +132,7 @@ describe('tocco-ui', () => {
         await runTest(expectedCompletions, {row: 0, column: 43})
       })
 
-      test('should load available placeholders', async() => {
+      test('should load available placeholders', async () => {
         const expectedCompletions = placeholders.map(p => ({
           caption: p,
           value: ':' + p,

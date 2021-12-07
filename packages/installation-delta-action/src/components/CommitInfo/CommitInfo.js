@@ -1,7 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography as T, FormattedValue} from 'tocco-ui'
+import React from 'react'
 import styled from 'styled-components'
+import {Typography as T, FormattedValue} from 'tocco-ui'
 
 const TimeWrapper = styled.span`
   time {
@@ -11,9 +11,20 @@ const TimeWrapper = styled.span`
 
 const CommitInfo = ({commitId, author, commitTimestamp}) => (
   <T.Span>
-    <T.P><T.B>Commit: </T.B>{commitId}</T.P>
-    <T.P><T.B>Author: </T.B>{author}</T.P>
-    <T.P><T.B>Merge am: </T.B><TimeWrapper><FormattedValue type="datetime" value={commitTimestamp}/></TimeWrapper></T.P>
+    <T.P>
+      <T.B>Commit: </T.B>
+      {commitId}
+    </T.P>
+    <T.P>
+      <T.B>Author: </T.B>
+      {author}
+    </T.P>
+    <T.P>
+      <T.B>Merge am: </T.B>
+      <TimeWrapper>
+        <FormattedValue type="datetime" value={commitTimestamp} />
+      </TimeWrapper>
+    </T.P>
   </T.Span>
 )
 

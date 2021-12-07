@@ -16,7 +16,7 @@ describe('admin', () => {
                 userPreferences: {}
               }
             }
-            
+
             const isOpen = menuIsOpenPrefrencesSelector(state, props)
 
             expect(isOpen).to.be.false
@@ -35,7 +35,7 @@ describe('admin', () => {
                 }
               }
             }
-            
+
             const isOpen = menuIsOpenPrefrencesSelector(state, props)
 
             expect(isOpen).to.be.true
@@ -54,7 +54,7 @@ describe('admin', () => {
                 }
               }
             }
-            
+
             const isOpen = menuIsOpenPrefrencesSelector(state, props)
 
             expect(isOpen).to.be.false
@@ -73,7 +73,7 @@ describe('admin', () => {
                 }
               }
             }
-            
+
             const isOpen = menuIsOpenPrefrencesSelector(state, props)
 
             expect(isOpen).to.be.undefined

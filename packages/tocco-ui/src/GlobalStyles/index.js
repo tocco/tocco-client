@@ -1,5 +1,3 @@
 import GlobalStyles from './GlobalStyles'
 
-export {
-  GlobalStyles as default
-}
+export {GlobalStyles as default}

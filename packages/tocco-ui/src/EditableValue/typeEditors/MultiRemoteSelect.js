@@ -18,10 +18,7 @@ MultiRemoteSelect.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.arrayOf(
     PropTypes.shape({
-      key: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ])
+      key: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     })
   ),
   options: PropTypes.shape({

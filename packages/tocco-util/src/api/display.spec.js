@@ -13,7 +13,8 @@ describe('entity-list', () => {
                 __model: 'User',
                 relMulti_entity1: [
                   {model: 'Multi_entity', key: '22'},
-                  {model: 'Multi_entity', key: '44'}]
+                  {model: 'Multi_entity', key: '44'}
+                ]
               },
               {__key: '3', __model: 'User', relMulti_entity1: [{model: 'Multi_entity', key: '11'}]},
               {__key: '4', __model: 'User', relMulti_entity2: [{model: 'Multi_entity2', key: '1'}]}
@@ -36,7 +37,11 @@ describe('entity-list', () => {
 
         describe('entityListToDisplayRequest', () => {
           test('should return a object separated by model', () => {
-            const input = [{key: '1', model: 'Gender'}, {key: '22', model: 'Local'}, {key: '2', model: 'Gender'}]
+            const input = [
+              {key: '1', model: 'Gender'},
+              {key: '22', model: 'Local'},
+              {key: '2', model: 'Gender'}
+            ]
             const result = getDisplayRequest(input)
 
             const expectedResult = {

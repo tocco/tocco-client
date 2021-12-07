@@ -22,10 +22,12 @@ describe('tocco-util', () => {
 
         const resource = '/nice2/rest/actions/simpleAction'
 
-        fetch(resource, {method: 'POST'}).then(res => res.json()).then(res => {
-          expect(res.success).to.be.true
-          done()
-        })
+        fetch(resource, {method: 'POST'})
+          .then(res => res.json())
+          .then(res => {
+            expect(res.success).to.be.true
+            done()
+          })
       })
 
       const validationErrorUrl = '/nice2/rest/actions/validationError'

@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import CheckEvents from './CheckEvents'
 import {setSelected, generateSql, generateChangelog} from '../../modules/actions'
+import CheckEvents from './CheckEvents'
 
 const mapStateToProps = state => ({
   checkEvents: state.modelValidation.checkEvents,

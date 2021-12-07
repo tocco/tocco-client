@@ -1,6 +1,4 @@
-import {
-  addToStore
-} from './cache'
+import {addToStore} from './cache'
 
 export default {
   addToStore

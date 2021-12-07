@@ -1,7 +1,5 @@
 import styled from 'styled-components'
-import {
-  scale
-} from 'tocco-ui'
+import {scale} from 'tocco-ui'
 
 const StyledNavigationFullCalendar = styled.div`
   display: flex;

@@ -1,18 +1,18 @@
 import {Server} from 'mock-socket'
 
 import env from '../env'
-import {setupForms} from './forms'
-import {setupEntities} from './entities'
 import {setupActions} from './actions'
-import {setupPreferences} from './preferences'
-import {setupReports} from './reports'
-import {setupUpload} from './upload'
-import {setupSession} from './session'
-import {setupTextResources} from './textResource'
+import {setupEntities} from './entities'
+import {setupForms} from './forms'
 import {setupLocation} from './location'
 import {setupLog} from './log'
-import {setupSettings} from './settings'
+import {setupPreferences} from './preferences'
 import {setupPrincipals} from './principals'
+import {setupReports} from './reports'
+import {setupSession} from './session'
+import {setupSettings} from './settings'
+import {setupTextResources} from './textResource'
+import {setupUpload} from './upload'
 
 let webSocketServer = null
 

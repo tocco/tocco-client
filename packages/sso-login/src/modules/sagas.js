@@ -1,5 +1,5 @@
-import {externalEvents, rest} from 'tocco-app-extensions'
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
+import {externalEvents, rest} from 'tocco-app-extensions'
 import {cache, intl} from 'tocco-util'
 
 import {transformProviderEntities} from '../utils/providers'
@@ -32,8 +32,5 @@ export function* loginCompleted({payload: {result}}) {
 }
 
 export default function* mainSagas() {
-  yield all([
-    takeLatest(actions.LOAD_PROVIDERS, loadProviders),
-    takeLatest(actions.LOGIN_COMPLETED, loginCompleted)
-  ])
+  yield all([takeLatest(actions.LOAD_PROVIDERS, loadProviders), takeLatest(actions.LOGIN_COMPLETED, loginCompleted)])
 }

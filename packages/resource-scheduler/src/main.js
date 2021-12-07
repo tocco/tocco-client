@@ -1,6 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {reducer as reducerUtil} from 'tocco-util'
+import React from 'react'
 import {
   actionEmitter,
   appFactory,
@@ -11,22 +10,23 @@ import {
   selection as selectionPropType
 } from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'
+import {reducer as reducerUtil} from 'tocco-util'
 
-import reducers, {sagas} from './modules/reducers'
 import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
+import reducers, {sagas} from './modules/reducers'
 import {setHandleNotifications, updateRequestedCalendars} from './modules/resourceScheduler/actions'
 
 const packageName = 'resource-scheduler'
 
-const EXTERNAL_EVENTS = [
-  'onEventClick'
-]
+const EXTERNAL_EVENTS = ['onEventClick']
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <>
-    <GlobalStyles/>
-    <ResourceSchedulerContainer/>
-  </>
+  const content = (
+    <>
+      <GlobalStyles />
+      <ResourceSchedulerContainer />
+    </>
+  )
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store, events.emitAction)
@@ -38,28 +38,25 @@ const initApp = (id, input, events, publicPath) => {
   cache.addToStore(store)
 
   const dispatchActions = [
-    ...(input.selection && input.selection.type === 'ID'
-      && input.actionProperties && input.actionProperties.calendarType
+    ...(input.selection &&
+    input.selection.type === 'ID' &&
+    input.actionProperties &&
+    input.actionProperties.calendarType
       ? [updateRequestedCalendars(input.actionProperties.calendarType, input.selection.ids)]
       : []),
     setHandleNotifications(handleNotifications)
   ]
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: dispatchActions,
-      publicPath,
-      textResourceModules: ['component', 'common', packageName, 'entity-list', 'scheduler']
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: dispatchActions,
+    publicPath,
+    textResourceModules: ['component', 'common', packageName, 'entity-list', 'scheduler']
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === 'resource-scheduler') {
     appFactory.registerAppInRegistry(packageName, initApp)
 

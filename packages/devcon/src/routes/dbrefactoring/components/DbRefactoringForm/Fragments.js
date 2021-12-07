@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {Typography} from 'tocco-ui'
 
 const Fragments = ({fragments, selectedFragments, disabled, setFragmentSelected}) => {
@@ -26,10 +26,12 @@ const Fragments = ({fragments, selectedFragments, disabled, setFragmentSelected}
 }
 
 Fragments.propTypes = {
-  fragments: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string
-  })).isRequired,
+  fragments: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      label: PropTypes.string
+    })
+  ).isRequired,
   selectedFragments: PropTypes.arrayOf(PropTypes.string).isRequired,
   disabled: PropTypes.bool,
   setFragmentSelected: PropTypes.func.isRequired

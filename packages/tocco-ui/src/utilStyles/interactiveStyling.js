@@ -44,11 +44,7 @@ const getHoverBackgroundColor = (ink, look, theme) => {
 }
 
 const getMatchingFontColor = (color, theme) =>
-  readableColor(
-    color,
-    themeSelector.color('text')({theme}),
-    themeSelector.color('paper')({theme})
-  )
+  readableColor(color, themeSelector.color('text')({theme}), themeSelector.color('paper')({theme}))
 
 export default props => {
   const {ink, look, theme} = props
@@ -59,28 +55,28 @@ export default props => {
   const hoverFontColor = getHoverFontColor(ink, look, theme, backgroundColor)
 
   return css`
-  background: ${backgroundColor};
-  color: ${fontColor};
-  box-shadow: ${border};
-  outline: none;
-  border: none;
+    background: ${backgroundColor};
+    color: ${fontColor};
+    box-shadow: ${border};
+    outline: none;
+    border: none;
 
-  &:focus,
-  &:hover {
-    background: ${hoverBackgroundColor};
-    color: ${hoverFontColor};
-  }
+    &:focus,
+    &:hover {
+      background: ${hoverBackgroundColor};
+      color: ${hoverFontColor};
+    }
 
-  &:active,
-  &[aria-pressed='true'] {
-    background: ${lighten(0.1, hoverBackgroundColor)};
-  }
+    &:active,
+    &[aria-pressed='true'] {
+      background: ${lighten(0.1, hoverBackgroundColor)};
+    }
 
-  &:disabled,
-  &[disabled] {
-    background: ${tint(0.41, backgroundColor)};
-    color: ${tint(0.75, fontColor)};
-    cursor: not-allowed;
-  }
-`
+    &:disabled,
+    &[disabled] {
+      background: ${tint(0.41, backgroundColor)};
+      color: ${tint(0.75, fontColor)};
+      cursor: not-allowed;
+    }
+  `
 }

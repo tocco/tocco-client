@@ -18,15 +18,12 @@ describe('entity-detail', () => {
           expect(result).to.be.true
         })
 
-        test(
-          'should return `false` if modelPaths is empty and initialKey is a number',
-          () => {
-            const initialKey = '123'
-            const modelPaths = []
-            const result = showBackButton(initialKey, modelPaths)
-            expect(result).to.be.false
-          }
-        )
+        test('should return `false` if modelPaths is empty and initialKey is a number', () => {
+          const initialKey = '123'
+          const modelPaths = []
+          const result = showBackButton(initialKey, modelPaths)
+          expect(result).to.be.false
+        })
 
         test('should return `true` if initialKey is `undefined`', () => {
           const initialKey = undefined

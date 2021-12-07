@@ -1,9 +1,9 @@
 import {argv} from 'yargs'
 
 import logger from '../lib/logger'
+import {packagesExists} from '../lib/packages'
 import webpackCompiler from '../webpack-compiler'
 import webpackConfig from '../webpack.config'
-import {packagesExists} from '../lib/packages'
 
 const compile = () => {
   logger.info('Run compiler')

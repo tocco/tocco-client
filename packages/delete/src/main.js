@@ -1,22 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {reducer as reducerUtil} from 'tocco-util'
+import React from 'react'
 import {actionEmitter, appFactory, externalEvents, notification, selection} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
 
-import reducers, {sagas} from './modules/reducers'
 import Delete from './components/Delete'
+import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'delete'
 
-const EXTERNAL_EVENTS = [
-  'onSuccess',
-  'onCancel',
-  'onError',
-  'emitAction'
-]
+const EXTERNAL_EVENTS = ['onSuccess', 'onCancel', 'onError', 'emitAction']
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <Delete/>
+  const content = <Delete />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
@@ -24,21 +19,16 @@ const initApp = (id, input, events, publicPath) => {
   notification.addToStore(store, handleNotifications)
   externalEvents.addToStore(store, events)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__DEV__ && __PACKAGE_NAME__ === packageName) {
     const input = require('./dev/input.json')
 

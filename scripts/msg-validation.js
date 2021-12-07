@@ -10,15 +10,7 @@ const fs = require('fs')
 
 const allowedMaxLength = 70
 const allowedPattern = /^(\w+)(\(.+\))?: (.+)$/
-const allowedTypes = [
-  'feat',
-  'fix',
-  'docs',
-  'style',
-  'refactor',
-  'test',
-  'chore'
-]
+const allowedTypes = ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore']
 
 const error = message => {
   // eslint-disable-next-line no-console
@@ -62,28 +54,26 @@ const isSecondLineValid = line => {
   return true
 }
 
-const getLineFromBuffer = function(buffer, lineNumber) {
+const getLineFromBuffer = function (buffer, lineNumber) {
   return buffer.toString().split('\n')[lineNumber]
 }
 
 const commitMsgFile = process.argv[2] || getGitFolder() + '/COMMIT_EDITMSG'
 
-fs.readFile(
-  commitMsgFile, function(err, buffer) {
-    const firstLine = getLineFromBuffer(buffer, 0)
-    const secondLine = getLineFromBuffer(buffer, 1)
+fs.readFile(commitMsgFile, function (err, buffer) {
+  const firstLine = getLineFromBuffer(buffer, 0)
+  const secondLine = getLineFromBuffer(buffer, 1)
 
-    if (err) {
-      error(`Error reading file: ${err}`)
-    }
-
-    if (isFirstLineValid(firstLine) && isSecondLineValid(secondLine)) {
-      process.exit(0)
-    } else {
-      process.exit(1)
-    }
+  if (err) {
+    error(`Error reading file: ${err}`)
   }
-)
+
+  if (isFirstLineValid(firstLine) && isSecondLineValid(secondLine)) {
+    process.exit(0)
+  } else {
+    process.exit(1)
+  }
+})
 
 function getGitFolder() {
   let gitDirLocation = './.git'

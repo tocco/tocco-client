@@ -1,16 +1,13 @@
+import {channel} from 'redux-saga'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {channel} from 'redux-saga'
 import {v4 as uuid} from 'uuid'
 
-import rest from '../../../rest'
-import {MODAL} from '../../../notification/modules/modal/actions'
-import reportSaga, {
-  awaitSettingsSubmit,
-  displayReportSettings
-} from './report'
-import {invokeActionAsync} from './simpleAction'
 import notification from '../../../notification'
+import {MODAL} from '../../../notification/modules/modal/actions'
+import rest from '../../../rest'
+import reportSaga, {awaitSettingsSubmit, displayReportSettings} from './report'
+import {invokeActionAsync} from './simpleAction'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -89,11 +86,9 @@ describe('app-extensions', () => {
               }
 
               return expectSaga(awaitSettingsSubmit, mockData.definition, channelMock, modalId, mockData.ids)
-                .provide([
-                  [matchers.call.fn(rest.requestSaga), {status: 200, body: {}}]
-                ])
-                .dispatch(channelMock.put(
-                  {formValues: mockData.formValues, settingsDefinition: mockData.settingsDefinition})
+                .provide([[matchers.call.fn(rest.requestSaga), {status: 200, body: {}}]])
+                .dispatch(
+                  channelMock.put({formValues: mockData.formValues, settingsDefinition: mockData.settingsDefinition})
                 )
                 .call(invokeActionAsync, definition, mockData.ids, null, params)
                 .put(notification.removeModal(modalId))

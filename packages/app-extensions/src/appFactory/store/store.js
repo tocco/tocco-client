@@ -1,13 +1,13 @@
-import {applyMiddleware, createStore as reduxCreateStore, combineReducers} from 'redux'
 import {intlReducer} from 'react-intl-redux'
+import {applyMiddleware, createStore as reduxCreateStore, combineReducers} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import createSagaMiddleware from 'redux-saga'
+import {fork} from 'redux-saga/effects'
 import thunk from 'redux-thunk'
 import {reducer as reducerUtil, saga as sagaUtil} from 'tocco-util'
-import {fork} from 'redux-saga/effects'
 
-import inputReducer from './input/reducer'
 import errorLogging from '../../errorLogging'
+import inputReducer from './input/reducer'
 
 const getIntialState = input => {
   const initialState = window.__INITIAL_STATE__ || {}

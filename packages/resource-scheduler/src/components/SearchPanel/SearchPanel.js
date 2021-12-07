@@ -1,22 +1,19 @@
-import React, {memo} from 'react'
 import PropTypes from 'prop-types'
+import React, {memo} from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
-import {
-  design,
-  Icon,
-  Panel,
-  Typography
-} from 'tocco-ui'
+import {design, Icon, Panel, Typography} from 'tocco-ui'
 
-const PanelHeaderContent = ({color, label}) =>
+const PanelHeaderContent = ({color, label}) => (
   <Typography.Span>
     <Icon
       icon={color ? 'square-full' : 'square'}
       aria-hidden="true"
       style={{...(color ? {color} : {})}}
       position={design.position.PREPEND}
-    />  {label}
+    />{' '}
+    {label}
   </Typography.Span>
+)
 
 PanelHeaderContent.propTypes = {
   color: PropTypes.string.isRequired,
@@ -29,13 +26,10 @@ const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, cale
   }
 
   const getSearchLists = calendarTypes =>
-    calendarTypes.map(calendarType =>
+    calendarTypes.map(calendarType => (
       <Panel.Wrapper key={calendarType.name}>
         <Panel.Header>
-          <PanelHeaderContent
-            color={calendarType.color}
-            label={calendarType.label}
-          />
+          <PanelHeaderContent color={calendarType.color} label={calendarType.label} />
         </Panel.Header>
         <Panel.Body>
           <EntityListApp
@@ -55,13 +49,9 @@ const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, cale
           />
         </Panel.Body>
       </Panel.Wrapper>
-    )
+    ))
 
-  return (
-    <Panel.Group>
-      {getSearchLists(calendarTypes)}
-    </Panel.Group>
-  )
+  return <Panel.Group>{getSearchLists(calendarTypes)}</Panel.Group>
 }
 
 SearchPanel.propTypes = {
@@ -73,8 +63,8 @@ SearchPanel.propTypes = {
       name: PropTypes.string.isRequired,
       targetEntity: PropTypes.string.isRequired,
       color: PropTypes.string
-    }
-    )),
+    })
+  ),
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   locale: PropTypes.string,
   emitAction: PropTypes.func.isRequired

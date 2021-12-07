@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {Typography} from 'tocco-ui'
 
 import LogEntry from './LogEntry'
@@ -21,22 +21,25 @@ const LogTable = ({entries, elapsed}) => {
   const filteredEntries = filterEntries(entries, elapsed)
   return (
     <StyledLogTable>
-      {filteredEntries.length > 0
-        ? filteredEntries.map(entry => <LogEntry key={entry.key} entry={entry}/>)
-        : <Typography.Span>No entries so far.</Typography.Span>
-      }
+      {filteredEntries.length > 0 ? (
+        filteredEntries.map(entry => <LogEntry key={entry.key} entry={entry} />)
+      ) : (
+        <Typography.Span>No entries so far.</Typography.Span>
+      )}
     </StyledLogTable>
   )
 }
 
 LogTable.propTypes = {
-  entries: PropTypes.arrayOf(PropTypes.shape({
-    sql: PropTypes.string.isRequired,
-    elapsed: PropTypes.number.isRequired,
-    timestamp: PropTypes.shape({
-      iMillis: PropTypes.number.isRequired
-    }).isRequired
-  })).isRequired,
+  entries: PropTypes.arrayOf(
+    PropTypes.shape({
+      sql: PropTypes.string.isRequired,
+      elapsed: PropTypes.number.isRequired,
+      timestamp: PropTypes.shape({
+        iMillis: PropTypes.number.isRequired
+      }).isRequired
+    })
+  ).isRequired,
   elapsed: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.shape({

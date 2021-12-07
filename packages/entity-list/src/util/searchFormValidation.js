@@ -1,5 +1,5 @@
-import React from 'react'
 import _forOwn from 'lodash/forOwn'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {form} from 'tocco-app-extensions'
 
@@ -67,7 +67,7 @@ const getFieldDefinition = (fieldName, fieldDefinition) => {
 }
 
 const typeValidators = {
-  'string': value => {
+  string: value => {
     const minLength = 2
     if (value.length > 0 && value.length < minLength) {
       return {

@@ -1,11 +1,8 @@
 import styled from 'styled-components'
 
-import {declareTypograhpy} from '../Typography'
-import {
-  scale,
-  theme
-} from '../utilStyles'
 import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
+import {declareTypograhpy} from '../Typography'
+import {scale, theme} from '../utilStyles'
 
 const ARROW_WIDTH = 16
 
@@ -15,7 +12,7 @@ const StyledBoxWrapper = styled.div`
     background-color: ${theme.color('backgroundPopover')};
     max-width: 400px;
     z-index: 100000010;
-    padding: ${({rimless}) => rimless ? '0' : scale.space(0)};
+    padding: ${({rimless}) => (rimless ? '0' : scale.space(0))};
   }
 `
 
@@ -80,8 +77,4 @@ const StyledArrow = styled.i`
   }
 `
 
-export {
-  StyledArrow,
-  StyledBox,
-  StyledBoxWrapper
-}
+export {StyledArrow, StyledBox, StyledBoxWrapper}

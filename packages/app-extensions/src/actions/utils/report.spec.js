@@ -27,12 +27,8 @@ describe('app-extensions', () => {
         describe('getFormDefinition', () => {
           test('should return a form definition with the fields wrapped by a vertical box', () => {
             const settingsDefinition = {
-              generalSettings: [
-                {id: 'someString', type: 'string', label: 'Some String'}
-              ],
-              recipientSettings: [
-                {id: 'someInt', type: 'integer', label: 'Some Int'}
-              ]
+              generalSettings: [{id: 'someString', type: 'string', label: 'Some String'}],
+              recipientSettings: [{id: 'someInt', type: 'integer', label: 'Some Int'}]
             }
 
             const formDefinition = getFormDefinition(settingsDefinition, IntlStub)
@@ -48,7 +44,10 @@ describe('app-extensions', () => {
           test('should transform select/remote fields to key only and copy others', () => {
             const values = {
               recipient1: {key: '1', display: 'User1'},
-              recipient2: [{key: '1', display: 'User1'}, {key: '33', display: 'User33'}],
+              recipient2: [
+                {key: '1', display: 'User1'},
+                {key: '33', display: 'User33'}
+              ],
               someString: 'test'
             }
 

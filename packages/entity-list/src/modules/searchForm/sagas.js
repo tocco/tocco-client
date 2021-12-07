@@ -1,26 +1,22 @@
-import {form, rest, notification} from 'tocco-app-extensions'
-import React, {useState} from 'react'
 import _reduce from 'lodash/reduce'
-import {
-  actions as formActions,
-  getFormValues,
-  isDirty
-} from 'redux-form'
-import * as formActionTypes from 'redux-form/es/actionTypes'
-import {call, put, select, takeLatest, take, all} from 'redux-saga/effects'
-import {EditableValue, StatedValue} from 'tocco-ui'
-import {channel} from 'redux-saga'
+import React, {useState} from 'react'
 import {FormattedMessage} from 'react-intl'
+import {actions as formActions, getFormValues, isDirty} from 'redux-form'
+import * as formActionTypes from 'redux-form/es/actionTypes'
+import {channel} from 'redux-saga'
+import {call, put, select, takeLatest, take, all} from 'redux-saga/effects'
+import {form, rest, notification} from 'tocco-app-extensions'
+import {EditableValue, StatedValue} from 'tocco-ui'
 
-import {StyledButton} from './StyledComponents'
-import * as actions from './actions'
+import ColumnPicker from '../../components/ColumnPicker'
 import {getFormFieldFlat, getEndpoint, changeParentFieldType} from '../../util/api/forms'
-import {setSearchFormType} from '../entityList/actions'
+import searchFormTypes from '../../util/searchFormTypes'
 import {validateSearchFields} from '../../util/searchFormValidation'
+import {setSearchFormType} from '../entityList/actions'
 import {SET_ENTITY_MODEL, SET_FORM_DEFINITION} from '../list/actions'
 import {getBasicQuery} from '../list/sagas'
-import searchFormTypes from '../../util/searchFormTypes'
-import ColumnPicker from '../../components/ColumnPicker'
+import * as actions from './actions'
+import {StyledButton} from './StyledComponents'
 
 export const inputSelector = state => state.input
 export const searchFormSelector = state => state.searchForm
@@ -103,17 +99,13 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
 
   yield put(formActions.initialize(FORM_ID, transformedFromValues))
   if (oldValues) {
-    yield all(Object.keys(oldValues).map(fieldId =>
-      put(formActions.change(FORM_ID, fieldId, oldValues[fieldId]))
-    ))
+    yield all(Object.keys(oldValues).map(fieldId => put(formActions.change(FORM_ID, fieldId, oldValues[fieldId]))))
   }
   yield put(actions.setValuesInitialized(true))
 }
 
 export function* transformFieldNames(formValues) {
-  return _reduce(formValues, (acc, val, key) => (
-    {...acc, [form.transformFieldName(key)]: val}
-  ), {})
+  return _reduce(formValues, (acc, val, key) => ({...acc, [form.transformFieldName(key)]: val}), {})
 }
 
 export function* submitSearchFrom() {
@@ -131,9 +123,14 @@ export function* loadSearchFilter(entityName) {
 
   const {parent} = yield select(entityListSelector)
   const listHasNoParent = !parent
-  yield put(actions.setSearchFilters(searchFilters.map(searchFilter =>
-    ({...searchFilter, ...(listHasNoParent && searchFilter.defaultFilter && {active: true})}))
-  ))
+  yield put(
+    actions.setSearchFilters(
+      searchFilters.map(searchFilter => ({
+        ...searchFilter,
+        ...(listHasNoParent && searchFilter.defaultFilter && {active: true})
+      }))
+    )
+  )
 }
 
 export function* setSimpleForm() {
@@ -179,9 +176,9 @@ export function* getEntityModel() {
 export function* resetSearchFilters() {
   const {searchFilters} = yield select(searchFormSelector)
 
-  yield put(actions.setSearchFilters(searchFilters.map(searchFilter =>
-    ({...searchFilter, active: searchFilter.defaultFilter})
-  )))
+  yield put(
+    actions.setSearchFilters(searchFilters.map(searchFilter => ({...searchFilter, active: searchFilter.defaultFilter})))
+  )
 }
 
 export function* resetSearch() {
@@ -199,37 +196,43 @@ export function* getSearchFormValues() {
 
   const searchValues = yield select(searchValuesSelector)
 
-  return _reduce(searchValues, (result, value, key) => (
-    {
+  return _reduce(
+    searchValues,
+    (result, value, key) => ({
       ...result,
-      ...(!Array.isArray(value) || value.length) ? {[form.transformFieldNameBack(key)]: value} : {}
-    }
-  ), {})
+      ...(!Array.isArray(value) || value.length ? {[form.transformFieldNameBack(key)]: value} : {})
+    }),
+    {}
+  )
 }
 
 export function* saveSearchFilter() {
   const answerChannel = yield call(channel)
-  yield put(notification.modal(
-    'filter-save',
-    'client.entity-list.search.settings.saveAsFilter',
-    null,
-    ({close}) => {
-      const onSave = value => {
-        close()
-        answerChannel.put(value)
-      }
-      const [name, setName] = useState('')
-      return <>
-        <StatedValue label={'Name'}>
-          <EditableValue type={'string'} value={name} events={{onChange: setName}}/>
-        </StatedValue>
-        <StyledButton onClick={() => onSave(name)} look={'raised'} ink={'primary'} disabled={!name}>
-          <FormattedMessage id="client.entity-list.search.settings.saveAsFilter.button"/>
-        </StyledButton>
-      </>
-    },
-    true
-  ))
+  yield put(
+    notification.modal(
+      'filter-save',
+      'client.entity-list.search.settings.saveAsFilter',
+      null,
+      ({close}) => {
+        const onSave = value => {
+          close()
+          answerChannel.put(value)
+        }
+        const [name, setName] = useState('')
+        return (
+          <>
+            <StatedValue label={'Name'}>
+              <EditableValue type={'string'} value={name} events={{onChange: setName}} />
+            </StatedValue>
+            <StyledButton onClick={() => onSave(name)} look={'raised'} ink={'primary'} disabled={!name}>
+              <FormattedMessage id="client.entity-list.search.settings.saveAsFilter.button" />
+            </StyledButton>
+          </>
+        )
+      },
+      true
+    )
+  )
 
   const searchFilterName = yield take(answerChannel)
   const {where, filter} = yield call(getBasicQuery, false)
@@ -260,34 +263,39 @@ export function* deleteSearchFilter({payload: {primaryKey}}) {
   const {actionAppComponent: ActionAppComponent, navigationStrategy} = yield select(inputSelector)
 
   const answerChannel = yield call(channel)
-  yield put(notification.modal(
-    'filter-delete',
-    'client.actions.delete.title',
-    null,
-    ({close}) => {
-      const onSuccess = () => {
-        answerChannel.put(true)
-        close()
-      }
+  yield put(
+    notification.modal(
+      'filter-delete',
+      'client.actions.delete.title',
+      null,
+      ({close}) => {
+        const onSuccess = () => {
+          answerChannel.put(true)
+          close()
+        }
 
-      const onCancel = () => {
-        answerChannel.put(false)
-        close()
-      }
+        const onCancel = () => {
+          answerChannel.put(false)
+          close()
+        }
 
-      return <ActionAppComponent
-        appId={'delete'}
-        selection={{
-          entityName: 'Search_filter',
-          ids: [primaryKey],
-          type: 'ID'
-        }}
-        navigationStrategy={navigationStrategy}
-        onSuccess={onSuccess}
-        onCancel={onCancel}/>
-    },
-    true
-  ))
+        return (
+          <ActionAppComponent
+            appId={'delete'}
+            selection={{
+              entityName: 'Search_filter',
+              ids: [primaryKey],
+              type: 'ID'
+            }}
+            navigationStrategy={navigationStrategy}
+            onSuccess={onSuccess}
+            onCancel={onCancel}
+          />
+        )
+      },
+      true
+    )
+  )
 
   const isSearchFilterDeleted = yield take(answerChannel)
   if (isSearchFilterDeleted) {
@@ -302,48 +310,53 @@ export function* saveDefaultSearchFilter() {
   const key = `${formDefinition.modelName}.${formDefinition.id}.searchfilter`
   const value = searchFilters.find(s => s.active).key
   yield call(rest.savePreferences, {[key]: value})
-  yield put(notification.toaster({
-    type: 'success',
-    title: 'client.entity-list.search.settings.defaultFilter.save.success'
-  }))
+  yield put(
+    notification.toaster({
+      type: 'success',
+      title: 'client.entity-list.search.settings.defaultFilter.save.success'
+    })
+  )
 }
 
 export function* resetDefaultSearchFilter() {
   const {formDefinition} = yield select(searchFormSelector)
   yield call(rest.deleteUserPreferences, `${formDefinition.modelName}.${formDefinition.id}.searchfilter`)
-  yield put(notification.toaster({
-    type: 'success',
-    title: 'client.entity-list.search.settings.defaultFilter.reset.success'
-  }))
+  yield put(
+    notification.toaster({
+      type: 'success',
+      title: 'client.entity-list.search.settings.defaultFilter.reset.success'
+    })
+  )
 }
 
 export function* displaySearchFieldsModal() {
   const {formDefinition} = yield select(searchFormSelector)
-  const columns = formDefinition.children.flatMap(f => f.children).map(f => ({
-    id: f.id,
-    label: f.label,
-    hidden: f.hidden === true
-  }))
-  const columnsSorted = [
-    ...columns.filter(f => !f.hidden),
-    ...columns.filter(f => f.hidden)
-  ]
+  const columns = formDefinition.children
+    .flatMap(f => f.children)
+    .map(f => ({
+      id: f.id,
+      label: f.label,
+      hidden: f.hidden === true
+    }))
+  const columnsSorted = [...columns.filter(f => !f.hidden), ...columns.filter(f => f.hidden)]
 
   const answerChannel = yield call(channel)
-  yield put(notification.modal(
-    `${formDefinition.id}-search-fields-selection`,
-    'client.entity-list.search.settings.searchForm.edit',
-    null,
-    ({close}) => {
-      const onOk = columns => {
-        close()
-        answerChannel.put(columns)
-      }
+  yield put(
+    notification.modal(
+      `${formDefinition.id}-search-fields-selection`,
+      'client.entity-list.search.settings.searchForm.edit',
+      null,
+      ({close}) => {
+        const onOk = columns => {
+          close()
+          answerChannel.put(columns)
+        }
 
-      return <ColumnPicker initialColumns={columnsSorted} onOk={onOk} dndEnabled={true}/>
-    },
-    true
-  ))
+        return <ColumnPicker initialColumns={columnsSorted} onOk={onOk} dndEnabled={true} />
+      },
+      true
+    )
+  )
 
   yield call(saveSearchFields, formDefinition.modelName, answerChannel)
   yield call(loadSearchForm, true)

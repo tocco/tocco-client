@@ -9,10 +9,12 @@ describe('app-extensions', () => {
           test('should add new location suggestions', () => {
             const initialState = {}
 
-            const locationSuggestions = [{
-              city: 'Zurich',
-              postcode: '8006'
-            }]
+            const locationSuggestions = [
+              {
+                city: 'Zurich',
+                postcode: '8006'
+              }
+            ]
 
             const newState = setLocationSuggestions(
               initialState,
@@ -31,21 +33,27 @@ describe('app-extensions', () => {
           test('should overwrite tooltip with new value and keep the others', () => {
             const initialState = {
               location_c: {
-                suggestions: [{
-                  city: 'Zurich'
-                }]
+                suggestions: [
+                  {
+                    city: 'Zurich'
+                  }
+                ]
               },
               location_i: {
-                suggestions: [{
-                  city: 'Winterthur'
-                }]
+                suggestions: [
+                  {
+                    city: 'Winterthur'
+                  }
+                ]
               }
             }
 
-            const locationSuggestions = [{
-              city: 'Weinfelden',
-              postcode: '8570'
-            }]
+            const locationSuggestions = [
+              {
+                city: 'Weinfelden',
+                postcode: '8570'
+              }
+            ]
 
             const newState = setLocationSuggestions(
               initialState,
@@ -54,15 +62,19 @@ describe('app-extensions', () => {
 
             const expectedStateAfter = {
               location_c: {
-                suggestions: [{
-                  city: 'Weinfelden',
-                  postcode: '8570'
-                }]
+                suggestions: [
+                  {
+                    city: 'Weinfelden',
+                    postcode: '8570'
+                  }
+                ]
               },
               location_i: {
-                suggestions: [{
-                  city: 'Winterthur'
-                }]
+                suggestions: [
+                  {
+                    city: 'Winterthur'
+                  }
+                ]
               }
             }
 

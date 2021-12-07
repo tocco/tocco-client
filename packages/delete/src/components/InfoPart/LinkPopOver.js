@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Popover, Typography} from 'tocco-ui'
-import PropTypes from 'prop-types'
 
 import {deleteEntityPropType} from '../../utils/deleteRequestParser'
 
@@ -10,25 +10,26 @@ const LinkPopOver = ({relatedEntity, children, maxCountLink}) => {
     return children
   }
 
-  const content = <>
-    {relatedEntity.keys.length > maxCountLink
-    && <Typography.P>
-      <FormattedMessage id="client.delete.tooManyRecords"/>
-    </Typography.P>
-    }
-    {relatedEntity.keysOtherBu.length > 0
-    && <Typography.P>
-      <FormattedMessage id="client.delete.recordInOtherBU" values={{count: relatedEntity.keysOtherBu.length}}/>
-    </Typography.P>
-    }
-  </>
+  const content = (
+    <>
+      {relatedEntity.keys.length > maxCountLink && (
+        <Typography.P>
+          <FormattedMessage id="client.delete.tooManyRecords" />
+        </Typography.P>
+      )}
+      {relatedEntity.keysOtherBu.length > 0 && (
+        <Typography.P>
+          <FormattedMessage id="client.delete.recordInOtherBU" values={{count: relatedEntity.keysOtherBu.length}} />
+        </Typography.P>
+      )}
+    </>
+  )
 
-  return <Popover
-    content={content}
-    placement="top"
-  >
-    {children}
-  </Popover>
+  return (
+    <Popover content={content} placement="top">
+      {children}
+    </Popover>
+  )
 }
 
 LinkPopOver.propTypes = {

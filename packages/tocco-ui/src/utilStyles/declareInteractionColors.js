@@ -1,16 +1,8 @@
 import _get from 'lodash/get'
+import {lighten, darken, getLuminance, tint, transparentize} from 'polished'
 import {css} from 'styled-components'
-import {
-  lighten,
-  darken,
-  getLuminance,
-  tint,
-  transparentize
-} from 'polished'
 
-import {
-  design
-} from '../utilStyles'
+import {design} from '../utilStyles'
 
 const colorSchemes = {
   flatBase: {
@@ -48,8 +40,8 @@ const declareFocus = props => {
        * Disable box-shadow for Safari
        * in order to be able to tab through the form fluently
        */
-      @media not all and (min-resolution: .001dpcm) {
-        @supports (-webkit-appearance:none) {
+      @media not all and (min-resolution: 0.001dpcm) {
+        @supports (-webkit-appearance: none) {
           box-shadow: none;
         }
       }
@@ -86,32 +78,20 @@ const declareInteractionColors = (colors, format = design.format.HTML) => {
 }
 
 const resolveColors = (theme, colors) =>
-  colors.split(/\s*,\s*/).map(color =>
-    color.startsWith('colors.')
-      ? _get(theme, color)
-      : color
-  )
+  colors.split(/\s*,\s*/).map(color => (color.startsWith('colors.') ? _get(theme, color) : color))
 
-const lightenOrDarken = (color = design.fallbackColors.SHADE) =>
-  getLuminance(color) > 0.5 ? 'darken' : 'lighten'
+const lightenOrDarken = (color = design.fallbackColors.SHADE) => (getLuminance(color) > 0.5 ? 'darken' : 'lighten')
 
 const generateInteractionColors = ({theme}, scheme) => {
-  const {
-    bg,
-    bgOption = {},
-    fg,
-    fgOption = {}
-  } = colorSchemes[scheme] || scheme
+  const {bg, bgOption = {}, fg, fgOption = {}} = colorSchemes[scheme] || scheme
 
   const bgResolved = resolveColors(theme, bg)
   const fgResolved = resolveColors(theme, fg)
 
-  const bgBestContrast = bgResolved.length > 1
-    ? getBestContrast(fgResolved[0], bgResolved[0], bgResolved[1])
-    : bgResolved[0]
-  const fgBestContrast = fgResolved.length > 1
-    ? getBestContrast(bgResolved[0], fgResolved[0], fgResolved[1])
-    : fgResolved[0]
+  const bgBestContrast =
+    bgResolved.length > 1 ? getBestContrast(fgResolved[0], bgResolved[0], bgResolved[1]) : bgResolved[0]
+  const fgBestContrast =
+    fgResolved.length > 1 ? getBestContrast(bgResolved[0], fgResolved[0], fgResolved[1]) : fgResolved[0]
 
   bgOption.action = bgOption.action || lightenOrDarken(bgBestContrast)
   fgOption.action = fgOption.action || lightenOrDarken(bgBestContrast)
@@ -131,23 +111,21 @@ const getContrast = (colorA = design.fallbackColors.SHADE, colorB = design.fallb
 const getBestContrast = (base, colorA, colorB) =>
   getContrast(colorA, base) > getContrast(colorB, base) ? colorA : colorB
 
-const generateShades = (color = design.fallbackColors.SHADE, options = {}) => ([
-  options.shadeOffset >= 0
-    ? shadeColor(color, 0, options)
-    : color,
+const generateShades = (color = design.fallbackColors.SHADE, options = {}) => [
+  options.shadeOffset >= 0 ? shadeColor(color, 0, options) : color,
   shadeColor(color, 1, options),
   shadeColor(color, 2, options)
-])
+]
 
 const shadeColor = (color = design.fallbackColors.SHADE, step = 1, options = {}) => {
-  const {
-    action,
-    shadeFactor,
-    shadeOffset
-  } = Object.assign({}, {
-    shadeFactor: 0.1,
-    shadeOffset: 0
-  }, options)
+  const {action, shadeFactor, shadeOffset} = Object.assign(
+    {},
+    {
+      shadeFactor: 0.1,
+      shadeOffset: 0
+    },
+    options
+  )
 
   const factor = shadeFactor * step + shadeOffset
 
@@ -156,9 +134,7 @@ const shadeColor = (color = design.fallbackColors.SHADE, step = 1, options = {})
   } else if (action === 'darken') {
     return darken(factor, color)
   } else {
-    return getLuminance(color) > 0.5
-      ? darken(factor, color)
-      : lighten(factor, color)
+    return getLuminance(color) > 0.5 ? darken(factor, color) : lighten(factor, color)
   }
 }
 

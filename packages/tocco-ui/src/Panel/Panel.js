@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useState} from 'react'
 
 import StyledPanel from './StyledPanel'
 
@@ -7,14 +7,7 @@ import StyledPanel from './StyledPanel'
  * <Panel/> is used to conceal and display related content alternating by interaction and to
  * emphasize close relationship of content.
  */
-const Panel = ({
-  children,
-  isFramed = true,
-  controlledIsOpen,
-  isOpenInitial = true,
-  isToggleable = true,
-  onToggle
-}) => {
+const Panel = ({children, isFramed = true, controlledIsOpen, isOpenInitial = true, isToggleable = true, onToggle}) => {
   const [isOpen, setIsOpen] = useState(isOpenInitial)
 
   const controlled = typeof controlledIsOpen === 'boolean'
@@ -32,19 +25,15 @@ const Panel = ({
   }
 
   return (
-    <StyledPanel
-      isFramed={isFramed}
-    >
-      {
-        React.Children.map(children, child =>
-          React.cloneElement(child, {
-            isFramed,
-            isOpen: controlled ? controlledIsOpen : isOpen,
-            isToggleable,
-            toggleOpenState: toggleOpenState
-          })
-        )
-      }
+    <StyledPanel isFramed={isFramed}>
+      {React.Children.map(children, child =>
+        React.cloneElement(child, {
+          isFramed,
+          isOpen: controlled ? controlledIsOpen : isOpen,
+          isToggleable,
+          toggleOpenState: toggleOpenState
+        })
+      )}
     </StyledPanel>
   )
 }

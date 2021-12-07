@@ -1,6 +1,6 @@
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
-import moment from 'moment'
 import {useIntl} from 'react-intl'
 
 import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from '../utils'

@@ -10,7 +10,5 @@ export default {
 
 export const Story = () => {
   const currentLocation = window.location.pathname + window.location.search
-  return <AdminApp
-    baseRoute={currentLocation}
-  />
+  return <AdminApp baseRoute={currentLocation} />
 }

@@ -1,10 +1,10 @@
-import {rest} from 'tocco-app-extensions'
 import {put, call, select, takeLatest, all} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
-import * as actions from './actions'
+import {Pages} from '../../types/Pages'
 import {changePage, setUsername} from '../login/actions'
 import {setMessage, setPending} from '../loginForm/actions'
-import {Pages} from '../../types/Pages'
+import * as actions from './actions'
 
 export const textResourceSelector = state => state.intl.messages
 

@@ -1,25 +1,16 @@
-import {Popover} from 'tocco-ui'
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {Popover} from 'tocco-ui'
 
 import modes from '../../util/modes'
 import ErrorItems from '../ErrorItems'
 import {StyledSaveButton} from './StyledComponents'
 
-const SaveButton = ({
-  submitting,
-  mode,
-  intl,
-  hasErrors,
-  formErrors,
-  icon
-}) => {
-  const msg = id => (intl.formatMessage({id}))
+const SaveButton = ({submitting, mode, intl, hasErrors, formErrors, icon}) => {
+  const msg = id => intl.formatMessage({id})
 
   return (
-    <Popover
-      content={hasErrors ? <ErrorItems formErrors={formErrors}/> : null}
-      placement="bottom">
+    <Popover content={hasErrors ? <ErrorItems formErrors={formErrors} /> : null} placement="bottom">
       <StyledSaveButton
         data-cy="detail-form_submit-button"
         id="detail-save_button"

@@ -22,10 +22,12 @@ describe('admin', () => {
     describe('MenuTree', () => {
       describe('MenuItem', () => {
         test('should pass menuTreePath correctly to children', () => {
-          const children = [{
-            name: 'person',
-            menuType: 'a'
-          }]
+          const children = [
+            {
+              name: 'person',
+              menuType: 'a'
+            }
+          ]
 
           const props = {
             item: {
@@ -37,9 +39,7 @@ describe('admin', () => {
             typeMapping
           }
 
-          const wrapper = intlEnzyme.mountWithIntl(
-            <MenuItem {...props}/>
-          )
+          const wrapper = intlEnzyme.mountWithIntl(<MenuItem {...props} />)
 
           expect(wrapper.find(AComp)).to.have.length(2)
           expect(wrapper.find(AComp).at(0).prop('menuTreePath')).to.equal('address')
@@ -57,9 +57,7 @@ describe('admin', () => {
             typeMapping
           }
 
-          const wrapper = intlEnzyme.mountWithIntl(
-            <MenuItem {...props}/>
-          )
+          const wrapper = intlEnzyme.mountWithIntl(<MenuItem {...props} />)
 
           expect(wrapper.find(AComp)).to.have.length(1)
           expect(wrapper.find(AComp).at(0).prop('item').name).to.equal('address')

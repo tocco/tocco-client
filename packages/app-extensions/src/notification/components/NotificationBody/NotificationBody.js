@@ -1,10 +1,11 @@
-import React from 'react'
+import _groupBy from 'lodash/groupBy'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import {Icon, LoadingSpinner} from 'tocco-ui'
 import {download} from 'tocco-util'
-import {FormattedMessage} from 'react-intl'
-import _groupBy from 'lodash/groupBy'
 
+import {resultTypes} from '../../api'
 import {notificationPropType, TYPES} from '../../types'
 import {
   StyledCancelWrapper,
@@ -18,17 +19,9 @@ import {
   StyledSpinnerWrapper,
   StyledTaskProgressWrapper
 } from './StyledComponents'
-import {resultTypes} from '../../api'
 
-const Result = ({
-  notification: {result},
-  navigationStrategy
-}) => {
-  const {
-    type,
-    file,
-    content
-  } = result
+const Result = ({notification: {result}, navigationStrategy}) => {
+  const {type, file, content} = result
 
   if (type === resultTypes.outputjob) {
     if (file) {
@@ -41,48 +34,48 @@ const Result = ({
           </StyledFileDescription>
           <div>
             <a href={file.link} target="_blank " title="open">
-              <StyledIconWrapper><Icon icon="external-link"/></StyledIconWrapper>
-              <FormattedMessage id="client.common.notification.outputJobFileLink"/>
+              <StyledIconWrapper>
+                <Icon icon="external-link" />
+              </StyledIconWrapper>
+              <FormattedMessage id="client.common.notification.outputJobFileLink" />
             </a>
           </div>
-          {download.downloadSupportedByBrowser()
-          && <a
-            href={download.addParameterToURL(file.link, 'download', true)}
-            download={file.name}
-            title="download">
-            <StyledIconWrapper><Icon icon="arrow-to-bottom"/></StyledIconWrapper>
-            <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
-          </a>
-          }
+          {download.downloadSupportedByBrowser() && (
+            <a href={download.addParameterToURL(file.link, 'download', true)} download={file.name} title="download">
+              <StyledIconWrapper>
+                <Icon icon="arrow-to-bottom" />
+              </StyledIconWrapper>
+              <FormattedMessage id="client.common.notification.outputJobFileDownload" />
+            </a>
+          )}
           <StyledDetailLinkWrapper>
-            {navigationStrategy && navigationStrategy.DetailLink && <navigationStrategy.DetailLink
-              entityName={content[0].model}
-              entityKey={content[0].key}
-            >
-              <Icon icon="arrow-right"/> <FormattedMessage id="client.common.notification.outputJobOpen"/>
-            </navigationStrategy.DetailLink>}
+            {navigationStrategy && navigationStrategy.DetailLink && (
+              <navigationStrategy.DetailLink entityName={content[0].model} entityKey={content[0].key}>
+                <Icon icon="arrow-right" /> <FormattedMessage id="client.common.notification.outputJobOpen" />
+              </navigationStrategy.DetailLink>
+            )}
           </StyledDetailLinkWrapper>
-        </StyledOutputJobWrapper>)
+        </StyledOutputJobWrapper>
+      )
     } else {
       return null
     }
   }
 
   if (type === resultTypes.entities) {
-    return <>
-      {Object.entries(_groupBy(content, e => e.model))
-        .map(([model, entities]) => (
+    return (
+      <>
+        {Object.entries(_groupBy(content, e => e.model)).map(([model, entities]) => (
           <StyledDetailLinkWrapper key={'entitylink-' + model}>
-            {navigationStrategy && navigationStrategy.ListOrDetailLink && <navigationStrategy.ListOrDetailLink
-              entityName={model}
-              entityKeys={entities.map(e => e.key)}
-            >
-              <Icon icon="arrow-right"/> <FormattedMessage id="client.common.notification.entitiesOpen"/>
-            </navigationStrategy.ListOrDetailLink>}
+            {navigationStrategy && navigationStrategy.ListOrDetailLink && (
+              <navigationStrategy.ListOrDetailLink entityName={model} entityKeys={entities.map(e => e.key)}>
+                <Icon icon="arrow-right" /> <FormattedMessage id="client.common.notification.entitiesOpen" />
+              </navigationStrategy.ListOrDetailLink>
+            )}
           </StyledDetailLinkWrapper>
-        ))
-      }
-    </>
+        ))}
+      </>
+    )
   }
 
   return null
@@ -96,37 +89,39 @@ Result.propTypes = {
   })
 }
 
-const TaskProgress = ({
-  notification,
-  cancelTask,
-  navigationStrategy
-}) => {
+const TaskProgress = ({notification, cancelTask, navigationStrategy}) => {
   const {taskProgress} = notification
   return (
     <>
       <StyledTaskProgressWrapper>
-        <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner/>}</StyledSpinnerWrapper>
-        <Message notification={notification}/>
+        <StyledSpinnerWrapper>{taskProgress.isRunning && <LoadingSpinner />}</StyledSpinnerWrapper>
+        <Message notification={notification} />
       </StyledTaskProgressWrapper>
-      {taskProgress.status === 'running_absolute'
-      && <>
-        <StyledProgressOuter>
-          <StyledProgressInner percentage={taskProgress.percentage}/>
-        </StyledProgressOuter>
-      </>
-      }
+      {taskProgress.status === 'running_absolute' && (
+        <>
+          <StyledProgressOuter>
+            <StyledProgressInner percentage={taskProgress.percentage} />
+          </StyledProgressOuter>
+        </>
+      )}
       <StyledDetailLinkWrapper>
-        {navigationStrategy && navigationStrategy.DetailLink && taskProgress.status !== 'completed'
-        && <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.taskExecutionKey}>
-          <StyledIconWrapper><Icon icon="arrow-right"/></StyledIconWrapper>
-          <FormattedMessage id="client.common.notification.outputJobShowTask"/>
-        </navigationStrategy.DetailLink>}
+        {navigationStrategy && navigationStrategy.DetailLink && taskProgress.status !== 'completed' && (
+          <navigationStrategy.DetailLink entityName="Task_execution" entityKey={taskProgress.taskExecutionKey}>
+            <StyledIconWrapper>
+              <Icon icon="arrow-right" />
+            </StyledIconWrapper>
+            <FormattedMessage id="client.common.notification.outputJobShowTask" />
+          </navigationStrategy.DetailLink>
+        )}
       </StyledDetailLinkWrapper>
-      {notification.type === TYPES.info && taskProgress.isRunning && taskProgress.supportsCancellation
-      && <StyledCancelWrapper onClick={() => cancelTask(taskProgress.taskExecutionKey)}>
-        <StyledIconWrapper><Icon icon="times"/></StyledIconWrapper>
-        <FormattedMessage id="client.common.notification.cancelTask"/>
-      </StyledCancelWrapper>}
+      {notification.type === TYPES.info && taskProgress.isRunning && taskProgress.supportsCancellation && (
+        <StyledCancelWrapper onClick={() => cancelTask(taskProgress.taskExecutionKey)}>
+          <StyledIconWrapper>
+            <Icon icon="times" />
+          </StyledIconWrapper>
+          <FormattedMessage id="client.common.notification.cancelTask" />
+        </StyledCancelWrapper>
+      )}
     </>
   )
 }
@@ -151,30 +146,23 @@ Message.propTypes = {
   notification: notificationPropType.isRequired
 }
 
-const NotificationBody = ({
-  notification,
-  cancelTask,
-  navigationStrategy
-}) => {
-  const {
-    result,
-    taskProgress
-  } = notification
+const NotificationBody = ({notification, cancelTask, navigationStrategy}) => {
+  const {result, taskProgress} = notification
 
   if (result) {
     return (
       <>
-        <Message notification={notification}/>
-        <Result notification={notification} navigationStrategy={navigationStrategy}/>
+        <Message notification={notification} />
+        <Result notification={notification} navigationStrategy={navigationStrategy} />
       </>
     )
   }
 
   if (taskProgress) {
-    return <TaskProgress notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask}/>
+    return <TaskProgress notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask} />
   }
 
-  return <Message notification={notification}/>
+  return <Message notification={notification} />
 }
 
 NotificationBody.propTypes = {

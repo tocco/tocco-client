@@ -1,10 +1,10 @@
-import {externalEvents} from 'tocco-app-extensions'
 import {call, put, select, takeLatest, all} from 'redux-saga/effects'
+import {externalEvents} from 'tocco-app-extensions'
 
-import * as actions from './actions'
+import {combineSelection, showSelectionComponent, getTableSelectionStyle} from '../../util/selection'
 import selectionStyles from '../../util/selectionStyles'
 import {SET_FORM_SELECTABLE} from '../list/actions'
-import {combineSelection, showSelectionComponent, getTableSelectionStyle} from '../../util/selection'
+import * as actions from './actions'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -24,9 +24,8 @@ export function* onSelectChange({payload: {keys, isSelected}}) {
   const {selection: currentSelection} = yield select(selectionSelector)
   const {selectionStyle} = yield select(inputSelector)
 
-  const newSelection = selectionStyle === selectionStyles.SINGLE
-    ? keys
-    : yield call(combineSelection, currentSelection, keys, isSelected)
+  const newSelection =
+    selectionStyle === selectionStyles.SINGLE ? keys : yield call(combineSelection, currentSelection, keys, isSelected)
 
   yield put(actions.setSelection(newSelection))
   yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))

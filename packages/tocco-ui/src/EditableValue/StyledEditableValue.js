@@ -1,13 +1,10 @@
 import styled, {css} from 'styled-components'
 
-import {
-  declareFont,
-  theme
-} from '../utilStyles'
+import {declareFont, theme} from '../utilStyles'
 
 const StyledEditableWrapperCss = css`
   align-items: center;
-  cursor: ${({immutable}) => immutable ? 'not-allowed' : 'default'};
+  cursor: ${({immutable}) => (immutable ? 'not-allowed' : 'default')};
   display: flex;
 `
 
@@ -22,15 +19,16 @@ const StyledEditableWrapper = styled.label`
 const StyledInputCss = css`
   background-color: transparent;
   border: 0;
-  cursor: ${({immutable}) => immutable ? 'not-allowed' : 'default'};
+  cursor: ${({immutable}) => (immutable ? 'not-allowed' : 'default')};
   flex-grow: 1;
   min-height: 2.6rem;
   min-width: 0;
   outline: 0;
   padding: 0;
-  ${() => declareFont({
-    color: theme.color('text')
-  })}
+  ${() =>
+    declareFont({
+      color: theme.color('text')
+    })}
   &::-ms-clear {
     display: none;
   }
@@ -73,7 +71,7 @@ const StyledInputCss = css`
 
   // allow pointer event only on touch devices
   @media (pointer: coarse) {
-    pointer-events: ${({immutable}) => immutable ? 'none' : 'auto'};
+    pointer-events: ${({immutable}) => (immutable ? 'none' : 'auto')};
   }
 `
 
@@ -94,30 +92,30 @@ export const StyledEditableValue = styled.span`
   && {
     //url
     [type='url'] + .input-group-addon > a {
-      color: inherit;  // reset bootstrap default
+      color: inherit; // reset bootstrap default
     }
 
     //url
     [type='tel'] + .input-group-addon > a {
-      color: inherit;  // reset bootstrap default
+      color: inherit; // reset bootstrap default
     }
 
     //html edit
     .quill {
       .ql-toolbar {
-        border-top-left-radius: .27rem;
-        border-top-right-radius: .27rem;
+        border-top-left-radius: 0.27rem;
+        border-top-right-radius: 0.27rem;
       }
 
       .ql-container {
-        border-bottom-left-radius: .27rem;
-        border-bottom-right-radius: .27rem;
+        border-bottom-left-radius: 0.27rem;
+        border-bottom-right-radius: 0.27rem;
         background-color: #fff;
       }
 
       .ql-container.ql-disabled {
-        border-top-left-radius: .27rem;
-        border-top-right-radius: .27rem;
+        border-top-left-radius: 0.27rem;
+        border-top-right-radius: 0.27rem;
 
         .ql-editor {
           cursor: not-allowed;

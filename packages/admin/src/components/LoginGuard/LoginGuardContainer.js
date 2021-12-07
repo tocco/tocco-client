@@ -1,5 +1,5 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 import {notification, login} from 'tocco-app-extensions'
 
 import LoginGuard from './LoginGuard'

@@ -1,18 +1,18 @@
 {
-  "_links":{
-    "self":{
-      "href":"https://master.tocco.ch/nice2/rest/forms/UserSearch_search"
+  "_links": {
+    "self": {
+      "href": "https://master.tocco.ch/nice2/rest/forms/UserSearch_search"
     }
   },
-  "form":{
-    "id":"UserSearch_search",
-    "children":[
+  "form": {
+    "id": "UserSearch_search",
+    "children": [
       {
-        "id":"box1",
+        "id": "box1",
         "componentType": "layout",
         "layoutType": "horizontal-box",
-        "displayType":"EDITABLE",
-        "children":[
+        "displayType": "EDITABLE",
+        "children": [
           {
             "id": "txtFulltext",
             "componentType": "field-set",
@@ -47,7 +47,7 @@
             "id": "innerBox",
             "componentType": "layout",
             "layoutType": "horizontal-box",
-            "children":[
+            "children": [
               {
                 "id": "firstname",
                 "componentType": "field-set",
@@ -66,9 +66,9 @@
             ]
           }
         ],
-        "label":null
+        "label": null
       }
     ],
-    "label":"##forms.UserSearch_search:de_CH:nice2.optional.usersearch"
+    "label": "##forms.UserSearch_search:de_CH:nice2.optional.usersearch"
   }
 }

@@ -23,9 +23,7 @@ describe('admin', () => {
               preferencesPrefix: ''
             }
 
-            const wrapper = intlEnzyme.mountWithIntl(
-              <MenuEntry {...props}/>
-            )
+            const wrapper = intlEnzyme.mountWithIntl(<MenuEntry {...props} />)
 
             expect(wrapper.find(Icon)).to.have.length(1)
           })
@@ -43,9 +41,7 @@ describe('admin', () => {
               preferencesPrefix: undefined
             }
 
-            const wrapper = intlEnzyme.mountWithIntl(
-              <MenuEntry {...props}/>
-            )
+            const wrapper = intlEnzyme.mountWithIntl(<MenuEntry {...props} />)
 
             expect(wrapper.find(Icon)).to.have.length(0)
           })
@@ -63,9 +59,7 @@ describe('admin', () => {
               preferencesPrefix: ''
             }
 
-            const wrapper = intlEnzyme.mountWithIntl(
-              <MenuEntry {...props}/>
-            )
+            const wrapper = intlEnzyme.mountWithIntl(<MenuEntry {...props} />)
 
             // expand
             wrapper.simulate('click')

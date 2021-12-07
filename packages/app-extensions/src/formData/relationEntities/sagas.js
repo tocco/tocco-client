@@ -1,15 +1,13 @@
-import {all, call, put, select, takeEvery} from 'redux-saga/effects'
-import _pick from 'lodash/pick'
 import _get from 'lodash/get'
+import _pick from 'lodash/pick'
+import {all, call, put, select, takeEvery} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
-import * as relationEntitiesActions from './actions'
 import rest from '../../rest'
+import * as relationEntitiesActions from './actions'
 
 export default function* sagas() {
-  yield all([
-    takeEvery(relationEntitiesActions.LOAD_RELATION_ENTITIES, loadRelationEntity)
-  ])
+  yield all([takeEvery(relationEntitiesActions.LOAD_RELATION_ENTITIES, loadRelationEntity)])
 }
 
 export function* enhanceEntitiesWithDisplays(entities) {
@@ -37,7 +35,10 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
     const moreEntitiesAvailable = options.limit ? entities.length > options.limit : false
     yield put(
       relationEntitiesActions.setRelationEntities(
-        fieldName, options.limit ? entities.splice(0, options.limit) : entities, moreEntitiesAvailable)
+        fieldName,
+        options.limit ? entities.splice(0, options.limit) : entities,
+        moreEntitiesAvailable
+      )
     )
   }
 }
@@ -46,12 +47,10 @@ export const fieldDataSelector = (state, fieldName) => state.formData.relationEn
 
 const dataLoaded = fieldData => !!(fieldData && fieldData.data && fieldData.data.length > 0)
 
-export const getQuery = options => (
-  {
-    ...(options.limit ? {limit: options.limit + 1} : {}),
-    ...(options.searchTerm ? {search: options.searchTerm} : {}),
-    ...(options.sorting ? {sorting: options.sorting} : {}),
-    ...(options.constriction ? {constriction: options.constriction} : {}),
-    ...(options.formName ? {form: options.formName} : {})
-  }
-)
+export const getQuery = options => ({
+  ...(options.limit ? {limit: options.limit + 1} : {}),
+  ...(options.searchTerm ? {search: options.searchTerm} : {}),
+  ...(options.sorting ? {sorting: options.sorting} : {}),
+  ...(options.constriction ? {constriction: options.constriction} : {}),
+  ...(options.formName ? {form: options.formName} : {})
+})

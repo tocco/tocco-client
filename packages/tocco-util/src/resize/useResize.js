@@ -62,22 +62,25 @@ export default (resizingElementSelector, resizeCallback, resizeFinishedCallback)
     }
   }, [resizingElement, resizeFinishedCallback])
 
-  const onMouseMove = useCallback(e => {
-    if (resizingElement && isResizingInternal) {
-      handler.current = requestAnimationFrame(() => {
-        if (lastPosition.current) {
-          const element = resizingElementSelector(resizingElement)
+  const onMouseMove = useCallback(
+    e => {
+      if (resizingElement && isResizingInternal) {
+        handler.current = requestAnimationFrame(() => {
+          if (lastPosition.current) {
+            const element = resizingElementSelector(resizingElement)
 
-          const height = measureSize(lastPosition.current.y, e.clientY, element.clientHeight)
-          const width = measureSize(lastPosition.current.x, e.clientX, element.clientWidth)
+            const height = measureSize(lastPosition.current.y, e.clientY, element.clientHeight)
+            const width = measureSize(lastPosition.current.x, e.clientX, element.clientWidth)
 
-          resizeCallback(resizingElement, {height, width})
-        }
-        
-        lastPosition.current = {y: e.clientY, x: e.clientX}
-      })
-    }
-  }, [resizingElement, resizeCallback, isResizingInternal])
+            resizeCallback(resizingElement, {height, width})
+          }
+
+          lastPosition.current = {y: e.clientY, x: e.clientX}
+        })
+      }
+    },
+    [resizingElement, resizeCallback, isResizingInternal]
+  )
 
   const events = {
     onMouseMove,

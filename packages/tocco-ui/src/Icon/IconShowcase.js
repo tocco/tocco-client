@@ -1,12 +1,12 @@
+import Fuse from 'fuse.js'
 import React, {useMemo, useState} from 'react'
 import styled from 'styled-components'
-import Fuse from 'fuse.js'
 
 import EditableValue from '../EditableValue'
-import StatedValue from '../StatedValue'
-import Icon from './Icon'
-import Typography from '../Typography'
 import SearchBox from '../SearchBox'
+import StatedValue from '../StatedValue'
+import Typography from '../Typography'
+import Icon from './Icon'
 
 export const Header = styled.div`
   width: 50%;
@@ -26,7 +26,7 @@ export const IconContainer = styled.div`
   display: block;
   cursor: pointer;
 
-  span{
+  span {
     display: block;
   }
 `
@@ -62,26 +62,40 @@ const IconsShowcase = () => {
 
   const icons = filter ? fuse.search(filter).map(result => result.item) : trans
 
-  return <div>
-    <Header>
-      <SearchBox placeholder="Search for an Icon.." value={filter} onSearch={setFilter} liveSearch minInputLength={2}/>
-      <Typography.H5>{icons.length} Results</Typography.H5>
-    </Header>
-    <div style={{width: '100px'}}>
-      <StatedValue label="Size" hasValue={size}>
-        <EditableValue type="string" value={size} events={{onChange: setSize}}/>
-      </StatedValue>
+  return (
+    <div>
+      <Header>
+        <SearchBox
+          placeholder="Search for an Icon.."
+          value={filter}
+          onSearch={setFilter}
+          liveSearch
+          minInputLength={2}
+        />
+        <Typography.H5>{icons.length} Results</Typography.H5>
+      </Header>
+      <div style={{width: '100px'}}>
+        <StatedValue label="Size" hasValue={size}>
+          <EditableValue type="string" value={size} events={{onChange: setSize}} />
+        </StatedValue>
+      </div>
+      <Box>
+        {icons.map((mapping, idx) => {
+          return (
+            <IconContainer
+              key={idx}
+              onClick={() => {
+                copyTocClipboard(mapping.key)
+              }}
+            >
+              <Icon icon={mapping.key} style={{fontSize: size}} />
+              <Typography.Span>{mapping.key}</Typography.Span>
+            </IconContainer>
+          )
+        })}
+      </Box>
     </div>
-    <Box>
-      {icons.map((mapping, idx) => {
-        return <IconContainer key={idx} onClick={() => {
-          copyTocClipboard(mapping.key)
-        }}>
-          <Icon icon={mapping.key} style={{fontSize: size}}/>
-          <Typography.Span>{mapping.key}</Typography.Span>
-        </IconContainer>
-      })}
-    </Box></div>
+  )
 }
 
 export default IconsShowcase

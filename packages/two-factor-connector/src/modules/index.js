@@ -1,5 +1,5 @@
-import rootSaga from './sagas'
 import twoFactorConnector from './reducer'
+import rootSaga from './sagas'
 
 export default {
   twoFactorConnector

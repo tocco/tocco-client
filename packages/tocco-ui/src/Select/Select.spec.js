@@ -1,6 +1,6 @@
+import {mount} from 'enzyme'
 import React from 'react'
 import ReactSelect from 'react-select'
-import {mount} from 'enzyme'
 import {TestThemeProvider} from 'tocco-test-util'
 
 import Ball from '../Ball'
@@ -12,7 +12,7 @@ describe('tocco-ui', () => {
       test('should render a react-select', () => {
         const wrapper = mount(
           <TestThemeProvider>
-            <Select/>
+            <Select />
           </TestThemeProvider>
         )
         expect(wrapper.find(ReactSelect)).to.have.length(1)
@@ -21,7 +21,7 @@ describe('tocco-ui', () => {
       test('should render advanced search button', () => {
         const wrapper = mount(
           <TestThemeProvider>
-            <Select openAdvancedSearch={() => {}} immutable={false}/>
+            <Select openAdvancedSearch={() => {}} immutable={false} />
           </TestThemeProvider>
         )
         expect(wrapper.find(Ball).filterWhere(b => b.props().icon === 'search')).to.have.length(1)
@@ -29,7 +29,7 @@ describe('tocco-ui', () => {
       test('should not render advanced search button when disabled', () => {
         const wrapper = mount(
           <TestThemeProvider>
-            <Select openAdvancedSearch={() => {}} immutable={true}/>
+            <Select openAdvancedSearch={() => {}} immutable={true} />
           </TestThemeProvider>
         )
         expect(wrapper.find(Ball).filterWhere(b => b.props().icon === 'search')).to.have.length(0)
@@ -37,7 +37,7 @@ describe('tocco-ui', () => {
       test('should not render advanced search button without function', () => {
         const wrapper = mount(
           <TestThemeProvider>
-            <Select immutable={false}/>
+            <Select immutable={false} />
           </TestThemeProvider>
         )
         expect(wrapper.find(Ball).filterWhere(b => b.props().icon === 'search')).to.have.length(0)
@@ -46,7 +46,7 @@ describe('tocco-ui', () => {
       test('should render remote create button', () => {
         const wrapper = mount(
           <TestThemeProvider>
-            <Select createPermission={true}/>
+            <Select createPermission={true} />
           </TestThemeProvider>
         )
         expect(wrapper.find(Ball).filterWhere(b => b.props().icon === 'plus')).to.have.length(1)
@@ -54,7 +54,7 @@ describe('tocco-ui', () => {
       test('should not render remote create button when not allowed', () => {
         const wrapper = mount(
           <TestThemeProvider>
-            <Select createPermission={false}/>
+            <Select createPermission={false} />
           </TestThemeProvider>
         )
         expect(wrapper.find(Ball).filterWhere(b => b.props().icon === 'plus')).to.have.length(0)
@@ -62,7 +62,7 @@ describe('tocco-ui', () => {
       test('should not render remote create button when disabled', () => {
         const wrapper = mount(
           <TestThemeProvider>
-            <Select immutable={true}/>
+            <Select immutable={true} />
           </TestThemeProvider>
         )
         expect(wrapper.find(Ball).filterWhere(b => b.props().icon === 'plus')).to.have.length(0)

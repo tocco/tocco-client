@@ -1,20 +1,18 @@
-import {form, rest, notification} from 'tocco-app-extensions'
+import {actions as formActions} from 'redux-form'
+import * as formActionTypes from 'redux-form/es/actionTypes'
+import {channel} from 'redux-saga'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {
-  actions as formActions
-} from 'redux-form'
-import * as formActionTypes from 'redux-form/es/actionTypes'
 import {put, select, call, takeLatest, all} from 'redux-saga/effects'
-import {channel} from 'redux-saga'
+import {form, rest, notification} from 'tocco-app-extensions'
 
-import rootSaga, * as sagas from './sagas'
-import * as actions from './actions'
-import {validateSearchFields} from '../../util/searchFormValidation'
 import {getEndpoint} from '../../util/api/forms'
+import {validateSearchFields} from '../../util/searchFormValidation'
 import {setSearchFormType} from '../entityList/actions'
 import {setFormDefinition, SET_ENTITY_MODEL} from '../list/actions'
 import * as listSagas from '../list/sagas'
+import * as actions from './actions'
+import rootSaga, * as sagas from './sagas'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -23,18 +21,20 @@ describe('entity-list', () => {
         describe('rootSaga', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              takeLatest(actions.INITIALIZE, sagas.initialize),
-              takeLatest(formActionTypes.CHANGE, sagas.submitSearchFrom),
-              takeLatest(actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
-              takeLatest(actions.RESET_SEARCH, sagas.resetSearch),
-              takeLatest(actions.SAVE_SEARCH_FILTER, sagas.saveSearchFilter),
-              takeLatest(actions.DELETE_SEARCH_FILTER, sagas.deleteSearchFilter),
-              takeLatest(actions.SAVE_DEFAULT_SEARCH_FILTER, sagas.saveDefaultSearchFilter),
-              takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, sagas.resetDefaultSearchFilter),
-              takeLatest(actions.DISPLAY_SEARCH_FIELDS_MODAL, sagas.displaySearchFieldsModal),
-              takeLatest(actions.RESET_SEARCH_FIELDS, sagas.resetSearchFields)
-            ]))
+            expect(generator.next().value).to.deep.equal(
+              all([
+                takeLatest(actions.INITIALIZE, sagas.initialize),
+                takeLatest(formActionTypes.CHANGE, sagas.submitSearchFrom),
+                takeLatest(actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
+                takeLatest(actions.RESET_SEARCH, sagas.resetSearch),
+                takeLatest(actions.SAVE_SEARCH_FILTER, sagas.saveSearchFilter),
+                takeLatest(actions.DELETE_SEARCH_FILTER, sagas.deleteSearchFilter),
+                takeLatest(actions.SAVE_DEFAULT_SEARCH_FILTER, sagas.saveDefaultSearchFilter),
+                takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, sagas.resetDefaultSearchFilter),
+                takeLatest(actions.DISPLAY_SEARCH_FIELDS_MODAL, sagas.displaySearchFieldsModal),
+                takeLatest(actions.RESET_SEARCH_FIELDS, sagas.resetSearchFields)
+              ])
+            )
             expect(generator.next().done).to.be.true
           })
         })
@@ -60,70 +60,64 @@ describe('entity-list', () => {
         })
 
         describe('setInitialFormValues saga', () => {
-          test('should set initial form values (preselected and form definition)',
-            () => {
-              const searchFormVisible = true
-              const FORM_ID = 'searchForm'
-              const entityModel = {paths: [{fieldName: 'firstname', type: 'string'}]}
-              const preselectedSearchFields = [{id: 'first.name', value: 'test'}]
-              const formDefinition = {children: []}
-              const fieldDefinitions = [
-                {id: 'first.name', path: 'first.name', type: 'string'},
-                {id: 'defaultTest', path: 'defaultTest', type: 'string', defaultValue: 'default'}
-              ]
-              const expectedValues = {'first--name': 'test', 'defaultTest': 'default'}
+          test('should set initial form values (preselected and form definition)', () => {
+            const searchFormVisible = true
+            const FORM_ID = 'searchForm'
+            const entityModel = {paths: [{fieldName: 'firstname', type: 'string'}]}
+            const preselectedSearchFields = [{id: 'first.name', value: 'test'}]
+            const formDefinition = {children: []}
+            const fieldDefinitions = [
+              {id: 'first.name', path: 'first.name', type: 'string'},
+              {id: 'defaultTest', path: 'defaultTest', type: 'string', defaultValue: 'default'}
+            ]
+            const expectedValues = {'first--name': 'test', defaultTest: 'default'}
 
-              return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
-                .provide([
-                  [select(sagas.entityListSelector), {}],
-                  [select(sagas.inputSelector), {preselectedSearchFields}],
-                  [matchers.call.fn(sagas.getEntityModel), entityModel],
-                  [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions]
-                ])
-                .put(formActions.initialize(FORM_ID, expectedValues))
-                .put(actions.setValuesInitialized(true))
-                .run()
-            }
-          )
+            return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
+              .provide([
+                [select(sagas.entityListSelector), {}],
+                [select(sagas.inputSelector), {preselectedSearchFields}],
+                [matchers.call.fn(sagas.getEntityModel), entityModel],
+                [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions]
+              ])
+              .put(formActions.initialize(FORM_ID, expectedValues))
+              .put(actions.setValuesInitialized(true))
+              .run()
+          })
 
-          test('should set parent relation by default',
-            () => {
-              const FORM_ID = 'searchForm'
-              const parent = {key: '22', reverseRelationName: 'relWhatever'}
-              const expectedValues = {relWhatever: {key: '22', display: 'Test User'}}
+          test('should set parent relation by default', () => {
+            const FORM_ID = 'searchForm'
+            const parent = {key: '22', reverseRelationName: 'relWhatever'}
+            const expectedValues = {relWhatever: {key: '22', display: 'Test User'}}
 
-              return expectSaga(sagas.setInitialFormValues, false, null)
-                .provide([
-                  [select(sagas.entityListSelector), {parent}],
-                  [select(sagas.inputSelector), {}],
-                  [matchers.call.fn(sagas.getListFormDefinition), null],
-                  [matchers.call.fn(getEndpoint), null],
-                  [matchers.call.fn(rest.fetchDisplay), 'Test User']
-                ])
-                .put(formActions.initialize(FORM_ID, expectedValues))
-                .run()
-            }
-          )
+            return expectSaga(sagas.setInitialFormValues, false, null)
+              .provide([
+                [select(sagas.entityListSelector), {parent}],
+                [select(sagas.inputSelector), {}],
+                [matchers.call.fn(sagas.getListFormDefinition), null],
+                [matchers.call.fn(getEndpoint), null],
+                [matchers.call.fn(rest.fetchDisplay), 'Test User']
+              ])
+              .put(formActions.initialize(FORM_ID, expectedValues))
+              .run()
+          })
 
-          test('should set parent relation if custom endpoint is defined',
-            () => {
-              const searchFormVisible = true
-              const FORM_ID = 'searchForm'
-              const parent = {key: '22', reverseRelationName: 'relWhatever'}
-              const formDefinition = {children: []}
-              const expectedValues = {}
+          test('should set parent relation if custom endpoint is defined', () => {
+            const searchFormVisible = true
+            const FORM_ID = 'searchForm'
+            const parent = {key: '22', reverseRelationName: 'relWhatever'}
+            const formDefinition = {children: []}
+            const expectedValues = {}
 
-              return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
-                .provide([
-                  [select(sagas.entityListSelector), {parent}],
-                  [select(sagas.inputSelector), {}],
-                  [matchers.call.fn(sagas.getListFormDefinition), null],
-                  [matchers.call.fn(getEndpoint), '/custom/']
-                ])
-                .put(formActions.initialize(FORM_ID, expectedValues))
-                .run()
-            }
-          )
+            return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
+              .provide([
+                [select(sagas.entityListSelector), {parent}],
+                [select(sagas.inputSelector), {}],
+                [matchers.call.fn(sagas.getListFormDefinition), null],
+                [matchers.call.fn(getEndpoint), '/custom/']
+              ])
+              .put(formActions.initialize(FORM_ID, expectedValues))
+              .run()
+          })
         })
 
         describe('submitSearchFrom saga', () => {
@@ -154,13 +148,13 @@ describe('entity-list', () => {
         describe('getSearchFormValues saga', () => {
           test('should return values of search form', () => {
             const searchValues = {
-              'relGender': '1',
+              relGender: '1',
               'nameto--transform': 'test',
-              'emptyArray': []
+              emptyArray: []
             }
 
             const expectedReturn = {
-              'relGender': '1',
+              relGender: '1',
               'nameto.transform': 'test'
             }
 
@@ -175,7 +169,7 @@ describe('entity-list', () => {
         })
 
         describe('resetSearch saga', () => {
-          test('should trigger submit to reload with default filters', () => (
+          test('should trigger submit to reload with default filters', () =>
             expectSaga(sagas.resetSearch)
               .provide([
                 [matchers.call.fn(sagas.resetSearchFilters), undefined],
@@ -184,8 +178,7 @@ describe('entity-list', () => {
               .put(formActions.reset('searchForm'))
               .call(sagas.resetSearchFilters)
               .call(sagas.submitSearchFrom)
-              .run()
-          ))
+              .run())
         })
 
         describe('loadSearchForm saga', () => {
@@ -219,9 +212,7 @@ describe('entity-list', () => {
 
           test('should set simple form if type is simple', () => {
             return expectSaga(sagas.loadSearchForm)
-              .provide([
-                [select(sagas.entityListSelector), {searchFormType: 'simple'}]
-              ])
+              .provide([[select(sagas.entityListSelector), {searchFormType: 'simple'}]])
               .call(sagas.setSimpleForm)
               .run()
           })
@@ -231,9 +222,7 @@ describe('entity-list', () => {
           test('should return the entity model as soon as initialized', () => {
             const entityModel = {fields: []}
             return expectSaga(sagas.getEntityModel)
-              .provide([
-                [select(sagas.listSelector), {entityModel}]
-              ])
+              .provide([[select(sagas.listSelector), {entityModel}]])
               .dispatch({type: SET_ENTITY_MODEL})
               .returns(entityModel)
               .run()
@@ -252,9 +241,7 @@ describe('entity-list', () => {
           test('should return the ist form definition as soon as loaded', () => {
             const formDefinition = {table: {}}
             return expectSaga(sagas.getListFormDefinition)
-              .provide([
-                [select(sagas.listFromDefinitionSelector), null]
-              ])
+              .provide([[select(sagas.listFromDefinitionSelector), null]])
               .dispatch(setFormDefinition(formDefinition))
               .returns(formDefinition)
               .run()
@@ -342,26 +329,24 @@ describe('entity-list', () => {
                 }
               })
               .call.like({fn: channel})
-              .call(
-                sagas.saveNewSearchFilter,
-                'searchFilterName',
-                'entityName',
-                'query',
-                expectedSorting,
-                ['filtername']
-              )
+              .call(sagas.saveNewSearchFilter, 'searchFilterName', 'entityName', 'query', expectedSorting, [
+                'filtername'
+              ])
               .call(sagas.loadSearchFilter, 'entityName')
               .call(sagas.resetSearch)
               .run()
           })
           test('should call rest save', () => {
-            const sorting = [{
-              field: 'sorting',
-              order: 'asc'
-            }, {
-              field: 'other',
-              order: 'desc'
-            }]
+            const sorting = [
+              {
+                field: 'sorting',
+                order: 'asc'
+              },
+              {
+                field: 'other',
+                order: 'desc'
+              }
+            ]
             const expectedContent = {
               method: 'POST',
               body: {
@@ -372,16 +357,10 @@ describe('entity-list', () => {
                 filters: ['filtername']
               }
             }
-            return expectSaga(
-              sagas.saveNewSearchFilter,
-              'searchFilterName',
-              'entityName',
-              'query',
-              sorting,
-              ['filtername']
-            ).provide([
-              [matchers.call.fn(rest.requestSaga), {body: {uniqueId: 'filter id'}}]
+            return expectSaga(sagas.saveNewSearchFilter, 'searchFilterName', 'entityName', 'query', sorting, [
+              'filtername'
             ])
+              .provide([[matchers.call.fn(rest.requestSaga), {body: {uniqueId: 'filter id'}}]])
               .call(rest.requestSaga, 'client/searchfilters', expectedContent)
               .run()
           })
@@ -473,10 +452,12 @@ describe('entity-list', () => {
                 [matchers.call.fn(rest.savePreferences)]
               ])
               .call(rest.savePreferences, expectedPreferences)
-              .put(notification.toaster({
-                type: 'success',
-                title: 'client.entity-list.search.settings.defaultFilter.save.success'
-              }))
+              .put(
+                notification.toaster({
+                  type: 'success',
+                  title: 'client.entity-list.search.settings.defaultFilter.save.success'
+                })
+              )
               .run()
           })
         })
@@ -493,10 +474,12 @@ describe('entity-list', () => {
                 [matchers.call.fn(rest.deleteUserPreferences)]
               ])
               .call(rest.deleteUserPreferences, 'User.User_search.searchfilter')
-              .put(notification.toaster({
-                type: 'success',
-                title: 'client.entity-list.search.settings.defaultFilter.reset.success'
-              }))
+              .put(
+                notification.toaster({
+                  type: 'success',
+                  title: 'client.entity-list.search.settings.defaultFilter.reset.success'
+                })
+              )
               .run()
           })
         })

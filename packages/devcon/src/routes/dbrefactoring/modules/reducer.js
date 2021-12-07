@@ -7,10 +7,9 @@ const handleSetFragments = (state, action) => ({
   dbRefactoring: {
     ...state.dbRefactoring,
     fragments: action.payload.fragments,
-    selectedFragments:
-      action.payload.fragments
-        .filter(fragment => fragment.selected === true)
-        .map(fragment => fragment.id)
+    selectedFragments: action.payload.fragments
+      .filter(fragment => fragment.selected === true)
+      .map(fragment => fragment.id)
   }
 })
 
@@ -21,8 +20,9 @@ const handleSetFragmentSelected = (state, action) => ({
     selectedFragments:
       action.payload.selected === true
         ? [...state.dbRefactoring.selectedFragments, action.payload.fragment]
-        : state.dbRefactoring.selectedFragments
-          .filter((_, i) => i !== state.dbRefactoring.selectedFragments.indexOf(action.payload.fragment))
+        : state.dbRefactoring.selectedFragments.filter(
+            (_, i) => i !== state.dbRefactoring.selectedFragments.indexOf(action.payload.fragment)
+          )
   }
 })
 

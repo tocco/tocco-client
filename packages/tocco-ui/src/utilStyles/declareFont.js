@@ -1,9 +1,6 @@
 import {css} from 'styled-components'
 
-import {
-  scale,
-  theme
-} from '../utilStyles'
+import {scale, theme} from '../utilStyles'
 
 const declareFont = (options = {}) => css`
   color: ${options.color || theme.color('text')};

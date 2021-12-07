@@ -28,7 +28,9 @@ describe('tocco-util', () => {
           test('should return valid response with generalSettings', () => {
             setupReports(fetchMock)
             const resource = '/nice2/rest/report/sample_report/settings'
-            return fetch(resource).then(res => res.json()).should.eventually.have.property('generalSettings')
+            return fetch(resource)
+              .then(res => res.json())
+              .should.eventually.have.property('generalSettings')
           })
         })
 
@@ -37,16 +39,21 @@ describe('tocco-util', () => {
             setupReports(fetchMock)
             const resource = '/nice2/rest/report/generation'
             const body = {additionalProperties: {reportId: 'sample_report'}}
-            return fetch(resource, {method: 'POST', body: JSON.stringify(body)})
-              .should.eventually.have.property('status', 200)
+            return fetch(resource, {method: 'POST', body: JSON.stringify(body)}).should.eventually.have.property(
+              'status',
+              200
+            )
           })
 
           test('should return 400 for invalid_settings_report', () => {
             setupReports(fetchMock)
             const resource = '/nice2/rest/report/generation'
             const body = {additionalProperties: {reportId: 'invalid_settings_report'}}
-            return fetch(resource, {method: 'POST', acceptedStatusCodes: [400], body: JSON.stringify(body)})
-              .should.eventually.have.property('status', 400)
+            return fetch(resource, {
+              method: 'POST',
+              acceptedStatusCodes: [400],
+              body: JSON.stringify(body)
+            }).should.eventually.have.property('status', 400)
           })
         })
       })

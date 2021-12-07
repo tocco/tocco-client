@@ -1,20 +1,5 @@
-
-import {
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6
-} from './Heading'
-import {
-  Dd,
-  Dt,
-  Dl,
-  Li,
-  Ol,
-  Ul
-} from './List'
+import {H1, H2, H3, H4, H5, H6} from './Heading'
+import {Dd, Dt, Dl, Li, Ol, Ul} from './List'
 import {
   B,
   Code,
@@ -39,22 +24,8 @@ import {
   U,
   Var
 } from './Misc'
-import {
-  StyledH1,
-  StyledH2,
-  StyledH3,
-  StyledH4,
-  StyledH5,
-  StyledH6
-} from './StyledHeading'
-import {
-  StyledDd,
-  StyledDt,
-  StyledDl,
-  StyledLi,
-  StyledOl,
-  StyledUl
-} from './StyledList'
+import {StyledH1, StyledH2, StyledH3, StyledH4, StyledH5, StyledH6} from './StyledHeading'
+import {StyledDd, StyledDt, StyledDl, StyledLi, StyledOl, StyledUl} from './StyledList'
 import {
   StyledB,
   StyledCode,

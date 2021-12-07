@@ -21,20 +21,11 @@ export default function setupFetchMock(packageName, fetchMock, entityStore = def
     userValidateResponse(entityStore)
   )
 
-  fetchMock.patch(
-    new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+(\\?.*)?'),
-    userUpdateResponse(entityStore)
-  )
+  fetchMock.patch(new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+(\\?.*)?'), userUpdateResponse(entityStore))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/2.0/User\\?_validate=true'),
-    userValidateResponse(entityStore)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/entities/2.0/User\\?_validate=true'), userValidateResponse(entityStore))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/2.0/User(\\?.*)?'),
-    userCreateResponse(entityStore)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/entities/2.0/User(\\?.*)?'), userCreateResponse(entityStore))
 
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity\\?_validate=true'),

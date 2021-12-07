@@ -1,12 +1,12 @@
-import React, {useCallback} from 'react'
 import PropTypes from 'prop-types'
-import {Provider} from 'react-redux'
-import {LoadMask} from 'tocco-ui'
+import React, {useCallback} from 'react'
 import {IntlProvider} from 'react-intl-redux/lib'
+import {Provider} from 'react-redux'
 import styled from 'styled-components'
+import {LoadMask} from 'tocco-ui'
 
-import ThemeWrapper from './ThemeWrapper'
 import keyDown from '../keyDown'
+import ThemeWrapper from './ThemeWrapper'
 import './styles.css'
 const StyledApp = styled.div`
   display: flex;
@@ -32,9 +32,7 @@ const App = ({store, initIntlPromise, name, content, theme}) => {
         <keyDown.KeyDownWatcher>
           <LoadMask promises={[initIntlPromise]}>
             <IntlProvider>
-              <StyledApp ref={wrapperCallback}>
-                {content}
-              </StyledApp>
+              <StyledApp ref={wrapperCallback}>{content}</StyledApp>
             </IntlProvider>
           </LoadMask>
         </keyDown.KeyDownWatcher>

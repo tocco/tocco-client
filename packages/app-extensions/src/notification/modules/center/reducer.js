@@ -1,5 +1,5 @@
-import {reducer as reducerUtil} from 'tocco-util'
 import _union from 'lodash/union'
+import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
@@ -28,10 +28,10 @@ const updateUnreadNotification = (state, {payload: {notificationKey, read}}) => 
     unreadNotificationKeys = _union(state.unreadNotificationKeys, [notificationKey])
   }
 
-  return ({
+  return {
     ...state,
     unreadNotificationKeys
-  })
+  }
 }
 
 const ACTION_HANDLERS = {

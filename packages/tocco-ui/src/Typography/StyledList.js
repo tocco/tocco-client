@@ -1,17 +1,11 @@
 import styled from 'styled-components'
 
-import {
-  declareFont,
-  declareNoneWrappingText,
-  declareWrappingText,
-  scale,
-  theme
-} from '../utilStyles'
+import {declareFont, declareNoneWrappingText, declareWrappingText, scale, theme} from '../utilStyles'
 
 const StyledDd = styled.dd`
   && {
     ${declareFont()}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     margin: 0;
   }
 `
@@ -29,7 +23,7 @@ const StyledDl = styled.dl`
 const StyledDt = styled.dt`
   && {
     ${declareFont({fontWeight: theme.fontWeight('bold')})}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    ${props => (props.breakWords ? declareWrappingText() : declareNoneWrappingText())}
     margin: 0;
   }
 `
@@ -65,11 +59,4 @@ const StyledUl = styled(StyledList)`
   }
 `
 
-export {
-  StyledDd,
-  StyledDl,
-  StyledDt,
-  StyledLi,
-  StyledOl,
-  StyledUl
-}
+export {StyledDd, StyledDl, StyledDt, StyledLi, StyledOl, StyledUl}

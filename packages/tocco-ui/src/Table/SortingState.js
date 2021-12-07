@@ -1,16 +1,16 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import {Icon} from '../'
 import {StyledSortingSpan} from './StyledTable'
 
 const SortingState = ({column}) =>
-  column.sorting && column.sorting.sortRank && column.sorting.order
-    ? <StyledSortingSpan>
-      <Icon icon={`sort-${column.sorting.order === 'asc' ? 'up' : 'down'}`}/>
+  column.sorting && column.sorting.sortRank && column.sorting.order ? (
+    <StyledSortingSpan>
+      <Icon icon={`sort-${column.sorting.order === 'asc' ? 'up' : 'down'}`} />
       {column.sorting.sortRank > 1 && <span>{column.sorting.sortRank}</span>}
     </StyledSortingSpan>
-    : null
+  ) : null
 
 SortingState.propTypes = {
   column: PropTypes.shape({

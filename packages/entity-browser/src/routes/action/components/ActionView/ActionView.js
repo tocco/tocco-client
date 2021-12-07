@@ -1,12 +1,12 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import LazyAction from '../../../../components/LazyAction'
 
 const ActionView = props => {
   const {appId} = props.router.match.params
 
-  return <LazyAction appId={appId} {...props}/>
+  return <LazyAction appId={appId} {...props} />
 }
 
 ActionView.propTypes = {

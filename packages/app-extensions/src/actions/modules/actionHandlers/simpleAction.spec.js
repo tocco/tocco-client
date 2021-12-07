@@ -2,10 +2,10 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {download} from 'tocco-util'
 
-import simpleAction, {invokeRequest, showToaster} from './simpleAction'
-import rest from '../../../rest'
 import {TOASTER_KEY_PREFIX} from '../../../notification/modules/socket/socket'
 import {TOASTER} from '../../../notification/modules/toaster/actions'
+import rest from '../../../rest'
+import simpleAction, {invokeRequest, showToaster} from './simpleAction'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -13,25 +13,24 @@ describe('app-extensions', () => {
       describe('actionHandler', () => {
         describe('simpleAction', () => {
           describe('simpleAction', () => {
-            test('should call notification and return an remote event', async() => {
+            test('should call notification and return an remote event', async () => {
               const definition = {}
               const selection = {entityName: 'User'}
               const parent = {}
               const {returnValue} = await expectSaga(simpleAction, definition, selection, parent)
-                .provide([
-                  [matchers.call.fn(invokeRequest), {success: true}]
-                ])
+                .provide([[matchers.call.fn(invokeRequest), {success: true}]])
                 .put.actionType('notification/BLOCKING_INFO')
                 .run()
               expect(returnValue.success).to.be.true
               expect(returnValue.remoteEvents).to.have.length(1)
-              expect(returnValue.remoteEvents[0]).to.eql(
-                {type: 'entity-update-event', payload: {entities: [{entityName: 'User'}], parent}}
-              )
+              expect(returnValue.remoteEvents[0]).to.eql({
+                type: 'entity-update-event',
+                payload: {entities: [{entityName: 'User'}], parent}
+              })
             })
           })
 
-          test('should try downloading', async() => {
+          test('should try downloading', async () => {
             const definition = {}
             const selection = {entityName: 'User'}
             const parent = {}

@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import {Typography} from 'tocco-ui'
-import {rest} from 'tocco-app-extensions'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
+import {rest} from 'tocco-app-extensions'
+import {Typography} from 'tocco-ui'
 
 const DICTIONARY = {
   older: 'Älter',
@@ -23,11 +23,11 @@ const Header = ({keys, delta}) => {
     return rest.simpleRequest(url)
   }
 
-  const fetchLabels = async() => {
-    const [instanceInstallation, deltaInstallation] = await Promise.all(
-      [getFetchRequest(keys[0]),
-        getFetchRequest(keys[1])]
-    )
+  const fetchLabels = async () => {
+    const [instanceInstallation, deltaInstallation] = await Promise.all([
+      getFetchRequest(keys[0]),
+      getFetchRequest(keys[1])
+    ])
     setLabelInstance(instanceInstallation.display)
     setLabelDelta(deltaInstallation.display)
   }
@@ -46,13 +46,19 @@ const Header = ({keys, delta}) => {
     }
   }, [delta])
 
-  return <StyledHeader>
-    <Typography.B>Zeige alle Commits zwischen:</Typography.B>
-    <Typography.Span>
-      <div>{labelInstance}&emsp;{statusInstance}</div>
-      <div>{labelDelta}&emsp;{statusDelta}</div>
-    </Typography.Span>
-  </StyledHeader>
+  return (
+    <StyledHeader>
+      <Typography.B>Zeige alle Commits zwischen:</Typography.B>
+      <Typography.Span>
+        <div>
+          {labelInstance}&emsp;{statusInstance}
+        </div>
+        <div>
+          {labelDelta}&emsp;{statusDelta}
+        </div>
+      </Typography.Span>
+    </StyledHeader>
+  )
 }
 
 Header.propTypes = {

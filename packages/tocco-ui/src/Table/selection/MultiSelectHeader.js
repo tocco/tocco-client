@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import {MultiCheckbox} from '../../'
 import {dataPropType} from '../propTypes'
@@ -13,11 +13,9 @@ const MultiSelectHeader = ({data, isSelected, selectionChange}) => {
   const allRowsSelectionState = allKeys.every(k => isSelected(k))
     ? 'checked'
     : allKeys.some(k => isSelected(k))
-      ? 'indeterminate'
-      : 'unchecked'
-  return data.length === 0
-    ? null
-    : <MultiCheckbox value={allRowsSelectionState} onChange={allRowsSelectionChange}/>
+    ? 'indeterminate'
+    : 'unchecked'
+  return data.length === 0 ? null : <MultiCheckbox value={allRowsSelectionState} onChange={allRowsSelectionChange} />
 }
 
 MultiSelectHeader.propTypes = {

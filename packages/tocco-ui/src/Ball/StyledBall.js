@@ -1,10 +1,6 @@
 import styled, {css} from 'styled-components'
 
-import {
-  declareFont,
-  interactiveStyling,
-  scale, theme as themeSelector
-} from '../utilStyles'
+import {declareFont, interactiveStyling, scale, theme as themeSelector} from '../utilStyles'
 
 const declareBall = () => css`
   border-radius: 50%;
@@ -12,10 +8,9 @@ const declareBall = () => css`
   align-items: center;
   padding: ${scale.space(-3)};
   // ensure that width has at least the size of height
-  min-width: calc(1rem
-  * ${themeSelector.fontSize('base')}
-  * ${themeSelector.lineHeight('regular')}
-  + 2.4 * ${scale.space(-3)});
+  min-width: calc(
+    1rem * ${themeSelector.fontSize('base')} * ${themeSelector.lineHeight('regular')} + 2.4 * ${scale.space(-3)}
+  );
   box-sizing: border-box;
 `
 

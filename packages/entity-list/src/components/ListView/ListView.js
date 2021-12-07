@@ -3,10 +3,10 @@ import React, {useMemo} from 'react'
 import {LoadMask} from 'tocco-ui'
 import {js} from 'tocco-util'
 
-import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
-import {getColumnDefinition, getTable, getActionBar} from '../../util/api/forms'
-import TableContainer from '../../containers/TableContainer'
 import ActionContainer from '../../containers/ActionContainer'
+import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
+import TableContainer from '../../containers/TableContainer'
+import {getColumnDefinition, getTable, getActionBar} from '../../util/api/forms'
 import {StyledListWrapper, StyledActionWrapper, StyledListView} from './StyledComponents'
 
 const ListView = ({
@@ -28,16 +28,21 @@ const ListView = ({
   const List = useMemo(() => {
     if (formDefinition && preferencesLoaded) {
       const table = getTable(formDefinition)
-      const columnsDefinitions = getColumnDefinition(
-        {table, sorting, sortable, parent, intl, columnDisplayPreferences, cellRenderers}
-      )
+      const columnsDefinitions = getColumnDefinition({
+        table,
+        sorting,
+        sortable,
+        parent,
+        intl,
+        columnDisplayPreferences,
+        cellRenderers
+      })
 
-      return <StyledListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${table.id}`}>
-        <TableContainer
-          key={`table-${table.id}`}
-          columnDefinitions={columnsDefinitions}
-        />
-      </StyledListWrapper>
+      return (
+        <StyledListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${table.id}`}>
+          <TableContainer key={`table-${table.id}`} columnDefinitions={columnsDefinitions} />
+        </StyledListWrapper>
+      )
     }
   }, [formDefinition, sorting, columnDisplayPreferences, preferencesLoaded])
 
@@ -45,30 +50,27 @@ const ListView = ({
     if (formDefinition) {
       const actionBar = getActionBar(formDefinition)
       const content = [
-        ...(showSelectionController ? [<SelectionControllerContainer key="selectionController"/>] : []),
+        ...(showSelectionController ? [<SelectionControllerContainer key="selectionController" />] : []),
         ...(showActions !== false && actionBar
-          ? [<ActionContainer
-            key={`listAction-${actionBar.id}`}
-            definition={actionBar}
-            parent={parent}
-            disabled={dataLoadingInProgress}
-          />]
+          ? [
+              <ActionContainer
+                key={`listAction-${actionBar.id}`}
+                definition={actionBar}
+                parent={parent}
+                disabled={dataLoadingInProgress}
+              />
+            ]
           : [])
       ]
 
       if (content.length > 0 && actionBar) {
-        return <StyledActionWrapper key={`listActionWrapper-${actionBar.id}`}>
-          {content}
-        </StyledActionWrapper>
+        return <StyledActionWrapper key={`listActionWrapper-${actionBar.id}`}>{content}</StyledActionWrapper>
       }
     }
   }, [dataLoadingInProgress, formDefinition])
 
   return (
-    <LoadMask
-      required={[formDefinition]}
-      loadingText={msg('client.entity-list.loadingText')}
-    >
+    <LoadMask required={[formDefinition]} loadingText={msg('client.entity-list.loadingText')}>
       <StyledListView>
         {ActionBar}
         {List}
@@ -94,10 +96,12 @@ ListView.propTypes = {
   entityName: PropTypes.string,
   searchFormPosition: PropTypes.oneOf(['top', 'left']),
   showActions: PropTypes.bool,
-  sorting: PropTypes.arrayOf(PropTypes.shape({
-    field: PropTypes.string,
-    order: PropTypes.string
-  })),
+  sorting: PropTypes.arrayOf(
+    PropTypes.shape({
+      field: PropTypes.string,
+      order: PropTypes.string
+    })
+  ),
   sortable: PropTypes.bool,
   columnDisplayPreferences: PropTypes.objectOf(PropTypes.bool),
   cellRenderers: PropTypes.objectOf(PropTypes.func),

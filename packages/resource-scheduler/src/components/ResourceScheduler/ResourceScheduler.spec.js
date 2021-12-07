@@ -1,9 +1,9 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
-import ResourceScheduler from './ResourceScheduler'
-import SearchPanel from '../SearchPanel/SearchPanel'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
+import SearchPanel from '../SearchPanel/SearchPanel'
+import ResourceScheduler from './ResourceScheduler'
 
 const EMPTY_FUNC = () => {}
 

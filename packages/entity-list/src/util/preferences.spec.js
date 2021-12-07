@@ -165,8 +165,8 @@ describe('entity-list', () => {
           }
 
           const expectedColumns = {
-            'first_field': false,
-            'second_field': true,
+            first_field: false,
+            second_field: true,
             'third_field.with.multiple.paths': true
           }
 

@@ -1,39 +1,42 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-import {StyledFooterWrapper} from './StyledComponents'
 import FooterItem from './FooterItem'
-import TimestampValue from './TimestampValue'
+import {StyledFooterWrapper} from './StyledComponents'
 import TextValue from './TextValue'
+import TimestampValue from './TimestampValue'
 
-const DetailFooterFull = ({
-  entity,
-  keyField
-}) => (
+const DetailFooterFull = ({entity, keyField}) => (
   <StyledFooterWrapper>
     <div>
       <FooterItem
         labelId="client.entity-detail.footer.created"
-        valueComponent={() => <TimestampValue value={entity.paths.create_timestamp.value}/>}/>
+        valueComponent={() => <TimestampValue value={entity.paths.create_timestamp.value} />}
+      />
       <FooterItem
         labelId="client.entity-detail.footer.by"
-        valueComponent={() => <TextValue value={entity.paths.create_user.value}/>}/>
+        valueComponent={() => <TextValue value={entity.paths.create_user.value} />}
+      />
     </div>
     <div>
       <FooterItem
         labelId="client.entity-detail.footer.updated"
-        valueComponent={() => <TimestampValue value={entity.paths.update_timestamp.value}/>}/>
+        valueComponent={() => <TimestampValue value={entity.paths.update_timestamp.value} />}
+      />
       <FooterItem
         labelId="client.entity-detail.footer.by"
-        valueComponent={() => <TextValue value={entity.paths.update_user.value}/>}/>
+        valueComponent={() => <TextValue value={entity.paths.update_user.value} />}
+      />
     </div>
     <div>
       <FooterItem
         labelId="client.entity-detail.footer.version"
-        valueComponent={() => <TextValue value={entity.paths.version.value}/>}/>
+        valueComponent={() => <TextValue value={entity.paths.version.value} />}
+      />
       <FooterItem
         labelId="client.entity-detail.footer.key"
-        valueComponent={() => <TextValue value={entity.paths[keyField].value}/>}/>
+        valueComponent={() => <TextValue value={entity.paths[keyField].value} />}
+      />
     </div>
   </StyledFooterWrapper>
 )

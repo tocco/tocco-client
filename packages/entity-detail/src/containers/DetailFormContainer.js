@@ -1,6 +1,6 @@
-import {connect} from 'react-redux'
-import {injectIntl} from 'react-intl'
 import _get from 'lodash/get'
+import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 import {
   getFormValues,
   getFormInitialValues,
@@ -11,11 +11,7 @@ import {
 import {errorLogging} from 'tocco-app-extensions'
 
 import DetailForm from '../components/DetailForm/DetailForm'
-import {
-  unloadDetailView,
-  submitForm,
-  fireTouched
-} from '../modules/entityDetail/actions'
+import {unloadDetailView, submitForm, fireTouched} from '../modules/entityDetail/actions'
 
 const mapActionCreators = {
   unloadDetailView,
@@ -24,10 +20,7 @@ const mapActionCreators = {
   logError: errorLogging.logError
 }
 
-const getFormGeneralErrors = formName =>
-  state => (
-    _get(state, `form.${formName}.error`, {})
-  )
+const getFormGeneralErrors = formName => state => _get(state, `form.${formName}.error`, {})
 
 const mapStateToProps = state => ({
   formDefinition: state.entityDetail.formDefinition,

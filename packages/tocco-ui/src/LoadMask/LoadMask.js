@@ -31,20 +31,20 @@ const LoadMask = ({promises, required, children, loadingText}) => {
 
   useEffect(() => {
     if (required && Array.isArray(required)) {
-      setIsLoaded(!required.some(r => (!r)))
+      setIsLoaded(!required.some(r => !r))
     }
   })
 
   return (
     <StyledLoadMask>
-      {isLoaded
-        ? children
-        : <StyledLoadingIconAndTest>
-          <LoadingSpinner key="loading-spinner" size="30px"/>
-          {loadingText
-          && <Typography.Span key="loadingText">{loadingText}</Typography.Span>}
+      {isLoaded ? (
+        children
+      ) : (
+        <StyledLoadingIconAndTest>
+          <LoadingSpinner key="loading-spinner" size="30px" />
+          {loadingText && <Typography.Span key="loadingText">{loadingText}</Typography.Span>}
         </StyledLoadingIconAndTest>
-      }
+      )}
     </StyledLoadMask>
   )
 }

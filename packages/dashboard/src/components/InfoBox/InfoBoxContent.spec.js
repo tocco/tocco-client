@@ -1,5 +1,5 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 
 import InfoBoxContent from './InfoBoxContent'
 import InfoBoxHtmlFieldContent from './typeContent/InfoBoxHtmlFieldContent'
@@ -13,15 +13,15 @@ describe('dashboard', () => {
           const content = {
             type: 'htmlfield'
           }
-          const wrapper = shallow(<InfoBoxContent content={content} id="info-box"/>)
+          const wrapper = shallow(<InfoBoxContent content={content} id="info-box" />)
           expect(wrapper.find(InfoBoxHtmlFieldContent)).to.have.length(1)
         })
-        
+
         test('should render a searchfilter content', () => {
           const content = {
             type: 'searchfilter'
           }
-          const wrapper = shallow(<InfoBoxContent content={content} id="info-box"/>)
+          const wrapper = shallow(<InfoBoxContent content={content} id="info-box" />)
           expect(wrapper.find(InfoBoxSearchFilterContentContainer)).to.have.length(1)
         })
 
@@ -29,7 +29,7 @@ describe('dashboard', () => {
           const content = {
             type: 'anything'
           }
-          const wrapper = shallow(<InfoBoxContent content={content} id="info-box"/>)
+          const wrapper = shallow(<InfoBoxContent content={content} id="info-box" />)
           expect(wrapper.children()).to.have.length(0)
         })
       })

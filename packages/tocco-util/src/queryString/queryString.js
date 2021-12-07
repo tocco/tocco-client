@@ -1,6 +1,6 @@
-import queryStringUtil from 'query-string'
 import _isObject from 'lodash/isObject'
 import _mapValues from 'lodash/mapValues'
+import queryStringUtil from 'query-string'
 
 /**
  * Build query string from params map object.
@@ -11,7 +11,7 @@ import _mapValues from 'lodash/mapValues'
  * @returns the params map as query string.
  */
 export const toQueryString = obj => {
-  const stringifiedValues = _mapValues(obj, value => _isObject(value) ? JSON.stringify(value) : value)
+  const stringifiedValues = _mapValues(obj, value => (_isObject(value) ? JSON.stringify(value) : value))
   return queryStringUtil.stringify(stringifiedValues)
 }
 
@@ -25,7 +25,7 @@ export const toQueryString = obj => {
  */
 export const fromQueryString = queryString => {
   const obj = queryStringUtil.parse(queryString)
-  return _mapValues(obj, value => hasJsonStructure(value) ? JSON.parse(value) : value)
+  return _mapValues(obj, value => (hasJsonStructure(value) ? JSON.parse(value) : value))
 }
 
 export const hasJsonStructure = str => {

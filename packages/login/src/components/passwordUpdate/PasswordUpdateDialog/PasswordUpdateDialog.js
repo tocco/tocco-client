@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useEffect} from 'react'
-import {FormattedMessage} from 'react-intl'
-import {LoadMask, SignalList, Typography} from 'tocco-ui'
-import styled from 'styled-components'
 import ReCAPTCHA from 'react-google-recaptcha'
+import {FormattedMessage} from 'react-intl'
+import styled from 'styled-components'
+import {LoadMask, SignalList, Typography} from 'tocco-ui'
 
+import {StyledLoginButton} from '../../StyledLoginForm'
+import FailureMessage from '../FailureMessage'
+import ValidationRules from '../ValidationRules'
 import PasswordInput from './PasswordInput'
 import StyledPasswordUpdateDialog from './StyledPasswordUpdateDialog'
-import ValidationRules from '../ValidationRules'
-import FailureMessage from '../FailureMessage'
-import {StyledLoginButton} from '../../StyledLoginForm'
 
 const StyledValidationRulesWrapper = styled.div`
   margin: 1rem;
@@ -68,88 +68,90 @@ const PasswordUpdateDialog = ({
   const msg = id => intl.formatMessage({id})
 
   if (!validationRules) {
-    return <LoadMask/>
+    return <LoadMask />
   }
 
   const oldPasswordReadOnly = password.passwordUpdatePending
-  const newPasswordReadOnly = (!password.oldPassword && showOldPasswordField)
-    || password.passwordUpdatePending
-  const newPasswordRepeatReadOnly = !password.newPassword
-    || password.passwordUpdatePending
-    || (password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0)
+  const newPasswordReadOnly = (!password.oldPassword && showOldPasswordField) || password.passwordUpdatePending
+  const newPasswordRepeatReadOnly =
+    !password.newPassword ||
+    password.passwordUpdatePending ||
+    (password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0)
 
-  return <StyledPasswordUpdateDialog>
-    {showTitle
-      && <Typography.H5><FormattedMessage id="client.login.passwordUpdate.title"/></Typography.H5>}
-    {forcedUpdate
-      && <Typography.P><FormattedMessage id="client.login.passwordUpdate.introduction"/></Typography.P>}
-    <form onSubmit={handleSubmit}>
-      {showOldPasswordField === true
-        && <PasswordInput
-          tabIndex={1}
-          label={msg('client.login.passwordUpdate.oldPassword')}
-          name="oldPassword"
-          value={password.oldPassword}
-          onChange={updateOldPassword}
-          readOnly={oldPasswordReadOnly}
-          autoFocus
-          {...(password.passwordUpdateFailed && password.passwordUpdateErrorCode === 'INVALID_CREDENTIALS'
-            && {valid: false})
-          }
-        />}
-      <PasswordInput
-        tabIndex={2}
-        label={msg('client.login.passwordUpdate.newPassword')}
-        name="newPassword"
-        value={password.newPassword}
-        onChange={updateNewPassword}
-        readOnly={newPasswordReadOnly}
-        autoFocus={showOldPasswordField !== true}
-        valid={!newPasswordRepeatReadOnly}
-      />
-      <StyledValidationRulesWrapper>
-        <ValidationRules
-          rules={validationRules}
-          errors={password.newPasswordValidationErrors}
-          rulesNeutral={!password.newPassword}
+  return (
+    <StyledPasswordUpdateDialog>
+      {showTitle && (
+        <Typography.H5>
+          <FormattedMessage id="client.login.passwordUpdate.title" />
+        </Typography.H5>
+      )}
+      {forcedUpdate && (
+        <Typography.P>
+          <FormattedMessage id="client.login.passwordUpdate.introduction" />
+        </Typography.P>
+      )}
+      <form onSubmit={handleSubmit}>
+        {showOldPasswordField === true && (
+          <PasswordInput
+            tabIndex={1}
+            label={msg('client.login.passwordUpdate.oldPassword')}
+            name="oldPassword"
+            value={password.oldPassword}
+            onChange={updateOldPassword}
+            readOnly={oldPasswordReadOnly}
+            autoFocus
+            {...(password.passwordUpdateFailed &&
+              password.passwordUpdateErrorCode === 'INVALID_CREDENTIALS' && {valid: false})}
+          />
+        )}
+        <PasswordInput
+          tabIndex={2}
+          label={msg('client.login.passwordUpdate.newPassword')}
+          name="newPassword"
+          value={password.newPassword}
+          onChange={updateNewPassword}
+          readOnly={newPasswordReadOnly}
+          autoFocus={showOldPasswordField !== true}
+          valid={!newPasswordRepeatReadOnly}
         />
-      </StyledValidationRulesWrapper>
-      <PasswordInput
-        tabIndex={3}
-        label={msg('client.login.passwordUpdate.newPasswordRepeat')}
-        name="newPasswordRepeat"
-        value={password.newPasswordRepeat}
-        onChange={updateNewPasswordRepeat}
-        readOnly={newPasswordRepeatReadOnly}
-        valid={isSubmittable()}
-      />
+        <StyledValidationRulesWrapper>
+          <ValidationRules
+            rules={validationRules}
+            errors={password.newPasswordValidationErrors}
+            rulesNeutral={!password.newPassword}
+          />
+        </StyledValidationRulesWrapper>
+        <PasswordInput
+          tabIndex={3}
+          label={msg('client.login.passwordUpdate.newPasswordRepeat')}
+          name="newPasswordRepeat"
+          value={password.newPasswordRepeat}
+          onChange={updateNewPasswordRepeat}
+          readOnly={newPasswordRepeatReadOnly}
+          valid={isSubmittable()}
+        />
 
-      {
-        password.newPasswordRepeat
-          && password.newPassword !== password.newPasswordRepeat
-          && <SignalList.List>
-            <SignalList.Item condition="danger" label={<FormattedMessage id="client.login.passwordUpdate.noMatch"/>}/>
+        {password.newPasswordRepeat && password.newPassword !== password.newPasswordRepeat && (
+          <SignalList.List>
+            <SignalList.Item condition="danger" label={<FormattedMessage id="client.login.passwordUpdate.noMatch" />} />
           </SignalList.List>
-      }
+        )}
 
-      {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
-      <StyledLoginButton
-        pending={password.passwordUpdatePending}
-        disabled={isSubmittable() === false}
-        ink="primary"
-        label={msg('client.login.passwordUpdate.saveButton')}
-        look="raised"
-        type="submit"
-      />
-      {captchaKey && <ReCAPTCHA
-        ref={recaptchaRef}
-        badge="bottomright"
-        size="invisible"
-        sitekey={captchaKey}
-        hl={intl.locale}
-      />}
-    </form>
-  </StyledPasswordUpdateDialog>
+        {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode} />}
+        <StyledLoginButton
+          pending={password.passwordUpdatePending}
+          disabled={isSubmittable() === false}
+          ink="primary"
+          label={msg('client.login.passwordUpdate.saveButton')}
+          look="raised"
+          type="submit"
+        />
+        {captchaKey && (
+          <ReCAPTCHA ref={recaptchaRef} badge="bottomright" size="invisible" sitekey={captchaKey} hl={intl.locale} />
+        )}
+      </form>
+    </StyledPasswordUpdateDialog>
+  )
 }
 
 PasswordUpdateDialog.propTypes = {

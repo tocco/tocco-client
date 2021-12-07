@@ -1,6 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import {initialize, moveElements} from '../../../modules/move/actions'
 import {MoveAction} from './Move'
@@ -19,4 +19,4 @@ const mapStateToProps = state => ({
 
 const MoveContainer = connect(mapStateToProps, mapActionCreators)(MoveAction)
 
-export default injectIntl(props => <MoveContainer {...props}/>)
+export default injectIntl(props => <MoveContainer {...props} />)

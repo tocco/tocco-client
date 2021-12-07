@@ -1,8 +1,8 @@
-import {rest} from 'tocco-app-extensions'
 import {takeLatest, call, all, put} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
-import {transformValues} from './preferences'
 import * as actions from './actions'
+import {transformValues} from './preferences'
 
 export function* loadSettingsAndPreferences() {
   const settings = yield call(rest.fetchServerSettings)

@@ -1,8 +1,8 @@
+import {channel} from 'redux-saga'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {call, takeLatest, takeEvery, all, select} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
-import {channel} from 'redux-saga'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -14,14 +14,16 @@ describe('dashboard', () => {
         describe('sagas', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              call(sagas.loadDashboard),
-              takeLatest(actions.LOAD_DASHBOARD, sagas.loadDashboard),
-              takeLatest(actions.SAVE_INFOBOX_POSITIONS, sagas.saveInfoBoxPositions),
-              takeLatest(actions.SAVE_INFOBOX_HEIGHT, sagas.saveInfoBoxHeight),
-              takeEvery(actions.DISPLAY_INFOBOX_SETTINGS_MODAL, sagas.displayInfoBoxSettings),
-              takeEvery(actions.RESET_INFOBOX_SETTINGS, sagas.resetInfoBoxSettings)
-            ]))
+            expect(generator.next().value).to.deep.equal(
+              all([
+                call(sagas.loadDashboard),
+                takeLatest(actions.LOAD_DASHBOARD, sagas.loadDashboard),
+                takeLatest(actions.SAVE_INFOBOX_POSITIONS, sagas.saveInfoBoxPositions),
+                takeLatest(actions.SAVE_INFOBOX_HEIGHT, sagas.saveInfoBoxHeight),
+                takeEvery(actions.DISPLAY_INFOBOX_SETTINGS_MODAL, sagas.displayInfoBoxSettings),
+                takeEvery(actions.RESET_INFOBOX_SETTINGS, sagas.resetInfoBoxSettings)
+              ])
+            )
             expect(generator.next().done).to.be.true
           })
         })
@@ -31,9 +33,7 @@ describe('dashboard', () => {
             const dashboardData = {infoboxes: [{id: 'hello', position: '1:2'}]}
 
             return expectSaga(sagas.loadDashboard)
-              .provide([
-                [matchers.call.fn(rest.requestSaga), {body: dashboardData}]
-              ])
+              .provide([[matchers.call.fn(rest.requestSaga), {body: dashboardData}]])
               .call(rest.requestSaga, 'client/dashboard', {method: 'GET'})
               .put(actions.setDashboard([{id: 'hello', position: '1:2', col: 0, row: 2}]))
               .run()
@@ -64,9 +64,7 @@ describe('dashboard', () => {
             }
 
             return expectSaga(sagas.saveInfoBoxPositions, action)
-              .provide([
-                [matchers.call.fn(rest.savePreferences)]
-              ])
+              .provide([[matchers.call.fn(rest.savePreferences)]])
               .call(rest.savePreferences, expectedPreferences, '/nice2/ui/settings/infoboxes')
               .put(actions.setDashboard(expectedInfoBoxes))
               .run()
@@ -134,10 +132,7 @@ describe('dashboard', () => {
         describe('resetInfoBoxSettings', () => {
           test('should reset all infoBox settings', () => {
             return expectSaga(sagas.resetInfoBoxSettings)
-              .provide([
-                [matchers.call.fn(rest.deleteUserPreferences)],
-                [matchers.call.fn(sagas.loadDashboard)]
-              ])
+              .provide([[matchers.call.fn(rest.deleteUserPreferences)], [matchers.call.fn(sagas.loadDashboard)]])
               .call(rest.deleteUserPreferences, '*:HEIGHT')
               .call(rest.deleteUserPreferences, '*:POSITION')
               .call(rest.deleteUserPreferences, '*:STATUS')

@@ -1,5 +1,5 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import PasswordRequest from '../components/PasswordRequest'
 import {changePage} from '../modules/login/actions'

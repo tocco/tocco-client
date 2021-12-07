@@ -55,7 +55,7 @@ describe('app-extensions', () => {
   describe('form', () => {
     describe('asyncValidation', () => {
       describe('submitValidate', () => {
-        test('should not throw an error if valid', async() => {
+        test('should not throw an error if valid', async () => {
           fetchMock.patch('*', {
             valid: true,
             errors: {}
@@ -68,7 +68,7 @@ describe('app-extensions', () => {
           await submitValidation(values, mockData.initialValues, mockData.mode)
         })
 
-        test('should not throw an error if user has no permission', async() => {
+        test('should not throw an error if user has no permission', async () => {
           fetchMock.mock('*', 403)
           const values = {
             ...mockData.baseFormValues,
@@ -78,7 +78,7 @@ describe('app-extensions', () => {
           await submitValidation(values, mockData.initialValues, mockData.mode)
         })
 
-        test('should throw a SubmissionError', async() => {
+        test('should throw a SubmissionError', async () => {
           fetchMock.patch('*', {
             valid: false,
             errors: [
@@ -108,7 +108,7 @@ describe('app-extensions', () => {
       })
 
       describe('asyncValidate', () => {
-        test('should not throw an error if valid with backend request', async() => {
+        test('should not throw an error if valid with backend request', async () => {
           fetchMock.patch('*', {
             valid: true,
             errors: {}
@@ -118,7 +118,7 @@ describe('app-extensions', () => {
           await asyncValidation(values, mockData.initialValues, mockData.fieldDefinitions, mockData.mode)
         })
 
-        test('should throw an error if async locale error exists', async() => {
+        test('should throw an error if async locale error exists', async () => {
           fetchMock.patch('*', {
             valid: true,
             errors: {}
@@ -132,7 +132,7 @@ describe('app-extensions', () => {
           }
         })
 
-        test('should throw an Error if not valid with backend request', async() => {
+        test('should throw an Error if not valid with backend request', async () => {
           fetchMock.patch('*', {
             valid: false,
             errors: [
@@ -158,7 +158,7 @@ describe('app-extensions', () => {
           }
         })
 
-        test('should not throw a request error if other errors exist', async() => {
+        test('should not throw a request error if other errors exist', async () => {
           fetchMock.mock('*', 404)
 
           const values = {
@@ -176,7 +176,7 @@ describe('app-extensions', () => {
         })
       })
 
-      test('should trow a general outdated error if validation call return a 412', async() => {
+      test('should trow a general outdated error if validation call return a 412', async () => {
         fetchMock.mock('*', {
           status: 412,
           message: 'Version of entity User_status with key 2 is outdated. Given version: 111, Current version: 3',

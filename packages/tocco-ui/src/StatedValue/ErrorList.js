@@ -16,20 +16,14 @@ const ErrorList = props => {
   return (
     <SignalList.List>
       {errorValues.map((value, idx) => (
-        <SignalList.Item
-          condition="danger"
-          key={idx}
-          label={value}
-        />
+        <SignalList.Item condition="danger" key={idx} label={value} />
       ))}
     </SignalList.List>
   )
 }
 
 ErrorList.propTypes = {
-  error: PropTypes.objectOf(
-    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
-  )
+  error: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string])))
 }
 
 export default ErrorList

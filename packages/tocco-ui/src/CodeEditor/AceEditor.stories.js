@@ -9,16 +9,7 @@ export default {
     mode: {
       name: 'Language mode',
       type: 'string',
-      options: [
-        'tql',
-        'ftl',
-        'less',
-        'groovy',
-        'drools',
-        'html',
-        'xml',
-        'json'
-      ],
+      options: ['tql', 'ftl', 'less', 'groovy', 'drools', 'html', 'xml', 'json'],
       control: {
         type: 'select'
       },
@@ -64,21 +55,22 @@ export default {
 
 export const Default = args => {
   const [value, setValue] = useState('Some code here')
-  return <AceEditor
-    value={value}
-    onChange={setValue}
-    mode={args.mode}
-    showGutter={args.showGutter}
-    editorOptions={{
-      minLines: args.minLines,
-      maxLines: args.maxLines,
-      enableBasicAutocompletion: args.enableBasicAutocompletion,
-      enableLiveAutocompletion: args.enableLiveAutocompletion,
-      enableSnippets: args.enableSnippets,
-      readOnly: args.readOnly
-    }}
-  />
+  return (
+    <AceEditor
+      value={value}
+      onChange={setValue}
+      mode={args.mode}
+      showGutter={args.showGutter}
+      editorOptions={{
+        minLines: args.minLines,
+        maxLines: args.maxLines,
+        enableBasicAutocompletion: args.enableBasicAutocompletion,
+        enableLiveAutocompletion: args.enableLiveAutocompletion,
+        enableSnippets: args.enableSnippets,
+        readOnly: args.readOnly
+      }}
+    />
+  )
 }
 
-Default.args = {
-}
+Default.args = {}

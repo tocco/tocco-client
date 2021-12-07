@@ -7,6 +7,4 @@ export default {
   form
 }
 
-export const sagas = [
-  formSagas
-]
+export const sagas = [formSagas]

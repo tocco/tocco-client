@@ -1,18 +1,20 @@
-import {PasswordUpdateApp} from 'tocco-login/src/main'
-import {connect} from 'react-redux'
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {connect} from 'react-redux'
 import {notification} from 'tocco-app-extensions'
+import {PasswordUpdateApp} from 'tocco-login/src/main'
 
 const mapActionCreators = {
   closeModal: notification.removeModal
 }
 
-const PasswordUpdate = ({selection, closeModal}) =>
+const PasswordUpdate = ({selection, closeModal}) => (
   <PasswordUpdateApp
     username={selection.ids[0]}
     showOldPasswordField={false}
-    success={() => closeModal('action-password-update')}/>
+    success={() => closeModal('action-password-update')}
+  />
+)
 
 PasswordUpdate.propTypes = {
   selection: PropTypes.object.isRequired,

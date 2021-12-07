@@ -2,8 +2,8 @@ import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {takeLatest} from 'redux-saga/effects'
 import {externalEvents} from 'tocco-app-extensions'
 
-import * as sagas from './sagas'
 import * as actions from './actions'
+import * as sagas from './sagas'
 
 describe('docs-browser', () => {
   describe('modules', () => {
@@ -12,11 +12,13 @@ describe('docs-browser', () => {
         describe('main saga', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
-            saga.next().all([
-              takeLatest(actions.CHANGE_LIST_PARENT, sagas.changeListParent),
-              takeLatest(actions.CHANGE_SELECTION, sagas.changeSelection),
-              takeLatest(actions.CHANGE_SEARCH_FORM_COLLAPSED, sagas.changeSearchFormCollapsed)
-            ])
+            saga
+              .next()
+              .all([
+                takeLatest(actions.CHANGE_LIST_PARENT, sagas.changeListParent),
+                takeLatest(actions.CHANGE_SELECTION, sagas.changeSelection),
+                takeLatest(actions.CHANGE_SEARCH_FORM_COLLAPSED, sagas.changeSearchFormCollapsed)
+              ])
           })
         })
 

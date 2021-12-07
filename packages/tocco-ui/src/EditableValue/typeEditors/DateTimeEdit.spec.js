@@ -11,9 +11,7 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('DateTimeEdit ', () => {
         test('should render an instance of DatePicker', () => {
-          const wrapper = enzymeUtil.mountEmbedded(
-            <DateTimeEdit onChange={EMPTY_FUNC}/>
-          )
+          const wrapper = enzymeUtil.mountEmbedded(<DateTimeEdit onChange={EMPTY_FUNC} />)
 
           const datePicker = wrapper.find(LazyDatePicker)
           expect(datePicker).to.have.length(1)

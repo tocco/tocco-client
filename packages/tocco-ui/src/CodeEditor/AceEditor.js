@@ -1,16 +1,16 @@
-import React, {useEffect, useRef} from 'react'
-import styled from 'styled-components'
-import _get from 'lodash/get'
 import ace from 'ace-builds/src-min-noconflict/ace'
 import 'ace-builds/webpack-resolver'
+import {Mode as DroolsMode} from 'ace-builds/src-min-noconflict/mode-drools'
 import {Mode as GroovyMode} from 'ace-builds/src-min-noconflict/mode-groovy'
 import {Mode as HtmlMode} from 'ace-builds/src-min-noconflict/mode-html'
-import {Mode as LessMode} from 'ace-builds/src-min-noconflict/mode-less'
-import {Mode as XmlMode} from 'ace-builds/src-min-noconflict/mode-xml'
-import {Mode as PropertiesMode} from 'ace-builds/src-min-noconflict/mode-properties'
-import {Mode as DroolsMode} from 'ace-builds/src-min-noconflict/mode-drools'
 import {Mode as JsonMode} from 'ace-builds/src-min-noconflict/mode-json'
+import {Mode as LessMode} from 'ace-builds/src-min-noconflict/mode-less'
+import {Mode as PropertiesMode} from 'ace-builds/src-min-noconflict/mode-properties'
 import {Mode as TextMode} from 'ace-builds/src-min-noconflict/mode-text'
+import {Mode as XmlMode} from 'ace-builds/src-min-noconflict/mode-xml'
+import _get from 'lodash/get'
+import React, {useEffect, useRef} from 'react'
+import styled from 'styled-components'
 
 import AceEditorPropTypes from './AceEditorPropTypes'
 import 'ace-builds/src-min-noconflict/snippets/ftl'
@@ -23,8 +23,8 @@ import 'ace-builds/src-min-noconflict/snippets/json'
 import 'ace-builds/src-min-noconflict/snippets/drools'
 import 'ace-builds/src-min-noconflict/theme-textmate'
 import 'ace-builds/src-min-noconflict/ext-language_tools'
-import TqlMode from './TqlMode'
 import ToccoFtlMode from './ToccoFtlMode'
+import TqlMode from './TqlMode'
 
 const StyledEditor = styled.div`
   width: 100%;
@@ -48,12 +48,7 @@ const modeMappings = {
 
 const getMode = mode => _get(modeMappings, mode, mode)
 
-const setEditorConfiguration = (editor, {
-  mode,
-  theme,
-  showGutter,
-  editorOptions = {}
-}) => {
+const setEditorConfiguration = (editor, {mode, theme, showGutter, editorOptions = {}}) => {
   editor.getSession().setMode(getMode(mode))
   editor.setTheme(`ace/theme/${theme}`)
   Object.entries(editorOptions).forEach(([k, v]) => {
@@ -64,14 +59,7 @@ const setEditorConfiguration = (editor, {
 }
 
 const AceEditor = props => {
-  const {
-    mode,
-    theme = 'textmate',
-    value,
-    onChange,
-    showGutter = true,
-    editorOptions = {}
-  } = props
+  const {mode, theme = 'textmate', value, onChange, showGutter = true, editorOptions = {}} = props
   const containerReference = useRef(null)
   const editorReference = useRef(null)
 
@@ -89,7 +77,7 @@ const AceEditor = props => {
       setEditorConfiguration(editorReference.current, props)
     }
   }, [mode, theme, showGutter, editorOptions])
-  return <StyledEditor ref={containerReference}/>
+  return <StyledEditor ref={containerReference} />
 }
 
 AceEditor.propTypes = AceEditorPropTypes

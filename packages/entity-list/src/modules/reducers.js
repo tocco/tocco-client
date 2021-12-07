@@ -2,9 +2,9 @@ import {reducer as form} from 'redux-form'
 
 import entityListReducer, {sagas as entityListSagas} from './entityList'
 import listReducer, {sagas as listSagas} from './list'
+import preferencesReducer, {sagas as preferencesSaga} from './preferences'
 import searchFormReducer, {sagas as searchFormSagas} from './searchForm'
 import selectionReducer, {sagas as selectionSagas} from './selection'
-import preferencesReducer, {sagas as preferencesSaga} from './preferences'
 
 export default {
   entityList: entityListReducer,
@@ -15,10 +15,4 @@ export default {
   preferences: preferencesReducer
 }
 
-export const sagas = [
-  entityListSagas,
-  listSagas,
-  searchFormSagas,
-  selectionSagas,
-  preferencesSaga
-]
+export const sagas = [entityListSagas, listSagas, searchFormSagas, selectionSagas, preferencesSaga]

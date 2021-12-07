@@ -1,5 +1,5 @@
-import {reducer as reducerUtil} from 'tocco-util'
 import _uniq from 'lodash/uniq'
+import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 

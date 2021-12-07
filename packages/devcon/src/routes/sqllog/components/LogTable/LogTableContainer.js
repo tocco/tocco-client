@@ -7,7 +7,6 @@ const mapStateToProps = state => ({
   elapsed: state.sqlLog.elapsed
 })
 
-const mapActionCreators = {
-}
+const mapActionCreators = {}
 
 export default connect(mapStateToProps, mapActionCreators)(LogTable)

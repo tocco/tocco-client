@@ -1,16 +1,11 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-import {StyledMenuEntryWrapper} from './StyledComponents'
-import MenuItem from './MenuItem'
 import {prepareMenuTree} from '../../utils/navigationUtils'
+import MenuItem from './MenuItem'
+import {StyledMenuEntryWrapper} from './StyledComponents'
 
-const MenuTree = ({
-  items,
-  searchFilter,
-  typeMapping,
-  requireSearch
-}) => {
+const MenuTree = ({items, searchFilter, typeMapping, requireSearch}) => {
   if (requireSearch && !searchFilter) {
     return null
   }
@@ -22,19 +17,10 @@ const MenuTree = ({
   const actualItems = prepareMenuTree(items, searchFilter, typeMapping)
 
   const MenuItems = actualItems.map((item, index) => (
-    <MenuItem
-      key={index}
-      item={item}
-      typeMapping={typeMapping}
-      menuTreePath={item.name}
-    />
+    <MenuItem key={index} item={item} typeMapping={typeMapping} menuTreePath={item.name} />
   ))
 
-  return (
-    <StyledMenuEntryWrapper>
-      {MenuItems}
-    </StyledMenuEntryWrapper>
-  )
+  return <StyledMenuEntryWrapper>{MenuItems}</StyledMenuEntryWrapper>
 }
 
 MenuTree.propTypes = {

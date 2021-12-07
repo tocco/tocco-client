@@ -5,10 +5,9 @@ export const SET_DELETING_IN_PROGRESS = 'delete/SET_DELETING_IN_PROGRESS'
 export const ON_CANCEL = 'delete/ON_CANCEL'
 export const SET_ENTITIES_TO_DELETE = 'delete/SET_ENTITIES_TO_DELETE'
 
-export const
-  loadDialogInfo = () => ({
-    type: LOAD_DIALOG_INFO
-  })
+export const loadDialogInfo = () => ({
+  type: LOAD_DIALOG_INFO
+})
 
 export const setDeleteDialogInfo = dialogInfo => ({
   type: SET_DIALOG_INFO,

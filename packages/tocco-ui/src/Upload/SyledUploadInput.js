@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import Dropzone from 'react-dropzone'
+import styled from 'styled-components'
 
 import {StyledButton} from '../Button'
 import {scale} from '../utilStyles'

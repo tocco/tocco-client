@@ -1,9 +1,5 @@
 import Link from './Link'
-import StyledLink from './StyledLink'
 import RouterLink from './RouterLink'
+import StyledLink from './StyledLink'
 
-export {
-  Link as default,
-  StyledLink,
-  RouterLink
-}
+export {Link as default, StyledLink, RouterLink}

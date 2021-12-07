@@ -20,11 +20,13 @@ describe('merge', () => {
       describe('sagas', () => {
         test('should fork child sagas', () => {
           const generator = rootSaga()
-          expect(generator.next().value).to.deep.equal(all([
-            takeLatest(actions.INITIALIZE, sagas.initialize),
-            takeLatest(actions.EXECUTE_MERGE, sagas.executeMerge),
-            takeLatest(actions.CLOSE, sagas.close)
-          ]))
+          expect(generator.next().value).to.deep.equal(
+            all([
+              takeLatest(actions.INITIALIZE, sagas.initialize),
+              takeLatest(actions.EXECUTE_MERGE, sagas.executeMerge),
+              takeLatest(actions.CLOSE, sagas.close)
+            ])
+          )
           expect(generator.next().done).to.be.true
         })
 
@@ -43,9 +45,7 @@ describe('merge', () => {
         describe('loadSourceData', () => {
           test('should call loadSourceData', () => {
             return expectSaga(sagas.loadSourceData, selection)
-              .provide([
-                [matchers.call.fn(rest.requestSaga), {body: sourceData}]
-              ])
+              .provide([[matchers.call.fn(rest.requestSaga), {body: sourceData}]])
               .call(rest.requestSaga, 'merge/sourceData', {method: 'POST', body: selection})
               .put(actions.setSourceData(sourceData))
               .put(actions.setTargetEntity(sourceData.entities[0].key))
@@ -109,15 +109,11 @@ describe('merge', () => {
                   key: '1',
                   paths: {
                     email: {
-                      UniqueValidator: [
-                        'Related entity path error'
-                      ]
+                      UniqueValidator: ['Related entity path error']
                     }
                   },
                   entityValidatorErrors: {
-                    CaseRegistrationValidator: [
-                      'An error occurred'
-                    ]
+                    CaseRegistrationValidator: ['An error occurred']
                   }
                 }
               ]
@@ -202,23 +198,26 @@ describe('merge', () => {
                     key: '1'
                   },
                   relAcademic_title: null,
-                  relPrincipal: [{
-                    key: '3150'
-                  }, {
-                    key: '5711'
-                  }]
+                  relPrincipal: [
+                    {
+                      key: '3150'
+                    },
+                    {
+                      key: '5711'
+                    }
+                  ]
                 }
               },
-              mergeRelations: [{
-                relationName: 'relMail',
-                sourceKey: ['2']
-              }]
+              mergeRelations: [
+                {
+                  relationName: 'relMail',
+                  sourceKey: ['2']
+                }
+              ]
             }
 
             return expectSaga(sagas.getMergeBody)
-              .provide([
-                [select(sagas.mergeSelector), merge]
-              ])
+              .provide([[select(sagas.mergeSelector), merge]])
               .returns(expectedBody)
               .run()
           })
@@ -251,14 +250,14 @@ describe('merge', () => {
                     {
                       entityName: 'User',
                       key: 2
-                    }]
+                    }
+                  ]
                 }
-              }]
+              }
+            ]
 
             return expectSaga(sagas.close)
-              .provide([
-                [select(sagas.mergeSelector), {sourceData}]
-              ])
+              .provide([[select(sagas.mergeSelector), {sourceData}]])
               .put(externalEvents.fireExternalEvent('onSuccess', {remoteEvents}))
               .run()
           })

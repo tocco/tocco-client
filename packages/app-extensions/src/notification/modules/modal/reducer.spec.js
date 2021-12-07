@@ -1,7 +1,7 @@
 import React from 'react'
 
-import reducer from './reducer'
 import * as actions from './actions'
+import reducer from './reducer'
 
 const INITIAL_STATE = {
   modals: []

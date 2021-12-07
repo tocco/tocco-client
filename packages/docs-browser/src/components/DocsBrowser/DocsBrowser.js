@@ -1,15 +1,15 @@
-import React, {useEffect, useReducer, useRef} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect, useReducer, useRef} from 'react'
 import {Route, Switch, useLocation} from 'react-router-dom'
 import {withTheme} from 'styled-components'
 import {theme as themeUtil} from 'tocco-ui'
 import {viewPersistor} from 'tocco-util'
 
+import Breadcrumbs from '../../containers/BreadcrumbsContainer'
+import isRootLocation from '../../utils/isRootLocation'
 import DocsView from '../DocsView'
 import DocumentView from '../DocumentView'
-import Breadcrumbs from '../../containers/BreadcrumbsContainer'
 import {StyledWrapper, StyledBreadcrumbs, StyledContent} from './StyledComponents'
-import isRootLocation from '../../utils/isRootLocation'
 
 const DocsBrowser = ({
   history,
@@ -67,7 +67,7 @@ const DocsBrowser = ({
     <StyledWrapper>
       <StyledBreadcrumbs noLeftPadding={noLeftPadding}>
         <Breadcrumbs
-          {...embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {}}
+          {...(embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {})}
           onClick={handleBreadcrumbsClick}
         />
       </StyledBreadcrumbs>
@@ -77,11 +77,7 @@ const DocsBrowser = ({
             exact
             path={'/docs/doc/:key/detail'}
             render={({match}) => (
-              <DocumentView
-                match={match}
-                history={history}
-                navigationStrategy={navigationStrategy}
-              />
+              <DocumentView match={match} history={history} navigationStrategy={navigationStrategy} />
             )}
           />
           <Route
@@ -97,7 +93,8 @@ const DocsBrowser = ({
                 emitAction={emitAction}
                 openFileDialog={openFileDialog}
                 searchMode={searchMode}
-              />)}
+              />
+            )}
           />
         </Switch>
       </StyledContent>

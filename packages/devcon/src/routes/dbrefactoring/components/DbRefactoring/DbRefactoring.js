@@ -7,9 +7,9 @@ import UpgradeLanguageForm from '../UpgradeLanguageForm'
 const DbRefactoring = () => (
   <>
     <Typography.H1>Database Refactoring</Typography.H1>
-    <DbRefactoringForm/>
+    <DbRefactoringForm />
     <Typography.H1>Language Upgrade</Typography.H1>
-    <UpgradeLanguageForm/>
+    <UpgradeLanguageForm />
   </>
 )
 

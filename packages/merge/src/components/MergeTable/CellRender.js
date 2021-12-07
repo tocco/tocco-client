@@ -1,15 +1,11 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
-import {injectIntl} from 'react-intl'
-import {navigationStrategy} from 'tocco-util'
 import _get from 'lodash/get'
+import PropTypes from 'prop-types'
+import React from 'react'
+import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
+import {navigationStrategy} from 'tocco-util'
 
-import {
-  setSelectedMultiple,
-  setSelectedMultipleAll,
-  setSelectedSingle
-} from '../../modules/merge/actions'
+import {setSelectedMultiple, setSelectedMultipleAll, setSelectedSingle} from '../../modules/merge/actions'
 import {FormattedValueRadio, ManyRelationsCheckBox, RelationsCheckBoxes} from './Selection'
 
 const CellRenderer = ({
@@ -30,40 +26,51 @@ const CellRenderer = ({
   const name = rowData.__key
 
   if (type === 'relations') {
-    return <ManyRelationsCheckBox
-      entityData={entityData}
-      entityKey={entityKey}
-      name={name}
-      setSelectedMultipleAll={setSelectedMultipleAll}
-      isSelected={_get(selectedMultipleAll, [name], []).includes(entityKey)}
-      navigationStrategy={navigationStrategy}
-    />
+    return (
+      <ManyRelationsCheckBox
+        entityData={entityData}
+        entityKey={entityKey}
+        name={name}
+        setSelectedMultipleAll={setSelectedMultipleAll}
+        isSelected={_get(selectedMultipleAll, [name], []).includes(entityKey)}
+        navigationStrategy={navigationStrategy}
+      />
+    )
   }
 
   if (type === 'entity-list') {
-    return <RelationsCheckBoxes
+    return (
+      <RelationsCheckBoxes
+        entityData={entityData}
+        entityKey={entityKey}
+        name={name}
+        setSelectedMultiple={setSelectedMultiple}
+        selectedMultiple={selectedMultiple}
+      />
+    )
+  }
+
+  return (
+    <FormattedValueRadio
       entityData={entityData}
       entityKey={entityKey}
       name={name}
-      setSelectedMultiple={setSelectedMultiple}
-      selectedMultiple={selectedMultiple}
+      setSelectedSingle={setSelectedSingle}
+      isSelected={selectedSingle[name] === entityKey}
     />
-  }
-
-  return <FormattedValueRadio
-    entityData={entityData}
-    entityKey={entityKey}
-    name={name}
-    setSelectedSingle={setSelectedSingle}
-    isSelected={selectedSingle[name] === entityKey}
-  />
+  )
 }
 
 CellRenderer.propTypes = {
-  rowData: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.shape({
-    value: PropTypes.any,
-    type: PropTypes.string
-  }), PropTypes.string])),
+  rowData: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.shape({
+        value: PropTypes.any,
+        type: PropTypes.string
+      }),
+      PropTypes.string
+    ])
+  ),
   column: PropTypes.shape({
     entityKey: PropTypes.string.isRequired
   }),

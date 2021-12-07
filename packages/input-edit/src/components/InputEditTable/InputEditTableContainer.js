@@ -1,8 +1,8 @@
 import {connect} from 'react-redux'
 
-import InputEditTable from './InputEditTable'
-import {updateValue, setSorting} from '../../modules/inputEditTable/actions'
 import {setCurrentPage} from '../../modules/inputEditPagination/actions'
+import {updateValue, setSorting} from '../../modules/inputEditTable/actions'
+import InputEditTable from './InputEditTable'
 
 const mapActionCreators = {
   updateValue,

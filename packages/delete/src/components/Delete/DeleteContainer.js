@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import Delete from './Delete'
 import {loadDialogInfo} from '../../modules/delete/actions'
+import Delete from './Delete'
 
 const mapActionCreators = {
   loadDialogInfo

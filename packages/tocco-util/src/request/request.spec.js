@@ -13,7 +13,7 @@ describe('tocco-util', () => {
 
         expect(prepareUrl(backendUrl, resource)).to.equal('https://tocco.ch/nice2/test')
       })
-      
+
       test('should handle non prefixed slash', () => {
         const backendUrl = 'https://tocco.ch'
         const resource = 'nice2/test'
@@ -133,7 +133,7 @@ describe('tocco-util', () => {
           credentials: 'include',
           headers: new Headers()
         }
-        
+
         const preparedOptions = prepareOptions(options)
         expect(preparedOptions).to.deep.equal(expectedOptions)
         expect(preparedOptions.headers.get('Content-Type')).to.deep.equal('application/json')
@@ -151,7 +151,7 @@ describe('tocco-util', () => {
           credentials: 'same-origin',
           headers: new Headers()
         }
-        
+
         const preparedOptions = prepareOptions(options)
         expect(preparedOptions).to.deep.equal(expectedOptions)
       })
@@ -163,7 +163,7 @@ describe('tocco-util', () => {
         fetchMock.restore()
         env.setBackendUrl(undefined)
       })
-    
+
       test('should execute fetch', () => {
         const resource = 'username'
         const options = {}
@@ -195,10 +195,10 @@ describe('tocco-util', () => {
     })
 
     describe('extractBody', () => {
-      test('should return json', async() => {
+      test('should return json', async () => {
         const response = new Response(JSON.stringify({a: 'foo'}))
         const body = await extractBody(response)
-        
+
         expect(body).to.deep.equal({a: 'foo'})
         return body
       })

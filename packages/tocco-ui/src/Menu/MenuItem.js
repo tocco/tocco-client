@@ -1,20 +1,12 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 import {StyledMenuItem, StyledItemLabel} from './StyledComponents'
 
 /**
  * Item of Menu
  */
-const MenuItem = ({
-  children,
-  onClick,
-  onClose,
-  disabled,
-  closeOnClick,
-  title,
-  level
-}) => {
+const MenuItem = ({children, onClick, onClose, disabled, closeOnClick, title, level}) => {
   const childrenArr = React.Children.toArray(children).filter(Boolean)
   const isGroup = childrenArr.length > 1
   const hasOnClick = Boolean(onClick)
@@ -41,17 +33,19 @@ const MenuItem = ({
         key: `menu-item-${idx}-${lvl}`
       })
     }
-    return <StyledItemLabel
-      key={`menu-item-label-${idx}-${lvl}`}
-      hasOnClick={hasOnClick}
-      isGroup={isGroup}
-      title={title}
-      disabled={disabled}
-      look="raised"
-      level={level}
-    >
-      {child}
-    </StyledItemLabel>
+    return (
+      <StyledItemLabel
+        key={`menu-item-label-${idx}-${lvl}`}
+        hasOnClick={hasOnClick}
+        isGroup={isGroup}
+        title={title}
+        disabled={disabled}
+        look="raised"
+        level={level}
+      >
+        {child}
+      </StyledItemLabel>
+    )
   })
 
   return (

@@ -9,8 +9,5 @@ export default {
 }
 
 export const Basic = args => {
-  return <ResourceSchedulerApp
-    key={uuid()}
-    {...args}
-  />
+  return <ResourceSchedulerApp key={uuid()} {...args} />
 }

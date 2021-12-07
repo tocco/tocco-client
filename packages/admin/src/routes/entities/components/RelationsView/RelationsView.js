@@ -1,10 +1,15 @@
-import React, {useEffect} from 'react'
+import _get from 'lodash/get'
 import PropTypes from 'prop-types'
+import queryString from 'query-string'
+import React, {useEffect} from 'react'
 import {Icon, Typography} from 'tocco-ui'
 import {js} from 'tocco-util'
-import _get from 'lodash/get'
-import queryString from 'query-string'
 
+import {currentViewPropType} from '../../utils/propTypes'
+import {getRelation} from '../../utils/relationPersistor'
+import DocsViewAdapter from './DocsViewAdapter'
+import ListView from './ListView'
+import RelationBox from './RelationBox'
 import {
   StyledPlaceHolder,
   StyledPreviewBox,
@@ -14,11 +19,6 @@ import {
   StyledToggleCollapse,
   StyledToggleCollapseButton
 } from './StyledComponents'
-import {currentViewPropType} from '../../utils/propTypes'
-import ListView from './ListView'
-import DocsViewAdapter from './DocsViewAdapter'
-import RelationBox from './RelationBox'
-import {getRelation} from '../../utils/relationPersistor'
 
 const RelationsView = props => {
   const {
@@ -53,7 +53,7 @@ const RelationsView = props => {
   }
 
   useEffect(updateSelectedRelation, [relations])
-  useEffect(() => !selectedRelation ? updateSelectedRelation() : null, [selectedRelation])
+  useEffect(() => (!selectedRelation ? updateSelectedRelation() : null), [selectedRelation])
 
   if (!relations || relations.length === 0 || !currentViewInfo) {
     return null
@@ -62,57 +62,56 @@ const RelationsView = props => {
   const msg = id => intl.formatMessage({id})
   const hasCreateRights = relationName => relationsInfo[relationName]?.createPermission
   const RelationPreview = selectedRelation
-    ? (selectedRelation.targetEntity === 'Resource' ? DocsViewAdapter : ListView)
-    : () => <React.Fragment/>
+    ? selectedRelation.targetEntity === 'Resource'
+      ? DocsViewAdapter
+      : ListView
+    : () => <React.Fragment />
 
-  const RelationBoxes = relations.map(relation =>
-    <RelationBox
-      key={`relation-${relation.relationName}`}
-      relation={relation}
-      entityName={entityName}
-      {...props}
-    />
+  const RelationBoxes = relations.map(relation => (
+    <RelationBox key={`relation-${relation.relationName}`} relation={relation} entityName={entityName} {...props} />
+  ))
+
+  return (
+    <>
+      <StyledRelationsViewWrapper isCollapsed={isCollapsed}>
+        <StyledToggleCollapse>
+          <StyledToggleCollapseButton icon="chevron-right" onClick={toggleCollapse} />
+        </StyledToggleCollapse>
+        <StyledRelationBoxes>{RelationBoxes}</StyledRelationBoxes>
+        {selectedRelation && (
+          <StyledPreviewBox>
+            <Typography.H4>
+              {selectedRelation.relationDisplay.label}
+              <StyledPreviewLink
+                aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
+                to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}
+              >
+                <Icon icon="arrow-right" />
+              </StyledPreviewLink>
+              {hasCreateRights(selectedRelation.relationName) && selectedRelation.targetEntity !== 'Resource' && (
+                <StyledPreviewLink
+                  aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
+                  to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}
+                >
+                  <Icon icon="plus" />
+                </StyledPreviewLink>
+              )}
+            </Typography.H4>
+            <RelationPreview
+              selectedRelation={selectedRelation}
+              match={match}
+              history={history}
+              currentViewInfo={currentViewInfo}
+              emitAction={emitAction}
+            />
+          </StyledPreviewBox>
+        )}
+      </StyledRelationsViewWrapper>
+      <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
+        <StyledToggleCollapseButton icon={'chevron-left'} isCollapsed={isCollapsed} />
+      </StyledPlaceHolder>
+    </>
   )
-
-  return <>
-    <StyledRelationsViewWrapper isCollapsed={isCollapsed}>
-      <StyledToggleCollapse>
-        <StyledToggleCollapseButton icon="chevron-right" onClick={toggleCollapse}/>
-      </StyledToggleCollapse>
-      <StyledRelationBoxes>
-        {RelationBoxes}
-      </StyledRelationBoxes>
-      {selectedRelation
-      && <StyledPreviewBox>
-        <Typography.H4>
-          {selectedRelation.relationDisplay.label}
-          <StyledPreviewLink
-            aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
-            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
-            <Icon icon="arrow-right"/>
-          </StyledPreviewLink>
-          {hasCreateRights(selectedRelation.relationName) && selectedRelation.targetEntity !== 'Resource'
-          && <StyledPreviewLink
-            aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-            to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
-            <Icon icon="plus"/>
-          </StyledPreviewLink>
-          }
-        </Typography.H4>
-        <RelationPreview
-          selectedRelation={selectedRelation}
-          match={match}
-          history={history}
-          currentViewInfo={currentViewInfo}
-          emitAction={emitAction}
-        />
-      </StyledPreviewBox>
-      }
-    </StyledRelationsViewWrapper>
-    <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
-      <StyledToggleCollapseButton icon={'chevron-left'} isCollapsed={isCollapsed}/>
-    </StyledPlaceHolder>
-  </>
 }
 
 RelationsView.propTypes = {
@@ -120,10 +119,12 @@ RelationsView.propTypes = {
   match: PropTypes.object.isRequired,
   currentViewInfo: currentViewPropType,
   relations: PropTypes.array,
-  relationsInfo: PropTypes.objectOf(PropTypes.shape({
-    count: PropTypes.number,
-    createPermission: PropTypes.bool
-  })),
+  relationsInfo: PropTypes.objectOf(
+    PropTypes.shape({
+      count: PropTypes.number,
+      createPermission: PropTypes.bool
+    })
+  ),
   emitAction: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
   isCollapsed: PropTypes.bool,

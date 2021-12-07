@@ -1,7 +1,7 @@
-import {Icon, Typography} from 'tocco-ui'
-import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
+import {Icon, Typography} from 'tocco-ui'
 
 import {updateMarked} from '../../modules/entityDetail/actions'
 import {StyledActionSpan} from './StyledComponents'
@@ -20,15 +20,18 @@ const MarkButton = ({entityName, entityId, marked, updateMarked}) => {
     updateMarked(entityName, entityId, !marked)
   }
 
-  return <Typography.Span>
-    <StyledActionSpan
-      marked={marked}
-      onClick={handleClick}
-      onMouseEnter={() => setMouseOver(true)}
-      onMouseLeave={() => setMouseOver(false)}>
-      <Icon icon={marked || mouseOver ? 'star-full' : 'star'}/>
-    </StyledActionSpan>
-  </Typography.Span>
+  return (
+    <Typography.Span>
+      <StyledActionSpan
+        marked={marked}
+        onClick={handleClick}
+        onMouseEnter={() => setMouseOver(true)}
+        onMouseLeave={() => setMouseOver(false)}
+      >
+        <Icon icon={marked || mouseOver ? 'star-full' : 'star'} />
+      </StyledActionSpan>
+    </Typography.Span>
+  )
 }
 
 MarkButton.propTypes = {

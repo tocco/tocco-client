@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 
 import TextFormatter from './TextFormatter'
 
@@ -8,7 +8,7 @@ describe('tocco-ui', () => {
     describe('typeFormatters', () => {
       describe('TextFormatter ', () => {
         test('should format value', () => {
-          const wrapper = mount(<TextFormatter breakWords={true} value={'Lorem\nipsum'}/>)
+          const wrapper = mount(<TextFormatter breakWords={true} value={'Lorem\nipsum'} />)
           expect(wrapper.find('p')).to.have.length(2)
         })
       })

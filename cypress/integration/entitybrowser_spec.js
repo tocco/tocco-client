@@ -5,15 +5,17 @@ const getPkFromUrl = url => url.substring(url.lastIndexOf('/') + 1)
 const LONG_TIMEOUT = 15000
 
 const createUser = (firstname, lastname) => {
-  return cy.request({
-    url: `${Cypress.env('BACKEND_URL')}/nice2/rest/entities/2.0/User`,
-    method: 'POST',
-    json: true,
-    body: {model: 'User', key: null, paths: {firstname, lastname, relGender: {key: '2'}}}
-  }).then(response => {
-    const location = response.headers.location
-    return getPkFromUrl(location)
-  })
+  return cy
+    .request({
+      url: `${Cypress.env('BACKEND_URL')}/nice2/rest/entities/2.0/User`,
+      method: 'POST',
+      json: true,
+      body: {model: 'User', key: null, paths: {firstname, lastname, relGender: {key: '2'}}}
+    })
+    .then(response => {
+      const location = response.headers.location
+      return getPkFromUrl(location)
+    })
 }
 
 const deleteUser = pk => {
@@ -36,9 +38,7 @@ describe('Entity Browser', () => {
     it('should navigate to create view wit NEW button', () => {
       visitEntityBrowser()
 
-      cy.get('[data-cy=action-new]', {timeout: LONG_TIMEOUT})
-        .should('be.enabled')
-        .click()
+      cy.get('[data-cy=action-new]', {timeout: LONG_TIMEOUT}).should('be.enabled').click()
 
       cy.contains('Personenangaben', {timeout: LONG_TIMEOUT})
     })
@@ -83,33 +83,25 @@ describe('Entity Browser', () => {
     })
 
     it('should change value in detail view and save', () => {
-      cy.get('#input-detailForm-callname')
-        .type('{selectall}{del}Test')
-        .should('have.value', 'Test')
+      cy.get('#input-detailForm-callname').type('{selectall}{del}Test').should('have.value', 'Test')
       cy.get('[data-cy=detail-form_submit-button]').click()
       cy.contains('Gespeichert')
     })
 
     it('should change page back to list view without warning', () => {
-      cy.get('[data-cy=entity-detail_back-button]')
-        .click()
-      cy.get('[data-cy=list-cell]', {timeout: LONG_TIMEOUT})
-        .should('have.length.above', 1)
+      cy.get('[data-cy=entity-detail_back-button]').click()
+      cy.get('[data-cy=list-cell]', {timeout: LONG_TIMEOUT}).should('have.length.above', 1)
     })
 
     it('should change page back to list view without warning if data did not change', () => {
-      cy.get('input#input-detailForm-firstname')
-        .type('{selectall}{del}Cypress Test')
+      cy.get('input#input-detailForm-firstname').type('{selectall}{del}Cypress Test')
       cy.wait(300) // Wait for debounced onChange
-      cy.get('[data-cy=entity-detail_back-button]')
-        .click()
-      cy.get('[data-cy=list-cell]', {timeout: LONG_TIMEOUT})
-        .should('have.length.above', 1)
+      cy.get('[data-cy=entity-detail_back-button]').click()
+      cy.get('[data-cy=list-cell]', {timeout: LONG_TIMEOUT}).should('have.length.above', 1)
     })
 
     it('should display warning on changing page back to list view on edited form', () => {
-      cy.get('input#input-detailForm-callname')
-        .type('{selectall}{del}Test')
+      cy.get('input#input-detailForm-callname').type('{selectall}{del}Test')
       cy.wait(300) // Wait for debounced onChange
       cy.get('[data-cy=entity-detail_back-button]').click()
       cy.contains('ungespeicherte Änderungen')
@@ -138,16 +130,13 @@ describe('Entity Browser', () => {
 
     it('should load and display essential parts of the list view', () => {
       cy.contains('Daten werden geladen...', {timeout: LONG_TIMEOUT})
-      cy.get('[data-cy=header-cell-firstname]')
-        .should('be.visible')
+      cy.get('[data-cy=header-cell-firstname]').should('be.visible')
       cy.contains('Alle')
-      cy.get('[data-cy=list-cell]')
-        .should('have.length.above', 1)
+      cy.get('[data-cy=list-cell]').should('have.length.above', 1)
     })
 
     it('should handle selection', () => {
-      cy.get('[data-cy=list-row]')
-        .should('have.length.above', 5)
+      cy.get('[data-cy=list-row]').should('have.length.above', 5)
       cy.wait(500) // without this wait a "detached" error is thrown
       cy.get('[data-cy=list-selection-checkbox]').first().click()
       cy.get('[data-cy=list-selection-checkbox]').eq(3).click()
@@ -155,12 +144,10 @@ describe('Entity Browser', () => {
       cy.contains('Selektiert: 3')
 
       cy.get('[data-cy=selection-controller-selection]').click()
-      cy.get('[data-cy=list-row]')
-        .should('have.length', 3)
+      cy.get('[data-cy=list-row]').should('have.length', 3)
       cy.get('[data-cy=selection-controller-delete-selection]').click()
 
-      cy.get('[data-cy=list-row]')
-        .should('have.length.above', 5)
+      cy.get('[data-cy=list-row]').should('have.length.above', 5)
     })
 
     it('should handle column sorting and multi sorting', () => {
@@ -180,10 +167,13 @@ describe('Entity Browser', () => {
     it('should handle resize of a column with min width', () => {
       cy.get('[data-cy=header-cell-firstname]').should('not.have.css', 'width', '30px')
       cy.wait(500) // without this wait, a rerender will let the test fail
-      cy.get('[data-cy=header-cell-firstname-resizing-controller]').trigger('mousedown')
-        .trigger('mousemove', {clientX: 500, clientY: 0}).wait(100)
+      cy.get('[data-cy=header-cell-firstname-resizing-controller]')
+        .trigger('mousedown')
+        .trigger('mousemove', {clientX: 500, clientY: 0})
+        .wait(100)
         .trigger('mousemove', {clientX: 40, clientY: 0})
-        .trigger('mouseup').wait(100)
+        .trigger('mouseup')
+        .wait(100)
       cy.get('[data-cy=header-cell-firstname]').invoke('outerWidth').should('eq', 50)
     })
   })
@@ -194,12 +184,9 @@ describe('Entity Browser', () => {
     })
 
     it('should display extended search form', () => {
-      cy.get('[data-cy=form-field]')
-        .should('have.length', 1)
-      cy.get('[data-cy=extend-search-button]')
-        .click()
-      cy.get('[data-cy=form-field]')
-        .should('have.length.above', 1)
+      cy.get('[data-cy=form-field]').should('have.length', 1)
+      cy.get('[data-cy=extend-search-button]').click()
+      cy.get('[data-cy=form-field]').should('have.length.above', 1)
     })
 
     it('should find created user', () => {
@@ -209,8 +196,7 @@ describe('Entity Browser', () => {
 
       createUser(firstName, lastName).then(pk => {
         cy.wait(2000) // needed to make sure user is found via fulltext
-        cy.get('input#input-searchForm-txtFulltext')
-          .type(`${firstName}{enter}`)
+        cy.get('input#input-searchForm-txtFulltext').type(`${firstName}{enter}`)
         cy.contains(lastName, {timeout: LONG_TIMEOUT})
 
         deleteUser(pk)

@@ -1,18 +1,13 @@
+import {faCircleNotch} from '@fortawesome/pro-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCircleNotch} from '@fortawesome/pro-solid-svg-icons'
 
 /**
  * Spinner that indicates a loading process
  */
 const LoadingSpinner = ({size, style}) => (
-  <FontAwesomeIcon
-    {...style}
-    style={{fontSize: size}}
-    spin
-    icon={faCircleNotch}
-  />
+  <FontAwesomeIcon {...style} style={{fontSize: size}} spin icon={faCircleNotch} />
 )
 
 LoadingSpinner.propTypes = {

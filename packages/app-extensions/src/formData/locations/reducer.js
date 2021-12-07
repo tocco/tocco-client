@@ -1,22 +1,18 @@
 import * as actions from './actions'
 
-export const setLocationSuggestions = (state, {payload: {field, suggestions}}) => (
-  {
-    ...state,
-    [field]: {
-      suggestions
-    }
+export const setLocationSuggestions = (state, {payload: {field, suggestions}}) => ({
+  ...state,
+  [field]: {
+    suggestions
   }
-)
+})
 
-export const setLocationSuggestionsLoading = (state, {payload: {field}}) => (
-  {
-    ...state,
-    [field]: {
-      isLoading: true
-    }
+export const setLocationSuggestionsLoading = (state, {payload: {field}}) => ({
+  ...state,
+  [field]: {
+    isLoading: true
   }
-)
+})
 
 const ACTION_HANDLERS = {
   [actions.SET_LOCATION_SUGGESTIONS]: setLocationSuggestions,

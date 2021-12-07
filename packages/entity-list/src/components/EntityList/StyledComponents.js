@@ -8,26 +8,27 @@ export const TopPositioning = styled.div`
   grid-template-areas:
     'search'
     'list';
-  grid-auto-rows: auto minmax(${({searchFormType}) => searchFormType === 'simple' ? 'auto' : '400px'}, 1fr);
+  grid-auto-rows: auto minmax(${({searchFormType}) => (searchFormType === 'simple' ? 'auto' : '400px')}, 1fr);
 
   /* remove bottom space and set width in modal */
-  ${({searchFormType}) => searchFormType !== 'simple' && `
+  ${({searchFormType}) =>
+    searchFormType !== 'simple' &&
+    `
     grid-template-columns: minmax(100%, 700px);
-  `
-}
+  `}
 `
 
 export const LeftPositioning = styled.div`
   display: grid;
   column-gap: 1rem;
-  ${({isCollapsed}) => !isCollapsed
-  ? `
+  ${({isCollapsed}) =>
+    !isCollapsed
+      ? `
       grid: 'search list' / minmax(350px, 16%) auto;
     `
-  : `
+      : `
       grid: 'search list' / 25px auto;
-    `
-  }
+    `}
 
   @media (max-width: 600px) {
     column-gap: 8px;
@@ -39,7 +40,7 @@ export const SearchGrid = styled.div`
   overflow-y: auto;
 
   /* Limit height when positioned top */
-  ${/* sc-selector */TopPositioning} & {
+  ${/* sc-selector */ TopPositioning} & {
     max-height: 200px;
     padding-right: ${scale.space(-0.5)};
     ${StyledScrollbar}

@@ -12,7 +12,8 @@ export default {
   }
 }
 
-export const Basic = ({loaded, ...args}) =>
+export const Basic = ({loaded, ...args}) => (
   <LoadMask required={[loaded]} {...args}>
     LOADED
   </LoadMask>
+)

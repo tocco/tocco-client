@@ -1,12 +1,4 @@
-import {
-  addShortTerm,
-  addLongTerm,
-  getShortTerm,
-  getLongTerm,
-  clearAll,
-  clearShortTerm,
-  removeLongTerm
-} from './cache'
+import {addShortTerm, addLongTerm, getShortTerm, getLongTerm, clearAll, clearShortTerm, removeLongTerm} from './cache'
 
 describe('tocco-util', () => {
   describe('cache', () => {

@@ -3,9 +3,9 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 import {select, takeLatest} from 'redux-saga/effects'
 
 import rest from '../../rest'
-import * as sagas from './sagas'
-import * as actions from './actions'
 import {requestSaga} from '../../rest/rest'
+import * as actions from './actions'
+import * as sagas from './sagas'
 import {searchFilterResponseTransformer} from './utils'
 
 describe('app-extensions', () => {
@@ -15,9 +15,7 @@ describe('app-extensions', () => {
         describe('main saga', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
-            saga.next().all([
-              takeLatest(actions.LOAD_SEARCH_FILTERS, sagas.loadSearchFilters)
-            ])
+            saga.next().all([takeLatest(actions.LOAD_SEARCH_FILTERS, sagas.loadSearchFilters)])
           })
         })
 
@@ -96,15 +94,15 @@ describe('app-extensions', () => {
               }
             }
 
-            const existingSearchFilters = [{
-              display: 'Filter 1',
-              key: 'filter1'
-            }]
+            const existingSearchFilters = [
+              {
+                display: 'Filter 1',
+                key: 'filter1'
+              }
+            ]
 
             return expectSaga(sagas.loadSearchFilters, args)
-              .provide([
-                [select(sagas.searchFiltersSelector), {User: existingSearchFilters}]
-              ])
+              .provide([[select(sagas.searchFiltersSelector), {User: existingSearchFilters}]])
               .run()
           })
         })

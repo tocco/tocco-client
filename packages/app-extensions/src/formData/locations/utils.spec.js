@@ -1,14 +1,14 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
-import * as utils from './utils'
 import rest from '../../rest'
+import * as utils from './utils'
 
 describe('app-extensions', () => {
   describe('formData', () => {
     describe('locations', () => {
       describe('getCountryCodeByKey', () => {
-        test('should fetch an uncached country, add to cache and return country code', async() => {
+        test('should fetch an uncached country, add to cache and return country code', async () => {
           const countryKey = 1
           const countryEntity = {
             key: 1,
@@ -38,7 +38,7 @@ describe('app-extensions', () => {
       })
 
       describe('loadCountries', () => {
-        test('should load counties by code, add to cache and return', async() => {
+        test('should load counties by code, add to cache and return', async () => {
           const suggestions = [
             {country: 'CH', postcode: '8001'},
             {country: 'CH', postcode: '8002'},
@@ -92,9 +92,7 @@ describe('app-extensions', () => {
       describe('requestSuggestions', () => {
         test('should call requestSagas ', () => {
           return expectSaga(utils.requestSuggestions, 'Zurich', '8007', 'CH')
-            .provide([
-              [matchers.call.fn(rest.requestSaga), {body: {data: {}}}]
-            ])
+            .provide([[matchers.call.fn(rest.requestSaga), {body: {data: {}}}]])
             .call.like({fn: rest.requestSaga})
             .run()
         })
@@ -103,17 +101,13 @@ describe('app-extensions', () => {
       describe('getCountry', () => {
         test('should return country code of country value if defined', () => {
           return expectSaga(utils.getCountry, {key: 1}, ['DE', 'CH'])
-            .provide([
-              [matchers.call(utils.getCountryCodeByKey, 1), 'CH']
-            ])
+            .provide([[matchers.call(utils.getCountryCodeByKey, 1), 'CH']])
             .returns('CH')
             .run()
         })
 
         test('should return field countries if country undefined', () => {
-          return expectSaga(utils.getCountry, null, ['DE', 'CH'])
-            .returns(['DE', 'CH'])
-            .run()
+          return expectSaga(utils.getCountry, null, ['DE', 'CH']).returns(['DE', 'CH']).run()
         })
       })
     })

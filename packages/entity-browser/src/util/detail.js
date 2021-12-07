@@ -3,7 +3,7 @@ const modes = {
   UPDATE: 'update'
 }
 
-export const getMode = entityId => (entityId === undefined) ? modes.CREATE : modes.UPDATE
+export const getMode = entityId => (entityId === undefined ? modes.CREATE : modes.UPDATE)
 
 export default {
   modes,

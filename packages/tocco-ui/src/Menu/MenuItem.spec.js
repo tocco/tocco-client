@@ -1,5 +1,5 @@
-import React from 'react'
 import {shallow, mount} from 'enzyme'
+import React from 'react'
 
 import MenuItem from './MenuItem'
 
@@ -9,8 +9,7 @@ describe('tocco-ui', () => {
       test('should render a recursive three', () => {
         const wrapper = shallow(
           <MenuItem>
-             Group 1
-            <MenuItem>Group 1 - 1</MenuItem>
+            Group 1<MenuItem>Group 1 - 1</MenuItem>
             <MenuItem>Group 1 - 2</MenuItem>
             <MenuItem>
               <span id={'g-1-3'}>Group 1 - 3</span>
@@ -31,9 +30,10 @@ describe('tocco-ui', () => {
 
         const wrapper = mount(
           <MenuItem onClick={onClick1}>
-            Group 1
-            <MenuItem>Group 1 - 1</MenuItem>
-            <MenuItem onClick={onClick12} id="g-1-2">Group 1 - 2</MenuItem>
+            Group 1<MenuItem>Group 1 - 1</MenuItem>
+            <MenuItem onClick={onClick12} id="g-1-2">
+              Group 1 - 2
+            </MenuItem>
           </MenuItem>
         )
 
@@ -49,9 +49,10 @@ describe('tocco-ui', () => {
 
         const wrapper = mount(
           <MenuItem onClose={onClose} onClick={() => {}}>
-            Group 1
-            <MenuItem>Group 1 - 1</MenuItem>
-            <MenuItem onClick={onClick1} id="g-1-2">Group 1 - 2</MenuItem>
+            Group 1<MenuItem>Group 1 - 1</MenuItem>
+            <MenuItem onClick={onClick1} id="g-1-2">
+              Group 1 - 2
+            </MenuItem>
           </MenuItem>
         )
 
@@ -66,9 +67,10 @@ describe('tocco-ui', () => {
 
         const wrapper = mount(
           <MenuItem closeOnClick={false} onClose={onClose} onClick={() => {}}>
-            Group 1
-            <MenuItem>Group 1 - 1</MenuItem>
-            <MenuItem onClick={onClick1} id="g-1-2">Group 1 - 2</MenuItem>
+            Group 1<MenuItem>Group 1 - 1</MenuItem>
+            <MenuItem onClick={onClick1} id="g-1-2">
+              Group 1 - 2
+            </MenuItem>
           </MenuItem>
         )
 

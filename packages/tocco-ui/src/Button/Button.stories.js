@@ -1,5 +1,5 @@
-import React from 'react'
 import {action} from '@storybook/addon-actions'
+import React from 'react'
 import {MemoryRouter} from 'react-router'
 
 import Button from './'
@@ -27,74 +27,31 @@ export default {
   }
 }
 
-export const Basic = args => (
-  <Button
-    {...args}
-  />
-)
+export const Basic = args => <Button {...args} />
 
 Basic.args = {label: 'Button', icon: 'cog'}
 
 export const RouterLinkButtonBasic = args => (
   <MemoryRouter>
-    <RouterLinkButton
-      {...args}
-    />
+    <RouterLinkButton {...args} />
   </MemoryRouter>
 )
 
 RouterLinkButtonBasic.args = {label: 'RouterLinkButton', icon: 'cog'}
 
-export const Showcase = () => <span>
-  <Button
-    key="1"
-    label="Base color flat"
-    onClick={action('clicked')}
-  />
-  <Button
-    ink="primary"
-    key="2"
-    label="Primary color flat"
-  />
-  <Button
-    key="3"
-    label="Base color raised"
-    look="raised"
-  />
-  <Button
-    ink="primary"
-    key="4"
-    label="Primary color raised"
-    look="raised"
-  />
-  <Button
-    icon="cog"
-    iconPosition="append"
-    key="5"
-    label="Icon append"
-    type="submit"
-  />
-  <Button
-    icon="facebook"
-    key="6"
-    label="Icon prepend"
-  />
-  <Button
-    icon="google"
-    ink="primary"
-    key="9"
-    label="Pending"
-    pending={true}
-  />
-  <Button
-    key="13"
-    look="raised"
-  >
-    <i>child</i><b>child2</b>
-  </Button>
-  <Button
-    icon={'chevron-up'}
-    iconPosition="append"
-    label="Menu"
-  />
-</span>
+export const Showcase = () => (
+  <span>
+    <Button key="1" label="Base color flat" onClick={action('clicked')} />
+    <Button ink="primary" key="2" label="Primary color flat" />
+    <Button key="3" label="Base color raised" look="raised" />
+    <Button ink="primary" key="4" label="Primary color raised" look="raised" />
+    <Button icon="cog" iconPosition="append" key="5" label="Icon append" type="submit" />
+    <Button icon="facebook" key="6" label="Icon prepend" />
+    <Button icon="google" ink="primary" key="9" label="Pending" pending={true} />
+    <Button key="13" look="raised">
+      <i>child</i>
+      <b>child2</b>
+    </Button>
+    <Button icon={'chevron-up'} iconPosition="append" label="Menu" />
+  </span>
+)

@@ -5,11 +5,11 @@
     }
   },
   "form": {
-    "id":  "User_detail_relDummySubGrid_search",
+    "id": "User_detail_relDummySubGrid_search",
     "label": null,
     "children": [
       {
-        "id":  "box1",
+        "id": "box1",
         "componentType": "layout",
         "layoutType": "vertical-box",
         "hidden": false,

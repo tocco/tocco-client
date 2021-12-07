@@ -24,8 +24,8 @@ export const validationErrorToFormError = (entity, errors) => {
 }
 
 // workaround: redux-forms can't get the value of a field if the field-name contains a dot.
-export const transformFieldName = fieldName => (fieldName.replace(/\./g, '--'))
-export const transformFieldNameBack = fieldName => (fieldName.replace(/--/g, '.'))
+export const transformFieldName = fieldName => fieldName.replace(/\./g, '--')
+export const transformFieldNameBack = fieldName => fieldName.replace(/--/g, '.')
 
 export const entityToFormValues = entity => {
   return _reduce(entity, (acc, val, key) => ({...acc, [transformFieldName(key)]: val}), {})
@@ -48,8 +48,8 @@ export const getDirtyFields = (initialValues, values, isCreate) => {
 }
 
 export const isValueEmpty = v =>
-  v === null
-  || v === undefined
-  || v === ''
-  || (Array.isArray(v) && v.length === 0)
-  || (typeof v === 'object' && Object.keys(v).length === 0)
+  v === null ||
+  v === undefined ||
+  v === '' ||
+  (Array.isArray(v) && v.length === 0) ||
+  (typeof v === 'object' && Object.keys(v).length === 0)

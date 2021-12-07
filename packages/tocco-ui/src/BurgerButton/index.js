@@ -1,5 +1,3 @@
 import BurgerButton from './BurgerButton'
 
-export {
-  BurgerButton as default
-}
+export {BurgerButton as default}

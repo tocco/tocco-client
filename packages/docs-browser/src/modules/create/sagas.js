@@ -13,15 +13,17 @@ const CREATED_STATUS = 201
 
 export function* handleFilesSelected({payload: {files, isDirectory}}) {
   const blockingInfoId = yield call(uuid)
-  yield put(notification.blockingInfo(
-    blockingInfoId,
-    isDirectory
-      ? 'client.docs-browser.uploadInProgressDirectory'
-      : files.length > 1
+  yield put(
+    notification.blockingInfo(
+      blockingInfoId,
+      isDirectory
+        ? 'client.docs-browser.uploadInProgressDirectory'
+        : files.length > 1
         ? 'client.docs-browser.uploadInProgressMultiple'
         : 'client.docs-browser.uploadInProgress',
-    null
-  ))
+      null
+    )
+  )
 
   const {location, onSuccess, onError} = yield select(dialogSelector)
 
@@ -35,17 +37,19 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
         message: yield select(textResourceSelector, 'client.docs-browser.failedNoPermission')
       })
     } else {
-      const remoteEvents = [{
-        type: 'entity-create-event',
-        payload: {
-          entities: response.body.items
-            .filter(item => item.status === CREATED_STATUS)
-            .map(item => ({
-              entityName: item.bean.model,
-              key: item.bean.key
-            }))
+      const remoteEvents = [
+        {
+          type: 'entity-create-event',
+          payload: {
+            entities: response.body.items
+              .filter(item => item.status === CREATED_STATUS)
+              .map(item => ({
+                entityName: item.bean.model,
+                key: item.bean.key
+              }))
+          }
         }
-      }]
+      ]
 
       yield put(notification.removeBlockingInfo(blockingInfoId))
 
@@ -89,7 +93,5 @@ export function* createDocuments(location, files) {
 }
 
 export default function* mainSagas() {
-  yield all([
-    takeEvery(actions.FILES_SELECTED, handleFilesSelected)
-  ])
+  yield all([takeEvery(actions.FILES_SELECTED, handleFilesSelected)])
 }

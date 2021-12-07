@@ -194,8 +194,8 @@ describe('tocco-util', () => {
         expect(result.relUser).to.eql({key: '1', model: 'User', version: 340})
         expect(result['relUser.relUser_code1']).to.eql([
           {key: '1', model: 'User_code1', version: 1},
-          {key: '301', model: 'User_code1', version: 0}]
-        )
+          {key: '301', model: 'User_code1', version: 0}
+        ])
 
         expect(result['relUser.relUser_code1.active']).to.eql([true, false])
       })
@@ -217,7 +217,7 @@ describe('tocco-util', () => {
 
       test('should set multi paths correctly', () => {
         const values = {
-          'relGender': {key: '2', version: 3, model: 'Gender'},
+          relGender: {key: '2', version: 3, model: 'Gender'},
           'relGender.relXy': {key: '33', version: 4},
           'relGender.relXy.Z': 'TEST',
           'relGender.relXy.Y': 'TEST'

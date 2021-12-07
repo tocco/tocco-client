@@ -1,9 +1,7 @@
 import styled, {css, keyframes} from 'styled-components'
 
-import {
-  scale
-} from '../utilStyles'
 import {StyledSpan} from '../Typography/StyledMisc'
+import {scale} from '../utilStyles'
 
 const fadeIn = keyframes`
   from {

@@ -1,9 +1,5 @@
-import {
-  addToStore
-} from './externalEvents'
-import {
-  fireExternalEvent
-} from './actions'
+import {fireExternalEvent} from './actions'
+import {addToStore} from './externalEvents'
 
 export default {
   fireExternalEvent,

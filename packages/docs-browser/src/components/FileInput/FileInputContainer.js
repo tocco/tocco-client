@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import FileInput from './FileInput'
 import {filesSelected} from '../../modules/create/actions'
+import FileInput from './FileInput'
 
 const mapActionCreators = {
   onChange: filesSelected

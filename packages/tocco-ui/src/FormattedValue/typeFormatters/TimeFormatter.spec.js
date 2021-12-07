@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 import {IntlProvider} from 'react-intl'
 
 import TimeFormatter from './TimeFormatter'
@@ -19,7 +19,7 @@ describe('tocco-ui', () => {
         test('should format value', () => {
           const wrapper = mount(
             <IntlProvider locale="en">
-              <TimeFormatter value={timeValue}/>
+              <TimeFormatter value={timeValue} />
             </IntlProvider>
           )
           expect(wrapper.text().replace(leftToRightMark, '')).to.equal(timeOutputEn)
@@ -30,7 +30,7 @@ describe('tocco-ui', () => {
         test('should format value according to locale', () => {
           const wrapper = mount(
             <IntlProvider locale="de">
-              <TimeFormatter value={timeValue}/>
+              <TimeFormatter value={timeValue} />
             </IntlProvider>
           )
           expect(wrapper.text().replace(leftToRightMark, '')).to.equal(timeOutputDe)

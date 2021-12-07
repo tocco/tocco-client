@@ -1,11 +1,11 @@
-import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {channel} from 'redux-saga'
-import {call, select, spawn} from 'redux-saga/effects'
+import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {call, select, spawn} from 'redux-saga/effects'
 
 import newNotification from '../../../notification'
-import * as legacyAction from './legacyAction'
 import rest from '../../../rest'
+import * as legacyAction from './legacyAction'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -17,20 +17,28 @@ describe('app-extensions', () => {
               window.legacyActionsEnvInitialized = undefined
               window.setUpLegacyActionsEnv = () => {}
 
-              testSaga(legacyAction.initLegacyActionsEnv).next()
-                .call(legacyAction.loadSequentially, legacyAction.sources).next()
-                .call(window.setUpLegacyActionsEnv).next()
-                .call(legacyAction.registerNotificationsListener).next()
-                .call(legacyAction.registerRemoteEventsListener).next()
+              testSaga(legacyAction.initLegacyActionsEnv)
+                .next()
+                .call(legacyAction.loadSequentially, legacyAction.sources)
+                .next()
+                .call(window.setUpLegacyActionsEnv)
+                .next()
+                .call(legacyAction.registerNotificationsListener)
+                .next()
+                .call(legacyAction.registerRemoteEventsListener)
+                .next()
                 .isDone()
             })
 
             test('should not init if already initialized', () => {
               window.legacyActionsEnvInitialized = true
 
-              testSaga(legacyAction.initLegacyActionsEnv).next()
-                .call(legacyAction.registerNotificationsListener).next()
-                .call(legacyAction.registerRemoteEventsListener).next()
+              testSaga(legacyAction.initLegacyActionsEnv)
+                .next()
+                .call(legacyAction.registerNotificationsListener)
+                .next()
+                .call(legacyAction.registerRemoteEventsListener)
+                .next()
                 .isDone()
             })
           })
@@ -46,8 +54,10 @@ describe('app-extensions', () => {
                   [matchers.call.fn(legacyAction.loadScript)],
                   [matchers.call.fn(legacyAction.loadCss)]
                 ])
-                .call(legacyAction.loadScript,
-                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`)
+                .call(
+                  legacyAction.loadScript,
+                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`
+                )
                 .call(legacyAction.loadScript, `/nice2/javascript/lang.release.js?v=${revision}`)
                 .call(legacyAction.loadScript, `/nice2/javascript/nice2-ext-newclient-actions.release.js?v=${revision}`)
                 .call(legacyAction.loadScript, `/nice2/javascript/nice2-admin.release.js?v=${revision}`)
@@ -69,8 +79,10 @@ describe('app-extensions', () => {
                   [matchers.call.fn(legacyAction.loadScript)],
                   [matchers.call.fn(legacyAction.loadCss)]
                 ])
-                .call(legacyAction.loadScript,
-                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`)
+                .call(
+                  legacyAction.loadScript,
+                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`
+                )
                 .run()
             })
 
@@ -84,10 +96,14 @@ describe('app-extensions', () => {
                   [matchers.call.fn(legacyAction.loadScript)],
                   [matchers.call.fn(legacyAction.loadCss)]
                 ])
-                .call(legacyAction.loadScript,
-                  `/nice2/javascript/nice2-newclient-actions-public.release.js?v=${revision}`)
-                .call(legacyAction.loadScript,
-                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`)
+                .call(
+                  legacyAction.loadScript,
+                  `/nice2/javascript/nice2-newclient-actions-public.release.js?v=${revision}`
+                )
+                .call(
+                  legacyAction.loadScript,
+                  `/nice2/javascript/nice2-newclient-actions-setup.release.js?v=${revision}`
+                )
                 .run()
             })
           })
@@ -172,8 +188,7 @@ describe('app-extensions', () => {
           describe('getSelection', () => {
             window.nice2 = {
               netui: {
-                ManualQuery: class {
-                }
+                ManualQuery: class {}
               }
             }
             window.form = {
@@ -228,9 +243,7 @@ describe('app-extensions', () => {
               }
 
               return expectSaga(legacyAction.getSelection, selection)
-                .provide([
-                  [select(legacyAction.listSelector), listState]
-                ])
+                .provide([[select(legacyAction.listSelector), listState]])
                 .returns({
                   entityName: 'User',
                   selectionType: 'NEW_CLIENT_QUERY',
@@ -261,8 +274,7 @@ describe('app-extensions', () => {
                   [select(legacyAction.entityDetailSelector), undefined]
                 ])
                 .returns('list')
-                .run()
-            )
+                .run())
 
             test('should return detail scope if entityDetail with mode update in state', () =>
               expectSaga(legacyAction.getScope)
@@ -271,8 +283,7 @@ describe('app-extensions', () => {
                   [select(legacyAction.entityDetailSelector), {mode: 'update'}]
                 ])
                 .returns('detail')
-                .run()
-            )
+                .run())
 
             test('should return create scope if entityDetail with mode create in state', () =>
               expectSaga(legacyAction.getScope)
@@ -281,8 +292,7 @@ describe('app-extensions', () => {
                   [select(legacyAction.entityDetailSelector), {mode: 'create'}]
                 ])
                 .returns('create')
-                .run()
-            )
+                .run())
 
             test('should throw error if unknown mode in entityDetail state', () =>
               expectSaga(legacyAction.getScope)
@@ -292,10 +302,8 @@ describe('app-extensions', () => {
                 ])
                 .run()
                 .catch(e => {
-                  expect(e.message)
-                    .to.equal('Unable to get form scope. Unexpected detail mode: foobar')
-                })
-            )
+                  expect(e.message).to.equal('Unable to get form scope. Unexpected detail mode: foobar')
+                }))
 
             test('should throw error if entityDetail and entityList in state', () =>
               expectSaga(legacyAction.getScope)
@@ -305,10 +313,10 @@ describe('app-extensions', () => {
                 ])
                 .run()
                 .catch(e => {
-                  expect(e.message)
-                    .to.equal('Unable to get form scope. Unexpected state: entityList and entityDetail exist')
-                })
-            )
+                  expect(e.message).to.equal(
+                    'Unable to get form scope. Unexpected state: entityList and entityDetail exist'
+                  )
+                }))
 
             test('should throw error if whether entityDetail nor entityList in state', () =>
               expectSaga(legacyAction.getScope)
@@ -318,10 +326,10 @@ describe('app-extensions', () => {
                 ])
                 .run()
                 .catch(e => {
-                  expect(e.message)
-                    .to.equal('Unable to get form scope. Expected to find either entityList or entityDetail in state')
-                })
-            )
+                  expect(e.message).to.equal(
+                    'Unable to get form scope. Expected to find either entityList or entityDetail in state'
+                  )
+                }))
           })
         })
       })

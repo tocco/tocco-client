@@ -1,11 +1,11 @@
 import {combineReducers} from 'redux'
 
-import passwordUpdateReducers, {sagas as passwordUpdateSagas} from './passwordUpdate/reducers'
 import login from './login'
 import loginForm from './loginForm'
-import twoStepLogin, {sagas as twoStepLoginSagas} from './twoStepLogin'
-import mainSagas from './sagas'
 import passwordRequest, {sagas as passwordRequestSagas} from './passwordRequest'
+import passwordUpdateReducers, {sagas as passwordUpdateSagas} from './passwordUpdate/reducers'
+import mainSagas from './sagas'
+import twoStepLogin, {sagas as twoStepLoginSagas} from './twoStepLogin'
 
 export default {
   login,
@@ -15,9 +15,4 @@ export default {
   twoStepLogin
 }
 
-export const sagas = [
-  mainSagas,
-  passwordRequestSagas,
-  twoStepLoginSagas,
-  ...passwordUpdateSagas
-]
+export const sagas = [mainSagas, passwordRequestSagas, twoStepLoginSagas, ...passwordUpdateSagas]

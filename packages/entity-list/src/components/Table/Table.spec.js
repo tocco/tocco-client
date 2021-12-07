@@ -1,6 +1,6 @@
+import {shallow} from 'enzyme'
 import React from 'react'
 import {IntlStub} from 'tocco-test-util/src/main'
-import {shallow} from 'enzyme'
 import {Table as UiTable} from 'tocco-ui'
 
 import Table from './Table'
@@ -23,7 +23,7 @@ describe('entity-list', () => {
   describe('components', () => {
     describe('Table', () => {
       test('should render table', () => {
-        const wrapper = shallow(<Table {...defaultProps}/>)
+        const wrapper = shallow(<Table {...defaultProps} />)
         expect(wrapper.find(UiTable)).to.have.length(1)
       })
     })

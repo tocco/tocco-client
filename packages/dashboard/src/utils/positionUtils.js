@@ -10,7 +10,7 @@ export const mapPositionToColAndRow = position => {
   if (!position) {
     return {col: 0, row: 0}
   }
-  
+
   const split = position.split(':')
   const col = parseInt(split[0], 10) - 1
   const row = parseInt(split[1], 10)
@@ -30,32 +30,32 @@ const isUnpositionedInfoBox = box => box.position === null
 const getColumnWithMinAmountOfInfoBoxes = infoBoxes => {
   const columns = [...Array(NUMBER_OF_COLUMNS).keys()]
 
-  const numberOfBoxesPerCol = columns.reduce((acc, col) => ({
-    ...acc,
-    [col]: infoBoxes.filter(b => b.col === col).length
-  }), {})
+  const numberOfBoxesPerCol = columns.reduce(
+    (acc, col) => ({
+      ...acc,
+      [col]: infoBoxes.filter(b => b.col === col).length
+    }),
+    {}
+  )
 
   const minCol = Object.keys(numberOfBoxesPerCol).reduce(
     (min, key) => {
       const col = parseInt(key, 10)
       return numberOfBoxesPerCol[col] < min.numberOfBoxes ? {col, numberOfBoxes: numberOfBoxesPerCol[col]} : min
     },
-    {col: -1, numberOfBoxes: Number.MAX_VALUE})
-  
+    {col: -1, numberOfBoxes: Number.MAX_VALUE}
+  )
+
   return minCol.col === -1 ? {col: 0, numberOfBoxes: 0} : minCol
 }
 
 const distributeInfoBoxes = infoBoxes => {
   const unpositionedInfoBoxes = infoBoxes.filter(isUnpositionedInfoBox)
   const positionedInfoBoxes = infoBoxes.filter(box => !isUnpositionedInfoBox(box))
-  return unpositionedInfoBoxes
-    .reduce((acc, box) => {
-      const {col, numberOfBoxes} = getColumnWithMinAmountOfInfoBoxes(acc)
-      return [
-        ...acc,
-        {...box, col, row: numberOfBoxes}
-      ]
-    }, positionedInfoBoxes)
+  return unpositionedInfoBoxes.reduce((acc, box) => {
+    const {col, numberOfBoxes} = getColumnWithMinAmountOfInfoBoxes(acc)
+    return [...acc, {...box, col, row: numberOfBoxes}]
+  }, positionedInfoBoxes)
 }
 
 /**
@@ -63,5 +63,5 @@ const distributeInfoBoxes = infoBoxes => {
  * @param infoBoxes
  * @returns sorted infoBoxes with `col` and `row` fields
  */
-export const prepareInfoBoxes = infoBoxes => sortInfoBoxes(distributeInfoBoxes(infoBoxes
-  .map(box => ({...box, ...mapPositionToColAndRow(box.position)}))))
+export const prepareInfoBoxes = infoBoxes =>
+  sortInfoBoxes(distributeInfoBoxes(infoBoxes.map(box => ({...box, ...mapPositionToColAndRow(box.position)}))))

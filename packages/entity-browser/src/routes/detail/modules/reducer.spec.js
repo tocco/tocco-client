@@ -1,5 +1,5 @@
-import reducer from './index'
 import * as actions from './actions'
+import reducer from './index'
 
 const INITIAL_STATE = {
   detailParams: undefined,

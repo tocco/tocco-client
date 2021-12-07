@@ -1,20 +1,21 @@
-import React, {useEffect, useMemo, useRef} from 'react'
-import PropTypes from 'prop-types'
+// eslint-disable-next-line import/order
 import ReactFullCalendar from '@fullcalendar/react'
+import adaptivePlugin from '@fullcalendar/adaptive'
+import interactionPlugin from '@fullcalendar/interaction'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
 import moment from 'moment'
+import PropTypes from 'prop-types'
+import React, {useEffect, useMemo, useRef} from 'react'
 import 'twix'
+import {injectIntl} from 'react-intl'
 import {FormattedValue, Popover} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
-import {injectIntl} from 'react-intl'
-import interactionPlugin from '@fullcalendar/interaction'
-import adaptivePlugin from '@fullcalendar/adaptive'
 
-import NavigationFullCalendar from '../NavigationFullCalendar'
-import {CalendarGlobalPrintStyle, StyledFullCalendarWrapper, StyledMemoizedFullCalender} from './StyledFullCalendar'
-import Conflict from '../Conflict'
 import {getFormattedTime} from '../../utils/time'
+import Conflict from '../Conflict'
+import NavigationFullCalendar from '../NavigationFullCalendar'
 import ResourceLabelContent from './ResourceLabelContent'
+import {CalendarGlobalPrintStyle, StyledFullCalendarWrapper, StyledMemoizedFullCalender} from './StyledFullCalendar'
 
 const getLicense = () => {
   const licence = process.env.FULL_CALENDAR_LICENCE
@@ -76,13 +77,15 @@ const FullCalendar = ({
     })
   }, [JSON.stringify(resources)])
 
-  const headerContent = <input
-    type="checkbox"
-    checked={true}
-    onChange={() => onCalendarRemoveAll()}
-    style={{visibility: resources.length > 0 ? 'visible' : 'hidden'}}
-    className="remove-all-checkbox"
-  />
+  const headerContent = (
+    <input
+      type="checkbox"
+      checked={true}
+      onChange={() => onCalendarRemoveAll()}
+      style={{visibility: resources.length > 0 ? 'visible' : 'hidden'}}
+      className="remove-all-checkbox"
+    />
+  )
 
   const changeRange = () => {
     const {view} = calendarEl.current.getApi()
@@ -100,105 +103,109 @@ const FullCalendar = ({
     const time = moment(eventInfo.event.start)
       .twix(moment(eventInfo.event.end))
       .format({monthFormat: 'MMMM', dayFormat: 'Do'})
-    const tooltipDescriptionContent = <div>
-      <FormattedValue type="html" value={eventInfo.event.extendedProps.description}/>
-      <p>{time}</p>
-      <p><Conflict conflictStatus={eventInfo.event.extendedProps.conflict} intl={intl}/></p>
-    </div>
+    const tooltipDescriptionContent = (
+      <div>
+        <FormattedValue type="html" value={eventInfo.event.extendedProps.description} />
+        <p>{time}</p>
+        <p>
+          <Conflict conflictStatus={eventInfo.event.extendedProps.conflict} intl={intl} />
+        </p>
+      </div>
+    )
     const eventInfoStyleAttributes = eventInfo.event.extendedProps.styleAttr
 
     return (
-      <Popover
-        content={tooltipDescriptionContent}
-        isPlainHtml
-        placement="top"
-      >
+      <Popover content={tooltipDescriptionContent} isPlainHtml placement="top">
         <div className={`fc-event-main-frame ${eventInfoStyleAttributes && eventInfoStyleAttributes.join(' ')}`}>
           {eventInfo.timeText && <div className="fc-event-time">{eventInfo.timeText}</div>}
           <div className="fc-event-title-container">
-            <div className="fc-event-title fc-sticky">
-              {eventInfo.event.title || <>&nbsp;</>}
-            </div>
+            <div className="fc-event-title fc-sticky">{eventInfo.event.title || <>&nbsp;</>}</div>
           </div>
         </div>
       </Popover>
     )
   }
 
-  const memoizedFullCalendar = useMemo(() =>
-    <ReactFullCalendar
-      resourceOrder=""
-      schedulerLicenseKey={getLicense()}
-      locale={locale}
-      plugins={[adaptivePlugin, resourceTimelinePlugin, interactionPlugin]}
-      ref={calendarEl}
-      initialView={'dayView'}
-      headerToolbar={false}
-      height="auto"
-      resourceAreaWidth="15%"
-      resourceAreaColumns={[{labelText: '', headerContent}]}
-      resourceLabelContent={props => <ResourceLabelContent {...props} onCalendarRemove={onCalendarRemove}/>}
-      eventClick={info => {
-        onEventClick(info.event)
-      }}
-      eventContent={renderEventContent}
-      firstDay={MONDAY}
-      slotMinTime ="06:00:00"
-      slotMaxTime ="23:00:00"
-      views={{
-        dayView: {
-          type: 'resourceTimelineDay',
-          slotLabelFormat: info => getFormattedTime(moment(info.date).locale(locale))
-        },
-        weekView: {
-          type: 'resourceTimelineWeek',
-          slotLabelFormat: [
-            {weekday: 'short', month: 'numeric', day: 'numeric'},
-            info => getFormattedTime(moment(info.date).locale(locale))
-          ]
-        },
-        weekViewSimple: {
-          type: 'resourceTimelineWeek',
-          slotDuration: {day: 1},
-          slotLabelFormat: [
-            {
+  const memoizedFullCalendar = useMemo(
+    () => (
+      <ReactFullCalendar
+        resourceOrder=""
+        schedulerLicenseKey={getLicense()}
+        locale={locale}
+        plugins={[adaptivePlugin, resourceTimelinePlugin, interactionPlugin]}
+        ref={calendarEl}
+        initialView={'dayView'}
+        headerToolbar={false}
+        height="auto"
+        resourceAreaWidth="15%"
+        resourceAreaColumns={[{labelText: '', headerContent}]}
+        resourceLabelContent={props => <ResourceLabelContent {...props} onCalendarRemove={onCalendarRemove} />}
+        eventClick={info => {
+          onEventClick(info.event)
+        }}
+        eventContent={renderEventContent}
+        firstDay={MONDAY}
+        slotMinTime="06:00:00"
+        slotMaxTime="23:00:00"
+        views={{
+          dayView: {
+            type: 'resourceTimelineDay',
+            slotLabelFormat: info => getFormattedTime(moment(info.date).locale(locale))
+          },
+          weekView: {
+            type: 'resourceTimelineWeek',
+            slotLabelFormat: [
+              {weekday: 'short', month: 'numeric', day: 'numeric'},
+              info => getFormattedTime(moment(info.date).locale(locale))
+            ]
+          },
+          weekViewSimple: {
+            type: 'resourceTimelineWeek',
+            slotDuration: {day: 1},
+            slotLabelFormat: [
+              {
+                weekday: 'short',
+                month: 'numeric',
+                day: 'numeric'
+              }
+            ]
+          },
+          monthView: {
+            type: 'resourceTimelineMonth',
+            slotLabelFormat: {
               weekday: 'short',
               month: 'numeric',
-              day: 'numeric'
+              day: 'numeric',
+              omitCommas: true
             }
-          ]
-        },
-        monthView: {
-          type: 'resourceTimelineMonth',
-          slotLabelFormat: {
-            weekday: 'short',
-            month: 'numeric',
-            day: 'numeric',
-            omitCommas: true
           }
-        }
-      }}
-    />, [resources.length])
+        }}
+      />
+    ),
+    [resources.length]
+  )
 
-  return <StyledFullCalendarWrapper ref={wrapperEl}>
-    <CalendarGlobalPrintStyle/>
-    {calendarEl.current && <NavigationFullCalendar
-      changeRange={changeRange}
-      changeView={changeView}
-      chooseNext={() => calendarEl.current.getApi().next()}
-      choosePrev={() => calendarEl.current.getApi().prev()}
-      chooseToday={() => calendarEl.current.getApi().today()}
-      goToDate={date => calendarEl.current.getApi().gotoDate(date)}
-      date={calendarEl.current.getApi().getDate()}
-      isLoading={isLoading}
-      refresh={onRefresh}
-      title={calendarEl.current.getApi().view.title}
-      type={calendarEl.current.getApi().view.type}
-    />}
-    <StyledMemoizedFullCalender id="section-to-print">
-      {memoizedFullCalendar}
-    </StyledMemoizedFullCalender>
-  </StyledFullCalendarWrapper>
+  return (
+    <StyledFullCalendarWrapper ref={wrapperEl}>
+      <CalendarGlobalPrintStyle />
+      {calendarEl.current && (
+        <NavigationFullCalendar
+          changeRange={changeRange}
+          changeView={changeView}
+          chooseNext={() => calendarEl.current.getApi().next()}
+          choosePrev={() => calendarEl.current.getApi().prev()}
+          chooseToday={() => calendarEl.current.getApi().today()}
+          goToDate={date => calendarEl.current.getApi().gotoDate(date)}
+          date={calendarEl.current.getApi().getDate()}
+          isLoading={isLoading}
+          refresh={onRefresh}
+          title={calendarEl.current.getApi().view.title}
+          type={calendarEl.current.getApi().view.type}
+        />
+      )}
+      <StyledMemoizedFullCalender id="section-to-print">{memoizedFullCalendar}</StyledMemoizedFullCalender>
+    </StyledFullCalendarWrapper>
+  )
 }
 
 FullCalendar.defaultProps = {
@@ -219,16 +226,16 @@ FullCalendar.propTypes = {
       start: PropTypes.number.isRequired,
       end: PropTypes.number.isRequired,
       allDay: PropTypes.bool
-    }
-    )),
+    })
+  ),
   resources: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       calendarType: PropTypes.string.isRequired,
       entityKey: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
-    }
-    )),
+    })
+  ),
   locale: PropTypes.string,
   isLoading: PropTypes.bool
 }

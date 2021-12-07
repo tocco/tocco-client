@@ -33,7 +33,7 @@ export const StyledBackgroundLogo = styled.div`
   z-index: 3; // higher than StyledBackgroundCover to prevent coverage
   height: 40px;
   width: 100%;
-  background-color: ${({runEnv, theme}) => runEnv === 'PRODUCTION' ? theme.colors.primary : theme.colors.secondary};
+  background-color: ${({runEnv, theme}) => (runEnv === 'PRODUCTION' ? theme.colors.primary : theme.colors.secondary)};
   mask-image: url(${ToccoLogo});
   mask-repeat: no-repeat;
   mask-position: -300px -900px;
@@ -42,7 +42,7 @@ export const StyledBackgroundLogo = styled.div`
 export const StyledPopper = styled.div`
   width: 350px;
   z-index: 1001; // higher than bm-overlay
-  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 `
 
 export const StyledNotificationBellWrapper = styled.span`

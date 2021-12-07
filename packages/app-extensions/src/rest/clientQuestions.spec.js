@@ -1,13 +1,7 @@
 import {channel} from 'redux-saga'
 import {call, take} from 'redux-saga/effects'
 
-import {
-  handleClientQuestion,
-  getAnswer,
-  handleConfirmQuestion,
-  handleYesNoQuestion,
-  answer
-} from './clientQuestions'
+import {handleClientQuestion, getAnswer, handleConfirmQuestion, handleYesNoQuestion, answer} from './clientQuestions'
 import {sendRequest} from './request'
 
 describe('app-extensions', () => {
@@ -104,13 +98,9 @@ describe('app-extensions', () => {
             body: newBody
           }
 
-          expect(gen.next(answer).value).to.eql(call(
-            sendRequest,
-            requestData.url,
-            newOptions,
-            options.acceptedErrorCodes,
-            options.acceptedStatusCodes
-          ))
+          expect(gen.next(answer).value).to.eql(
+            call(sendRequest, requestData.url, newOptions, options.acceptedErrorCodes, options.acceptedStatusCodes)
+          )
 
           const response = {
             responseField: 'foo'

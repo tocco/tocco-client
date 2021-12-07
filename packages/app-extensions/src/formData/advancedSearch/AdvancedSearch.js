@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Button} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
+import {Button} from 'tocco-ui'
 import {v4 as uuid} from 'uuid'
 
 import {StyledAdvancedSearch, StyledAdvancedSearchButtonWrapper} from './StyledAdvancedSearch'
@@ -37,7 +37,7 @@ const AdvancedSearch = ({
     />
     <StyledAdvancedSearchButtonWrapper>
       <Button look="raised" onClick={onOkClick}>
-        <FormattedMessage id="client.common.ok"/>
+        <FormattedMessage id="client.common.ok" />
       </Button>
     </StyledAdvancedSearchButtonWrapper>
   </StyledAdvancedSearch>

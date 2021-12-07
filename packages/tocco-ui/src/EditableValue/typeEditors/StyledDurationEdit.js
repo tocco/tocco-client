@@ -1,11 +1,7 @@
-import styled from 'styled-components'
 import _get from 'lodash/get'
+import styled from 'styled-components'
 
-import {
-  generateDisabledShade,
-  scale,
-  theme
-} from '../../utilStyles'
+import {generateDisabledShade, scale, theme} from '../../utilStyles'
 import {StyledInputCss} from '../StyledEditableValue'
 
 const StyledDurationEdit = styled.input`
@@ -28,10 +24,9 @@ const StyledDurationEditFocusable = styled.label`
     }
 
     > span {
-      color: ${props => props.immutable
-                ? generateDisabledShade(_get(props.theme, 'colors.text'))
-                : theme.color('text')};
-      cursor: ${props => props.immutable ? 'not-allowed' : 'default'};
+      color: ${props =>
+        props.immutable ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')};
+      cursor: ${props => (props.immutable ? 'not-allowed' : 'default')};
     }
   }
 `
@@ -48,8 +43,4 @@ const StyledDurationEditShadow = styled.span`
   }
 `
 
-export {
-  StyledDurationEditShadow,
-  StyledDurationEditFocusable,
-  StyledDurationEdit
-}
+export {StyledDurationEditShadow, StyledDurationEditFocusable, StyledDurationEdit}

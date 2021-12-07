@@ -1,5 +1,5 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import {doDelete, onCancel} from '../../modules/delete/actions'
 import Dialog from './Dialog'

@@ -4,6 +4,4 @@ export default {
   resourceScheduler: resourceSchedulerReducer
 }
 
-export const sagas = [
-  resourceSchedulerSagas
-]
+export const sagas = [resourceSchedulerSagas]

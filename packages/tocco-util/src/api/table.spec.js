@@ -19,7 +19,8 @@ describe('entity-list', () => {
               sortable: true,
               widthFixed: false,
               width: null
-            }, {
+            },
+            {
               id: 'lb2',
               label: 'label2',
               children: [field2],
@@ -69,7 +70,8 @@ describe('entity-list', () => {
               sortable: true,
               widthFixed: false,
               width: null
-            }, {
+            },
+            {
               hidden: false,
               id: 'lb2',
               label: 'label2',

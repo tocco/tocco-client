@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import {scale, shadeColor, theme, declareFont, declareFocus} from 'tocco-ui'
 import _get from 'lodash/get'
 import {lighten} from 'polished'
+import styled from 'styled-components'
+import {scale, shadeColor, theme, declareFont, declareFocus} from 'tocco-ui'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
 const baseSpace = scale.space(-1)

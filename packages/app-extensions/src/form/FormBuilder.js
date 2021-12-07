@@ -1,20 +1,20 @@
 /* eslint-disable react/prop-types */
 // propTypes are not recognized properly in this file
-import React from 'react'
-import PropTypes from 'prop-types'
-import {Field} from 'redux-form'
 import _get from 'lodash/get'
 import _pick from 'lodash/pick'
+import PropTypes from 'prop-types'
+import React from 'react'
+import {Field} from 'redux-form'
 import {Layout, Panel, Typography} from 'tocco-ui'
 import {consoleLogger, js} from 'tocco-util'
 
-import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
-import {getFieldId} from './formDefinition'
-import {transformFieldName} from './reduxForm'
 import actions from '../actions'
+import {isAction} from '../actions/actions'
 import componentTypes from './enums/componentTypes'
 import layoutTypes from './enums/layoutTypes'
-import {isAction} from '../actions/actions'
+import {getFieldId} from './formDefinition'
+import {transformFieldName} from './reduxForm'
+import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
 import {StyledActionsWrapper} from './StyledFormBuilder'
 
 const FormBuilder = props => {
@@ -30,9 +30,7 @@ const FormBuilder = props => {
     customRenderedActions
   } = props
 
-  const modeFitsScope = (mode, scopes) => (
-    !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
-  )
+  const modeFitsScope = (mode, scopes) => !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
 
   const formTraverser = (children, parentReadOnly = false) => {
     const result = []
@@ -87,36 +85,40 @@ const FormBuilder = props => {
           return true
         } else {
           const value = formValues[fieldName]
-          return (value == null || value === '' || (Array.isArray(value) && value.length === 0))
+          return value == null || value === '' || (Array.isArray(value) && value.length === 0)
         }
       }
 
-      const readOnly = (
-        parentReadOnly
-        || formDefinition.readonly
-        || (entityField && entityField.writable === false)
-        || (mode !== 'create' && !entityField && formDefinitionField.componentType !== 'description'
-          && formDefinitionField.dataType !== 'location')
-        || formDefinitionField.readonly || formDefinitionField.componentType === 'display'
-      )
+      const readOnly =
+        parentReadOnly ||
+        formDefinition.readonly ||
+        (entityField && entityField.writable === false) ||
+        (mode !== 'create' &&
+          !entityField &&
+          formDefinitionField.componentType !== 'description' &&
+          formDefinitionField.dataType !== 'location') ||
+        formDefinitionField.readonly ||
+        formDefinitionField.componentType === 'display'
 
       return !(readOnly && hasEmptyValue(transformFieldName(fieldName), formValues))
     }
 
     if (shouldRenderField(formDefinitionField, entityField)) {
-      return <Field
-        key={`field-${fieldName}`}
-        parentReadOnly={parentReadOnly}
-        name={transformFieldName(fieldName)}
-        id={getFieldId(formName, fieldName)}
-        formName={formName}
-        component={ReduxFormFieldAdapter}
-        formDefinitionField={formDefinitionField}
-        entityField={entityField}
-        fieldMappingType={fieldMappingType}
-        format={null}
-        mode={mode}
-      />
+      return (
+        <Field
+          key={`field-${fieldName}`}
+          parentReadOnly={parentReadOnly}
+          name={transformFieldName(fieldName)}
+          id={getFieldId(formName, fieldName)}
+          formName={formName}
+          component={ReduxFormFieldAdapter}
+          formDefinitionField={formDefinitionField}
+          entityField={entityField}
+          fieldMappingType={fieldMappingType}
+          format={null}
+          mode={mode}
+        />
+      )
     }
 
     return null
@@ -126,16 +128,16 @@ const FormBuilder = props => {
     const entityName = _get(props, 'entity.model')
     const entityKey = _get(props, 'entity.key')
 
-    return <StyledActionsWrapper
-      key={`action-${action.id}`}
-    >
-      <actions.Action
-        definition={action}
-        selection={actions.getSingleEntitySelection(entityName, entityKey)}
-        mode={mode}
-        customRenderedActions={customRenderedActions}
-      />
-    </StyledActionsWrapper>
+    return (
+      <StyledActionsWrapper key={`action-${action.id}`}>
+        <actions.Action
+          definition={action}
+          selection={actions.getSingleEntitySelection(entityName, entityKey)}
+          mode={mode}
+          customRenderedActions={customRenderedActions}
+        />
+      </StyledActionsWrapper>
+    )
   }
 
   const createLayoutComponent = (field, type, parentReadOnly) => {
@@ -149,12 +151,16 @@ const FormBuilder = props => {
       return null
     }
 
-    const content = field.label
-      ? <Panel.Wrapper isFramed={true} isOpen={true}>
-        <Panel.Header><Typography.H4>{field.label}</Typography.H4></Panel.Header>
+    const content = field.label ? (
+      <Panel.Wrapper isFramed={true} isOpen={true}>
+        <Panel.Header>
+          <Typography.H4>{field.label}</Typography.H4>
+        </Panel.Header>
         <Panel.Body>{elements}</Panel.Body>
       </Panel.Wrapper>
-      : elements
+    ) : (
+      elements
+    )
 
     const layoutMap = {
       [layoutTypes.HORIZONTAL_BOX]: Layout.Container,
@@ -165,11 +171,11 @@ const FormBuilder = props => {
     const key = `layoutcomponent-${field.id}-${field.layoutType}`
 
     if (LayoutComponent) {
-      return <LayoutComponent
-        key={key}
-        occupiesRemainingHeight={field.occupiesRemainingHeight}>
-        {content}
-      </LayoutComponent>
+      return (
+        <LayoutComponent key={key} occupiesRemainingHeight={field.occupiesRemainingHeight}>
+          {content}
+        </LayoutComponent>
+      )
     } else {
       consoleLogger.logWarning(`Layout type "${type}" for box "${field.id}" is unknown.`)
       return null

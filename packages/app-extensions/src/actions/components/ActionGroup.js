@@ -11,23 +11,23 @@ const getChildMenuItems = input => {
   const disabled = definition.readonly === true || !validSelection
   const title = selectionText(selectedCount, definition, intl)
   const isActionGroup = definition.componentType === 'action-group'
-  return <MenuItem
-    {...(!isActionGroup && !disabled && {onClick: () => onClick(definition)})}
-    disabled={disabled}
-    title={title}
-    key={`MenuItem-${definition.id}`}
-  >
-    <span>{definition.label}</span>
-    {
-      definition.componentType === 'action-group'
-      && definition.children.map(child => getChildMenuItems({...input, definition: child}))
-    }
-  </MenuItem>
+  return (
+    <MenuItem
+      {...(!isActionGroup && !disabled && {onClick: () => onClick(definition)})}
+      disabled={disabled}
+      title={title}
+      key={`MenuItem-${definition.id}`}
+    >
+      <span>{definition.label}</span>
+      {definition.componentType === 'action-group' &&
+        definition.children.map(child => getChildMenuItems({...input, definition: child}))}
+    </MenuItem>
+  )
 }
 
 const ActionGroup = props => {
   const {definition, onClick} = props
-  const hasDefaultAction = (definition.defaultAction && Object.keys(definition.defaultAction).length > 0)
+  const hasDefaultAction = definition.defaultAction && Object.keys(definition.defaultAction).length > 0
 
   const label = hasDefaultAction ? definition.defaultAction.label : definition.label
   const onClickHandler = hasDefaultAction
@@ -36,16 +36,17 @@ const ActionGroup = props => {
       }
     : null
   const actionId = hasDefaultAction ? definition.defaultAction.id : definition.id
-  return <ButtonMenu
-    buttonProps={{look: 'raised'}}
-    label={label}
-    data-cy={`action-${actionId}`}
-    onClick={onClickHandler}
-    icon={definition.icon}>
-    {
-      definition.children.map((childDefinition, idx) => getChildMenuItems({...props, definition: childDefinition}))
-    }
-  </ButtonMenu>
+  return (
+    <ButtonMenu
+      buttonProps={{look: 'raised'}}
+      label={label}
+      data-cy={`action-${actionId}`}
+      onClick={onClickHandler}
+      icon={definition.icon}
+    >
+      {definition.children.map((childDefinition, idx) => getChildMenuItems({...props, definition: childDefinition}))}
+    </ButtonMenu>
+  )
 }
 
 ActionGroup.propTypes = {

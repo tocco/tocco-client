@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {LoadMask} from 'tocco-ui'
+import React, {useEffect} from 'react'
 import {Helmet} from 'react-helmet'
+import {LoadMask} from 'tocco-ui'
 
 import Login from '../../components/Login'
 import Admin from '../Admin'
@@ -17,9 +17,7 @@ const LoginGuard = ({doSessionCheck, loggedIn}) => {
         <title>Tocco</title>
       </Helmet>
       <LoadMask required={[loggedIn !== undefined]} loadingText="Logging in...">
-        <div>
-          {!loggedIn ? <Login/> : <Admin/>}
-        </div>
+        <div>{!loggedIn ? <Login /> : <Admin />}</div>
       </LoadMask>
     </div>
   )

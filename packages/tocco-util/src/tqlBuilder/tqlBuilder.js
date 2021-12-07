@@ -21,12 +21,11 @@ export const getTql = (path, value, fieldType) => {
   }
 }
 
-const handleRangeValue = (value, typeHandler, path) => (
+const handleRangeValue = (value, typeHandler, path) =>
   [
     ...(isDefined(value.from) ? [typeHandler(path, value.from, '>=')] : []),
     ...(isDefined(value.to) ? [typeHandler(path, value.to, value.exclusive ? '<' : '<=')] : [])
   ].join(' and ')
-)
 
 const rangeMappings = type => {
   switch (type) {
@@ -60,9 +59,10 @@ const typeHandlers = type => {
     case 'single-select-box':
       return (path, value) => `${path}.pk == ${value.key}`
     case 'fulltext-search':
-      return (path, value) => path === 'txtFulltext'
-        ? `(fulltext("${value}") or fulltext("${value}*"))`
-        : `(fulltext("${value}", ${path}) or fulltext("${value}*", ${path}))`
+      return (path, value) =>
+        path === 'txtFulltext'
+          ? `(fulltext("${value}") or fulltext("${value}*"))`
+          : `(fulltext("${value}", ${path}) or fulltext("${value}*", ${path}))`
     case 'birthdate':
     case 'date':
     case 'create_timestamp':
@@ -80,9 +80,9 @@ const typeHandlers = type => {
     case 'login':
       return (path, value) => `${path} ~= "${value}"`
     case 'boolean':
-      return (path, value) => value === false ? null : `${path} == ${value}`
+      return (path, value) => (value === false ? null : `${path} == ${value}`)
     case 'marking':
-      return (path, value) => value === false ? null : `exists(${path})`
+      return (path, value) => (value === false ? null : `exists(${path})`)
     default:
       return (path, value, comp) => `${path} ${comp} ${value}`
   }

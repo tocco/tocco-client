@@ -1,21 +1,16 @@
+import _isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
 import React, {useState, useEffect} from 'react'
-import _isEqual from 'lodash/isEqual'
 
-import View from './View'
-import UploadProgress from './UploadProgress'
 import UploadInput from './UploadInput'
+import UploadProgress from './UploadProgress'
+import View from './View'
 
 /**
  * Component to upload files. If uploaded, the file will be displayed by the Preview component.
  */
 export const Upload = props => {
-  const {
-    value,
-    textResources,
-    onUpload,
-    onChoose
-  } = props
+  const {value, textResources, onUpload, onChoose} = props
   const [states, setStates] = useState({
     isUploading: false,
     previewFile: null
@@ -41,11 +36,11 @@ export const Upload = props => {
   }, [value])
 
   if (value && value.binaryLink) {
-    return <View {...props} deleteTitle={textResources.delete} downloadTitle={textResources.download}/>
+    return <View {...props} deleteTitle={textResources.delete} downloadTitle={textResources.download} />
   } else if (states.isUploading) {
-    return <UploadProgress file={states.previewFile} text={textResources.uploading} {...props}/>
+    return <UploadProgress file={states.previewFile} text={textResources.uploading} {...props} />
   }
-  return <UploadInput {...props} onDrop={onDrop} onChoose={onChoose}/>
+  return <UploadInput {...props} onDrop={onDrop} onChoose={onChoose} />
 }
 
 Upload.defaultProps = {

@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 
 import {getMatchingConfig} from '../../utils'
@@ -34,7 +34,11 @@ const KeyDownWatcher = ({config, children, keyDownHandler}) => {
     }
   }, [onDocumentKeyDown])
 
-  return <StyledDiv tabIndex="0" onKeyDown={onKeyDown}>{children}</StyledDiv>
+  return (
+    <StyledDiv tabIndex="0" onKeyDown={onKeyDown}>
+      {children}
+    </StyledDiv>
+  )
 }
 
 KeyDownWatcher.propTypes = {

@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Button, Typography} from 'tocco-ui'
 
@@ -27,9 +27,7 @@ const SelectionController = ({
         }}
       >
         <Typography.Span>
-          <FormattedMessage
-            id="client.entity-list.selectionAll"
-            values={{count: queryCount}}/>
+          <FormattedMessage id="client.entity-list.selectionAll" values={{count: queryCount}} />
         </Typography.Span>
       </StyledButton>
       <StyledButton
@@ -43,22 +41,22 @@ const SelectionController = ({
         data-cy="selection-controller-selection"
       >
         <Typography.Span>
-          <FormattedMessage
-            id="client.entity-list.selectionSelection"
-            values={{count: selection.length}}/>
-          {selection.length > 0 && <Button
-            data-cy="selection-controller-delete-selection"
-            dense
-            icon="times"
-            title={msg('client.entity-list.clearSelection')}
-            onClick={e => {
-              e.stopPropagation()
-              if (showSelectedRecords) {
-                toggleShowSelectedRecords()
-              }
-              clearSelection()
-            }}
-          />}
+          <FormattedMessage id="client.entity-list.selectionSelection" values={{count: selection.length}} />
+          {selection.length > 0 && (
+            <Button
+              data-cy="selection-controller-delete-selection"
+              dense
+              icon="times"
+              title={msg('client.entity-list.clearSelection')}
+              onClick={e => {
+                e.stopPropagation()
+                if (showSelectedRecords) {
+                  toggleShowSelectedRecords()
+                }
+                clearSelection()
+              }}
+            />
+          )}
         </Typography.Span>
       </StyledButton>
     </StyledSelectionController>

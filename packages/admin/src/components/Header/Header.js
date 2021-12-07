@@ -1,19 +1,14 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale, RouterLinkButton} from 'tocco-ui'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'
 import {PasswordUpdateApp} from 'tocco-login/src/main'
 import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
+import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale, RouterLinkButton} from 'tocco-ui'
 
-import NotificationCenterButton from './NotificationCenterButton'
-import {
-  StyledBackgroundCover,
-  StyledHeader,
-  StyledConfig,
-  StyledBackgroundLogo
-} from './StyledComponents'
 import AboutTocco from '../AboutTocco'
+import NotificationCenterButton from './NotificationCenterButton'
+import {StyledBackgroundCover, StyledHeader, StyledConfig, StyledBackgroundLogo} from './StyledComponents'
 
 const StyledBallMenuWrapper = styled.span`
   display: flex;
@@ -49,11 +44,16 @@ const Header = ({
       'passwordUpdateModal',
       'client.login.passwordUpdate.title',
       null,
-      () => <PasswordUpdateApp username={username} success={() => {
-        removeModalComponent('passwordUpdateModal')
-        info('success', 'client.login.passwordUpdate.success')
-      }}/>
-      , true
+      () => (
+        <PasswordUpdateApp
+          username={username}
+          success={() => {
+            removeModalComponent('passwordUpdateModal')
+            info('success', 'client.login.passwordUpdate.success')
+          }}
+        />
+      ),
+      true
     )
   }
 
@@ -62,25 +62,30 @@ const Header = ({
       'passwordUpdateModal',
       'client.actions.two-factor-connector.title',
       null,
-      () => <TwoFactorConnectorApp
-        onSuccess={() => {
-          removeModalComponent('passwordUpdateModal')
-        }}
-      />,
-      true)
+      () => (
+        <TwoFactorConnectorApp
+          onSuccess={() => {
+            removeModalComponent('passwordUpdateModal')
+          }}
+        />
+      ),
+      true
+    )
   }
 
   const msg = id => intl.formatMessage({id})
 
-  return <>
-    <StyledBackgroundLogo runEnv={runEnv}/>
-    <StyledBackgroundCover/>
-    <StyledHeader>
-      <StyledConfig>
-        <RouterLinkButton to="/dashboard/reload"><FormattedMessage id="client.admin.dashboard"/></RouterLinkButton>
-        <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
-          {
-            businessUnits.map(bU =>
+  return (
+    <>
+      <StyledBackgroundLogo runEnv={runEnv} />
+      <StyledBackgroundCover />
+      <StyledHeader>
+        <StyledConfig>
+          <RouterLinkButton to="/dashboard/reload">
+            <FormattedMessage id="client.admin.dashboard" />
+          </RouterLinkButton>
+          <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
+            {businessUnits.map(bU => (
               <MenuItem
                 key={`buMenu-${bU.id}`}
                 disabled={bU.id === currentBusinessUnit.id}
@@ -90,48 +95,56 @@ const Header = ({
               >
                 {bU.label}
               </MenuItem>
-            )
-          }
-        </ButtonMenu>
-        <ButtonMenu label={username}>
-          <MenuItem onClick={openPasswordUpdate}><FormattedMessage id="client.admin.menu.passwordUpdate"/></MenuItem>
-          <MenuItem onClick={openTwoFactorConnector}>
-            <FormattedMessage id="client.admin.menu.twoFactorConnector"/>
-          </MenuItem>
-          <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
-        </ButtonMenu>
-        <StyledBallMenuWrapper>
-          <BallMenu buttonProps={{
-            icon: 'question-circle',
-            title: msg('client.admin.header.help')
-          }}>
-            {niceVersion && <MenuItem onClick={() => {
-              window.open(
-                `https://${niceVersion.replace('.', '')}.docs.tocco.ch/de/`,
-                '_blank'
-              )
-            }}>
-              <FormattedMessage id="client.admin.menu.doc"/>
-            </MenuItem>}
-            <MenuItem onClick={() => {
-              window.open(
-                '/nice2/swagger',
-                '_blank'
-              )
-            }}>
-              <FormattedMessage id="client.admin.menu.restDoc"/>
+            ))}
+          </ButtonMenu>
+          <ButtonMenu label={username}>
+            <MenuItem onClick={openPasswordUpdate}>
+              <FormattedMessage id="client.admin.menu.passwordUpdate" />
             </MenuItem>
-            <MenuItem onClick={() => {
-              openModalComponent('about', null, null, () => <AboutTocco/>, true)
-            }}>
-              <FormattedMessage id="client.admin.menu.aboutToccoTitle"/>
+            <MenuItem onClick={openTwoFactorConnector}>
+              <FormattedMessage id="client.admin.menu.twoFactorConnector" />
             </MenuItem>
-          </BallMenu>
-         <NotificationCenterButton/>
-        </StyledBallMenuWrapper>
-      </StyledConfig>
-    </StyledHeader>
-  </>
+            <MenuItem onClick={doLogout}>
+              <FormattedMessage id="client.admin.menu.logout" />
+            </MenuItem>
+          </ButtonMenu>
+          <StyledBallMenuWrapper>
+            <BallMenu
+              buttonProps={{
+                icon: 'question-circle',
+                title: msg('client.admin.header.help')
+              }}
+            >
+              {niceVersion && (
+                <MenuItem
+                  onClick={() => {
+                    window.open(`https://${niceVersion.replace('.', '')}.docs.tocco.ch/de/`, '_blank')
+                  }}
+                >
+                  <FormattedMessage id="client.admin.menu.doc" />
+                </MenuItem>
+              )}
+              <MenuItem
+                onClick={() => {
+                  window.open('/nice2/swagger', '_blank')
+                }}
+              >
+                <FormattedMessage id="client.admin.menu.restDoc" />
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  openModalComponent('about', null, null, () => <AboutTocco />, true)
+                }}
+              >
+                <FormattedMessage id="client.admin.menu.aboutToccoTitle" />
+              </MenuItem>
+            </BallMenu>
+            <NotificationCenterButton />
+          </StyledBallMenuWrapper>
+        </StyledConfig>
+      </StyledHeader>
+    </>
+  )
 }
 
 const bUPropType = PropTypes.shape({

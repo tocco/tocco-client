@@ -14,7 +14,7 @@ const sharedSplitPaneStyles = css`
 
 export const StyledPanelWrapperLeft = styled.div`
   && {
-    display: ${({isCollapsed}) => isCollapsed ? 'none' : 'block'};
+    display: ${({isCollapsed}) => (isCollapsed ? 'none' : 'block')};
     min-width: 265px;
     width: 16%;
     margin-right: 1rem;
@@ -51,7 +51,7 @@ export const StyledToggleCollapse = styled.div`
 `
 
 export const StyledPlaceHolder = styled.div`
-  display: ${({isCollapsed}) => isCollapsed ? 'flex' : 'none'};
+  display: ${({isCollapsed}) => (isCollapsed ? 'flex' : 'none')};
   flex: 1;
   height: 100%;
   width: 25px;
@@ -75,7 +75,7 @@ export const StyledToggleCollapseButton = styled(Button)`
 
   &:hover,
   &:focus,
-  ${/* sc-selector */StyledPlaceHolder}:hover & {
+  ${/* sc-selector */ StyledPlaceHolder}:hover & {
     background-color: transparent;
     color: ${theme.color('secondaryLight')};
   }

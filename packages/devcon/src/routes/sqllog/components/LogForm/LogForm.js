@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {StatedValue, Range} from 'tocco-ui'
 
 const LogForm = ({active, elapsed, setActive, setElapsed}) => {
@@ -14,22 +14,22 @@ const LogForm = ({active, elapsed, setActive, setElapsed}) => {
   return (
     <div>
       <StatedValue label="Active" fixLabel>
-        <input type="checkbox" checked={active} onChange={handleActiveChange}/>
+        <input type="checkbox" checked={active} onChange={handleActiveChange} />
       </StatedValue>
       <StatedValue label="Elapsed" hasValue={!!elapsed}>
         <Range
-        fromText="from"
-        toText="to"
-        type="number"
-        value={elapsed}
-        options={{
-          postPointDigits: 0,
-          fixedDecimalScale: true
-        }}
-        events={{
-          onChange: handleElapsedChange
-        }}
-      />
+          fromText="from"
+          toText="to"
+          type="number"
+          value={elapsed}
+          options={{
+            postPointDigits: 0,
+            fixedDecimalScale: true
+          }}
+          events={{
+            onChange: handleElapsedChange
+          }}
+        />
       </StatedValue>
     </div>
   )

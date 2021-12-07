@@ -1,13 +1,13 @@
 import {reducer as reducerUtil} from 'tocco-util'
 
-import * as actions from './actions'
 import searchFormTypes from '../../util/searchFormTypes'
+import * as actions from './actions'
 
 const setSearchFormType = (state, {payload}) => {
   const {searchFormType: newSearchFormType} = payload
 
-  const searchFormType = Object.values(searchFormTypes).find(enumV => enumV === newSearchFormType)
-    || searchFormTypes.BASIC
+  const searchFormType =
+    Object.values(searchFormTypes).find(enumV => enumV === newSearchFormType) || searchFormTypes.BASIC
 
   return {...state, searchFormType}
 }

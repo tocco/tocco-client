@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useState} from 'react'
 
 import {
   StyledLogEntry,
@@ -25,7 +25,9 @@ const LogEntry = ({entry}) => {
 
   return (
     <StyledLogEntry>
-      <StyledStatementHeader expandable={truncate} onClick={handleClick}>{header}</StyledStatementHeader>
+      <StyledStatementHeader expandable={truncate} onClick={handleClick}>
+        {header}
+      </StyledStatementHeader>
       {expanded && <StyledStatement>{entry.sql}</StyledStatement>}
       <StyledTime>{new Date(entry.timestamp.iMillis).toLocaleString()}</StyledTime>
       <StyledElapsedContainer>

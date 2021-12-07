@@ -2,18 +2,13 @@ import _uniq from 'lodash/uniq'
 
 import componentTypes from './enums/componentTypes'
 
-export const getFieldId = (formName, fieldName) => (
-  `input-${formName}-${fieldName}`
-)
+export const getFieldId = (formName, fieldName) => `input-${formName}-${fieldName}`
 
 export const getFieldDefinitions = formDefinition => {
   return getFieldsOfChildren(formDefinition)
 }
 
-const validFieldTypes = [
-  componentTypes.FIELD,
-  componentTypes.DISPLAY
-]
+const validFieldTypes = [componentTypes.FIELD, componentTypes.DISPLAY]
 
 const getFieldsOfChildren = definition => {
   const result = []
@@ -39,10 +34,13 @@ const getFieldsOfChildren = definition => {
 export const getDefaultValues = fieldDefinitions =>
   fieldDefinitions
     .filter(f => f.defaultValue !== null && f.defaultValue !== undefined) // have to check both, values may be falsy
-    .reduce((valueObj, field) => ({
-      ...valueObj,
-      [field.path || field.id]: field.defaultValue
-    }), {})
+    .reduce(
+      (valueObj, field) => ({
+        ...valueObj,
+        [field.path || field.id]: field.defaultValue
+      }),
+      {}
+    )
 
 const typePathsHandlers = {
   location: fieldDefinition => Object.values(fieldDefinition.locationMapping).filter(v => v)
@@ -52,10 +50,11 @@ export const getUsedPaths = fieldDefinitions =>
   _uniq(
     fieldDefinitions
       .filter(field => field.componentType === componentTypes.FIELD)
-      .reduce((accumulator, field) =>
-        [
+      .reduce(
+        (accumulator, field) => [
           ...accumulator,
           ...(typePathsHandlers[field.dataType] ? typePathsHandlers[field.dataType](field) : [field.path || field.id])
         ],
-      [])
+        []
+      )
   )

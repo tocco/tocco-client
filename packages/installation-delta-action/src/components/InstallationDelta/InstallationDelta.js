@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {rest} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 
-import CommitMsg from '../CommitMsg'
 import CommitInfo from '../CommitInfo'
-import IssueInfos from '../IssueInfos'
+import CommitMsg from '../CommitMsg'
 import Header from '../Header'
+import IssueInfos from '../IssueInfos'
 
 const StyledInstallationDelta = styled.div`
   margin: 8px;
@@ -20,7 +20,7 @@ const StyledRow = styled.div`
   grid-template-columns: 25% 50% 25%;
   grid-column-gap: 10px;
   border: 1px solid #888;
-  background: ${props => props.isOdd ? '#F5F5F5' : ''};
+  background: ${props => (props.isOdd ? '#F5F5F5' : '')};
 `
 
 const InstallationDelta = ({keys}) => {
@@ -39,25 +39,26 @@ const InstallationDelta = ({keys}) => {
 
   return (
     <StyledInstallationDelta>
-      <Header id="Header" keys={keys} delta={delta}/>
+      <Header id="Header" keys={keys} delta={delta} />
       <LoadMask required={[delta]} text="Loading delta...">
-        {delta && delta.commits.map((commit, idx) =>
-          <StyledRow isOdd={Boolean(idx % 2)} key={commit.commit.commitId}>
-            <div>
-              <CommitInfo
-                commitId={commit.commit.commitId}
-                author={commit.commit.author}
-                commitTimestamp={commit.commit.commitTimestamp}
-              />
-            </div>
-            <div>
-              <CommitMsg msg={commit.commit.commitMessage}/>
-            </div>
-            <div>
-              <IssueInfos issues={commit.issues}/>
-            </div>
-          </StyledRow>
-        )}
+        {delta &&
+          delta.commits.map((commit, idx) => (
+            <StyledRow isOdd={Boolean(idx % 2)} key={commit.commit.commitId}>
+              <div>
+                <CommitInfo
+                  commitId={commit.commit.commitId}
+                  author={commit.commit.author}
+                  commitTimestamp={commit.commit.commitTimestamp}
+                />
+              </div>
+              <div>
+                <CommitMsg msg={commit.commit.commitMessage} />
+              </div>
+              <div>
+                <IssueInfos issues={commit.issues} />
+              </div>
+            </StyledRow>
+          ))}
       </LoadMask>
     </StyledInstallationDelta>
   )

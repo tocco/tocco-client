@@ -1,15 +1,15 @@
 /* eslint-disable max-len */
 import fs from 'fs'
 
-import {argv} from 'yargs'
-import webpack from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import TerserPlugin from 'terser-webpack-plugin'
-import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
-import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
-import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
-import DotEnv from 'dotenv-webpack'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
+import DotEnv from 'dotenv-webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
+import webpack from 'webpack'
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
+import {argv} from 'yargs'
 
 import config from '../config'
 import logger from './lib/logger'
@@ -33,12 +33,9 @@ const webpackConfig = {
   },
   module: {},
   externals: {
-    ...(__PROD__ ? {'react': 'React', 'react-dom': 'ReactDOM'} : {})
+    ...(__PROD__ ? {react: 'React', 'react-dom': 'ReactDOM'} : {})
   },
-  entry: [
-    ...(__DEV__ ? ['webpack-hot-middleware/client'] : []),
-    paths.client(`${packageDir}/src/main.js`)
-  ],
+  entry: [...(__DEV__ ? ['webpack-hot-middleware/client'] : []), paths.client(`${packageDir}/src/main.js`)],
   optimization: {
     minimizer: [
       ...(!__DEV__ ? [new TerserPlugin({extractComments: false, sourceMap: true})] : []),
@@ -60,9 +57,9 @@ webpackConfig.output = {
 webpackConfig.plugins = [
   new webpack.DefinePlugin({
     ...config.globals,
-    niceFile: JSON.stringify(__NO_MOCK__
-      ? '<script src="/nice2/javascript/nice2-newclient-react-registry.release.js"></script>'
-      : '') // loads  legacy js file in index.html only with real (not mocked) backend
+    niceFile: JSON.stringify(
+      __NO_MOCK__ ? '<script src="/nice2/javascript/nice2-newclient-react-registry.release.js"></script>' : ''
+    ) // loads  legacy js file in index.html only with real (not mocked) backend
   }),
   new LodashModuleReplacementPlugin({
     shorthands: true,
@@ -75,16 +72,20 @@ webpackConfig.plugins = [
 
 if (!__CI__) {
   const SourceMapPlugin = __DEV__ ? webpack.EvalSourceMapDevToolPlugin : webpack.SourceMapDevToolPlugin
-  webpackConfig.plugins.push(new SourceMapPlugin({
-    filename: '[file].map',
-    exclude: /chunk-vendor.+\.js/
-  }))
+  webpackConfig.plugins.push(
+    new SourceMapPlugin({
+      filename: '[file].map',
+      exclude: /chunk-vendor.+\.js/
+    })
+  )
 }
 
 if (__DEV__) {
-  webpackConfig.plugins.push(new webpack.optimize.LimitChunkCountPlugin({
-    maxChunks: 1 // no chunks due to ChunkLoadErrors during development
-  }))
+  webpackConfig.plugins.push(
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1 // no chunks due to ChunkLoadErrors during development
+    })
+  )
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       template: paths.client('server/index.html'),
@@ -99,10 +100,12 @@ if (__DEV__) {
 }
 
 if (argv['bundle-analyzer']) {
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin({
-    analyzerMode: 'static',
-    openAnalyzer: true
-  }))
+  webpackConfig.plugins.push(
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: true
+    })
+  )
 }
 
 webpackConfig.module.rules = [

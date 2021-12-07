@@ -15,9 +15,7 @@ export default {
   }
 }
 
-export const Basic = args => <Ball
-  {...args}
-/>
+export const Basic = args => <Ball {...args} />
 
 Basic.args = {
   icon: 'cog'

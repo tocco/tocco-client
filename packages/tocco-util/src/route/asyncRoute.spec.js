@@ -1,5 +1,5 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 
 import asyncRoute from './asyncRoute'
 
@@ -9,11 +9,10 @@ describe('tocco-util', () => {
       const InnerComp = () => <div>test</div>
 
       test('should render nothing before loaded', () => {
-        const promise = new Promise(() => {
-        }) // never resolved
+        const promise = new Promise(() => {}) // never resolved
 
         const AsyncComp = asyncRoute(() => promise)
-        const wrapper = mount(<AsyncComp/>)
+        const wrapper = mount(<AsyncComp />)
         wrapper.update()
         expect(wrapper.find(InnerComp)).to.have.length(0)
       })
@@ -22,7 +21,7 @@ describe('tocco-util', () => {
         const promise = Promise.resolve(InnerComp)
 
         const AsyncComp = asyncRoute(() => promise)
-        const wrapper = mount(<AsyncComp/>)
+        const wrapper = mount(<AsyncComp />)
 
         promise.then(() => {
           wrapper.update()

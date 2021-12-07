@@ -63,9 +63,9 @@ describe('dashboard', () => {
           ]
 
           const wrapper = intlEnzyme.mountWithIntl(
-              <Provider store={store}>
-                <Dashboard infoBoxes={infoBoxes} saveInfoBoxHeight={() => {}} saveInfoBoxPositions={() => {}}/>
-              </Provider>
+            <Provider store={store}>
+              <Dashboard infoBoxes={infoBoxes} saveInfoBoxHeight={() => {}} saveInfoBoxPositions={() => {}} />
+            </Provider>
           )
 
           expect(wrapper.find(InfoBox)).to.have.length(5)
@@ -116,20 +116,21 @@ describe('dashboard', () => {
           const saveInfoBoxPositions = sinon.spy()
 
           const wrapper = intlEnzyme.mountWithIntl(
-              <Provider store={store}>
-                <Dashboard
-                  infoBoxes={infoBoxes}
-                  saveInfoBoxHeight={() => {}}
-                  saveInfoBoxPositions={saveInfoBoxPositions}
-                />
-              </Provider>
+            <Provider store={store}>
+              <Dashboard
+                infoBoxes={infoBoxes}
+                saveInfoBoxHeight={() => {}}
+                saveInfoBoxPositions={saveInfoBoxPositions}
+              />
+            </Provider>
           )
 
           wrapper.find('#infobox-1').find(InfoBox).simulate('dragstart')
-          wrapper.find('#infobox-2').find(InfoBox).simulate('dragenter',
-            {target: {getBoundingClientRect: () => ({y: 10, height: 100})}})
-          wrapper.find('#infobox-2').find(InfoBox).simulate('dragover',
-            {clientY: 80})
+          wrapper
+            .find('#infobox-2')
+            .find(InfoBox)
+            .simulate('dragenter', {target: {getBoundingClientRect: () => ({y: 10, height: 100})}})
+          wrapper.find('#infobox-2').find(InfoBox).simulate('dragover', {clientY: 80})
           wrapper.find('#infobox-2').find(InfoBox).simulate('drop')
           wrapper.find('#infobox-2').find(InfoBox).simulate('dragend')
 
@@ -180,15 +181,15 @@ describe('dashboard', () => {
           const saveInfoBoxPositions = sinon.spy()
 
           const wrapper = intlEnzyme.mountWithIntl(
-              <Provider store={store}>
-                <Dashboard
-                  infoBoxes={infoBoxes}
-                  saveInfoBoxHeight={() => {}}
-                  saveInfoBoxPositions={saveInfoBoxPositions}
-                />
-              </Provider>
+            <Provider store={store}>
+              <Dashboard
+                infoBoxes={infoBoxes}
+                saveInfoBoxHeight={() => {}}
+                saveInfoBoxPositions={saveInfoBoxPositions}
+              />
+            </Provider>
           )
-          
+
           const secondColumn = wrapper.find(StyledColumn).at(1)
           wrapper.find('#infobox-1').find(InfoBox).simulate('dragstart')
           secondColumn.simulate('dragenter')
@@ -219,15 +220,11 @@ describe('dashboard', () => {
           const saveInfoBoxHeight = sinon.spy()
 
           const wrapper = intlEnzyme.mountWithIntl(
-              <Provider store={store}>
-                <Dashboard
-                  infoBoxes={infoBoxes}
-                  saveInfoBoxHeight={saveInfoBoxHeight}
-                  saveInfoBoxPositions={() => {}}
-                />
-              </Provider>
+            <Provider store={store}>
+              <Dashboard infoBoxes={infoBoxes} saveInfoBoxHeight={saveInfoBoxHeight} saveInfoBoxPositions={() => {}} />
+            </Provider>
           )
-          
+
           wrapper.find('#infobox-1').find(StyledResizeHandle).simulate('mousedown')
           wrapper.simulate('mousemove', {clientX: 100, clientY: 100})
           wrapper.simulate('mousemove', {clientX: 200, clientY: 200})

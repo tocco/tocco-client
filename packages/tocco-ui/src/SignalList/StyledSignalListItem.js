@@ -1,12 +1,8 @@
-import styled from 'styled-components'
 import _get from 'lodash/get'
+import styled from 'styled-components'
 
 import {StyledLi} from '../Typography'
-import {
-  design,
-  shadeColor,
-  theme
-} from '../utilStyles'
+import {design, shadeColor, theme} from '../utilStyles'
 
 const COLORS = {
   [design.condition.BASE]: 'inherit',
@@ -35,7 +31,7 @@ const StyledSignalListItem = styled(StyledLi)`
     }
 
     > svg {
-      top: .2em;
+      top: 0.2em;
     }
   }
 `

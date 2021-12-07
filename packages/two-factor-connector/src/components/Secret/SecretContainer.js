@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import Secret from './Secret'
 import {goToSecretVerification} from '../../modules/actions'
+import Secret from './Secret'
 
 const mapActionCreators = {
   goToSecretVerification

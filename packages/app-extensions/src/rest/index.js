@@ -1,8 +1,5 @@
-import {
-  requestSaga,
-  requestBytesSaga,
-  simpleRequest
-} from './rest'
+import ClientQuestionCancelledException from './ClientQuestionCancelledException'
+import ForbiddenException from './ForbiddenException'
 import {
   fetchEntity,
   fetchDisplay,
@@ -25,18 +22,10 @@ import {
   setSelectionMarked,
   entityExists
 } from './helpers'
-import {
-  fetchUserPreferences,
-  deleteUserPreferences,
-  savePreferences
-} from './helpers/preferences'
-import {
-  fetchServerSettings,
-  hasRevisionIdChanged
-} from './helpers/serverSettings'
-import ClientQuestionCancelledException from './ClientQuestionCancelledException'
-import ForbiddenException from './ForbiddenException'
+import {fetchUserPreferences, deleteUserPreferences, savePreferences} from './helpers/preferences'
+import {fetchServerSettings, hasRevisionIdChanged} from './helpers/serverSettings'
 import InformationError from './InformationError'
+import {requestSaga, requestBytesSaga, simpleRequest} from './rest'
 
 export default {
   requestSaga,

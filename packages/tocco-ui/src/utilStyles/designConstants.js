@@ -54,8 +54,10 @@ const position = {
 }
 
 const oneOfPropTypeAndCompletelyMapped = (completeMap, potentialIncompleteMap) => {
-  return assertObjectValuesMatchOtherObjectKeys(completeMap, potentialIncompleteMap)
-    && PropTypes.oneOf(Object.values(completeMap))
+  return (
+    assertObjectValuesMatchOtherObjectKeys(completeMap, potentialIncompleteMap) &&
+    PropTypes.oneOf(Object.values(completeMap))
+  )
 }
 
 const animationPropTypes = PropTypes.oneOf(Object.values(animation))

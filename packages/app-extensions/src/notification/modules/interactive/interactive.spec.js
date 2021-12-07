@@ -1,7 +1,6 @@
-
 import {getConfirmationAction, getYesNoAction} from './interactive'
 
-const EMPTY_FUNC = () => { }
+const EMPTY_FUNC = () => {}
 
 describe('app-extensions', () => {
   describe('notification', () => {

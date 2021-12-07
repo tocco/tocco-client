@@ -1,6 +1,6 @@
-import reducer from './index'
-import * as actions from './actions'
 import searchFormTypes from '../../util/searchFormTypes'
+import * as actions from './actions'
+import reducer from './index'
 
 const INITIAL_STATE = {
   entityName: '',

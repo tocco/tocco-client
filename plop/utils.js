@@ -1,7 +1,7 @@
 import fs from 'fs'
 
-import config from '../config'
 import {getAllPackages} from '../build/lib/packages'
+import config from '../config'
 
 const paths = config.utils_paths
 export const ROOT_DISPLAY = '- (Root)'
@@ -17,7 +17,7 @@ export const prompts = {
     type: 'list',
     name: 'route',
     message: 'Route',
-    when: answers => (hasRoutes(answers.package)),
+    when: answers => hasRoutes(answers.package),
     choices: answers => {
       const routes = getRoutes(answers.package)
       return [ROOT_DISPLAY, ...routes]
@@ -42,7 +42,7 @@ export const hasRoutes = packageName => {
 export const getRoutes = packageName => {
   const path = paths.client(`packages/${packageName}/src/routes`)
   if (fs.existsSync(path)) {
-    return fs.readdirSync(path).filter(function(file) {
+    return fs.readdirSync(path).filter(function (file) {
       return fs.statSync(path + '/' + file).isDirectory()
     })
   }
@@ -54,7 +54,7 @@ export const getModules = (packageName, route) => {
 
   const path = paths.client(baseModulePath)
   if (fs.existsSync(path)) {
-    return fs.readdirSync(path).filter(function(file) {
+    return fs.readdirSync(path).filter(function (file) {
       return fs.statSync(path + '/' + file).isDirectory()
     })
   }

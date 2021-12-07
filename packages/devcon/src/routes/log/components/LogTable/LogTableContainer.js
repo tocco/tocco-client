@@ -6,7 +6,6 @@ const mapStateToProps = state => ({
   entries: state.log.entries
 })
 
-const mapActionCreators = {
-}
+const mapActionCreators = {}
 
 export default connect(mapStateToProps, mapActionCreators)(LogTable)

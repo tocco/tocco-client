@@ -1,14 +1,14 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 import {actionEmitter} from 'tocco-app-extensions'
 
+import ResourceScheduler from '../components/ResourceScheduler'
 import {
   initialize,
   updateRequestedCalendars,
   setDateRange,
   removeRequestedCalendar
 } from '../modules/resourceScheduler/actions'
-import ResourceScheduler from '../components/ResourceScheduler'
 
 const mapActionCreators = {
   initialize,

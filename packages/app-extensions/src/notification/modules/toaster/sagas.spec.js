@@ -1,9 +1,9 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import {takeEvery, all} from 'redux-saga/effects'
 
-import rootSaga, * as sagas from './sagas'
-import * as actions from './actions'
 import actionEmitter from '../../../actionEmitter'
+import * as actions from './actions'
+import rootSaga, * as sagas from './sagas'
 import {emit, removeToaster} from './sagas'
 
 describe('app-extensions', () => {
@@ -16,10 +16,7 @@ describe('app-extensions', () => {
             const generator = rootSaga(accept)
 
             expect(generator.next().value).to.deep.equal(
-              all([
-                takeEvery(actions.TOASTER, emit),
-                takeEvery(actions.REMOVE_TOASTER, emit)
-              ])
+              all([takeEvery(actions.TOASTER, emit), takeEvery(actions.REMOVE_TOASTER, emit)])
             )
 
             expect(generator.next().done).to.be.true
@@ -29,11 +26,7 @@ describe('app-extensions', () => {
             const accept = true
             const generator = rootSaga(accept)
 
-            expect(generator.next().value).to.deep.equal(
-              all([
-                takeEvery(actions.REMOVE_TOASTER, removeToaster)
-              ])
-            )
+            expect(generator.next().value).to.deep.equal(all([takeEvery(actions.REMOVE_TOASTER, removeToaster)]))
 
             expect(generator.next().done).to.be.true
           })
@@ -44,9 +37,7 @@ describe('app-extensions', () => {
         test('should call emitAction', () => {
           const action = actions.removeToaster('1', true)
 
-          return expectSaga(sagas.emit, action)
-            .put(actionEmitter.emitAction(action))
-            .run()
+          return expectSaga(sagas.emit, action).put(actionEmitter.emitAction(action)).run()
         })
       })
 

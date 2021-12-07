@@ -1,4 +1,3 @@
-
 import React from 'react'
 import {v4 as uuid} from 'uuid'
 
@@ -15,8 +14,5 @@ export default {
 }
 
 export const EntityBrowserStory = ({...args}) => {
-  return <EntityBrowserApp
-    key={uuid()}
-    {...args}
-  />
+  return <EntityBrowserApp key={uuid()} {...args} />
 }

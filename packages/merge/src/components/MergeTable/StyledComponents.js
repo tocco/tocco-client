@@ -37,7 +37,5 @@ export const StyledTableWrapper = styled.div`
 `
 
 export const StyledStatusWrapper = styled.span`
-  color: ${({isChecked}) => isChecked
-    ? theme.color('signal.success.text')
-    : theme.color('signal.danger.text')};
+  color: ${({isChecked}) => (isChecked ? theme.color('signal.success.text') : theme.color('signal.danger.text'))};
 `

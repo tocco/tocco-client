@@ -1,8 +1,8 @@
-import {EditableValue, StatedValue} from 'tocco-ui'
-import {intlEnzyme} from 'tocco-test-util'
-import {createStore} from 'redux'
-import {Provider} from 'react-redux'
 import React from 'react'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import {intlEnzyme} from 'tocco-test-util'
+import {EditableValue, StatedValue} from 'tocco-ui'
 
 import {formFieldFactory} from './formField'
 
@@ -32,11 +32,7 @@ describe('app-extensions', () => {
           }
         }))
 
-        const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            {formField}
-          </Provider>
-        )
+        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>{formField}</Provider>)
 
         expect(wrapper.find(StatedValue)).to.have.length(1)
         expect(wrapper.find(EditableValue)).to.have.length(1)

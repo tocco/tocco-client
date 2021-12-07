@@ -1,6 +1,4 @@
-import {
-  setCalendars
-} from './modules/scheduler/actions'
+import {setCalendars} from './modules/scheduler/actions'
 
 export const getDispatchActions = input => {
   const actions = []

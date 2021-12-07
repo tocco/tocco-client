@@ -17,40 +17,40 @@ export default {
     options: _get(formData, ['relationEntities', formField.id, 'data'], []),
     moreOptionsAvailable: _get(formData, ['relationEntities', formField.id, 'moreEntitiesAvailable'], false),
     isLoading: _get(formData, ['relationEntities', formField.id, 'isLoading'], false),
-    fetchOptions: () => formData.loadRelationEntities(formField.id, formField.targetEntity, {
-      forceReload: true,
-      limit: settings.SUGGESTION_LIMIT,
-      sorting: [{field: settings.SUGGESTION_ORDER_FIELD, order: 'desc'}],
-      formBase: formField.formBase,
-      formName: formField.formName
-    }),
-    searchOptions: searchTerm => formData.loadRelationEntities(formField.id, formField.targetEntity, {
-      searchTerm,
-      limit: settings.SEARCH_RESULT_LIMIT,
-      forceReload: true,
-      formBase: formField.formBase,
-      formName: formField.formName
-    }),
+    fetchOptions: () =>
+      formData.loadRelationEntities(formField.id, formField.targetEntity, {
+        forceReload: true,
+        limit: settings.SUGGESTION_LIMIT,
+        sorting: [{field: settings.SUGGESTION_ORDER_FIELD, order: 'desc'}],
+        formBase: formField.formBase,
+        formName: formField.formName
+      }),
+    searchOptions: searchTerm =>
+      formData.loadRelationEntities(formField.id, formField.targetEntity, {
+        searchTerm,
+        limit: settings.SEARCH_RESULT_LIMIT,
+        forceReload: true,
+        formBase: formField.formBase,
+        formName: formField.formName
+      }),
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
     tooltips: _get(formData.tooltips, formField.targetEntity, null),
     loadTooltip: id => formData.loadTooltip(formField.targetEntity, id),
-    noResultsText: formData.intl.formatMessage(
-      {id: 'client.component.remoteselect.noResultsText'}
-    ),
-    moreOptionsAvailableText: formData.intl.formatMessage(
-      {id: 'client.component.remoteselect.moreOptionsAvailableText'}
-    ),
-    DetailLink: formData.navigationStrategy && formData.navigationStrategy.DetailLink
-      ? ({entityKey, children}) =>
-        <formData.navigationStrategy.DetailLink
-          entityName={formField.targetEntity}
-          entityKey={entityKey}
-        >
-          {children}
-        </formData.navigationStrategy.DetailLink>
-      : null,
-    createPermission: formField.relationName
-      && _get(formData, ['entityModel', 'paths', formField.relationName, 'createPermission'], false),
+    noResultsText: formData.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'}),
+    moreOptionsAvailableText: formData.intl.formatMessage({
+      id: 'client.component.remoteselect.moreOptionsAvailableText'
+    }),
+    DetailLink:
+      formData.navigationStrategy && formData.navigationStrategy.DetailLink
+        ? ({entityKey, children}) => (
+            <formData.navigationStrategy.DetailLink entityName={formField.targetEntity} entityKey={entityKey}>
+              {children}
+            </formData.navigationStrategy.DetailLink>
+          )
+        : null,
+    createPermission:
+      formField.relationName &&
+      _get(formData, ['entityModel', 'paths', formField.relationName, 'createPermission'], false),
     openRemoteCreate: value => formData.openRemoteCreate(formField, formName, value)
   })
 }

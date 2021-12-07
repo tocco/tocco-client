@@ -1,7 +1,4 @@
-import {
-  REMOTE_EVENT,
-  remoteEvent
-} from './actions'
+import {REMOTE_EVENT, remoteEvent} from './actions'
 
 export default {
   REMOTE_EVENT,

@@ -1,11 +1,11 @@
 import {connect} from 'react-redux'
 import {notification} from 'tocco-app-extensions'
 
-import InputEdit from './InputEdit'
-import {initializeTable} from '../../modules/inputEditTable/actions'
-import {initializeSearch} from '../../modules/inputEditSearch/actions'
-import {initializeInformation} from '../../modules/inputEditInformation/actions'
 import {updateSelection} from '../../modules/inputEdit/actions'
+import {initializeInformation} from '../../modules/inputEditInformation/actions'
+import {initializeSearch} from '../../modules/inputEditSearch/actions'
+import {initializeTable} from '../../modules/inputEditTable/actions'
+import InputEdit from './InputEdit'
 
 const mapActionCreators = {
   updateSelection,

@@ -1,16 +1,8 @@
-import styled from 'styled-components'
 import _get from 'lodash/get'
+import styled from 'styled-components'
 
-import {
-  generateDisabledShade,
-  scale,
-  shadeColor,
-  theme
-} from '../../utilStyles'
-import {
-  StyledEditableWrapperCss,
-  StyledInputCss
-} from '../StyledEditableValue'
+import {generateDisabledShade, scale, shadeColor, theme} from '../../utilStyles'
+import {StyledEditableWrapperCss, StyledInputCss} from '../StyledEditableValue'
 
 export const StyledLocationEdit = styled.div`
   && {
@@ -31,9 +23,8 @@ export const StyledLocationEdit = styled.div`
     > span {
       flex: 0 0 auto;
       margin-right: ${scale.space(-2)};
-      color: ${({immutable, theme}) => immutable
-                ? generateDisabledShade(_get(theme, 'colors.text'))
-                : _get(theme, 'colors.text')};
+      color: ${({immutable, theme}) =>
+        immutable ? generateDisabledShade(_get(theme, 'colors.text')) : _get(theme, 'colors.text')};
     }
 
     .react-autosuggest__input {

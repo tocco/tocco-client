@@ -1,11 +1,11 @@
-import {rest} from 'tocco-app-extensions'
 import {call, put, select, takeLatest, all} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
-import * as actions from './actions'
-import rootSaga, * as sagas from './sagas'
+import {Pages} from '../../types/Pages'
 import {changePage, setUsername} from '../login/actions'
 import {setMessage, setPending} from '../loginForm/actions'
-import {Pages} from '../../types/Pages'
+import * as actions from './actions'
+import rootSaga, * as sagas from './sagas'
 
 export const inputSelector = state => state.input
 
@@ -16,10 +16,12 @@ describe('login', () => {
         describe('root saga', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              takeLatest(actions.REQUEST_PASSWORD, sagas.requestPasswordSaga),
-              takeLatest(actions.PASSWORD_REQUEST, sagas.passwordRequestSaga)
-            ]))
+            expect(generator.next().value).to.deep.equal(
+              all([
+                takeLatest(actions.REQUEST_PASSWORD, sagas.requestPasswordSaga),
+                takeLatest(actions.PASSWORD_REQUEST, sagas.passwordRequestSaga)
+              ])
+            )
             expect(generator.next().done).to.equal(true)
           })
         })

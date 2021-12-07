@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import {Link} from 'react-router-dom'
+import styled from 'styled-components'
 import {theme, scale} from 'tocco-ui'
 
 const secondaryLight = theme.color('secondaryLight')
@@ -68,7 +68,7 @@ export const StyledMenuEntry = styled.span`
   display: flex;
 
   &:hover {
-    ${({onClick}) => onClick ? 'cursor: pointer;' : 'cursor: auto;'}
+    ${({onClick}) => (onClick ? 'cursor: pointer;' : 'cursor: auto;')}
 
     ${StyledTogglerIconWrapper} {
       display: block;
@@ -81,5 +81,5 @@ export const StyledMenuIconWrapper = styled.span`
 `
 
 export const StyledMenuChildrenWrapper = styled.div`
-  display: ${({isOpen}) => isOpen ? 'block' : 'none'};
+  display: ${({isOpen}) => (isOpen ? 'block' : 'none')};
 `

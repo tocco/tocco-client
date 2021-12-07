@@ -59,8 +59,7 @@ export const downloadSupportedByBrowser = () => {
   return result
 }
 
-export const getDownloadUrl = binaryLink =>
-  addParameterToURL(binaryLink, 'download', true)
+export const getDownloadUrl = binaryLink => addParameterToURL(binaryLink, 'download', true)
 
 export const addParameterToURL = (url, param, value) =>
   `${url}${url && url.indexOf('?') >= 0 ? '&' : '?'}${param}=${value}`

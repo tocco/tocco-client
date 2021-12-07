@@ -10,11 +10,13 @@ describe('delete', () => {
       describe('mainSaga', () => {
         test('should fork sagas', () => {
           const saga = testSaga(mainSaga)
-          saga.next().all([
-            takeLatest(actions.LOAD_DIALOG_INFO, sagas.loadDialogInfo),
-            takeLatest(actions.DO_DELETE, sagas.doDelete),
-            takeLatest(actions.ON_CANCEL, sagas.onCancel)
-          ])
+          saga
+            .next()
+            .all([
+              takeLatest(actions.LOAD_DIALOG_INFO, sagas.loadDialogInfo),
+              takeLatest(actions.DO_DELETE, sagas.doDelete),
+              takeLatest(actions.ON_CANCEL, sagas.onCancel)
+            ])
         })
       })
 
@@ -22,9 +24,7 @@ describe('delete', () => {
         test('should return custom endpoint if set', () => {
           const input = {customDeleteEndpoint: 'custom/delete'}
           return expectSaga(sagas.getDeleteEndpoint)
-            .provide([
-              [select(sagas.inputSelector), input]
-            ])
+            .provide([[select(sagas.inputSelector), input]])
             .returns('custom/delete')
             .run()
         })
@@ -32,9 +32,7 @@ describe('delete', () => {
         test('should return default endpoint', () => {
           const input = {}
           return expectSaga(sagas.getDeleteEndpoint)
-            .provide([
-              [select(sagas.inputSelector), input]
-            ])
+            .provide([[select(sagas.inputSelector), input]])
             .returns('client/delete')
             .run()
         })

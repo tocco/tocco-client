@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {scale, theme} from 'tocco-ui'
 
 export const StyledPageOverlay = styled.div`
-  background-color: rgba(50, 50, 50, .7);
+  background-color: rgba(50, 50, 50, 0.7);
   height: 100%;
   width: 100%;
   position: fixed;

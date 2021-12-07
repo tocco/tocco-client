@@ -4,7 +4,7 @@ import {request} from 'tocco-util'
 import {functions, placeholders, types} from './TqlMode'
 
 const TokenIterator = ace.require('ace/token_iterator').TokenIterator
-const getTokenType = token => token ? token.type.substring(token.type.lastIndexOf('.') + 1) : null
+const getTokenType = token => (token ? token.type.substring(token.type.lastIndexOf('.') + 1) : null)
 
 const isCurrentTokenOfType = (iterator, type) => getTokenType(iterator.getCurrentToken()) === type
 
@@ -96,16 +96,18 @@ const defaultScore = 1000
 
 const sendRequest = endpoint => request.executeRequest(`rest/${endpoint}`)
 
-const extractBody = response => response.status === 200 ? response.json() : null
+const extractBody = response => (response.status === 200 ? response.json() : null)
 
-const loadModels = () => sendRequest('entities')
-  .then(extractBody)
-  .then(body => body ? body.entities : {})
-  .then(entities => entities ? Object.keys(entities) : [])
+const loadModels = () =>
+  sendRequest('entities')
+    .then(extractBody)
+    .then(body => (body ? body.entities : {}))
+    .then(entities => (entities ? Object.keys(entities) : []))
 
-const buildRelationLabel = relation => relation.relationName.substring(3) !== relation.targetEntity
-  ? `${relation.relationName} (${relation.targetEntity})`
-  : relation.relationName
+const buildRelationLabel = relation =>
+  relation.relationName.substring(3) !== relation.targetEntity
+    ? `${relation.relationName} (${relation.targetEntity})`
+    : relation.relationName
 
 const buildResolveUrl = (sourceModel, relationSteps) => {
   const resolvePart = relationSteps.length > 0 ? '/resolve?path=' + relationSteps.join('.') : ''
@@ -122,16 +124,16 @@ const resolvePath = ([sourceModel, ...relationSteps]) =>
       const fields = body.fields || []
       const relations = body.relations || []
       return [
-        ...(fields.map(f => ({
+        ...fields.map(f => ({
           label: `${f.fieldName} (${f.type})`,
           value: f.fieldName,
           type: 'field'
-        }))),
-        ...(relations.map(r => ({
+        })),
+        ...relations.map(r => ({
           label: buildRelationLabel(r),
           value: r.relationName,
           type: 'relation'
-        })))
+        }))
       ]
     })
 
@@ -143,53 +145,57 @@ const determineAvailablePaths = (createIterator, callback) => {
   const currentPath = findCurrentPath(createIterator())
   const relationSteps = [...modelScope, ...currentPath].map(model => `rel${model}`)
   const fullPath = [baseModel, ...relationSteps]
-  resolvePath(fullPath).then(paths => {
-    const pathCompletions = paths.map(path => ({
-      caption: path.label,
-      value: path.value,
-      meta: path.type,
-      score: defaultScore
-    }))
-    callback(null, pathCompletions)
-  }).catch(errors => callback(errors))
+  resolvePath(fullPath)
+    .then(paths => {
+      const pathCompletions = paths.map(path => ({
+        caption: path.label,
+        value: path.value,
+        meta: path.type,
+        score: defaultScore
+      }))
+      callback(null, pathCompletions)
+    })
+    .catch(errors => callback(errors))
 }
 
-const loadAllAvailableModels = callback => loadModels().then(models => {
-  const modelCompletions = models.map(model => ({
-    caption: model,
-    value: model,
-    meta: 'model',
-    score: defaultScore
-  }))
-  callback(null, modelCompletions)
-}).catch(errors => callback(errors))
+const loadAllAvailableModels = callback =>
+  loadModels()
+    .then(models => {
+      const modelCompletions = models.map(model => ({
+        caption: model,
+        value: model,
+        meta: 'model',
+        score: defaultScore
+      }))
+      callback(null, modelCompletions)
+    })
+    .catch(errors => callback(errors))
 
-const getAvailableFunctions = () => functions.map(f => f.toUpperCase()).map(f =>
-  ({
-    caption: f,
-    value: `${f}()`,
-    meta: 'function',
-    score: defaultScore - 30
-  })
-)
+const getAvailableFunctions = () =>
+  functions
+    .map(f => f.toUpperCase())
+    .map(f => ({
+      caption: f,
+      value: `${f}()`,
+      meta: 'function',
+      score: defaultScore - 30
+    }))
 
-const getAvailableTypes = () => types.map(type =>
-  ({
+const getAvailableTypes = () =>
+  types.map(type => ({
     caption: type,
     value: `${type}:`,
     meta: 'type',
     score: defaultScore - 20
-  })
-)
+  }))
 
-const getAvailablePlaceholders = () => placeholders.map(placeholder =>
-  ({
+const getAvailablePlaceholders = () =>
+  placeholders.map(placeholder => ({
     caption: placeholder,
     value: `:${placeholder}`,
     meta: 'placeholder',
     score: defaultScore - 10
-  })
-)
+  }))
 
 export default () => ({
   getCompletions: (editor, session, pos, prefix, callback) => {

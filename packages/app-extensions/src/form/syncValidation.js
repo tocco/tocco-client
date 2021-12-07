@@ -1,8 +1,8 @@
-import _has from 'lodash/has'
 import _get from 'lodash/get'
+import _has from 'lodash/has'
 
-import validators from './validators'
 import formErrors from './formErrors'
+import validators from './validators'
 
 export default fieldDefinitions => values => {
   let errors = {}

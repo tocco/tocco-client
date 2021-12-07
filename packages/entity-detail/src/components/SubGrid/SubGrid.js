@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import EntityListApp from 'tocco-entity-list/src/main'
 import styled from 'styled-components'
+import EntityListApp from 'tocco-entity-list/src/main'
 import {viewPersistor} from 'tocco-util'
 
 const StyledListApp = styled.div`

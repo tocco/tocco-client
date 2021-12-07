@@ -1,9 +1,9 @@
-import React, {memo} from 'react'
-import PropTypes from 'prop-types'
-import {components} from 'react-select'
 import _get from 'lodash/get'
 import _omit from 'lodash/omit'
 import _omitBy from 'lodash/omitBy'
+import PropTypes from 'prop-types'
+import React, {memo} from 'react'
+import {components} from 'react-select'
 import {html, js} from 'tocco-util'
 
 import Popover from '../Popover'
@@ -23,15 +23,22 @@ const areEqual = (prevProps, nextProps) => {
   return Object.entries(clean).length === 0
 }
 
-const Content = memo(({linkComp: DetailLink, entityKey, children}) => (DetailLink
-  ? <ClickableWrapper onMouseDown={e => {
-    e.stopPropagation()
-    e.preventDefault()
-  }}>
-    <DetailLink entityKey={entityKey}>{children}</DetailLink>
-  </ClickableWrapper>
-  : children),
-areEqual)
+const Content = memo(
+  ({linkComp: DetailLink, entityKey, children}) =>
+    DetailLink ? (
+      <ClickableWrapper
+        onMouseDown={e => {
+          e.stopPropagation()
+          e.preventDefault()
+        }}
+      >
+        <DetailLink entityKey={entityKey}>{children}</DetailLink>
+      </ClickableWrapper>
+    ) : (
+      children
+    ),
+  areEqual
+)
 
 Content.propTypes = {
   children: PropTypes.node,
@@ -40,17 +47,8 @@ Content.propTypes = {
 }
 
 export const SingleValue = props => {
-  const {
-    data,
-    selectProps,
-    isDisabled,
-    children
-  } = props
-  const {
-    tooltips,
-    loadTooltip,
-    DetailLink
-  } = selectProps
+  const {data, selectProps, isDisabled, children} = props
+  const {tooltips, loadTooltip, DetailLink} = selectProps
   const tooltip = _get(tooltips, data.key, null)
 
   return (
@@ -59,10 +57,10 @@ export const SingleValue = props => {
         onMouseOver={() => loadTooltip && !tooltip && loadTooltip(data.key)}
         isDisabled={isDisabled}
       >
-        <Popover content={tooltip
-          ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}}/>
-          : null}>
-          <Content linkComp={DetailLink} entityKey={data.key}>{children}</Content>
+        <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}} /> : null}>
+          <Content linkComp={DetailLink} entityKey={data.key}>
+            {children}
+          </Content>
         </Popover>
       </StyledSingleValueWrapper>
     </components.SingleValue>

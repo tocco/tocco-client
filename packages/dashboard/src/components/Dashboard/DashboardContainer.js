@@ -1,5 +1,5 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import {saveInfoBoxHeight, saveInfoBoxPositions} from '../../modules/dashboard/actions'
 import Dashboard from './Dashboard'

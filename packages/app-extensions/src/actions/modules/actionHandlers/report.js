@@ -1,11 +1,11 @@
 import React from 'react'
 import {channel} from 'redux-saga'
-import {v4 as uuid} from 'uuid'
-import {api} from 'tocco-util'
 import {call, put, take} from 'redux-saga/effects'
+import {api} from 'tocco-util'
+import {v4 as uuid} from 'uuid'
 
-import rest from '../../../rest'
 import notification from '../../../notification'
+import rest from '../../../rest'
 import ReportSettings from '../../components/ReportSettings'
 import {invokeActionAsync} from './simpleAction'
 
@@ -25,26 +25,29 @@ export function* displayReportSettings(actionDefinition, selection, answerChanne
 
   const resource = `report/${actionDefinition.reportId}/settings`
   const {body: settingsDefinition} = yield call(rest.requestSaga, resource, options)
-  const onSubmit = formValues => answerChannel.put({
-    formValues,
-    settingsDefinition
-  })
+  const onSubmit = formValues =>
+    answerChannel.put({
+      formValues,
+      settingsDefinition
+    })
   const settingsModalId = yield call(uuid)
 
-  yield put(notification.modal(
-    settingsModalId,
-    settingsDefinition.description.name,
-    null,
-    () => (
-      <ReportSettings
-        listApp={config.listApp}
-        formApp={config.formApp}
-        onSubmit={onSubmit}
-        settingsDefinition={settingsDefinition}
-      />
-    ),
-    true
-  ))
+  yield put(
+    notification.modal(
+      settingsModalId,
+      settingsDefinition.description.name,
+      null,
+      () => (
+        <ReportSettings
+          listApp={config.listApp}
+          formApp={config.formApp}
+          onSubmit={onSubmit}
+          settingsDefinition={settingsDefinition}
+        />
+      ),
+      true
+    )
+  )
 
   return settingsModalId
 }
@@ -59,9 +62,9 @@ export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId,
     definition.endpoint = 'report/generations'
     const customSettingsEntity = settingsDefinition.customSettings
       ? api.toEntity({
-        __model: settingsDefinition.customSettings.entity.name,
-        ...customSettings
-      })
+          __model: settingsDefinition.customSettings.entity.name,
+          ...customSettings
+        })
       : null
     const params = {
       additionalProperties: {

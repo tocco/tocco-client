@@ -1,7 +1,7 @@
-import {call, put, take} from 'redux-saga/effects'
-import {channel} from 'redux-saga'
-import {FormattedMessage} from 'react-intl'
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
+import {channel} from 'redux-saga'
+import {call, put, take} from 'redux-saga/effects'
 
 import notification from '../../../notification'
 
@@ -23,8 +23,8 @@ export function* promptConfirm(message) {
     notification.confirm(
       'client.component.actions.confirmTitle',
       message,
-      <FormattedMessage id="client.common.yes"/>,
-      <FormattedMessage id="client.common.cancel"/>,
+      <FormattedMessage id="client.common.yes" />,
+      <FormattedMessage id="client.common.cancel" />,
       onYes,
       onCancel
     )

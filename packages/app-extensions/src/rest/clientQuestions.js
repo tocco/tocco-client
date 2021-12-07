@@ -2,8 +2,8 @@ import {channel} from 'redux-saga'
 import {call, put, take} from 'redux-saga/effects'
 
 import notification from '../notification'
-import {sendRequest} from './request'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
+import {sendRequest} from './request'
 
 const HANDLERS = {
   ConfirmQuestionHandler: handleConfirmQuestion,

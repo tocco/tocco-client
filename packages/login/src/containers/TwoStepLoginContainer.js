@@ -1,5 +1,5 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import TwoStepLoginForm from '../components/TwoStepLoginForm'
 import {twoStepLogin} from '../modules/twoStepLogin/actions'

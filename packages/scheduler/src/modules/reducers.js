@@ -4,6 +4,4 @@ export default {
   scheduler: schedulerReducer
 }
 
-export const sagas = [
-  schedulerSagas
-]
+export const sagas = [schedulerSagas]

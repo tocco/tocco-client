@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import Button from '../Button'
 import {scale} from '../'
+import Button from '../Button'
 
 export const StyledPagination = styled.div`
   display: flex;

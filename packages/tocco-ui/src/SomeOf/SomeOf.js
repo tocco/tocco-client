@@ -5,7 +5,11 @@ import Typography from '../Typography'
 /**
  * Use <SomeOf> to display an amount in relation to a total.
  */
-const SomeOf = props => <Typography.Span>{props.some} / {props.of}</Typography.Span>
+const SomeOf = props => (
+  <Typography.Span>
+    {props.some} / {props.of}
+  </Typography.Span>
+)
 
 SomeOf.defaultProps = {
   some: 0
@@ -20,7 +24,6 @@ SomeOf.propTypes = {
    * A number representing a total.
    */
   of: PropTypes.number.isRequired
-
 }
 
 export default SomeOf

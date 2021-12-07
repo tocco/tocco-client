@@ -6,13 +6,14 @@ import {StyledModalButton, StyledModalButtonWrapper} from './StyledComponents'
 
 const ModalButtons = ({buttons}) => (
   <StyledModalButtonWrapper>
-    {buttons.map((button, i) => <StyledModalButton
-      {...(button.primary ? {ink: design.ink.PRIMARY} : {})}
-      key={i}
-      label={button.label}
-      onClick={button.callback}
-    />
-    )}
+    {buttons.map((button, i) => (
+      <StyledModalButton
+        {...(button.primary ? {ink: design.ink.PRIMARY} : {})}
+        key={i}
+        label={button.label}
+        onClick={button.callback}
+      />
+    ))}
   </StyledModalButtonWrapper>
 )
 

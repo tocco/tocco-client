@@ -1,5 +1,5 @@
-import reducer from './index'
 import * as actions from './actions'
+import reducer from './index'
 
 const EXPECTED_INITIAL_STATE = {
   entityModel: {},
@@ -54,25 +54,13 @@ describe('entity-list', () => {
 
         test('should handle ADD_ENTITIES_TO_STORE', () => {
           const existingEntities = {
-            1: [
-              {field: 'value1'},
-              {field: 'value2'}
-            ]
+            1: [{field: 'value1'}, {field: 'value2'}]
           }
-          const newEntities = [
-            {field: 'value3'},
-            {field: 'value4'}
-          ]
+          const newEntities = [{field: 'value3'}, {field: 'value4'}]
 
           const mergedEntities = {
-            1: [
-              {field: 'value1'},
-              {field: 'value2'}
-            ],
-            2: [
-              {field: 'value3'},
-              {field: 'value4'}
-            ]
+            1: [{field: 'value1'}, {field: 'value2'}],
+            2: [{field: 'value3'}, {field: 'value4'}]
           }
 
           const stateBefore = {
@@ -263,8 +251,9 @@ describe('entity-list', () => {
             }
           }
 
-          expect(reducer(stateBefore, actions.setLazyData('defaultDisplays', 'Gender', {1: 'Male'})))
-            .to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setLazyData('defaultDisplays', 'Gender', {1: 'Male'}))).to.deep.equal(
+            expectedStateAfter
+          )
 
           const expectedStateAfter2 = {
             lazyData: {
@@ -274,8 +263,9 @@ describe('entity-list', () => {
             }
           }
 
-          expect(reducer(expectedStateAfter, actions.setLazyData('defaultDisplays', 'Gender', {2: 'Female'})))
-            .to.deep.equal(expectedStateAfter2)
+          expect(
+            reducer(expectedStateAfter, actions.setLazyData('defaultDisplays', 'Gender', {2: 'Female'}))
+          ).to.deep.equal(expectedStateAfter2)
 
           const expectedStateAfter3 = {
             lazyData: {
@@ -290,8 +280,9 @@ describe('entity-list', () => {
             }
           }
 
-          expect(reducer(expectedStateAfter2, actions.setLazyData('displayExpressions', 'User_list', {44: 'Test'})))
-            .to.deep.equal(expectedStateAfter3)
+          expect(
+            reducer(expectedStateAfter2, actions.setLazyData('displayExpressions', 'User_list', {44: 'Test'}))
+          ).to.deep.equal(expectedStateAfter3)
         })
 
         test('should handle SET_SORTING_INTERACTIVE and switch order on same field', () => {
@@ -303,15 +294,17 @@ describe('entity-list', () => {
             sorting: [{field: 'firstname', order: 'asc'}]
           }
 
-          expect(reducer(stateBefore, actions.setSortingInteractive('firstname', false)))
-            .to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setSortingInteractive('firstname', false))).to.deep.equal(
+            expectedStateAfter
+          )
 
           const expectedStateAfter2 = {
             sorting: [{field: 'firstname', order: 'desc'}]
           }
 
-          expect(reducer(expectedStateAfter, actions.setSortingInteractive('firstname', false)))
-            .to.deep.equal(expectedStateAfter2)
+          expect(reducer(expectedStateAfter, actions.setSortingInteractive('firstname', false))).to.deep.equal(
+            expectedStateAfter2
+          )
         })
 
         test('should handle SET_SORTING_INTERACTIVE and add a second sorting', () => {
@@ -320,18 +313,26 @@ describe('entity-list', () => {
           }
 
           const expectedStateAfter = {
-            sorting: [{field: 'lastname', order: 'asc'}, {field: 'firstname', order: 'asc'}]
+            sorting: [
+              {field: 'lastname', order: 'asc'},
+              {field: 'firstname', order: 'asc'}
+            ]
           }
 
-          expect(reducer(stateBefore, actions.setSortingInteractive('firstname', true)))
-            .to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setSortingInteractive('firstname', true))).to.deep.equal(
+            expectedStateAfter
+          )
 
           const expectedStateAfter2 = {
-            sorting: [{field: 'lastname', order: 'asc'}, {field: 'firstname', order: 'desc'}]
+            sorting: [
+              {field: 'lastname', order: 'asc'},
+              {field: 'firstname', order: 'desc'}
+            ]
           }
 
-          expect(reducer(expectedStateAfter, actions.setSortingInteractive('firstname', true)))
-            .to.deep.equal(expectedStateAfter2)
+          expect(reducer(expectedStateAfter, actions.setSortingInteractive('firstname', true))).to.deep.equal(
+            expectedStateAfter2
+          )
         })
 
         test('should handle SET_SEARCH_ENDPOINT', () => {

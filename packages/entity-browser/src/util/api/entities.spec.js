@@ -1,5 +1,5 @@
-import {rest} from 'tocco-app-extensions'
 import {call} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
 import * as entities from './entities'
 
@@ -16,13 +16,17 @@ describe('entity-browser', () => {
             const resp = {
               body: {
                 name: 'User',
-                fields: [{
-                  fieldName: 'firstname'
-                }],
-                relations: [{
-                  relationName: 'relUser_status',
-                  targetEntity: 'User_status'
-                }]
+                fields: [
+                  {
+                    fieldName: 'firstname'
+                  }
+                ],
+                relations: [
+                  {
+                    relationName: 'relUser_status',
+                    targetEntity: 'User_status'
+                  }
+                ]
               }
             }
 
@@ -73,7 +77,6 @@ describe('entity-browser', () => {
               pk: {
                 fieldName: 'pk',
                 type: 'serial'
-
               },
               firstname: {
                 fieldName: 'firstname',

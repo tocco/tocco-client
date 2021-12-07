@@ -1,5 +1,5 @@
-import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
+import React, {useMemo} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {SearchBox} from 'tocco-ui'
 
@@ -11,19 +11,25 @@ const FullTextSearchForm = props => {
     submitSearchForm()
   }
 
-  const msg = id => (intl.formatMessage({id}))
+  const msg = id => intl.formatMessage({id})
 
-  const field = useMemo(() => ({input}) =>
-    <SearchBox
-      value={input.value}
-      liveSearch={true}
-      onSearch={value => input.onChange(value)}
-      placeholder={msg('client.entity-list.fullTextPlaceholder')}
-    />, [])
+  const field = useMemo(
+    () =>
+      ({input}) =>
+        (
+          <SearchBox
+            value={input.value}
+            liveSearch={true}
+            onSearch={value => input.onChange(value)}
+            placeholder={msg('client.entity-list.fullTextPlaceholder')}
+          />
+        ),
+    []
+  )
 
   return (
     <form onSubmit={handleSubmit}>
-      <Field name="txtFulltext" component={field}/>
+      <Field name="txtFulltext" component={field} />
     </form>
   )
 }

@@ -6,7 +6,6 @@ const mapStateToProps = state => ({
   changelog: state.modelValidation.changelog
 })
 
-const mapActionCreators = {
-}
+const mapActionCreators = {}
 
 export default connect(mapStateToProps, mapActionCreators)(ChangelogDialog)

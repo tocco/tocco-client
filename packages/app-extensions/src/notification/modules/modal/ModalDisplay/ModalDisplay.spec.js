@@ -1,9 +1,9 @@
-import React from 'react'
 import {mount} from 'enzyme'
+import React from 'react'
 
 import ResizeObserver from '../../../../../../../__mocks__/ResizeObserver'
-import ModalDisplay from './ModalDisplay'
 import ModalContent from './ModalContent'
+import ModalDisplay from './ModalDisplay'
 
 describe('app-extensions', () => {
   describe('notification', () => {
@@ -17,12 +17,7 @@ describe('app-extensions', () => {
               {id: 2, title: 'Test2', message: 'Message2', component: () => <div>Test2</div>}
             ]
 
-            const wrapper = mount(
-              <ModalDisplay
-                modals={modals}
-                close={() => {}}
-              />
-            )
+            const wrapper = mount(<ModalDisplay modals={modals} close={() => {}} />)
 
             expect(wrapper.find(ModalContent)).to.have.length(modals.length)
           })

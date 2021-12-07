@@ -8,26 +8,25 @@ const EditorWrapper = styled.div`
   margin-top: 5px;
 `
 
-const CodeEdit = ({
-  value,
-  onChange,
-  immutable,
-  options
-}) => <EditorWrapper>
-  <CodeEditor value={value}
-              onChange={onChange}
-              mode={options.mode}
-              theme={'textmate'}
-              showGutter={true}
-              editorOptions={{
-                enableBasicAutocompletion: true,
-                enableLiveAutocompletion: true,
-                enableSnippets: true,
-                minLines: 5,
-                maxLines: 50,
-                readOnly: immutable
-              }}/>
-</EditorWrapper>
+const CodeEdit = ({value, onChange, immutable, options}) => (
+  <EditorWrapper>
+    <CodeEditor
+      value={value}
+      onChange={onChange}
+      mode={options.mode}
+      theme={'textmate'}
+      showGutter={true}
+      editorOptions={{
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true,
+        enableSnippets: true,
+        minLines: 5,
+        maxLines: 50,
+        readOnly: immutable
+      }}
+    />
+  </EditorWrapper>
+)
 
 CodeEdit.propTypes = {
   onChange: PropTypes.func.isRequired,

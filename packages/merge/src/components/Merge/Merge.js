@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect} from 'react'
 
-import MergeTable from '../MergeTable'
 import MergeSummary from '../MergeSummary'
+import MergeTable from '../MergeTable'
 import {StyledMerge} from './StyledComponents'
 
 const Merge = ({initialize, mergeDone}) => {
@@ -10,11 +10,7 @@ const Merge = ({initialize, mergeDone}) => {
     initialize()
   }, [])
 
-  return (
-    <StyledMerge>
-      {mergeDone ? <MergeSummary/> : <MergeTable/>}
-    </StyledMerge>
-  )
+  return <StyledMerge>{mergeDone ? <MergeSummary /> : <MergeTable />}</StyledMerge>
 }
 
 Merge.propTypes = {

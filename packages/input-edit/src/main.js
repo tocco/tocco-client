@@ -1,20 +1,18 @@
-import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
-import {actionEmitter, actions, appFactory, cache, errorLogging, notification} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {actionEmitter, actions, appFactory, cache, errorLogging, notification} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
 
-import reducers, {sagas} from './modules/reducers'
-import {setHandleNotifications, setSelection} from './modules/inputEdit/actions'
 import InputEdit from './components/InputEdit/InputEditContainer'
+import {setHandleNotifications, setSelection} from './modules/inputEdit/actions'
+import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'input-edit'
 
-const EXTERNAL_EVENTS = [
-  'emitAction'
-]
+const EXTERNAL_EVENTS = ['emitAction']
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = <InputEdit/>
+  const content = <InputEdit />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
@@ -24,24 +22,16 @@ const initApp = (id, input, events = {}, publicPath) => {
   errorLogging.addToStore(store, handleNotifications)
   cache.addToStore(store)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [
-        setHandleNotifications(handleNotifications),
-        setSelection(input.selection)
-      ],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [setHandleNotifications(handleNotifications), setSelection(input.selection)],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 

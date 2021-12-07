@@ -2,17 +2,12 @@ import PropTypes from 'prop-types'
 import React, {useState} from 'react'
 import {react} from 'tocco-util'
 
-import {StyledSearchBox, StyledSearchBoxInput} from './StyledSearchBox'
 import {StyledEditableWrapper} from '../EditableValue/StyledEditableValue'
 import StatedValue from '../StatedValue'
+import {StyledSearchBox, StyledSearchBoxInput} from './StyledSearchBox'
 
 const SearchBox = React.forwardRef((props, ref) => {
-  const {
-    value,
-    minInputLength,
-    onSearch,
-    placeholder
-  } = props
+  const {value, minInputLength, onSearch, placeholder} = props
   const [inputValue, setInputValue] = useState(value || '')
 
   const onChange = e => {
@@ -26,10 +21,7 @@ const SearchBox = React.forwardRef((props, ref) => {
 
   return (
     <StyledSearchBox>
-      <StatedValue
-        hasValue={Boolean(inputValue)}
-        label={placeholder}
-      >
+      <StatedValue hasValue={Boolean(inputValue)} label={placeholder}>
         <StyledEditableWrapper>
           <StyledSearchBoxInput
             data-cy="ui-search-box"

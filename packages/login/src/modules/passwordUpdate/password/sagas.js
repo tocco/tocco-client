@@ -1,11 +1,11 @@
-import {externalEvents, rest} from 'tocco-app-extensions'
 import {takeLatest, call, select, put, all} from 'redux-saga/effects'
+import {externalEvents, rest} from 'tocco-app-extensions'
 
-import * as actions from './actions'
-import localValidate from './validate'
-import {isEmptyObject, validationMessagesToErrorMap} from './utils'
-import {loginSaga} from '../../sagas'
 import {setPassword} from '../../login/actions'
+import {loginSaga} from '../../sagas'
+import * as actions from './actions'
+import {isEmptyObject, validationMessagesToErrorMap} from './utils'
+import localValidate from './validate'
 
 export const validationRulesSelector = state => state.passwordUpdate.validationRules
 export const inputSelector = state => state.input
@@ -91,9 +91,11 @@ export function* savePassword({payload: {captchaToken}}) {
   } else {
     const standalone = yield select(standaloneSelector)
     if (standalone) {
-      yield put(externalEvents.fireExternalEvent('success', {
-        newPassword: data.newPassword
-      }))
+      yield put(
+        externalEvents.fireExternalEvent('success', {
+          newPassword: data.newPassword
+        })
+      )
     } else {
       const loginData = yield call(getLoginData)
       yield put(setPassword(loginData.payload.password))

@@ -1,12 +1,9 @@
 import List from './SignalList'
-import StyledSignalList from './StyledSignalList'
 import Item from './SignalListItem'
+import StyledSignalList from './StyledSignalList'
 import StyledSignalListItem from './StyledSignalListItem'
 
-export {
-  StyledSignalList,
-  StyledSignalListItem
-}
+export {StyledSignalList, StyledSignalListItem}
 
 export default {
   List,

@@ -3,10 +3,7 @@ import {takeEvery, all, put, call} from 'redux-saga/effects'
 import * as actions from './actions'
 
 export default function* sagas(config) {
-  yield all([
-    call(init, config),
-    takeEvery(actions.KEY_DOWN, emitAction)
-  ])
+  yield all([call(init, config), takeEvery(actions.KEY_DOWN, emitAction)])
 }
 
 export function* init(config) {

@@ -17,7 +17,11 @@ module.exports = ({config, configType}) => {
   config.module.rules.push(
     {
       test: /\.scss$/,
-      use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${runConfig.env};&includePaths[]=./packages/tocco-theme/node_modules/`]  // eslint-disable-line
+      use: [
+        'style-loader',
+        'css-loader',
+        `sass-loader?data=$node-env:${runConfig.env};&includePaths[]=./packages/tocco-theme/node_modules/`
+      ] // eslint-disable-line
     },
     {
       test: /\.woff(\?.*)?$/,

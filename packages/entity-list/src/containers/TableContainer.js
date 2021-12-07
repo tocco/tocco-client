@@ -1,23 +1,10 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
 import Table from '../components/Table'
-import {
-  changePage,
-  refresh,
-  initialize,
-  onRowClick,
-  setSortingInteractive
-} from '../modules/list/actions'
-import {
-  onSelectChange,
-  setSelection
-} from '../modules/selection/actions'
-import {
-  changePosition,
-  resetSorting,
-  changeWidth
-} from '../modules/preferences/actions'
+import {changePage, refresh, initialize, onRowClick, setSortingInteractive} from '../modules/list/actions'
+import {changePosition, resetSorting, changeWidth} from '../modules/preferences/actions'
+import {onSelectChange, setSelection} from '../modules/selection/actions'
 
 const mapActionCreators = {
   initialize,

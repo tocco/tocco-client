@@ -17,7 +17,7 @@
       "validation": {
         "numberRange": {
           "fromIncluding": 1.0,
-          "toIncluding": 9.223372036854776E18
+          "toIncluding": 9.223372036854776e18
         }
       }
     },

@@ -11,10 +11,7 @@
         "commitTimestamp": "2019-10-23T16:01:29",
         "commitMessage": "Test 123\nCommit msg body\nRefs: 1234",
         "changedFiles": null,
-        "jiraIssueKeys": [
-          "TEST-123",
-          "TEST-124"
-        ]
+        "jiraIssueKeys": ["TEST-123", "TEST-124"]
       },
       "issues": [
         {
@@ -38,9 +35,7 @@
         "commitTimestamp": "2019-10-23T16:01:29",
         "commitMessage": "Test 321",
         "changedFiles": null,
-        "jiraIssueKeys": [
-          "TEST-125"
-        ]
+        "jiraIssueKeys": ["TEST-125"]
       },
       "issues": [
         {

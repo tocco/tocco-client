@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Icon from '../Icon'
-import StyledLink from './StyledLink'
 import {design} from '../utilStyles'
+import StyledLink from './StyledLink'
 
 /**
  * Use <Link> for internal and external links in running text.
@@ -35,7 +35,7 @@ const Link = ({
     target={target}
     title={title || (breakWords ? undefined : label)}
   >
-    {icon && <Icon icon={icon} position={design.position.PREPEND}/>}
+    {icon && <Icon icon={icon} position={design.position.PREPEND} />}
     {label || children}
   </StyledLink>
 )

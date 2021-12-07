@@ -29,16 +29,19 @@ export default {
     const indent = '    '
     data.paramsNewLine = paramsArray.join(`,\n${indent}`)
 
-    return [{
-      type: 'modify',
-      path: actionFile,
-      pattern: /^\s*$/m,
-      template: 'export const {{constantCase action}} = \'{{camelCase module}}/{{constantCase action}}\'\r\n'
-    }, {
-      type: 'modify',
-      path: actionFile,
-      pattern: /$/g,
-      templateFile: './plop/templates/action/creator.js'
-    }]
+    return [
+      {
+        type: 'modify',
+        path: actionFile,
+        pattern: /^\s*$/m,
+        template: "export const {{constantCase action}} = '{{camelCase module}}/{{constantCase action}}'\r\n"
+      },
+      {
+        type: 'modify',
+        path: actionFile,
+        pattern: /$/g,
+        templateFile: './plop/templates/action/creator.js'
+      }
+    ]
   }
 }

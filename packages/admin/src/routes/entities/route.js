@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux'
 
-import sagas from './modules/path/sagas'
-import path from './modules/path'
 import EntitiesRoute from './components/EntitiesRoute'
+import path from './modules/path'
+import sagas from './modules/path/sagas'
 
 export default {
   container: EntitiesRoute,

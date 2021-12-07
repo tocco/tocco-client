@@ -10,9 +10,7 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('TimeEdit ', () => {
         test('should render input', () => {
-          const wrapper = enzymeUtil.mountEmbedded(
-            <TimeEdit value="16:30" onChange={EMPTY_FUNC}/>
-          )
+          const wrapper = enzymeUtil.mountEmbedded(<TimeEdit value="16:30" onChange={EMPTY_FUNC} />)
           expect(wrapper.find('input')).to.have.length(1)
         })
       })

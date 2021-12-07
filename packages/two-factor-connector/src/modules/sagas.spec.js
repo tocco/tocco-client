@@ -11,26 +11,25 @@ describe('two-factor-connector', () => {
     describe('sagas', () => {
       test('should fork child sagas', () => {
         const generator = rootSaga()
-        expect(generator.next().value).to.deep.equal(all([
-          takeLatest(actions.REQUEST_SECRET, sagas.requestSecret),
-          takeLatest(actions.VERIFY_CODE, sagas.verifyCode),
-          takeLatest(actions.INITIALIZE, sagas.initialize),
-          takeLatest(actions.SUCCESS, sagas.success),
-          takeLatest(actions.GO_TO_START, sagas.fireResize),
-          takeLatest(actions.GO_TO_SECRET, sagas.fireResize),
-          takeLatest(actions.GO_TO_SECRET_VERIFICATION, sagas.fireResize),
-          takeLatest(actions.GO_TO_RESULT, sagas.fireResize)
-        ]))
+        expect(generator.next().value).to.deep.equal(
+          all([
+            takeLatest(actions.REQUEST_SECRET, sagas.requestSecret),
+            takeLatest(actions.VERIFY_CODE, sagas.verifyCode),
+            takeLatest(actions.INITIALIZE, sagas.initialize),
+            takeLatest(actions.SUCCESS, sagas.success),
+            takeLatest(actions.GO_TO_START, sagas.fireResize),
+            takeLatest(actions.GO_TO_SECRET, sagas.fireResize),
+            takeLatest(actions.GO_TO_SECRET_VERIFICATION, sagas.fireResize),
+            takeLatest(actions.GO_TO_RESULT, sagas.fireResize)
+          ])
+        )
         expect(generator.next().done).to.be.true
       })
 
       describe('initialize', () => {
         test('should call loadPrincipal2FAInfo', () => {
           return expectSaga(sagas.initialize)
-            .provide([
-              [matchers.call.fn(sagas.loadPrincipal2FAInfo)],
-              [select(sagas.inputSelector), {}]
-            ])
+            .provide([[matchers.call.fn(sagas.loadPrincipal2FAInfo)], [select(sagas.inputSelector), {}]])
             .call(sagas.loadPrincipal2FAInfo)
             .put(actions.goToStart())
             .run()
@@ -39,10 +38,7 @@ describe('two-factor-connector', () => {
         test('should set secret if it is in input', () => {
           const secret = {secret: 'text', uri: 'uri'}
           return expectSaga(sagas.initialize)
-            .provide([
-              [matchers.call.fn(sagas.loadPrincipal2FAInfo)],
-              [select(sagas.inputSelector), {secret: secret}]
-            ])
+            .provide([[matchers.call.fn(sagas.loadPrincipal2FAInfo)], [select(sagas.inputSelector), {secret: secret}]])
             .call(sagas.loadPrincipal2FAInfo)
             .put(actions.setSecret(secret))
             .put(actions.goToStart())
@@ -52,17 +48,16 @@ describe('two-factor-connector', () => {
 
       describe('success', () => {
         test('should call external event', () => {
-          return expectSaga(sagas.success)
-            .put(externalEvents.fireExternalEvent('onSuccess'))
-            .run()
+          return expectSaga(sagas.success).put(externalEvents.fireExternalEvent('onSuccess')).run()
         })
       })
 
       describe('loadPrincipal2FAInfo', () => {
         const username = 'dake'
         const principalFake = {body: {username}}
-        const fakePrincipals = twoFAActive =>
-          [{paths: {relTwo_step_login_status: {value: {key: twoFAActive ? '1' : '2'}}}}]
+        const fakePrincipals = twoFAActive => [
+          {paths: {relTwo_step_login_status: {value: {key: twoFAActive ? '1' : '2'}}}}
+        ]
 
         test('should set username and if twoFactor is active', () =>
           expectSaga(sagas.loadPrincipal2FAInfo)
@@ -73,8 +68,7 @@ describe('two-factor-connector', () => {
             ])
             .put(actions.setUserName(username))
             .put(actions.setTwoFactorActive(true))
-            .run()
-        )
+            .run())
 
         test('should set  twoFactor false is is inactive', () =>
           expectSaga(sagas.loadPrincipal2FAInfo)
@@ -85,8 +79,7 @@ describe('two-factor-connector', () => {
             ])
             .put(actions.setUserName(username))
             .put(actions.setTwoFactorActive(false))
-            .run()
-        )
+            .run())
 
         test('should throw error if multiple users found', done => {
           expectSaga(sagas.loadPrincipal2FAInfo)
@@ -132,22 +125,20 @@ describe('two-factor-connector', () => {
               [select(sagas.usernameSelector), 'dake'],
               [matchers.call.fn(rest.requestSaga), FakeTwoFactorResponse]
             ])
-            .put(actions.setSecret({
-              secret: secret.secret,
-              uri: secret.totpUri
-            }))
+            .put(
+              actions.setSecret({
+                secret: secret.secret,
+                uri: secret.totpUri
+              })
+            )
             .put(actions.goToSecret())
-            .run()
-        )
+            .run())
 
         test('should not load secret if it is already set', () =>
           expectSaga(sagas.requestSecret)
-            .provide([
-              [select(sagas.inputSelector), {secret: 'xxx'}]
-            ])
+            .provide([[select(sagas.inputSelector), {secret: 'xxx'}]])
             .put(actions.goToSecret())
-            .run()
-        )
+            .run())
       })
 
       describe('verifyCode', () => {
@@ -161,8 +152,7 @@ describe('two-factor-connector', () => {
             ])
             .put(actions.setSetupSuccessful(true))
             .put(actions.goToResult())
-            .run()
-        )
+            .run())
 
         test('should redirect and set NOT successfully on falsy response', () =>
           expectSaga(sagas.verifyCode, actions.verifyCode('123456'))
@@ -174,8 +164,7 @@ describe('two-factor-connector', () => {
             ])
             .put(actions.setSetupSuccessful(false))
             .put(actions.goToResult())
-            .run()
-        )
+            .run())
 
         test('should send login request when forced', () =>
           expectSaga(sagas.verifyCode, actions.verifyCode('123456'))
@@ -187,15 +176,12 @@ describe('two-factor-connector', () => {
             ])
             .put(actions.setSetupSuccessful(true))
             .put(actions.goToResult())
-            .run()
-        )
+            .run())
       })
 
       describe('fireResize', () => {
         test('should call external onResize event', () => {
-          return expectSaga(sagas.fireResize)
-            .put(externalEvents.fireExternalEvent('onResize'))
-            .run()
+          return expectSaga(sagas.fireResize).put(externalEvents.fireExternalEvent('onResize')).run()
         })
       })
     })

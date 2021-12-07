@@ -9,6 +9,6 @@ export const StyledTwoStepLogin = styled.div`
   ${StyledEditableValue} {
     ${StyledInputCss}
     padding-top: .7rem;
-    padding-bottom: .7rem;
+    padding-bottom: 0.7rem;
   }
 `

@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import TypeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
 import StyledEditableValue from './StyledEditableValue'
+import TypeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
 
 /**
  *  To edit values of given type.
  */
 const EditableValue = props => (
   <StyledEditableValue>
-    <TypeEditorFactory {...props}/>
+    <TypeEditorFactory {...props} />
   </StyledEditableValue>
 )
 
@@ -17,9 +17,7 @@ EditableValue.propTypes = {
   /**
    * Type of value. e.g. 'string'
    */
-  type: PropTypes.oneOf(
-    Object.keys(typeEditorFactoryMap)
-  ).isRequired,
+  type: PropTypes.oneOf(Object.keys(typeEditorFactoryMap)).isRequired,
   /**
    * Value to display
    */

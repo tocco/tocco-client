@@ -1,10 +1,7 @@
 {
   "processors": ["stylelint-processor-styled-components"],
   "syntax": "scss",
-  "extends": [
-    "stylelint-config-recommended",
-    "stylelint-config-styled-components"
-  ],
+  "extends": ["stylelint-config-recommended", "stylelint-config-styled-components"],
   "rules": {
     "color-hex-case": "lower",
     "color-hex-length": "short",
@@ -74,18 +71,19 @@
     "selector-pseudo-element-no-unknown": true,
     "selector-type-case": "lower",
     "selector-type-no-unknown": [
-      true, {
-        "ignoreTypes": ["/%[a-z-]*/"]}
+      true,
+      {
+        "ignoreTypes": ["/%[a-z-]*/"]
+      }
     ],
     "selector-list-comma-newline-after": "always",
     "selector-list-comma-newline-before": "never-multi-line",
 
     "rule-empty-line-before": [
-      "always", {
-        "except": [
-          "after-single-line-comment",
-          "first-nested"
-        ]}
+      "always",
+      {
+        "except": ["after-single-line-comment", "first-nested"]
+      }
     ],
 
     "media-feature-colon-space-after": "always",
@@ -100,14 +98,11 @@
     "media-query-list-comma-newline-before": "never-multi-line",
 
     "at-rule-empty-line-before": [
-      "always", {
-        "except": [
-          "blockless-after-blockless",
-          "first-nested"
-        ],
-        "ignore": [
-          "after-comment"
-        ]}
+      "always",
+      {
+        "except": ["blockless-after-blockless", "first-nested"],
+        "ignore": ["after-comment"]
+      }
     ],
     "at-rule-name-case": "lower",
     "at-rule-name-space-after": "always",

@@ -1,7 +1,7 @@
-import React from 'react'
-import {FormattedValue} from 'tocco-ui'
 import {mount} from 'enzyme'
+import React from 'react'
 import {TestThemeProvider} from 'tocco-test-util'
+import {FormattedValue} from 'tocco-ui'
 
 import formattedValueFactory from './formattedValueFactory'
 
@@ -14,7 +14,7 @@ describe('app-extensions', () => {
 
         const value = 'test'
 
-        const wrapper = mount(<Field value={value} formField={formField}/>)
+        const wrapper = mount(<Field value={value} formField={formField} />)
 
         expect(wrapper.find(FormattedValue)).to.have.length(1)
         expect(wrapper.find(FormattedValue)).to.have.prop('value', value)
@@ -31,9 +31,10 @@ describe('app-extensions', () => {
         text
       }
 
-      const wrapper = mount(<TestThemeProvider>
-        <Field value={null} formField={formField}/>
-      </TestThemeProvider>
+      const wrapper = mount(
+        <TestThemeProvider>
+          <Field value={null} formField={formField} />
+        </TestThemeProvider>
       )
 
       expect(wrapper.find(FormattedValue)).to.have.prop('value', text)
@@ -49,9 +50,10 @@ describe('app-extensions', () => {
         title
       }
 
-      const wrapper = mount(<TestThemeProvider>
-        <Field value={null} formField={formField}/>
-      </TestThemeProvider>
+      const wrapper = mount(
+        <TestThemeProvider>
+          <Field value={null} formField={formField} />
+        </TestThemeProvider>
       )
 
       expect(wrapper.find(FormattedValue)).to.have.prop('options').deep.equal({mode, title})

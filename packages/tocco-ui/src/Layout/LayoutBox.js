@@ -6,11 +6,7 @@ import StyledLayoutBox from './StyledLayoutBox'
 /**
  * Wrap as many <Layout.Box/> into a <Layout.Container> to layout them.
  */
-const LayoutBox = ({children}) => (
-  <StyledLayoutBox>
-    {children}
-  </StyledLayoutBox>
-)
+const LayoutBox = ({children}) => <StyledLayoutBox>{children}</StyledLayoutBox>
 
 LayoutBox.propTypes = {
   children: PropTypes.node

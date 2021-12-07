@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect} from 'react'
 import {StatedValue, Select, Button} from 'tocco-ui'
 
 import {StyledInput, StyledInputWrapper} from '../StyledInput'
@@ -48,7 +48,7 @@ const DbRefactoringForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <StatedValue label="Modules (none selected => all)" hasValue={selectedModules.length > 0}>
-          <Select options={modules} value={selectedModules} onChange={setSelectedModules} isMulti immutable={disabled}/>
+        <Select options={modules} value={selectedModules} onChange={setSelectedModules} isMulti immutable={disabled} />
       </StatedValue>
       <StatedValue label="Fragments" fixLabel>
         <Fragments
@@ -60,31 +60,37 @@ const DbRefactoringForm = ({
       </StatedValue>
       <StatedValue label="Version" hasValue={version.length > 0}>
         <StyledInputWrapper>
-          <StyledInput value={version} onChange={handleVersionChange} disabled={disabled}/>
+          <StyledInput value={version} onChange={handleVersionChange} disabled={disabled} />
         </StyledInputWrapper>
       </StatedValue>
       <StatedValue label="Ignore errors" fixLabel>
-        <input type="checkbox" checked={ignoreErrors} onChange={handleIgnoreErrorsChange} disabled={disabled}/>
+        <input type="checkbox" checked={ignoreErrors} onChange={handleIgnoreErrorsChange} disabled={disabled} />
       </StatedValue>
-      <Button type="submit" label="Execute" look="raised" pending={running} disabled={disabled}/>
+      <Button type="submit" label="Execute" look="raised" pending={running} disabled={disabled} />
     </form>
   )
 }
 
 DbRefactoringForm.propTypes = {
   version: PropTypes.string.isRequired,
-  modules: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string,
-    display: PropTypes.string
-  })).isRequired,
-  selectedModules: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string,
-    display: PropTypes.string
-  })).isRequired,
-  fragments: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string
-  })).isRequired,
+  modules: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string,
+      display: PropTypes.string
+    })
+  ).isRequired,
+  selectedModules: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string,
+      display: PropTypes.string
+    })
+  ).isRequired,
+  fragments: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      label: PropTypes.string
+    })
+  ).isRequired,
   selectedFragments: PropTypes.arrayOf(PropTypes.string).isRequired,
   ignoreErrors: PropTypes.bool.isRequired,
   running: PropTypes.bool.isRequired,

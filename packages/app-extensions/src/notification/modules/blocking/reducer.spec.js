@@ -1,8 +1,8 @@
 import React from 'react'
 import {v4 as uuid} from 'uuid'
 
-import reducer from './reducer'
 import * as actions from './actions'
+import reducer from './reducer'
 
 const INITIAL_STATE = {
   blockers: []

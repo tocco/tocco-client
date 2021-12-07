@@ -7,7 +7,7 @@ export const removeBlockingInfo = id => ({
     id
   }
 })
-  
+
 export const blockingInfo = (id, title, body) => ({
   type: BLOCKING_INFO,
   payload: {

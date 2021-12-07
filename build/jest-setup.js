@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-import Enzyme from 'enzyme'
 import EnzymeAdapter from '@wojtekmaj/enzyme-adapter-react-17'
-import sinon from 'sinon'
-import fetch from 'node-fetch'
 import chai from 'chai'
-import chaiEnzyme from 'chai-enzyme'
 import chaiAsPromised from 'chai-as-promised'
+import chaiEnzyme from 'chai-enzyme'
+import Enzyme from 'enzyme'
+import fetch from 'node-fetch'
+import sinon from 'sinon'
 import sinonChai from 'sinon-chai'
 
 Enzyme.configure({adapter: new EnzymeAdapter()})
@@ -28,7 +28,7 @@ chai.use(chaiAsPromised)
 chai.config.truncateThreshold = 0
 
 const error = console.error
-console.error = function(warning, ...args) {
+console.error = function (warning, ...args) {
   // Throw error on prop type warnings
   if (/(Invalid prop|Failed prop type)/.test(warning)) {
     throw new Error(warning)

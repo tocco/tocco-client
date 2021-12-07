@@ -7,14 +7,17 @@ const EntitiesOverview = props => {
       <Typography.H2>Entities Overview</Typography.H2>
       <Typography.Span>List of all available Entities</Typography.Span>
       <ul>
-        <li><StyledLink to="/e/User">User</StyledLink></li>
-        <li><StyledLink to="/e/Address">Address</StyledLink></li>
+        <li>
+          <StyledLink to="/e/User">User</StyledLink>
+        </li>
+        <li>
+          <StyledLink to="/e/Address">Address</StyledLink>
+        </li>
       </ul>
     </div>
   )
 }
 
-EntitiesOverview.propTypes = {
-}
+EntitiesOverview.propTypes = {}
 
 export default EntitiesOverview

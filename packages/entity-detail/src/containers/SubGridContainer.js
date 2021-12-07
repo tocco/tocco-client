@@ -13,11 +13,12 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapActionCreators = {
-  onRowClick: e => externalEvents.fireExternalEvent('onSubGridRowClick', {
-    id: e.id,
-    gridName: e.gridName,
-    relationName: e.relationName
-  }),
+  onRowClick: e =>
+    externalEvents.fireExternalEvent('onSubGridRowClick', {
+      id: e.id,
+      gridName: e.gridName,
+      relationName: e.relationName
+    }),
   navigateToCreate,
   emitAction: action => actionEmitter.dispatchEmittedAction(action)
 }

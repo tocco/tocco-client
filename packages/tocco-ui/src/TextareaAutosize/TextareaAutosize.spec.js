@@ -10,9 +10,7 @@ describe('tocco-ui', () => {
     describe('TextareaAutosize', () => {
       test('should have replicated value', () => {
         const value = 'abcd'
-        const wrapper = intlEnzyme.mountWithIntl(
-          <TextareaAutosize value={value}/>
-        )
+        const wrapper = intlEnzyme.mountWithIntl(<TextareaAutosize value={value} />)
 
         expect(wrapper.find(StyledSizeWrapper).prop('data-replicated-value')).to.equal(value)
       })
@@ -21,9 +19,7 @@ describe('tocco-ui', () => {
         const stub = sinon.stub(userAgent, 'isSafari').returns(true)
 
         const value = 'abcd'
-        const wrapper = intlEnzyme.mountWithIntl(
-          <TextareaAutosize value={value}/>
-        )
+        const wrapper = intlEnzyme.mountWithIntl(<TextareaAutosize value={value} />)
 
         stub.restore()
 
@@ -33,9 +29,7 @@ describe('tocco-ui', () => {
       test('should update replicated value', () => {
         const clock = sinon.useFakeTimers()
         const value = 'abcd'
-        const wrapper = intlEnzyme.mountWithIntl(
-          <TextareaAutosize value={value}/>
-        )
+        const wrapper = intlEnzyme.mountWithIntl(<TextareaAutosize value={value} />)
         wrapper.setProps({value: 'test'})
 
         clock.tick(1000)

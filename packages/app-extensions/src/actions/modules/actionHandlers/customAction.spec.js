@@ -1,14 +1,14 @@
-import {expectSaga} from 'redux-saga-test-plan'
-import {consoleLogger} from 'tocco-util'
-import * as matchers from 'redux-saga-test-plan/matchers'
 import {channel} from 'redux-saga'
+import {expectSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+import {consoleLogger} from 'tocco-util'
 
+import notification from '../../../notification'
 import customActionHandler, {
   handleAppActionsFallback,
   handleCustomActionModal,
   handleFullScreenActions
 } from './customAction'
-import notification from '../../../notification'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -37,9 +37,7 @@ describe('app-extensions', () => {
             }
 
             return expectSaga(customActionHandler, definition, selection, parent, params, config)
-              .provide([
-                [matchers.call.fn(handleAppActionsFallback)]
-              ])
+              .provide([[matchers.call.fn(handleAppActionsFallback)]])
               .call(handleAppActionsFallback, {definition, selection, parent, params, config, handler})
               .run()
           })
@@ -53,9 +51,7 @@ describe('app-extensions', () => {
             }
 
             return expectSaga(customActionHandler, definition, selection, parent, params, config)
-              .provide([
-                [matchers.call.fn(consoleLogger.logError)]
-              ])
+              .provide([[matchers.call.fn(consoleLogger.logError)]])
               .call.like({fn: consoleLogger.logError})
               .run()
           })
@@ -114,11 +110,13 @@ describe('app-extensions', () => {
                     }
                   }
                 ])
-                .put(notification.toaster({
-                  type: 'success',
-                  title: 'client.component.actions.successDefault',
-                  body: 'msg'
-                }))
+                .put(
+                  notification.toaster({
+                    type: 'success',
+                    title: 'client.component.actions.successDefault',
+                    body: 'msg'
+                  })
+                )
                 .run()
             })
 
@@ -168,9 +166,7 @@ describe('app-extensions', () => {
             }
 
             return expectSaga(customActionHandler, definition, selection, parent, params, config)
-              .provide([
-                [matchers.call.fn(handleFullScreenActions)]
-              ])
+              .provide([[matchers.call.fn(handleFullScreenActions)]])
               .call(handleFullScreenActions, {definition, selection, config})
               .run()
           })
@@ -190,9 +186,7 @@ describe('app-extensions', () => {
             }
 
             return expectSaga(customActionHandler, definition, selection, parent, params, config)
-              .provide([
-                [matchers.call.fn(handleCustomActionModal)]
-              ])
+              .provide([[matchers.call.fn(handleCustomActionModal)]])
               .call(handleCustomActionModal, {definition, selection, config})
               .run()
           })

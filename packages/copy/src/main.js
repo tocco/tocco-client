@@ -1,41 +1,31 @@
-import React from 'react'
-import {reducer as reducerUtil, navigationStrategy} from 'tocco-util'
-import {appFactory, externalEvents, selection} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {appFactory, externalEvents, selection} from 'tocco-app-extensions'
+import {reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 
 import CopyProgress from './components/CopyProgress'
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'copy'
 
-const EXTERNAL_EVENTS = [
-  'emitAction',
-  'onSuccess',
-  'onCancel',
-  'onError'
-]
+const EXTERNAL_EVENTS = ['emitAction', 'onSuccess', 'onCancel', 'onError']
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <CopyProgress/>
+  const content = <CopyProgress />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__DEV__ && __PACKAGE_NAME__ === packageName) {
     const input = require('./dev/input.json')
 

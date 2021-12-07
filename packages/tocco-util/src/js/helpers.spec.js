@@ -11,9 +11,7 @@ describe('tocco-util', () => {
       })
 
       test('should return first element of array', () => {
-        const array = [
-          11, 22, 33
-        ]
+        const array = [11, 22, 33]
         expect(getOrFirst(array)).to.eql(11)
       })
 

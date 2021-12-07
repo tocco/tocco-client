@@ -8,9 +8,7 @@ describe('tocco-ui', () => {
     describe('Heading', () => {
       describe('H1', () => {
         test('should have two defaultProps', () => {
-          const wrapper = shallow(
-            <H1>Lorem Ipsum</H1>
-          )
+          const wrapper = shallow(<H1>Lorem Ipsum</H1>)
           const {breakWords, styledLike, title} = wrapper.props()
           expect(breakWords).to.be.true
           expect(styledLike).to.be.equal('H1')
@@ -18,17 +16,13 @@ describe('tocco-ui', () => {
         })
 
         test('should not render title', () => {
-          const wrapper = mount(
-            <H1>Lorem ipsum</H1>
-          )
+          const wrapper = mount(<H1>Lorem ipsum</H1>)
           expect(wrapper.find('h1').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h1').prop('title')).to.be.undefined
         })
 
         test('should render title', () => {
-          const wrapper = mount(
-            <H1 breakWords={false}>Lorem ipsum</H1>
-          )
+          const wrapper = mount(<H1 breakWords={false}>Lorem ipsum</H1>)
           expect(wrapper.find('h1').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h1').prop('title')).to.equal('Lorem ipsum')
         })
@@ -36,9 +30,7 @@ describe('tocco-ui', () => {
 
       describe('H2', () => {
         test('should have two defaultProps', () => {
-          const wrapper = shallow(
-            <H2>Lorem Ipsum</H2>
-          )
+          const wrapper = shallow(<H2>Lorem Ipsum</H2>)
           const {breakWords, styledLike, title} = wrapper.props()
           expect(breakWords).to.be.true
           expect(styledLike).to.be.equal('H2')
@@ -46,17 +38,13 @@ describe('tocco-ui', () => {
         })
 
         test('should not render title', () => {
-          const wrapper = mount(
-            <H2>Lorem ipsum</H2>
-          )
+          const wrapper = mount(<H2>Lorem ipsum</H2>)
           expect(wrapper.find('h2').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h2').prop('title')).to.be.undefined
         })
 
         test('should render title', () => {
-          const wrapper = mount(
-            <H2 breakWords={false}>Lorem ipsum</H2>
-          )
+          const wrapper = mount(<H2 breakWords={false}>Lorem ipsum</H2>)
           expect(wrapper.find('h2').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h2').prop('title')).to.equal('Lorem ipsum')
         })
@@ -64,9 +52,7 @@ describe('tocco-ui', () => {
 
       describe('H3', () => {
         test('should have two defaultProps', () => {
-          const wrapper = shallow(
-            <H3>Lorem Ipsum</H3>
-          )
+          const wrapper = shallow(<H3>Lorem Ipsum</H3>)
           const {breakWords, styledLike, title} = wrapper.props()
           expect(breakWords).to.be.true
           expect(styledLike).to.be.equal('H3')
@@ -74,17 +60,13 @@ describe('tocco-ui', () => {
         })
 
         test('should not render title', () => {
-          const wrapper = mount(
-            <H3>Lorem ipsum</H3>
-          )
+          const wrapper = mount(<H3>Lorem ipsum</H3>)
           expect(wrapper.find('h3').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h3').prop('title')).to.be.undefined
         })
 
         test('should render title', () => {
-          const wrapper = mount(
-            <H3 breakWords={false}>Lorem ipsum</H3>
-          )
+          const wrapper = mount(<H3 breakWords={false}>Lorem ipsum</H3>)
           expect(wrapper.find('h3').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h3').prop('title')).to.equal('Lorem ipsum')
         })
@@ -92,9 +74,7 @@ describe('tocco-ui', () => {
 
       describe('H4', () => {
         test('should have two defaultProps', () => {
-          const wrapper = shallow(
-            <H4>Lorem Ipsum</H4>
-          )
+          const wrapper = shallow(<H4>Lorem Ipsum</H4>)
           const {breakWords, styledLike, title} = wrapper.props()
           expect(breakWords).to.be.true
           expect(styledLike).to.be.equal('H4')
@@ -102,17 +82,13 @@ describe('tocco-ui', () => {
         })
 
         test('should not render title', () => {
-          const wrapper = mount(
-            <H4>Lorem ipsum</H4>
-          )
+          const wrapper = mount(<H4>Lorem ipsum</H4>)
           expect(wrapper.find('h4').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h4').prop('title')).to.be.undefined
         })
 
         test('should render title', () => {
-          const wrapper = mount(
-            <H4 breakWords={false}>Lorem ipsum</H4>
-          )
+          const wrapper = mount(<H4 breakWords={false}>Lorem ipsum</H4>)
           expect(wrapper.find('h4').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h4').prop('title')).to.equal('Lorem ipsum')
         })
@@ -120,9 +96,7 @@ describe('tocco-ui', () => {
 
       describe('H5', () => {
         test('should have two defaultProps', () => {
-          const wrapper = shallow(
-            <H5>Lorem Ipsum</H5>
-          )
+          const wrapper = shallow(<H5>Lorem Ipsum</H5>)
           const {breakWords, styledLike, title} = wrapper.props()
           expect(breakWords).to.be.true
           expect(styledLike).to.be.equal('H5')
@@ -130,17 +104,13 @@ describe('tocco-ui', () => {
         })
 
         test('should not render title', () => {
-          const wrapper = mount(
-            <H5>Lorem ipsum</H5>
-          )
+          const wrapper = mount(<H5>Lorem ipsum</H5>)
           expect(wrapper.find('h5').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h5').prop('title')).to.be.undefined
         })
 
         test('should render title', () => {
-          const wrapper = mount(
-            <H5 breakWords={false}>Lorem ipsum</H5>
-          )
+          const wrapper = mount(<H5 breakWords={false}>Lorem ipsum</H5>)
           expect(wrapper.find('h5').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h5').prop('title')).to.equal('Lorem ipsum')
         })
@@ -148,9 +118,7 @@ describe('tocco-ui', () => {
 
       describe('H6', () => {
         test('should have two defaultProps', () => {
-          const wrapper = shallow(
-            <H6>Lorem Ipsum</H6>
-          )
+          const wrapper = shallow(<H6>Lorem Ipsum</H6>)
           const {breakWords, styledLike, title} = wrapper.props()
           expect(breakWords).to.be.true
           expect(styledLike).to.be.equal('H6')
@@ -158,17 +126,13 @@ describe('tocco-ui', () => {
         })
 
         test('should not render title', () => {
-          const wrapper = mount(
-            <H6>Lorem ipsum</H6>
-          )
+          const wrapper = mount(<H6>Lorem ipsum</H6>)
           expect(wrapper.find('h6').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h6').prop('title')).to.be.undefined
         })
 
         test('should render title', () => {
-          const wrapper = mount(
-            <H6 breakWords={false}>Lorem ipsum</H6>
-          )
+          const wrapper = mount(<H6 breakWords={false}>Lorem ipsum</H6>)
           expect(wrapper.find('h6').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('h6').prop('title')).to.equal('Lorem ipsum')
         })

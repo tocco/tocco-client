@@ -41,11 +41,14 @@ const handleSetResult = (state, {payload}) => ({
 const addCheckEvent = (state, {payload}) => {
   const {id, type, label} = payload
   const typeEvents = state.checkEvents[type] || []
-  const newTypeEvents = [...typeEvents, {
-    id,
-    type,
-    label
-  }]
+  const newTypeEvents = [
+    ...typeEvents,
+    {
+      id,
+      type,
+      label
+    }
+  ]
   const newCheckEvents = {
     ...state.checkEvents,
     [type]: newTypeEvents

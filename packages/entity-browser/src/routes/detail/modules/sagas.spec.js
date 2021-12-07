@@ -1,11 +1,11 @@
 import {call, put, select, takeLatest, all} from 'redux-saga/effects'
 
+import {fetchModel} from '../../../util/api/entities'
+import detail from '../../../util/detail'
+import parseUrl from '../../../util/parseUrl'
+import doShowBackButton from '../../../util/showBackButton'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import parseUrl from '../../../util/parseUrl'
-import {fetchModel} from '../../../util/api/entities'
-import doShowBackButton from '../../../util/showBackButton'
-import detail from '../../../util/detail'
 
 describe('entity-browser', () => {
   describe('routes', () => {
@@ -14,10 +14,12 @@ describe('entity-browser', () => {
         describe('rootSaga', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              takeLatest(actions.LOAD_DETAIL_PARAMS, sagas.loadEntityDetail),
-              takeLatest(actions.CLEAR_DETAIL_PARAMS, sagas.clearDetailParams)
-            ]))
+            expect(generator.next().value).to.deep.equal(
+              all([
+                takeLatest(actions.LOAD_DETAIL_PARAMS, sagas.loadEntityDetail),
+                takeLatest(actions.CLEAR_DETAIL_PARAMS, sagas.clearDetailParams)
+              ])
+            )
             expect(generator.next().done).to.be.true
           })
 

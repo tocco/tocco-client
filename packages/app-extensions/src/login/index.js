@@ -1,6 +1,6 @@
+import {doSessionCheck, setAdminAllowed, setLoggedIn} from './actions'
 import {addToStore} from './login'
 import {doRequest, doSessionRequest} from './sagas'
-import {doSessionCheck, setAdminAllowed, setLoggedIn} from './actions'
 
 export default {
   addToStore,

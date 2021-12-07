@@ -1,15 +1,15 @@
-import {rest, notification} from 'tocco-app-extensions'
-import {all, call, put, select, take, takeLatest} from 'redux-saga/effects'
 import React from 'react'
 import {channel} from 'redux-saga'
+import {all, call, put, select, take, takeLatest} from 'redux-saga/effects'
+import {rest, notification} from 'tocco-app-extensions'
 
-import * as actions from './actions'
-import {setPositions, setSorting, setColumns, setPreferencesLoaded} from './actions'
-import * as listActions from '../list/actions'
-import * as listSagas from '../list/sagas'
-import * as util from '../../util/preferences'
 import ColumnPicker from '../../components/ColumnPicker'
 import {getTableColumns} from '../../util/api/forms'
+import * as util from '../../util/preferences'
+import * as listActions from '../list/actions'
+import * as listSagas from '../list/sagas'
+import {setPositions, setSorting, setColumns, setPreferencesLoaded} from './actions'
+import * as actions from './actions'
 
 export const inputSelector = state => state.input
 
@@ -66,12 +66,16 @@ export function* saveSorting() {
       call(rest.deleteUserPreferences, `${formName}.sortingField*`),
       call(rest.deleteUserPreferences, `${formName}.sortingDirection*`)
     ])
-    const sortingPreferences = sortings.slice(1)
+    const sortingPreferences = sortings
+      .slice(1)
       .map((sorting, index) => util.getAdditionalSortingPreferencesToSave(formName, sorting, index + 1))
-      .reduce((acc, sorting) => ({
-        ...acc,
-        ...sorting
-      }), util.getSortingPreferencesToSave(formName, sortings[0]))
+      .reduce(
+        (acc, sorting) => ({
+          ...acc,
+          ...sorting
+        }),
+        util.getSortingPreferencesToSave(formName, sortings[0])
+      )
     yield call(rest.savePreferences, sortingPreferences)
   }
 }
@@ -102,35 +106,41 @@ export function* displayColumnModal() {
   const formColumns = getTableColumns(formDefinition, preferencesColumns, parent)
 
   const answerChannel = yield call(channel)
-  yield put(notification.modal(
-    `${formDefinition.id}-column-selection`,
-    'client.entity-list.preferences.columns',
-    null,
-    ({close}) => {
-      const onOk = columns => {
-        close()
-        answerChannel.put(columns)
-      }
+  yield put(
+    notification.modal(
+      `${formDefinition.id}-column-selection`,
+      'client.entity-list.preferences.columns',
+      null,
+      ({close}) => {
+        const onOk = columns => {
+          close()
+          answerChannel.put(columns)
+        }
 
-      return <ColumnPicker initialColumns={formColumns} onOk={onOk} dndEnabled={false}/>
-    },
-    true
-  ))
+        return <ColumnPicker initialColumns={formColumns} onOk={onOk} dndEnabled={false} />
+      },
+      true
+    )
+  )
 
   yield saveColumnPreferences(answerChannel, preferencesColumns, formDefinition)
 }
 
 function* saveColumnPreferences(answerChannel, preferencesColumns, formDefinition) {
-  const columns = (yield take(answerChannel)).reduce((accumulator, item) => ({
-    ...accumulator,
-    [item.id]: !item.hidden
-  }), {})
-  const diffColumns = Object.keys(columns).reduce((accumulator, columnName) => ({
-    ...accumulator,
-    ...(columns[columnName] !== preferencesColumns[columnName]
-      ? {[columnName]: columns[columnName]}
-      : {})
-  }), {})
+  const columns = (yield take(answerChannel)).reduce(
+    (accumulator, item) => ({
+      ...accumulator,
+      [item.id]: !item.hidden
+    }),
+    {}
+  )
+  const diffColumns = Object.keys(columns).reduce(
+    (accumulator, columnName) => ({
+      ...accumulator,
+      ...(columns[columnName] !== preferencesColumns[columnName] ? {[columnName]: columns[columnName]} : {})
+    }),
+    {}
+  )
   yield put(setColumns(columns))
   if (Object.entries(diffColumns).some(([, value]) => value)) {
     yield put(listActions.refresh())

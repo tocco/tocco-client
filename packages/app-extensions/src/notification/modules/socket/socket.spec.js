@@ -1,5 +1,5 @@
-import {notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
 import {TYPES} from '../../types'
+import {notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
 
 describe('app-extensions', () => {
   describe('notification', () => {

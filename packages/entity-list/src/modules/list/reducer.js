@@ -1,5 +1,5 @@
-import {reducer as reducerUtil} from 'tocco-util'
 import _get from 'lodash/get'
+import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
@@ -28,13 +28,14 @@ const clearEntityStore = state => ({
 })
 
 const defaultOrder = 'asc'
-const getOpposite = order => order === 'asc' ? 'desc' : 'asc'
+const getOpposite = order => (order === 'asc' ? 'desc' : 'asc')
 const setSortingInteractive = (state, {payload: {field, add}}) => {
   if (!add) {
     const currentSorting = state.sorting
-    const order = (currentSorting.length > 0 && currentSorting[0].field === field
-      ? getOpposite(currentSorting[0].order)
-      : defaultOrder)
+    const order =
+      currentSorting.length > 0 && currentSorting[0].field === field
+        ? getOpposite(currentSorting[0].order)
+        : defaultOrder
     return {
       ...state,
       sorting: [{field, order}]

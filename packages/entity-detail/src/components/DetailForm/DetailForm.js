@@ -4,11 +4,11 @@ import {reduxForm} from 'redux-form'
 import {form} from 'tocco-app-extensions'
 import {react as customHooks} from 'tocco-util'
 
-import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
-import SaveButton from './SaveButton'
-import MarkButton from './MarkButton'
-import {StyledForm} from './StyledComponents'
 import DetailFooterContainer from '../../containers/DetailFooterContainer'
+import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
+import MarkButton from './MarkButton'
+import SaveButton from './SaveButton'
+import {StyledForm} from './StyledComponents'
 
 const DetailForm = props => {
   const {
@@ -35,9 +35,9 @@ const DetailForm = props => {
 
   customHooks.useAutofocus(formEl)
 
-  const customRenderedActions = useMemo(() => (
-    {
-      save: actionDefinition =>
+  const customRenderedActions = useMemo(
+    () => ({
+      save: actionDefinition => (
         <SaveButton
           intl={intl}
           submitting={submitting}
@@ -45,10 +45,12 @@ const DetailForm = props => {
           hasErrors={!valid && anyTouched}
           formErrors={formErrors}
           {...actionDefinition}
-        />,
-      mark: actionDefinition => <MarkButton {...actionDefinition}/>
-    }
-  ), [submitting, mode, valid, anyTouched, formErrors])
+        />
+      ),
+      mark: actionDefinition => <MarkButton {...actionDefinition} />
+    }),
+    [submitting, mode, valid, anyTouched, formErrors]
+  )
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -61,23 +63,21 @@ const DetailForm = props => {
     }
   }
 
-  return <StyledForm
-    onSubmit={handleSubmit}
-    onKeyDown={handleKeyPress}
-    ref={formEl}
-  >
-    <form.FormBuilder
-      entity={entity}
-      formName={formName}
-      formDefinition={formDefinition}
-      formValues={formValues}
-      fieldMappingType={formDefinition.readOnly ? 'readonly' : 'editable'}
-      mode={mode}
-      componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
-      customRenderedActions={customRenderedActions}
-    />
-    <DetailFooterContainer/>
-  </StyledForm>
+  return (
+    <StyledForm onSubmit={handleSubmit} onKeyDown={handleKeyPress} ref={formEl}>
+      <form.FormBuilder
+        entity={entity}
+        formName={formName}
+        formDefinition={formDefinition}
+        formValues={formValues}
+        fieldMappingType={formDefinition.readOnly ? 'readonly' : 'editable'}
+        mode={mode}
+        componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
+        customRenderedActions={customRenderedActions}
+      />
+      <DetailFooterContainer />
+    </StyledForm>
+  )
 }
 
 DetailForm.propTypes = {

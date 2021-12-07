@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
-import {
-  StatedValue,
-  Typography
-} from 'tocco-ui'
+import {StatedValue, Typography} from 'tocco-ui'
 
+import {Pages} from '../../types/Pages'
 import {
   StyledLoginFormInput,
   StyledLoginFormInputWrapper,
@@ -13,7 +11,6 @@ import {
   StyledTransparentButton,
   StyledLoginButton
 } from '../StyledLoginForm'
-import {Pages} from '../../types/Pages'
 
 export class PasswordRequest extends React.Component {
   constructor(props) {
@@ -37,9 +34,14 @@ export class PasswordRequest extends React.Component {
   render() {
     return (
       <StyledLoginFormWrapper>
-        {this.props.showTitle
-          && <Typography.H5><FormattedMessage id="client.login.passwordRequest.title"/></Typography.H5>}
-        <Typography.P><FormattedMessage id="client.login.passwordRequest.introduction"/></Typography.P>
+        {this.props.showTitle && (
+          <Typography.H5>
+            <FormattedMessage id="client.login.passwordRequest.title" />
+          </Typography.H5>
+        )}
+        <Typography.P>
+          <FormattedMessage id="client.login.passwordRequest.introduction" />
+        </Typography.P>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <StatedValue
             hasValue={!!this.state.username}

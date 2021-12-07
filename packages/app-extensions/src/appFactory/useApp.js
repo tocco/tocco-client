@@ -14,9 +14,13 @@ const useApp = ({initApp, props, packageName, externalEvents = []}) => {
   }
 }
 
-export const getEvent = (externalEvents, props) => externalEvents.reduce((acc, event) => ({
-  ...acc,
-  ...(props[event] ? {[event]: props[event]} : {})
-}), {})
+export const getEvent = (externalEvents, props) =>
+  externalEvents.reduce(
+    (acc, event) => ({
+      ...acc,
+      ...(props[event] ? {[event]: props[event]} : {})
+    }),
+    {}
+  )
 
 export default useApp

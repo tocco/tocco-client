@@ -1,5 +1,5 @@
-import _uniq from 'lodash/uniq'
 import _get from 'lodash/get'
+import _uniq from 'lodash/uniq'
 import {all, call} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
@@ -45,7 +45,8 @@ export function* loadCountries(suggestions) {
     allCountriesUniq.reduce(
       (accumulator, currentValue) => [...accumulator, ...(countryCache[currentValue] ? [] : [currentValue])],
       []
-    ))
+    )
+  )
 
   if (notLoaded.length > 0) {
     const query = {
@@ -60,17 +61,16 @@ export function* loadCountries(suggestions) {
 
     countryCache = {
       ...countryCache,
-      ...(countriesResponse.reduce(
-        (acc, value) =>
-          ({
-            ...acc,
-            [_get(value, ['paths', countryCodeField, 'value'])]: {
-              key: value.key,
-              display: _get(displays, ['Country', value.key])
-            }
-          }),
+      ...countriesResponse.reduce(
+        (acc, value) => ({
+          ...acc,
+          [_get(value, ['paths', countryCodeField, 'value'])]: {
+            key: value.key,
+            display: _get(displays, ['Country', value.key])
+          }
+        }),
         {}
-      ))
+      )
     }
   }
 
@@ -98,7 +98,5 @@ export function* requestSuggestions(city, postcode, country) {
 }
 
 export function* getCountry(country, fieldCountries) {
-  return country
-    ? yield call(getCountryCodeByKey, country.key)
-    : fieldCountries
+  return country ? yield call(getCountryCodeByKey, country.key) : fieldCountries
 }

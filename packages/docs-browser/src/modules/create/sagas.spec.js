@@ -4,8 +4,8 @@ import {select, call, takeEvery} from 'redux-saga/effects'
 import {rest, notification} from 'tocco-app-extensions'
 import {v4 as uuid} from 'uuid'
 
-import * as sagas from './sagas'
 import * as actions from './actions'
+import * as sagas from './sagas'
 
 describe('docs-browser', () => {
   describe('modules', () => {
@@ -14,9 +14,7 @@ describe('docs-browser', () => {
         describe('main saga', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
-            saga.next().all([
-              takeEvery(actions.FILES_SELECTED, sagas.handleFilesSelected)
-            ])
+            saga.next().all([takeEvery(actions.FILES_SELECTED, sagas.handleFilesSelected)])
           })
         })
 
@@ -26,20 +24,22 @@ describe('docs-browser', () => {
             const location = '/docs/folders/23523/list'
             const response = {
               body: {
-                items: [{
-                  status: 201,
-                  bean: {
-                    model: 'Resource',
-                    key: '2352'
+                items: [
+                  {
+                    status: 201,
+                    bean: {
+                      model: 'Resource',
+                      key: '2352'
+                    }
+                  },
+                  {
+                    status: 201,
+                    bean: {
+                      model: 'Resource',
+                      key: '2353'
+                    }
                   }
-                },
-                {
-                  status: 201,
-                  bean: {
-                    model: 'Resource',
-                    key: '2353'
-                  }
-                }]
+                ]
               }
             }
 
@@ -49,11 +49,14 @@ describe('docs-browser', () => {
             return expectSaga(sagas.handleFilesSelected, actions.filesSelected(files))
               .provide([
                 [call(uuid), 'my-random-uuid'],
-                [select(sagas.dialogSelector), {
-                  location,
-                  onSuccess,
-                  onError
-                }],
+                [
+                  select(sagas.dialogSelector),
+                  {
+                    location,
+                    onSuccess,
+                    onError
+                  }
+                ],
                 [call(sagas.createDocuments, location, files), response],
                 [select(sagas.textResourceSelector, 'client.docs-browser.uploadSuccessful'), 'upload successful']
               ])
@@ -79,11 +82,14 @@ describe('docs-browser', () => {
             return expectSaga(sagas.handleFilesSelected, actions.filesSelected(files))
               .provide([
                 [call(uuid), 'my-random-uuid'],
-                [select(sagas.dialogSelector), {
-                  location,
-                  onSuccess,
-                  onError
-                }],
+                [
+                  select(sagas.dialogSelector),
+                  {
+                    location,
+                    onSuccess,
+                    onError
+                  }
+                ],
                 [call(sagas.createDocuments, location, files), response],
                 [select(sagas.textResourceSelector, 'client.entity-detail.saveAbortedTitle'), 'save failed'],
                 [select(sagas.textResourceSelector, 'client.docs-browser.failedNoPermission'), 'no permission']
@@ -105,27 +111,27 @@ describe('docs-browser', () => {
 
             const response = {
               body: {
-                items: [{
-                  status: 201,
-                  bean: {
-                    model: 'Resource',
-                    key: '2352'
+                items: [
+                  {
+                    status: 201,
+                    bean: {
+                      model: 'Resource',
+                      key: '2352'
+                    }
+                  },
+                  {
+                    status: 201,
+                    bean: {
+                      model: 'Resource',
+                      key: '2353'
+                    }
                   }
-                },
-                {
-                  status: 201,
-                  bean: {
-                    model: 'Resource',
-                    key: '2353'
-                  }
-                }]
+                ]
               }
             }
 
             return expectSaga(sagas.createDocuments, location, files)
-              .provide([
-                [matchers.call.fn(rest.requestSaga), response]
-              ])
+              .provide([[matchers.call.fn(rest.requestSaga), response]])
               .returns(response)
               .run()
           })

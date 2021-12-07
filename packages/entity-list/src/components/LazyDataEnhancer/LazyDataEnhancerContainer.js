@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
-import LazyDataEnhancer from './LazyDataEnhancer'
 import {lazyValueEnhancer} from '../../util/lazyLoading'
+import LazyDataEnhancer from './LazyDataEnhancer'
 
 const mapActionCreators = {}
 

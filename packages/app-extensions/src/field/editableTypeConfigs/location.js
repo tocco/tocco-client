@@ -44,9 +44,7 @@ export default {
     },
     isDirty: {
       formName: formName,
-      fields: formField.locationMapping
-        ? [formField.locationMapping.city, formField.locationMapping.postcode]
-        : []
+      fields: formField.locationMapping ? [formField.locationMapping.city, formField.locationMapping.postcode] : []
     },
     errors: {
       formName: formName,

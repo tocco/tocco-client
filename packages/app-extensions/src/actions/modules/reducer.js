@@ -1,9 +1,6 @@
-const ACTION_HANDLERS = {
+const ACTION_HANDLERS = {}
 
-}
-
-const initialState = {
-}
+const initialState = {}
 
 export default function reducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

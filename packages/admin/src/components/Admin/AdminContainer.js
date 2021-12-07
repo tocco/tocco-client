@@ -1,10 +1,10 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 import {notification} from 'tocco-app-extensions'
 
-import {loadPrincipal} from '../../modules/session/actions'
 import {initializeNavigation, setMenuOpen} from '../../modules/navigation/actions'
 import {loadSettingsAndPreferences} from '../../modules/preferences/actions'
+import {loadPrincipal} from '../../modules/session/actions'
 import Admin from './Admin'
 
 const mapActionCreators = {

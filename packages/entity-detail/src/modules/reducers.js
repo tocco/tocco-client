@@ -7,6 +7,4 @@ export default {
   form
 }
 
-export const sagas = [
-  entityDetailSagas
-]
+export const sagas = [entityDetailSagas]

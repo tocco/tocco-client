@@ -1,17 +1,15 @@
 import * as actions from './actions'
 
-export const setToolTip = (state, {payload: {entity, id, tooltip}}) => (
-  {
-    ...state,
-    data: {
-      ...state.data,
-      [entity]: {
-        ...state.data[entity],
-        [id]: tooltip
-      }
+export const setToolTip = (state, {payload: {entity, id, tooltip}}) => ({
+  ...state,
+  data: {
+    ...state.data,
+    [entity]: {
+      ...state.data[entity],
+      [id]: tooltip
     }
   }
-)
+})
 
 const ACTION_HANDLERS = {
   [actions.SET_TOOLTIP]: setToolTip

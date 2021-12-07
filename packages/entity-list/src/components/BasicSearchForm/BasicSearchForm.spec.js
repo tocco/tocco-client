@@ -1,14 +1,13 @@
 import React from 'react'
-import {MemoryRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
+import {MemoryRouter} from 'react-router-dom'
 import {createStore} from 'redux'
 import {IntlStub, intlEnzyme, TestThemeProvider} from 'tocco-test-util'
 import {EditableValue, StatedValue} from 'tocco-ui'
 
 import SearchForm from './'
 
-const EMPTY_FUNC = () => {
-}
+const EMPTY_FUNC = () => {}
 
 describe('entity-list', () => {
   describe('components', () => {

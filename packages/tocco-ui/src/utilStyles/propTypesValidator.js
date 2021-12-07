@@ -10,9 +10,7 @@ export const validateCssDimension = (props, propName, componentName) => {
   const value = props[propName]
 
   if (value !== undefined && !/^[1-9][0-9]*(%|em|fr|px|rem|vh|vmax|vmin|vw)$/.test(value)) {
-    return new Error(
-      `Invalid prop ${propName} supplied to ${componentName} (${value}).`
-    )
+    return new Error(`Invalid prop ${propName} supplied to ${componentName} (${value}).`)
   } else {
     return null
   }

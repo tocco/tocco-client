@@ -1,5 +1,5 @@
-import React from 'react'
 import {shallow} from 'enzyme'
+import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
 
 import InfoBoxSearchFilterContent from './InfoBoxSearchFilterContent'
@@ -16,9 +16,7 @@ describe('dashboard', () => {
               scope: 'infobox',
               limit: 25
             }
-            const wrapper = shallow(
-                <InfoBoxSearchFilterContent id="infobox" content={content}/>
-            )
+            const wrapper = shallow(<InfoBoxSearchFilterContent id="infobox" content={content} />)
 
             expect(wrapper.find(EntityListApp).prop('searchFilters')).to.deep.equal([content.searchFilterUniqueId])
             expect(wrapper.find(EntityListApp).prop('scope')).to.deep.equal(content.scope)

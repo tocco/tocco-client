@@ -1,15 +1,15 @@
 import {actions as formActions, isValid as isValidSelector} from 'redux-form'
 import {SubmissionError} from 'redux-form/es/SubmissionError'
-import {actions as actionExtensions, externalEvents, form, remoteEvents, rest} from 'tocco-app-extensions'
+import * as formActionTypes from 'redux-form/lib/actionTypes'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {all, call, debounce, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {throwError} from 'redux-saga-test-plan/providers'
-import * as formActionTypes from 'redux-form/lib/actionTypes'
+import {all, call, debounce, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {actions as actionExtensions, externalEvents, form, remoteEvents, rest} from 'tocco-app-extensions'
 
-import * as actions from './actions'
 import {createEntity, updateEntity} from '../../util/api/entities'
 import modes from '../../util/modes'
+import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 
 const FORM_ID = 'detailForm'
@@ -21,20 +21,22 @@ describe('entity-detail', () => {
         describe('rootSaga', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              takeLatest(actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
-              takeLatest(actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
-              takeLatest(actions.TOUCH_ALL_FIELDS, sagas.touchAllFields),
-              takeEvery(actions.SUBMIT_FORM, sagas.submitForm),
-              takeEvery(actions.FIRE_TOUCHED, sagas.fireTouched),
-              takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
-              takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
-              takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
-              debounce(500, formActionTypes.CHANGE, sagas.onChange),
-              takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
-              takeLatest(actions.UPDATE_MARKED, sagas.updateMarked),
-              takeLatest(actionExtensions.actions.ACTION_INVOKED, sagas.reloadAfterAction)
-            ]))
+            expect(generator.next().value).to.deep.equal(
+              all([
+                takeLatest(actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
+                takeLatest(actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
+                takeLatest(actions.TOUCH_ALL_FIELDS, sagas.touchAllFields),
+                takeEvery(actions.SUBMIT_FORM, sagas.submitForm),
+                takeEvery(actions.FIRE_TOUCHED, sagas.fireTouched),
+                takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
+                takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
+                takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
+                debounce(500, formActionTypes.CHANGE, sagas.onChange),
+                takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
+                takeLatest(actions.UPDATE_MARKED, sagas.updateMarked),
+                takeLatest(actionExtensions.actions.ACTION_INVOKED, sagas.reloadAfterAction)
+              ])
+            )
             expect(generator.next().done).to.be.true
           })
         })
@@ -117,8 +119,7 @@ describe('entity-detail', () => {
               .call(sagas.handleInvalidForm)
               .not.call(sagas.updateFormSubmit, entity)
               .not.call(sagas.createFormSubmit, entity)
-              .run()
-          )
+              .run())
         })
 
         describe('handleSubmitError saga', () => {
@@ -214,9 +215,7 @@ describe('entity-detail', () => {
           test('should call delete event on 404 response', () => {
             const updateResponse = {status: 404}
             return expectSaga(sagas.updateFormSubmit, entity)
-              .provide([
-                [matchers.call.fn(updateEntity), updateResponse]
-              ])
+              .provide([[matchers.call.fn(updateEntity), updateResponse]])
               .call.like({fn: updateEntity})
               .not.call.like({fn: sagas.loadData})
 
@@ -264,10 +263,10 @@ describe('entity-detail', () => {
         describe('getEntityForSubmit saga', () => {
           test('should return entity', () => {
             const formValues = {
-              '__key': '3',
-              '__model': 'User',
-              'firstname': 'test',
-              'relAddress': {
+              __key: '3',
+              __model: 'User',
+              firstname: 'test',
+              relAddress: {
                 key: '29242',
                 model: 'Address',
                 version: 2
@@ -368,9 +367,7 @@ describe('entity-detail', () => {
             }
 
             return expectSaga(sagas.getEntityForSubmit)
-              .provide([
-                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFields}]
-              ])
+              .provide([[matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFields}]])
               .returns(expectedReturn)
 
               .run()
@@ -382,8 +379,9 @@ describe('entity-detail', () => {
             const gen = sagas.fireTouched(actions.fireTouched(true))
 
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({touched: false}).value)
-              .to.eql(put(externalEvents.fireExternalEvent('onTouchedChange', {touched: true})))
+            expect(gen.next({touched: false}).value).to.eql(
+              put(externalEvents.fireExternalEvent('onTouchedChange', {touched: true}))
+            )
             expect(gen.next().value).to.eql(put(actions.setTouched(true)))
 
             expect(gen.next().done).to.be.true
@@ -420,9 +418,7 @@ describe('entity-detail', () => {
             const action = {}
             const fieldDefinitions = [{path: 'firstname'}, {path: 'relGender.label'}]
             return expectSaga(sagas.touchAllFields, action)
-              .provide([
-                [select(sagas.entityDetailSelector), {fieldDefinitions}]
-              ])
+              .provide([[select(sagas.entityDetailSelector), {fieldDefinitions}]])
 
               .put(formActions.touch(FORM_ID, 'firstname', 'relGender--label'))
               .run()
@@ -444,9 +440,7 @@ describe('entity-detail', () => {
             document.getElementById = sinon.spy(() => mElement)
 
             return expectSaga(sagas.focusErrorField)
-              .provide([
-                [matchers.call.fn(sagas.getFormErrors), formErrors]
-              ])
+              .provide([[matchers.call.fn(sagas.getFormErrors), formErrors]])
               .run()
               .then(result => {
                 expect(document.getElementById).to.be.calledWith('input-detailForm-firstname')
@@ -458,10 +452,7 @@ describe('entity-detail', () => {
         describe('handleInvalidForm saga', () => {
           test('should call touch and focus ', () => {
             return expectSaga(sagas.handleInvalidForm)
-              .provide([
-                [matchers.call.fn(sagas.touchAllFields)],
-                [matchers.call.fn(sagas.focusErrorField)]
-              ])
+              .provide([[matchers.call.fn(sagas.touchAllFields)], [matchers.call.fn(sagas.focusErrorField)]])
               .call(sagas.touchAllFields)
               .call(sagas.focusErrorField)
               .run()
@@ -479,9 +470,7 @@ describe('entity-detail', () => {
             }
 
             return expectSaga(sagas.navigateToCreate, {payload})
-              .provide([
-                [select(sagas.inputSelector), {navigationStrategy}]
-              ])
+              .provide([[select(sagas.inputSelector), {navigationStrategy}]])
               .call(navigationStrategy.navigateToCreateRelative, payload.relationName)
               .run()
           })
@@ -499,9 +488,7 @@ describe('entity-detail', () => {
             }
 
             return expectSaga(sagas.navigateToAction, {payload})
-              .provide([
-                [select(sagas.inputSelector), {navigationStrategy}]
-              ])
+              .provide([[select(sagas.inputSelector), {navigationStrategy}]])
               .call(navigationStrategy.navigateToActionRelative, payload.definition, payload.selection)
               .run()
           })
@@ -524,9 +511,7 @@ describe('entity-detail', () => {
               entityId: '1'
             }
             return expectSaga(sagas.remoteEvent, deleteEventAction)
-              .provide([
-                [select(sagas.entityDetailSelector), detailState]
-              ])
+              .provide([[select(sagas.entityDetailSelector), detailState]])
               .put(externalEvents.fireExternalEvent('onEntityDeleted'))
               .run()
           })
@@ -537,9 +522,7 @@ describe('entity-detail', () => {
               entityId: '99'
             }
             return expectSaga(sagas.remoteEvent, deleteEventAction)
-              .provide([
-                [select(sagas.entityDetailSelector), detailState]
-              ])
+              .provide([[select(sagas.entityDetailSelector), detailState]])
               .not.put(externalEvents.fireExternalEvent('onEntityDeleted'))
               .run()
           })
@@ -548,9 +531,7 @@ describe('entity-detail', () => {
             const updateEventAction = remoteEvents.remoteEvent({
               type: 'entity-update-event',
               payload: {
-                entities: [
-                  {entityName: 'User', key: '1'}
-                ]
+                entities: [{entityName: 'User', key: '1'}]
               }
             })
 
@@ -704,9 +685,7 @@ describe('entity-detail', () => {
             test('should call focus for first error field', () => {
               const field = 'postcode_c'
               const locationField = 'location_c'
-              const fieldDefinitions = [
-                {id: locationField, locationMapping: {postcode: field}}
-              ]
+              const fieldDefinitions = [{id: locationField, locationMapping: {postcode: field}}]
               return expectSaga(sagas.locationFieldFocus, field)
                 .provide([
                   [select(sagas.entityDetailSelector), {fieldDefinitions}],
@@ -720,21 +699,16 @@ describe('entity-detail', () => {
           describe('loadMarked saga', () => {
             test('should call focus for first error field', () =>
               expectSaga(sagas.loadMarked, 'User', '235')
-                .provide([
-                  [call(rest.fetchMarked, 'User', '235'), true]
-                ])
+                .provide([[call(rest.fetchMarked, 'User', '235'), true]])
                 .put(actions.setMarked(true))
-                .run()
-            )
+                .run())
           })
 
           describe('updateMarked saga', () => {
             test('should call focus for first error field', () => {
               const action = actions.updateMarked('User', '235', true)
               return expectSaga(sagas.updateMarked, action)
-                .provide([
-                  [call(rest.setMarked, 'User', '235', true)]
-                ])
+                .provide([[call(rest.setMarked, 'User', '235', true)]])
                 .put(actions.setMarked(true))
                 .call(rest.setMarked, 'User', '235', true)
                 .run()
@@ -749,9 +723,7 @@ describe('entity-detail', () => {
                 }
               }
               return expectSaga(sagas.reloadAfterAction, {payload})
-                .provide([
-                  [call(sagas.loadData, true)]
-                ])
+                .provide([[call(sagas.loadData, true)]])
                 .put(externalEvents.fireExternalEvent('onRefresh'))
                 .call(sagas.loadData, true)
                 .run()
@@ -764,9 +736,7 @@ describe('entity-detail', () => {
                 }
               }
               return expectSaga(sagas.reloadAfterAction, {payload})
-                .provide([
-                  [call(sagas.loadData, true)]
-                ])
+                .provide([[call(sagas.loadData, true)]])
                 .not.put(externalEvents.fireExternalEvent('onRefresh'))
                 .not.call(sagas.loadData, true)
                 .run()

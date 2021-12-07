@@ -69,8 +69,9 @@ describe('entity-list', () => {
           const expectedStateAfter = {
             widths: {otherField: 300, field: 250}
           }
-          expect(reducer({widths: {otherField: 300}},
-            actions.changeWidth(newWidth.field, newWidth.width))).to.deep.equal(expectedStateAfter)
+          expect(
+            reducer({widths: {otherField: 300}}, actions.changeWidth(newWidth.field, newWidth.width))
+          ).to.deep.equal(expectedStateAfter)
         })
       })
     })

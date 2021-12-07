@@ -1,19 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
-import {StyledFooterWrapper} from './StyledComponents'
 import FooterItem from './FooterItem'
+import {StyledFooterWrapper} from './StyledComponents'
 import TextValue from './TextValue'
 
-const DetailFooterReduced = ({
-  entity,
-  keyField
-}) => (
+const DetailFooterReduced = ({entity, keyField}) => (
   <StyledFooterWrapper>
     <div>
       <FooterItem
         labelId="client.entity-detail.footer.key"
-        valueComponent={() => <TextValue value={entity.paths[keyField].value}/>}/>
+        valueComponent={() => <TextValue value={entity.paths[keyField].value} />}
+      />
     </div>
   </StyledFooterWrapper>
 )

@@ -4,6 +4,4 @@ export default {
   qrCode: qrCodeReducer
 }
 
-export const sagas = [
-  qrCodeSagas
-]
+export const sagas = [qrCodeSagas]

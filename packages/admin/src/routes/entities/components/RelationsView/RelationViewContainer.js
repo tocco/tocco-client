@@ -1,9 +1,9 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 import {actionEmitter} from 'tocco-app-extensions'
 
-import RelationsView from './RelationsView'
 import {selectRelation} from '../../modules/path/actions'
+import RelationsView from './RelationsView'
 
 const mapStateToProps = (state, props) => ({
   currentViewInfo: state.entities.path.currentViewInfos[props.history.location.pathname],

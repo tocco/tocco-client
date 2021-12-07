@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect} from 'react'
 import {LoadMask} from 'tocco-ui'
 
-import Dialog from '../Dialog'
 import {deleteInfoPropType} from '../../utils/deleteRequestParser'
 import DeleteProgress from '../DeleteProgress'
+import Dialog from '../Dialog'
 
 const Delete = ({loadDialogInfo, dialogInfo, deletingInProgress, intl}) => {
   useEffect(() => {
@@ -14,15 +14,12 @@ const Delete = ({loadDialogInfo, dialogInfo, deletingInProgress, intl}) => {
   const msg = id => intl.formatMessage({id})
 
   if (deletingInProgress) {
-    return <DeleteProgress/>
+    return <DeleteProgress />
   }
 
   return (
-    <LoadMask
-      required={[dialogInfo]}
-      loadingText={msg('client.delete.loadingText')}
-    >
-      {dialogInfo && <Dialog/>}
+    <LoadMask required={[dialogInfo]} loadingText={msg('client.delete.loadingText')}>
+      {dialogInfo && <Dialog />}
     </LoadMask>
   )
 }

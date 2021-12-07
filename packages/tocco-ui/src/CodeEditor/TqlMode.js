@@ -1,22 +1,54 @@
 import ace from 'ace-builds/src-min-noconflict/ace'
 import 'ace-builds/src-min-noconflict/mode-text'
-import _mergeWith from 'lodash/mergeWith'
 import _isArray from 'lodash/isArray'
+import _mergeWith from 'lodash/mergeWith'
 
 import TqlAutoCompleter from './TqlAutoCompleter'
 
 export const operators = ['==', '!=', '<=', '>=', '<', '>', '~=']
 export const atoms = ['true', 'false', 'null']
 export const types = [
-  'string', 'long', 'serial', 'bool', 'boolean', 'double', 'float', 'time', 'timestamp', 'char', 'varchar', 'date',
+  'string',
+  'long',
+  'serial',
+  'bool',
+  'boolean',
+  'double',
+  'float',
+  'time',
+  'timestamp',
+  'char',
+  'varchar',
+  'date',
   'datetime'
 ]
 export const placeholders = [
-  'now_date', 'yesterday_date', 'tomorrow_date', 'today_date', 'now_start', 'yesterday_start', 'tomorrow_start',
-  'today_start', 'now', 'yesterday', 'tomorrow', 'today', 'currentUsername', 'currentUser', 'currentBu'
+  'now_date',
+  'yesterday_date',
+  'tomorrow_date',
+  'today_date',
+  'now_start',
+  'yesterday_start',
+  'tomorrow_start',
+  'today_start',
+  'now',
+  'yesterday',
+  'tomorrow',
+  'today',
+  'currentUsername',
+  'currentUser',
+  'currentBu'
 ]
 export const functions = [
-  'in', 'dateadd', 'datetimeadd', 'duedate', 'birthdayin', 'fulltext', 'likeall', 'distance', 'inboundingbox'
+  'in',
+  'dateadd',
+  'datetimeadd',
+  'duedate',
+  'birthdayin',
+  'fulltext',
+  'likeall',
+  'distance',
+  'inboundingbox'
 ]
 
 export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rules').TextHighlightRules {
@@ -219,10 +251,8 @@ export class TqlHighlightRules extends ace.require('ace/mode/text_highlight_rule
         }
       ]
     }
-    this.$rules = _mergeWith(
-      this.$rules,
-      customRules,
-      (objValue, srcValue) => _isArray(objValue) ? objValue.concat(srcValue) : undefined
+    this.$rules = _mergeWith(this.$rules, customRules, (objValue, srcValue) =>
+      _isArray(objValue) ? objValue.concat(srcValue) : undefined
     )
 
     this.normalizeRules()

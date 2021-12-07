@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import _get from 'lodash/get'
+import styled from 'styled-components'
 
 import {shadeColor, scale, theme} from '../utilStyles'
 
@@ -60,7 +60,7 @@ const StyledPanelHeaderFooter = styled.div`
   && {
     background-color: #f2f2f2;
     display: flex;
-    padding: ${({isFramed}) => isFramed ? '4px 8px 4px 8px' : 0};
+    padding: ${({isFramed}) => (isFramed ? '4px 8px 4px 8px' : 0)};
     align-items: center;
 
     &:hover {

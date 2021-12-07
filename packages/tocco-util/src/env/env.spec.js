@@ -1,10 +1,4 @@
-import {
-  getBackendUrl,
-  getBusinessUnit,
-  NULL_BUSINESS_UNIT,
-  setBackendUrl,
-  setBusinessUnit
-} from './env'
+import {getBackendUrl, getBusinessUnit, NULL_BUSINESS_UNIT, setBackendUrl, setBusinessUnit} from './env'
 
 describe('tocco-util', () => {
   describe('env', () => {

@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {LoadMask} from 'tocco-ui'
+import React, {useEffect} from 'react'
 import {notification} from 'tocco-app-extensions'
+import {LoadMask} from 'tocco-ui'
 
-import Start from '../Start'
-import Secret from '../Secret'
-import Verification from '../Verification'
 import Result from '../Result'
+import Secret from '../Secret'
+import Start from '../Start'
+import Verification from '../Verification'
 
 const stages = {
   Start: 0,
@@ -23,21 +23,21 @@ const TwoFactorConnector = ({initialize, stage}) => {
   const renderContent = () => {
     switch (stage) {
       case stages.Start:
-        return <Start/>
+        return <Start />
       case stages.Secret:
-        return <Secret/>
+        return <Secret />
       case stages.Verification:
-        return <Verification/>
+        return <Verification />
       case stages.Result:
-        return <Result/>
+        return <Result />
       default:
-        return <LoadMask/>
+        return <LoadMask />
     }
   }
 
   return (
     <>
-      <notification.Notifications/>
+      <notification.Notifications />
       {renderContent()}
     </>
   )

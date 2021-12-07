@@ -1,7 +1,7 @@
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedDate, FormattedTime, injectIntl} from 'react-intl'
-import moment from 'moment'
 
 import Typography from '../../Typography'
 
@@ -10,7 +10,7 @@ export const DateTimeFormatter = props => {
   if (isNaN(timestamp)) {
     // eslint-disable-next-line no-console
     console.error('DateTimeFormatter: Invalid date', props.value)
-    return <Typography.Span/>
+    return <Typography.Span />
   }
 
   const date = new Date(timestamp)
@@ -19,15 +19,9 @@ export const DateTimeFormatter = props => {
       dateTime={date.toISOString()}
       title={`${props.intl.formatDate(date)}, ${props.intl.formatTime(date)}`}
     >
-      <FormattedDate
-        value={date}
-        year="numeric"
-        month="2-digit"
-        day="2-digit"
-      />,&nbsp;
-      <FormattedTime
-        value={date}
-      />
+      <FormattedDate value={date} year="numeric" month="2-digit" day="2-digit" />
+      ,&nbsp;
+      <FormattedTime value={date} />
     </Typography.Time>
   )
 }

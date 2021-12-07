@@ -5,9 +5,11 @@ import InformationError from './InformationError'
 const PRECONDITION_FAILED_STATUS_CODE = 412
 
 const handleError = (response, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
-  if (!response.ok
-    && !acceptedStatusCodes.includes(response.status)
-    && !(response.body && acceptedErrorCodes.includes(response.body.errorCode))) {
+  if (
+    !response.ok &&
+    !acceptedStatusCodes.includes(response.status) &&
+    !(response.body && acceptedErrorCodes.includes(response.body.errorCode))
+  ) {
     if (response.status === 409 && response.body.information) {
       throw new InformationError(response.body.information)
     } else {
@@ -49,15 +51,17 @@ const extractBlobBody = response => {
 }
 
 export function sendRequest(url, options, acceptedErrorCodes = [], acceptedStatusCodes = []) {
-  if (options.headers
-    && options.headers.has('X-Client-Questions')
-    && options.headers.get('X-Client-Questions') === 'true') {
+  if (
+    options.headers &&
+    options.headers.has('X-Client-Questions') &&
+    options.headers.get('X-Client-Questions') === 'true'
+  ) {
     acceptedStatusCodes.push(PRECONDITION_FAILED_STATUS_CODE)
   }
 
   return fetch(url, {...options, signal: saga.abortController.signal})
-    .then(response => (extractBody(response)))
-    .then(response => (handleError(response, acceptedErrorCodes, acceptedStatusCodes)))
+    .then(response => extractBody(response))
+    .then(response => handleError(response, acceptedErrorCodes, acceptedStatusCodes))
 }
 
 export function sendByteRequest(url, options, acceptedErrorCodes, acceptedStatusCodes) {

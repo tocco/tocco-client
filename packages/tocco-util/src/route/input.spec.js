@@ -28,7 +28,8 @@ describe('tocco-util', () => {
         })
 
         test('should not dispatch action if input value missing', () => {
-          const input = { // no `entityName` property
+          const input = {
+            // no `entityName` property
           }
 
           const store = {
@@ -43,7 +44,8 @@ describe('tocco-util', () => {
         })
 
         test('should log error if mandatory input value missing', () => {
-          const input = { // no `entityName` property
+          const input = {
+            // no `entityName` property
           }
 
           const store = {
@@ -61,7 +63,8 @@ describe('tocco-util', () => {
         })
 
         test('should dispatch defaultValues', () => {
-          const input = { // no `entityName` property
+          const input = {
+            // no `entityName` property
           }
 
           const store = {

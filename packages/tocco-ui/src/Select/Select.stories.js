@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import {action} from '@storybook/addon-actions'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 import Select from './'
 
@@ -99,9 +99,11 @@ class SelectStory extends React.Component {
           searchOptions={this.searchOptions}
           tooltips={this.state.tooltips}
           value={this.state.valueMulti}
-          DetailLink={({entityKey, children}) =>
-            <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">{children}</a>
-          }
+          DetailLink={({entityKey, children}) => (
+            <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">
+              {children}
+            </a>
+          )}
         />
       </div>
     )
@@ -114,7 +116,4 @@ SelectStory.propTypes = {
   immutable: PropTypes.bool
 }
 
-export const Basic = () => <SelectStory
-  action={action}
-  delay={2000}
-/>
+export const Basic = () => <SelectStory action={action} delay={2000} />

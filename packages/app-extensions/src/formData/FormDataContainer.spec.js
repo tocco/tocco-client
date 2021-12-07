@@ -1,7 +1,7 @@
 import React from 'react'
-import {intlEnzyme} from 'tocco-test-util'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
+import {intlEnzyme} from 'tocco-test-util'
 
 import FormDataContainer from './FormDataContainer'
 
@@ -17,7 +17,6 @@ describe('app-extensions', () => {
             }
           },
           tooltips: {data: {}}
-
         },
         form: {
           detailForm: {
@@ -33,32 +32,41 @@ describe('app-extensions', () => {
         }
       }))
 
-      const Content = () => <span/>
+      const Content = () => <span />
 
       test('should set intl', () => {
-        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>
-          <FormDataContainer>
-            <Content/>
-          </FormDataContainer></Provider>)
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <FormDataContainer>
+              <Content />
+            </FormDataContainer>
+          </Provider>
+        )
 
         expect(wrapper.find(Content).props()).to.have.property('formData')
         expect(wrapper.find(Content).props().formData).to.have.property('intl')
       })
 
       test('should form values', () => {
-        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>
-          <FormDataContainer formValues={{formName: 'detailForm', fields: ['canton_c', 'city_c']}}>
-            <Content/>
-          </FormDataContainer></Provider>)
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <FormDataContainer formValues={{formName: 'detailForm', fields: ['canton_c', 'city_c']}}>
+              <Content />
+            </FormDataContainer>
+          </Provider>
+        )
 
         expect(wrapper.find(Content).props().formData.formValues).to.eql({canton_c: 'ZH', city_c: 'Zurich'})
       })
 
       test('should relation entities', () => {
-        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>
-          <FormDataContainer relationEntities="relUser2">
-            <Content/>
-          </FormDataContainer></Provider>)
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <FormDataContainer relationEntities="relUser2">
+              <Content />
+            </FormDataContainer>
+          </Provider>
+        )
 
         expect(wrapper.find(Content).props().formData.relationEntities).to.eql({relUser2: [{key: 33}]})
       })

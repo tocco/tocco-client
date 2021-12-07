@@ -1,11 +1,6 @@
 import ActionEntry from './ActionEntry'
 import EntityExplorerEntry from './EntityExplorerEntry'
-import MenuEntry from './MenuEntryContainer'
 import MenuChildrenWrapper from './MenuChildrenWrapperContainer'
+import MenuEntry from './MenuEntryContainer'
 
-export {
-  ActionEntry,
-  EntityExplorerEntry,
-  MenuEntry,
-  MenuChildrenWrapper
-}
+export {ActionEntry, EntityExplorerEntry, MenuEntry, MenuChildrenWrapper}

@@ -10,37 +10,27 @@
   "apple": {
     "id": "fab, apple",
     "lib": "fa",
-    "tags": [
-      "sso"
-    ]
+    "tags": ["sso"]
   },
   "arrow-left": {
     "id": "fal, arrow-left",
     "lib": "fa",
-    "tags": [
-      "navigate"
-    ]
+    "tags": ["navigate"]
   },
   "arrow-right": {
     "id": "fal, arrow-right",
     "lib": "fa",
-    "tags": [
-      "navigate"
-    ]
+    "tags": ["navigate"]
   },
   "arrow-to-bottom": {
     "id": "fal, arrow-to-bottom",
     "lib": "fa",
-    "tags": [
-      "download"
-    ]
+    "tags": ["download"]
   },
   "arrow-to-top": {
     "id": "fal, arrow-to-top",
     "lib": "fa",
-    "tags": [
-      "upload"
-    ]
+    "tags": ["upload"]
   },
   "barcode-alt": {
     "id": "fal, barcode-alt",
@@ -49,16 +39,12 @@
   "bars": {
     "id": "fal, bars",
     "lib": "fa",
-    "tags": [
-      "burger"
-    ]
+    "tags": ["burger"]
   },
   "bell": {
     "id": "fal, bell",
     "lib": "fa",
-    "tags": [
-      "notification"
-    ]
+    "tags": ["notification"]
   },
   "bolt": {
     "id": "fal, bolt",
@@ -91,16 +77,12 @@
   "check": {
     "id": "fal, check",
     "lib": "fa",
-    "tags": [
-      "ok"
-    ]
+    "tags": ["ok"]
   },
   "check-circle": {
     "id": "fal, check-circle",
     "lib": "fa",
-    "tags": [
-      "check"
-    ]
+    "tags": ["check"]
   },
   "chevron-double-down": {
     "id": "fal, chevron-double-down",
@@ -137,9 +119,7 @@
   "circle": {
     "id": "fal, circle",
     "lib": "fa",
-    "tags": [
-      "selection"
-    ]
+    "tags": ["selection"]
   },
   "cog": {
     "id": "fal, cog",
@@ -160,52 +140,37 @@
   "dropbox": {
     "id": "fab, dropbox",
     "lib": "fa",
-    "tags": [
-      "sso"
-    ]
+    "tags": ["sso"]
   },
   "ellipsis-v": {
     "id": "fal, ellipsis-v",
     "lib": "fa",
-    "tags": [
-      "dots",
-      "pünktli"
-    ]
+    "tags": ["dots", "pünktli"]
   },
   "exclamation": {
     "id": "fal, exclamation",
     "lib": "fa",
-    "tags": [
-      "warning"
-    ]
+    "tags": ["warning"]
   },
   "exclamation-circle": {
     "id": "fal, exclamation-circle",
     "lib": "fa",
-    "tags": [
-      "warning"
-    ]
+    "tags": ["warning"]
   },
   "external-link": {
     "id": "fal, external-link",
     "lib": "fa",
-    "tags": [
-      "external-link"
-    ]
+    "tags": ["external-link"]
   },
   "facebook": {
     "id": "fab, facebook",
     "lib": "fa",
-    "tags": [
-      "sso"
-    ]
+    "tags": ["sso"]
   },
   "facebook-f": {
     "id": "fab, facebook-f",
     "lib": "fa",
-    "tags": [
-      "sso"
-    ]
+    "tags": ["sso"]
   },
   "file": {
     "id": "fal, file",
@@ -250,9 +215,7 @@
   "folders": {
     "id": "fal, folders",
     "lib": "fa",
-    "tags": [
-      "copy"
-    ]
+    "tags": ["copy"]
   },
   "globe": {
     "id": "fal, globe",
@@ -261,9 +224,7 @@
   "google": {
     "id": "fab, google",
     "lib": "fa",
-    "tags": [
-      "sso"
-    ]
+    "tags": ["sso"]
   },
   "horizontal-rule": {
     "id": "fal, horizontal-rule",
@@ -292,9 +253,7 @@
   "info-circle": {
     "id": "fal, info-circle",
     "lib": "fa",
-    "tags": [
-      "info"
-    ]
+    "tags": ["info"]
   },
   "mail-bulk": {
     "id": "fal, mail-bulk",
@@ -307,9 +266,7 @@
   "microsoft": {
     "id": "fab, microsoft",
     "lib": "fa",
-    "tags": [
-      "sso"
-    ]
+    "tags": ["sso"]
   },
   "minus": {
     "id": "fal, minus",
@@ -342,16 +299,12 @@
   "plus": {
     "id": "fal, plus",
     "lib": "fa",
-    "tags": [
-      "new"
-    ]
+    "tags": ["new"]
   },
   "question-circle": {
     "id": "fal, question-circle",
     "lib": "fa",
-    "tags": [
-      "help"
-    ]
+    "tags": ["help"]
   },
   "save": {
     "id": "fal, save",
@@ -384,23 +337,17 @@
   "star": {
     "id": "fal, star",
     "lib": "fa",
-    "tags": [
-      "favorite"
-    ]
+    "tags": ["favorite"]
   },
   "star-full": {
     "id": "fas, star",
     "lib": "fa",
-    "tags": [
-      "favorite"
-    ]
+    "tags": ["favorite"]
   },
   "sync": {
     "id": "fal, sync",
     "lib": "fa",
-    "tags": [
-      "refresh"
-    ]
+    "tags": ["refresh"]
   },
   "tasks": {
     "id": "fal, tasks",
@@ -409,17 +356,12 @@
   "times": {
     "id": "fal, times",
     "lib": "fa",
-    "tags": [
-      "delete",
-      "close"
-    ]
+    "tags": ["delete", "close"]
   },
   "times-circle": {
     "id": "fal, times-circle",
     "lib": "fa",
-    "tags": [
-      "error"
-    ]
+    "tags": ["error"]
   },
   "tocco": {
     "id": "logo",
@@ -428,9 +370,7 @@
   "trash": {
     "id": "fal, trash",
     "lib": "fa",
-    "tags": [
-      "trash"
-    ]
+    "tags": ["trash"]
   },
   "upload": {
     "id": "fal, upload",

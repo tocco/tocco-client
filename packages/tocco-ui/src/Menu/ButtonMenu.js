@@ -1,22 +1,15 @@
-import React, {useRef, useState} from 'react'
 import PropTypes from 'prop-types'
+import React, {useRef, useState} from 'react'
 
 import {Button, ButtonGroup, Icon, Menu} from '../'
-import {StyledIconButtonWrapper, StyledIconWrapper} from './StyledComponents'
 import {StyledLabelWrapper} from '../Button/StyledButton'
+import {StyledIconButtonWrapper, StyledIconWrapper} from './StyledComponents'
 
 /**
  *  Button with a menu that pops out on click.
  */
 const ButtonMenu = props => {
-  const {
-    onOpen,
-    children,
-    onClick,
-    buttonProps,
-    label,
-    icon
-  } = props
+  const {onOpen, children, onClick, buttonProps, label, icon} = props
   const referenceElement = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [onOpenCalled, setOnOpenCalled] = useState(false)
@@ -35,61 +28,64 @@ const ButtonMenu = props => {
 
   const chevronIcon = menuOpen ? 'chevron-up' : 'chevron-down'
 
-  const ThisMenu = () => <Menu
-    referenceElement={referenceElement.current}
-    open={menuOpen}
-    onClose={handleClose}
-  >
-    {children}
-  </Menu>
+  const ThisMenu = () => (
+    <Menu referenceElement={referenceElement.current} open={menuOpen} onClose={handleClose}>
+      {children}
+    </Menu>
+  )
 
   if (onClick) {
-    return <>
-      <ButtonGroup ref={referenceElement}>
-        <Button {...buttonProps || {}} onClick={onClick} label={label} data-cy={props['data-cy']} icon={icon}/>
-        <StyledIconButtonWrapper icon={chevronIcon} onClick={handleClick} {...buttonProps || {}}/>
-      </ButtonGroup>
-      {menuOpen && <ThisMenu/>}
-    </>
+    return (
+      <>
+        <ButtonGroup ref={referenceElement}>
+          <Button {...(buttonProps || {})} onClick={onClick} label={label} data-cy={props['data-cy']} icon={icon} />
+          <StyledIconButtonWrapper icon={chevronIcon} onClick={handleClick} {...(buttonProps || {})} />
+        </ButtonGroup>
+        {menuOpen && <ThisMenu />}
+      </>
+    )
   }
 
-  return <>
-    <Button
-      data-cy={props['data-cy']}
-      {...buttonProps || {}} ref={referenceElement}
-      onClick={handleClick}
-      icon={icon}
-    >
-      <StyledLabelWrapper>{label}</StyledLabelWrapper>
-      <StyledIconWrapper>
-        <Icon icon={chevronIcon}/>
-      </StyledIconWrapper>
-    </Button>
-    {menuOpen && <ThisMenu/>}
-  </>
+  return (
+    <>
+      <Button
+        data-cy={props['data-cy']}
+        {...(buttonProps || {})}
+        ref={referenceElement}
+        onClick={handleClick}
+        icon={icon}
+      >
+        <StyledLabelWrapper>{label}</StyledLabelWrapper>
+        <StyledIconWrapper>
+          <Icon icon={chevronIcon} />
+        </StyledIconWrapper>
+      </Button>
+      {menuOpen && <ThisMenu />}
+    </>
+  )
 }
 
 ButtonMenu.propTypes = {
   /**
    * Optional handler. If defined, a split button will be rendered
    */
-  'onClick': PropTypes.func,
+  onClick: PropTypes.func,
   /**
    * Will be shown on the button
    */
-  'label': PropTypes.string,
+  label: PropTypes.string,
   /**
    * Will be passed to the underlying Button
    */
-  'buttonProps': PropTypes.object,
+  buttonProps: PropTypes.object,
   /**
    * Tree of <MenuItem>
    */
-  'children': PropTypes.any,
+  children: PropTypes.any,
   /**
    * Callback when the menu is opened (only called once)
    */
-  'onOpen': PropTypes.func,
+  onOpen: PropTypes.func,
   /**
    * cypress selector string
    */
@@ -97,7 +93,7 @@ ButtonMenu.propTypes = {
   /**
    * icon to display for the menu
    */
-  'icon': PropTypes.string
+  icon: PropTypes.string
 }
 
 export default ButtonMenu

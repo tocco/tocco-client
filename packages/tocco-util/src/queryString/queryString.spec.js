@@ -17,9 +17,10 @@ describe('tocco-util', () => {
       }
     }
 
-    const queryString = 'actionProperties=%7B%22formName%22%3A%22My_custom_form_list%22%2C%22hideSearch%22%3Atrue%7D'
-      + '&selection=%7B%22count%22%3A25%2C%22entityName%22%3A%22Input%22%2C%22query%22%3A%7B'
-      + '%22tql%22%3A%22IN%28relInput_status.pk%2C2%29%22%7D%2C%22type%22%3A%22QUERY%22%7D'
+    const queryString =
+      'actionProperties=%7B%22formName%22%3A%22My_custom_form_list%22%2C%22hideSearch%22%3Atrue%7D' +
+      '&selection=%7B%22count%22%3A25%2C%22entityName%22%3A%22Input%22%2C%22query%22%3A%7B' +
+      '%22tql%22%3A%22IN%28relInput_status.pk%2C2%29%22%7D%2C%22type%22%3A%22QUERY%22%7D'
 
     describe('toQueryString', () => {
       test('should build query param string from action properties object', () => {

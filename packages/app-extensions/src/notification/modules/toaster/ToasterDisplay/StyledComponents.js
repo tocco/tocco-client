@@ -18,15 +18,10 @@ const colorMap = {
   warning: 'warning'
 }
 
-const colorMapper = (type, theme) => colorMap[type]
-  ? theme.colors.signal[colorMap[type]].text
-  : '#ccc'
+const colorMapper = (type, theme) => (colorMap[type] ? theme.colors.signal[colorMap[type]].text : '#ccc')
 
 export const StyledToaster = styled.div`
-  background-color: ${({
-    type,
-    theme
-  }) => colorMapper(type, theme)};
+  background-color: ${({type, theme}) => colorMapper(type, theme)};
   margin-bottom: ${scale.space(-0.5)};
   padding: ${scale.space(-0.5)};
 
@@ -36,7 +31,7 @@ export const StyledToaster = styled.div`
     color: ${theme.color('paper')} !important;
   }
   animation-name: ${fadeIn};
-  animation-duration: .8s;
+  animation-duration: 0.8s;
   pointer-events: auto;
 `
 
@@ -45,7 +40,7 @@ export const StyledCloseButton = styled(Ball)`
   font-size: ${scale.font(3)};
   color: ${theme.color('backgroundBody')};
   float: right;
-  opacity: .9;
+  opacity: 0.9;
 
   &,
   &:hover {

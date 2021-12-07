@@ -4,9 +4,7 @@ import * as actions from './actions'
 import {invokeExternalEvent} from './externalEvents'
 
 export default function* sagas(events) {
-  yield all([
-    takeEvery(actions.FIRE_EXTERNAL_EVENT, fireExternalEvent, events)
-  ])
+  yield all([takeEvery(actions.FIRE_EXTERNAL_EVENT, fireExternalEvent, events)])
 }
 
 export function* fireExternalEvent(events, action) {

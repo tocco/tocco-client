@@ -1,13 +1,9 @@
+import PropTypes from 'prop-types'
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
 import {Manager, Popper, Reference} from 'react-popper'
 
-import {
-  StyledArrow,
-  StyledBox,
-  StyledBoxWrapper
-} from './StyledPopover'
+import {StyledArrow, StyledBox, StyledBoxWrapper} from './StyledPopover'
 
 const placements = {
   TOP: 'top',
@@ -15,13 +11,7 @@ const placements = {
   RIGHT: 'right'
 }
 
-const Popover = ({
-  children,
-  content,
-  isPlainHtml,
-  rimless,
-  placement
-}) => {
+const Popover = ({children, content, isPlainHtml, rimless, placement}) => {
   const [showToolTip, setShowToolTip] = useState(false)
 
   const handleMouseEnter = () => {
@@ -51,42 +41,24 @@ const Popover = ({
     <Manager>
       <Reference>
         {({ref}) => (
-          <span
-            onMouseOut={handleMouseLeave}
-            onMouseOver={handleMouseEnter}
-            ref={ref}
-          >
+          <span onMouseOut={handleMouseLeave} onMouseOver={handleMouseEnter} ref={ref}>
             {children}
           </span>
         )}
       </Reference>
-      {showToolTip && content
-      && ReactDOM.createPortal(
-        <Popper
-          placement={placement}
-          modifiers={modifiers}
-        >
-          {({ref, style, placement, arrowProps}) => (
-            <StyledBoxWrapper
-              ref={ref}
-              style={style}
-              rimless={rimless}
-              placement={placement}
-            >
-              <StyledBox
-                isPlainHtml={isPlainHtml}
-              >
-                {content}
-              </StyledBox>
-              <StyledArrow
-                ref={arrowProps.ref}
-                data-placement={placement}
-                style={arrowProps.style}
-              />
-            </StyledBoxWrapper>
-          )}
-        </Popper>
-        , document.body)}
+      {showToolTip &&
+        content &&
+        ReactDOM.createPortal(
+          <Popper placement={placement} modifiers={modifiers}>
+            {({ref, style, placement, arrowProps}) => (
+              <StyledBoxWrapper ref={ref} style={style} rimless={rimless} placement={placement}>
+                <StyledBox isPlainHtml={isPlainHtml}>{content}</StyledBox>
+                <StyledArrow ref={arrowProps.ref} data-placement={placement} style={arrowProps.style} />
+              </StyledBoxWrapper>
+            )}
+          </Popper>,
+          document.body
+        )}
     </Manager>
   )
 }

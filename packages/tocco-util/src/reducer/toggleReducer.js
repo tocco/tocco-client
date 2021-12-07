@@ -1,6 +1,4 @@
-export default attributeName => state => (
-  {
-    ...state,
-    [attributeName]: !state[attributeName]
-  }
-)
+export default attributeName => state => ({
+  ...state,
+  [attributeName]: !state[attributeName]
+})

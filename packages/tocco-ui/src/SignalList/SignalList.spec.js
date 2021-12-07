@@ -8,7 +8,8 @@ describe('tocco-ui', () => {
     test('should render children', () => {
       const wrapper = shallow(
         <SignalList.List>
-          <span/><span/>
+          <span />
+          <span />
         </SignalList.List>
       )
       expect(wrapper.find('span')).to.have.length(2)

@@ -9,7 +9,7 @@ const response500 = () => {
 export default function setupFetchMock(packageName, fetchMock) {
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
 
-  fetchMock.post(new RegExp('^.*?/nice2/login$'), function(url, opts) {
+  fetchMock.post(new RegExp('^.*?/nice2/login$'), function (url, opts) {
     consoleLogger.log('called nice2/login', opts)
     if (opts.body.includes('username=succ')) {
       return {success: true}
@@ -59,19 +59,21 @@ export default function setupFetchMock(packageName, fetchMock) {
     }
   })
 
-  fetchMock.get(new RegExp('^.*?/nice2/rest/principals/.*/password-rules.*'), function() {
+  fetchMock.get(new RegExp('^.*?/nice2/rest/principals/.*/password-rules.*'), function () {
     return require('./validationRules.json')
   })
-  fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-validation.*'), function(url, opts) {
+  fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-validation.*'), function (url, opts) {
     const newPassword = JSON.parse(opts.body).newPassword
 
     if (newPassword.includes('tocco')) {
       return {
         valid: false,
-        validationMessages: [{
-          ruleName: 'DICTIONARY',
-          message: 'Das neue Passwort darf das Wort "tocco" nicht enthalten'
-        }]
+        validationMessages: [
+          {
+            ruleName: 'DICTIONARY',
+            message: 'Das neue Passwort darf das Wort "tocco" nicht enthalten'
+          }
+        ]
       }
     } else if (newPassword.includes('error')) {
       return response500()

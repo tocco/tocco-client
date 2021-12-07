@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types'
 import React, {useEffect, useState, useRef} from 'react'
-import {FormattedMessage} from 'react-intl'
-import {
-  SignalList,
-  StatedValue,
-  Typography
-} from 'tocco-ui'
 import ReCAPTCHA from 'react-google-recaptcha'
+import {FormattedMessage} from 'react-intl'
+import {SignalList, StatedValue, Typography} from 'tocco-ui'
 
+import {Pages} from '../../types/Pages'
 import {
   StyledLoginFormInput,
   StyledLoginFormInputWrapper,
@@ -15,7 +12,6 @@ import {
   StyledTransparentButton,
   StyledLoginButton
 } from '../StyledLoginForm'
-import {Pages} from '../../types/Pages'
 
 const LoginForm = ({
   captchaKey,
@@ -75,85 +71,84 @@ const LoginForm = ({
   const passwordFocus = !!username
   const usernameFocus = !passwordFocus
 
-  return <StyledLoginFormWrapper>
-    {showTitle
-        && <React.Fragment>
-          <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>
-          <Typography.P><FormattedMessage id="client.login.form.introduction"/></Typography.P>
-        </React.Fragment>}
-    <form onSubmit={handleSubmit}>
-      <StatedValue
-        hasValue={!!username || autoFill}
-        id="login-username"
-        label={msg('client.login.form.userPlaceholder')}
-      >
-        <StyledLoginFormInputWrapper>
-          <StyledLoginFormInput
-            autoFocus={usernameFocus}
-            name="user"
-            data-cy="login-form_user-input"
-            onChange={handleUsernameChange}
-            required
-            type="text"
-            value={username}
-            onAnimationStart={handleAutoFill}
-            onFocus={e => e.target.select()}
-          />
-        </StyledLoginFormInputWrapper>
-      </StatedValue>
+  return (
+    <StyledLoginFormWrapper>
+      {showTitle && (
+        <React.Fragment>
+          <Typography.H5>
+            <FormattedMessage id="client.login.form.title" />
+          </Typography.H5>
+          <Typography.P>
+            <FormattedMessage id="client.login.form.introduction" />
+          </Typography.P>
+        </React.Fragment>
+      )}
+      <form onSubmit={handleSubmit}>
+        <StatedValue
+          hasValue={!!username || autoFill}
+          id="login-username"
+          label={msg('client.login.form.userPlaceholder')}
+        >
+          <StyledLoginFormInputWrapper>
+            <StyledLoginFormInput
+              autoFocus={usernameFocus}
+              name="user"
+              data-cy="login-form_user-input"
+              onChange={handleUsernameChange}
+              required
+              type="text"
+              value={username}
+              onAnimationStart={handleAutoFill}
+              onFocus={e => e.target.select()}
+            />
+          </StyledLoginFormInputWrapper>
+        </StatedValue>
 
-      <StatedValue
-        hasValue={!!password || autoFill}
-        id="login-password"
-        label={msg('client.login.form.passwordPlaceholder')}
-      >
-        <StyledLoginFormInputWrapper>
-          <StyledLoginFormInput
-            autoFocus={passwordFocus}
-            name="password"
-            data-cy="login-form_password-input"
-            onChange={handlePasswordChange}
-            required
-            type="password"
-            value={password}
-            onAnimationStart={handleAutoFill}
-            onFocus={e => e.target.select()}
-          />
-        </StyledLoginFormInputWrapper>
-      </StatedValue>
+        <StatedValue
+          hasValue={!!password || autoFill}
+          id="login-password"
+          label={msg('client.login.form.passwordPlaceholder')}
+        >
+          <StyledLoginFormInputWrapper>
+            <StyledLoginFormInput
+              autoFocus={passwordFocus}
+              name="password"
+              data-cy="login-form_password-input"
+              onChange={handlePasswordChange}
+              required
+              type="password"
+              value={password}
+              onAnimationStart={handleAutoFill}
+              onFocus={e => e.target.select()}
+            />
+          </StyledLoginFormInputWrapper>
+        </StatedValue>
 
-      {
-        message && message.text
-            && <SignalList.List>
-              <SignalList.Item
-                condition={message.negative ? 'danger' : 'base'}
-                label={message.text}
-              />
-            </SignalList.List>
-      }
-      {captchaKey && recaptchaActivated && <ReCAPTCHA
-        ref={recaptchaRef}
-        badge="bottomright"
-        size="invisible"
-        sitekey={captchaKey}
-        hl={intl.locale}
-      />}
-      <StyledLoginButton
-        disabled={!autoFill && (loginPending || username === '' || password === '')}
-        ink="primary"
-        look="raised"
-        label={msg('client.login.form.button')}
-        pending={loginPending}
-        type="submit"
-        data-cy="login-form_login-button"
-      />
-      <StyledTransparentButton
-        label={msg('client.login.form.forgotLink')}
-        onClick={() => changePage(Pages.PASSWORD_REQUEST)}
-        data-cy="login-form_request-button"
-      />
-    </form>
-  </StyledLoginFormWrapper>
+        {message && message.text && (
+          <SignalList.List>
+            <SignalList.Item condition={message.negative ? 'danger' : 'base'} label={message.text} />
+          </SignalList.List>
+        )}
+        {captchaKey && recaptchaActivated && (
+          <ReCAPTCHA ref={recaptchaRef} badge="bottomright" size="invisible" sitekey={captchaKey} hl={intl.locale} />
+        )}
+        <StyledLoginButton
+          disabled={!autoFill && (loginPending || username === '' || password === '')}
+          ink="primary"
+          look="raised"
+          label={msg('client.login.form.button')}
+          pending={loginPending}
+          type="submit"
+          data-cy="login-form_login-button"
+        />
+        <StyledTransparentButton
+          label={msg('client.login.form.forgotLink')}
+          onClick={() => changePage(Pages.PASSWORD_REQUEST)}
+          data-cy="login-form_request-button"
+        />
+      </form>
+    </StyledLoginFormWrapper>
+  )
 }
 
 LoginForm.propTypes = {

@@ -1,16 +1,16 @@
-import React, {useCallback, useEffect, useState} from 'react'
-import PropTypes from 'prop-types'
-import {userAgent} from 'tocco-util'
 import _throttle from 'lodash/throttle'
+import PropTypes from 'prop-types'
+import React, {useCallback, useEffect, useState} from 'react'
+import {userAgent} from 'tocco-util'
 
 import {StyledSizeWrapper, StyledTextarea} from './StyledComponents'
 
 const TextareaAutosize = ({value, onChange, name, id, disabled, immutable}) => {
   const [replicatedValue, setReplicatedValue] = useState(value)
-  
+
   // remove autosize feature for Safari to be able to type fluently
   const useAutosizeFeature = !userAgent.isSafari()
-  
+
   const setThrottledReplicatedValue = useCallback(_throttle(setReplicatedValue, 500, {trailing: true}), [])
 
   useEffect(() => {
@@ -20,9 +20,7 @@ const TextareaAutosize = ({value, onChange, name, id, disabled, immutable}) => {
   }, [value])
 
   return (
-    <StyledSizeWrapper
-      {...(useAutosizeFeature ? {'data-replicated-value': replicatedValue} : {})}
-    >
+    <StyledSizeWrapper {...(useAutosizeFeature ? {'data-replicated-value': replicatedValue} : {})}>
       <StyledTextarea
         value={value}
         name={name}

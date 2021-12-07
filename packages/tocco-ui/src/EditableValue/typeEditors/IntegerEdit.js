@@ -6,12 +6,7 @@ import {StyledEditableWrapper} from '../StyledEditableValue'
 import StyledNumberEdit from './StyledNumberEdit'
 
 const IntegerEdit = ({value, onChange, options, immutable, name, id}) => {
-  const {
-    minValue,
-    maxValue,
-    format,
-    allowLeadingZeros
-  } = options || {}
+  const {minValue, maxValue, format, allowLeadingZeros} = options || {}
 
   const handleChange = ({value, floatValue}) => {
     let newValue = allowLeadingZeros ? value : floatValue
@@ -21,8 +16,7 @@ const IntegerEdit = ({value, onChange, options, immutable, name, id}) => {
     onChange(newValue)
   }
 
-  const isAllowed = ({floatValue}) =>
-    !((maxValue && floatValue > maxValue) || (minValue && floatValue < minValue))
+  const isAllowed = ({floatValue}) => !((maxValue && floatValue > maxValue) || (minValue && floatValue < minValue))
 
   return (
     <StyledEditableWrapper immutable={immutable}>

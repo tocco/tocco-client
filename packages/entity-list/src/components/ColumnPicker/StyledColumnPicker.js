@@ -1,6 +1,6 @@
+import {lighten} from 'polished'
 import styled from 'styled-components'
 import {scale, theme, StyledButton, StyledLi, StyledLabel} from 'tocco-ui'
-import {lighten} from 'polished'
 
 export const StyledUl = styled.ul`
   list-style-type: none;
@@ -42,8 +42,10 @@ export const StyledId = styled.span`
 `
 
 export const StyledItem = styled(StyledLi)`
-  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? `3px solid ${theme.colors.secondary}` : 'none'};
-  ${({draggable, theme}) => draggable && `
+  border-right: ${({isDraggedOver, theme}) => (isDraggedOver ? `3px solid ${theme.colors.secondary}` : 'none')};
+  ${({draggable, theme}) =>
+    draggable &&
+    `
     &:hover {
       background-color: ${lighten(0.25, theme.colors.secondaryLight)};
 
@@ -52,6 +54,5 @@ export const StyledItem = styled(StyledLi)`
         cursor: pointer;
       }
     }
-  `
-  }
+  `}
 `

@@ -1,14 +1,13 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {injectIntl} from 'react-intl'
-import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {selection} from 'tocco-app-extensions'
+import EntityDetailApp from 'tocco-entity-detail/src/main'
 
 import getDetailFormName from '../../../utils/getDetailFormName'
 
 const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction}) => {
-  const isActionBlocked = action =>
-    action.payload?.toaster?.title === 'client.entity-detail.createSuccessfulTitle'
+  const isActionBlocked = action => action.payload?.toaster?.title === 'client.entity-detail.createSuccessfulTitle'
 
   const emitActionBarrier = action => {
     if (!isActionBlocked(action)) {
@@ -24,15 +23,19 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
   }
 
   const handleEntityUpdated = () => {
-    const remoteEvents = [{
-      type: 'entity-update-event',
-      payload: {
-        entities: [{
-          entityName: 'Docs_list_item',
-          key: selection.ids[0]
-        }]
+    const remoteEvents = [
+      {
+        type: 'entity-update-event',
+        payload: {
+          entities: [
+            {
+              entityName: 'Docs_list_item',
+              key: selection.ids[0]
+            }
+          ]
+        }
       }
-    }]
+    ]
 
     onSuccess({
       title: null,
@@ -41,15 +44,19 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
   }
 
   const handleEntityDeleted = () => {
-    const remoteEvents = [{
-      type: 'entity-delete-event',
-      payload: {
-        entities: [{
-          entityName: 'Docs_list_item',
-          key: selection.ids[0]
-        }]
+    const remoteEvents = [
+      {
+        type: 'entity-delete-event',
+        payload: {
+          entities: [
+            {
+              entityName: 'Docs_list_item',
+              key: selection.ids[0]
+            }
+          ]
+        }
       }
-    }]
+    ]
 
     onSuccess({
       title: null,
@@ -59,15 +66,17 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
 
   const formName = getDetailFormName(context, entityName)
 
-  return <EntityDetailApp
-    entityName={entityName}
-    formName={formName}
-    entityId={entityKey}
-    mode="update"
-    onEntityUpdated={handleEntityUpdated}
-    onEntityDeleted={handleEntityDeleted}
-    emitAction={emitActionBarrier}
-  />
+  return (
+    <EntityDetailApp
+      entityName={entityName}
+      formName={formName}
+      entityId={entityKey}
+      mode="update"
+      onEntityUpdated={handleEntityUpdated}
+      onEntityDeleted={handleEntityDeleted}
+      emitAction={emitActionBarrier}
+    />
+  )
 }
 
 EditAction.propTypes = {

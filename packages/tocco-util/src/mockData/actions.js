@@ -1,46 +1,22 @@
 import consoleLogger from '../consoleLogger'
-import {sleep} from './mockData'
 import originId from '../originId'
+import {sleep} from './mockData'
 export const setupActions = (fetchMock, entityStore, webSocketServer, timeout = 2000) => {
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/simpleActionForm/check*?'),
-    simpleActionFormCheck(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/simpleActionForm/check*?'), simpleActionFormCheck(timeout))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/simpleActionForm*?'),
-    simpleAction(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/simpleActionForm*?'), simpleAction(timeout))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/simpleActionConfirm/check*?'),
-    simpleActionConfirmCheck(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/simpleActionConfirm/check*?'), simpleActionConfirmCheck(timeout))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/simpleActionConfirm*?'),
-    simpleAction(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/simpleActionConfirm*?'), simpleAction(timeout))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/simpleActionAbort/check*?'),
-    simpleActionAbortCheck(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/simpleActionAbort/check*?'), simpleActionAbortCheck(timeout))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/validationError/checkr*?'),
-    simpleActionCheck(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/validationError/checkr*?'), simpleActionCheck(timeout))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/validationError*?'),
-    validationError(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/validationError*?'), validationError(timeout))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/simpleActionBackground(.*)/check'),
-    simpleActionCheck(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/simpleActionBackground(.*)/check'), simpleActionCheck(timeout))
 
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/actions/simpleActionBackgroundProgress*?'),
@@ -52,88 +28,75 @@ export const setupActions = (fetchMock, entityStore, webSocketServer, timeout = 
     simpleActionBackground(webSocketServer)
   )
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/simpleAction/check*?'),
-    simpleActionCheck(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/simpleAction/check*?'), simpleActionCheck(timeout))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/actions/simpleAction*?'),
-    simpleAction(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/actions/simpleAction*?'), simpleAction(timeout))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/client/user/callnameComplete*?'),
-    callnameComplete(timeout)
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/client/user/callnameComplete*?'), callnameComplete(timeout))
 }
 
-const simpleActionCheck = timeout =>
-  (url, opts) => {
-    return sleep(timeout).then(() => {
-      consoleLogger.log('fetchMock:call simple action check', url, opts)
+const simpleActionCheck = timeout => (url, opts) => {
+  return sleep(timeout).then(() => {
+    consoleLogger.log('fetchMock:call simple action check', url, opts)
 
-      return {
-        body: {
-          initialFormValues: null,
-          preCheck: {
-            success: true,
-            message: null,
-            confirmMessage: null,
-            messageType: null
-          }
+    return {
+      body: {
+        initialFormValues: null,
+        preCheck: {
+          success: true,
+          message: null,
+          confirmMessage: null,
+          messageType: null
         }
       }
-    })
-  }
+    }
+  })
+}
 
-const simpleActionAbortCheck = timeout =>
-  (url, opts) => {
-    return sleep(timeout).then(() => {
-      consoleLogger.log('fetchMock:call simple action confirm check', url, opts)
+const simpleActionAbortCheck = timeout => (url, opts) => {
+  return sleep(timeout).then(() => {
+    consoleLogger.log('fetchMock:call simple action confirm check', url, opts)
 
-      return {
-        body: {
-          initialFormValues: null,
-          preCheck: {
-            success: false,
-            message: 'Diese Noteneingabe wurde geschlossen. Es sind keine weiteren Eingaben erlaubt.',
-            confirmMessage: null,
-            messageType: 'INFO'
-          }
+    return {
+      body: {
+        initialFormValues: null,
+        preCheck: {
+          success: false,
+          message: 'Diese Noteneingabe wurde geschlossen. Es sind keine weiteren Eingaben erlaubt.',
+          confirmMessage: null,
+          messageType: 'INFO'
         }
       }
-    })
-  }
+    }
+  })
+}
 
-const simpleActionConfirmCheck = timeout =>
-  (url, opts) => {
-    return sleep(timeout).then(() => {
-      consoleLogger.log('fetchMock:call simple action confirm check', url, opts)
+const simpleActionConfirmCheck = timeout => (url, opts) => {
+  return sleep(timeout).then(() => {
+    consoleLogger.log('fetchMock:call simple action confirm check', url, opts)
 
-      return {
-        body: {
-          initialFormValues: null,
-          preCheck: {
-            success: true,
-            message: null,
-            confirmMessage: 'Are you sure you want to do this?',
-            messageType: 'CONFIRM'
-          }
+    return {
+      body: {
+        initialFormValues: null,
+        preCheck: {
+          success: true,
+          message: null,
+          confirmMessage: 'Are you sure you want to do this?',
+          messageType: 'CONFIRM'
         }
       }
-    })
-  }
+    }
+  })
+}
 
-const simpleActionFormCheck = timeout =>
-  (url, opts) => {
-    return sleep(timeout).then(() => {
-      consoleLogger.log('fetchMock:call simple action form check', url, opts)
-      return {
-        body: formResponse
-      }
-    })
-  }
+const simpleActionFormCheck = timeout => (url, opts) => {
+  return sleep(timeout).then(() => {
+    consoleLogger.log('fetchMock:call simple action form check', url, opts)
+    return {
+      body: formResponse
+    }
+  })
+}
 
 const formResponse = {
   initialFormValues: {
@@ -185,8 +148,7 @@ const formResponse = {
                         readonly: false,
                         hidden: false,
                         useLabel: 'yes',
-                        scopes: [
-                        ]
+                        scopes: []
                       },
                       {
                         id: 'filename',
@@ -210,8 +172,7 @@ const formResponse = {
                         readonly: false,
                         hidden: false,
                         useLabel: 'yes',
-                        scopes: [
-                        ]
+                        scopes: []
                       },
                       {
                         id: 'relReport_file_format',
@@ -235,8 +196,7 @@ const formResponse = {
                         readonly: false,
                         hidden: false,
                         useLabel: 'yes',
-                        scopes: [
-                        ]
+                        scopes: []
                       },
                       {
                         id: 'run_in_background',
@@ -249,16 +209,14 @@ const formResponse = {
                             componentType: 'field',
                             path: 'run_in_background',
                             dataType: 'boolean',
-                            validation: {
-                            },
+                            validation: {},
                             defaultValue: null
                           }
                         ],
                         readonly: false,
                         hidden: false,
                         useLabel: 'yes',
-                        scopes: [
-                        ]
+                        scopes: []
                       }
                     ],
                     layoutType: 'vertical-box',
@@ -291,12 +249,13 @@ const formResponse = {
   preCheck: null
 }
 
-const simpleActionBackground = webSocketServer =>
-  (url, opts) => {
-    consoleLogger.log(' fetchMock:call background action', url, opts, webSocketServer)
-    const notificationKey = Math.floor(Math.random() * 100).toString()
+const simpleActionBackground = webSocketServer => (url, opts) => {
+  consoleLogger.log(' fetchMock:call background action', url, opts, webSocketServer)
+  const notificationKey = Math.floor(Math.random() * 100).toString()
 
-    webSocketServer.emit('message', JSON.stringify({
+  webSocketServer.emit(
+    'message',
+    JSON.stringify({
       key: notificationKey,
       timestamp: new Date().toISOString(),
       originId: originId.getOriginId(),
@@ -313,10 +272,13 @@ const simpleActionBackground = webSocketServer =>
         total: 0,
         done: 0
       }
-    }))
+    })
+  )
 
-    setTimeout(() => {
-      webSocketServer.emit('message', JSON.stringify({
+  setTimeout(() => {
+    webSocketServer.emit(
+      'message',
+      JSON.stringify({
         key: notificationKey,
         timestamp: new Date().toISOString(),
         originId: originId.getOriginId(),
@@ -333,27 +295,29 @@ const simpleActionBackground = webSocketServer =>
           total: 0,
           done: 0
         }
-      }))
-    }, 3000)
+      })
+    )
+  }, 3000)
 
-    return {
-      success: true,
-      message: 'Die Aktion wurde zur Ausführung eingeplant',
-      params: {},
-      result: null,
-      notificationKey: notificationKey
-    }
+  return {
+    success: true,
+    message: 'Die Aktion wurde zur Ausführung eingeplant',
+    params: {},
+    result: null,
+    notificationKey: notificationKey
   }
+}
 
-const simpleActionBackgroundProgress = webSocketServer =>
-  (url, opts) => {
-    consoleLogger.log(' fetchMock: call background action progress', url, opts, webSocketServer)
-    const notificationKey = Math.floor(Math.random() * 100).toString()
+const simpleActionBackgroundProgress = webSocketServer => (url, opts) => {
+  consoleLogger.log(' fetchMock: call background action progress', url, opts, webSocketServer)
+  const notificationKey = Math.floor(Math.random() * 100).toString()
 
-    for (let i = 0; i < 30; i++) {
-      (function(ind) {
-        setTimeout(() => {
-          webSocketServer.emit('message', JSON.stringify({
+  for (let i = 0; i < 30; i++) {
+    ;(function (ind) {
+      setTimeout(() => {
+        webSocketServer.emit(
+          'message',
+          JSON.stringify({
             key: notificationKey,
             timestamp: new Date().toISOString(),
             originId: originId.getOriginId(),
@@ -370,83 +334,77 @@ const simpleActionBackgroundProgress = webSocketServer =>
               total: 30,
               done: ind
             }
-          }))
-        }, 1000 * ind)
-      })(i)
-    }
-
-    return {
-      success: true,
-      message: 'Die Aktion wurde zur Ausführung eingeplant',
-      params: {},
-      result: null,
-      notificationKey: notificationKey
-    }
+          })
+        )
+      }, 1000 * ind)
+    })(i)
   }
 
-const simpleAction = timeout =>
-  (url, opts) => {
-    return sleep(timeout).then(() => {
-      consoleLogger.log('fetchMock:call action', url, opts)
-
-      return {
-        status: 200,
-        body: {
-          success: true,
-          message: 'Action completed!'
-        }
-      }
-    })
+  return {
+    success: true,
+    message: 'Die Aktion wurde zur Ausführung eingeplant',
+    params: {},
+    result: null,
+    notificationKey: notificationKey
   }
+}
 
-const validationError = timeout =>
-  (url, opts) => {
-    return sleep(timeout).then(() => {
-      consoleLogger.log('fetchMock:call validationError action', url, opts)
-      return {
-        status: 400,
-        body: {
-          message: 'Validation failed',
-          errorCode: 'VALIDATION_FAILED',
-          errors: [
-            {
-              model: 'Principal',
-              key: null,
-              paths: {
-                username: {
-                  username: [
-                    'Der Wert ist bereits vergeben und dadurch nicht eindeutig'
-                  ]
-                }
-              },
-              entityValidatorErrors: {
-                UsernameAsciiValidator: [
-                  'Nur Buchstaben, Zahlen und die meisten Sonderzeichen sind erlaubt.'
-                ]
-              }
-            }
-          ]
-        }
-      }
-    })
-  }
+const simpleAction = timeout => (url, opts) => {
+  return sleep(timeout).then(() => {
+    consoleLogger.log('fetchMock:call action', url, opts)
 
-const callnameComplete = () =>
-  (url, opts) => {
-    consoleLogger.log('fetchMock:callname complete called', url, opts)
     return {
       status: 200,
       body: {
-        values: {
-          callname: {
-            mode: 'override',
-            value: 'AutoCompleted'
-          },
-          lastname: {
-            mode: 'if_empty',
-            value: 'Lastname AutoCompleted'
+        success: true,
+        message: 'Action completed!'
+      }
+    }
+  })
+}
+
+const validationError = timeout => (url, opts) => {
+  return sleep(timeout).then(() => {
+    consoleLogger.log('fetchMock:call validationError action', url, opts)
+    return {
+      status: 400,
+      body: {
+        message: 'Validation failed',
+        errorCode: 'VALIDATION_FAILED',
+        errors: [
+          {
+            model: 'Principal',
+            key: null,
+            paths: {
+              username: {
+                username: ['Der Wert ist bereits vergeben und dadurch nicht eindeutig']
+              }
+            },
+            entityValidatorErrors: {
+              UsernameAsciiValidator: ['Nur Buchstaben, Zahlen und die meisten Sonderzeichen sind erlaubt.']
+            }
           }
+        ]
+      }
+    }
+  })
+}
+
+const callnameComplete = () => (url, opts) => {
+  consoleLogger.log('fetchMock:callname complete called', url, opts)
+  return {
+    status: 200,
+    body: {
+      values: {
+        callname: {
+          mode: 'override',
+          value: 'AutoCompleted'
+        },
+        lastname: {
+          mode: 'if_empty',
+          value: 'Lastname AutoCompleted'
         }
       }
     }
   }
+}

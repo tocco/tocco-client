@@ -24,8 +24,9 @@ describe('entity-list', () => {
         ])(
           'inputSelectionStyle: %s, disableSelectionController: %s, formSelectable: %s, expectedResult: %s',
           (inputSelectionStyle, disableSelectionController, formSelectable, expectedResult) => {
-            expect(showSelectionComponent(inputSelectionStyle, disableSelectionController, formSelectable))
-              .to.equal(expectedResult)
+            expect(showSelectionComponent(inputSelectionStyle, disableSelectionController, formSelectable)).to.equal(
+              expectedResult
+            )
           }
         )
       })
@@ -43,21 +44,18 @@ describe('entity-list', () => {
           expect(result).to.deep.equal(expectedResult)
         })
 
-        test(
-          'should combine the new added selection with the existing selection',
-          () => {
-            const existingSelection = [1, 2, 3]
+        test('should combine the new added selection with the existing selection', () => {
+          const existingSelection = [1, 2, 3]
 
-            const isSelected = true
-            const keys = [4, 5, 6]
+          const isSelected = true
+          const keys = [4, 5, 6]
 
-            const expectedResult = [1, 2, 3, 4, 5, 6]
+          const expectedResult = [1, 2, 3, 4, 5, 6]
 
-            const result = combineSelection(existingSelection, keys, isSelected)
+          const result = combineSelection(existingSelection, keys, isSelected)
 
-            expect(result).to.deep.equal(expectedResult)
-          }
-        )
+          expect(result).to.deep.equal(expectedResult)
+        })
 
         test('should avoid duplicate keys', () => {
           const existingSelection = [1, 2, 3]
@@ -71,20 +69,17 @@ describe('entity-list', () => {
           expect(result).to.deep.equal(expectedResult)
         })
 
-        test(
-          'should combine the new removed selection with the existing selection',
-          () => {
-            const existingSelection = [1, 2, 3]
-            const isSelected = false
-            const keys = [1, 2]
+        test('should combine the new removed selection with the existing selection', () => {
+          const existingSelection = [1, 2, 3]
+          const isSelected = false
+          const keys = [1, 2]
 
-            const expectedResult = [3]
+          const expectedResult = [3]
 
-            const result = combineSelection(existingSelection, keys, isSelected)
+          const result = combineSelection(existingSelection, keys, isSelected)
 
-            expect(result).to.deep.equal(expectedResult)
-          }
-        )
+          expect(result).to.deep.equal(expectedResult)
+        })
       })
     })
   })

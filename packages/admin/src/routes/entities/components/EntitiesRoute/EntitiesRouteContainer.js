@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import EntitiesRoute from './EntitiesRoute'
 import {loadCurrentRoute} from '../../modules/path/actions'
+import EntitiesRoute from './EntitiesRoute'
 
 const mapActionCreators = {
   loadCurrentRoute

@@ -1,7 +1,7 @@
 import React from 'react'
-import {IntlStub, intlEnzyme} from 'tocco-test-util'
-import {createStore} from 'redux'
 import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import {IntlStub, intlEnzyme} from 'tocco-test-util'
 
 import {ReportSettings} from './ReportSettings'
 const EMPTY_FUNC = () => {}
@@ -20,7 +20,8 @@ describe('app-extensions', () => {
                 intl={IntlStub}
                 settingsDefinition={formDefinitionFull}
                 listApp={EMPTY_FUNC}
-                formApp={FormApp}/>
+                formApp={FormApp}
+              />
             </Provider>
           )
 
@@ -32,14 +33,15 @@ describe('app-extensions', () => {
 
           const FormApp = () => <div>form</div>
           const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <ReportSettings
-              onSubmit={EMPTY_FUNC}
-              intl={IntlStub}
-              settingsDefinition={settingsDefinition}
-              listApp={EMPTY_FUNC}
-              formApp={FormApp}/>
-          </Provider>
+            <Provider store={store}>
+              <ReportSettings
+                onSubmit={EMPTY_FUNC}
+                intl={IntlStub}
+                settingsDefinition={settingsDefinition}
+                listApp={EMPTY_FUNC}
+                formApp={FormApp}
+              />
+            </Provider>
           )
 
           expect(wrapper.find(FormApp)).to.have.length(1)

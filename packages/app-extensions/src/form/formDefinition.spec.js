@@ -123,7 +123,6 @@ describe('app-extensions', () => {
               ...testField4,
               readonly: true,
               ignoreCopy: false
-
             },
             {
               ...testField3,
@@ -158,27 +157,32 @@ describe('app-extensions', () => {
         })
 
         test('should return location mappings in paths', () => {
-          const fieldNames = formDefinition.getUsedPaths([{
-            dataType: 'location',
-            componentType: 'field',
-            locationMapping: {
-              city: 'city_c',
-              country: 'relCountry_c'
+          const fieldNames = formDefinition.getUsedPaths([
+            {
+              dataType: 'location',
+              componentType: 'field',
+              locationMapping: {
+                city: 'city_c',
+                country: 'relCountry_c'
+              }
             }
-          }])
+          ])
           expect(fieldNames).to.eql(['city_c', 'relCountry_c'])
         })
 
         test('should return no douplettes in result', () => {
-          const fieldNames = formDefinition.getUsedPaths([{
-            dataType: 'string',
-            componentType: 'field',
-            path: 'firstname'
-          }, {
-            dataType: 'string',
-            componentType: 'field',
-            path: 'firstname'
-          }])
+          const fieldNames = formDefinition.getUsedPaths([
+            {
+              dataType: 'string',
+              componentType: 'field',
+              path: 'firstname'
+            },
+            {
+              dataType: 'string',
+              componentType: 'field',
+              path: 'firstname'
+            }
+          ])
           expect(fieldNames).to.eql(['firstname'])
         })
       })

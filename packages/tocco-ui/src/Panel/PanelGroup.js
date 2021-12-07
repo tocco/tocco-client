@@ -17,14 +17,12 @@ class PanelGroup extends React.Component {
   render() {
     return (
       <StyledPanelGroup>
-        {
-          React.Children.map(this.props.children, (child, i) =>
-            React.cloneElement(child, {
-              controlledIsOpen: this.state.openPanelIndex === i,
-              onToggle: this.onToggle.bind(this, i)
-            })
-          )
-        }
+        {React.Children.map(this.props.children, (child, i) =>
+          React.cloneElement(child, {
+            controlledIsOpen: this.state.openPanelIndex === i,
+            onToggle: this.onToggle.bind(this, i)
+          })
+        )}
       </StyledPanelGroup>
     )
   }

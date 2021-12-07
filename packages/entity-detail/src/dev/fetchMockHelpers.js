@@ -1,8 +1,9 @@
 import _cloneDeep from 'lodash/cloneDeep'
-import {consoleLogger} from 'tocco-util'
 import _get from 'lodash/get'
+import {consoleLogger} from 'tocco-util'
 
-export const userValidateResponse = (entityStore, delay = 1000) =>
+export const userValidateResponse =
+  (entityStore, delay = 1000) =>
   (url, opts) => {
     return sleep(delay).then(() => {
       consoleLogger.log('fetchMock: called validate entity', url, opts)
@@ -26,7 +27,8 @@ export const userValidateResponse = (entityStore, delay = 1000) =>
     })
   }
 
-export const userCreateResponse = (entityStore, delay = 1000) =>
+export const userCreateResponse =
+  (entityStore, delay = 1000) =>
   (url, opts) => {
     return sleep(delay).then(() => {
       consoleLogger.log('fetchMock: create user entity', url, opts)
@@ -49,7 +51,8 @@ export const userCreateResponse = (entityStore, delay = 1000) =>
     })
   }
 
-export const dummyEntityCreateResponse = (entityStore, delay = 2000) =>
+export const dummyEntityCreateResponse =
+  (entityStore, delay = 2000) =>
   (url, opts) => {
     return sleep(delay).then(() => {
       consoleLogger.log('fetchMock: create dummyEntity entity', url, opts)
@@ -72,7 +75,8 @@ export const dummyEntityCreateResponse = (entityStore, delay = 2000) =>
     })
   }
 
-export const userUpdateResponse = (entityStore, delay = 1000) =>
+export const userUpdateResponse =
+  (entityStore, delay = 1000) =>
   (url, opts) => {
     return sleep(delay).then(() => {
       consoleLogger.log('fetchMock: update entity', url, opts)
@@ -86,7 +90,7 @@ export const userUpdateResponse = (entityStore, delay = 1000) =>
       const newEntity = getNewEntity(entity, entityStore)
 
       entityStore.User[newEntity.key] = newEntity
-      return sleep(1000).then(() => (newEntity))
+      return sleep(1000).then(() => newEntity)
     })
   }
 
@@ -112,7 +116,8 @@ const createAndUpdateValidation = (body, entity) => {
   return null
 }
 
-export const dummyEntityValidateResponse = (entityStore, delay = 1000) =>
+export const dummyEntityValidateResponse =
+  (entityStore, delay = 1000) =>
   (url, opts) => {
     return sleep(delay).then(() => {
       consoleLogger.log('fetchMock: called validate entity', url)
@@ -123,14 +128,16 @@ export const dummyEntityValidateResponse = (entityStore, delay = 1000) =>
       if (sorting < 0) {
         return {
           valid: false,
-          errors: [{
-            model: entity.model,
-            paths: {
-              sorting: {
-                toLow: ['Sorting must be greater than 0']
+          errors: [
+            {
+              model: entity.model,
+              paths: {
+                sorting: {
+                  toLow: ['Sorting must be greater than 0']
+                }
               }
             }
-          }]
+          ]
         }
       }
 
@@ -140,16 +147,18 @@ export const dummyEntityValidateResponse = (entityStore, delay = 1000) =>
 
 const asyncValidationErrorResponse = entity => ({
   valid: false,
-  errors: [{
-    model: entity.model,
-    key: entity.key,
-    paths: {
-      firstname: {
-        illegal: ['ASYNC VALIDATE: Firstname should not be "illegal"!', 'illegal'],
-        other: ['ASYNC VALIDATE: A sencond error']
+  errors: [
+    {
+      model: entity.model,
+      key: entity.key,
+      paths: {
+        firstname: {
+          illegal: ['ASYNC VALIDATE: Firstname should not be "illegal"!', 'illegal'],
+          other: ['ASYNC VALIDATE: A sencond error']
+        }
       }
     }
-  }]
+  ]
 })
 
 const generalAsyncValidationErrorResponse = entity => ({
@@ -184,7 +193,8 @@ const validationErrorResponse = entity => {
             'Submit entity Validator error. Lorem ipsum dolor sit amet, consectetur adipiscing elit'
           ]
         }
-      }, {
+      },
+      {
         model: 'Related_entity',
         key: '3',
         paths: {
@@ -218,12 +228,9 @@ const confirmClientQuestionResponse = entity => ({
     id: 'myConfirmQuestion',
     handler: 'ConfirmQuestionHandler',
     header: 'Please Confirm',
-    message:
-      'This is a client confirm question<br/>are you sure you want to save this?<br/>really?',
-    okText:
-      'Yes, Really',
-    cancelText:
-      'No sorry, Cancel'
+    message: 'This is a client confirm question<br/>are you sure you want to save this?<br/>really?',
+    okText: 'Yes, Really',
+    cancelText: 'No sorry, Cancel'
   }
 })
 

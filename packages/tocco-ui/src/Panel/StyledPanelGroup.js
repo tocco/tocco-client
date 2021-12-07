@@ -7,7 +7,7 @@ const StyledPanelGroup = styled.div`
   margin-bottom: ${scale.space(0)};
 
   && {
-    ${/* sc-selector */StyledPanel}:not(:last-child) {
+    ${/* sc-selector */ StyledPanel}:not(:last-child) {
       margin-bottom: ${scale.space(-1)};
     }
   }

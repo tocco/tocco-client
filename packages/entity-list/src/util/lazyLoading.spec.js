@@ -23,7 +23,10 @@ describe('entity-list', () => {
     })
 
     test('should enhance multi default displays ', () => {
-      const value = [{key: 1, model: 'EntityX'}, {key: 2, model: 'EntityX'}]
+      const value = [
+        {key: 1, model: 'EntityX'},
+        {key: 2, model: 'EntityX'}
+      ]
       const type = 'multi-select-box'
       const lazyData = {
         defaultDisplays: {
@@ -36,7 +39,10 @@ describe('entity-list', () => {
 
       const result = lazyValueEnhancer(value, type, lazyData, info)
 
-      const expectedResult = [{key: 1, model: 'EntityX', display: 'Entity1'}, {key: 2, model: 'EntityX', display: ''}]
+      const expectedResult = [
+        {key: 1, model: 'EntityX', display: 'Entity1'},
+        {key: 2, model: 'EntityX', display: ''}
+      ]
       expect(result).to.deep.equal(expectedResult)
     })
 

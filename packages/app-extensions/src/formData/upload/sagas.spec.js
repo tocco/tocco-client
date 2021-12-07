@@ -1,11 +1,11 @@
+import {actions as formActions} from 'redux-form'
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {actions as formActions} from 'redux-form'
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
-import {documentToFormValueTransformer, uploadRequest} from './documents'
 import * as actions from './actions'
+import {documentToFormValueTransformer, uploadRequest} from './documents'
 import * as sagas from './sagas'
 
 describe('app-extensions', () => {
@@ -15,10 +15,12 @@ describe('app-extensions', () => {
         describe('main saga', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
-            saga.next().all([
-              takeEvery(actions.UPLOAD_DOCUMENT, sagas.uploadDocument),
-              takeEvery(actions.SET_DOCUMENT, sagas.setDocument)
-            ])
+            saga
+              .next()
+              .all([
+                takeEvery(actions.UPLOAD_DOCUMENT, sagas.uploadDocument),
+                takeEvery(actions.SET_DOCUMENT, sagas.setDocument)
+              ])
           })
         })
 

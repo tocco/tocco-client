@@ -4,13 +4,9 @@ export default function setupFetchMock(packageName, fetchMock) {
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
   mockData.setupSystemMock('simple-form', fetchMock, require('../../../simple-form/src/dev/textResources'))
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/form$'),
-    require('./data/inputEditForm')
-  )
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/data/search$'),
-    (urls, opts) => sleep(1000).then(() => {
+  fetchMock.get(new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/form$'), require('./data/inputEditForm'))
+  fetchMock.post(new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/data/search$'), (urls, opts) =>
+    sleep(1000).then(() => {
       consoleLogger.log(`Searching for data with query: ${JSON.parse(opts.body).tql}`)
       const offset = JSON.parse(opts.body).offset
       const recordsPerPage = JSON.parse(opts.body).limit
@@ -34,9 +30,8 @@ export default function setupFetchMock(packageName, fetchMock) {
       return response
     })
   )
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/data$'),
-    (urls, opts) => sleep(1000).then(() => ({
+  fetchMock.post(new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/data$'), (urls, opts) =>
+    sleep(1000).then(() => ({
       calculatedValues: [
         {
           inputDataKey: JSON.parse(opts.body).inputDataKey,
@@ -47,15 +42,9 @@ export default function setupFetchMock(packageName, fetchMock) {
     }))
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/Input_edit_data/list$'),
-    require('./data/inputDataForm')
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/Input_edit_data/list$'), require('./data/inputDataForm'))
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/Input_edit_data/search$'),
-    require('./data/inputEditSearch')
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/Input_edit_data/search$'), require('./data/inputEditSearch'))
 
   fetchMock.spy()
 }

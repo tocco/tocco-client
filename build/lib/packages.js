@@ -6,7 +6,7 @@ const paths = config.utils_paths
 
 export function getAllPackages() {
   const path = paths.client('packages')
-  return fs.readdirSync(path).filter(function(file) {
+  return fs.readdirSync(path).filter(function (file) {
     return fs.statSync(path + '/' + file).isDirectory()
   })
 }

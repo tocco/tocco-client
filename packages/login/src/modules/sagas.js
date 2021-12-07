@@ -1,15 +1,15 @@
-import {consoleLogger, request, cache, intl} from 'tocco-util'
-import {externalEvents, rest} from 'tocco-app-extensions'
 import {takeLatest, put, select, call, all} from 'redux-saga/effects'
+import {externalEvents, rest} from 'tocco-app-extensions'
+import {consoleLogger, request, cache, intl} from 'tocco-util'
 
+import {Pages} from '../types/Pages'
 import * as actions from './actions'
 import * as loginActions from './login/actions'
-import {setMessage, setPending, activateRecaptcha} from './loginForm/actions'
-import {updateOldPassword} from './passwordUpdate/password/actions'
-import {setUsernameOrPk, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {changePage, setPassword} from './login/actions'
+import {setMessage, setPending, activateRecaptcha} from './loginForm/actions'
+import {setUsernameOrPk, setForcedUpdate} from './passwordUpdate/dialog/actions'
+import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setSecret} from './twoStepLogin/actions'
-import {Pages} from '../types/Pages'
 
 export const DEFAULT_TIMEOUT = 30
 
@@ -18,7 +18,8 @@ export const loginSelector = state => state.login
 
 export function doRequest(url, options) {
   return new Promise(resolve => {
-    request.executeRequest(url, options)
+    request
+      .executeRequest(url, options)
       .then(request.extractBody)
       .then(json => resolve(json))
       .catch(e => {
@@ -45,7 +46,8 @@ function getOptions(data = {}) {
     body: Object.keys(data)
       .filter(k => !!data[k])
       .sort()
-      .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
+      .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`)
+      .join('&')
   }
 }
 
@@ -140,8 +142,5 @@ export function* initialize() {
 }
 
 export default function* mainSagas() {
-  yield all([
-    takeLatest(actions.LOGIN, loginSaga),
-    takeLatest(actions.INITIALIZE, initialize)
-  ])
+  yield all([takeLatest(actions.LOGIN, loginSaga), takeLatest(actions.INITIALIZE, initialize)])
 }

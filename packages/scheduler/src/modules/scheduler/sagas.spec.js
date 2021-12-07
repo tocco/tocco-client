@@ -1,9 +1,9 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
-import {externalEvents} from 'tocco-app-extensions'
 import {takeLatest} from 'redux-saga/effects'
+import {externalEvents} from 'tocco-app-extensions'
 
-import mainSaga, * as sagas from './sagas'
 import * as actions from './actions'
+import mainSaga, * as sagas from './sagas'
 
 describe('scheduler', () => {
   describe('modules', () => {
@@ -12,14 +12,16 @@ describe('scheduler', () => {
         describe('mainSaga', () => {
           test('should fork sagas', () => {
             const saga = testSaga(mainSaga)
-            saga.next().all([
-              takeLatest(actions.ON_DATE_RANGE_CHANGE, sagas.onDateRangeChange),
-              takeLatest(actions.ON_CALENDAR_REMOVE, sagas.onCalendarRemove),
-              takeLatest(actions.ON_CALENDARS_REMOVE_ALL, sagas.onCalendarRemoveAll),
-              takeLatest(actions.ON_EVENT_CLICK, sagas.onEventClick),
-              takeLatest(actions.ON_REFRESH, sagas.onRefresh),
-              takeLatest(actions.SET_CALENDARS, sagas.setCalendars)
-            ])
+            saga
+              .next()
+              .all([
+                takeLatest(actions.ON_DATE_RANGE_CHANGE, sagas.onDateRangeChange),
+                takeLatest(actions.ON_CALENDAR_REMOVE, sagas.onCalendarRemove),
+                takeLatest(actions.ON_CALENDARS_REMOVE_ALL, sagas.onCalendarRemoveAll),
+                takeLatest(actions.ON_EVENT_CLICK, sagas.onEventClick),
+                takeLatest(actions.ON_REFRESH, sagas.onRefresh),
+                takeLatest(actions.SET_CALENDARS, sagas.setCalendars)
+              ])
           })
         })
 
@@ -47,9 +49,7 @@ describe('scheduler', () => {
 
       describe('setCalendars', () => {
         test('should set isLoading to false', () => {
-          return expectSaga(sagas.setCalendars)
-            .put(actions.setIsLoading(false))
-            .run()
+          return expectSaga(sagas.setCalendars).put(actions.setIsLoading(false)).run()
         })
       })
     })

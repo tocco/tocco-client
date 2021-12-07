@@ -1,5 +1,5 @@
-import {IntlProvider} from 'react-intl'
 import {mount, shallow} from 'enzyme'
+import {IntlProvider} from 'react-intl'
 
 // Create the IntlProvider to retrieve context for wrapping around.
 

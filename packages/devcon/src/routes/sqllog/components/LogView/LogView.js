@@ -7,8 +7,8 @@ import LogTable from '../LogTable'
 const LogView = () => (
   <>
     <Typography.H1>SQL Log</Typography.H1>
-    <LogForm/>
-    <LogTable/>
+    <LogForm />
+    <LogTable />
   </>
 )
 

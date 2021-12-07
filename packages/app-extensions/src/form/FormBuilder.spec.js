@@ -1,7 +1,7 @@
-import React from 'react'
 import {shallow} from 'enzyme'
-import {Layout} from 'tocco-ui'
+import React from 'react'
 import {Field} from 'redux-form'
+import {Layout} from 'tocco-ui'
 
 import FormBuilder from './FormBuilder'
 
@@ -31,8 +31,8 @@ const testData = {
   },
   formName: 'detail',
   formValues: {
-    'firstname': 'Fist Name',
-    'lastname': 'Last Name',
+    firstname: 'Fist Name',
+    lastname: 'Last Name',
     'not-readonly-field': 'test'
   },
   formDefinition: {
@@ -120,7 +120,8 @@ const testData = {
             label: null
           }
         ]
-      }]
+      }
+    ]
   }
 }
 
@@ -130,7 +131,7 @@ describe('app-extensions', () => {
       test('should render layout boxes and Fields', () => {
         const {entity, formName, formDefinition, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
         expect(wrapper.find(Layout.Box)).to.have.length(3)
         expect(wrapper.find(Field)).to.have.length(3)
       })
@@ -141,28 +142,25 @@ describe('app-extensions', () => {
         const beforeRenderField = name => name !== 'lastname'
 
         const props = {entity, formName, formDefinition, formValues, beforeRenderField, formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
         expect(wrapper.find(Layout.Box)).to.have.length(3)
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
-      test(
-        'should not require an entity (should not check readable flag in this case)',
-        () => {
-          const {formName, formDefinition, formValues} = testData
-          const entity = null
-          const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
-          const wrapper = shallow(<FormBuilder {...props}/>)
-          expect(wrapper.find(Field)).to.have.length(3)
-        }
-      )
+      test('should not require an entity (should not check readable flag in this case)', () => {
+        const {formName, formDefinition, formValues} = testData
+        const entity = null
+        const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
+        const wrapper = shallow(<FormBuilder {...props} />)
+        expect(wrapper.find(Field)).to.have.length(3)
+      })
 
       test('should not render empty values in readonly form', () => {
         const {entity, formName, formDefinition} = testData
         const formDefinitionReadOnly = {...formDefinition, readonly: true}
         const formValues = {lastname: undefined}
         const props = {entity, formName, formValues, formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} formDefinition={formDefinitionReadOnly}/>)
+        const wrapper = shallow(<FormBuilder {...props} formDefinition={formDefinitionReadOnly} />)
         expect(wrapper.find(Field)).to.have.length(0)
       })
 
@@ -170,7 +168,7 @@ describe('app-extensions', () => {
         const {formName, formDefinition, formValues} = testData
         const entity = null
         const props = {entity, formName, formDefinition, formValues, mode: 'create', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
         expect(wrapper.find(Field)).to.have.length(3)
       })
 
@@ -178,7 +176,7 @@ describe('app-extensions', () => {
         const {formName, formDefinition, formValues} = testData
         const entity = null
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
@@ -186,7 +184,7 @@ describe('app-extensions', () => {
         const {formName, formDefinition, formValues} = testData
         const entity = null
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
         const field = wrapper.findWhere(e => e.props().id === 'input-detail-not-readonly-field')
         expect(field).to.have.length(1)
         expect(field.props().parentReadOnly).to.be.true
@@ -254,7 +252,7 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
 
         expect(wrapper.find(Field).first().props().entityField).to.equal(
           entity.paths.relOrder.value.paths.relOrder_debitor_status
@@ -305,7 +303,7 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
 
         expect(wrapper.find(Field)).to.have.length(0)
       })
@@ -354,7 +352,7 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'create', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
 
         expect(wrapper.find(Field)).to.have.length(1)
       })
@@ -407,7 +405,7 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
 
         expect(wrapper.find(Field)).to.have.length(1)
       })
@@ -429,25 +427,27 @@ describe('app-extensions', () => {
                   id: 'locationfield_c',
                   label: 'PLZ / Ort',
                   componentType: 'field-set',
-                  children: [{
-                    id: 'locationfield_c',
-                    label: null,
-                    componentType: 'field',
-                    path: null,
-                    dataType: 'location',
-                    validation: null,
-                    defaultValue: null,
-                    autoCompleteEndpoint: null,
-                    locationMapping: {
-                      postcode: 'zip_c',
-                      city: 'city_c',
-                      street: 'address_c',
-                      country: 'relCountry_c',
-                      state: 'canton',
-                      district: 'admincode2'
-                    },
-                    countries: ['DE', 'AT', 'CH', 'IT', 'FR', 'LI']
-                  }],
+                  children: [
+                    {
+                      id: 'locationfield_c',
+                      label: null,
+                      componentType: 'field',
+                      path: null,
+                      dataType: 'location',
+                      validation: null,
+                      defaultValue: null,
+                      autoCompleteEndpoint: null,
+                      locationMapping: {
+                        postcode: 'zip_c',
+                        city: 'city_c',
+                        street: 'address_c',
+                        country: 'relCountry_c',
+                        state: 'canton',
+                        district: 'admincode2'
+                      },
+                      countries: ['DE', 'AT', 'CH', 'IT', 'FR', 'LI']
+                    }
+                  ],
                   readonly: false,
                   hidden: false,
                   useLabel: 'yes',
@@ -461,7 +461,7 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
+        const wrapper = shallow(<FormBuilder {...props} />)
 
         expect(wrapper.find(Field)).to.have.length(1)
       })

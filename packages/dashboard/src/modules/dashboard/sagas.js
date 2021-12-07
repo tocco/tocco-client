@@ -1,11 +1,11 @@
 import React from 'react'
+import {channel} from 'redux-saga'
 import {put, call, all, take, takeLatest, takeEvery, select} from 'redux-saga/effects'
 import {rest, notification} from 'tocco-app-extensions'
-import {channel} from 'redux-saga'
 
-import * as actions from './actions'
 import InfoBoxSettings from '../../components/InfoBoxSettings/InfoBoxSettings'
 import {mapColAndRowToPosition, prepareInfoBoxes} from '../../utils/positionUtils'
+import * as actions from './actions'
 
 export const dashboardSelector = state => state.dashboard
 
@@ -32,12 +32,15 @@ export function* loadDashboard() {
 
 export function* saveInfoBoxPositions({payload: {infoBoxes}}) {
   const updatedInfoBoxes = infoBoxes.map(box => ({...box, position: mapColAndRowToPosition(box.col, box.row)}))
-  const preferences = updatedInfoBoxes.reduce((acc, box) => ({
-    ...acc,
-    [`${box.id}:POSITION`]: box.position
-  }), {})
+  const preferences = updatedInfoBoxes.reduce(
+    (acc, box) => ({
+      ...acc,
+      [`${box.id}:POSITION`]: box.position
+    }),
+    {}
+  )
   yield call(saveInfoBoxPreferences, preferences)
-  
+
   yield put(actions.setDashboard(updatedInfoBoxes))
   return updatedInfoBoxes
 }
@@ -49,7 +52,7 @@ export function* saveInfoBoxHeight({payload: {id, height}}) {
     [`${id}:HEIGHT`]: height
   }
   yield call(saveInfoBoxPreferences, preferences)
-  
+
   yield put(actions.setDashboard(updatedInfoBoxes))
   return updatedInfoBoxes
 }
@@ -57,20 +60,22 @@ export function* saveInfoBoxHeight({payload: {id, height}}) {
 export function* displayInfoBoxSettings() {
   const {infoBoxes} = yield select(dashboardSelector)
   const answerChannel = yield call(channel)
-  yield put(notification.modal(
-    'dashboard-infobox-settings',
-    'client.dashboard.preferences.show.title',
-    null,
-    ({close}) => {
-      const onOk = columns => {
-        close()
-        answerChannel.put(columns)
-      }
+  yield put(
+    notification.modal(
+      'dashboard-infobox-settings',
+      'client.dashboard.preferences.show.title',
+      null,
+      ({close}) => {
+        const onOk = columns => {
+          close()
+          answerChannel.put(columns)
+        }
 
-      return <InfoBoxSettings initialInfoBoxes={infoBoxes} onOk={onOk}/>
-    },
-    true
-  ))
+        return <InfoBoxSettings initialInfoBoxes={infoBoxes} onOk={onOk} />
+      },
+      true
+    )
+  )
 
   yield call(saveInfoBoxSettings, answerChannel)
 }
@@ -78,10 +83,13 @@ export function* displayInfoBoxSettings() {
 function* saveInfoBoxSettings(answerChannel) {
   const infoBoxes = yield take(answerChannel)
 
-  const preferences = infoBoxes.reduce((acc, box) => ({
-    ...acc,
-    [`${box.id}:STATUS`]: box.folded ? 'folded' : 'open'
-  }), {})
+  const preferences = infoBoxes.reduce(
+    (acc, box) => ({
+      ...acc,
+      [`${box.id}:STATUS`]: box.folded ? 'folded' : 'open'
+    }),
+    {}
+  )
   yield call(saveInfoBoxPreferences, preferences)
 
   yield put(actions.setDashboard(infoBoxes))

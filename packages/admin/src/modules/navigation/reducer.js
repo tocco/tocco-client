@@ -2,19 +2,15 @@ import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
-export const toogleMenu = state => (
-  {
-    ...state,
-    menuOpen: !state.menuOpen
-  }
-)
+export const toogleMenu = state => ({
+  ...state,
+  menuOpen: !state.menuOpen
+})
 
-export const toggleShortcutMenu = (state, {payload: {activeMenuTab}}) => (
-  {
-    ...state,
-    menuOpen: state.activeMenuTab === activeMenuTab ? !state.menuOpen : true
-  }
-)
+export const toggleShortcutMenu = (state, {payload: {activeMenuTab}}) => ({
+  ...state,
+  menuOpen: state.activeMenuTab === activeMenuTab ? !state.menuOpen : true
+})
 
 const ACTION_HANDLERS = {
   [actions.SET_MENU_OPEN]: reducerUtil.singleTransferReducer('menuOpen'),

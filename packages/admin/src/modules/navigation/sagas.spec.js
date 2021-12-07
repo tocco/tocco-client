@@ -2,9 +2,9 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {rest} from 'tocco-app-extensions'
 
-import * as sagas from './sagas'
-import * as actions from './actions'
 import {saveUserPreferences, setUserPreferences} from '../preferences/actions'
+import * as actions from './actions'
+import * as sagas from './sagas'
 
 describe('admin', () => {
   describe('navigation', () => {
@@ -36,18 +36,14 @@ describe('admin', () => {
           const userPreferenceAction = setUserPreferences({'admin.activeMenu': 'settings'})
 
           return expectSaga(sagas.setActiveMenuFromPreferences, userPreferenceAction)
-            .provide([
-              [matchers.call.fn(rest.fetchUserPreferences), {'admin.activeMenu': 'settings'}]
-            ])
+            .provide([[matchers.call.fn(rest.fetchUserPreferences), {'admin.activeMenu': 'settings'}]])
             .put(actions.setActiveMenuTab('settings'))
             .run()
         })
         test('should do nothing without preferences', () => {
           const userPreferenceAction = setUserPreferences({})
           return expectSaga(sagas.setActiveMenuFromPreferences, userPreferenceAction)
-            .provide([
-              [matchers.call.fn(rest.fetchUserPreferences), {}]
-            ])
+            .provide([[matchers.call.fn(rest.fetchUserPreferences), {}]])
             .not.put(actions.setActiveMenuTab('settings'))
             .run()
         })

@@ -15,10 +15,11 @@ export default {
     tooltips: _get(formData.tooltips, formField.targetEntity, null),
     loadTooltip: id => formData.loadTooltip(formField.targetEntity, id),
     noResultsText: formData.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'}),
-    fetchOptions: () => formData.loadRelationEntities(formField.id, formField.targetEntity, {
-      forceReload: false,
-      limit: settings.LIMIT,
-      constriction: formField.constriction
-    })
+    fetchOptions: () =>
+      formData.loadRelationEntities(formField.id, formField.targetEntity, {
+        forceReload: false,
+        limit: settings.LIMIT,
+        constriction: formField.constriction
+      })
   })
 }

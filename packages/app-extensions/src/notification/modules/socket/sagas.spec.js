@@ -1,13 +1,13 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import {takeEvery, all, select} from 'redux-saga/effects'
 
-import rootSaga, * as sagas from './sagas'
-import * as actions from './actions'
-import * as toasterActions from '../toaster/actions'
-import {notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
 import {notificationTransform} from '../../api'
 import {updateNotification, updateUnreadNotification, markAsRead} from '../center/actions'
+import * as toasterActions from '../toaster/actions'
 import {TOASTER} from '../toaster/actions'
+import * as actions from './actions'
+import rootSaga, * as sagas from './sagas'
+import {notificationToToaster, TOASTER_KEY_PREFIX} from './socket'
 
 describe('app-extensions', () => {
   describe('notification', () => {
@@ -57,9 +57,7 @@ describe('app-extensions', () => {
 
         test('same originId', () => {
           return expectSaga(sagas.messageReceived, {payload: {data: data}})
-            .provide([
-              [select(sagas.notificationSocketSelector), {originId, ignoredToasters: []}]
-            ])
+            .provide([[select(sagas.notificationSocketSelector), {originId, ignoredToasters: []}]])
             .call(notificationTransform, data)
             .call(notificationToToaster, notification)
             .put.like({action: {type: TOASTER}})
@@ -69,9 +67,7 @@ describe('app-extensions', () => {
 
         test('other originId', () => {
           return expectSaga(sagas.messageReceived, {payload: {data: data}})
-            .provide([
-              [select(sagas.notificationSocketSelector), {originId: 'other', ignoredToasters: []}]
-            ])
+            .provide([[select(sagas.notificationSocketSelector), {originId: 'other', ignoredToasters: []}]])
             .call(notificationTransform, data)
             .put(updateUnreadNotification(notification.key, notification.read))
             .put(updateNotification(notification))
@@ -85,9 +81,7 @@ describe('app-extensions', () => {
           const toasterId = `${TOASTER_KEY_PREFIX}${key}`
           const toasters = {[toasterId]: {type: 'success'}}
           return expectSaga(sagas.toasterRemoved, {payload: {key: toasterId, manually: true}})
-            .provide([
-              [select(sagas.toastersSelector), toasters]
-            ])
+            .provide([[select(sagas.toastersSelector), toasters]])
             .put(markAsRead(key))
             .put(actions.addIgnoreToaster(toasterId))
             .run()

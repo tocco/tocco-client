@@ -10,42 +10,24 @@ const defaultStore = {
 export default function setupFetchMock(packageName, fetchMock, entityStore = defaultStore) {
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/calendar/types$'),
-    require('./data/calendarTypes')
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/calendar/types$'), require('./data/calendarTypes'))
 
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/calendar/events'),
-    (url, opts) => {
-      consoleLogger.log('fetchMock: called rest/calendar/events', url, opts)
-      return sleep(500).then(() => {
-        const body = JSON.parse(opts.body)
-        const data = getCalendarResponse(body.calendars, body.start, body.end)
-        return {data}
-      })
-    }
-  )
+  fetchMock.post(new RegExp('^.*?/nice2/rest/calendar/events'), (url, opts) => {
+    consoleLogger.log('fetchMock: called rest/calendar/events', url, opts)
+    return sleep(500).then(() => {
+      const body = JSON.parse(opts.body)
+      const data = getCalendarResponse(body.calendars, body.start, body.end)
+      return {data}
+    })
+  })
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/UserCalendar_list$'),
-    mockData.data.userListSmallForm
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/UserCalendar_list$'), mockData.data.userListSmallForm)
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/UserCalendar_search$'),
-    mockData.data.userSearchForm
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/UserCalendar_search$'), mockData.data.userSearchForm)
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/DummyCalendar_list$'),
-    mockData.data.dummyEntityListForm
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/DummyCalendar_list$'), mockData.data.dummyEntityListForm)
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/DummyCalendar_search$'),
-    mockData.data.dummyEntitySearchForm
-  )
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/DummyCalendar_search$'), mockData.data.dummyEntitySearchForm)
 
   mockData.setupFetchMock(fetchMock, entityStore)
 

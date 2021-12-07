@@ -7,7 +7,9 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-export default Story => <div>
-  <GlobalStyle/>
-  <Story/>
-</div>
+export default Story => (
+  <div>
+    <GlobalStyle />
+    <Story />
+  </div>
+)

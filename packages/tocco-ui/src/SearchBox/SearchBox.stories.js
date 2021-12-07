@@ -15,15 +15,18 @@ export default {
 export const Basic = args => {
   const inputEl = useRef(null)
 
-  return <div>
-    <button onClick={() => {
-      if (inputEl && inputEl.current) {
-        inputEl.current.focus()
-      }
-    }}>Focus</button>
-    <SearchBox
-      {...args}
-      ref={inputEl}
-    />
-  </div>
+  return (
+    <div>
+      <button
+        onClick={() => {
+          if (inputEl && inputEl.current) {
+            inputEl.current.focus()
+          }
+        }}
+      >
+        Focus
+      </button>
+      <SearchBox {...args} ref={inputEl} />
+    </div>
+  )
 }

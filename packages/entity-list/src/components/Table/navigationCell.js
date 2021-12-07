@@ -1,24 +1,21 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {Icon} from 'tocco-ui'
 
 import NavigationCellHeader from './NavigationCellHeader'
 
 const CellRenderer = ({showNavigation, rowData, navigationStrategy, parent}) =>
-  showNavigation && navigationStrategy.DetailLinkRelative
-    ? <span
-      onClick={e => e.stopPropagation()}
-      data-cy="list-navigation-arrow"
-    >
+  showNavigation && navigationStrategy.DetailLinkRelative ? (
+    <span onClick={e => e.stopPropagation()} data-cy="list-navigation-arrow">
       <navigationStrategy.DetailLinkRelative
         entityKey={rowData.__key}
         entityModel={rowData.__model}
         {...(parent && parent.relationName && {relation: parent.relationName})}
       >
-        <Icon icon="arrow-right"/>
+        <Icon icon="arrow-right" />
       </navigationStrategy.DetailLinkRelative>
     </span>
-    : null
+  ) : null
 
 CellRenderer.propTypes = {
   rowData: PropTypes.shape({
@@ -41,10 +38,7 @@ export const navigationCell = (showNavigation, navigationStrategy, parent) => ({
   resizable: false,
   dynamic: false,
   HeaderRenderer: NavigationCellHeader,
-  CellRenderer: props => <CellRenderer
-    {...props}
-    showNavigation={showNavigation}
-    navigationStrategy={navigationStrategy}
-    parent={parent}
-  />
+  CellRenderer: props => (
+    <CellRenderer {...props} showNavigation={showNavigation} navigationStrategy={navigationStrategy} parent={parent} />
+  )
 })

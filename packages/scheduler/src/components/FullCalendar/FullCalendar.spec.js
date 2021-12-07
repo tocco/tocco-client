@@ -1,6 +1,6 @@
+import ReactFullCalendar from '@fullcalendar/react'
 import React from 'react'
 import {TestThemeProvider, enzymeUtil} from 'tocco-test-util'
-import ReactFullCalendar from '@fullcalendar/react'
 
 import FullCalendar from './FullCalendar'
 
@@ -16,7 +16,7 @@ describe('scheduler', () => {
       }
 
       test('should render calendar', () => {
-        const wrapper = enzymeUtil.mountEmbedded(<FullCalendar {...baseProps}/>)
+        const wrapper = enzymeUtil.mountEmbedded(<FullCalendar {...baseProps} />)
         expect(wrapper.find(ReactFullCalendar)).to.have.length(1)
       })
 
@@ -29,14 +29,12 @@ describe('scheduler', () => {
         }
       ]
 
-      const mockResources = [
-        {title: 'Dummy_entity 0', id: '0Dummy_entity', entityKey: '0', calendarType: 'dummy'}
-      ]
+      const mockResources = [{title: 'Dummy_entity 0', id: '0Dummy_entity', entityKey: '0', calendarType: 'dummy'}]
 
       test('should show resources', () => {
         const wrapper = enzymeUtil.mountEmbedded(
           <TestThemeProvider>
-            <FullCalendar {...baseProps}/>
+            <FullCalendar {...baseProps} />
           </TestThemeProvider>
         )
         expect(wrapper.html()).to.not.have.string(mockResources[0].title)
@@ -45,16 +43,14 @@ describe('scheduler', () => {
       test('should show mocked resources', () => {
         const wrapper = enzymeUtil.mountEmbedded(
           <TestThemeProvider>
-            <FullCalendar {...baseProps} resources={mockResources}/>
+            <FullCalendar {...baseProps} resources={mockResources} />
           </TestThemeProvider>
         )
         expect(wrapper.html()).to.have.string(mockResources[0].title)
       })
 
       test('should show events', () => {
-        const wrapper = enzymeUtil.mountEmbedded(
-          <FullCalendar locale="de" {...baseProps} resources={mockResources}/>
-        )
+        const wrapper = enzymeUtil.mountEmbedded(<FullCalendar locale="de" {...baseProps} resources={mockResources} />)
         wrapper.setProps({events: mockEvents})
         // its not possible to check for updated events
       })

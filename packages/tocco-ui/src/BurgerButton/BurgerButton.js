@@ -1,6 +1,6 @@
+import {m, LazyMotion} from 'framer-motion'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {m, LazyMotion} from 'framer-motion'
 import {injectIntl} from 'react-intl'
 
 /**
@@ -46,45 +46,30 @@ const BurgerButton = ({isOpen, size = '20', color, intl}) => {
     transition: {ease: 'easeOut', duration: 0.4}
   }
 
-  const loadFeatures = () =>
-    import('./framerMotionFeatures.js').then(res => res.default)
+  const loadFeatures = () => import('./framerMotionFeatures.js').then(res => res.default)
 
   return (
     <LazyMotion features={loadFeatures}>
-    <m.svg
-      viewBox="0 0 6 6"
-      overflow="visible"
-      preserveAspectRatio="none"
-      width={size}
-      height={size}
-      aria-label={msg('client.component.burgerButton.Label')}
-    >
-      <m.line
-        x1="0"
-        x2="6"
-        y1="1"
-        y2="1"
-        variants={top}
-        {...lineProps}
-      />
-      <m.line
-        x1="0"
-        x2="6"
-        y1="3"
-        y2="3"
-        variants={center}
-        {...lineProps}
-        transition={{ease: 'easeOut', duration: 0.1}}
-      />
-      <m.line
-        x1="0"
-        x2="6"
-        y1="5"
-        y2="5"
-        variants={bottom}
-        {...lineProps}
-      />
-    </m.svg>
+      <m.svg
+        viewBox="0 0 6 6"
+        overflow="visible"
+        preserveAspectRatio="none"
+        width={size}
+        height={size}
+        aria-label={msg('client.component.burgerButton.Label')}
+      >
+        <m.line x1="0" x2="6" y1="1" y2="1" variants={top} {...lineProps} />
+        <m.line
+          x1="0"
+          x2="6"
+          y1="3"
+          y2="3"
+          variants={center}
+          {...lineProps}
+          transition={{ease: 'easeOut', duration: 0.1}}
+        />
+        <m.line x1="0" x2="6" y1="5" y2="5" variants={bottom} {...lineProps} />
+      </m.svg>
     </LazyMotion>
   )
 }

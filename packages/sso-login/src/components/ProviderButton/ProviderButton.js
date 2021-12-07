@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {Icon} from 'tocco-ui'
-import PropTypes from 'prop-types'
 
 import {openLoginWindow} from '../../utils/loginWindow'
 import StyledProviderButton from './StyledProviderButton'
@@ -16,7 +16,7 @@ const ProviderButton = ({provider, loginCompleted, loginEndpoint}) => {
       secondaryColor={provider.button_secondary_color}
       onClick={clickHandler}
     >
-      {provider.button_icon && <Icon position="prepend" icon={provider.button_icon}/>}
+      {provider.button_icon && <Icon position="prepend" icon={provider.button_icon} />}
       <span>{provider.button_label}</span>
     </StyledProviderButton>
   )

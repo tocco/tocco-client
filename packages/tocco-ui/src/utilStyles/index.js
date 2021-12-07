@@ -1,8 +1,6 @@
 import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
-import {
-  colorizeBorder,
-  colorizeText
-} from './colorMap'
+import {colorizeBorder, colorizeText} from './colorMap'
+import declareFont from './declareFont'
 import {
   declareFocus,
   declareInteractionColors,
@@ -12,18 +10,14 @@ import {
   getBestContrast,
   shadeColor
 } from './declareInteractionColors'
-import declareFont from './declareFont'
-import {
-  declareNoneWrappingText,
-  declareWrappingText
-} from './declareWrapping'
-import filterObjectByKeysStartingWith from './filterObjectByKeysStartingWith'
-import theme from './resolveThemePath'
-import getTextOfChildren from './getTextOfChildren'
-import scale from './modularScale'
+import {declareNoneWrappingText, declareWrappingText} from './declareWrapping'
 import design from './designConstants'
-import {validateCssDimension} from './propTypesValidator'
+import filterObjectByKeysStartingWith from './filterObjectByKeysStartingWith'
+import getTextOfChildren from './getTextOfChildren'
 import interactiveStyling from './interactiveStyling'
+import scale from './modularScale'
+import {validateCssDimension} from './propTypesValidator'
+import theme from './resolveThemePath'
 
 export {
   interactiveStyling,

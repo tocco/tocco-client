@@ -1,7 +1,7 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {BallMenu, MenuItem} from 'tocco-ui'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
+import {BallMenu, MenuItem} from 'tocco-ui'
 
 import {StyledMenuWrapper} from './StyledComponents'
 
@@ -9,10 +9,10 @@ const Menu = ({displayInfoBoxSettings, resetInfoBoxSettings}) => (
   <StyledMenuWrapper>
     <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
       <MenuItem onClick={displayInfoBoxSettings}>
-        <FormattedMessage id="client.dashboard.preferences.show"/>
+        <FormattedMessage id="client.dashboard.preferences.show" />
       </MenuItem>
       <MenuItem onClick={resetInfoBoxSettings}>
-        <FormattedMessage id="client.dashboard.preferences.reset"/>
+        <FormattedMessage id="client.dashboard.preferences.reset" />
       </MenuItem>
     </BallMenu>
   </StyledMenuWrapper>

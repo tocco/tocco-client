@@ -4,11 +4,9 @@ import {withTheme} from 'styled-components'
 
 import Icon from '../../Icon'
 
-const BooleanFormatter = props =>
-  <Icon
-    style={{fontSize: `${props.theme.fontSize.base}rem`}}
-    icon={props.value ? 'check' : 'times'}
-  />
+const BooleanFormatter = props => (
+  <Icon style={{fontSize: `${props.theme.fontSize.base}rem`}} icon={props.value ? 'check' : 'times'} />
+)
 
 BooleanFormatter.propTypes = {
   value: PropTypes.bool,

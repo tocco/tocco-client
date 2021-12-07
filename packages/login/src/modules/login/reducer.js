@@ -1,7 +1,7 @@
 import {reducer as reducerUtil} from 'tocco-util'
 
-import * as actions from './actions'
 import {Pages} from './../../types/Pages'
+import * as actions from './actions'
 
 const changePage = (state, {payload}) => {
   const {page} = payload

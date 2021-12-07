@@ -1,33 +1,28 @@
-import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {appFactory} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
 
-import reducers, {sagas} from './modules/reducers'
 import UserQrCode from './containers/UserQrCodeContainer'
+import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'user-qr-action'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <UserQrCode selection={input.selection}/>
+  const content = <UserQrCode selection={input.selection} />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 

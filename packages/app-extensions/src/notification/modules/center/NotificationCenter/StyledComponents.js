@@ -11,9 +11,11 @@ const typeColorMap = {
 export const StyledNotification = styled.article`
   margin-bottom: ${scale.space(0)};
   padding: ${scale.space(-1)};
-  ${({read}) => !read && css`
-    background-color: ${theme.color('backgroundBody')};
-  `}
+  ${({read}) =>
+    !read &&
+    css`
+      background-color: ${theme.color('backgroundBody')};
+    `}
 `
 
 export const StyledNotificationHeader = styled.header`

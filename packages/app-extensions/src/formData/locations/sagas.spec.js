@@ -40,9 +40,7 @@ describe('app-extensions', () => {
         describe('main saga', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
-            saga.next().all([
-              takeLatest(locationActions.LOAD_LOCATION_SUGGESTIONS, sagas.loadLocations)
-            ])
+            saga.next().all([takeLatest(locationActions.LOAD_LOCATION_SUGGESTIONS, sagas.loadLocations)])
           })
         })
 

@@ -19,7 +19,7 @@ export default changePosition => {
   const events = item => ({
     onDragStart: e => {
       setState({...state, currentlyDragging: item})
-        
+
       /**
        * Workaround: https://github.com/facebook/react/issues/1355
        * dragEnd-event is not fired in React for already removed components.
@@ -42,7 +42,7 @@ export default changePosition => {
     onDragEnter: e => {
       if (state.currentlyDragging && !isEqual(state.currentlyDragOver, item)) {
         const bounding = e.target ? e.target.getBoundingClientRect() : {}
-        const offset = bounding.y + (bounding.height / 2)
+        const offset = bounding.y + bounding.height / 2
         setState({...state, currentlyDragOver: item, offset})
       }
       e.stopPropagation()

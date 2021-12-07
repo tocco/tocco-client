@@ -21,13 +21,7 @@ const ValidationRules = props => (
         }
       }
 
-      return (
-        <SignalList.Item
-          condition={condition}
-          key={index}
-          label={message}
-        />
-      )
+      return <SignalList.Item condition={condition} key={index} label={message} />
     })}
   </SignalList.List>
 )

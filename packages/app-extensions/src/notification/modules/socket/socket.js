@@ -12,8 +12,9 @@ export const notificationToToaster = notification => {
     title: notification.title,
     message: notification.message,
     // eslint-disable-next-line react/prop-types
-    body: ({navigationStrategy, cancelTask}) =>
-      <NotificationBody notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask}/>,
+    body: ({navigationStrategy, cancelTask}) => (
+      <NotificationBody notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask} />
+    ),
     ...(notification.taskProgress && notification.taskProgress.isRunning ? {duration: -1} : {})
   }
 }

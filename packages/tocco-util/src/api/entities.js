@@ -1,8 +1,8 @@
-import _pick from 'lodash/pick'
 import _get from 'lodash/get'
-import _set from 'lodash/set'
-import _reduce from 'lodash/reduce'
 import _isObject from 'lodash/isObject'
+import _pick from 'lodash/pick'
+import _reduce from 'lodash/reduce'
+import _set from 'lodash/set'
 
 const metaFields = {
   KEY: '__key',
@@ -49,8 +49,11 @@ export const flattenPaths = (paths, currentPath = []) =>
         if (Array.isArray(path.value)) {
           subPaths = path.value.reduce((acc, v) => {
             const flatten = flattenPaths(v.paths, [...currentPath, pathId])
-            const combinedArrayVales = _reduce(flatten, (acc2, val, key) =>
-              ({...acc2, [key]: [...(acc[key] || []), val]}), {})
+            const combinedArrayVales = _reduce(
+              flatten,
+              (acc2, val, key) => ({...acc2, [key]: [...(acc[key] || []), val]}),
+              {}
+            )
             return {...acc, ...combinedArrayVales}
           }, {})
         } else {
@@ -69,8 +72,9 @@ export const flattenPaths = (paths, currentPath = []) =>
  * @param {array} dirtyFields - Optional list of dirty field names (paths). If undefined, all paths are applied
  */
 export const toEntity = (flattenEntity, dirtyFields) => {
-  const ignoredPath = path => (Object.values(metaFields).includes(path))
-      || (dirtyFields && !dirtyFields.some(dirtyField => dirtyField === path || dirtyField.startsWith(path + '.')))
+  const ignoredPath = path =>
+    Object.values(metaFields).includes(path) ||
+    (dirtyFields && !dirtyFields.some(dirtyField => dirtyField === path || dirtyField.startsWith(path + '.')))
 
   const valueSimplifier = value => {
     if (Array.isArray(value)) {

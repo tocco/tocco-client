@@ -1,7 +1,7 @@
-import React from 'react'
 import {shallow} from 'enzyme'
-import {Button, Typography} from 'tocco-ui'
+import React from 'react'
 import {intlEnzyme, IntlStub} from 'tocco-test-util'
+import {Button, Typography} from 'tocco-ui'
 
 import TwoStepLoginForm from './TwoStepLoginForm'
 

@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import Login from './Login'
 import {loginSuccessful, checkSsoAvailable} from '../../modules/session/actions'
+import Login from './Login'
 
 const mapActionCreators = {
   loginSuccessful,

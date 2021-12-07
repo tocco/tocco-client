@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import {Button, scale, StyledSpan, theme, StyledItemLabel} from 'tocco-ui'
 
 export const SearchFilterListWrapper = styled.div`
-  margin-top: .4rem;
-  margin-bottom: .4rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
 `
 
 export const StyledSpanSearchFilter = styled(StyledSpan)`
@@ -21,7 +21,7 @@ export const StyledAddRemoveButton = styled(Button)`
     padding: 0 ${scale.space(-2.5)} 0 0;
 
     &:hover * {
-      color: ${({active}) => active ? theme.color('paper') : theme.color('secondary')} !important;
+      color: ${({active}) => (active ? theme.color('paper') : theme.color('secondary'))} !important;
     }
   }
 `
@@ -34,7 +34,7 @@ export const StyledMenuWrapper = styled.div`
     }
 
     &:hover button {
-      color: ${({active}) => active ? theme.color('paper') : theme.color('secondary')};
+      color: ${({active}) => (active ? theme.color('paper') : theme.color('secondary'))};
       cursor: pointer;
     }
   }
@@ -42,8 +42,8 @@ export const StyledMenuWrapper = styled.div`
 
 export const StyleButtonWrapper = styled.div`
   display: flex;
-  ${/* sc-selector */StyledMenuWrapper} button,
-  ${/* sc-selector */StyledAddRemoveButton} * {
+  ${/* sc-selector */ StyledMenuWrapper} button,
+  ${/* sc-selector */ StyledAddRemoveButton} * {
     color: transparent;
   }
 `
@@ -51,21 +51,21 @@ export const StyleButtonWrapper = styled.div`
 export const StyledSearchFilterButton = styled.div`
   border-radius: ${theme.radii('medium')};
   display: flex;
-  padding: .3rem 0 .3rem 1rem;
-  margin-bottom: .2rem;
+  padding: 0.3rem 0 0.3rem 1rem;
+  margin-bottom: 0.2rem;
   background-color: ${({active}) => active && theme.color('secondary')};
   justify-content: flex-end;
 
   && {
-    *:not(${/* sc-selector */StyledItemLabel}) {
+    *:not(${/* sc-selector */ StyledItemLabel}) {
       color: ${({active}) => active && theme.color('paper')};
     }
   }
 
   &:hover {
-    ${/* sc-selector */StyledSpanSearchFilter},
-    ${/* sc-selector */StyledMenuWrapper} button,
-    ${/* sc-selector */StyledAddRemoveButton} * {
+    ${/* sc-selector */ StyledSpanSearchFilter},
+    ${/* sc-selector */ StyledMenuWrapper} button,
+    ${/* sc-selector */ StyledAddRemoveButton} * {
       color: ${theme.color('paper')};
     }
     background-color: ${({active}) => !active && theme.color('secondaryLight')};

@@ -20,9 +20,7 @@ describe('admin', () => {
               menuTreePath: 'address',
               preferencesPrefix: ''
             }
-            const wrapper = intlEnzyme.mountWithIntl(
-              <MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>
-            )
+            const wrapper = intlEnzyme.mountWithIntl(<MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>)
 
             expect(wrapper.find(StyledMenuChildrenWrapper).prop('isOpen')).to.be.true
           })
@@ -31,16 +29,14 @@ describe('admin', () => {
             const isOpen = false
             const canCollapse = true
             const children = <div id="child">Hallo</div>
-            
+
             const props = {
               isOpen,
               canCollapse,
               menuTreePath: 'address',
               preferencesPrefix: ''
             }
-            const wrapper = intlEnzyme.mountWithIntl(
-              <MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>
-            )
+            const wrapper = intlEnzyme.mountWithIntl(<MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>)
 
             expect(wrapper.find(StyledMenuChildrenWrapper).prop('isOpen')).to.be.false
           })
@@ -56,9 +52,7 @@ describe('admin', () => {
               menuTreePath: 'address',
               preferencesPrefix: ''
             }
-            const wrapper = intlEnzyme.mountWithIntl(
-              <MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>
-            )
+            const wrapper = intlEnzyme.mountWithIntl(<MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>)
 
             expect(wrapper.find(StyledMenuChildrenWrapper).prop('isOpen')).to.be.true
           })

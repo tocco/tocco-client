@@ -4,36 +4,36 @@ import {dragAndDrop} from 'tocco-util'
 import DropTypes from './dropTypes'
 import {InfoBoxRenderTypes} from './infoBoxTypes'
 
-export const sortInfoBoxes = boxes => boxes.sort((a, b) => {
-  if (a.col === b.col) {
-    return a.row - b.row
-  }
-  return a.col - b.col
-})
+export const sortInfoBoxes = boxes =>
+  boxes.sort((a, b) => {
+    if (a.col === b.col) {
+      return a.row - b.row
+    }
+    return a.col - b.col
+  })
 
 const reindex = curry(sortedBoxes => {
-  return sortedBoxes
-    .reduce(({index, boxes}, box) => {
+  return sortedBoxes.reduce(
+    ({index, boxes}, box) => {
       const nextIndex = typeof index[box.col] === 'number' ? index[box.col] + 1 : 0
       const acc = {
-        boxes: [
-          ...boxes,
-          {...box, row: nextIndex}
-        ],
+        boxes: [...boxes, {...box, row: nextIndex}],
         index: {
           ...index,
           [box.col]: nextIndex
         }
       }
       return acc
-    }, {index: {}, boxes: []}).boxes
+    },
+    {index: {}, boxes: []}
+  ).boxes
 })
 
 const insertDraggedAtDropped = curry((draggingId, dragOverId, position, sortedBoxes) => {
   const dragOverColumn = sortedBoxes.find(b => b.id === dragOverId)?.col
   const draggingBox = sortedBoxes.find(b => b.id === draggingId)
-  return reindex(sortedBoxes
-    .reduce((boxes, box) => {
+  return reindex(
+    sortedBoxes.reduce((boxes, box) => {
       const moveBoxHere = box.id === dragOverId
       const isDraggingBox = box.id === draggingId
       if (isDraggingBox) {
@@ -55,9 +55,8 @@ const insertDraggedAtDropped = curry((draggingId, dragOverId, position, sortedBo
   )
 })
 
-export const moveDraggedToDropped = (draggingId, dragOverId, position, boxes) => flow([
-  sortInfoBoxes,
-  insertDraggedAtDropped(draggingId, dragOverId, position)])(boxes)
+export const moveDraggedToDropped = (draggingId, dragOverId, position, boxes) =>
+  flow([sortInfoBoxes, insertDraggedAtDropped(draggingId, dragOverId, position)])(boxes)
 
 export const appendDraggedAsLastItemToDropped = (draggingId, dragOverId, boxes) => {
   const draggingBox = boxes.find(b => b.id === draggingId)
@@ -74,26 +73,21 @@ export const getRenderInfoBoxesForColumn = (draggingId, currentlyDragOver, posit
   const draggingPreviewBox = {...draggingBox, type: InfoBoxRenderTypes.DropPreview}
 
   let renderBoxes = boxes
-    .filter(({folded, col, id}) => !folded
-      && col === column
-      && ((typeof dragOverId !== 'undefined' && !isOverItself)
-        ? id !== draggingId
-        : true))
+    .filter(
+      ({folded, col, id}) =>
+        !folded && col === column && (typeof dragOverId !== 'undefined' && !isOverItself ? id !== draggingId : true)
+    )
     .map(box => ({...box, type: InfoBoxRenderTypes.InfoBox}))
     .reduce((acc, key) => {
       const showPreviewHere = key.id === dragOverId && dragOverType === DropTypes.InfoBox && !isOverItself
       return [
         ...acc,
-        ...(position === dragAndDrop.DropPosition.Top && showPreviewHere
-          ? [draggingPreviewBox]
-          : []),
-        (key.id === draggingId && isOverItself) ? {...key, type: InfoBoxRenderTypes.DropPreview} : key,
-        ...(position === dragAndDrop.DropPosition.Bottom && showPreviewHere
-          ? [draggingPreviewBox]
-          : [])
+        ...(position === dragAndDrop.DropPosition.Top && showPreviewHere ? [draggingPreviewBox] : []),
+        key.id === draggingId && isOverItself ? {...key, type: InfoBoxRenderTypes.DropPreview} : key,
+        ...(position === dragAndDrop.DropPosition.Bottom && showPreviewHere ? [draggingPreviewBox] : [])
       ]
     }, [])
-  
+
   if (dragOverType === DropTypes.Column && dragOverId === column) {
     renderBoxes = [...renderBoxes, draggingPreviewBox]
   }

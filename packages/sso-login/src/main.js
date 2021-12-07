@@ -1,39 +1,32 @@
-import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, cache, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import React from 'react'
+import {appFactory, cache, externalEvents} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
 
-import reducers, {sagas} from './modules'
 import LoginBoxContainer from './containers/LoginBoxContainer'
+import reducers, {sagas} from './modules'
 
 const packageName = 'sso-login'
 
-const EXTERNAL_EVENTS = [
-  'loginCompleted'
-]
+const EXTERNAL_EVENTS = ['loginCompleted']
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <LoginBoxContainer/>
+  const content = <LoginBoxContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   cache.addToStore(store)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 

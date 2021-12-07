@@ -14,9 +14,9 @@
   "defaultValues": {
     "textQuestion": "input default value!"
   },
-  "form":{
+  "form": {
     "id": "Acceptor_detail",
-   "componentType": "table",
+    "componentType": "table",
     "layoutType": "table",
     "hidden": false,
     "scopes": [],
@@ -97,7 +97,7 @@
                     "componentType": "field",
                     "defaultValue": true,
                     "label": null,
-                    "validation": { }
+                    "validation": {}
                   }
                 ]
               },
@@ -114,7 +114,7 @@
                     "dataType": "multi-select-box",
                     "componentType": "field",
                     "label": null,
-                    "validation": { },
+                    "validation": {},
                     "defaultValue": null,
                     "targetEntity": "Dummy_entity",
                     "relationName": "relMulti_entity"
@@ -135,7 +135,7 @@
                     "componentType": "field",
                     "label": null,
                     "defaultValue": null,
-                    "validation": { },
+                    "validation": {},
                     "targetEntity": "Dummy_entity",
                     "relationName": "relMulti_entity"
                   }
@@ -154,7 +154,7 @@
                     "dataType": "document",
                     "componentType": "field",
                     "label": null,
-                    "validation": { },
+                    "validation": {},
                     "defaultValue": null
                   }
                 ]
@@ -168,4 +168,3 @@
   },
   "mappingType": "search"
 }
-

@@ -1,38 +1,44 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {Icon, Typography} from 'tocco-ui'
+import React from 'react'
 import {FormattedMessage} from 'react-intl'
+import {Icon, Typography} from 'tocco-ui'
 
 import sourceDataPropType from '../../util/sourceDataPropType'
 import {StyledMergeErrorWrapper, StyledSummaryErrorWrapper, StyledIconWrapper, StyledError} from './StyledComponents'
 
 const MergeErrors = ({sourceData, mergeErrorMsg, mergeValidationErrors}) => {
   const allMergerValidationErrors = mergeValidationErrors.map(e => {
-    const fieldValidators = Object.keys(e.paths)
-      .map(name => Object.keys(e.paths[name]).map(
-        validator => e.paths[name][validator].map((msg, index) =>
-          <StyledError key={`paths-${name}-${validator}-${index}`}>{sourceData.labels[name]}: {msg}</StyledError>
-        )
-      ))
+    const fieldValidators = Object.keys(e.paths).map(name =>
+      Object.keys(e.paths[name]).map(validator =>
+        e.paths[name][validator].map((msg, index) => (
+          <StyledError key={`paths-${name}-${validator}-${index}`}>
+            {sourceData.labels[name]}: {msg}
+          </StyledError>
+        ))
+      )
+    )
 
-    const entityValidators = Object.keys(e.entityValidatorErrors)
-      .map(validator => e.entityValidatorErrors[validator].map((msg, index) =>
+    const entityValidators = Object.keys(e.entityValidatorErrors).map(validator =>
+      e.entityValidatorErrors[validator].map((msg, index) => (
         <StyledError key={`entity-${validator}-${index}`}>{msg}</StyledError>
       ))
+    )
 
     return [...fieldValidators, ...entityValidators]
   })
 
   return (
     <StyledMergeErrorWrapper>
-      {(allMergerValidationErrors.length > 0 || Boolean(mergeErrorMsg)) && <StyledSummaryErrorWrapper>
-        <StyledIconWrapper>
-          <Icon icon="times"/>
-        </StyledIconWrapper>
-        <Typography.P>
-          <FormattedMessage id="client.merge.summary.error"/>
-        </Typography.P>
-      </StyledSummaryErrorWrapper>}
+      {(allMergerValidationErrors.length > 0 || Boolean(mergeErrorMsg)) && (
+        <StyledSummaryErrorWrapper>
+          <StyledIconWrapper>
+            <Icon icon="times" />
+          </StyledIconWrapper>
+          <Typography.P>
+            <FormattedMessage id="client.merge.summary.error" />
+          </Typography.P>
+        </StyledSummaryErrorWrapper>
+      )}
       {Boolean(mergeErrorMsg) && <StyledError>{mergeErrorMsg}</StyledError>}
       {allMergerValidationErrors}
     </StyledMergeErrorWrapper>

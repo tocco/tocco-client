@@ -1,10 +1,10 @@
+import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {js, html} from 'tocco-util'
-import _get from 'lodash/get'
 
-import Typography from '../../Typography'
 import Popover from '../../Popover'
+import Typography from '../../Typography'
 
 const SingleSelectFormatter = ({value, options, breakWords}) => {
   value = js.getOrFirst(value)
@@ -13,15 +13,17 @@ const SingleSelectFormatter = ({value, options, breakWords}) => {
   const {tooltips, loadTooltip, DetailLink} = options || {}
   const tooltip = _get(tooltips, value.key, null)
 
-  return DetailLink
-    ? <span onClick={e => e.stopPropagation()}>
-      <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}}/> : null}>
+  return DetailLink ? (
+    <span onClick={e => e.stopPropagation()}>
+      <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}} /> : null}>
         <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(value.key)}>
           <DetailLink entityKey={value.key}>{display}</DetailLink>
         </span>
       </Popover>
     </span>
-    : display
+  ) : (
+    display
+  )
 }
 
 const valuePropType = PropTypes.shape({
@@ -30,10 +32,7 @@ const valuePropType = PropTypes.shape({
 })
 
 SingleSelectFormatter.propTypes = {
-  value: PropTypes.oneOfType([
-    valuePropType,
-    PropTypes.arrayOf(valuePropType)
-  ]),
+  value: PropTypes.oneOfType([valuePropType, PropTypes.arrayOf(valuePropType)]),
   options: PropTypes.shape({
     DetailLink: PropTypes.func,
     tooltips: PropTypes.objectOf(PropTypes.string),

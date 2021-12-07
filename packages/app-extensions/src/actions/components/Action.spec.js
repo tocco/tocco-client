@@ -19,23 +19,33 @@ describe('app-extensions', () => {
             id: 'test'
           }
 
-          expect(intlEnzyme.mountWithIntl(
-            <Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="update"/>)
-            .find(SingleAction)).to.have.length(1)
+          expect(
+            intlEnzyme
+              .mountWithIntl(<Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="update" />)
+              .find(SingleAction)
+          ).to.have.length(1)
 
-          expect(intlEnzyme.mountWithIntl(
-            <Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="create"/>
-          ).find(SingleAction)).to.have.length(0)
+          expect(
+            intlEnzyme
+              .mountWithIntl(<Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="create" />)
+              .find(SingleAction)
+          ).to.have.length(0)
 
-          expect(intlEnzyme.mountWithIntl(
-            <Action {...baseProps} definition={{...definition}}/>)
-            .find(SingleAction)).to.have.length(1)
+          expect(
+            intlEnzyme.mountWithIntl(<Action {...baseProps} definition={{...definition}} />).find(SingleAction)
+          ).to.have.length(1)
 
-          expect(intlEnzyme.mountWithIntl(<Action {...baseProps} definition={{...definition, scopes: ['update']}}/>)
-            .find(SingleAction)).to.have.length(1)
+          expect(
+            intlEnzyme
+              .mountWithIntl(<Action {...baseProps} definition={{...definition, scopes: ['update']}} />)
+              .find(SingleAction)
+          ).to.have.length(1)
 
-          expect(intlEnzyme.mountWithIntl(<Action {...baseProps} definition={{...definition}} mode="update"/>)
-            .find(SingleAction)).to.have.length(1)
+          expect(
+            intlEnzyme
+              .mountWithIntl(<Action {...baseProps} definition={{...definition}} mode="update" />)
+              .find(SingleAction)
+          ).to.have.length(1)
         })
 
         test('should return groups', () => {
@@ -50,7 +60,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition}/>)
+          const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition} />)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
 
@@ -69,7 +79,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition}/>)
+          const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition} />)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
 
@@ -105,7 +115,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition}/>)
+          const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition} />)
           expect(wrapper.find(SingleAction)).to.have.length(2)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
@@ -131,11 +141,11 @@ describe('app-extensions', () => {
           }
           const SaveButton = () => <div>Save</div>
           const customActions = {
-            save: () => <SaveButton/>
+            save: () => <SaveButton />
           }
 
           const wrapper = intlEnzyme.mountWithIntl(
-            <Action {...baseProps} customRenderedActions={customActions} definition={definition}/>
+            <Action {...baseProps} customRenderedActions={customActions} definition={definition} />
           )
           expect(wrapper.find(SaveButton)).to.have.length(1)
         })

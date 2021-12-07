@@ -3,8 +3,8 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 import {takeLatest, select} from 'redux-saga/effects'
 import {notification, rest} from 'tocco-app-extensions'
 
-import * as sagas from './sagas'
 import * as actions from './actions'
+import * as sagas from './sagas'
 
 describe('docs-browser', () => {
   describe('modules', () => {
@@ -13,27 +13,19 @@ describe('docs-browser', () => {
         describe('main saga', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
-            saga.next().all([
-              takeLatest(actions.MOVE_ELEMENTS, sagas.moveElements)
-            ])
+            saga.next().all([takeLatest(actions.MOVE_ELEMENTS, sagas.moveElements)])
           })
         })
 
         describe('moveElements', () => {
           const payload = {
             target: 'Folder/1',
-            selected: [
-              'Folder/2',
-              'Resource/1'
-            ]
+            selected: ['Folder/2', 'Resource/1']
           }
 
           const body = {
             targetEntityKey: 'Folder/1',
-            selectedEntityKeys: [
-              'Folder/2',
-              'Resource/1'
-            ]
+            selectedEntityKeys: ['Folder/2', 'Resource/1']
           }
 
           const requestOptions = {method: 'POST', acceptedStatusCodes: [400, 403], body: body}
@@ -58,27 +50,29 @@ describe('docs-browser', () => {
               .put(actions.setWaiting(true))
               .call(rest.requestSaga, 'documents/move', requestOptions)
               .put(actions.setWaiting(false))
-              .put(notification.toaster({
-                type: 'error',
-                title: 'client.actions.dms-move.failed.title',
-                body: 'client.docs-browser.failedNoPermission'
-              }))
+              .put(
+                notification.toaster({
+                  type: 'error',
+                  title: 'client.actions.dms-move.failed.title',
+                  body: 'client.docs-browser.failedNoPermission'
+                })
+              )
               .run()
           })
 
           test('moveElements failed', () => {
             return expectSaga(sagas.moveElements, {payload: payload})
-              .provide([
-                [matchers.call.fn(rest.requestSaga), {status: 400, body: {errorCode: null}}]
-              ])
+              .provide([[matchers.call.fn(rest.requestSaga), {status: 400, body: {errorCode: null}}]])
               .put(actions.setWaiting(true))
               .call(rest.requestSaga, 'documents/move', requestOptions)
               .put(actions.setWaiting(false))
-              .put(notification.toaster({
-                type: 'error',
-                title: 'client.actions.dms-move.failed.title',
-                body: 'client.actions.dms-move.failed.message'
-              }))
+              .put(
+                notification.toaster({
+                  type: 'error',
+                  title: 'client.actions.dms-move.failed.title',
+                  body: 'client.actions.dms-move.failed.message'
+                })
+              )
               .run()
           })
 
@@ -89,9 +83,7 @@ describe('docs-browser', () => {
               errors: [{model: 'User', entityValidatorErrors: {firstname: [msg, 'message2']}}]
             }
             return expectSaga(sagas.moveElements, {payload: payload})
-              .provide([
-                [matchers.call.fn(rest.requestSaga), {status: 400, body: response}]
-              ])
+              .provide([[matchers.call.fn(rest.requestSaga), {status: 400, body: response}]])
               .put(actions.setWaiting(true))
               .call(rest.requestSaga, 'documents/move', requestOptions)
               .put(actions.setWaiting(false))

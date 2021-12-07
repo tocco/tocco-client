@@ -156,13 +156,16 @@ describe('merge', () => {
                   },
                   relGender2: {
                     type: 'entity-list',
-                    value: [{
-                      model: 'Gender',
-                      key: '2'
-                    }, {
-                      model: 'Gender',
-                      key: '1'
-                    }]
+                    value: [
+                      {
+                        model: 'Gender',
+                        key: '2'
+                      },
+                      {
+                        model: 'Gender',
+                        key: '1'
+                      }
+                    ]
                   }
                 }
               }
@@ -209,7 +212,8 @@ describe('merge', () => {
                     display: 'Female',
                     key: '2',
                     model: 'Gender'
-                  }, {
+                  },
+                  {
                     display: 'Male',
                     key: '1',
                     model: 'Gender'

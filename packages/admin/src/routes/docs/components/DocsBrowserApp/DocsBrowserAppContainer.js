@@ -1,9 +1,9 @@
-import {connect} from 'react-redux'
-import {injectIntl} from 'react-intl'
 import _get from 'lodash/get'
+import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import DocsBrowserApp from './DocsBrowserApp'
 import {saveUserPreferences} from '../../../../modules/preferences/actions'
+import DocsBrowserApp from './DocsBrowserApp'
 
 const mapActionCreators = {
   saveUserPreferences

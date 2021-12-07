@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {LoadingSpinner} from 'tocco-ui'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
+import {LoadingSpinner} from 'tocco-ui'
 
 const StyledDiv = styled.div`
   text-align: center;
@@ -19,7 +19,7 @@ const CopyProgress = ({startCopy}) => {
 
   return (
     <StyledDiv>
-      <LoadingSpinner size="30px"/>
+      <LoadingSpinner size="30px" />
     </StyledDiv>
   )
 }

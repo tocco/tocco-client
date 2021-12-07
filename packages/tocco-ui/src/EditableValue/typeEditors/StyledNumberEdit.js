@@ -1,10 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
 import NumberFormat from 'react-number-format'
+import styled from 'styled-components'
 
 import {StyledInputCss} from '../StyledEditableValue'
 
-const StyledNumberEdit = styled(({immutable, ...rest}) => <NumberFormat {...rest}/>)`
+const StyledNumberEdit = styled(({immutable, ...rest}) => <NumberFormat {...rest} />)`
   && {
     ${StyledInputCss}
   }

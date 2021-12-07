@@ -1,10 +1,10 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 import {actionEmitter} from 'tocco-app-extensions'
 
-import DocsBrowser from './DocsBrowser'
-import {loadBreadcrumbs, setSearchMode} from '../../modules/path/actions'
 import {openDialog} from '../../modules/create/actions'
+import {loadBreadcrumbs, setSearchMode} from '../../modules/path/actions'
+import DocsBrowser from './DocsBrowser'
 
 const mapStateToProps = state => ({
   searchMode: state.docs.path.searchMode,

@@ -1,17 +1,17 @@
-import {externalEvents, rest} from 'tocco-app-extensions'
-import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {takeLatest, put, select, call, all} from 'redux-saga/effects'
+import {externalEvents, rest} from 'tocco-app-extensions'
 import {cache, intl} from 'tocco-util'
 
-import * as actions from './actions'
-import rootSaga, * as sagas from './sagas'
-import {changePage, setPassword} from './login/actions'
-import {setMessage, setPending} from './loginForm/actions'
-import {updateOldPassword} from './passwordUpdate/password/actions'
-import {setUsernameOrPk, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {Pages} from '../types/Pages'
+import * as actions from './actions'
+import {changePage, setPassword} from './login/actions'
 import * as loginActions from './login/actions'
+import {setMessage, setPending} from './loginForm/actions'
+import {setUsernameOrPk, setForcedUpdate} from './passwordUpdate/dialog/actions'
+import {updateOldPassword} from './passwordUpdate/password/actions'
+import rootSaga, * as sagas from './sagas'
 import {setSecret} from './twoStepLogin/actions'
 
 describe('login', () => {
@@ -20,10 +20,9 @@ describe('login', () => {
       describe('root saga', () => {
         test('should fork child sagas', () => {
           const generator = rootSaga()
-          expect(generator.next().value).to.deep.equal(all([
-            takeLatest(actions.LOGIN, sagas.loginSaga),
-            takeLatest(actions.INITIALIZE, sagas.initialize)
-          ]))
+          expect(generator.next().value).to.deep.equal(
+            all([takeLatest(actions.LOGIN, sagas.loginSaga), takeLatest(actions.INITIALIZE, sagas.initialize)])
+          )
           expect(generator.next().done).to.equal(true)
         })
       })
@@ -181,10 +180,14 @@ describe('login', () => {
               uri: 'uri'
             }
           })
-          expect(gen.next().value).to.deep.equal(put(setSecret({
-            secret: 'secret',
-            uri: 'uri'
-          })))
+          expect(gen.next().value).to.deep.equal(
+            put(
+              setSecret({
+                secret: 'secret',
+                uri: 'uri'
+              })
+            )
+          )
           expect(gen.next().value).to.deep.equal(put(changePage(Pages.TWOSTEPLOGIN_ACTIVATION)))
           expect(gen.next().done).to.deep.equal(true)
         })
@@ -230,9 +233,7 @@ describe('login', () => {
           const captchaKey = 'xyz123'
           const settings = {captchaKey, runEnv: 'TEST'}
           return expectSaga(sagas.loadSettings)
-            .provide([
-              [matchers.call.fn(rest.fetchServerSettings), settings]
-            ])
+            .provide([[matchers.call.fn(rest.fetchServerSettings), settings]])
             .put(loginActions.setCaptchaKey(captchaKey))
             .run()
         })

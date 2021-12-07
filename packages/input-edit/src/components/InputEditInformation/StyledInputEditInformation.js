@@ -1,4 +1,3 @@
 import styled from 'styled-components'
 
-export const StyledInputEditInformation = styled.div`
-`
+export const StyledInputEditInformation = styled.div``

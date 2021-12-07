@@ -1,6 +1,6 @@
-import reducer from './index'
-import * as actions from './actions'
 import {Pages} from './../../types/Pages'
+import * as actions from './actions'
+import reducer from './index'
 
 const EXPECTED_INITIAL_STATE = {
   currentPage: Pages.LOGIN_FORM,

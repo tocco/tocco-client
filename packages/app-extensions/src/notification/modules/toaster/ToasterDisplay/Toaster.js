@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
+import React, {useEffect} from 'react'
 import {Typography, Icon} from 'tocco-ui'
 import {react as reactUtil} from 'tocco-util'
 
@@ -14,12 +14,7 @@ import {
   StyledContentWrapper
 } from './StyledComponents'
 
-const Toaster = ({
-  toaster,
-  closeToaster,
-  cancelTask,
-  navigationStrategy
-}) => {
+const Toaster = ({toaster, closeToaster, cancelTask, navigationStrategy}) => {
   const [setDuration, abort, start] = reactUtil.useUserActive(() => {
     closeToaster(toaster.key, false)
   })
@@ -41,34 +36,33 @@ const Toaster = ({
   }
 
   return (
-    <StyledToaster
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-      type={toaster.type}
-      key={toaster.key}>
-      <StyledCloseButton icon="times" onClick={handleCloseButtonClick}/>
+    <StyledToaster onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave} type={toaster.type} key={toaster.key}>
+      <StyledCloseButton icon="times" onClick={handleCloseButtonClick} />
       <StyledIconTitleWrapper>
-        {toaster.icon
-        && <StyledIconWrapper>
-          <Icon icon={toaster.icon}/>
-        </StyledIconWrapper>
-        }
-        {toaster.title && <Typography.H1>
-          <StyledTitleWrapper><Content>{toaster.title}</Content></StyledTitleWrapper>
-        </Typography.H1>
-        }
+        {toaster.icon && (
+          <StyledIconWrapper>
+            <Icon icon={toaster.icon} />
+          </StyledIconWrapper>
+        )}
+        {toaster.title && (
+          <Typography.H1>
+            <StyledTitleWrapper>
+              <Content>{toaster.title}</Content>
+            </StyledTitleWrapper>
+          </Typography.H1>
+        )}
       </StyledIconTitleWrapper>
-      {toaster.body
-      && <StyledContentWrapper>
-        <Content>
-          {
-            typeof toaster.body === 'function'
-              ? <toaster.body navigationStrategy={navigationStrategy} cancelTask={cancelTask}/>
-              : toaster.body
-          }
-        </Content>
-      </StyledContentWrapper>
-      }
+      {toaster.body && (
+        <StyledContentWrapper>
+          <Content>
+            {typeof toaster.body === 'function' ? (
+              <toaster.body navigationStrategy={navigationStrategy} cancelTask={cancelTask} />
+            ) : (
+              toaster.body
+            )}
+          </Content>
+        </StyledContentWrapper>
+      )}
     </StyledToaster>
   )
 }

@@ -7,8 +7,7 @@ export const CANCEL = 'simpleForm/CANCEL'
 
 export const initializeForm = () => ({
   type: INITIALIZE_QUESTION_FORM,
-  payload: {
-  }
+  payload: {}
 })
 
 export const submit = () => ({

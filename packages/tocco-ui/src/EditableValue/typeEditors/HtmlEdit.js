@@ -44,14 +44,16 @@ class HtmlEdit extends React.Component {
 
   render() {
     if (this.props.immutable) {
-      return <Typography.Span>
-        <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(this.props.value)}}></div>
-      </Typography.Span>
+      return (
+        <Typography.Span>
+          <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(this.props.value)}}></div>
+        </Typography.Span>
+      )
     }
 
     return (
       <StyledHtmlEdit>
-        <Suspense fallback={<i/>}>
+        <Suspense fallback={<i />}>
           <this.lazyQuill
             name={this.props.name}
             onChange={this.handleChange}

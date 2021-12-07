@@ -2,19 +2,21 @@ import PropTypes from 'prop-types'
 import React, {useContext} from 'react'
 import {ThemeContext} from 'styled-components'
 
-import Typography from '../../Typography'
-import Popover from '../../Popover'
 import Icon from '../../Icon'
-import HtmlFormatter from './HtmlFormatter'
+import Popover from '../../Popover'
+import Typography from '../../Typography'
 import {scale, theme} from '../../utilStyles'
+import HtmlFormatter from './HtmlFormatter'
 
 const DescriptionFormatter = props => {
   const themeContext = useContext(ThemeContext)
   const options = props.options || {}
-  const content = <>
-    {options.title && <Typography.H5>{options.title}</Typography.H5>}
-    <HtmlFormatter {...props}/>
-  </>
+  const content = (
+    <>
+      {options.title && <Typography.H5>{options.title}</Typography.H5>}
+      <HtmlFormatter {...props} />
+    </>
+  )
   const iconStyles = {
     color: theme.color('text')({theme: themeContext}),
     fontSize: `${theme.fontSize('base')({theme: themeContext}) * theme.fontSize('factor')({theme: themeContext})}rem`,
@@ -26,13 +28,8 @@ const DescriptionFormatter = props => {
   }
 
   return (
-    <Popover
-      content={content}
-      isPlainHtml={true}
-    >
-      <Icon
-        style={iconStyles}
-        icon="question-circle"/>
+    <Popover content={content} isPlainHtml={true}>
+      <Icon style={iconStyles} icon="question-circle" />
     </Popover>
   )
 }

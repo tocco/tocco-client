@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {Typography} from 'tocco-ui'
 
 import {StyledCheckEventGroup, StyledGroupHeading} from './StyledCheckEvents'
@@ -17,7 +17,10 @@ const CheckEventGroup = ({type, events, selection, setSelected}) => {
   const groupChecked = allSelected(events, selection)
 
   const handleHeaderSelectionChange = e => {
-    setSelected(events.map(event => event.id), e.target.checked)
+    setSelected(
+      events.map(event => event.id),
+      e.target.checked
+    )
   }
 
   const handleSelectionChange = id => e => {
@@ -27,9 +30,11 @@ const CheckEventGroup = ({type, events, selection, setSelected}) => {
   return (
     <StyledCheckEventGroup>
       <StyledGroupHeading>
-        <input type="checkbox" id={'checkbox-' + type} checked={groupChecked} onChange={handleHeaderSelectionChange}/>
+        <input type="checkbox" id={'checkbox-' + type} checked={groupChecked} onChange={handleHeaderSelectionChange} />
         <Typography.Label for={'checkbox-' + type}>
-          <Typography.B>{type} ({events.length})</Typography.B>
+          <Typography.B>
+            {type} ({events.length})
+          </Typography.B>
         </Typography.Label>
       </StyledGroupHeading>
       {events.map(event => (
@@ -49,11 +54,13 @@ const CheckEventGroup = ({type, events, selection, setSelected}) => {
 
 CheckEventGroup.propTypes = {
   type: PropTypes.string.isRequired,
-  events: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
-  })).isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired,
   selection: PropTypes.object.isRequired,
   setSelected: PropTypes.func.isRequired
 }

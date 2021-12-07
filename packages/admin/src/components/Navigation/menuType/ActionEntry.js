@@ -1,22 +1,16 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import {Icon} from 'tocco-ui'
 
 import {StyledIconLink, StyledMenuLink, StyledMenuLinkWrapper} from './StyledComponents'
 
-const ActionEntry = ({
-  onClick,
-  item
-}) => (
+const ActionEntry = ({onClick, item}) => (
   <StyledMenuLinkWrapper>
-    <StyledMenuLink
-      data-quick-navigation={true}
-      onClick={onClick}
-      to={`/e/action/${item.name}`}>
+    <StyledMenuLink data-quick-navigation={true} onClick={onClick} to={`/e/action/${item.name}`}>
       {item.label}
     </StyledMenuLink>
     <StyledIconLink to={`/e/action/${item.name}`} target="_blank" rel="noreferrer">
-      <Icon icon="external-link"/>
+      <Icon icon="external-link" />
     </StyledIconLink>
   </StyledMenuLinkWrapper>
 )

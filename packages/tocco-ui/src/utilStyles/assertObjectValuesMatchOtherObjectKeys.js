@@ -8,7 +8,7 @@
 
 const getNotIncludedItems = (complete, incomplete) => {
   const diff = []
-  complete.forEach(function(item) {
+  complete.forEach(function (item) {
     if (!incomplete.includes(item)) {
       diff.push(item)
     }
@@ -24,25 +24,25 @@ const assertObjectValuesMatchOtherObjectKeys = (completeMap, potentialIncomplete
   if (values.length > keys.length) {
     diff = getNotIncludedItems(values, keys)
     // eslint-disable-next-line no-console
-    console.warn(`${(diff.length > 1) ? 'Keys' : 'Key'} ${diff.join(' and ')} has to be added to incomplete map.`)
+    console.warn(`${diff.length > 1 ? 'Keys' : 'Key'} ${diff.join(' and ')} has to be added to incomplete map.`)
     return false
   }
 
   if (values.length < keys.length) {
     diff = getNotIncludedItems(keys, values)
     // eslint-disable-next-line no-console
-    console.warn(`${(diff.length > 1) ? 'Keys' : 'Key'} ${diff.join(' and ')} has to be removed from over-defined map.`)
+    console.warn(`${diff.length > 1 ? 'Keys' : 'Key'} ${diff.join(' and ')} has to be removed from over-defined map.`)
     return false
   }
 
-  if (!values.every(
-    (value, index) => {
+  if (
+    !values.every((value, index) => {
       return value === keys[index]
-    }
-  )) {
+    })
+  ) {
     diff = getNotIncludedItems(keys, values)
     // eslint-disable-next-line no-console
-    console.warn(`${(diff.length > 1) ? 'Keys' : 'Key'} ${diff.join(' and ')} has to be spelled correctly in map.`)
+    console.warn(`${diff.length > 1 ? 'Keys' : 'Key'} ${diff.join(' and ')} has to be spelled correctly in map.`)
     return false
   }
 

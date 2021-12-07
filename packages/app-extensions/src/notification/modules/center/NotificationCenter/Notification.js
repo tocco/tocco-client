@@ -1,12 +1,11 @@
-import React, {useRef, useState} from 'react'
-import PropTypes from 'prop-types'
-import {Typography, Icon} from 'tocco-ui'
-import {FormattedRelativeTime} from 'react-intl'
 import {selectUnit} from '@formatjs/intl-utils'
+import PropTypes from 'prop-types'
+import React, {useRef, useState} from 'react'
+import {FormattedRelativeTime} from 'react-intl'
+import {Typography, Icon} from 'tocco-ui'
 
-import useInViewport from './useInViewport'
-import {notificationPropType} from '../../../types'
 import NotificationBody from '../../../components/NotificationBody'
+import {notificationPropType} from '../../../types'
 import {
   StyledNotification,
   StyledNotificationHeader,
@@ -14,6 +13,7 @@ import {
   StyledTitleWrapper,
   StyledTimeStamp
 } from './StyledComponents'
+import useInViewport from './useInViewport'
 
 const typeIconMap = {
   warning: 'exclamation-circle',
@@ -39,15 +39,15 @@ const Notification = ({notification, markAsRead, cancelTask, navigationStrategy}
     <StyledNotification ref={notificationElement} read={initialRead}>
       <StyledNotificationHeader notificationType={notification.type}>
         <StyledIconWrapper>
-          <Icon icon={typeIconMap[notification.type]}/>
+          <Icon icon={typeIconMap[notification.type]} />
         </StyledIconWrapper>
         <StyledTitleWrapper>
           <Typography.H5>{notification.title}</Typography.H5>
         </StyledTitleWrapper>
       </StyledNotificationHeader>
-      <NotificationBody notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask}/>
+      <NotificationBody notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask} />
       <StyledTimeStamp>
-        <FormattedRelativeTime value={timeStampValue} unit={unit}/>
+        <FormattedRelativeTime value={timeStampValue} unit={unit} />
       </StyledTimeStamp>
     </StyledNotification>
   )

@@ -18,4 +18,4 @@ export default {
   }
 }
 
-export const Basic = args => <Link {...args}/>
+export const Basic = args => <Link {...args} />

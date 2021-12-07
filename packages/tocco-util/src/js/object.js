@@ -1,14 +1,13 @@
-import _transform from 'lodash/transform'
 import _isEqual from 'lodash/isEqual'
+import _transform from 'lodash/transform'
 
-const isObject = v =>
-  typeof v === 'object' && v !== null
+const isObject = v => typeof v === 'object' && v !== null
 
 export const difference = (object, base) => {
   const changes = (object, base) =>
     _transform(object, (result, value, key) => {
       if (!_isEqual(value, base[key])) {
-        result[key] = (isObject(value) && isObject(base[key])) ? changes(value, base[key]) : value
+        result[key] = isObject(value) && isObject(base[key]) ? changes(value, base[key]) : value
       }
     })
 

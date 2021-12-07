@@ -1,6 +1,6 @@
-import {combineReducers} from 'redux'
-import _pick from 'lodash/pick'
 import _difference from 'lodash/difference'
+import _pick from 'lodash/pick'
+import {combineReducers} from 'redux'
 
 export const hotReloadReducers = (store, reducers) => {
   const allReducers = {

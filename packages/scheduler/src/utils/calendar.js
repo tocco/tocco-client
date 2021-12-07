@@ -14,12 +14,11 @@ export const getResources = calendars => {
   }))
 }
 
-const getOptimalTextColorClass = backgroundHexColor =>
-  color.getContrastColor(backgroundHexColor, 'bright', 'dark')
+const getOptimalTextColorClass = backgroundHexColor => color.getContrastColor(backgroundHexColor, 'bright', 'dark')
 
 export const getEvents = calendars =>
-  calendars.reduce((accumulator, calendar) => (
-    [
+  calendars.reduce(
+    (accumulator, calendar) => [
       ...accumulator,
       ...calendar.events.map(event => ({
         entity: event.source,
@@ -35,5 +34,6 @@ export const getEvents = calendars =>
           getOptimalTextColorClass(event.color)
         ]
       }))
-    ]
-  ), [])
+    ],
+    []
+  )

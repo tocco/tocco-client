@@ -1,5 +1,5 @@
-import reducer from './reducer'
 import * as actions from './actions'
+import reducer from './reducer'
 
 const initialState = {
   currentViewInfos: {},
@@ -20,7 +20,7 @@ describe('admin', () => {
                 expect(reducer(undefined, {})).to.deep.equal(initialState)
               })
             })
-      
+
             describe('updateBreadcrumbsInfo', () => {
               test('should update breadcrumbs info for defined path', () => {
                 const stateBefore = {
@@ -53,9 +53,10 @@ describe('admin', () => {
 
                 const path = 'b'
                 const breadcrumbsInfo = {display: 'test', any: 'asdf'}
-      
-                expect(reducer(stateBefore, actions.updateBreadcrumbsInfo(path, breadcrumbsInfo)))
-                  .to.deep.equal(expectedStateAfter)
+
+                expect(reducer(stateBefore, actions.updateBreadcrumbsInfo(path, breadcrumbsInfo))).to.deep.equal(
+                  expectedStateAfter
+                )
               })
 
               test('should ignore breadcrumbs info if not exists yet', () => {
@@ -80,9 +81,10 @@ describe('admin', () => {
 
                 const path = 'b'
                 const breadcrumbsInfo = {display: 'test', any: 'asdf'}
-      
-                expect(reducer(stateBefore, actions.updateBreadcrumbsInfo(path, breadcrumbsInfo)))
-                  .to.deep.equal(expectedStateAfter)
+
+                expect(reducer(stateBefore, actions.updateBreadcrumbsInfo(path, breadcrumbsInfo))).to.deep.equal(
+                  expectedStateAfter
+                )
               })
             })
 
@@ -113,9 +115,10 @@ describe('admin', () => {
 
                 const location = '/e/b'
                 const currentViewInfo = {dispay: 'bar', title: 'bar'}
-      
-                expect(reducer(stateBefore, actions.setCurrentViewInfo(location, currentViewInfo)))
-                  .to.deep.equal(expectedStateAfter)
+
+                expect(reducer(stateBefore, actions.setCurrentViewInfo(location, currentViewInfo))).to.deep.equal(
+                  expectedStateAfter
+                )
               })
 
               test('should update current view info', () => {
@@ -148,9 +151,10 @@ describe('admin', () => {
 
                 const location = '/e/b'
                 const currentViewInfo = {dispay: 'test'}
-      
-                expect(reducer(stateBefore, actions.setCurrentViewInfo(location, currentViewInfo)))
-                  .to.deep.equal(expectedStateAfter)
+
+                expect(reducer(stateBefore, actions.setCurrentViewInfo(location, currentViewInfo))).to.deep.equal(
+                  expectedStateAfter
+                )
               })
             })
           })

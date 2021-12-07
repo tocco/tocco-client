@@ -4,11 +4,15 @@ import AceEditorPropTypes from './AceEditorPropTypes'
 
 const AceEditor = lazy(() => import(/* webpackChunkName: "code-editor" */ './AceEditor'))
 
-const fallbackTextField = value => <div><p>{value}</p></div>
+const fallbackTextField = value => (
+  <div>
+    <p>{value}</p>
+  </div>
+)
 
 const LazyCodeEditor = props => (
   <Suspense fallback={fallbackTextField(props.value)}>
-    <AceEditor {...props}/>
+    <AceEditor {...props} />
   </Suspense>
 )
 

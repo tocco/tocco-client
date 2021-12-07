@@ -1,14 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {calculateMilliseconds} from '../utils'
 import Typography from '../../Typography'
-import {
-  StyledDurationEditShadow,
-  StyledDurationEditFocusable,
-  StyledDurationEdit
-} from './StyledDurationEdit'
 import {StyledEditableWrapper} from '../StyledEditableValue'
+import {calculateMilliseconds} from '../utils'
+import {StyledDurationEditShadow, StyledDurationEditFocusable, StyledDurationEdit} from './StyledDurationEdit'
 
 class DurationEdit extends React.Component {
   constructor(props) {
@@ -88,7 +84,7 @@ class DurationEdit extends React.Component {
 
   handleChange = (hours, minutes) => {
     const minutesValue = minutes !== null ? minutes : this.state.minutes
-    const hoursValue = (hours !== null ? hours : this.state.hours)
+    const hoursValue = hours !== null ? hours : this.state.hours
     if (minutesValue === '' && hoursValue === '') {
       this.props.onChange(null)
       return
@@ -96,10 +92,10 @@ class DurationEdit extends React.Component {
     this.props.onChange(calculateMilliseconds(hoursValue, minutesValue))
   }
 
-  handleOnBlur = () => this.setState({
-    showUnits:
-    (this.state.hours.toString().length >= 1 || this.state.minutes.toString().length >= 1)
-  })
+  handleOnBlur = () =>
+    this.setState({
+      showUnits: this.state.hours.toString().length >= 1 || this.state.minutes.toString().length >= 1
+    })
 
   handleOnFocus = () => this.setState({showUnits: true})
 
@@ -111,10 +107,7 @@ class DurationEdit extends React.Component {
 
   render() {
     return (
-      <StyledEditableWrapper
-        onBlur={this.handleOnBlur}
-        immutable={this.props.immutable}
-        style={{overflowX: 'auto'}}>
+      <StyledEditableWrapper onBlur={this.handleOnBlur} immutable={this.props.immutable} style={{overflowX: 'auto'}}>
         <StyledDurationEditFocusable immutable={this.props.immutable}>
           <StyledDurationEdit
             disabled={this.props.immutable}

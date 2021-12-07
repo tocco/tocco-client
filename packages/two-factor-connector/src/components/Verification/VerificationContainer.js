@@ -1,15 +1,13 @@
-import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {connect} from 'react-redux'
 
-import Verification from './Verification'
 import {verifyCode} from '../../modules/actions'
+import Verification from './Verification'
 
 const mapActionCreators = {
   verifyCode
 }
 
-const mapStateToProps = (state, props) => ({
-
-})
+const mapStateToProps = (state, props) => ({})
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Verification))

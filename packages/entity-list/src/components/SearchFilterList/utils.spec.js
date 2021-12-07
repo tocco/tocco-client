@@ -16,8 +16,15 @@ describe('entity-list', () => {
               {uniqueId: '7', defaultFilter: false, sorting: null}
             ]
 
-            expect(searchFilters.sort(searchFilterCompare).map(s => s.uniqueId))
-              .to.deep.equal(['1', '2', '3', '4', '5', '6', '7'])
+            expect(searchFilters.sort(searchFilterCompare).map(s => s.uniqueId)).to.deep.equal([
+              '1',
+              '2',
+              '3',
+              '4',
+              '5',
+              '6',
+              '7'
+            ])
           })
         })
       })

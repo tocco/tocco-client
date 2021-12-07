@@ -1,6 +1,6 @@
-import {rest} from 'tocco-app-extensions'
 import fetchMock from 'fetch-mock'
 import {call} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
 import * as entities from './entities'
 
@@ -22,10 +22,8 @@ describe('entity-detail', () => {
 
             const gen = entities.updateEntity(entity, ['f1', 'f2'])
 
-            expect(gen.next().value).to.eql(call(
-              rest.requestSaga,
-              'entities/2.0/User/1',
-              {
+            expect(gen.next().value).to.eql(
+              call(rest.requestSaga, 'entities/2.0/User/1', {
                 body: entity,
                 method: 'PATCH',
                 queryParams: {
@@ -33,8 +31,8 @@ describe('entity-detail', () => {
                 },
                 acceptedErrorCodes: ['VALIDATION_FAILED'],
                 acceptedStatusCodes: [404, 409]
-              }
-            ))
+              })
+            )
 
             const resp = {
               body: {}

@@ -1,12 +1,12 @@
+import _debounce from 'lodash/debounce'
+import PropTypes from 'prop-types'
 import React from 'react'
 import SimpleFormApp from 'tocco-simple-form/src/main'
-import _debounce from 'lodash/debounce'
 import {tqlBuilder} from 'tocco-util'
-import PropTypes from 'prop-types'
 
 const InputEditSearch = ({form, setSearchFields}) => {
-  return form.children
-    ? <SimpleFormApp
+  return form.children ? (
+    <SimpleFormApp
       form={form}
       onChange={_debounce(handleChange(form, setSearchFields), 500)}
       noButtons={true}
@@ -14,27 +14,27 @@ const InputEditSearch = ({form, setSearchFields}) => {
       mappingType="search"
       mode="search"
     />
-    : null
+  ) : null
 }
 
-const handleChange = (form, setSearchFields) => ({values}) => {
-  if (Object.keys(values).length > 0) {
-    const tql = transformFormValuesToTql(values, form)
-    setSearchFields(tql)
-  } else {
-    setSearchFields([])
+const handleChange =
+  (form, setSearchFields) =>
+  ({values}) => {
+    if (Object.keys(values).length > 0) {
+      const tql = transformFormValuesToTql(values, form)
+      setSearchFields(tql)
+    } else {
+      setSearchFields([])
+    }
   }
-}
 
 const transformFormValuesToTql = (values, form) =>
   Object.entries(values)
-    .map(([path, value]) => (
-      {
-        path,
-        fieldType: getFieldType(path, form),
-        value
-      }
-    ))
+    .map(([path, value]) => ({
+      path,
+      fieldType: getFieldType(path, form),
+      value
+    }))
     .filter(({path, fieldType, value}) => value && (!Array.isArray(value) || value.length > 0))
     .map(({path, fieldType, value}) => tqlBuilder.getTql(path, value, fieldType))
     .filter(tql => tql.length > 0)
