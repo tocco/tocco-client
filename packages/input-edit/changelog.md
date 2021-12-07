@@ -1,3 +1,6 @@
+1.0.0-hotfix30.3
+- register more icons
+
 1.0.0-hotfix30.2
 - register more icons
 - change notification title and refactor NotificationCenter
