@@ -14,7 +14,7 @@ const StyledApp = styled.div`
   height: 100%;
 `
 
-const App = ({store, initIntlPromise, name, content, theme}) => {
+const App = ({store, initIntlPromise, content, theme}) => {
   const wrapperCallback = useCallback(node => {
     if (node) {
       import(/* webpackChunkName: "vendor-fontawesome" */ '@fortawesome/fontawesome-svg-core').then(fontawesome => {
@@ -44,7 +44,6 @@ const App = ({store, initIntlPromise, name, content, theme}) => {
 App.propTypes = {
   store: PropTypes.object.isRequired,
   initIntlPromise: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
   content: PropTypes.node.isRequired,
   theme: PropTypes.object
 }
