@@ -27,6 +27,7 @@
     "storybook:master": "cross-env BACKEND=https://master.tocco.ch yarn storybook",
     "cypress:localhost": "cross-env CYPRESS_baseUrl=http://localhost:3003 yarn cypress open",
     "cypress:master": "yarn cypress open",
+    "cypress:master:run": "yarn cypress run",
     "cypress:master:record": "yarn cypress run --record --key 7657cc15-e969-4203-ae80-f3e0651a9667",
     "prepare": "husky install"
   },
