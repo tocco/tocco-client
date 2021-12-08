@@ -107,6 +107,10 @@ cypress:
   script:
     - npm rebuild cypress
     - yarn cypress:master:record --parallel
+  artifacts:
+    paths:
+      - cypress/videos
+    expire_in: 4 weeks
 
 tagging:
   stage: chore
