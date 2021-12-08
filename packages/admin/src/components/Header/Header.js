@@ -14,6 +14,7 @@ import {
   StyledBackgroundLogo
 } from './StyledComponents'
 import AboutTocco from '../AboutTocco'
+import {getDocsUrl} from '../../utils/docsUtils'
 
 const StyledBallMenuWrapper = styled.span`
   display: flex;
@@ -106,10 +107,7 @@ const Header = ({
             title: msg('client.admin.header.help')
           }}>
             {niceVersion && <MenuItem onClick={() => {
-              window.open(
-                `https://${niceVersion.replace('.', '')}.docs.tocco.ch/de/`,
-                '_blank'
-              )
+              window.open(getDocsUrl(niceVersion), '_blank')
             }}>
               <FormattedMessage id="client.admin.menu.doc"/>
             </MenuItem>}
