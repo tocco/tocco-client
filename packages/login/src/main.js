@@ -1,72 +1,10 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import {appFactory, cache, errorLogging, externalEvents} from 'tocco-app-extensions'
-import {consoleLogger, reducer as reducerUtil} from 'tocco-util'
+import {appFactory} from 'tocco-app-extensions'
+import {reducer as reducerUtil} from 'tocco-util'
 
-import LoginContainer from './containers/LoginContainer'
-import * as login from './modules/login/actions'
-import * as passwordRequest from './modules/passwordRequest/actions'
-import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
-import loginReducers, {sagas} from './modules/reducers'
+import {initLoginApp, LoginApp} from './LoginApp'
+import {initPasswordUpdateApp, PasswordUpdateApp} from './PasswordUpdateApp'
 
 const packageName = 'login'
-
-const EXTERNAL_EVENTS = ['loginSuccess', 'resize']
-
-const initLoginApp = (id, input, events, publicPath, customTheme) => {
-  const actions = [
-    passwordUpdate.setShowOldPasswordField(false),
-    passwordUpdate.setStandalone(false),
-    passwordRequest.setPasswordRequest(!!input.passwordRequest),
-    login.setUsername(input.username || '')
-  ]
-
-  const showTitle = !!input.showTitle
-  const content = <LoginContainer showTitle={showTitle} />
-
-  const store = appFactory.createStore(loginReducers, sagas, input, packageName)
-  externalEvents.addToStore(store, events)
-  errorLogging.addToStore(store, true, ['console', 'remote'])
-  cache.addToStore(store)
-
-  return appFactory.createApp(packageName, content, store, {
-    input,
-    actions,
-    publicPath,
-    textResourceModules: ['login'],
-    customTheme
-  })
-}
-
-const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
-  const showTitle = !!input.showTitle
-  const forcedUpdate = !!input.forcedUpdate
-
-  const content = <LoginContainer currentPage="PASSWORD_UPDATE" showTitle={showTitle} />
-
-  if (typeof input.username !== 'string' || input.username.length === 0) {
-    consoleLogger.logError('Mandatory input "username" is not set on password-update')
-    return
-  }
-
-  const actions = [passwordUpdate.setUsernameOrPk(input.username), passwordUpdate.setForcedUpdate(forcedUpdate)]
-
-  if (typeof input.showOldPasswordField === 'boolean') {
-    actions.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
-  }
-
-  const store = appFactory.createStore(loginReducers, sagas, input, packageName)
-  externalEvents.addToStore(store, events)
-  errorLogging.addToStore(store, true, ['console', 'remote'])
-
-  return appFactory.createApp(`${packageName}.passwordUpdate`, content, store, {
-    input,
-    actions,
-    publicPath,
-    textResourceModules: ['login'],
-    customTheme
-  })
-}
 
 ;(() => {
   if (__PACKAGE_NAME__ === packageName) {
@@ -97,46 +35,5 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
   }
 })()
 
-const LoginApp = props => {
-  const {component} = appFactory.useApp({
-    initApp: initLoginApp,
-    props,
-    packageName: 'id',
-    externalEvents: EXTERNAL_EVENTS
-  })
-  return component
-}
-
-LoginApp.propTypes = {
-  showTitle: PropTypes.bool,
-  locale: PropTypes.string,
-  passwordRequest: PropTypes.bool,
-  username: PropTypes.string,
-  setLocale: PropTypes.func,
-  ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
-    propTypes[event] = PropTypes.func
-    return propTypes
-  }, {})
-}
-
+export {PasswordUpdateApp}
 export default LoginApp
-
-const EXTERNAL_EVENTS_PASSWORD_UPDATE = ['success', 'resize']
-
-export const PasswordUpdateApp = props => {
-  const {component} = appFactory.useApp({
-    initApp: initPasswordUpdateApp,
-    props,
-    packageName: 'password-update',
-    externalEvents: EXTERNAL_EVENTS_PASSWORD_UPDATE
-  })
-  return component
-}
-
-PasswordUpdateApp.propTypes = {
-  username: PropTypes.string,
-  showTitle: PropTypes.bool,
-  showOldPasswordField: PropTypes.bool,
-  oldPassword: PropTypes.string,
-  ...EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {})
-}
