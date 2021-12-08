@@ -29,7 +29,7 @@ export const createApp = (
     const initIntlPromise = setupIntl(input, store, name, textResourceModules)
 
     return {
-      component: <App store={store} initIntlPromise={initIntlPromise} name={name} content={content} theme={theme} />,
+      component: <App store={store} initIntlPromise={initIntlPromise} content={content} theme={theme} />,
       store,
       methods: {
         setLocale: locale => intl.changeLocale(store, textResourceModules, locale)
