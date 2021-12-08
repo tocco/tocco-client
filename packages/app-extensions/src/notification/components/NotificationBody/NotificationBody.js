@@ -41,7 +41,13 @@ const Result = ({notification: {result}, navigationStrategy}) => {
             </a>
           </div>
           {download.downloadSupportedByBrowser() && (
-            <a href={download.addParameterToURL(file.link, 'download', true)} download={file.name} title="download">
+            <a
+              href={download.addParameterToURL(file.link, 'download', true)}
+              target="_blank"
+              rel="noreferrer"
+              download={file.name}
+              title="download"
+            >
               <StyledIconWrapper>
                 <Icon icon="arrow-to-bottom" />
               </StyledIconWrapper>
