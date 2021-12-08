@@ -6,6 +6,7 @@ import {PasswordUpdateApp} from 'tocco-login/src/main'
 import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
 import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale, RouterLinkButton} from 'tocco-ui'
 
+import {getDocsUrl} from '../../utils/docsUtils'
 import AboutTocco from '../AboutTocco'
 import NotificationCenterButton from './NotificationCenterButton'
 import {StyledBackgroundCover, StyledHeader, StyledConfig, StyledBackgroundLogo} from './StyledComponents'
@@ -118,7 +119,7 @@ const Header = ({
               {niceVersion && (
                 <MenuItem
                   onClick={() => {
-                    window.open(`https://${niceVersion.replace('.', '')}.docs.tocco.ch/de/`, '_blank')
+                    window.open(getDocsUrl(niceVersion), '_blank')
                   }}
                 >
                   <FormattedMessage id="client.admin.menu.doc" />
