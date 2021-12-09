@@ -140,7 +140,8 @@ EntityBrowserApp.propTypes = {
   nullBusinessUnit: PropTypes.bool,
   runInBusinessUnit: PropTypes.string,
   memoryHistory: PropTypes.bool,
-  backendUrl: PropTypes.string
+  backendUrl: PropTypes.string,
+  scrollBehaviour: PropTypes.string
 }
 
 export default EntityBrowserApp

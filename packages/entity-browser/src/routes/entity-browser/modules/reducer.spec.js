@@ -3,7 +3,8 @@ import reducer from './index'
 const EXPECTED_INITIAL_STATE = {
   entityName: '',
   formBase: '',
-  appId: ''
+  appId: '',
+  scrollBehaviour: 'none'
 }
 
 describe('entity-browser', () => {

@@ -1,5 +1,6 @@
 export const SET_ENTITY_NAME = 'SET_ENTITY_NAME'
 export const SET_FORM_BASE = 'SET_FORM_BASE'
+export const SET_SCROLL_BEHAVIOUR = 'SET_SCROLL_BEHAVIOUR'
 export const SET_APP_ID = 'root/SET_APP_ID'
 
 export const setEntityName = entityName => ({
@@ -15,6 +16,14 @@ export const setFormBase = formBase => ({
     formBase
   }
 })
+
+export const setScrollBehaviour = scrollBehaviour => ({
+  type: SET_SCROLL_BEHAVIOUR,
+  payload: {
+    scrollBehaviour
+  }
+})
+
 export const setAppId = appId => ({
   type: SET_APP_ID,
   payload: {

@@ -9,10 +9,27 @@ export default {
   argTypes: {
     entityName: {defaultValue: 'User'},
     showSearchForm: {defaultValue: true},
-    limit: {defaultValue: 20}
+    limit: {defaultValue: 20},
+    scrollBehaviour: {
+      defaultValue: 'none',
+      options: ['none', 'inline'],
+      control: {type: 'select'}
+    }
   }
 }
 
-export const EntityBrowserStory = ({...args}) => {
-  return <EntityBrowserApp key={uuid()} {...args} />
+const EntityBrowserStory = ({...args}) => {
+  return (
+    <div style={{width: '1500px', height: '500px', padding: '5px'}}>
+      <EntityBrowserApp key={uuid()} {...args} />
+    </div>
+  )
+}
+
+export const Story = EntityBrowserStory.bind({})
+Story.args = {
+  entityName: 'User',
+  showSearchForm: true,
+  limit: 20,
+  scrollBehaviour: 'none'
 }

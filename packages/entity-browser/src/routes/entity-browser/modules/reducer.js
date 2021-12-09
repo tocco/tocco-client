@@ -17,12 +17,14 @@ const setFormBase = (state, {payload}) => {
 const ACTION_HANDLERS = {
   [actions.SET_ENTITY_NAME]: reducerUtil.singleTransferReducer('entityName'),
   [actions.SET_FORM_BASE]: setFormBase,
+  [actions.SET_SCROLL_BEHAVIOUR]: reducerUtil.singleTransferReducer('scrollBehaviour'),
   [actions.SET_APP_ID]: reducerUtil.singleTransferReducer('appId')
 }
 
 const initialState = {
   entityName: '',
   formBase: '',
+  scrollBehaviour: 'none',
   appId: ''
 }
 

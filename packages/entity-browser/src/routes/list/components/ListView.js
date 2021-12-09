@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
-import {RouterLink} from 'tocco-ui'
+import {RouterLink, scrollBehaviourPropType} from 'tocco-ui'
 import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
 
 import Action from '../../../components/LazyAction'
@@ -68,6 +68,7 @@ ListView.propTypes = {
   local: PropTypes.string.isRequired,
   entityName: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
+  scrollBehaviour: scrollBehaviourPropType,
   searchFormType: PropTypes.string.isRequired,
   limit: PropTypes.number,
   searchFitlers: PropTypes.array,

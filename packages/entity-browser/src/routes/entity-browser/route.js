@@ -1,6 +1,6 @@
 import EntityBrowser from './components/EntityBrowser'
 import entityBrowser from './modules'
-import {setEntityName, setFormBase, setAppId} from './modules/actions'
+import {setEntityName, setFormBase, setAppId, setScrollBehaviour} from './modules/actions'
 
 const inputDispatches = [
   {
@@ -15,6 +15,10 @@ const inputDispatches = [
   {
     key: 'formBase',
     actionCreator: setFormBase
+  },
+  {
+    key: 'scrollBehaviour',
+    actionCreator: setScrollBehaviour
   },
   {
     key: 'id',
