@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 
+import {ScrollBehaviour} from './scrollBehaviour'
+
 export const keyPropType = PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 
 export const rowDataPropType = PropTypes.shape({
@@ -7,6 +9,8 @@ export const rowDataPropType = PropTypes.shape({
 })
 
 export const dataPropType = PropTypes.arrayOf(rowDataPropType)
+
+export const scrollBehaviourPropType = PropTypes.oneOf(Object.keys(ScrollBehaviour).map(key => ScrollBehaviour[key]))
 
 export const columnPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
