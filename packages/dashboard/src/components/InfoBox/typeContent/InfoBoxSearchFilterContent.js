@@ -36,7 +36,7 @@ const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction
   }
 
   return (
-    <StyledInfoBoxContentWrapper>
+    <StyledInfoBoxContentWrapper scrollable>
       <EntityListApp
         id={id}
         limit={limit}
@@ -54,6 +54,8 @@ const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction
         emitAction={emitAction}
         navigationStrategy={{...navigationStrategy, DetailLinkRelative}}
         showLink={true}
+        scrollBehaviour="inline"
+        tableMinHeight="240px"
       />
     </StyledInfoBoxContentWrapper>
   )
