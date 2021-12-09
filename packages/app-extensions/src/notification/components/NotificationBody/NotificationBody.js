@@ -50,7 +50,6 @@ const Result = ({
             href={download.addParameterToURL(file.link, 'download', true)}
             target="_blank"
             rel="noreferrer"
-            download={file.name}
             title="download">
             <StyledIconWrapper><Icon icon="arrow-to-bottom"/></StyledIconWrapper>
             <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
