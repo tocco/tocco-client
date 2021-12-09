@@ -1,3 +1,6 @@
+1.0.0-hotfix30.5
+- open downloadable file in new tab to avoid errors
+
 1.0.0-hotfix30.4
 - add scrollbar to dashboard panel and refactor dashboard components
 - open downloadable file in new tab to avoid errors
