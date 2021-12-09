@@ -6,6 +6,7 @@ import React, {useState} from 'react'
 
 import {Icon, Typography} from '../'
 import Table from './'
+import {ScrollBehaviour} from './scrollBehaviour'
 
 const columnsT = [
   {
@@ -65,10 +66,13 @@ const data = [...Array(100).keys()].map(k => {
 
 export default {
   title: 'Tocco-UI/Table',
-  component: Table
+  component: Table,
+  argTypes: {
+    scrollBehaviour: {options: Object.values(ScrollBehaviour), defaultValue: ScrollBehaviour.INLINE}
+  }
 }
 
-export const Basic = () => {
+export const Basic = args => {
   const recordsPerPage = 30
   const [columns, setColumns] = useState(columnsT)
   const [selection, setSelection] = useState([2])
@@ -98,8 +102,9 @@ export const Basic = () => {
   }
 
   return (
-    <div style={{width: '1000px', height: '500px', backgroundColor: 'red'}}>
+    <div style={{width: '1000px', height: '300px', backgroundColor: 'red'}}>
       <Table
+        {...args}
         columns={columns}
         data={data.slice(currentPage * recordsPerPage, currentPage * recordsPerPage + recordsPerPage)}
         selection={selection}

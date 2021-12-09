@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
 import {js} from 'tocco-util'
 
-import {columnPropType, dataPropType, keyPropType} from './propTypes'
+import {columnPropType, dataPropType, keyPropType, scrollBehaviourPropType} from './propTypes'
+import {ScrollBehaviour} from './scrollBehaviour'
 import {getSelectionCell} from './selection/selectionColumnEnhancer'
 import {selectionStylePropType} from './selection/selectionStyles'
 import useSelection from './selection/useSelection'
@@ -24,7 +25,8 @@ const Table = props => {
     onRowClick,
     clickable,
     onPageChange,
-    onPageRefresh
+    onPageRefresh,
+    scrollBehaviour = ScrollBehaviour.INLINE
   } = props
   const [columns, setColumns] = useState(props.columns)
   const tableEl = useRef(null)
@@ -65,7 +67,7 @@ const Table = props => {
   return (
     <StyledTableWrapper>
       <StretchingTableContainer>
-        <StyledTable ref={tableEl} columns={columns}>
+        <StyledTable ref={tableEl} columns={columns} scrollBehaviour={scrollBehaviour}>
           <TableHeader
             columns={columns}
             data={data}
@@ -120,6 +122,10 @@ Table.propTypes = {
    * List of selected keys
    */
   selection: PropTypes.arrayOf(keyPropType),
+  /**
+   * Defines how the table to handle scroll (default: inline)
+   */
+  scrollBehaviour: scrollBehaviourPropType,
   /**
    * Boolean flag to disable clicking on rows
    */

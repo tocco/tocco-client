@@ -80,6 +80,6 @@ export {default as Range} from './Range'
 export {default as BurgerButton} from './BurgerButton'
 export {default as Pagination} from './Pagination'
 export {default as QRCode} from './QRCode'
-export {default as Table, columnPropType, selectionStylePropType} from './Table'
+export {default as Table, columnPropType, selectionStylePropType, scrollBehaviourPropType} from './Table'
 
 export {Menu, MenuItem, BallMenu, ButtonMenu, StyledItemLabel} from './Menu'

@@ -5,6 +5,7 @@ import styled, {css} from 'styled-components'
 import {declareFont, theme, shadeColor, StyledScrollbar, scale, StyledFontAwesomeAdapterWrapper} from '../'
 import {generateShades} from '../utilStyles'
 import {StyledResizeHandle} from './ResizingController'
+import {ScrollBehaviour} from './scrollBehaviour'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
 const basePadding = scale.space(-1.5)
@@ -144,11 +145,6 @@ export const StyledTableBody = styled.tbody`
 `
 
 const StyledTable = styled.table`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   overflow: auto;
   display: grid;
   border-collapse: collapse;
@@ -160,6 +156,15 @@ const StyledTable = styled.table`
       .join(' ')};
   grid-auto-rows: min-content;
   min-width: 100%;
+  ${({scrollBehaviour}) =>
+    scrollBehaviour === ScrollBehaviour.INLINE &&
+    css`
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    `}
   ${StyledScrollbar}
 `
 
