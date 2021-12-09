@@ -26,7 +26,6 @@ const Admin = ({
   confirm,
   loadPrincipal,
   loadSettingsAndPreferences,
-  theme,
   adminAllowed
 }) => {
   const [history, setHistory] = useState(null)
@@ -61,33 +60,31 @@ const Admin = ({
     }
   }
 
+  const handleClick = () => {
+    setMenuOpen(false)
+    viewPersistor.clearPersistedViews()
+  }
+
   return (
     <LoadMask required={[history !== null]}>
       <Router history={history || {}}>
         <GlobalStyles />
         <notification.Notifications navigationStrategy={navigationStrategy()} />
-        <StyledWrapper id="outer-container">
+        <StyledWrapper>
           <Header />
           {adminAllowed && (
             <StyledMenu
               isOpen={menuOpen}
               onStateChange={isMenuOpen}
               customCrossIcon={false}
-              customBurgerIcon={<BurgerButton isOpen={menuOpen} size="20" color={theme.colors.paper} />}
+              customBurgerIcon={<BurgerButton isOpen={menuOpen} />}
               styles={burgerMenuStyles}
-              pageWrapId={'page-wrap'}
-              outerContainerId={'outer-container'}
             >
-              <Navigation
-                onClick={() => {
-                  setMenuOpen(false)
-                  viewPersistor.clearPersistedViews()
-                }}
-              />
+              <Navigation onClick={handleClick} />
             </StyledMenu>
           )}
           {adminAllowed && (
-            <StyledContent id="page-wrap">
+            <StyledContent>
               <Switch>
                 <Route
                   exact
@@ -104,7 +101,7 @@ const Admin = ({
             </StyledContent>
           )}
           {adminAllowed === false && (
-            <StyledContent id="page-wrap">
+            <StyledContent>
               <ErrorView
                 title={<FormattedMessage id={'client.admin.error.no_roles.title'} />}
                 message={<FormattedMessage id={'client.admin.error.no_roles.message'} />}
