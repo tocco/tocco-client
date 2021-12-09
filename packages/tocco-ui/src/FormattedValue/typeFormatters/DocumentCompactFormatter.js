@@ -16,7 +16,6 @@ const DocumentCompactFormatter = ({value, options}) => {
         <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(value.resourceKey)}>
           <Link
             alt={value.alt || value.fileName}
-            download={value.fileName}
             icon="external-link"
             look="raised"
             target="_blank"
@@ -29,9 +28,9 @@ const DocumentCompactFormatter = ({value, options}) => {
       </Popover>
       <Link
         alt={value.alt || value.fileName}
-        download={value.fileName}
         icon="arrow-to-bottom"
         look="raised"
+        target="_blank"
         href={download.getDownloadUrl(value.binaryLink)}
         onClick={e => {
           e.stopPropagation()

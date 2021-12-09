@@ -45,7 +45,6 @@ const Result = ({notification: {result}, navigationStrategy}) => {
               href={download.addParameterToURL(file.link, 'download', true)}
               target="_blank"
               rel="noreferrer"
-              download={file.name}
               title="download"
             >
               <StyledIconWrapper>
