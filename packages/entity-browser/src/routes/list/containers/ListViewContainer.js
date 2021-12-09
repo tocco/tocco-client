@@ -18,6 +18,7 @@ const mapStateToProps = (state, props) => {
     locale: state.input.locale,
     entityName: state.entityBrowser.entityName,
     formName: state.entityBrowser.formBase,
+    scrollBehaviour: state.entityBrowser.scrollBehaviour,
     searchFormType: state.input.showSearchForm ? 'basic' : 'none',
     limit: state.input.limit,
     searchFilters: state.input.searchFilters,
