@@ -29,7 +29,7 @@ const View = ({value, downloadTitle, immutable, onUpload, deleteTitle}) => {
           <Link
             neutral
             icon="arrow-to-bottom"
-            download={value.fileName}
+            target="_blank"
             href={download.getDownloadUrl(value.binaryLink)}
             tabIndex={-1}
             title={downloadTitle || 'download'}
