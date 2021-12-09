@@ -13,6 +13,7 @@ import {
   formData
 } from 'tocco-app-extensions'
 import SimpleFormApp from 'tocco-simple-form/src/main'
+import {scrollBehaviourPropType} from 'tocco-ui'
 import {react, reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 
 import EntityList from './components/EntityList'
@@ -176,6 +177,7 @@ EntityListApp.propTypes = {
   simpleSearchFields: PropTypes.string,
   onSelectChange: PropTypes.func,
   selectionStyle: selectionStylePropType,
+  scrollBehaviour: scrollBehaviourPropType,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func

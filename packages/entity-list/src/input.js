@@ -4,7 +4,8 @@ import {
   setEntityName,
   setParent,
   setSearchFormPosition,
-  setSearchFormCollapsedInitialValue
+  setSearchFormCollapsedInitialValue,
+  setScrollBehaviour
 } from './modules/entityList/actions'
 import {
   setLimit,
@@ -106,6 +107,12 @@ const actionSettings = [
     type: 'boolean',
     action: setSelection,
     argsFactory: input => [input.selection],
+    reload: reloadOptions.NOTHING
+  },
+  {
+    name: 'scrollBehaviour',
+    action: setScrollBehaviour,
+    argsFactory: input => [input.scrollBehaviour],
     reload: reloadOptions.NOTHING
   },
   {

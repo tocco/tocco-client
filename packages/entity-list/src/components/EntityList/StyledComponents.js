@@ -37,11 +37,12 @@ export const LeftPositioning = styled.div`
 
 export const SearchGrid = styled.div`
   grid-area: search;
-  overflow-y: auto;
+  ${({scrollBehaviour, searchFormType}) =>
+    scrollBehaviour === 'inline' && searchFormType !== 'simple' && 'overflow-y: auto;'}
 
   /* Limit height when positioned top */
   ${/* sc-selector */ TopPositioning} & {
-    max-height: 200px;
+    ${({scrollBehaviour}) => (scrollBehaviour === 'inline' ? 'max-height: 200px;' : 'max-height: none;')}
     padding-right: ${scale.space(-0.5)};
     ${StyledScrollbar}
   }

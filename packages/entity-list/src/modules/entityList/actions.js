@@ -9,6 +9,7 @@ export const RELOAD_ALL = 'entityList/RELOAD_ALL'
 export const RELOAD_DATA = 'entityList/RELOAD_DATA'
 export const SET_SEARCH_FORM_COLLAPSED = 'entityList/SET_SEARCH_FORM_COLLAPSED'
 export const SET_SEARCH_FORM_COLLAPSED_INITIAL_VALUE = 'entityList/SET_SEARCH_FORM_COLLAPSED_INITIAL_VALUE'
+export const SET_SCROLL_BEHAVIOUR = 'entityList/SET_SCROLL_BEHAVIOUR'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -75,5 +76,12 @@ export const setSearchFormCollapsedInitialValue = searchFormCollapsed => ({
   type: SET_SEARCH_FORM_COLLAPSED_INITIAL_VALUE,
   payload: {
     searchFormCollapsed
+  }
+})
+
+export const setScrollBehaviour = scrollBehaviour => ({
+  type: SET_SCROLL_BEHAVIOUR,
+  payload: {
+    scrollBehaviour
   }
 })

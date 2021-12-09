@@ -9,7 +9,8 @@ const INITIAL_STATE = {
   searchFormType: searchFormTypes.BASIC,
   searchFormPosition: 'top',
   parent: null,
-  searchFormCollapsed: false
+  searchFormCollapsed: false,
+  scrollBehaviour: 'inline'
 }
 
 describe('entity-list', () => {
