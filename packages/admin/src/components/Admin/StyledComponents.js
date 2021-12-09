@@ -31,6 +31,7 @@ export const StyledContent = styled.div`
   overflow: hidden;
   display: flex;
 `
+
 export const StyledMenu = styled(SlideMenu)`
   grid-area: menu;
 `
@@ -42,13 +43,10 @@ export const burgerMenuStyles = {
     width: '24px',
     height: '24px',
     left: '17px',
-    top: '10px',
+    top: '12px',
     // Default z-index of button is 1000 which is higher than the mask of the legacy action modal windows (not good).
     // It seems like it doesn't need to be higher than 3, therefore we set it to 3.
     zIndex: 3
-  },
-  bmBurgerBarsHover: {
-    background: '#a90000'
   },
   bmMenuWrap: {
     position: 'fixed',
@@ -62,11 +60,7 @@ export const burgerMenuStyles = {
     fontSize: '1.15em',
     overflow: 'hidden'
   },
-  bmMorphShape: {
-    fill: '#373a47'
-  },
   bmItemList: {
-    color: '#b8b7ad',
     height: '100%'
   },
   bmItem: {

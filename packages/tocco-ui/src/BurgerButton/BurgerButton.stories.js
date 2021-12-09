@@ -12,4 +12,4 @@ export default {
   }
 }
 
-export const Basic = args => <BurgerButton size="20" color="black" {...args} />
+export const Basic = args => <BurgerButton {...args} />
