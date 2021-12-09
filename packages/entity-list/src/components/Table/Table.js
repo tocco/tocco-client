@@ -1,45 +1,70 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {columnPropType, selectionStylePropType, Table as UiTable} from 'tocco-ui'
+import {columnPropType, selectionStylePropType, scrollBehaviourPropType, Table as UiTable} from 'tocco-ui'
 import {js} from 'tocco-util'
 
 import {markingCell} from './markingCell'
 import {navigationCell} from './navigationCell'
 
-const Table = props => {
-  const showNavigationLink =
-    props.showLink && props.clickable && props.navigationStrategy && !!props.navigationStrategy.DetailLinkRelative
-  const showPreferencesMenu = !props.disablePreferencesMenu
+const Table = ({
+  showLink,
+  clickable,
+  navigationStrategy,
+  disablePreferencesMenu,
+  parent,
+  markable,
+  columnDefinitions,
+  widths,
+  positions,
+  entities,
+  changeWidth,
+  inProgress,
+  currentPage,
+  entityCount,
+  limit,
+  changePage,
+  refresh,
+  setSortingInteractive,
+  tableSelectionStyle,
+  onSelectChange,
+  selection,
+  scrollBehaviour,
+  onRowClick,
+  changePosition
+}) => {
+  const showNavigationLink = showLink && clickable && navigationStrategy && !!navigationStrategy.DetailLinkRelative
+  const showPreferencesMenu = !disablePreferencesMenu
   const columns = [
     ...(showNavigationLink || showPreferencesMenu
-      ? [navigationCell(showNavigationLink, props.navigationStrategy, props.parent)]
+      ? [navigationCell(showNavigationLink, navigationStrategy, parent)]
       : []),
-    ...(props.markable ? [markingCell()] : []),
-    ...props.columnDefinitions
-      .map(a => ({...a, width: _get(props.widths, a.id)}))
-      .sort((a, b) => _get(props.positions, [a.id]) - _get(props.positions, [b.id]))
+    ...(markable ? [markingCell()] : []),
+    ...columnDefinitions
+      .map(a => ({...a, width: _get(widths, a.id)}))
+      .sort((a, b) => _get(positions, [a.id]) - _get(positions, [b.id]))
   ]
   return (
     <UiTable
-      data={props.entities}
+      data={entities}
       columns={columns}
-      onColumnWidthChange={props.changeWidth}
-      dataLoadingInProgress={props.inProgress}
+      onColumnWidthChange={changeWidth}
+      dataLoadingInProgress={inProgress}
       paginationInfo={{
-        currentPage: props.currentPage,
-        totalCount: props.entityCount,
-        recordsPerPage: props.limit
+        currentPage: currentPage,
+        totalCount: entityCount,
+        recordsPerPage: limit
       }}
-      onPageChange={props.changePage}
-      onPageRefresh={props.refresh}
-      onSortingChange={props.setSortingInteractive}
-      selectionStyle={props.tableSelectionStyle}
-      onSelectionChange={props.onSelectChange}
-      selection={props.selection}
-      onRowClick={props.onRowClick}
-      clickable={props.clickable}
-      onColumnPositionChange={(dragging, dragOver) => props.changePosition(dragging, dragOver, columns)}
+      onPageChange={changePage}
+      onPageRefresh={refresh}
+      onSortingChange={setSortingInteractive}
+      selectionStyle={tableSelectionStyle}
+      onSelectionChange={onSelectChange}
+      selection={selection}
+      scrollBehaviour={scrollBehaviour}
+      onRowClick={onRowClick}
+      clickable={clickable}
+      onColumnPositionChange={(dragging, dragOver) => changePosition(dragging, dragOver, columns)}
     />
   )
 }
@@ -59,6 +84,7 @@ Table.propTypes = {
   tableSelectionStyle: selectionStylePropType,
   onSelectChange: PropTypes.func,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  scrollBehaviour: scrollBehaviourPropType,
   parent: PropTypes.shape({
     key: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,

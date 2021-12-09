@@ -15,8 +15,9 @@ const mapActionCreators = {
 
 const mapStateToProps = state => ({
   searchFormType: state.input.searchFormType,
-  searchFormPosition: state.input.searchFormPosition,
-  searchFormCollapsed: state.entityList.searchFormCollapsed
+  searchFormPosition: state.entityList.searchFormPosition,
+  searchFormCollapsed: state.entityList.searchFormCollapsed,
+  scrollBehaviour: state.entityList.scrollBehaviour
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(EntityList))
