@@ -8,7 +8,7 @@ import React from 'react'
 import {Redirect, Route, Router as ReactRouter} from 'react-router'
 import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
 import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
-import {GlobalStyles} from 'tocco-ui'
+import {GlobalStyles, scrollBehaviourPropType} from 'tocco-ui'
 import {react, reducer as reducerUtil, env} from 'tocco-util'
 
 import DocsBrowser from './components/DocsBrowser'
@@ -162,6 +162,7 @@ DocsBrowserApp.propTypes = {
   documentDetailFormName: PropTypes.string,
   searchFormType: searchFormTypePropTypes,
   selectionStyle: selectionStylePropType,
+  scrollBehaviour: scrollBehaviourPropType,
   getListFormName: PropTypes.func,
   memoryHistory: PropTypes.bool,
   disableViewPersistor: PropTypes.bool,

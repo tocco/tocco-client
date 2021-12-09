@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {Suspense, useEffect, useMemo, useReducer, useRef, useState} from 'react'
 import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
-import {Icon, LoadMask} from 'tocco-ui'
+import {Icon, LoadMask, scrollBehaviourPropType} from 'tocco-ui'
 import {viewPersistor} from 'tocco-util'
 
 import isRootLocation from '../../utils/isRootLocation'
@@ -65,6 +65,7 @@ const DocsView = props => {
     domainDetailFormName,
     folderDetailFormName,
     showActions,
+    scrollBehaviour,
     sortable,
     searchMode,
     openResource,
@@ -216,6 +217,7 @@ const DocsView = props => {
           showActions={showActions}
           sortable={sortable}
           searchFormCollapsed={searchFormCollapsed}
+          scrollBehaviour={scrollBehaviour}
           onSearchFormCollapsedChange={changeSearchFormCollapsed}
         />
       </Suspense>
@@ -252,6 +254,7 @@ DocsView.propTypes = {
   searchMode: PropTypes.bool,
   openResource: PropTypes.func,
   searchFormCollapsed: PropTypes.bool,
+  scrollBehaviour: scrollBehaviourPropType,
   changeSelection: PropTypes.func.isRequired,
   changeSearchFormCollapsed: PropTypes.func.isRequired
 }

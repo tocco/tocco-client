@@ -7,13 +7,13 @@ export const StyledWrapper = styled.div`
   grid-template-areas:
     'breadcrumbs'
     'content';
-  height: 100%;
+  ${({scrollBehaviour}) => scrollBehaviour === 'inline' && 'height: 100%;'}
   width: 100%;
 `
 
 export const StyledContent = styled.div`
   grid-area: content;
-  overflow-x: hidden;
+  ${({scrollBehaviour}) => scrollBehaviour === 'inline' && 'overflow-x: hidden;'}
   ${StyledScrollbar}
 `
 

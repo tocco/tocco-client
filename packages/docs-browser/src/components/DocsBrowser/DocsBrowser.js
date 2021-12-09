@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useReducer, useRef} from 'react'
 import {Route, Switch, useLocation} from 'react-router-dom'
 import {withTheme} from 'styled-components'
-import {theme as themeUtil} from 'tocco-ui'
+import {scrollBehaviourPropType, theme as themeUtil} from 'tocco-ui'
 import {viewPersistor} from 'tocco-util'
 
 import Breadcrumbs from '../../containers/BreadcrumbsContainer'
@@ -21,7 +21,8 @@ const DocsBrowser = ({
   openFileDialog,
   theme,
   embedded,
-  noLeftPadding
+  noLeftPadding,
+  scrollBehaviour
 }) => {
   // eslint-disable-next-line no-unused-vars
   const [docsViewNumber, forceDocsViewUpdate] = useReducer(x => x + 1, 0)
@@ -64,14 +65,14 @@ const DocsBrowser = ({
   const key = `docs-view-${docsViewNumber}`
 
   return (
-    <StyledWrapper>
+    <StyledWrapper scrollBehaviour={scrollBehaviour}>
       <StyledBreadcrumbs noLeftPadding={noLeftPadding}>
         <Breadcrumbs
           {...(embedded ? {backgroundColor: themeUtil.color('paper')({theme})} : {})}
           onClick={handleBreadcrumbsClick}
         />
       </StyledBreadcrumbs>
-      <StyledContent>
+      <StyledContent scrollBehaviour={scrollBehaviour}>
         <Switch>
           <Route
             exact
@@ -112,7 +113,8 @@ DocsBrowser.propTypes = {
   navigationStrategy: PropTypes.object,
   embedded: PropTypes.bool,
   theme: PropTypes.object,
-  noLeftPadding: PropTypes.bool
+  noLeftPadding: PropTypes.bool,
+  scrollBehaviour: scrollBehaviourPropType
 }
 
 export default withTheme(DocsBrowser)

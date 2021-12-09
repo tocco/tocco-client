@@ -32,6 +32,7 @@ React-registry name: `docs-browser`
 | `noLeftPadding`        |           | If false, a left padding will be applied to the Breadcrumbs. Per default false.
 | `searchFormCollapsed`  |           | If true, the admin search form is collapsed and thus not visible by default                                                                                                                               | Boolean
 | `backendUrl`           |           | Set backend url dynamic to point to nice2 installation. If not set it fallbacks to the build time environment __BACKEND_URL__.
+| `scrollBehaviour`      |           | "none": Does not handle scroll internally and will take as much space as needed. The container / page needs to handle the scroll. "inline": Does handle scroll internally and takes the space given by the container. Containers needs to have a predefined height (Default: `inline`)
 
 ### Events
 
