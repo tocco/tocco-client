@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
   searchMode: state.docs.path.searchMode,
   navigationStrategy: state.input.navigationStrategy,
   embedded: state.input.embedded,
-  noLeftPadding: state.input.noLeftPadding
+  noLeftPadding: state.input.noLeftPadding,
+  scrollBehaviour: state.docs.list.scrollBehaviour
 })
 
 const mapActionCreators = {

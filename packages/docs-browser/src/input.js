@@ -1,4 +1,4 @@
-import {setSearchFormCollapsed} from './modules/list/actions'
+import {setScrollBehaviour, setSearchFormCollapsed} from './modules/list/actions'
 
 const isDefined = value => value !== undefined
 
@@ -15,5 +15,10 @@ const actionSettings = [
     name: 'searchFormCollapsed',
     action: setSearchFormCollapsed,
     argsFactory: input => [input.searchFormCollapsed]
+  },
+  {
+    name: 'scrollBehaviour',
+    action: setScrollBehaviour,
+    argsFactory: input => [input.scrollBehaviour]
   }
 ]
