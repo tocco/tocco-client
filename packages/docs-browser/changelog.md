@@ -1,3 +1,8 @@
+1.0.3
+- register more icons
+- open downloadable file in new tab to avoid errors
+- fix docs-browser height inside modal
+
 1.0.2
 - add useDidUpdate helper hook
 - reuse existing usePrevious hook
