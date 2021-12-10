@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
-import {consoleLogger} from 'tocco-util'
+import {consoleLogger, env} from 'tocco-util'
 
 import LoginContainer from './containers/LoginContainer'
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
@@ -29,6 +29,11 @@ export const initPasswordUpdateApp = (id, input, events, publicPath, customTheme
   }
 
   const store = appFactory.createStore(loginReducers, sagas, input, packageName)
+  
+  if (input.backendUrl) {
+    env.setBackendUrl(input.backendUrl)
+  }
+  
   externalEvents.addToStore(store, events)
   errorLogging.addToStore(store, true, ['console', 'remote'])
 
@@ -56,6 +61,7 @@ PasswordUpdateApp.propTypes = {
   showTitle: PropTypes.bool,
   showOldPasswordField: PropTypes.bool,
   oldPassword: PropTypes.string,
+  backendUrl: PropTypes.string,
   ...EXTERNAL_EVENTS_PASSWORD_UPDATE.reduce(
     (propTypes, event) => ({
       ...propTypes,

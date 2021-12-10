@@ -28,7 +28,8 @@ React-registry name: `login`
 | `showTitle`            |           | Display a title above the dialog.
 | `locale`               |           | ISO Language Code
 | `passwordRequest`      |           | Boolean to open login app in reset mode. 
-| `username`             |           | Open login app with pre-filled username. 
+| `username`             |           | Open login app with pre-filled username.
+| `backendUrl`           |           | Set backend url dynamic to point to nice2 installation. If not set it fallbacks to the build time environment __BACKEND_URL__.
 
 ### Methods
 
@@ -76,6 +77,7 @@ React-registry name: `password-update`
 | `showOldPasswordField` |           | By default, there is no input field for the old password. Set this property to `true` to render the input field. |
 | `oldPassword`          |           | Unless the user which submits the dialog is login manager, you must either provide the old password of the user with this property or enable the old-password input (see `showOldPasswordField`) so that the user is able to enter his current password
 | `showTitle`            |           | Display a title above the dialog.
+| `backendUrl`           |           | Set backend url dynamic to point to nice2 installation. If not set it fallbacks to the build time environment __BACKEND_URL__.
 
 ### Events
 
