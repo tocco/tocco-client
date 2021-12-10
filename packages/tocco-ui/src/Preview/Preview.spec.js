@@ -23,7 +23,6 @@ describe('tocco-ui', () => {
       expect(figure).to.have.length(1)
       expect(a).to.have.length(1)
       expect(a).to.have.attr('href', '/link-to-source')
-      expect(a).to.have.attr('alt', 'alternative text')
       expect(img).to.have.length(1)
       expect(img).to.have.attr('alt', 'alternative text')
       expect(img).to.have.attr('src', '/link-to-thumbnail')
