@@ -1,6 +1,8 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {takeEvery, all, select} from 'redux-saga/effects'
+import {takeEvery, all, select, call} from 'redux-saga/effects'
+import {originId as originIdHelper} from 'tocco-util'
 
+import socket from '../../../socket'
 import {notificationTransform} from '../../api'
 import {updateNotification, updateUnreadNotification, markAsRead} from '../center/actions'
 import * as toasterActions from '../toaster/actions'
@@ -39,38 +41,52 @@ describe('app-extensions', () => {
         })
       })
 
+      describe('connectSocket', () => {
+        test('should connect socket', () =>
+          expectSaga(sagas.connectSocket)
+            .provide([
+              [call(originIdHelper.getOriginId), 'test-origin-id']
+            ])
+            .call(socket.connectSocket, {
+              name: 'notification',
+              messageReceivedAction: actions.socketMessageReceived,
+              originId: 'test-origin-id'
+            })
+            .run())
+      })
+
       describe('messageReceived', () => {
-        const originId = 'test'
-        const data = {
+        const globalOrigId = originIdHelper.getOriginId()
+        const data = (originId = globalOrigId) => ({
           key: '1',
           read: false,
           originId
-        }
-        const notification = {
+        })
+        const notification = (originId = globalOrigId) => ({
           key: '1',
           read: false,
           type: 'info',
           result: null,
           taskProgress: null,
           originId
-        }
+        })
 
         test('same originId', () => {
-          return expectSaga(sagas.messageReceived, {payload: {data: data}})
-            .provide([[select(sagas.notificationSocketSelector), {originId, ignoredToasters: []}]])
-            .call(notificationTransform, data)
-            .call(notificationToToaster, notification)
+          return expectSaga(sagas.messageReceived, {payload: {data: data()}})
+            .provide([[select(sagas.notificationSocketSelector), {ignoredToasters: []}]])
+            .call(notificationTransform, data())
+            .call(notificationToToaster, notification())
             .put.like({action: {type: TOASTER}})
-            .put(updateNotification(notification))
+            .put(updateNotification(notification()))
             .run()
         })
 
         test('other originId', () => {
-          return expectSaga(sagas.messageReceived, {payload: {data: data}})
-            .provide([[select(sagas.notificationSocketSelector), {originId: 'other', ignoredToasters: []}]])
-            .call(notificationTransform, data)
-            .put(updateUnreadNotification(notification.key, notification.read))
-            .put(updateNotification(notification))
+          return expectSaga(sagas.messageReceived, {payload: {data: data('other')}})
+            .provide([[select(sagas.notificationSocketSelector), {ignoredToasters: []}]])
+            .call(notificationTransform, data('other'))
+            .put(updateUnreadNotification(notification('other').key, notification('other').read))
+            .put(updateNotification(notification('other')))
             .run()
         })
       })

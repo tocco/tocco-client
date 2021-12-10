@@ -26,9 +26,7 @@ export function* sessionCheck() {
   }
   yield put(actions.setAdminAllowed(adminAllowed))
   yield put(actions.setLoggedIn(success))
-  if (success) {
-    yield put(notification.connectSocket())
-  }
+  yield put(notification.connectSocket())
 }
 
 export default function* mainSagas() {

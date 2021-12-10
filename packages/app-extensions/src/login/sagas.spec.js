@@ -58,24 +58,19 @@ describe('app-extensions', () => {
             .put(actions.setLoggedIn(false))
             .run()
         })
-        test('should not connect socket on failure', () => {
+
+        const testSocketConnection = loginSuccess => {
           const sessionResponse = {
-            success: false
-          }
-          return expectSaga(sagas.sessionCheck)
-            .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
-            .not.put(notification.connectSocket())
-            .run()
-        })
-        test('should connect socket on success', () => {
-          const sessionResponse = {
-            success: true
+            success: loginSuccess
           }
           return expectSaga(sagas.sessionCheck)
             .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
             .put(notification.connectSocket())
             .run()
-        })
+        }
+        test('should connect socket on failure', () => testSocketConnection(false))
+        test('should connect socket on success', () => testSocketConnection(true))
+        
         test('should set adminAllowed in', () => {
           const sessionResponse = {
             adminAllowed: true

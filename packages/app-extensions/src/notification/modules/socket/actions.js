@@ -19,13 +19,6 @@ export const socketMessageReceived = data => ({
   }
 })
 
-export const setOriginId = originId => ({
-  type: SET_ORIGIN_ID,
-  payload: {
-    originId
-  }
-})
-
 export const addIgnoreToaster = key => ({
   type: ADD_IGNORE_TOASTER,
   payload: {

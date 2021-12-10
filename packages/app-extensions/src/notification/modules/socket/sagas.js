@@ -25,10 +25,10 @@ export default function* sagas(accept) {
 
 export function* connectSocket() {
   const originId = yield call(originIdHelper.getOriginId)
-  yield put(actions.setOriginId(originId))
   yield call(socket.connectSocket, {
     name: 'notification',
-    messageReceivedAction: actions.socketMessageReceived
+    messageReceivedAction: actions.socketMessageReceived,
+    originId
   })
 }
 
@@ -38,10 +38,10 @@ export function* closeSocket() {
 
 export function* messageReceived({payload: {data}}) {
   const notification = yield call(notificationTransform, data)
-  const {originId, ignoredToasters} = yield select(notificationSocketSelector)
+  const {ignoredToasters} = yield select(notificationSocketSelector)
   let showToaster = false
 
-  if (notification.originId === originId) {
+  if (notification.originId === originIdHelper.getOriginId()) {
     const toasterInfo = yield call(notificationToToaster, notification)
     if (!ignoredToasters.includes(toasterInfo.key) && !notification.read) {
       yield put(toaster(toasterInfo))
