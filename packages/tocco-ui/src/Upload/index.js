@@ -1,4 +1,4 @@
-import StyledUploadInput from './StyledUploadInput'
+import {StyledUploadInput} from './StyledUploadInput'
 import {StyledView} from './StyledView'
 import Upload from './Upload'
 

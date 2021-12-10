@@ -1,6 +1,6 @@
 import _isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 
 import UploadInput from './UploadInput'
 import UploadProgress from './UploadProgress'
@@ -11,17 +11,24 @@ import View from './View'
  */
 export const Upload = props => {
   const {value, textResources, onUpload, onChoose} = props
+  const valueRef = useRef(value)
   const [states, setStates] = useState({
     isUploading: false,
     previewFile: null
   })
 
   const setUploadingState = file => {
-    setStates({isUploading: true, previewFile: file})
+    setStates({
+      isUploading: true,
+      previewFile: file
+    })
   }
 
   const abortUploadingState = () => {
-    setStates({isUploading: false, previewFile: null})
+    setStates({
+      isUploading: false,
+      previewFile: null
+    })
   }
 
   const onDrop = file => {
@@ -30,12 +37,13 @@ export const Upload = props => {
   }
 
   useEffect(() => {
-    if (!_isEqual(value)) {
+    if (!_isEqual(valueRef.current, value)) {
       abortUploadingState()
     }
+    valueRef.current = value
   }, [value])
 
-  if (value && value.binaryLink) {
+  if (value?.binaryLink) {
     return <View {...props} deleteTitle={textResources.delete} downloadTitle={textResources.download} />
   } else if (states.isUploading) {
     return <UploadProgress file={states.previewFile} text={textResources.uploading} {...props} />

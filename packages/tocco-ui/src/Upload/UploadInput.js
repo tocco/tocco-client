@@ -2,33 +2,21 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Button from '../Button'
-import Icon from '../Icon'
-import {design} from '../utilStyles'
-import StyledUploadInput from './StyledUploadInput'
-import {StyledDropzone, StyledIconWrapper} from './SyledUploadInput'
+import {StyledUploadInput, StyledDropzone} from './StyledUploadInput'
 
 const UploadInput = ({onDrop: onDropProp, immutable, text, onChoose}) => {
   const onDrop = files => onDropProp(files[0])
+  const handleClick = e => {
+    onChoose()
+    e.stopPropagation()
+  }
 
   return (
     <StyledUploadInput immutable={immutable}>
       <StyledDropzone disabled={immutable} multiple={false} onDrop={onDrop} title={text || 'drag and drop or click'}>
-        <StyledIconWrapper>
-          <Button>
-            <Icon icon="arrow-to-top" position={design.position.PREPEND} />
-          </Button>
-          {onChoose && (
-            <Button
-              onClick={e => {
-                onChoose()
-                e.stopPropagation()
-              }}
-            >
-              <Icon icon="folder" position={design.position.PREPEND} />
-            </Button>
-          )}
-        </StyledIconWrapper>
+        <Button icon="arrow-to-top" />
       </StyledDropzone>
+      {onChoose && <Button onClick={handleClick} icon="folder" label={'browse docs'} iconOnly={true} />}
     </StyledUploadInput>
   )
 }
