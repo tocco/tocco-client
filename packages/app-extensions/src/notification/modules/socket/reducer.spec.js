@@ -2,7 +2,6 @@ import * as actions from './actions'
 import reducer from './reducer'
 
 const INITIAL_STATE = {
-  originId: null,
   ignoredToasters: []
 }
 
@@ -15,18 +14,8 @@ describe('app-extensions', () => {
             expect(reducer(undefined, {})).to.deep.equal(INITIAL_STATE)
           })
 
-          test('should set origin id', () => {
-            const expectedStateAfter = {
-              originId: 'test',
-              ignoredToasters: []
-            }
-            const stateAfter = reducer(INITIAL_STATE, actions.setOriginId('test'))
-            expect(stateAfter).to.deep.equal(expectedStateAfter)
-          })
-
           test('should add ignore toaster', () => {
             const expectedStateAfter = {
-              originId: null,
               ignoredToasters: ['1']
             }
             const stateAfter = reducer(INITIAL_STATE, actions.addIgnoreToaster('1'))

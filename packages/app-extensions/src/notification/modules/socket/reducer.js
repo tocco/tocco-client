@@ -1,5 +1,3 @@
-import {reducer as reducerUtil} from 'tocco-util'
-
 import * as actions from './actions'
 
 const addIgnoreToaster = (state, {payload: {key}}) => {
@@ -10,12 +8,10 @@ const addIgnoreToaster = (state, {payload: {key}}) => {
 }
 
 const ACTION_HANDLERS = {
-  [actions.SET_ORIGIN_ID]: reducerUtil.singleTransferReducer('originId'),
   [actions.ADD_IGNORE_TOASTER]: addIgnoreToaster
 }
 
 const initialState = {
-  originId: null,
   ignoredToasters: []
 }
 
