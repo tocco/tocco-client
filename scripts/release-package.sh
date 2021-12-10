@@ -76,14 +76,14 @@ git tag --delete _tocco-$(transformPackageName $package)@${new_version}
 
 if [[ $auto = true ]]; then
   PUSH="n"
-  echo "Pushing commits and tags is skipped"
+  echo "Pushing commits is skipped"
 else
-  read -p "Push commits and tags (y/n)?" PUSH
+  read -p "Push commits (y/n)?" PUSH
 fi
 
 if [ "$PUSH" = "y" ] || [ "$PUSH" = "Y" ]; then
   git push --set-upstream git@github.com:tocco/tocco-client.git ${targetBranch}
-  echo "${color_green}Commits and tags pushed to ${targetBranch}!${color_reset}"
+  echo "${color_green}Commits pushed to ${targetBranch}!${color_reset}"
 else
   echo "${color_red}Nothing pushed!${color_reset}"
 fi
