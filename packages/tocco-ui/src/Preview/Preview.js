@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useState} from 'react'
+import React from 'react'
 
 import Icon from '../Icon'
 import Typography from '../Typography'
@@ -10,22 +10,18 @@ import StyledPreview from './StyledPreview'
  * Use <Preview> to display a preview of any kind of file. Provide URLs to thumbnail and file.
  */
 const Preview = ({thumbnailUrl, alt, srcUrl, fileName, caption, maxDimensionX, maxDimensionY}) => {
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  const handleOnLoad = () => setIsLoaded(Math.random())
-
-  const image = thumbnailUrl ? (
-    <img alt={alt} title={alt} src={thumbnailUrl} onLoad={handleOnLoad} data-image-in-cache={isLoaded} />
+  const previewContent = thumbnailUrl ? (
+    <img alt={alt} title={alt} src={thumbnailUrl} />
   ) : (
-    <div alt={alt} title={alt}>
+    <div title={alt}>
       <Icon icon="file-alt" />
     </div>
   )
 
   return (
     <StyledPreview maxDimensionX={maxDimensionX} maxDimensionY={maxDimensionY}>
-      <a target="_blank" rel="noopener noreferrer" alt={alt} href={srcUrl}>
-        {image}
+      <a target="_blank" rel="noopener noreferrer" href={srcUrl}>
+        {previewContent}
       </a>
       {caption && <Typography.Figcaption>{caption}</Typography.Figcaption>}
     </StyledPreview>
