@@ -17,7 +17,8 @@ const mapStateToProps = (state, props) => ({
   sortable: state.list.sortable,
   columnDisplayPreferences: state.preferences.columns,
   preferencesLoaded: state.preferences.preferencesLoaded,
-  cellRenderers: state.input.cellRenderers
+  cellRenderers: state.input.cellRenderers,
+  tableMinHeight: state.input.tableMinHeight
 })
 
 export default connect(mapStateToProps, null)(injectIntl(ListView))

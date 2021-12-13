@@ -38,6 +38,7 @@ React-registry name: `entity-list`
 | `contextParams`                 |             | Map of parameters that will be added to the context which will be passed on to the called actions.                                                                                                        | Object   |               |
 | `searchFormCollapsed`           |             | If true, the admin search form is collapsed and thus not visible by default                                                                                                                               | Boolean  |               |
 | `scrollBehaviour`               |             | "none": Does not handle scroll internally and will take as much space as needed. The container / page needs to handle the scroll. "inline": Does handle scroll internally and takes the space given by the container. Containers needs to have a predefined height. | String  | "inline"          |
+| `tableMinHeight`                |             | Minimum height (e.g. "200px") which the list should have in order to be able to show any content when `scrollBehaviour="inline"`.                                                                         | String   |               |
 
 ### Events
 

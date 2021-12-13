@@ -178,6 +178,7 @@ EntityListApp.propTypes = {
   onSelectChange: PropTypes.func,
   selectionStyle: selectionStylePropType,
   scrollBehaviour: scrollBehaviourPropType,
+  tableMinHeight: PropTypes.string,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func

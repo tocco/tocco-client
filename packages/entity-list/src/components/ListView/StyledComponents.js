@@ -3,6 +3,7 @@ import {theme} from 'tocco-ui'
 
 export const StyledListWrapper = styled.div`
   grid-row-start: table-start;
+  ${({tableMinHeight}) => tableMinHeight && `min-height: ${tableMinHeight};`}
 `
 
 export const StyledActionWrapper = styled.div`
