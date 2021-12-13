@@ -21,7 +21,8 @@ const ListView = ({
   cellRenderers,
   preferencesLoaded,
   intl,
-  sortable
+  sortable,
+  tableMinHeight
 }) => {
   const msg = (id, values = {}) => intl.formatMessage({id}, values)
 
@@ -39,7 +40,11 @@ const ListView = ({
       })
 
       return (
-        <StyledListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${table.id}`}>
+        <StyledListWrapper
+          searchFormPosition={searchFormPosition}
+          tableMinHeight={tableMinHeight}
+          key={`tableWrapper-${table.id}`}
+        >
           <TableContainer key={`table-${table.id}`} columnDefinitions={columnsDefinitions} />
         </StyledListWrapper>
       )
@@ -105,7 +110,8 @@ ListView.propTypes = {
   sortable: PropTypes.bool,
   columnDisplayPreferences: PropTypes.objectOf(PropTypes.bool),
   cellRenderers: PropTypes.objectOf(PropTypes.func),
-  preferencesLoaded: PropTypes.bool
+  preferencesLoaded: PropTypes.bool,
+  tableMinHeight: PropTypes.string
 }
 
 const areEqual = (prevProps, nextProps) => {
