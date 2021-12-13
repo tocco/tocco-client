@@ -1,3 +1,6 @@
+1.0.0-hotfix30.6
+- correct link to user manual
+
 1.0.0-hotfix30.5
 - open downloadable file in new tab to avoid errors
 
