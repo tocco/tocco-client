@@ -45,6 +45,8 @@ const SubGrid = props => {
         onStoreCreate={store => {
           viewPersistor.persistViewInfo(id, {store})
         }}
+        scrollBehaviour="inline"
+        tableMinHeight="300px"
       />
     </StyledListApp>
   )
