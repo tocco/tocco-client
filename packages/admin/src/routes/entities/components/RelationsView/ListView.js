@@ -43,6 +43,7 @@ const ListView = ({selectedRelation, currentViewInfo, match, history, emitAction
       showActions={false}
       limit={15}
       emitAction={emitAction}
+      scrollBehaviour="inline"
     />
   )
 }

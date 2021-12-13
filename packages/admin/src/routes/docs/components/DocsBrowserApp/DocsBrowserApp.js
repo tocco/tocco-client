@@ -36,6 +36,7 @@ const DocsBrowserApp = props => {
       onSearchFormCollapsedChange={({collapsed}) => {
         props.saveUserPreferences({'admin.list.searchFormCollapsed': collapsed})
       }}
+      scrollBehaviour="inline"
     />
   )
 }

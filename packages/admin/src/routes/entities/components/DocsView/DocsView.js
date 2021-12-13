@@ -33,6 +33,7 @@ const DocsView = ({entityName, entityKey, showActions, noLeftPadding, openResour
         {...(showActions === false ? {selectionStyle: 'none'} : {})}
         disableViewPersistor={true}
         {...(openResource ? {openResource} : {})}
+        scrollBehaviour="inline"
       />
     )
   )
