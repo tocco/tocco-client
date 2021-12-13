@@ -8,7 +8,7 @@ export const TopPositioning = styled.div`
   grid-template-areas:
     'search'
     'list';
-  grid-auto-rows: auto minmax(${({searchFormType}) => (searchFormType === 'simple' ? 'auto' : '400px')}, 1fr);
+  grid-auto-rows: auto minmax(auto, 1fr);
 
   /* remove bottom space and set width in modal */
   ${({searchFormType}) =>
@@ -41,7 +41,7 @@ export const SearchGrid = styled.div`
     scrollBehaviour === 'inline' && searchFormType !== 'simple' && 'overflow-y: auto;'}
 
   /* Limit height when positioned top */
-  ${/* sc-selector */ TopPositioning} & {
+  ${/* sc-selector */ TopPositioning} && {
     ${({scrollBehaviour}) => (scrollBehaviour === 'inline' ? 'max-height: 200px;' : 'max-height: none;')}
     padding-right: ${scale.space(-0.5)};
     ${StyledScrollbar}
