@@ -1,3 +1,12 @@
+1.1.0
+- register more icons
+- open downloadable file in new tab to avoid errors
+- remove framer-motion dependency for burger button and create pure css version instead
+- fix sticky popover on table
+- fix UploadInput.js button titles and refactor components
+- add dynamic backend-url as input parameter
+- add notification support for anonymous users
+
 1.0.1
 - harmonize popover background color and spacing
 - register icons
