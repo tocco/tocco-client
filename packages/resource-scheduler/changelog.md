@@ -1,3 +1,7 @@
+1.0.0-hotfix30.3
+- register more icons
+- open downloadable file in new tab to avoid errors
+
 1.0.0-hotfix30.2
 - register more icons
 - change notification title and refactor NotificationCenter
