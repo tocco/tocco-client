@@ -18,6 +18,11 @@ const StyledButtonsWrapper = styled.div`
   }
 `
 
+/* for being able to scroll whole modal content on smaller screens */
+const StyledLoadMask = styled(LoadMask)`
+  height: auto;
+`
+
 export const MoveAction = ({
   selection,
   onSuccess,
@@ -61,7 +66,7 @@ export const MoveAction = ({
   }
 
   return (
-    <LoadMask required={[!isWaiting]}>
+    <StyledLoadMask required={[!isWaiting]}>
       <DocsBrowser
         memoryHistory={true}
         initialLocation={getInitialLocation()}
@@ -80,6 +85,7 @@ export const MoveAction = ({
         rootNodes={rootNodes}
         businessUnit={businessUnit}
         sortable={false}
+        scrollBehaviour="none"
       />
       <StyledButtonsWrapper>
         <Button
@@ -91,7 +97,7 @@ export const MoveAction = ({
           <FormattedMessage id="client.actions.dms-move.button" />
         </Button>
       </StyledButtonsWrapper>
-    </LoadMask>
+    </StyledLoadMask>
   )
 }
 
