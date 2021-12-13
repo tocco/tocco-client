@@ -34,6 +34,8 @@ const AdvancedSearch = ({
       selectOnRowClick={true}
       disableSelectionController={true}
       showActions={false}
+      scrollBehaviour="inline"
+      tableMinHeight="400px"
     />
     <StyledAdvancedSearchButtonWrapper>
       <Button look="raised" onClick={onOkClick}>
