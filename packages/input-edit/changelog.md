@@ -1,3 +1,6 @@
+1.0.0-hotfix30.4
+- open downloadable file in new tab to avoid errors
+
 1.0.0-hotfix30.3
 - register more icons
 
