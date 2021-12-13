@@ -46,6 +46,7 @@ const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, cale
             simpleSearchFields="txtFulltext, searchFilter"
             disableSelectionController
             showActions={false}
+            scrollBehaviour="none"
           />
         </Panel.Body>
       </Panel.Wrapper>
