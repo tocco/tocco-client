@@ -1,0 +1,17 @@
+{
+  "name": "tocco-widget-utils",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=widget-utils",
+    "prepublish": "npm run compile:prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tocco-app-extensions": "*",
+    "tocco-test-util": "*",
+    "tocco-theme": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
+  }
+}
