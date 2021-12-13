@@ -57,6 +57,7 @@ export function* chooseDocument({payload: {setDocument, formName, formFieldId}})
             noLeftPadding={true}
             sortable={false}
             onSelectChange={setSelection}
+            scrollBehaviour="none"
           />
           <Button
             onClick={handleClick}
