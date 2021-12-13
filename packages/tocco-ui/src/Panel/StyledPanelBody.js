@@ -8,10 +8,6 @@ const StyledPanelBody = styled.div`
     > div {
       padding: ${({isFramed}) => (isFramed ? '10px' : 0)} 0 0 0;
     }
-
-    table {
-      position: static;
-    }
   }
 `
 export default StyledPanelBody
