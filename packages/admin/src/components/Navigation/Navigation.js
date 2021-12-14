@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {useRef, useState, useEffect, useMemo} from 'react'
 import {SearchBox} from 'tocco-ui'
 
-import {getCompleteMenuPreferences} from '../../utils/navigationUtils'
+import {getCompleteMenuPreferences, menuTabs} from '../../utils/navigationUtils'
 import MenuTree from '../MenuTree'
 import {ActionEntry, EntityExplorerEntry, MenuEntry, MenuChildrenWrapper} from './menuType'
 import {
@@ -15,13 +15,6 @@ import {
   StyledNavIconButton,
   StyledActiveTabLabel
 } from './StyledComponents'
-
-const menuTabs = {
-  MODULES: 'modules',
-  COMPLETE: 'complete',
-  SETTINGS: 'settings',
-  SYSTEM: 'system'
-}
 
 const createMenuTypeMap = ({onClick, hasFilterApplied, preferencesPrefix}) => {
   const usePreferences = typeof preferencesPrefix !== 'undefined'
@@ -195,11 +188,12 @@ const Navigation = ({
     setActiveMenuTab(tab)
   }
 
-  const MenuTabs = Object.keys(menuTabs).map(key => {
-    const menuTab = menuTabs[key]
-    return (
+  const MenuTabs = Object.keys(menuTabs)
+    .map(key => menuTabs[key])
+    .filter(menuTab => menuTabsConfig[menuTab].items?.length > 0)
+    .map(menuTab => (
       <StyledNavIconButton
-        key={key}
+        key={menuTab}
         active={activeMenuTab === menuTab}
         onMouseDown={e => {
           changeMenuTab(menuTab)
@@ -215,8 +209,7 @@ const Navigation = ({
         title={menuTabsConfig[menuTab].label}
         icon={menuTabsConfig[menuTab].icon}
       />
-    )
-  })
+    ))
 
   return (
     <StyledNav ref={navigationEl} onKeyDown={onKeyDown} data-cy="admin-nav">
