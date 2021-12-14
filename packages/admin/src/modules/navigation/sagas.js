@@ -1,6 +1,7 @@
 import {rest} from 'tocco-app-extensions'
-import {takeLatest, call, all, put, debounce} from 'redux-saga/effects'
+import {takeLatest, call, all, put, debounce, select} from 'redux-saga/effects'
 
+import {menuTabs} from '../../utils/navigationUtils'
 import * as actions from './actions'
 import {SET_USER_PREFERENCES, saveUserPreferences} from '../preferences/actions'
 
@@ -38,10 +39,43 @@ export function* saveOpenMenuPreference({payload: {activeMenuTab}}) {
   yield put(saveUserPreferences({[preferencesKey]: activeMenuTab}))
 }
 
+function* getMenuTree(menuTab) {
+  const {settingsMenuTree, modulesMenuTree, systemMenuTree, completeMenuTree} = yield select(navigationSelector)
+
+  if (menuTab === menuTabs.MODULES) {
+    return modulesMenuTree
+  }
+
+  if (menuTab === menuTabs.SETTINGS) {
+    return settingsMenuTree
+  }
+
+  if (menuTab === menuTabs.SYSTEM) {
+    return systemMenuTree
+  }
+
+  if (menuTab === menuTabs.COMPLETE) {
+    return completeMenuTree
+  }
+
+  return null
+}
+
+export function* setActiveMenuFromShortcut({payload: {menuTab}}) {
+  const tree = yield call(getMenuTree, menuTab)
+  const hasEntries = tree?.length > 0
+
+  if (hasEntries) {
+    yield put(actions.toggleShortcutMenu(menuTab))
+    yield put(actions.setActiveMenuTab(menuTab))
+  }
+}
+
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.INITIALIZE_NAVIGATION, loadNavigation),
     debounce(500, actions.SET_ACTIVE_MENU_TAB, saveOpenMenuPreference),
-    takeLatest(SET_USER_PREFERENCES, setActiveMenuFromPreferences)
+    takeLatest(SET_USER_PREFERENCES, setActiveMenuFromPreferences),
+    takeLatest(actions.SET_SHORTCUT_MENU_TAB, setActiveMenuFromShortcut)
   ])
 }
