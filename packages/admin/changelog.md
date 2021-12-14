@@ -1,3 +1,6 @@
+1.0.0-hotfix30.7
+- remove empty menus
+
 1.0.0-hotfix30.6
 - correct link to user manual
 
