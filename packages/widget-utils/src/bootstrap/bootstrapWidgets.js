@@ -1,26 +1,31 @@
 import {buildInputFromDom, loadScriptAsync} from './utils'
 
+const getWidgetName = container => container.getAttribute('data-tocco-widget')
+
+const getPackageName = container => container.getAttribute('data-tocco-package') || getWidgetName(container)
+
 const bootstrapWidgets = async params => {
   const {backendUrl} = params
 
   const widgetContainerNodeList = document.querySelectorAll('[data-tocco-widget]')
   const widgetContainers = Array.prototype.slice.call(widgetContainerNodeList)
-  const apps = [...new Set(widgetContainers.map(container => container.getAttribute('data-tocco-widget')))]
+  const packages = [...new Set(widgetContainers.map(container => getPackageName(container)))]
 
   await Promise.all(
-    apps.map(app => {
-      return loadScriptAsync(`${backendUrl}/js/tocco-${app}/dist/index.js`)
+    packages.map(packageName => {
+      return loadScriptAsync(`${backendUrl}/js/tocco-${packageName}/dist/index.js`)
     })
   )
 
   widgetContainers.forEach(container => {
-    const app = container.getAttribute('data-tocco-widget')
+    const app = getWidgetName(container)
+    const packageName = getPackageName(container)
     const input = {
-        backendUrl,
-        ...buildInputFromDom(container)
+      backendUrl,
+      ...buildInputFromDom(container)
     }
 
-    window.reactRegistry.render(app, container, '', input, {}, `${backendUrl}/js/tocco-${app}/dist/`)
+    window.reactRegistry.render(app, container, '', input, {}, `${backendUrl}/js/tocco-${packageName}/dist/`)
   })
 }
 
