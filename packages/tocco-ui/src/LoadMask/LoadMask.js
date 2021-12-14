@@ -8,7 +8,7 @@ import StyledLoadMask, {StyledLoadingIconAndTest} from './StyledLoadMask'
 /**
  * A loadmask that can hide elements as long as promises are not resolved
  */
-const LoadMask = ({promises, required, children, loadingText}) => {
+const LoadMask = ({promises, required, children, loadingText, className}) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isMounted, setIsMounted] = useState(true)
 
@@ -36,7 +36,7 @@ const LoadMask = ({promises, required, children, loadingText}) => {
   })
 
   return (
-    <StyledLoadMask>
+    <StyledLoadMask className={className}>
       {isLoaded ? (
         children
       ) : (
@@ -50,6 +50,10 @@ const LoadMask = ({promises, required, children, loadingText}) => {
 }
 
 LoadMask.propTypes = {
+  /**
+   * Optional className for being able to overwrite styles.
+   */
+  className: PropTypes.string,
   /**
    * Optional text to be shown below spinner
    */
