@@ -1,25 +1,25 @@
-import {setActiveMenuTab, toggleShortcutMenu} from './modules/navigation/actions'
+import {setShortcutMenu} from './modules/navigation/actions'
 
 export default [
   {
     ctrl: true,
     alt: true,
     code: 'KeyM',
-    actions: [toggleShortcutMenu('modules'), setActiveMenuTab('modules')],
+    actions: [setShortcutMenu('modules')],
     global: true
   },
   {
     ctrl: true,
     alt: true,
     code: 'KeyN',
-    actions: [toggleShortcutMenu('settings'), setActiveMenuTab('settings')],
+    actions: [setShortcutMenu('settings')],
     global: true
   },
   {
     ctrl: true,
     alt: true,
     code: 'KeyO',
-    actions: [toggleShortcutMenu('complete'), setActiveMenuTab('complete')],
+    actions: [setShortcutMenu('complete')],
     global: true
   }
 ]
