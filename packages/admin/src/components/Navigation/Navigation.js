@@ -14,14 +14,7 @@ import {
   StyledActiveTabLabel
 } from './StyledComponents'
 import {ActionEntry, EntityExplorerEntry, MenuEntry, MenuChildrenWrapper} from './menuType'
-import {getCompleteMenuPreferences} from '../../utils/navigationUtils'
-
-const menuTabs = {
-  MODULES: 'modules',
-  COMPLETE: 'complete',
-  SETTINGS: 'settings',
-  SYSTEM: 'system'
-}
+import {getCompleteMenuPreferences, menuTabs} from '../../utils/navigationUtils'
 
 const createMenuTypeMap = ({
   onClick,
@@ -193,11 +186,12 @@ const Navigation = ({
     setActiveMenuTab(tab)
   }
 
-  const MenuTabs = Object.keys(menuTabs).map(key => {
-    const menuTab = menuTabs[key]
-    return (
+  const MenuTabs = Object.keys(menuTabs)
+    .map(key => menuTabs[key])
+    .filter(menuTab => menuTabsConfig[menuTab].items?.length > 0)
+    .map(menuTab => (
       <StyledNavIconButton
-        key={key}
+        key={menuTab}
         active={activeMenuTab === menuTab}
         onMouseDown={e => {
           changeMenuTab(menuTab)
@@ -213,8 +207,7 @@ const Navigation = ({
         title={menuTabsConfig[menuTab].label}
         icon={menuTabsConfig[menuTab].icon}
       />
-    )
-  })
+    ))
 
   return (
     <StyledNav ref={navigationEl} onKeyDown={onKeyDown} data-cy="admin-nav">

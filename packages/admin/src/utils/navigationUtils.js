@@ -1,3 +1,9 @@
+export const menuTabs = Object.freeze({
+  MODULES: 'modules',
+  COMPLETE: 'complete',
+  SETTINGS: 'settings',
+  SYSTEM: 'system'
+})
 
 export const getMenuPreferencesKey = (preferencesPrefix, menuTreePath) =>
   `admintree${preferencesPrefix ? `.${preferencesPrefix}` : ''}.${menuTreePath}.collapsed`

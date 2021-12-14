@@ -1,5 +1,6 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {select} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as sagas from './sagas'
@@ -57,6 +58,86 @@ describe('admin', () => {
         test('should save opened tab', () => {
           return expectSaga(sagas.saveOpenMenuPreference, {payload: {activeMenuTab: 'settings'}})
             .put(saveUserPreferences({'admin.activeMenu': 'settings'}))
+            .run()
+        })
+      })
+
+      describe('setActiveMenuFromShortcut', () => {
+        test('should switch to menu tab when menu has items', () => {
+          const state = {
+            settingsMenuTree: [{}, {}]
+          }
+
+          return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'settings'}})
+            .provide([
+              [select(sagas.navigationSelector), state]
+            ])
+            .put(actions.toggleShortcutMenu('settings'))
+            .put(actions.setActiveMenuTab('settings'))
+            .run()
+        })
+
+        test('should not switch to menu tab when menu has no items', () => {
+          const state = {
+            settingsMenuTree: []
+          }
+
+          return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'settings'}})
+            .provide([
+              [select(sagas.navigationSelector), state]
+            ])
+            .run()
+        })
+
+        test('should map modules menu tree / tabs correctly', () => {
+          const state = {
+            modulesMenuTree: [{}, {}]
+          }
+
+          return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'modules'}})
+            .provide([
+              [select(sagas.navigationSelector), state]
+            ])
+            .put(actions.toggleShortcutMenu('modules'))
+            .put(actions.setActiveMenuTab('modules'))
+            .run()
+        })
+
+        test('should map system menu tree / tabs correctly', () => {
+          const state = {
+            systemMenuTree: [{}, {}]
+          }
+
+          return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'system'}})
+            .provide([
+              [select(sagas.navigationSelector), state]
+            ])
+            .put(actions.toggleShortcutMenu('system'))
+            .put(actions.setActiveMenuTab('system'))
+            .run()
+        })
+
+        test('should map complete menu tree / tabs correctly', () => {
+          const state = {
+            completeMenuTree: [{}, {}]
+          }
+
+          return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'complete'}})
+            .provide([
+              [select(sagas.navigationSelector), state]
+            ])
+            .put(actions.toggleShortcutMenu('complete'))
+            .put(actions.setActiveMenuTab('complete'))
+            .run()
+        })
+
+        test('should handle empty menu', () => {
+          const state = {}
+
+          return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'complete'}})
+            .provide([
+              [select(sagas.navigationSelector), state]
+            ])
             .run()
         })
       })
