@@ -1,7 +1,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {all, select, takeEvery, takeLatest} from 'redux-saga/effects'
-import {rest} from 'tocco-app-extensions'
+import {notification, rest} from 'tocco-app-extensions'
 
 import * as inputEditActions from '../inputEdit/actions'
 import * as searchActions from '../inputEditSearch/actions'
@@ -78,6 +78,7 @@ describe('input-edit', () => {
           const expectedDataForm = {
             dataform: 'dataform'
           }
+          const readonlyActions = ['action']
           return expectSaga(sagas.initialize)
             .provide([
               [select(sagas.inputSelector), {}],
@@ -86,7 +87,11 @@ describe('input-edit', () => {
               [
                 matchers.call.fn(rest.requestSaga),
                 {
-                  body: expectedEditForm
+                  body: {
+                    editColumns: expectedEditForm,
+                    readonly: false,
+                    readonlyActions
+                  }
                 }
               ],
               [matchers.call.fn(rest.fetchForm), expectedDataForm],
@@ -95,9 +100,54 @@ describe('input-edit', () => {
             ])
             .call(rest.fetchForm, 'Input_edit_data', 'list')
             .put(actions.setEditForm({inputEditForm: expectedEditForm}))
-            .call(sagas.processDataForm, expectedDataForm)
+            .call(sagas.processDataForm, expectedDataForm, false, readonlyActions)
             .call(sagas.loadData, {})
             .run()
+        })
+
+        test('should handle readonly', () => {
+          const expectedEditForm = [
+            {
+              editform: 'editform'
+            }
+          ]
+          const expectedDataForm = {
+            dataform: 'dataform'
+          }
+          const readonlyActions = ['action']
+
+          const sagaRunner = expectSaga(sagas.initialize)
+            .provide([
+              [select(sagas.inputSelector), {}],
+              [select(sagas.inputEditSearchSelector), {initialized: true}],
+              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}}],
+              [
+                matchers.call.fn(rest.requestSaga),
+                {
+                  body: {
+                    editColumns: expectedEditForm,
+                    readonly: true,
+                    readonlyActions
+                  }
+                }
+              ],
+              [matchers.call.fn(rest.fetchForm), expectedDataForm],
+              [matchers.call.fn(sagas.loadData), {}],
+              [matchers.call.fn(sagas.processDataForm)]
+            ])
+            .call(rest.fetchForm, 'Input_edit_data', 'list')
+            .put(actions.setEditForm({inputEditForm: expectedEditForm}))
+            .put(notification.toaster({
+              type: 'info',
+              title: 'client.actions.InputEdit.input_closed'
+            }))
+            .call(sagas.processDataForm, expectedDataForm, true, readonlyActions)
+            .call(sagas.loadData, {})
+            .run()
+
+          expect(expectedEditForm[0].readonly).to.be.true
+
+          return sagaRunner
         })
 
         test('should load data form from input', () => {
@@ -124,7 +174,11 @@ describe('input-edit', () => {
               [
                 matchers.call.fn(rest.requestSaga),
                 {
-                  body: expectedEditForm
+                  body: {
+                    editColumns: expectedEditForm,
+                    readonly: false,
+                    readonlyActions: []
+                  }
                 }
               ],
               [matchers.call.fn(sagas.processDataForm), {}],
@@ -160,7 +214,11 @@ describe('input-edit', () => {
               [
                 matchers.call.fn(rest.requestSaga),
                 {
-                  body: expectedEditForm
+                  body: {
+                    editColumns: expectedEditForm,
+                    readonly: false,
+                    readonlyActions: []
+                  }
                 }
               ],
               [matchers.call.fn(sagas.processDataForm), {}],
