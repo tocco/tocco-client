@@ -1,3 +1,6 @@
+0.1.13-hotfix229.2
+- add title to custom action response
+
 0.1.13-hotfix229.1
 - Displayexpression call adjustment
 - Introduce new prop to determine if layout containers should occupy remaining height on screen
