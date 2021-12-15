@@ -1,4 +1,17 @@
 1.0.3
+- register more icons
+- add scrollbar to dashboard panel and refactor dashboard components
+- open downloadable file in new tab to avoid errors
+- fix docs-browser height inside modal
+- remove framer-motion dependency for burger button and create pure css version instead
+- fix sticky popover on table
+- correct link to user manual
+- fix UploadInput.js button titles and refactor components
+- add dynamic backend-url as input parameter
+- Add notification support for anonymous users
+- remove empty menus
+
+1.0.3
 - dependency updrade
 
 1.0.2
