@@ -1,3 +1,6 @@
+0.4.6-hotfix229.6
+- add title to custom action response
+
 0.4.6-hotfix229.5
 - Fix datepickr disappearing behind modal
 
