@@ -43,10 +43,12 @@ class HtmlEdit extends React.Component {
   }
 
   render() {
+    const sanitizedValue = html.sanitizeHtml(this.props.value)
+
     if (this.props.immutable) {
       return (
         <Typography.Span>
-          <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(this.props.value)}}></div>
+          <div dangerouslySetInnerHTML={{__html: sanitizedValue}}></div>
         </Typography.Span>
       )
     }
@@ -59,7 +61,7 @@ class HtmlEdit extends React.Component {
             onChange={this.handleChange}
             id={this.props.id}
             theme="snow"
-            defaultValue={this.props.value}
+            defaultValue={sanitizedValue}
             modules={{
               clipboard: {
                 matchVisual: false
