@@ -1,3 +1,6 @@
+0.1.3-hotfix229.3
+- add title to custom action response
+
 0.1.3-hotfix229.2
 - Add preview for documents
 - Increase z-index of modal holder to properly display as widget
