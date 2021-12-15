@@ -1,3 +1,10 @@
+1.0.4
+- remove framer-motion dependency for burger button and create pure css version instead
+- fix sticky popover on table
+- fix UploadInput.js button titles and refactor components
+- Add notification support for anonymous users
+- choose between different scroll behaviours
+
 1.0.3
 - register more icons
 - open downloadable file in new tab to avoid errors
