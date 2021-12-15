@@ -1,5 +1,5 @@
-import {all, call, put, select, takeEvery, takeLatest, take} from 'redux-saga/effects'
-import {rest} from 'tocco-app-extensions'
+import {all, call, put, select, take, takeEvery, takeLatest} from 'redux-saga/effects'
+import {notification, rest} from 'tocco-app-extensions'
 
 import * as inputEditActions from '../inputEdit/actions'
 import {setTotalCount} from '../inputEditPagination/actions'
@@ -23,11 +23,15 @@ export default function* sagas() {
   ])
 }
 
-export function* processDataForm(dataForm) {
+export function* processDataForm(dataForm, readonly, readonlyActions = []) {
   const actionDefinitions = dataForm.children
     .find(child => child.id === 'main-action-bar')
     .children.filter(child => child.componentType === 'action')
-    .map(child => ({...child, scope: 'detail'}))
+    .filter(child => !readonly || readonlyActions.includes(child.id))
+    .map(child => ({
+      ...child,
+      scope: 'detail'
+    }))
 
   yield put(actions.setActionDefinitions(actionDefinitions))
 
@@ -42,12 +46,22 @@ export function* initialize() {
   const {actionProperties} = yield select(inputSelector)
   const inputEditDataForm =
     actionProperties && actionProperties.inputEditDataForm ? actionProperties.inputEditDataForm : 'Input_edit_data'
-  const [editForm, dataForm] = yield all([
+  const [editFormDefinition, dataForm] = yield all([
     call(rest.requestSaga, 'inputEdit/form', {method: 'POST', body: selection}),
     call(rest.fetchForm, inputEditDataForm, 'list')
   ])
-  yield put(actions.setEditForm({inputEditForm: editForm.body}))
-  yield call(processDataForm, dataForm)
+  const {editColumns, readonly, readonlyActions} = editFormDefinition.body
+  if (readonly) {
+    editColumns.forEach(c => (c.readonly = true))
+    yield put(
+      notification.toaster({
+        type: 'info',
+        title: 'client.actions.InputEdit.input_closed'
+      })
+    )
+  }
+  yield put(actions.setEditForm({inputEditForm: editColumns}))
+  yield call(processDataForm, dataForm, readonly, readonlyActions)
 
   const {initialized: searchFormInitialized} = yield select(inputEditSearchSelector)
   if (!searchFormInitialized) {
