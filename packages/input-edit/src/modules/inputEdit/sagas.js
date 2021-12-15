@@ -1,17 +1,26 @@
-import {all, takeEvery, takeLatest, put, select, call} from 'redux-saga/effects'
-import {actions, actionEmitter, rest} from 'tocco-app-extensions'
+import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {actionEmitter, actions, rest} from 'tocco-app-extensions'
 
-import {UPDATE_SELECTION} from './actions'
+import * as inputEditTableActions from '../inputEditTable/actions'
 import * as inputEditAction from './actions'
+import {UPDATE_SELECTION} from './actions'
 
 const inputEditSelector = state => state.inputEdit
 
 export default function* sagas() {
-  yield all([takeEvery(actions.actions.ACTION_INVOKE, emit), takeLatest(UPDATE_SELECTION, updateInputDatas)])
+  yield all([
+    takeEvery(actions.actions.ACTION_INVOKE, emit),
+    takeLatest(UPDATE_SELECTION, updateInputDatas),
+    takeLatest(actions.actions.ACTION_INVOKED, reload)
+  ])
 }
 
 export function* emit(action) {
   yield put(actionEmitter.emitAction(action))
+}
+
+export function* reload() {
+  yield put(inputEditTableActions.initializeTable())
 }
 
 export function* updateInputDatas() {
