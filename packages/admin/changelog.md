@@ -1,3 +1,7 @@
+1.0.5
+- choose between different scroll behaviours
+- show 5 rows per default
+
 1.0.4
 - register more icons
 - add scrollbar to dashboard panel and refactor dashboard components
