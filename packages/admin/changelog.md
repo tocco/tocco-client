@@ -1,3 +1,10 @@
+0.4.37-hotfix229.22
+- add no permission message for uploading document
+- add no permission message for moving document
+- show no permission error if entity is created
+- add title to custom action response
+- add title to custom action response
+
 0.4.37-hotfix229.21
 - Fix datepickr disappearing behind modal
 
