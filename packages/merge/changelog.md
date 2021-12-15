@@ -1,3 +1,6 @@
+0.4.6-hotfix229.5
+- add title to custom action response
+
 0.4.6-hotfix229.4
 - Fix calender search bug
 - Add preview for documents
