@@ -1,3 +1,7 @@
+0.10.26-hotfix229.12
+- show no permission error if entity is created
+- add title to custom action response
+
 0.10.26-hotfix229.11
 - default values that are defined in search forms are taken into account again
 
