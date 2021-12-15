@@ -9,7 +9,7 @@ setupGithub
 
 echo "Cloning branch $CI_COMMIT_BRANCH"
 cd "$(mktemp -d)"
-git clone git@github.com:tocco/tocco-client.git . --single-branch --branch $CI_COMMIT_BRANCH --depth 50
+git clone git@github.com:tocco/tocco-client.git . --single-branch --branch $CI_COMMIT_BRANCH --depth 500
 
 latest_tag=$(git describe --tags --abbrev=0 --match "*@[0-9]*.[0-9]*.[0-9]*")
 echo "Latest tag found on branch: $latest_tag"
