@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu # Exit with nonzero exit code if anything fails
 
 # This script will look for release commits since the last release tag on the current branch and
 # then create the missing tags. Thus all releases have tags that dont have to be merged within the according commit.
