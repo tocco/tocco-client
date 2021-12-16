@@ -11,9 +11,7 @@ source ./scripts/github.sh
 setupGithub
 cd $(mktemp -d)
 git clone git@github.com:${repo}.git . --single-branch --branch $CI_COMMIT_BRANCH
-
-git config user.email "tocco.github.bot@gmail.com"
-git config user.name "ToccoBot"
+setupGitUser
 
 commit_id_before=$(git rev-parse HEAD)
 
