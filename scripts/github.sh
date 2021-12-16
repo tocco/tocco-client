@@ -8,7 +8,9 @@ function setupGithub() {
   # add github as known host
   mkdir -p ~/.ssh
   echo "github.com ssh-rsa ${GITHUB_PUBLIC_KEY}" >>~/.ssh/known_hosts
+}
 
+function setupGitUser() {
   git config user.email "tocco.github.bot@gmail.com"
   git config user.name "ToccoBot"
 }
