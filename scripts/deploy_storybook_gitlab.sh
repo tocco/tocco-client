@@ -18,8 +18,7 @@ mv storybook/* $PAGES_BRANCH/$BRANCH_FOLDER_NAME
 cd $PAGES_BRANCH
 
 echo "Commit and push"
-git config user.name "Gitlab CI"
-git config user.email "tocco.github.bot@gmail.com"
+setupGitUser
 
 git add -A
 rev=$(git rev-parse --short HEAD)
