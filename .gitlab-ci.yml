@@ -83,6 +83,18 @@ storybook-link:
   script:
     - scripts/storybook_link_gitlab.sh
 
+auto-release:
+  stage: release
+  dependencies: []
+  only:
+    - /^nice-releases\/[0-9]+$/
+  before_script:
+    - apk update && apk add bash && apk add curl && apk add git && apk add openssh && apk add jq && apk add ncurses
+  variables:
+    TERM: "xterm-256color"
+  script:
+    - ./scripts/auto-release.sh
+
 cherrypick:
   stage: release
   dependencies: []
