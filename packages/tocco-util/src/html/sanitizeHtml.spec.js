@@ -38,6 +38,16 @@ describe('tocco-util', () => {
         const clean = ''
         expect(sanitizeHtml(dirty)).to.equal(clean)
       })
+      test('should remove style tags', () => {
+        const dirty = '<div>Hi!<style>a {border: 1px solid red;}</style></div>'
+        const clean = '<div>Hi!</div>'
+        expect(sanitizeHtml(dirty)).to.equal(clean)
+      })
+      test('should remove style attributes', () => {
+        const dirty = '<div style="border: 1px solid red;">Hi!</div>'
+        const clean = '<div>Hi!</div>'
+        expect(sanitizeHtml(dirty)).to.equal(clean)
+      })
     })
   })
 })
