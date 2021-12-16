@@ -47,6 +47,13 @@ function retrieveCommitsToCherryPick() {
   fi
 }
 
+function removeLastCommitIfEmpty () {
+  if [[ $(git rev-parse HEAD^{tree}) == $(git rev-parse HEAD~1^{tree}) ]]; then
+    echo "Commit $(git rev-parse HEAD) is removed because it an empty commit"
+    git reset --hard HEAD~1
+  fi
+}
+
 source ./scripts/helpers.sh
 setNiceVersion
 
@@ -73,31 +80,34 @@ getTagCommitId
 retrieveCommitsToCherryPick
 
 git checkout $target_branch
+commit_id_before=$(git rev-parse HEAD)
 
 # iterate and start by the oldest commit
 for ((i = ${#commitsToCherryPick[@]} - 1; i >= 0; i--)); do
   echo "Cherry pick ${commitsToCherryPick[$i]}"
-  git cherry-pick ${commitsToCherryPick[$i]}
+  # if a commit is cherry picked but nothing is changed on the target branch --keep-redundant-commits is required
+  # that the cherry-picking does not fail. afterwards with the function removeLastCommitIfEmpty this empty commit is removed.
+  # for example a commit from the master is manually picked to nice-releases/229 (and Cherry-pick: Up is added).
+  # first the commit is picked to nice-releases/30. next the script tries to pick the commit to master but there the
+  # change already exists (and the script should not fail).
+  git cherry-pick ${commitsToCherryPick[$i]} --keep-redundant-commits
   if [[ -n $(git status -s) ]]; then
     echo "Cherry picking '${commitsToCherryPick[$i]}' failed and must be resolved manually"
     exit 1
   fi
+  removeLastCommitIfEmpty
 done
 
-if [[ $target_branch != "master" ]]; then
-  # release a hotfix if target branch is a release branch
-  echo "@fortawesome:registry=https://npm.fontawesome.com/
-//npm.fontawesome.com/:_authToken=${FONTAWESOME_NPM_AUTH_TOKEN}
-//registry.npmjs.org/:_authToken=${NPMJS_AUTH_TOKEN}" >> ~/.npmrc
-  # use env variable FULL_CALENDAR_LICENCE
-  yarn release-all-packages
+commit_id_after=$(git rev-parse HEAD)
+
+if [ $commit_id_before == $commit_id_after ]; then
+  echo "Marked commits already picked"
+else
+  new_branch=cherry-picking/_${target_branch}_auto-$(date +%s%N)
+  git checkout -b $new_branch
+  git push origin $new_branch
+  echo "Push commits"
 fi
-
-git checkout -b releasing/_${target_branch}_auto-$(date +%s%N)
-
-# push cherry picked commits
-current_branch=$(git branch --show-current)
-git push origin $current_branch
 
 moveTag
 
