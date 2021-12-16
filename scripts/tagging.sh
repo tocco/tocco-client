@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eu # Exit with nonzero exit code if anything fails
 
 # This script will look for release commits since the last release tag on the current branch and
 # then create the missing tags. Thus all releases have tags that dont have to be merged within the according commit.
@@ -16,11 +17,11 @@ echo "Latest tag found on branch: $latest_tag"
 matching_commit=$(git log -1 --format=%H $latest_tag)
 echo "Matching commit: $matching_commit"
 
-for commit in $(git rev-list $matching_commit..HEAD)
+for commit in $(git rev-list $matching_commit..HEAD | tac)
 do
     msg="$(git log --format=%s -n 1 $commit)"
     full_msg="$(git log --format=%B -n 2 $commit)"
-    isPublish="$(echo $msg | grep -c 'chore: publish')"
+    isPublish="$(echo $msg | grep -o 'chore: publish' | wc -l)"
     echo "found commit $isPublish: $msg"
     if [ $isPublish == 1 ]; then
         echo "Commit '$msg' ($commit) is a release commit"
