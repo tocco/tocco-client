@@ -67,9 +67,7 @@ setupGithub
 # clone and checkout target branch
 cd $(mktemp -d)
 git clone git@github.com:${repo}.git . --single-branch --branch $target_branch
-
-git config user.email "tocco.github.bot@gmail.com"
-git config user.name "ToccoBot"
+setupGitUser
 
 # checkout source branch
 git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
