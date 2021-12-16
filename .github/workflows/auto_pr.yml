@@ -1,4 +1,6 @@
-# Github action that automatically creates a pullrequest for "releasing/" branches. Reads destination branch out of target_branch.txt file.
+# Github action that automatically creates a pullrequest for "releasing/" and "cherry-picking/" branches.
+# Reads destination branch out of pullrequest branch name.
+# For example the pullrequest "releasing/_nice-releases/30_auto-1639553335" as as destination branch "nice-releases/30"
 
 name: Auto Create Pull Request
 
@@ -6,6 +8,7 @@ on:
   push:
     branches:
       - "releasing/**"
+      - "cherry-picking/**"
 
 jobs:
   pull-request:
