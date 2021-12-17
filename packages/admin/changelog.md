@@ -1,3 +1,11 @@
+0.3.30-hotfix227.1
+- Map integer, counter and long to string
+- Fix leading zeros bug in two-factor code
+- Fix search form endless loading with empty filter field
+- Make whole row clickable in list
+- Fix calender search bug
+- Fix search-form remote bug
+
 0.3.30
 - Adjust filter pane height when expanded
 - Change chevron icon in multi select input when dropdown is opened
