@@ -8,6 +8,7 @@ import {StyledLogo, StyledBlockWrapper, StyledFormattedMessageWrapper} from './S
 
 const AboutTocco = ({niceVersion, niceRevision, intl}) => {
   const msg = id => intl.formatMessage({id})
+  const json = require('../../../package.json')
 
   return (
     <Typography.Span>
@@ -39,7 +40,8 @@ const AboutTocco = ({niceVersion, niceRevision, intl}) => {
       <StyledBlockWrapper>
         <Typography.P>
           <FormattedMessage id="client.admin.about.versionLabel"/>:&nbsp; {niceVersion}<br/>
-          <FormattedMessage id="client.admin.about.revisionLabel"/>:&nbsp; {niceRevision}
+          <FormattedMessage id="client.admin.about.revisionLabel"/>:&nbsp; {niceRevision}<br/>
+          <FormattedMessage id="client.admin.about.clientVersionLabel"/>:&nbsp; {json.version}
         </Typography.P>
       </StyledBlockWrapper>
       <StyledFormattedMessageWrapper>
