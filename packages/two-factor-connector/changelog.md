@@ -1,3 +1,7 @@
+0.1.4-hotfix227.2
+- Map integer, counter and long to string
+- Fix calender search bug
+
 0.1.4-hotfix227.1
 - rename tql parameter
 
