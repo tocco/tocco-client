@@ -1,3 +1,7 @@
+0.3.6-hotfix227.1
+- Map integer, counter and long to string
+- Fix calender search bug
+
 0.3.6
 - Reset css overwrites of Upload.js and refactor Preview.js
 - Restrict urls in table to one line
