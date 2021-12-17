@@ -111,6 +111,7 @@ cypress:
     paths:
       - cypress/videos
     expire_in: 4 weeks
+    when: always
 
 tagging:
   stage: chore
