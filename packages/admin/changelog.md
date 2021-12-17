@@ -1,3 +1,7 @@
+1.0.0-hotfix30.8
+- do not execute injected JS in html field
+- no styles allowed in rendered HTML
+
 1.0.0-hotfix30.7
 - remove empty menus
 
