@@ -179,6 +179,11 @@ export function* handleSubmitError(error) {
         type: 'warning',
         title: 'client.entity-detail.saveAbortedTitle',
         body: () => <ErrorItem message={message} />,
+        /*
+         * normally a toaster of the type warning has a duration of -1 and the toaster must be manually closed
+         * as the validation error is also shown as a mouseover of the save button the toaster can disappear
+         * without manual closing
+         */
         duration: 5000
       })
     )
