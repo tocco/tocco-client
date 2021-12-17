@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {theme} from 'tocco-ui'
 
 const calcViewportHeight = () => {
-  const vh = document.documentElement.clientHeight * 0.01
+  const vh = window.innerHeight * 0.01
   document.documentElement.style.setProperty('--vh', `${vh}px`)
 }
 
