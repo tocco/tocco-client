@@ -34,3 +34,5 @@ do
         git push --set-upstream git@github.com:tocco/tocco-client.git $tag_name
     fi
 done
+
+exit 0
