@@ -1,3 +1,7 @@
+0.2.8-hotfix227.1
+- Map integer, counter and long to string
+- Fix calender search bug
+
 0.2.8
 - Table component
 - Make all children of readonly layouts readonly
