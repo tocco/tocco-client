@@ -1,6 +1,6 @@
 {
   "name": "tocco-login",
-  "version": "1.0.0-hotfix30.3",
+  "version": "1.0.0-hotfix30.4",
   "description": "Login dialog with password-update dialog that can run independently",
   "main": "dist/index.js",
   "scripts": {
