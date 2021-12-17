@@ -65,6 +65,40 @@ const Admin = ({
     viewPersistor.clearPersistedViews()
   }
 
+  const adminAllowedContent = adminAllowed && (
+    <>
+      <StyledMenu
+        isOpen={menuOpen}
+        onStateChange={isMenuOpen}
+        customCrossIcon={false}
+        customBurgerIcon={<BurgerButton isOpen={menuOpen} />}
+        styles={burgerMenuStyles}
+      >
+        <Navigation onClick={handleClick} />
+      </StyledMenu>
+      <StyledContent>
+        <Switch>
+          <Route exact path="/" render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />} />
+          <Redirect exact from="/dashboard/reload" to="/dashboard" />
+          <Route exact={true} path="/dashboard" component={DashboardRoute} />
+          <Route path="/e" component={EntitiesRoute} />
+          <Route path="/s" component={Settings} />
+          <Route path="/docs" component={DocsRoute} />
+          <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />} />
+        </Switch>
+      </StyledContent>
+    </>
+  )
+
+  const adminForbiddenContent = adminAllowed === false && (
+    <StyledContent>
+      <ErrorView
+        title={<FormattedMessage id={'client.admin.error.no_roles.title'} />}
+        message={<FormattedMessage id={'client.admin.error.no_roles.message'} />}
+      />
+    </StyledContent>
+  )
+
   return (
     <LoadMask required={[history !== null]}>
       <Router history={history || {}}>
@@ -72,42 +106,7 @@ const Admin = ({
         <notification.Notifications navigationStrategy={navigationStrategy()} />
         <StyledWrapper>
           <Header />
-          {adminAllowed && (
-            <StyledMenu
-              isOpen={menuOpen}
-              onStateChange={isMenuOpen}
-              customCrossIcon={false}
-              customBurgerIcon={<BurgerButton isOpen={menuOpen} />}
-              styles={burgerMenuStyles}
-            >
-              <Navigation onClick={handleClick} />
-            </StyledMenu>
-          )}
-          {adminAllowed && (
-            <StyledContent>
-              <Switch>
-                <Route
-                  exact
-                  path="/"
-                  render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />}
-                />
-                <Redirect exact from="/dashboard/reload" to="/dashboard" />
-                <Route exact={true} path="/dashboard" component={DashboardRoute} />
-                <Route path="/e" component={EntitiesRoute} />
-                <Route path="/s" component={Settings} />
-                <Route path="/docs" component={DocsRoute} />
-                <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />} />
-              </Switch>
-            </StyledContent>
-          )}
-          {adminAllowed === false && (
-            <StyledContent>
-              <ErrorView
-                title={<FormattedMessage id={'client.admin.error.no_roles.title'} />}
-                message={<FormattedMessage id={'client.admin.error.no_roles.message'} />}
-              />
-            </StyledContent>
-          )}
+          {adminAllowedContent || adminForbiddenContent}
         </StyledWrapper>
       </Router>
     </LoadMask>
