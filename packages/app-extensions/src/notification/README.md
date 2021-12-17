@@ -42,21 +42,23 @@ Toaster action can be used to show notifications:
 
 `notification.toaster({key, type, title, body, icon, onClose, duration, time})`
 
-key: Unique identifier for removing a toaster 
-type:  One of`['neutral', 'success', 'warning', 'error', 'info']`
-title, body: Either a string, a html formatted string, a text resource key or any component
-icon: To overwrite default icons determined by type 
-onClose: Callback when toaster is closed. Parameter: Manually (Boolean) if it was closed by the user or by the duration 
-duration: Determines how long the toaster should be displayed in milliseconds. If -1 the toaster will not disappear automatically.
-time: Time as when the toaster action was executed. Is used to sort all toasters. Default is the add time.
+* key: Unique identifier for removing a toaster
+* type: One of`['neutral', 'success', 'warning', 'error', 'info']`
+* title: Either a string, a html formatted string, a text resource key or any component
+* body: Either a string, a html formatted string, a text resource key or any component
+* icon: To overwrite default icons determined by type
+* onClose: Callback when toaster is closed. Parameter: Manually (Boolean) if it was closed by the user or by the duration
+* duration: To overwrite default duration. Determines how long the toaster should be displayed in milliseconds. Per default toaster of the type error and warning must be manually closed else the duration is 5 seconds. If -1 the toaster will not disappear automatically.
+* time: Time as when the toaster action was executed. Is used to sort all toasters. Default is the add time.
 
 #### Examples
 ```javascript
-store.dispatch(notification.toaster({type: 'info', title: 'client.title', body: 'client.message', icon: ['far', 'thumbs-up'], duration: 2000}))
+store.dispatch(notification.toaster({type: 'info', title: 'client.title', body: 'client.message', icon: ['far', 'thumbs-up']}))
 store.dispatch(notification.toaster({type: 'info', title: <Title>Custom</Title>, body: 'message line contains <b>html</b>'}))
-store.dispatch(notification.toaster({type: 'success', title: 'client.title', 'client.message', duration: 2000))
+store.dispatch(notification.toaster({type: 'success', title: 'client.title', body: 'client.message'}))
 store.dispatch(notification.toaster({type: 'warning', title: 'client.title', body: longText}))
-store.dispatch(notification.toaster({type: 'error', title: 'client.title', duration: 'client.description'})) 
+store.dispatch(notification.toaster({type: 'warning', title: 'client.title', duration: 5000}))
+store.dispatch(notification.toaster({type: 'error', title: 'client.title'}))
 ```
 
 ### Show notifications
