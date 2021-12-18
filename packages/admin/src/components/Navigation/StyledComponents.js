@@ -93,9 +93,10 @@ export const StyledMenuWrapper = styled.div`
 
 export const StyledMenuButtonsWrapper = styled.div`
   position: absolute;
+  right: ${scale.space(0.6)};
+  z-index: 1;
   display: flex;
   justify-content: flex-end;
-  width: calc(100% - 2 * ${scale.space(0.6)}); // subtract StyledMenuWrapper padding
   padding: 0;
 `
 
