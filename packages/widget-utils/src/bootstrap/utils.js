@@ -1,3 +1,5 @@
+export const EVENT_HANDLERS_OBJ_NAME = 'customerEventHandlers'
+
 export const snakeToCamel = s => s.replace(/(-\w)/g, m => m[1].toUpperCase())
 
 export const loadScriptAsync = src =>
@@ -30,12 +32,34 @@ export const getBackendUrl = document => {
 }
 
 export const buildInputFromDom = widgetContainer => {
-    const attributes = Array.prototype.slice.call(widgetContainer.attributes)
-    return attributes.reduce(
-      (acc, val) => ({
-        ...acc,
-        [snakeToCamel(val.name.replace('data-', ''))]: transformObjectValue(val.value)
-      }),
-      {}
-    )
+  const attributes = Array.prototype.slice.call(widgetContainer.attributes)
+  return attributes.reduce(
+    (acc, val) => ({
+      ...acc,
+      [snakeToCamel(val.name.replace('data-', ''))]: transformObjectValue(val.value)
+    }),
+    {}
+  )
+}
+
+export const isMapOfFunctions = obj =>
+  obj && Object.keys(obj).length > 0 && typeof obj[Object.keys(obj)[0]] === 'function'
+
+export const getEventHandlers = container => {
+  const handlers = window[EVENT_HANDLERS_OBJ_NAME]
+  if (isMapOfFunctions(handlers)) {
+    return handlers
+  }
+
+  if (handlers) {
+    const id = container.getAttribute('data-id')
+    if (id) {
+      const handlersOfId = handlers[id]
+      if (isMapOfFunctions(handlersOfId)) {
+        return handlersOfId
+      }
+    }
+  }
+
+  return {}
 }

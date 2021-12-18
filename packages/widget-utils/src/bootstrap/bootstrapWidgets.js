@@ -1,4 +1,4 @@
-import {buildInputFromDom, loadScriptAsync} from './utils'
+import {buildInputFromDom, getEventHandlers, loadScriptAsync} from './utils'
 
 const getWidgetName = container => container.getAttribute('data-tocco-widget')
 
@@ -24,8 +24,9 @@ const bootstrapWidgets = async params => {
       backendUrl,
       ...buildInputFromDom(container)
     }
+    const eventHandlers = getEventHandlers(container)
 
-    window.reactRegistry.render(app, container, '', input, {}, `${backendUrl}/js/tocco-${packageName}/dist/`)
+    window.reactRegistry.render(app, container, '', input, eventHandlers, `${backendUrl}/js/tocco-${packageName}/dist/`)
   })
 }
 
