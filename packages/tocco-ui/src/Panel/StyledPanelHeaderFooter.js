@@ -48,7 +48,7 @@ const declareDivider = ({theme, isOpen, isFramed}) => {
 }
 
 export const StyledIconWrapper = styled.span`
-  display: none;
+  opacity: 0;
   font-size: ${scale.font(1)};
 
   &:hover {
@@ -67,7 +67,7 @@ const StyledPanelHeaderFooter = styled.div`
       cursor: pointer;
 
       ${StyledIconWrapper} {
-        display: block;
+        opacity: 1;
       }
     }
 
