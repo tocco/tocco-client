@@ -1,3 +1,6 @@
+1.0.0-hotfix30.12
+- validation errors fixed for location fields
+
 1.0.0-hotfix30.11
 - add admin package version info to about modal
 
