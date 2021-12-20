@@ -24,7 +24,8 @@ export default {
     const onChange = locationObject => {
       for (const key in locationMapping) {
         if (locationMapping[key] && locationObject[key] !== undefined) {
-          formData.changeFieldValue(formName, locationMapping[key], locationObject[key])
+          const value = locationObject[key] !== null ? locationObject[key] : ''
+          formData.changeFieldValue(formName, locationMapping[key], value)
         }
       }
     }
