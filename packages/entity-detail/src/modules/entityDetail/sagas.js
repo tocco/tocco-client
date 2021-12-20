@@ -356,7 +356,7 @@ export function* enhanceEntityWithDisplays(entity) {
     const value = entity[relationField]
     if (value) {
       const newValue = Array.isArray(value)
-        ? value.map(v2 => ({...v2, display: displays[v2.model][v2.key]}))
+        ? value.filter(v => v !== null).map(v2 => ({...v2, display: displays[v2.model][v2.key]}))
         : {...value, display: displays[value.model][value.key]}
       entity[relationField] = newValue
     }
