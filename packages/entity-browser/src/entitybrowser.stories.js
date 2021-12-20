@@ -26,8 +26,8 @@ const EntityBrowserStory = ({...args}) => {
   )
 }
 
-export const Story = EntityBrowserStory.bind({})
-Story.args = {
+export const EntityBrowser = EntityBrowserStory.bind({})
+EntityBrowser.args = {
   entityName: 'User',
   showSearchForm: true,
   limit: 20,
