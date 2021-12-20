@@ -1,3 +1,6 @@
+1.0.0-hotfix30.8
+- do not load display of null entity
+
 1.0.0-hotfix30.7
 - validation errors fixed for location fields
 
