@@ -33,6 +33,31 @@ describe('entity-list', () => {
             const expectedResult = {Multi_entity: ['11', '44'], Multi_entity2: ['1']}
             expect(result).to.eql(expectedResult)
           })
+
+          test('should find unloaded relation entities but ignore null entities', () => {
+            const entities = [
+              {
+                '__key': '1',
+                '__model': 'User',
+                'relSingle_entity1.relMulti_entity1.relSingle_entity2': [
+                  null
+                ],
+                'relSingle_entity1.relSingle_entity2': null,
+                'relMulti_entity2': [{
+                  model: 'Multi_entity2',
+                  key: '11'
+                }]
+              }
+            ]
+            const relationFields = [
+              'relSingle_entity1.relMulti_entity1.relSingle_entity2',
+              'relSingle_entity1.relSingle_entity2',
+              'relMulti_entity2'
+            ]
+            const result = getPathDisplayRequest(entities, relationFields, {})
+            const expectedResult = {Multi_entity2: ['11']}
+            expect(result).to.eql(expectedResult)
+          })
         })
 
         describe('entityListToDisplayRequest', () => {
