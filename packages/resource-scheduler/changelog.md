@@ -1,3 +1,6 @@
+1.0.0-hotfix30.5
+- fix flicker in Firefox on panel hovers
+
 1.0.0-hotfix30.4
 - do not execute injected JS in html field
 - no styles allowed in rendered HTML
