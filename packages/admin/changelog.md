@@ -1,3 +1,6 @@
+1.0.0-hotfix30.9
+- clickability fixed of expand/collapse all in module menu
+
 1.0.0-hotfix30.8
 - do not execute injected JS in html field
 - no styles allowed in rendered HTML
