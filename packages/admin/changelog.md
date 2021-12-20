@@ -1,3 +1,6 @@
+1.0.0-hotfix30.11
+- add admin package version info to about modal
+
 1.0.0-hotfix30.10
 - fix flicker in Firefox on panel hovers
 
