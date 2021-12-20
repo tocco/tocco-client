@@ -1,3 +1,6 @@
+1.0.0-hotfix30.7
+- validation errors fixed for location fields
+
 1.0.0-hotfix30.6
 - fix flicker in Firefox on panel hovers
 
