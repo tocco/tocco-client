@@ -1,3 +1,6 @@
+1.0.0-hotfix30.10
+- fix flicker in Firefox on panel hovers
+
 1.0.0-hotfix30.9
 - clickability fixed of expand/collapse all in module menu
 
