@@ -7,11 +7,5 @@
     "prepublish": "npm run compile:prod"
   },
   "dependencies": {},
-  "devDependencies": {
-    "tocco-app-extensions": "*",
-    "tocco-test-util": "*",
-    "tocco-theme": "*",
-    "tocco-ui": "*",
-    "tocco-util": "*"
-  }
+  "devDependencies": {}
 }

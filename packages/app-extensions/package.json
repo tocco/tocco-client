@@ -4,10 +4,13 @@
   "private": true,
   "description": "app extensions",
   "main": "src/main.js",
-  "devDependencies": {
+  "dependencies": {
     "tocco-theme": "*",
     "tocco-ui": "*",
     "tocco-util": "*",
     "validator": "10.0.0"
+  },
+  "devDependencies": {
+    "tocco-test-util": "*"
   }
 }

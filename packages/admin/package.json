@@ -7,7 +7,7 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=admin",
     "prepublish": "npm run compile:prod"
   },
-  "devDependencies": {
+  "dependencies": {
     "path-to-regexp": "^3.0.0",
     "react-burger-menu": "^2.6.11",
     "react-helmet": "^5.2.1",
@@ -23,11 +23,12 @@
     "tocco-merge": "*",
     "tocco-resource-scheduler": "*",
     "tocco-sso-login": "*",
-    "tocco-test-util": "*",
-    "tocco-theme": "*",
     "tocco-two-factor-connector": "*",
     "tocco-ui": "*",
     "tocco-user-qr-action": "*",
     "tocco-util": "*"
+  },
+  "devDependencies": {
+    "tocco-test-util": "*"
   }
 }
