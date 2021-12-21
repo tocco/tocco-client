@@ -7,15 +7,13 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=docs-browser",
     "prepublish": "npm run compile:prod"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "tocco-app-extensions": "*",
     "tocco-delete": "*",
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
-    "tocco-test-util": "*",
-    "tocco-theme": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
-  }
+  },
+  "devDependencies": {}
 }

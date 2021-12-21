@@ -7,12 +7,10 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=two-factor-connector",
     "prepublish": "npm run compile:prod"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "tocco-app-extensions": "*",
-    "tocco-test-util": "*",
-    "tocco-theme": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
-  }
+  },
+  "devDependencies": {}
 }

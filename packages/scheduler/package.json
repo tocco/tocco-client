@@ -8,17 +8,18 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=scheduler",
     "prepublish": "npm run compile:prod"
   },
-  "devDependencies": {
+  "dependencies": {
     "@fullcalendar/adaptive": "^5.5.0",
     "@fullcalendar/core": "^5.5.0",
     "@fullcalendar/interaction": "^5.5.0",
     "@fullcalendar/react": "^5.5.0",
     "@fullcalendar/resource-timeline": "^5.5.0",
     "tocco-app-extensions": "*",
-    "tocco-test-util": "*",
-    "tocco-theme": "*",
     "tocco-ui": "*",
     "tocco-util": "*",
     "twix": "^1.2.1"
+  },
+  "devDependencies": {
+    "tocco-test-util": "*"
   }
 }

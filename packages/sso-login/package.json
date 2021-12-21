@@ -7,11 +7,12 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=sso-login",
     "prepublish": "npm run compile:prod"
   },
-  "devDependencies": {
+  "dependencies": {
     "tocco-app-extensions": "*",
-    "tocco-test-util": "*",
-    "tocco-theme": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
+  },
+  "devDependencies": {
+    "tocco-test-util": "*"
   }
 }

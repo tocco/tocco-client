@@ -7,13 +7,14 @@
     "compile": "cd ../../ && npm run compile:prod -- --package=login",
     "prepublish": "npm run compile"
   },
-  "devDependencies": {
+  "dependencies": {
     "react-google-recaptcha": "^2.1.0",
     "tocco-app-extensions": "*",
-    "tocco-test-util": "*",
-    "tocco-theme": "*",
     "tocco-two-factor-connector": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
+  },
+  "devDependencies": {
+    "tocco-test-util": "*"
   }
 }

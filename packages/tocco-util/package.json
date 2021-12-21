@@ -4,8 +4,6 @@
   "private": true,
   "description": "tocco util",
   "main": "src/main.js",
-  "devDependencies": {
-    "tocco-test-util": "*",
-    "tocco-theme": "*"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

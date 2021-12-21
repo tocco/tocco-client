@@ -7,14 +7,13 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=resource-scheduler",
     "prepublish": "npm run compile:prod"
   },
-  "devDependencies": {
+  "dependencies": {
     "react-split-pane": "^0.1.84",
     "tocco-app-extensions": "*",
     "tocco-entity-list": "*",
     "tocco-scheduler": "*",
-    "tocco-test-util": "*",
-    "tocco-theme": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
-  }
+  },
+  "devDependencies": {}
 }

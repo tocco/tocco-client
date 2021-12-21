@@ -8,7 +8,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
-  "devDependencies": {
-    "tocco-theme": "^0.2.7"
+  "dependencies": {
+    "tocco-theme": "*"
   }
 }
