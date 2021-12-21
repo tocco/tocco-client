@@ -5,6 +5,8 @@
   "description": "app extensions",
   "main": "src/main.js",
   "dependencies": {
+    "es6-error": "^4.1.1",
+    "redux-thunk": "^2.4.1",
     "tocco-theme": "*",
     "tocco-ui": "*",
     "tocco-util": "*",

@@ -8,9 +8,9 @@
     "prepublish": "npm run compile:prod"
   },
   "dependencies": {
+    "js-cookie": "^3.0.1",
     "path-to-regexp": "^3.0.0",
     "react-burger-menu": "^2.6.11",
-    "react-helmet": "^5.2.1",
     "tocco-app-extensions": "*",
     "tocco-copy": "*",
     "tocco-dashboard": "*",

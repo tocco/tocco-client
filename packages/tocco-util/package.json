@@ -4,6 +4,8 @@
   "private": true,
   "description": "tocco util",
   "main": "src/main.js",
-  "dependencies": {},
+  "dependencies": {
+    "dompurify": "^2.3.3"
+  },
   "devDependencies": {}
 }
