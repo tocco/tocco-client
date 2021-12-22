@@ -148,5 +148,6 @@ sonarqube:
     - yarn sonarqube || echo 'Sonar fail' # run command once so it downloads sonar scanner
     - set -- /root/.sonar/native-sonar-scanner/* && sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' "$1/bin/sonar-scanner" # tell scanner to use system jre
   script:
-    - set SONAR_BRANCH=
+    - export
+    - set sonar.branch.name=master
     - yarn sonarqube -Dsonar.login=$SONARQUBE_KEY
