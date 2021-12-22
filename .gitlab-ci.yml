@@ -134,3 +134,14 @@ tagging:
     - apk update && apk add bash && apk add curl && apk add git && apk add openssh-client
   script:
     - ./scripts/tagging.sh
+
+sonarqube:
+  stage: onschedule
+  dependencies:
+    - yarn_setup
+    - test
+  only:
+    variables:
+      - $CI_RUN_SONARQUBE == "1"
+  script:
+    - yarn sonarqube -Dsonar.login=$SONARQUBE_KEY
