@@ -115,7 +115,8 @@ cypress:
   variables:
     CYPRESS_INSTALL_BINARY: "6.4.0"
   only:
-    - schedules
+    variables:
+      - $CI_RUN_CYPRESS == "1"
   script:
     - npm rebuild cypress
     - yarn cypress:master:record --parallel
