@@ -1,3 +1,8 @@
+1.0.6
+- adjust viewport height calculation to correctly render when entering fullscreen mode on android chrome
+- clickability fixed of expand/collapse all in module menu
+- add admin package version info to about modal
+
 1.0.5
 - choose between different scroll behaviours
 - show 5 rows per default
