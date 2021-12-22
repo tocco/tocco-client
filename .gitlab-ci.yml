@@ -144,6 +144,8 @@ sonarqube:
     - yarn_setup
     - test
   before_script:
-    - apk --update add gcompat
+    - apk --update add openjdk8-jre
+    - yarn sonarqube || echo 'Sonar fail'
+    - set -- /root/.sonar/native-sonar-scanner/* && sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' "$1/bin/sonar-scanner"
   script:
     - yarn sonarqube -Dsonar.login=$SONARQUBE_KEY
