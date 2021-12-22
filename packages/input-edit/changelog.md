@@ -1,3 +1,6 @@
+1.1.0
+
+
 1.0.1
 - harmonize popover background color and spacing
 - register icons
