@@ -144,6 +144,6 @@ sonarqube:
     - yarn_setup
     - test
   before_script:
-    - apk --update add openjdk8-jre
+    - apk --update add gcompat
   script:
     - yarn sonarqube -Dsonar.login=$SONARQUBE_KEY
