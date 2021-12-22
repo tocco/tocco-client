@@ -148,4 +148,5 @@ sonarqube:
     - yarn sonarqube || echo 'Sonar fail'
     - set -- /root/.sonar/native-sonar-scanner/* && sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' "$1/bin/sonar-scanner"
   script:
+    - set sonar.branch.name=
     - yarn sonarqube -Dsonar.login=$SONARQUBE_KEY
