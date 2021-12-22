@@ -143,10 +143,10 @@ sonarqube:
   dependencies:
     - yarn_setup
     - test
-  before_script:
-    - apk --update add openjdk11-jre
-    - yarn sonarqube || echo 'Sonar fail'
-    - set -- /root/.sonar/native-sonar-scanner/* && sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' "$1/bin/sonar-scanner"
+  before_script: # hacky, glibc isn't part of alpine and bundled java fails. we need to tell scanner to use system jre
+    - apk --update add openjdk11-jre # add jre
+    - yarn sonarqube || echo 'Sonar fail' # run command once so it downloads sonar scanner
+    - set -- /root/.sonar/native-sonar-scanner/* && sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' "$1/bin/sonar-scanner" # tell scanner to use system jre
   script:
-    - set sonar.branch.name=
+    - set SONAR_BRANCH=
     - yarn sonarqube -Dsonar.login=$SONARQUBE_KEY
