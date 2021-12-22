@@ -143,8 +143,7 @@ sonarqube:
   dependencies:
     - yarn_setup
     - test
-  only:
-    variables:
-      - $CI_RUN_SONARQUBE == "1"
+  before_script:
+    - apk --update add openjdk8-jre
   script:
     - yarn sonarqube -Dsonar.login=$SONARQUBE_KEY
