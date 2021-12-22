@@ -7,17 +7,15 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=entity-browser",
     "prepublish": "npm run compile:prod"
   },
-  "dependencies": {
+  "devDependencies": {
     "tocco-app-extensions": "*",
     "tocco-delete": "*",
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
     "tocco-input-edit": "*",
+    "tocco-test-util": "*",
     "tocco-ui": "*",
     "tocco-user-qr-action": "*",
     "tocco-util": "*"
-  },
-  "devDependencies": {
-    "tocco-test-util": "*"
   }
 }

@@ -8,13 +8,13 @@
     "prepublish": "npm run compile"
   },
   "dependencies": {
-    "react-google-recaptcha": "^2.1.0",
+    "react-google-recaptcha": "^2.1.0"
+  },
+  "devDependencies": {
     "tocco-app-extensions": "*",
+    "tocco-test-util": "*",
     "tocco-two-factor-connector": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
-  },
-  "devDependencies": {
-    "tocco-test-util": "*"
   }
 }

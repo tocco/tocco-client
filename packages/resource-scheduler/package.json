@@ -8,12 +8,13 @@
     "prepublish": "npm run compile:prod"
   },
   "dependencies": {
-    "react-split-pane": "^0.1.84",
+    "react-split-pane": "^0.1.84"
+  },
+  "devDependencies": {
     "tocco-app-extensions": "*",
     "tocco-entity-list": "*",
     "tocco-scheduler": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
-  },
-  "devDependencies": {}
+  }
 }

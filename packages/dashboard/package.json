@@ -8,13 +8,11 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=dashboard",
     "prepublish": "npm run compile:prod"
   },
-  "dependencies": {
+  "devDependencies": {
     "tocco-app-extensions": "*",
     "tocco-entity-list": "*",
+    "tocco-test-util": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
-  },
-  "devDependencies": {
-    "tocco-test-util": "*"
   }
 }

@@ -7,11 +7,10 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=input-edit",
     "prepublish": "npm run compile:prod"
   },
-  "dependencies": {
+  "devDependencies": {
     "tocco-app-extensions": "*",
     "tocco-simple-form": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
-  },
-  "devDependencies": {}
+  }
 }

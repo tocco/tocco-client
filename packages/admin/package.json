@@ -10,7 +10,9 @@
   "dependencies": {
     "js-cookie": "^3.0.1",
     "path-to-regexp": "^3.0.0",
-    "react-burger-menu": "^2.6.11",
+    "react-burger-menu": "^2.6.11"
+  },
+  "devDependencies": {
     "tocco-app-extensions": "*",
     "tocco-copy": "*",
     "tocco-dashboard": "*",
@@ -23,12 +25,10 @@
     "tocco-merge": "*",
     "tocco-resource-scheduler": "*",
     "tocco-sso-login": "*",
+    "tocco-test-util": "*",
     "tocco-two-factor-connector": "*",
     "tocco-ui": "*",
     "tocco-user-qr-action": "*",
     "tocco-util": "*"
-  },
-  "devDependencies": {
-    "tocco-test-util": "*"
   }
 }
