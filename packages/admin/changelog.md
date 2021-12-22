@@ -1,3 +1,6 @@
+1.0.7
+
+
 1.0.6
 - adjust viewport height calculation to correctly render when entering fullscreen mode on android chrome
 - clickability fixed of expand/collapse all in module menu
