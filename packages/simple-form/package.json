@@ -8,12 +8,10 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=simple-form",
     "prepublish": "npm run compile:prod"
   },
-  "dependencies": {
+  "devDependencies": {
     "tocco-app-extensions": "*",
+    "tocco-test-util": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
-  },
-  "devDependencies": {
-    "tocco-test-util": "*"
   }
 }

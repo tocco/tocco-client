@@ -8,10 +8,9 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=user-qr-action",
     "prepublish": "npm run compile:prod"
   },
-  "dependencies": {
+  "devDependencies": {
     "tocco-app-extensions": "*",
     "tocco-ui": "*",
     "tocco-util": "*"
-  },
-  "devDependencies": {}
+  }
 }

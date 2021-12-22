@@ -9,13 +9,13 @@
     "prepublish": "npm run compile:prod"
   },
   "dependencies": {
-    "react-split": "^2.0.7",
-    "tocco-app-extensions": "*",
-    "tocco-simple-form": "*",
-    "tocco-ui": "*",
-    "tocco-util": "*"
+    "react-split": "^2.0.7"
   },
   "devDependencies": {
-    "tocco-test-util": "*"
+    "tocco-app-extensions": "*",
+    "tocco-simple-form": "*",
+    "tocco-test-util": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
   }
 }

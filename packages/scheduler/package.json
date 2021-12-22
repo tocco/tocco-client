@@ -14,12 +14,12 @@
     "@fullcalendar/interaction": "^5.5.0",
     "@fullcalendar/react": "^5.5.0",
     "@fullcalendar/resource-timeline": "^5.5.0",
-    "tocco-app-extensions": "*",
-    "tocco-ui": "*",
-    "tocco-util": "*",
     "twix": "^1.2.1"
   },
   "devDependencies": {
-    "tocco-test-util": "*"
+    "tocco-app-extensions": "*",
+    "tocco-test-util": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
   }
 }
