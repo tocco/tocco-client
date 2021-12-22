@@ -52,6 +52,9 @@ test:
   only:
     - external_pull_requests
     - master
+  artifacts:
+    paths:
+      - coverage/
   script:
     - yarn test --ci --forceExit --runInBand --detectOpenHandles
   after_script:
@@ -148,6 +151,4 @@ sonarqube:
     - yarn sonarqube || echo 'Sonar fail' # run command once so it downloads sonar scanner
     - set -- /root/.sonar/native-sonar-scanner/* && sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' "$1/bin/sonar-scanner" # tell scanner to use system jre
   script:
-    - export
-    - set sonar.branch.name=master
-    - yarn sonarqube -Dsonar.login=$SONARQUBE_KEY
+    - yarn sonarqube -Dsonar.login=$SONARQUBE_KEY -Dsonar.branch.name=master
