@@ -22,7 +22,7 @@ describe('entity-list', () => {
             const path = 'firstname'
             const fieldType = 'string'
 
-            const expectedResult = 'firstname ~= "Homer"'
+            const expectedResult = 'firstname ~= "*Homer*"'
             const result = getTql(path, value, fieldType)
 
             expect(result).to.deep.eql(expectedResult)
@@ -141,7 +141,7 @@ describe('entity-list', () => {
           test('should handle unknown form types and use fallback', () => {
             expect(getTql('relXY', {key: '23'})).to.deep.eql('relXY.pk == 23')
             expect(getTql('relXY', [{key: '23'}])).to.deep.eql('KEYS("relXY",23)')
-            expect(getTql('asd', 'test')).to.deep.eql('asd ~= "test"')
+            expect(getTql('asd', 'test')).to.deep.eql('asd ~= "*test*"')
           })
 
           test('should handle range values', () => {
