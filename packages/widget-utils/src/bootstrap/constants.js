@@ -1,0 +1,5 @@
+export const EVENT_HANDLERS_OBJ_NAME = 'toccoEventHandlers'
+export const THEME_OBJ_NAME = 'toccoTheme'
+export const ATTRIBUTE_ID = 'data-id'
+export const ATTRIBUTE_WIDGET = 'data-tocco-widget'
+export const ATTRIBUTE_PACKAGE = 'data-tocco-package'
