@@ -1,3 +1,7 @@
+1.0.0-hotfix30.16
+- improve searching for text based types
+- add tql mapping for type text
+
 1.0.0-hotfix30.15
 - null pointer fixed in document field formatter (resp. merge action)
 
