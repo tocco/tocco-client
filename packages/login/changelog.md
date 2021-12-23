@@ -1,3 +1,6 @@
+1.0.0-hotfix30.8
+- use throttle for select instead of debounce to prevent flickering of dropdown
+
 1.0.0-hotfix30.7
 - do not load display of null entity
 
