@@ -1,6 +1,6 @@
-import _debounce from 'lodash/debounce'
+import _throttle from 'lodash/throttle'
 import PropTypes from 'prop-types'
-import React, {useRef} from 'react'
+import React, {useRef, useCallback} from 'react'
 import ReactSelect from 'react-select'
 import {withTheme} from 'styled-components'
 
@@ -18,8 +18,6 @@ import {
   StyledReactSelectOuterWrapper,
   StyledReactSelectInnerWrapper
 } from './StyledComponents'
-
-const SEARCH_DEBOUNCE = 300
 
 /**
  * To select between multiple options. Loading of options and so on are remotely controlled.
@@ -52,7 +50,7 @@ const Select = ({
 
   const handleInputChange = (searchTerm, event) => {
     if (searchOptions && searchTerm) {
-      debouncedSearchOptions(searchTerm)
+      throttledSearchOptions(searchTerm)
     }
     if (searchTerm === '' && event.action === 'input-change') {
       fetchOptions()
@@ -69,10 +67,10 @@ const Select = ({
     selectComponent.current.focus()
   }
 
-  const debouncedSearchOptions = searchOptions ? _debounce(searchOptions, SEARCH_DEBOUNCE) : () => {}
+  const throttledSearchOptions = useCallback(_throttle(searchOptions, 800, {trailing: true}), [])
 
-  const wrapperWidth = selectWrapper.current ? selectWrapper.current.clientWidth : 300
-  const wrapperHeight = selectWrapper.current ? selectWrapper.current.clientHeight : 35
+  const wrapperWidth = selectWrapper.current?.clientWidth || 300
+  const wrapperHeight = selectWrapper.current?.clientHeight || 35
 
   return (
     <StyledReactSelectOuterWrapper tabIndex="-1" id={id} onFocus={handleFocus}>
@@ -132,6 +130,10 @@ const ItemPropType = PropTypes.shape({
   key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   display: PropTypes.string
 })
+
+Select.defaultProps = {
+  searchOptions: () => {}
+}
 
 Select.propTypes = {
   /**
@@ -203,7 +205,7 @@ Select.propTypes = {
    */
   immutable: PropTypes.bool,
   /**
-   * Id of outter element
+   * Id of outer element
    */
   id: PropTypes.string,
   /**
