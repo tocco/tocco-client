@@ -68,6 +68,7 @@
     "import/first": 2,
     "import/no-webpack-loader-syntax": 0,
     "monorepo/no-relative-import": 2,
-    "prefer-regex-literals": 0
+    "prefer-regex-literals": 0,
+    "eol-last": 2
   }
 }
