@@ -19,7 +19,7 @@ import {
   StyledReactSelectInnerWrapper
 } from './StyledComponents'
 
-const SEARCH_DEBOUNCE = 300
+const SEARCH_DEBOUNCE = 800
 
 /**
  * To select between multiple options. Loading of options and so on are remotely controlled.
@@ -71,8 +71,8 @@ const Select = ({
 
   const debouncedSearchOptions = searchOptions ? _debounce(searchOptions, SEARCH_DEBOUNCE) : () => {}
 
-  const wrapperWidth = selectWrapper.current ? selectWrapper.current.clientWidth : 300
-  const wrapperHeight = selectWrapper.current ? selectWrapper.current.clientHeight : 35
+  const wrapperWidth = selectWrapper.current?.clientWidth || 300
+  const wrapperHeight = selectWrapper.current?.clientHeight || 35
 
   return (
     <StyledReactSelectOuterWrapper
@@ -213,7 +213,7 @@ Select.propTypes = {
    */
   immutable: PropTypes.bool,
   /**
-   * Id of outter element
+   * Id of outer element
    */
   id: PropTypes.string,
   /**
