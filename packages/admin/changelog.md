@@ -1,3 +1,6 @@
+1.0.0-hotfix30.15
+- null pointer fixed in document field formatter (resp. merge action)
+
 1.0.0-hotfix30.14
 - use throttle for select instead of debounce to prevent flickering of dropdown
 
