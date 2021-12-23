@@ -5,9 +5,14 @@ export default {
     tooltips: ['Resource'],
     navigationStrategy: true
   }),
-  getOptions: ({formData}) => ({
-    downloadTitle: formData.intl.formatMessage({id: 'client.component.upload.downloadTitle'}),
-    tooltips: _get(formData.tooltips, 'Resource', null),
-    loadTooltip: id => formData.loadTooltip('Resource', id)
-  })
+  getOptions: ({formData}) =>
+    formData
+      ? {
+          downloadTitle: formData.intl.formatMessage({
+            id: 'client.component.upload.downloadTitle'
+          }),
+          tooltips: _get(formData.tooltips, 'Resource', null),
+          loadTooltip: id => formData.loadTooltip('Resource', id)
+        }
+      : {}
 }
