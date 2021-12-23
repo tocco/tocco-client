@@ -1,36 +1,66 @@
-import {ATTRIBUTE_PACKAGE, ATTRIBUTE_WIDGET} from './constants'
-import {buildInputFromDom, getEventHandlers, getTheme, loadScriptAsync} from './utils'
+import {consoleLogger} from 'tocco-util'
 
-const getWidgetName = container => container.getAttribute(ATTRIBUTE_WIDGET)
+import {ATTRIBUTE_WIDGET_KEY, ERROR_CODE_INVALID_DOMAIN} from './constants'
+import {executeRequest, enhanceExtractedBody} from './requests'
+import {getEventHandlers, getTheme, loadScriptAsync} from './utils'
 
-const getPackageName = container => container.getAttribute(ATTRIBUTE_PACKAGE) || getWidgetName(container)
+const getWidgetKey = container => container.getAttribute(ATTRIBUTE_WIDGET_KEY)
 
-const bootstrapWidgets = async params => {
-  const {backendUrl} = params
+const handleRequestError = (response, key) => {
+  const {ok, status, body} = response
+  if (!ok) {
+    if (status === 403 && body?.errorCode === ERROR_CODE_INVALID_DOMAIN) {
+      // TODO: TOCDEV-4757 - log remote
+      consoleLogger.logError(body.message)
+    }
 
-  const widgetContainerNodeList = document.querySelectorAll(`[${ATTRIBUTE_WIDGET}]`)
-  const widgetContainers = Array.prototype.slice.call(widgetContainerNodeList)
-  const packages = [...new Set(widgetContainers.map(container => getPackageName(container)))]
+    if (status === 404) {
+      // TODO: TOCDEV-4757 - log remote
+      consoleLogger.logError(`Widget config '${key}' not found.`)
+    }
 
-  await Promise.all(
-    packages.map(packageName => {
-      return loadScriptAsync(`${backendUrl}/js/tocco-${packageName}/dist/index.js`)
+    return undefined
+  }
+  return response
+}
+
+const initializeWidget = async (backendUrl, container) => {
+  const key = getWidgetKey(container)
+  const widgetConfig = await executeRequest(`${backendUrl}/nice2/rest/widget/configs/${key}`)
+    .then(enhanceExtractedBody)
+    .then(response => handleRequestError(response, key))
+    .then(response => response?.body)
+    .catch(error => {
+      // TODO: TOCDEV-4757 - try log remote
+      consoleLogger.logError(`Could not fetch widget config '${key}'.`, error)
     })
-  )
 
-  widgetContainers.forEach(container => {
-    const app = getWidgetName(container)
-    const packageName = getPackageName(container)
+  if (widgetConfig) {
+    const {appName, packageName, locale, config} = widgetConfig
+    await loadScriptAsync(`${backendUrl}/js/tocco-${packageName}/dist/index.js`)
+
     const customTheme = getTheme()
     const input = {
       backendUrl,
       ...(customTheme ? {customTheme} : {}),
-      ...buildInputFromDom(container)
+      locale,
+      ...config
     }
     const eventHandlers = getEventHandlers(container)
+    const srcPath = `${backendUrl}/js/tocco-${packageName}/dist/`
 
-    window.reactRegistry.render(app, container, '', input, eventHandlers, `${backendUrl}/js/tocco-${packageName}/dist/`)
-  })
+    // TODO: TOCDEV-4802 - make methods available
+    window.reactRegistry.render(appName, container, '', input, eventHandlers, srcPath)
+  }
+}
+
+const bootstrapWidgets = async params => {
+  const {backendUrl} = params
+
+  const widgetContainerNodeList = document.querySelectorAll(`[${ATTRIBUTE_WIDGET_KEY}]`)
+  const widgetContainers = Array.prototype.slice.call(widgetContainerNodeList)
+
+  await Promise.all(widgetContainers.map(container => initializeWidget(backendUrl, container)))
 }
 
 export default bootstrapWidgets

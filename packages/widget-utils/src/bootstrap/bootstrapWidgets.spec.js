@@ -1,4 +1,5 @@
 import {mount} from 'enzyme'
+import fetchMock from 'fetch-mock'
 import React from 'react'
 
 import bootstrapWidgets from './bootstrapWidgets'
@@ -13,6 +14,7 @@ describe('widget-utils', () => {
     describe('bootstrapWidgets', () => {
       beforeEach(() => {
         stub = sinon.stub(utils, 'loadScriptAsync').returns({})
+        fetchMock.restore()
       })
 
       afterEach(() => {
@@ -34,7 +36,19 @@ describe('widget-utils', () => {
           render: renderSpy
         }
 
-        wrapper = mount(<div data-tocco-widget="entity-browser" data-widget-param="test"></div>, {
+        fetchMock.get('http://localhost:8080/nice2/rest/widget/configs/1', {
+          key: '1',
+          appName: 'login',
+          packageName: 'login',
+          locale: 'de',
+          config: {
+            showTitle: true,
+            passwordRequest: false,
+            username: 'test-username'
+          }
+        })
+
+        wrapper = mount(<div data-tocco-widget-key="1"></div>, {
           attachTo: document.body
         })
         const container = wrapper.getDOMNode()
@@ -44,16 +58,18 @@ describe('widget-utils', () => {
 
         const expectedInput = {
           backendUrl,
-          toccoWidget: 'entity-browser',
-          widgetParam: 'test'
+          locale: 'de',
+          showTitle: true,
+          passwordRequest: false,
+          username: 'test-username'
         }
         expect(renderSpy).to.have.been.calledWith(
-          'entity-browser',
+          'login',
           container,
           '',
           expectedInput,
           {},
-          'http://localhost:8080/js/tocco-entity-browser/dist/'
+          'http://localhost:8080/js/tocco-login/dist/'
         )
       })
 
@@ -64,7 +80,15 @@ describe('widget-utils', () => {
         }
         window[THEME_OBJ_NAME] = {fontSize: 30}
 
-        wrapper = mount(<div data-tocco-widget="entity-browser"></div>, {attachTo: document.body})
+        fetchMock.get('http://localhost:8080/nice2/rest/widget/configs/1', {
+          key: '1',
+          appName: 'login',
+          packageName: 'login',
+          locale: 'de',
+          config: {}
+        })
+
+        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
         const container = wrapper.getDOMNode()
 
         const backendUrl = 'http://localhost:8080'
@@ -73,15 +97,15 @@ describe('widget-utils', () => {
         const expectedInput = {
           backendUrl,
           customTheme: window[THEME_OBJ_NAME],
-          toccoWidget: 'entity-browser'
+          locale: 'de',
         }
         expect(renderSpy).to.have.been.calledWith(
-          'entity-browser',
+          'login',
           container,
           '',
           expectedInput,
           {},
-          'http://localhost:8080/js/tocco-entity-browser/dist/'
+          'http://localhost:8080/js/tocco-login/dist/'
         )
       })
 
@@ -92,7 +116,15 @@ describe('widget-utils', () => {
         }
         window[EVENT_HANDLERS_OBJ_NAME] = {someEvent: () => {}}
 
-        wrapper = mount(<div data-tocco-widget="entity-browser"></div>, {attachTo: document.body})
+        fetchMock.get('http://localhost:8080/nice2/rest/widget/configs/1', {
+          key: '1',
+          appName: 'login',
+          packageName: 'login',
+          locale: 'de',
+          config: {}
+        })
+
+        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
         const container = wrapper.getDOMNode()
 
         const backendUrl = 'http://localhost:8080'
@@ -100,15 +132,15 @@ describe('widget-utils', () => {
 
         const expectedInput = {
           backendUrl,
-          toccoWidget: 'entity-browser'
+          locale: 'de',
         }
         expect(renderSpy).to.have.been.calledWith(
-          'entity-browser',
+          'login',
           container,
           '',
           expectedInput,
           window[EVENT_HANDLERS_OBJ_NAME],
-          'http://localhost:8080/js/tocco-entity-browser/dist/'
+          'http://localhost:8080/js/tocco-login/dist/'
         )
       })
 
@@ -117,11 +149,16 @@ describe('widget-utils', () => {
         window.reactRegistry = {
           render: renderSpy
         }
-        window[EVENT_HANDLERS_OBJ_NAME] = {someEvent: () => {}}
 
-        wrapper = mount(<div data-tocco-widget="passwort-change" data-tocco-package="login"></div>, {
-          attachTo: document.body
+        fetchMock.get('http://localhost:8080/nice2/rest/widget/configs/1', {
+          key: '1',
+          appName: 'password-update',
+          packageName: 'login',
+          locale: 'de',
+          config: {}
         })
+
+        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
         const container = wrapper.getDOMNode()
 
         const backendUrl = 'http://localhost:8080'
@@ -129,17 +166,110 @@ describe('widget-utils', () => {
 
         const expectedInput = {
           backendUrl,
-          toccoWidget: 'passwort-change',
-          toccoPackage: 'login'
+          locale: 'de',
         }
         expect(renderSpy).to.have.been.calledWith(
-          'passwort-change',
+          'password-update',
           container,
           '',
           expectedInput,
-          window[EVENT_HANDLERS_OBJ_NAME],
+          {},
           'http://localhost:8080/js/tocco-login/dist/'
         )
+      })
+
+      test('should add locale as input parameter', async () => {
+        const renderSpy = sinon.spy()
+        window.reactRegistry = {
+          render: renderSpy
+        }
+
+        fetchMock.get('http://localhost:8080/nice2/rest/widget/configs/1', {
+          key: '1',
+          appName: 'password-update',
+          packageName: 'login',
+          locale: 'de',
+          config: {}
+        })
+
+        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+        const container = wrapper.getDOMNode()
+
+        const backendUrl = 'http://localhost:8080'
+        await bootstrapWidgets({backendUrl})
+
+        const expectedInput = {
+          backendUrl,
+          locale: 'de'
+        }
+        expect(renderSpy).to.have.been.calledWith(
+          'password-update',
+          container,
+          '',
+          expectedInput,
+          {},
+          'http://localhost:8080/js/tocco-login/dist/'
+        )
+      })
+
+      test('should handle 400 errors', async () => {
+        const renderSpy = sinon.spy()
+        window.reactRegistry = {
+          render: renderSpy
+        }
+
+        fetchMock.get('http://localhost:8080/nice2/rest/widget/configs/1', {
+          status: 400,
+          body: {
+            status: 400,
+            errorCode: 'INVALID_DOMAIN',
+            message: 'widget embedded on invalid domain'
+          }
+        })
+
+        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+
+        const backendUrl = 'http://localhost:8080'
+        await bootstrapWidgets({backendUrl})
+
+        expect(renderSpy).to.not.have.been.called
+      })
+
+      test('should handle 404 errors', async () => {
+        const renderSpy = sinon.spy()
+        window.reactRegistry = {
+          render: renderSpy
+        }
+
+        fetchMock.get('http://localhost:8080/nice2/rest/widget/configs/1', {
+          status: 404,
+          body: {}
+        })
+
+        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+
+        const backendUrl = 'http://localhost:8080'
+        await bootstrapWidgets({backendUrl})
+
+        expect(renderSpy).to.not.have.been.called
+      })
+
+      test('should handle network errors', async () => {
+        const renderSpy = sinon.spy()
+        window.reactRegistry = {
+          render: renderSpy
+        }
+
+        fetchMock.get('http://localhost:8080/nice2/rest/widget/configs/1', {
+          throws: new Error('Failed to fetch')
+        })
+
+        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+
+        const backendUrl = 'http://localhost:8080'
+        await bootstrapWidgets({backendUrl})
+
+        expect(renderSpy).to.not.have.been.called
       })
     })
   })

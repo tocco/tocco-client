@@ -7,5 +7,7 @@
     "prepublish": "npm run compile:prod"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "tocco-util": "*"
+  }
 }
