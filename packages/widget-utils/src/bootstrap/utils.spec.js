@@ -1,4 +1,5 @@
-import {EVENT_HANDLERS_OBJ_NAME, buildInputFromDom, getBackendUrl, getEventHandlers} from './utils'
+import {EVENT_HANDLERS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
+import {buildInputFromDom, getBackendUrl, getEventHandlers, getTheme} from './utils'
 
 describe('widget-utils', () => {
   describe('bootstrap', () => {
@@ -35,6 +36,26 @@ describe('widget-utils', () => {
           toccoWidget: 'entity-browser',
           style: 'color: red;'
         })
+      })
+    })
+
+    describe('getTheme', () => {
+      test('should return undefined if global theme is not defined', () => {
+        delete window[THEME_OBJ_NAME]
+
+        expect(getTheme()).to.be.undefined
+      })
+
+      test('should return undefined if global theme is not an object', () => {
+        window[THEME_OBJ_NAME] = 'abc'
+
+        expect(getTheme()).to.be.undefined
+      })
+
+      test('should return theme object', () => {
+        window[THEME_OBJ_NAME] = {fontSize: 30}
+
+        expect(getTheme()).to.eql(window[THEME_OBJ_NAME])
       })
     })
 

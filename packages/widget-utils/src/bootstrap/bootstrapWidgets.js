@@ -1,13 +1,14 @@
-import {buildInputFromDom, getEventHandlers, loadScriptAsync} from './utils'
+import {ATTRIBUTE_PACKAGE, ATTRIBUTE_WIDGET} from './constants'
+import {buildInputFromDom, getEventHandlers, getTheme, loadScriptAsync} from './utils'
 
-const getWidgetName = container => container.getAttribute('data-tocco-widget')
+const getWidgetName = container => container.getAttribute(ATTRIBUTE_WIDGET)
 
-const getPackageName = container => container.getAttribute('data-tocco-package') || getWidgetName(container)
+const getPackageName = container => container.getAttribute(ATTRIBUTE_PACKAGE) || getWidgetName(container)
 
 const bootstrapWidgets = async params => {
   const {backendUrl} = params
 
-  const widgetContainerNodeList = document.querySelectorAll('[data-tocco-widget]')
+  const widgetContainerNodeList = document.querySelectorAll(`[${ATTRIBUTE_WIDGET}]`)
   const widgetContainers = Array.prototype.slice.call(widgetContainerNodeList)
   const packages = [...new Set(widgetContainers.map(container => getPackageName(container)))]
 
@@ -20,8 +21,10 @@ const bootstrapWidgets = async params => {
   widgetContainers.forEach(container => {
     const app = getWidgetName(container)
     const packageName = getPackageName(container)
+    const customTheme = getTheme()
     const input = {
       backendUrl,
+      ...(customTheme ? {customTheme} : {}),
       ...buildInputFromDom(container)
     }
     const eventHandlers = getEventHandlers(container)
