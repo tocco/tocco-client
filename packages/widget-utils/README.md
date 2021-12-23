@@ -34,3 +34,17 @@ input params. Declare them in `snake-case`, they are transformed to `camelCase` 
 ></div>
 <script src="https://${customer.tocco.ch}/js/tocco-widget-utils/dist/bootstrap.js"></script>
 ```
+
+### Theme
+
+A theme can be configured by defining a global theme object on `window.toccoTheme`.
+```js
+window.toccoTheme = {
+  colors: {
+    primary: '#BB8800'
+  },
+  fontSize: {
+    base: 1.3
+  }
+}
+```
