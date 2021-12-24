@@ -1,63 +1,68 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useRef, useState, useEffect} from 'react'
+import {react} from 'tocco-util'
 
 import Typography from '../../Typography'
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import {calculateMilliseconds} from '../utils'
 import {StyledDurationEditShadow, StyledDurationEditFocusable, StyledDurationEdit} from './StyledDurationEdit'
 
-class DurationEdit extends React.Component {
-  constructor(props) {
-    super(props)
-    this.hoursShadow = React.createRef()
-    this.minutesShadow = React.createRef()
-    this.state = {
-      ...this.millisecondsToDuration(props.value),
-      showUnits: props.value >= 0
+const DurationEdit = ({value, immutable, onChange, options}) => {
+  const hoursShadow = useRef(null)
+  const minutesShadow = useRef(null)
+  const millisecondsToDuration = ms => {
+    if (!ms) {
+      return {
+        hours: '',
+        minutes: ''
+      }
+    }
+
+    const minutes = parseInt((ms / (1000 * 60)) % 60)
+    const hours = parseInt((ms / (1000 * 60 * 60)) % 24)
+    return {
+      hours,
+      minutes
     }
   }
 
-  millisecondsToDuration = milliSeconds => {
-    if (!milliSeconds && milliSeconds !== 0) {
-      return {hours: '', minutes: ''}
+  const [hours, setHours] = useState(millisecondsToDuration(value).hours)
+  const [minutes, setMinutes] = useState(millisecondsToDuration(value).minutes)
+  const [hoursWidth, setHoursWidth] = useState(0)
+  const [minutesWidth, setMinutesWidth] = useState(0)
+  const [showUnits, setShowUnits] = useState(value >= 0)
+  const previousHours = react.usePrevious(hours)
+  const previousMinutes = react.usePrevious(minutes)
+
+  useEffect(() => {
+    setHoursWidth(hoursShadow.current.offsetWidth)
+    setMinutesWidth(minutesShadow.current.offsetWidth)
+  }, [])
+
+  useEffect(() => {
+    if (hours !== previousHours) {
+      setHoursWidth(hoursShadow.current.offsetWidth)
     }
-
-    const minutes = parseInt((milliSeconds / (1000 * 60)) % 60)
-    const hours = parseInt((milliSeconds / (1000 * 60 * 60)) % 24)
-    return {hours, minutes}
-  }
-
-  componentDidMount = () => {
-    this.setState({
-      hoursWidth: this.hoursShadow.current.offsetWidth,
-      minutesWidth: this.minutesShadow.current.offsetWidth
-    })
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.hours !== prevState.hours) {
-      this.setState({hoursWidth: this.hoursShadow.current.offsetWidth})
+    if (minutes !== previousMinutes) {
+      setMinutesWidth(minutesShadow.current.offsetWidth)
     }
-    if (this.state.minutes !== prevState.minutes) {
-      this.setState({minutesWidth: this.minutesShadow.current.offsetWidth})
-    }
-  }
+  }, [hours, minutes])
 
-  handleHourChange = e => {
+  const handleHourChange = e => {
     const hours = e.target.value.replace(/[^-\d]/g, '')
-    this.setState({...this.state, hours})
-    this.handleChange(hours, null)
+    setHours(hours)
+    handleChange(hours, null)
   }
 
-  getDesiredInputInMinutes = target => {
+  const getDesiredInputInMinutes = target => {
     let minutes = target.value.replace(/[^-\d]/g, '')
 
     if (!target.validity.valid) {
       minutes = 0
     }
 
-    if (`${minutes}`.length > 2) {
-      minutes = `${minutes}`.slice(0, 2)
+    if (minutes.length > 2) {
+      minutes = minutes.slice(0, 2)
     }
 
     if (minutes > 59) {
@@ -71,81 +76,83 @@ class DurationEdit extends React.Component {
     return minutes
   }
 
-  handleMinutesChange = e => {
-    const minutes = this.getDesiredInputInMinutes(e.target)
-    this.setState({...this.state, minutes})
-
-    this.handleChange(null, minutes)
+  const handleMinutesChange = e => {
+    const minutes = getDesiredInputInMinutes(e.target)
+    setMinutes(minutes)
+    handleChange(null, minutes)
 
     if (minutes.toString().length === 2 || minutes === 0) {
       e.target.select()
     }
   }
 
-  handleChange = (hours, minutes) => {
-    const minutesValue = minutes !== null ? minutes : this.state.minutes
-    const hoursValue = hours !== null ? hours : this.state.hours
+  const handleChange = (hoursInput, minutesInput) => {
+    const minutesValue = minutesInput !== null ? minutesInput : minutes
+    const hoursValue = hoursInput !== null ? hoursInput : hours
+
     if (minutesValue === '' && hoursValue === '') {
-      this.props.onChange(null)
+      onChange(null)
       return
     }
-    this.props.onChange(calculateMilliseconds(hoursValue, minutesValue))
+
+    onChange(calculateMilliseconds(hoursValue, minutesValue))
   }
 
-  handleOnBlur = () =>
-    this.setState({
-      showUnits: this.state.hours.toString().length >= 1 || this.state.minutes.toString().length >= 1
-    })
+  const handleOnBlur = () => {
+    setShowUnits(hours.toString().length >= 1 || minutes.toString().length >= 1)
+  }
 
-  handleOnFocus = () => this.setState({showUnits: true})
+  const handleOnFocus = () => {
+    setShowUnits(true)
+  }
 
-  preventNonNumeric = event => {
-    if (!(event.charCode >= 48 && event.charCode <= 57)) {
-      event.preventDefault()
+  const preventNonNumeric = e => {
+    const isNonNumericInput = !(e.charCode >= 48 && e.charCode <= 57)
+
+    if (isNonNumericInput) {
+      e.preventDefault()
     }
   }
 
-  render() {
-    return (
-      <StyledEditableWrapper onBlur={this.handleOnBlur} immutable={this.props.immutable} style={{overflowX: 'auto'}}>
-        <StyledDurationEditFocusable immutable={this.props.immutable}>
-          <StyledDurationEdit
-            disabled={this.props.immutable}
-            immutable={this.props.immutable}
-            min={0}
-            onChange={() => {}} // Empty onChange function to prevent React internal error
-            onFocus={this.handleOnFocus}
-            onInput={this.handleHourChange}
-            onKeyPress={this.preventNonNumeric}
-            pattern="\d+"
-            step={1}
-            style={{width: this.state.hoursWidth}}
-            type="number"
-            value={this.state.hours}
-          />
-          {this.state.showUnits && <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>}
-        </StyledDurationEditFocusable>
-        <StyledDurationEditFocusable immutable={this.props.immutable}>
-          <StyledDurationEdit
-            disabled={this.props.immutable}
-            immutable={this.props.immutable}
-            onChange={() => {}} // Empty onChange function to prevent React internal error
-            onFocus={this.handleOnFocus}
-            onInput={this.handleMinutesChange}
-            onKeyPress={this.preventNonNumeric}
-            pattern="\d+"
-            step={1}
-            style={{width: this.state.minutesWidth}}
-            type="number"
-            value={this.state.minutes}
-          />
-          {this.state.showUnits && <Typography.Span>{this.props.options.minutesLabel}</Typography.Span>}
-        </StyledDurationEditFocusable>
-        <StyledDurationEditShadow ref={this.hoursShadow}>{this.state.hours}</StyledDurationEditShadow>
-        <StyledDurationEditShadow ref={this.minutesShadow}>{this.state.minutes}</StyledDurationEditShadow>
-      </StyledEditableWrapper>
-    )
-  }
+  return (
+    <StyledEditableWrapper onBlur={handleOnBlur} immutable={immutable}>
+      <StyledDurationEditFocusable immutable={immutable}>
+        <StyledDurationEdit
+          disabled={immutable}
+          immutable={immutable}
+          min={0}
+          onChange={() => {}} // Empty onChange function to prevent React internal error
+          onFocus={handleOnFocus}
+          onInput={handleHourChange}
+          onKeyPress={preventNonNumeric}
+          pattern="\d+"
+          step={1}
+          width={hoursWidth}
+          type="number"
+          value={hours}
+        />
+        {showUnits && <Typography.Span>{options.hoursLabel}</Typography.Span>}
+      </StyledDurationEditFocusable>
+      <StyledDurationEditFocusable immutable={immutable}>
+        <StyledDurationEdit
+          disabled={immutable}
+          immutable={immutable}
+          onChange={() => {}} // Empty onChange function to prevent React internal error
+          onFocus={handleOnFocus}
+          onInput={handleMinutesChange}
+          onKeyPress={preventNonNumeric}
+          pattern="\d+"
+          step={1}
+          width={minutesWidth}
+          type="number"
+          value={minutes}
+        />
+        {showUnits && <Typography.Span>{options.minutesLabel}</Typography.Span>}
+      </StyledDurationEditFocusable>
+      <StyledDurationEditShadow ref={hoursShadow}>{hours}</StyledDurationEditShadow>
+      <StyledDurationEditShadow ref={minutesShadow}>{minutes}</StyledDurationEditShadow>
+    </StyledEditableWrapper>
+  )
 }
 
 DurationEdit.defaultProps = {
