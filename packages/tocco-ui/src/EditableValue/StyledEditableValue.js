@@ -9,6 +9,8 @@ const StyledEditableWrapperCss = css`
 `
 
 const StyledEditableWrapper = styled.label`
+  overflow-x: auto;
+
   &&& {
     margin: 0; /* reset Bootstrap and Ext JS */
     padding: 0; /* reset Ext JS */

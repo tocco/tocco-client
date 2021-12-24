@@ -8,7 +8,8 @@ const StyledDurationEdit = styled.input`
   && {
     ${StyledInputCss}
     flex-grow: 0;
-    min-width: 1ch;
+    width: ${({width}) => width}px;
+    min-width: 2.5ch;
   }
 `
 
@@ -20,7 +21,7 @@ const StyledDurationEditFocusable = styled.label`
     margin-bottom: 0; /* reset bootstrap */
 
     &:first-child {
-      margin-right: ${scale.space(-1)};
+      margin-right: ${scale.space(1)};
     }
 
     > span {
