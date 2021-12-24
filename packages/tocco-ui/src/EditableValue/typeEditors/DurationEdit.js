@@ -4,33 +4,67 @@ import {react} from 'tocco-util'
 
 import Typography from '../../Typography'
 import {StyledEditableWrapper} from '../StyledEditableValue'
-import {calculateMilliseconds} from '../utils'
+import {calculateMilliseconds, roundDecimalPlaces} from '../utils'
 import {StyledDurationEditShadow, StyledDurationEditFocusable, StyledDurationEdit} from './StyledDurationEdit'
+
+const millisecondsToDuration = ms => {
+  if (!ms && ms !== 0) {
+    return {
+      hours: '',
+      minutes: '',
+      seconds: ''
+    }
+  }
+
+  const seconds = roundDecimalPlaces((ms / 1000) % 60, 3)
+  const minutes = parseInt((ms / (1000 * 60)) % 60)
+  const hours = parseInt((ms / (1000 * 60 * 60)) % 24)
+  return {
+    hours,
+    minutes,
+    seconds
+  }
+}
+
+const getDesiredInputInMinutes = target => {
+  let minutes = target.value.replace(/[^-\d]/g, '')
+
+  if (!target.validity.valid) {
+    minutes = 0
+  }
+
+  if (minutes.length > 2) {
+    minutes = minutes.slice(0, 2)
+  }
+
+  if (minutes > 59) {
+    minutes = 0
+  }
+
+  if (minutes < 0) {
+    minutes = 59
+  }
+
+  return minutes
+}
 
 const DurationEdit = ({value, immutable, onChange, options}) => {
   const hoursShadow = useRef(null)
   const minutesShadow = useRef(null)
-  const millisecondsToDuration = ms => {
-    if (!ms) {
-      return {
-        hours: '',
-        minutes: ''
-      }
-    }
+  const secondsShadow = useRef(null)
 
-    const minutes = parseInt((ms / (1000 * 60)) % 60)
-    const hours = parseInt((ms / (1000 * 60 * 60)) % 24)
-    return {
-      hours,
-      minutes
-    }
-  }
+  const duration = millisecondsToDuration(value)
+  const {seconds} = duration
 
-  const [hours, setHours] = useState(millisecondsToDuration(value).hours)
-  const [minutes, setMinutes] = useState(millisecondsToDuration(value).minutes)
+  const [hours, setHours] = useState(duration.hours)
+  const [minutes, setMinutes] = useState(duration.minutes)
+
   const [hoursWidth, setHoursWidth] = useState(0)
   const [minutesWidth, setMinutesWidth] = useState(0)
+  const secondsWidth = secondsShadow.current?.offsetWidth || 0
+
   const [showUnits, setShowUnits] = useState(value >= 0)
+
   const previousHours = react.usePrevious(hours)
   const previousMinutes = react.usePrevious(minutes)
 
@@ -52,28 +86,6 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
     const hours = e.target.value.replace(/[^-\d]/g, '')
     setHours(hours)
     handleChange(hours, null)
-  }
-
-  const getDesiredInputInMinutes = target => {
-    let minutes = target.value.replace(/[^-\d]/g, '')
-
-    if (!target.validity.valid) {
-      minutes = 0
-    }
-
-    if (minutes.length > 2) {
-      minutes = minutes.slice(0, 2)
-    }
-
-    if (minutes > 59) {
-      minutes = 0
-    }
-
-    if (minutes < 0) {
-      minutes = 59
-    }
-
-    return minutes
   }
 
   const handleMinutesChange = e => {
@@ -114,6 +126,15 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
     }
   }
 
+  /**
+   * We don't want to offer the user to enter the duration in seconds,
+   * because hours/minutes are already accurate enough.
+   * However, duration values that are automatically measured can have seconds/milliseconds values.
+   * Therefore, we show seconds/milliseconds only for immutable fields uf such values are present.
+   * (e.g. System_activity)
+   */
+  const showSeconds = immutable && Boolean(seconds)
+
   return (
     <StyledEditableWrapper onBlur={handleOnBlur} immutable={immutable}>
       <StyledDurationEditFocusable immutable={immutable}>
@@ -149,8 +170,22 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
         />
         {showUnits && <Typography.Span>{options.minutesLabel}</Typography.Span>}
       </StyledDurationEditFocusable>
+      {showSeconds && (
+        <StyledDurationEditFocusable immutable={immutable}>
+          <StyledDurationEdit
+            disabled={immutable}
+            immutable={immutable}
+            onChange={() => {}} // Empty onChange function to prevent React internal error
+            width={secondsWidth}
+            type="number"
+            value={seconds}
+          />
+          {showUnits && <Typography.Span>{options.secondsLabel}</Typography.Span>}
+        </StyledDurationEditFocusable>
+      )}
       <StyledDurationEditShadow ref={hoursShadow}>{hours}</StyledDurationEditShadow>
       <StyledDurationEditShadow ref={minutesShadow}>{minutes}</StyledDurationEditShadow>
+      {showSeconds && <StyledDurationEditShadow ref={secondsShadow}>{seconds}</StyledDurationEditShadow>}
     </StyledEditableWrapper>
   )
 }
@@ -158,7 +193,8 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
 DurationEdit.defaultProps = {
   options: {
     hoursLabel: 'hrs',
-    minutesLabel: 'min'
+    minutesLabel: 'min',
+    secondsLabel: 's'
   }
 }
 
@@ -170,7 +206,8 @@ DurationEdit.propTypes = {
   immutable: PropTypes.bool,
   options: PropTypes.shape({
     hoursLabel: PropTypes.string,
-    minutesLabel: PropTypes.string
+    minutesLabel: PropTypes.string,
+    secondsLabel: PropTypes.string
   })
 }
 

@@ -10,7 +10,8 @@ import {
   isNullOrUndefined,
   millisecondsToDuration,
   numbersToTimeFormat,
-  padLeadingZeros
+  padLeadingZeros,
+  roundDecimalPlaces
 } from './utils'
 
 describe('tocco-ui', () => {
@@ -149,6 +150,28 @@ describe('tocco-ui', () => {
         test('should return correct time object', () => {
           const expectedResult = '07'
           expect(padLeadingZeros('7', 2)).to.be.eql(expectedResult)
+        })
+      })
+
+      describe('roundDecimalPlaces', () => {
+        test('should round up to two decimal places', () => {
+          const expectedResult = 3.27
+          expect(roundDecimalPlaces(3.269, 2)).to.be.equal(expectedResult)
+        })
+        
+        test('should round down to two decimal places', () => {
+          const expectedResult = 3.26
+          expect(roundDecimalPlaces(3.264, 2)).to.be.equal(expectedResult)
+        })
+        
+        test('should round to three decimal places', () => {
+          const expectedResult = 3.267
+          expect(roundDecimalPlaces(3.266666, 3)).to.be.equal(expectedResult)
+        })
+        
+        test('should round to zero decimal places', () => {
+          const expectedResult = 3
+          expect(roundDecimalPlaces(3.266666, 0)).to.be.equal(expectedResult)
         })
       })
     })

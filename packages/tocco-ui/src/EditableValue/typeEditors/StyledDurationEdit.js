@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import styled from 'styled-components'
 
-import {generateDisabledShade, scale, theme} from '../../utilStyles'
+import {declareFont, generateDisabledShade, scale, theme} from '../../utilStyles'
 import {StyledInputCss} from '../StyledEditableValue'
 
 const StyledDurationEdit = styled.input`
@@ -19,9 +19,10 @@ const StyledDurationEditFocusable = styled.label`
     display: flex;
     flex-wrap: nowrap;
     margin-bottom: 0; /* reset bootstrap */
+    margin-left: ${scale.space(1)};
 
     &:first-child {
-      margin-right: ${scale.space(1)};
+      margin-left: 0;
     }
 
     > span {
@@ -41,6 +42,7 @@ const StyledDurationEditShadow = styled.span`
     position: absolute;
     z-index: -1;
     visibility: hidden;
+    ${declareFont}
   }
 `
 

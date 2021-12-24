@@ -67,6 +67,21 @@ describe('tocco-ui', () => {
           wrapper.simulate('blur')
           expect(wrapper.find(Typography.Span)).to.have.length(0)
         })
+
+        test('should show seconds on small duration when read only', () => {
+          const wrapper = mount(<DurationEdit value={329} immutable onChange={EMPTY_FUNC} />)
+          expect(wrapper.find(Typography.Span)).to.have.length(3)
+          expect(wrapper.find('input').at(0)).to.have.value('0')
+          expect(wrapper.find('input').at(1)).to.have.value('0')
+          expect(wrapper.find('input').at(2)).to.have.value('0.329')
+        })
+
+        test('should not show seconds on small duration when editable', () => {
+          const wrapper = mount(<DurationEdit value={329} onChange={EMPTY_FUNC} />)
+          expect(wrapper.find(Typography.Span)).to.have.length(2)
+          expect(wrapper.find('input').at(0)).to.have.value('0')
+          expect(wrapper.find('input').at(1)).to.have.value('0')
+        })
       })
     })
   })
