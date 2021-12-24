@@ -80,6 +80,17 @@ export const calculateMilliseconds = (hours, minutes) => {
   return hoursMilliseconds + minutesMilliseconds
 }
 
+/**
+ * Rounds number to defined decimal places.
+ * Examples:
+ * const value = roundDecimalPlaces(10.1234, 3) // 10.123
+ * const value = roundDecimalPlaces(10.1234, 1) // 10.1
+ */
+export const roundDecimalPlaces = (value, digits) => {
+  const factor = Math.pow(10, digits)
+  return Math.round(value * factor) / factor
+}
+
 /*
  * Return true if the value is null or undefined
  */
