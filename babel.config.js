@@ -35,6 +35,14 @@ module.exports = function (api) {
           }
         }
       ],
+      [
+        'babel-plugin-styled-components',
+        {
+          displayName: true,
+          fileName: false,
+          namespace: 'Tocco'
+        }
+      ],
       'lodash'
     ],
     env: {
