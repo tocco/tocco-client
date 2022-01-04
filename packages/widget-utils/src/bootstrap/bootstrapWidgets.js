@@ -1,22 +1,19 @@
-import {consoleLogger} from 'tocco-util'
-
 import {ATTRIBUTE_WIDGET_KEY, ERROR_CODE_INVALID_DOMAIN} from './constants'
+import * as remoteLogger from './remoteLogger'
 import {executeRequest, enhanceExtractedBody} from './requests'
 import {getEventHandlers, getTheme, loadScriptAsync} from './utils'
 
 const getWidgetKey = container => container.getAttribute(ATTRIBUTE_WIDGET_KEY)
 
-const handleRequestError = (response, key) => {
+const handleRequestError = (backendUrl, response, key) => {
   const {ok, status, body} = response
   if (!ok) {
     if (status === 403 && body?.errorCode === ERROR_CODE_INVALID_DOMAIN) {
-      // TODO: TOCDEV-4757 - log remote
-      consoleLogger.logError(body.message)
+      remoteLogger.logError(backendUrl, body.message)
     }
 
     if (status === 404) {
-      // TODO: TOCDEV-4757 - log remote
-      consoleLogger.logError(`Widget config '${key}' not found.`)
+      remoteLogger.logError(backendUrl, `Widget config '${key}' not found.`)
     }
 
     return undefined
@@ -28,16 +25,21 @@ const initializeWidget = async (backendUrl, container) => {
   const key = getWidgetKey(container)
   const widgetConfig = await executeRequest(`${backendUrl}/nice2/rest/widget/configs/${key}`)
     .then(enhanceExtractedBody)
-    .then(response => handleRequestError(response, key))
+    .then(response => handleRequestError(backendUrl, response, key))
     .then(response => response?.body)
     .catch(error => {
-      // TODO: TOCDEV-4757 - try log remote
-      consoleLogger.logError(`Could not fetch widget config '${key}'.`, error)
+      remoteLogger.logException(backendUrl, `Could not fetch widget config '${key}'.`, error)
     })
 
   if (widgetConfig) {
     const {appName, packageName, locale, config} = widgetConfig
-    await loadScriptAsync(`${backendUrl}/js/tocco-${packageName}/dist/index.js`)
+
+    try {
+      await loadScriptAsync(`${backendUrl}/js/tocco-${packageName}/dist/index.js`)
+    } catch (error) {
+      remoteLogger.logException(backendUrl, `Could not fetch package 'tocco-${packageName}'.`, error)
+      return
+    }
 
     const customTheme = getTheme()
     const input = {
@@ -49,8 +51,12 @@ const initializeWidget = async (backendUrl, container) => {
     const eventHandlers = getEventHandlers(container)
     const srcPath = `${backendUrl}/js/tocco-${packageName}/dist/`
 
-    // TODO: TOCDEV-4802 - make methods available
-    window.reactRegistry.render(appName, container, '', input, eventHandlers, srcPath)
+    try {
+      // TODO: TOCDEV-4802 - make methods available
+      window.reactRegistry.render(appName, container, '', input, eventHandlers, srcPath)
+    } catch (error) {
+      remoteLogger.logException(backendUrl, `Could not render app '${appName}'.`, error)
+    }
   }
 }
 

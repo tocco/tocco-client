@@ -3,13 +3,16 @@ import {ATTRIBUTE_ID, EVENT_HANDLERS_OBJ_NAME, THEME_OBJ_NAME} from './constants
 export const snakeToCamel = s => s.replace(/(-\w)/g, m => m[1].toUpperCase())
 
 export const loadScriptAsync = src =>
-  new Promise(resolve => {
+  new Promise((resolve, reject) => {
     const tag = document.createElement('script')
     tag.src = src
     tag.async = true
     tag.type = 'text/javascript'
     tag.onload = () => {
       resolve()
+    }
+    tag.onerror = () => {
+      reject(new Error('Could not load script.'))
     }
     tag.crossorogin = true
 
