@@ -40,7 +40,10 @@ module.exports = function (api) {
         {
           displayName: true,
           fileName: false,
-          namespace: 'Tocco'
+          namespace: 'Tocco',
+          ssr: false,
+          transpileTemplateLiterals: false,
+          minify: false
         }
       ],
       'lodash'
