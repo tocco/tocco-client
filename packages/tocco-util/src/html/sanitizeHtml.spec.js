@@ -44,8 +44,28 @@ describe('tocco-util', () => {
         expect(sanitizeHtml(dirty)).to.equal(clean)
       })
       test('should remove style attributes', () => {
-        const dirty = '<div style="border: 1px solid red;">Hi!</div>'
+        const dirty = '<div style="border:1px solid red;">Hi!</div>'
+        const clean = '<div style="border:1px solid red;">Hi!</div>'
+        expect(sanitizeHtml(dirty)).to.equal(clean)
+      })
+      test('should remove invalid style properties', () => {
+        const dirty = '<div style="border:1px solid red;position:absolute;">Hi!</div>'
+        const clean = '<div style="border:1px solid red;">Hi!</div>'
+        expect(sanitizeHtml(dirty)).to.equal(clean)
+      })
+      test('should remove style attributes when no style property is valid', () => {
+        const dirty = '<div style="position:absolute;">Hi!</div>'
         const clean = '<div>Hi!</div>'
+        expect(sanitizeHtml(dirty)).to.equal(clean)
+      })
+      test('should remove css functions', () => {
+        const dirty = '<div style="width:calc(100% - 50px);">Hi!</div>'
+        const clean = '<div>Hi!</div>'
+        expect(sanitizeHtml(dirty)).to.equal(clean)
+      })
+      test('should ignore malformed css', () => {
+        const dirty = '<div style="border:1px;width:100%">Hi!</div>'
+        const clean = '<div style="border:1px;width:100%;">Hi!</div>'
         expect(sanitizeHtml(dirty)).to.equal(clean)
       })
     })
