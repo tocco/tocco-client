@@ -1,4 +1,4 @@
-import {getOrFirst} from './helpers'
+import {getOrFirst, roundDecimalPlaces} from './helpers'
 
 describe('tocco-util', () => {
   describe('helpers', () => {
@@ -18,6 +18,28 @@ describe('tocco-util', () => {
       test('should return empty array if given empty array', () => {
         const array = []
         expect(getOrFirst(array)).to.eql([])
+      })
+    })
+
+    describe('roundDecimalPlaces', () => {
+      test('should round up to two decimal places', () => {
+        const expectedResult = 3.27
+        expect(roundDecimalPlaces(3.269, 2)).to.be.equal(expectedResult)
+      })
+
+      test('should round down to two decimal places', () => {
+        const expectedResult = 3.26
+        expect(roundDecimalPlaces(3.264, 2)).to.be.equal(expectedResult)
+      })
+
+      test('should round to three decimal places', () => {
+        const expectedResult = 3.267
+        expect(roundDecimalPlaces(3.266666, 3)).to.be.equal(expectedResult)
+      })
+
+      test('should round to zero decimal places', () => {
+        const expectedResult = 3
+        expect(roundDecimalPlaces(3.266666, 0)).to.be.equal(expectedResult)
       })
     })
   })
