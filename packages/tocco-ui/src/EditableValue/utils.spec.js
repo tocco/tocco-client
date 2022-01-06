@@ -6,12 +6,7 @@ import {
   toLocalDateString,
   momentJStoToFlatpickrFormat,
   convertStringToNumber,
-  calculateMilliseconds,
-  isNullOrUndefined,
-  millisecondsToDuration,
-  numbersToTimeFormat,
-  padLeadingZeros,
-  roundDecimalPlaces
+  calculateMilliseconds
 } from './utils'
 
 describe('tocco-ui', () => {
@@ -103,75 +98,6 @@ describe('tocco-ui', () => {
         test('should return hours on null minutes input', () => {
           const result = 25200000
           expect(calculateMilliseconds(7, null)).to.be.eql(result)
-        })
-      })
-
-      describe('isNullOrUndefined', () => {
-        test('should return true on undefined and null', () => {
-          expect(isNullOrUndefined()).to.be.eql(true)
-          expect(isNullOrUndefined(null)).to.be.eql(true)
-        })
-        test('should return false on defined input value', () => {
-          expect(isNullOrUndefined(244)).to.be.eql(false)
-        })
-      })
-
-      describe('milliSecondsToDuration', () => {
-        const result = {hoursOfDay: 6, minutesOfHour: 44}
-        const milliSeconds = 24240000
-        test('should return correct time object', () => {
-          expect(millisecondsToDuration(milliSeconds)).to.be.eql(result)
-        })
-
-        const zeroTimeObject = {hoursOfDay: 0, minutesOfHour: 0}
-        test('should return time object with values zero on undefined input', () => {
-          expect(millisecondsToDuration()).to.be.eql(zeroTimeObject)
-        })
-      })
-
-      describe('numbersToTimeFormat', () => {
-        const expectedResult = '07:30'
-        test('should return correct time object', () => {
-          expect(numbersToTimeFormat(7, 30)).to.be.eql(expectedResult)
-        })
-
-        const undefinedTimeString = '--:--'
-        test('should return --:-- on undefined input', () => {
-          expect(numbersToTimeFormat()).to.be.eql(undefinedTimeString)
-        })
-
-        const hourTimeString = '06:00'
-        test('should return 06:00 on undefined minute input', () => {
-          expect(numbersToTimeFormat(6)).to.be.eql(hourTimeString)
-        })
-      })
-
-      describe('padLeadingZeros', () => {
-        test('should return correct time object', () => {
-          const expectedResult = '07'
-          expect(padLeadingZeros('7', 2)).to.be.eql(expectedResult)
-        })
-      })
-
-      describe('roundDecimalPlaces', () => {
-        test('should round up to two decimal places', () => {
-          const expectedResult = 3.27
-          expect(roundDecimalPlaces(3.269, 2)).to.be.equal(expectedResult)
-        })
-        
-        test('should round down to two decimal places', () => {
-          const expectedResult = 3.26
-          expect(roundDecimalPlaces(3.264, 2)).to.be.equal(expectedResult)
-        })
-        
-        test('should round to three decimal places', () => {
-          const expectedResult = 3.267
-          expect(roundDecimalPlaces(3.266666, 3)).to.be.equal(expectedResult)
-        })
-        
-        test('should round to zero decimal places', () => {
-          const expectedResult = 3
-          expect(roundDecimalPlaces(3.266666, 0)).to.be.equal(expectedResult)
         })
       })
     })

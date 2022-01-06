@@ -1,30 +1,11 @@
 import PropTypes from 'prop-types'
 import React, {useRef, useState, useEffect} from 'react'
-import {react} from 'tocco-util'
+import {react, date} from 'tocco-util'
 
 import Typography from '../../Typography'
 import {StyledEditableWrapper} from '../StyledEditableValue'
-import {calculateMilliseconds, roundDecimalPlaces} from '../utils'
+import {calculateMilliseconds} from '../utils'
 import {StyledDurationEditShadow, StyledDurationEditFocusable, StyledDurationEdit} from './StyledDurationEdit'
-
-const millisecondsToDuration = ms => {
-  if (!ms && ms !== 0) {
-    return {
-      hours: '',
-      minutes: '',
-      seconds: ''
-    }
-  }
-
-  const seconds = roundDecimalPlaces((ms / 1000) % 60, 3)
-  const minutes = parseInt((ms / (1000 * 60)) % 60)
-  const hours = parseInt((ms / (1000 * 60 * 60)) % 24)
-  return {
-    hours,
-    minutes,
-    seconds
-  }
-}
 
 const getDesiredInputInMinutes = target => {
   let minutes = target.value.replace(/[^-\d]/g, '')
@@ -53,7 +34,7 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
   const minutesShadow = useRef(null)
   const secondsShadow = useRef(null)
 
-  const duration = millisecondsToDuration(value)
+  const duration = date.millisecondsToDuration(value)
   const {seconds} = duration
 
   const [hours, setHours] = useState(duration.hours)
@@ -130,7 +111,7 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
    * We don't want to offer the user to enter the duration in seconds,
    * because hours/minutes are already accurate enough.
    * However, duration values that are automatically measured can have seconds/milliseconds values.
-   * Therefore, we show seconds/milliseconds only for immutable fields uf such values are present.
+   * Therefore, we show seconds/milliseconds only for immutable fields if such values are present.
    * (e.g. System_activity)
    */
   const showSeconds = immutable && Boolean(seconds)
