@@ -1,5 +1,5 @@
-import {getOrFirst} from './helpers'
+import {getOrFirst, roundDecimalPlaces} from './helpers'
 import {adjustedHTMLString} from './html'
 import {difference} from './object'
 
-export default {difference, getOrFirst, adjustedHTMLString}
+export default {difference, getOrFirst, adjustedHTMLString, roundDecimalPlaces}
