@@ -1,3 +1,6 @@
+1.0.0-hotfix30.11
+- allow whitelisted inline css for nice tooltips
+
 1.0.0-hotfix30.10
 - null pointer fixed in document field formatter (resp. merge action)
 
