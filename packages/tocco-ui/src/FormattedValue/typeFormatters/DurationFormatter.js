@@ -1,18 +1,17 @@
-import moment from 'moment'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {FormattedDate} from 'react-intl'
+import {date} from 'tocco-util'
 
 import Typography from '../../Typography'
 
-const DurationFormatter = props => {
-  const milliSeconds = parseInt(props.value)
-  const date = new Date(2000, 1, 1, 0, 0, 0, milliSeconds)
-  const durationIsoMs = moment(date).format(moment.HTML5_FMT.TIME_MS)
-  const durationIsoS = moment(date).format(moment.HTML5_FMT.TIME_SECONDS)
+const DurationFormatter = ({value}) => {
+  const milliSeconds = parseInt(value)
+
+  const duration = date.formatDuration(milliSeconds)
+
   return (
-    <Typography.Time dateTime={durationIsoMs} title={durationIsoS}>
-      <FormattedDate value={date} hour="2-digit" minute="2-digit" second="2-digit" hour12={false} />
+    <Typography.Time dateTime={duration} title={duration}>
+      {duration}
     </Typography.Time>
   )
 }
