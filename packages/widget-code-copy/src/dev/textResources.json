@@ -1,0 +1,7 @@
+[
+  "client.widget-code-copy.copy",
+  "client.actions.widget-code-copy.toasterTitle",
+  "client.actions.widget-code-copy.fetchFailedMessage",
+  "client.actions.widget-code-copy.copiedMessage",
+  "client.actions.widget-code-copy.copyFailedMessage"
+]
