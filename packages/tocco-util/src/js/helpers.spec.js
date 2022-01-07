@@ -1,4 +1,4 @@
-import {getOrFirst, roundDecimalPlaces} from './helpers'
+import {copyToClipboard, getOrFirst, roundDecimalPlaces} from './helpers'
 
 describe('tocco-util', () => {
   describe('helpers', () => {
@@ -40,6 +40,39 @@ describe('tocco-util', () => {
       test('should round to zero decimal places', () => {
         const expectedResult = 3
         expect(roundDecimalPlaces(3.266666, 0)).to.be.equal(expectedResult)
+      })
+    })
+
+    describe('copyToClipboard', () => {
+      beforeEach(() => {
+        navigator.clipboard = undefined
+      })
+
+      test('should copy text to clipboard', async () => {
+        const text = 'abc'
+        const writeTextSpy = sinon.spy()
+        navigator.clipboard = {
+          writeText: writeTextSpy
+        }
+
+        try {
+          await copyToClipboard(text)
+        } catch (err) {
+          expect.fail('should not throw any errors')
+        }
+
+        expect(writeTextSpy).to.have.been.calledWith(text)
+      })
+
+      test('should fail when navigator.clipoard is not available', async () => {
+        const text = 'abc'
+
+        try {
+          await copyToClipboard(text)
+          expect.fail('should throw an error')
+        } catch (err) {
+          expect(err.message).to.equal('navigator.clipboard API not available')
+        }
       })
     })
   })

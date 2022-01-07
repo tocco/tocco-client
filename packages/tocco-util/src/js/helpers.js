@@ -18,3 +18,14 @@ export const roundDecimalPlaces = (value, digits) => {
   const factor = Math.pow(10, digits)
   return Math.round(value * factor) / factor
 }
+
+/**
+ * Copies text to users clipboard.
+ */
+export const copyToClipboard = text => {
+  if (!navigator.clipboard) {
+    return Promise.reject(new Error('navigator.clipboard API not available'))
+  }
+
+  return navigator.clipboard.writeText(text)
+}
