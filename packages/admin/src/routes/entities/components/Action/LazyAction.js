@@ -6,6 +6,7 @@ import {LoadMask} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
 const actions = {
+  'widget-code-copy': lazy(() => import(/* webpackChunkName: "actions" */ './actions/WidgetCodeCopy')),
   'user-qr-action': lazy(() => import(/* webpackChunkName: "actions" */ './actions/UserQrAction')),
   'input-edit': lazy(() => import(/* webpackChunkName: "actions" */ './actions/InputEdit')),
   resourcescheduler: lazy(() => import(/* webpackChunkName: "actions" */ './actions/ResourceScheduler')),

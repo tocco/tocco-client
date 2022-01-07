@@ -29,6 +29,7 @@
     "tocco-two-factor-connector": "*",
     "tocco-ui": "*",
     "tocco-user-qr-action": "*",
-    "tocco-util": "*"
+    "tocco-util": "*",
+    "tocco-widget-code-copy": "*"
   }
 }
