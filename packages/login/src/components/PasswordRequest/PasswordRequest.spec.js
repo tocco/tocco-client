@@ -4,6 +4,7 @@ import {intlEnzyme, IntlStub} from 'tocco-test-util'
 import {Button, Typography} from 'tocco-ui'
 
 import {Pages} from '../../types/Pages'
+import {StyledLoginButton, StyledLoginFormInput} from '../StyledLoginForm'
 import {PasswordRequest} from './PasswordRequest'
 
 describe('login', () => {
@@ -18,10 +19,10 @@ describe('login', () => {
       })
 
       test('should have an initial password state', () => {
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={() => undefined} />
         )
-        expect(wrapper.state().username).to.equal('')
+        expect(wrapper.find(StyledLoginFormInput).at(0)).to.have.value('')
       })
 
       test('should update username state on username change', () => {
@@ -36,7 +37,7 @@ describe('login', () => {
           }
         })
 
-        expect(wrapper.state().username).to.equal('user1')
+        expect(wrapper.find(StyledLoginFormInput).at(0)).to.have.value('user1')
       })
 
       test('should disable submit button if username is not set', () => {
@@ -50,15 +51,17 @@ describe('login', () => {
       })
 
       test('should enable submit button if username is set', () => {
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <PasswordRequest intl={IntlStub} changePage={() => undefined} requestPassword={() => undefined} />
         )
 
-        wrapper.setState({
-          username: 'user1'
+        wrapper.find('input[name="user"]').simulate('change', {
+          target: {
+            value: 'user1'
+          }
         })
 
-        const button = wrapper.find('[type="submit"]')
+        const button = wrapper.find(StyledLoginButton)
         expect(button).to.have.length(1)
 
         expect(button).to.not.have.property('disabled')
