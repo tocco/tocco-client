@@ -1,3 +1,6 @@
+1.0.9
+- show seconds/milliseconds only for small duration
+
 1.0.8
 - use throttle for select instead of debounce to prevent flickering of dropdown
 - null pointer fixed in document field formatter (resp. merge action)
