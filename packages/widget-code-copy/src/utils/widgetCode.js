@@ -16,7 +16,7 @@ export const generateWidgetCode = widgetConfig => {
   const domain = paths?.domain?.value
 
   const widgetCode = `<div data-tocco-widget-key="${key}"></div>
-<script src="${getBaseUrl(domain)}/js/tocco-widget-utils/dist/bootstrap.js" />`
+<script src="${getBaseUrl(domain)}/js/tocco-widget-utils/dist/bootstrap.js"></script>`
 
   return widgetCode
 }
