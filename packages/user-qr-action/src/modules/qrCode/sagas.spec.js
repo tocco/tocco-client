@@ -15,40 +15,6 @@ describe('user-qr-action', () => {
         expect(generator.next().done).to.be.true
       })
 
-      describe('getSingleKey', () => {
-        test('should return the only key of the selection', () => {
-          expect(sagas.getSingleKey({entityName: 'User', type: 'ID', ids: ['1']})).to.equal('1')
-        })
-
-        test('should throw error if not User entity', () => {
-          expect(() => sagas.getSingleKey({entityName: 'Address'})).to.throw('Only selection of User supported')
-        })
-
-        test('should throw error if not ID selection', () => {
-          expect(() => sagas.getSingleKey({entityName: 'User', type: 'QUERY'})).to.throw(
-            'Only ID selection type supported'
-          )
-        })
-
-        test('should throw error if ids not present', () => {
-          expect(() => sagas.getSingleKey({entityName: 'User', type: 'ID', ids: undefined})).to.throw(
-            'Exactly one user must be selected'
-          )
-        })
-
-        test('should throw error if ids empty', () => {
-          expect(() => sagas.getSingleKey({entityName: 'User', type: 'ID', ids: []})).to.throw(
-            'Exactly one user must be selected'
-          )
-        })
-
-        test('should throw error if ids contains more than 1', () => {
-          expect(() => sagas.getSingleKey({entityName: 'User', type: 'ID', ids: ['1', '2']})).to.throw(
-            'Exactly one user must be selected'
-          )
-        })
-      })
-
       describe('fetchData', () => {
         const fakeEntity = {paths: {firstname: {value: 'Max'}}}
         const data = {

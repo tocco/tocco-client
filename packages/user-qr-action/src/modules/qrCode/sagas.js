@@ -1,5 +1,5 @@
 import {all, call, put, select, takeEvery} from 'redux-saga/effects'
-import {rest} from 'tocco-app-extensions'
+import {rest, selection as selectionUtil} from 'tocco-app-extensions'
 import {consoleLogger} from 'tocco-util'
 
 import * as actions from './actions'
@@ -13,7 +13,7 @@ export default function* sagas() {
 export function* fetchData() {
   const {selection} = yield select(inputSelector)
 
-  const userKey = getSingleKey(selection)
+  const userKey = selectionUtil.getSingleKey(selection, 'User')
 
   const query = {
     paths: [
@@ -48,17 +48,4 @@ export function* fetchData() {
     consoleLogger.logError('Failed to fetch data', e)
     yield put(actions.setData(null))
   }
-}
-
-export const getSingleKey = selection => {
-  if (selection.entityName !== 'User') {
-    throw new Error('Only selection of User supported')
-  }
-  if (selection.type !== 'ID') {
-    throw new Error('Only ID selection type supported')
-  }
-  if (!selection.ids || selection.ids.length !== 1) {
-    throw new Error('Exactly one user must be selected')
-  }
-  return selection.ids[0]
 }
