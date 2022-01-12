@@ -30,3 +30,27 @@ export function* getEntities(selection, fetchEntities) {
     keys: selection.ids
   }
 }
+
+/**
+ * Helper to get single entity key of a seletion.
+ * Throws error
+ *  - if wront entity is selected
+ *  - if `selection.type` is not `ID`
+ *  - if none or more than one entity is selected
+ * @param {object} selection - selection object
+ * @param {string} expectedEntityName - selected entityName
+ * @returns {string} ID of single selected entity
+ */
+export const getSingleKey = (selection, expectedEntityName) => {
+  if (selection.entityName !== expectedEntityName) {
+    throw new Error(`Only selection of ${expectedEntityName} supported`)
+  }
+  if (selection.type !== 'ID') {
+    throw new Error('Only ID selection type supported')
+  }
+  if (!selection.ids || selection.ids.length !== 1) {
+    throw new Error(`Exactly one ${expectedEntityName} must be selected`)
+  }
+  return selection.ids[0]
+}
+
