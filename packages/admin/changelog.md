@@ -1,3 +1,6 @@
+1.0.10
+- add widget code copy action
+
 1.0.9
 - show seconds/milliseconds only for small duration
 
