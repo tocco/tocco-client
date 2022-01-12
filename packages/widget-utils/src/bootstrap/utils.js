@@ -89,3 +89,8 @@ export const attachMethods = (container, methods) => {
     }
   }
 }
+
+export const getVersion = () => {
+  const json = require('../../package.json')
+  return json.version
+}
