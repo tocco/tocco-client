@@ -19,12 +19,36 @@ To embed a widget in the website, just add a `<div>` container and decorate it w
 #### Attributes
 
 - `data-tocco-widget-key` (required): The key of the widget config
+- `data-id` (optional): An id to be able to reference events and methods through `window` obj
 
-### Example
+#### Example
 
 ```html
 <div data-tocco-widget-key="12"></div>
 <script src="https://${customer.tocco.ch}/js/tocco-widget-utils/dist/bootstrap.js"></script>
+```
+
+### Events
+A widget can provide events which will be invoked. When a widget gets rendered the event handlers which are defined on the `window.toccoEventHandlers` will be attached to the widget events.
+
+Use an flat object of functions which will be used for each widget on that page. Preferably only used if only one widget is emebedded.
+```js
+window.toccoEventHandlers = {
+  loginSuccess: () => {}
+}
+```
+
+Use the `data-id` attribute to define the property name on the `toccoEventHandlers` obj to defined event handlers for each widget. Preferable used if multiple widgets are embedded.
+```html
+<div data-id="login" data-tocco-widget-key="12"></div>
+```
+
+```js
+window.toccoEventHandlers = {
+  login: {
+    loginSuccess: () => {}
+  }
+}
 ```
 
 ### Theme
