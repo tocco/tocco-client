@@ -13,7 +13,7 @@ describe('widget-code-copy', () => {
           }
           const expectedWidgetCode = trim(`
             <div data-tocco-widget-key="1"></div>
-            <script src="http://localhost:8080/js/tocco-widget-utils/dist/bootstrap.js" />
+            <script src="http://localhost:8080/js/tocco-widget-utils/dist/bootstrap.js"></script>
           `)
 
           expect(trim(generateWidgetCode(widgetConfig))).to.equal(expectedWidgetCode)
@@ -26,7 +26,7 @@ describe('widget-code-copy', () => {
           }
           const expectedWidgetCode = trim(`
             <div data-tocco-widget-key="1"></div>
-            <script src="https://abc.tocco.ch/js/tocco-widget-utils/dist/bootstrap.js" />
+            <script src="https://abc.tocco.ch/js/tocco-widget-utils/dist/bootstrap.js"></script>
           `)
 
           expect(trim(generateWidgetCode(widgetConfig))).to.equal(expectedWidgetCode)
@@ -39,7 +39,7 @@ describe('widget-code-copy', () => {
           }
           const expectedWidgetCode = trim(`
             <div data-tocco-widget-key="1"></div>
-            <script src="https://tocco.abc.ch/js/tocco-widget-utils/dist/bootstrap.js" />
+            <script src="https://tocco.abc.ch/js/tocco-widget-utils/dist/bootstrap.js"></script>
           `)
 
           expect(trim(generateWidgetCode(widgetConfig))).to.equal(expectedWidgetCode)
