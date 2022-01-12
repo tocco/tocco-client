@@ -1,3 +1,4 @@
+export const BOOTSTRAP_SCRIPT_OBJ_NAME = 'toccoBootstrap'
 export const EVENT_HANDLERS_OBJ_NAME = 'toccoEventHandlers'
 export const THEME_OBJ_NAME = 'toccoTheme'
 export const METHODS_OBJ_NAME = 'toccoMethods'

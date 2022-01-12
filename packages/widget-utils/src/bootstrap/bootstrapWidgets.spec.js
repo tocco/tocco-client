@@ -3,7 +3,7 @@ import fetchMock from 'fetch-mock'
 import React from 'react'
 
 import bootstrapWidgets from './bootstrapWidgets'
-import {EVENT_HANDLERS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
+import {BOOTSTRAP_SCRIPT_OBJ_NAME, EVENT_HANDLERS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
 import * as utils from './utils'
 
 let stub
@@ -29,6 +29,8 @@ describe('widget-utils', () => {
 
         delete window[THEME_OBJ_NAME]
         delete window[EVENT_HANDLERS_OBJ_NAME]
+        delete window[BOOTSTRAP_SCRIPT_OBJ_NAME]
+        delete window.reactRegistry
       })
 
       test('should initialize and render widget', async () => {
@@ -77,6 +79,40 @@ describe('widget-utils', () => {
           {},
           'http://localhost:8080/js/tocco-login/dist/'
         )
+      })
+
+      test('should not execute when bootstrap script has run before', async () => {
+        const renderSpy = sinon.spy()
+        window.reactRegistry = {
+          render: renderSpy
+        }
+        window[BOOTSTRAP_SCRIPT_OBJ_NAME] = {version: '1.0'}
+
+        fetchMock.spy()
+
+        wrapper = mount(<div data-tocco-widget-key="1"></div>, {
+          attachTo: document.body
+        })
+
+        const backendUrl = 'http://localhost:8080'
+        await bootstrapWidgets({backendUrl})
+
+        await fetchMock.flush()
+        expect(fetchMock.calls().length).to.equal(0)
+
+        expect(renderSpy).to.not.have.been.called
+      })
+
+      test('should initialize bootstrap script', async () => {
+        wrapper = mount(<div></div>, {
+          attachTo: document.body
+        })
+
+        const backendUrl = 'http://localhost:8080'
+        await bootstrapWidgets({backendUrl})
+
+        expect(window[BOOTSTRAP_SCRIPT_OBJ_NAME]).to.not.be.undefined
+        expect(window[BOOTSTRAP_SCRIPT_OBJ_NAME].version).to.not.be.undefined
       })
 
       test('should apply tocco theme as input parameter', async () => {

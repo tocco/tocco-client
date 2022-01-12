@@ -1,7 +1,9 @@
-import {ATTRIBUTE_WIDGET_KEY, ERROR_CODE_INVALID_DOMAIN} from './constants'
+import {consoleLogger} from 'tocco-util'
+
+import {ATTRIBUTE_WIDGET_KEY, BOOTSTRAP_SCRIPT_OBJ_NAME, ERROR_CODE_INVALID_DOMAIN} from './constants'
 import * as remoteLogger from './remoteLogger'
 import {executeRequest, enhanceExtractedBody} from './requests'
-import {attachMethods, getEventHandlers, getTheme, loadScriptAsync} from './utils'
+import {attachMethods, getEventHandlers, getTheme, getVersion, loadScriptAsync} from './utils'
 
 const getWidgetKey = container => container.getAttribute(ATTRIBUTE_WIDGET_KEY)
 
@@ -60,7 +62,35 @@ const initializeWidget = async (backendUrl, container) => {
   }
 }
 
+/**
+ * Widgets should get initialized only once.
+ * Sets global variable to block other embedded bootstrap scripts from execution.
+ * Only the first bootstrap script gets executed.
+ *
+ * @returns boolean to indicate wether script can be executed
+ */
+const initializeBootstrap = () => {
+  if (window[BOOTSTRAP_SCRIPT_OBJ_NAME]) {
+    consoleLogger.log('tocco-widget-utils - bootstrap script is already initialized')
+    return false
+  }
+
+  const version = getVersion()
+
+  window[BOOTSTRAP_SCRIPT_OBJ_NAME] = {
+    version
+  }
+  consoleLogger.log(`tocco-widget-utils - v${version} - bootstrap`)
+
+  return true
+}
+
 const bootstrapWidgets = async params => {
+  const canExecute = initializeBootstrap()
+  if (!canExecute) {
+    return
+  }
+
   const {backendUrl} = params
 
   const widgetContainerNodeList = document.querySelectorAll(`[${ATTRIBUTE_WIDGET_KEY}]`)
