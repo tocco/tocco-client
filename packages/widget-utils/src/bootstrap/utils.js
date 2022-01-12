@@ -1,6 +1,8 @@
-import {ATTRIBUTE_ID, EVENT_HANDLERS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
+import {ATTRIBUTE_ID, EVENT_HANDLERS_OBJ_NAME, METHODS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
 
 export const snakeToCamel = s => s.replace(/(-\w)/g, m => m[1].toUpperCase())
+
+const getId = container => container.getAttribute(ATTRIBUTE_ID)
 
 export const loadScriptAsync = src =>
   new Promise((resolve, reject) => {
@@ -64,7 +66,7 @@ export const getEventHandlers = container => {
   }
 
   if (handlers) {
-    const id = container.getAttribute(ATTRIBUTE_ID)
+    const id = getId(container)
     if (id) {
       const handlersOfId = handlers[id]
       if (isMapOfFunctions(handlersOfId)) {
@@ -74,4 +76,16 @@ export const getEventHandlers = container => {
   }
 
   return {}
+}
+
+export const attachMethods = (container, methods) => {
+  const id = getId(container)
+
+  // only attach methods to global obj when id is defined explicitly
+  if (id) {
+    window[METHODS_OBJ_NAME] = {
+      ...window[METHODS_OBJ_NAME],
+      [id]: methods
+    }
+  }
 }

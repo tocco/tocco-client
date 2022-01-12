@@ -1,5 +1,5 @@
-import {EVENT_HANDLERS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
-import {buildInputFromDom, getBackendUrl, getEventHandlers, getTheme} from './utils'
+import {EVENT_HANDLERS_OBJ_NAME, METHODS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
+import {attachMethods, buildInputFromDom, getBackendUrl, getEventHandlers, getTheme} from './utils'
 
 describe('widget-utils', () => {
   describe('bootstrap', () => {
@@ -109,6 +109,66 @@ describe('widget-utils', () => {
         }
 
         expect(getEventHandlers(container)).to.eql({})
+      })
+    })
+
+    describe('attachMethods', () => {
+      beforeEach(() => {
+        delete window[METHODS_OBJ_NAME]
+      })
+
+      test('should create obj on window', () => {
+        const container = {
+          getAttribute: () => 'test'
+        }
+        const methods = {setLocale: () => {}}
+
+        const expectedMethodsObj = {
+          test: methods
+        }
+
+        attachMethods(container, methods)
+
+        expect(window[METHODS_OBJ_NAME]).to.deep.equal(expectedMethodsObj)
+      })
+
+      test('should attach methods to obj', () => {
+        const container = {
+          getAttribute: () => 'test'
+        }
+        const methods = {setLocale: () => {}}
+
+        window[METHODS_OBJ_NAME] = {
+          foo: 'something'
+        }
+
+        const expectedMethodsObj = {
+          foo: 'something',
+          test: methods
+        }
+
+        attachMethods(container, methods)
+
+        expect(window[METHODS_OBJ_NAME]).to.deep.equal(expectedMethodsObj)
+      })
+
+      test('should ignore widgets w/o id', () => {
+        const container = {
+          getAttribute: () => undefined
+        }
+        const methods = {setLocale: () => {}}
+
+        window[METHODS_OBJ_NAME] = {
+          foo: 'something'
+        }
+
+        const expectedMethodsObj = {
+          foo: 'something'
+        }
+
+        attachMethods(container, methods)
+
+        expect(window[METHODS_OBJ_NAME]).to.deep.equal(expectedMethodsObj)
       })
     })
   })
