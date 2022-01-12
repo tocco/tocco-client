@@ -1,7 +1,7 @@
 import {ATTRIBUTE_WIDGET_KEY, ERROR_CODE_INVALID_DOMAIN} from './constants'
 import * as remoteLogger from './remoteLogger'
 import {executeRequest, enhanceExtractedBody} from './requests'
-import {getEventHandlers, getTheme, loadScriptAsync} from './utils'
+import {attachMethods, getEventHandlers, getTheme, loadScriptAsync} from './utils'
 
 const getWidgetKey = container => container.getAttribute(ATTRIBUTE_WIDGET_KEY)
 
@@ -52,8 +52,8 @@ const initializeWidget = async (backendUrl, container) => {
     const srcPath = `${backendUrl}/js/tocco-${packageName}/dist/`
 
     try {
-      // TODO: TOCDEV-4802 - make methods available
-      window.reactRegistry.render(appName, container, '', input, eventHandlers, srcPath)
+      const methods = window.reactRegistry.render(appName, container, '', input, eventHandlers, srcPath)
+      attachMethods(container, methods)
     } catch (error) {
       remoteLogger.logException(backendUrl, `Could not render app '${appName}'.`, error)
     }

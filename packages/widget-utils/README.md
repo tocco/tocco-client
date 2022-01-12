@@ -51,6 +51,21 @@ window.toccoEventHandlers = {
 }
 ```
 
+### Methods
+A widget can provide methods which can be invoked to communicate with the widget itself.
+When a widget gets rendered these methods will be attached to `window.toccoMethods` to provide them to outer scripts.
+
+The `data-id` attribute is used as a property name on the `window.toccoMethods` object. If the `data-id` attribute is not set the methods will not be attached to the `toccoMethods` object.
+
+#### Example
+```html
+<div data-id="login" data-tocco-widget-key="12"></div>
+```
+```js
+// use methods via `window.toccoMethods` object
+window.toccoMethods.login.setLocale('fr-CH');
+```
+
 ### Theme
 
 A theme can be configured by defining a global theme object on `window.toccoTheme`.
