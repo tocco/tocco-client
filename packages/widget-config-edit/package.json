@@ -1,0 +1,18 @@
+{
+  "name": "tocco-widget-config-edit",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=widget-config-edit",
+    "prepublish": "npm run compile:prod"
+  },
+  "devDependencies": {
+    "tocco-app-extensions": "*",
+    "tocco-entity-detail": "*",
+    "tocco-test-util": "*",
+    "tocco-theme": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
+  }
+}

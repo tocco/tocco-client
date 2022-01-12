@@ -1,0 +1,6 @@
+[
+  "client.widget-config-edit.noConfig",
+  "client.actions.widget-config-edit.successToasterTitle",
+  "client.actions.widget-config-edit.fetchErrorToasterTitle",
+  "client.actions.widget-config-edit.linkErrorToasterTitle"
+]

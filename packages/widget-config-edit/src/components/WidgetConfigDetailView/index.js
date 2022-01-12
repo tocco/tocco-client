@@ -1,0 +1,3 @@
+import WidgetConfigDetailViewContainer from './WidgetConfigDetailViewContainer'
+
+export default WidgetConfigDetailViewContainer
