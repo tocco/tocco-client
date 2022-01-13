@@ -1,6 +1,7 @@
 {
   "name": "tocco-widget-config-edit",
   "version": "0.1.0",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {
