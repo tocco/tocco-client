@@ -1,3 +1,6 @@
+1.0.11
+- add widget config edit action
+
 1.0.10
 - add widget code copy action
 
