@@ -39,7 +39,7 @@ const validateRequest = (formValues, initialValues, mode) => {
   const options = {
     queryParams: {_validate: true},
     method: mode === 'create' ? 'POST' : 'PATCH',
-    headers: {'X-Client': 'rest'},
+    headers: {'X-Client': 'rest'}, // client type REST does not use client questions, which would interrupt validation
     body: entity,
     acceptedStatusCodes: [403],
     acceptedErrorCodes: [OUTDATED_ENTITY_ERROR_CODE]
