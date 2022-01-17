@@ -83,7 +83,6 @@ describe('merge', () => {
 
             const mergeRequest = {
               method: 'POST',
-              headers: {'X-Client-Questions': 'true'},
               acceptedStatusCodes: [400, 500],
               body: body
             }
@@ -121,7 +120,6 @@ describe('merge', () => {
 
             const mergeRequest = {
               method: 'POST',
-              headers: {'X-Client-Questions': 'true'},
               acceptedStatusCodes: [400, 500],
               body: body
             }
@@ -145,7 +143,6 @@ describe('merge', () => {
 
             const mergeRequest = {
               method: 'POST',
-              headers: {'X-Client-Questions': 'true'},
               acceptedStatusCodes: [400, 500],
               body: body
             }
