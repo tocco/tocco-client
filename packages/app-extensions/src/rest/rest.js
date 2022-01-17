@@ -135,9 +135,6 @@ export function prepareRequest(resource, options = {}) {
   const {queryParams = {}, method = 'GET', backendUrl = env.getBackendUrl()} = options
 
   const headers = request.prepareHeaders(options)
-  if (!headers.has('X-Client-Questions')) {
-    headers.set('X-Client-Questions', 'true')
-  }
 
   let body = options.body
   if (body && !(body instanceof FormData) && typeof body !== 'string') {
