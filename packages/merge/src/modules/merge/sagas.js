@@ -1,4 +1,4 @@
-import {takeLatest, all, select, call, put} from 'redux-saga/effects'
+import {all, call, put, select, takeLatest} from 'redux-saga/effects'
 import {externalEvents, rest} from 'tocco-app-extensions'
 import _uniq from 'lodash/uniq'
 
@@ -80,7 +80,6 @@ export function* executeMerge() {
   const options = {
     method: 'POST',
     acceptedStatusCodes: [400, 500],
-    headers: {'X-Client-Questions': 'true'},
     body: yield call(getMergeBody)
   }
 
