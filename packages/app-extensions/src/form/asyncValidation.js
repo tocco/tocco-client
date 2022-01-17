@@ -39,7 +39,7 @@ const validateRequest = (formValues, initialValues, mode) => {
   const options = {
     queryParams: {_validate: true},
     method: mode === 'create' ? 'POST' : 'PATCH',
-    headers: {'X-Client-Questions': 'false'},
+    headers: {'X-Client': 'rest'},
     body: entity,
     acceptedStatusCodes: [403],
     acceptedErrorCodes: [OUTDATED_ENTITY_ERROR_CODE]
