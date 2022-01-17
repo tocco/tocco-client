@@ -177,10 +177,6 @@ export function prepareRequest(resource, options = {}) {
     headers.set('X-Client', 'client')
   }
 
-  if (!headers.has('X-Client-Questions')) {
-    headers.set('X-Client-Questions', 'true')
-  }
-
   const fetchOptions = {
     method,
     headers,

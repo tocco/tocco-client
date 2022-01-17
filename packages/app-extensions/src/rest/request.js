@@ -49,11 +49,7 @@ const extractBlobBody = response => {
 }
 
 export function sendRequest(url, options, acceptedErrorCodes = [], acceptedStatusCodes = []) {
-  if (options.headers
-    && options.headers.has('X-Client-Questions')
-    && options.headers.get('X-Client-Questions') === 'true') {
-    acceptedStatusCodes.push(PRECONDITION_FAILED_STATUS_CODE)
-  }
+  acceptedStatusCodes.push(PRECONDITION_FAILED_STATUS_CODE)
 
   return fetch(url, {...options, signal: saga.abortController.signal})
     .then(response => (extractBody(response)))
