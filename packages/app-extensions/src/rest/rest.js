@@ -173,6 +173,9 @@ export function prepareRequest(resource, options = {}) {
   }
 
   headers.set('X-Origin-Id', originId.getOriginId())
+  if (!headers.has('X-Client')) {
+    headers.set('X-Client', 'client')
+  }
 
   if (!headers.has('X-Client-Questions')) {
     headers.set('X-Client-Questions', 'true')
