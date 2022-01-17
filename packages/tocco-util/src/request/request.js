@@ -37,6 +37,10 @@ export const prepareHeaders = options => {
     headers.set('X-Business-Unit', env.getBusinessUnit())
   }
 
+  if (!headers.has('X-Client')) {
+    headers.set('X-Client', 'client')
+  }
+
   return headers
 }
 
