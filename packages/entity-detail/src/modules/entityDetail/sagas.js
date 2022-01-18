@@ -255,9 +255,12 @@ export function focusField(fieldName) {
 
 export function* locationFieldFocus(errorField) {
   const {fieldDefinitions} = yield select(entityDetailSelector)
-  const locationField = fieldDefinitions
-    .find(f => f.locationMapping && f.locationMapping.postcode === errorField)
-  yield call(focusField, locationField.id)
+  const locationField = fieldDefinitions.find(
+    f => f.locationMapping && (f.locationMapping.postcode === errorField || f.locationMapping.city === errorField)
+  )
+  if (locationField) {
+    yield call(focusField, locationField.id)
+  }
 }
 
 export function* focusErrorField() {
