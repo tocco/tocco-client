@@ -67,39 +67,42 @@ describe('entity-detail', () => {
 
           test('should call create submit', () => {
             const mode = modes.CREATE
+            const fieldDefinitions = []
 
             return expectSaga(sagas.submitForm)
               .provide([
-                [select(sagas.entityDetailSelector), {mode}],
+                [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
                 [matchers.call.fn(sagas.getEntityForSubmit), entity],
                 [matchers.call.fn(sagas.submitValidate)]
               ])
               .put.like({action: {type: formActions.startSubmit().type}})
-              .call(sagas.createFormSubmit, entity)
+              .call(sagas.createFormSubmit, entity, fieldDefinitions)
               .run()
           })
 
           test('should call update submit', () => {
             const mode = modes.UPDATE
+            const fieldDefinitions = []
 
             return expectSaga(sagas.submitForm)
               .provide([
-                [select(sagas.entityDetailSelector), {mode}],
+                [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
                 [matchers.call.fn(sagas.getEntityForSubmit), entity],
                 [matchers.call.fn(sagas.submitValidate)]
               ])
-              .call(sagas.updateFormSubmit, entity)
+              .call(sagas.updateFormSubmit, entity, fieldDefinitions)
               .run()
           })
 
           test('should handle thrown errors', () => {
             const mode = modes.UPDATE
+            const fieldDefinitions = []
             const error = new Error('error')
             return expectSaga(sagas.submitForm)
               .provide([
-                [select(sagas.entityDetailSelector), {mode}],
+                [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
                 [matchers.call.fn(sagas.getEntityForSubmit), entity],
                 [matchers.call.fn(sagas.updateFormSubmit), throwError(error)],
@@ -226,12 +229,13 @@ describe('entity-detail', () => {
 
         describe('createFormSubmit saga', () => {
           const entity = {paths: {}}
+          const fieldDefinitions = []
           const createdEntityId = 99
           const updatedFormValues = {firstname: 'karl'}
 
           test('should call api and store response', () => {
-            const gen = sagas.createFormSubmit(entity)
-            expect(gen.next().value).to.eql(call(createEntity, entity))
+            const gen = sagas.createFormSubmit(entity, fieldDefinitions)
+            expect(gen.next().value).to.eql(call(createEntity, entity, fieldDefinitions))
             expect(gen.next(createdEntityId).value).to.eql(
               put(externalEvents.fireExternalEvent('onEntityCreated', {id: createdEntityId}))
             )
@@ -274,7 +278,18 @@ describe('entity-detail', () => {
               'relAddress--city': 'Bern'
             }
             const initialValues = {firstname: 'tst'}
-            const dirtyFields = ['firstname', 'relAddress--city']
+            const dirtyFormValues = {
+              __key: '3',
+              __model: 'User',
+              firstname: 'test',
+              relAddress: {
+                key: '29242',
+                model: 'Address',
+                version: 2
+              },
+              'relAddress--city': 'Bern'
+            }
+            const fieldDefinitions = []
 
             const mode = 'update'
 
@@ -296,7 +311,10 @@ describe('entity-detail', () => {
 
             return expectSaga(sagas.getEntityForSubmit)
               .provide([
-                [matchers.call.fn(sagas.getCurrentEntityState), {mode, initialValues, formValues, dirtyFields}]
+                [
+                  matchers.call.fn(sagas.getCurrentEntityState),
+                  {mode, initialValues, formValues, dirtyFormValues, fieldDefinitions}
+                ]
               ])
               .returns(expectedReturn)
               .run()
@@ -309,12 +327,14 @@ describe('entity-detail', () => {
             const initialValues = {firstname: 'test'}
             const entityModel = {}
             const mode = 'update'
+            const fieldDefinitions = []
 
             const expectedReturn = {
               formValues,
               initialValues,
               mode,
-              dirtyFields: ['lastname']
+              dirtyFormValues: {lastname: 'test2'},
+              fieldDefinitions
             }
 
             let firstSelector = true
@@ -331,7 +351,7 @@ describe('entity-detail', () => {
                   }
                 },
                 [select(sagas.formInitialValueSelector, 'detailForm'), initialValues],
-                [select(sagas.entityDetailSelector), {entityModel, mode}]
+                [select(sagas.entityDetailSelector), {entityModel, mode, fieldDefinitions}]
               ])
               .returns(expectedReturn)
               .run()
@@ -343,21 +363,23 @@ describe('entity-detail', () => {
             const formValues = {firstname: 'test'}
             const initialValues = {firstname: 'test1'}
             const mode = 'update'
+            const fieldDefinitions = []
 
             return expectSaga(sagas.submitValidate)
               .provide([
-                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, initialValues, mode}],
+                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, initialValues, mode, fieldDefinitions}],
                 [matchers.call.fn(form.submitValidation)]
               ])
-              .call(form.submitValidation, formValues, initialValues, mode)
+              .call(form.submitValidation, formValues, initialValues, fieldDefinitions, mode)
               .run()
           })
         })
 
         describe('getEntityForSubmit saga', () => {
-          test('should call submitValidation', () => {
+          test('should create entity object', () => {
             const formValues = {__model: 'User', __key: '1', firstname: 'test'}
-            const dirtyFields = ['firstname']
+            const dirtyFormValues = formValues
+            const fieldDefinitions = []
 
             const expectedReturn = {
               model: 'User',
@@ -367,7 +389,65 @@ describe('entity-detail', () => {
             }
 
             return expectSaga(sagas.getEntityForSubmit)
-              .provide([[matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFields}]])
+              .provide([
+                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFormValues, fieldDefinitions}]
+              ])
+              .returns(expectedReturn)
+
+              .run()
+          })
+
+          test('should map virtual fields to entity fields', () => {
+            const formValues = {__model: 'User', __key: '1', location: {postcode: '1234'}}
+            const dirtyFormValues = formValues
+            const fieldDefinitions = [
+              {
+                id: 'location',
+                componentType: 'field',
+                dataType: 'location',
+                locationMapping: {postcode: 'zip'}
+              }
+            ]
+
+            const expectedReturn = {
+              model: 'User',
+              key: '1',
+              version: undefined,
+              paths: {zip: '1234'}
+            }
+
+            return expectSaga(sagas.getEntityForSubmit)
+              .provide([
+                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFormValues, fieldDefinitions}]
+              ])
+              .returns(expectedReturn)
+
+              .run()
+          })
+
+          test('should map virtual fields to entity fields', () => {
+            const formValues = {__model: 'User', __key: '1', location: {postcode: '1234'}, zip: '1234'}
+            const dirtyFormValues = formValues
+            const fieldDefinitions = [
+              {
+                id: 'location',
+                componentType: 'field',
+                dataType: 'location',
+                locationMapping: {postcode: 'zip'}
+              }
+            ]
+
+            const expectedReturn = {
+              model: 'User',
+              key: '1',
+              version: undefined,
+              paths: {zip: '1234'}
+            }
+
+            return expectSaga(sagas.getEntityForSubmit)
+              .provide([
+                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFormValues, fieldDefinitions}]
+              ])
               .returns(expectedReturn)
 
               .run()
@@ -399,7 +479,7 @@ describe('entity-detail', () => {
           test('should fetch the entity and call form initialize', () => {
             return expectSaga(sagas.loadData)
               .provide([
-                [select(sagas.entityDetailSelector), {entityModel: {markable: true}}],
+                [select(sagas.entityDetailSelector), {entityModel: {markable: true}, fieldDefinitions: []}],
                 [matchers.fork.fn(sagas.loadMarked)],
                 [matchers.call.fn(sagas.loadEntity), {paths: {}}],
                 [matchers.call.fn(sagas.enhanceEntityWithDisplays), {}],
@@ -668,34 +748,6 @@ describe('entity-detail', () => {
               .run()
           })
 
-          test('should call location fallback', () => {
-            const field = 'postcode_c'
-            return expectSaga(sagas.focusErrorField)
-              .provide([
-                [matchers.call.fn(sagas.getFormErrors), []],
-                [matchers.call.fn(sagas.focusField), false],
-                [matchers.call.fn(form.formErrorsUtil.getFirstErrorField), field],
-                [matchers.call.fn(sagas.locationFieldFocus)]
-              ])
-              .call(sagas.locationFieldFocus, field)
-              .run()
-          })
-
-          describe('locationFieldFocus saga', () => {
-            test('should call focus for first error field', () => {
-              const field = 'postcode_c'
-              const locationField = 'location_c'
-              const fieldDefinitions = [{id: locationField, locationMapping: {postcode: field}}]
-              return expectSaga(sagas.locationFieldFocus, field)
-                .provide([
-                  [select(sagas.entityDetailSelector), {fieldDefinitions}],
-                  [matchers.call.fn(sagas.focusField), true]
-                ])
-                .call(sagas.focusField, locationField)
-                .run()
-            })
-          })
-
           describe('loadMarked saga', () => {
             test('should call focus for first error field', () =>
               expectSaga(sagas.loadMarked, 'User', '235')
@@ -768,17 +820,17 @@ describe('entity-detail', () => {
         describe('enhanceEntityWithDisplays', () => {
           test('do not load display of null entities', () => {
             const entity = {
-              '__key': '1',
-              '__model': 'User',
-              'relSingle_entity1.relMulti_entity1.relSingle_entity2': [
-                null
-              ],
+              __key: '1',
+              __model: 'User',
+              'relSingle_entity1.relMulti_entity1.relSingle_entity2': [null],
               'relSingle_entity1.relSingle_entity2': null,
-              'relMulti_entity2': [{
-                model: 'Multi_entity2',
-                key: '11'
-              }],
-              'relSingle_entity3': {
+              relMulti_entity2: [
+                {
+                  model: 'Multi_entity2',
+                  key: '11'
+                }
+              ],
+              relSingle_entity3: {
                 model: 'Single_entity3',
                 key: '22'
               }
@@ -815,7 +867,7 @@ describe('entity-detail', () => {
 
             const expectedEntity = {
               ...entity,
-              'relSingle_entity3': {
+              relSingle_entity3: {
                 ...entity.relSingle_entity3,
                 display: 'Single Entity 3 Display'
               },

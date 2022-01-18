@@ -130,15 +130,15 @@ export function* loadDetailView() {
     const inputDefaultValues = defaultValues ? yield call(form.transformInputValues, defaultValues, model) : {}
     const defaultValuesFields = {...formDefaultValues, ...inputDefaultValues}
     const flattenEntity = yield call(api.getFlattenEntity, {model: entityName})
-    const formValues = yield call(form.entityToFormValues, {...flattenEntity, ...defaultValuesFields})
+    const formValues = yield call(form.entityToFormValues, {...flattenEntity, ...defaultValuesFields}, fieldDefinitions)
     yield put(formActions.initialize(FORM_ID, formValues))
   } else {
     yield call(loadData)
   }
 }
 
-export function* updateFormSubmit(entity) {
-  const updateResponse = yield call(updateEntity, entity)
+export function* updateFormSubmit(entity, fieldDefinitions) {
+  const updateResponse = yield call(updateEntity, entity, fieldDefinitions)
   if (updateResponse.status === 404) {
     // record was most likely moved to another business unit
     yield put(externalEvents.fireExternalEvent('onEntityDeleted'))
@@ -152,8 +152,8 @@ export function* updateFormSubmit(entity) {
   }
 }
 
-export function* createFormSubmit(entity) {
-  const createdEntityId = yield call(createEntity, entity)
+export function* createFormSubmit(entity, fieldDefinitions) {
+  const createdEntityId = yield call(createEntity, entity, fieldDefinitions)
   yield put(externalEvents.fireExternalEvent('onEntityCreated', {id: createdEntityId}))
   yield call(showNotification, 'success', 'createSuccessfulTitle', 'createSuccessfulMessage')
 }
@@ -216,28 +216,28 @@ export function* handleSubmitError(error) {
 export function* getCurrentEntityState() {
   const formValues = yield select(getFormValues(FORM_ID))
   const initialFormValues = yield select(formInitialValueSelector, FORM_ID)
-  const {mode} = yield select(entityDetailSelector)
+  const {mode, fieldDefinitions} = yield select(entityDetailSelector)
   const initialValues = mode === modes.CREATE ? {} : initialFormValues
-  const dirtyFields = yield call(form.getDirtyFields, initialValues, formValues, mode === modes.CREATE)
+  const dirtyFormValues = yield call(form.getDirtyFormValues, initialValues, formValues, mode === modes.CREATE)
 
   return {
     formValues,
     initialValues,
     mode,
-    dirtyFields
+    fieldDefinitions,
+    dirtyFormValues
   }
 }
 
 export function* submitValidate() {
-  const {formValues, initialValues, mode} = yield call(getCurrentEntityState)
-  yield call(form.submitValidation, formValues, initialValues, mode)
+  const {formValues, initialValues, mode, fieldDefinitions} = yield call(getCurrentEntityState)
+  yield call(form.submitValidation, formValues, initialValues, fieldDefinitions, mode)
 }
 
 export function* getEntityForSubmit() {
-  const {formValues, dirtyFields} = yield call(getCurrentEntityState)
-  const flattenEntity = yield call(form.formValuesToFlattenEntity, formValues)
-  const dirtyFieldNames = dirtyFields.map(fieldName => form.transformFieldNameBack(fieldName))
-  return yield call(api.toEntity, flattenEntity, dirtyFieldNames)
+  const {dirtyFormValues, fieldDefinitions} = yield call(getCurrentEntityState)
+  const flattenEntity = yield call(form.formValuesToFlattenEntity, dirtyFormValues, fieldDefinitions)
+  return yield call(api.toEntity, flattenEntity)
 }
 
 export function* getPaths() {
@@ -263,21 +263,11 @@ export function focusField(fieldName) {
   return false
 }
 
-export function* locationFieldFocus(errorField) {
-  const {fieldDefinitions} = yield select(entityDetailSelector)
-  const locationField = fieldDefinitions.find(f => f.locationMapping && f.locationMapping.postcode === errorField)
-  yield call(focusField, locationField.id)
-}
-
 export function* focusErrorField() {
   const formErrors = yield call(getFormErrors)
   const firstErrorField = yield call(form.formErrorsUtil.getFirstErrorField, formErrors)
   if (firstErrorField) {
-    const focusSet = yield call(focusField, firstErrorField)
-
-    if (!focusSet) {
-      yield call(locationFieldFocus, firstErrorField)
-    }
+    yield call(focusField, firstErrorField)
   }
 }
 
@@ -293,13 +283,13 @@ export function* submitForm() {
       yield call(handleInvalidForm)
     } else {
       yield put(formActions.startSubmit(FORM_ID))
-      const {mode} = yield select(entityDetailSelector)
+      const {mode, fieldDefinitions} = yield select(entityDetailSelector)
       yield call(submitValidate)
       const entity = yield call(getEntityForSubmit)
       if (mode === modes.UPDATE) {
-        yield call(updateFormSubmit, entity)
+        yield call(updateFormSubmit, entity, fieldDefinitions)
       } else if (mode === modes.CREATE) {
-        yield call(createFormSubmit, entity)
+        yield call(createFormSubmit, entity, fieldDefinitions)
       }
     }
   } catch (error) {
@@ -388,7 +378,8 @@ export function* loadData(reset = true) {
   yield call(enhanceEntityWithDisplayExpressions, flattenEntity)
   yield call(enhanceEntityWithDisplays, flattenEntity)
 
-  const formValues = yield call(form.entityToFormValues, flattenEntity)
+  const formValues = yield call(form.entityToFormValues, flattenEntity, fieldDefinitions)
+
   const options = reset ? {} : {keepDirty: true, keepValues: false}
   yield put(formActions.initialize(FORM_ID, formValues, options))
 }
