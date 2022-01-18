@@ -48,7 +48,8 @@ describe('tocco-util', () => {
 
         expect(headers.get('Content-Type')).to.deep.equal('application/json')
         expect(headers.get('X-Origin-Id')).to.deep.equal(originId.getOriginId())
-        expect(Array.from(headers).length).to.equal(2)
+        expect(headers.get('X-Client')).to.deep.equal('client')
+        expect(Array.from(headers).length).to.equal(3)
       })
 
       test('should handle text body', () => {
@@ -59,7 +60,7 @@ describe('tocco-util', () => {
         const headers = prepareHeaders(options)
 
         expect(headers.get('Content-Type')).to.deep.equal('text/plain')
-        expect(Array.from(headers).length).to.equal(2)
+        expect(Array.from(headers).length).to.equal(3)
       })
 
       test('should ignore FormData body', () => {
@@ -70,7 +71,7 @@ describe('tocco-util', () => {
         const headers = prepareHeaders(options)
 
         expect(headers.get('X-Origin-Id')).to.deep.equal(originId.getOriginId())
-        expect(Array.from(headers).length).to.equal(1)
+        expect(Array.from(headers).length).to.equal(2)
       })
 
       test('should add business unit header', () => {
@@ -80,7 +81,7 @@ describe('tocco-util', () => {
         const headers = prepareHeaders(options)
 
         expect(headers.get('X-Business-Unit')).to.deep.equal('test')
-        expect(Array.from(headers).length).to.equal(3)
+        expect(Array.from(headers).length).to.equal(4)
       })
 
       test('should be able to set content-type', () => {
@@ -93,7 +94,7 @@ describe('tocco-util', () => {
         const headers = prepareHeaders(options)
 
         expect(headers.get('Content-Type')).to.deep.equal('anything')
-        expect(Array.from(headers).length).to.equal(2)
+        expect(Array.from(headers).length).to.equal(3)
       })
 
       test('should be able to set x-business-unit', () => {
@@ -107,7 +108,7 @@ describe('tocco-util', () => {
         const headers = prepareHeaders(options)
 
         expect(headers.get('X-Business-Unit')).to.deep.equal('anything')
-        expect(Array.from(headers).length).to.equal(3)
+        expect(Array.from(headers).length).to.equal(4)
       })
 
       test('should be able to set x-origin-id', () => {
@@ -120,7 +121,20 @@ describe('tocco-util', () => {
         const headers = prepareHeaders(options)
 
         expect(headers.get('X-Origin-Id')).to.deep.equal('anything')
-        expect(Array.from(headers).length).to.equal(2)
+        expect(Array.from(headers).length).to.equal(3)
+      })
+
+      test('should not overwrite x-client', () => {
+        const options = {
+          headers: new Headers({
+            'X-Client': 'different'
+          })
+        }
+
+        const headers = prepareHeaders(options)
+
+        expect(headers.get('X-Client')).to.deep.equal('different')
+        expect(Array.from(headers).length).to.equal(3)
       })
     })
 
