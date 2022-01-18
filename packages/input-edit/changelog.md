@@ -1,3 +1,13 @@
+1.1.2
+- use throttle for select instead of debounce to prevent flickering of dropdown
+- null pointer fixed in document field formatter (resp. merge action)
+- add tql mapping for type text
+- improve searching for text based types
+- harmonize DurationEdit spacing and refactor class based component to functional component
+- show seconds, milliseconds for small read-only duration
+- allow whitelisted inline css for nice tooltips
+- show seconds/milliseconds only for small duration
+
 1.1.1
 
 
