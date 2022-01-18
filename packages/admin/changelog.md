@@ -1,3 +1,6 @@
+1.0.12
+
+
 1.0.11
 - add widget config edit action
 
