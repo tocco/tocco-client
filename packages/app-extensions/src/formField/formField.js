@@ -83,7 +83,6 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
       || !_get(entityField, 'writable', true)
     )
 
-    const mandatory = !readOnly && _get(formDefinitionField, 'validation.mandatory', false) && mode !== 'search'
     const hasValue = value !== null
       && value !== undefined
       && value !== false
@@ -91,13 +90,19 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
     const isDisplay = displayFieldAsDisplayOnly(value, componentType, dataType, parentReadOnly)
 
     const type = formDefinitionField.dataType || formDefinitionField.componentType
-    let requestedFromData
-
     const typeEditable = field.editableTypeConfigs[type]
 
+    let requestedFromData
     if (typeEditable && typeEditable.dataContainerProps) {
       requestedFromData = typeEditable.dataContainerProps({formField: formDefinitionField, formName})
     }
+
+    let mandatoryValidation = _get(formDefinitionField, 'validation.mandatory', false)
+    if (typeEditable && typeEditable.getMandatoryValidation) {
+      mandatoryValidation = typeEditable.getMandatoryValidation({formField: formDefinitionField}) || false
+    }
+
+    const mandatory = !readOnly && mandatoryValidation && mode !== 'search'
 
     const fixLabel = typeEditable && typeEditable.fixLabel && typeEditable.fixLabel()
 

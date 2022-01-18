@@ -1,5 +1,6 @@
-import syncValidators from './syncValidators'
-import asyncValidators from './asyncValidators'
+import asyncTypeValidators from './asyncTypeValidators'
 import {mandatoryError, valueDefined} from './mandatory'
+import syncTypeValidators from './syncTypeValidators'
+import syncValidators from './syncValidators'
 
-export default {syncValidators, asyncValidators, mandatoryError, valueDefined}
+export default {syncValidators, asyncTypeValidators, syncTypeValidators, mandatoryError, valueDefined}

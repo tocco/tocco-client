@@ -44,8 +44,8 @@ const mapStateToProps = (
         errors: _reduce(
           _merge(
             _pick(getFormSubmitErrors(errors.formName)(state), errors.fields),
-            _pick(getFormSyncErrors(errors.formName)(state), errors.fields),
-            _pick(getFormAsyncErrors(errors.formName)(state), errors.fields)
+            _pick(getFormAsyncErrors(errors.formName)(state), errors.fields),
+            _pick(getFormSyncErrors(errors.formName)(state), errors.fields)
           ),
           (result, value) => ({...result, ...value}), null)
       }

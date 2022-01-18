@@ -60,5 +60,12 @@ export default {
     isLoading: _get(formData, ['locations', formField.id, 'isLoading'], false),
     suggestions: _get(formData, ['locations', formField.id, 'suggestions'], null),
     mapButtonTitle: formData.intl.formatMessage({id: 'client.component.location.mapButtonTitle'})
-  })
+  }),
+  getMandatoryValidation: ({formField}) => {
+    const locationMapping = formField.locationMapping
+    const cityValidation = formField.siblings.find(s => s.id === locationMapping.city)?.validation
+    const postcodeValidation = formField.siblings.find(s => s.id === locationMapping.postcode)?.validation
+
+    return cityValidation?.mandatory || postcodeValidation?.mandatory
+  }
 }

@@ -1,11 +1,9 @@
-import {
-  phoneValidator
-} from './asyncValidators'
+import {phoneValidator} from './asyncTypeValidators'
 
 describe('app-extensions', () => {
   describe('form', () => {
     describe('validators', () => {
-      describe('type', () => {
+      describe('asyncTypeValidators', () => {
         describe('phone', () => {
           test('should not return an error for valid inputs', async() => {
             const validValues = [
