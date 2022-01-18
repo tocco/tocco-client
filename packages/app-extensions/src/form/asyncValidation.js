@@ -1,41 +1,19 @@
-import _get from 'lodash/get'
-import _has from 'lodash/has'
 import {SubmissionError} from 'redux-form/es/SubmissionError'
 import {api} from 'tocco-util'
 
 import rest from '../rest'
 import formErrors from './formErrors'
-import {formValuesToFlattenEntity, getDirtyFields, validationErrorToFormError} from './reduxForm'
-import validators from './validators'
+import {formValuesToFlattenEntity, getDirtyFormValues, validationErrorToFormError} from './reduxForm'
+import {hasError} from './utils'
+import {asyncTypeValidateField} from './validators/asyncValidation'
 
 const OUTDATED_ENTITY_ERROR_CODE = 'OUTDATED_ENTITY'
 
-const hasError = errors => errors && Object.keys(errors).length > 0
+const validateRequest = (formValues, initialValues, fieldDefinitions, mode) => {
+  const dirtyFormValues = getDirtyFormValues(initialValues, formValues, mode === 'create')
+  const flattenEntity = formValuesToFlattenEntity(dirtyFormValues, fieldDefinitions)
 
-const localeValidation = async (values, fieldDefinitions) => {
-  let errors = {}
-  for (const fieldDefinition of fieldDefinitions) {
-    const value = values[fieldDefinition.path]
-    if (validators.valueDefined(value)) {
-      for (const asyncValidatorKey in validators.asyncValidators) {
-        if (_has(fieldDefinition, ['validation', asyncValidatorKey])) {
-          const validatorValue = _get(fieldDefinition, ['validation', asyncValidatorKey])
-          const validator = validators.asyncValidators[asyncValidatorKey]
-          const validatorErrors = await validator(value, validatorValue)
-          if (validatorErrors) {
-            errors = formErrors.addErrors(errors, fieldDefinition.path, validatorErrors)
-          }
-        }
-      }
-    }
-  }
-  return errors
-}
-
-const validateRequest = (formValues, initialValues, mode) => {
-  const dirtyFields = getDirtyFields(initialValues, formValues)
-  const flattenEntity = formValuesToFlattenEntity(formValues)
-  const entity = api.toEntity(flattenEntity, dirtyFields)
+  const entity = api.toEntity(flattenEntity)
   const options = {
     queryParams: {_validate: true},
     method: mode === 'create' ? 'POST' : 'PATCH',
@@ -58,24 +36,24 @@ const validateRequest = (formValues, initialValues, mode) => {
       return formErrors.outdatedResponseToFormError(body, entity)
     }
 
-    return validationErrorToFormError(entity, body.errors)
+    return validationErrorToFormError(entity, fieldDefinitions, body.errors)
   })
 }
 
-export const submitValidation = (formValues, initialValues, mode) =>
-  validateRequest(formValues, initialValues, mode).then(errors => {
+export const submitValidation = (formValues, initialValues, fieldDefinitions, mode) =>
+  validateRequest(formValues, initialValues, fieldDefinitions, mode).then(errors => {
     if (hasError(errors)) {
       throw new SubmissionError(errors)
     }
   })
 
 export const asyncValidation = async (formValues, initialValues, fieldDefinitions, mode) => {
-  const localeValidationErrors = await localeValidation(formValues, fieldDefinitions)
-  if (hasError(localeValidationErrors)) {
-    throw localeValidationErrors
+  const typeValidationErrors = await asyncTypeValidateField(formValues, fieldDefinitions)
+  if (hasError(typeValidationErrors)) {
+    throw typeValidationErrors
   }
 
-  const validateRequestErrors = await validateRequest(formValues, initialValues, mode)
+  const validateRequestErrors = await validateRequest(formValues, initialValues, fieldDefinitions, mode)
   if (hasError(validateRequestErrors)) {
     throw validateRequestErrors
   }

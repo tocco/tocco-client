@@ -47,18 +47,6 @@ describe('app-extensions', () => {
         expect(wrapper.find(Content).props().formData).to.have.property('intl')
       })
 
-      test('should form values', () => {
-        const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <FormDataContainer formValues={{formName: 'detailForm', fields: ['canton_c', 'city_c']}}>
-              <Content />
-            </FormDataContainer>
-          </Provider>
-        )
-
-        expect(wrapper.find(Content).props().formData.formValues).to.eql({canton_c: 'ZH', city_c: 'Zurich'})
-      })
-
       test('should relation entities', () => {
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>

@@ -1,5 +1,8 @@
 import _get from 'lodash/get'
 
+/**
+ * `location` field covers `city` and `postcode` value.
+ */
 export default {
   hasValue: (value, formField) => {
     const locationMapping = formField.locationMapping
@@ -7,17 +10,11 @@ export default {
   },
   getValue: ({formField, formData}) => {
     const locationMapping = formField.locationMapping
-    const filteredLocationData = formData.formValues
 
-    let renamedLocationData = {}
-    for (const locKey in locationMapping) {
-      for (const filteredLocDataKey in filteredLocationData) {
-        if (locationMapping[locKey] === filteredLocDataKey) {
-          renamedLocationData = {...renamedLocationData, [locKey]: filteredLocationData[filteredLocDataKey]}
-        }
-      }
+    return {
+      postcode: formData.formValues[locationMapping.postcode],
+      city: formData.formValues[locationMapping.city]
     }
-    return renamedLocationData
   },
   getEvents: ({formField, formName, formData, events}) => {
     const locationMapping = formField.locationMapping || {}
@@ -28,6 +25,12 @@ export default {
           formData.changeFieldValue(formName, locationMapping[key], value)
         }
       }
+
+      const {postcode, city} = locationObject
+      formData.changeFieldValue(formName, formField.id, {
+        ...(postcode !== undefined ? {postcode: postcode || ''} : {}),
+        ...(city !== undefined ? {city: city || ''} : {})
+      })
     }
     return {
       ...events,
@@ -42,14 +45,6 @@ export default {
     formValues: {
       formName: formName,
       fields: formField.locationMapping ? Object.values(formField.locationMapping) : {}
-    },
-    isDirty: {
-      formName: formName,
-      fields: formField.locationMapping ? [formField.locationMapping.city, formField.locationMapping.postcode] : []
-    },
-    errors: {
-      formName: formName,
-      fields: [formField.locationMapping.city, formField.locationMapping.postcode]
     }
   }),
   getOptions: ({formField, formData}) => ({
@@ -57,6 +52,17 @@ export default {
       formData.loadLocationsSuggestions(formField.id, searchTerm, country, _get(formField, 'countries')),
     isLoading: _get(formData, ['locations', formField.id, 'isLoading'], false),
     suggestions: _get(formData, ['locations', formField.id, 'suggestions'], null),
-    mapButtonTitle: formData.intl.formatMessage({id: 'client.component.location.mapButtonTitle'})
-  })
+    mapButtonTitle: formData.intl.formatMessage({id: 'client.component.location.mapButtonTitle'}),
+    locationValues: Object.keys(formField.locationMapping || {}).reduce(
+      (acc, key) => ({...acc, [key]: formData.formValues[formField.locationMapping[key]]}),
+      {}
+    )
+  }),
+  getMandatoryValidation: ({formField}) => {
+    const locationMapping = formField.locationMapping
+    const cityValidation = formField.siblings.find(s => s.id === locationMapping.city)?.validation
+    const postcodeValidation = formField.siblings.find(s => s.id === locationMapping.postcode)?.validation
+
+    return cityValidation?.mandatory || postcodeValidation?.mandatory
+  }
 }

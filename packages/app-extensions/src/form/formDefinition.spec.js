@@ -163,8 +163,14 @@ describe('app-extensions', () => {
               componentType: 'field',
               locationMapping: {
                 city: 'city_c',
-                country: 'relCountry_c'
+                country: 'relCountry_c',
+                state: 'state_c'
               }
+            },
+            {
+              dataType: 'string',
+              componentType: 'field',
+              path: 'relCountry_c'
             }
           ])
           expect(fieldNames).to.eql(['city_c', 'relCountry_c'])

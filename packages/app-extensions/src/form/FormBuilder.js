@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 // propTypes are not recognized properly in this file
 import _get from 'lodash/get'
-import _pick from 'lodash/pick'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {Field} from 'redux-form'
@@ -16,6 +15,9 @@ import {getFieldId} from './formDefinition'
 import {transformFieldName} from './reduxForm'
 import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
 import {StyledActionsWrapper} from './StyledFormBuilder'
+import {getFormFieldDefinition} from './utils'
+
+const modeFitsScope = (mode, scopes) => !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
 
 const FormBuilder = props => {
   const {
@@ -30,8 +32,6 @@ const FormBuilder = props => {
     customRenderedActions
   } = props
 
-  const modeFitsScope = (mode, scopes) => !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
-
   const formTraverser = (children, parentReadOnly = false) => {
     const result = []
     for (const child of children) {
@@ -40,7 +40,7 @@ const FormBuilder = props => {
       } else if (isAction(child.componentType)) {
         result.push(createAction(child))
       } else if (child.componentType === componentTypes.FIELD_SET) {
-        result.push(createFieldSet(child, parentReadOnly))
+        result.push(createFieldSet(child, parentReadOnly, children))
       } else if (componentMapping && componentMapping[child.componentType]) {
         return createCustomComponent(child)
       }
@@ -48,16 +48,15 @@ const FormBuilder = props => {
     return result
   }
 
-  const createFieldSet = (fieldSet, parentReadOnly) => {
-    const fieldDefinition = fieldSet.children.find(child => !isAction(child.componentType))
-
-    if (!fieldDefinition) {
+  const createFieldSet = (fieldSet, parentReadOnly, siblings) => {
+    const formDefinition = getFormFieldDefinition(fieldSet)
+    if (!formDefinition) {
       return null
     }
 
     const formDefinitionField = {
-      ...fieldDefinition,
-      ..._pick(fieldSet, ['label', 'hidden', 'readonly', 'scopes'])
+      ...formDefinition,
+      siblings: siblings.map(getFormFieldDefinition).filter(Boolean)
     }
 
     const fieldName = formDefinitionField.path || formDefinitionField.id
