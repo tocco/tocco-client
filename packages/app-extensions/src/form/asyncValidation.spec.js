@@ -65,7 +65,7 @@ describe('app-extensions', () => {
             firstname: ''
           }
 
-          await submitValidation(values, mockData.initialValues, mockData.mode)
+          await submitValidation(values, mockData.initialValues, [], mockData.mode)
         })
 
         test('should not throw an error if user has no permission', async () => {
@@ -75,7 +75,7 @@ describe('app-extensions', () => {
             firstname: ''
           }
 
-          await submitValidation(values, mockData.initialValues, mockData.mode)
+          await submitValidation(values, mockData.initialValues, [], mockData.mode)
         })
 
         test('should throw a SubmissionError', async () => {
@@ -99,10 +99,126 @@ describe('app-extensions', () => {
             firstname: ''
           }
           try {
-            await submitValidation(formValues, mockData.initialValues, mockData.mode)
+            await submitValidation(formValues, mockData.initialValues, [], mockData.mode)
           } catch (err) {
             expect(err).to.be.instanceof(SubmissionError)
             expect(err.errors).to.have.property('firstname')
+          }
+        })
+
+        test('should map virtual form values', async () => {
+          fetchMock.patch('*', {valid: true, errors: {}}).spy()
+
+          const fieldDefinitions = [
+            {
+              id: 'location',
+              componentType: 'field',
+              dataType: 'location',
+              locationMapping: {
+                postcode: 'zip'
+              }
+            }
+          ]
+          const values = {
+            ...mockData.baseFormValues,
+            location: {
+              postcode: '1234'
+            }
+          }
+
+          const expectedEntity = {
+            model: 'User',
+            key: '1',
+            paths: {
+              zip: '1234'
+            }
+          }
+
+          await submitValidation(values, mockData.initialValues, fieldDefinitions, mockData.mode)
+
+          expect(fetchMock.calls().length).to.equal(1)
+          expect(
+            fetchMock.called('begin:/nice2/rest/entities/2.0/User/1?_validate=true', {
+              method: 'PATCH',
+              body: expectedEntity
+            })
+          ).to.be.true
+        })
+
+        test('should map virtual form values', async () => {
+          fetchMock.patch('*', {valid: true, errors: {}}).spy()
+
+          const fieldDefinitions = [
+            {
+              id: 'location',
+              componentType: 'field',
+              dataType: 'location',
+              locationMapping: {
+                postcode: 'zip'
+              }
+            }
+          ]
+          const values = {
+            ...mockData.baseFormValues,
+            location: {
+              postcode: '1234'
+            },
+            zip: '1234'
+          }
+
+          const expectedEntity = {
+            model: 'User',
+            key: '1',
+            paths: {
+              zip: '1234'
+            }
+          }
+
+          await submitValidation(values, mockData.initialValues, fieldDefinitions, mockData.mode)
+
+          expect(fetchMock.calls().length).to.equal(1)
+          expect(
+            fetchMock.called('begin:/nice2/rest/entities/2.0/User/1?_validate=true', {
+              method: 'PATCH',
+              body: expectedEntity
+            })
+          ).to.be.true
+        })
+
+        test('should map errors for virutal form fields', async () => {
+          fetchMock.patch('*', {
+            valid: false,
+            errors: [
+              {
+                key: '1',
+                model: 'User',
+                paths: {
+                  zip: {
+                    mandatory: ['Field required!']
+                  }
+                }
+              }
+            ]
+          })
+
+          const fieldDefinitions = [
+            {
+              id: 'location',
+              componentType: 'field',
+              dataType: 'location',
+              locationMapping: {
+                postcode: 'zip'
+              }
+            }
+          ]
+          const formValues = {
+            ...mockData.baseFormValues
+          }
+          try {
+            await submitValidation(formValues, mockData.initialValues, fieldDefinitions, mockData.mode)
+          } catch (err) {
+            expect(err).to.be.instanceof(SubmissionError)
+            expect(err.errors).to.have.property('location')
           }
         })
       })

@@ -8,17 +8,17 @@ import field from '../field'
 import fromData from '../formData'
 
 const FormFieldWrapper = props => {
-  const hasValueOverwrite =
-    props.typeEditable &&
-    props.typeEditable.hasValue &&
-    props.typeEditable.hasValue(props.formData.formValues, props.formField)
+  const hasOverwrite = props.typeEditable && props.typeEditable.hasValue
+  const hasValue = hasOverwrite
+    ? props.typeEditable.hasValue(props.formData.formValues, props.formField)
+    : props.hasValue
 
   return (
     <StatedValue
       {...props}
       dirty={props.formData.isDirty || props.dirty}
       error={props.formData.errors || props.error}
-      hasValue={hasValueOverwrite || props.hasValue}
+      hasValue={hasValue}
     >
       {React.cloneElement(props.children, {formData: props.formData})}
     </StatedValue>
@@ -77,19 +77,24 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
 
     const readOnly = parentReadOnly || readonly || submitting || !_get(entityField, 'writable', true)
 
-    const mandatory = !readOnly && _get(formDefinitionField, 'validation.mandatory', false) && mode !== 'search'
     const hasValue =
       value !== null && value !== undefined && value !== false && (value.length === undefined || value.length > 0)
     const isDisplay = displayFieldAsDisplayOnly(value, componentType, dataType, parentReadOnly)
 
     const type = formDefinitionField.dataType || formDefinitionField.componentType
-    let requestedFromData
-
     const typeEditable = field.editableTypeConfigs[type]
 
+    let requestedFromData
     if (typeEditable && typeEditable.dataContainerProps) {
       requestedFromData = typeEditable.dataContainerProps({formField: formDefinitionField, formName})
     }
+
+    let mandatoryValidation = _get(formDefinitionField, 'validation.mandatory', false)
+    if (typeEditable && typeEditable.getMandatoryValidation) {
+      mandatoryValidation = typeEditable.getMandatoryValidation({formField: formDefinitionField}) || false
+    }
+
+    const mandatory = !readOnly && mandatoryValidation && mode !== 'search'
 
     const fixLabel = typeEditable && typeEditable.fixLabel && typeEditable.fixLabel()
 

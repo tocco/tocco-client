@@ -8,7 +8,10 @@ describe('app-extensions', () => {
           describe('onChange', () => {
             const testOnChange = (locationObject, expectedChangeFieldValueCalls) => {
               const formField = {
+                id: 'location',
                 locationMapping: {
+                  postcode: 'zip',
+                  city: 'city',
                   district: 'admincode2'
                 }
               }
@@ -33,15 +36,44 @@ describe('app-extensions', () => {
                 {
                   district: 'Zürich'
                 },
-                [['test-form-name', 'admincode2', 'Zürich']]
+                [
+                  ['test-form-name', 'admincode2', 'Zürich'],
+                  ['test-form-name', 'location', {}]
+                ]
+              ))
+
+            test('should set location property according to location mapping', () =>
+              testOnChange(
+                {
+                  postcode: '1324'
+                },
+                [
+                  ['test-form-name', 'zip', '1324'],
+                  [
+                    'test-form-name',
+                    'location',
+                    {
+                      postcode: '1324'
+                    }
+                  ]
+                ]
               ))
 
             test('should set empty string if location property is null', () =>
               testOnChange(
                 {
-                  district: null
+                  city: null
                 },
-                [['test-form-name', 'admincode2', '']]
+                [
+                  ['test-form-name', 'city', ''],
+                  [
+                    'test-form-name',
+                    'location',
+                    {
+                      city: ''
+                    }
+                  ]
+                ]
               ))
           })
         })

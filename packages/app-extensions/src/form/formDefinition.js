@@ -1,25 +1,26 @@
+import _pick from 'lodash/pick'
 import _uniq from 'lodash/uniq'
 
 import componentTypes from './enums/componentTypes'
 
 export const getFieldId = (formName, fieldName) => `input-${formName}-${fieldName}`
 
-export const getFieldDefinitions = formDefinition => {
-  return getFieldsOfChildren(formDefinition)
+export const getFieldDefinitions = (formDefinition, excludeHidden = true) => {
+  return getFieldsOfChildren(formDefinition, excludeHidden)
 }
 
 const validFieldTypes = [componentTypes.FIELD, componentTypes.DISPLAY]
 
-const getFieldsOfChildren = definition => {
+const getFieldsOfChildren = (definition, excludeHidden) => {
   const result = []
 
   for (let i = 0; i < definition.children.length; i++) {
     if (definition.children[i].children) {
-      result.push(...getFieldsOfChildren(definition.children[i]))
+      result.push(...getFieldsOfChildren(definition.children[i], excludeHidden))
     }
 
     const componentType = definition.children[i].componentType
-    if (validFieldTypes.includes(componentType) && definition.hidden !== true) {
+    if (validFieldTypes.includes(componentType) && (!excludeHidden || definition.hidden !== true)) {
       result.push({
         ...definition.children[i],
         readonly: definition.readonly,
@@ -42,8 +43,18 @@ export const getDefaultValues = fieldDefinitions =>
       {}
     )
 
-const typePathsHandlers = {
-  location: fieldDefinition => Object.values(fieldDefinition.locationMapping).filter(v => v)
+/**
+ * Mapping from entity fields to form fields per type.
+ * Used for form values und form error mappings to handle virutal fields which only exists in forms.
+ */
+export const typeFieldMapping = {
+  location: fieldDefinition => {
+    const mapping = _pick(fieldDefinition.locationMapping, ['postcode', 'city'])
+    return {
+      mapping,
+      paths: Object.values(mapping).filter(Boolean)
+    }
+  }
 }
 
 export const getUsedPaths = fieldDefinitions =>
@@ -53,7 +64,9 @@ export const getUsedPaths = fieldDefinitions =>
       .reduce(
         (accumulator, field) => [
           ...accumulator,
-          ...(typePathsHandlers[field.dataType] ? typePathsHandlers[field.dataType](field) : [field.path || field.id])
+          ...(typeFieldMapping[field.dataType]
+            ? typeFieldMapping[field.dataType](field).paths
+            : [field.path || field.id])
         ],
         []
       )

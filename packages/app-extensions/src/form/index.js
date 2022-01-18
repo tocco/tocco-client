@@ -3,12 +3,12 @@ import componentTypes from './enums/componentTypes'
 import layoutTypes from './enums/layoutTypes'
 import scopes from './enums/scopes'
 import FormBuilder from './FormBuilder'
-import {getFieldId, getFieldDefinitions, getDefaultValues, getUsedPaths} from './formDefinition'
+import {getFieldId, getFieldDefinitions, typeFieldMapping, getDefaultValues, getUsedPaths} from './formDefinition'
 import formErrorsUtil from './formErrors'
 import {
   formValuesToFlattenEntity,
   entityToFormValues,
-  getDirtyFields,
+  getDirtyFormValues,
   validationErrorToFormError,
   transformFieldName,
   transformFieldNameBack,
@@ -27,7 +27,7 @@ export default {
   getUsedPaths,
   formValuesToFlattenEntity,
   entityToFormValues,
-  getDirtyFields,
+  getDirtyFormValues,
   validationErrorToFormError,
   transformFieldName,
   transformFieldNameBack,
@@ -39,5 +39,6 @@ export default {
   transformInputValues,
   asyncValidation,
   submitValidation,
-  isValueEmpty
+  isValueEmpty,
+  typeFieldMapping
 }

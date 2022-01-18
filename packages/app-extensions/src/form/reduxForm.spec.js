@@ -11,12 +11,40 @@ describe('app-extensions', () => {
             'relGender.label': 'Male'
           }
 
-          const result = reduxForm.entityToFormValues(entity)
+          const result = reduxForm.entityToFormValues(entity, [])
 
           const expectedResult = {
             firstname: 'Max',
             customer: false,
             'relGender--label': 'Male'
+          }
+
+          expect(result).to.eql(expectedResult)
+        })
+
+        test('should map type mappings to form field values', () => {
+          const fieldDefinitions = [
+            {
+              id: 'location',
+              componentType: 'field',
+              dataType: 'location',
+              locationMapping: {
+                postcode: 'zip'
+              }
+            }
+          ]
+
+          const entity = {
+            zip: '123'
+          }
+
+          const result = reduxForm.entityToFormValues(entity, fieldDefinitions)
+
+          const expectedResult = {
+            location: {
+              postcode: '123'
+            },
+            zip: '123'
           }
 
           expect(result).to.eql(expectedResult)
@@ -31,7 +59,7 @@ describe('app-extensions', () => {
             'relGender--label': 'Male'
           }
 
-          const result = reduxForm.formValuesToFlattenEntity(formValues)
+          const result = reduxForm.formValuesToFlattenEntity(formValues, [])
           const expectedResult = {
             firstname: 'Max',
             customer: false,
@@ -40,9 +68,62 @@ describe('app-extensions', () => {
 
           expect(result).to.eql(expectedResult)
         })
+
+        test('should map form field values (virtual fields) to entity fields', () => {
+          const fieldDefinitions = [
+            {
+              id: 'location',
+              componentType: 'field',
+              dataType: 'location',
+              locationMapping: {
+                postcode: 'zip'
+              }
+            }
+          ]
+
+          const formValues = {
+            location: {
+              postcode: '123'
+            }
+          }
+
+          const result = reduxForm.formValuesToFlattenEntity(formValues, fieldDefinitions)
+          const expectedResult = {
+            zip: '123'
+          }
+
+          expect(result).to.eql(expectedResult)
+        })
+
+        test('should overwrite entity field by form field values (virtual fields)', () => {
+          const fieldDefinitions = [
+            {
+              id: 'location',
+              componentType: 'field',
+              dataType: 'location',
+              locationMapping: {
+                postcode: 'zip'
+              }
+            }
+          ]
+
+          const formValues = {
+            location: {
+              postcode: '456'
+            },
+            zip: '123'
+          }
+
+          const result = reduxForm.formValuesToFlattenEntity(formValues, fieldDefinitions)
+          const expectedResult = {
+            zip: '456'
+          }
+
+          expect(result).to.eql(expectedResult)
+        })
       })
 
-      describe('getDirtyFields', () => {
+      describe('getDirtyFormValues', () => {
         test('should return an array of changed fields', () => {
           const values = {
             firstname: 'peter',
@@ -59,9 +140,94 @@ describe('app-extensions', () => {
             array1: [1, 2, 3],
             array2: [1, 2, 4]
           }
-          const diryFields = reduxForm.getDirtyFields(initialValues, values)
+          const drityFormValues = reduxForm.getDirtyFormValues(initialValues, values)
 
-          expect(diryFields).to.eql(['firstname', 'bool', 'array2'])
+          expect(drityFormValues).to.deep.eql({
+            firstname: 'peter',
+            bool: true,
+            array2: [1, 2, 3]
+          })
+        })
+
+        test('should ignore pristine fields with same name prefix', () => {
+          const values = {
+            registration_internet_from: '2021-01-29T11:00:00.000Z',
+            registration: 1
+          }
+
+          const initialValues = {
+            registration: 1
+          }
+
+          const drityFormValues = reduxForm.getDirtyFormValues(initialValues, values)
+
+          expect(drityFormValues).to.deep.eql({
+            registration_internet_from: '2021-01-29T11:00:00.000Z'
+          })
+        })
+
+        test('should keep meta fields', () => {
+          const values = {
+            __version: 3,
+            __key: '2',
+            __model: 'User',
+            registration: 1
+          }
+
+          const initialValues = {
+            __version: 3,
+            __key: '2',
+            __model: 'User',
+            registration: 1
+          }
+
+          const drityFormValues = reduxForm.getDirtyFormValues(initialValues, values)
+
+          expect(drityFormValues).to.deep.eql({
+            __version: 3,
+            __key: '2',
+            __model: 'User'
+          })
+        })
+
+        test('should ignore pristine fields', () => {
+          const values = {
+            firstname: 'peter',
+            lastname: 'griffin'
+          }
+
+          const initialValues = {
+            firstname: 'peter',
+            lastname: 'griffin'
+          }
+
+          const drityFormValues = reduxForm.getDirtyFormValues(initialValues, values)
+
+          expect(drityFormValues).to.deep.eql({})
+        })
+
+        test('should handle multi paths correclty', () => {
+          const values = {
+            relGender: {key: '2', version: 3, model: 'Gender'},
+            'relGender.relXy': {key: '33', version: 4},
+            'relGender.relXy.Z': 'TEST',
+            'relGender.relXy.Y': 'TEST'
+          }
+
+          const initialValues = {
+            relGender: {key: '2', version: 3, model: 'Gender'},
+            'relGender.relXy': {key: '33', version: 4},
+            'relGender.relXy.Z': '', // changed
+            'relGender.relXy.Y': 'TEST'
+          }
+
+          const drityFormValues = reduxForm.getDirtyFormValues(initialValues, values)
+
+          expect(drityFormValues).to.deep.eql({
+            relGender: {key: '2', version: 3, model: 'Gender'},
+            'relGender.relXy': {key: '33', version: 4},
+            'relGender.relXy.Z': 'TEST'
+          })
         })
       })
 
@@ -89,11 +255,46 @@ describe('app-extensions', () => {
               }
             }
           ]
-          const formErrors = reduxForm.validationErrorToFormError(entity, validationErrors)
+          const formErrors = reduxForm.validationErrorToFormError(entity, [], validationErrors)
 
           expect(formErrors).to.have.property('firstname')
           expect(formErrors).to.have.property('_error')
           expect(formErrors.firstname).to.eql(mandatory)
+        })
+
+        test('should map errors for form field errors', () => {
+          const fieldDefinitions = [
+            {
+              id: 'location',
+              componentType: 'field',
+              dataType: 'location',
+              locationMapping: {
+                postcode: 'zip'
+              }
+            }
+          ]
+
+          const entity = {
+            model: 'User',
+            key: '2'
+          }
+
+          const mandatory = {mandatory: 'mandatory'}
+          const validationErrors = [
+            {
+              model: 'User',
+              key: '2',
+              paths: {
+                zip: mandatory
+              }
+            }
+          ]
+          const formErrors = reduxForm.validationErrorToFormError(entity, fieldDefinitions, validationErrors)
+
+          expect(formErrors).to.have.property('zip')
+          expect(formErrors).to.have.property('location')
+          expect(formErrors.zip).to.eql(mandatory)
+          expect(formErrors.location).to.eql(mandatory)
         })
 
         test('should return a valid object if error is undefined', () => {
@@ -102,7 +303,7 @@ describe('app-extensions', () => {
             key: '2'
           }
 
-          const formErrors = reduxForm.validationErrorToFormError(entity, undefined)
+          const formErrors = reduxForm.validationErrorToFormError(entity, [], undefined)
 
           expect(formErrors).to.have.property('_error')
         })
