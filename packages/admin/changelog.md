@@ -1,3 +1,6 @@
+1.0.0-hotfix30.18
+
+
 1.0.0-hotfix30.17
 - allow whitelisted inline css for nice tooltips
 
