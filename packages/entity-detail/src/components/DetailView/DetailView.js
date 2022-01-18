@@ -22,7 +22,7 @@ class DetailView extends React.Component {
 
   getSyncValidation = () => {
     if (!this.validateSingleton && !_isEmpty(this.props.fieldDefinitions)) {
-      this.validateSingleton = form.syncValidation(this.props.fieldDefinitions)
+      this.validateSingleton = form.syncValidation(this.props.fieldDefinitions, this.props.formDefinition)
     }
     return this.validateSingleton
   }
@@ -61,6 +61,7 @@ DetailView.propTypes = {
       validation: PropTypes.object
     })
   ).isRequired,
+  formDefinition: PropTypes.object.isRequired,
   entityName: PropTypes.string.isRequired,
   entityId: PropTypes.string,
   formInitialValues: PropTypes.shape({

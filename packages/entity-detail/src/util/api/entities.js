@@ -2,7 +2,7 @@ import {SubmissionError} from 'redux-form/es/SubmissionError'
 import {call} from 'redux-saga/effects'
 import {form, rest} from 'tocco-app-extensions'
 
-export function* updateEntity(entity, paths = []) {
+export function* updateEntity(entity, fieldDefinitions, paths = []) {
   const options = {
     method: 'PATCH',
     queryParams: {
@@ -16,7 +16,7 @@ export function* updateEntity(entity, paths = []) {
   const resp = yield call(rest.requestSaga, resource, options)
 
   if (resp.body.errorCode === 'VALIDATION_FAILED') {
-    throw new SubmissionError(form.validationErrorToFormError(entity, resp.body.errors))
+    throw new SubmissionError(form.validationErrorToFormError(entity, fieldDefinitions, resp.body.errors))
   }
 
   if (resp.status === 409 && resp.body.information) {
@@ -28,7 +28,7 @@ export function* updateEntity(entity, paths = []) {
 
 const SUCCESSFUL_SAVED_STATUS = 201
 
-export function* createEntity(entity, paths = []) {
+export function* createEntity(entity, fieldDefinitions, paths = []) {
   const options = {
     method: 'POST',
     queryParams: {
@@ -47,7 +47,7 @@ export function* createEntity(entity, paths = []) {
     return id
   } else {
     if (resp.body && resp.body.errorCode === 'VALIDATION_FAILED') {
-      throw new SubmissionError(form.validationErrorToFormError(entity, resp.body.errors))
+      throw new SubmissionError(form.validationErrorToFormError(entity, fieldDefinitions, resp.body.errors))
     }
 
     if (resp.status === 403) {

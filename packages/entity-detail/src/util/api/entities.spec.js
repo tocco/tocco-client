@@ -20,7 +20,7 @@ describe('entity-detail', () => {
               key: '1'
             }
 
-            const gen = entities.updateEntity(entity, ['f1', 'f2'])
+            const gen = entities.updateEntity(entity, [], ['f1', 'f2'])
 
             expect(gen.next().value).to.eql(
               call(rest.requestSaga, 'entities/2.0/User/1', {
