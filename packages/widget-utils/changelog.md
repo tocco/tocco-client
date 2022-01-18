@@ -1,3 +1,6 @@
+0.1.4
+
+
 0.1.3
 - handle errors and log to remote
 - allow whitelisted inline css for nice tooltips
