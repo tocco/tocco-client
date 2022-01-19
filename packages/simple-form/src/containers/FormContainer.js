@@ -18,7 +18,10 @@ const mapStateToProps = (state, props) => ({
   submitText: state.input.submitText,
   cancelText: state.input.cancelText,
   formDefinition: state.input.form,
-  validate: state.input.validate !== false ? form.syncValidation(state.simpleForm.fieldDefinitions) : () => {},
+  validate:
+    state.input.validate !== false
+      ? form.syncValidation(state.simpleForm.fieldDefinitions, state.input.form)
+      : () => {},
   listApp: state.input.listApp,
   mappingType: state.input.mappingType,
   mode: state.input.mode
