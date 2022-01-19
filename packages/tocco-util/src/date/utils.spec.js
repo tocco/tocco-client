@@ -14,6 +14,12 @@ describe('tocco-util', () => {
           const zeroTimeObject = {hours: '', minutes: '', seconds: ''}
           expect(millisecondsToDuration()).to.be.eql(zeroTimeObject)
         })
+
+        test('should handle hour overflow', () => {
+          const result = {hours: 25, minutes: 1, seconds: 22}
+          const milliSeconds = 90083000
+          expect(millisecondsToDuration(milliSeconds)).to.be.eql(result)
+        })
       })
 
       describe('formatDuration', () => {
