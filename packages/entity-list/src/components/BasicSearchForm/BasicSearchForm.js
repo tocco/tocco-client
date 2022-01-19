@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useRef} from 'react'
 import {reduxForm} from 'redux-form'
 import {form} from 'tocco-app-extensions'
 import {Ball} from 'tocco-ui'
+import {react as customHooks} from 'tocco-util'
 
 import {StyledBasicSearchForm, StyledSearchFormButtons} from './StyledBasicSearchForm'
 
@@ -21,6 +22,10 @@ const BasicSearchForm = ({
   simpleSearchFields,
   submitSearchForm
 }) => {
+  const searchFormEl = useRef(null)
+
+  customHooks.useAutofocus(searchFormEl, [searchFormDefinition])
+
   if (!searchFormDefinition.children) {
     return null
   }
@@ -54,7 +59,7 @@ const BasicSearchForm = ({
   const hasExtendedOnlySearchFields = !fields.every(field => simpleSearchFields.includes(field.id))
 
   return (
-    <StyledBasicSearchForm>
+    <StyledBasicSearchForm ref={searchFormEl}>
       <form onSubmit={handleSubmit}>
         {hasExtendedOnlySearchFields && !disableSimpleSearch && (
           <StyledSearchFormButtons>
