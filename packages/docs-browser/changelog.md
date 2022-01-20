@@ -1,3 +1,6 @@
+1.0.0-hotfix30.12
+- Display durations as hh:mm:ss consistently instead of like a timestamp
+
 1.0.0-hotfix30.11
 
 
