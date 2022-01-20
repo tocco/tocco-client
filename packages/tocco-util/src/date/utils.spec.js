@@ -16,8 +16,8 @@ describe('tocco-util', () => {
         })
 
         test('should handle hour overflow', () => {
-          const result = {hours: 25, minutes: 1, seconds: 22}
-          const milliSeconds = 90083000
+          const result = {hours: 25, minutes: 1, seconds: 23.036}
+          const milliSeconds = 90083036
           expect(millisecondsToDuration(milliSeconds)).to.be.eql(result)
         })
       })
