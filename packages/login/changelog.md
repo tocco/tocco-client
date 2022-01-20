@@ -1,3 +1,6 @@
+1.0.0-hotfix30.11
+- Display durations as hh:mm:ss consistently instead of like a timestamp
+
 1.0.0-hotfix30.10
 - allow whitelisted inline css for nice tooltips
 
