@@ -1,6 +1,6 @@
 import Split from 'react-split'
 import styled from 'styled-components'
-import {StyledScrollbar, theme, Menu, Button, scale} from 'tocco-ui'
+import {Button, Menu, scale, StyledScrollbar, theme} from 'tocco-ui'
 
 export const StyledSplit = styled(Split)``
 
@@ -88,4 +88,19 @@ export const StyledGutter = styled.div`
   &:hover {
     cursor: row-resize;
   }
+`
+
+export const StyledQueryBox = styled.div`
+  height: 100%;
+  background-color: ${theme.color('paper')};
+  border-bottom: 3px solid ${theme.color('backgroundBody')};
+  position: relative;
+  z-index: 2; // higher than StyledTether to prevent cover on scroll
+  overflow-y: auto;
+  padding: 0.6rem 1rem 0 0.6rem;
+
+  ${Menu} {
+    z-index: 3; //higher than rest to lay over query field
+  }
+  ${StyledScrollbar}
 `

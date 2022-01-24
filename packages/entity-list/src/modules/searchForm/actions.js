@@ -19,6 +19,12 @@ export const SAVE_DEFAULT_SEARCH_FILTER = 'searchForm/SAVE_DEFAULT_SEARCH_FILTER
 export const RESET_DEFAULT_SEARCH_FILTER = 'searchForm/RESET_DEFAULT_SEARCH_FILTER'
 export const DISPLAY_SEARCH_FIELDS_MODAL = 'searchForm/DISPLAY_SEARCH_FIELDS_MODAL'
 export const RESET_SEARCH_FIELDS = 'searchForm/resetSearchFields'
+export const LOAD_SEARCH_AS_QUERY = 'searchForm/LOAD_SEARCH_AS_QUERY'
+export const SAVE_QUERY_AS_FILTER = 'searchForm/SAVE_QUERY_AS_FILTER'
+export const SET_QUERY_VIEW_VISIBLE = 'searchForm/SET_QUERY_VIEW_VISIBLE'
+export const SET_QUERY = 'searchForm/SET_QUERY'
+export const SET_QUERY_ERROR = 'searchForm/SET_QUERY_ERROR'
+export const RUN_QUERY = 'searchForm/RUN_QUERY'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -126,4 +132,37 @@ export const displaySearchFieldsModal = () => ({
 
 export const resetSearchFields = () => ({
   type: RESET_SEARCH_FIELDS
+})
+
+export const loadSearchAsQuery = () => ({
+  type: LOAD_SEARCH_AS_QUERY
+})
+
+export const saveQueryAsFilter = () => ({
+  type: SAVE_QUERY_AS_FILTER
+})
+
+export const setQueryViewVisible = queryViewVisible => ({
+  type: SET_QUERY_VIEW_VISIBLE,
+  payload: {
+    queryViewVisible
+  }
+})
+
+export const setQuery = query => ({
+  type: SET_QUERY,
+  payload: {
+    query
+  }
+})
+
+export const setQueryError = queryError => ({
+  type: SET_QUERY_ERROR,
+  payload: {
+    queryError
+  }
+})
+
+export const runQuery = () => ({
+  type: RUN_QUERY
 })

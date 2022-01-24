@@ -4,16 +4,16 @@ import {FormattedMessage} from 'react-intl'
 import {actions as formActions, getFormValues, isDirty} from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
 import {channel} from 'redux-saga'
-import {call, put, select, takeLatest, take, all} from 'redux-saga/effects'
-import {form, rest, notification} from 'tocco-app-extensions'
+import {all, call, debounce, put, select, take, takeLatest} from 'redux-saga/effects'
+import {form, notification, rest} from 'tocco-app-extensions'
 import {EditableValue, StatedValue} from 'tocco-ui'
 
 import ColumnPicker from '../../components/ColumnPicker'
-import {getFormFieldFlat, getEndpoint, changeParentFieldType} from '../../util/api/forms'
+import {changeParentFieldType, getEndpoint, getFormFieldFlat} from '../../util/api/forms'
 import searchFormTypes from '../../util/searchFormTypes'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {setSearchFormType} from '../entityList/actions'
-import {SET_ENTITY_MODEL, SET_FORM_DEFINITION} from '../list/actions'
+import {SET_ENTITY_MODEL, SET_FORM_DEFINITION, setSorting} from '../list/actions'
 import {getBasicQuery} from '../list/sagas'
 import * as actions from './actions'
 import {StyledButton} from './StyledComponents'
@@ -39,7 +39,11 @@ export default function* sagas() {
     takeLatest(actions.SAVE_DEFAULT_SEARCH_FILTER, saveDefaultSearchFilter),
     takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, resetDefaultSearchFilter),
     takeLatest(actions.DISPLAY_SEARCH_FIELDS_MODAL, displaySearchFieldsModal),
-    takeLatest(actions.RESET_SEARCH_FIELDS, resetSearchFields)
+    takeLatest(actions.RESET_SEARCH_FIELDS, resetSearchFields),
+    takeLatest(actions.LOAD_SEARCH_AS_QUERY, loadSearchAsQuery),
+    takeLatest(actions.SAVE_QUERY_AS_FILTER, saveQueryAsFilter),
+    takeLatest(actions.RUN_QUERY, runQuery),
+    debounce(500, actions.SET_QUERY, checkQuery)
   ])
 }
 
@@ -207,6 +211,22 @@ export function* getSearchFormValues() {
 }
 
 export function* saveSearchFilter() {
+  const searchFilterName = yield call(promptForSearchFilterName)
+  const {where, filter} = yield call(getBasicQuery, false)
+  const {sorting} = yield select(listSelector)
+  const {entityName} = yield select(entityListSelector)
+
+  yield call(createNewSearchFilter, searchFilterName, entityName, where, sorting, filter)
+}
+
+function* createNewSearchFilter(searchFilterName, entityName, where, sorting, filter) {
+  const createdSearchFilter = yield call(saveNewSearchFilter, searchFilterName, entityName, where, sorting, filter)
+  yield call(loadSearchFilter, entityName)
+  yield call(resetSearch)
+  yield put(actions.setSearchFilterActive(createdSearchFilter.uniqueId, true, true))
+}
+
+function* promptForSearchFilterName() {
   const answerChannel = yield call(channel)
   yield put(
     notification.modal(
@@ -233,16 +253,7 @@ export function* saveSearchFilter() {
       true
     )
   )
-
-  const searchFilterName = yield take(answerChannel)
-  const {where, filter} = yield call(getBasicQuery, false)
-  const {sorting} = yield select(listSelector)
-  const {entityName} = yield select(entityListSelector)
-
-  const createdSearchFilter = yield call(saveNewSearchFilter, searchFilterName, entityName, where, sorting, filter)
-  yield call(loadSearchFilter, entityName)
-  yield call(resetSearch)
-  yield put(actions.setSearchFilterActive(createdSearchFilter.uniqueId, true, true))
+  return yield take(answerChannel)
 }
 
 export function* saveNewSearchFilter(name, entityName, query, sorting, filters) {
@@ -387,4 +398,86 @@ export function* resetSearchFields() {
   yield call(rest.requestSaga, resource, options)
   yield call(loadSearchForm, true)
   yield call(resetSearch)
+}
+
+export function* loadSearchAsQuery() {
+  const {where: condition, filter: filters} = yield call(getBasicQuery, false, false)
+  const {sorting} = yield select(listSelector)
+  const sortingString = sorting.map(({field, order}) => `${field} ${order}`).join(', ')
+  const {entityName} = yield select(entityListSelector)
+
+  const resource = `client/query/${entityName}/build`
+  const options = {
+    method: 'POST',
+    body: {
+      condition,
+      filters,
+      sorting: sortingString
+    }
+  }
+
+  const {
+    body: {query}
+  } = yield call(rest.requestSaga, resource, options)
+  yield put(actions.setQuery(query))
+  yield call(checkQuery)
+}
+
+export function* saveQueryAsFilter() {
+  const searchFilterName = yield call(promptForSearchFilterName)
+  const {query} = yield select(searchFormSelector)
+  const {entityName} = yield select(entityListSelector)
+  const sorting = getSortingFromQuery(query)
+  const sortingIndex = query.indexOf('order by')
+  const condition = sortingIndex >= 0 ? query.substring(0, sortingIndex - 1) : query
+
+  yield call(createNewSearchFilter, searchFilterName, entityName, condition, sorting)
+  yield put(actions.setQueryViewVisible(false))
+}
+
+function getSortingFromQuery(query) {
+  const sortingIndex = query.indexOf('order by ')
+  if (sortingIndex >= 0) {
+    return query
+      .substring(sortingIndex + 'order by '.length)
+      .split(',')
+      .map(sorting => sorting.trim())
+      .map(sorting => sorting.split(' '))
+      .map(([field, order]) => ({field, order: order || 'asc'}))
+  } else {
+    return []
+  }
+}
+
+export function* checkQuery() {
+  const {query} = yield select(searchFormSelector)
+  const {entityName} = yield select(entityListSelector)
+  const resource = `client/query/${entityName}/validation`
+  const options = {
+    method: 'POST',
+    body: {
+      condition: query
+    }
+  }
+
+  const {
+    body: {valid, message}
+  } = yield call(rest.requestSaga, resource, options)
+  if (!valid) {
+    yield put(actions.setQueryError({error: [message]}))
+  } else {
+    yield put(actions.setQueryError({}))
+  }
+}
+
+export function* runQuery() {
+  const {query, queryError} = yield select(searchFormSelector)
+  if (!queryError || Object.entries(queryError).length === 0) {
+    const sortingIndex = query.indexOf('order by')
+    if (sortingIndex >= 0) {
+      const sorting = getSortingFromQuery(query)
+      yield put(setSorting(sorting))
+    }
+    yield put(actions.executeSearch())
+  }
 }

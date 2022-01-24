@@ -1,21 +1,21 @@
 import _isEqual from 'lodash/isEqual'
 import _omit from 'lodash/omit'
 import _union from 'lodash/union'
-import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take, delay} from 'redux-saga/effects'
-import {externalEvents, rest, remoteEvents, actionEmitter} from 'tocco-app-extensions'
+import {all, call, delay, fork, put, select, spawn, take, takeEvery, takeLatest} from 'redux-saga/effects'
+import {actionEmitter, externalEvents, remoteEvents, rest} from 'tocco-app-extensions'
 import {api, consoleLogger} from 'tocco-util'
 
 import {entitiesListTransformer} from '../../util/api/entities'
 import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
 import {
-  getSorting,
-  getSelectable,
   getClickable,
-  getEndpoint,
-  getSearchEndpoint,
   getConstriction,
+  getDisablePreferencesMenu,
+  getEndpoint,
   getFields,
-  getDisablePreferencesMenu
+  getSearchEndpoint,
+  getSelectable,
+  getSorting
 } from '../../util/api/forms'
 import * as preferencesActions from '../preferences/actions'
 import * as searchFormActions from '../searchForm/actions'
@@ -72,9 +72,7 @@ export function* loadData(page) {
   yield put(actions.setInProgress(false))
 }
 
-export function* getBasicQuery(regardSelection = true) {
-  const {inputSearchFilters, inputTql, inputKeys, constriction} = yield select(listSelector)
-
+export function* getBasicQuery(regardSelection = true, regardQueryView = true) {
   const {showSelectedRecords, selection} = yield select(selectionSelector)
   if (regardSelection && showSelectedRecords) {
     return {
@@ -82,13 +80,41 @@ export function* getBasicQuery(regardSelection = true) {
     }
   }
 
+  const {queryViewVisible} = yield select(searchFormSelector)
+  if (regardQueryView && queryViewVisible) {
+    return yield call(getQueryViewQuery)
+  } else {
+    return yield call(getSearchViewQuery)
+  }
+}
+
+function* getQueryViewQuery() {
+  const {inputKeys, constriction} = yield select(listSelector)
+  const {query} = yield select(searchFormSelector)
+  const sortingIndex = query.indexOf('order by')
+  const where = sortingIndex >= 0 ? query.substring(0, sortingIndex - 1) : query
+  return {
+    where,
+    ...(constriction && {constriction}),
+    ...(inputKeys ? {keys: inputKeys} : {}),
+    hasUserChanges: true
+  }
+}
+
+function* getSearchViewQuery() {
   const {formFieldsFlat, searchFilters: searchFormSearchFilter} = yield select(searchFormSelector)
+  const {inputSearchFilters, inputTql, inputKeys, constriction} = yield select(listSelector)
   const searchFormValues = yield call(getSearchFormValues)
 
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
 
   const relevantSearchFormFetchOptions = _omit(searchFormFetchOptions, ['filters', 'tql'])
-  const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters, searchFormSearchFilter)
+  const filter = yield call(
+    getSearchFilter,
+    inputSearchFilters,
+    searchFormFetchOptions.filters,
+    searchFormSearchFilter
+  )
   const where = yield call(getTql, inputTql, searchFormFetchOptions.tql)
 
   const hasUserChanges =
