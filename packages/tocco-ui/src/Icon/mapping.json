@@ -121,6 +121,10 @@
     "lib": "fa",
     "tags": ["selection"]
   },
+  "code": {
+    "id": "fal, code",
+    "lib": "fa"
+  },
   "cog": {
     "id": "fal, cog",
     "lib": "fa"
@@ -206,6 +210,10 @@
   },
   "file-spreadsheet": {
     "id": "fal, file-spreadsheet",
+    "lib": "fa"
+  },
+  "filter": {
+    "id": "fal, filter",
     "lib": "fa"
   },
   "folder": {
