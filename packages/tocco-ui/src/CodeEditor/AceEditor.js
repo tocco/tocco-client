@@ -86,6 +86,15 @@ const AceEditor = props => {
       setEditorConfiguration(editorReference.current, editorConfig)
     }
   }, [editorConfig])
+  useEffect(() => {
+    /* ace handles its state internally, always resetting the value confuses it.
+     * this way we only set the value when it is different from the current state, i.e. when it is overwritten through
+     * code. feel free to rewrite this with better ideas.
+     */
+    if (editorReference.current && value !== editorReference.current.getSession().getValue()) {
+      editorReference.current.getSession().setValue(value || '')
+    }
+  }, [value])
 
   return <StyledEditor ref={containerReference} />
 }
