@@ -1,17 +1,17 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {put, select, call, takeLatest, takeEvery, all} from 'redux-saga/effects'
-import {externalEvents, rest, remoteEvents} from 'tocco-app-extensions'
+import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {externalEvents, remoteEvents, rest} from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
 import {
-  getSorting,
-  getSelectable,
   getClickable,
-  getFields,
+  getConstriction,
   getEndpoint,
+  getFields,
   getSearchEndpoint,
-  getConstriction
+  getSelectable,
+  getSorting
 } from '../../util/api/forms'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
@@ -582,6 +582,33 @@ describe('entity-list', () => {
               .run()
 
             expect(saga.returnValue).to.have.property('keys')
+          })
+
+          test('should handle query view', () => {
+            const listState = {inputKeys: ['1', '2'], constriction: 'constriction'}
+            const searchForm = {
+              queryViewVisible: true,
+              query: 'query'
+            }
+            const selection = {
+              showSelectedRecords: false
+            }
+
+            const expectedResult = {
+              where: 'query',
+              constriction: 'constriction',
+              keys: ['1', '2'],
+              hasUserChanges: true
+            }
+
+            return expectSaga(sagas.getBasicQuery)
+              .provide([
+                [select(sagas.searchFormSelector), searchForm],
+                [select(sagas.selectionSelector), selection],
+                [select(sagas.listSelector), listState],
+              ])
+              .returns(expectedResult)
+              .run()
           })
         })
 

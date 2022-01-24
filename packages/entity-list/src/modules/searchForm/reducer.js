@@ -38,7 +38,10 @@ const ACTION_HANDLERS = {
   [actions.SET_VALUES_INITIALIZED]: reducerUtil.singleTransferReducer('valuesInitialized'),
   [actions.SET_FORM_FIELDS_FLAT]: reducerUtil.singleTransferReducer('formFieldsFlat'),
   [actions.SET_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('searchFilters'),
-  [actions.SET_SEARCH_FILTER_ACTIVE]: setSearchFilterActive
+  [actions.SET_SEARCH_FILTER_ACTIVE]: setSearchFilterActive,
+  [actions.SET_QUERY_VIEW_VISIBLE]: reducerUtil.singleTransferReducer('queryViewVisible'),
+  [actions.SET_QUERY]: reducerUtil.singleTransferReducer('query'),
+  [actions.SET_QUERY_ERROR]: reducerUtil.singleTransferReducer('queryError')
 }
 
 const initialState = {
@@ -48,7 +51,10 @@ const initialState = {
   simpleSearchFields: ['txtFulltext'],
   disableSimpleSearch: false,
   valuesInitialized: false,
-  searchFilters: null
+  searchFilters: null,
+  queryViewVisible: false,
+  query: '',
+  queryError: {}
 }
 
 export default function reducer(state = initialState, action) {

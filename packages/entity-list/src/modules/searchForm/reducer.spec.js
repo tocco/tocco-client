@@ -8,7 +8,10 @@ const EXPECTED_INITIAL_STATE = {
   simpleSearchFields: ['txtFulltext'],
   disableSimpleSearch: false,
   valuesInitialized: false,
-  searchFilters: null
+  searchFilters: null,
+  queryViewVisible: false,
+  query: '',
+  queryError: {}
 }
 
 describe('entity-list', () => {

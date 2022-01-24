@@ -3,16 +3,17 @@ import * as formActionTypes from 'redux-form/es/actionTypes'
 import {channel} from 'redux-saga'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {put, select, call, takeLatest, all} from 'redux-saga/effects'
-import {form, rest, notification} from 'tocco-app-extensions'
+import {all, call, debounce, put, select, takeLatest} from 'redux-saga/effects'
+import {form, notification, rest} from 'tocco-app-extensions'
 
 import {getEndpoint} from '../../util/api/forms'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {setSearchFormType} from '../entityList/actions'
-import {setFormDefinition, SET_ENTITY_MODEL} from '../list/actions'
+import {SET_ENTITY_MODEL, setFormDefinition, setSorting} from '../list/actions'
 import * as listSagas from '../list/sagas'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
+import {checkQuery, loadSearchAsQuery, runQuery, saveQueryAsFilter} from './sagas'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -32,7 +33,11 @@ describe('entity-list', () => {
                 takeLatest(actions.SAVE_DEFAULT_SEARCH_FILTER, sagas.saveDefaultSearchFilter),
                 takeLatest(actions.RESET_DEFAULT_SEARCH_FILTER, sagas.resetDefaultSearchFilter),
                 takeLatest(actions.DISPLAY_SEARCH_FIELDS_MODAL, sagas.displaySearchFieldsModal),
-                takeLatest(actions.RESET_SEARCH_FIELDS, sagas.resetSearchFields)
+                takeLatest(actions.RESET_SEARCH_FIELDS, sagas.resetSearchFields),
+                takeLatest(actions.LOAD_SEARCH_AS_QUERY, loadSearchAsQuery),
+                takeLatest(actions.SAVE_QUERY_AS_FILTER, saveQueryAsFilter),
+                takeLatest(actions.RUN_QUERY, runQuery),
+                debounce(500, actions.SET_QUERY, checkQuery)
               ])
             )
             expect(generator.next().done).to.be.true
@@ -646,6 +651,138 @@ describe('entity-list', () => {
               .call(rest.requestSaga, 'forms/User/search-fields/reset', {method: 'POST'})
               .call(sagas.loadSearchForm, true)
               .call(sagas.resetSearch)
+              .run()
+          })
+        })
+
+        describe('loadSearchAsQuery', () => {
+          test('should load search as query', () => {
+            const expectedBody = {
+              condition: 'condition',
+              filters: ['filter1', 'filter2'],
+              sorting: 'field desc, other asc'
+            }
+            return expectSaga(sagas.loadSearchAsQuery)
+              .provide([
+                [select(sagas.listSelector), {
+                  sorting: [
+                    {field: 'field', order: 'desc'},
+                    {field: 'other', order: 'asc'}
+                  ]
+                }],
+                [select(sagas.entityListSelector), {entityName: 'Entity_name'}],
+                [matchers.call.fn(listSagas.getBasicQuery), {where: 'condition', filter: ['filter1', 'filter2']}],
+                [matchers.call.fn(rest.requestSaga), {body: {query: 'query'}}],
+                [matchers.call.fn(sagas.checkQuery)],
+              ])
+              .call(rest.requestSaga, 'client/query/Entity_name/build', {method: 'POST', body: expectedBody})
+              .put(actions.setQuery('query'))
+              .call(sagas.checkQuery)
+              .run()
+          })
+        })
+
+        describe('saveQueryAsFilter', () => {
+          test('should save query as filter', () => {
+            return expectSaga(sagas.saveQueryAsFilter)
+              .provide([
+                [select(sagas.searchFormSelector), {query: 'condition order by field, other desc'}],
+                [select(sagas.entityListSelector), {entityName: 'entityName'}],
+                [channel, {}],
+                {
+                  take() {
+                    return 'searchFilterName'
+                  }
+                },
+                [matchers.call.fn(sagas.saveNewSearchFilter), {uniqueId: 'filter id'}],
+                [matchers.call.fn(sagas.loadSearchFilter)],
+                [matchers.call.fn(sagas.resetSearch)]
+              ]).put.like({
+                action: {
+                  type: 'notification/MODAL',
+                  payload: {
+                    id: 'filter-save',
+                    title: 'client.entity-list.search.settings.saveAsFilter',
+                    message: null,
+                    closable: true
+                  }
+                }
+              })
+              .put.like({
+                action: {
+                  type: 'searchForm/SET_SEARCH_FILTER_ACTIVE',
+                  payload: {
+                    searchFilterId: 'filter id',
+                    active: true,
+                    exclusive: true
+                  }
+                }
+              })
+              .call.like({fn: channel})
+              .call.like({fn: sagas.saveNewSearchFilter, args: [
+                  'searchFilterName',
+                  'entityName',
+                  'condition',
+                  [{field: 'field', order: 'asc'}, {field: 'other', order: 'desc'}]
+                ]})
+              .call(sagas.loadSearchFilter, 'entityName')
+              .call(sagas.resetSearch)
+              .put(actions.setQueryViewVisible(false))
+              .run()
+          })
+        })
+
+        describe('checkQuery', () => {
+          test('should clear error on valid', () => {
+            const expectedBody = {condition: 'query'}
+            return expectSaga(sagas.checkQuery)
+              .provide([
+                [select(sagas.searchFormSelector), {query: 'query'}],
+                [select(sagas.entityListSelector), {entityName: 'Entity_name'}],
+                [matchers.call.fn(rest.requestSaga), {body: {valid: true, message: null}}]
+              ])
+              .call(rest.requestSaga, 'client/query/Entity_name/validation', {method: 'POST', body: expectedBody})
+              .put(actions.setQueryError({}))
+              .run()
+          })
+          test('should set error on invalid', () => {
+            const expectedBody = {condition: 'query'}
+            return expectSaga(sagas.checkQuery)
+              .provide([
+                [select(sagas.searchFormSelector), {query: 'query'}],
+                [select(sagas.entityListSelector), {entityName: 'Entity_name'}],
+                [matchers.call.fn(rest.requestSaga), {body: {valid: false, message: 'error message'}}]
+              ])
+              .call(rest.requestSaga, 'client/query/Entity_name/validation', {method: 'POST', body: expectedBody})
+              .put(actions.setQueryError({error: ['error message']}))
+              .run()
+          })
+        })
+
+        describe('runQuery', () => {
+          test('should start search', () => {
+            return expectSaga(sagas.runQuery)
+              .provide([
+                [select(sagas.searchFormSelector), {query: 'query'}]
+              ])
+              .put(actions.executeSearch())
+              .run()
+          })
+          test('should set sorting', () => {
+            return expectSaga(sagas.runQuery)
+              .provide([
+                [select(sagas.searchFormSelector), {query: 'query order by field desc, other asc'}]
+              ])
+              .put(setSorting([{field: 'field', order: 'desc'}, {field: 'other', order: 'asc'}]))
+              .put(actions.executeSearch())
+              .run()
+          })
+          test('should do nothing with errors', () => {
+            return expectSaga(sagas.runQuery)
+              .provide([
+                [select(sagas.searchFormSelector), {query: 'query', queryError: {error: ['error']}}]
+              ])
+              .not.put(actions.executeSearch)
               .run()
           })
         })
