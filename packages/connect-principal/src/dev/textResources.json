@@ -1,0 +1,5 @@
+[
+  "client.actions.ConnectPrincipalAction.permission_message",
+  "client.actions.ConnectPrincipalAction.already_assigned",
+  "client.actions.ConnectPrincipalAction.successful"
+]

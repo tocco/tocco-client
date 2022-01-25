@@ -1,0 +1,18 @@
+{
+  "name": "tocco-connect-principal",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=connect-principal",
+    "prepublish": "npm run compile:prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tocco-app-extensions": "*",
+    "tocco-sso-login": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
+  }
+}

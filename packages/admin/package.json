@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "tocco-app-extensions": "*",
+    "tocco-connect-principal": "*",
     "tocco-copy": "*",
     "tocco-dashboard": "*",
     "tocco-delete": "*",
