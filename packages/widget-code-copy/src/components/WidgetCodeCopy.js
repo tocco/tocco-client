@@ -9,7 +9,7 @@ import {StyledButtonWrapper, StyledWidgetCode} from './StyledComponents'
 const WidgetCodeCopy = ({fetchWidgetConfig, copyWidgetCode, widgetConfig}) => {
   useEffect(() => {
     fetchWidgetConfig()
-  }, [])
+  }, [fetchWidgetConfig])
 
   return (
     <LoadMask required={[widgetConfig]}>

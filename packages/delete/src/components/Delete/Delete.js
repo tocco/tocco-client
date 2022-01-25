@@ -9,7 +9,7 @@ import Dialog from '../Dialog'
 const Delete = ({loadDialogInfo, dialogInfo, deletingInProgress, intl}) => {
   useEffect(() => {
     loadDialogInfo()
-  }, [])
+  }, [loadDialogInfo])
 
   const msg = id => intl.formatMessage({id})
 

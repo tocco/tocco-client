@@ -34,7 +34,7 @@ const EntitiesRoute = ({match, history, loadCurrentRoute, currentViewInfo}) => {
 
   useEffect(() => {
     loadCurrentRoute(location)
-  }, [location])
+  }, [location, loadCurrentRoute])
 
   const content =
     currentViewInfo && currentViewInfo.error ? (

@@ -5,7 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, {useEffect, useMemo, useRef} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef} from 'react'
 import 'twix'
 import {injectIntl} from 'react-intl'
 import {FormattedValue, Popover} from 'tocco-ui'
@@ -43,11 +43,24 @@ const FullCalendar = ({
   const calendarEl = useRef(null)
   const wrapperEl = useRef(null)
 
+  const changeRange = useCallback(() => {
+    const {view} = calendarEl.current.getApi()
+    if (onDateRangeChange) {
+      onDateRangeChange({startDate: view.activeStart, endDate: view.activeEnd})
+    }
+  }, [onDateRangeChange])
+
+  const changeView = (view = 'timelineDay') => {
+    calendarEl.current.getApi().changeView(view)
+    changeRange()
+  }
+
   useEffect(() => {
     moment.locale(locale)
     changeRange()
-  }, [])
+  }, [changeRange, locale])
 
+  // do not compare events as reference value
   useEffect(() => {
     const calendar = calendarEl.current.getApi()
     calendar.batchRendering(() => {
@@ -55,8 +68,9 @@ const FullCalendar = ({
       eventSources.forEach(eS => eS.remove())
       calendar.addEventSource(events)
     })
-  }, [JSON.stringify(events)])
+  }, [JSON.stringify(events)]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // do not compare resources as reference value
   useEffect(() => {
     const calendar = calendarEl.current.getApi()
     calendar.batchRendering(() => {
@@ -75,7 +89,7 @@ const FullCalendar = ({
         }
       })
     })
-  }, [JSON.stringify(resources)])
+  }, [JSON.stringify(resources)]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const headerContent = (
     <input
@@ -86,18 +100,6 @@ const FullCalendar = ({
       className="remove-all-checkbox"
     />
   )
-
-  const changeRange = () => {
-    const {view} = calendarEl.current.getApi()
-    if (onDateRangeChange) {
-      onDateRangeChange({startDate: view.activeStart, endDate: view.activeEnd})
-    }
-  }
-
-  const changeView = (view = 'timelineDay') => {
-    calendarEl.current.getApi().changeView(view)
-    changeRange()
-  }
 
   const renderEventContent = eventInfo => {
     const time = moment(eventInfo.event.start)
@@ -126,6 +128,7 @@ const FullCalendar = ({
     )
   }
 
+  // does not respond to outer prop changes
   const memoizedFullCalendar = useMemo(
     () => (
       <ReactFullCalendar
@@ -182,7 +185,7 @@ const FullCalendar = ({
         }}
       />
     ),
-    [resources.length]
+    [resources.length] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
   return (

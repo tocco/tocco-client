@@ -8,7 +8,7 @@ describe('docs-browser', () => {
           const match = {
             params: {}
           }
-          expect(getParent(match)).to.equal(null)
+          expect(getParent(match.params)).to.equal(null)
         })
 
         test('should return parent if has path match', () => {
@@ -18,7 +18,7 @@ describe('docs-browser', () => {
               key: '9345'
             }
           }
-          expect(getParent(match)).to.eql({
+          expect(getParent(match.params)).to.eql({
             model: 'Docs_list_item',
             key: 'Folder/9345'
           })

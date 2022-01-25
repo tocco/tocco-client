@@ -1,6 +1,6 @@
 import {useEffect, useRef} from 'react'
 
-const useDidUpdate = (callback, deps) => {
+const useDidUpdate = (callback, deps = []) => {
   const hasMount = useRef(false)
 
   useEffect(() => {
@@ -9,7 +9,7 @@ const useDidUpdate = (callback, deps) => {
     } else {
       hasMount.current = true
     }
-  }, deps)
+  }, deps) // eslint-disable-line react-hooks/exhaustive-deps
 }
 
 export default useDidUpdate

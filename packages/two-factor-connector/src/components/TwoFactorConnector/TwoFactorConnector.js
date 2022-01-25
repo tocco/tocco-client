@@ -18,7 +18,7 @@ const stages = {
 const TwoFactorConnector = ({initialize, stage}) => {
   useEffect(() => {
     initialize()
-  }, [])
+  }, [initialize])
 
   const renderContent = () => {
     switch (stage) {

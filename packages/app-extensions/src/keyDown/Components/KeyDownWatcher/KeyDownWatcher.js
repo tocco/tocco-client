@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import styled from 'styled-components'
 
 import {getMatchingConfig} from '../../utils'
@@ -13,18 +13,18 @@ const StyledDiv = styled.div`
 `
 
 const KeyDownWatcher = ({config, children, keyDownHandler}) => {
-  const handleKeyDown = (event, global) => {
+  const handleKeyDown = useCallback((event, global) => {
     const matchingConfig = getMatchingConfig(config, event, global)
     if (matchingConfig) {
       event.preventDefault()
       event.stopPropagation()
     }
     keyDownHandler(matchingConfig)
-  }
+  }, [config, keyDownHandler])
 
   const onKeyDown = event => handleKeyDown(event)
 
-  const onDocumentKeyDown = event => handleKeyDown(event, true)
+  const onDocumentKeyDown = useCallback(event => handleKeyDown(event, true), [handleKeyDown])
 
   useEffect(() => {
     document.addEventListener('keydown', onDocumentKeyDown)

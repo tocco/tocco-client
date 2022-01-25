@@ -27,7 +27,7 @@ const Range = props => {
     onChange: value => {
       events.onChange(value)
     }
-  }))
+  }), [events])
 
   const toEvents = useMemo(() => ({
     onChange: toValue => {
@@ -36,7 +36,7 @@ const Range = props => {
         to: toValue
       })
     }
-  }))
+  }), [events, value])
 
   const fromEvents = useMemo(() => ({
     onChange: fromValue => {
@@ -45,7 +45,7 @@ const Range = props => {
         from: fromValue
       })
     }
-  }))
+  }), [events, value])
 
   const typeMapping = rangeTypeMappings[type]
 

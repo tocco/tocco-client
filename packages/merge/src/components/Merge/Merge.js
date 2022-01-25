@@ -8,7 +8,7 @@ import {StyledMerge} from './StyledComponents'
 const Merge = ({initialize, mergeDone}) => {
   useEffect(() => {
     initialize()
-  }, [])
+  }, [initialize])
 
   return <StyledMerge>{mergeDone ? <MergeSummary /> : <MergeTable />}</StyledMerge>
 }

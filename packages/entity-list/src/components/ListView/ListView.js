@@ -49,7 +49,18 @@ const ListView = ({
         </StyledListWrapper>
       )
     }
-  }, [formDefinition, sorting, columnDisplayPreferences, preferencesLoaded])
+  }, [
+    formDefinition,
+    sorting,
+    columnDisplayPreferences,
+    preferencesLoaded,
+    sortable,
+    parent,
+    intl,
+    cellRenderers,
+    searchFormPosition,
+    tableMinHeight
+  ])
 
   const ActionBar = useMemo(() => {
     if (formDefinition) {
@@ -72,7 +83,7 @@ const ListView = ({
         return <StyledActionWrapper key={`listActionWrapper-${actionBar.id}`}>{content}</StyledActionWrapper>
       }
     }
-  }, [dataLoadingInProgress, formDefinition])
+  }, [dataLoadingInProgress, formDefinition, parent, showSelectionController, showActions])
 
   return (
     <LoadMask required={[formDefinition]} loadingText={msg('client.entity-list.loadingText')}>

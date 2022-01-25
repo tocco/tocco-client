@@ -20,12 +20,22 @@ ThContent.propTypes = {
 }
 
 const TableHeader = props => {
-  const {columns, data, onColumnPositionChange, onSortingChange, tableEl, onColumnWidthChanging, onColumnWidthChanged} =
-    props
+  const {
+    columns,
+    data,
+    onColumnPositionChange,
+    onSortingChange,
+    tableEl,
+    onColumnWidthChanging,
+    onColumnWidthChanged
+  } = props
   const {dndEvents, dndState} = dragAndDrop.useDnD(onColumnPositionChange)
 
-  const currentResizeElementSelector = resizeElement =>
-    tableEl.current.querySelector(`th[id='header-cell-${resizeElement.id}']`)
+  // tableEl is a ref and has not to be added to the deps array
+  const currentResizeElementSelector = useCallback(
+    resizeElement => tableEl.current.querySelector(`th[id='header-cell-${resizeElement.id}']`),
+    [] // eslint-disable-line react-hooks/exhaustive-deps
+  )
 
   const handleResize = useCallback((el, {width}) => onColumnWidthChanging(el.id, width), [onColumnWidthChanging])
   const handleResizeFinsihed = useCallback(el => onColumnWidthChanged(el.id), [onColumnWidthChanged])

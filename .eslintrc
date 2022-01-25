@@ -43,15 +43,13 @@
     "no-trailing-spaces": [2, {"skipBlankLines": true}],
     "generator-star-spacing": [2, {"before": false, "after": true}],
     "no-console": 2,
-
     "react/jsx-no-bind": [2, {"allowArrowFunctions": true, "allowBind": true}],
     "react/display-name": 0,
     "jsx-quotes": [2, "prefer-double"],
     "react-hooks/rules-of-hooks": 2,
-
+    "react-hooks/exhaustive-deps": 2,
     "no-unused-expressions": 0, // "no-unused-expressions" is included with "chai-friendly/no-unused-expressions"
     "chai-friendly/no-unused-expressions": [2, {"allowTaggedTemplates": true}],
-
     "import/default": 2,
     "import/no-duplicates": 2,
     "import/order": [

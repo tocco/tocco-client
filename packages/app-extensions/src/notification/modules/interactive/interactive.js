@@ -19,13 +19,15 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
         close()
       }
     }
+
+    // only on mount
     useEffect(() => {
       document.addEventListener('keydown', handleKeyDown)
 
       return () => {
         document.removeEventListener('keydown', handleKeyDown)
       }
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const buttons = [
       {

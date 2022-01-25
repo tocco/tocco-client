@@ -8,10 +8,11 @@ export default (ref, callback) => {
     }
   })
 
+  // call on mount only
   useEffect(() => {
     observer.observe(ref.current)
     return () => {
       observer.disconnect()
     }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 }

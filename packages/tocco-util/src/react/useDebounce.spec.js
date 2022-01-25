@@ -12,15 +12,15 @@ describe('tocco-util', () => {
 
         const onChangeSpy = sinon.spy()
 
-        const TestComponent = props => {
-          const [internalValue, setInternalValue] = useState(props.value)
+        const TestComponent = ({value, onChange}) => {
+          const [internalValue, setInternalValue] = useState(value)
           const debouncedValue = useDebounce(internalValue, 100)
 
           useEffect(() => {
-            props.onChange(debouncedValue)
-          }, [debouncedValue])
+            onChange(debouncedValue)
+          }, [debouncedValue, onChange])
 
-          return <input onChange={e => setInternalValue(e.target.value)} value={props.value} />
+          return <input onChange={e => setInternalValue(e.target.value)} value={value} />
         }
 
         const wrapper = mount(<TestComponent onChange={onChangeSpy} value={initialValue} />)

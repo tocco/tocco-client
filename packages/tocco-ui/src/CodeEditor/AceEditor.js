@@ -9,7 +9,7 @@ import {Mode as PropertiesMode} from 'ace-builds/src-min-noconflict/mode-propert
 import {Mode as TextMode} from 'ace-builds/src-min-noconflict/mode-text'
 import {Mode as XmlMode} from 'ace-builds/src-min-noconflict/mode-xml'
 import _get from 'lodash/get'
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useMemo} from 'react'
 import styled from 'styled-components'
 
 import AceEditorPropTypes from './AceEditorPropTypes'
@@ -63,20 +63,30 @@ const AceEditor = props => {
   const containerReference = useRef(null)
   const editorReference = useRef(null)
 
+  const editorConfig = useMemo(() => ({mode, theme, showGutter, editorOptions}), [
+    mode,
+    theme,
+    showGutter,
+    editorOptions
+  ])
+
+  // only on mount
   useEffect(() => {
     const aceEditor = ace.edit(containerReference.current)
     aceEditor.getSession().setValue(value || '')
     aceEditor.on('change', () => onChange(aceEditor.getValue()))
-    setEditorConfiguration(aceEditor, props)
+    setEditorConfiguration(aceEditor, editorConfig)
     editorReference.current = aceEditor
 
     return () => aceEditor.destroy()
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (editorReference.current) {
-      setEditorConfiguration(editorReference.current, props)
+      setEditorConfiguration(editorReference.current, editorConfig)
     }
-  }, [mode, theme, showGutter, editorOptions])
+  }, [editorConfig])
+
   return <StyledEditor ref={containerReference} />
 }
 

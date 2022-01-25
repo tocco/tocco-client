@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useCallback} from 'react'
 import {rest} from 'tocco-app-extensions'
 import DocsBrowserApp from 'tocco-docs-browser/src/main'
 
 const DocsView = ({entityName, entityKey, showActions, noLeftPadding, openResource}) => {
   const [folderKey, setFolderKey] = useState(null)
 
-  const fetchFolder = async () => {
+  const fetchFolder = useCallback(async () => {
     rest.simpleRequest('entities/2.0/' + entityName + '/' + entityKey + '/entitydocs/folder').then(res => {
       setFolderKey(res.body.key)
     })
-  }
+  }, [entityName, entityKey])
 
   useEffect(() => {
     fetchFolder()
-  }, [])
+  }, [fetchFolder])
 
   return (
     folderKey && (

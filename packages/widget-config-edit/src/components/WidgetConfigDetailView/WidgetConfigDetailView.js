@@ -13,7 +13,7 @@ const WidgetConfigDetailView = ({
 }) => {
   useEffect(() => {
     fetchSpecificConfigEntityId()
-  }, [])
+  }, [fetchSpecificConfigEntityId])
 
   const handleEntityCreated = ({id}) => {
     linkCreatedSpecificConfig({

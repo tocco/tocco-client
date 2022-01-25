@@ -25,7 +25,7 @@ const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
 
   useEffect(() => {
     checkSsoAvailable()
-  }, [])
+  }, [checkSsoAvailable])
 
   const loginSuccess = ({timeout}) => {
     loginSuccessful(timeout)

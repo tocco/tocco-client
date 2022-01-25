@@ -21,7 +21,7 @@ const NotificationCenter = ({
 
   useEffect(() => {
     loadNotifications()
-  }, [])
+  }, [loadNotifications])
 
   const handleScroll = () => {
     const notificationCount = Object.keys(notifications).length

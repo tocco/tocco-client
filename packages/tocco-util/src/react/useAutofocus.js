@@ -10,6 +10,6 @@ const useAutofocus = (reference, dependencies = []) =>
         firstInput.focus()
       }
     }
-  }, dependencies)
+  }, dependencies) // eslint-disable-line react-hooks/exhaustive-deps
 
 export default useAutofocus

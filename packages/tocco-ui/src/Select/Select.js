@@ -67,7 +67,9 @@ const Select = ({
     selectComponent.current.focus()
   }
 
-  const throttledSearchOptions = useCallback(_throttle(searchOptions, 800, {trailing: true}), [])
+  // _throttle is not working with inline function
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const throttledSearchOptions = useCallback(_throttle(searchOptions, 800, {trailing: true}), [searchOptions])
 
   const wrapperWidth = selectWrapper.current?.clientWidth || 300
   const wrapperHeight = selectWrapper.current?.clientHeight || 35

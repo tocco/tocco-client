@@ -11,13 +11,15 @@ const TextareaAutosize = ({value, onChange, name, id, disabled, immutable}) => {
   // remove autosize feature for Safari to be able to type fluently
   const useAutosizeFeature = !userAgent.isSafari()
 
+  // _throttle is not working with inline function
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const setThrottledReplicatedValue = useCallback(_throttle(setReplicatedValue, 500, {trailing: true}), [])
 
   useEffect(() => {
     if (useAutosizeFeature) {
       setThrottledReplicatedValue(value)
     }
-  }, [value])
+  }, [value, useAutosizeFeature, setThrottledReplicatedValue])
 
   return (
     <StyledSizeWrapper {...(useAutosizeFeature ? {'data-replicated-value': replicatedValue} : {})}>

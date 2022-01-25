@@ -36,12 +36,12 @@ export default (fieldDefinition, entity, intl) => {
   return <StyledSpan key={id}>{formDataContainer}</StyledSpan>
 }
 
-const FormattedValueWrapper = ({value, type, formData, intl, formField}) => {
+const FormattedValueWrapper = ({value, type, formData, formField}) => {
   const modelField = {
     targetEntity: value && js.getOrFirst(value).model
   }
 
-  const Field = useMemo(() => field.factory('list', type), [])
+  const Field = useMemo(() => field.factory('list', type), [type])
 
   return (
     <LazyDataEnhancer value={value} type={type}>
