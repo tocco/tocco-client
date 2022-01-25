@@ -27,6 +27,6 @@ export function* invokeAction(config, {payload}) {
       yield put(actions.actionInvoked(definition, selection, response))
     }
   } else if (abortMessage) {
-    yield put(notification.toaster({type: 'info', title: abortMessage}))
+    yield put(notification.toaster({type: 'error', title: abortMessage}))
   }
 }
