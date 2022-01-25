@@ -14,7 +14,8 @@ const actions = {
   'merge': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Merge')),
   'copy': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Copy')),
   'documents': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Documents')),
-  'password-update': lazy(() => import(/* webpackChunkName: "actions" */'./actions/PasswordUpdate'))
+  'password-update': lazy(() => import(/* webpackChunkName: "actions" */'./actions/PasswordUpdate')),
+  'connect-principal': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ConnectPrincipal'))
 }
 
 const renderLoader = () => <LoadMask/>
