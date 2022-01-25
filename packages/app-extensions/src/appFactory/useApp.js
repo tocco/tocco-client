@@ -5,7 +5,7 @@ const useApp = ({initApp, props, packageName, externalEvents = []}) => {
 
   useEffect(() => {
     setApp(initApp(packageName, props, getEvent(externalEvents, props)))
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     component: app ? app.component : null,

@@ -34,13 +34,13 @@ const PasswordUpdateDialog = ({
 
   useEffect(() => {
     fetchValidationRules()
-  }, [])
+  }, [fetchValidationRules])
 
   useEffect(() => {
     if (validationRules) {
       initialized()
     }
-  }, [validationRules])
+  }, [validationRules, initialized])
 
   const handleSubmit = async e => {
     e.preventDefault()

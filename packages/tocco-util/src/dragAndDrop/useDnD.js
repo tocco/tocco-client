@@ -1,5 +1,5 @@
 import {isEqual} from 'lodash'
-import {useState} from 'react'
+import {useCallback, useMemo, useState} from 'react'
 
 const initialState = {
   currentlyDragging: null,
@@ -15,56 +15,71 @@ export const DropPosition = {
 
 export default changePosition => {
   const [state, setState] = useState(initialState)
+  const {currentlyDragging, currentlyDragOver, dropPosition, offset} = state
 
-  const events = item => ({
-    onDragStart: e => {
-      setState({...state, currentlyDragging: item})
+  const events = useCallback(
+    item => ({
+      onDragStart: e => {
+        setState(state => ({...state, currentlyDragging: item}))
 
-      /**
-       * Workaround: https://github.com/facebook/react/issues/1355
-       * dragEnd-event is not fired in React for already removed components.
-       * That's why we need to add the event listener for this event on the dom node directly.
-       */
-      const draggableElement = e.target
-      const onDragEnd = dragEndEvent => {
-        setState(initialState)
-        dragEndEvent.stopPropagation()
+        /**
+         * Workaround: https://github.com/facebook/react/issues/1355
+         * dragEnd-event is not fired in React for already removed components.
+         * That's why we need to add the event listener for this event on the dom node directly.
+         */
+        const draggableElement = e.target
+        const onDragEnd = dragEndEvent => {
+          setState(initialState)
+          dragEndEvent.stopPropagation()
+          if (draggableElement) {
+            draggableElement.removeEventListener('dragend', onDragEnd)
+          }
+        }
         if (draggableElement) {
-          draggableElement.removeEventListener('dragend', onDragEnd)
+          draggableElement.addEventListener('dragend', onDragEnd, false)
+        }
+
+        e.stopPropagation()
+      },
+      onDragEnter: e => {
+        if (currentlyDragging && !isEqual(currentlyDragOver, item)) {
+          const bounding = e.target ? e.target.getBoundingClientRect() : {}
+          const offset = bounding.y + bounding.height / 2
+          setState(state => ({...state, currentlyDragOver: item, offset}))
+        }
+        e.stopPropagation()
+      },
+      onDragOver: e => {
+        if (currentlyDragging) {
+          const after = e.clientY - offset > 0
+          const dropPosition = after ? DropPosition.Bottom : DropPosition.Top
+          setState(state => ({...state, dropPosition}))
+          e.preventDefault()
+          e.stopPropagation()
+          return true
+        }
+      },
+      onDrop: e => {
+        if (currentlyDragging && currentlyDragOver) {
+          changePosition(currentlyDragging, currentlyDragOver, dropPosition)
+          setState(initialState)
+          e.stopPropagation()
         }
       }
-      if (draggableElement) {
-        draggableElement.addEventListener('dragend', onDragEnd, false)
-      }
+    }),
+    [currentlyDragOver, currentlyDragging, dropPosition, offset, changePosition]
+  )
 
-      e.stopPropagation()
-    },
-    onDragEnter: e => {
-      if (state.currentlyDragging && !isEqual(state.currentlyDragOver, item)) {
-        const bounding = e.target ? e.target.getBoundingClientRect() : {}
-        const offset = bounding.y + bounding.height / 2
-        setState({...state, currentlyDragOver: item, offset})
-      }
-      e.stopPropagation()
-    },
-    onDragOver: e => {
-      if (state.currentlyDragging) {
-        const after = e.clientY - state.offset > 0
-        const dropPosition = after ? DropPosition.Bottom : DropPosition.Top
-        setState(state => ({...state, dropPosition}))
-        e.preventDefault()
-        e.stopPropagation()
-        return true
-      }
-    },
-    onDrop: e => {
-      if (state.currentlyDragging && state.currentlyDragOver) {
-        changePosition(state.currentlyDragging, state.currentlyDragOver, state.dropPosition)
-        setState(initialState)
-        e.stopPropagation()
-      }
-    }
-  })
+  // so that state object is not changing unnecessary although no value on object has changed
+  const dndState = useMemo(
+    () => ({
+      currentlyDragOver,
+      currentlyDragging,
+      dropPosition,
+      offset
+    }),
+    [currentlyDragOver, currentlyDragging, dropPosition, offset]
+  )
 
-  return {dndEvents: events, dndState: state}
+  return {dndEvents: events, dndState}
 }

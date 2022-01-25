@@ -15,7 +15,7 @@ const StyledDiv = styled.div`
 const CopyProgress = ({startCopy}) => {
   useEffect(() => {
     startCopy()
-  }, [])
+  }, [startCopy])
 
   return (
     <StyledDiv>

@@ -29,7 +29,7 @@ const ResourceScheduler = ({
 }) => {
   useEffect(() => {
     initialize()
-  }, [])
+  }, [initialize])
 
   return (
     <>

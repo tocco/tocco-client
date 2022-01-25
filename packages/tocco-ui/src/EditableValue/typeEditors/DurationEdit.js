@@ -54,6 +54,7 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
     setMinutesWidth(minutesShadow.current.offsetWidth)
   }, [])
 
+  // previoursHours and previousMinutes can be ignored
   useEffect(() => {
     if (hours !== previousHours) {
       setHoursWidth(hoursShadow.current.offsetWidth)
@@ -61,7 +62,7 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
     if (minutes !== previousMinutes) {
       setMinutesWidth(minutesShadow.current.offsetWidth)
     }
-  }, [hours, minutes])
+  }, [hours, minutes]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleHourChange = e => {
     const hours = e.target.value.replace(/[^-\d]/g, '')

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, useCallback} from 'react'
 import {Button, SearchBox, Typography} from 'tocco-ui'
 import {dragAndDrop} from 'tocco-util'
 
@@ -8,16 +8,19 @@ import {StyledCheckbox, StyledUl, StyledButtonWrapper, StyledId, StyledItem} fro
 const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl}) => {
   const [columns, setColumns] = useState(initialColumns)
   const [searchTerm, setSearchTerm] = useState(null)
-  const changeColumnPosition = (currentlyDragging, currentlyDragOver) => {
-    if (currentlyDragging !== currentlyDragOver) {
-      const currentlyDraggingItem = columns.find(c => c.id === currentlyDragging)
-      setColumns(cols =>
-        cols
-          .filter(c => c !== currentlyDraggingItem)
-          .reduce((acc, key) => [...acc, key, ...(key.id === currentlyDragOver ? [currentlyDraggingItem] : [])], [])
-      )
-    }
-  }
+  const changeColumnPosition = useCallback(
+    (currentlyDragging, currentlyDragOver) => {
+      if (currentlyDragging !== currentlyDragOver) {
+        const currentlyDraggingItem = columns.find(c => c.id === currentlyDragging)
+        setColumns(cols =>
+          cols
+            .filter(c => c !== currentlyDraggingItem)
+            .reduce((acc, key) => [...acc, key, ...(key.id === currentlyDragOver ? [currentlyDraggingItem] : [])], [])
+        )
+      }
+    },
+    [columns]
+  )
   const {dndEvents, dndState} = dragAndDrop.useDnD(changeColumnPosition)
 
   const items = useMemo(
@@ -51,7 +54,7 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl}) => {
             <Typography.Label for={column.id}>{column.label || <StyledId>{column.id}</StyledId>}</Typography.Label>
           </StyledItem>
         )),
-    [searchTerm, columns, dndState]
+    [searchTerm, columns, dndState, dndEnabled, dndEvents]
   )
 
   return (

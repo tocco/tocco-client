@@ -9,24 +9,27 @@ import useDebounce from './useDebounce'
  */
 const Debouncer = (Component, delay = 200, func = 'onChange') => {
   const Comp = React.forwardRef((props, ref) => {
-    const [internalValue, setInternalValue] = useState(props.value)
+    const {value} = props
+    const [internalValue, setInternalValue] = useState(value)
     const debouncedValue = useDebounce(internalValue, delay)
 
-    const oldValue = useRef(props.value)
+    const oldValue = useRef(value)
+    const callback = props[func]
 
+    // only update internal value when value has changed from outside
     useEffect(() => {
-      if (internalValue !== props.value && internalValue === debouncedValue) {
-        setInternalValue(props.value)
-        oldValue.current = props.value
+      if (internalValue !== value && internalValue === debouncedValue) {
+        setInternalValue(value)
+        oldValue.current = value
       }
-    }, [props.value])
+    }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
       if (oldValue.current !== debouncedValue) {
-        props[func](debouncedValue)
+        callback(debouncedValue)
         oldValue.current = debouncedValue
       }
-    }, [debouncedValue])
+    }, [debouncedValue, callback])
 
     return <Component {...props} value={internalValue} {...{[func]: setInternalValue}} ref={ref} />
   })

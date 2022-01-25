@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useState, useEffect, useMemo} from 'react'
+import React, {useRef, useState, useEffect, useMemo, useCallback} from 'react'
 import {SearchBox} from 'tocco-ui'
 
 import {getCompleteMenuPreferences, menuTabs} from '../../utils/navigationUtils'
@@ -71,32 +71,35 @@ const Navigation = ({
   const hasFilterApplied = Boolean(filter)
   const showMenu = !hasFilterApplied && [menuTabs.MODULES, menuTabs.SETTINGS].includes(activeMenuTab)
 
-  const msg = id => intl.formatMessage({id})
+  const msg = useCallback(id => intl.formatMessage({id}), [intl])
 
-  const menuTabsConfig = {
-    [menuTabs.MODULES]: {
-      items: modulesMenuTree,
-      preferencesPrefix: '',
-      label: msg('client.admin.navigation.modules'),
-      icon: 'cube'
-    },
-    [menuTabs.COMPLETE]: {
-      items: completeMenuTree,
-      label: msg('client.admin.navigation.complete'),
-      icon: 'chart-network'
-    },
-    [menuTabs.SETTINGS]: {
-      items: settingsMenuTree,
-      preferencesPrefix: 'settings',
-      label: msg('client.admin.navigation.settings'),
-      icon: 'cog'
-    },
-    [menuTabs.SYSTEM]: {
-      items: systemMenuTree,
-      label: msg('client.admin.navigation.system'),
-      icon: 'laptop-code'
-    }
-  }
+  const menuTabsConfig = useMemo(
+    () => ({
+      [menuTabs.MODULES]: {
+        items: modulesMenuTree,
+        preferencesPrefix: '',
+        label: msg('client.admin.navigation.modules'),
+        icon: 'cube'
+      },
+      [menuTabs.COMPLETE]: {
+        items: completeMenuTree,
+        label: msg('client.admin.navigation.complete'),
+        icon: 'chart-network'
+      },
+      [menuTabs.SETTINGS]: {
+        items: settingsMenuTree,
+        preferencesPrefix: 'settings',
+        label: msg('client.admin.navigation.settings'),
+        icon: 'cog'
+      },
+      [menuTabs.SYSTEM]: {
+        items: systemMenuTree,
+        label: msg('client.admin.navigation.system'),
+        icon: 'laptop-code'
+      }
+    }),
+    [msg, modulesMenuTree, completeMenuTree, settingsMenuTree, systemMenuTree]
+  )
 
   const modulesTypeMap = useMemo(
     () =>
@@ -105,7 +108,7 @@ const Navigation = ({
         hasFilterApplied,
         preferencesPrefix: menuTabsConfig[menuTabs.MODULES].preferencesPrefix
       }),
-    [onClick, hasFilterApplied]
+    [onClick, hasFilterApplied, menuTabsConfig]
   )
   const settingsTypeMap = useMemo(
     () =>
@@ -114,7 +117,7 @@ const Navigation = ({
         hasFilterApplied,
         preferencesPrefix: menuTabsConfig[menuTabs.SETTINGS].preferencesPrefix
       }),
-    [onClick, hasFilterApplied]
+    [onClick, hasFilterApplied, menuTabsConfig]
   )
   const systemTypeMap = useMemo(
     () =>
@@ -140,7 +143,7 @@ const Navigation = ({
       }
       inputEl.current.select()
     }
-  }, [menuOpen])
+  }, [menuOpen, activeMenuTab, setActiveMenuTab])
 
   useEffect(() => {
     if (menuOpen) {

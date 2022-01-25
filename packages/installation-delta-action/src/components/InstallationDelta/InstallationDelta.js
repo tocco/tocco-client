@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {rest} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
@@ -26,16 +26,16 @@ const StyledRow = styled.div`
 const InstallationDelta = ({keys}) => {
   const [delta, setDelta] = useState(null)
 
-  const fetchData = () => {
+  const fetchData = useCallback(() => {
     const url = `tocco/commit-info/installation/${keys[0]}/delta?installation=${keys[1]}`
     return rest.simpleRequest(url)
-  }
+  }, [keys])
 
   useEffect(() => {
     fetchData().then(delta => {
       setDelta(delta)
     })
-  }, [keys])
+  }, [fetchData])
 
   return (
     <StyledInstallationDelta>

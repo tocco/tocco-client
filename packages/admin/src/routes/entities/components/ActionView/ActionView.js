@@ -18,7 +18,7 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
     return () => {
       setCurrentViewTitle(null)
     }
-  }, [currentViewInfo])
+  }, [currentViewInfo, setCurrentViewTitle, intl])
 
   if (!currentViewInfo) {
     return null

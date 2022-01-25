@@ -89,7 +89,7 @@ const InputEditTable = ({
       (a, b) => columnPosition.findIndex(e => e === a.id) - columnPosition.findIndex(e => e === b.id)
     )
     setColumns(cc)
-  }, [columnPosition, dataFormColumns, inputEditForm, sorting])
+  }, [columnPosition, dataFormColumns, inputEditForm, sorting, updateValue])
 
   const onColumnPositionChange = (dragColumn, dropColumn) => {
     setColumnPosition(

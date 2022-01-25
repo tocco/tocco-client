@@ -32,7 +32,7 @@ const Form = ({
 
   useEffect(() => {
     initializeForm()
-  }, [])
+  }, [initializeForm])
 
   return (
     <form onSubmit={handleSubmitProp(handleSubmit)}>

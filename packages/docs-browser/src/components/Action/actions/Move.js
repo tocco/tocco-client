@@ -40,9 +40,10 @@ export const MoveAction = ({
   const initialParent = {model: 'Docs_list_item', key: `${initialNode.model}/${initialNode.key}`}
   const [parent, setParent] = useState(initialParent)
 
+  // call only on mount
   useEffect(() => {
     initialize(selection, onSuccess, onError)
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const getCustomLocation = (model, key) => {
     switch (model) {

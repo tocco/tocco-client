@@ -6,7 +6,7 @@ const Route = props => {
   const store = useStore()
   const Component = useMemo(() => {
     return route.loadRoute(store, {}, () => import('./route'), 'docs')
-  }, [])
+  }, [store])
   return <Component {...props} />
 }
 

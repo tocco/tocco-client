@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {Typography, Icon} from 'tocco-ui'
 import {react as reactUtil} from 'tocco-util'
 
@@ -15,13 +15,14 @@ import {
 } from './StyledComponents'
 
 const Toaster = ({toaster, closeToaster, cancelTask, navigationStrategy}) => {
-  const [setDuration, abort, start] = reactUtil.useUserActive(() => {
+  const userActivityCallback = useCallback(() => {
     closeToaster(toaster.key, false)
-  })
+  }, [toaster.key, closeToaster])
+  const [setDuration, abort, start] = reactUtil.useUserActive(userActivityCallback)
 
   useEffect(() => {
     setDuration(toaster.duration)
-  }, [toaster.duration])
+  }, [toaster.duration, setDuration])
 
   const handleMouseOver = () => {
     abort()

@@ -23,13 +23,13 @@ const Dashboard = ({infoBoxes: storedInfoBoxes, saveInfoBoxHeight, saveInfoBoxPo
   const columns = [...Array(NUMBER_OF_COLUMNS).keys()]
 
   const ref = useRef(null)
-  const selector = id => ref.current.querySelector(`#infobox-${id}`)
+  const selector = useCallback(id => ref.current.querySelector(`#infobox-${id}`), [])
   const onInfoBoxHeightChanged = useCallback(
     id => {
       const finalHeight = infoBoxes.find(c => c.id === id)?.height
       saveInfoBoxHeight(id, finalHeight)
     },
-    [infoBoxes]
+    [infoBoxes, saveInfoBoxHeight]
   )
 
   const onInfoBoxHeightChanging = useCallback((id, {height}) => {

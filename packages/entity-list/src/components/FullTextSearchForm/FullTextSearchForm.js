@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useMemo} from 'react'
+import React, {useCallback, useMemo} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {SearchBox} from 'tocco-ui'
 
@@ -11,7 +11,7 @@ const FullTextSearchForm = props => {
     submitSearchForm()
   }
 
-  const msg = id => intl.formatMessage({id})
+  const msg = useCallback(id => intl.formatMessage({id}), [intl])
 
   const field = useMemo(
     () =>
@@ -24,7 +24,7 @@ const FullTextSearchForm = props => {
             placeholder={msg('client.entity-list.fullTextPlaceholder')}
           />
         ),
-    []
+    [msg]
   )
 
   return (

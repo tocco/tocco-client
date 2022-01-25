@@ -58,7 +58,7 @@ const IconsShowcase = () => {
     }
 
     return new Fuse(trans, options)
-  }, [])
+  }, [trans])
 
   const icons = filter ? fuse.search(filter).map(result => result.item) : trans
 

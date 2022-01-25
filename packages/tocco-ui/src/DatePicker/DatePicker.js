@@ -25,11 +25,12 @@ export const DatePicker = props => {
     shouldAppend: true
   })
 
+  // only on mount
   useEffect(() => {
     if (wrapperElement.current) {
       initializeFlatPickr()
     }
-  }, []) // only on mount
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

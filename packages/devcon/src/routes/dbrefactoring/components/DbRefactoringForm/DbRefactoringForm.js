@@ -22,6 +22,7 @@ const DbRefactoringForm = ({
   setVersion,
   setIgnoreErrors
 }) => {
+  // call only on mount
   useEffect(() => {
     if (modules.length === 0) {
       loadModules()
@@ -29,7 +30,7 @@ const DbRefactoringForm = ({
     if (fragments.length === 0) {
       loadFragments()
     }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleVersionChange = e => {
     const versionStr = e.target.value.replaceAll(/[^\d\\.]/g, '')

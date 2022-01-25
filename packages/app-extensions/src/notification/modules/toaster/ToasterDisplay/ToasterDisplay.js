@@ -12,9 +12,7 @@ const ToasterDisplay = ({toasters, removeToaster, cancelTask, navigationStrategy
     <Toaster
       key={`toaster-${toaster.key}`}
       toaster={toaster}
-      closeToaster={(key, manually) => {
-        removeToaster(key, manually)
-      }}
+      closeToaster={removeToaster}
       cancelTask={cancelTask}
       navigationStrategy={navigationStrategy}
     />

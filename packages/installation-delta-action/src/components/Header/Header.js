@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {rest} from 'tocco-app-extensions'
 import {Typography} from 'tocco-ui'
@@ -23,18 +23,18 @@ const Header = ({keys, delta}) => {
     return rest.simpleRequest(url)
   }
 
-  const fetchLabels = async () => {
+  const fetchLabels = useCallback(async () => {
     const [instanceInstallation, deltaInstallation] = await Promise.all([
       getFetchRequest(keys[0]),
       getFetchRequest(keys[1])
     ])
     setLabelInstance(instanceInstallation.display)
     setLabelDelta(deltaInstallation.display)
-  }
+  }, [keys])
 
   useEffect(() => {
     fetchLabels()
-  }, [keys])
+  }, [fetchLabels])
 
   useEffect(() => {
     if (delta) {

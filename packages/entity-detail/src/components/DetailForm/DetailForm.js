@@ -31,7 +31,7 @@ const DetailForm = props => {
 
   useEffect(() => {
     fireTouched(dirty && anyTouched)
-  }, [dirty, anyTouched])
+  }, [dirty, anyTouched, fireTouched])
 
   customHooks.useAutofocus(formEl)
 
@@ -49,7 +49,7 @@ const DetailForm = props => {
       ),
       mark: actionDefinition => <MarkButton {...actionDefinition} />
     }),
-    [submitting, mode, valid, anyTouched, formErrors]
+    [submitting, mode, valid, anyTouched, formErrors, intl]
   )
 
   const handleSubmit = event => {

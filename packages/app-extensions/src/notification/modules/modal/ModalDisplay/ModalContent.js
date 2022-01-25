@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useMemo, useRef, useLayoutEffect} from 'react'
+import React, {useMemo, useRef, useLayoutEffect, useCallback, useEffect} from 'react'
 import {Typography} from 'tocco-ui'
 
 import Content from '../../../components/Content'
@@ -16,14 +16,14 @@ import {
 const ModalContent = ({closable, message, title, close, id, component: Component}) => {
   const ref = useRef(null)
 
-  const handleCloseClick = () => {
+  const handleCloseClick = useCallback(() => {
     close(id)
-  }
+  }, [close, id])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const handleKeyInput = e => {
       if (e.key === 'Escape') {
-        close(id)
+        handleCloseClick()
       }
     }
 
@@ -31,7 +31,7 @@ const ModalContent = ({closable, message, title, close, id, component: Component
     return () => {
       document.removeEventListener('keydown', handleKeyInput)
     }
-  }, [])
+  }, [handleCloseClick])
 
   useLayoutEffect(() => {
     if (ref.current) {
@@ -40,9 +40,10 @@ const ModalContent = ({closable, message, title, close, id, component: Component
     }
   }, [ref])
 
+  // Component is a valid dependency
   const ComponentMemo = useMemo(() => {
     return <Component close={handleCloseClick} />
-  }, [Component])
+  }, [Component, handleCloseClick]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

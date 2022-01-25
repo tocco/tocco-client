@@ -9,7 +9,7 @@ import Admin from '../Admin'
 const LoginGuard = ({doSessionCheck, loggedIn}) => {
   useEffect(() => {
     doSessionCheck()
-  }, [])
+  }, [doSessionCheck])
 
   return (
     <div>

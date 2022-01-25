@@ -9,10 +9,10 @@ import Action from '../Action'
 import FileInput from '../FileInput'
 import {StyledContentWrapper, StyledIconWrapper} from './StyledComponents'
 
-export const getParent = match => {
-  if (match.params && match.params.model) {
-    const model = match.params.model.charAt(0).toUpperCase() + match.params.model.slice(1)
-    const key = match.params.key
+export const getParent = params => {
+  if (params && params.model) {
+    const model = params.model.charAt(0).toUpperCase() + params.model.slice(1)
+    const key = params.key
     const fullKey = `${model}/${key}`
     return {
       model: 'Docs_list_item',
@@ -79,12 +79,12 @@ const DocsView = props => {
   const entityListKey = `entity-list-${entityListNumber}`
 
   const [selection, setSelection] = useState([])
-  const parent = useMemo(() => getParent(match), [match.params])
+  const parent = useMemo(() => getParent(match.params), [match.params])
 
   const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
   const formName = useMemo(
     () => (getListFormName ? getListFormName(parent, keys) : getFormName(parent, keys)),
-    [match.params, getListFormName]
+    [parent, keys, getListFormName]
   )
 
   const mounted = useRef(false)
@@ -100,7 +100,7 @@ const DocsView = props => {
   useEffect(() => {
     changeListParent(parent)
     setSelection([])
-  }, [parent])
+  }, [parent, changeListParent])
 
   const onSelectChange = selection => {
     setSelection(selection)

@@ -64,12 +64,13 @@ export const useDatePickr = (element, config) => {
     }
   }, []) // only on unmount
 
+  // only trigger useEffect when value array changed (deep comparison workaround)
   useEffect(() => {
     if (flatpickr.current) {
       flatpickr.current.setDate(value, false)
       flatpickr.current.redraw()
     }
-  }, [JSON.stringify(value)]) // only trigger useEffect when value array changed (deep comparison workaround)
+  }, [JSON.stringify(value)]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const calendarLocale = localeMap[locale] || flatpickr.current?.l10ns?.en // fallback to english
@@ -80,6 +81,7 @@ export const useDatePickr = (element, config) => {
     }
   }, [locale])
 
+  // prevFlatpickrOptions can be ignored
   useEffect(() => {
     if (flatpickr.current) {
       const optionsDiff = js.difference(flatpickrOptions, prevFlatpickrOptions)
@@ -90,7 +92,7 @@ export const useDatePickr = (element, config) => {
         flatpickr.current.redraw()
       }
     }
-  }, [flatpickrOptions])
+  }, [flatpickrOptions]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return init
 }

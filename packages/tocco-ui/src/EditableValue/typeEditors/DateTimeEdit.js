@@ -17,7 +17,7 @@ export const DateTimeEdit = props => {
       const momentDate = moment(s, ['D.M.YYYY H:m', momentDateFormat, momentTimeFormat])
       return momentDate.isValid() ? momentDate.toDate() : null
     },
-    []
+    [momentDateFormat, momentTimeFormat]
   )
 
   const formatDate = s => moment(s).format(`${momentDateFormat} ${momentTimeFormat}`)

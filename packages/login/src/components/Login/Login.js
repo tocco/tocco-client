@@ -16,26 +16,26 @@ const GlobalRecaptchaBadgeStyle = createGlobalStyle`
   }
 `
 
-const Login = props => {
+const Login = ({initialize, showTitle, currentPage}) => {
   useEffect(() => {
-    props.initialize()
-  }, [])
+    initialize()
+  }, [initialize])
 
   return (
     <>
       <GlobalRecaptchaBadgeStyle />
       {(() => {
-        switch (props.currentPage) {
+        switch (currentPage) {
           case Pages.PASSWORD_UPDATE:
-            return <PasswordUpdateContainer showTitle={props.showTitle} />
+            return <PasswordUpdateContainer showTitle={showTitle} />
           case Pages.PASSWORD_REQUEST:
-            return <PasswordRequestContainer showTitle={props.showTitle} />
+            return <PasswordRequestContainer showTitle={showTitle} />
           case Pages.TWOSTEPLOGIN:
-            return <TwoStepLoginContainer showTitle={props.showTitle} />
+            return <TwoStepLoginContainer showTitle={showTitle} />
           case Pages.TWOSTEPLOGIN_ACTIVATION:
             return <TwoFactorConnectorContainer />
           default:
-            return <LoginFormContainer showTitle={props.showTitle} />
+            return <LoginFormContainer showTitle={showTitle} />
         }
       })()}
     </>

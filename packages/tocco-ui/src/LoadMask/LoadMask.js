@@ -18,6 +18,7 @@ const LoadMask = ({promises, required, children, loadingText, className}) => {
     }
   }
 
+  // only on mount
   useEffect(() => {
     if (promises) {
       Promise.all(promises).then(() => {
@@ -27,13 +28,13 @@ const LoadMask = ({promises, required, children, loadingText, className}) => {
     return () => {
       setIsMounted(false)
     }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (required && Array.isArray(required)) {
       setIsLoaded(!required.some(r => !r))
     }
-  })
+  }, [required])
 
   return (
     <StyledLoadMask className={className}>

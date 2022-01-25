@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState, useRef, useCallback} from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import {FormattedMessage} from 'react-intl'
 import {SignalList, StatedValue, Typography} from 'tocco-ui'
+import {react} from 'tocco-util'
 
 import {Pages} from '../../types/Pages'
 import {
@@ -31,14 +32,9 @@ const LoginForm = ({
   const recaptchaRef = useRef()
 
   const msg = id => intl.formatMessage({id})
+  const prevRecaptchaActivated = react.usePrevious(recaptchaActivated)
 
-  useEffect(() => {
-    if (recaptchaActivated) {
-      handleSubmit()
-    }
-  }, [recaptchaActivated])
-
-  const handleSubmit = async e => {
+  const handleSubmit = useCallback(async e => {
     if (e) {
       e.preventDefault()
     }
@@ -50,7 +46,7 @@ const LoginForm = ({
     }
 
     login(username, password, recaptchaToken)
-  }
+  }, [login, username, password, recaptchaActivated])
 
   const handleUsernameChange = e => {
     setUsername(e.target.value)
@@ -67,6 +63,12 @@ const LoginForm = ({
       setAutoFill(true)
     }
   }
+
+  useEffect(() => {
+    if (recaptchaActivated && !prevRecaptchaActivated) {
+      handleSubmit()
+    }
+  }, [recaptchaActivated, prevRecaptchaActivated, handleSubmit])
 
   const passwordFocus = !!username
   const usernameFocus = !passwordFocus

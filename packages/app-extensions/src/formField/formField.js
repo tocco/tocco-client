@@ -131,7 +131,8 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
 export const MultiSeparator = () => <Typography.Span>, </Typography.Span>
 
 const ValueField = ({fieldMappingType, formName, formField, value, info, events, formData}) => {
-  const Field = useMemo(() => field.factory(fieldMappingType, formField.dataType || formField.componentType), [])
+  const formFieldType = formField.dataType || formField.componentType
+  const Field = useMemo(() => field.factory(fieldMappingType, formFieldType), [fieldMappingType, formFieldType])
 
   if (isMultipleFields(value, formField.dataType)) {
     return value

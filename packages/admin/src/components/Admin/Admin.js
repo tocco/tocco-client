@@ -30,12 +30,13 @@ const Admin = ({
 }) => {
   const [history, setHistory] = useState(null)
 
+  // only on mount
   useEffect(() => {
     initializeHistory()
     initializeNavigation()
     loadPrincipal()
     loadSettingsAndPreferences()
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const initializeHistory = () => {
     const browserHistory = createBrowserHistory({

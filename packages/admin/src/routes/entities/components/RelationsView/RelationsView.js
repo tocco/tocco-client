@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import queryString from 'query-string'
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {Icon, Typography} from 'tocco-ui'
 import {js} from 'tocco-util'
 
@@ -36,7 +36,7 @@ const RelationsView = props => {
   } = props
   const entityName = _get(currentViewInfo, 'model.name')
 
-  const updateSelectedRelation = () => {
+  const updateSelectedRelation = useCallback(() => {
     if (relations?.length > 0) {
       const queryRelation = queryString.parse(history.location.search).relation
       if (queryRelation) {
@@ -50,10 +50,10 @@ const RelationsView = props => {
         }
       }
     }
-  }
+  }, [relations, entityName, history.location.search, selectRelation])
 
-  useEffect(updateSelectedRelation, [relations])
-  useEffect(() => (!selectedRelation ? updateSelectedRelation() : null), [selectedRelation])
+  useEffect(updateSelectedRelation, [updateSelectedRelation])
+  useEffect(() => (!selectedRelation ? updateSelectedRelation() : null), [selectedRelation, updateSelectedRelation])
 
   if (!relations || relations.length === 0 || !currentViewInfo) {
     return null

@@ -79,7 +79,7 @@ export default (resizingElementSelector, resizeCallback, resizeFinishedCallback)
         })
       }
     },
-    [resizingElement, resizeCallback, isResizingInternal]
+    [resizingElement, resizeCallback, isResizingInternal, resizingElementSelector]
   )
 
   const events = {

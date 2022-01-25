@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState, useMemo} from 'react'
 import {js} from 'tocco-util'
 
 import {columnPropType, dataPropType, keyPropType, scrollBehaviourPropType} from './propTypes'
@@ -26,7 +26,8 @@ const Table = props => {
     clickable,
     onPageChange,
     onPageRefresh,
-    scrollBehaviour = ScrollBehaviour.INLINE
+    scrollBehaviour = ScrollBehaviour.INLINE,
+    onColumnWidthChange
   } = props
   const [columns, setColumns] = useState(props.columns)
   const tableEl = useRef(null)
@@ -34,11 +35,11 @@ const Table = props => {
   const onColumnWidthChanged = useCallback(
     columnId => {
       const finalWidth = columns.find(c => c.id === columnId)?.width
-      if (props.onColumnWidthChange) {
-        props.onColumnWidthChange(columnId, finalWidth)
+      if (onColumnWidthChange) {
+        onColumnWidthChange(columnId, finalWidth)
       }
     },
-    [columns]
+    [columns, onColumnWidthChange]
   )
 
   const onColumnWidthChanging = useCallback(
@@ -57,12 +58,14 @@ const Table = props => {
     [columns]
   )
 
-  const {isSelected, selectionChange} = useSelection(selection, data ? data.map(e => e.__key) : [], onSelectionChange)
+  const currentKeys = useMemo(() => (data ? data.map(e => e.__key) : []), [data])
+
+  const {isSelected, selectionChange} = useSelection(selection, currentKeys, onSelectionChange)
 
   useEffect(() => {
     const selectionColumn = getSelectionCell(selectionStyle, props.columns, isSelected, selectionChange)
     setColumns([...(selectionColumn ? [selectionColumn] : []), ...props.columns])
-  }, [props.columns, selection])
+  }, [props.columns, selection, isSelected, selectionChange, selectionStyle])
 
   return (
     <StyledTableWrapper>

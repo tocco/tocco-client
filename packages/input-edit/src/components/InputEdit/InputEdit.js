@@ -29,12 +29,13 @@ const InputEdit = ({
 }) => {
   useEffect(() => {
     updateSelection()
-  }, [selection])
+  }, [selection, updateSelection])
+
   useEffect(() => {
     initializeTable()
     initializeSearch()
     initializeInformation()
-  }, [selection])
+  }, [selection, initializeTable, initializeSearch, initializeInformation])
 
   const [isCollapsed, setIsCollapsed] = useState(false)
   const toggleCollapse = () => {
