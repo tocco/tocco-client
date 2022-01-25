@@ -51,7 +51,7 @@ export function* handleCustomActionModal({definition, selection, config}) {
           answerChannel.put({status: actionStatus.OK, title, message, remoteEvents})
         }
 
-        const onError = (title, {message}) => {
+        const onError = ({title, message}) => {
           close()
           answerChannel.put({status: actionStatus.NOT_OK, title, message})
         }
