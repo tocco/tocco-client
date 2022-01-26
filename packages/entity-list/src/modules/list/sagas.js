@@ -72,7 +72,7 @@ export function* loadData(page) {
   yield put(actions.setInProgress(false))
 }
 
-export function* getBasicQuery(regardSelection = true, regardQueryView = true) {
+export function* getBasicQuery(regardSelection = true) {
   const {showSelectedRecords, selection} = yield select(selectionSelector)
   if (regardSelection && showSelectedRecords) {
     return {
@@ -81,7 +81,7 @@ export function* getBasicQuery(regardSelection = true, regardQueryView = true) {
   }
 
   const {queryViewVisible} = yield select(searchFormSelector)
-  if (regardQueryView && queryViewVisible) {
+  if (queryViewVisible) {
     return yield call(getQueryViewQuery)
   } else {
     return yield call(getSearchViewQuery)
@@ -101,7 +101,7 @@ function* getQueryViewQuery() {
   }
 }
 
-function* getSearchViewQuery() {
+export function* getSearchViewQuery() {
   const {formFieldsFlat, searchFilters: searchFormSearchFilter} = yield select(searchFormSelector)
   const {inputSearchFilters, inputTql, inputKeys, constriction} = yield select(listSelector)
   const searchFormValues = yield call(getSearchFormValues)
