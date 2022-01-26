@@ -7,6 +7,7 @@ import {channel} from 'redux-saga'
 import {all, call, debounce, put, select, take, takeLatest} from 'redux-saga/effects'
 import {form, notification, rest} from 'tocco-app-extensions'
 import {EditableValue, StatedValue} from 'tocco-ui'
+import {tql} from 'tocco-util'
 
 import ColumnPicker from '../../components/ColumnPicker'
 import {changeParentFieldType, getEndpoint, getFormFieldFlat} from '../../util/api/forms'
@@ -14,7 +15,7 @@ import searchFormTypes from '../../util/searchFormTypes'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {setSearchFormType} from '../entityList/actions'
 import {SET_ENTITY_MODEL, SET_FORM_DEFINITION, setSorting} from '../list/actions'
-import {getBasicQuery} from '../list/sagas'
+import {getBasicQuery, getSearchViewQuery} from '../list/sagas'
 import * as actions from './actions'
 import {StyledButton} from './StyledComponents'
 
@@ -401,7 +402,7 @@ export function* resetSearchFields() {
 }
 
 export function* loadSearchAsQuery() {
-  const {where: condition, filter: filters} = yield call(getBasicQuery, false, false)
+  const {where: condition, filter: filters} = yield call(getSearchViewQuery)
   const {sorting} = yield select(listSelector)
   const sortingString = sorting.map(({field, order}) => `${field} ${order}`).join(', ')
   const {entityName} = yield select(entityListSelector)
@@ -427,26 +428,12 @@ export function* saveQueryAsFilter() {
   const searchFilterName = yield call(promptForSearchFilterName)
   const {query} = yield select(searchFormSelector)
   const {entityName} = yield select(entityListSelector)
-  const sorting = getSortingFromQuery(query)
+  const sorting = tql.getSortingFromQuery(query)
   const sortingIndex = query.indexOf('order by')
   const condition = sortingIndex >= 0 ? query.substring(0, sortingIndex - 1) : query
 
   yield call(createNewSearchFilter, searchFilterName, entityName, condition, sorting)
   yield put(actions.setQueryViewVisible(false))
-}
-
-function getSortingFromQuery(query) {
-  const sortingIndex = query.indexOf('order by ')
-  if (sortingIndex >= 0) {
-    return query
-      .substring(sortingIndex + 'order by '.length)
-      .split(',')
-      .map(sorting => sorting.trim())
-      .map(sorting => sorting.split(' '))
-      .map(([field, order]) => ({field, order: order || 'asc'}))
-  } else {
-    return []
-  }
 }
 
 export function* checkQuery() {
@@ -475,7 +462,7 @@ export function* runQuery() {
   if (!queryError || Object.entries(queryError).length === 0) {
     const sortingIndex = query.indexOf('order by')
     if (sortingIndex >= 0) {
-      const sorting = getSortingFromQuery(query)
+      const sorting = tql.getSortingFromQuery(query)
       yield put(setSorting(sorting))
     }
     yield put(actions.executeSearch())
