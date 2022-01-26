@@ -671,7 +671,7 @@ describe('entity-list', () => {
                   ]
                 }],
                 [select(sagas.entityListSelector), {entityName: 'Entity_name'}],
-                [matchers.call.fn(listSagas.getBasicQuery), {where: 'condition', filter: ['filter1', 'filter2']}],
+                [matchers.call.fn(listSagas.getSearchViewQuery), {where: 'condition', filter: ['filter1', 'filter2']}],
                 [matchers.call.fn(rest.requestSaga), {body: {query: 'query'}}],
                 [matchers.call.fn(sagas.checkQuery)],
               ])
