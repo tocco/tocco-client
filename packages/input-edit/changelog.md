@@ -1,3 +1,7 @@
+1.0.0-hotfix30.14
+- fix onError of customAction
+- change toaster type of aborted action handler
+
 1.0.0-hotfix30.13
 - Display durations as hh:mm:ss consistently instead of like a timestamp
 
