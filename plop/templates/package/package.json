@@ -10,9 +10,6 @@
   },
   "devDependencies": {
     "tocco-app-extensions": "*",
-    "tocco-test-util": "*",
-    "tocco-theme": "*",
-    "tocco-ui": "*",
     "tocco-util": "*"
   }
 }
