@@ -55,6 +55,7 @@ const mapStateToProps = (
     ? {navigationStrategy: state.formData.navigationStrategy.navigationStrategy}
     : {}),
   ...(state.formData.upload?.chooseDocument ? {chooseDocument: state.formData.upload.chooseDocument} : {}),
+  ...(state.form.detailForm ? {detailValues: state.form.detailForm.values} : {}),
   entityModel: _get(state, 'entityDetail.entityModel')
 })
 

@@ -49,10 +49,24 @@ const AceEditorPropTypes = {
      */
     enableSnippets: PropTypes.bool,
     /**
-     * whether to display the editor in redonly mode
+     * whether to display the editor in readonly mode
      */
     readOnly: PropTypes.bool
-  })
+  }),
+  implicitModel: PropTypes.oneOfType([
+    /**
+     * an entity model that should be assumed to be the root of any tql query entered into the editor
+     */
+    PropTypes.string,
+    /**
+     * an entity that contains a field that should be assumed to be the root of any tql query entered into the editor
+     */
+    PropTypes.shape({
+      entityModel: PropTypes.string,
+      field: PropTypes.string,
+      key: PropTypes.string,
+    })
+  ])
 }
 
 export default AceEditorPropTypes

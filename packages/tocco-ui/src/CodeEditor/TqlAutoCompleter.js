@@ -1,7 +1,7 @@
 import ace from 'ace-builds/src-min-noconflict/ace'
-import {request} from 'tocco-util'
 
-import {functions, placeholders, types} from './TqlMode'
+import {extractBody, sendRequest} from './requestHelper'
+import {functions, placeholders, types} from './TqlConstants'
 
 const TokenIterator = ace.require('ace/token_iterator').TokenIterator
 const getTokenType = token => (token ? token.type.substring(token.type.lastIndexOf('.') + 1) : null)
@@ -59,9 +59,12 @@ const findLastModelScope = iterator => {
       return modelToken ? [modelToken.value.trim(), ...findCurrentPath(iterator)] : []
     }
     if (isCurrentTokenOfType(iterator, 'order_by')) {
-      stepBackUntilToken(iterator, 'find')
-      const modelToken = iterator.stepForward()
-      return modelToken ? modelToken.value.trim() : []
+      if (stepBackUntilToken(iterator, 'find')) {
+        const modelToken = iterator.stepForward()
+        return modelToken ? modelToken.value.trim() : []
+      } else {
+        return []
+      }
     }
     parenCount += handleParentheses(iterator, parenCount)
     if (!iterator.stepBackward()) {
@@ -93,10 +96,6 @@ export const findCurrentModelScope = iterator => backtrack(iterator, findLastMod
  * keyword and local completions seem to be somewhere around 100 based on some experiments with ordering
  **/
 const defaultScore = 1000
-
-const sendRequest = endpoint => request.executeRequest(`rest/${endpoint}`)
-
-const extractBody = response => (response.status === 200 ? response.json() : null)
 
 const loadModels = () =>
   sendRequest('entities')
@@ -137,8 +136,18 @@ const resolvePath = ([sourceModel, ...relationSteps]) =>
       ]
     })
 
-const determineAvailablePaths = (createIterator, callback) => {
-  const [baseModel, ...modelScope] = findCurrentModelScope(createIterator())
+const determineModelScope = (createIterator, implicitModel) => {
+  if (implicitModel) {
+    const [...modelScope] = findCurrentModelScope(createIterator())
+    return {baseModel: implicitModel, modelScope}
+  } else {
+    const [baseModel, ...modelScope] = findCurrentModelScope(createIterator())
+    return {baseModel, modelScope}
+  }
+}
+
+const determineAvailablePaths = (createIterator, callback, implicitModel) => {
+  const {baseModel, modelScope} = determineModelScope(createIterator, implicitModel)
   if (!baseModel) {
     return
   }
@@ -197,7 +206,7 @@ const getAvailablePlaceholders = () =>
     score: defaultScore - 10
   }))
 
-export default () => ({
+export default implicitModel => ({
   getCompletions: (editor, session, pos, prefix, callback) => {
     const createIteratorAtCurrentPosition = () => new TokenIterator(session, pos.row, pos.column)
 
@@ -213,11 +222,11 @@ export default () => ({
       case 'exists':
       case 'field':
       case 'function_arguments':
-        determineAvailablePaths(createIteratorAtCurrentPosition, callback)
+        determineAvailablePaths(createIteratorAtCurrentPosition, callback, implicitModel)
         break
       case 'where':
       case 'conjunction':
-        determineAvailablePaths(createIteratorAtCurrentPosition, callback)
+        determineAvailablePaths(createIteratorAtCurrentPosition, callback, implicitModel)
         callback(null, getAvailableFunctions())
         break
       case 'nice_function':
@@ -233,10 +242,17 @@ export default () => ({
         callback(null, getAvailablePlaceholders())
         break
       case 'model':
-        determineAvailablePaths(createIteratorAtCurrentPosition, callback)
+        determineAvailablePaths(createIteratorAtCurrentPosition, callback, implicitModel)
         if (previousToken && getTokenType(previousToken) !== 'relation') {
           loadAllAvailableModels(callback)
         }
+        break
+      case null:
+        // this happens when nothing has been entered, which is a valid start with an implicit model, treat like where
+        if (implicitModel) {
+          determineAvailablePaths(createIteratorAtCurrentPosition, callback, implicitModel)
+        }
+        callback(null, getAvailableFunctions())
         break
     }
   }
