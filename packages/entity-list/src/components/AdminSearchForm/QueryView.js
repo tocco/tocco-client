@@ -21,7 +21,8 @@ const QueryView = ({
     onChange: setQuery
   }
   const codeEditorOptions = {
-    mode: 'tql'
+    mode: 'tql',
+    implicitModel: entityModel
   }
   const queryExists = !!query && query.trim().length > 0
   const queryHasErrors = queryError && Object.entries(queryError).length !== 0
