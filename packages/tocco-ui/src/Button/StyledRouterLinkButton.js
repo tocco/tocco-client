@@ -5,6 +5,11 @@ import {buttonStyle} from './buttonStyle'
 
 const StyledRouterLinkButton = styled(Link)`
   text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: none; // nice2 reset
+  }
   ${buttonStyle}
 `
 

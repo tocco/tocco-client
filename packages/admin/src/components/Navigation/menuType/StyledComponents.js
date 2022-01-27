@@ -10,10 +10,12 @@ export const StyledMenuLink = styled(Link)`
 
   &:hover {
     color: ${theme.color('secondaryLight')};
+    text-decoration: none; // nice2 reset
   }
 
   &:focus {
     outline: none;
+    text-decoration: none; // nice2 reset
     font-weight: ${theme.fontWeight('bold')};
     color: ${secondaryLight};
   }
