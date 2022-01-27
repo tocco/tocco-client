@@ -50,6 +50,6 @@ export function* getValues(entityName, entityKey, formName) {
 
 export function* getPaths(formName) {
   const formDefinition = yield call(rest.fetchForm, formName, 'create')
-  const fields = yield call(form.getFieldDefinitions, formDefinition)
-  return fields.filter(f => f.ignoreCopy !== true && f.path).map(e => e.path)
+  const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition, false)
+  return fieldDefinitions.filter(f => f.ignoreCopy !== true && f.path).map(e => e.path)
 }
