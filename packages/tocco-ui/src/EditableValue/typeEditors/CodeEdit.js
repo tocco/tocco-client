@@ -24,6 +24,7 @@ const CodeEdit = ({value, onChange, immutable, options}) => (
         maxLines: 50,
         readOnly: immutable
       }}
+      implicitModel={options.implicitModel}
     />
   </EditorWrapper>
 )
@@ -33,7 +34,15 @@ CodeEdit.propTypes = {
   value: PropTypes.string.isRequired,
   immutable: PropTypes.bool,
   options: PropTypes.shape({
-    mode: PropTypes.string.isRequired
+    mode: PropTypes.string.isRequired,
+    implicitModel: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.shape({
+        entityModel: PropTypes.string,
+        field: PropTypes.string,
+        key: PropTypes.string,
+      })
+    ])
   })
 }
 

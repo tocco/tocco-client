@@ -9,7 +9,9 @@ import {Mode as PropertiesMode} from 'ace-builds/src-min-noconflict/mode-propert
 import {Mode as TextMode} from 'ace-builds/src-min-noconflict/mode-text'
 import {Mode as XmlMode} from 'ace-builds/src-min-noconflict/mode-xml'
 import _get from 'lodash/get'
-import React, {useEffect, useRef, useMemo} from 'react'
+import _isObject from 'lodash/isObject'
+import _isString from 'lodash/isString'
+import React, {useEffect, useMemo, useRef} from 'react'
 import styled from 'styled-components'
 
 import AceEditorPropTypes from './AceEditorPropTypes'
@@ -23,6 +25,7 @@ import 'ace-builds/src-min-noconflict/snippets/json'
 import 'ace-builds/src-min-noconflict/snippets/drools'
 import 'ace-builds/src-min-noconflict/theme-textmate'
 import 'ace-builds/src-min-noconflict/ext-language_tools'
+import {extractBody, sendRequest} from './requestHelper'
 import ToccoFtlMode from './ToccoFtlMode'
 import TqlMode from './TqlMode'
 
@@ -32,24 +35,38 @@ const StyledEditor = styled.div`
 `
 
 const modeMappings = {
-  groovy: new GroovyMode(),
-  html: new HtmlMode(),
-  xml: new XmlMode(),
-  properties: new PropertiesMode(),
-  json: new JsonMode(),
-  htmlmixed: new ToccoFtlMode(),
-  freemarkermixed: new ToccoFtlMode(),
-  ftl: new ToccoFtlMode(),
-  tql: new TqlMode(),
-  less: new LessMode(),
-  drools: new DroolsMode(),
-  text: new TextMode()
+  groovy: () => new GroovyMode(),
+  html: () => new HtmlMode(),
+  xml: () => new XmlMode(),
+  properties: () => new PropertiesMode(),
+  json: () => new JsonMode(),
+  htmlmixed: () => new ToccoFtlMode(),
+  freemarkermixed: () => new ToccoFtlMode(),
+  ftl: () => new ToccoFtlMode(),
+  tql: props => new TqlMode(props),
+  less: () => new LessMode(),
+  drools: () => new DroolsMode(),
+  text: () => new TextMode()
 }
 
-const getMode = mode => _get(modeMappings, mode, mode)
+const getMode = (mode, props) => _get(modeMappings, mode, mode)(props)
 
-const setEditorConfiguration = (editor, {mode, theme, showGutter, editorOptions = {}}) => {
-  editor.getSession().setMode(getMode(mode))
+const loadImplicitModel = implicitModel => {
+  if (_isString(implicitModel)) {
+    return Promise.resolve(implicitModel)
+  } else if (_isObject(implicitModel)) {
+    return sendRequest(`entities/2.0/${implicitModel.entityModel}/${implicitModel.key}?_paths=${implicitModel.field}`)
+      .then(extractBody)
+      .then(moduleEntity => _get(moduleEntity, ['paths', 'entity_name', 'value'], null))
+  } else {
+    return Promise.resolve(null)
+  }
+}
+
+const setEditorConfiguration = (editor, {mode, theme, showGutter, editorOptions = {}, implicitModel}) => {
+  loadImplicitModel(implicitModel)
+    .then(implicitModelName => getMode(mode, {implicitModelName}))
+    .then(editorMode => editor.getSession().setMode(editorMode))
   editor.setTheme(`ace/theme/${theme}`)
   Object.entries(editorOptions).forEach(([k, v]) => {
     editor.setOption(k, v)
@@ -59,15 +76,16 @@ const setEditorConfiguration = (editor, {mode, theme, showGutter, editorOptions 
 }
 
 const AceEditor = props => {
-  const {mode, theme = 'textmate', value, onChange, showGutter = true, editorOptions = {}} = props
+  const {mode, theme = 'textmate', value, onChange, showGutter = true, editorOptions = {}, implicitModel} = props
   const containerReference = useRef(null)
   const editorReference = useRef(null)
 
-  const editorConfig = useMemo(() => ({mode, theme, showGutter, editorOptions}), [
+  const editorConfig = useMemo(() => ({mode, theme, showGutter, editorOptions, implicitModel}), [
     mode,
     theme,
     showGutter,
-    editorOptions
+    editorOptions,
+    implicitModel
   ])
 
   // only on mount
