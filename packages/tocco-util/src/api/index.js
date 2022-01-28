@@ -1,8 +1,16 @@
 import {getDisplayRequest, getPathDisplayRequest} from './display'
-import {getFlattenEntity, flattenPaths, toEntity, relationFieldTypes, relevantRelationAttributes} from './entities'
+import {
+  metaFields,
+  getFlattenEntity,
+  flattenPaths,
+  toEntity,
+  relationFieldTypes,
+  relevantRelationAttributes
+} from './entities'
 import {getColumnDefinition} from './table'
 
 export default {
+  metaFields,
   relationFieldTypes,
   relevantRelationAttributes,
   getFlattenEntity,
