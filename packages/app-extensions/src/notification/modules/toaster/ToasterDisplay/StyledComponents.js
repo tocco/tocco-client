@@ -84,7 +84,7 @@ export const StyledContentWrapper = styled.div`
 export const StyledToasterBox = styled.div`
   pointer-events: none;
   ${declareFont()};
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 310px;
   top: 40px; // height of Header to prevent coverage
