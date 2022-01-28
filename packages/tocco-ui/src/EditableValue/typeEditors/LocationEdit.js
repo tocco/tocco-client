@@ -40,7 +40,7 @@ const LocationEdit = ({onChange: onChangeProp, options, value: valueProp, id, im
   const onChange =
     field =>
     (event, {newValue}) => {
-      onChangeProp({[field]: newValue})
+      onChangeProp({...valueProp, [field]: newValue})
     }
 
   const onSuggestionSelected = (event, {suggestion}) => {
@@ -50,7 +50,7 @@ const LocationEdit = ({onChange: onChangeProp, options, value: valueProp, id, im
   const returnOnSuggestionFetchRequested =
     field =>
     ({value}) => {
-      options.fetchSuggestions({[field]: value}, valueProp.country)
+      options.fetchSuggestions({[field]: value}, options.locationValues.country)
     }
 
   const showGoogleMaps = value => Boolean(value.city || value.postcode)
@@ -97,9 +97,9 @@ const LocationEdit = ({onChange: onChangeProp, options, value: valueProp, id, im
           />
           <StyledEditableControl>
             {options.isLoading && <LoadingSpinner size="1.8rem" />}
-            {showGoogleMaps(valueProp) && (
+            {showGoogleMaps(options.locationValues) && (
               <Link
-                href={getGoogleMapsAddress(valueProp)}
+                href={getGoogleMapsAddress(options.locationValues)}
                 icon="map-marked"
                 tabIndex={-1}
                 target="_blank"
@@ -129,12 +129,16 @@ const locationObjectPropType = PropTypes.shape({
 
 LocationEdit.propTypes = {
   onChange: PropTypes.func,
-  value: locationObjectPropType,
+  value: PropTypes.shape({
+    city: PropTypes.string,
+    postcode: PropTypes.string
+  }),
   options: PropTypes.shape({
     suggestions: PropTypes.arrayOf(locationObjectPropType),
     fetchSuggestions: PropTypes.func,
     isLoading: PropTypes.bool,
-    mapButtonTitle: PropTypes.string
+    mapButtonTitle: PropTypes.string,
+    locationValues: locationObjectPropType
   }),
   name: PropTypes.string,
   id: PropTypes.string,
