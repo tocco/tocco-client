@@ -33,7 +33,7 @@ const IndicatorsContainer = props => {
           <span
             onTouchEnd={handlePropagation}
             onMouseDown={handlePropagation}
-            onMouseUp={handleAdvancedSearch(openAdvancedSearch, props.value)}
+            onMouseUp={handleAdvancedSearch(openAdvancedSearch, value)}
           >
             <Ball icon="search" tabIndex={-1} />
           </span>
