@@ -4,7 +4,7 @@ import _pick from 'lodash/pick'
 import _reduce from 'lodash/reduce'
 import _set from 'lodash/set'
 
-const metaFields = {
+export const metaFields = {
   KEY: '__key',
   MODEL: '__model',
   VERSION: '__version'
