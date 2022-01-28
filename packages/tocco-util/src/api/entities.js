@@ -69,12 +69,9 @@ export const flattenPaths = (paths, currentPath = []) =>
 /**
  * Transforms a flatten entity back to a api compatible entity object. Only regards fields that are marked as dirty.
  * @param {object} flattenEntity - Entity that was prior transformed with 'getFlattenEntity'
- * @param {array} dirtyFields - Optional list of dirty field names (paths). If undefined, all paths are applied
  */
-export const toEntity = (flattenEntity, dirtyFields) => {
-  const ignoredPath = path =>
-    Object.values(metaFields).includes(path) ||
-    (dirtyFields && !dirtyFields.some(dirtyField => dirtyField === path || dirtyField.startsWith(path + '.')))
+export const toEntity = flattenEntity => {
+  const ignoredPath = path => Object.values(metaFields).includes(path)
 
   const valueSimplifier = value => {
     if (Array.isArray(value)) {

@@ -208,8 +208,7 @@ describe('tocco-util', () => {
           lastname: 'griffin'
         }
 
-        const dirtyFields = ['firstname', 'lastname']
-        const result = toEntity(values, dirtyFields)
+        const result = toEntity(values)
 
         expect(result.paths.firstname).to.eql('peter')
         expect(result.paths.lastname).to.eql('griffin')
@@ -220,11 +219,9 @@ describe('tocco-util', () => {
           relGender: {key: '2', version: 3, model: 'Gender'},
           'relGender.relXy': {key: '33', version: 4},
           'relGender.relXy.Z': 'TEST',
-          'relGender.relXy.Y': 'TEST'
         }
 
-        const dirtyFields = ['relGender.relXy.Z']
-        const result = toEntity(values, dirtyFields)
+        const result = toEntity(values)
 
         const expected = {
           key: '2',
@@ -243,18 +240,6 @@ describe('tocco-util', () => {
         expect(result.paths.relGender).to.deep.eql(expected)
       })
 
-      test('should ignore pristine fields', () => {
-        const values = {
-          firstname: 'peter',
-          lastname: 'griffin'
-        }
-
-        const dirtyFields = ['firstname']
-        const result = toEntity(values, dirtyFields)
-        expect(result.paths).to.have.property('firstname')
-        expect(result.paths).to.not.have.property('lastname')
-      })
-
       test('should set all fields with undefined dirtyfields', () => {
         const values = {
           firstname: 'peter',
@@ -271,8 +256,7 @@ describe('tocco-util', () => {
           relGender: {key: '2', version: 3, model: 'Gender', display: 'W'}
         }
 
-        const dirtyFields = ['relGender']
-        const result = toEntity(values, dirtyFields)
+        const result = toEntity(values)
 
         expect(result.paths.relGender).to.eql({key: '2', version: 3})
       })
@@ -289,20 +273,6 @@ describe('tocco-util', () => {
         expect(result.key).to.eql('2')
         expect(result.model).to.eql('User')
         expect(result.version).to.eql(3)
-      })
-
-      test('should ignore pristine fields with same name prefix', () => {
-        const values = {
-          registration_internet_from: '2021-01-29T11:00:00.000Z',
-          registration: 1
-        }
-
-        const dirtyFields = ['registration_internet_from']
-
-        const result = toEntity(values, dirtyFields)
-
-        expect(result.paths).to.have.property('registration_internet_from')
-        expect(result.paths).to.not.have.property('registration')
       })
     })
   })
