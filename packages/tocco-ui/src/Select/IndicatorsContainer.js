@@ -36,28 +36,24 @@ const IndicatorsContainer = props => {
     <StyledIndicatorsContainerWrapper isBottomAligned={isBottomAligned}>
       <components.IndicatorsContainer {...props}>
         {props.children}
-        {openAdvancedSearch
-        && !isDisabled
-        && <span
-          onTouchEnd={handlePropagation}
-          onMouseDown={handlePropagation}
-          onMouseUp={handleAdvancedSearch(openAdvancedSearch, props.value)}>
-        <Ball
-          icon="search"
-          tabIndex={-1}
-        />
-      </span>}
-        {createPermission
-        && !isDisabled
-        && <span
-          onTouchEnd={handlePropagation}
-          onMouseDown={handlePropagation}
-          onMouseUp={handleCreate(openRemoteCreate, value)}>
-        <Ball
-          icon="plus"
-          tabIndex={-1}
-        />
-      </span>}
+        {openAdvancedSearch && !isDisabled && (
+          <span
+            onTouchEnd={handlePropagation}
+            onMouseDown={handlePropagation}
+            onMouseUp={handleAdvancedSearch(openAdvancedSearch, value)}
+          >
+            <Ball icon="search" tabIndex={-1}/>
+          </span>
+        )}
+        {createPermission && !isDisabled && (
+          <span
+            onTouchEnd={handlePropagation}
+            onMouseDown={handlePropagation}
+            onMouseUp={handleCreate(openRemoteCreate, value)}
+          >
+            <Ball icon="plus" tabIndex={-1}/>
+          </span>
+        )}
       </components.IndicatorsContainer>
     </StyledIndicatorsContainerWrapper>
   )
