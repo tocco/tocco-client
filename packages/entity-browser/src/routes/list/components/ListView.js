@@ -65,7 +65,7 @@ const ListView = ({storeId, router, ...props}) => {
 ListView.propTypes = {
   id: PropTypes.string.isRequired,
   storeId: PropTypes.string.isRequired,
-  local: PropTypes.string.isRequired,
+  locale: PropTypes.string.isRequired,
   entityName: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
   scrollBehaviour: scrollBehaviourPropType,
