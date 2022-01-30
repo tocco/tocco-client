@@ -9,17 +9,20 @@ import {fork} from 'redux-saga/effects'
 import inputReducer from './input/reducer'
 import errorLogging from '../../errorLogging'
 
-const getIntialState = input => {
+export const getInitialState = input => {
   const initialState = window.__INITIAL_STATE__ || {}
 
   if (input) {
     initialState.input = input
+    initialState.intl = {
+      locale: input.locale // make sure the desired locale is set right from the start (instead of default 'en')
+    }
   }
   return initialState
 }
 
 export const createStore = (reducers = {}, sagas = [], input, name = '') => {
-  const initialState = getIntialState(input)
+  const initialState = getInitialState(input)
   const sagaMiddleware = createSagaMiddleware()
   let middleware = applyMiddleware(thunk, sagaMiddleware)
 
