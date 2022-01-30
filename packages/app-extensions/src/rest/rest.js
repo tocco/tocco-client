@@ -1,5 +1,5 @@
-import {call, put} from 'redux-saga/effects'
-import {env, request} from 'tocco-util'
+import {call, put, select} from 'redux-saga/effects'
+import {env, intl, request} from 'tocco-util'
 
 import notification from '../notification'
 import {handleClientQuestion} from './clientQuestions'
@@ -51,6 +51,7 @@ function* runInformationErrorFallback(error) {
  * - backendUrl {String}
  */
 export function* requestSaga(resource, options = {}) {
+  yield call(setLocale, options)
   const requestData = yield call(prepareRequest, resource, options)
   try {
     let response = yield call(
@@ -81,6 +82,7 @@ export function* requestSaga(resource, options = {}) {
  * - backendUrl {String}
  */
 export function* requestBytesSaga(resource, options = {}) {
+  yield call(setLocale, options)
   const requestData = yield call(prepareRequest, resource, options)
   try {
     return yield call(
@@ -94,6 +96,17 @@ export function* requestBytesSaga(resource, options = {}) {
     yield runInformationErrorFallback(error)
     return {}
   }
+}
+
+export function* setLocale(options) {
+  if (!options.queryParams?.locale) {
+    const locale = yield select(intl.localeSelector)
+    options.queryParams = {
+      ...options.queryParams,
+      locale
+    }
+  }
+  return options
 }
 
 /**
