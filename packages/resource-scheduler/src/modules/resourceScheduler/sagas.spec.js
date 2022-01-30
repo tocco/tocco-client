@@ -3,6 +3,7 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 import {rest} from 'tocco-app-extensions'
 import fetchMock from 'fetch-mock'
 import {select, takeLatest} from 'redux-saga/effects'
+import {intl} from 'tocco-util'
 
 import mainSaga, * as sagas from './sagas'
 import * as actions from './actions'
@@ -35,8 +36,8 @@ describe('resource-scheduler', () => {
         describe('initialize', () => {
           test('should load call loadCalendarTypes', () => {
             return expectSaga(sagas.initialize)
-              .call(sagas.loadCalendarTypes)
-              .run()
+              .provide([[select(intl.localeSelector), 'fr']])
+              .call(sagas.loadCalendarTypes).run()
           })
         })
 
