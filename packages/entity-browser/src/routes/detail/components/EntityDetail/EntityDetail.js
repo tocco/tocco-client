@@ -70,7 +70,7 @@ class EntityDetail extends React.Component {
     this.props.router.history.push(this.props.detailParams.parentUrl)
   }
 
-  getApp = ({entityName, entityId, formName, mode}) => (
+  getApp = ({entityName, entityId, formName, mode}, locale) => (
     <EntityDetailApp
       id={`${this.props.appId}_detail_${formName}_${entityId}`}
       entityName={entityName}
@@ -90,6 +90,7 @@ class EntityDetail extends React.Component {
         this.props.dispatchEmittedAction(action)
       }}
       theme={{}}
+      locale={locale}
     />
   )
 
@@ -114,7 +115,7 @@ class EntityDetail extends React.Component {
               />
             </StyledEntityDetailBackButton>
           )}
-          {this.getApp(this.props.detailParams)}
+          {this.getApp(this.props.detailParams, this.props.locale)}
         </React.Fragment>
       )}
     </React.Fragment>
@@ -123,6 +124,7 @@ class EntityDetail extends React.Component {
 
 EntityDetail.propTypes = {
   intl: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired,
   dispatchEmittedAction: PropTypes.func.isRequired,
   loadDetailParams: PropTypes.func.isRequired,
   clearDetailParams: PropTypes.func.isRequired,
