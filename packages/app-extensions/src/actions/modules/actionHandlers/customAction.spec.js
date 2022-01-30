@@ -1,7 +1,8 @@
 import {channel} from 'redux-saga'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {consoleLogger} from 'tocco-util'
+import {select} from 'redux-saga/effects'
+import {consoleLogger, intl} from 'tocco-util'
 
 import notification from '../../../notification'
 import customActionHandler, {
@@ -139,6 +140,7 @@ describe('app-extensions', () => {
               return expectSaga(handleAppActionsFallback, {definition, selection, config, handler})
                 .provide([
                   [channel, {}],
+                  [select(intl.localeSelector), 'fr'],
                   {
                     take({channel}, next) {
                       return {status: 'cancel', title: 'msg'}
@@ -211,6 +213,7 @@ describe('app-extensions', () => {
             return expectSaga(handleCustomActionModal, {definition, selection, config})
               .provide([
                 [channel, {}],
+                [select(intl.localeSelector), 'fr'],
                 {
                   take({channel}, next) {
                     return {status: 'ok', message: null}
@@ -226,6 +229,7 @@ describe('app-extensions', () => {
             return expectSaga(handleCustomActionModal, {definition, selection, config})
               .provide([
                 [channel, {}],
+                [select(intl.localeSelector), 'fr'],
                 {
                   take({channel}, next) {
                     return {status: 'ok', title: 'msg'}
@@ -241,6 +245,7 @@ describe('app-extensions', () => {
             return expectSaga(handleCustomActionModal, {definition, selection, config})
               .provide([
                 [channel, {}],
+                [select(intl.localeSelector), 'fr'],
                 {
                   take({channel}, next) {
                     return {status: 'not_ok', title: 'msg'}
@@ -256,6 +261,7 @@ describe('app-extensions', () => {
             return expectSaga(handleCustomActionModal, {definition, selection, config})
               .provide([
                 [channel, {}],
+                [select(intl.localeSelector), 'fr'],
                 {
                   take({channel}, next) {
                     return {status: 'cancel', title: 'msg'}
