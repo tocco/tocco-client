@@ -1,7 +1,7 @@
 import React from 'react'
 import {channel} from 'redux-saga'
-import {call, put, take} from 'redux-saga/effects'
-import {consoleLogger} from 'tocco-util'
+import {call, put, take, select} from 'redux-saga/effects'
+import {consoleLogger, intl} from 'tocco-util'
 
 import notification from '../../../notification'
 
@@ -39,6 +39,8 @@ const actionStatus = {
 export function* handleCustomActionModal({definition, selection, config}) {
   const answerChannel = yield call(channel)
 
+  const locale = yield select(intl.localeSelector)
+
   const ActionComponent = config.appComponent
   yield put(
     notification.modal(
@@ -68,6 +70,7 @@ export function* handleCustomActionModal({definition, selection, config}) {
             actionProperties={definition.properties}
             selection={selection}
             navigationStrategy={config.navigationStrategy || {}}
+            locale={locale}
             onSuccess={onSuccess}
             onError={onError}
             onCancel={onCancel}
