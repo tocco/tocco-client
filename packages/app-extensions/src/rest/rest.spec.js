@@ -1,15 +1,17 @@
 import fetchMock from 'fetch-mock'
-import {call} from 'redux-saga/effects'
+import {call, select} from 'redux-saga/effects'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
+import {intl} from 'tocco-util'
 
 import {
   getParameterString,
   simpleRequest,
   requestSaga,
   setBusinessUnit,
-  prepareRequest
+  prepareRequest,
+  setLocale
 } from './rest'
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
@@ -208,6 +210,8 @@ describe('app-extensions', () => {
 
           const gen = requestSaga(resource, options)
 
+          expect(gen.next().value).to.eql(call(setLocale, options))
+
           expect(gen.next().value).to.eql(call(prepareRequest, resource, options))
 
           const requestData = prepareRequest(resource, options)
@@ -248,6 +252,7 @@ describe('app-extensions', () => {
         const error = new InformationError('message')
         return expectSaga(requestSaga, resource, options)
           .provide([
+            [select(intl.localeSelector), 'fr'],
             [matchers.call.fn(prepareRequest), {}],
             [matchers.call.fn(sendRequest), throwError(error)]
           ])
@@ -424,6 +429,67 @@ describe('app-extensions', () => {
         expect(headers).to.be.an.instanceOf(Headers)
         const contentTypeHeader = headers.get('Content-Type')
         expect(contentTypeHeader).to.eql('application/json')
+      })
+    })
+
+    describe('setLocale', () => {
+      test('should set locale if no query params in options', () => {
+        const options = {}
+        const expectedOptions = {
+          queryParams: {
+            locale: 'fr'
+          }
+        }
+        
+        return expectSaga(setLocale, options)
+          .provide([
+            [select(intl.localeSelector), 'fr']
+          ])
+          .returns(expectedOptions)
+          .run()
+      })
+
+      test('should set locale if no locale in query params', () => {
+        const options = {
+          queryParams: {
+            foo: 'bar'
+          }
+        }
+        const expectedOptions = {
+          queryParams: {
+            foo: 'bar',
+            locale: 'fr'
+          }
+        }
+        
+        return expectSaga(setLocale, options)
+          .provide([
+            [select(intl.localeSelector), 'fr']
+          ])
+          .returns(expectedOptions)
+          .run()
+      })
+
+      test('should override locale if already set in query params', () => {
+        const options = {
+          queryParams: {
+            foo: 'bar',
+            locale: 'de'
+          }
+        }
+        const expectedOptions = {
+          queryParams: {
+            foo: 'bar',
+            locale: 'de'
+          }
+        }
+        
+        return expectSaga(setLocale, options)
+          .provide([
+            [select(intl.localeSelector), 'fr']
+          ])
+          .returns(expectedOptions)
+          .run()
       })
     })
   })
