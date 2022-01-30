@@ -18,7 +18,7 @@ const mapStateToProps = (state, props) => {
     appId: state.entityBrowser.appId,
     detailParams: state.detail.detailParams,
     formTouched: state.detail.formTouched,
-    locale: state.input.locale,
+    locale: state.intl.locale,
     actionAppComponent: Action
   }
 }
