@@ -15,7 +15,7 @@ const mapStateToProps = (state, props) => {
   return {
     id,
     storeId,
-    locale: state.input.locale,
+    locale: state.intl.locale,
     entityName: state.entityBrowser.entityName,
     formName: state.entityBrowser.formBase,
     scrollBehaviour: state.entityBrowser.scrollBehaviour,
