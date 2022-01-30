@@ -11,6 +11,8 @@ const getBrowserLocale = () => {
   return supportedLanguage.includes(lang) ? lang : FALLBACK_LANGUAGE
 }
 
+export const localeSelector = state => state.intl.locale
+
 export const initIntl = async(store, modules, forcedLocale) => {
   let locale = forcedLocale
   if (!locale) {
