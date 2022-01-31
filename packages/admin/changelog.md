@@ -1,3 +1,12 @@
+1.0.13
+- display overflowing hours in durations
+- auto focus basic search form
+- fix onError of customAction
+- change toaster type of aborted action handler
+- add connect-principal action
+- Add second tab to search form that allows executing custom queries. Add additional actions to open search as query and save query as a new filter.
+- change toaster to fixed positioning to guarantee visibility on scroll
+
 1.0.12
 
 
