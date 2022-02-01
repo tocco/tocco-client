@@ -1,3 +1,6 @@
+1.0.0-hotfix30.15
+- improve DnD performance
+
 1.0.0-hotfix30.14
 - fix onError of customAction
 - change toaster type of aborted action handler
