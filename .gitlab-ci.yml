@@ -119,7 +119,7 @@ cypress:
       - $CI_RUN_CYPRESS == "1"
   script:
     - npm rebuild cypress
-    - yarn cypress:master:record --parallel
+    - yarn cypress:master:run --parallel
   artifacts:
     paths:
       - cypress/videos
