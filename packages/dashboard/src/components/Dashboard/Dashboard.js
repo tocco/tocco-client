@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useCallback, useEffect, useRef, useState} from 'react'
+import {LoadMask} from 'tocco-ui'
 import {dragAndDrop, resize} from 'tocco-util'
 
 import {NUMBER_OF_COLUMNS} from '../../utils/constants'
@@ -14,10 +15,12 @@ import DashboardColumn from './DashboardColumn'
 import {StyledDashboardWrapper, StyledColumnWrapper} from './StyledComponents'
 
 const Dashboard = ({infoBoxes: storedInfoBoxes, saveInfoBoxHeight, saveInfoBoxPositions}) => {
+  const infoBoxesLoaded = storedInfoBoxes?.length >= 0
+
   // save infoBoxes in local state to show drag and drop and resize immediately to the user
-  const [infoBoxes, setInfoBoxes] = useState(storedInfoBoxes)
+  const [infoBoxes, setInfoBoxes] = useState(storedInfoBoxes || [])
   useEffect(() => {
-    setInfoBoxes(storedInfoBoxes)
+    setInfoBoxes(storedInfoBoxes || [])
   }, [storedInfoBoxes])
 
   const columns = [...Array(NUMBER_OF_COLUMNS).keys()]
@@ -92,14 +95,16 @@ const Dashboard = ({infoBoxes: storedInfoBoxes, saveInfoBoxHeight, saveInfoBoxPo
 
   return (
     <StyledDashboardWrapper ref={ref} {...resizingEvents}>
-      <Menu />
-      <StyledColumnWrapper>{DashboardColumns}</StyledColumnWrapper>
+      <LoadMask required={[infoBoxesLoaded]}>
+        <Menu />
+        <StyledColumnWrapper>{DashboardColumns}</StyledColumnWrapper>
+      </LoadMask>
     </StyledDashboardWrapper>
   )
 }
 
 Dashboard.propTypes = {
-  infoBoxes: PropTypes.array.isRequired,
+  infoBoxes: PropTypes.array,
   saveInfoBoxPositions: PropTypes.func.isRequired,
   saveInfoBoxHeight: PropTypes.func.isRequired
 }

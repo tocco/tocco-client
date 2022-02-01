@@ -7,7 +7,7 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  infoBoxes: []
+  infoBoxes: undefined
 }
 
 export default function reducer(state = initialState, action) {

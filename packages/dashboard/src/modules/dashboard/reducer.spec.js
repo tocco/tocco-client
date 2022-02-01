@@ -2,7 +2,7 @@ import * as actions from './actions'
 import reducer from './index'
 
 const EXPECTED_INITIAL_STATE = {
-  infoBoxes: []
+  infoBoxes: undefined
 }
 
 describe('dashboard', () => {
@@ -18,7 +18,7 @@ describe('dashboard', () => {
             const infoBoxes = {infoBoxes: [{id: 'welcome'}]}
             const stateBefore = {
               otherProp: 'foo',
-              infoBoxes: []
+              infoBoxes: undefined
             }
 
             const expectedStateAfter = {
