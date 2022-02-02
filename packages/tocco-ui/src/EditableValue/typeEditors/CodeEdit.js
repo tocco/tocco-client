@@ -22,7 +22,9 @@ const CodeEdit = ({value, onChange, immutable, options}) => {
         enableSnippets: true,
         minLines: 5,
         maxLines: 50,
-        readOnly: immutable
+        readOnly: immutable,
+        wrap: true,
+        indentedSoftWrap: false
       }}
       implicitModel={options.implicitModel}
     />
