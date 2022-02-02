@@ -9,7 +9,7 @@ const buildImplicitModelInfo = (implicitModelEntity, field) => {
 const findImplicitModelFromRelation = (modelField, pathStepIndex, formData) => {
   const relation = modelField.substring(0, pathStepIndex)
   const field = modelField.substring(pathStepIndex + 1)
-  const implicitModelEntity = formData.detailValues[relation]
+  const implicitModelEntity = formData.formValues[relation]
   if (implicitModelEntity) {
     if (Array.isArray(implicitModelEntity)) {
       if (implicitModelEntity.length === 1) {
@@ -23,16 +23,30 @@ const findImplicitModelFromRelation = (modelField, pathStepIndex, formData) => {
 }
 
 const findImplicitModel = (formField, formData) => {
-  if (formField.implicitModelField && formData.detailValues) {
+  if (formField.implicitModelField && formData.formValues) {
     const modelField = formField.implicitModelField
     const pathStepIndex = modelField.indexOf('.')
     if (pathStepIndex) {
       return findImplicitModelFromRelation(modelField, pathStepIndex, formData)
     } else {
-      return formData.detailValues[modelField]
+      return formData.formValues[modelField]
     }
   } else {
     return formField.implicitModel
+  }
+}
+
+const findImplicitModelField = formField => {
+  if (formField.implicitModelField) {
+    const modelField = formField.implicitModelField
+    const pathStepIndex = modelField.indexOf('.')
+    if (pathStepIndex) {
+      return [modelField.substring(0, pathStepIndex)]
+    } else {
+      return [modelField]
+    }
+  } else {
+    return []
   }
 }
 
@@ -41,5 +55,14 @@ export default {
   getOptions: ({formField, formData}) => ({
     mode: formField.mode,
     implicitModel: findImplicitModel(formField, formData)
+  }),
+  dataContainerProps: ({
+    formField,
+    formName
+  }) => ({
+    formValues: {
+      formName: formName,
+      fields: findImplicitModelField(formField)
+    }
   })
 }
