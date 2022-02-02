@@ -8,8 +8,8 @@ const EditorWrapper = styled.div`
   margin-top: 5px;
 `
 
-const CodeEdit = ({value, onChange, immutable, options}) => (
-  <EditorWrapper>
+const CodeEdit = ({value, onChange, immutable, options}) => {
+  return <EditorWrapper>
     <CodeEditor
       value={value}
       onChange={onChange}
@@ -27,7 +27,7 @@ const CodeEdit = ({value, onChange, immutable, options}) => (
       implicitModel={options.implicitModel}
     />
   </EditorWrapper>
-)
+}
 
 CodeEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
