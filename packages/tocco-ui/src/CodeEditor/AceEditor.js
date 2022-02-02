@@ -109,8 +109,8 @@ const AceEditor = props => {
      * this way we only set the value when it is different from the current state, i.e. when it is overwritten through
      * code. feel free to rewrite this with better ideas.
      */
-    if (editorReference.current && value !== editorReference.current.getSession().getValue()) {
-      editorReference.current.getSession().setValue(value || '')
+    if (editorReference.current && value && value !== editorReference.current.getValue()) {
+      editorReference.current.getSession().setValue(value)
     }
   }, [value])
 
