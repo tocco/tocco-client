@@ -3,21 +3,33 @@ import fetchMock from 'fetch-mock'
 import 'ace-builds/src-min-noconflict/ext-language_tools'
 
 import TqlAutoCompleter from './TqlAutoCompleter'
-import TqlMode, {functions, placeholders, types} from './TqlMode'
+import {functions, placeholders, types} from './TqlConstants'
+import TqlMode from './TqlMode'
 
 describe('tocco-ui', () => {
   describe('CodeEditor', () => {
     describe('TqlAutoCompleter', () => {
       let aceSession
 
-      const runTest = async (expectedCompletions, positionToCompleteFrom, completionCallbacksToSkip = 0) => {
+      const runTest = async (
+        expectedCompletions,
+        positionToCompleteFrom,
+        completionCallbacksToSkip = 0,
+        implicitModel
+      ) => {
         const completions = await new Promise(resolve =>
-          TqlAutoCompleter().getCompletions(null, aceSession, positionToCompleteFrom, '', (errors, result) => {
-            if (completionCallbacksToSkip <= 0) {
-              resolve(result)
+          TqlAutoCompleter(implicitModel).getCompletions(
+            null,
+            aceSession,
+            positionToCompleteFrom,
+            '',
+            (errors, result) => {
+              if (completionCallbacksToSkip <= 0) {
+                resolve(result)
+              }
+              completionCallbacksToSkip--
             }
-            completionCallbacksToSkip--
-          })
+          )
         )
         expect(completions).to.deep.equals(expectedCompletions)
       }
@@ -46,6 +58,20 @@ describe('tocco-ui', () => {
             }
           ]
         })
+        fetchMock.get('/nice2/rest/entities/Implicit/model', {
+          fields: [
+            {
+              fieldName: 'implicit',
+              type: 'string'
+            }
+          ],
+          relations: [
+            {
+              relationName: 'relImplicit',
+              targetEntity: 'Implicit'
+            }
+          ]
+        })
         fetchMock.get('/nice2/rest/entities/First/model/resolve?path=relRelation', {
           fields: [
             {
@@ -66,7 +92,7 @@ describe('tocco-ui', () => {
         })
 
         const testQuery = 'find First where relRelation.some_field == 10 order by field'
-        aceSession = ace.createEditSession(testQuery, new TqlMode())
+        aceSession = ace.createEditSession(testQuery, new TqlMode({implicitModel: ''}))
       })
 
       afterEach(() => {
@@ -100,6 +126,16 @@ describe('tocco-ui', () => {
         ]
 
         await runTest(expectedCompletions, {row: 0, column: 17}, 1)
+      })
+
+      test('should load available model paths from implicit model', async () => {
+        const expectedCompletions = [
+          {caption: 'implicit (string)', value: 'implicit', meta: 'field', score: 1000},
+          {caption: 'relImplicit', value: 'relImplicit', meta: 'relation', score: 1000}
+        ]
+
+        aceSession.setValue('')
+        await runTest(expectedCompletions, {row: 0, column: 0}, 1, "Implicit")
       })
 
       test('should load available model paths in order by', async () => {
