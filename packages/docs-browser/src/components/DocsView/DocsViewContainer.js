@@ -19,7 +19,8 @@ const mapStateToProps = state => ({
   sortable: state.input.sortable,
   openResource: state.input.openResource,
   searchFormCollapsed: state.docs.list.searchFormCollapsed,
-  scrollBehaviour: state.docs.list.scrollBehaviour
+  scrollBehaviour: state.docs.list.scrollBehaviour,
+  locale: state.intl.locale
 })
 
 const mapActionCreators = {

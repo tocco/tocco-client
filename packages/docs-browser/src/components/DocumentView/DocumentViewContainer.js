@@ -6,7 +6,8 @@ import DocumentView from './DocumentView'
 
 const mapStateToProps = state => ({
   breadcrumbs: state.docs.path.breadcrumbs,
-  formName: state.input.documentDetailFormName
+  formName: state.input.documentDetailFormName,
+  locale: state.intl.locale
 })
 
 const mapActionCreators = {

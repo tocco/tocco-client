@@ -7,7 +7,7 @@ import {StyledDocumentViewWrapper} from './StyledComponents'
 
 const LazyDetailApp = React.lazy(() => import('./LazyDetailApp'))
 
-const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy, emitAction}) => {
+const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy, locale, emitAction}) => {
   const handleEntityDeleted = () => {
     const lastList = breadcrumbs
       .slice()
@@ -29,6 +29,7 @@ const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy
           navigationStrategy={navigationStrategy}
           emitAction={emitAction}
           onEntityDeleted={handleEntityDeleted}
+          locale={locale}
         />
       </Suspense>
     </StyledDocumentViewWrapper>
@@ -52,6 +53,7 @@ DocumentView.propTypes = {
   ).isRequired,
   formName: PropTypes.string,
   navigationStrategy: PropTypes.object,
+  locale: PropTypes.string,
   emitAction: PropTypes.func.isRequired
 }
 
