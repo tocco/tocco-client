@@ -29,6 +29,7 @@ yarn_setup:
     paths:
     - node_modules/
     - packages/*/node_modules/
+    expire_in: 5 days
   script:
     - yarn setup:ci
   interruptible: true
