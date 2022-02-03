@@ -70,6 +70,7 @@ const DocsView = props => {
     searchMode,
     openResource,
     searchFormCollapsed,
+    locale,
     changeSelection,
     changeSearchFormCollapsed
   } = props
@@ -219,6 +220,7 @@ const DocsView = props => {
           searchFormCollapsed={searchFormCollapsed}
           scrollBehaviour={scrollBehaviour}
           onSearchFormCollapsedChange={changeSearchFormCollapsed}
+          locale={locale}
         />
       </Suspense>
       <FileInput />
@@ -255,6 +257,7 @@ DocsView.propTypes = {
   openResource: PropTypes.func,
   searchFormCollapsed: PropTypes.bool,
   scrollBehaviour: scrollBehaviourPropType,
+  locale: PropTypes.string,
   changeSelection: PropTypes.func.isRequired,
   changeSearchFormCollapsed: PropTypes.func.isRequired
 }

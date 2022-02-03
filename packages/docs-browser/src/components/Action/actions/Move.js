@@ -34,6 +34,7 @@ export const MoveAction = ({
   domainTypes,
   rootNodes,
   businessUnit,
+  locale,
   emitAction
 }) => {
   const initialNode = getNode(context.history.location.pathname)
@@ -87,6 +88,7 @@ export const MoveAction = ({
         businessUnit={businessUnit}
         sortable={false}
         scrollBehaviour="none"
+        locale={locale}
       />
       <StyledButtonsWrapper>
         <Button
@@ -124,5 +126,6 @@ MoveAction.propTypes = {
     })
   ),
   businessUnit: PropTypes.string,
+  locale: PropTypes.string,
   emitAction: PropTypes.func.isRequired
 }

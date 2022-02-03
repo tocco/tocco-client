@@ -6,7 +6,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import getDetailFormName from '../../../utils/getDetailFormName'
 import getNode from '../../../utils/getNode'
 
-const CreateFolder = ({context, onSuccess, intl, emitAction}) => {
+const CreateFolder = ({context, onSuccess, intl, locale, emitAction}) => {
   const isActionBlocked = action => action.payload?.toaster?.title === 'client.entity-detail.createSuccessfulTitle'
 
   const emitActionBarrier = action => {
@@ -47,6 +47,7 @@ const CreateFolder = ({context, onSuccess, intl, emitAction}) => {
       formName={formName}
       mode="create"
       defaultValues={defaultValues}
+      locale={locale}
       onEntityCreated={handleEntityCreated}
       emitAction={emitActionBarrier}
     />
@@ -63,6 +64,7 @@ CreateFolder.propTypes = {
   }).isRequired,
   onSuccess: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
+  locale: PropTypes.string,
   emitAction: PropTypes.func.isRequired
 }
 
