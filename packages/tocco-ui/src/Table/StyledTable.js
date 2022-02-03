@@ -11,15 +11,17 @@ const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
 const basePadding = scale.space(-1.5)
 
 export const StyledTableCell = styled.td`
-  padding: ${basePadding};
-  background-color: ${theme.color('paper')};
-  border-bottom: 1px solid ${borderColor};
-  align-content: center;
-  box-sizing: content-box;
+  && {
+    padding: ${basePadding};
+    background-color: ${theme.color('paper')};
+    border-bottom: 1px solid ${borderColor};
+    align-content: center;
+    box-sizing: content-box;
 
-  ${StyledFontAwesomeAdapterWrapper} {
-    display: inline-block;
-    margin-right: ${scale.space(-2)};
+    ${StyledFontAwesomeAdapterWrapper} {
+      display: inline-block;
+      margin-right: ${scale.space(-2)};
+    }
   }
 `
 
@@ -32,30 +34,32 @@ export const StyledDnD = styled.div`
 `
 
 export const StyledTableHeaderCell = styled.th`
-  position: sticky;
-  top: 0;
-  background-color: ${theme.color('paper')};
-  text-align: left;
-  border-bottom: 2px solid ${borderColor};
-  ${declareFont({fontWeight: theme.fontWeight('bold')})};
-  user-select: none;
-  cursor: ${({sortable}) => (sortable ? 'pointer' : 'auto')};
-  white-space: nowrap;
-  display: flex;
-  border-right: ${({isDraggedOver, theme}) => (isDraggedOver ? `3px solid ${theme.colors.text}` : 'none')};
-  ${({id}) => id === 'header-cell-navigation-column' && 'z-index: 1'};
-  ${({isResizingThisCell, theme}) =>
-    isResizingThisCell &&
-    `
+  && {
+    position: sticky;
+    top: 0;
+    background-color: ${theme.color('paper')};
+    text-align: left;
+    border-bottom: 2px solid ${borderColor};
+    ${declareFont({fontWeight: theme.fontWeight('bold')})};
+    user-select: none;
+    cursor: ${({sortable}) => (sortable ? 'pointer' : 'auto')};
+    white-space: nowrap;
+    display: flex;
+    border-right: ${({isDraggedOver, theme}) => (isDraggedOver ? `3px solid ${theme.colors.text}` : 'none')};
+    padding: 1px; /* default th padding */
+    ${({id}) => id === 'header-cell-navigation-column' && 'z-index: 1'};
+    ${({isResizingThisCell, theme}) =>
+      isResizingThisCell &&
+      `
     background-color: ${generateShades(theme.colors.paper)[1]};
 
     > ${StyledResizeHandle} {
       opacity: 1;
     }
   `}
-  ${({isResizingAnyCell, theme}) =>
-    !isResizingAnyCell &&
-    `
+    ${({isResizingAnyCell, theme}) =>
+      !isResizingAnyCell &&
+      `
     &:hover {
       background-color: ${generateShades(theme.colors.paper)[1]};
 
@@ -64,21 +68,22 @@ export const StyledTableHeaderCell = styled.th`
       }
     }
   `}
-  ${({isResizingThisCell, sortable, fixedPosition, theme}) =>
-    !sortable
-      ? `
+    ${({isResizingThisCell, sortable, fixedPosition, theme}) =>
+      !sortable
+        ? `
     &:hover {
       background-color: ${theme.colors.paper};
     }
     `
-      : !isResizingThisCell &&
-        !sortable &&
-        !fixedPosition &&
-        `
+        : !isResizingThisCell &&
+          !sortable &&
+          !fixedPosition &&
+          `
         &:hover {
           background-color: transparent;
         }
     `}
+  }
 `
 
 export const StyledTableFooter = styled.div`
@@ -112,20 +117,24 @@ export const StyledSortingSpan = styled.span`
 `
 
 export const StyledFullRowProgress = styled.td`
-  grid-column: 1 / -1;
-  padding-top: ${basePadding};
-  height: 50px;
-  text-align: center;
-  border: 0;
+  && {
+    grid-column: 1 / -1;
+    padding-top: ${basePadding} 0 0 0;
+    height: 50px;
+    text-align: center;
+    border: 0;
+  }
 `
 
 export const StyledFullRow = styled.td`
-  grid-column: 1 / -1;
-  padding-top: ${basePadding};
-  height: 50px;
-  text-align: center;
-  border: 0;
-  ${declareFont()};
+  && {
+    grid-column: 1 / -1;
+    padding-top: ${basePadding} 0 0 0;
+    height: 50px;
+    text-align: center;
+    border: 0;
+    ${declareFont()};
+  }
 `
 
 export const StyledTableHead = styled.thead`
