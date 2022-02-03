@@ -6,7 +6,7 @@ import {injectIntl, intlShape} from 'react-intl'
 import getNode from '../../../utils/getNode'
 import getDetailFormName from '../../../utils/getDetailFormName'
 
-const CreateDomain = ({context, onSuccess, intl, emitAction}) => {
+const CreateDomain = ({context, onSuccess, intl, locale, emitAction}) => {
   const emitActionBarrier = action => {
     if (action.payload && action.payload.title !== 'client.entity-detail.createSuccessfulTitle') {
       emitAction(action)
@@ -44,6 +44,7 @@ const CreateDomain = ({context, onSuccess, intl, emitAction}) => {
     formName={formName}
     mode="create"
     defaultValues={defaultValues}
+    locale={locale}
     onEntityCreated={handleEntityCreated}
     emitAction={emitActionBarrier}
   />
@@ -59,6 +60,7 @@ CreateDomain.propTypes = {
   }).isRequired,
   onSuccess: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
+  locale: PropTypes.string,
   emitAction: PropTypes.func.isRequired
 }
 

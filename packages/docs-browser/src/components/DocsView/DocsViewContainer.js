@@ -17,7 +17,8 @@ const mapStateToProps = state => ({
   getListFormName: state.input.getListFormName,
   domainDetailFormName: state.input.domainDetailFormName,
   folderDetailFormName: state.input.folderDetailFormName,
-  openResource: state.input.openResource
+  openResource: state.input.openResource,
+  locale: state.intl.locale
 })
 
 const mapActionCreators = {

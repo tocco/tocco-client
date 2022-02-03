@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {injectIntl, intlShape} from 'react-intl'
+import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {selection} from 'tocco-util'
 
 import getDetailFormName from '../../../utils/getDetailFormName'
 
-const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction}) => {
+const EditAction = ({selection, onSuccess, onCancel, intl, locale, context, emitAction}) => {
   const emitActionBarrier = action => {
     if (action.payload && action.payload.title !== 'client.entity-detail.saveSuccessfulTitle') {
       emitAction(action)
@@ -44,6 +44,7 @@ const EditAction = ({selection, onSuccess, onCancel, intl, context, emitAction})
     formName={formName}
     entityId={entityKey}
     mode="update"
+    locale={locale}
     onEntityUpdated={handleEntityUpdated}
     emitAction={emitActionBarrier}
   />
@@ -59,7 +60,8 @@ EditAction.propTypes = {
   onSuccess: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
+  locale: PropTypes.string,
   emitAction: PropTypes.func.isRequired
 }
 
-export default injectIntl(EditAction)
+export default EditAction

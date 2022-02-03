@@ -78,7 +78,8 @@ const DocsView = props => {
     domainDetailFormName,
     folderDetailFormName,
     searchMode,
-    openResource
+    openResource,
+    locale
   } = props
   // eslint-disable-next-line no-unused-vars
   const [entityListNumber, forceEntityListUpdate] = useReducer(x => x + 1, 0)
@@ -206,6 +207,7 @@ const DocsView = props => {
           selection={selection}
           showActions={showActions}
           sortable={sortable}
+          locale={locale}
         />
       </Suspense>
       <FileInput />
@@ -237,7 +239,8 @@ DocsView.propTypes = {
   domainDetailFormName: PropTypes.string,
   folderDetailFormName: PropTypes.string,
   searchMode: PropTypes.bool,
-  openResource: PropTypes.func
+  openResource: PropTypes.func,
+  locale: PropTypes.string
 }
 
 export default DocsView
