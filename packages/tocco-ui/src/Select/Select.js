@@ -68,8 +68,9 @@ const Select = ({
   }
 
   // _throttle is not working with inline function
+  // searchOptions shouldn't be included in deps array as _throttle only needs to be run initially
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const throttledSearchOptions = useCallback(_throttle(searchOptions, 800, {trailing: true}), [searchOptions])
+  const throttledSearchOptions = useCallback(_throttle(searchOptions, 800, {trailing: true}), [])
 
   const wrapperWidth = selectWrapper.current?.clientWidth || 300
   const wrapperHeight = selectWrapper.current?.clientHeight || 35
