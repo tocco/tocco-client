@@ -33,16 +33,16 @@ export function* chooseDocument({payload: {setDocument, formName, formFieldId}})
           }
         }
 
-      const handleClick = () => {
-        close()
-        setDocument(formName, formFieldId, selection[0].replace('Resource/', ''))
-      }
-      const isDisabled = selection.length !== 1 || !selection[0].startsWith('Resource/')
-      const listFormName = parent => parent === null
-        ? 'ChooseDocument_root_docs_list_item'
-        : 'ChooseDocument_docs_list_item'
+        const handleClick = () => {
+          close()
+          setDocument(formName, formFieldId, selection[0].replace('Resource/', ''))
+        }
+        const isDisabled = selection.length !== 1 || !selection[0].startsWith('Resource/')
+        const listFormName = parent => parent === null
+          ? 'ChooseDocument_root_docs_list_item'
+          : 'ChooseDocument_docs_list_item'
 
-      return (
+        return (
         <div>
           <LazyDocsBrowser
             memoryHistory={true}
@@ -67,8 +67,8 @@ export function* chooseDocument({payload: {setDocument, formName, formFieldId}})
             <FormattedMessage id="client.docs-browser.chooseDocument.select"/>
           </Button>
         </div>
-      )
-    },
-    true
-  ))
+        )
+      },
+      true
+    ))
 }
