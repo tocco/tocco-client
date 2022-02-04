@@ -1,3 +1,6 @@
+1.0.0-hotfix30.23
+- fix docs-browser height inside modal
+
 1.0.0-hotfix30.22
 - improve DnD performance
 
