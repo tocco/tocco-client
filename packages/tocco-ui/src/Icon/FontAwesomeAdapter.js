@@ -101,7 +101,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
-
 ;(() => {
   library.add(
     faChevronDoubleLeft,
