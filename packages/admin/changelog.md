@@ -1,3 +1,13 @@
+1.0.14
+- Use app locale automatically for all (REST) requests
+- render modal action component with right locale
+- render subgrids with correct locale
+- Using the advanced search in multi-remote fields no longer ignores the current selection.
+- Code editors used to write TQL can now be configured in the backend to assume some entity model as the given base, allowing only writing the 'where'- and 'order by'-parts of a query.
+- The TQL editor in the query view now uses an implicit base model, which allows auto-complete to work.
+- increase table style specificities to prevent them from being overwritten inside widgets
+- support `locale` input
+
 1.0.13
 - display overflowing hours in durations
 - auto focus basic search form
