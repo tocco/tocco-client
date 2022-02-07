@@ -2,9 +2,9 @@ import React, {useState} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {takeLatest, all, put} from 'redux-saga/effects'
 import {notification} from 'tocco-app-extensions'
-import {Button} from 'tocco-ui'
 
 import * as actions from './actions'
+import {StyledButton} from './StyledComponents'
 
 const LazyDocsBrowser = React.lazy(() => import('../../main'))
 
@@ -58,14 +58,14 @@ export function* chooseDocument({payload: {setDocument, formName, formFieldId}})
             sortable={false}
             onSelectChange={setSelection}
           />
-          <Button
+          <StyledButton
             onClick={handleClick}
             look="raised"
             ink="primary"
             disabled={isDisabled}
           >
             <FormattedMessage id="client.docs-browser.chooseDocument.select"/>
-          </Button>
+          </StyledButton>
         </div>
         )
       },
