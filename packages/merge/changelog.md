@@ -1,3 +1,14 @@
+1.0.3
+- Display overflowing hours in durations
+- fix onError of customAction
+- change toaster type of aborted action handler
+- change toaster to fixed positioning to guarantee visibility on scroll
+- Use app locale automatically for all (REST) requests
+- render modal action component with right locale
+- Using the advanced search in multi-remote fields no longer ignores the current selection.
+- Code editors used to write TQL can now be configured in the backend to assume some entity model as the given base, allowing only writing the 'where'- and 'order by'-parts of a query.
+- increase table style specificities to prevent them from being overwritten inside widgets
+
 1.0.2
 - register more icons
 - open downloadable file in new tab to avoid errors
