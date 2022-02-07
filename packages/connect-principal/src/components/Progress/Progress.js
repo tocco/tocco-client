@@ -14,9 +14,7 @@ const Progress = ({checkAccessRights, connectPrincipal, setShowSsoLoginApp, show
   }
   return (
     <LoadMask required={[showSsoLoginApp]}>
-      <SsoLoginApp
-        ssoLoginEndpoint="/sso-lookup"
-        loginCompleted={loginCompleted}/>
+      <SsoLoginApp ssoLoginEndpoint="/sso-lookup" loginCompleted={loginCompleted} />
     </LoadMask>
   )
 }

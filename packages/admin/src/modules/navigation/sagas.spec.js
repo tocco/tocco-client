@@ -65,9 +65,7 @@ describe('admin', () => {
           }
 
           return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'settings'}})
-            .provide([
-              [select(sagas.navigationSelector), state]
-            ])
+            .provide([[select(sagas.navigationSelector), state]])
             .put(actions.toggleShortcutMenu('settings'))
             .put(actions.setActiveMenuTab('settings'))
             .run()
@@ -79,9 +77,7 @@ describe('admin', () => {
           }
 
           return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'settings'}})
-            .provide([
-              [select(sagas.navigationSelector), state]
-            ])
+            .provide([[select(sagas.navigationSelector), state]])
             .run()
         })
 
@@ -91,9 +87,7 @@ describe('admin', () => {
           }
 
           return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'modules'}})
-            .provide([
-              [select(sagas.navigationSelector), state]
-            ])
+            .provide([[select(sagas.navigationSelector), state]])
             .put(actions.toggleShortcutMenu('modules'))
             .put(actions.setActiveMenuTab('modules'))
             .run()
@@ -105,9 +99,7 @@ describe('admin', () => {
           }
 
           return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'system'}})
-            .provide([
-              [select(sagas.navigationSelector), state]
-            ])
+            .provide([[select(sagas.navigationSelector), state]])
             .put(actions.toggleShortcutMenu('system'))
             .put(actions.setActiveMenuTab('system'))
             .run()
@@ -119,9 +111,7 @@ describe('admin', () => {
           }
 
           return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'complete'}})
-            .provide([
-              [select(sagas.navigationSelector), state]
-            ])
+            .provide([[select(sagas.navigationSelector), state]])
             .put(actions.toggleShortcutMenu('complete'))
             .put(actions.setActiveMenuTab('complete'))
             .run()
@@ -131,9 +121,7 @@ describe('admin', () => {
           const state = {}
 
           return expectSaga(sagas.setActiveMenuFromShortcut, {payload: {menuTab: 'complete'}})
-            .provide([
-              [select(sagas.navigationSelector), state]
-            ])
+            .provide([[select(sagas.navigationSelector), state]])
             .run()
         })
       })

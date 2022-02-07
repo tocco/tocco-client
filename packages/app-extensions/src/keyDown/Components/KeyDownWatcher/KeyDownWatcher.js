@@ -13,14 +13,17 @@ const StyledDiv = styled.div`
 `
 
 const KeyDownWatcher = ({config, children, keyDownHandler}) => {
-  const handleKeyDown = useCallback((event, global) => {
-    const matchingConfig = getMatchingConfig(config, event, global)
-    if (matchingConfig) {
-      event.preventDefault()
-      event.stopPropagation()
-    }
-    keyDownHandler(matchingConfig)
-  }, [config, keyDownHandler])
+  const handleKeyDown = useCallback(
+    (event, global) => {
+      const matchingConfig = getMatchingConfig(config, event, global)
+      if (matchingConfig) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      keyDownHandler(matchingConfig)
+    },
+    [config, keyDownHandler]
+  )
 
   const onKeyDown = event => handleKeyDown(event)
 

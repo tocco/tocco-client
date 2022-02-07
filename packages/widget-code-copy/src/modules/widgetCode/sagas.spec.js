@@ -2,7 +2,7 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
 import {all, select, takeEvery, takeLatest} from 'redux-saga/effects'
-import {rest, notification} from 'tocco-app-extensions'
+import {notification, rest} from 'tocco-app-extensions'
 import {js} from 'tocco-util'
 
 import {generateWidgetCode} from '../../utils/widgetCode'
@@ -41,7 +41,7 @@ describe('widget-code-copy', () => {
           test('should throw error when multiple configs are selected', () => {
             return expectSaga(sagas.fetchWidgetConfig)
               .provide([
-                [select(sagas.inputSelector), {selection: {entityName: 'Widget_config', type: 'ID', ids: ['6', '8']}}],
+                [select(sagas.inputSelector), {selection: {entityName: 'Widget_config', type: 'ID', ids: ['6', '8']}}]
               ])
               .put.like({action: notification.toaster({type: 'error'})})
               .run()
@@ -49,9 +49,7 @@ describe('widget-code-copy', () => {
 
           test('should throw error when a wrong entity is selected', () => {
             return expectSaga(sagas.fetchWidgetConfig)
-              .provide([
-                [select(sagas.inputSelector), {selection: {entityName: 'User', type: 'ID', ids: ['6']}}],
-              ])
+              .provide([[select(sagas.inputSelector), {selection: {entityName: 'User', type: 'ID', ids: ['6']}}]])
               .put.like({action: notification.toaster({type: 'error'})})
               .run()
           })

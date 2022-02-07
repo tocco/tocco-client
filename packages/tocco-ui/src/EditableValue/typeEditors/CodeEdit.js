@@ -9,26 +9,28 @@ const EditorWrapper = styled.div`
 `
 
 const CodeEdit = ({value, onChange, immutable, options}) => {
-  return <EditorWrapper>
-    <CodeEditor
-      value={value}
-      onChange={onChange}
-      mode={options.mode}
-      theme={'textmate'}
-      showGutter={true}
-      editorOptions={{
-        enableBasicAutocompletion: true,
-        enableLiveAutocompletion: true,
-        enableSnippets: true,
-        minLines: 5,
-        maxLines: 50,
-        readOnly: immutable,
-        wrap: true,
-        indentedSoftWrap: false
-      }}
-      implicitModel={options.implicitModel}
-    />
-  </EditorWrapper>
+  return (
+    <EditorWrapper>
+      <CodeEditor
+        value={value}
+        onChange={onChange}
+        mode={options.mode}
+        theme={'textmate'}
+        showGutter={true}
+        editorOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+          minLines: 5,
+          maxLines: 50,
+          readOnly: immutable,
+          wrap: true,
+          indentedSoftWrap: false
+        }}
+        implicitModel={options.implicitModel}
+      />
+    </EditorWrapper>
+  )
 }
 
 CodeEdit.propTypes = {
@@ -42,7 +44,7 @@ CodeEdit.propTypes = {
       PropTypes.shape({
         entityModel: PropTypes.string,
         field: PropTypes.string,
-        key: PropTypes.string,
+        key: PropTypes.string
       })
     ])
   })

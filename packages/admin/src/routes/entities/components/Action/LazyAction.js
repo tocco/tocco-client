@@ -17,7 +17,7 @@ const actions = {
   documents: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Documents')),
   'password-update': lazy(() => import(/* webpackChunkName: "actions" */ './actions/PasswordUpdate')),
   'widget-config-edit': lazy(() => import(/* webpackChunkName: "actions" */ './actions/WidgetConfigEdit')),
-  'connect-principal': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ConnectPrincipal'))
+  'connect-principal': lazy(() => import(/* webpackChunkName: "actions" */ './actions/ConnectPrincipal'))
 }
 
 const renderLoader = () => <LoadMask />

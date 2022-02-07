@@ -135,7 +135,7 @@ describe('tocco-ui', () => {
         ]
 
         aceSession.setValue('')
-        await runTest(expectedCompletions, {row: 0, column: 0}, 1, "Implicit")
+        await runTest(expectedCompletions, {row: 0, column: 0}, 1, 'Implicit')
       })
 
       test('should load available model paths in order by', async () => {

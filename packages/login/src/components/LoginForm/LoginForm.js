@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState, useRef, useCallback} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import {FormattedMessage} from 'react-intl'
 import {SignalList, StatedValue, Typography} from 'tocco-ui'
@@ -7,11 +7,11 @@ import {react} from 'tocco-util'
 
 import {Pages} from '../../types/Pages'
 import {
+  StyledLoginButton,
   StyledLoginFormInput,
   StyledLoginFormInputWrapper,
   StyledLoginFormWrapper,
-  StyledTransparentButton,
-  StyledLoginButton
+  StyledTransparentButton
 } from '../StyledLoginForm'
 
 const LoginForm = ({
@@ -34,19 +34,22 @@ const LoginForm = ({
   const msg = id => intl.formatMessage({id})
   const prevRecaptchaActivated = react.usePrevious(recaptchaActivated)
 
-  const handleSubmit = useCallback(async e => {
-    if (e) {
-      e.preventDefault()
-    }
+  const handleSubmit = useCallback(
+    async e => {
+      if (e) {
+        e.preventDefault()
+      }
 
-    let recaptchaToken = null
-    if (recaptchaActivated) {
-      recaptchaToken = await recaptchaRef.current.executeAsync()
-      recaptchaRef.current.reset()
-    }
+      let recaptchaToken = null
+      if (recaptchaActivated) {
+        recaptchaToken = await recaptchaRef.current.executeAsync()
+        recaptchaRef.current.reset()
+      }
 
-    login(username, password, recaptchaToken)
-  }, [login, username, password, recaptchaActivated])
+      login(username, password, recaptchaToken)
+    },
+    [login, username, password, recaptchaActivated]
+  )
 
   const handleUsernameChange = e => {
     setUsername(e.target.value)

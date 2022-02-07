@@ -109,12 +109,7 @@ export function* getSearchViewQuery() {
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
 
   const relevantSearchFormFetchOptions = _omit(searchFormFetchOptions, ['filters', 'tql'])
-  const filter = yield call(
-    getSearchFilter,
-    inputSearchFilters,
-    searchFormFetchOptions.filters,
-    searchFormSearchFilter
-  )
+  const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters, searchFormSearchFilter)
   const where = yield call(getTql, inputTql, searchFormFetchOptions.tql)
 
   const hasUserChanges =

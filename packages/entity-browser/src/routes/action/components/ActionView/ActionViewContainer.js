@@ -13,7 +13,7 @@ const mapStateToProps = (state, props) => {
   return {
     selection,
     actionProperties,
-    locale: state.intl.locale,
+    locale: state.intl.locale
   }
 }
 

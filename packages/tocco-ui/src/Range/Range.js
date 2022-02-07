@@ -7,12 +7,12 @@ import EditableValue from '../EditableValue'
 import Icon from '../Icon'
 import rangeTypeMappings from './rangeTypeMappings'
 import {
-  StyledRange,
-  StyledInputWrapper,
-  StyledInputItemWrapper,
+  StyledExtender,
   StyledIconWrapper,
   StyledInput,
-  StyledExtender
+  StyledInputItemWrapper,
+  StyledInputWrapper,
+  StyledRange
 } from './StyledRange'
 
 /**
@@ -22,30 +22,39 @@ const Range = props => {
   const {value, events, readOnly, type, options} = props
   const hasRangeValue = typeof value === 'object' && value && value.isRangeValue
 
-  const exactEvents = useMemo(() => ({
-    ...events,
-    onChange: value => {
-      events.onChange(value)
-    }
-  }), [events])
+  const exactEvents = useMemo(
+    () => ({
+      ...events,
+      onChange: value => {
+        events.onChange(value)
+      }
+    }),
+    [events]
+  )
 
-  const toEvents = useMemo(() => ({
-    onChange: toValue => {
-      events.onChange({
-        ...value,
-        to: toValue
-      })
-    }
-  }), [events, value])
+  const toEvents = useMemo(
+    () => ({
+      onChange: toValue => {
+        events.onChange({
+          ...value,
+          to: toValue
+        })
+      }
+    }),
+    [events, value]
+  )
 
-  const fromEvents = useMemo(() => ({
-    onChange: fromValue => {
-      events.onChange({
-        ...value,
-        from: fromValue
-      })
-    }
-  }), [events, value])
+  const fromEvents = useMemo(
+    () => ({
+      onChange: fromValue => {
+        events.onChange({
+          ...value,
+          from: fromValue
+        })
+      }
+    }),
+    [events, value]
+  )
 
   const typeMapping = rangeTypeMappings[type]
 

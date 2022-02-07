@@ -7,7 +7,7 @@ const CopyProgress = ({startCopy}) => {
     startCopy()
   }, [startCopy])
 
-  return <LoadMask/>
+  return <LoadMask />
 }
 
 CopyProgress.propTypes = {

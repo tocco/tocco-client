@@ -70,7 +70,7 @@ describe('app-extensions', () => {
         }
         test('should connect socket on failure', () => testSocketConnection(false))
         test('should connect socket on success', () => testSocketConnection(true))
-        
+
         test('should set adminAllowed in', () => {
           const sessionResponse = {
             adminAllowed: true

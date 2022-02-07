@@ -22,7 +22,6 @@ const AdminSearchForm = props => {
   )
 }
 
-
 AdminSearchForm.propTypes = {
   initialized: PropTypes.bool.isRequired,
   intl: PropTypes.object.isRequired,

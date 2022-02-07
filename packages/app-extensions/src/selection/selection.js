@@ -53,4 +53,3 @@ export const getSingleKey = (selection, expectedEntityName) => {
   }
   return selection.ids[0]
 }
-
