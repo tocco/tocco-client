@@ -1,7 +1,7 @@
 import bootstrapWidgets from './bootstrapWidgets'
 import {getBackendUrl, loadScriptAsync} from './utils'
 
-(() => {
+;(() => {
   const backendUrl = getBackendUrl(document)
 
   const params = {

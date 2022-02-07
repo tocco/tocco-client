@@ -102,7 +102,7 @@ import React from 'react'
 
 import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
 
-(() => {
+;(() => {
   library.add(
     faChevronDoubleLeft,
     faChevronDoubleRight,
