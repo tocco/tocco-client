@@ -1,3 +1,21 @@
+1.0.5
+- Display overflowing hours in durations
+- auto focus basic search form
+- fix onError of customAction
+- change toaster type of aborted action handler
+- Add second tab to search form that allows executing custom queries. Add additional actions to open search as query and save query as a new filter.
+- change toaster to fixed positioning to guarantee visibility on scroll
+- Use app locale automatically for all (REST) requests
+- render modal action component with right locale
+- render subgrids with correct locale
+- render fullscreen actions with correct locale
+- render detail with correct locale
+- render list with correct locale
+- Using the advanced search in multi-remote fields no longer ignores the current selection.
+- Code editors used to write TQL can now be configured in the backend to assume some entity model as the given base, allowing only writing the 'where'- and 'order by'-parts of a query.
+- The TQL editor in the query view now uses an implicit base model, which allows auto-complete to work.
+- increase table style specificities to prevent them from being overwritten inside widgets
+
 1.0.4
 - do not execute injected JS in html field
 - no styles allowed in rendered HTML
