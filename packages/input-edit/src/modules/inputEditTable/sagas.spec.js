@@ -137,10 +137,12 @@ describe('input-edit', () => {
             ])
             .call(rest.fetchForm, 'Input_edit_data', 'list')
             .put(actions.setEditForm({inputEditForm: expectedEditForm}))
-            .put(notification.toaster({
-              type: 'info',
-              title: 'client.actions.InputEdit.input_closed'
-            }))
+            .put(
+              notification.toaster({
+                type: 'info',
+                title: 'client.actions.InputEdit.input_closed'
+              })
+            )
             .call(sagas.processDataForm, expectedDataForm, true, readonlyActions)
             .call(sagas.loadData, {})
             .run()

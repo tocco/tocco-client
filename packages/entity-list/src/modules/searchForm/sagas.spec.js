@@ -664,16 +664,19 @@ describe('entity-list', () => {
             }
             return expectSaga(sagas.loadSearchAsQuery)
               .provide([
-                [select(sagas.listSelector), {
-                  sorting: [
-                    {field: 'field', order: 'desc'},
-                    {field: 'other', order: 'asc'}
-                  ]
-                }],
+                [
+                  select(sagas.listSelector),
+                  {
+                    sorting: [
+                      {field: 'field', order: 'desc'},
+                      {field: 'other', order: 'asc'}
+                    ]
+                  }
+                ],
                 [select(sagas.entityListSelector), {entityName: 'Entity_name'}],
                 [matchers.call.fn(listSagas.getSearchViewQuery), {where: 'condition', filter: ['filter1', 'filter2']}],
                 [matchers.call.fn(rest.requestSaga), {body: {query: 'query'}}],
-                [matchers.call.fn(sagas.checkQuery)],
+                [matchers.call.fn(sagas.checkQuery)]
               ])
               .call(rest.requestSaga, 'client/query/Entity_name/build', {method: 'POST', body: expectedBody})
               .put(actions.setQuery('query'))
@@ -697,7 +700,8 @@ describe('entity-list', () => {
                 [matchers.call.fn(sagas.saveNewSearchFilter), {uniqueId: 'filter id'}],
                 [matchers.call.fn(sagas.loadSearchFilter)],
                 [matchers.call.fn(sagas.resetSearch)]
-              ]).put.like({
+              ])
+              .put.like({
                 action: {
                   type: 'notification/MODAL',
                   payload: {
@@ -719,12 +723,18 @@ describe('entity-list', () => {
                 }
               })
               .call.like({fn: channel})
-              .call.like({fn: sagas.saveNewSearchFilter, args: [
+              .call.like({
+                fn: sagas.saveNewSearchFilter,
+                args: [
                   'searchFilterName',
                   'entityName',
                   'condition',
-                  [{field: 'field', order: 'asc'}, {field: 'other', order: 'desc'}]
-                ]})
+                  [
+                    {field: 'field', order: 'asc'},
+                    {field: 'other', order: 'desc'}
+                  ]
+                ]
+              })
               .call(sagas.loadSearchFilter, 'entityName')
               .call(sagas.resetSearch)
               .put(actions.setQueryViewVisible(false))
@@ -762,26 +772,25 @@ describe('entity-list', () => {
         describe('runQuery', () => {
           test('should start search', () => {
             return expectSaga(sagas.runQuery)
-              .provide([
-                [select(sagas.searchFormSelector), {query: 'query'}]
-              ])
+              .provide([[select(sagas.searchFormSelector), {query: 'query'}]])
               .put(actions.executeSearch())
               .run()
           })
           test('should set sorting', () => {
             return expectSaga(sagas.runQuery)
-              .provide([
-                [select(sagas.searchFormSelector), {query: 'query order by field desc, other asc'}]
-              ])
-              .put(setSorting([{field: 'field', order: 'desc'}, {field: 'other', order: 'asc'}]))
+              .provide([[select(sagas.searchFormSelector), {query: 'query order by field desc, other asc'}]])
+              .put(
+                setSorting([
+                  {field: 'field', order: 'desc'},
+                  {field: 'other', order: 'asc'}
+                ])
+              )
               .put(actions.executeSearch())
               .run()
           })
           test('should do nothing with errors', () => {
             return expectSaga(sagas.runQuery)
-              .provide([
-                [select(sagas.searchFormSelector), {query: 'query', queryError: {error: ['error']}}]
-              ])
+              .provide([[select(sagas.searchFormSelector), {query: 'query', queryError: {error: ['error']}}]])
               .not.put(actions.executeSearch)
               .run()
           })

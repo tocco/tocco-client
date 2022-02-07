@@ -24,13 +24,15 @@ export const getPathDisplayRequest = (entities, relationPaths, lazyData) => {
         const fieldValue = entity[field]
         const values = Array.isArray(fieldValue) ? fieldValue : [fieldValue]
 
-        values.filter(v => v !== null).forEach(value => {
-          const {model, key} = value
+        values
+          .filter(v => v !== null)
+          .forEach(value => {
+            const {model, key} = value
 
-          if (!alreadyLoaded(model, key, lazyData) && !alreadyInRequest(model, key, request)) {
-            _set(request, [model], [..._get(request, [model], []), key])
-          }
-        })
+            if (!alreadyLoaded(model, key, lazyData) && !alreadyInRequest(model, key, request)) {
+              _set(request, [model], [..._get(request, [model], []), key])
+            }
+          })
       }
     })
   })

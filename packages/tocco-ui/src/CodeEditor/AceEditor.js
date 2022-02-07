@@ -80,13 +80,10 @@ const AceEditor = props => {
   const containerReference = useRef(null)
   const editorReference = useRef(null)
 
-  const editorConfig = useMemo(() => ({mode, theme, showGutter, editorOptions, implicitModel}), [
-    mode,
-    theme,
-    showGutter,
-    editorOptions,
-    implicitModel
-  ])
+  const editorConfig = useMemo(
+    () => ({mode, theme, showGutter, editorOptions, implicitModel}),
+    [mode, theme, showGutter, editorOptions, implicitModel]
+  )
 
   // only on mount
   useEffect(() => {

@@ -56,27 +56,29 @@ export default implicitModel =>
       ]
 
       const customRules = {
-        start: implicitModel ? [
-          {
-            token: 'keyword.where',
-            regex: /\s*/,
-            next: 'rootwhere',
-            caseInsensitive: true
-          }
-        ] : [
-          {
-            token: 'keyword.find',
-            regex: /find($|\s+)/,
-            push: 'model',
-            caseInsensitive: true
-          },
-          {
-            token: 'keyword.where',
-            regex: /where($|\s+)/,
-            next: 'rootwhere',
-            caseInsensitive: true
-          }
-        ],
+        start: implicitModel
+          ? [
+              {
+                token: 'keyword.where',
+                regex: /\s*/,
+                next: 'rootwhere',
+                caseInsensitive: true
+              }
+            ]
+          : [
+              {
+                token: 'keyword.find',
+                regex: /find($|\s+)/,
+                push: 'model',
+                caseInsensitive: true
+              },
+              {
+                token: 'keyword.where',
+                regex: /where($|\s+)/,
+                next: 'rootwhere',
+                caseInsensitive: true
+              }
+            ],
         model: [
           {
             token: 'support.class.model',

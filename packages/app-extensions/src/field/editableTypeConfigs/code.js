@@ -56,10 +56,7 @@ export default {
     mode: formField.mode,
     implicitModel: findImplicitModel(formField, formData)
   }),
-  dataContainerProps: ({
-    formField,
-    formName
-  }) => ({
+  dataContainerProps: ({formField, formName}) => ({
     formValues: {
       formName: formName,
       fields: findImplicitModelField(formField)

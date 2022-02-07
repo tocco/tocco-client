@@ -29,11 +29,11 @@ export const initPasswordUpdateApp = (id, input, events, publicPath, customTheme
   }
 
   const store = appFactory.createStore(loginReducers, sagas, input, packageName)
-  
+
   if (input.backendUrl) {
     env.setBackendUrl(input.backendUrl)
   }
-  
+
   externalEvents.addToStore(store, events)
   errorLogging.addToStore(store, true, ['console', 'remote'])
 

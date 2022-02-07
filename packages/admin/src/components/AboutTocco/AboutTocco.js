@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
-import {Typography, Link} from 'tocco-ui'
+import {Link, Typography} from 'tocco-ui'
 
 import ToccoLogo from '../../assets/tocco_red.svg'
-import {StyledLogo, StyledBlockWrapper, StyledFormattedMessageWrapper} from './StyledComponents'
+import {StyledBlockWrapper, StyledFormattedMessageWrapper, StyledLogo} from './StyledComponents'
 
 const AboutTocco = ({niceVersion, niceRevision, intl}) => {
   const msg = id => intl.formatMessage({id})
@@ -35,7 +35,7 @@ const AboutTocco = ({niceVersion, niceRevision, intl}) => {
           <FormattedMessage id="client.admin.about.revisionLabel" />
           :&nbsp; {niceRevision}
           <br />
-          <FormattedMessage id="client.admin.about.clientVersionLabel"/>
+          <FormattedMessage id="client.admin.about.clientVersionLabel" />
           :&nbsp; {json.version}
         </Typography.P>
       </StyledBlockWrapper>

@@ -8,34 +8,25 @@ import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'connect-principal'
 
-const EXTERNAL_EVENTS = [
-  'emitAction',
-  'onSuccess',
-  'onError'
-]
+const EXTERNAL_EVENTS = ['emitAction', 'onSuccess', 'onError']
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <Progress/>
+  const content = <Progress />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
   externalEvents.addToStore(store, events)
 
-  return appFactory.createApp(
-    packageName,
-    content,
-    store,
-    {
-      input,
-      events,
-      actions: [],
-      publicPath,
-      textResourceModules: ['component', 'common', packageName]
-    }
-  )
+  return appFactory.createApp(packageName, content, store, {
+    input,
+    events,
+    actions: [],
+    publicPath,
+    textResourceModules: ['component', 'common', packageName]
+  })
 }
 
-(() => {
+;(() => {
   if (__PACKAGE_NAME__ === packageName) {
     appFactory.registerAppInRegistry(packageName, initApp)
 

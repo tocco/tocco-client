@@ -64,7 +64,7 @@ const AceEditorPropTypes = {
     PropTypes.shape({
       entityModel: PropTypes.string,
       field: PropTypes.string,
-      key: PropTypes.string,
+      key: PropTypes.string
     })
   ])
 }

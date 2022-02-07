@@ -1,10 +1,10 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {takeEvery, all, select, call} from 'redux-saga/effects'
+import {all, call, select, takeEvery} from 'redux-saga/effects'
 import {originId as originIdHelper} from 'tocco-util'
 
 import socket from '../../../socket'
 import {notificationTransform} from '../../api'
-import {updateNotification, updateUnreadNotification, markAsRead} from '../center/actions'
+import {markAsRead, updateNotification, updateUnreadNotification} from '../center/actions'
 import * as toasterActions from '../toaster/actions'
 import {TOASTER} from '../toaster/actions'
 import * as actions from './actions'
@@ -44,9 +44,7 @@ describe('app-extensions', () => {
       describe('connectSocket', () => {
         test('should connect socket', () =>
           expectSaga(sagas.connectSocket)
-            .provide([
-              [call(originIdHelper.getOriginId), 'test-origin-id']
-            ])
+            .provide([[call(originIdHelper.getOriginId), 'test-origin-id']])
             .call(socket.connectSocket, {
               name: 'notification',
               messageReceivedAction: actions.socketMessageReceived,

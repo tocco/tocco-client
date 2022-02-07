@@ -6,10 +6,7 @@ describe('app-extensions', () => {
       describe('location', () => {
         describe('getEvents', () => {
           describe('onChange', () => {
-            const testOnChange = (
-              locationObject,
-              expectedChangeFieldValueCalls
-            ) => {
+            const testOnChange = (locationObject, expectedChangeFieldValueCalls) => {
               const formField = {
                 locationMapping: {
                   district: 'admincode2'
@@ -28,9 +25,7 @@ describe('app-extensions', () => {
               })
               onChange(locationObject)
 
-              expect(changeFieldValue.mock.calls).to.eql(
-                expectedChangeFieldValueCalls
-              )
+              expect(changeFieldValue.mock.calls).to.eql(expectedChangeFieldValueCalls)
             }
 
             test('should set location property according to location mapping', () =>

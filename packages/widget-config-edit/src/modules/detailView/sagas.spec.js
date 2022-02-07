@@ -1,8 +1,8 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
-import {all, select, takeEvery, call} from 'redux-saga/effects'
-import {rest, notification, externalEvents} from 'tocco-app-extensions'
+import {all, call, select, takeEvery} from 'redux-saga/effects'
+import {externalEvents, notification, rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -40,7 +40,7 @@ describe('widget-config-edit', () => {
           test('should throw error when multiple configs are selected', () => {
             return expectSaga(sagas.fetchSpecificConfigEntityId)
               .provide([
-                [select(sagas.inputSelector), {selection: {entityName: 'Widget_config', type: 'ID', ids: ['6', '8']}}],
+                [select(sagas.inputSelector), {selection: {entityName: 'Widget_config', type: 'ID', ids: ['6', '8']}}]
               ])
               .put.like({action: notification.toaster({type: 'error'})})
               .run()
@@ -54,10 +54,12 @@ describe('widget-config-edit', () => {
             return expectSaga(sagas.linkCreatedSpecificConfig, action)
               .provide([
                 [select(sagas.inputSelector), {selection: {entityName: 'Widget_config', type: 'ID', ids: ['6']}}],
-                [call(rest.requestSaga, '/widget/configs/6/specific-config', {
-                  method: 'PUT',
-                  body: specificConfigEntityId
-                })]
+                [
+                  call(rest.requestSaga, '/widget/configs/6/specific-config', {
+                    method: 'PUT',
+                    body: specificConfigEntityId
+                  })
+                ]
               ])
               .call.like(rest.requestSaga)
               .put(actions.fireSuccess())

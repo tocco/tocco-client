@@ -26,9 +26,11 @@ export function* checkAccessRights() {
   if (response.status === 204) {
     yield put(actions.setShowSsoLoginApp(true))
   } else {
-    yield put(externalEvents.fireExternalEvent('onError', {
-      message: 'client.actions.ConnectPrincipalAction.permission_message'
-    }))
+    yield put(
+      externalEvents.fireExternalEvent('onError', {
+        message: 'client.actions.ConnectPrincipalAction.permission_message'
+      })
+    )
   }
 }
 
@@ -47,7 +49,9 @@ export function* connectPrincipal({payload: {provider, ssoSubject}}) {
   const response = yield call(rest.requestSaga, resource, options)
 
   const type = response.body.success ? 'onSuccess' : 'onError'
-  yield put(externalEvents.fireExternalEvent(type, {
-    message: response.body.message
-  }))
+  yield put(
+    externalEvents.fireExternalEvent(type, {
+      message: response.body.message
+    })
+  )
 }

@@ -9,7 +9,7 @@ import {toaster} from '../notification/modules/toaster/actions'
 import {handleClientQuestion} from './clientQuestions'
 import InformationError from './InformationError'
 import {sendRequest} from './request'
-import {getParameterString, prepareRequest, requestSaga, simpleRequest, setLocale} from './rest'
+import {getParameterString, prepareRequest, requestSaga, setLocale, simpleRequest} from './rest'
 
 describe('app-extensions', () => {
   describe('rest', () => {
@@ -433,11 +433,9 @@ describe('app-extensions', () => {
             locale: 'fr'
           }
         }
-        
+
         return expectSaga(setLocale, options)
-          .provide([
-            [select(intl.localeSelector), 'fr']
-          ])
+          .provide([[select(intl.localeSelector), 'fr']])
           .returns(expectedOptions)
           .run()
       })
@@ -454,11 +452,9 @@ describe('app-extensions', () => {
             locale: 'fr'
           }
         }
-        
+
         return expectSaga(setLocale, options)
-          .provide([
-            [select(intl.localeSelector), 'fr']
-          ])
+          .provide([[select(intl.localeSelector), 'fr']])
           .returns(expectedOptions)
           .run()
       })
@@ -476,11 +472,9 @@ describe('app-extensions', () => {
             locale: 'de'
           }
         }
-        
+
         return expectSaga(setLocale, options)
-          .provide([
-            [select(intl.localeSelector), 'fr']
-          ])
+          .provide([[select(intl.localeSelector), 'fr']])
           .returns(expectedOptions)
           .run()
       })

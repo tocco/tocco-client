@@ -605,7 +605,7 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.searchFormSelector), searchForm],
                 [select(sagas.selectionSelector), selection],
-                [select(sagas.listSelector), listState],
+                [select(sagas.listSelector), listState]
               ])
               .returns(expectedResult)
               .run()

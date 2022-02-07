@@ -1,6 +1,6 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {select, takeLatest, all} from 'redux-saga/effects'
+import {all, select, takeLatest} from 'redux-saga/effects'
 import {externalEvents, rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
@@ -14,10 +14,12 @@ describe('connect-principal', () => {
         describe('rootSaga', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal(all([
-              takeLatest(actions.CHECK_ACCESS_RIGHTS, checkAccessRights),
-              takeLatest(actions.CONNECT_PRINCIPAL, connectPrincipal)
-            ]))
+            expect(generator.next().value).to.deep.equal(
+              all([
+                takeLatest(actions.CHECK_ACCESS_RIGHTS, checkAccessRights),
+                takeLatest(actions.CONNECT_PRINCIPAL, connectPrincipal)
+              ])
+            )
             expect(generator.next().done).to.be.true
           })
         })
@@ -53,9 +55,11 @@ describe('connect-principal', () => {
                 [select(sagas.inputSelector), input],
                 [matchers.call(rest.requestSaga, resource, options), {status: 403}]
               ])
-              .put(externalEvents.fireExternalEvent('onError', {
-                message: 'client.actions.ConnectPrincipalAction.permission_message'
-              }))
+              .put(
+                externalEvents.fireExternalEvent('onError', {
+                  message: 'client.actions.ConnectPrincipalAction.permission_message'
+                })
+              )
               .run()
           })
         })
@@ -83,9 +87,11 @@ describe('connect-principal', () => {
                 [select(sagas.inputSelector), input],
                 [matchers.call(rest.requestSaga, resource, options), {body}]
               ])
-              .put(externalEvents.fireExternalEvent('onSuccess', {
-                message: 'success-text-resource'
-              }))
+              .put(
+                externalEvents.fireExternalEvent('onSuccess', {
+                  message: 'success-text-resource'
+                })
+              )
               .run()
           })
 
@@ -99,9 +105,11 @@ describe('connect-principal', () => {
                 [select(sagas.inputSelector), input],
                 [matchers.call(rest.requestSaga, resource, options), {body}]
               ])
-              .put(externalEvents.fireExternalEvent('onError', {
-                message: 'error-text-resource'
-              }))
+              .put(
+                externalEvents.fireExternalEvent('onError', {
+                  message: 'error-text-resource'
+                })
+              )
               .run()
           })
         })

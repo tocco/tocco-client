@@ -86,7 +86,7 @@ export class ToccoFtlLangHighlightRules extends ace.require('ace/mode/text_highl
         {
           // Deal with variable names that contains number
           // e.g. <#if var42 == 42 >
-          token: function(value) {
+          token: function (value) {
             if (value.match('^[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?$')) {
               return 'constant.numeric'
             } else {
@@ -134,107 +134,106 @@ export class ToccoFtlLangHighlightRules extends ace.require('ace/mode/text_highl
 }
 
 export default class ToccoFtlHighlightRules extends ace.require('ace/mode/html_highlight_rules').HtmlHighlightRules {
-    constructor() {
-      super()
+  constructor() {
+    super()
 
-      const directives =
-        'assign|attempt|break|case|compress|default|elseif|else|escape|fallback|function|flush|' +
-        'ftl|global|if|import|include|list|local|lt|macro|nested|noescape|noparse|nt|recover|recurse|return|rt|' +
-        'setting|stop|switch|t|visit'
+    const directives =
+      'assign|attempt|break|case|compress|default|elseif|else|escape|fallback|function|flush|' +
+      'ftl|global|if|import|include|list|local|lt|macro|nested|noescape|noparse|nt|recover|recurse|return|rt|' +
+      'setting|stop|switch|t|visit'
 
-      const tqlDirectives = ['query', 'queryCount']
+    const tqlDirectives = ['query', 'queryCount']
 
-      const startRules = [
-        {
-          token: 'keyword.function',
-          regex: `\\[@(${tqlDirectives.join('|')}).*?]`,
-          push: 'tql-start'
-        },
+    const startRules = [
+      {
+        token: 'keyword.function',
+        regex: `\\[@(${tqlDirectives.join('|')}).*?]`,
+        push: 'tql-start'
+      },
+      {
+        token: 'comment',
+        regex: '\\[#--',
+        next: 'ftl-dcomment'
+      },
+      {
+        token: 'string.interpolated',
+        regex: '\\${',
+        push: 'ftl-start'
+      },
+      {
+        token: 'keyword.function',
+        regex: '\\[/?#(' + directives + ')',
+        push: 'ftl-start'
+      },
+      {
+        token: 'keyword.other',
+        regex: '\\[/?@[a-zA-Z\\.]+',
+        push: 'ftl-start'
+      }
+    ]
+
+    const endRules = [
+      {
+        token: 'keyword',
+        regex: '/?\\]',
+        next: 'pop'
+      },
+      {
+        token: 'string.interpolated',
+        regex: '}',
+        next: 'pop'
+      }
+    ]
+
+    for (const key in this.$rules) {
+      this.$rules[key].unshift.apply(this.$rules[key], startRules)
+    }
+
+    this.embedRules(ToccoFtlLangHighlightRules, 'ftl-', endRules, ['start'])
+
+    this.addRules({
+      'ftl-dcomment': [
         {
           token: 'comment',
-          regex: '\\[#--',
-          next: 'ftl-dcomment'
+          regex: '--\\]',
+          next: 'pop'
         },
         {
-          token: 'string.interpolated',
-          regex: '\\${',
-          push: 'ftl-start'
-        },
+          defaultToken: 'comment'
+        }
+      ]
+    })
+
+    const tqlEndRules = [
+      {
+        token: 'keyword.function',
+        regex: `\\[/@(${tqlDirectives.join('|')})]`,
+        next: 'pop'
+      }
+    ]
+
+    this.embedRules(TqlHighlighter(), 'tql-', tqlEndRules, ['start'])
+
+    const mergingRules = {
+      'tql-rootwhere': [
         {
           token: 'keyword.function',
-          regex: '\\[/?#(' + directives + ')',
-          push: 'ftl-start'
-        },
-        {
-          token: 'keyword.other',
-          regex: '\\[/?@[a-zA-Z\\.]+',
-          push: 'ftl-start'
-        }
-      ]
-
-      const endRules = [
-        {
-          token: 'keyword',
-          regex: '/?\\]',
-          next: 'pop'
-        },
-        {
-          token: 'string.interpolated',
-          regex: '}',
+          regex: `\\[/@(${tqlDirectives.join('|')})]`,
           next: 'pop'
         }
-      ]
-
-      for (const key in this.$rules) {
-        this.$rules[key].unshift.apply(this.$rules[key], startRules)
-      }
-
-      this.embedRules(ToccoFtlLangHighlightRules, 'ftl-', endRules, ['start'])
-
-      this.addRules({
-        'ftl-dcomment': [
-          {
-            token: 'comment',
-            regex: '--\\]',
-            next: 'pop'
-          },
-          {
-            defaultToken: 'comment'
-          }
-        ]
-      })
-
-      const tqlEndRules = [
+      ],
+      'tql-order': [
         {
           token: 'keyword.function',
           regex: `\\[/@(${tqlDirectives.join('|')})]`,
           next: 'pop'
         }
       ]
-
-      this.embedRules(TqlHighlighter(), 'tql-', tqlEndRules, ['start'])
-
-      const mergingRules = {
-        'tql-rootwhere': [
-          {
-            token: 'keyword.function',
-            regex: `\\[/@(${tqlDirectives.join('|')})]`,
-            next: 'pop'
-          }
-        ],
-        'tql-order': [
-          {
-            token: 'keyword.function',
-            regex: `\\[/@(${tqlDirectives.join('|')})]`,
-            next: 'pop'
-          }
-        ]
-      }
-      this.$rules = _mergeWith(this.$rules, mergingRules, (objValue, srcValue) =>
-        _isArray(objValue) ? objValue.concat(srcValue) : undefined
-      )
-
-      this.normalizeRules()
     }
-  }
+    this.$rules = _mergeWith(this.$rules, mergingRules, (objValue, srcValue) =>
+      _isArray(objValue) ? objValue.concat(srcValue) : undefined
+    )
 
+    this.normalizeRules()
+  }
+}

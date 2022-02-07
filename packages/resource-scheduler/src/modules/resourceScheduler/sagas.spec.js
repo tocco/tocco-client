@@ -39,7 +39,8 @@ describe('resource-scheduler', () => {
           test('should load call loadCalendarTypes', () => {
             return expectSaga(sagas.initialize)
               .provide([[select(intl.localeSelector), 'fr']])
-              .call(sagas.loadCalendarTypes).run()
+              .call(sagas.loadCalendarTypes)
+              .run()
           })
         })
 

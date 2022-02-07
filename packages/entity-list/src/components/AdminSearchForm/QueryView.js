@@ -46,10 +46,7 @@ const QueryView = ({
           <MenuItem onClick={loadSearchAsQuery}>
             <FormattedMessage id="client.entity-list.query.search.open" />
           </MenuItem>
-          <MenuItem
-            onClick={saveQueryAsFilter}
-            disabled={!queryExists || queryHasErrors}
-          >
+          <MenuItem onClick={saveQueryAsFilter} disabled={!queryExists || queryHasErrors}>
             <FormattedMessage id="client.entity-list.query.filter.save" />
           </MenuItem>
         </BallMenu>

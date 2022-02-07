@@ -20,17 +20,26 @@ describe('tocco-util', () => {
       test('should handle query with multiple fields in order by', () => {
         const sorting = getSortingFromQuery('find Entity_name where condition order by field asc, other desc')
         expect(sorting).to.have.length(2)
-        expect(sorting).to.deep.contain.members([{field: 'field', order: 'asc'}, {field: 'other', order: 'desc'}])
+        expect(sorting).to.deep.contain.members([
+          {field: 'field', order: 'asc'},
+          {field: 'other', order: 'desc'}
+        ])
       })
       test('should trim unnecessary whitespace from field', () => {
         const sorting = getSortingFromQuery('find Entity_name where condition order by field  asc,  other desc')
         expect(sorting).to.have.length(2)
-        expect(sorting).to.deep.contain.members([{field: 'field', order: 'asc'}, {field: 'other', order: 'desc'}])
+        expect(sorting).to.deep.contain.members([
+          {field: 'field', order: 'asc'},
+          {field: 'other', order: 'desc'}
+        ])
       })
       test('should trim unnecessary whitespace from order', () => {
         const sorting = getSortingFromQuery('find Entity_name where condition order by field asc , other  desc')
         expect(sorting).to.have.length(2)
-        expect(sorting).to.deep.contain.members([{field: 'field', order: 'asc'}, {field: 'other', order: 'desc'}])
+        expect(sorting).to.deep.contain.members([
+          {field: 'field', order: 'asc'},
+          {field: 'other', order: 'desc'}
+        ])
       })
       test('should handle query with only order by', () => {
         const sorting = getSortingFromQuery('order by single desc')

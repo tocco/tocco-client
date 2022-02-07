@@ -5,7 +5,7 @@ import {dragAndDrop, resize} from 'tocco-util'
 import {columnPropType, dataPropType} from './propTypes'
 import ResizingController from './ResizingController'
 import SortingState from './SortingState'
-import {StyledDnD, StyledTableHead, StyledTableHeaderCell, StyledTableRow, StyledDraggable} from './StyledTable'
+import {StyledDnD, StyledDraggable, StyledTableHead, StyledTableHeaderCell, StyledTableRow} from './StyledTable'
 
 const ThContent = ({column, data}) =>
   column.HeaderRenderer ? (
@@ -20,15 +20,8 @@ ThContent.propTypes = {
 }
 
 const TableHeader = props => {
-  const {
-    columns,
-    data,
-    onColumnPositionChange,
-    onSortingChange,
-    tableEl,
-    onColumnWidthChanging,
-    onColumnWidthChanged
-  } = props
+  const {columns, data, onColumnPositionChange, onSortingChange, tableEl, onColumnWidthChanging, onColumnWidthChanged} =
+    props
   const {dndEvents, dndState} = dragAndDrop.useDnD(onColumnPositionChange)
 
   // tableEl is a ref and has not to be added to the deps array
