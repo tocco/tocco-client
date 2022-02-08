@@ -4,11 +4,11 @@ const originIdName = '_tocco_originId'
 const originIdPrefix = 'client_'
 
 const getOriginId = () => {
-  if (window[originIdName]) {
-    return window[originIdName]
+  if (sessionStorage.getItem(originIdName)) {
+    return sessionStorage.getItem(originIdName)
   }
   const id = `${originIdPrefix}_${uuid()}`
-  window[originIdName] = id
+  sessionStorage.setItem(originIdName, id)
   return id
 }
 
