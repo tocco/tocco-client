@@ -1,3 +1,6 @@
+1.0.0-hotfix30.14
+- reintroduce table min-height and refactor Dashboard.js
+
 1.0.0-hotfix30.13
 - improve DnD performance
 
