@@ -30,7 +30,8 @@ const format = {
 
 const ink = {
   BASE: 'base',
-  PRIMARY: 'primary'
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary'
 }
 
 const layout = {

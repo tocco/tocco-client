@@ -119,6 +119,7 @@ const DatePicker = props => {
             type="hidden"
             data-input
             immutable={immutable}
+            className="flatpickr-input"
             {...(options ? {placeholder: options.placeholderText} : {})}
           />
           {!initialized && (
