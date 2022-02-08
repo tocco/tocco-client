@@ -1,3 +1,6 @@
+1.0.0-hotfix30.16
+- align choose document button to the right
+
 1.0.0-hotfix30.15
 - fix docs-browser height inside modal
 
