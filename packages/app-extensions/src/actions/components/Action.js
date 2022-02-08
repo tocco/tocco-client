@@ -43,7 +43,7 @@ ActionVisual.propTypes = {
     config: PropTypes.object,
     scopes: PropTypes.arrayOf(PropTypes.string),
     componentType: PropTypes.string,
-    children: PropTypes.Array,
+    children: PropTypes.array,
     buttonType: PropTypes.oneOf(['REGULAR', 'ICON'])
   }).isRequired,
   selection: PropTypes.shape({
@@ -97,7 +97,7 @@ Action.propTypes = {
   definition: PropTypes.shape({
     id: PropTypes.string,
     componentType: PropTypes.string,
-    children: PropTypes.Array
+    children: PropTypes.array
   }).isRequired
 }
 
