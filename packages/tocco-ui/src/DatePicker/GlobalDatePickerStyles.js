@@ -6,6 +6,7 @@ const calendarWidth = 270
 const secondaryLight = theme.color('secondaryLight')
 const secondary = theme.color('secondary')
 const paper = theme.color('paper')
+const text = theme.color('text')
 const regular = theme.fontWeight('regular')
 const baseSpace = scale.space(-2)
 
@@ -87,10 +88,16 @@ export const GlobalDatePickerStyles = createGlobalStyle`
     }
 
     .flatpickr-months .flatpickr-month,
+    .flatpickr-months .flatpickr-monthDropdown-months,
     .flatpickr-weekdays,
     .flatpickr-weekday {
       background-color: ${secondaryLight};
       color: ${paper};
+    }
+
+    // month select options in Firefox
+    .flatpickr-months .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+      color: ${text};
     }
 
     .flatpickr-day.selected,
