@@ -5,7 +5,8 @@ import nice from '../nice'
  * Long term cache is cleared if language or revision has changed
  */
 
-const getKey = (type, id) => `cache.${type}.${id}`
+const prefix = `tocco.cache`
+const getKey = (type, id) => `${prefix}.${type}.${id}`
 
 export const addShortTerm = (type, id, value) => add(type, id, value, sessionStorage)
 export const addLongTerm = (type, id, value) => add(type, id, value, localStorage)
@@ -35,10 +36,14 @@ export const removeShortTerm = (type, id) => remove(type, id, sessionStorage)
 export const removeLongTerm = (type, id) => remove(type, id, localStorage)
 const remove = (type, id, storage) => storage.removeItem(getKey(type, id))
 
-export const clearShortTerm = () => clear(sessionStorage)
-const clear = storage => storage.clear()
-
 export const clearAll = () => {
-  localStorage.clear()
-  sessionStorage.clear()
+  clearShortTerm()
+  clearLongTerm()
+}
+
+export const clearShortTerm = () => clear(sessionStorage)
+export const clearLongTerm = () => clear(localStorage)
+const clear = storage => {
+  const keys = Object.keys(storage)
+  keys.filter(key => key.startsWith(prefix)).forEach(key => storage.removeItem(key))
 }
