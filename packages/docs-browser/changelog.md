@@ -1,3 +1,6 @@
+1.0.6-hotfix31.1
+- align choose document button to the right
+
 1.0.6
 - Display overflowing hours in durations
 - auto focus basic search form
