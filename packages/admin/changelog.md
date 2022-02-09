@@ -1,3 +1,6 @@
+1.0.14-hotfix31.1
+- align choose document button to the right
+
 1.0.14
 - Use app locale automatically for all (REST) requests
 - render modal action component with right locale
