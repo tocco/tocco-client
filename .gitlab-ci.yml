@@ -1,4 +1,4 @@
-image: node:14.18.2-alpine
+image: node:16.13.2-alpine
 
 variables:
   CYPRESS_INSTALL_BINARY: "0"
