@@ -1,3 +1,8 @@
+1.0.15
+- show loading mask while fetching info-boxes
+- fix cache clearance to keep notifications session
+- align choose document button to the right
+
 1.0.14
 - Use app locale automatically for all (REST) requests
 - render modal action component with right locale
