@@ -1,6 +1,6 @@
 {
   "name": "tocco-resource-scheduler",
-  "version": "1.0.0-hotfix30.14",
+  "version": "1.0.0-hotfix30.15",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
