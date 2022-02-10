@@ -1,3 +1,6 @@
+1.0.0-hotfix30.26
+- Using the advanced search in multi-remote fields no longer ignores the current selection.
+
 1.0.0-hotfix30.25
 - reintroduce table min-height and refactor Dashboard.js
 
