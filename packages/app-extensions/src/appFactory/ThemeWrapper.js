@@ -7,7 +7,6 @@ import {ToccoTheme} from 'tocco-theme'
 import {theme} from 'tocco-ui'
 
 const GlobalStyle = createGlobalStyle`
-
   // Legacy (display expression) icons styling
   .text-success {
     color: ${theme.color('signal.success.text')};
@@ -18,11 +17,11 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const ThemeWrapper = ({theme, appTheme, children}) => {
-  const mergedTheme = useMemo(() => _merge({}, theme, appTheme), [theme, appTheme])
+const ThemeWrapper = ({defaultTheme, customTheme, children, theme}) => {
+  const mergedTheme = useMemo(() => _merge({}, defaultTheme, customTheme), [defaultTheme, customTheme])
 
   return (
-    <ThemeProvider theme={mergedTheme}>
+    <ThemeProvider theme={theme || mergedTheme}>
       <GlobalStyle />
       {children}
     </ThemeProvider>
@@ -30,11 +29,12 @@ const ThemeWrapper = ({theme, appTheme, children}) => {
 }
 
 ThemeWrapper.defaultProps = {
-  theme: ToccoTheme
+  defaultTheme: ToccoTheme
 }
 
 ThemeWrapper.propTypes = {
-  appTheme: PropTypes.object,
+  customTheme: PropTypes.object,
+  defaultTheme: PropTypes.object,
   theme: PropTypes.object,
   children: PropTypes.node
 }

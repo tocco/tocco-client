@@ -48,7 +48,8 @@ const initializeWidget = async (backendUrl, container) => {
       backendUrl,
       ...(customTheme ? {customTheme} : {}),
       locale,
-      ...config
+      ...config,
+      themeType: 'WIDGET'
     }
     const eventHandlers = getEventHandlers(container)
     const srcPath = `${backendUrl}/js/tocco-${packageName}/dist/`
@@ -67,7 +68,7 @@ const initializeWidget = async (backendUrl, container) => {
  * Sets global variable to block other embedded bootstrap scripts from execution.
  * Only the first bootstrap script gets executed.
  *
- * @returns boolean to indicate wether script can be executed
+ * @returns boolean to indicate whether script can be executed
  */
 const initializeBootstrap = () => {
   if (window[BOOTSTRAP_SCRIPT_OBJ_NAME]) {
