@@ -48,9 +48,17 @@ const Select = ({
 
   const getOptions = () => [...(options || [])]
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const searchFunction = useCallback(searchOptions || (() => { /* _throttle expects a function */ }), [])
+  
+  // _throttle is not working with inline function
+  // searchOptions shouldn't be included in deps array as _throttle only needs to be run initially
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const throttledSearchFunction = useCallback(_throttle(searchFunction, 800, {trailing: true}), [])
+
   const handleInputChange = (searchTerm, event) => {
     if (searchOptions && searchTerm) {
-      throttledSearchOptions(searchTerm)
+      throttledSearchFunction(searchTerm)
     }
     if (searchTerm === '' && event.action === 'input-change') {
       fetchOptions()
@@ -67,10 +75,6 @@ const Select = ({
     selectComponent.current.focus()
   }
 
-  // _throttle is not working with inline function
-  // searchOptions shouldn't be included in deps array as _throttle only needs to be run initially
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const throttledSearchOptions = useCallback(_throttle(searchOptions, 800, {trailing: true}), [])
 
   const wrapperWidth = selectWrapper.current?.clientWidth || 300
   const wrapperHeight = selectWrapper.current?.clientHeight || 35
