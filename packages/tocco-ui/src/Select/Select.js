@@ -75,7 +75,6 @@ const Select = ({
     selectComponent.current.focus()
   }
 
-
   const wrapperWidth = selectWrapper.current?.clientWidth || 300
   const wrapperHeight = selectWrapper.current?.clientHeight || 35
 
@@ -137,10 +136,6 @@ const ItemPropType = PropTypes.shape({
   key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   display: PropTypes.string
 })
-
-Select.defaultProps = {
-  searchOptions: () => {}
-}
 
 Select.propTypes = {
   /**
