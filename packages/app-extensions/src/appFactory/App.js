@@ -2,19 +2,15 @@ import PropTypes from 'prop-types'
 import React, {useCallback} from 'react'
 import {IntlProvider} from 'react-intl-redux/lib'
 import {Provider} from 'react-redux'
-import styled from 'styled-components'
+import {ToccoTheme} from 'tocco-theme'
+import widgetTheme from "tocco-theme/src/ToccoTheme/widgetTheme"
 import {LoadMask} from 'tocco-ui'
 
 import keyDown from '../keyDown'
+import {StyledApp} from './StyledComponents'
 import ThemeWrapper from './ThemeWrapper'
-import './styles.css'
-const StyledApp = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`
 
-const App = ({store, initIntlPromise, content, theme}) => {
+const App = ({store, initIntlPromise, content, theme, themeType}) => {
   const wrapperCallback = useCallback(node => {
     if (node) {
       import(/* webpackChunkName: "vendor-fontawesome" */ '@fortawesome/fontawesome-svg-core').then(fontawesome => {
@@ -26,8 +22,10 @@ const App = ({store, initIntlPromise, content, theme}) => {
     }
   }, [])
 
+  const getDefaultTheme = themeType => themeType === 'WIDGET' ? widgetTheme : ToccoTheme
+
   return (
-    <ThemeWrapper appTheme={theme}>
+    <ThemeWrapper customTheme={theme} defaultTheme={getDefaultTheme(themeType)}>
       <Provider store={store}>
         <keyDown.KeyDownWatcher>
           <LoadMask promises={[initIntlPromise]}>
@@ -45,7 +43,8 @@ App.propTypes = {
   store: PropTypes.object.isRequired,
   initIntlPromise: PropTypes.object.isRequired,
   content: PropTypes.node.isRequired,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  themeType: PropTypes.string
 }
 
 export default App
