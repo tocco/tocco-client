@@ -48,8 +48,8 @@ const Select = ({
 
   const getOptions = () => [...(options || [])]
 
-  const searchFunction = useCallback(searchOptions || (() => { /* _throttle expects a function */ }), [searchOptions])
-  const throttledSearchFunction = useCallback(_throttle(searchFunction, 800, {trailing: true}), [searchFunction])
+  const searchFunction = useCallback(searchOptions || (() => { /* _throttle expects a function */ }), [])
+  const throttledSearchFunction = useCallback(_throttle(searchFunction, 800, {trailing: true}), [])
 
   const handleInputChange = (searchTerm, event) => {
     if (searchOptions && searchTerm) {
