@@ -48,9 +48,12 @@ const Select = ({
 
   const getOptions = () => [...(options || [])]
 
+  const searchFunction = useCallback(searchOptions || (() => { /* _throttle expects a function */ }), [searchOptions])
+  const throttledSearchFunction = useCallback(_throttle(searchFunction, 800, {trailing: true}), [searchFunction])
+
   const handleInputChange = (searchTerm, event) => {
     if (searchOptions && searchTerm) {
-      throttledSearchOptions(searchTerm)
+      throttledSearchFunction(searchTerm)
     }
     if (searchTerm === '' && event.action === 'input-change') {
       fetchOptions()
@@ -66,8 +69,6 @@ const Select = ({
   const handleFocus = () => {
     selectComponent.current.focus()
   }
-
-  const throttledSearchOptions = useCallback(_throttle(searchOptions, 800, {trailing: true}), [])
 
   const wrapperWidth = selectWrapper.current?.clientWidth || 300
   const wrapperHeight = selectWrapper.current?.clientHeight || 35
@@ -137,10 +138,6 @@ const ItemPropType = PropTypes.shape({
   ]).isRequired,
   display: PropTypes.string
 })
-
-Select.defaultProps = {
-  searchOptions: () => {}
-}
 
 Select.propTypes = {
   /**
