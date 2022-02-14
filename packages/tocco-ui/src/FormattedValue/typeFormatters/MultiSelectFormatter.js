@@ -12,12 +12,7 @@ const MultiSelectFormatter = ({value, options, breakWords}) => {
         ? value
             .map(v =>
               options && options.DetailLink ? (
-                <span
-                  onClick={e => {
-                    e.stopPropagation()
-                    e.preventDefault()
-                  }}
-                >
+                <span onClick={e => e.stopPropagation()}>
                   <options.DetailLink entityKey={v.key}>{v.display}</options.DetailLink>
                 </span>
               ) : (
