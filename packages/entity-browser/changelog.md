@@ -1,3 +1,6 @@
+1.0.5-hotfix31.1
+- The model field in the QueryView is now a display.
+
 1.0.5
 - Display overflowing hours in durations
 - auto focus basic search form
