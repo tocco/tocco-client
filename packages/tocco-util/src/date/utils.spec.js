@@ -20,6 +20,13 @@ describe('tocco-util', () => {
           const milliSeconds = 90083036
           expect(millisecondsToDuration(milliSeconds)).to.be.eql(result)
         })
+
+        test('should correctly handle tiny values', () => {
+          // previously we used parseInt to cut of decimals, which has strange results when passing in small numbers
+          expect(millisecondsToDuration(1)).to.be.eql({hours: 0, minutes: 0, seconds: 0.001})
+          expect(millisecondsToDuration(2)).to.be.eql({hours: 0, minutes: 0, seconds: 0.002})
+          expect(millisecondsToDuration(3)).to.be.eql({hours: 0, minutes: 0, seconds: 0.003})
+        })
       })
 
       describe('formatDuration', () => {
