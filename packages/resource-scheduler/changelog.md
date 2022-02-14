@@ -1,3 +1,6 @@
+1.0.3-hotfix31.1
+- The model field in the QueryView is now a display.
+
 1.0.3
 - do not execute injected JS in html field
 - no styles allowed in rendered HTML
