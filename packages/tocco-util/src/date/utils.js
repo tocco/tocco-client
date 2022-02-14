@@ -10,8 +10,8 @@ export const millisecondsToDuration = ms => {
   }
 
   const seconds = roundDecimalPlaces((ms / 1000) % 60, 3)
-  const minutes = parseInt((ms / (1000 * 60)) % 60)
-  const hours = parseInt(ms / (1000 * 60 * 60))
+  const minutes = Math.floor((ms / (1000 * 60)) % 60)
+  const hours = Math.floor(ms / (1000 * 60 * 60))
   return {
     hours,
     minutes,
