@@ -1,3 +1,6 @@
+1.0.6-hotfix31.2
+- The model field in the QueryView is now a display.
+
 1.0.6-hotfix31.1
 - align choose document button to the right
 
