@@ -3,14 +3,11 @@ import React from 'react'
 import {selection as selectionPropType} from 'tocco-app-extensions'
 import ResourceSchedulerApp from 'tocco-resource-scheduler/src/main'
 
-import {goBack} from '../../../../../utils/routing'
-
-const ResourceScheduler = ({match, selection, actionProperties, history}) => {
-  const entityBaseUrl = goBack(match.url, 2)
+const ResourceScheduler = ({selection, actionProperties, history}) => {
   return (
     <ResourceSchedulerApp
       onEventClick={({model, key}) => {
-        const url = history.createHref({pathname: `${entityBaseUrl}/${model}/${key}`})
+        const url = history.createHref({pathname: `/e/${model}/${key}`})
         window.open(url, '_blank')
       }}
       selection={selection}
