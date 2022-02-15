@@ -19,7 +19,8 @@ import {
   setSortable,
   setInputTql,
   setInputKeys,
-  setInputSearchFilters
+  setInputSearchFilters,
+  setInputConstriction
 } from './modules/list/actions'
 import {setSelection} from './modules/selection/actions'
 
@@ -151,6 +152,12 @@ const actionSettings = [
     name: 'searchFilters',
     action: setInputSearchFilters,
     argsFactory: input => [input.searchFilters],
+    reload: reloadOptions.DATA
+  },
+  {
+    name: 'constriction',
+    action: setInputConstriction,
+    argsFactory: input => [input.constriction],
     reload: reloadOptions.DATA
   },
   {

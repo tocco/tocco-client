@@ -25,7 +25,8 @@ const EXPECTED_INITIAL_STATE = {
   constriction: null,
   inputKeys: null,
   inputSearchFilters: null,
-  inputTql: null
+  inputTql: null,
+  inputConstriction: null
 }
 
 describe('entity-list', () => {
@@ -346,6 +347,19 @@ describe('entity-list', () => {
           }
 
           expect(reducer(stateBefore, actions.setSearchEndpoint(newSearchEndpoint))).to.deep.equal(expectedStateAfter)
+        })
+
+        test('should handle SET_INPUT_CONSTRICTION', () => {
+          const stateBefore = {
+            inputConstriction: null
+          }
+
+          const expectedStateAfter = {
+            inputConstriction: 'my_test_constriction'
+          }
+
+          expect(reducer(stateBefore, actions.setInputConstriction('my_test_constriction')))
+            .to.deep.equal(expectedStateAfter)
         })
       })
     })
