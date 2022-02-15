@@ -1,3 +1,7 @@
+1.0.14-hotfix31.4
+- ResourceScheduler now always open the root entities route when clicking on events.
+- Tiny millisecond values (1 - 3) are now displayed correctly.
+
 1.0.14-hotfix31.2
 - The model field in the QueryView is now a display.
 
