@@ -1,3 +1,6 @@
+1.0.3-hotfix31.1
+- Navigating to detail pages through links in multi-select fields is now possible.
+
 1.0.3
 - do not execute injected JS in html field
 - no styles allowed in rendered HTML
