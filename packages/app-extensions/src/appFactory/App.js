@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 import React, {useCallback} from 'react'
 import {IntlProvider} from 'react-intl-redux/lib'
 import {Provider} from 'react-redux'
-import {ToccoTheme} from 'tocco-theme'
-import widgetTheme from "tocco-theme/src/ToccoTheme/widgetTheme"
+import {ToccoTheme, WidgetTheme} from 'tocco-theme'
 import {LoadMask} from 'tocco-ui'
 
 import keyDown from '../keyDown'
@@ -22,7 +21,7 @@ const App = ({store, initIntlPromise, content, theme, themeType}) => {
     }
   }, [])
 
-  const getDefaultTheme = themeType => themeType === 'WIDGET' ? widgetTheme : ToccoTheme
+  const getDefaultTheme = themeType => themeType === 'WIDGET' ? WidgetTheme : ToccoTheme
 
   return (
     <ThemeWrapper customTheme={theme} defaultTheme={getDefaultTheme(themeType)}>
@@ -44,7 +43,7 @@ App.propTypes = {
   initIntlPromise: PropTypes.object.isRequired,
   content: PropTypes.node.isRequired,
   theme: PropTypes.object,
-  themeType: PropTypes.string
+  themeType: PropTypes.oneOf(['WIDGET', 'ADMIN'])
 }
 
 export default App

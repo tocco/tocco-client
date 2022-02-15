@@ -69,7 +69,8 @@ describe('widget-utils', () => {
           locale: 'de',
           showTitle: true,
           passwordRequest: false,
-          username: 'test-username'
+          username: 'test-username',
+          themeType: 'WIDGET' || 'ADMIN'
         }
         expect(renderSpy).to.have.been.calledWith(
           'login',
@@ -144,7 +145,8 @@ describe('widget-utils', () => {
         const expectedInput = {
           backendUrl,
           customTheme: window[THEME_OBJ_NAME],
-          locale: 'de'
+          locale: 'de',
+          themeType: 'WIDGET' || 'ADMIN'
         }
         expect(renderSpy).to.have.been.calledWith(
           'login',
@@ -184,7 +186,8 @@ describe('widget-utils', () => {
 
         const expectedInput = {
           backendUrl,
-          locale: 'de'
+          locale: 'de',
+          themeType: 'WIDGET' || 'ADMIN'
         }
         expect(renderSpy).to.have.been.calledWith(
           'login',
@@ -223,7 +226,8 @@ describe('widget-utils', () => {
 
         const expectedInput = {
           backendUrl,
-          locale: 'de'
+          locale: 'de',
+          themeType: 'WIDGET' || 'ADMIN'
         }
         expect(renderSpy).to.have.been.calledWith(
           'password-update',
@@ -262,7 +266,8 @@ describe('widget-utils', () => {
 
         const expectedInput = {
           backendUrl,
-          locale: 'de'
+          locale: 'de',
+          themeType: 'WIDGET' || 'ADMIN'
         }
         expect(renderSpy).to.have.been.calledWith(
           'password-update',
