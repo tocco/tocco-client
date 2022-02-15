@@ -14,6 +14,7 @@ const AdvancedSearch = ({
   selection,
   emitAction,
   multi,
+  constriction,
   onOkClick,
   ListApp
 }) => (
@@ -34,6 +35,7 @@ const AdvancedSearch = ({
       selectOnRowClick={true}
       disableSelectionController={true}
       showActions={false}
+      constriction={constriction}
     />
     <StyledAdvancedSearchButtonWrapper>
       <Button look="raised" onClick={onOkClick}>
@@ -57,7 +59,8 @@ AdvancedSearch.propTypes = {
   onOkClick: PropTypes.func,
   appId: PropTypes.string,
   showSearchForm: PropTypes.bool,
-  multi: PropTypes.bool
+  multi: PropTypes.bool,
+  constriction: PropTypes.string
 }
 
 export default AdvancedSearch

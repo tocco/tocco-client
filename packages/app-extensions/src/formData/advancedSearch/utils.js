@@ -15,7 +15,18 @@ export const getValue = (entities, multi) =>
         : null)
 
 export const getAdvancedSearchComponent
-  = (listApp, entity, formName, listFormDefinition, selection, onSelectionChange, onOkClick, fieldId, multi) =>
+  = (
+    listApp,
+    entity,
+    formName,
+    listFormDefinition,
+    selection,
+    onSelectionChange,
+    onOkClick,
+    fieldId,
+    multi,
+    constriction
+  ) =>
     () =>
       <AdvancedSearchContainer
         ListApp={listApp}
@@ -27,4 +38,5 @@ export const getAdvancedSearchComponent
         onOkClick={onOkClick}
         field={fieldId}
         multi={multi}
+        constriction={constriction}
       />
