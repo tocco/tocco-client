@@ -1,3 +1,7 @@
+1.0.0-hotfix30.16
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+
 1.0.0-hotfix30.15
 - Using the advanced search in multi-remote fields no longer ignores the current selection.
 
