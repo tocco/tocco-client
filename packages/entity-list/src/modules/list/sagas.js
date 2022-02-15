@@ -103,7 +103,7 @@ function* getQueryViewQuery() {
 
 export function* getSearchViewQuery() {
   const {formFieldsFlat, searchFilters: searchFormSearchFilter} = yield select(searchFormSelector)
-  const {inputSearchFilters, inputTql, inputKeys, constriction} = yield select(listSelector)
+  const {inputSearchFilters, inputTql, inputKeys, inputConstriction, constriction} = yield select(listSelector)
   const searchFormValues = yield call(getSearchFormValues)
 
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
@@ -121,7 +121,7 @@ export function* getSearchViewQuery() {
     ...relevantSearchFormFetchOptions,
     ...(filter && filter.length > 0 ? {filter} : {}),
     ...(where ? {where} : {}),
-    ...(constriction && {constriction}),
+    ...(inputConstriction ? {constriction: inputConstriction} : constriction ? {constriction} : {}),
     ...(inputKeys ? {keys: inputKeys} : {}),
     hasUserChanges
   }

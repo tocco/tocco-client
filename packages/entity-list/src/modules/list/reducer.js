@@ -77,6 +77,7 @@ const ACTION_HANDLERS = {
   [actions.SET_INPUT_TQL]: reducerUtil.singleTransferReducer('inputTql'),
   [actions.SET_INPUT_KEYS]: reducerUtil.singleTransferReducer('inputKeys'),
   [actions.SET_INPUT_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('inputSearchFilters'),
+  [actions.SET_INPUT_CONSTRICTION]: reducerUtil.singleTransferReducer('inputConstriction'),
   [actions.SET_DISABLE_PREFERENCES_MENU]: reducerUtil.singleTransferReducer('disablePreferencesMenu')
 }
 
@@ -104,7 +105,8 @@ const initialState = {
   constriction: null,
   inputTql: null,
   inputKeys: null,
-  inputSearchFilters: null
+  inputSearchFilters: null,
+  inputConstriction: null
 }
 
 export default function reducer(state = initialState, action) {
