@@ -1,3 +1,6 @@
+1.0.5-hotfix31.2
+- Tiny millisecond values (1 - 3) are now displayed correctly.
+
 1.0.5-hotfix31.1
 - The model field in the QueryView is now a display.
 
