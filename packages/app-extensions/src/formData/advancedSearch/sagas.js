@@ -27,7 +27,8 @@ export function* openAdvancedSearch(config, {payload}) {
     formBase: fieldFormBase,
     targetEntity: entity,
     dataType,
-    formName: formNameField
+    formName: formNameField,
+    constriction
   } = formField
   const multi = dataType === 'multi-remote-field'
   const remoteFieldFormName = formNameField ? `${entity}_${formNameField}` : fieldFormBase || entity
@@ -50,7 +51,8 @@ export function* openAdvancedSearch(config, {payload}) {
       answerChannel.put(advancedSearchActions.advancedSearchClose())
     },
     fieldId,
-    multi)
+    multi,
+    constriction)
 
   yield put(notification.modal(modalId, `${label}: ${advancedSearchTitle}`, null, advancedSearchComponent, true))
   yield spawn(closeAdvancedSearch, answerChannel, modalId, fieldId, formName, entity, multi)
