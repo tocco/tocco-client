@@ -1,3 +1,6 @@
+0.1.4-hotfix31.1
+- Tiny millisecond values (1 - 3) are now displayed correctly.
+
 0.1.4
 
 
