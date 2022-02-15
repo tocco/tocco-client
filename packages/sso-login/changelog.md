@@ -1,3 +1,6 @@
+1.0.2-hotfix31.1
+- Navigating to detail pages through links in multi-select fields is now possible.
+
 1.0.2
 - register more icons
 - open downloadable file in new tab to avoid errors
