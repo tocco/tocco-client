@@ -170,6 +170,7 @@ EntityListApp.propTypes = {
   searchFormType: searchFormTypePropTypes,
   searchFormPosition: PropTypes.oneOf(['top', 'left']),
   searchFilters: PropTypes.arrayOf(PropTypes.string),
+  constriction: PropTypes.string,
   preselectedSearchFields: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,

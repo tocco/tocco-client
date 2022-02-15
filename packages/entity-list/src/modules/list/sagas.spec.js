@@ -610,6 +610,50 @@ describe('entity-list', () => {
 
             expect(saga.returnValue).to.have.property('keys')
           })
+
+          test('should add constriction of list state (= constriction from list form)', async() => {
+            const listState = {
+              constriction: 'my_list_constriction',
+              inputConstriction: null
+            }
+
+            const expectedResult = {
+              constriction: 'my_list_constriction',
+              hasUserChanges: false
+            }
+
+            return expectSaga(sagas.getBasicQuery, true)
+              .provide([
+                [select(sagas.searchFormSelector), {}],
+                [select(sagas.selectionSelector), {}],
+                [select(sagas.listSelector), listState],
+                [matchers.call.fn(getSearchFormValues), {}]
+              ])
+              .returns(expectedResult)
+              .run()
+          })
+
+          test('should add input constriction of list state if set (overrides list form constriction)', async() => {
+            const listState = {
+              constriction: 'my_list_constriction',
+              inputConstriction: 'my_input_constriction'
+            }
+
+            const expectedResult = {
+              constriction: 'my_input_constriction',
+              hasUserChanges: false
+            }
+
+            return expectSaga(sagas.getBasicQuery, true)
+              .provide([
+                [select(sagas.searchFormSelector), {}],
+                [select(sagas.selectionSelector), {}],
+                [select(sagas.listSelector), listState],
+                [matchers.call.fn(getSearchFormValues), {}]
+              ])
+              .returns(expectedResult)
+              .run()
+          })
         })
 
         describe('preloadNextPage saga', () => {

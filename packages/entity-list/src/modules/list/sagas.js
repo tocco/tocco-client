@@ -76,7 +76,7 @@ export function* loadData(page) {
 }
 
 export function* getBasicQuery(regardSelection = true) {
-  const {inputSearchFilters, inputTql, inputKeys, constriction} = yield select(listSelector)
+  const {inputSearchFilters, inputTql, inputKeys, inputConstriction, constriction} = yield select(listSelector)
 
   const {showSelectedRecords, selection} = yield select(selectionSelector)
   if (regardSelection && showSelectedRecords) {
@@ -102,7 +102,11 @@ export function* getBasicQuery(regardSelection = true) {
     ...relevantSearchFormFetchOptions,
     ...(filter && filter.length > 0 ? {filter} : {}),
     ...(where ? {where} : {}),
-    ...(constriction && {constriction}),
+    ...(inputConstriction
+      ? {constriction: inputConstriction}
+      : constriction
+        ? {constriction}
+        : {}),
     ...(inputKeys ? {keys: inputKeys} : {}),
     hasUserChanges
   }
