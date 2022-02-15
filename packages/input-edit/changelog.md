@@ -1,3 +1,6 @@
+1.1.3-hotfix31.1
+- Navigating to detail pages through links in multi-select fields is now possible.
+
 1.1.3
 - Display overflowing hours in durations
 - fix onError of customAction
