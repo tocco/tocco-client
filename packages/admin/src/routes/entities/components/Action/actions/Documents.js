@@ -1,6 +1,6 @@
 import React from 'react'
-import {Redirect} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 
-const Documents = () => <Redirect to={{pathname: '/docs'}} />
+const Documents = () => <Navigate to={{pathname: '/docs'}} replace />
 
 export default Documents

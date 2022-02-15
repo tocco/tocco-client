@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {useLocation, useNavigate} from 'react-router-dom'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {viewPersistor} from 'tocco-util'
 
-import {goBack} from '../../../../utils/routing'
 import navigationStrategy from '../../utils/navigationStrategy'
 import {currentViewPropType} from '../../utils/propTypes'
 
-const ListView = ({selectedRelation, currentViewInfo, match, history, emitAction}) => {
+const ListView = ({selectedRelation, currentViewInfo, emitAction}) => {
+  const location = useLocation()
+  const navigate = useNavigate()
   return (
     <EntityListApp
       id={'preview' + selectedRelation.reverseRelationName + selectedRelation.targetEntity}
@@ -21,18 +23,16 @@ const ListView = ({selectedRelation, currentViewInfo, match, history, emitAction
         relationName: selectedRelation.relationName
       }}
       showLink={true}
-      navigationStrategy={navigationStrategy(history, match)}
+      navigationStrategy={navigationStrategy(navigate)}
       onRowClick={({id}) => {
-        const entityBaseUrl = match.url.replace(/detail$/, '')
-        history.push(`${entityBaseUrl}${selectedRelation.relationName}/${id}`)
+        navigate(`../${selectedRelation.relationName}/${id}`)
       }}
       onNavigateToCreate={() => {
-        const entityBaseUrl = goBack(match.url)
-        history.push(entityBaseUrl + '/' + selectedRelation.relationName + '/create')
+        navigate(+'../' + selectedRelation.relationName + '/create')
       }}
       searchFormType="fulltext"
       selectionStyle="none"
-      store={viewPersistor.viewInfoSelector(history.location.pathname)[`store-${selectedRelation.relationName}`]}
+      store={viewPersistor.viewInfoSelector(location.pathname)[`store-${selectedRelation.relationName}`]}
       onStoreCreate={store => {
         viewPersistor.persistViewInfo(
           currentViewInfo.pathname,
@@ -55,8 +55,6 @@ ListView.propTypes = {
     relationName: PropTypes.string
   }).isRequired,
   currentViewInfo: currentViewPropType,
-  match: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   emitAction: PropTypes.func.isRequired
 }
 

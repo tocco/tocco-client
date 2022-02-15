@@ -6,7 +6,7 @@ import {selectRelation} from '../../modules/path/actions'
 import RelationsView from './RelationsView'
 
 const mapStateToProps = (state, props) => ({
-  currentViewInfo: state.entities.path.currentViewInfos[props.history.location.pathname],
+  currentViewInfo: state.entities.path.currentViewInfos[props.location.pathname],
   relations: state.entities.path.relations,
   relationsInfo: state.entities.path.relationsInfo,
   selectedRelation: state.entities.path.selectedRelation

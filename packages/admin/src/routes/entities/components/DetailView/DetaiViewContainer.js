@@ -9,7 +9,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  currentViewInfo: state.entities.path.currentViewInfos[props.history.location.pathname],
+  currentViewInfo: state.entities.path.currentViewInfos[props.location.pathname],
   relationViewCollapsed: _get(state.preferences.userPreferences, 'admin.detail.relationViewCollapsed', false)
 })
 

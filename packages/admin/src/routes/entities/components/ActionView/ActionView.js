@@ -1,15 +1,17 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
+import {useLocation, useNavigate} from 'react-router-dom'
 import {queryString as queryStringUtil, js} from 'tocco-util'
 
-import {goBack} from '../../../../utils/routing'
 import navigationStrategy from '../../utils/navigationStrategy'
 import {currentViewPropType} from '../../utils/propTypes'
 import Action from '../Action'
 
-const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}) => {
-  const {location} = history
+const ActionView = ({setCurrentViewTitle, currentViewInfo, intl}) => {
+  const location = useLocation()
+  const navigate = useNavigate()
+
   useEffect(() => {
     if (currentViewInfo) {
       setCurrentViewTitle(intl.formatMessage({id: `client.actions.${currentViewInfo.actionId}.title`}))
@@ -29,17 +31,15 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
   const actionProperties = _get(location, 'state.definition.properties', queryParams.actionProperties)
 
   const navigateBack = () => {
-    history.replace(goBack(match.url, 2))
+    navigate('../../')
   }
 
   return (
     <Action
-      history={history}
-      match={match}
       appId={currentViewInfo.actionId}
       selection={selection}
       actionProperties={actionProperties}
-      navigationStrategy={navigationStrategy(history, match)}
+      navigationStrategy={navigationStrategy(navigate)}
       onSuccess={navigateBack}
       onError={navigateBack}
       onCancel={navigateBack}
@@ -50,20 +50,7 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
 ActionView.propTypes = {
   intl: PropTypes.object.isRequired,
   currentViewInfo: currentViewPropType,
-  setCurrentViewTitle: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    replace: PropTypes.func.isRequired,
-    location: PropTypes.shape({
-      search: PropTypes.string,
-      state: PropTypes.shape({
-        selection: PropTypes.object,
-        definition: PropTypes.shape({
-          appId: PropTypes.string
-        })
-      })
-    })
-  }).isRequired,
-  match: PropTypes.object
+  setCurrentViewTitle: PropTypes.func.isRequired
 }
 
 const areEqual = (prevProps, nextProps) => {

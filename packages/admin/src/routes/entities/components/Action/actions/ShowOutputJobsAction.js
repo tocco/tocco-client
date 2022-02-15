@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Redirect} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 
 const ShowOutputJobsAction = props => (
-  <Redirect
+  <Navigate
     to={{
       pathname: '/e/Output_job/list',
       search: `tql=${encodeURIComponent(`entity=="${props.selection.entityName}"`)}`
     }}
+    replace
   />
 )
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Routes, useLocation} from 'react-router-dom'
 import styled from 'styled-components'
 
 import Action from '../../subroutes/action'
@@ -29,8 +29,8 @@ const StyledBreadcrumbs = styled.div`
   grid-area: breadcrumbs;
 `
 
-const EntitiesRoute = ({match, history, loadCurrentRoute, currentViewInfo}) => {
-  const location = history.location
+const EntitiesRoute = ({loadCurrentRoute, currentViewInfo}) => {
+  const location = useLocation()
 
   useEffect(() => {
     loadCurrentRoute(location)
@@ -38,13 +38,13 @@ const EntitiesRoute = ({match, history, loadCurrentRoute, currentViewInfo}) => {
 
   const content =
     currentViewInfo && currentViewInfo.error ? (
-      <ErrorView history={history} />
+      <ErrorView location={location} />
     ) : (
-      <Switch>
-        <Route path={`${match.url}/action/:actionId`} component={Action} />
-        <Route path={`${match.url}/:entity`} component={Entity} />
-        <Route exact path={match.url} component={Overview} />
-      </Switch>
+      <Routes>
+        <Route path="action/:actionId" element={<Action location={location} />} />
+        <Route path=":entity/*" element={<Entity />} />
+        <Route exact path="/" element={<Overview />} />
+      </Routes>
     )
 
   return (
@@ -59,8 +59,6 @@ const EntitiesRoute = ({match, history, loadCurrentRoute, currentViewInfo}) => {
 
 EntitiesRoute.propTypes = {
   loadCurrentRoute: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
   currentViewInfo: currentViewPropType
 }
 

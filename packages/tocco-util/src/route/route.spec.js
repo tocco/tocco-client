@@ -17,7 +17,7 @@ describe('tocco-util', () => {
             }
           })
 
-          const Cmp = loadRoute(null, {}, () => promise)
+          const Cmp = loadRoute(null, () => promise)
 
           const wrapper = mount(<Cmp />)
 
@@ -36,8 +36,8 @@ describe('tocco-util', () => {
             default: {container: InnerComp2}
           })
 
-          const Cmp = loadRoute(null, {}, () => promise1, 'my-route')
-          const Cmp2 = loadRoute(null, {}, () => promise2, 'my-route')
+          const Cmp = loadRoute(null, () => promise1, 'my-route')
+          const Cmp2 = loadRoute(null, () => promise2, 'my-route')
 
           const wrapper = mount(
             <div>
@@ -62,8 +62,8 @@ describe('tocco-util', () => {
             default: {container: InnerComp2}
           })
 
-          const Cmp = loadRoute(null, {}, () => promise1)
-          const Cmp2 = loadRoute(null, {}, () => promise2)
+          const Cmp = loadRoute(null, () => promise1)
+          const Cmp2 = loadRoute(null, () => promise2)
 
           const wrapper = mount(
             <div>
@@ -88,8 +88,8 @@ describe('tocco-util', () => {
             default: {container: InnerComp2}
           })
 
-          const Cmp = loadRoute(null, {}, () => promise1, 'my-route-1')
-          const Cmp2 = loadRoute(null, {}, () => promise2, 'my-route-2')
+          const Cmp = loadRoute(null, () => promise1, 'my-route-1')
+          const Cmp2 = loadRoute(null, () => promise2, 'my-route-2')
 
           const wrapper = mount(
             <div>

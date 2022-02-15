@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types'
 import React, {useState, useEffect} from 'react'
+import {useLocation} from 'react-router-dom'
 
 import {currentViewPropType} from '../../utils/propTypes'
 import EditView from '../EditView'
 import RelationsView from '../RelationsView'
 import {StyledDetailViewContainer, StyledDetailViewLeft, StyledDetailViewRight} from './StyledComponents'
 
-const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, saveUserPreferences}) => {
+const DetailView = ({currentViewInfo, relationViewCollapsed, saveUserPreferences}) => {
+  const location = useLocation()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed)
@@ -24,10 +26,10 @@ const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, sav
   return (
     <StyledDetailViewContainer>
       <StyledDetailViewLeft isCollapsed={isCollapsed}>
-        <EditView match={match} history={history} />
+        <EditView location={location} />
       </StyledDetailViewLeft>
       <StyledDetailViewRight isCollapsed={isCollapsed}>
-        <RelationsView match={match} history={history} isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
+        <RelationsView location={location} isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
       </StyledDetailViewRight>
     </StyledDetailViewContainer>
   )
@@ -35,8 +37,6 @@ const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, sav
 
 DetailView.propTypes = {
   intl: PropTypes.object,
-  match: PropTypes.object,
-  history: PropTypes.object,
   currentViewInfo: currentViewPropType,
   relationViewCollapsed: PropTypes.bool,
   saveUserPreferences: PropTypes.func.isRequired

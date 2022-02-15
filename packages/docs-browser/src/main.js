@@ -1,4 +1,4 @@
-import createHashHistory from 'history/createHashHistory'
+import {createHashHistory} from 'history'
 import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import _pickBy from 'lodash/pickBy'

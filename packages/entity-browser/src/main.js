@@ -1,15 +1,27 @@
-import createHashHistory from 'history/createHashHistory'
-import createMemoryHistory from 'history/createMemoryHistory'
+import {createMemoryHistory, createHashHistory} from 'history'
+import _isEmpty from 'lodash/isEmpty'
+import _isEqual from 'lodash/isEqual'
+import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {Suspense} from 'react'
 import {actionEmitter, appFactory, cache, errorLogging, externalEvents, login, notification} from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/main'
 import {GlobalStyles} from 'tocco-ui'
-import {route, env} from 'tocco-util'
+import {route, env, react, reducer as reducerUtil} from 'tocco-util'
 
-import {sagas} from './modules/reducers'
+import {getDispatchActions} from './input'
+import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'entity-browser'
+
+const LazyEntityBrowserComp = React.lazy(() => import('./components/EntityBrowser'))
+const LazyEntityBrowser = () => (
+  <div>
+    <Suspense fallback="">
+      <LazyEntityBrowserComp />
+    </Suspense>
+  </div>
+)
 
 const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
@@ -62,7 +74,7 @@ const initApp = (id, input, events, publicPath) => {
     env.setBusinessUnit(input.runInBusinessUnit)
   }
 
-  const store = appFactory.createStore(undefined, sagas, input, packageName)
+  const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
@@ -73,31 +85,19 @@ const initApp = (id, input, events, publicPath) => {
   const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)
 
-  const routes = require('./routes/index').default(store, input)
-
   const content = (
-    <>
+    <route.CustomRouter history={history}>
       <GlobalStyles />
-      <route.Router history={history} routes={routes} />
-    </>
+      <LazyEntityBrowser />
+    </route.CustomRouter>
   )
 
-  const app = appFactory.createApp(packageName, content, store, {
+  return appFactory.createApp(packageName, content, store, {
     input,
-    actions: [],
+    actions: getDispatchActions(input),
     publicPath,
     textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail']
   })
-
-  if (module.hot) {
-    module.hot.accept('./routes/index', () =>
-      setImmediate(() => {
-        appFactory.reloadApp(app.renderComponent())
-      })
-    )
-  }
-
-  return app
 }
 
 ;(() => {
@@ -117,14 +117,33 @@ const initApp = (id, input, events, publicPath) => {
 
       const input = !__NO_MOCK__ ? require('./dev/input.json') : require('./dev/input-no-mock.json')
 
-      const app = initApp('id', input)
+      const app = initApp(packageName, input)
+
+      if (module.hot) {
+        module.hot.accept('./modules/reducers', () => {
+          const reducers = require('./modules/reducers').default
+          reducerUtil.hotReloadReducers(app.store, reducers)
+        })
+      }
+
       appFactory.renderApp(app.component)
     }
   }
 })()
 
 const EntityBrowserApp = props => {
-  const {component} = appFactory.useApp({initApp, props, packageName})
+  const {component, store} = appFactory.useApp({initApp, props, packageName})
+
+  const prevProps = react.usePrevious(props)
+  react.useDidUpdate(() => {
+    const changedProps = _pickBy(props, (value, key) => !_isEqual(value, prevProps[key]))
+    if (!_isEmpty(changedProps)) {
+      getDispatchActions(changedProps).forEach(action => {
+        store.dispatch(action)
+      })
+    }
+  }, [props])
+
   return component
 }
 
