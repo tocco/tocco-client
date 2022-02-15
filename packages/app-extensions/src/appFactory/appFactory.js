@@ -30,7 +30,7 @@ export const createApp = (
 
     return {
       component: <App store={store} initIntlPromise={initIntlPromise} content={content} theme={theme}
-                      themeType={input.themeType === 'WIDGET' ? 'WIDGET' : 'ADMIN'}/>,
+                      themeType={input.themeType || 'ADMIN'}/>,
       store,
       methods: {
         setLocale: locale => intl.changeLocale(store, textResourceModules, locale)
