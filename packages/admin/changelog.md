@@ -1,3 +1,12 @@
+1.0.16
+- The model field in the QueryView is now a display.
+- Navigating to detail pages through links in multi-select fields is now possible.
+- ResourceScheduler now always open the root entities route when clicking on events.
+- Tiny millisecond values (1 - 3) are now displayed correctly.
+- fix virtual form field handling
+- fix copy Address
+- implement theme type logic to enable loading of the widget theme
+
 1.0.15
 - show loading mask while fetching info-boxes
 - fix cache clearance to keep notifications session
