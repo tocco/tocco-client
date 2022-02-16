@@ -44,7 +44,8 @@ AdminSearchForm.propTypes = {
   loadSearchAsQuery: PropTypes.func.isRequired,
   saveQueryAsFilter: PropTypes.func.isRequired,
   setQuery: PropTypes.func.isRequired,
-  runQuery: PropTypes.func.isRequired
+  runQuery: PropTypes.func.isRequired,
+  clearQuery: PropTypes.func.isRequired
 }
 
 export default injectIntl(withTheme(AdminSearchForm))

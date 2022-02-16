@@ -8,6 +8,7 @@ import {
   resetSearch,
   resetSearchFields,
   runQuery,
+  clearQuery,
   saveDefaultSearchFilter,
   saveQueryAsFilter,
   saveSearchFilter,
@@ -27,7 +28,8 @@ const mapActionCreators = {
   saveQueryAsFilter,
   setQueryViewVisible,
   setQuery,
-  runQuery
+  runQuery,
+  clearQuery
 }
 
 const mapStateToProps = (state, props) => ({
