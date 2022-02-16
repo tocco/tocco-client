@@ -1,3 +1,8 @@
+1.0.5-hotfix31.3
+- introduce input prop `constriction`
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+
 1.0.5-hotfix31.2
 - Tiny millisecond values (1 - 3) are now displayed correctly.
 
