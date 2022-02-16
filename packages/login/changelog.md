@@ -1,3 +1,7 @@
+1.1.2-hotfix31.2
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+
 1.1.2-hotfix31.1
 - Navigating to detail pages through links in multi-select fields is now possible.
 
