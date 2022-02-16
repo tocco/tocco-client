@@ -15,7 +15,8 @@ const QueryView = ({
   loadSearchAsQuery,
   saveQueryAsFilter,
   setQuery,
-  runQuery
+  runQuery,
+  clearQuery
 }) => {
   const codeEditorEvents = {
     onChange: setQuery
@@ -41,6 +42,13 @@ const QueryView = ({
           onClick={runQuery}
           title={msg('client.entity-list.query.search')}
           disabled={!queryExists || queryHasErrors}
+        />
+        <Ball
+          data-cy="clear-button"
+          icon="times"
+          onClick={clearQuery}
+          title={msg('client.entity-list.query.clear')}
+          disabled={!queryExists}
         />
         <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
           <MenuItem onClick={loadSearchAsQuery}>
@@ -79,7 +87,8 @@ QueryView.propTypes = {
   loadSearchAsQuery: PropTypes.func.isRequired,
   saveQueryAsFilter: PropTypes.func.isRequired,
   setQuery: PropTypes.func.isRequired,
-  runQuery: PropTypes.func.isRequired
+  runQuery: PropTypes.func.isRequired,
+  clearQuery: PropTypes.func.isRequired
 }
 
 export default QueryView
