@@ -41,6 +41,7 @@ const ACTION_HANDLERS = {
   [actions.SET_SEARCH_FILTER_ACTIVE]: setSearchFilterActive,
   [actions.SET_QUERY_VIEW_VISIBLE]: reducerUtil.singleTransferReducer('queryViewVisible'),
   [actions.SET_QUERY]: reducerUtil.singleTransferReducer('query'),
+  [actions.CLEAR_QUERY]: state => ({...state, query: ''}),
   [actions.SET_QUERY_ERROR]: reducerUtil.singleTransferReducer('queryError')
 }
 
