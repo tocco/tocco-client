@@ -1,3 +1,4 @@
+import _debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
@@ -13,7 +14,7 @@ const CodeEdit = ({value, onChange, immutable, options}) => {
     <EditorWrapper>
       <CodeEditor
         value={value}
-        onChange={onChange}
+        onChange={_debounce(onChange, 1000)}
         mode={options.mode}
         theme={'textmate'}
         showGutter={true}
