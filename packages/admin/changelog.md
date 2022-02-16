@@ -1,3 +1,8 @@
+1.0.14-hotfix31.5
+- introduce input prop `constriction`
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+
 1.0.14-hotfix31.4
 - ResourceScheduler now always open the root entities route when clicking on events.
 - Tiny millisecond values (1 - 3) are now displayed correctly.
