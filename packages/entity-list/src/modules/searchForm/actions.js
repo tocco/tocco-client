@@ -25,6 +25,7 @@ export const SET_QUERY_VIEW_VISIBLE = 'searchForm/SET_QUERY_VIEW_VISIBLE'
 export const SET_QUERY = 'searchForm/SET_QUERY'
 export const SET_QUERY_ERROR = 'searchForm/SET_QUERY_ERROR'
 export const RUN_QUERY = 'searchForm/RUN_QUERY'
+export const CLEAR_QUERY = 'searchForm/CLEAR_QUERY'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -165,4 +166,8 @@ export const setQueryError = queryError => ({
 
 export const runQuery = () => ({
   type: RUN_QUERY
+})
+
+export const clearQuery = () => ({
+  type: CLEAR_QUERY
 })
