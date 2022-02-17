@@ -2,6 +2,7 @@ import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {notification} from 'tocco-app-extensions'
 
+import {setMenuOpen} from '../../modules/navigation/actions'
 import {doLogout, loadBusinessUnits, changeBusinessUnit} from '../../modules/session/actions'
 import Header from './Header'
 
@@ -11,7 +12,8 @@ const mapActionCreators = {
   changeBusinessUnit,
   openModalComponent: notification.modal,
   removeModalComponent: notification.removeModal,
-  info: notification.toaster
+  info: notification.toaster,
+  setMenuOpen
 }
 
 const mapStateToProps = (state, props) => ({
