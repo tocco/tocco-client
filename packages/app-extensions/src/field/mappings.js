@@ -134,7 +134,8 @@ const searchMapping = {
   integer: editableValueFactory('integer', true),
   decimal: editableValueFactory('number', true),
   counter: editableValueFactory('integer', true),
-  time: editableValueFactory('time', true)
+  time: editableValueFactory('time', true),
+  boolean: editableValueFactory('boolean-select')
 }
 
 export default {
