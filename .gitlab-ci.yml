@@ -88,7 +88,8 @@ auto-release:
   stage: release
   dependencies: []
   only:
-    - /^nice-releases\/[0-9]+$/
+    variables:
+      - $CI_RUN_AUTO_RELEASE == "1"
   before_script:
     - apk update && apk add bash && apk add curl && apk add git && apk add openssh && apk add jq && apk add ncurses
   variables:
