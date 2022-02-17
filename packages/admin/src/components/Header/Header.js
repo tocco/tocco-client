@@ -37,7 +37,8 @@ const Header = ({
   openModalComponent,
   removeModalComponent,
   info,
-  intl
+  intl,
+  setMenuOpen
 }) => {
   const handleBusinessUnitOpen = () => {
     if (businessUnits.length === 0) {
@@ -71,6 +72,8 @@ const Header = ({
       true)
   }
 
+  const closeMenu = () => setMenuOpen(false)
+
   const msg = id => intl.formatMessage({id})
 
   return <>
@@ -78,7 +81,9 @@ const Header = ({
     <StyledBackgroundCover/>
     <StyledHeader>
       <StyledConfig>
-        <RouterLinkButton to="/dashboard/reload"><FormattedMessage id="client.admin.dashboard"/></RouterLinkButton>
+        <RouterLinkButton to="/dashboard/reload" onClick={closeMenu}>
+          <FormattedMessage id="client.admin.dashboard"/>
+        </RouterLinkButton>
         <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
           {
             businessUnits.map(bU =>
@@ -149,7 +154,8 @@ Header.propTypes = {
   openModalComponent: PropTypes.func.isRequired,
   removeModalComponent: PropTypes.func.isRequired,
   info: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired
+  intl: PropTypes.object.isRequired,
+  setMenuOpen: PropTypes.func.isRequired
 }
 
 export default Header
