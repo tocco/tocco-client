@@ -15,6 +15,12 @@ import remote from './remote'
 import searchFilter from './searchFilter'
 import select from './select'
 
+export const editableModeMappings = {
+  search: {
+    boolean: booleanSelect
+  }
+}
+
 export default {
   binary: document,
   boolean: boolean,
