@@ -8,6 +8,7 @@ import {LoadMask} from 'tocco-ui'
 import keyDown from '../keyDown'
 import {StyledApp} from './StyledComponents'
 import ThemeWrapper from './ThemeWrapper'
+import './styles.css'
 
 const App = ({store, initIntlPromise, content, theme, themeType}) => {
   const wrapperCallback = useCallback(node => {
