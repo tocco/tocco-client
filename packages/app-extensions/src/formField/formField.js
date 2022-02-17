@@ -82,7 +82,7 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
     const isDisplay = displayFieldAsDisplayOnly(value, componentType, dataType, parentReadOnly)
 
     const type = formDefinitionField.dataType || formDefinitionField.componentType
-    const typeEditable = field.editableTypeConfigs[type]
+    const typeEditable = _get(field.editableModeMappings, [mode, type], field.editableTypeConfigs[type])
 
     let requestedFromData
     if (typeEditable && typeEditable.dataContainerProps) {
