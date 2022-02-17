@@ -1,3 +1,7 @@
+1.0.6-hotfix31.5
+- onChange is now debounced for CodeEdit
+- added new button to clear the current query to QueryView
+
 1.0.6-hotfix31.4
 - introduce input prop `constriction`
 - Fixed searching in select boxes. Removed default searchOptions from Select.
