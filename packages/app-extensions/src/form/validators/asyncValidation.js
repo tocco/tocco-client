@@ -5,7 +5,7 @@ import formErrors from '../formErrors'
 import asyncTypeValidators from './asyncTypeValidators'
 import {valueDefined} from './mandatory'
 
-export const asyncTypeValidateField = async(values, fieldDefinitions) => {
+export const asyncTypeValidateField = async (values, fieldDefinitions) => {
   let errors = {}
   for (const fieldDefinition of fieldDefinitions) {
     const value = values[fieldDefinition.path]

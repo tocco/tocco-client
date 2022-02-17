@@ -61,7 +61,7 @@ const QueryView = ({
       </StyledHeader>
       <StyledQueryBox>
         <StatedValue isDisplay={true} hasValue={true} label={msg('client.entity-list.query.entity-model')}>
-          <FormattedValue type="string" value={entityModel}/>
+          <FormattedValue type="string" value={entityModel} />
         </StatedValue>
         <StatedValue
           error={queryError}

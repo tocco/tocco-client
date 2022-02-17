@@ -14,6 +14,4 @@ export const getFormFieldDefinition = fieldDefinition => {
   }
 }
 
-export const hasError = errors => (
-  Boolean(errors) && Object.keys(errors).length > 0
-)
+export const hasError = errors => Boolean(errors) && Object.keys(errors).length > 0

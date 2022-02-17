@@ -359,8 +359,9 @@ describe('entity-list', () => {
             inputConstriction: 'my_test_constriction'
           }
 
-          expect(reducer(stateBefore, actions.setInputConstriction('my_test_constriction')))
-            .to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setInputConstriction('my_test_constriction'))).to.deep.equal(
+            expectedStateAfter
+          )
         })
       })
     })

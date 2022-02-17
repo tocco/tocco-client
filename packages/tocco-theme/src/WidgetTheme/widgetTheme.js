@@ -30,7 +30,7 @@ export default {
   },
   fontFamily: {
     monospace: 'inherit',
-    regular: 'inherit',
+    regular: 'inherit'
   },
   fontSize: {
     base: 1.0,
