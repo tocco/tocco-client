@@ -49,8 +49,14 @@ const Select = ({
   const getOptions = () => [...(options || [])]
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const searchFunction = useCallback(searchOptions || (() => { /* _throttle expects a function */ }), [])
-  
+  const searchFunction = useCallback(
+    searchOptions ||
+      (() => {
+        /* _throttle expects a function */
+      }),
+    []
+  )
+
   // _throttle is not working with inline function
   // searchOptions shouldn't be included in deps array as _throttle only needs to be run initially
   // eslint-disable-next-line react-hooks/exhaustive-deps

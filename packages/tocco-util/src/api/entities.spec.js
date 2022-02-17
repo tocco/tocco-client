@@ -218,7 +218,7 @@ describe('tocco-util', () => {
         const values = {
           relGender: {key: '2', version: 3, model: 'Gender'},
           'relGender.relXy': {key: '33', version: 4},
-          'relGender.relXy.Z': 'TEST',
+          'relGender.relXy.Z': 'TEST'
         }
 
         const result = toEntity(values)

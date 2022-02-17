@@ -22,7 +22,7 @@ const App = ({store, initIntlPromise, content, theme, themeType}) => {
     }
   }, [])
 
-  const getDefaultTheme = themeType => themeType === 'WIDGET' ? WidgetTheme : ToccoTheme
+  const getDefaultTheme = themeType => (themeType === 'WIDGET' ? WidgetTheme : ToccoTheme)
 
   return (
     <ThemeWrapper customTheme={theme} defaultTheme={getDefaultTheme(themeType)}>
