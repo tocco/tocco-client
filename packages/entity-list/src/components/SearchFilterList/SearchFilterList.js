@@ -58,6 +58,7 @@ const SearchFilterButton = ({
   setActive,
   active,
   label,
+  description,
   canEdit,
   canDelete,
   primaryKey,
@@ -65,7 +66,7 @@ const SearchFilterButton = ({
   deleteSearchFilter
 }) =>
   <StyledSearchFilterButton active={active} onClick={() => setActive(!active)}>
-    <StyledSpanSearchFilter title={label}>{label}</StyledSpanSearchFilter>
+    <StyledSpanSearchFilter title={description}>{label}</StyledSpanSearchFilter>
     <StyleButtonWrapper>
       <StyledAddRemoveButton
         active={active}
@@ -88,6 +89,7 @@ const SearchFilterButton = ({
 
 SearchFilterButton.propTypes = {
   label: PropTypes.string,
+  description: PropTypes.string,
   setActive: PropTypes.func.isRequired,
   active: PropTypes.bool,
   canEdit: PropTypes.bool,
@@ -120,6 +122,7 @@ const AdminSearchForm = props => {
           primaryKey={searchFilter.key}
           active={searchFilter.active}
           label={searchFilter.label}
+          description={searchFilter.description}
           setActive={exclusive => {
             setSearchFilterActive(searchFilter.uniqueId, !searchFilter.active, exclusive)
             executeSearch()
