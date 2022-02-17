@@ -128,14 +128,15 @@ describe('entity-list', () => {
             expect(result).to.deep.eql(expectedResult)
           })
 
-          test('should return null for false boolean value', () => {
+          test('should handle boolean with false value', () => {
             const value = false
             const path = 'active'
             const fieldType = 'boolean'
 
             const result = getTql(path, value, fieldType)
 
-            expect(result).to.be.null
+            const expectedResult = 'active == false'
+            expect(result).to.deep.eql(expectedResult)
           })
 
           test('should handle unknown form types and use fallback', () => {

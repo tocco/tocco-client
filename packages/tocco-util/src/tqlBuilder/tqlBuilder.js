@@ -81,7 +81,7 @@ const typeHandlers = type => {
     case 'login':
       return (path, value) => `${path} ~= "*${value}*"`
     case 'boolean':
-      return (path, value) => (value === false ? null : `${path} == ${value}`)
+      return (path, value) => (isDefined(value) ? `${path} == ${value}` : null)
     case 'marking':
       return (path, value) => (value === false ? null : `exists(${path})`)
     default:
