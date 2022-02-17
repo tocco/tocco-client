@@ -7,6 +7,7 @@ import {withTheme} from 'styled-components'
 import ClearIndicator from './ClearIndicator'
 import DropdownIndicator from './DropdownIndicator'
 import IndicatorsContainer from './IndicatorsContainer'
+import ItemPropType from './ItemPropType'
 import LoadingIndicator from './LoadingIndicator'
 import Menu from './Menu'
 import MenuList from './MenuList'
@@ -49,8 +50,14 @@ const Select = ({
   const getOptions = () => [...(options || [])]
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const searchFunction = useCallback(searchOptions || (() => { /* _throttle expects a function */ }), [])
-  
+  const searchFunction = useCallback(
+    searchOptions ||
+      (() => {
+        /* _throttle expects a function */
+      }),
+    []
+  )
+
   // _throttle is not working with inline function
   // searchOptions shouldn't be included in deps array as _throttle only needs to be run initially
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -131,11 +138,6 @@ const Select = ({
     </StyledReactSelectOuterWrapper>
   )
 }
-
-const ItemPropType = PropTypes.shape({
-  key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  display: PropTypes.string
-})
 
 Select.propTypes = {
   /**

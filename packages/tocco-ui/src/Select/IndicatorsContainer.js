@@ -3,6 +3,7 @@ import React from 'react'
 import {components} from 'react-select'
 
 import Ball from '../Ball'
+import ItemPropType from './ItemPropType'
 import {StyledIndicatorsContainerWrapper} from './StyledComponents'
 
 const handleAdvancedSearch = (openAdvancedSearch, value) => e => {
@@ -51,11 +52,6 @@ const IndicatorsContainer = props => {
     </StyledIndicatorsContainerWrapper>
   )
 }
-
-const ItemPropType = PropTypes.shape({
-  key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  display: PropTypes.string
-})
 
 IndicatorsContainer.propTypes = {
   children: PropTypes.node,
