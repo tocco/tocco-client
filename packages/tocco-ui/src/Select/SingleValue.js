@@ -1,4 +1,5 @@
 import _get from 'lodash/get'
+import _isString from 'lodash/isString'
 import _omit from 'lodash/omit'
 import _omitBy from 'lodash/omitBy'
 import PropTypes from 'prop-types'
@@ -25,7 +26,7 @@ const areEqual = (prevProps, nextProps) => {
 
 const Content = memo(
   ({linkComp: DetailLink, entityKey, children}) =>
-    DetailLink ? (
+    DetailLink && _isString(entityKey) ? (
       <ClickableWrapper
         onMouseDown={e => {
           e.stopPropagation()
@@ -42,7 +43,7 @@ const Content = memo(
 
 Content.propTypes = {
   children: PropTypes.node,
-  entityKey: PropTypes.string,
+  entityKey: PropTypes.any,
   linkComp: PropTypes.func
 }
 

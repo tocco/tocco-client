@@ -7,6 +7,7 @@ import {withTheme} from 'styled-components'
 import ClearIndicator from './ClearIndicator'
 import DropdownIndicator from './DropdownIndicator'
 import IndicatorsContainer from './IndicatorsContainer'
+import ItemPropType from './ItemPropType'
 import LoadingIndicator from './LoadingIndicator'
 import Menu from './Menu'
 import MenuList from './MenuList'
@@ -137,11 +138,6 @@ const Select = ({
     </StyledReactSelectOuterWrapper>
   )
 }
-
-const ItemPropType = PropTypes.shape({
-  key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  display: PropTypes.string
-})
 
 Select.propTypes = {
   /**
