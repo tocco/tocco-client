@@ -1,3 +1,6 @@
+1.1.2-hotfix31.3
+- onChange is now debounced for CodeEdit
+
 1.1.2-hotfix31.2
 - Fixed searching in select boxes. Removed default searchOptions from Select.
 - Fixed searching in select boxes. Removed default searchOptions from Select.
