@@ -4,8 +4,9 @@ import {selection} from 'tocco-app-extensions'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 
 import getDetailFormName from '../../../utils/getDetailFormName'
+import {withRouterTypeCompProvider} from '../../../utils/withRouterTypeCompProvider'
 
-const EditAction = ({selection, onSuccess, onCancel, locale, context, emitAction}) => {
+const EditAction = ({selection, onSuccess, onCancel, locale, context, emitAction, navigate}) => {
   const isActionBlocked = action => action.payload?.toaster?.title === 'client.entity-detail.createSuccessfulTitle'
 
   const emitActionBarrier = action => {
@@ -17,7 +18,7 @@ const EditAction = ({selection, onSuccess, onCancel, locale, context, emitAction
   const [entityName, entityKey] = selection.ids[0].split('/')
 
   if (entityName === 'Resource') {
-    context.history.push(`/docs/doc/${entityKey}/detail`)
+    navigate(`/docs/doc/${entityKey}/detail`)
     onCancel()
   }
 
@@ -81,15 +82,12 @@ const EditAction = ({selection, onSuccess, onCancel, locale, context, emitAction
 
 EditAction.propTypes = {
   selection: selection.propType,
-  context: PropTypes.shape({
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired
-    }).isRequired
-  }).isRequired,
+  context: PropTypes.object.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   locale: PropTypes.string,
-  emitAction: PropTypes.func.isRequired
+  emitAction: PropTypes.func.isRequired,
+  navigate: PropTypes.func.isRequired
 }
 
-export default EditAction
+export default withRouterTypeCompProvider(EditAction)

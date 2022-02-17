@@ -7,14 +7,14 @@ import {StyledDocumentViewWrapper} from './StyledComponents'
 
 const LazyDetailApp = React.lazy(() => import('./LazyDetailApp'))
 
-const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy, locale, emitAction}) => {
+const DocumentView = ({breadcrumbs, formName, navigationStrategy, locale, emitAction, navigate, params}) => {
   const handleEntityDeleted = () => {
     const lastList = breadcrumbs
       .slice()
       .reverse()
       .find(breadcrumb => breadcrumb.type === 'list')
     const lastListUrl = `/docs/${lastList.path}`
-    history.push(lastListUrl)
+    navigate(lastListUrl)
   }
 
   return (
@@ -22,7 +22,7 @@ const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy
       <Suspense fallback={<LoadMask />}>
         <LazyDetailApp
           entityName="Resource"
-          entityId={match.params.key}
+          entityId={params.key}
           formName={formName || 'DmsResource'}
           mode="update"
           actionAppComponent={Action}
@@ -37,14 +37,6 @@ const DocumentView = ({match, history, breadcrumbs, formName, navigationStrategy
 }
 
 DocumentView.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      key: PropTypes.string.isRequired
-    }).isRequired
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired,
   breadcrumbs: PropTypes.arrayOf(
     PropTypes.shape({
       path: PropTypes.string.isRequired,
@@ -54,7 +46,9 @@ DocumentView.propTypes = {
   formName: PropTypes.string,
   navigationStrategy: PropTypes.object,
   locale: PropTypes.string,
-  emitAction: PropTypes.func.isRequired
+  emitAction: PropTypes.func.isRequired,
+  navigate: PropTypes.func,
+  params: PropTypes.object
 }
 
 export default DocumentView

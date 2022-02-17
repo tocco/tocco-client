@@ -27,7 +27,7 @@ export const MoveAction = ({
   selection,
   onSuccess,
   onError,
-  context,
+  path,
   initialize,
   moveElements,
   isWaiting,
@@ -37,7 +37,7 @@ export const MoveAction = ({
   locale,
   emitAction
 }) => {
-  const initialNode = getNode(context.history.location.pathname)
+  const initialNode = getNode(path)
   const initialParent = {model: 'Docs_list_item', key: `${initialNode.model}/${initialNode.key}`}
   const [parent, setParent] = useState(initialParent)
 
@@ -70,7 +70,7 @@ export const MoveAction = ({
   return (
     <StyledLoadMask required={[!isWaiting]}>
       <DocsBrowser
-        memoryHistory={true}
+        routerType="routerless"
         initialLocation={getInitialLocation()}
         listLimit={10}
         selectionStyle="none"
@@ -108,13 +108,7 @@ MoveAction.propTypes = {
   selection: selection.propType,
   onSuccess: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,
-  context: PropTypes.shape({
-    history: PropTypes.shape({
-      location: PropTypes.shape({
-        pathname: PropTypes.string.isRequired
-      }).isRequired
-    }).isRequired
-  }).isRequired,
+  path: PropTypes.string.isRequired,
   initialize: PropTypes.func.isRequired,
   moveElements: PropTypes.func.isRequired,
   isWaiting: PropTypes.bool.isRequired,

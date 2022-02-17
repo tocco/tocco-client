@@ -2,6 +2,7 @@ import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {actionEmitter} from 'tocco-app-extensions'
 
+import {withRouterTypeCompProvider} from '../../utils/withRouterTypeCompProvider'
 import DocumentView from './DocumentView'
 
 const mapStateToProps = state => ({
@@ -14,4 +15,4 @@ const mapActionCreators = {
   emitAction: action => actionEmitter.dispatchEmittedAction(action)
 }
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(DocumentView))
+export default withRouterTypeCompProvider(connect(mapStateToProps, mapActionCreators)(injectIntl(DocumentView)))

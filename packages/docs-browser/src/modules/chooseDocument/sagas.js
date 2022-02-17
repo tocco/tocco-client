@@ -44,7 +44,7 @@ export function* chooseDocument({payload: {setDocument, formName, formFieldId}})
         return (
           <div>
             <LazyDocsBrowser
-              memoryHistory={true}
+              routerType="routerless"
               listLimit={10}
               selectionStyle="none"
               searchFormType="none"

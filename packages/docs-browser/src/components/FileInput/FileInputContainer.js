@@ -1,6 +1,7 @@
 import {connect} from 'react-redux'
 
 import {filesSelected} from '../../modules/create/actions'
+import {withRouterTypeCompProvider} from '../../utils/withRouterTypeCompProvider'
 import FileInput from './FileInput'
 
 const mapActionCreators = {
@@ -12,4 +13,4 @@ const mapStateToProps = state => ({
   directory: state.docs.create.dialog.directory
 })
 
-export default connect(mapStateToProps, mapActionCreators)(FileInput)
+export default withRouterTypeCompProvider(connect(mapStateToProps, mapActionCreators)(FileInput))

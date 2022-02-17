@@ -1,7 +1,7 @@
 /* stylelint-disable no-descending-specificity */
+import React from 'react'
 import styled from 'styled-components'
 
-import {AdminLink as StyledLink} from '../AdminLink'
 import {theme} from '../utilStyles'
 
 export const StyledBreadcrumbs = styled.div`
@@ -17,10 +17,11 @@ export const StyledBreadcrumbs = styled.div`
   }
 `
 
-export const StyledBreadcrumbsLink = styled(StyledLink)`
+export const StyledBreadcrumbsLink = styled(({component, ...props}) => React.cloneElement(component, props))`
   font-weight: ${theme.fontWeight('bold')};
   text-decoration: none;
   color: ${({active}) => active && theme.color('primary')};
+  cursor: pointer;
 
   & * {
     font-weight: ${theme.fontWeight('bold')};

@@ -1,20 +1,19 @@
 import createHashHistory from 'history/createHashHistory'
-import createMemoryHistory from 'history/createMemoryHistory'
 import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Redirect, Route, Router as ReactRouter} from 'react-router'
 import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
 import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
-import {GlobalStyles, scrollBehaviourPropType} from 'tocco-ui'
+import {scrollBehaviourPropType} from 'tocco-ui'
 import {react, reducer as reducerUtil, env} from 'tocco-util'
 
-import DocsBrowser from './components/DocsBrowser'
+import {InheritedApp, RouterlessApp, StandaloneApp} from './components/App'
 import {getDispatchActions} from './input'
 import chooseDocument from './modules/chooseDocument'
 import reducers, {sagas} from './modules/reducers'
+import {navigate} from './modules/routing/actions'
 
 const packageName = 'docs-browser'
 
@@ -22,10 +21,8 @@ const EXTERNAL_EVENTS = ['onListParentChange', 'openResource', 'onSelectChange',
 
 const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
-const createHistory = (store, memoryHistory) => {
-  const historyFactory = memoryHistory ? createMemoryHistory : createHashHistory
-
-  return historyFactory({
+const createHistory = store => {
+  return createHashHistory({
     getUserConfirmation: (message, confirmCallback) => {
       const state = store.getState()
 
@@ -44,6 +41,21 @@ const createHistory = (store, memoryHistory) => {
     }
   })
 }
+
+const getContent = ({routerType, store, rootPath, handleNotifications}) => {
+  if (routerType === 'routerless') {
+    return <RouterlessApp rootPath={rootPath} handleNotifications={handleNotifications} />
+  }
+
+  if (routerType === 'inherit') {
+    return <InheritedApp rootPath={rootPath} handleNotifications={handleNotifications} />
+  }
+
+  // only create new histroy object for standalone docs-browser (e.g. Widget)
+  const history = createHistory(store)
+  return <StandaloneApp history={history} rootPath={rootPath} handleNotifications={handleNotifications} />
+}
+
 const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -62,41 +74,26 @@ const initApp = (id, input, events = {}, publicPath) => {
   notification.addToStore(store, handleNotifications)
   cache.addToStore(store)
 
-  const history = input.history || createHistory(store, input.memoryHistory)
-
-  if (input.initialLocation) {
-    history.push(input.initialLocation)
-  }
-
   const singleRootNode =
     Array.isArray(input.rootNodes) && input.rootNodes.length === 1 && input.rootNodes[0].entityName !== 'Resource'
       ? input.rootNodes[0]
       : null
 
-  const startUrl = singleRootNode
+  const rootPath = singleRootNode
     ? `/docs/${singleRootNode.entityName.toLowerCase()}/${singleRootNode.key}/list`
     : '/docs'
 
-  const content = (
-    <ReactRouter history={history}>
-      {handleNotifications && <notification.Notifications />}
-      <GlobalStyles />
-      <DocsBrowser history={history} />
-      <Route exact path="/">
-        <Redirect to={startUrl} />
-      </Route>
-      {singleRootNode && (
-        <Route exact path="/docs">
-          <Redirect to={startUrl} />
-        </Route>
-      )}
-    </ReactRouter>
-  )
+  const content = getContent({
+    routerType: input.routerType,
+    store,
+    rootPath,
+    handleNotifications
+  })
 
   return appFactory.createApp(packageName, content, store, {
     input,
     events,
-    actions: getDispatchActions(input),
+    actions: [...getDispatchActions(input), navigate(input.initialLocation)],
     publicPath,
     textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail', packageName]
   })
@@ -148,7 +145,7 @@ const DocsBrowserApp = props => {
 }
 
 DocsBrowserApp.propTypes = {
-  history: PropTypes.object,
+  routerType: PropTypes.oneOf(['standalone', 'inherit', 'routerless']),
   navigationStrategy: PropTypes.object,
   domainTypes: PropTypes.arrayOf(PropTypes.string),
   rootNodes: PropTypes.arrayOf(
@@ -164,7 +161,6 @@ DocsBrowserApp.propTypes = {
   selectionStyle: selectionStylePropType,
   scrollBehaviour: scrollBehaviourPropType,
   getListFormName: PropTypes.func,
-  memoryHistory: PropTypes.bool,
   disableViewPersistor: PropTypes.bool,
   getCustomLocation: PropTypes.func,
   businessUnit: PropTypes.string,

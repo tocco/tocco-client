@@ -11,7 +11,7 @@ export const textResourceSelector = (state, key) => state.intl.messages[key]
 
 const CREATED_STATUS = 201
 
-export function* handleFilesSelected({payload: {files, isDirectory}}) {
+export function* handleFilesSelected({payload: {location, files, isDirectory}}) {
   const blockingInfoId = yield call(uuid)
   yield put(
     notification.blockingInfo(
@@ -25,7 +25,7 @@ export function* handleFilesSelected({payload: {files, isDirectory}}) {
     )
   )
 
-  const {location, onSuccess, onError} = yield select(dialogSelector)
+  const {onSuccess, onError} = yield select(dialogSelector)
 
   try {
     const response = yield call(createDocuments, location, files)
