@@ -72,7 +72,7 @@ fi
 git commit -m "docs(${package}): changelog ${new_version}" ${changelog_file}
 echo "releasing and publishing ${package} with version ${new_version}"
 yarn publish --new-version ${new_version}
-git tag --delete _tocco-$(transformPackageName $package)@${new_version}
+git tag --delete _tocco-$(package)@${new_version}
 
 if [[ $auto = true ]]; then
   PUSH="n"
