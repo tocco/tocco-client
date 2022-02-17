@@ -1,8 +1,8 @@
-import React from 'react'
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 
 import {initialize, moveElements} from '../../../modules/move/actions'
+import {withRouterTypeCompProvider} from '../../../utils/withRouterTypeCompProvider'
 import {MoveAction} from './Move'
 
 const mapActionCreators = {
@@ -18,6 +18,4 @@ const mapStateToProps = state => ({
   locale: state.intl.locale
 })
 
-const MoveContainer = connect(mapStateToProps, mapActionCreators)(MoveAction)
-
-export default injectIntl(props => <MoveContainer {...props} />)
+export default withRouterTypeCompProvider(connect(mapStateToProps, mapActionCreators)(injectIntl(MoveAction)))

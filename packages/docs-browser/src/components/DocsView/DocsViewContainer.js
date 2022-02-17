@@ -2,6 +2,7 @@ import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 
 import {changeListParent, changeSearchFormCollapsed, changeSelection} from '../../modules/list/actions'
+import {withRouterTypeCompProvider} from '../../utils/withRouterTypeCompProvider'
 import DocsView from './DocsView'
 
 const mapStateToProps = state => ({
@@ -29,4 +30,4 @@ const mapActionCreators = {
   changeSearchFormCollapsed
 }
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(DocsView))
+export default withRouterTypeCompProvider(connect(mapStateToProps, mapActionCreators)(injectIntl(DocsView)))

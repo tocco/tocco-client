@@ -47,8 +47,6 @@ const LazyListApp = React.lazy(() => import('./LazyListApp'))
 
 const DocsView = props => {
   const {
-    history,
-    match,
     domainTypes,
     rootNodes,
     navigationStrategy,
@@ -72,7 +70,10 @@ const DocsView = props => {
     searchFormCollapsed,
     locale,
     changeSelection,
-    changeSearchFormCollapsed
+    changeSearchFormCollapsed,
+    params,
+    navigate,
+    path
   } = props
   // eslint-disable-next-line no-unused-vars
   const [entityListNumber, forceEntityListUpdate] = useReducer(x => x + 1, 0)
@@ -80,7 +81,7 @@ const DocsView = props => {
   const entityListKey = `entity-list-${entityListNumber}`
 
   const [selection, setSelection] = useState([])
-  const parent = useMemo(() => getParent(match.params), [match.params])
+  const parent = useMemo(() => getParent(params), [params])
 
   const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
   const formName = useMemo(
@@ -111,7 +112,7 @@ const DocsView = props => {
   const handleRowClick = ({id}) => {
     onSelectChange([id])
 
-    if (searchModeRef.current && isRootLocation(history.location.pathname)) {
+    if (searchModeRef.current && isRootLocation(path)) {
       if (!viewPersistor.viewInfoSelector('search').store) {
         // persist search store to allow a "go back to search"
         const searchStore = viewPersistor.viewInfoSelector(entityListKey).store
@@ -127,7 +128,7 @@ const DocsView = props => {
       if (openResource && model === 'Resource') {
         openResource(location)
       } else {
-        history.push(location)
+        navigate(location)
       }
     }
   }
@@ -136,12 +137,12 @@ const DocsView = props => {
 
   const handleUploadDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
     const directory = false
-    openFileDialog(history.location.pathname, directory, onSuccess, onError)
+    openFileDialog(directory, onSuccess, onError)
   }
 
   const handleUploadDirectory = function* (definition, selection, parent, params, config, onSuccess, onError) {
     const directory = true
-    openFileDialog(history.location.pathname, directory, onSuccess, onError)
+    openFileDialog(directory, onSuccess, onError)
   }
 
   const handleSearch = e => {
@@ -152,7 +153,7 @@ const DocsView = props => {
 
   const store = disableViewPersistor
     ? undefined
-    : isRootLocation(history.location.pathname)
+    : isRootLocation(path)
     ? viewPersistor.viewInfoSelector('search').store
     : null
 
@@ -199,7 +200,6 @@ const DocsView = props => {
           emitAction={emitAction}
           actionAppComponent={Action}
           contextParams={{
-            history,
             detailFormNames: {
               Domain: domainDetailFormName,
               Folder: folderDetailFormName
@@ -229,8 +229,6 @@ const DocsView = props => {
 }
 
 DocsView.propTypes = {
-  match: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   navigationStrategy: PropTypes.object,
   domainTypes: PropTypes.arrayOf(PropTypes.string),
   rootNodes: PropTypes.arrayOf(
@@ -239,6 +237,9 @@ DocsView.propTypes = {
       key: PropTypes.string
     })
   ),
+  path: PropTypes.string.isRequired,
+  params: PropTypes.object.isRequired,
+  navigate: PropTypes.func.isRequired,
   changeListParent: PropTypes.func.isRequired,
   onSearchChange: PropTypes.func.isRequired,
   emitAction: PropTypes.func.isRequired,

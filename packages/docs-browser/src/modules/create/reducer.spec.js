@@ -4,7 +4,6 @@ import reducer from './reducer'
 const INITIAL_STATE = {
   dialog: {
     instanceCount: 0,
-    location: null,
     directory: false,
     onSuccess: null,
     onError: null
@@ -20,7 +19,6 @@ describe('docs-browser', () => {
         })
 
         test('should handle OPEN_DIALOG action', () => {
-          const location = '/docs/folders/23523/list'
           const onSuccess = () => {}
           const onError = () => {}
 
@@ -29,13 +27,12 @@ describe('docs-browser', () => {
             dialog: {
               instanceCount: 1,
               directory: true,
-              location,
               onSuccess,
               onError
             }
           }
 
-          const action = actions.openDialog(location, true, onSuccess, onError)
+          const action = actions.openDialog(true, onSuccess, onError)
 
           expect(reducer(INITIAL_STATE, action)).to.deep.equal(expectedStateAfter)
         })

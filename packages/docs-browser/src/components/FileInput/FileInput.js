@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {useRef, useEffect} from 'react'
 import {react} from 'tocco-util'
 
-const FileInput = ({instanceCount, directory, onChange}) => {
+const FileInput = ({instanceCount, directory, onChange, path}) => {
   const fileInput = useRef()
 
   const prevInstanceCount = react.usePrevious(instanceCount)
@@ -16,7 +16,7 @@ const FileInput = ({instanceCount, directory, onChange}) => {
   const handleChange = e => {
     const files = e.target.files
     if (files && files.length > 0 && onChange) {
-      onChange(files, directory)
+      onChange(path, files, directory)
     }
     e.target.value = null
   }
@@ -36,7 +36,8 @@ const FileInput = ({instanceCount, directory, onChange}) => {
 FileInput.propTypes = {
   instanceCount: PropTypes.number.isRequired,
   directory: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  path: PropTypes.string
 }
 
 export default FileInput

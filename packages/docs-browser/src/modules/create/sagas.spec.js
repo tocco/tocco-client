@@ -46,13 +46,12 @@ describe('docs-browser', () => {
             const onSuccess = jest.fn()
             const onError = jest.fn()
 
-            return expectSaga(sagas.handleFilesSelected, actions.filesSelected(files))
+            return expectSaga(sagas.handleFilesSelected, actions.filesSelected(location, files))
               .provide([
                 [call(uuid), 'my-random-uuid'],
                 [
                   select(sagas.dialogSelector),
                   {
-                    location,
                     onSuccess,
                     onError
                   }
@@ -71,7 +70,6 @@ describe('docs-browser', () => {
 
           test('no permission so upload failed', () => {
             const files = [{}]
-            const location = '/docs/folders/23523/list'
             const response = {
               status: 403
             }
@@ -79,13 +77,12 @@ describe('docs-browser', () => {
             const onSuccess = jest.fn()
             const onError = jest.fn()
 
-            return expectSaga(sagas.handleFilesSelected, actions.filesSelected(files))
+            return expectSaga(sagas.handleFilesSelected, actions.filesSelected(location, files))
               .provide([
                 [call(uuid), 'my-random-uuid'],
                 [
                   select(sagas.dialogSelector),
                   {
-                    location,
                     onSuccess,
                     onError
                   }

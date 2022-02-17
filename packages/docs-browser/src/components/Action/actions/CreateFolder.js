@@ -5,8 +5,9 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 
 import getDetailFormName from '../../../utils/getDetailFormName'
 import getNode from '../../../utils/getNode'
+import {withRouterTypeCompProvider} from '../../../utils/withRouterTypeCompProvider'
 
-const CreateFolder = ({context, onSuccess, intl, locale, emitAction}) => {
+const CreateFolder = ({context, path, onSuccess, intl, locale, emitAction}) => {
   const isActionBlocked = action => action.payload?.toaster?.title === 'client.entity-detail.createSuccessfulTitle'
 
   const emitActionBarrier = action => {
@@ -36,7 +37,7 @@ const CreateFolder = ({context, onSuccess, intl, locale, emitAction}) => {
     })
   }
 
-  const parent = getNode(context.history.location.pathname)
+  const parent = getNode(path)
   const defaultValues = parent ? [{id: `rel${parent.model}`, value: parent.key}] : []
 
   const formName = getDetailFormName(context, 'Folder')
@@ -55,12 +56,9 @@ const CreateFolder = ({context, onSuccess, intl, locale, emitAction}) => {
 }
 
 CreateFolder.propTypes = {
+  path: PropTypes.string.isRequired,
   context: PropTypes.shape({
-    history: PropTypes.shape({
-      location: PropTypes.shape({
-        pathname: PropTypes.string.isRequired
-      }).isRequired
-    }).isRequired
+    detailFormNames: PropTypes.object.isRequired
   }).isRequired,
   onSuccess: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
@@ -68,4 +66,4 @@ CreateFolder.propTypes = {
   emitAction: PropTypes.func.isRequired
 }
 
-export default injectIntl(CreateFolder)
+export default withRouterTypeCompProvider(injectIntl(CreateFolder))

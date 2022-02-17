@@ -19,6 +19,7 @@ const DocsView = ({entityName, entityKey, showActions, noLeftPadding, openResour
   return (
     folderKey && (
       <DocsBrowserApp
+        routerType="routerless"
         noLeftPadding={noLeftPadding}
         sortable={false}
         searchFormType="none"

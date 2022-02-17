@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {Helmet} from 'react-helmet'
 
+import {AdminLink as StyledLink} from '../AdminLink'
 import Icon from '../Icon'
 import Typography from '../Typography'
 import {StyledBreadcrumbs, StyledBreadcrumbsLink, StyledBreadcrumbsTitle} from './StyledBreadcrumbs'
@@ -13,7 +14,7 @@ const getTitle = breadcrumbsInfo =>
     .reverse()
     .join(' - ')
 
-const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor, onClick}) => {
+const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor, onClick, linkComp: LinkComp}) => {
   const breadcrumbs = [...(breadcrumbsInfo || []), ...(currentView ? [currentView] : [])]
 
   if (breadcrumbs.length === 0) {
@@ -44,6 +45,7 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor,
                   {...(idx === breadcrumbs.length - 1 && {active: 'true'})}
                   {...(typeof b.path !== 'undefined' ? {to: `${pathPrefix}/${b.path}`} : {})}
                   onClick={handleClick(b)}
+                  component={LinkComp ? <LinkComp /> : <StyledLink />}
                 >
                   {b.type === 'list' && <Icon icon="list" />}
                   {b.type === 'error' && <Icon icon="exclamation-circle" />}
@@ -85,7 +87,8 @@ Breadcrumbs.propTypes = {
     title: PropTypes.string
   }),
   backgroundColor: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  linkComp: PropTypes.any,
 }
 
 export default Breadcrumbs

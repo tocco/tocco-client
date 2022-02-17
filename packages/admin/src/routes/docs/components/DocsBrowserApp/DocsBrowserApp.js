@@ -27,6 +27,7 @@ const DocsBrowserApp = props => {
   return (
     <DocsBrowser
       {...props}
+      routerType="inherit"
       navigationStrategy={{
         ListLink,
         DetailLink
