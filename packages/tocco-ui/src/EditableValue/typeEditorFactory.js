@@ -3,6 +3,7 @@ import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import BooleanSingleSelect from './typeEditors/BooleanSingleSelect'
 import BoolEdit from './typeEditors/BoolEdit'
 import CodeEdit from './typeEditors/CodeEdit'
 import DateEdit from './typeEditors/DateEdit'
@@ -26,6 +27,7 @@ import UrlEdit from './typeEditors/UrlEdit'
 
 export const map = {
   boolean: BoolEdit,
+  'boolean-select': BooleanSingleSelect,
   code: CodeEdit,
   date: DateEdit,
   datetime: DateTimeEdit,

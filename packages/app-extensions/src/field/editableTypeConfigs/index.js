@@ -1,4 +1,5 @@
 import boolean from './boolean'
+import booleanSelect from './booleanSelect'
 import code from './code'
 import decimal from './decimal'
 import document from './document'
@@ -17,6 +18,7 @@ import select from './select'
 export default {
   binary: document,
   boolean: boolean,
+  'boolean-select': booleanSelect,
   code: code,
   counter: number,
   'data-amount': number,
