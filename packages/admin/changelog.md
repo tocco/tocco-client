@@ -1,3 +1,7 @@
+1.0.14-hotfix31.7
+- searchfilter show description as mouseover
+- fix activating two factor without session
+
 1.0.14-hotfix31.6
 - onChange is now debounced for CodeEdit
 - added new button to clear the current query to QueryView
