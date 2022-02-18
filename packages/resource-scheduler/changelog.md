@@ -1,3 +1,6 @@
+1.0.0-hotfix30.17
+- searchfilter show description as mouseover
+
 1.0.0-hotfix30.16
 - Fixed searching in select boxes. Removed default searchOptions from Select.
 - Fixed searching in select boxes. Removed default searchOptions from Select.
