@@ -1,3 +1,7 @@
+1.0.0-hotfix30.28
+- searchfilter show description as mouseover
+- menu now closes when navigating to the dashboard
+
 1.0.0-hotfix30.27
 - Fixed searching in select boxes. Removed default searchOptions from Select.
 - Fixed searching in select boxes. Removed default searchOptions from Select.
