@@ -1,3 +1,13 @@
+1.0.18
+- searchfilter show description as mouseover
+
+1.0.17
+- introduce input prop `constriction`
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- onChange is now debounced for CodeEdit
+- added new button to clear the current query to QueryView
+
 1.0.16
 - The model field in the QueryView is now a display.
 - Navigating to detail pages through links in multi-select fields is now possible.
