@@ -50,7 +50,7 @@ function* activateTwoFactorWithoutSession(secret, userCode, username, password) 
       .join('&')
   })
 
-  yield put(actions.setSetupSuccessful(_get(response, 'body.TWOSTEPLOGIN_ACTIVATION.success', false)))
+  yield put(actions.setSetupSuccessful(_get(response, 'TWOSTEPLOGIN_ACTIVATION.success', false)))
 }
 
 function* activateTwoFactor(username, secret, code) {
