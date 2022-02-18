@@ -1,3 +1,6 @@
+1.0.6-hotfix31.6
+- searchfilter show description as mouseover
+
 1.0.6-hotfix31.5
 - onChange is now debounced for CodeEdit
 - added new button to clear the current query to QueryView
