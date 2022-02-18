@@ -138,15 +138,15 @@ export function* loadSearchFilter(entityName) {
   )
 }
 
-export function* setSimpleForm() {
+export function* setFulltextForm() {
   const formDefinition = {txtFulltext: 'fulltext-search'}
   yield put(actions.setFormFieldsFlat(formDefinition))
 }
 
 export function* loadSearchForm(forceLoad = false) {
   const {searchFormType, formName} = yield select(entityListSelector)
-  if (searchFormType === searchFormTypes.SIMPLE) {
-    yield call(setSimpleForm)
+  if (searchFormType === searchFormTypes.FULLTEXT) {
+    yield call(setFulltextForm)
     return null
   }
 
@@ -162,8 +162,8 @@ export function* loadSearchForm(forceLoad = false) {
     yield put(actions.setFormFieldsFlat(getFormFieldFlat(formDefinition)))
     return formDefinition
   } else {
-    yield put(setSearchFormType(searchFormTypes.SIMPLE))
-    yield call(setSimpleForm)
+    yield put(setSearchFormType(searchFormTypes.FULLTEXT))
+    yield call(setFulltextForm)
     return null
   }
 }

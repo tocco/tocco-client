@@ -20,7 +20,7 @@ const SearchView = ({searchFormType, isCollapsed, toggleCollapse}) => {
   return (
     <Panel.Wrapper isToggleable={false} isFramed={false}>
       <Panel.Body>
-        {searchFormType === searchFormTypes.SIMPLE ? <FullTextSearchForm /> : <BasicSearchFormContainer />}
+        {searchFormType === searchFormTypes.FULLTEXT ? <FullTextSearchForm /> : <BasicSearchFormContainer />}
       </Panel.Body>
     </Panel.Wrapper>
   )

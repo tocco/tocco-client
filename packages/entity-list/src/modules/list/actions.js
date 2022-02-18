@@ -13,7 +13,6 @@ export const CLEAR_ENTITY_STORE = 'list/CLEAR_ENTITIES_CACHE'
 export const SET_IN_PROGRESS = 'list/SET_IN_PROGRESS'
 export const CHANGE_PAGE = 'list/CHANGE_PAGE'
 export const REFRESH = 'list/REFRESH'
-export const SET_SHOW_SEARCH_FORM = 'list/SET_SEARCH_FORM'
 export const SET_SEARCH_FILTERS = 'list/SET_SEARCH_FILTERS'
 export const SET_SIMPLE_SEARCH_FIELDS = 'list/SET_SIMPLE_SEARCH_FIELDS'
 export const ON_ROW_CLICK = 'list/ON_ROW_CLICK'
@@ -135,13 +134,6 @@ export const changePage = page => ({
 
 export const refresh = () => ({
   type: REFRESH
-})
-
-export const setShowSearchForm = showSearchForm => ({
-  type: SET_SHOW_SEARCH_FORM,
-  payload: {
-    showSearchForm
-  }
 })
 
 export const setSearchFilters = searchFilters => ({

@@ -20,7 +20,7 @@ React-registry name: `docs-browser`
 | `documentDetailFormName`|          | Name of the document detail form to use (default: "DmsResource")
 | `domainDetailFormName` |           | Name of the domain detail form to use (default: "DmsDomain")
 | `folderDetailFormName` |           | Name of the folder detail form to use (default: "DmsFolder")
-| `searchFormType`       |           | Possible values: none (no search form shown), simple (only one fulltext search field), basic (usual search form with advanced expansion), admin (full search with search filter)
+| `searchFormType`       |           | Possible values: none (no search form shown), fulltext (only one fulltext search field), simple (simple search only), simple_advanced (usual (simple) search form with advanced expansion), advanced (extended advanced search form only), admin (full search with search filter, works only in admin for layouting reasons)
 | `selectionStyle`       |           | none", "multi" or "single". If not defined and form model selectable is true, "multi" is used. Otherwise no selection is possible.
 | `memoryHistory`        |           | If set to true in-memory history. This is useful in testing and non-DOM environments.
 | `getCustomLocation`    |           | Pass a function to define a custom navigation for a row click event

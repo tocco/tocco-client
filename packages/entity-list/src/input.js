@@ -19,7 +19,7 @@ import {
   setInputSearchFilters,
   setInputConstriction
 } from './modules/list/actions'
-import {setDisableSimpleSearch, setSimpleSearchFields} from './modules/searchForm/actions'
+import {setSimpleSearchFields} from './modules/searchForm/actions'
 import {setSelection} from './modules/selection/actions'
 
 const isDefined = value => value !== undefined
@@ -89,12 +89,6 @@ const actionSettings = [
     name: 'searchFormPosition',
     action: setSearchFormPosition,
     argsFactory: input => [input.searchFormPosition],
-    reload: reloadOptions.DATA
-  },
-  {
-    name: 'disableSimpleSearch',
-    action: setDisableSimpleSearch,
-    argsFactory: input => [input.disableSimpleSearch],
     reload: reloadOptions.DATA
   },
   {

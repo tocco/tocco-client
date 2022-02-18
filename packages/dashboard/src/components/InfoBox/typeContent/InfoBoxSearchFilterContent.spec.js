@@ -23,6 +23,8 @@ describe('dashboard', () => {
             expect(wrapper.find(EntityListApp).prop('entityName')).to.deep.equal(content.entityName)
             expect(wrapper.find(EntityListApp).prop('formName')).to.deep.equal(content.entityName)
             expect(wrapper.find(EntityListApp).prop('limit')).to.deep.equal(content.limit)
+
+            expect(wrapper.find(EntityListApp).prop('searchFormType')).to.deep.equal('fulltext')
           })
         })
       })

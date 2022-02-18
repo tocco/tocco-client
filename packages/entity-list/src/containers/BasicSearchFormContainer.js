@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import BasicSearchForm from '../components/BasicSearchForm'
 import {submitSearchForm, setShowExtendedSearchForm} from '../modules/searchForm/actions'
+import searchFormTypes from '../util/searchFormTypes'
 
 const mapActionCreators = {
   submitSearchForm,
@@ -13,9 +14,10 @@ const mapStateToProps = (state, props) => ({
   searchFormDefinition: state.searchForm.formDefinition,
   entityModel: state.list.entityModel,
   searchInputs: state.searchForm.searchInputs,
-  disableSimpleSearch: props.disableSimpleSearch || state.searchForm.disableSimpleSearch,
+  searchFormType: state.entityList.searchFormType,
   simpleSearchFields: state.searchForm.simpleSearchFields,
-  showExtendedSearchForm: state.searchForm.showExtendedSearchForm,
+  showExtendedSearchForm: [searchFormTypes.ADVANCED, searchFormTypes.ADMIN].includes(state.entityList.searchFormType)
+    || state.searchForm.showExtendedSearchForm,
   preselectedSearchFields: state.input.preselectedSearchFields
 })
 

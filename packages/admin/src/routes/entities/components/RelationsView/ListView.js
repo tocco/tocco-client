@@ -30,7 +30,7 @@ const ListView = ({selectedRelation, currentViewInfo, match, history, emitAction
         const entityBaseUrl = goBack(match.url)
         history.push(entityBaseUrl + '/' + selectedRelation.relationName + '/create')
       }}
-      searchFormType="simple"
+      searchFormType="fulltext"
       selectionStyle="none"
       store={viewPersistor.viewInfoSelector(history.location.pathname)[`store-${selectedRelation.relationName}`]}
       onStoreCreate={store => {

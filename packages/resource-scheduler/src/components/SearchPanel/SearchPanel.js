@@ -39,7 +39,6 @@ const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, cale
             entityName={calendarType.targetEntity}
             formName={calendarType.formBase}
             limit={15}
-            showSearchForm={true}
             selectable={true}
             selection={requestedCalendars ? requestedCalendars[calendarType.name] || [] : []}
             onSelectChange={handleSelect(calendarType.name)}

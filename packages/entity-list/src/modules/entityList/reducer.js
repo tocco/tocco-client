@@ -7,7 +7,7 @@ const setSearchFormType = (state, {payload}) => {
   const {searchFormType: newSearchFormType} = payload
 
   const searchFormType =
-    Object.values(searchFormTypes).find(enumV => enumV === newSearchFormType) || searchFormTypes.BASIC
+    Object.values(searchFormTypes).find(enumV => enumV === newSearchFormType) || searchFormTypes.SIMPLE_ADVANCED
 
   return {...state, searchFormType}
 }
@@ -28,7 +28,7 @@ const initialState = {
   initialized: false,
   entityName: '',
   formName: '',
-  searchFormType: searchFormTypes.BASIC,
+  searchFormType: searchFormTypes.SIMPLE_ADVANCED,
   searchFormPosition: 'top',
   parent: null,
   searchFormCollapsed: false,

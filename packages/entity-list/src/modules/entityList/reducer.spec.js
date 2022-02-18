@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   entityName: '',
   formName: '',
   initialized: false,
-  searchFormType: searchFormTypes.BASIC,
+  searchFormType: searchFormTypes.SIMPLE_ADVANCED,
   searchFormPosition: 'top',
   parent: null,
   searchFormCollapsed: false,
@@ -31,14 +31,14 @@ describe('entity-list', () => {
           let state = INITIAL_STATE
           state = reducer(state, actions.setSearchFormType(searchFormTypes.ADMIN))
           expect(state.searchFormType).to.be.eql(searchFormTypes.ADMIN)
-          state = reducer(state, actions.setSearchFormType(searchFormTypes.SIMPLE))
-          expect(state.searchFormType).to.be.eql(searchFormTypes.SIMPLE)
+          state = reducer(state, actions.setSearchFormType(searchFormTypes.FULLTEXT))
+          expect(state.searchFormType).to.be.eql(searchFormTypes.FULLTEXT)
           state = reducer(state, actions.setSearchFormType(searchFormTypes.NONE))
           expect(state.searchFormType).to.be.eql(searchFormTypes.NONE)
           state = reducer(state, actions.setSearchFormType('gugus'))
-          expect(state.searchFormType).to.be.eql(searchFormTypes.BASIC)
+          expect(state.searchFormType).to.be.eql(searchFormTypes.SIMPLE_ADVANCED)
           state = reducer(state, actions.setSearchFormType(''))
-          expect(state.searchFormType).to.be.eql(searchFormTypes.BASIC)
+          expect(state.searchFormType).to.be.eql(searchFormTypes.SIMPLE_ADVANCED)
         })
       })
     })

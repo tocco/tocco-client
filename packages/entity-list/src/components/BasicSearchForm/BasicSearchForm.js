@@ -5,12 +5,13 @@ import {form} from 'tocco-app-extensions'
 import {Ball} from 'tocco-ui'
 import {react as customHooks} from 'tocco-util'
 
+import searchFormTypes from '../../util/searchFormTypes'
 import {StyledBasicSearchForm, StyledSearchFormButtons} from './StyledBasicSearchForm'
 
 const REDUX_FORM_NAME = 'searchForm'
 
 const BasicSearchForm = ({
-  disableSimpleSearch,
+  searchFormType,
   entity,
   form: formName,
   formValues,
@@ -47,9 +48,9 @@ const BasicSearchForm = ({
   }
 
   const shouldRenderField =
-    (preselectedSearchFields, disableSimpleSearch, showExtendedSearchForm, simpleSearchFields) => name =>
+    (preselectedSearchFields, showExtendedSearchForm, simpleSearchFields) => name =>
       !isHidden(preselectedSearchFields, name) &&
-      (disableSimpleSearch || showExtendedSearchForm || simpleSearchFields.includes(name))
+      (showExtendedSearchForm || simpleSearchFields.includes(name))
 
   const toggleExtendedSearchForm = () => {
     setShowExtendedSearchForm(!showExtendedSearchForm)
@@ -57,11 +58,12 @@ const BasicSearchForm = ({
 
   const fields = form.getFieldDefinitions(searchFormDefinition)
   const hasExtendedOnlySearchFields = !fields.every(field => simpleSearchFields.includes(field.id))
+  const extendable = hasExtendedOnlySearchFields && searchFormType === searchFormTypes.SIMPLE_ADVANCED
 
   return (
     <StyledBasicSearchForm ref={searchFormEl}>
       <form onSubmit={handleSubmit}>
-        {hasExtendedOnlySearchFields && !disableSimpleSearch && (
+        {extendable && (
           <StyledSearchFormButtons>
             <Ball
               data-cy="extend-search-button"
@@ -79,7 +81,6 @@ const BasicSearchForm = ({
           fieldMappingType="search"
           beforeRenderField={shouldRenderField(
             preselectedSearchFields,
-            disableSimpleSearch,
             showExtendedSearchForm,
             simpleSearchFields
           )}
@@ -96,7 +97,7 @@ BasicSearchForm.propTypes = {
     children: PropTypes.array
   }).isRequired,
   submitSearchForm: PropTypes.func.isRequired,
-  disableSimpleSearch: PropTypes.bool,
+  searchFormType: PropTypes.string.isRequired,
   simpleSearchFields: PropTypes.arrayOf(PropTypes.string),
   showExtendedSearchForm: PropTypes.bool,
   setShowExtendedSearchForm: PropTypes.func.isRequired,

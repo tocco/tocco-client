@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 const searchFormTypes = {
   NONE: 'none',
+  FULLTEXT: 'fulltext',
   SIMPLE: 'simple',
-  BASIC: 'basic',
+  SIMPLE_ADVANCED: 'simple_advanced',
+  ADVANCED: 'advanced',
   ADMIN: 'admin'
 }
 
