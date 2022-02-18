@@ -1,3 +1,6 @@
+1.0.2-hotfix31.4
+- fix activating two factor without session
+
 1.0.2-hotfix31.3
 - onChange is now debounced for CodeEdit
 
