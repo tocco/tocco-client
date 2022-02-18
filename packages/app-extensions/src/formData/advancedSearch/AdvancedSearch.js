@@ -25,7 +25,6 @@ const AdvancedSearch = ({
       formName={formName}
       listFormDefinition={listFormDefinition}
       limit={15}
-      showSearchForm={true}
       onSelectChange={selection => {
         onSelectionChange(selection)
       }}
@@ -60,7 +59,6 @@ AdvancedSearch.propTypes = {
   onSelectionChange: PropTypes.func,
   onOkClick: PropTypes.func,
   appId: PropTypes.string,
-  showSearchForm: PropTypes.bool,
   multi: PropTypes.bool,
   constriction: PropTypes.string
 }

@@ -19,7 +19,7 @@ const SubGrid = props => {
         entityName={props.formField.targetEntity}
         formName={formBase}
         limit={props.limit}
-        searchFormType={props.showSearchForm ? 'basic' : 'none'}
+        searchFormType={props.showSearchForm ? 'simple_advanced' : 'none'}
         navigationStrategy={props.navigationStrategy}
         showLink={true}
         onRowClick={e => {

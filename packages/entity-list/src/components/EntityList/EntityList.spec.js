@@ -18,7 +18,7 @@ describe('entity-list', () => {
       test('should show searchForm depending on prop', () => {
         const wrapper = shallow(<EntityList searchFormType={searchFormTypes.NONE} />)
         expect(wrapper.find(SearchViewContainer)).to.have.length(0)
-        wrapper.setProps({searchFormType: searchFormTypes.BASIC})
+        wrapper.setProps({searchFormType: searchFormTypes.SIMPLE_ADVANCED})
         expect(wrapper.find(SearchViewContainer)).to.have.length(1)
       })
     })

@@ -50,9 +50,7 @@ describe('entity-list', () => {
             const entityName = 'User'
             const searchFormType = 'admin'
 
-            const showSearchForm = true
-
-            return expectSaga(sagas.initialize, actions.initialize(showSearchForm))
+            return expectSaga(sagas.initialize, actions.initialize())
               .provide([
                 [select(sagas.entityListSelector), {searchFormType, entityName}],
                 [matchers.call.fn(sagas.loadSearchForm), formDefinition],
@@ -210,15 +208,15 @@ describe('entity-list', () => {
                 [select(sagas.entityListSelector), {searchFormType: 'basic'}]
               ])
               .not.put(actions.setFormDefinition(formDefinition))
-              .call(sagas.setSimpleForm)
-              .put(setSearchFormType('simple'))
+              .call(sagas.setFulltextForm)
+              .put(setSearchFormType('fulltext'))
               .run()
           })
 
           test('should set simple form if type is simple', () => {
             return expectSaga(sagas.loadSearchForm)
-              .provide([[select(sagas.entityListSelector), {searchFormType: 'simple'}]])
-              .call(sagas.setSimpleForm)
+              .provide([[select(sagas.entityListSelector), {searchFormType: 'fulltext'}]])
+              .call(sagas.setFulltextForm)
               .run()
           })
         })
@@ -234,9 +232,9 @@ describe('entity-list', () => {
           })
         })
 
-        describe('setSimpleForm saga', () => {
-          test('should set simple form fields', () => {
-            return expectSaga(sagas.setSimpleForm)
+        describe('setFulltextForm saga', () => {
+          test('should set fulltext form fields', () => {
+            return expectSaga(sagas.setFulltextForm)
               .put.like({action: {type: actions.SET_FORM_FIELDS_FLAT}})
               .run()
           })

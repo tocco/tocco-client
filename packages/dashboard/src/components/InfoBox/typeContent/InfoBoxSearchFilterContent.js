@@ -46,7 +46,7 @@ const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction
         scope={scope}
         showActions={false}
         onRowClick={handleRowClick}
-        searchFormType="simple"
+        searchFormType="fulltext"
         searchFormPosition="top"
         selectionStyle="none"
         sortable

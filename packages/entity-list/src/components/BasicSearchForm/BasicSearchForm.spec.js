@@ -38,7 +38,7 @@ describe('entity-list', () => {
                 resetSearch={EMPTY_FUNC}
                 intl={IntlStub}
                 simpleSearchFields={[]}
-                disableSimpleSearch
+                showExtendedSearchForm
                 preselectedSearchFields={[]}
                 setShowExtendedSearchForm={EMPTY_FUNC}
                 loadSearchFilters={EMPTY_FUNC}
@@ -81,7 +81,7 @@ describe('entity-list', () => {
                   resetSearch={EMPTY_FUNC}
                   intl={IntlStub}
                   simpleSearchFields={[]}
-                  disableSimpleSearch
+                  showExtendedSearchForm
                   preselectedSearchFields={[]}
                   setShowExtendedSearchForm={EMPTY_FUNC}
                   loadSearchFilters={EMPTY_FUNC}
@@ -230,7 +230,7 @@ describe('entity-list', () => {
                   resetSearch={EMPTY_FUNC}
                   intl={IntlStub}
                   formValues={{}}
-                  disableSimpleSearch
+                  showExtendedSearchForm
                   simpleSearchFields={[]}
                   preselectedSearchFields={preselectedSearchFields}
                   setShowExtendedSearchForm={EMPTY_FUNC}

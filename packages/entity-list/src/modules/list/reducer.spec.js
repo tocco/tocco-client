@@ -13,7 +13,6 @@ const EXPECTED_INITIAL_STATE = {
   entityCount: null,
   entityStore: {},
   inProgress: true,
-  showSearchForm: true,
   searchFilters: [],
   createPermission: false,
   formSelectable: false,
