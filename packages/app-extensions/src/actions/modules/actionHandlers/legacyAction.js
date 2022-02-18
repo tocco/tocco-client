@@ -6,6 +6,11 @@ import newNotification from '../../../notification'
 import remoteEvents from '../../../remoteEvents'
 import rest from '../../../rest'
 
+const ignoredExceptionMessages = [
+  'Single selection only, aborting...',
+  'Nothing selected, aborting...'
+]
+
 export const loadScript = src => new Promise((resolve, reject) => {
   const s = document.createElement('script')
   s.src = src
@@ -234,7 +239,14 @@ export default function* (definition, selection, parent, params, config) {
   action.getSelectionNumber = () => selection.type === 'ID' ? selection.ids.length : 0
   action.getSelection = () => legacySelection
 
-  action.perform()
+  try {
+    action.perform()
+  } catch (e) {
+    const message = e instanceof Error ? e.message : e
+    if (!ignoredExceptionMessages.includes(message)) {
+      throw e
+    }
+  }
 
   if (responseChannel) {
     yield take(responseChannel)
