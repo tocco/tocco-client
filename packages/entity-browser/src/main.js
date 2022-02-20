@@ -3,6 +3,7 @@ import createMemoryHistory from 'history/createMemoryHistory'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {actionEmitter, appFactory, cache, errorLogging, externalEvents, login, notification} from 'tocco-app-extensions'
+import {searchFormTypePropTypes} from 'tocco-entity-list/src/main'
 import {GlobalStyles} from 'tocco-ui'
 import {route, env} from 'tocco-util'
 
@@ -129,8 +130,7 @@ const EntityBrowserApp = props => {
 
 EntityBrowserApp.propTypes = {
   entityName: PropTypes.string.isRequired,
-  showSearchForm: PropTypes.bool,
-  disableSimpleSearch: PropTypes.bool,
+  searchFormType: searchFormTypePropTypes, // except for `admin` (not allowed because of layouting issues)
   formBase: PropTypes.string,
   limit: PropTypes.number,
   preselectedSearchFields: PropTypes.array,

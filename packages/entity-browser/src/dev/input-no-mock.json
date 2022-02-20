@@ -3,7 +3,6 @@
   "entityName": "User",
   "limit": 15,
   "formBase": "User_Test",
-  "showSearchForm": true,
-  "disableSimpleSearch": false,
+  "searchFormType": "simple_advanced",
   "simpleSearchFields": ""
 }

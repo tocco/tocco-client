@@ -8,7 +8,11 @@ export default {
   component: EntityBrowserApp,
   argTypes: {
     entityName: {defaultValue: 'User'},
-    showSearchForm: {defaultValue: true},
+    searchFormType: {
+      defaultValue: 'simple_advanced',
+      options: ['none', 'fulltext', 'simple', 'simple_advanced', 'advanced'],
+      control: {type: 'select'}
+    },
     limit: {defaultValue: 20},
     scrollBehaviour: {
       defaultValue: 'none',
@@ -29,7 +33,7 @@ const EntityBrowserStory = ({...args}) => {
 export const EntityBrowser = EntityBrowserStory.bind({})
 EntityBrowser.args = {
   entityName: 'User',
-  showSearchForm: true,
+  searchFormType: 'simple_advanced',
   limit: 20,
   scrollBehaviour: 'none'
 }

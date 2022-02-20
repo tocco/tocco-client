@@ -19,11 +19,7 @@ const mapStateToProps = (state, props) => {
     entityName: state.entityBrowser.entityName,
     formName: state.entityBrowser.formBase,
     scrollBehaviour: state.entityBrowser.scrollBehaviour,
-    searchFormType: state.input.showSearchForm
-      ? state.input.disableSimpleSearch
-        ? 'advanced'
-        : 'simple_advanced'
-      : 'none',
+    searchFormType: state.input.searchFormType || 'simple_advanced',
     limit: state.input.limit,
     searchFilters: state.input.searchFilters,
     preselectedSearchFields: state.input.preselectedSearchFields,
