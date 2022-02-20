@@ -73,7 +73,6 @@ ListView.propTypes = {
   limit: PropTypes.number,
   searchFitlers: PropTypes.array,
   preselectedSearchFields: PropTypes.array,
-  disableSimpleSearch: PropTypes.bool,
   simpleSearchFields: PropTypes.string,
   router: PropTypes.object.isRequired
 }
