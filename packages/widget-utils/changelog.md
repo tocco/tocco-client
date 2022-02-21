@@ -1,3 +1,7 @@
+0.1.5
+- fix cache clearance to keep notifications session
+- Tiny millisecond values (1 - 3) are now displayed correctly.
+
 0.1.4
 
 
