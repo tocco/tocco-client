@@ -38,7 +38,7 @@ export const StyledTableHeaderCell = styled.th`
     position: sticky;
     top: 0;
     background-color: ${theme.color('paper')};
-    text-align: left;
+    text-align: ${({rightAligned}) => rightAligned ? 'right' : 'left'};
     border-bottom: 2px solid ${borderColor};
     ${declareFont({fontWeight: theme.fontWeight('bold')})};
     user-select: none;
