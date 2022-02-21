@@ -1,3 +1,18 @@
+1.0.7
+- fix cache clearance to keep notifications session
+- align choose document button to the right
+- The model field in the QueryView is now a display.
+- Navigating to detail pages through links in multi-select fields is now possible.
+- Tiny millisecond values (1 - 3) are now displayed correctly.
+- fix virtual form field handling
+- implement theme type logic to enable loading of the widget theme
+- introduce input prop `constriction`
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- onChange is now debounced for CodeEdit
+- added new button to clear the current query to QueryView
+- searchfilter show description as mouseover
+
 1.0.6
 - Display overflowing hours in durations
 - auto focus basic search form
