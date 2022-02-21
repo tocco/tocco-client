@@ -1,3 +1,13 @@
+1.1.4
+- fix cache clearance to keep notifications session
+- Navigating to detail pages through links in multi-select fields is now possible.
+- Tiny millisecond values (1 - 3) are now displayed correctly.
+- fix virtual form field handling
+- implement theme type logic to enable loading of the widget theme
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- Fixed searching in select boxes. Removed default searchOptions from Select.
+- onChange is now debounced for CodeEdit
+
 1.1.3
 - Display overflowing hours in durations
 - fix onError of customAction
