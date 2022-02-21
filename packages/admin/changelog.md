@@ -1,3 +1,6 @@
+1.0.19
+- fix activating two factor without session
+
 1.0.18
 - searchfilter show description as mouseover
 
