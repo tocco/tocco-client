@@ -11,7 +11,11 @@ const ThContent = ({column, data}) =>
   column.HeaderRenderer ? (
     <column.HeaderRenderer column={column} data={data} />
   ) : (
-    <div dangerouslySetInnerHTML={{__html: column.label}} title={column.label} />
+    <div
+      dangerouslySetInnerHTML={{__html: column.label}}
+      title={column.label}
+      style={{width: '100%'}} // div should take up full available width, otherwise content cannot be right aligned
+    />
   )
 
 ThContent.propTypes = {
@@ -62,6 +66,7 @@ const TableHeader = props => {
               isResizingThisCell={isResizing && column.id === resizingElement?.id}
               sortable={column.sorting && column.sorting.sortable}
               isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
+              rightAligned={column.rightAligned}
             >
               <StyledDraggable
                 id={`header-cell-drop-${column.id}`}
