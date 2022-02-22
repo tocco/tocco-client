@@ -1,7 +1,7 @@
 import _isEmpty from 'lodash/isEmpty'
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useRef} from 'react'
 
 import BooleanSingleSelect from './typeEditors/BooleanSingleSelect'
 import BoolEdit from './typeEditors/BoolEdit'
@@ -50,16 +50,16 @@ export const map = {
 }
 
 const TypeEditorFactory = ({type, value, options, id, events, readOnly = false}) => {
+  const blurValue = useRef(undefined)
   if (map[type]) {
     const Component = map[type]
 
     // blur workaround for known react-select issue: https://github.com/erikras/redux-form/issues/82
     // Date component only works properly on blur if the event is called with the value saved from the change event
-    let blurValue
     if (events && events.onBlur) {
       const onBlur = events.onBlur
       events.onBlur = () => {
-        return onBlur(blurValue !== undefined ? blurValue : value)
+        return onBlur(blurValue.current !== undefined ? blurValue.current : value)
       }
     }
 
@@ -68,7 +68,7 @@ const TypeEditorFactory = ({type, value, options, id, events, readOnly = false})
         <Component
           value={value}
           onChange={v => {
-            blurValue = v
+            blurValue.current = v
             events.onChange(v)
           }}
           {...(_isEmpty(options) ? {} : {options})}
