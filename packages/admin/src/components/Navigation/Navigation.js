@@ -248,13 +248,28 @@ const Navigation = ({
         )}
 
         {activeMenuTab === menuTabs.MODULES && (
-          <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={modulesTypeMap} />
+          <MenuTree
+            items={modulesMenuTree}
+            searchFilter={filter}
+            typeMapping={modulesTypeMap}
+            extendedSearchItems={completeMenuTree}
+          />
         )}
         {activeMenuTab === menuTabs.SETTINGS && (
-          <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={settingsTypeMap} />
+          <MenuTree
+            items={settingsMenuTree}
+            searchFilter={filter}
+            typeMapping={settingsTypeMap}
+            extendedSearchItems={completeMenuTree}
+          />
         )}
         {activeMenuTab === menuTabs.SYSTEM && (
-          <MenuTree items={systemMenuTree} searchFilter={filter} typeMapping={systemTypeMap} />
+          <MenuTree
+            items={systemMenuTree}
+            searchFilter={filter}
+            typeMapping={systemTypeMap}
+            extendedSearchItems={completeMenuTree}
+          />
         )}
         {activeMenuTab === menuTabs.COMPLETE && (
           <MenuTree items={completeMenuTree} searchFilter={filter} typeMapping={completeTypeMap} requireSearch={true} />
