@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
+import {Typography} from 'tocco-ui'
 
 import {prepareMenuTree} from '../../utils/navigationUtils'
 import MenuItem from './MenuItem'
-import {StyledMenuEntryWrapper} from './StyledComponents'
+import {StyledExtendedSearchTitle, StyledMenuEntryWrapper} from './StyledComponents'
 
-const MenuTree = ({items, searchFilter, typeMapping, requireSearch}) => {
+const MenuTree = ({items, extendedSearchItems, searchFilter, typeMapping, requireSearch}) => {
   if (requireSearch && !searchFilter) {
     return null
   }
@@ -15,16 +17,46 @@ const MenuTree = ({items, searchFilter, typeMapping, requireSearch}) => {
   }
 
   const actualItems = prepareMenuTree(items, searchFilter, typeMapping)
+  const actualExtendedSearchItems = extendedSearchItems
+    ? prepareMenuTree(extendedSearchItems, searchFilter, typeMapping)
+    : []
 
   const MenuItems = actualItems.map((item, index) => (
     <MenuItem key={index} item={item} typeMapping={typeMapping} menuTreePath={item.name} />
   ))
 
-  return <StyledMenuEntryWrapper>{MenuItems}</StyledMenuEntryWrapper>
+  const ExtendedSearchMenuItems = actualExtendedSearchItems.map((item, index) => (
+    <MenuItem key={index} item={item} typeMapping={typeMapping} menuTreePath={item.name} />
+  ))
+
+  const showExtendedSearch = searchFilter && actualItems.length === 0
+  const hasExtendedSearchResult = actualExtendedSearchItems.length > 0
+
+  return (
+    <StyledMenuEntryWrapper>
+      {MenuItems}
+      {showExtendedSearch && (
+        <>
+          <Typography.P>
+            <FormattedMessage id="client.admin.navigation.noResults" />
+          </Typography.P>
+          {hasExtendedSearchResult && (
+            <>
+              <StyledExtendedSearchTitle>
+                <FormattedMessage id="client.admin.navigation.moreResults" />
+              </StyledExtendedSearchTitle>
+              {ExtendedSearchMenuItems}
+            </>
+          )}
+        </>
+      )}
+    </StyledMenuEntryWrapper>
+  )
 }
 
 MenuTree.propTypes = {
   items: PropTypes.array,
+  extendedSearchItems: PropTypes.array,
   searchFilter: PropTypes.string,
   typeMapping: PropTypes.objectOf(
     PropTypes.shape({

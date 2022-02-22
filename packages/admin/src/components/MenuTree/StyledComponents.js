@@ -20,3 +20,12 @@ export const StyledMenuEntryWrapper = styled.div`
     margin-bottom: ${scale.space(0.5)};
   }
 `
+
+export const StyledExtendedSearchTitle = styled.div`
+  && {
+    ${declareFont()}
+    font-weight: ${theme.fontWeight('bold')};
+    margin-bottom: ${scale.space(-1.2)};
+    margin-top: ${scale.space(0.6)};
+  }
+`
