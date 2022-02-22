@@ -1,3 +1,10 @@
+1.0.8
+- boolean search fields are now displayed as a single select box with fixed values to allow for ternary state and searching for explicit false values
+- headers of right aligned table columns are right aligned now
+- cleaned up search form types
+- introduce input prop `searchFormType`
+- routerless docs-browser
+
 1.0.7
 - fix cache clearance to keep notifications session
 - align choose document button to the right
