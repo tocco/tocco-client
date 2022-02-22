@@ -16,8 +16,9 @@ const mapStateToProps = (state, props) => ({
   searchInputs: state.searchForm.searchInputs,
   searchFormType: state.entityList.searchFormType,
   simpleSearchFields: state.searchForm.simpleSearchFields,
-  showExtendedSearchForm: [searchFormTypes.ADVANCED, searchFormTypes.ADMIN].includes(state.entityList.searchFormType)
-    || state.searchForm.showExtendedSearchForm,
+  showExtendedSearchForm:
+    [searchFormTypes.ADVANCED, searchFormTypes.ADMIN].includes(state.entityList.searchFormType) ||
+    state.searchForm.showExtendedSearchForm,
   preselectedSearchFields: state.input.preselectedSearchFields
 })
 

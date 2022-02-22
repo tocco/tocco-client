@@ -132,7 +132,7 @@ const SearchView = ({
             <SearchFilterList />
           </Box>
           <Box ref={searchFormEl}>
-            <BasicSearchFormContainer/>
+            <BasicSearchFormContainer />
           </Box>
         </StyledSplit>
       </StyledSplitWrapper>
