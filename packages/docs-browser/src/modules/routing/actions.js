@@ -4,7 +4,7 @@ export const SET_PARAMS = 'docs/routing/SET_PARAMS'
 export const navigate = path => ({
   type: NAVIGATE,
   payload: {
-    path: path || ""
+    path: path || ''
   }
 })
 

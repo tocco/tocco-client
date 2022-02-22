@@ -88,7 +88,7 @@ Breadcrumbs.propTypes = {
   }),
   backgroundColor: PropTypes.string,
   onClick: PropTypes.func,
-  linkComp: PropTypes.any,
+  linkComp: PropTypes.any
 }
 
 export default Breadcrumbs
