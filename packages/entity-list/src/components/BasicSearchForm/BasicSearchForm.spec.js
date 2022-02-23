@@ -5,6 +5,7 @@ import {createStore} from 'redux'
 import {IntlStub, intlEnzyme, TestThemeProvider} from 'tocco-test-util'
 import {EditableValue, StatedValue} from 'tocco-ui'
 
+import searchFormTypes from '../../util/searchFormTypes'
 import SearchForm from './'
 
 const EMPTY_FUNC = () => {}
@@ -37,6 +38,7 @@ describe('entity-list', () => {
                 submitSearchForm={EMPTY_FUNC}
                 resetSearch={EMPTY_FUNC}
                 intl={IntlStub}
+                searchFormType={searchFormTypes.SIMPLE_ADVANCED}
                 simpleSearchFields={[]}
                 showExtendedSearchForm
                 preselectedSearchFields={[]}
@@ -80,6 +82,7 @@ describe('entity-list', () => {
                   submitSearchForm={EMPTY_FUNC}
                   resetSearch={EMPTY_FUNC}
                   intl={IntlStub}
+                  searchFormType={searchFormTypes.SIMPLE_ADVANCED}
                   simpleSearchFields={[]}
                   showExtendedSearchForm
                   preselectedSearchFields={[]}
@@ -98,7 +101,7 @@ describe('entity-list', () => {
         expect(wrapper.find(EditableValue)).to.have.length(3)
       })
 
-      test('should render only the fulltext field', () => {
+      test('should render only the simple search fields from the form definition', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
@@ -128,7 +131,8 @@ describe('entity-list', () => {
                   submitSearchForm={EMPTY_FUNC}
                   resetSearch={EMPTY_FUNC}
                   intl={IntlStub}
-                  simpleSearchFields={['txtFulltext']}
+                  searchFormType={searchFormTypes.SIMPLE}
+                  simpleSearchFields={[]}
                   preselectedSearchFields={[]}
                   setShowExtendedSearchForm={EMPTY_FUNC}
                   loadSearchFilters={EMPTY_FUNC}
@@ -145,7 +149,7 @@ describe('entity-list', () => {
         expect(wrapper.find(EditableValue)).to.have.length(1)
       })
 
-      test('should render two fields', () => {
+      test('should render simple search fields from props (override form definition)', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
@@ -175,6 +179,7 @@ describe('entity-list', () => {
                   submitSearchForm={EMPTY_FUNC}
                   resetSearch={EMPTY_FUNC}
                   intl={IntlStub}
+                  searchFormType={searchFormTypes.SIMPLE}
                   simpleSearchFields={['txtFulltext', 'relUser_code1']}
                   preselectedSearchFields={[]}
                   setShowExtendedSearchForm={EMPTY_FUNC}
@@ -231,6 +236,7 @@ describe('entity-list', () => {
                   intl={IntlStub}
                   formValues={{}}
                   showExtendedSearchForm
+                  searchFormType={searchFormTypes.ADVANCED}
                   simpleSearchFields={[]}
                   preselectedSearchFields={preselectedSearchFields}
                   setShowExtendedSearchForm={EMPTY_FUNC}
