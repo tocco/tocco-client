@@ -1,3 +1,8 @@
+1.0.14-hotfix31.8
+- menu now closes when navigating to the dashboard
+- onBlur of date component is called with value from onChange again
+- legacy actions ignore some exceptions
+
 1.0.14-hotfix31.7
 - searchfilter show description as mouseover
 - fix activating two factor without session
