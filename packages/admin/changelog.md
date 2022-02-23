@@ -1,3 +1,7 @@
+1.0.0-hotfix30.29
+- legacy actions ignore some exceptions
+- onBlur of date component is called with value from onChange again
+
 1.0.0-hotfix30.28
 - searchfilter show description as mouseover
 - menu now closes when navigating to the dashboard
