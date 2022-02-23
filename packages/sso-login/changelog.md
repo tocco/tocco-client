@@ -1,3 +1,7 @@
+1.0.2-hotfix31.4
+- onBlur of date component is called with value from onChange again
+- legacy actions ignore some exceptions
+
 1.0.2-hotfix31.3
 - onChange is now debounced for CodeEdit
 
