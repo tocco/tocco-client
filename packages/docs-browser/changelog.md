@@ -1,3 +1,7 @@
+1.0.6-hotfix31.7
+- onBlur of date component is called with value from onChange again
+- legacy actions ignore some exceptions
+
 1.0.6-hotfix31.6
 - searchfilter show description as mouseover
 
