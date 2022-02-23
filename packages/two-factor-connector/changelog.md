@@ -1,3 +1,7 @@
+1.0.2-hotfix31.5
+- onBlur of date component is called with value from onChange again
+- legacy actions ignore some exceptions
+
 1.0.2-hotfix31.4
 - fix activating two factor without session
 
