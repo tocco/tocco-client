@@ -1,3 +1,7 @@
+1.0.0-hotfix30.18
+- legacy actions ignore some exceptions
+- onBlur of date component is called with value from onChange again
+
 1.0.0-hotfix30.17
 - Fixed searching in select boxes. Removed default searchOptions from Select.
 - Fixed searching in select boxes. Removed default searchOptions from Select.
