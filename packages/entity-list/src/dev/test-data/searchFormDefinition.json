@@ -12,10 +12,11 @@
       "children": [
         {
           "id": "txtFulltext",
-          "componentType": "fulltext-search",
+          "componentType": "field",
           "dataType": "fulltext-search",
           "label": null,
-          "path": null
+          "path": null,
+          "simpleSearch": true
         }
       ]
     },
@@ -29,7 +30,7 @@
         {
           "id": "relAddress_user.relAddress",
           "componentType": "field",
-          "dataType": "string",
+          "dataType": "fulltext-search",
           "label": null,
           "path": "relAddress_user.relAddress"
         }

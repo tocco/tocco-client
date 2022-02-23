@@ -5,7 +5,7 @@ const EXPECTED_INITIAL_STATE = {
   initialized: false,
   formDefinition: {},
   showExtendedSearchForm: false,
-  simpleSearchFields: ['txtFulltext'],
+  simpleSearchFields: [],
   valuesInitialized: false,
   searchFilters: null,
   queryViewVisible: false,

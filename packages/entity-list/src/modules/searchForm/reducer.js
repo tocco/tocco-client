@@ -48,7 +48,7 @@ const initialState = {
   initialized: false,
   formDefinition: {},
   showExtendedSearchForm: false,
-  simpleSearchFields: ['txtFulltext'],
+  simpleSearchFields: [],
   valuesInitialized: false,
   searchFilters: null,
   queryViewVisible: false,
