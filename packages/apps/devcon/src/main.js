@@ -1,8 +1,7 @@
 import {createBrowserHistory} from 'history'
 import React, {Suspense} from 'react'
-import {Router} from 'react-router'
 import {errorLogging, appFactory, notification} from 'tocco-app-extensions'
-import {reducer as reducerUtil} from 'tocco-util'
+import {route, reducer as reducerUtil} from 'tocco-util'
 
 import reducers, {sagas} from './modules'
 
@@ -22,14 +21,12 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   notification.addToStore(store, true)
 
-  const history = createBrowserHistory({
-    ...(input.baseRoute && {basename: input.baseRoute})
-  })
+  const history = createBrowserHistory()
 
   const content = (
-    <Router history={history}>
+    <route.CustomRouter history={history} basename={input.baseRoute}>
       <LazyDevCon />
-    </Router>
+    </route.CustomRouter>
   )
 
   return appFactory.createApp(packageName, content, store, {
