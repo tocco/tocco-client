@@ -1,24 +1,27 @@
 import PropTypes from 'prop-types'
+import {useNavigate} from 'react-router-dom'
 
 import {currentViewPropType} from '../../utils/propTypes'
 import DocsView from '../DocsView'
 
-const DocsViewAdapter = ({currentViewInfo, history, selectedRelation, sortable}) => (
-  <DocsView
-    entityName={currentViewInfo.model.name}
-    entityKey={currentViewInfo.key}
-    showActions={false}
-    noLeftPadding={true}
-    history={history}
-    openResource={location => {
-      history.push(`${selectedRelation.relationName}/list#${location}`)
-    }}
-    sortable={sortable}
-  />
-)
+const DocsViewAdapter = ({currentViewInfo, selectedRelation, sortable}) => {
+  const navigate = useNavigate()
+
+  return (
+    <DocsView
+      entityName={currentViewInfo.model.name}
+      entityKey={currentViewInfo.key}
+      showActions={false}
+      noLeftPadding={true}
+      openResource={location => {
+        navigate(`${selectedRelation.relationName}/list#${location}`)
+      }}
+      sortable={sortable}
+    />
+  )
+}
 
 DocsViewAdapter.propTypes = {
-  history: PropTypes.object.isRequired,
   selectedRelation: PropTypes.shape({
     relationName: PropTypes.string.isRequired
   }).isRequired,

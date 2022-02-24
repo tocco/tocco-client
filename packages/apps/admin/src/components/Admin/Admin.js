@@ -2,27 +2,22 @@ import {createBrowserHistory} from 'history'
 import PropTypes from 'prop-types'
 import {useEffect, useState} from 'react'
 import {FormattedMessage} from 'react-intl'
-import {Redirect, Route, Router, Switch} from 'react-router-dom'
 import {withTheme} from 'styled-components'
-import {notification, errorLogging} from 'tocco-app-extensions'
-import {BurgerButton, GlobalStyles, LoadMask, useWindowWidth} from 'tocco-ui'
-import {viewPersistor} from 'tocco-util'
+import {notification} from 'tocco-app-extensions'
+import {GlobalStyles, LoadMask} from 'tocco-ui'
+import {route, useWindowWidth} from 'tocco-util'
 
-import DashboardRoute from '../../routes/dashboard'
-import DocsRoute from '../../routes/docs'
-import EntitiesRoute from '../../routes/entities'
-import Settings from '../../routes/settings'
 import ErrorView from '../ErrorView'
 import Header from '../Header'
-import Navigation from '../Navigation'
 import navigationStrategy from './../../routes/entities/utils/navigationStrategy'
-import {burgerMenuStyles, StyledContent, StyledMenu, StyledWrapper} from './StyledComponents'
+import AdminContent from './AdminContent'
+import {StyledContent, StyledWrapper} from './StyledComponents'
 
 const Admin = ({
   initializeNavigation,
-  setMenuOpen,
-  menuOpen,
   baseRoute,
+  menuOpen,
+  setMenuOpen,
   confirm,
   loadPrincipal,
   loadSettingsAndPreferences,
@@ -40,7 +35,6 @@ const Admin = ({
 
   const initializeHistory = () => {
     const browserHistory = createBrowserHistory({
-      ...(baseRoute && {basename: baseRoute}),
       getUserConfirmation: (message, confirmCallback) => {
         confirm(
           '',
@@ -55,45 +49,7 @@ const Admin = ({
     setHistory(browserHistory)
   }
 
-  const isMenuOpen = state => {
-    if (state.isOpen !== menuOpen) {
-      setMenuOpen(state.isOpen)
-    }
-  }
-
-  const handleClick = () => {
-    setMenuOpen(false)
-    viewPersistor.clearPersistedViews()
-  }
-
-  const adminAllowedContent = adminAllowed && (
-    <>
-      <StyledMenu
-        isOpen={menuOpen}
-        onStateChange={isMenuOpen}
-        customCrossIcon={false}
-        customBurgerIcon={<BurgerButton isOpen={menuOpen} />}
-        styles={burgerMenuStyles}
-      >
-        <errorLogging.ErrorBoundary>
-          <Navigation onClick={handleClick} />
-        </errorLogging.ErrorBoundary>
-      </StyledMenu>
-      <StyledContent>
-        <errorLogging.ErrorBoundary>
-          <Switch>
-            <Route exact path="/" render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />} />
-            <Redirect exact from="/dashboard/reload" to="/dashboard" />
-            <Route exact={true} path="/dashboard" component={DashboardRoute} />
-            <Route path="/e" component={EntitiesRoute} />
-            <Route path="/s" component={Settings} />
-            <Route path="/docs" component={DocsRoute} />
-            <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />} />
-          </Switch>
-        </errorLogging.ErrorBoundary>
-      </StyledContent>
-    </>
-  )
+  const adminAllowedContent = adminAllowed && <AdminContent menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
   const adminForbiddenContent = adminAllowed === false && (
     <StyledContent>
@@ -106,14 +62,14 @@ const Admin = ({
 
   return (
     <LoadMask required={[history !== null]}>
-      <Router history={history || {}}>
+      <route.CustomRouter history={history} basename={baseRoute}>
         <GlobalStyles />
         <notification.Notifications navigationStrategy={navigationStrategy()} />
         <StyledWrapper width={useWindowWidth()}>
           <Header />
           {adminAllowedContent || adminForbiddenContent}
         </StyledWrapper>
-      </Router>
+      </route.CustomRouter>
     </LoadMask>
   )
 }

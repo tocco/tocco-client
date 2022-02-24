@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types'
+import {useSearchParams} from 'react-router-dom'
 import {AdminLink as StyledLink, Icon} from 'tocco-ui'
 
 import {setRelation} from '../../utils/relationPersistor'
 import {StyledRelationBox, StyledCountLabel, StyledRelationLabel, StyledRelationLinks} from './StyledComponents'
 
-const RelationBox = ({relation, history, match, relationsInfo, selectRelation, selectedRelation, intl, entityName}) => {
+const RelationBox = ({relation, relationsInfo, selectRelation, selectedRelation, intl, entityName}) => {
   const {relationName, targetEntity, relationDisplay} = relation
+
+  // eslint-disable-next-line no-unused-vars
+  const [_searchParams, setSerachParams] = useSearchParams()
 
   const msg = id => intl.formatMessage({id})
   const hasCreateRights = () => relationsInfo[relationName]?.createPermission
@@ -17,14 +21,12 @@ const RelationBox = ({relation, history, match, relationsInfo, selectRelation, s
 
   const handleBoxClick = () => {
     selectRelation(relation)
-    history.replace({
-      search: `?relation=${relationName}`
-    })
+    setSerachParams({relation: relationName}, {replace: true})
     setRelation(entityName, relationName)
   }
 
-  const viewLink = match.url.replace(/(relations|detail)$/, relationName)
-  const createLink = match.url.replace(/(relations|detail)$/, relationName) + '/create'
+  const viewLink = `../${relationName}`
+  const createLink = `../${relationName}/create`
 
   return (
     <StyledRelationBox selected={selectedRelation?.relationName === relationName} onClick={handleBoxClick}>
@@ -46,8 +48,6 @@ const RelationBox = ({relation, history, match, relationsInfo, selectRelation, s
 
 RelationBox.propTypes = {
   relation: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
   relationsInfo: PropTypes.objectOf(
     PropTypes.shape({
       count: PropTypes.number,

@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
-import queryString from 'query-string'
 import React, {useCallback, useEffect} from 'react'
+import {useSearchParams} from 'react-router-dom'
 import {Icon, Typography} from 'tocco-ui'
 import {js} from 'tocco-util'
 
@@ -22,8 +22,6 @@ import {
 
 const RelationsView = props => {
   const {
-    history,
-    match,
     currentViewInfo,
     relations,
     relationsInfo,
@@ -35,10 +33,11 @@ const RelationsView = props => {
     selectRelation
   } = props
   const entityName = _get(currentViewInfo, 'model.name')
+  const [searchParams] = useSearchParams()
+  const queryRelation = searchParams.get('relation')
 
   const updateSelectedRelation = useCallback(() => {
     if (relations?.length > 0) {
-      const queryRelation = queryString.parse(history.location.search).relation
       if (queryRelation) {
         selectRelation(relations.find(r => r.relationName === queryRelation))
       } else {
@@ -50,7 +49,7 @@ const RelationsView = props => {
         }
       }
     }
-  }, [relations, entityName, history.location.search, selectRelation])
+  }, [relations, entityName, queryRelation, selectRelation])
 
   useEffect(updateSelectedRelation, [updateSelectedRelation])
   useEffect(() => (!selectedRelation ? updateSelectedRelation() : null), [selectedRelation, updateSelectedRelation])
@@ -88,14 +87,16 @@ const RelationsView = props => {
               {selectedRelation.relationDisplay.label}
               <StyledPreviewLink
                 aria-label={msg('client.admin.entities.relationsView.relationLinkView')}
-                to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}
+                to={`../${selectedRelation.relationName}`}
+                // to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}
               >
                 <Icon icon="arrow-right" />
               </StyledPreviewLink>
               {hasCreateRights(selectedRelation.relationName) && selectedRelation.targetEntity !== 'Resource' && (
                 <StyledPreviewLink
                   aria-label={msg('client.admin.entities.relationsView.relationLinkCreate')}
-                  to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}
+                  to={`../${selectedRelation.relationName}/create`}
+                  // to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}
                 >
                   <Icon icon="plus" />
                 </StyledPreviewLink>
@@ -103,8 +104,6 @@ const RelationsView = props => {
             </Typography.H4>
             <RelationPreview
               selectedRelation={selectedRelation}
-              match={match}
-              history={history}
               currentViewInfo={currentViewInfo}
               emitAction={emitAction}
               sortable={true}
@@ -120,8 +119,6 @@ const RelationsView = props => {
 }
 
 RelationsView.propTypes = {
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
   currentViewInfo: currentViewPropType,
   relations: PropTypes.array,
   relationsInfo: PropTypes.objectOf(

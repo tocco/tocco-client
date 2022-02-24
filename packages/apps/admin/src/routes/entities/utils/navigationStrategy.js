@@ -1,9 +1,8 @@
+import {createPath} from 'history'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import {AdminLink as StyledLink} from 'tocco-ui'
 import {queryString as queryStringUtil} from 'tocco-util'
-
-import {goBack} from '../../../utils/routing'
 
 const DetailLinkRelativeWithoutIntl = ({entityKey, entityModel, children, relation, intl}) => {
   const msg = id => intl.formatMessage({id})
@@ -11,7 +10,7 @@ const DetailLinkRelativeWithoutIntl = ({entityKey, entityModel, children, relati
   return (
     <StyledLink
       aria-label={msg('client.component.navigationStrategy.detailLinkRelative')}
-      to={`${relation ? relation + '/' : ''}${entityKey}`}
+      to={`../${relation ? relation + '/' : ''}${entityKey}`}
     >
       {children}
     </StyledLink>
@@ -69,31 +68,28 @@ ListOrDetailLink.propTypes = {
   entityKeys: PropTypes.arrayOf(PropTypes.string)
 }
 
-export default (history, match) => {
+export default navigate => {
   const navigateToCreateRelative = (relationName, state) => {
     if (relationName) {
-      history.push({
-        pathname: `${match.url}/${relationName}/create`,
+      navigate({
+        pathname: `${relationName}/create`,
         state
       })
     } else {
-      const entityBaseUrl = goBack(match.url)
-
-      history.push({
-        pathname: entityBaseUrl + '/create',
+      navigate({
+        pathname: '../create',
         state
       })
     }
   }
 
   const navigateToActionRelative = (definition, selection) => {
-    const entityBaseUrl = goBack(match.url)
     const search = queryStringUtil.toQueryString({
       selection,
       actionProperties: definition.properties
     })
-    history.push({
-      pathname: entityBaseUrl + '/action/' + definition.appId,
+    navigate({
+      pathname: '../action/' + definition.appId,
       state: {
         definition,
         selection
@@ -105,12 +101,10 @@ export default (history, match) => {
   const openDetail = (entityName, key, inNewTab = true) => {
     const pathname = `/e/${entityName}/${key}`
     if (inNewTab) {
-      const url = history.createHref({pathname})
+      const url = createPath({pathname})
       window.open(url, '_blank')
     } else {
-      history.push({
-        pathname
-      })
+      navigate({pathname})
     }
   }
 

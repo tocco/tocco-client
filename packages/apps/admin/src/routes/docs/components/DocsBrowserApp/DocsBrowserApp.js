@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import queryString from 'query-string'
+import {useSearchParams} from 'react-router-dom'
 import DocsBrowser from 'tocco-docs-browser/src/main'
 import {AdminLink as StyledLink} from 'tocco-ui'
 
@@ -21,7 +21,8 @@ ListLink.propTypes = {
 }
 
 const DocsBrowserApp = props => {
-  const queryParams = queryString.parse(props.history.location.search)
+  const [searchParams] = useSearchParams()
+  const queryRootNodes = searchParams.get('rootNodes')
 
   return (
     <DocsBrowser
@@ -31,7 +32,7 @@ const DocsBrowserApp = props => {
         ListLink,
         DetailLink
       }}
-      {...(queryParams.rootNodes && {rootNodes: JSON.parse(queryParams.rootNodes)})}
+      {...(queryRootNodes && {rootNodes: JSON.parse(queryRootNodes)})}
       searchFormCollapsed={props.searchFormCollapsed}
       onSearchFormCollapsedChange={({collapsed}) => {
         props.saveUserPreferences({'admin.list.searchFormCollapsed': collapsed})
@@ -42,7 +43,6 @@ const DocsBrowserApp = props => {
 }
 
 DocsBrowserApp.propTypes = {
-  history: PropTypes.object.isRequired,
   searchFormCollapsed: PropTypes.bool,
   saveUserPreferences: PropTypes.func
 }

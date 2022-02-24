@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import queryString from 'query-string'
+import {useLocation, useNavigate, useSearchParams} from 'react-router-dom'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {viewPersistor} from 'tocco-util'
 
@@ -8,15 +9,19 @@ import {currentViewPropType} from '../../utils/propTypes'
 import Action from '../Action'
 import DocsViewAdapter from './DocsViewAdapter'
 
-const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollapsed, saveUserPreferences}) => {
+const ListView = ({currentViewInfo, emitAction, searchFormCollapsed, saveUserPreferences}) => {
+  const [searchParams] = useSearchParams()
+  const location = useLocation()
+  const navigate = useNavigate()
+
   if (!currentViewInfo) {
     return null
   }
 
-  const queryParams = queryString.parse(history.location.search)
+  const queryParams = queryString.parse(searchParams)
 
   const handleRowClick = ({id}) => {
-    history.push(match.url.replace(/list$/, '') + id)
+    navigate(`../${id}`)
   }
 
   const initialLocation = history.location.hash ? history.location.hash.substring(1) : null
@@ -41,13 +46,13 @@ const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollap
         }
       })}
       showLink={true}
-      navigationStrategy={navigationStrategy(history, match)}
+      navigationStrategy={navigationStrategy(navigate)}
       searchFormPosition="left"
       searchFormType="admin"
       scrollBehaviour="inline"
-      store={viewPersistor.viewInfoSelector(history.location.pathname).store}
+      store={viewPersistor.viewInfoSelector(location.pathname).store}
       onStoreCreate={store => {
-        viewPersistor.persistViewInfo(history.location.pathname, {store}, currentViewInfo.level)
+        viewPersistor.persistViewInfo(location.pathname, {store}, currentViewInfo.level)
       }}
       actionAppComponent={Action}
       tql={queryParams.tql}
@@ -60,9 +65,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollap
 }
 
 ListView.propTypes = {
-  match: PropTypes.object.isRequired,
   emitAction: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   currentViewInfo: currentViewPropType,
   persistedViewInfo: PropTypes.shape({
     store: PropTypes.object

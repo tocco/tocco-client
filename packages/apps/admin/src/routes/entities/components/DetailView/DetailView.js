@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import {useLocation} from 'react-router-dom'
 import {errorLogging} from 'tocco-app-extensions'
 import {useCollapseOnMobile} from 'tocco-ui'
 
@@ -7,7 +8,8 @@ import EditView from '../EditView'
 import RelationsView from '../RelationsView'
 import {StyledDetailViewContainer, StyledDetailViewLeft, StyledDetailViewRight} from './StyledComponents'
 
-const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, saveUserPreferences}) => {
+const DetailView = ({currentViewInfo, relationViewCollapsed, saveUserPreferences}) => {
+  const location = useLocation()
   const onSearchFormCollapsedChange = collapsed => {
     saveUserPreferences({'admin.detail.relationViewCollapsed': collapsed})
   }
@@ -18,14 +20,14 @@ const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, sav
     <StyledDetailViewContainer>
       <StyledDetailViewLeft isRightPaneCollapsed={isCollapsed} windowWidth={getWindowWidth()}>
         <errorLogging.ErrorBoundary>
-          <EditView match={match} history={history} />
+          <EditView location={location} />
         </errorLogging.ErrorBoundary>
       </StyledDetailViewLeft>
       <StyledDetailViewRight isRightPaneCollapsed={isCollapsed}>
         <errorLogging.ErrorBoundary>
           <RelationsView
-            match={match}
-            history={history}
+            location={location}
+            isCollapsed={isCollapsed}
             isRightPaneCollapsed={isCollapsed}
             toggleCollapse={toggleCollapse}
           />
@@ -37,8 +39,6 @@ const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, sav
 
 DetailView.propTypes = {
   intl: PropTypes.object,
-  match: PropTypes.object,
-  history: PropTypes.object,
   currentViewInfo: currentViewPropType,
   relationViewCollapsed: PropTypes.bool,
   saveUserPreferences: PropTypes.func.isRequired

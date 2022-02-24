@@ -1,7 +1,8 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import {useState} from 'react'
-import {Prompt} from 'react-router'
+import {useLocation, useNavigate} from 'react-router-dom'
+// import {Prompt} from 'react-router'
 import styled from 'styled-components'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {theme, scale} from 'tocco-ui'
@@ -17,10 +18,14 @@ const StyledEntityDetailAppWrapper = styled.div`
   height: 100%;
 `
 
+// TODO: @isbo fix prompt
 const CreateView = props => {
-  const {currentViewInfo, history, match, intl, chooseDocument, dispatchEmittedAction} = props
-  const {location} = history
+  const {currentViewInfo, /* intl, */ chooseDocument, dispatchEmittedAction} = props
+  const location = useLocation()
+  const navigate = useNavigate()
+
   const stateDefaultValues = _get(location, 'state.defaultValues', [])
+  // eslint-disable-next-line no-unused-vars
   const [touched, setTouched] = useState(false)
 
   const mode = 'create'
@@ -42,15 +47,15 @@ const CreateView = props => {
 
   const handleEntityCreated = ({id}) => {
     setTouched(false)
-    history.push(match.url.replace(/create$/, id))
+    navigate(`../${id}`)
   }
 
-  const msg = id => intl.formatMessage({id})
+  // const msg = id => intl.formatMessage({id})
   const handleToucheChanged = ({touched: changedTouched}) => setTouched(changedTouched)
 
   return (
     <StyledEntityDetailAppWrapper>
-      <Prompt when={touched} message={msg('client.entity-browser.detail.confirmTouchedFormLeave')} />
+      {/*       <Prompt when={touched} message={msg('client.entity-browser.detail.confirmTouchedFormLeave')} /> */}
       <EntityDetailApp
         entityName={entityName}
         formName={entityName}
@@ -59,7 +64,7 @@ const CreateView = props => {
         emitAction={action => {
           dispatchEmittedAction(action)
         }}
-        navigationStrategy={navigationStrategy(history, match)}
+        navigationStrategy={navigationStrategy(navigate)}
         chooseDocument={chooseDocument}
         onEntityCreated={handleEntityCreated}
         onTouchedChange={handleToucheChanged}
@@ -70,8 +75,6 @@ const CreateView = props => {
 
 CreateView.propTypes = {
   intl: PropTypes.object,
-  match: PropTypes.object,
-  history: PropTypes.object,
   currentViewInfo: currentViewPropType,
   chooseDocument: PropTypes.func.isRequired,
   dispatchEmittedAction: PropTypes.func.isRequired
