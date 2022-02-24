@@ -21,6 +21,6 @@ export const StyledActionWrapper = styled.div`
 
 export const StyledListView = styled.div`
   display: grid;
-  grid-template-rows: [action-start] auto [table-start] 1fr;
+  grid-template-rows: [action-start] auto [table-start] minmax(0, 1fr);
   height: 100%;
 `
