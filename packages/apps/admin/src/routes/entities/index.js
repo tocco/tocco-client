@@ -16,7 +16,7 @@ export default memo(
   props => (
     <ReactReduxContext.Consumer>
       {({store}) => {
-        const Component = route.loadRoute(store, {}, () => import('./route'))
+        const Component = route.loadRoute(store, () => import('./route'))
         return <Component {...props} />
       }}
     </ReactReduxContext.Consumer>
