@@ -1,9 +1,9 @@
 import {call, put, select, takeLatest, all} from 'redux-saga/effects'
 
-import {fetchModel} from '../../../util/api/entities'
-import detail from '../../../util/detail'
-import parseUrl from '../../../util/parseUrl'
-import doShowBackButton from '../../../util/showBackButton'
+import {fetchModel} from '../../util/api/entities'
+import detail from '../../util/detail'
+import parseUrl from '../../util/parseUrl'
+import doShowBackButton from '../../util/showBackButton'
 import * as actions from './actions'
 
 export const entityBrowserSelector = state => state.entityBrowser

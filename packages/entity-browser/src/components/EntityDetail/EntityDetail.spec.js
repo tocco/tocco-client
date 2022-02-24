@@ -5,7 +5,7 @@ import {MemoryRouter} from 'react-router-dom'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {IntlStub} from 'tocco-test-util'
 
-import EntityDetail from './'
+import EntityDetail from './EntityDetail'
 import {setupFetchMock} from './mockData/setupFetchMock'
 
 const EMPTY_FUNC = () => {}

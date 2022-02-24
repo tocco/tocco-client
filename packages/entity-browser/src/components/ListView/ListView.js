@@ -4,7 +4,7 @@ import EntityListApp from 'tocco-entity-list/src/main'
 import {RouterLink, scrollBehaviourPropType} from 'tocco-ui'
 import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
 
-import Action from '../../../components/LazyAction'
+import Action from '../LazyAction'
 
 const DetailLinkRelative = ({entityKey, children, relation}) => (
   <RouterLink to={`${relation ? relation + '/' : ''}detail/${entityKey}`}>{children}</RouterLink>
