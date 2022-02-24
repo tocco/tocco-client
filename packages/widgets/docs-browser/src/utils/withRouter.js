@@ -1,12 +1,12 @@
 import {connect} from 'react-redux'
-import {useHistory, useLocation, useParams} from 'react-router-dom'
+import {useLocation, useNavigate, useParams} from 'react-router-dom'
 
-import {navigate} from '../modules/routing/actions'
+import {navigate as navigateAction} from '../modules/routing/actions'
 
 const listenHistory = () => () => {}
 
 const mapActionCreators = {
-  navigate,
+  navigate: navigateAction,
   listenHistory
 }
 
@@ -19,16 +19,16 @@ export const withInternalRouter = connect(mapStateToProps, mapActionCreators)
 
 export const withReactRouter = WrappedComponent => props => {
   const location = useLocation()
-  const history = useHistory()
+  const navigate = useNavigate()
   const params = useParams()
 
   return (
     <WrappedComponent
       {...props}
       path={location.pathname}
-      navigate={history.push}
+      navigate={navigate}
       params={params}
-      listenHistory={history.listen}
+      listenHistory={listenHistory} // TODO: @isbo implement history listen
     />
   )
 }

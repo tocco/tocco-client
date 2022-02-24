@@ -1,4 +1,4 @@
-import createHashHistory from 'history/createHashHistory'
+import {createHashHistory} from 'history'
 import PropTypes from 'prop-types'
 import {
   actionEmitter,

@@ -1,25 +1,22 @@
 import PropTypes from 'prop-types'
-import {Redirect, Route, Router as ReactRouter} from 'react-router'
+import {Routes, Navigate, Route} from 'react-router'
 import {notification} from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'
+import {route} from 'tocco-util'
 
 import DocsBrowser from '../DocsBrowser'
 
 const StandaloneApp = ({rootPath, handleNotifications, history}) => (
-  <ReactRouter history={history}>
+  <route.CustomRouter history={history}>
     {handleNotifications && <notification.Notifications />}
     <GlobalStyles />
 
-    <DocsBrowser />
-    <Route exact path="/">
-      <Redirect to={rootPath} />
-    </Route>
-    {rootPath !== '/docs' && (
-      <Route exact path="/docs">
-        <Redirect to={rootPath} />
-      </Route>
-    )}
-  </ReactRouter>
+    <Routes>
+      <Route exact path="/" element={<Navigate to={rootPath} replace />} />
+      {rootPath !== '/docs' && <Route exact path="docs" element={<Navigate to={rootPath} replace />}></Route>}
+      <Route exact path="docs/*" element={<DocsBrowser />} />
+    </Routes>
+  </route.CustomRouter>
 )
 
 StandaloneApp.propTypes = {

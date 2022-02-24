@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Routes} from 'react-router-dom'
 
 import DocsView from '../../DocsView'
 import DocumentView from '../../DocumentView'
 
 const RoutesContent = ({navigationStrategy, handleSearchChange, emitAction, openFileDialog, searchMode, docsKey}) => (
-  <Switch>
+  <Routes>
+    <Route exact path="doc/:key/detail" element={<DocumentView navigationStrategy={navigationStrategy} />} />
     <Route
       exact
-      path={'/docs/doc/:key/detail'}
-      render={() => <DocumentView navigationStrategy={navigationStrategy} />}
-    />
-    <Route
-      exact
-      path={['/docs/:model/:key/list', '/docs']}
-      render={() => (
+      path=":model/:key/list"
+      element={
         <DocsView
           key={docsKey}
           navigationStrategy={navigationStrategy}
@@ -23,9 +19,23 @@ const RoutesContent = ({navigationStrategy, handleSearchChange, emitAction, open
           openFileDialog={openFileDialog}
           searchMode={searchMode}
         />
-      )}
+      }
     />
-  </Switch>
+    <Route
+      exact
+      path="/"
+      element={
+        <DocsView
+          key={docsKey}
+          navigationStrategy={navigationStrategy}
+          onSearchChange={handleSearchChange}
+          emitAction={emitAction}
+          openFileDialog={openFileDialog}
+          searchMode={searchMode}
+        />
+      }
+    />
+  </Routes>
 )
 
 RoutesContent.propTypes = {
