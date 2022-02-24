@@ -2,9 +2,9 @@ import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {actionEmitter} from 'tocco-app-extensions'
 
-import Action from '../../../components/LazyAction/LazyAction'
-import EntityDetail from '../components/EntityDetail'
-import {loadDetailParams, clearDetailParams, setFormTouched} from '../modules/actions'
+import {loadDetailParams, clearDetailParams, setFormTouched} from '../../modules/detail/actions'
+import Action from '../LazyAction'
+import EntityDetail from './EntityDetail'
 
 const mapActionCreators = {
   loadDetailParams,

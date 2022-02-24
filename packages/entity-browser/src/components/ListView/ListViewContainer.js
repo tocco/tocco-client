@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import {actionEmitter} from 'tocco-app-extensions'
 
-import ListView from '../components/ListView'
+import ListView from './ListView'
 
 const mapDispatchToProps = dispatch => ({
   emitAction: action => {

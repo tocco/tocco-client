@@ -1,4 +1,4 @@
-import reducer from './index'
+import reducer from './reducer'
 
 const EXPECTED_INITIAL_STATE = {
   entityName: '',
