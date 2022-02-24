@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = (state, props) => {
   const id = `${state.entityBrowser.appId}_entity-browser-list`
-  const storeId = `${id}_${props.router.history.location.pathname}`
+  const storeId = `${id}_${props.location.pathname}`
   return {
     id,
     storeId,

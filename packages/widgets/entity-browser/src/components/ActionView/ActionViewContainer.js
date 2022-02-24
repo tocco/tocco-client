@@ -7,8 +7,8 @@ import ActionView from './ActionView'
 
 const mapStateToProps = (state, props) => {
   const queryParams = queryStringUtil.fromQueryString(location.search)
-  const selection = _get(props.router.location, 'state.selection', queryParams.actionProperties)
-  const actionProperties = _get(props.router.location, 'state.definition.properties', queryParams.actionProperties)
+  const selection = _get(props.location, 'state.selection', queryParams.actionProperties)
+  const actionProperties = _get(props.location, 'state.definition.properties', queryParams.actionProperties)
 
   return {
     selection,

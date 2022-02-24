@@ -25,16 +25,11 @@ describe('entity-browser', () => {
           mode: 'update'
         }
 
-        const routerMock = {
-          match: {url: '/detail', history: {}}
-        }
-
         setupFetchMock(fetchMock)
 
         const wrapper = mount(
           <MemoryRouter>
             <EntityDetail
-              router={routerMock}
               loadDetailParams={EMPTY_FUNC}
               dispatchEmittedAction={EMPTY_FUNC}
               clearDetailParams={EMPTY_FUNC}

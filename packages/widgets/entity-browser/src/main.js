@@ -1,11 +1,9 @@
-import createHashHistory from 'history/createHashHistory'
-import createMemoryHistory from 'history/createMemoryHistory'
+import {createMemoryHistory, createHashHistory} from 'history'
 import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
 import React, {Suspense} from 'react'
-import {Router} from 'react-router-dom'
 import {
   actionEmitter,
   appFactory,
@@ -18,7 +16,7 @@ import {
 } from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/main'
 import {GlobalStyles} from 'tocco-ui'
-import {appContext, env, react, reducer as reducerUtil} from 'tocco-util'
+import {appContext, route, env, react, reducer as reducerUtil} from 'tocco-util'
 
 import {getDispatchActions} from './input'
 import reducers, {sagas} from './modules/reducers'
@@ -90,10 +88,10 @@ const initApp = (id, input, events, publicPath) => {
   navigateToDetailIfKeySet(history, input)
 
   const content = (
-    <Router history={history}>
+    <route.CustomRouter history={history}>
       <GlobalStyles />
       <LazyEntityBrowser />
-    </Router>
+    </route.CustomRouter>
   )
 
   return appFactory.createApp(packageName, content, store, {

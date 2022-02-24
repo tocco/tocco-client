@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import {useLocation, useNavigate} from 'react-router-dom'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {RouterLink, scrollBehaviourPropType} from 'tocco-ui'
 import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
@@ -15,26 +16,29 @@ DetailLinkRelative.propTypes = {
   relation: PropTypes.string
 }
 
-const ListView = ({storeId, router, modifyFormDefinition, disableDetailView, ...props}) => {
-  const navigateToCreate = ({history, match, relationName}) => {
+const ListView = ({storeId, modifyFormDefinition, disableDetailView, ...props}) => {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const navigateToCreate = relationName => {
     if (relationName) {
-      history.push(`${match}/${relationName}/`)
+      navigate(`${relationName}`)
     } else {
-      history.push('/detail')
+      navigate('detail')
     }
   }
 
-  const navigateToAction = (history, definition, selection) => {
+  const navigateToAction = (definition, selection) => {
     const search = queryStringUtil.toQueryString({
       selection,
       actionProperties: definition.properties
     })
-    history.push({
-      pathname: '/action/' + definition.appId,
+    navigate({
+      pathname: 'action/' + definition.appId,
       state: {
         definition,
         selection,
-        originUrl: history.location.pathname
+        originUrl: location.pathname
       },
       search
     })
@@ -42,7 +46,7 @@ const ListView = ({storeId, router, modifyFormDefinition, disableDetailView, ...
 
   const handleRowClick = e => {
     if (!disableDetailView) {
-      router.history.push(`/detail/${e.id}`)
+      navigate(`detail/${e.id}`)
     }
   }
 
@@ -53,9 +57,8 @@ const ListView = ({storeId, router, modifyFormDefinition, disableDetailView, ...
       showLink={!disableDetailView}
       navigationStrategy={{
         DetailLinkRelative,
-        navigateToActionRelative: (definition, selection) => navigateToAction(router.history, definition, selection),
-        navigateToCreateRelative: relationName =>
-          navigateToCreate({relationName, history: router.history, match: router.match})
+        navigateToActionRelative: navigateToAction,
+        navigateToCreateRelative: navigateToCreate
       }}
       searchFormPosition="top"
       actionAppComponent={Action}
@@ -80,7 +83,6 @@ ListView.propTypes = {
   searchFitlers: PropTypes.array,
   preselectedSearchFields: PropTypes.array,
   simpleSearchFields: PropTypes.string,
-  router: PropTypes.object.isRequired,
   modifyFormDefinition: PropTypes.func,
   disableDetailView: PropTypes.bool,
   reportIds: PropTypes.arrayOf(PropTypes.string)
