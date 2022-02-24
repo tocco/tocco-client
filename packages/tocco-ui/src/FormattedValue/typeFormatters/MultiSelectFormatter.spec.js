@@ -21,7 +21,7 @@ describe('tocco-ui', () => {
           const wrapper = mount(<MultiSelectFormatter
             value={value}
             breakWords={true}
-            options={{DetailLink: ({key, children}) => <a>{children}</a>}}
+            options={{navigationStrategy: {DetailLink: ({key, children}) => <a>{children}</a>}}}
           />)
           expect(wrapper.find('a')).to.have.length(2)
         })
