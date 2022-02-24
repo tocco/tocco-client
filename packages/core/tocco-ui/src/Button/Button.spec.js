@@ -69,7 +69,7 @@ describe('tocco-ui', () => {
       test('should show label', () => {
         const wrapper = enzymeUtil.mountEmbedded(
           <MemoryRouter>
-            <RouterLinkButton label="test" />
+            <RouterLinkButton label="test" to="/" />
           </MemoryRouter>
         )
         expect(wrapper.find('a').text()).to.equal('test')
@@ -79,7 +79,7 @@ describe('tocco-ui', () => {
         const child = 'test123'
         const wrapper = enzymeUtil.mountEmbedded(
           <MemoryRouter>
-            <RouterLinkButton>{child}</RouterLinkButton>
+            <RouterLinkButton to="/">{child}</RouterLinkButton>
           </MemoryRouter>
         )
         expect(wrapper.find('a').text()).to.equal(child)
@@ -88,7 +88,7 @@ describe('tocco-ui', () => {
       test('should show icon', () => {
         const wrapper = enzymeUtil.mountEmbedded(
           <MemoryRouter>
-            <RouterLinkButton icon="icon" />
+            <RouterLinkButton icon="icon" to="/" />
           </MemoryRouter>
         )
         expect(wrapper.find(Icon)).to.have.length(1)
