@@ -10,18 +10,20 @@ const SingleSelectFormatter = ({value, options, breakWords}) => {
   value = js.getOrFirst(value)
   const display = <Typography.Span breakWords={breakWords}>{value.display}</Typography.Span>
 
-  const {tooltips, loadTooltip, DetailLink} = options || {}
+  const {tooltips, loadTooltip, navigationStrategy, linkProps} = options || {}
   const tooltip = _get(tooltips, value.key, null)
 
-  return DetailLink
+  const linkedDisplay = navigationStrategy?.DetailLink
     ? <span onClick={e => e.stopPropagation()}>
-      <DetailLink entityKey={value.key}>
+      <navigationStrategy.DetailLink {...linkProps} entityKey={value.key}>
         <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}}/> : null}>
           <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(value.key)}>{display}</span>
         </Popover>
-      </DetailLink>
+      </navigationStrategy.DetailLink>
     </span>
-    : display
+    : null
+
+  return linkedDisplay || display
 }
 
 const valuePropType = PropTypes.shape({
@@ -35,7 +37,8 @@ SingleSelectFormatter.propTypes = {
     PropTypes.arrayOf(valuePropType)
   ]),
   options: PropTypes.shape({
-    DetailLink: PropTypes.func,
+    navigationStrategy: PropTypes.object,
+    linkProps: PropTypes.object,
     tooltips: PropTypes.objectOf(PropTypes.string),
     loadTooltip: PropTypes.func
   }),

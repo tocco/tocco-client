@@ -18,7 +18,7 @@ describe('tocco-ui', () => {
         test('should render Link if factory provided', () => {
           const value = {key: '3', display: 'Selected'}
           const wrapper = mount(<SingleSelectFormatter
-            value={value} options={{DetailLink: ({key, children}) => <a>{children}</a>}}/>)
+            value={value} options={{navigationStrategy: {DetailLink: ({key, children}) => <a>{children}</a>}}}/>)
           expect(wrapper.find('a')).to.have.length(1)
         })
       })
