@@ -6,10 +6,7 @@ import newNotification from '../../../notification'
 import remoteEvents from '../../../remoteEvents'
 import rest from '../../../rest'
 
-const ignoredExceptionMessages = [
-  'Single selection only, aborting...',
-  'Nothing selected, aborting...'
-]
+const ignoredExceptionMessages = ['Single selection only, aborting...', 'Nothing selected, aborting...']
 
 export const loadScript = src =>
   new Promise((resolve, reject) => {
