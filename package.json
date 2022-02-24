@@ -15,7 +15,7 @@
     "lint:fix": "eslint . --cache --fix && stylelint 'packages/**/*.js' --cache --syntax scss",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "start": "babel-node build/scripts/dev-server",
+    "start": "yarn setup && babel-node build/scripts/dev-server",
     "test": "jest",
     "codecov": "codecov --disable=gcov -f ./coverage/lcov.info",
     "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts --force-local",
