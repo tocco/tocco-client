@@ -4,7 +4,7 @@ import asyncRoute from './asyncRoute'
 
 const loadedComponents = {}
 
-export const loadRoute = (store, input, importRouteDependencies, key) => props => {
+export const loadRoute = (store, importRouteDependencies, key) => props => {
   if (key && loadedComponents[key]) {
     const Component = loadedComponents[key]
     return <Component {...props} />
