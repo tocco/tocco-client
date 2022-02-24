@@ -13,7 +13,7 @@
     "compile:dev": "cross-env NODE_ENV=development npm run compile --",
     "lint": "eslint . --cache && stylelint 'packages/**/*.js' --cache --syntax scss",
     "lint:fix": "eslint . --cache --fix && stylelint 'packages/**/*.js' --cache --syntax scss",
-    "start": "babel-node build/scripts/dev-server",
+    "start": "yarn setup && babel-node build/scripts/dev-server",
     "test": "jest",
     "codecov": "codecov --disable=gcov -f ./coverage/lcov.info",
     "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts --force-local",
