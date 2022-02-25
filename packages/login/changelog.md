@@ -1,3 +1,6 @@
+1.1.2-hotfix31.6
+- fix jumping layout on firefox
+
 1.1.2-hotfix31.5
 - onBlur of date component is called with value from onChange again
 - legacy actions ignore some exceptions
