@@ -1,3 +1,6 @@
+1.0.14-hotfix31.9
+- fix jumping layout on firefox
+
 1.0.14-hotfix31.8
 - menu now closes when navigating to the dashboard
 - onBlur of date component is called with value from onChange again
