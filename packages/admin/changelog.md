@@ -1,3 +1,10 @@
+1.0.21
+- menu now closes when navigating to the dashboard
+- improve menu search result handling
+- onBlur of date component is called with value from onChange again
+- legacy actions ignore some exceptions
+- fix jumping layout on firefox
+
 1.0.20
 - boolean search fields are now displayed as a single select box with fixed values to allow for ternary state and searching for explicit false values
 - headers of right aligned table columns are right aligned now
