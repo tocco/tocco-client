@@ -1,3 +1,10 @@
+1.0.5
+- boolean search fields are now displayed as a single select box with fixed values to allow for ternary state and searching for explicit false values
+- headers of right aligned table columns are right aligned now
+- onBlur of date component is called with value from onChange again
+- legacy actions ignore some exceptions
+- fix jumping layout on firefox
+
 1.0.4
 - fix cache clearance to keep notifications session
 - Navigating to detail pages through links in multi-select fields is now possible.
