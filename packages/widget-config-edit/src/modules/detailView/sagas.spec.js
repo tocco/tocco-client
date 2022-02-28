@@ -80,11 +80,8 @@ describe('widget-config-edit', () => {
         })
 
         describe('fireSuccess', () => {
-          test('should show success toaster and fire success event', () => {
-            return expectSaga(sagas.fireSuccess)
-              .put.like({action: notification.toaster({type: 'success'})})
-              .put(externalEvents.fireExternalEvent('onSuccess'))
-              .run()
+          test('should fire success event', () => {
+            return expectSaga(sagas.fireSuccess).put(externalEvents.fireExternalEvent('onSuccess')).run()
           })
         })
       })
