@@ -1,3 +1,6 @@
+1.0.22
+- fields in simple search are shown according to model flag
+
 1.0.21
 - menu now closes when navigating to the dashboard
 - improve menu search result handling
