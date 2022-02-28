@@ -53,12 +53,6 @@ export function* linkCreatedSpecificConfig({payload: {specificConfigEntityId}}) 
 }
 
 export function* fireSuccess() {
-  yield put(
-    notification.toaster({
-      type: 'success',
-      title: 'client.actions.widget-config-edit.successToasterTitle'
-    })
-  )
   yield put(externalEvents.fireExternalEvent('onSuccess'))
 }
 
