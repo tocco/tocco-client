@@ -9,6 +9,7 @@ import {Mode as PropertiesMode} from 'ace-builds/src-min-noconflict/mode-propert
 import {Mode as TextMode} from 'ace-builds/src-min-noconflict/mode-text'
 import {Mode as XmlMode} from 'ace-builds/src-min-noconflict/mode-xml'
 import _get from 'lodash/get'
+import _isNil from 'lodash/isNil'
 import _isObject from 'lodash/isObject'
 import _isString from 'lodash/isString'
 import React, {useEffect, useMemo, useRef} from 'react'
@@ -106,7 +107,7 @@ const AceEditor = props => {
      * this way we only set the value when it is different from the current state, i.e. when it is overwritten through
      * code. feel free to rewrite this with better ideas.
      */
-    if (editorReference.current && value !== editorReference.current.getValue()) {
+    if (editorReference.current && !_isNil(value) && value !== editorReference.current.getValue()) {
       editorReference.current.getSession().setValue(value)
     }
   }, [value])
