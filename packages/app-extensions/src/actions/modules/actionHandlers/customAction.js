@@ -48,12 +48,12 @@ export function* handleCustomActionModal({definition, selection, config}) {
       `client.actions.${definition.appId}.title`,
       null,
       ({close}) => {
-        const onSuccess = ({title, message, remoteEvents}) => {
+        const onSuccess = ({title, message, remoteEvents} = {}) => {
           close()
           answerChannel.put({status: actionStatus.OK, title, message, remoteEvents})
         }
 
-        const onError = ({title, message}) => {
+        const onError = ({title, message} = {}) => {
           close()
           answerChannel.put({status: actionStatus.NOT_OK, title, message})
         }
