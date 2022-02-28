@@ -1,3 +1,6 @@
+1.0.10
+- fields in simple search are shown according to model flag
+
 1.0.9
 - onBlur of date component is called with value from onChange again
 - legacy actions ignore some exceptions
