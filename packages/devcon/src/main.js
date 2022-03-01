@@ -1,21 +1,36 @@
 import {createBrowserHistory} from 'history'
-import React from 'react'
+import React, {Suspense} from 'react'
+import {Router} from 'react-router'
 import {errorLogging, appFactory, notification} from 'tocco-app-extensions'
-import {route} from 'tocco-util'
+import {reducer as reducerUtil} from 'tocco-util'
+
+import reducers, {sagas} from './modules'
 
 const packageName = 'devcon'
 
+const LazyDevConComp = React.lazy(() => import('./components/devcon'))
+const LazyDevCon = () => (
+  <div>
+    <Suspense fallback="">
+      <LazyDevConComp />
+    </Suspense>
+  </div>
+)
+
 const initApp = (id, input, events, publicPath) => {
-  const store = appFactory.createStore(undefined, undefined, input, packageName)
+  const store = appFactory.createStore(reducers, sagas, input, packageName)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   notification.addToStore(store, true)
 
   const history = createBrowserHistory({
     ...(input.baseRoute && {basename: input.baseRoute})
   })
-  const routes = require('./routes/index').default(store, input)
 
-  const content = <route.Router history={history} routes={routes} />
+  const content = (
+    <Router history={history}>
+      <LazyDevCon />
+    </Router>
+  )
 
   return appFactory.createApp(packageName, content, store, {
     input,
@@ -42,6 +57,13 @@ const initApp = (id, input, events, publicPath) => {
       }
 
       const app = initApp(packageName, input)
+
+      if (module.hot) {
+        module.hot.accept('./modules', () => {
+          const reducers = require('./modules').default
+          reducerUtil.hotReloadReducers(app.store, reducers)
+        })
+      }
 
       appFactory.renderApp(app.component)
     }
