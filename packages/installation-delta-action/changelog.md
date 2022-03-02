@@ -1,3 +1,6 @@
+1.0.0-hotfix30.19
+- fix sticky popover on table
+
 1.0.0-hotfix30.18
 - fix jumping layout on firefox
 
