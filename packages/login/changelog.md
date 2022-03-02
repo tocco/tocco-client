@@ -1,3 +1,6 @@
+1.1.5
+- ace editor works again in create forms
+
 1.1.4
 - boolean search fields are now displayed as a single select box with fixed values to allow for ternary state and searching for explicit false values
 - headers of right aligned table columns are right aligned now
