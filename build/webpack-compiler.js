@@ -1,6 +1,6 @@
 import webpack from 'webpack'
 
-import logger from './lib/logger'
+import logger from './lib/logger.js'
 
 export default function webpackCompiler(webpackConfig) {
   return new Promise((resolve, reject) => {

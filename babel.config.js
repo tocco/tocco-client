@@ -1,12 +1,14 @@
 /* eslint-disable no-template-curly-in-string */
 
-module.exports = function (api) {
-  api.cache(true)
+export default function (api) {
+  // api.cache(true)
+  // api.cache.forever()
 
   return {
     presets: ['@babel/preset-env', '@babel/preset-react'],
     plugins: [
       '@babel/plugin-proposal-class-properties',
+      '@babel/plugin-proposal-private-methods',
       '@babel/plugin-proposal-object-rest-spread',
       '@babel/plugin-transform-runtime',
       '@babel/plugin-syntax-dynamic-import',

@@ -1,9 +1,12 @@
-import {argv} from 'yargs'
+import yargs from 'yargs'
+import {hideBin} from 'yargs/helpers'
 
-import logger from '../lib/logger'
-import {packagesExists} from '../lib/packages'
-import webpackCompiler from '../webpack-compiler'
-import webpackConfig from '../webpack.config'
+import logger from '../lib/logger.js'
+import {packagesExists} from '../lib/packages.js'
+import webpackCompiler from '../webpack-compiler.js'
+import webpackConfig from '../webpack.config.js'
+
+const argv = yargs(hideBin(process.argv)).argv
 
 const compile = () => {
   logger.info('Run compiler')

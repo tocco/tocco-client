@@ -9,12 +9,14 @@ import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import webpack from 'webpack'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
-import {argv} from 'yargs'
+import yargs from 'yargs'
+import {hideBin} from 'yargs/helpers'
 
-import config from '../config'
-import logger from './lib/logger'
-import {getPackageDirectory} from './lib/packages'
+import config from '../config/index.js'
+import logger from './lib/logger.js'
+import {getPackageDirectory} from './lib/packages.js'
 
+const argv = yargs(hideBin(process.argv)).argv
 const paths = config.utils_paths
 const {__CI__, __DEV__, __PROD__, __PACKAGE__, __NO_MOCK__} = config.globals
 
@@ -117,6 +119,9 @@ webpackConfig.module.rules = [
     sideEffects: false,
     options: {
       plugins: __DEV__ ? ['react-refresh/babel'] : []
+    },
+    resolve: {
+      fullySpecified: false
     }
   }
 ]

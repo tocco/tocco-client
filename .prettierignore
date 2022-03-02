@@ -1,5 +1,6 @@
 test-bundler.js
 node_modules
+dist
 coverage
 .idea
 templates

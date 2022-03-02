@@ -1,9 +1,12 @@
-import {argv} from 'yargs'
+import yargs from 'yargs'
+import {hideBin} from 'yargs/helpers'
 
-import config from '../../config/index'
-import server from '../../server/main'
-import logger from '../lib/logger'
-import {packagesExists} from '../lib/packages'
+import config from '../../config/index.js'
+import server from '../../server/main.js'
+import logger from '../lib/logger.js'
+import {packagesExists} from '../lib/packages.js'
+
+const argv = yargs(hideBin(process.argv)).argv
 
 const port = config.server_port
 const host = config.server_host

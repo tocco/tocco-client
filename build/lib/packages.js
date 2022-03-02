@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-import config from '../../config/index'
+import config from '../../config/index.js'
 
 const paths = config.utils_paths
 

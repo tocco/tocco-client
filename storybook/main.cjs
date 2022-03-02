@@ -1,3 +1,5 @@
+const webpackImport = import('./webpack.config.es6.js')
+
 module.exports = {
   stories: [
     '../packages/core/tocco-ui/src/**/*.stories.@(js|mdx)',
@@ -14,5 +16,14 @@ module.exports = {
     'storybook-addon-intl',
     'themeprovider-storybook/register',
     '@storybook/addon-a11y'
-  ]
+  ],
+  core: {
+    builder: 'webpack5'
+  },
+  webpackFinal: async (config, options) => {
+    const webpackConfig = await webpackImport
+    return webpackConfig.default(config, options)
+  },
+  framework: '@storybook/react',
+  staticDirs: ['assets']
 }

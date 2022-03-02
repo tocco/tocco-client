@@ -1,13 +1,15 @@
-const path = require('path')
+import path from 'path'
 
-const compress = require('compression')
-const express = require('express')
-const request = require('request')
-const webpack = require('webpack')
+import compress from 'compression'
+import express from 'express'
+import request from 'request'
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
 
-const logger = require('../build/lib/logger').default
-const webpackConfig = require('../build/webpack.config').default
-const config = require('../config').default
+import logger from '../build/lib/logger.js'
+import webpackConfig from '../build/webpack.config.js'
+import config from '../config/index.js'
 
 const app = express()
 app.use(compress()) // Apply gzip compression
@@ -20,7 +22,7 @@ const publicPath = webpackConfig.output.path
 if (config.env === 'development') {
   const compiler = webpack(webpackConfig)
 
-  const wdm = require('webpack-dev-middleware')(compiler, {
+  const wdm = webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath
   })
 
@@ -30,7 +32,7 @@ if (config.env === 'development') {
     logger.success('Compilation finished! Hot reload is watching for changes...')
   })
 
-  app.use(require('webpack-hot-middleware')(compiler))
+  app.use(webpackHotMiddleware(compiler))
 
   // Serve static assets from ~/public since Webpack is unaware of
   // these files. This middleware doesn't need to be enabled outside
@@ -77,4 +79,4 @@ if (config.env === 'development') {
   )
 }
 
-module.exports = app
+export default app

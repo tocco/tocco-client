@@ -1,7 +1,14 @@
 /* eslint key-spacing:0 spaced-comment:0 */
 import path from 'path'
+import {fileURLToPath} from 'url'
 
-import {argv} from 'yargs'
+import yargs from 'yargs'
+import {hideBin} from 'yargs/helpers'
+
+const argv = yargs(hideBin(process.argv)).argv
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const config = {
   env: process.env.NODE_ENV || 'development',
