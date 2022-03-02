@@ -1,3 +1,7 @@
+1.0.23
+- ace editor works again in create forms
+- fix table flicker on firefox
+
 1.0.22
 - fields in simple search are shown according to model flag
 
