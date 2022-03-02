@@ -1,3 +1,7 @@
+1.0.6-hotfix31.9
+- ace editor works again in create forms
+- fix table flicker on firefox
+
 1.0.6-hotfix31.8
 - fix jumping layout on firefox
 
