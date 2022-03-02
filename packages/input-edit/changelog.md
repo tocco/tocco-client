@@ -1,3 +1,6 @@
+1.1.3-hotfix31.6
+- ace editor works again in create forms
+
 1.1.3-hotfix31.5
 - fix jumping layout on firefox
 
