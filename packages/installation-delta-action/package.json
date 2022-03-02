@@ -1,6 +1,6 @@
 {
   "name": "tocco-installation-delta-action",
-  "version": "1.0.0-hotfix30.18",
+  "version": "1.0.0-hotfix30.19",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
