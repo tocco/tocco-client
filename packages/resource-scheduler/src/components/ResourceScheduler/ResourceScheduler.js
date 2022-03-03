@@ -1,22 +1,28 @@
 import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
-import SplitPane from 'react-split-pane'
-import styled from 'styled-components'
+import ReactDOM from 'react-dom'
 import {notification} from 'tocco-app-extensions'
-import {scale} from 'tocco-ui'
+import {Icon} from 'tocco-ui'
 
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
 import SearchPanel from '../SearchPanel/SearchPanel'
-import {resizerStyle, StyledSplitPanelWrapperLeft, StyledSplitPanelWrapperRight} from './StyledResourceScheduler'
+import {
+  StyledSplitPanelWrapperLeft,
+  StyledSplitPanelWrapperRight,
+  StyledSplitPane,
+  StyledGutter
+} from './StyledComponents'
 
-const StyledSplitPane = styled(SplitPane)`
-  position: static !important;
-
-  .react-bs-container-body {
-    height: auto !important;
-    margin-bottom: ${scale.space(0)};
-  }
-`
+const getGutter = () => () => {
+  const gutterEl = document.createElement('div')
+  ReactDOM.render(
+    <StyledGutter tabIndex={0}>
+      <Icon icon="vertical-rule" />
+    </StyledGutter>,
+    gutterEl
+  )
+  return gutterEl
+}
 
 const ResourceScheduler = ({
   initialize,
@@ -34,7 +40,13 @@ const ResourceScheduler = ({
   return (
     <>
       {handleNotifications && <notification.Notifications />}
-      <StyledSplitPane defaultSize={325} minSize={325} resizerStyle={resizerStyle} split="vertical">
+      <StyledSplitPane
+        sizes={[20, 80]}
+        minSize={[325, 650]}
+        direction="horizontal"
+        cursor="col-resize"
+        gutter={getGutter()}
+      >
         <StyledSplitPanelWrapperLeft>
           <SearchPanel
             locale={locale}

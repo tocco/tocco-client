@@ -57,6 +57,7 @@
     "react-popper": "^2.2.5",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.0.1",
+    "react-split": "^2.0.14",
     "redux": "4.1.2",
     "redux-form": "^8.3.8",
     "redux-saga": "^1.1.3",

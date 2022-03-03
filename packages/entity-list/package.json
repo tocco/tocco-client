@@ -8,9 +8,7 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=entity-list",
     "prepublish": "npm run compile:prod"
   },
-  "dependencies": {
-    "react-split": "^2.0.14"
-  },
+  "dependencies": {},
   "devDependencies": {
     "tocco-app-extensions": "*",
     "tocco-simple-form": "*",
