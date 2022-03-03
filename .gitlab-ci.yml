@@ -52,6 +52,9 @@ test:
   only:
     - external_pull_requests
     - master
+  artifacts:
+    paths:
+      - coverage/
   script:
     - yarn test --ci --forceExit --runInBand --detectOpenHandles
   after_script:
