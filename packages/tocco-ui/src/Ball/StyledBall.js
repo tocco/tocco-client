@@ -17,7 +17,7 @@ const declareBall = () => css`
 export const StyledButton = styled.button`
   ${declareFont()}
   ${interactiveStyling}
-  ${props => declareBall(props)}
+  ${() => declareBall()}
   cursor: pointer;
 `
 

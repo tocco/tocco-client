@@ -86,7 +86,7 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
     createEntitiesDisplayResponse(entityStore, timeout)
   )
 
-  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/2.0/Search_filter(\\?.*)?$'), createSearchFilterResponse(timeout))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/2.0/Search_filter(\\?.*)?$'), createSearchFilterResponse())
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/2.0/Country/[0-9]+\\?.*'),
