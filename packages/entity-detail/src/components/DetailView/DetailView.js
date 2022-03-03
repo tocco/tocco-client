@@ -1,48 +1,44 @@
 import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useEffect, useRef} from 'react'
 import {form} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 
 import DetailFormContainer from '../../containers/DetailFormContainer'
 import modes from '../../util/modes'
 
-class DetailView extends React.Component {
-  componentWillUnmount() {
-    this.props.unloadDetailView()
-  }
-
-  handledAsyncValidate = formValues =>
-    form.asyncValidation(
-      formValues,
-      this.props.mode === modes.CREATE ? {} : this.props.formInitialValues,
-      this.props.fieldDefinitions,
-      this.props.mode
-    )
-
-  getSyncValidation = () => {
-    if (!this.validateSingleton && !_isEmpty(this.props.fieldDefinitions)) {
-      this.validateSingleton = form.syncValidation(this.props.fieldDefinitions, this.props.formDefinition)
+const DetailView = ({unloadDetailView, mode, formInitialValues, fieldDefinitions, formDefinition, intl}) => {
+  useEffect(() => {
+    return () => {
+      unloadDetailView()
     }
-    return this.validateSingleton
+  }, [unloadDetailView])
+
+  const handledAsyncValidate = formValues =>
+    form.asyncValidation(formValues, mode === modes.CREATE ? {} : formInitialValues, fieldDefinitions, mode)
+
+  const validateSingletonRef = useRef(null)
+
+  const getSyncValidation = () => {
+    if (!validateSingletonRef.current && !_isEmpty(fieldDefinitions)) {
+      validateSingletonRef.current = form.syncValidation(fieldDefinitions, formDefinition)
+    }
+    return validateSingletonRef.current
   }
 
-  msg = id => this.props.intl.formatMessage({id})
+  const msg = id => intl.formatMessage({id})
+  const fieldDefinitionPaths = fieldDefinitions.map(fD => fD.path)
 
-  render() {
-    const props = this.props
-
-    return (
-      <LoadMask required={[props.formInitialValues]} loadingText={this.msg('client.entity-detail.loadingText')}>
-        <DetailFormContainer
-          mode={this.props.mode}
-          validate={this.getSyncValidation()}
-          asyncValidate={this.handledAsyncValidate}
-          asyncBlurFields={this.props.fieldDefinitions.map(fD => fD.path)}
-        />
-      </LoadMask>
-    )
-  }
+  return (
+    <LoadMask required={[formInitialValues]} loadingText={msg('client.entity-detail.loadingText')}>
+      <DetailFormContainer
+        mode={mode}
+        validate={getSyncValidation()}
+        asyncValidate={handledAsyncValidate}
+        asyncBlurFields={fieldDefinitionPaths}
+      />
+    </LoadMask>
+  )
 }
 
 export default DetailView
