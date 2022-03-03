@@ -1,14 +1,6 @@
+import Split from 'react-split'
 import styled from 'styled-components'
 import {scale, StyledScrollbar, theme} from 'tocco-ui'
-
-const drawerSymbol =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==' // eslint-disable-line max-len
-
-export const resizerStyle = {
-  background: `transparent url(${drawerSymbol}) 50% no-repeat`,
-  width: '11px',
-  cursor: 'col-resize'
-}
 
 export const StyledSplitPanelWrapperLeft = styled.div`
   && {
@@ -30,5 +22,27 @@ export const StyledSplitPanelWrapperRight = styled.div`
     padding-left: ${scale.space(-1)};
     padding-right: ${scale.space(-1)};
     ${StyledScrollbar}
+  }
+`
+
+export const StyledSplitPane = styled(Split)`
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+`
+
+const drawerSymbol =
+  // eslint-disable-next-line max-len
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg=='
+
+export const StyledGutter = styled.div`
+  background-color: ${theme.color('backgroundBody')};
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-image: url(${drawerSymbol});
+  height: 100%;
+
+  &:hover {
+    cursor: col-resize;
   }
 `
