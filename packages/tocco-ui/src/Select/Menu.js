@@ -4,8 +4,6 @@ import React from 'react'
 
 import {StyledTether, StyledMenu} from './StyledComponents'
 
-const TetherPosition = () => <div />
-
 const Menu = props => (
   <StyledTether
     attachment="top left"
@@ -16,18 +14,19 @@ const Menu = props => (
         attachment: 'together'
       }
     ]}
-  >
-    <TetherPosition />
-    <div>
-      <StyledMenu
-        {..._omit(props, ['innerRef'])}
-        wrapperWidth={props.selectProps.wrapperWidth}
-        wrapperHeight={props.selectProps.wrapperHeight}
-      >
-        {props.children}
-      </StyledMenu>
-    </div>
-  </StyledTether>
+    renderTarget={ref => <div ref={ref} />}
+    renderElement={ref => (
+      <div ref={ref}>
+        <StyledMenu
+          {..._omit(props, ['innerRef'])}
+          wrapperWidth={props.selectProps.wrapperWidth}
+          wrapperHeight={props.selectProps.wrapperHeight}
+        >
+          {props.children}
+        </StyledMenu>
+      </div>
+    )}
+  />
 )
 
 Menu.propTypes = {
