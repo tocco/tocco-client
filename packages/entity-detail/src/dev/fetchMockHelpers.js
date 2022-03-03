@@ -110,7 +110,7 @@ const createAndUpdateValidation = (body, entity) => {
     return validationErrorResponse(entity)
   }
   if (firstName === 'illegal3') {
-    return notAcceptResponse(entity)
+    return notAcceptResponse()
   }
 
   return null

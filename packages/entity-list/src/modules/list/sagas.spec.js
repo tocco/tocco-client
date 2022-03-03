@@ -811,8 +811,8 @@ describe('entity-list', () => {
               .call(sagas.reloadData)
               .run()
 
-          const expectNoReload = listState =>
-            expectSaga(sagas.remoteEvent, createEventAction)
+          const expectNoReload = (listState, remoteEvent) =>
+            expectSaga(sagas.remoteEvent, remoteEvent)
               .provide([[select(sagas.listSelector), listState]])
               .not.call(sagas.reloadData)
               .run()

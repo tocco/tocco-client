@@ -32,7 +32,7 @@ export const setupActions = (fetchMock, entityStore, webSocketServer, timeout = 
 
   fetchMock.post(new RegExp('^.*?/nice2/rest/actions/simpleAction*?'), simpleAction(timeout))
 
-  fetchMock.post(new RegExp('^.*?/nice2/rest/client/user/callnameComplete*?'), callnameComplete(timeout))
+  fetchMock.post(new RegExp('^.*?/nice2/rest/client/user/callnameComplete*?'), callnameComplete())
 }
 
 const simpleActionCheck = timeout => (url, opts) => {

@@ -16,7 +16,7 @@ const getValue = (fieldType, formField, formData, value) =>
 
 const FormattedValueFactory = ({type, formField, value, formData, key, breakWords}) => {
   const fieldType = formField.dataType || formField.componentType
-  const options = getOptions(fieldType, formField, formData, value)
+  const options = getOptions(fieldType, formField, formData)
   const overwrittenValue = getValue(fieldType, formField, formData, value)
 
   return <FormattedValue key={key} type={type} value={overwrittenValue} options={options} breakWords={breakWords} />
