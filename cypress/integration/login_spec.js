@@ -1,6 +1,6 @@
 import helpers from '../helpers/helpers'
 
-describe('Login', () => {
+describe.skip('Login', () => {
   beforeEach(() => {
     cy.visit(`${helpers.getStoryUrl(['Apps', 'Login'], 'Login')}`, {
       onBeforeLoad(win) {

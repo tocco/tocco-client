@@ -29,7 +29,7 @@ const visitEntityBrowser = (suffix = '') => {
   cy.visit(`${helpers.getStoryUrl(['Apps', 'Entity Browser'], 'Entity Browser')}${suffix}`)
 }
 
-describe('Entity Browser', () => {
+describe.skip('Entity Browser', () => {
   before(() => {
     cy.login()
   })

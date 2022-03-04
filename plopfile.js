@@ -4,4 +4,5 @@ module.exports = function (plop) {
   plop.setGenerator('Action', require('./plop/generators/action').default)
   plop.setGenerator('Package', require('./plop/generators/package').default)
   plop.setGenerator('Env', require('./plop/generators/env').default)
+  plop.setGenerator('Nice2 Env', require('./plop/generators/nice2Env').default)
 }

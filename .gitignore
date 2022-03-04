@@ -11,7 +11,8 @@ packages/**/*/dist
 packages/**/*/node_modules
 cypress/screenshots/
 cypress/videos/
-.env
+*.env
+*.psql
 **/.scannerwork/
 
 # vs code
