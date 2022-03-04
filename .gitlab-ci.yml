@@ -45,6 +45,16 @@ linting:
   script:
     - yarn lint
 
+formatting:
+  stage: quality
+  dependencies:
+    - yarn_setup
+  only:
+    - external_pull_requests
+    - master
+  script:
+    - yarn format:check
+
 test:
   stage: quality
   dependencies:
