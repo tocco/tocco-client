@@ -1,18 +1,8 @@
-import {consoleLogger} from 'tocco-util'
+import {action} from 'tocco-util'
 
 import {setEntityName, setFormBase, setAppId, setScrollBehaviour} from './modules/entityBrowser/actions'
 
-const isDefined = value => value !== undefined
-
-export const getDispatchActions = input =>
-  actionSettings.reduce((acc, actionSetting) => {
-    if (isDefined(input[actionSetting.name])) {
-      acc.push(actionSetting.action(...actionSetting.argsFactory(input)))
-    } else if (actionSetting.mandatory) {
-      consoleLogger.logError(`EntityBrowser: Mandatory field '${actionSetting.name}' not set in input`)
-    }
-    return acc
-  }, [])
+export const getDispatchActions = input => action.getDispatchActions(input, actionSettings)
 
 const actionSettings = [
   {
