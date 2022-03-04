@@ -13,11 +13,12 @@ import {argv} from 'yargs'
 
 import config from '../config'
 import logger from './lib/logger'
+import {getPackageDirectory} from './lib/packages'
 
 const paths = config.utils_paths
 const {__CI__, __DEV__, __PROD__, __PACKAGE__, __NO_MOCK__} = config.globals
 
-const packageDir = `packages/${__PACKAGE__}`
+const packageDir = getPackageDirectory(__PACKAGE__)
 const absolutePackagePath = paths.client(`${packageDir}/`)
 
 const outputDir = absolutePackagePath + '/dist'

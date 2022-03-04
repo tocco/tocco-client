@@ -9,7 +9,7 @@ function transformPackageName() {
 }
 
 function getDevDependenciesGreps() {
-  dev_dependencies=$(json -f "packages/${package}/package.json" devDependencies | json -ka)
+  dev_dependencies=$(json -f "${packageDir}/${package}/package.json" devDependencies | json -ka)
   package_greps=""
   for item in ${dev_dependencies//\\n/}
   do
@@ -42,10 +42,31 @@ function setGitVars() {
   changelog=$(git log --pretty='%b' "${last_release_tag}"..HEAD --grep="${package}" ${greps} --reverse | grep -E '^Changelog:' | awk '{gsub("Changelog:", "-", $0); print}')
 }
 
+function setPackageDir() {
+  if [[ -d "packages/core/${package}" ]]; then
+    packageDir="packages/core"
+  elif [[ -d "packages/actions/${package}" ]]; then
+    packageDir="packages/actions"
+  elif [[ -d "packages/widgets/${package}" ]]; then
+    packageDir="packages/widgets"
+  elif [[ -d "packages/apps/${package}" ]]; then
+    packageDir="packages/apps"
+  else
+    packageDir=""
+  fi
+}
+
 function checkPackage() {
-  if [[ ! "${package}" ]] || [[ ! -d "packages/${package}" ]]; then
-     echo "${color_red}Please provide a valid package name${color_reset}"
-     exit 1
+  if [[ ! "${package}" ]]; then
+    echo "${color_red}Please provide a valid package name${color_reset}"
+    exit 1
+  fi
+
+  setPackageDir
+  
+  if [[ ! "${packageDir}" ]]; then
+    echo "${color_red}Please provide a valid package name${color_reset}"
+    exit 1
   fi
 }
 
