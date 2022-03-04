@@ -1,10 +1,13 @@
+import {action} from 'tocco-util'
+
 import {setCalendars} from './modules/scheduler/actions'
 
-export const getDispatchActions = input => {
-  const actions = []
-  if (input.calendars) {
-    actions.push(setCalendars(input.calendars))
-  }
+export const getDispatchActions = input => action.getDispatchActions(input, actionSettings)
 
-  return actions
-}
+const actionSettings = [
+  {
+    name: 'calendars',
+    action: setCalendars,
+    argsFactory: input => [input.calendars]
+  }
+]
