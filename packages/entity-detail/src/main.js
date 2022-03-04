@@ -110,8 +110,10 @@ const EntityDetailApp = props => {
 
 EntityDetailApp.propTypes = {
   entityName: PropTypes.string.isRequired,
+  entityId: PropTypes.string,
   formName: PropTypes.string.isRequired,
   mode: PropTypes.oneOf(['update', 'create']),
+  defaultValues: PropTypes.object,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
