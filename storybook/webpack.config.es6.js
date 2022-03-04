@@ -20,7 +20,7 @@ module.exports = ({config, configType}) => {
       use: [
         'style-loader',
         'css-loader',
-        `sass-loader?data=$node-env:${runConfig.env};&includePaths[]=./packages/tocco-theme/node_modules/`
+        `sass-loader?data=$node-env:${runConfig.env};&includePaths[]=./packages/core/tocco-theme/node_modules/`
       ] // eslint-disable-line
     },
     {

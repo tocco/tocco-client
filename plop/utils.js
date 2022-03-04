@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-import {getAllPackages} from '../build/lib/packages'
+import {getAllPackages, getPackageDirectory} from '../build/lib/packages'
 import config from '../config'
 
 const paths = config.utils_paths
@@ -35,12 +35,14 @@ export const prompts = {
 }
 
 export const hasRoutes = packageName => {
-  const path = paths.client(`packages/${packageName}/src/routes`)
+  const packageDir = getPackageDirectory(packageName)
+  const path = paths.client(`${packageDir}/src/routes`)
   return fs.existsSync(path)
 }
 
 export const getRoutes = packageName => {
-  const path = paths.client(`packages/${packageName}/src/routes`)
+  const packageDir = getPackageDirectory(packageName)
+  const path = paths.client(`${packageDir}/src/routes`)
   if (fs.existsSync(path)) {
     return fs.readdirSync(path).filter(function (file) {
       return fs.statSync(path + '/' + file).isDirectory()
@@ -62,7 +64,8 @@ export const getModules = (packageName, route) => {
 }
 
 export const getPath = (packageName, route = '', module = '') => {
-  let path = `packages/${packageName}/src`
+  const packageDir = getPackageDirectory(packageName)
+  let path = `${packageDir}/src`
   if (route && route !== ROOT_DISPLAY) {
     path += `/routes/${route}`
   }

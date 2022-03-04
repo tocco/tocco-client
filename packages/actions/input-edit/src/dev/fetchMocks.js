@@ -2,7 +2,7 @@ import {mockData, consoleLogger} from 'tocco-util'
 
 export default function setupFetchMock(packageName, fetchMock) {
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
-  mockData.setupSystemMock('simple-form', fetchMock, require('../../../simple-form/src/dev/textResources'))
+  mockData.setupSystemMock('simple-form', fetchMock, require('../../../../core/simple-form/src/dev/textResources'))
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/form$'), require('./data/inputEditForm'))
   fetchMock.post(new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/data/search$'), (urls, opts) =>

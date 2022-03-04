@@ -6,14 +6,16 @@ rootDir="$(pwd)"
 
 # Gather all packages with private is not equal true in package.json
 releasePackages=()
-for dir in packages/*/ ; do
-  if [[ -f "${dir}package.json" && $(json -f "${dir}package.json" private) != true ]]; then
-    releasePackages+=("$(cut -d'/' -f2 <<<${dir})")
-  fi
+for outerDir in packages/*/ ; do
+  for dir in ${outerDir}*/ ; do
+    if [[ -f "${dir}package.json" && $(json -f "${dir}package.json" private) != true ]]; then
+      releasePackages+=("$(cut -d'/' -f3 <<<${dir})")
+    fi
+  done
 done
 
 # Release package by package
-for package in "${releasePackages[@]}"
+for package in "${releasePackages[@]}";
 do
 	echo "Start releasing package $package"
 	cd $rootDir

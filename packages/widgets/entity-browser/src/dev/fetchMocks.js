@@ -13,7 +13,7 @@ export default function setupFetchMock(packageName, fetchMock) {
   const detailFetchMocks = require('tocco-entity-detail/src/dev/fetchMocks').default
   detailFetchMocks('entity-detail', fetchMock, entityStore)
 
-  const simpleFormFetchMocks = require('../../../simple-form/src/dev/fetchMocks').default
+  const simpleFormFetchMocks = require('../../../../core/simple-form/src/dev/fetchMocks').default
   simpleFormFetchMocks('simple-form', fetchMock, entityStore)
 
   mockData.setupSystemMock(
@@ -23,7 +23,7 @@ export default function setupFetchMock(packageName, fetchMock) {
       require('./textResources.json'),
       require('tocco-entity-detail/src/dev/textResources.json'),
       require('tocco-entity-list/src/dev/textResources.json'),
-      require('../../../simple-form/src/dev/textResources.json')
+      require('../../../../core/simple-form/src/dev/textResources.json')
     )
   )
 }

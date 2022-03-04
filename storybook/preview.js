@@ -2,8 +2,8 @@ import {addDecorator} from '@storybook/react'
 import {setIntlConfig, withIntl} from 'storybook-addon-intl'
 import {withThemesProvider} from 'themeprovider-storybook'
 
-import darkTheme from '../packages/tocco-theme/src/ToccoTheme/darkTheme'
-import defaultTheme from '../packages/tocco-theme/src/ToccoTheme/defaultTheme'
+import darkTheme from '../packages/core/tocco-theme/src/ToccoTheme/darkTheme'
+import defaultTheme from '../packages/core/tocco-theme/src/ToccoTheme/defaultTheme'
 
 const themes = [defaultTheme, darkTheme]
 addDecorator(withThemesProvider(themes))

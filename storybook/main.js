@@ -1,13 +1,13 @@
 module.exports = {
   stories: [
-    '../packages/tocco-ui/src/**/*.stories.@(js|mdx)',
-    '../packages/app-extensions/src/**/*.stories.@(js|mdx)',
-    '../packages/admin/src/*.stories.@(js|mdx)',
-    '../packages/login/src/*.stories.@(js|mdx)',
-    '../packages/entity-browser/src/*.stories.@(js|mdx)',
-    '../packages/entity-list/src/*.stories.@(js|mdx)',
-    '../packages/input-edit/src/*.stories.@(js|mdx)',
-    '../packages/resource-scheduler/src/*.stories.@(js|mdx)'
+    '../packages/core/tocco-ui/src/**/*.stories.@(js|mdx)',
+    '../packages/core/app-extensions/src/**/*.stories.@(js|mdx)',
+    '../packages/apps/admin/src/*.stories.@(js|mdx)',
+    '../packages/widgets/login/src/*.stories.@(js|mdx)',
+    '../packages/widgets/entity-browser/src/*.stories.@(js|mdx)',
+    '../packages/core/entity-list/src/*.stories.@(js|mdx)',
+    '../packages/actions/input-edit/src/*.stories.@(js|mdx)',
+    '../packages/actions/resource-scheduler/src/*.stories.@(js|mdx)'
   ],
   addons: [
     '@storybook/addon-essentials',

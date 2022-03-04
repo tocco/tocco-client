@@ -22,14 +22,14 @@ yarn_setup:
     key:
       files:
         - yarn.lock
-        - packages/**/*/yarn.lock
+        - packages/*/*/yarn.lock
     paths:
       - node_modules/
-      - packages/**/*/node_modules/
+      - packages/*/*/node_modules/
   artifacts:
     paths:
     - node_modules/
-    - packages/**/*/node_modules/
+    - packages/*/*/node_modules/
     expire_in: 5 days
   script:
     - yarn setup:ci

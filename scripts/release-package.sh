@@ -47,7 +47,7 @@ if [[ -z "${new_version}" ]]; then
 	echo "New version is ${new_version}"
 fi
 
-cd packages/${package}
+cd ${packageDir}/${package}
 changelog_file="./changelog.md"
 tmp_file="./tmp_changelog.md"
 
