@@ -1,3 +1,5 @@
+import {action} from 'tocco-util'
+
 import {
   setSearchFormType,
   setFormName,
@@ -22,15 +24,7 @@ import {
 import {setSimpleSearchFields} from './modules/searchForm/actions'
 import {setSelection} from './modules/selection/actions'
 
-const isDefined = value => value !== undefined
-
-export const getDispatchActions = input =>
-  actionSettings.reduce((acc, actionSetting) => {
-    if (isDefined(input[actionSetting.name])) {
-      acc.push(actionSetting.action(...actionSetting.argsFactory(input)))
-    }
-    return acc
-  }, [])
+export const getDispatchActions = input => action.getDispatchActions(input, actionSettings)
 
 export const reloadOptions = {
   ALL: 3,
