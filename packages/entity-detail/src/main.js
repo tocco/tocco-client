@@ -59,12 +59,10 @@ const initApp = (id, input, events = {}, publicPath) => {
   })
   keyDown.addToStore(store, shortcuts)
 
-  const dispatchActions = getDispatchActions(input)
-
   const app = appFactory.createApp(packageName, content, store, {
     input,
     events,
-    actions: dispatchActions,
+    actions: getDispatchActions(input),
     publicPath,
     textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
   })
