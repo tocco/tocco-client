@@ -1,0 +1,28 @@
+import {mount} from 'enzyme'
+import React from 'react'
+
+import ResizeObserver from '../../../../../../../../__mocks__/ResizeObserver'
+import ModalContent from './ModalContent'
+import ModalDisplay from './ModalDisplay'
+
+describe('app-extensions', () => {
+  describe('notification', () => {
+    describe('modules', () => {
+      describe('modalComponents', () => {
+        describe('ModalDisplay', () => {
+          test('should render all modals', () => {
+            window.ResizeObserver = ResizeObserver
+            const modals = [
+              {id: 1, title: 'Test1', message: 'Message1', component: () => <div>Test1</div>},
+              {id: 2, title: 'Test2', message: 'Message2', component: () => <div>Test2</div>}
+            ]
+
+            const wrapper = mount(<ModalDisplay modals={modals} close={() => {}} />)
+
+            expect(wrapper.find(ModalContent)).to.have.length(modals.length)
+          })
+        })
+      })
+    })
+  })
+})
