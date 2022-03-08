@@ -6,13 +6,19 @@ export default {
       name: 'package',
       message: 'Package Name',
       validate: value => (value ? true : 'package name is required')
+    },
+    {
+      type: 'input',
+      name: 'folder',
+      message: 'Folder (widgets, actions, apps, core)',
+      validate: value => (value ? true : 'folder name is required')
     }
   ],
   actions: data => {
     const actions = []
 
     const baseTemplateFolder = './plop/templates/package'
-    const targetFolder = 'packages/{{kebabCase package}}'
+    const targetFolder = 'packages/{{folder}}/{{kebabCase package}}'
 
     const files = [
       'README.md',

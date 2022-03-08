@@ -1,15 +1,18 @@
 {
-  "name": "tocco-{{kebabCase package}}",
+  "name": "tocco-dashboard",
   "version": "0.1.0",
   "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "compile:prod": "cd ../../../ && npm run compile:prod -- --package={{kebabCase package}}",
+    "compile:prod": "cd ../../../ && npm run compile:prod -- --package=dashboard",
     "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
     "tocco-app-extensions": "*",
+    "tocco-entity-list": "*",
+    "tocco-test-util": "*",
+    "tocco-ui": "*",
     "tocco-util": "*"
   }
 }
