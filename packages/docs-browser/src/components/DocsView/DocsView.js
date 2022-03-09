@@ -160,7 +160,6 @@ const DocsView = props => {
     if (!disableViewPersistor) {
       viewPersistor.persistViewInfo(entityListKey, {store})
     }
-    return null
   }
 
   return (
@@ -178,7 +177,7 @@ const DocsView = props => {
           parent={parent}
           onSearchChange={handleSearch}
           store={store}
-          onStoreCreate={handleStoreCreation(store)}
+          onStoreCreate={handleStoreCreation}
           cellRenderers={{
             'dms-label-with-icon': (rowData, column, cellRenderer) => (
               <StyledContentWrapper>
