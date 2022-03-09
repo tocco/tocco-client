@@ -51,7 +51,7 @@ const QueryView = ({
           data-cy="clear-button"
           icon="times"
           onClick={clearQuery}
-          title={msg('client.entity-list.query.clear')}
+          title={msg('client.entity-list.reset')}
           disabled={!queryExists}
         />
         <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
