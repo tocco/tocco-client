@@ -4,7 +4,7 @@ const useApp = ({initApp, props, packageName, externalEvents = []}) => {
   const [app, setApp] = useState(null)
 
   useEffect(() => {
-    setApp(initApp(packageName, props, getEvent(externalEvents, props)))
+    setApp(initApp(packageName, props, getEvents(externalEvents, props)))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
@@ -14,7 +14,7 @@ const useApp = ({initApp, props, packageName, externalEvents = []}) => {
   }
 }
 
-export const getEvent = (externalEvents, props) =>
+export const getEvents = (externalEvents, props) =>
   externalEvents.reduce(
     (acc, event) => ({
       ...acc,
