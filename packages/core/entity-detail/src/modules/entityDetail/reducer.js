@@ -28,7 +28,7 @@ const initialState = {
   entity: {},
   entityModel: {},
   touched: false,
-  defaultValues: {},
+  defaultValues: [],
   fieldDefinitions: [],
   marked: false
 }
