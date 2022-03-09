@@ -11,7 +11,7 @@ const EXPECTED_INITIAL_STATE = {
   formName: '',
   mode: '',
   touched: false,
-  defaultValues: {},
+  defaultValues: [],
   fieldDefinitions: [],
   marked: false
 }

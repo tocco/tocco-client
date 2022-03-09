@@ -111,7 +111,7 @@ EntityDetailApp.propTypes = {
   entityId: PropTypes.string,
   formName: PropTypes.string.isRequired,
   mode: PropTypes.oneOf(['update', 'create']),
-  defaultValues: PropTypes.object,
+  defaultValues: PropTypes.array,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
