@@ -132,7 +132,7 @@ const EntityListApp = props => {
        *                 while being in initialization phase
        *   Therefore only re-init when store has been set already.
        */
-      setApp(initApp(props.id, props, appFactory.getEvents(props)))
+      setApp(initApp(props.id, props, appFactory.getEvents(EXTERNAL_EVENTS, props)))
     } else if (!_isEmpty(changedProps)) {
       getDispatchActions(changedProps).forEach(action => {
         store.dispatch(action)
