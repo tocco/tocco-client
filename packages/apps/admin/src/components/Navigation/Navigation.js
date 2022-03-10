@@ -148,7 +148,10 @@ const Navigation = ({
   useEffect(() => {
     if (menuOpen) {
       if (inputEl.current) {
-        inputEl.current.focus()
+        // seems that without a slight delay the focus is NOT applied when the menu shortcuts are use
+        setTimeout(() => {
+          inputEl.current.focus()
+        }, 10)
       }
     }
   }, [activeMenuTab, menuOpen])
