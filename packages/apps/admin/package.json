@@ -20,6 +20,7 @@
     "tocco-docs-browser": "*",
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
+    "tocco-entity-report": "*",
     "tocco-input-edit": "*",
     "tocco-login": "*",
     "tocco-merge": "*",
