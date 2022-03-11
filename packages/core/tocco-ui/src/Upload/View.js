@@ -5,10 +5,10 @@ import {download} from 'tocco-util'
 import Button from '../Button'
 import Link from '../Link'
 import Preview from '../Preview'
-import {StyledView, StyledButtonsWrapper} from './StyledView'
+import {StyledView, StyledButtonsWrapper} from './StyledComponents'
 
 const View = ({value, downloadTitle, immutable, onUpload, deleteTitle}) => {
-  const isNotUploadedFile = value.binaryLink && value.binaryLink.startsWith('blob:')
+  const isNotUploadedFile = value.binaryLink?.startsWith('blob:')
 
   return (
     <StyledView className="StyledView">
