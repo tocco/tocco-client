@@ -5,21 +5,22 @@ import LoadingSpinner from '../LoadingSpinner'
 import Preview from '../Preview'
 import {design} from '../utilStyles'
 import {bytesToSize} from './helpers'
-import {StyledUploadProgress, StyledUploadProgressIconAndText, StyledUploadProgressText} from './StyledUploadProgress'
+import {StyledUploadProgress, StyledUploadProgressIconAndText, StyledUploadProgressText} from './StyledComponents'
 
-const UploadProgress = props => (
+const UploadProgress = ({file, text}) => (
   <StyledUploadProgress>
     <Preview
-      caption={props.file.name}
+      alt={file.name}
+      caption={file.name}
       maxDimensionX="96px"
       maxDimensionY="96px"
-      srcUrl={props.file.preview}
-      thumbnailUrl={props.file.type.startsWith('image') ? props.file.preview : null}
+      srcUrl={file.preview}
+      thumbnailUrl={file.type.startsWith('image') ? file.preview : null}
     />
     <StyledUploadProgressIconAndText>
       <LoadingSpinner position={design.position.PREPEND} />
       <StyledUploadProgressText>
-        {props.text || 'uploading'} ({bytesToSize(props.file.size)})
+        {text || 'uploading'} ({bytesToSize(file.size)})
       </StyledUploadProgressText>
     </StyledUploadProgressIconAndText>
   </StyledUploadProgress>
