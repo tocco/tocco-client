@@ -421,7 +421,9 @@ export function* remoteEvent(action) {
   const event = action.payload.event
   const {entityName, entityId} = yield select(entityDetailSelector)
 
-  if (isCurrentEntity(event, entityName, entityId)) {
+  if (event.type === 'action-trigger-event') {
+    yield put(event.payload.func(...event.payload.args))
+  } else if (isCurrentEntity(event, entityName, entityId)) {
     switch (event.type) {
       case 'entity-delete-event':
         yield put(externalEvents.fireExternalEvent('onEntityDeleted'))

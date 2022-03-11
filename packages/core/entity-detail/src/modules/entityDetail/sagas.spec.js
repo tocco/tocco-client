@@ -628,6 +628,26 @@ describe('entity-detail', () => {
               .call(sagas.loadData, false)
               .run()
           })
+
+          test('should trigger external action event', () => {
+            const triggerActionEvent = remoteEvents.remoteEvent({
+              type: 'action-trigger-event',
+              payload: {
+                func: actions.setMarked,
+                args: [true]
+              }
+            })
+
+            const detailState = {
+              entityName: 'User',
+              entityId: '1'
+            }
+
+            return expectSaga(sagas.remoteEvent, triggerActionEvent)
+              .provide([[select(sagas.entityDetailSelector), detailState]])
+              .put(actions.setMarked(true))
+              .run()
+          })
         })
 
         describe('autoComplete saga', () => {
