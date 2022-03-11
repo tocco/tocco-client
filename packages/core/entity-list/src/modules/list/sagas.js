@@ -417,6 +417,10 @@ export function* remoteEvent(action) {
     }
   }
 
+  if (event.type === 'action-trigger-event') {
+    yield put(event.payload.func(...event.payload.args))
+  }
+
   if (event.type === 'entity-delete-event') {
     const deletedEntityKeys = event.payload.entities.filter(e => e.entityName === entityModel.name).map(e => e.key)
     yield put(selectionActions.onSelectChange(deletedEntityKeys, false))

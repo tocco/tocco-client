@@ -862,6 +862,25 @@ describe('entity-list', () => {
               .put(selectionActions.onSelectChange(['1', '99'], false))
               .run()
           })
+
+          test('should trigger external action event', () => {
+            const triggerActionEvent = remoteEvents.remoteEvent({
+              type: 'action-trigger-event',
+              payload: {
+                func: actions.setMarked,
+                args: [true]
+              }
+            })
+
+            const listState = {
+              entityModel: {name: 'User'}
+            }
+
+            return expectSaga(sagas.remoteEvent, triggerActionEvent)
+              .provide([[select(sagas.listSelector), listState]])
+              .put(actions.setMarked(true))
+              .run()
+          })
         })
 
         describe('queryChanged saga', () => {
