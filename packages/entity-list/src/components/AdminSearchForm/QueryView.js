@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useRef} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Ball, BallMenu, EditableValue, FormattedValue, MenuItem, StatedValue} from 'tocco-ui'
+import {react as customHooks} from 'tocco-util'
 
 import {AdminSearchGrid, StyledHeader, StyledQueryBox} from './StyedComponents'
 
@@ -18,6 +19,9 @@ const QueryView = ({
   runQuery,
   clearQuery
 }) => {
+  const formEl = useRef(null)
+  customHooks.useAutofocus(formEl)
+
   const codeEditorEvents = {
     onChange: setQuery
   }
@@ -59,7 +63,7 @@ const QueryView = ({
           </MenuItem>
         </BallMenu>
       </StyledHeader>
-      <StyledQueryBox>
+      <StyledQueryBox ref={formEl}>
         <StatedValue isDisplay={true} hasValue={true} label={msg('client.entity-list.query.entity-model')}>
           <FormattedValue type="string" value={entityModel} />
         </StatedValue>

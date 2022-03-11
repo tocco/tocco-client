@@ -13,7 +13,7 @@ import {SET_ENTITY_MODEL, setFormDefinition, setSorting} from '../list/actions'
 import * as listSagas from '../list/sagas'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {checkQuery, loadSearchAsQuery, runQuery, saveQueryAsFilter} from './sagas'
+import {checkQuery, loadSearchAsQuery, runQuery, saveQueryAsFilter, refreshData} from './sagas'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -37,6 +37,8 @@ describe('entity-list', () => {
                 takeLatest(actions.LOAD_SEARCH_AS_QUERY, loadSearchAsQuery),
                 takeLatest(actions.SAVE_QUERY_AS_FILTER, saveQueryAsFilter),
                 takeLatest(actions.RUN_QUERY, runQuery),
+                takeLatest(actions.CLEAR_QUERY, refreshData),
+                takeLatest(actions.SET_QUERY_VIEW_VISIBLE, refreshData),
                 debounce(500, actions.SET_QUERY, checkQuery)
               ])
             )

@@ -90,11 +90,14 @@ export function* getBasicQuery(regardSelection = true) {
 
 function* getQueryViewQuery() {
   const {inputKeys, constriction} = yield select(listSelector)
-  const {query} = yield select(searchFormSelector)
+  const {query, queryError} = yield select(searchFormSelector)
+
+  const hasQueryError = queryError && Object.entries(queryError).length !== 0
+
   const sortingIndex = query.indexOf('order by')
   const where = sortingIndex >= 0 ? query.substring(0, sortingIndex - 1) : query
   return {
-    where,
+    ...(!hasQueryError && {where}),
     ...(constriction && {constriction}),
     ...(inputKeys ? {keys: inputKeys} : {}),
     hasUserChanges: true
