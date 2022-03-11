@@ -1,6 +1,7 @@
 import styled, {css} from 'styled-components'
 
 import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
+import {StyledUl} from '../Typography'
 import {colorizeBorder, colorizeText, declareFocus, declareFont, scale, theme} from '../utilStyles'
 
 const borderWidth = '1.1px' // deliberately uneven to force correct rendering in chrome
@@ -130,6 +131,10 @@ export const StyledStatedValueWrapper = styled.div`
     ${/* sc-selector */ StyledStatedValueDescription},
     ${/* sc-selector */ StyledStatedValueError} {
       margin-left: calc(${scale.space(-1)} + ${borderWidth});
+
+      ${StyledUl} {
+        margin-left: -${scale.space(-2)};
+      }
     }
   }
 `
