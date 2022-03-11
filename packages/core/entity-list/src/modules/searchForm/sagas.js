@@ -14,7 +14,7 @@ import {changeParentFieldType, getEndpoint, getFormFieldFlat} from '../../util/a
 import searchFormTypes from '../../util/searchFormTypes'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {setSearchFormType} from '../entityList/actions'
-import {SET_ENTITY_MODEL, SET_FORM_DEFINITION, setSorting} from '../list/actions'
+import {SET_ENTITY_MODEL, SET_FORM_DEFINITION, setSorting, refresh} from '../list/actions'
 import {getBasicQuery, getSearchViewQuery} from '../list/sagas'
 import * as actions from './actions'
 import {StyledButton} from './StyledComponents'
@@ -44,6 +44,8 @@ export default function* sagas() {
     takeLatest(actions.LOAD_SEARCH_AS_QUERY, loadSearchAsQuery),
     takeLatest(actions.SAVE_QUERY_AS_FILTER, saveQueryAsFilter),
     takeLatest(actions.RUN_QUERY, runQuery),
+    takeLatest(actions.CLEAR_QUERY, refreshData),
+    takeLatest(actions.SET_QUERY_VIEW_VISIBLE, refreshData),
     debounce(500, actions.SET_QUERY, checkQuery)
   ])
 }
@@ -467,4 +469,8 @@ export function* runQuery() {
     }
     yield put(actions.executeSearch())
   }
+}
+
+export function* refreshData() {
+  yield put(refresh())
 }
