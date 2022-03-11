@@ -14,6 +14,7 @@ const actions = {
   delete: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Delete')),
   merge: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Merge')),
   copy: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Copy')),
+  'entity-report': lazy(() => import(/* webpackChunkName: "actions" */ './actions/EntityReport')),
   documents: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Documents')),
   'password-update': lazy(() => import(/* webpackChunkName: "actions" */ './actions/PasswordUpdate')),
   'widget-config-edit': lazy(() => import(/* webpackChunkName: "actions" */ './actions/WidgetConfigEdit')),
