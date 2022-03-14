@@ -1,3 +1,6 @@
+1.0.0-hotfix30.32
+- fix docs browser back navigation for search view
+
 1.0.0-hotfix30.31
 - fix sticky popover on table
 
