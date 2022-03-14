@@ -1,3 +1,7 @@
+1.0.6-hotfix31.10
+- fix entity-list re-init handling on store updates
+- fix docs browser back navigation for search view
+
 1.0.6-hotfix31.9
 - ace editor works again in create forms
 - fix table flicker on firefox
