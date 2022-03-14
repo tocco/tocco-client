@@ -23,7 +23,7 @@ const handleRequestError = (backendUrl, response, key) => {
   return response
 }
 
-const initializeWidget = async (backendUrl, container) => {
+const initializeWidget = async (backendUrl, assetUrl, container) => {
   const key = getWidgetKey(container)
   const widgetConfig = await executeRequest(`${backendUrl}/nice2/rest/widget/configs/${key}`)
     .then(enhanceExtractedBody)
@@ -37,7 +37,7 @@ const initializeWidget = async (backendUrl, container) => {
     const {appName, packageName, locale, config} = widgetConfig
 
     try {
-      await loadScriptAsync(`${backendUrl}/js/tocco-${packageName}/dist/index.js`)
+      await loadScriptAsync(`${assetUrl}/js/tocco-${packageName}/dist/index.js`)
     } catch (error) {
       remoteLogger.logException(backendUrl, `Could not fetch package 'tocco-${packageName}'.`, error)
       return
@@ -52,7 +52,7 @@ const initializeWidget = async (backendUrl, container) => {
       themeType: 'WIDGET'
     }
     const eventHandlers = getEventHandlers(container)
-    const srcPath = `${backendUrl}/js/tocco-${packageName}/dist/`
+    const srcPath = `${assetUrl}/js/tocco-${packageName}/dist/`
 
     try {
       const methods = window.reactRegistry.render(appName, container, '', input, eventHandlers, srcPath)
@@ -92,12 +92,12 @@ const bootstrapWidgets = async params => {
     return
   }
 
-  const {backendUrl} = params
+  const {backendUrl, assetUrl} = params
 
   const widgetContainerNodeList = document.querySelectorAll(`[${ATTRIBUTE_WIDGET_KEY}]`)
   const widgetContainers = Array.prototype.slice.call(widgetContainerNodeList)
 
-  await Promise.all(widgetContainers.map(container => initializeWidget(backendUrl, container)))
+  await Promise.all(widgetContainers.map(container => initializeWidget(backendUrl, assetUrl, container)))
 }
 
 export default bootstrapWidgets
