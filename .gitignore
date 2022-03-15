@@ -7,6 +7,7 @@
 .stylelintcache
 coverage
 node_modules
+dist
 packages/**/*/dist
 packages/**/*/node_modules
 cypress/screenshots/

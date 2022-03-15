@@ -14,5 +14,10 @@ module.exports = {
     'storybook-addon-intl',
     'themeprovider-storybook/register',
     '@storybook/addon-a11y'
-  ]
+  ],
+  core: {
+    builder: 'webpack5'
+  },
+  framework: '@storybook/react',
+  staticDirs: ['assets']
 }
