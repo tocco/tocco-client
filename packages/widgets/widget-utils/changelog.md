@@ -1,3 +1,9 @@
+0.1.7
+- split backend url in asset and backend url
+
+0.1.6
+
+
 0.1.5
 - fix cache clearance to keep notifications session
 - Tiny millisecond values (1 - 3) are now displayed correctly.
