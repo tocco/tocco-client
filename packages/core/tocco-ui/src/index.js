@@ -75,6 +75,7 @@ export {
 } from './utilStyles'
 
 export {default as DatePicker} from './DatePicker'
+export {default as ColumnPicker} from './ColumnPicker'
 export {default as GlobalStyles} from './GlobalStyles'
 export {default as Range} from './Range'
 export {default as BurgerButton} from './BurgerButton'

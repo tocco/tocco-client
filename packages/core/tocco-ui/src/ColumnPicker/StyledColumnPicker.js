@@ -1,6 +1,9 @@
 import {lighten} from 'polished'
 import styled from 'styled-components'
-import {scale, theme, StyledButton, StyledLi, StyledLabel} from 'tocco-ui'
+
+import {StyledButton} from '../Button'
+import {StyledLi, StyledLabel} from '../Typography'
+import {scale, theme} from '../utilStyles'
 
 export const StyledUl = styled.ul`
   list-style-type: none;
