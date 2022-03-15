@@ -20,7 +20,7 @@ Initialization:
 actionEmitter.addToStore(store, events.emitAction);
 ```
 
-the second (optional) parameter is an action which is dispatched to interact with the parent app. 
+the second (optional) parameter is an action which is dispatched to interact with the parent app.
 
 ## actions
 
@@ -45,7 +45,7 @@ config, the second parameter, is an object that can have the following propertie
 - customActions: An object with App specific custom actions. The key is the id of the custom action as defined
   in the form.
 - context: Map of parameters which will be passed to the called action.
-- navigationStrategy: Object consisting of various link factories. For more information see 
+- navigationStrategy: Object consisting of various link factories. For more information see
   tocco-util/navigationStrategy documentation.
 - appComponent: Component to render custom apps (E.g. rendering delete app for deleting a search filter)
 
@@ -181,7 +181,7 @@ Allows to dispatch actions to show a toaster or confirm dialog. Just needs to be
 the exported actions can be dispatched anywhere. When added to store, it can be configured if those actions are
 handled or if they get emitted.
 
-See the corresponding [story](src/notification/notification.stories.mdx) and [readme](src/notification/README.md) for 
+See the corresponding [story](src/notification/notification.stories.mdx) and [readme](src/notification/README.md) for
 more details.
 
 ## remote events
@@ -196,3 +196,8 @@ TOCCO REST Api abstraction. Helps compose url, set headers, order params with pr
 ## selection
 
 Helpers and proptypes for list selection.
+
+# templateValues
+
+Can be used to display a select box of templates, that overwrite values in a form or through custom handlers on
+selecting one of them.
