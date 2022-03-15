@@ -1,0 +1,88 @@
+import _isFunction from 'lodash/isFunction'
+import {actions as formActions, getFormValues} from 'redux-form'
+import {all, call, put, takeLatest, select} from 'redux-saga/effects'
+import {api} from 'tocco-util'
+
+import display from '../../display'
+import form from '../../form'
+import rest from '../../rest'
+import {REDUX_FORM_NAME} from '../components/TemplateForm'
+import * as actions from './actions'
+
+export const formDefinitionSelector = state => state.templateValues.formDefinition
+export const selectedTemplateSelector = state => state.templateValues.selectedTemplate
+
+export default function* sagas() {
+  yield all([
+    takeLatest(actions.INITIALIZE_TEMPLATES, initialize),
+    takeLatest(actions.FETCH_TEMPLATES, fetchTemplates),
+    takeLatest(actions.SET_TEMPLATE_VALUES, setTemplateValues)
+  ])
+}
+
+export function* initialize({payload}) {
+  const currentFormDefinition = yield select(formDefinitionSelector)
+  if (!currentFormDefinition) {
+    const {formName, defaultValues, customTemplateFields} = payload
+    const formDefinition = yield call(rest.fetchForm, formName, 'detail')
+    yield put(formActions.initialize(REDUX_FORM_NAME))
+    yield put(actions.setForm(formDefinition))
+    const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+    yield call(setFormValues, defaultValues, fieldDefinitions, customTemplateFields)
+    yield call(fetchTemplates, {payload})
+  }
+}
+
+export function* fetchTemplates({payload: {templateEntityName, selection, customTemplateFields}}) {
+  const {
+    body: {templates, defaultTemplate}
+  } = yield call(rest.requestSaga, `templates/${templateEntityName}`, {
+    method: 'POST',
+    body: selection
+  })
+  const templateOptions = templates.map(responseTemplateTransformer)
+  yield put(actions.setTemplateOptions(templateOptions))
+
+  const selectedTemplate = yield select(selectedTemplateSelector)
+  if (!selectedTemplate && defaultTemplate) {
+    yield put(
+      actions.setValuesFromTemplate(
+        templateEntityName,
+        responseTemplateTransformer(defaultTemplate),
+        customTemplateFields
+      )
+    )
+  }
+}
+
+const responseTemplateTransformer = template => ({display: template.label, key: template.key, model: 'Export_template'})
+
+export function* setTemplateValues({payload: {templateEntityName, template, customTemplateFields}}) {
+  if (template) {
+    const formDefinition = yield select(formDefinitionSelector)
+    const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+    const paths = [...fieldDefinitions.map(field => field.id), ...Object.keys(customTemplateFields)]
+    const templateValues = yield call(rest.fetchEntity, templateEntityName, template.key, {paths})
+    const flattenedValues = yield call(api.getFlattenEntity, templateValues)
+    yield call(setFormValues, flattenedValues, fieldDefinitions, customTemplateFields)
+  }
+}
+
+export function* setFormValues(values, fieldDefinitions, customTemplateFields) {
+  yield call(display.enhanceEntityWithDisplays, values, fieldDefinitions)
+  const formValues = yield call(form.entityToFormValues, values, fieldDefinitions)
+  for (const [fieldName, fieldValue] of Object.entries(formValues).filter(([, value]) => !!value)) {
+    if (_isFunction(customTemplateFields[fieldName])) {
+      customTemplateFields[fieldName](fieldValue)
+    } else {
+      yield put(formActions.change(REDUX_FORM_NAME, fieldName, fieldValue))
+    }
+  }
+}
+
+export function* getValues() {
+  const formValues = yield select(getFormValues(REDUX_FORM_NAME))
+  const formDefinition = yield select(formDefinitionSelector)
+  const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+  return yield call(form.formValuesToFlattenEntity, formValues, fieldDefinitions)
+}
