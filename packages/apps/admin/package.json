@@ -21,6 +21,7 @@
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
     "tocco-entity-report": "*",
+    "tocco-export": "*",
     "tocco-input-edit": "*",
     "tocco-login": "*",
     "tocco-merge": "*",
