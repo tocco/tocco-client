@@ -20,7 +20,8 @@ import {
   form,
   notification,
   remoteEvents,
-  rest
+  rest,
+  display
 } from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
@@ -337,36 +338,8 @@ export function* loadRelationDisplays(relationFields, entities) {
   }
 }
 
-export function* enhanceEntityWithDisplayExpressions(entity) {
-  const {fieldDefinitions, formName, mode} = yield select(entityDetailSelector)
-  const displayExpressions = fieldDefinitions.filter(f => f.componentType === 'display').map(f => f.id)
-  const displayExpressionsL = yield call(loadDisplayExpressions, formName, mode, displayExpressions, [entity])
-  if (displayExpressionsL) {
-    Object.keys(displayExpressionsL[entity.__key]).forEach(dE => {
-      entity[dE] = displayExpressionsL[entity.__key][dE]
-    })
-  }
-}
-
-export function* enhanceEntityWithDisplays(entity) {
-  const {fieldDefinitions} = yield select(entityDetailSelector)
-  const relationFields = fieldDefinitions.filter(f => api.relationFieldTypes.includes(f.dataType)).map(f => f.path)
-
-  const displays = yield call(loadRelationDisplays, relationFields, [entity])
-
-  relationFields.forEach(relationField => {
-    const value = entity[relationField]
-    if (value) {
-      const newValue = Array.isArray(value)
-        ? value.filter(v => v !== null).map(v2 => ({...v2, display: displays[v2.model][v2.key]}))
-        : {...value, display: displays[value.model][value.key]}
-      entity[relationField] = newValue
-    }
-  })
-}
-
 export function* loadData(reset = true) {
-  const {entityName, entityId, fieldDefinitions, entityModel} = yield select(entityDetailSelector)
+  const {entityName, entityId, fieldDefinitions, formName, entityModel, mode} = yield select(entityDetailSelector)
 
   if (entityModel.markable === true) {
     yield fork(loadMarked, entityName, entityId)
@@ -375,8 +348,8 @@ export function* loadData(reset = true) {
   const entity = yield call(loadEntity, entityName, entityId, fieldDefinitions)
   const flattenEntity = yield call(api.getFlattenEntity, entity)
 
-  yield call(enhanceEntityWithDisplayExpressions, flattenEntity)
-  yield call(enhanceEntityWithDisplays, flattenEntity)
+  yield call(display.enhanceEntityWithDisplayExpressions, flattenEntity, formName, fieldDefinitions, mode)
+  yield call(display.enhanceEntityWithDisplays, flattenEntity, fieldDefinitions)
 
   const formValues = yield call(form.entityToFormValues, flattenEntity, fieldDefinitions)
 
