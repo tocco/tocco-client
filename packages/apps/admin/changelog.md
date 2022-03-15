@@ -1,3 +1,17 @@
+1.0.24
+- update react-tether dependency and change Menu.js to new method
+- remove react-split-pane dependency as we already have a library called react-split with almost the same features and us it instead
+- convert entity-detail class compomeents to functional components
+- refactor dispatch actions
+- update react-burger-menu and fix input focus
+- fix entity-list re-init handling on store updates
+- fix docs browser back navigation for search view
+- improve data handling on search query changes
+- update react-dropzone dependancy
+- harmonize error list spacing within forms
+- add trigger action event
+- add entity-report action
+
 1.0.23
 - ace editor works again in create forms
 - fix table flicker on firefox
