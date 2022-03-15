@@ -1,21 +1,28 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useCallback} from 'react'
 import {useIntl} from 'react-intl'
 
 import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from '../utils'
 import LazyDatePicker from './LazyDatePicker'
 
+const DATE_FORMAT = 'YYYY-MM-DD'
+
 export const DateEdit = ({onChange, options, id, value, immutable, events}) => {
-  const DATE_FORMAT = 'YYYY-MM-DD'
   const intl = useIntl()
 
-  const getLocalizedAltFormat = () => moment().locale(intl.locale)._locale.longDateFormat('L')
+  const getLocalizedAltFormat = useCallback(
+    () => moment().locale(intl.locale)._locale.longDateFormat('L'),
+    [intl.locale]
+  )
 
-  const parseDate = s => {
-    const momentDate = moment(s, [getLocalizedAltFormat(), DATE_FORMAT])
-    return momentDate.isValid() ? momentDate.toDate() : null
-  }
+  const parseDate = useCallback(
+    s => {
+      const momentDate = moment(s, [getLocalizedAltFormat(), DATE_FORMAT])
+      return momentDate.isValid() ? momentDate.toDate() : null
+    },
+    [getLocalizedAltFormat]
+  )
 
   const formatDate = s => moment(s).format(getLocalizedAltFormat())
 

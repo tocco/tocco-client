@@ -1,6 +1,6 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, {useMemo} from 'react'
+import React, {useCallback} from 'react'
 import {injectIntl} from 'react-intl'
 
 import {atMostOne, momentJStoToFlatpickrFormat} from '../utils'
@@ -12,8 +12,8 @@ export const DateTimeEdit = props => {
   const altDateFormat = momentJStoToFlatpickrFormat(momentDateFormat)
   const altTimeFormat = momentJStoToFlatpickrFormat(momentTimeFormat)
 
-  const parseDate = useMemo(
-    () => s => {
+  const parseDate = useCallback(
+    s => {
       const momentDate = moment(s, ['D.M.YYYY H:m', momentDateFormat, momentTimeFormat])
       return momentDate.isValid() ? momentDate.toDate() : null
     },

@@ -22,7 +22,7 @@ const focusFlatpickrInput = wrapper => {
 }
 
 const DatePicker = props => {
-  const {immutable, id, options, value, onChange, parseDate, formatDate, intl} = props
+  const {immutable, id, options, value, onChange, formatDate, intl} = props
   const [initialized, setInitialized] = useState(false)
   const flatpickr = useRef(null)
   const wrapper = useRef(null)
@@ -61,11 +61,6 @@ const DatePicker = props => {
 
   const altInput = flatpickr.current?.altInput?.value || ''
 
-  const handleOnBlur = () => {
-    const parsed = parseDate(flatpickr.current.altInput.value)
-    flatpickr.current.setDate(parsed, true)
-  }
-
   const focusInput = () => {
     if (!initialized) {
       init()
@@ -85,7 +80,6 @@ const DatePicker = props => {
 
   const handleConfirmKey = e => {
     if ((!e.target.classList.contains('flatpickr-hour') && e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
-      handleOnBlur()
       setTimeout(() => {
         flatpickr.current.close()
       })
@@ -113,7 +107,7 @@ const DatePicker = props => {
         }}
         onKeyDown={handleConfirmKey}
       >
-        <StyledDatePickerWrapper data-wrap onBlur={handleOnBlur} immutable={immutable} ref={wrapper}>
+        <StyledDatePickerWrapper data-wrap immutable={immutable} ref={wrapper}>
           <StyledDatePickerInput
             {...(immutable ? {disabled: 'disabled'} : {})}
             type="hidden"
