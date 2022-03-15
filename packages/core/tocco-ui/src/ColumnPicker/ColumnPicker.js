@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types'
-import React, {useState, useMemo, useCallback} from 'react'
-import {Button, SearchBox, Typography} from 'tocco-ui'
+import React, {useState, useEffect, useMemo, useCallback} from 'react'
 import {dragAndDrop} from 'tocco-util'
 
+import Button from '../Button'
+import SearchBox from '../SearchBox'
+import Typography from '../Typography'
 import {StyledCheckbox, StyledUl, StyledButtonWrapper, StyledId, StyledItem} from './StyledColumnPicker'
 
-const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl}) => {
-  const [columns, setColumns] = useState(initialColumns)
+const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => {
+  const [columns, setColumns] = useState([])
+  useEffect(() => setColumns(initialColumns), [initialColumns])
   const [searchTerm, setSearchTerm] = useState(null)
   const changeColumnPosition = useCallback(
     (currentlyDragging, currentlyDragOver) => {
@@ -66,7 +69,7 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl}) => {
       <StyledUl>{items}</StyledUl>
       <StyledButtonWrapper>
         <Button onClick={() => onOk(columns)} look={'raised'}>
-          {intl.formatMessage({id: 'client.entity-list.preferences.columns.okButton'})}
+          {buttonLabel || intl.formatMessage({id: 'client.entity-list.preferences.columns.okButton'})}
         </Button>
       </StyledButtonWrapper>
     </div>
@@ -83,7 +86,8 @@ ColumnPicker.propTypes = {
   ).isRequired,
   onOk: PropTypes.func.isRequired,
   dndEnabled: PropTypes.bool.isRequired,
-  intl: PropTypes.object.isRequired
+  intl: PropTypes.object.isRequired,
+  buttonLabel: PropTypes.string
 }
 
 export default ColumnPicker
