@@ -1,9 +1,9 @@
 import {EVENT_HANDLERS_OBJ_NAME, METHODS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
-import {attachMethods, buildInputFromDom, getBackendUrl, getEventHandlers, getTheme} from './utils'
+import {attachMethods, buildInputFromDom, getAssetUrl, getEventHandlers, getTheme} from './utils'
 
 describe('widget-utils', () => {
   describe('bootstrap', () => {
-    describe('getBackendUrl', () => {
+    describe('getAssetUrl', () => {
       test('should derive backend url from script source url', () => {
         const document = {
           currentScript: {
@@ -11,7 +11,7 @@ describe('widget-utils', () => {
               name === 'src' ? 'https://customer.tocco.ch/js/tocco-widget-utils/dist/bootstrap.js' : undefined
           }
         }
-        expect(getBackendUrl(document)).to.eql('https://customer.tocco.ch')
+        expect(getAssetUrl(document)).to.eql('https://customer.tocco.ch')
       })
     })
 
