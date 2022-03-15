@@ -3,7 +3,13 @@ import webpack from '@storybook/builder-webpack4/node_modules/webpack'
 import runConfig from '../config'
 
 module.exports = ({config, configType}) => {
-  config.plugins.push(new webpack.DefinePlugin(runConfig.globals))
+  const globals = {
+    ...runConfig.globals,
+    __PACKAGE__: "''",
+    __PACKAGE_NAME__: "''"
+  }
+
+  config.plugins.push(new webpack.DefinePlugin(globals))
 
   config.module.rules = config.module.rules.map(data => {
     if (/svg\|/.test(String(data.test))) {
