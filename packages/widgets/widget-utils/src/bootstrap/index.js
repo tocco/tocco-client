@@ -1,13 +1,13 @@
 import bootstrapWidgets from './bootstrapWidgets'
-import {getBackendUrl, loadScriptAsync} from './utils'
+import {BACKEND_URL} from './constants'
+import {getAssetUrl, loadScriptAsync} from './utils'
 ;(() => {
-  let backendUrl, assetUrl
-  if (window.backendUrl) {
-    backendUrl = window.backendUrl
-    assetUrl = getBackendUrl(document)
+  const assetUrl = getAssetUrl(document)
+  let backendUrl
+  if (window[BACKEND_URL]) {
+    backendUrl = window[BACKEND_URL]
   } else {
-    backendUrl = getBackendUrl(document)
-    assetUrl = getBackendUrl(document)
+    backendUrl = assetUrl
   }
 
   const params = {

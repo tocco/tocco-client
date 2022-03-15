@@ -30,7 +30,7 @@ export const transformObjectValue = val => {
   }
 }
 
-export const getBackendUrl = document => {
+export const getAssetUrl = document => {
   const jsFileSource = document.currentScript.getAttribute('src')
   const {protocol, host} = new URL(jsFileSource)
   return protocol + '//' + host

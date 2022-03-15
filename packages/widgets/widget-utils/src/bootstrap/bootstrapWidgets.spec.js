@@ -33,6 +33,9 @@ describe('widget-utils', () => {
         delete window.reactRegistry
       })
 
+      const backendUrl = 'http://localhost:8080'
+      const assetUrl = 'http://localhost:8080'
+
       test('should initialize and render widget', async () => {
         const renderSpy = sinon.spy()
         window.reactRegistry = {
@@ -58,8 +61,7 @@ describe('widget-utils', () => {
         })
         const container = wrapper.getDOMNode()
 
-        const backendUrl = 'http://localhost:8080'
-        await bootstrapWidgets({backendUrl})
+        await bootstrapWidgets({backendUrl, assetUrl})
 
         await fetchMock.flush()
         expect(fetchMock.calls().length).to.equal(1)
@@ -136,8 +138,7 @@ describe('widget-utils', () => {
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
         const container = wrapper.getDOMNode()
 
-        const backendUrl = 'http://localhost:8080'
-        await bootstrapWidgets({backendUrl})
+        await bootstrapWidgets({backendUrl, assetUrl})
 
         await fetchMock.flush()
         expect(fetchMock.calls().length).to.equal(1)
@@ -178,8 +179,7 @@ describe('widget-utils', () => {
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
         const container = wrapper.getDOMNode()
 
-        const backendUrl = 'http://localhost:8080'
-        await bootstrapWidgets({backendUrl})
+        await bootstrapWidgets({backendUrl, assetUrl})
 
         await fetchMock.flush()
         expect(fetchMock.calls().length).to.equal(1)
@@ -218,8 +218,7 @@ describe('widget-utils', () => {
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
         const container = wrapper.getDOMNode()
 
-        const backendUrl = 'http://localhost:8080'
-        await bootstrapWidgets({backendUrl})
+        await bootstrapWidgets({backendUrl, assetUrl})
 
         await fetchMock.flush()
         expect(fetchMock.calls().length).to.equal(1)
@@ -258,8 +257,7 @@ describe('widget-utils', () => {
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
         const container = wrapper.getDOMNode()
 
-        const backendUrl = 'http://localhost:8080'
-        await bootstrapWidgets({backendUrl})
+        await bootstrapWidgets({backendUrl, assetUrl})
 
         await fetchMock.flush()
         expect(fetchMock.calls().length).to.equal(1)
@@ -298,8 +296,7 @@ describe('widget-utils', () => {
 
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
 
-        const backendUrl = 'http://localhost:8080'
-        await bootstrapWidgets({backendUrl})
+        await bootstrapWidgets({backendUrl, assetUrl})
 
         await fetchMock.flush()
         expect(fetchMock.calls().length).to.equal(2)
