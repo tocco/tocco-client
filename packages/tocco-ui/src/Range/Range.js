@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useMemo} from 'react'
+import React, {useMemo, useRef} from 'react'
 import _omit from 'lodash/omit'
 
 import {
@@ -22,30 +22,48 @@ const Range = props => {
   const {value, events, readOnly, type, options} = props
   const hasRangeValue = typeof value === 'object' && value && value.isRangeValue
 
-  const exactEvents = useMemo(() => ({
-    ...events,
-    onChange: value => {
-      events.onChange(value)
-    }
-  }))
+  /**
+   * Workaround:
+   * https://toccoag.atlassian.net/browse/TOCDEV-5176
+   * Problem:
+   *   When range is enabled and
+   *   to or from values changes
+   *   the other value will be reset to a previous value
+   *
+   * Somehow the `value` in the onChanges handlers was outdated and still had the previous value.
+   * Not sure why this wasn't working properly although all memoized hooks have been removed.
+   * Therefore the current value is now attached via a `ref` which is not bound 1:1 to the state.
+   */
+  const valueRef = useRef(value)
+  valueRef.current = value
 
-  const toEvents = useMemo(() => ({
+  const exactEvents = useMemo(
+    () => ({
+      ...events,
+      onChange: value => {
+        events.onChange(value)
+      }
+    }),
+    [events]
+  )
+
+  const toEvents = {
     onChange: toValue => {
       events.onChange({
-        ...value,
+        ...valueRef.current,
         to: toValue
       })
     }
-  }))
+  }
 
-  const fromEvents = useMemo(() => ({
+  const fromEvents = {
     onChange: fromValue => {
       events.onChange({
-        ...value,
+        ...valueRef.current,
         from: fromValue
       })
     }
-  }))
+  }
 
   const typeMapping = rangeTypeMappings[type]
 
