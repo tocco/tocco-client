@@ -10,6 +10,10 @@ const Menu = props => (
     targetAttachment="bottom left"
     constraints={[
       {
+        to: 'scrollParent',
+        pin: true
+      },
+      {
         to: 'window',
         attachment: 'together'
       }
