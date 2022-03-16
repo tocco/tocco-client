@@ -4,9 +4,9 @@ import _get from 'lodash/get'
  * `location` field covers `city` and `postcode` value.
  */
 export default {
-  hasValue: (value, formField) => {
+  hasValue: ({formValues, formField}) => {
     const locationMapping = formField.locationMapping
-    return !!(value[locationMapping.city] || value[locationMapping.postcode])
+    return !!(formValues[locationMapping.city] || formValues[locationMapping.postcode])
   },
   getValue: ({formField, formData}) => {
     const locationMapping = formField.locationMapping
