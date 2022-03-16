@@ -47,7 +47,11 @@
     "tags": ["notification"]
   },
   "bolt": {
-    "id": "fal, bolt",
+    "id": "fal, bolt-lightning",
+    "lib": "fa"
+  },
+  "bolt-lightning": {
+    "id": "fal, bolt-lightning",
     "lib": "fa"
   },
   "book": {
