@@ -47,7 +47,7 @@ describe('app-extensions', () => {
             .call(rest.fetchForm, 'Export_template_action', 'detail')
             .put(formActions.initialize('template'))
             .put(actions.setForm({}))
-            .call(sagas.setFormValues, {}, [], [])
+            .call(sagas.setFormValues, {}, [], {})
             .call(sagas.fetchTemplates, {payload})
             .run()
         })
