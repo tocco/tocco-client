@@ -8,19 +8,15 @@ import field from '../field'
 import fromData from '../formData'
 
 const FormFieldWrapper = props => {
-  const hasOverwrite = props.typeEditable && props.typeEditable.hasValue
+  const {typeEditable, value, formData, formField, dirty, error, children} = props
+  const hasOverwrite = typeEditable && typeEditable.hasValue
   const hasValue = hasOverwrite
-    ? props.typeEditable.hasValue(props.formData.formValues, props.formField)
-    : props.hasValue
+    ? typeEditable.hasValue({formValues: formData.formValues, formField, value})
+    : value !== null && value !== undefined && value !== false && (value.length === undefined || value.length > 0)
 
   return (
-    <StatedValue
-      {...props}
-      dirty={props.formData.isDirty || props.dirty}
-      error={props.formData.errors || props.error}
-      hasValue={hasValue}
-    >
-      {React.cloneElement(props.children, {formData: props.formData})}
+    <StatedValue {...props} dirty={formData.isDirty || dirty} error={formData.errors || error} hasValue={hasValue}>
+      {React.cloneElement(children, {formData: formData})}
     </StatedValue>
   )
 }
@@ -32,7 +28,7 @@ FormFieldWrapper.propTypes = {
   formField: PropTypes.object,
   dirty: PropTypes.bool,
   error: PropTypes.object,
-  hasValue: PropTypes.bool
+  value: PropTypes.any
 }
 
 const displayFieldTypes = ['display', 'description']
@@ -77,8 +73,6 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
 
     const readOnly = parentReadOnly || readonly || submitting || !_get(entityField, 'writable', true)
 
-    const hasValue =
-      value !== null && value !== undefined && value !== false && (value.length === undefined || value.length > 0)
     const isDisplay = displayFieldAsDisplayOnly(value, componentType, dataType, parentReadOnly)
 
     const type = formDefinitionField.dataType || formDefinitionField.componentType
@@ -104,7 +98,7 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
           typeEditable={typeEditable}
           dirty={dirty}
           error={error}
-          hasValue={hasValue}
+          value={value}
           id={id}
           immutable={readOnly}
           isDisplay={isDisplay}
