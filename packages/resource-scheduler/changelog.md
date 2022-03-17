@@ -1,3 +1,8 @@
+1.0.3-hotfix31.10
+- update range values properly
+- harmonize error list spacing within forms
+- improve data handling on search query changes
+
 1.0.3-hotfix31.9
 - fix entity-list re-init handling on store updates
 
