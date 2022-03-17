@@ -22,7 +22,7 @@ const focusFlatpickrInput = wrapper => {
 }
 
 const DatePicker = props => {
-  const {immutable, id, options, value, onChange, parseDate, formatDate, intl} = props
+  const {immutable, id, options, value, onChange, parseDate, formatDate, intl, placeholder} = props
   const [initialized, setInitialized] = useState(false)
   const flatpickr = useRef(null)
   const wrapper = useRef(null)
@@ -119,12 +119,14 @@ const DatePicker = props => {
             type="hidden"
             data-input
             immutable={immutable}
-            {...(options ? {placeholder: options.placeholderText} : {})}
+            placeholder={placeholder}
           />
           {!initialized && (
-            <StyledDatePickerValue tabIndex={0}>{hasValue ? formatDate(value[0]) : ''}</StyledDatePickerValue>
+            <StyledDatePickerValue tabIndex={0} hasValue={hasValue}>
+              {hasValue ? formatDate(value[0]) : placeholder}
+            </StyledDatePickerValue>
           )}
-          <StyledDatePickerInput disabled immutable={immutable} value={altInput} />
+          <StyledDatePickerInput disabled immutable={immutable} value={altInput} placeholder={placeholder} />
           {!immutable && hasValue && (
             <Ball
               icon="times"
@@ -148,9 +150,9 @@ DatePicker.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.arrayOf(PropTypes.string),
   options: PropTypes.shape({
-    placeholderText: PropTypes.string,
     flatpickrOptions: PropTypes.object
   }),
+  placeholder: PropTypes.string,
   parseDate: PropTypes.func,
   formatDate: PropTypes.func,
   immutable: PropTypes.bool,

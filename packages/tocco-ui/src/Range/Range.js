@@ -19,8 +19,8 @@ import {
  * Allows to render EditableValues as a range. The value can be switched between a range or single value.
  */
 const Range = props => {
-  const {value, events, readOnly, type, options} = props
-  const hasRangeValue = typeof value === 'object' && value && value.isRangeValue
+  const {value, events, readOnly, type, options, fromText, toText} = props
+  const hasRangeValue = value?.isRangeValue || false
 
   /**
    * Workaround:
@@ -68,24 +68,18 @@ const Range = props => {
   const typeMapping = rangeTypeMappings[type]
 
   const getToOptions = (options, fromValue) =>
-    typeMapping && typeMapping.getToOptions ? typeMapping.getToOptions(options, fromValue) : options
+    typeMapping?.getToOptions ? typeMapping.getToOptions(options, fromValue) : options
 
   const getFromOptions = (options, toValue) =>
-    typeMapping && typeMapping.getFromOptions ? typeMapping.getFromOptions(options, toValue) : options
+    typeMapping?.getFromOptions ? typeMapping.getFromOptions(options, toValue) : options
 
   const getFromOrTo = value =>
-    typeMapping && typeMapping.fromRange
-      ? typeMapping.fromRange(value)
-      : value && value.from
-      ? value.from
-      : value && value.to
-      ? value.to
-      : null
+    typeMapping?.fromRange ? typeMapping.fromRange(value) : value?.from || value?.to || null
 
   const getRangeValue = value =>
-    typeMapping && typeMapping.toRange ? typeMapping.toRange(value) : {from: value, to: value, isRangeValue: true}
+    typeMapping?.toRange ? typeMapping.toRange(value) : {from: value, to: value, isRangeValue: true}
 
-  const baseType = typeMapping && typeMapping.type ? typeMapping.type : type
+  const baseType = typeMapping?.type || type
 
   return (
     <StyledRange>
@@ -98,8 +92,9 @@ const Range = props => {
               <EditableValue
                 {...props}
                 options={getFromOptions(options, value.to)}
-                value={value && value.from ? value.from : null}
+                value={value?.from || null}
                 events={fromEvents}
+                placeholder={fromText}
               />
             </StyledInputItemWrapper>
             <StyledIconWrapper>
@@ -109,8 +104,9 @@ const Range = props => {
               <EditableValue
                 {...props}
                 options={getToOptions(options, value.from)}
-                value={value && value.to ? value.to : null}
+                value={value?.to || null}
                 events={toEvents}
+                placeholder={toText}
               />
             </StyledInputItemWrapper>
           </StyledInput>
@@ -121,11 +117,8 @@ const Range = props => {
           disabled={readOnly}
           icon={hasRangeValue ? 'chevron-left' : 'chevron-down'}
           onClick={() => {
-            if (hasRangeValue) {
-              events.onChange(getFromOrTo(value))
-            } else {
-              events.onChange(getRangeValue(value))
-            }
+            const val = hasRangeValue ? getFromOrTo(value) : getRangeValue(value)
+            events.onChange(val)
           }}
         ></Ball>
       </StyledExtender>

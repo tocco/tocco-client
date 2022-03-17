@@ -6,7 +6,7 @@ import {useIntl} from 'react-intl'
 import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from '../utils'
 import LazyDatePicker from './LazyDatePicker'
 
-export const DateEdit = ({onChange, options, id, value, immutable, events}) => {
+export const DateEdit = ({onChange, options, id, value, immutable, events, placeholder}) => {
   const DATE_FORMAT = 'YYYY-MM-DD'
   const intl = useIntl()
 
@@ -30,7 +30,7 @@ export const DateEdit = ({onChange, options, id, value, immutable, events}) => {
     dateFormat: momentJStoToFlatpickrFormat(DATE_FORMAT),
     allowInput: true,
     parseDate: parseDate,
-    ...(options ? options.flatpickrOptions : {})
+    ...(options?.flatpickrOptions || {})
   }
 
   return (
@@ -43,6 +43,7 @@ export const DateEdit = ({onChange, options, id, value, immutable, events}) => {
       options={{...options, flatpickrOptions}}
       immutable={immutable}
       events={events}
+      placeholder={placeholder}
     />
   )
 }
@@ -51,9 +52,9 @@ DateEdit.propTypes = {
   id: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
+  placeholder: PropTypes.string,
   immutable: PropTypes.bool,
   options: PropTypes.shape({
-    placeholderText: PropTypes.string,
     flatpickrOptions: PropTypes.object
   }),
   events: PropTypes.shape({

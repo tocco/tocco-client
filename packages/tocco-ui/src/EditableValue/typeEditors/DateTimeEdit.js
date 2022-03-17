@@ -6,9 +6,10 @@ import {injectIntl} from 'react-intl'
 import {atMostOne, momentJStoToFlatpickrFormat} from '../utils'
 import LazyDatePicker from './LazyDatePicker'
 
-export const DateTimeEdit = props => {
-  const momentDateFormat = moment().locale(props.intl.locale)._locale.longDateFormat('L')
-  const momentTimeFormat = moment().locale(props.intl.locale)._locale.longDateFormat('LT')
+export const DateTimeEdit = ({intl, options, onChange, value, immutable, events, placeholder}) => {
+  const momentLocale = moment().locale(intl.locale)._locale
+  const momentDateFormat = momentLocale.longDateFormat('L')
+  const momentTimeFormat = momentLocale.longDateFormat('LT')
   const altDateFormat = momentJStoToFlatpickrFormat(momentDateFormat)
   const altTimeFormat = momentJStoToFlatpickrFormat(momentTimeFormat)
 
@@ -29,20 +30,21 @@ export const DateTimeEdit = props => {
     parseDate: parseDate,
     altFormat: `${altDateFormat} ${altTimeFormat}`,
     dateFormat: 'Y-m-d\\TH:i:S.000\\Z',
-    ...(props.options ? props.options.flatpickrOptions : {})
+    ...(options?.flatpickrOptions || {})
   }
 
-  const handleChange = dates => props.onChange(atMostOne(dates))
+  const handleChange = dates => onChange(atMostOne(dates))
 
   return (
     <LazyDatePicker
-      value={[props.value]}
+      value={[value]}
       onChange={handleChange}
       parseDate={parseDate}
       formatDate={formatDate}
-      immutable={props.immutable}
-      options={{...props.options, flatpickrOptions}}
-      events={props.events}
+      immutable={immutable}
+      options={{...options, flatpickrOptions}}
+      events={events}
+      placeholder={placeholder}
     />
   )
 }
@@ -51,9 +53,9 @@ DateTimeEdit.propTypes = {
   intl: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
+  placeholder: PropTypes.string,
   immutable: PropTypes.bool,
   options: PropTypes.shape({
-    placeholderText: PropTypes.string,
     flatpickrOptions: PropTypes.object
   }),
   events: PropTypes.shape({
