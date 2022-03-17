@@ -5,7 +5,7 @@ import {react} from 'tocco-util'
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import StyledNumberEdit from './StyledNumberEdit'
 
-const IntegerEdit = ({value, onChange, options, immutable, name, id}) => {
+const IntegerEdit = ({value, onChange, options, immutable, name, id, placeholder}) => {
   const {minValue, maxValue, format, allowLeadingZeros} = options || {}
 
   const handleChange = ({value, floatValue}) => {
@@ -31,6 +31,7 @@ const IntegerEdit = ({value, onChange, options, immutable, name, id}) => {
         value={value}
         allowLeadingZeros={allowLeadingZeros}
         format={format}
+        placeholder={placeholder}
       />
     </StyledEditableWrapper>
   )
@@ -41,6 +42,7 @@ IntegerEdit.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.string,
   id: PropTypes.string,
+  placeholder: PropTypes.string,
   intl: PropTypes.object,
   immutable: PropTypes.bool,
   options: PropTypes.shape({

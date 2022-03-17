@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+import {colorizeText} from '../../utilStyles'
 import {StyledEditableWrapperCss, StyledInputCss} from '../StyledEditableValue'
 
 export const StyledDatePickerInput = styled.input`
@@ -14,6 +15,12 @@ export const StyledDatePickerValue = styled.div`
     ${StyledInputCss}
     display: flex;
     align-items: center;
+    ${props =>
+      !props.hasValue &&
+      `
+      justify-content: center;
+      color: ${colorizeText.shade1(props)};
+    `}
   }
 `
 

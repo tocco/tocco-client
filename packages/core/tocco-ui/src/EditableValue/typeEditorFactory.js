@@ -49,7 +49,7 @@ export const map = {
   time: TimeEdit
 }
 
-const TypeEditorFactory = ({type, value, options, id, events, readOnly = false}) => {
+const TypeEditorFactory = ({type, value, options, id, events, placeholder, readOnly = false}) => {
   const blurValue = useRef(undefined)
   if (map[type]) {
     const Component = map[type]
@@ -74,6 +74,7 @@ const TypeEditorFactory = ({type, value, options, id, events, readOnly = false})
           {...(_isEmpty(options) ? {} : {options})}
           id={id}
           immutable={readOnly}
+          placeholder={placeholder}
           events={events}
         />
       </div>
@@ -89,6 +90,7 @@ TypeEditorFactory.propTypes = {
   type: PropTypes.oneOf(Object.keys(map)).isRequired,
   events: PropTypes.objectOf(PropTypes.func),
   id: PropTypes.string,
+  placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   options: PropTypes.object,
   value: PropTypes.any
