@@ -49,7 +49,7 @@ export const map = {
 
 const isFlatpickrType = type => ['date', 'datetime'].includes(type)
 
-const TypeEditorFactory = ({type, value, options, id, events, readOnly = false}) => {
+const TypeEditorFactory = ({type, value, options, id, events, placeholder, readOnly = false}) => {
   const flatpickrBlurValue = useRef(undefined)
 
   const onChange = events?.onChange
@@ -88,6 +88,7 @@ const TypeEditorFactory = ({type, value, options, id, events, readOnly = false})
           {...(_isEmpty(options) ? {} : {options})}
           id={id}
           immutable={readOnly}
+          placeholder={placeholder}
           events={events}
         />
       </div>
@@ -103,6 +104,7 @@ TypeEditorFactory.propTypes = {
   type: PropTypes.oneOf(Object.keys(map)).isRequired,
   events: PropTypes.objectOf(PropTypes.func),
   id: PropTypes.string,
+  placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   options: PropTypes.object,
   value: PropTypes.any
