@@ -101,12 +101,13 @@ const loadModels = () =>
   sendRequest('entities')
     .then(extractBody)
     .then(body => (body ? body.entities : {}))
-    .then(entities => (entities ? Object.keys(entities) : []))
+    .then(entities => (entities ? Object.values(entities) : []))
+    .then(models => models.map(({metaData}) => metaData))
+
+const buildFieldLabel = field => (field.label ? `${field.fieldName} (${field.label})` : field.fieldName)
 
 const buildRelationLabel = relation =>
-  relation.relationName.substring(3) !== relation.targetEntity
-    ? `${relation.relationName} (${relation.targetEntity})`
-    : relation.relationName
+  relation.label ? `${relation.relationName} (${relation.label})` : relation.relationName
 
 const buildResolveUrl = (sourceModel, relationSteps) => {
   const resolvePart = relationSteps.length > 0 ? '/resolve?path=' + relationSteps.join('.') : ''
@@ -124,14 +125,14 @@ const resolvePath = ([sourceModel, ...relationSteps]) =>
       const relations = body.relations || []
       return [
         ...fields.map(f => ({
-          label: `${f.fieldName} (${f.type})`,
+          label: buildFieldLabel(f),
           value: f.fieldName,
-          type: 'field'
+          meta: f.type
         })),
         ...relations.map(r => ({
           label: buildRelationLabel(r),
           value: r.relationName,
-          type: 'relation'
+          meta: r.targetEntity
         }))
       ]
     })
@@ -159,7 +160,7 @@ const determineAvailablePaths = (createIterator, callback, implicitModel) => {
       const pathCompletions = paths.map(path => ({
         caption: path.label,
         value: path.value,
-        meta: path.type,
+        meta: path.meta,
         score: defaultScore
       }))
       callback(null, pathCompletions)
@@ -167,13 +168,14 @@ const determineAvailablePaths = (createIterator, callback, implicitModel) => {
     .catch(errors => callback(errors))
 }
 
+const buildModelLabel = (modelName, label) => (label ? `${modelName} (${label})` : modelName)
+
 const loadAllAvailableModels = callback =>
   loadModels()
     .then(models => {
-      const modelCompletions = models.map(model => ({
-        caption: model,
-        value: model,
-        meta: 'model',
+      const modelCompletions = models.map(({modelName, label}) => ({
+        caption: buildModelLabel(modelName, label),
+        value: modelName,
         score: defaultScore
       }))
       callback(null, modelCompletions)
