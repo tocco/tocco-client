@@ -1,3 +1,7 @@
+1.0.2-hotfix31.8
+- update range values properly
+- harmonize error list spacing within forms
+
 1.0.2-hotfix31.7
 - ace editor works again in create forms
 
