@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom'
 import {notification} from 'tocco-app-extensions'
 import {Icon} from 'tocco-ui'
@@ -7,10 +7,14 @@ import {Icon} from 'tocco-ui'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
 import SearchPanel from '../SearchPanel/SearchPanel'
 import {
+  StyledResourceSchedulerWrapper,
   StyledSplitPanelWrapperLeft,
   StyledSplitPanelWrapperRight,
   StyledSplitPane,
-  StyledGutter
+  StyledGutter,
+  StyledPlaceHolder,
+  StyledToggleCollapse,
+  StyledToggleCollapseButton
 } from './StyledComponents'
 
 const getGutter = () => () => {
@@ -37,17 +41,45 @@ const ResourceScheduler = ({
     initialize()
   }, [initialize])
 
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [percentageSizes, setPercentageSizes] = useState([20, 80])
+  const [minPxSizes, setMinPxSizes] = useState([325, 650])
+
+  const toggleSizes = () => {
+    if (!isCollapsed) {
+      setPercentageSizes([0, 99])
+      setMinPxSizes([0, 975])
+    } else {
+      setPercentageSizes([20, 80])
+      setMinPxSizes([325, 650])
+    }
+  }
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed)
+    toggleSizes()
+  }
+
   return (
-    <>
+    <StyledResourceSchedulerWrapper>
+      <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
+        <StyledToggleCollapse isCollapsed={isCollapsed}>
+          <StyledToggleCollapseButton icon="chevron-right" isCollapsed={isCollapsed} />
+        </StyledToggleCollapse>
+      </StyledPlaceHolder>
       {handleNotifications && <notification.Notifications />}
       <StyledSplitPane
-        sizes={[20, 80]}
-        minSize={[325, 650]}
+        sizes={percentageSizes}
+        minSize={minPxSizes}
         direction="horizontal"
         cursor="col-resize"
         gutter={getGutter()}
+        isCollapsed={isCollapsed}
       >
-        <StyledSplitPanelWrapperLeft>
+        <StyledSplitPanelWrapperLeft isCollapsed={isCollapsed}>
+          <StyledToggleCollapse>
+            <StyledToggleCollapseButton icon="chevron-left" onClick={toggleCollapse} />
+          </StyledToggleCollapse>
           <SearchPanel
             locale={locale}
             calendarTypes={calendarTypes}
@@ -60,7 +92,7 @@ const ResourceScheduler = ({
           <SchedulerAppContainer />
         </StyledSplitPanelWrapperRight>
       </StyledSplitPane>
-    </>
+    </StyledResourceSchedulerWrapper>
   )
 }
 
