@@ -13,7 +13,7 @@ export const StyledHeader = styled.div`
   border-bottom: 3px solid ${theme.color('backgroundBody')};
   display: flex;
   justify-content: flex-end;
-  padding: 9px;
+  padding: ${scale.space(-0.53)};
   position: relative;
   z-index: 2; // higher than StyledTether to prevent cover on scroll
 
@@ -64,7 +64,7 @@ export const StyledToggleCollapseButton = styled(Button)`
 export const Box = styled.div`
   background-color: ${theme.color('paper')};
   overflow-y: auto;
-  padding: 0.6rem 1rem 0 0.6rem;
+  padding: ${scale.space(-1.1)} ${scale.space(-0.375)} 0 ${scale.space(-1.1)};
   position: relative;
 
   &:first-of-type {
@@ -97,7 +97,7 @@ export const StyledQueryBox = styled.div`
   position: relative;
   z-index: 2; // higher than StyledTether to prevent cover on scroll
   overflow-y: auto;
-  padding: 0.6rem 1rem 0 0.6rem;
+  padding: ${scale.space(-1.1)} ${scale.space(-0.375)} 0 ${scale.space(-1.1)};
 
   ${Menu} {
     z-index: 3; //higher than rest to lay over query field

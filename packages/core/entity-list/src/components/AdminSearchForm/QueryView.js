@@ -4,7 +4,7 @@ import {FormattedMessage} from 'react-intl'
 import {Ball, BallMenu, EditableValue, FormattedValue, MenuItem, StatedValue} from 'tocco-ui'
 import {react as customHooks} from 'tocco-util'
 
-import {AdminSearchGrid, StyledHeader, StyledQueryBox} from './StyedComponents'
+import {AdminSearchGrid, StyledHeader, StyledQueryBox, StyledToggleCollapseButton} from './StyedComponents'
 
 const QueryView = ({
   isCollapsed,
@@ -17,7 +17,8 @@ const QueryView = ({
   saveQueryAsFilter,
   setQuery,
   runQuery,
-  clearQuery
+  clearQuery,
+  toggleCollapse
 }) => {
   const formEl = useRef(null)
   customHooks.useAutofocus(formEl)
@@ -29,15 +30,19 @@ const QueryView = ({
     mode: 'tql',
     implicitModel: entityModel
   }
-  const queryExists = !!query && query.trim().length > 0
+  const queryExists = !!query?.trim().length > 0
   const queryHasErrors = queryError && Object.entries(queryError).length !== 0
+  const disableQueryView = () => setQueryViewVisible(false)
+  const isQueryFalsy = !queryExists || queryHasErrors
+
   return (
     <AdminSearchGrid isCollapsed={isCollapsed}>
       <StyledHeader>
+        <StyledToggleCollapseButton icon={'chevron-left'} isCollapsed={isCollapsed} onClick={toggleCollapse} />
         <Ball
           data-cy="search-view-button"
           icon="filter"
-          onClick={() => setQueryViewVisible(false)}
+          onClick={disableQueryView}
           title={msg('client.entity-list.search_view')}
         />
         <Ball
@@ -45,7 +50,7 @@ const QueryView = ({
           icon="search"
           onClick={runQuery}
           title={msg('client.entity-list.query.search')}
-          disabled={!queryExists || queryHasErrors}
+          disabled={isQueryFalsy}
         />
         <Ball
           data-cy="clear-button"
@@ -58,7 +63,7 @@ const QueryView = ({
           <MenuItem onClick={loadSearchAsQuery}>
             <FormattedMessage id="client.entity-list.query.search.open" />
           </MenuItem>
-          <MenuItem onClick={saveQueryAsFilter} disabled={!queryExists || queryHasErrors}>
+          <MenuItem onClick={saveQueryAsFilter} disabled={isQueryFalsy}>
             <FormattedMessage id="client.entity-list.query.filter.save" />
           </MenuItem>
         </BallMenu>
@@ -92,7 +97,8 @@ QueryView.propTypes = {
   saveQueryAsFilter: PropTypes.func.isRequired,
   setQuery: PropTypes.func.isRequired,
   runQuery: PropTypes.func.isRequired,
-  clearQuery: PropTypes.func.isRequired
+  clearQuery: PropTypes.func.isRequired,
+  toggleCollapse: PropTypes.func.isRequired
 }
 
 export default QueryView

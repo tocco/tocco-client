@@ -78,6 +78,10 @@ const SearchView = ({
     setQueryViewVisible(true)
     loadSearchAsQuery()
   }
+  const enableQueryView = () => setQueryViewVisible(true)
+  const toggleSearchFilterExpansion = () => setSearchFilterExpanded(!searchFilterExpanded)
+  const expandBallIcon = searchFilterExpanded ? 'chevron-up' : 'chevron-down'
+  const expandBallTitle = searchFilterExpanded ? msg('client.entity-list.contract') : msg('client.entity-list.expand')
 
   return (
     <AdminSearchGrid isCollapsed={isCollapsed}>
@@ -86,15 +90,11 @@ const SearchView = ({
         <Ball
           data-cy="query-view-button"
           icon="code"
-          onClick={() => setQueryViewVisible(true)}
+          onClick={enableQueryView}
           title={msg('client.entity-list.query_view')}
         />
         {showExpandSearchFilter && (
-          <Ball
-            icon={searchFilterExpanded ? 'chevron-up' : 'chevron-down'}
-            onClick={() => setSearchFilterExpanded(!searchFilterExpanded)}
-            title={searchFilterExpanded ? msg('client.entity-list.contract') : msg('client.entity-list.expand')}
-          />
+          <Ball icon={expandBallIcon} onClick={toggleSearchFilterExpansion} title={expandBallTitle} />
         )}
         <Ball data-cy="reset-button" icon="times" onClick={resetSearch} title={msg('client.entity-list.reset')} />
         <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
