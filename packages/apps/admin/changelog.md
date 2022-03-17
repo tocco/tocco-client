@@ -1,3 +1,11 @@
+1.0.25
+- fix ignored first input click
+- update range values properly
+- constrain tether to parent element to prevent z-index problems inside modal
+- replace old legacy export with new action
+- use bolt-lightning as bolt icon
+- tql autocompletion now displays localized labels in suggestions
+
 1.0.24
 - update react-tether dependency and change Menu.js to new method
 - remove react-split-pane dependency as we already have a library called react-split with almost the same features and us it instead
