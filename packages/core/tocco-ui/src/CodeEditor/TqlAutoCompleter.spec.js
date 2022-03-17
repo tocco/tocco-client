@@ -40,21 +40,33 @@ describe('tocco-ui', () => {
 
         fetchMock.get('/nice2/rest/entities', {
           entities: {
-            First: {},
-            Second: {}
+            First: {
+              metaData: {
+                modelName: 'First',
+                label: 'First Label'
+              }
+            },
+            Second: {
+              metaData: {
+                modelName: 'Second',
+                label: 'Second Label'
+              }
+            }
           }
         })
         fetchMock.get('/nice2/rest/entities/First/model', {
           fields: [
             {
               fieldName: 'field',
-              type: 'string'
+              type: 'string',
+              label: 'Field Label'
             }
           ],
           relations: [
             {
               relationName: 'relRelation',
-              targetEntity: 'Relation'
+              targetEntity: 'Relation',
+              label: 'Relation Label'
             }
           ]
         })
@@ -62,13 +74,15 @@ describe('tocco-ui', () => {
           fields: [
             {
               fieldName: 'implicit',
-              type: 'string'
+              type: 'string',
+              label: 'Implicit Field Label'
             }
           ],
           relations: [
             {
               relationName: 'relImplicit',
-              targetEntity: 'Implicit'
+              targetEntity: 'Implicit',
+              label: 'Implicit Relation Label'
             }
           ]
         })
@@ -76,17 +90,20 @@ describe('tocco-ui', () => {
           fields: [
             {
               fieldName: 'some_field',
-              type: 'int'
+              type: 'int',
+              label: 'Some Field Label'
             }
           ],
           relations: [
             {
               relationName: 'relAnother_model',
-              targetEntity: 'Another_model'
+              targetEntity: 'Another_model',
+              label: 'Another Model Label'
             },
             {
               relationName: 'relAnother_relation',
-              targetEntity: 'Another_model'
+              targetEntity: 'Another_model',
+              label: 'Another Relation Label'
             }
           ]
         })
@@ -101,8 +118,8 @@ describe('tocco-ui', () => {
 
       test('should load available models', async () => {
         const expectedCompletions = [
-          {caption: 'First', value: 'First', meta: 'model', score: 1000},
-          {caption: 'Second', value: 'Second', meta: 'model', score: 1000}
+          {caption: 'First (First Label)', value: 'First', score: 1000},
+          {caption: 'Second (Second Label)', value: 'Second', score: 1000}
         ]
 
         await runTest(expectedCompletions, {row: 0, column: 5})
@@ -121,8 +138,8 @@ describe('tocco-ui', () => {
 
       test('should load available model paths', async () => {
         const expectedCompletions = [
-          {caption: 'field (string)', value: 'field', meta: 'field', score: 1000},
-          {caption: 'relRelation', value: 'relRelation', meta: 'relation', score: 1000}
+          {caption: 'field (Field Label)', value: 'field', meta: 'string', score: 1000},
+          {caption: 'relRelation (Relation Label)', value: 'relRelation', meta: 'Relation', score: 1000}
         ]
 
         await runTest(expectedCompletions, {row: 0, column: 17}, 1)
@@ -130,8 +147,8 @@ describe('tocco-ui', () => {
 
       test('should load available model paths from implicit model', async () => {
         const expectedCompletions = [
-          {caption: 'implicit (string)', value: 'implicit', meta: 'field', score: 1000},
-          {caption: 'relImplicit', value: 'relImplicit', meta: 'relation', score: 1000}
+          {caption: 'implicit (Implicit Field Label)', value: 'implicit', meta: 'string', score: 1000},
+          {caption: 'relImplicit (Implicit Relation Label)', value: 'relImplicit', meta: 'Implicit', score: 1000}
         ]
 
         aceSession.setValue('')
@@ -140,8 +157,8 @@ describe('tocco-ui', () => {
 
       test('should load available model paths in order by', async () => {
         const expectedCompletions = [
-          {caption: 'field (string)', value: 'field', meta: 'field', score: 1000},
-          {caption: 'relRelation', value: 'relRelation', meta: 'relation', score: 1000}
+          {caption: 'field (Field Label)', value: 'field', meta: 'string', score: 1000},
+          {caption: 'relRelation (Relation Label)', value: 'relRelation', meta: 'Relation', score: 1000}
         ]
 
         await runTest(expectedCompletions, {row: 0, column: 55})
@@ -149,9 +166,19 @@ describe('tocco-ui', () => {
 
       test('should load available relation paths', async () => {
         const expectedCompletions = [
-          {caption: 'some_field (int)', value: 'some_field', meta: 'field', score: 1000},
-          {caption: 'relAnother_model', value: 'relAnother_model', meta: 'relation', score: 1000},
-          {caption: 'relAnother_relation (Another_model)', value: 'relAnother_relation', meta: 'relation', score: 1000}
+          {caption: 'some_field (Some Field Label)', value: 'some_field', meta: 'int', score: 1000},
+          {
+            caption: 'relAnother_model (Another Model Label)',
+            value: 'relAnother_model',
+            meta: 'Another_model',
+            score: 1000
+          },
+          {
+            caption: 'relAnother_relation (Another Relation Label)',
+            value: 'relAnother_relation',
+            meta: 'Another_model',
+            score: 1000
+          }
         ]
 
         await runTest(expectedCompletions, {row: 0, column: 29})
