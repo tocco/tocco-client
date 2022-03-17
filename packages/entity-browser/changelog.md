@@ -1,3 +1,7 @@
+1.0.0-hotfix30.23
+- update range values properly
+- harmonize error list spacing within forms
+
 1.0.0-hotfix30.22
 - fix sticky popover on table
 
