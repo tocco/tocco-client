@@ -69,9 +69,9 @@ if [[ $auto = false ]]; then
   git checkout -b ${targetBranch}
 fi
 
-git commit -m "docs(${package}): changelog ${new_version}" ${changelog_file}
+git commit --no-verify -m "docs(${package}): changelog ${new_version}" ${changelog_file}
 echo "releasing and publishing ${package} with version ${new_version}"
-yarn publish --new-version ${new_version}
+yarn publish --no-commit-hooks --new-version ${new_version}
 exitCode="$?"
 if [ $exitCode != 0 ]; then
   echo "yarn publish exited with code $exitCode (error)"
