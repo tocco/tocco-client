@@ -72,6 +72,11 @@ fi
 git commit -m "docs(${package}): changelog ${new_version}" ${changelog_file}
 echo "releasing and publishing ${package} with version ${new_version}"
 yarn publish --new-version ${new_version}
+exitCode="$?"
+if [ $exitCode != 0 ]; then
+  echo "yarn publish exited with code $exitCode (error)"
+  exit 1
+fi
 git tag --delete _tocco-${package}@${new_version}
 
 if [[ $auto = true ]]; then
