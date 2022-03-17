@@ -42,7 +42,7 @@ const Toaster = ({toaster, closeToaster, cancelTask, navigationStrategy}) => {
       <StyledIconTitleWrapper>
         {toaster.icon && (
           <StyledIconWrapper>
-            <Icon icon={toaster.icon} />
+            <Icon icon={toaster.icon} hasFixedWidth={false} />
           </StyledIconWrapper>
         )}
         {toaster.title && (
