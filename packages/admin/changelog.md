@@ -1,3 +1,8 @@
+1.0.14-hotfix31.12
+- update range values properly
+- harmonize error list spacing within forms
+- improve data handling on search query changes
+
 1.0.14-hotfix31.11
 - fix entity-list re-init handling on store updates
 - fix docs browser back navigation for search view
