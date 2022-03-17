@@ -1,3 +1,7 @@
+1.0.0-hotfix30.25
+- update range values properly
+- harmonize error list spacing within forms
+
 1.0.0-hotfix30.24
 - fix docs browser back navigation for search view
 
