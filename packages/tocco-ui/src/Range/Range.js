@@ -79,6 +79,9 @@ const Range = props => {
   const getRangeValue = value =>
     typeMapping?.toRange ? typeMapping.toRange(value) : {from: value, to: value, isRangeValue: true}
 
+  const rangeValueIcon = typeMapping?.icons?.range || 'chevron-down'
+  const singleValueIcon = typeMapping?.icons?.single || 'chevron-left'
+
   const baseType = typeMapping?.type || type
 
   return (
@@ -115,7 +118,7 @@ const Range = props => {
       <StyledExtender>
         <Ball
           disabled={readOnly}
-          icon={hasRangeValue ? 'chevron-left' : 'chevron-down'}
+          icon={hasRangeValue ? singleValueIcon : rangeValueIcon}
           onClick={() => {
             const val = hasRangeValue ? getFromOrTo(value) : getRangeValue(value)
             events.onChange(val)
