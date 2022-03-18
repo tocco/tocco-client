@@ -31,7 +31,7 @@ const initializeFlatPickr = (element, {shouldAppend, onChange, value, fontFamily
     enableTime: false,
     defaultDate: value,
 
-    ...(shouldAppend ? {appendTo: element.current} : {}),
+    ...(shouldAppend ? {appendTo: element.current, static: true} : {}),
     ...(calendarLocale ? {locale: calendarLocale} : {}),
     ...flatpickrOptions
   }
