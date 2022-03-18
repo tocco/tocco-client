@@ -174,12 +174,19 @@ const FullCalendar = ({
             ]
           },
           monthView: {
-            type: 'resourceTimelineMonth',
+            type: 'resourceTimeline',
             slotLabelFormat: {
               weekday: 'short',
               month: 'numeric',
               day: 'numeric',
               omitCommas: true
+            },
+            visibleRange: function (currentDate) {
+              const startDate = new Date(currentDate.valueOf())
+              const endDate = moment(startDate).add(1, 'months').toDate()
+
+              const range = {start: startDate, end: endDate}
+              return range
             }
           }
         }}
