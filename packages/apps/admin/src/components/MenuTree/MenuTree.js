@@ -1,11 +1,19 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
-import {Typography} from 'tocco-ui'
+import {Icon} from 'tocco-ui'
 
 import {prepareMenuTree} from '../../utils/navigationUtils'
 import MenuItem from './MenuItem'
-import {StyledExtendedSearchTitle, StyledMenuEntryWrapper} from './StyledComponents'
+import {
+  StyledExtendedSearchWrapper,
+  StyledTitle,
+  StyledMenuEntryWrapper,
+  StyledMenuItemsWrapper,
+  StyledNoSearchResultsTxt,
+  StyledIconTitleWrapper,
+  StyledIconWrapper
+} from './StyledComponents'
 
 const MenuTree = ({items, extendedSearchItems, searchFilter, typeMapping, requireSearch}) => {
   if (requireSearch && !searchFilter) {
@@ -31,25 +39,31 @@ const MenuTree = ({items, extendedSearchItems, searchFilter, typeMapping, requir
 
   const showExtendedSearch = searchFilter && actualItems.length === 0
   const hasExtendedSearchResult = actualExtendedSearchItems.length > 0
+  const ExtendedSearch = (
+    <StyledExtendedSearchWrapper>
+      <StyledNoSearchResultsTxt>
+        <FormattedMessage id="client.admin.navigation.noResults" />
+      </StyledNoSearchResultsTxt>
+      {hasExtendedSearchResult && (
+        <>
+          <StyledIconTitleWrapper>
+            <StyledIconWrapper>
+              <Icon icon="lightbulb-exclamation" />
+            </StyledIconWrapper>
+            <StyledTitle>
+              <FormattedMessage id="client.admin.navigation.moreResults" />
+            </StyledTitle>
+          </StyledIconTitleWrapper>
+          <StyledMenuItemsWrapper>{ExtendedSearchMenuItems}</StyledMenuItemsWrapper>
+        </>
+      )}
+    </StyledExtendedSearchWrapper>
+  )
 
   return (
     <StyledMenuEntryWrapper>
       {MenuItems}
-      {showExtendedSearch && (
-        <>
-          <Typography.P>
-            <FormattedMessage id="client.admin.navigation.noResults" />
-          </Typography.P>
-          {hasExtendedSearchResult && (
-            <>
-              <StyledExtendedSearchTitle>
-                <FormattedMessage id="client.admin.navigation.moreResults" />
-              </StyledExtendedSearchTitle>
-              {ExtendedSearchMenuItems}
-            </>
-          )}
-        </>
-      )}
+      {showExtendedSearch && ExtendedSearch}
     </StyledMenuEntryWrapper>
   )
 }

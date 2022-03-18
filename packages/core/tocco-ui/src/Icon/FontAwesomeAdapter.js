@@ -90,7 +90,8 @@ import {
   faTimesCircle,
   faTrash,
   faUpload,
-  faUsers
+  faUsers,
+  faLightbulbExclamation
 } from '@fortawesome/pro-light-svg-icons'
 import {
   faPaperclip,
@@ -198,7 +199,8 @@ import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
     faUpload,
     faLock,
     faCode,
-    faFilter
+    faFilter,
+    faLightbulbExclamation
   )
 })()
 
