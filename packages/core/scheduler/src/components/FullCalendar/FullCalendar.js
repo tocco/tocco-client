@@ -177,7 +177,6 @@ const FullCalendar = ({
             type: 'resourceTimelineMonth',
             slotLabelFormat: {
               weekday: 'short',
-              month: 'numeric',
               day: 'numeric',
               omitCommas: true
             }
