@@ -6,6 +6,10 @@ const dateFormat = 'YYYY-MM-DD'
 const rangeTypeMappings = {
   datetime: {
     type: 'date',
+    icons: {
+      range: 'calendar-plus',
+      single: 'calendar-minus'
+    },
     toRange: value => {
       const fromValue = value ? moment(value).utc().format(datetimeFormat) : null
       const toValue = value ? moment(value).utc().add(1, 'd').format(datetimeFormat) : null
@@ -24,6 +28,10 @@ const rangeTypeMappings = {
     getFromOptions: (options, toValue) => ({...options, flatpickrOptions: {maxDate: toValue}})
   },
   date: {
+    icons: {
+      range: 'calendar-plus',
+      single: 'calendar-minus'
+    },
     getToOptions: (options, fromValue) => ({...options, flatpickrOptions: {minDate: fromValue}}),
     getFromOptions: (options, toValue) => ({...options, flatpickrOptions: {maxDate: toValue}})
   }
