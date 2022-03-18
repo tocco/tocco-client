@@ -391,5 +391,9 @@
   "users": {
     "id": "fal, users",
     "lib": "fa"
+  },
+  "lightbulb-exclamation": {
+    "id": "fal, lightbulb-exclamation",
+    "lib": "fa"
   }
 }
