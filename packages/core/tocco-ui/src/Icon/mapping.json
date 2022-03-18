@@ -70,6 +70,14 @@
     "id": "fal, calendar-check",
     "lib": "fa"
   },
+  "calendar-minus": {
+    "id": "fal, calendar-minus",
+    "lib": "fa"
+  },
+  "calendar-plus": {
+    "id": "fal, calendar-plus",
+    "lib": "fa"
+  },
   "chalkboard-teacher": {
     "id": "fal, chalkboard-teacher",
     "lib": "fa"
