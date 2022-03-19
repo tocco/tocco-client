@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
-import {Button, LoadMask, Select} from 'tocco-ui'
+import {Button, LoadMask, Select, StatedValue} from 'tocco-ui'
+
+import {StyledStickyButton} from './StyledComponents'
 
 const Selection = ({intl, loadReports, openReportAction, reports, selectedReport, setSelectedReport}) => {
   const msg = id => intl.formatMessage({id})
@@ -11,14 +13,18 @@ const Selection = ({intl, loadReports, openReportAction, reports, selectedReport
 
   return (
     <LoadMask required={[reports]}>
-      <Select isMulti={false} value={selectedReport} options={reports} onChange={setSelectedReport} />
-      <Button
-        look="raised"
-        ink="primary"
-        onClick={() => openReportAction(selectedReport.key)}
-        label={msg('client.entity-report.next')}
-        disabled={selectedReport == null}
-      />
+      <StatedValue>
+        <Select isMulti={false} value={selectedReport} options={reports} onChange={setSelectedReport} />
+      </StatedValue>
+      <StyledStickyButton>
+        <Button
+          look="raised"
+          ink="primary"
+          onClick={() => openReportAction(selectedReport.key)}
+          label={msg('client.entity-report.next')}
+          disabled={selectedReport == null}
+        />
+      </StyledStickyButton>
     </LoadMask>
   )
 }
