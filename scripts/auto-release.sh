@@ -19,15 +19,11 @@ echo "@fortawesome:registry=https://npm.fontawesome.com/
 //npm.fontawesome.com/:_authToken=${FONTAWESOME_NPM_AUTH_TOKEN}
 //registry.npmjs.org/:_authToken=${NPMJS_AUTH_TOKEN}" >> ~/.npmrc
 # use env variable FULL_CALENDAR_LICENCE
-yarn release-all-packages
+yarn release-packages --all --auto
 
 commit_id_after=$(git rev-parse HEAD)
 
-if [ $commit_id_before == $commit_id_after ]; then
-  echo "Nothing was released"
-else
-    new_branch=releasing/_${CI_COMMIT_BRANCH}_auto-$(date +%s%N)
-    git checkout -b $new_branch
-    git push origin $new_branch
+if [ $commit_id_before != $commit_id_after ]; then
+    git push origin $(git rev-parse --abbrev-ref HEAD)
     echo "Push commits"
 fi
