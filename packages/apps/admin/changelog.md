@@ -1,3 +1,12 @@
+1.0.26
+- add hasFixedWidth prop to harmonize spacing if necessary
+- show from and to placeholders on ranges
+- add collapse feature to resource-scheduler
+- add collapse feature to tql view in entity-list
+- add calendar plus and minus icons
+- add specific range icons for datetime
+- fix date picker modal position
+
 1.0.25
 - fix ignored first input click
 - update range values properly
