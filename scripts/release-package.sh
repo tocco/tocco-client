@@ -1,29 +1,12 @@
 #!/bin/bash
 package=$1
 
+# Script should not be called directly as some variables are set by the releases-packages.sh file
+
 source ./scripts/helpers.sh
-setColors
 checkPackage
 setGitVars
-setNiceVersion
-setCurrentReleaseTag
 setNextVersion
-
-if [[ $* == *--auto* ]]; then
-  auto=true
-  echo "Questions are disabled and automatically with default values answered"
-else
-  auto=false
-fi
-
-if [[ -z $(git status -s) ]]
-then
-  echo "${color_green}Git tree is clean!${color_reset}"
-else
-  echo "${color_red}Git tree is dirty, please commit changes before running the release script.${color_reset}"
-  git status -s
-  exit 1
-fi
 
 if [[ -z "${changelog}" && $auto = true ]]; then
 	echo "${color_red}Skip package ${package} because changelog is empty. ${color_reset}"
@@ -63,12 +46,6 @@ else
   read -p "${color_green}Edit the changelog and press ENTER to continue${color_reset}"
 fi
 
-if [[ $auto = false ]]; then
-  targetBranch=releasing/_${current_branch}_${package}@${new_version}
-  echo "Checkin out new branch ${targetBranch}"
-  git checkout -b ${targetBranch}
-fi
-
 git commit --no-verify -m "docs(${package}): changelog ${new_version}" ${changelog_file}
 echo "releasing and publishing ${package} with version ${new_version}"
 yarn publish --no-commit-hooks --new-version ${new_version}
@@ -78,25 +55,6 @@ if [ $exitCode != 0 ]; then
   exit 1
 fi
 git tag --delete _tocco-${package}@${new_version}
-
-if [[ $auto = true ]]; then
-  PUSH="n"
-  echo "Pushing commits is skipped"
-else
-  read -p "Push commits (y/n)?" PUSH
-fi
-
-if [ "$PUSH" = "y" ] || [ "$PUSH" = "Y" ]; then
-  git push --set-upstream git@github.com:tocco/tocco-client.git ${targetBranch}
-  echo "${color_green}Commits pushed to ${targetBranch}!${color_reset}"
-else
-  echo "${color_red}Nothing pushed!${color_reset}"
-fi
-
-if [[ $auto = false ]]; then
-  echo "Checkin out ${current_branch}"
-  git checkout ${current_branch}
-fi
 
 if [[ $auto = true ]]; then
   CREATE_TAG="y"
