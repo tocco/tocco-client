@@ -20,17 +20,20 @@ echo "Matching commit: $matching_commit"
 for commit in $(git rev-list $matching_commit..HEAD | tac)
 do
     msg="$(git log --format=%s -n 1 $commit)"
-    full_msg="$(git log --format=%B -n 2 $commit)"
-    isPublish="$(echo $msg | grep -o 'chore: publish' | wc -l)"
+    full_msg="$(git log --format=%b -n 1 $commit)"
+    isPublish="$(echo $msg | grep -o 'chore: release packages' | wc -l)"
     echo "found commit $isPublish: $msg"
     if [ $isPublish == 1 ]; then
         echo "Commit '$msg' ($commit) is a release commit"
-        tag_name="$(echo "$full_msg" | grep -e '- ' | sed 's/- //g')"
+        tags="$(echo "$full_msg" | awk NF | grep -e '- ' | sed 's/- //g')"
 
-        echo "Create tag '$tag_name'"
-        git tag -f $tag_name $commit
+        while read -r tag_name
+        do
+            echo "Create tag '$tag_name'"
+            git tag -f $tag_name $commit
 
-        echo "Push tag '$tag_name'"
-        git push --set-upstream git@github.com:tocco/tocco-client.git $tag_name
+            echo "Push tag '$tag_name'"
+            git push --set-upstream git@github.com:tocco/tocco-client.git $tag_name
+        done < <(echo -e "$tags")
     fi
 done
