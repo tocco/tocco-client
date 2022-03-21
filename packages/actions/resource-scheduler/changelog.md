@@ -1,3 +1,27 @@
+1.0.8
+- update react-tether dependency and change Menu.js to new method
+- remove react-split-pane dependency as we already have a library called react-split with almost the same features and us it instead
+- refactor dispatch actions
+- refactor dispatch actions
+- fix entity-list re-init handling on store updates
+- improve data handling on search query changes
+- update react-dropzone dependancy
+- harmonize error list spacing within forms
+- add trigger action event
+- fix ignored first input click
+- update range values properly
+- constrain tether to parent element to prevent z-index problems inside modal
+- use bolt-lightning as bolt icon
+- tql autocompletion now displays localized labels in suggestions
+- add hasFixedWidth prop to harmonize spacing if necessary
+- show from and to placeholders on ranges
+- add collapse feature to resource-scheduler
+- add collapse feature to tql view in entity-list
+- add calendar plus and minus icons
+- add specific range icons for datetime
+- fix date picker modal position
+- omit month in slot label for month view
+
 1.0.7
 - ace editor works again in create forms
 - fix table flicker on firefox
