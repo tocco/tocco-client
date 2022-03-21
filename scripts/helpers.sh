@@ -28,15 +28,8 @@ function setColors(){
 }
 
 function setGitVars() {
-  current_branch=$(git rev-parse --abbrev-ref HEAD)
-  remote_branch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} | cut -d '/' -f2-)
   last_release_tag=$(git describe --tags --match 'tocco-'${package}'@*' --abbrev=0 ${current_branch})
   last_version=$(echo ${last_release_tag} | awk -F '@' '{print $2}')
-
-  if [[ $remote_branch != "master" && $remote_branch != nice-releases/* ]]; then
-    echo "Running release script is not allowed if remote branch is not master or nice-releases/*"
-    exit 1
-  fi
 
   greps=$(getDevDependenciesGreps)
   changelog=$(git log --pretty='%b' "${last_release_tag}"..HEAD --grep="${package}" ${greps} --reverse | grep -E '^Changelog:' | awk '{gsub("Changelog:", "-", $0); print}')
