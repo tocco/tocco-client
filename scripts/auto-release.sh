@@ -7,11 +7,11 @@ setNiceVersion
 repo="tocco/tocco-client"
 branch="nice-releases/${nice_version}"
 
-source ./scripts/github.sh
+source ./scripts/git.sh
 setupGithub
 cd $(mktemp -d)
 git clone git@github.com:${repo}.git . --single-branch --branch $CI_COMMIT_BRANCH
-setupGitUser
+setupGithubUser
 
 commit_id_before=$(git rev-parse HEAD)
 
