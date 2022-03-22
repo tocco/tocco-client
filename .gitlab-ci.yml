@@ -139,7 +139,7 @@ cypress:
   artifacts:
     paths:
       - cypress/videos
-    expire_in: 4 weeks
+    expire_in: 1 week
     when: always
 
 tagging:
