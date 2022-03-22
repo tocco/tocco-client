@@ -5,7 +5,7 @@ set -eu # Exit with nonzero exit code if anything fails
 # then create the missing tags. Thus all releases have tags that dont have to be merged within the according commit.
 
 echo "---Release Tagging Script---"
-source ./scripts/github.sh
+source ./scripts/git.sh
 setupGithub
 
 echo "Cloning branch $CI_COMMIT_BRANCH"
