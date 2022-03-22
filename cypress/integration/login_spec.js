@@ -14,7 +14,7 @@ describe('Login', () => {
   describe('Login', () => {
     it('should load and display login view', () => {
       cy.get('[data-cy=login-form_user-input]', {timeout: 15000}).should('be.visible')
-      cy.get('button').should('have.length', 2)
+      cy.get('#root button').should('have.length', 2)
     })
 
     it('should not be possible to click login button', () => {
