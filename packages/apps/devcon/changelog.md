@@ -1,3 +1,18 @@
+1.0.7
+- update react-tether dependency and change Menu.js to new method
+- update react-dropzone dependancy
+- harmonize error list spacing within forms
+- fix ignored first input click
+- update range values properly
+- constrain tether to parent element to prevent z-index problems inside modal
+- use bolt-lightning as bolt icon
+- tql autocompletion now displays localized labels in suggestions
+- add hasFixedWidth prop to harmonize spacing if necessary
+- show from and to placeholders on ranges
+- add calendar plus and minus icons
+- add specific range icons for datetime
+- fix date picker modal position
+
 1.0.6
 - ace editor works again in create forms
 

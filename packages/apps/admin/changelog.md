@@ -1,3 +1,7 @@
+1.0.27
+- style entity-report action dialog
+- harmonize extended search result styling
+
 1.0.26
 - add hasFixedWidth prop to harmonize spacing if necessary
 - show from and to placeholders on ranges
