@@ -62,12 +62,12 @@ tag="auto-merge/${nice_version}"
 branch="nice-releases/${nice_version}"
 target_branch=$(head -n 1 target-branch.txt)
 
-source ./scripts/github.sh
+source ./scripts/git.sh
 setupGithub
 # clone and checkout target branch
 cd $(mktemp -d)
 git clone git@github.com:${repo}.git . --single-branch --branch $target_branch
-setupGitUser
+setupGithubUser
 
 # checkout source branch
 git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
