@@ -65,6 +65,7 @@ storybook:
   only:
     - external_pull_requests
     - master
+    - /^nice-releases\/[0-9]+$/
   before_script:
     - apk update && apk add bash && apk add openssh-client && apk add git
   script:
