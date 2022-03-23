@@ -13,7 +13,7 @@ function setupGithub() {
 function setupGitlab() {
   # add ssh key of user
   eval $(ssh-agent -s)
-  ssh-add <(echo "$GITLAB_SSH_PRIVATE_KEY" | base64 -d)
+  ssh-add <(echo "$GITLAB_DEPLOY_PRIVATE_KEY" | base64 -d)
 
   # add github as known host
   mkdir -p ~/.ssh
