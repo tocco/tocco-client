@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Icon, LoadingSpinner} from 'tocco-ui'
 import {download} from 'tocco-util'
-import {FormattedMessage} from 'react-intl'
+import {injectIntl, FormattedMessage} from 'react-intl'
 import _groupBy from 'lodash/groupBy'
 
 import {notificationPropType, TYPES} from '../../types'
@@ -20,9 +20,10 @@ import {
 } from './StyledComponents'
 import {resultTypes} from '../../api'
 
-const Result = ({
+const Result = injectIntl(({
   notification: {result},
-  navigationStrategy
+  navigationStrategy,
+  intl
 }) => {
   const {
     type,
@@ -30,17 +31,22 @@ const Result = ({
     content
   } = result
 
+  const msg = id => intl.formatMessage({id})
+
+  const openLinkTitle = msg('client.common.notification.outputJobFileLink')
+  const downloadLinkTitle = msg('client.common.notification.outputJobFileDownload')
+
   if (type === resultTypes.outputjob) {
     if (file) {
       return (
         <StyledOutputJobWrapper>
           <StyledFileDescription>
-            <a href={file.link} target="_blank " title="open">
+            <a href={file.link} target="_blank" rel="noreferrer" title={openLinkTitle}>
               {file.description}
             </a>
           </StyledFileDescription>
           <div>
-            <a href={file.link} target="_blank " title="open">
+            <a href={file.link} target="_blank" rel="noreferrer" title={openLinkTitle}>
               <StyledIconWrapper><Icon icon="external-link"/></StyledIconWrapper>
               <FormattedMessage id="client.common.notification.outputJobFileLink"/>
             </a>
@@ -50,7 +56,7 @@ const Result = ({
             href={download.addParameterToURL(file.link, 'download', true)}
             target="_blank"
             rel="noreferrer"
-            title="download">
+            title={downloadLinkTitle}>
             <StyledIconWrapper><Icon icon="arrow-to-bottom"/></StyledIconWrapper>
             <FormattedMessage id="client.common.notification.outputJobFileDownload"/>
           </a>
@@ -87,9 +93,10 @@ const Result = ({
   }
 
   return null
-}
+})
 
 Result.propTypes = {
+  intl: PropTypes.object.isRequired,
   notification: notificationPropType.isRequired,
   navigationStrategy: PropTypes.shape({
     DetailLink: PropTypes.elementType,
