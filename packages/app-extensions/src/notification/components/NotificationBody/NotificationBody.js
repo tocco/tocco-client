@@ -1,7 +1,7 @@
 import _groupBy from 'lodash/groupBy'
 import PropTypes from 'prop-types'
 import React from 'react'
-import {FormattedMessage} from 'react-intl'
+import {injectIntl, FormattedMessage} from 'react-intl'
 import {Icon, LoadingSpinner} from 'tocco-ui'
 import {download} from 'tocco-util'
 
@@ -20,20 +20,25 @@ import {
   StyledTaskProgressWrapper
 } from './StyledComponents'
 
-const Result = ({notification: {result}, navigationStrategy}) => {
+const Result = injectIntl(({notification: {result}, navigationStrategy, intl}) => {
   const {type, file, content} = result
+
+  const msg = id => intl.formatMessage({id})
+
+  const openLinkTitle = msg('client.common.notification.outputJobFileLink')
+  const downloadLinkTitle = msg('client.common.notification.outputJobFileDownload')
 
   if (type === resultTypes.outputjob) {
     if (file) {
       return (
         <StyledOutputJobWrapper>
           <StyledFileDescription>
-            <a href={file.link} target="_blank " title="open">
+            <a href={file.link} target="_blank" rel="noreferrer" title={openLinkTitle}>
               {file.description}
             </a>
           </StyledFileDescription>
           <div>
-            <a href={file.link} target="_blank " title="open">
+            <a href={file.link} target="_blank" rel="noreferrer" title={openLinkTitle}>
               <StyledIconWrapper>
                 <Icon icon="external-link" />
               </StyledIconWrapper>
@@ -45,7 +50,7 @@ const Result = ({notification: {result}, navigationStrategy}) => {
               href={download.addParameterToURL(file.link, 'download', true)}
               target="_blank"
               rel="noreferrer"
-              title="download"
+              title={downloadLinkTitle}
             >
               <StyledIconWrapper>
                 <Icon icon="arrow-to-bottom" />
@@ -84,9 +89,10 @@ const Result = ({notification: {result}, navigationStrategy}) => {
   }
 
   return null
-}
+})
 
 Result.propTypes = {
+  intl: PropTypes.object.isRequired,
   notification: notificationPropType.isRequired,
   navigationStrategy: PropTypes.shape({
     DetailLink: PropTypes.elementType,
