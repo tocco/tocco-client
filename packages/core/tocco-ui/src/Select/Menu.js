@@ -11,6 +11,7 @@ const Menu = props => (
     constraints={[
       {
         to: 'scrollParent',
+        attachment: 'together',
         pin: true
       },
       {
