@@ -3,8 +3,8 @@ export default {
   colors: {
     paper: '#FFFFFF',
     primary: '#000000',
-    secondary: '#8C8C8C',
-    secondaryLight: '#4D4D4D',
+    secondary: '#333',
+    secondaryLight: '#7c7c7c',
     text: '#000',
     backgroundBody: '#EDF1F5',
     backgroundBreadcrumbs: '#DEE6ED',
