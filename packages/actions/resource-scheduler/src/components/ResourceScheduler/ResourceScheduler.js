@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
 import {notification} from 'tocco-app-extensions'
 import {Icon} from 'tocco-ui'
@@ -55,9 +55,14 @@ const ResourceScheduler = ({
     }
   }
 
+  const schedulerRef = useRef(null)
+
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed)
     toggleSizes()
+    if (schedulerRef.current) {
+      schedulerRef.current.updateSize()
+    }
   }
 
   return (
@@ -89,7 +94,7 @@ const ResourceScheduler = ({
           />
         </StyledSplitPanelWrapperLeft>
         <StyledSplitPanelWrapperRight>
-          <SchedulerAppContainer />
+          <SchedulerAppContainer schedulerRef={schedulerRef} />
         </StyledSplitPanelWrapperRight>
       </StyledSplitPane>
     </StyledResourceSchedulerWrapper>
