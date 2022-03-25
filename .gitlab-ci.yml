@@ -64,7 +64,7 @@ test:
     - external_pull_requests
     - master
   script:
-    - yarn test --ci --forceExit --runInBand --detectOpenHandles
+    - yarn test --ci
   after_script:
     - yarn codecov
   interruptible: true
