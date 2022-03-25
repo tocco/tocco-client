@@ -67,7 +67,7 @@ test:
     paths:
       - coverage/
   script:
-    - yarn test --ci --forceExit --runInBand --detectOpenHandles
+    - yarn test --ci
   after_script:
     - yarn codecov
   interruptible: true
