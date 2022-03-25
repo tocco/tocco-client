@@ -3,6 +3,17 @@ image: node:16.13.2-alpine
 variables:
   CYPRESS_INSTALL_BINARY: "0"
 
+  # Feature flags (https://docs.gitlab.com/runner/configuration/feature-flags.html)
+
+  FF_USE_FASTZIP: 'true'        # Use faster, concurrent zip implementation for cache/artifacts.
+
+  FF_NETWORK_PER_BUILD: 'true'  # Create a virtual network for every build.
+                                #
+                                # Expected to be enabled and enforced on our own runners in the near
+                                # future for security reasons.
+                                #
+                                # https://docs.gitlab.com/runner/executors/docker.html#create-a-network-for-each-job
+
 stages:
   - chore
   - setup
