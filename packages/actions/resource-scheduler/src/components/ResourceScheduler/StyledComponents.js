@@ -43,7 +43,7 @@ export const StyledToggleCollapse = styled.div`
 
 export const StyledPlaceHolder = styled.div`
   display: ${({isCollapsed}) => (isCollapsed ? 'flex' : 'none')};
-  flex: 1;
+  ${({isCollapsed}) => !isCollapsed && 'flex: 1'};
   height: 100%;
   width: 25px;
   background: ${theme.color('paper')};
@@ -75,6 +75,7 @@ export const StyledSplitPane = styled(Split)`
   display: flex;
   flex-direction: row;
   height: 100%;
+  width: 100%;
 
   ${StyledGutter} {
     display: ${({isCollapsed}) => (isCollapsed ? 'none' : 'block')};
