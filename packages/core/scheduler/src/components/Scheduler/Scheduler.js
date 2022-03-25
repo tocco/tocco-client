@@ -15,10 +15,13 @@ const Scheduler = props => (
     onRefresh={props.onRefresh}
     locale={props.locale}
     isLoading={props.isLoading}
+    intl={props.intl}
+    ref={props.schedulerRef}
   />
 )
 
 Scheduler.propTypes = {
+  intl: PropTypes.object.isRequired,
   calendars: PropTypes.arrayOf(
     PropTypes.shape({
       calendarType: PropTypes.string.isRequired,
@@ -41,7 +44,8 @@ Scheduler.propTypes = {
   onEventClick: PropTypes.func,
   onRefresh: PropTypes.func,
   locale: PropTypes.string,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  schedulerRef: PropTypes.object
 }
 
 export default Scheduler

@@ -22,7 +22,8 @@ const mapStateToProps = (state, props) => {
   return {
     calendars: state.scheduler.calendars,
     locale: state.intl.locale,
-    isLoading: state.scheduler.isLoading
+    isLoading: state.scheduler.isLoading,
+    schedulerRef: state.input.schedulerRef
   }
 }
 
