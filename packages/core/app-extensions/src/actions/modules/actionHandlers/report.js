@@ -7,7 +7,7 @@ import {v4 as uuid} from 'uuid'
 import notification from '../../../notification'
 import rest from '../../../rest'
 import ReportSettings from '../../components/ReportSettings'
-import {invokeActionAsync} from './simpleAction'
+import {invokeActionSync} from './simpleAction'
 
 export default function* (actionDefinition, selection, parent, params, config) {
   const answerChannel = yield call(channel)
@@ -75,7 +75,8 @@ export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId,
       formData: customSettingsEntity
     }
 
-    yield call(invokeActionAsync, definition, selection, null, params)
+    // TODO asynchronous actions are currently not suppored by the backend (refactor backend code)
+    yield call(invokeActionSync, definition, selection, null, params)
     yield put(notification.removeModal(settingsModalId))
   }
 }

@@ -76,6 +76,10 @@ const initApp = (id, input, events, publicPath) => {
     env.setBusinessUnit(input.runInBusinessUnit)
   }
 
+  // TODO use input variable
+  // TODO add to widget configuration in backend
+  env.setRuleProvider('test')
+
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)

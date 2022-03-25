@@ -41,6 +41,10 @@ export const prepareHeaders = options => {
     headers.set('X-Client', 'client')
   }
 
+  if (env.getRuleProvider()) {
+    headers.set('X-Rule-Provider-Id', env.getRuleProvider())
+  }
+
   return headers
 }
 

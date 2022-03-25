@@ -2,7 +2,8 @@ export const NULL_BUSINESS_UNIT = '__n-u-l-l__'
 
 const env = {
   backendUrl: undefined,
-  businessUnit: undefined
+  businessUnit: undefined,
+  ruleProvider: undefined
 }
 
 export const getBackendUrl = () => {
@@ -19,4 +20,12 @@ export const getBusinessUnit = () => {
 
 export const setBusinessUnit = value => {
   env.businessUnit = value
+}
+
+export const getRuleProvider = () => {
+  return env.ruleProvider
+}
+
+export const setRuleProvider = value => {
+  env.ruleProvider = value
 }
