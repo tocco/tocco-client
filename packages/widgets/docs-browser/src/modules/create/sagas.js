@@ -79,7 +79,7 @@ export function* createDocuments(location, files) {
 
   const formData = new FormData()
   for (const file of files) {
-    formData.append('files', file)
+    formData.append('files[]', file)
   }
 
   const resource = `documents/${node.model}/${node.key}`
