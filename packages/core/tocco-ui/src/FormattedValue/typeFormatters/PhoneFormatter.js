@@ -1,51 +1,17 @@
-import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {lazy, Suspense} from 'react'
 
-import Typography from '../../Typography'
+const LibPhoneFormatter = lazy(() => import(/* webpackChunkName: "phone-formatter" */ './LibPhoneFormatter'))
 
-class PhoneFormatter extends React.Component {
-  mounted = false
-  constructor(props) {
-    super(props)
-    this.state = {libPhoneImport: null}
-  }
+const LazyPhoneFormatter = props => (
+  <Suspense fallback={props.value}>
+    <LibPhoneFormatter {...props} />
+  </Suspense>
+)
 
-  componentDidMount() {
-    this.mounted = true
-    this.importLibPhoneNumber()
-  }
-
-  async importLibPhoneNumber() {
-    const libPhoneImport = await import(/* webpackChunkName: "vendor-libphonenumber-js" */ 'libphonenumber-js')
-    if (this.mounted) {
-      this.setState({libPhoneImport})
-    }
-  }
-
-  componentWillUnmount() {
-    this.mounted = false
-  }
-
-  getFormattedInput = () => {
-    const {libPhoneImport} = this.state
-    const {value} = this.props
-    if (libPhoneImport) {
-      const parsed = libPhoneImport.parseNumber(value)
-      return _isEmpty(parsed) ? value : libPhoneImport.formatNumber(parsed, 'International')
-    } else {
-      return value
-    }
-  }
-
-  render() {
-    return <Typography.Span breakWords={this.props.breakWords}>{this.getFormattedInput()}</Typography.Span>
-  }
-}
-
-PhoneFormatter.propTypes = {
+LazyPhoneFormatter.propTypes = {
   value: PropTypes.string,
   breakWords: PropTypes.bool
 }
 
-export default PhoneFormatter
+export default LazyPhoneFormatter
