@@ -87,6 +87,7 @@ SchedulerApp.propTypes = {
       model: PropTypes.string.isRequired
     })
   ),
+  schedulerRef: PropTypes.object,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => ({...propTypes, [event]: PropTypes.func}), {}),
   locale: PropTypes.string
 }
