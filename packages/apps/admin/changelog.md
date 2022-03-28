@@ -1,3 +1,9 @@
+1.0.28
+- use correct files name for upload
+- do not reuse same tab for different reports
+- update fullcalendar sizes on sidepanel toggle
+- attach tether to target to prevent coverage of input fields
+
 1.0.27
 - style entity-report action dialog
 - harmonize extended search result styling

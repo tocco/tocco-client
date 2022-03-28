@@ -1,3 +1,8 @@
+1.0.9
+- do not reuse same tab for different reports
+- update fullcalendar sizes on sidepanel toggle
+- attach tether to target to prevent coverage of input fields
+
 1.0.8
 - update react-tether dependency and change Menu.js to new method
 - remove react-split-pane dependency as we already have a library called react-split with almost the same features and us it instead
