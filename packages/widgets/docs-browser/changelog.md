@@ -1,3 +1,8 @@
+1.0.13
+- use correct files name for upload
+- do not reuse same tab for different reports
+- attach tether to target to prevent coverage of input fields
+
 1.0.12
 - update react-tether dependency and change Menu.js to new method
 - convert entity-detail class compomeents to functional components

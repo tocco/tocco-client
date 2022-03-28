@@ -1,3 +1,7 @@
+1.1.7
+- do not reuse same tab for different reports
+- attach tether to target to prevent coverage of input fields
+
 1.1.6
 - update react-tether dependency and change Menu.js to new method
 - update react-dropzone dependancy
