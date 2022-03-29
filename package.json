@@ -22,6 +22,8 @@
     "release-packages": "yarn setup && ./scripts/release-packages.sh",
     "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook",
     "storybook:master": "cross-env BACKEND=https://master.tocco.ch yarn storybook",
+    "nice2:copy-package": "babel-node build/scripts/copy-package-to-nice2",
+    "nice2:deploy-package": "both () { yarn compile:prod \"$*\"; yarn nice2:copy-package \"$*\";}; both",
     "cypress:localhost": "cross-env CYPRESS_baseUrl=http://localhost:3003 yarn cypress open",
     "cypress:master": "yarn cypress open",
     "cypress:master:record": "yarn cypress run --record --key 7657cc15-e969-4203-ae80-f3e0651a9667"
