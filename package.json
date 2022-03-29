@@ -26,6 +26,8 @@
     "sonarqube": "sonar-scanner",
     "storybook": "start-storybook -p 3003 -c ./storybook",
     "storybook:master": "cross-env BACKEND=https://master.tocco.ch yarn storybook",
+    "nice2:copy-package": "babel-node build/scripts/copy-package-to-nice2",
+    "nice2:deploy-package": "both () { yarn compile:prod \"$*\"; yarn nice2:copy-package \"$*\";}; both",
     "cypress:localhost": "cross-env CYPRESS_baseUrl=http://localhost:3003 yarn cypress open",
     "cypress:master": "yarn cypress open",
     "cypress:master:run": "yarn cypress run",
