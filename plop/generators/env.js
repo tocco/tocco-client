@@ -15,6 +15,11 @@ export default {
       type: 'input',
       name: 'FULL_CALENDAR_LICENCE',
       message: 'FULL_CALENDAR_LICENCE (Setting this is optional for local development but mandatory for releases):'
+    },
+    {
+      type: 'input',
+      name: 'NICE2_REPO_BASE_PATH',
+      message: 'NICE2_REPO_BASE_PATH (root path to all nice2 repositories >= v3.0):'
     }
   ],
   actions: [
