@@ -13,6 +13,21 @@ export default {
     },
     {
       type: 'input',
+      name: 'CYPRESS_API_KEY',
+      message: 'CYPRESS_API_KEY:'
+    },
+    {
+      type: 'input',
+      name: 'CYPRESS_USER_PASSWORD_HASH',
+      message: 'CYPRESS_USER_PASSWORD_HASH:'
+    },
+    {
+      type: 'input',
+      name: 'CYPRESS_USER_API_KEY_HASH',
+      message: 'CYPRESS_USER_API_KEY_HASH:'
+    },
+    {
+      type: 'input',
       name: 'FULL_CALENDAR_LICENCE',
       message: 'FULL_CALENDAR_LICENCE (Setting this is optional for local development but mandatory for releases):'
     },

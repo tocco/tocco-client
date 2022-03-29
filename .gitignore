@@ -13,6 +13,7 @@ packages/**/*/node_modules
 cypress/screenshots/
 cypress/videos/
 .env
+scripts/nice2/nice2_dump.psql
 **/.scannerwork/
 
 # vs code
