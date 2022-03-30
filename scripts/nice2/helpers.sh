@@ -2,7 +2,9 @@
 set -e
 
 function loadEnvs() {
-  export $(cat .env | sed 's/#.*//g' | xargs)
+  if [[ -f ".env" ]]; then
+    export $(cat .env | sed 's/#.*//g' | xargs)
+  fi 
 }
 
 loadEnvs
@@ -15,6 +17,9 @@ databaseUser="${HIBERNATE_MAIN_USER:-nice}"
 databasePassword="${HIBERNATE_MAIN_PASSWORD:-nice}"
 databaseDatabasename="${HIBERNATE_MAIN_DATABASENAME:-test_cypress}"
 databaseSslmode="${HIBERNATE_MAIN_SSLMODE:-disable}"
+databaseSuperuser="${DATABASE_SUPERUSER}"
+
+backendUrl="${BACKEND_URL:-http://localhost:8080}"
 
 function getNice2Folder() {
   currentNiceVersion=$(cat ./nice-current-version.txt)
@@ -36,45 +41,71 @@ function getNice2Folder() {
 }
 
 function waitFor() {
-    timeout=1000
-    until [ $timeout -le 0 ] || ("$@" &> /dev/null); do
-        echo waiting for "$@"
-        sleep 10
-        timeout=$(( timeout - 1 ))
-    done
-    if [ $timeout -le 0 ]; then
-        return 1
-    fi
+  timeout=1000
+  until [ $timeout -le 0 ] || ("$@" &> /dev/null); do
+    echo waiting for "$@"
+    sleep 10
+    timeout=$(( timeout - 1 ))
+  done
+  if [ $timeout -le 0 ]; then
+    return 1
+  fi
 }
 
 function postgresIsReady() {
-    pgStatus=$(pg_isready -d ${databaseDatabasename} -h ${databaseServername} -p $postgresPort -U ${databaseUser} | grep -o "accepting connections")
-    if [ "${pgStatus}" = "accepting connections" ]; then
-        return 0;
-    else
-        return 1;
-    fi
+  pgStatus=$(pg_isready -d ${databaseDatabasename} -h ${databaseServername} -p $postgresPort -U ${databaseUser} | grep -o "accepting connections")
+  if [ "${pgStatus}" = "accepting connections" ]; then
+    return 0;
+  else
+    return 1;
+  fi
 }
 
 function nice2IsReady() {
-    statusCode=$(curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:8080/status-tocco)
-    if [[ "$statusCode" -ne 200 ]] ; then
-        return 1;
-    else
-        return 0;
-    fi
+  statusCode=$(curl --write-out '%{http_code}' --silent --output /dev/null ${backendUrl}/status-tocco)
+  if [[ "$statusCode" -ne 200 ]] ; then
+    return 1;
+  else
+    return 0;
+  fi
+}
+
+function nice2IsConnected() {
+  statusCode=$(curl --write-out '%{http_code}' --silent --output /dev/null ${backendUrl}/tocco)
+  if [[ "$statusCode" -ne 200 ]] ; then
+    return 1;
+  else
+    return 0;
+  fi
+}
+
+function waitForNice2() {
+  echo "wait for nice2: ${backendUrl}"
+  waitFor nice2IsReady
+  echo "nice2 is ready"
+  waitFor nice2IsConnected
+  echo "nice2 is connected"
 }
 
 function emptyDB() {
   echo "drop database '$databaseDatabasename'"
 
-  psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort <<EOF
+  args=("-v" "ON_ERROR_STOP=1" "-h" "${databaseServername}" "-p" "$postgresPort")
+  if [[ ! -z "${databaseSuperuser}" ]] 
+  then 
+    args+=("-U")
+    args+=("${databaseSuperuser}")
+    args+=("-d")
+    args+=("postgres")
+  fi
+
+  psql "${args[@]}" <<EOF
     DROP DATABASE IF EXISTS $databaseDatabasename;
 EOF
 
   echo "create database '$databaseDatabasename'"
 
-  psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort <<EOF
+  psql "${args[@]}" <<EOF
     CREATE DATABASE $databaseDatabasename WITH OWNER $databaseUser;
 EOF
 
@@ -201,7 +232,6 @@ COMMIT;
 EOF
 }
 
-
 function restoreDB() {
   emptyDB
 
@@ -214,4 +244,26 @@ function restoreDB() {
 function createDump() {
   echo "create database dump from '$databaseDatabasename' to file '$backupFile'"
   pg_dump -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} -Fc -f $backupFile
+}
+
+function forceRestoreDB() {
+  echo "check if nice2 can be reached actually"
+  waitForNice2
+
+  echo "kill all active db connections to '$databaseDatabasename'"
+
+  psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} <<EOF
+SELECT
+  pg_terminate_backend(pg_stat_activity.pid)
+FROM
+  pg_stat_activity
+WHERE
+  pg_stat_activity.datname = '$databaseDatabasename'
+  AND pid <> pg_backend_pid();
+EOF
+
+  restoreDB
+  echo "restored"
+
+  waitForNice2
 }
