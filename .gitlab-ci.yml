@@ -1,7 +1,18 @@
 image: node:16.13.2-alpine
 
 variables:
+  NICE_VERSION: '3.4'
+  # Docker image tag: master, 3.0, 3.1, …
+  DOCKER_NICE_VERSION: 'master'
+  NICE_TIMEOUT_SECS: '300'
   CYPRESS_INSTALL_BINARY: "0"
+
+  S3_SECRET_ACCESS_KEY: $S3_SECRET_ACCESS_KEY
+  CYPRESS_API_KEY: $CYPRESS_API_KEY
+  CYPRESS_PASSWORD: $CYPRESS_PASSWORD
+  CYPRESS_USER: $CYPRESS_USER
+  CYPRESS_USER_API_KEY_HASH: $CYPRESS_USER_API_KEY_HASH
+  CYPRESS_USER_PASSWORD_HASH: $CYPRESS_USER_PASSWORD_HASH
 
   # Feature flags (https://docs.gitlab.com/runner/configuration/feature-flags.html)
 
@@ -23,12 +34,53 @@ stages:
   - release
   - onschedule
 
+.nice-as-service:
+  services:
+  - name: registry.gitlab.com/toccoag/nice2/postgres:${DOCKER_NICE_VERSION}
+    alias: postgres
+  - name: registry.gitlab.com/toccoag/nice2/nice:${DOCKER_NICE_VERSION}
+    alias: nice
+
+    variables:
+      hibernate.main.serverName: postgres
+      hibernate.main.user: nice
+      hibernate.main.password: nice
+      hibernate.main.databaseName: nice
+      hibernate.main.sslMode: disable
+      nice2.persist.history.persistence.state: DISABLED
+      nice2.web.core.neverRequireSecureConnection: 'true'
+      s3.main.accessKeyId: DRRLPEOZW3UPR75MDNKJ
+      s3.main.bucketName: tocco-ci
+      s3.main.endpoint: https://objects.rma.cloudscale.ch
+      s3.main.secretAccessKey: ${S3_SECRET_ACCESS_KEY}
+      SPRING_PROFILE: test      # Remove when https://toccoag.atlassian.net/browse/TOCDEV-5272 is fixed.
+  before_script:
+  - apt-get update
+  - apt-get install -y wget
+  - apt-get install -y postgresql-client
+  - apt-get install -y curl
+
+  # Wait for nice to be ready
+  - |
+    for (( i=0 ; ; i++ )); do
+        echo "attempt $i of $NICE_TIMEOUT_SECS"
+        timeout 1 wget --tries 1 -O /dev/null http://nice:8080/status-tocco && break
+        sleep 1;
+        if [ $i -ge $NICE_TIMEOUT_SECS ]; then
+            echo "giving up waiting for nice"
+            exit 1
+        fi
+    done
+  - echo "Nice up and running"
+  - yarn nice2:wait-for-readyness
+
 yarn_setup:
   stage: setup
   needs: []
   only:
     - external_pull_requests
     - master
+    - schedules
   cache:
     key:
       files:
@@ -135,18 +187,30 @@ cherrypick:
     - ./scripts/cherrypick.sh
 
 cypress:
+  extends:
+  - .nice-as-service
   stage: onschedule
   dependencies:
     - yarn_setup
   image: cypress/base:16.14.2
   variables:
     CYPRESS_INSTALL_BINARY: "10.3.1"
+    HIBERNATE_MAIN_SERVERNAME: "postgres"
+    HIBERNATE_MAIN_DATABASENAME: "nice"
+    DATABASE_SUPERUSER: "postgres"
+    CYPRESS_BASE_URL: "http://nice:8080"
+    CYPRESS_BACKEND_URL: "http://nice:8080"
+    BACKEND_URL: "http://nice:8080"
   only:
     variables:
       - $CI_RUN_CYPRESS == "1"
   script:
     - npm rebuild cypress
-    - yarn cypress:master:run
+    - yarn db:prepare
+    - yarn db:dump
+    - yarn widgets:serve &
+    - yarn nice2:wait-for-readyness
+    - yarn cypress:run
   artifacts:
     paths:
       - cypress/videos

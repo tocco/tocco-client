@@ -4,6 +4,8 @@ echo "run nice2"
 
 source ./scripts/nice2/helpers.sh
 
+currentPwd=$(pwd)
+
 function setupEnvs() {
   export HIBERNATE_MAIN_SERVERNAME=$databaseServername
   export HIBERNATE_MAIN_USER=$databaseUser
@@ -23,11 +25,13 @@ function runDbRefactoring() {
 }
 
 function initDB () {
-  echo "wait for nice2 is ready"
-  waitFor nice2IsReady
-  echo "nice2 is ready"
+  waitForNice2
+
+  cd $(echo $currentPwd)
 
   setupCypressUser
+
+  createDump
 }
 
 function start() {
