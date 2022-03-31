@@ -72,7 +72,6 @@ describe('widget-utils', () => {
           showTitle: true,
           passwordRequest: false,
           username: 'test-username',
-          themeType: 'WIDGET' || 'ADMIN',
           appContext: {embedType: 'widget'}
         }
         expect(renderSpy).to.have.been.calledWith(
@@ -148,7 +147,6 @@ describe('widget-utils', () => {
           backendUrl,
           customTheme: window[THEME_OBJ_NAME],
           locale: 'de',
-          themeType: 'WIDGET' || 'ADMIN',
           appContext: {embedType: 'widget'}
         }
         expect(renderSpy).to.have.been.calledWith(
@@ -189,7 +187,6 @@ describe('widget-utils', () => {
         const expectedInput = {
           backendUrl,
           locale: 'de',
-          themeType: 'WIDGET' || 'ADMIN',
           appContext: {embedType: 'widget'}
         }
         expect(renderSpy).to.have.been.calledWith(
@@ -229,7 +226,6 @@ describe('widget-utils', () => {
         const expectedInput = {
           backendUrl,
           locale: 'de',
-          themeType: 'WIDGET' || 'ADMIN',
           appContext: {embedType: 'widget'}
         }
         expect(renderSpy).to.have.been.calledWith(
@@ -269,7 +265,6 @@ describe('widget-utils', () => {
         const expectedInput = {
           backendUrl,
           locale: 'de',
-          themeType: 'WIDGET' || 'ADMIN',
           appContext: {embedType: 'widget'}
         }
         expect(renderSpy).to.have.been.calledWith(
