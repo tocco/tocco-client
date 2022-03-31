@@ -7,7 +7,7 @@ import React from 'react'
 import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
 import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
 import {scrollBehaviourPropType} from 'tocco-ui'
-import {react, reducer as reducerUtil, env} from 'tocco-util'
+import {appContext, react, reducer as reducerUtil, env} from 'tocco-util'
 
 import {InheritedApp, RouterlessApp, StandaloneApp} from './components/App'
 import {getDispatchActions} from './input'
@@ -59,13 +59,7 @@ const getContent = ({routerType, store, rootPath, handleNotifications}) => {
 const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
-  if (input.backendUrl) {
-    env.setBackendUrl(input.backendUrl)
-  }
-
-  if (input.businessUnit) {
-    env.setBusinessUnit(input.businessUnit)
-  }
+  env.setInputEnvs(input)
 
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
@@ -166,6 +160,7 @@ DocsBrowserApp.propTypes = {
   businessUnit: PropTypes.string,
   searchFormCollapsed: PropTypes.bool,
   backendUrl: PropTypes.string,
+  appContext: appContext.propTypes,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes

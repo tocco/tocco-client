@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {appFactory, cache, errorLogging, externalEvents} from 'tocco-app-extensions'
-import {env} from 'tocco-util'
+import {env, appContext} from 'tocco-util'
 
 import LoginContainer from './containers/LoginContainer'
 import * as login from './modules/login/actions'
@@ -26,9 +26,7 @@ export const initLoginApp = (id, input, events, publicPath, customTheme) => {
 
   const store = appFactory.createStore(loginReducers, sagas, input, packageName)
 
-  if (input.backendUrl) {
-    env.setBackendUrl(input.backendUrl)
-  }
+  env.setInputEnvs(input)
 
   externalEvents.addToStore(store, events)
   errorLogging.addToStore(store, true, ['console', 'remote'])
@@ -60,6 +58,7 @@ LoginApp.propTypes = {
   username: PropTypes.string,
   setLocale: PropTypes.func,
   backendUrl: PropTypes.string,
+  appContext: appContext.propTypes,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
