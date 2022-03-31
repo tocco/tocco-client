@@ -9,7 +9,7 @@ import {Router} from 'react-router-dom'
 import {actionEmitter, appFactory, cache, errorLogging, externalEvents, login, notification} from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/main'
 import {GlobalStyles} from 'tocco-ui'
-import {env, react, reducer as reducerUtil} from 'tocco-util'
+import {appContext, env, react, reducer as reducerUtil} from 'tocco-util'
 
 import {getDispatchActions} from './input'
 import reducers, {sagas} from './modules/reducers'
@@ -66,10 +66,7 @@ const navigateToDetailIfKeySet = (history, input) => {
 const initApp = (id, input, events, publicPath) => {
   input = {...input, id}
 
-  if (input.backendUrl) {
-    env.setBackendUrl(input.backendUrl)
-  }
-
+  env.setInputEnvs(input)
   if (input.nullBusinessUnit) {
     env.setBusinessUnit(env.NULL_BUSINESS_UNIT)
   } else if (input.runInBusinessUnit) {
@@ -162,7 +159,8 @@ EntityBrowserApp.propTypes = {
   runInBusinessUnit: PropTypes.string,
   memoryHistory: PropTypes.bool,
   backendUrl: PropTypes.string,
-  scrollBehaviour: PropTypes.string
+  scrollBehaviour: PropTypes.string,
+  appContext: appContext.propTypes
 }
 
 export default EntityBrowserApp

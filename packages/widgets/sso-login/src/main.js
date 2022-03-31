@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {appFactory, cache, externalEvents} from 'tocco-app-extensions'
-import {reducer as reducerUtil} from 'tocco-util'
+import {appContext, reducer as reducerUtil, env} from 'tocco-util'
 
 import LoginBoxContainer from './containers/LoginBoxContainer'
 import reducers, {sagas} from './modules'
@@ -12,6 +12,8 @@ const EXTERNAL_EVENTS = ['loginCompleted']
 
 const initApp = (id, input, events, publicPath) => {
   const content = <LoginBoxContainer />
+
+  env.setInputEnvs(input)
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
@@ -63,7 +65,8 @@ const SsoLoginApp = props => {
 SsoLoginApp.propTypes = {
   ssoLoginEndpoint: PropTypes.string.isRequired,
   locale: PropTypes.string,
-  autoLogin: PropTypes.bool
+  autoLogin: PropTypes.bool,
+  appContext: appContext.propTypes
 }
 
 export default SsoLoginApp
