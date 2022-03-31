@@ -1,6 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import {enzymeUtil} from 'tocco-test-util'
+import {act} from 'react-dom/test-utils'
 
 import UrlEdit from './UrlEdit'
 
@@ -8,9 +8,19 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('UrlEdit ', () => {
+        let clock
+
+        beforeEach(() => {
+          clock = sinon.useFakeTimers()
+        })
+  
+        afterEach(() => {
+          clock.restore()
+        })
+
         test('should show the value and a link', () => {
           const value = 'http://www.tocco.ch'
-          const wrapper = enzymeUtil.mountEmbedded(<UrlEdit value={value}/>)
+          const wrapper = mount(<UrlEdit value={value}/>)
           expect(wrapper.html()).to.have.string(value)
           expect(wrapper.find('a')).to.have.length(1)
         })
@@ -25,13 +35,15 @@ describe('tocco-ui', () => {
           const input = 'www.google.COM'
           const expectedResult = 'https://www.google.com'
           const onChangeSpy = sinon.spy()
-          const wrapper = enzymeUtil.mountEmbedded(<UrlEdit value="" onChange={onChangeSpy}/>)
+          const wrapper = mount(<UrlEdit value="" onChange={onChangeSpy}/>)
+
           wrapper.find('input').simulate('change', {target: {value: input}})
 
-          await new Promise(resolve => setTimeout(() => {
-            expect(onChangeSpy).to.have.been.calledWith(expectedResult)
-            resolve()
-          }, 400))
+          act(() => {
+            clock.tick(400)
+          })
+
+          expect(onChangeSpy).to.have.been.calledWith(expectedResult)
         })
       })
     })
