@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import DropTypes from '../../utils/dropTypes'
 import {InfoBoxRenderTypes} from '../../utils/infoBoxTypes'

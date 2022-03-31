@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useCallback, useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 import {Typography, Icon} from 'tocco-ui'
 import {react as reactUtil} from 'tocco-util'
 

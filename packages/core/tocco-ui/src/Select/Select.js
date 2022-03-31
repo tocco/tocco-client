@@ -1,6 +1,6 @@
 import _throttle from 'lodash/throttle'
 import PropTypes from 'prop-types'
-import React, {useRef, useCallback} from 'react'
+import {useRef, useCallback} from 'react'
 import ReactSelect from 'react-select'
 import {withTheme} from 'styled-components'
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {lazy, Suspense} from 'react'
+import {lazy, Suspense} from 'react'
 import {connect} from 'react-redux'
 import {actionEmitter} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useState, useMemo, useRef} from 'react'
+import {useState, useMemo, useRef} from 'react'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {Button} from 'tocco-ui'
 

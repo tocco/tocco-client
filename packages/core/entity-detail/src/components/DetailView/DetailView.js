@@ -1,6 +1,6 @@
 import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
-import React, {useEffect, useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import {form} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 

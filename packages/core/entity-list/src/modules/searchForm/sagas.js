@@ -1,5 +1,5 @@
 import _reduce from 'lodash/reduce'
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {actions as formActions, getFormValues, isDirty} from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import Dropzone from 'react-dropzone'
 
 import Button from '../Button'

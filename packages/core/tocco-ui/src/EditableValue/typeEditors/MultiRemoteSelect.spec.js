@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import Select from '../../Select'
 import MultiRemoteSelect from './MultiRemoteSelect'

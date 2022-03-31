@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
 import {formData, field} from 'tocco-app-extensions'
 import {Typography} from 'tocco-ui'
 import {js} from 'tocco-util'

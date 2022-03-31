@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {Typography} from '../index'
 import SignalList from '../SignalList'
 import SignalBox from './'

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import SubGridContainer from '../../../containers/SubGridContainer'
 
 export default (formField, key) => (

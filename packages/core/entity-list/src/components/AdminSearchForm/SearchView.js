@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useRef, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import ReactDOM from 'react-dom'
 import {FormattedMessage} from 'react-intl'
 import {Ball, BallMenu, Icon, MenuItem, Popover} from 'tocco-ui'

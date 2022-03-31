@@ -1,6 +1,6 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React, {useCallback} from 'react'
+import {useCallback} from 'react'
 import {injectIntl} from 'react-intl'
 
 import {atMostOne, momentJStoToFlatpickrFormat} from '../utils'

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useEffect} from 'react'
+import {useRef, useEffect} from 'react'
 import {react} from 'tocco-util'
 
 const FileInput = ({instanceCount, directory, onChange, path}) => {

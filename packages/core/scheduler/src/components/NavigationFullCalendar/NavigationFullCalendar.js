@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {Button, ButtonGroup, Icon, Typography, DatePicker} from 'tocco-ui'
 

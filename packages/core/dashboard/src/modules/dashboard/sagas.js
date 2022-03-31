@@ -1,4 +1,3 @@
-import React from 'react'
 import {channel} from 'redux-saga'
 import {put, call, all, take, takeLatest, takeEvery, select} from 'redux-saga/effects'
 import {rest, notification} from 'tocco-app-extensions'

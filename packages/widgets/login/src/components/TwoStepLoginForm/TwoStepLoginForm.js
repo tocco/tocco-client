@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useState, useLayoutEffect, useRef} from 'react'
+import {useState, useLayoutEffect, useRef} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {StatedValue, Typography, EditableValue} from 'tocco-ui'
 

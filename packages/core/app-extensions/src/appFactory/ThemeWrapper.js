@@ -1,7 +1,7 @@
 import _merge from 'lodash/merge'
 import {darken} from 'polished'
 import PropTypes from 'prop-types'
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
 import {ThemeProvider, withTheme, createGlobalStyle} from 'styled-components'
 import {ToccoTheme} from 'tocco-theme'
 import {theme} from 'tocco-ui'

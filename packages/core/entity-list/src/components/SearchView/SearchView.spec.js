@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'

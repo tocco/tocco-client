@@ -12,7 +12,7 @@ import _get from 'lodash/get'
 import _isNil from 'lodash/isNil'
 import _isObject from 'lodash/isObject'
 import _isString from 'lodash/isString'
-import React, {useEffect, useMemo, useRef} from 'react'
+import {useEffect, useMemo, useRef} from 'react'
 import styled from 'styled-components'
 
 import AceEditorPropTypes from './AceEditorPropTypes'

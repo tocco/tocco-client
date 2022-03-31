@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {download} from 'tocco-util'
 
 import Button from '../Button'

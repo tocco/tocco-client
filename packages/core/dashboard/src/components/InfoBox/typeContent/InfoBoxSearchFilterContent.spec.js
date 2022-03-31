@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
 
 import InfoBoxSearchFilterContent from './InfoBoxSearchFilterContent'

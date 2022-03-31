@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useState, useEffect, useMemo, useCallback} from 'react'
+import {useState, useEffect, useMemo, useCallback} from 'react'
 import {dragAndDrop} from 'tocco-util'
 
 import Button from '../Button'

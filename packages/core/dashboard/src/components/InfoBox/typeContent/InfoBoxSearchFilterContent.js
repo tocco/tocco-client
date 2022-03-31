@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {injectIntl} from 'react-intl'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {AdminLink as StyledLink} from 'tocco-ui'

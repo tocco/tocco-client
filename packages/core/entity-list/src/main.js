@@ -2,7 +2,6 @@ import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {
   appFactory,
   notification,

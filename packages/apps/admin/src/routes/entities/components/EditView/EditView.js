@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import queryString from 'query-string'
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {Prompt} from 'react-router'
 import styled from 'styled-components'
 import EntityDetailApp from 'tocco-entity-detail/src/main'

@@ -1,4 +1,3 @@
-import React from 'react'
 import {intlEnzyme} from 'tocco-test-util'
 
 import MenuChildrenWrapper from './MenuChildrenWrapper'

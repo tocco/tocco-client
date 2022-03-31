@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
 import {useStore} from 'react-redux'
 import {route} from 'tocco-util'
 

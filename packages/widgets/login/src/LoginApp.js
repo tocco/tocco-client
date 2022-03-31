@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {appFactory, cache, errorLogging, externalEvents} from 'tocco-app-extensions'
 import {env, appContext} from 'tocco-util'
 

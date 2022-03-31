@@ -1,7 +1,6 @@
 import parsePhoneNumber from 'libphonenumber-js'
 import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import Typography from '../../Typography'
 

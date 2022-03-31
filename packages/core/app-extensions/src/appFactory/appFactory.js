@@ -1,5 +1,4 @@
 import _union from 'lodash/union'
-import React from 'react'
 import ReactDOM from 'react-dom'
 import {consoleLogger, intl} from 'tocco-util'
 

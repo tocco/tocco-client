@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import InfoBoxContent from './InfoBoxContent'
 import InfoBoxHtmlFieldContent from './typeContent/InfoBoxHtmlFieldContent'

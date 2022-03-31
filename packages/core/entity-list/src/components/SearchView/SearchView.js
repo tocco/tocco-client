@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {Panel} from 'tocco-ui'
 
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'

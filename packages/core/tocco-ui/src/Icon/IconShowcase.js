@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js'
-import React, {useMemo, useState} from 'react'
+import {useMemo, useState} from 'react'
 import styled from 'styled-components'
 
 import EditableValue from '../EditableValue'

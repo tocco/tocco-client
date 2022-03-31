@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {StatedValue, Range} from 'tocco-ui'
 
 const LogForm = ({active, elapsed, setActive, setElapsed}) => {

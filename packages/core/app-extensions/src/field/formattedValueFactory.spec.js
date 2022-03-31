@@ -1,5 +1,4 @@
 import {mount} from 'enzyme'
-import React from 'react'
 import {TestThemeProvider} from 'tocco-test-util'
 import {FormattedValue} from 'tocco-ui'
 

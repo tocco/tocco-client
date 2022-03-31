@@ -1,5 +1,3 @@
-import React from 'react'
-
 import reducerUtil from '../reducer'
 import sagaUtil from '../saga'
 import asyncRoute from './asyncRoute'

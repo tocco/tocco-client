@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState, useCallback} from 'react'
+import {useEffect, useState, useCallback} from 'react'
 import {rest} from 'tocco-app-extensions'
 import DocsBrowserApp from 'tocco-docs-browser/src/main'
 

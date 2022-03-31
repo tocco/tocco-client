@@ -1,5 +1,4 @@
 import _forOwn from 'lodash/forOwn'
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {form} from 'tocco-app-extensions'
 

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import FooterItem from './FooterItem'
 import {StyledFooterWrapper} from './StyledComponents'

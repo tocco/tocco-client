@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {date} from 'tocco-util'
 
 import Typography from '../../Typography'

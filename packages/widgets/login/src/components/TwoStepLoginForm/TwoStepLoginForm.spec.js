@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 import {intlEnzyme, IntlStub} from 'tocco-test-util'
 import {Button, Typography} from 'tocco-ui'
 

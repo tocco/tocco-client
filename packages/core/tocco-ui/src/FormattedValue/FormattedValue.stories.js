@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
 
 import {storybookHtmlMarkup} from '../util/storybookHtmlMarkup'
 import FormattedValue from './'

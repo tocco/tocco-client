@@ -1,5 +1,4 @@
 import {mount} from 'enzyme'
-import React from 'react'
 
 import LayoutContainer from './LayoutContainer'
 import StyledLayoutContainer from './StyledLayoutContainer'

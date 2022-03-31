@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 import PropTypes from 'prop-types'
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import {FormattedMessage} from 'react-intl'
 import ToccoLogin from 'tocco-login/src/main'
 import SsoLogin from 'tocco-sso-login/src/main'

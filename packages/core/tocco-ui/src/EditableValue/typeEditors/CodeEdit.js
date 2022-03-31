@@ -1,6 +1,5 @@
 import _debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 
 import CodeEditor from '../../CodeEditor'

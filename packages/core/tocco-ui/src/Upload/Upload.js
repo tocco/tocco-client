@@ -1,6 +1,6 @@
 import _isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
-import React, {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef} from 'react'
 
 import UploadInput from './UploadInput'
 import UploadProgress from './UploadProgress'

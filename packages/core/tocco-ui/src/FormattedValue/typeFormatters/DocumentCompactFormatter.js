@@ -1,6 +1,5 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {download, html} from 'tocco-util'
 
 import Link from '../../Link'

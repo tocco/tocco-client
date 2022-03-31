@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import ProviderButton from '../ProviderButton/ProviderButton'
 import LoginBox from './LoginBox'

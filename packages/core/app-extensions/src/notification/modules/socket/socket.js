@@ -1,5 +1,3 @@
-import React from 'react'
-
 import NotificationBody from '../../components/NotificationBody'
 
 export const TOASTER_KEY_PREFIX = 'socket-msg-'

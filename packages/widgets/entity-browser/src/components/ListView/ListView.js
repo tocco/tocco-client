@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {RouterLink, scrollBehaviourPropType} from 'tocco-ui'
 import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'

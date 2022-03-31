@@ -1,5 +1,5 @@
 import {linkTo} from '@storybook/addon-links'
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {v4 as uuid} from 'uuid'
 
 import LoginApp from './main'

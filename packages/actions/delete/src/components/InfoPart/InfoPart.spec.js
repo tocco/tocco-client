@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import {mount} from 'enzyme'
-import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
 import {RouterLink} from 'tocco-ui'
 

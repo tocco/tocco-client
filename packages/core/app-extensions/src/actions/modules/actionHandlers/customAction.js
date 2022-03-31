@@ -1,4 +1,3 @@
-import React from 'react'
 import {channel} from 'redux-saga'
 import {call, put, take, select} from 'redux-saga/effects'
 import {consoleLogger, intl} from 'tocco-util'

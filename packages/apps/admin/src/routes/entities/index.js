@@ -1,6 +1,6 @@
 import _omit from 'lodash/omit'
 import _omitBy from 'lodash/omitBy'
-import React, {memo} from 'react'
+import {memo} from 'react'
 import {ReactReduxContext} from 'react-redux'
 import {route, js} from 'tocco-util'
 

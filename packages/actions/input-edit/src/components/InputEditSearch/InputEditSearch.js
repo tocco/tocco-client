@@ -1,6 +1,5 @@
 import _debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
-import React from 'react'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 import {tqlBuilder} from 'tocco-util'
 

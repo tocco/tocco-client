@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import FocusWithin from 'react-simple-focus-within'
 import {js, html} from 'tocco-util'
 

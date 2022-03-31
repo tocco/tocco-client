@@ -1,4 +1,3 @@
-import React from 'react'
 import {consoleLogger} from 'tocco-util'
 
 import mappings from './mappings'

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import Autosuggest from 'react-autosuggest'
 import FocusWithin from 'react-simple-focus-within'
 

@@ -1,6 +1,6 @@
 import _throttle from 'lodash/throttle'
 import PropTypes from 'prop-types'
-import React, {useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {userAgent} from 'tocco-util'
 
 import {StyledSizeWrapper, StyledTextarea} from './StyledComponents'

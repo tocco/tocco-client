@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import styled from 'styled-components'
 import {Typography as T, FormattedValue} from 'tocco-ui'
 

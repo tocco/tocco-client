@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import {Prompt} from 'react-router-dom'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Button} from 'tocco-ui'

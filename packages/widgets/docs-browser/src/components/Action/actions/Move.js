@@ -1,6 +1,6 @@
 import _isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'
 import {selection} from 'tocco-app-extensions'

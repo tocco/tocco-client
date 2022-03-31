@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
 import SearchPanel from '../SearchPanel/SearchPanel'

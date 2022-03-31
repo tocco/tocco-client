@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
 import {Typography} from 'tocco-ui'

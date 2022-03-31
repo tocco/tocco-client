@@ -1,6 +1,5 @@
 import _isString from 'lodash/isString'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {FormattedValue} from 'tocco-ui'
 

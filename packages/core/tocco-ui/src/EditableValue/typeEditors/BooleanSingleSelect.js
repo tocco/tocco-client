@@ -1,6 +1,5 @@
 import _isNil from 'lodash/isNil'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import Select from '../../Select'
 

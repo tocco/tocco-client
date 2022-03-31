@@ -1,6 +1,5 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {navigationStrategy} from 'tocco-util'

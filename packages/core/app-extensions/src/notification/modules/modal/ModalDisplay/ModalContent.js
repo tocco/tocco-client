@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useMemo, useRef, useLayoutEffect, useCallback, useEffect} from 'react'
+import {useMemo, useRef, useLayoutEffect, useCallback, useEffect} from 'react'
 import {Typography} from 'tocco-ui'
 
 import Content from '../../../components/Content'

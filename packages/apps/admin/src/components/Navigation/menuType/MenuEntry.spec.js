@@ -1,5 +1,4 @@
 import {expect} from 'chai'
-import React from 'react'
 import {intlEnzyme} from 'tocco-test-util'
 import {Icon} from 'tocco-ui'
 

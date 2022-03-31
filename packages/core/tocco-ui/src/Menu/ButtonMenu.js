@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 
 import {Button, ButtonGroup, Icon, Menu} from '../'
 import {StyledLabelWrapper} from '../Button/StyledButton'

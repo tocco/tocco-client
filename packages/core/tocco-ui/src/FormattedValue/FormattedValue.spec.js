@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import FormattedValue from './FormattedValue'
 import BooleanFormatter from './typeFormatters/BooleanFormatter'

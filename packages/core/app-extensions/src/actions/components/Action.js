@@ -1,6 +1,5 @@
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import componentTypes from '../actionComponentTypes'
 import {modeFitsScopes} from '../actions'

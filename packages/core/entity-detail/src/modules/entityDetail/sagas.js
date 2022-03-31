@@ -1,6 +1,5 @@
 import {selectUnit} from '@formatjs/intl-utils'
 import _get from 'lodash/get'
-import React from 'react'
 import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
 import {
   actions as formActions,

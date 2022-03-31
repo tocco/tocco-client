@@ -1,5 +1,5 @@
 import {mount} from 'enzyme'
-import React from 'react'
+import {enzymeUtil} from 'tocco-test-util'
 import {act} from 'react-dom/test-utils'
 
 import UrlEdit from './UrlEdit'

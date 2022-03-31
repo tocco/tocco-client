@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import provider, {map as typeMap} from './typeFormatterProvider'
 

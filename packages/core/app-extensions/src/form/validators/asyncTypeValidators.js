@@ -1,4 +1,3 @@
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 
 const DEFAULT_DEFAULT_REGION = 'CH'

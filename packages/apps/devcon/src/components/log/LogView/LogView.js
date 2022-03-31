@@ -1,4 +1,3 @@
-import React from 'react'
 import {Typography} from 'tocco-ui'
 
 import LogTable from '../LogTable'

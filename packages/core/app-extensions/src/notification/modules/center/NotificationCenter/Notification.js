@@ -1,6 +1,6 @@
 import {selectUnit} from '@formatjs/intl-utils'
 import PropTypes from 'prop-types'
-import React, {useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import {FormattedRelativeTime} from 'react-intl'
 import {Typography, Icon} from 'tocco-ui'
 

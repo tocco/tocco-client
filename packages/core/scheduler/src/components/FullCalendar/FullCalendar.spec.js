@@ -1,5 +1,4 @@
 import ReactFullCalendar from '@fullcalendar/react'
-import React from 'react'
 import {TestThemeProvider, enzymeUtil} from 'tocco-test-util'
 
 import FullCalendar from './FullCalendar'

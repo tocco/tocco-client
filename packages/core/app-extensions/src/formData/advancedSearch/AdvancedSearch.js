@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Button} from 'tocco-ui'
 import {v4 as uuid} from 'uuid'

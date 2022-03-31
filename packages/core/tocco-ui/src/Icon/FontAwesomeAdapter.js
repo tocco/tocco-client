@@ -102,7 +102,6 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
 ;(() => {

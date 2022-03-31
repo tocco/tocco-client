@@ -1,4 +1,3 @@
-import React from 'react'
 import {channel} from 'redux-saga'
 import {all, call, put, take, takeEvery} from 'redux-saga/effects'
 import {v4 as uuid} from 'uuid'
