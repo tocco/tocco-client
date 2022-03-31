@@ -1,7 +1,18 @@
 {
   "parser": "@babel/eslint-parser",
   "extends": ["standard", "plugin:react/recommended", "prettier"],
-  "plugins": ["babel", "react", "promise", "import", "chai-friendly", "import", "monorepo", "jest", "react-hooks"],
+  "plugins": [
+    "babel",
+    "react",
+    "promise",
+    "import",
+    "chai-friendly",
+    "import",
+    "monorepo",
+    "jest",
+    "react-hooks",
+    "unused-imports"
+  ],
   "settings": {
     "react": {
       "version": "detect"
@@ -67,6 +78,9 @@
     "import/no-webpack-loader-syntax": 0,
     "monorepo/no-relative-import": 2,
     "prefer-regex-literals": 0,
-    "eol-last": 2
+    "eol-last": 2,
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "unused-imports/no-unused-imports": "error"
   }
 }
