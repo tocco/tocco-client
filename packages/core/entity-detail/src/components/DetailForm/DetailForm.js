@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useMemo, useRef} from 'react'
 import {reduxForm} from 'redux-form'
 import {form} from 'tocco-app-extensions'
-import {react as customHooks} from 'tocco-util'
+import {react as customHooks, env} from 'tocco-util'
 
 import DetailFooterContainer from '../../containers/DetailFooterContainer'
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
@@ -63,6 +63,8 @@ const DetailForm = props => {
     }
   }
 
+  const embedType = env.getEmbedType()
+
   return (
     <StyledForm onSubmit={handleSubmit} onKeyDown={handleKeyPress} ref={formEl}>
       <form.FormBuilder
@@ -75,7 +77,7 @@ const DetailForm = props => {
         componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
         customRenderedActions={customRenderedActions}
       />
-      <DetailFooterContainer />
+      {embedType === 'admin' && <DetailFooterContainer />}
     </StyledForm>
   )
 }
