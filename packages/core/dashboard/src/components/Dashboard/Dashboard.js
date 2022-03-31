@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import {LoadMask} from 'tocco-ui'
 import {dragAndDrop, resize} from 'tocco-util'
 

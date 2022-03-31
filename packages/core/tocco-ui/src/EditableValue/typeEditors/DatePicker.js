@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useState} from 'react'
+import {useRef, useState} from 'react'
 import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
 

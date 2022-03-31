@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import Typography from '../Typography'
 import SignalBox from './SignalBox'

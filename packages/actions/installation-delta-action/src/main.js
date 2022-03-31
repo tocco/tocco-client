@@ -1,4 +1,3 @@
-import React from 'react'
 import {appFactory} from 'tocco-app-extensions'
 
 import InstallationDelta from './components/InstallationDelta'

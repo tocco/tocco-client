@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {Popover} from 'tocco-ui'
 
 import modes from '../../util/modes'

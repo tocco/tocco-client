@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useCallback} from 'react'
+import {useCallback} from 'react'
 import {IntlProvider} from 'react-intl-redux/lib'
 import {Provider} from 'react-redux'
 import {ToccoTheme, WidgetTheme} from 'tocco-theme'

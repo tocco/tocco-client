@@ -1,5 +1,3 @@
-import React from 'react'
-
 import SignalList from './'
 
 export default {

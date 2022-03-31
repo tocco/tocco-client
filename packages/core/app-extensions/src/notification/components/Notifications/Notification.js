@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import BlockingDisplay from '../../modules/blocking/BlockingDisplay'
 import ModalDisplay from '../../modules/modal/ModalDisplay'

@@ -2,7 +2,7 @@
 import {action} from '@storybook/addon-actions'
 import faker from 'faker'
 import _difference from 'lodash/difference'
-import React, {useState} from 'react'
+import {useState} from 'react'
 
 import {Icon, Typography} from '../'
 import Table from './'

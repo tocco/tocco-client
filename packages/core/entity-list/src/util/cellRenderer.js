@@ -1,4 +1,3 @@
-import React from 'react'
 import {actions, form} from 'tocco-app-extensions'
 import {FormattedValue} from 'tocco-ui'
 

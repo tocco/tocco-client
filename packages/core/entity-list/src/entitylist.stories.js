@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
 
 import EntityListApp from './main'
 import searchFormTypes from './util/searchFormTypes'

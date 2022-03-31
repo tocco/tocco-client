@@ -3,7 +3,7 @@ import _isString from 'lodash/isString'
 import _omit from 'lodash/omit'
 import _omitBy from 'lodash/omitBy'
 import PropTypes from 'prop-types'
-import React, {memo} from 'react'
+import {memo} from 'react'
 import {components} from 'react-select'
 import {html, js} from 'tocco-util'
 

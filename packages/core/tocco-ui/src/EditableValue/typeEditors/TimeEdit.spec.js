@@ -1,4 +1,3 @@
-import React from 'react'
 import {enzymeUtil} from 'tocco-test-util'
 
 import TimeEdit from './TimeEdit'

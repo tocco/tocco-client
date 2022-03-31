@@ -1,7 +1,7 @@
 import _isEmpty from 'lodash/isEmpty'
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import React, {useRef} from 'react'
+import {useRef} from 'react'
 
 import BooleanSingleSelect from './typeEditors/BooleanSingleSelect'
 import BoolEdit from './typeEditors/BoolEdit'

@@ -1,7 +1,6 @@
 import {faCircleNotch} from '@fortawesome/pro-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
-import React from 'react'
 
 /**
  * Spinner that indicates a loading process

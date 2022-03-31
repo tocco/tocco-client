@@ -1,4 +1,3 @@
-import React from 'react'
 import {FormattedDate, useIntl} from 'react-intl'
 
 import Typography from '../../Typography'

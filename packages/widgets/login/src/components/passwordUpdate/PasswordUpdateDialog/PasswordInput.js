@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {design, StatedValue} from 'tocco-ui'
 
 import {StyledPasswordInput, StyledPasswordInputWrapper} from './StyledPasswordInput'

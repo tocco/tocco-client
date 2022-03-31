@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import BlockingDisplay from '../../modules/blocking/BlockingDisplay'
 import ModalDisplay from '../../modules/modal/ModalDisplay'

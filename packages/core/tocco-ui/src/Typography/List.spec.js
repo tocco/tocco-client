@@ -1,5 +1,4 @@
 import {mount, shallow} from 'enzyme'
-import React from 'react'
 
 import {Dd, Dt, Dl, Li, Ol, Ul} from './List'
 

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import queryString from 'query-string'
-import React from 'react'
 import DocsBrowser from 'tocco-docs-browser/src/main'
 import {AdminLink as StyledLink} from 'tocco-ui'
 

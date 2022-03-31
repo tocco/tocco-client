@@ -1,6 +1,5 @@
 import {selectUnit} from '@formatjs/intl-utils'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
 import styled from 'styled-components'
 import {form} from 'tocco-app-extensions'

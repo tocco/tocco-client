@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import queryString from 'query-string'
-import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {viewPersistor} from 'tocco-util'
 

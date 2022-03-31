@@ -1,5 +1,3 @@
-import React from 'react'
-
 import {Icon} from './Icon'
 import IconsShowcase from './IconShowcase'
 

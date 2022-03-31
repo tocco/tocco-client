@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useState, useEffect, useMemo, useCallback} from 'react'
+import {useRef, useState, useEffect, useMemo, useCallback} from 'react'
 import {SearchBox} from 'tocco-ui'
 
 import {getCompleteMenuPreferences, menuTabs} from '../../utils/navigationUtils'

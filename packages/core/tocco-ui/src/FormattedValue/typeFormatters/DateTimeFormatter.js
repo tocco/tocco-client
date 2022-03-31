@@ -1,6 +1,5 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {FormattedDate, FormattedTime, injectIntl} from 'react-intl'
 
 import Typography from '../../Typography'

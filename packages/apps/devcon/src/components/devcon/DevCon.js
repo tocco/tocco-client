@@ -1,4 +1,3 @@
-import React from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import {notification} from 'tocco-app-extensions'
 import {Typography} from 'tocco-ui'

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {Redirect, Route} from 'react-router-dom'
 import {notification} from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'

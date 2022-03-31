@@ -1,6 +1,5 @@
 import {mount} from 'enzyme'
 import fetchMock from 'fetch-mock'
-import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {IntlStub} from 'tocco-test-util'

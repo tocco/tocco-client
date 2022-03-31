@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {memo} from 'react'
+import {memo} from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {design, Icon, Panel, Typography} from 'tocco-ui'
 

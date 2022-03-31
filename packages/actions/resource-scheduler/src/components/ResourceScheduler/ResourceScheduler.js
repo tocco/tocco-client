@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState, useRef} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
 import {notification} from 'tocco-app-extensions'
 import {Icon} from 'tocco-ui'

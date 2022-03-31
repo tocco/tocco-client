@@ -1,5 +1,3 @@
-import React from 'react'
-
 const getAllPaths = sourceData => Object.keys(sourceData.entities[0].paths)
 const getAllRelations = sourceData => [...new Set(sourceData.relations.map(r => r.relationName))]
 

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {selection as selectionPropType} from 'tocco-app-extensions'
 import ResourceSchedulerApp from 'tocco-resource-scheduler/src/main'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {enzymeUtil} from 'tocco-test-util'
 import {Button} from 'tocco-ui'

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import MultiSelectCell from './MultiSelectCell'
 import MultiSelectHeader from './MultiSelectHeader'
 import selectionStyles from './selectionStyles'

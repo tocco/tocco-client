@@ -1,5 +1,3 @@
-import React from 'react'
-
 import noBorder from '../../../../storybook/addons/no-border'
 import AdminApp from './main'
 

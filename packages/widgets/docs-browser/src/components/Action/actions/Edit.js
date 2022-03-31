@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {selection} from 'tocco-app-extensions'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 

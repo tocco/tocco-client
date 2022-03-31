@@ -1,4 +1,3 @@
-import React from 'react'
 import {call, put} from 'redux-saga/effects'
 import {download, validation} from 'tocco-util'
 import {v4 as uuid} from 'uuid'

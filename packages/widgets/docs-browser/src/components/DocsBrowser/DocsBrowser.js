@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useReducer, useRef} from 'react'
+import {useEffect, useReducer, useRef} from 'react'
 import {scrollBehaviourPropType} from 'tocco-ui'
 import {viewPersistor} from 'tocco-util'
 

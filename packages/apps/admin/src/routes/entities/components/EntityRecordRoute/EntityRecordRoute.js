@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import PropTypes from 'prop-types'
-import React from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 
 import Action from '../../subroutes/action'

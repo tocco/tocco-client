@@ -1,5 +1,4 @@
 import {mount} from 'enzyme'
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {intlEnzyme} from 'tocco-test-util'
 import {FormattedValue} from 'tocco-ui'

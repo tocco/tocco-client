@@ -1,6 +1,5 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {js, html} from 'tocco-util'
 
 import Popover from '../../Popover'

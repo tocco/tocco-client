@@ -1,5 +1,4 @@
 import {mount} from 'enzyme'
-import React from 'react'
 import ReactSelect from 'react-select'
 import {TestThemeProvider} from 'tocco-test-util'
 

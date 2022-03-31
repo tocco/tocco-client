@@ -1,6 +1,5 @@
 import {act} from '@testing-library/react-hooks'
 import {mount} from 'enzyme'
-import React from 'react'
 
 import Popover from './Popover'
 

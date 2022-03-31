@@ -1,4 +1,3 @@
-import React from 'react'
 import {IntlStub, intlEnzyme} from 'tocco-test-util'
 import {LoadMask} from 'tocco-ui'
 

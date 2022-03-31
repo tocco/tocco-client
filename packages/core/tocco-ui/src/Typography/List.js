@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import {getTextOfChildren} from '../utilStyles'
 import {StyledDd, StyledDl, StyledDt, StyledLi, StyledOl, StyledUl} from './StyledList'

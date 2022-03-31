@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import FontAwesomeAdapter from './FontAwesomeAdapter'
 import mapping from './mapping'

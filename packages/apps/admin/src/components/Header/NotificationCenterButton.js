@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import ReactDOM from 'react-dom'
 import {usePopper} from 'react-popper'
 import {notification} from 'tocco-app-extensions'

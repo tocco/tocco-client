@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef} from 'react'
+import {useRef} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Ball, BallMenu, EditableValue, FormattedValue, MenuItem, StatedValue} from 'tocco-ui'
 import {react as customHooks} from 'tocco-util'

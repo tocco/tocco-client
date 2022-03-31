@@ -1,6 +1,5 @@
 import {selectUnit} from '@formatjs/intl-utils'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {FormattedRelativeTime} from 'react-intl'
 import {FormattedValue} from 'tocco-ui'
 

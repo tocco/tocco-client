@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import {getTextOfChildren} from '../utilStyles'
 import {StyledH1, StyledH2, StyledH3, StyledH4, StyledH5, StyledH6} from './StyledHeading'

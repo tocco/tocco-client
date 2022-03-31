@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import {reduxForm} from 'redux-form'
 import {form} from 'tocco-app-extensions'
 import {Button} from 'tocco-ui'

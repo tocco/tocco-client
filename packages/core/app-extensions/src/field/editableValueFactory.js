@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {EditableValue, Range} from 'tocco-ui'
 
 import editableTypeConfigs from './editableTypeConfigs'

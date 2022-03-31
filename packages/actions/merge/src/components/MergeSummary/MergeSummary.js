@@ -1,6 +1,5 @@
 import _groupBy from 'lodash/groupBy'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Icon, Typography} from 'tocco-ui'
 import {navigationStrategy} from 'tocco-util'

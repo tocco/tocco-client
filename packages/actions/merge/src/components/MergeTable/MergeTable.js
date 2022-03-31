@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useMemo} from 'react'
+import {useMemo} from 'react'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {Table, Typography, LoadMask} from 'tocco-ui'

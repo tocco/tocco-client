@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import {getFooterType} from '../../util/detailFooter/helpers'
 import types from '../../util/detailFooter/types'

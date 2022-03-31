@@ -1,4 +1,3 @@
-import React from 'react'
 import {AdminLink as StyledLink, Typography} from 'tocco-ui'
 
 const EntitiesOverview = props => {

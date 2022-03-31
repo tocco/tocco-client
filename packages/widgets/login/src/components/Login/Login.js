@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import {createGlobalStyle} from 'styled-components'
 
 import LoginFormContainer from '../../containers/LoginFormContainer'

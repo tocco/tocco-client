@@ -1,6 +1,6 @@
 import {createBrowserHistory} from 'history'
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Redirect, Route, Router, Switch} from 'react-router-dom'
 import {withTheme} from 'styled-components'

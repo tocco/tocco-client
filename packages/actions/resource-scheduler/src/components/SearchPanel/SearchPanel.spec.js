@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 import {Panel} from 'tocco-ui'
 
 import SearchPanel from './SearchPanel'

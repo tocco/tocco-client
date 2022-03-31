@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 
 import {currentViewPropType} from '../../utils/propTypes'
 import EditView from '../EditView'

@@ -1,5 +1,4 @@
 import _get from 'lodash/get'
-import React from 'react'
 
 const settings = {
   SEARCH_RESULT_LIMIT: 50,

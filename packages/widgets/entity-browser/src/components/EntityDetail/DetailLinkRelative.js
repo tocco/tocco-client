@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {RouterLink} from 'tocco-ui'
 
 export const DetailLinkRelative = ({currentKey, entityKey, children, relation}) => (

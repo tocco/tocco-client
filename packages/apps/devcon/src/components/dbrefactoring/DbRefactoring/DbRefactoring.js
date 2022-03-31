@@ -1,4 +1,3 @@
-import React from 'react'
 import {Typography} from 'tocco-ui'
 
 import DbRefactoringForm from '../DbRefactoringForm'

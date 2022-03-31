@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 
 import FailureMessage from './FailureMessage'

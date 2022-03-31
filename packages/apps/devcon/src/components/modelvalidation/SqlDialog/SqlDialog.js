@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {EditableValue, Button} from 'tocco-ui'
 
 const SqlDialog = ({sql, setSql, executeSql, close}) => {

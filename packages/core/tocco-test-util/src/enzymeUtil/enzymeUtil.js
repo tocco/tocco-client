@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import {mount, shallow} from 'enzyme'
-import React from 'react'
 import {IntlProvider} from 'react-intl'
 import {ThemeProvider} from 'styled-components'
 import {ToccoTheme} from 'tocco-theme'

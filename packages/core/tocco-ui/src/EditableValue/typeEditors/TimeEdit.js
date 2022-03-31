@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import Ball from '../../Ball'
 import {StyledEditableControl, StyledEditableWrapper} from '../StyledEditableValue'

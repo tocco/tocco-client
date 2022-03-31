@@ -1,4 +1,3 @@
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import isEmail from 'validator/lib/isEmail'
 import isUrl from 'validator/lib/isURL'

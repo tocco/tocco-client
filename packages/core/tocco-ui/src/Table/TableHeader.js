@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useCallback} from 'react'
+import {useCallback} from 'react'
 import {dragAndDrop, resize} from 'tocco-util'
 
 import {columnPropType, dataPropType} from './propTypes'

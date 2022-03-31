@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {react} from 'tocco-util'
 
 import Link from '../../Link'

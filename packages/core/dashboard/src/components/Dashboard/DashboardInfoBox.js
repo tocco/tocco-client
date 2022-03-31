@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import InfoBox from '../InfoBox/InfoBox'
 import {StyledInfoBoxWrapper, StyledResizeHandle} from './StyledComponents'

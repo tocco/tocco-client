@@ -1,5 +1,4 @@
 import {mount} from 'enzyme'
-import React from 'react'
 
 import ResizeObserver from '../../../../../../../../__mocks__/ResizeObserver'
 import ModalContent from './ModalContent'

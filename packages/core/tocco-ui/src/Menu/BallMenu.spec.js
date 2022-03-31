@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import Ball from '../Ball'
 import BallMenu from './BallMenu'

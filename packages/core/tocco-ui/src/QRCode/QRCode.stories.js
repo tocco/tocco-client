@@ -1,5 +1,3 @@
-import React from 'react'
-
 import QRCode from './'
 
 export default {

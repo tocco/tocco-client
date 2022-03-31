@@ -1,4 +1,3 @@
-import React from 'react'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {takeEvery, all, select} from 'redux-saga/effects'

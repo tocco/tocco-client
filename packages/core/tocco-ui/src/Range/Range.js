@@ -1,6 +1,6 @@
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import React, {useMemo, useRef} from 'react'
+import {useMemo, useRef} from 'react'
 
 import Ball from '../Ball'
 import EditableValue from '../EditableValue'

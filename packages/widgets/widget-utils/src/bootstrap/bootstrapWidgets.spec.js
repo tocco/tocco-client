@@ -1,6 +1,5 @@
 import {mount} from 'enzyme'
 import fetchMock from 'fetch-mock'
-import React from 'react'
 
 import bootstrapWidgets from './bootstrapWidgets'
 import {BOOTSTRAP_SCRIPT_OBJ_NAME, EVENT_HANDLERS_OBJ_NAME, THEME_OBJ_NAME} from './constants'

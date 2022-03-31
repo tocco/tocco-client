@@ -1,5 +1,4 @@
 import _omit from 'lodash/omit'
-import React from 'react'
 import {mockData} from 'tocco-util'
 
 import * as forms from './forms'

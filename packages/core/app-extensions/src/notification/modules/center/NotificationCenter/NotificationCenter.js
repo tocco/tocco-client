@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {LoadingSpinner} from 'tocco-ui'
 

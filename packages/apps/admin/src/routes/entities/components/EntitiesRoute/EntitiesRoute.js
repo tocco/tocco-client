@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import styled from 'styled-components'
 

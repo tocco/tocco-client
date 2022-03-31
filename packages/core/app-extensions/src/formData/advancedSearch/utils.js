@@ -1,5 +1,3 @@
-import React from 'react'
-
 import AdvancedSearchContainer from './AdvancedSearchContainer'
 
 export const getSelection = (value, multi) => (value ? (multi ? value.map(v => v.key) : [value.key]) : [])

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {injectIntl} from 'react-intl'
 import {ButtonMenu, MenuItem} from 'tocco-ui'
 

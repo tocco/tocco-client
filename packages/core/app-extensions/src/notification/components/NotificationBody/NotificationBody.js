@@ -1,6 +1,5 @@
 import _groupBy from 'lodash/groupBy'
 import PropTypes from 'prop-types'
-import React from 'react'
 import {injectIntl, FormattedMessage} from 'react-intl'
 import {Icon, LoadingSpinner} from 'tocco-ui'
 import {download} from 'tocco-util'

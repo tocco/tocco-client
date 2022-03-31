@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {actionEmitter, appFactory, cache, externalEvents, notification} from 'tocco-app-extensions'
 import {GlobalStyles} from 'tocco-ui'
 import {reducer as reducerUtil} from 'tocco-util'

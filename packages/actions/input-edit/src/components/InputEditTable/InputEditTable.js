@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {field} from 'tocco-app-extensions'
 import {Table, EditableValue, FormattedValue} from 'tocco-ui'
 import {api} from 'tocco-util'

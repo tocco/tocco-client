@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {Typography} from 'tocco-ui'
 
 import LogEntry from './LogEntry'

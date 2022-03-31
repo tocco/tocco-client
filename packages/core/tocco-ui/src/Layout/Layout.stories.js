@@ -1,5 +1,3 @@
-import React from 'react'
-
 import Panel from '../Panel'
 import Typography from '../Typography'
 import Layout from './index'

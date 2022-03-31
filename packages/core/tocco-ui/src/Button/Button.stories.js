@@ -1,5 +1,4 @@
 import {action} from '@storybook/addon-actions'
-import React from 'react'
 import {MemoryRouter} from 'react-router'
 
 import Button from './'

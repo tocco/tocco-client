@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 import {Button, SignalBox} from 'tocco-ui'
 
 import {dialogInfo} from '../../utils/deleteRequestParser.spec'

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {connect} from 'react-redux'
 import {notification} from 'tocco-app-extensions'
 import {PasswordUpdateApp} from 'tocco-login/src/main'

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {MenuItem, BallMenu, Typography} from 'tocco-ui'
 

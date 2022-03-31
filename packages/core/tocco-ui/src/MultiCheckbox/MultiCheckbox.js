@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useLayoutEffect, useRef} from 'react'
+import {useLayoutEffect, useRef} from 'react'
 
 const checkboxValues = {
   CHECKED: 'checked',

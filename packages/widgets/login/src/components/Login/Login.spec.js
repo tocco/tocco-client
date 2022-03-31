@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 
 import LoginFormContainer from '../../containers/LoginFormContainer'
 import PasswordRequestContainer from '../../containers/PasswordRequestContainer'

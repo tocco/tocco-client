@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 import {IntlStub} from 'tocco-test-util/src/main'
 import {Table as UiTable} from 'tocco-ui'
 

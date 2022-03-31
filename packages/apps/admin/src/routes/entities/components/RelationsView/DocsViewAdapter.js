@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 
 import {currentViewPropType} from '../../utils/propTypes'
 import DocsView from '../DocsView'

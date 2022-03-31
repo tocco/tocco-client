@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useRef, useEffect} from 'react'
+import {useRef, useEffect} from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
 import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'

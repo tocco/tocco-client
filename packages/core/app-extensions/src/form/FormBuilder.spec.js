@@ -1,5 +1,4 @@
 import {shallow} from 'enzyme'
-import React from 'react'
 import {Field} from 'redux-form'
 import {Layout} from 'tocco-ui'
 
