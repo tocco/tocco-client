@@ -1,12 +1,23 @@
 /* eslint-disable react/prop-types */
 import {mount} from 'enzyme'
 import React from 'react'
+import {act} from 'react-dom/test-utils'
 
 import Debouncer from './Debouncer'
 
 describe('tocco-util', () => {
   describe('react', () => {
     describe('useDebounce', () => {
+      let clock
+
+      beforeEach(() => {
+        clock = sinon.useFakeTimers()
+      })
+
+      afterEach(() => {
+        clock.restore()
+      })
+
       const TestComponent = Debouncer(({value, onChange, xy}) => {
         return (
           <div>
@@ -27,22 +38,20 @@ describe('tocco-util', () => {
         input.simulate('change', {target: {value: 'Test1'}})
         input.simulate('change', {target: {value: 'Test2'}})
 
-        await new Promise(resolve =>
-          setTimeout(() => {
-            input.simulate('change', {target: {value: 'Test3'}})
-            input.simulate('change', {target: {value: 'Test4'}})
-            resolve()
-          }, 200)
-        )
+        act(() => {
+          clock.tick(200)
+        })
 
-        await new Promise(resolve =>
-          setTimeout(() => {
-            expect(onChangeSpy).to.have.been.calledTwice
-            expect(onChangeSpy).to.have.been.calledWith('Test2')
-            expect(onChangeSpy).to.have.been.calledWith('Test4')
-            resolve()
-          }, 200)
-        )
+        input.simulate('change', {target: {value: 'Test3'}})
+        input.simulate('change', {target: {value: 'Test4'}})
+
+        act(() => {
+          clock.tick(200)
+        })
+
+        expect(onChangeSpy).to.have.been.calledTwice
+        expect(onChangeSpy).to.have.been.calledWith('Test2')
+        expect(onChangeSpy).to.have.been.calledWith('Test4')
       })
 
       test('should pass other props', async () => {
@@ -75,13 +84,12 @@ describe('tocco-util', () => {
         input.simulate('change', {target: {value: 'Test1'}})
         input.simulate('change', {target: {value: 'Test2'}})
 
-        await new Promise(resolve =>
-          setTimeout(() => {
-            input.simulate('change', {target: {value: 'Test3'}})
-            input.simulate('change', {target: {value: 'Test4'}})
-            resolve()
-          }, 200)
-        )
+        act(() => {
+          clock.tick(200)
+        })
+
+        input.simulate('change', {target: {value: 'Test3'}})
+        input.simulate('change', {target: {value: 'Test4'}})
       })
     })
   })
