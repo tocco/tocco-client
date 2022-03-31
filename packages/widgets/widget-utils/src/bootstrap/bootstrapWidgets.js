@@ -49,7 +49,6 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
       ...(customTheme ? {customTheme} : {}),
       locale,
       ...config,
-      themeType: 'WIDGET',
       appContext: {
         embedType: 'widget'
       }

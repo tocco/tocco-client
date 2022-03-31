@@ -4,13 +4,16 @@ import {IntlProvider} from 'react-intl-redux/lib'
 import {Provider} from 'react-redux'
 import {ToccoTheme, WidgetTheme} from 'tocco-theme'
 import {LoadMask} from 'tocco-ui'
+import {env} from 'tocco-util'
 
 import keyDown from '../keyDown'
 import {StyledApp} from './StyledComponents'
 import ThemeWrapper from './ThemeWrapper'
 import './styles.css'
 
-const App = ({store, initIntlPromise, content, theme, themeType}) => {
+const getDefaultTheme = embedType => (embedType === 'widget' ? WidgetTheme : ToccoTheme)
+
+const App = ({store, initIntlPromise, content, theme}) => {
   const wrapperCallback = useCallback(node => {
     if (node) {
       import(/* webpackChunkName: "vendor-fontawesome" */ '@fortawesome/fontawesome-svg-core').then(fontawesome => {
@@ -22,10 +25,10 @@ const App = ({store, initIntlPromise, content, theme, themeType}) => {
     }
   }, [])
 
-  const getDefaultTheme = themeType => (themeType === 'WIDGET' ? WidgetTheme : ToccoTheme)
+  const embedType = env.getEmbedType()
 
   return (
-    <ThemeWrapper customTheme={theme} defaultTheme={getDefaultTheme(themeType)}>
+    <ThemeWrapper customTheme={theme} defaultTheme={getDefaultTheme(embedType)}>
       <Provider store={store}>
         <keyDown.KeyDownWatcher>
           <LoadMask promises={[initIntlPromise]}>
@@ -43,8 +46,7 @@ App.propTypes = {
   store: PropTypes.object.isRequired,
   initIntlPromise: PropTypes.object.isRequired,
   content: PropTypes.node.isRequired,
-  theme: PropTypes.object,
-  themeType: PropTypes.oneOf(['WIDGET', 'ADMIN'])
+  theme: PropTypes.object
 }
 
 export default App
