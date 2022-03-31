@@ -49,7 +49,10 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
       ...(customTheme ? {customTheme} : {}),
       locale,
       ...config,
-      themeType: 'WIDGET'
+      themeType: 'WIDGET',
+      appContext: {
+        embedType: 'widget'
+      }
     }
     const eventHandlers = getEventHandlers(container)
     const srcPath = `${assetUrl}/js/tocco-${packageName}/dist/`
