@@ -1,9 +1,23 @@
-import {getBackendUrl, getBusinessUnit, setBackendUrl, setBusinessUnit, NULL_BUSINESS_UNIT} from './env'
+import {
+  getBackendUrl,
+  getBusinessUnit,
+  setBackendUrl,
+  setBusinessUnit,
+  getEmbedType,
+  setEmbedType,
+  NULL_BUSINESS_UNIT,
+  ALLOWED_EMBED_TYPES
+} from './env'
+import {setInputEnvs} from './helpers'
 
 export default {
   getBackendUrl,
   setBackendUrl,
   getBusinessUnit,
   setBusinessUnit,
-  NULL_BUSINESS_UNIT
+  getEmbedType,
+  setEmbedType,
+  NULL_BUSINESS_UNIT,
+  ALLOWED_EMBED_TYPES,
+  setInputEnvs
 }
