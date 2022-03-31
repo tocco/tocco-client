@@ -40,12 +40,10 @@ fi
 
 # Gather all packages with private is not equal true in package.json
 allReleasePackages=()
-for outerDir in packages/*/ ; do
-  for dir in ${outerDir}*/ ; do
-    if [[ -f "${dir}package.json" && $(json -f "${dir}package.json" private) != true ]]; then
-      allReleasePackages+=("$(cut -d'/' -f3 <<<${dir})")
-    fi
-  done
+for dir in packages/*/ ; do
+  if [[ -f "${dir}package.json" && $(json -f "${dir}package.json" private) != true ]]; then
+    allReleasePackages+=("$(cut -d'/' -f2 <<<${dir})")
+  fi
 done
 
 # Gather packages which should be released
