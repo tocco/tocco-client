@@ -1,3 +1,6 @@
+1.0.0-hotfix30.21
+- do not reuse same tab for different reports
+
 1.0.0-hotfix30.20
 - update range values properly
 - harmonize error list spacing within forms
