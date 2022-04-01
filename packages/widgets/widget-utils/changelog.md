@@ -1,3 +1,6 @@
+0.1.8
+- set embedType for widgets
+
 0.1.7
 - split backend url in asset and backend url
 
