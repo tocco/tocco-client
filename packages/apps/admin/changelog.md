@@ -1,3 +1,6 @@
+1.0.29
+- hide meta data on widgets
+
 1.0.28
 - use correct files name for upload
 - do not reuse same tab for different reports

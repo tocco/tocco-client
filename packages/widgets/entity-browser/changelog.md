@@ -1,3 +1,6 @@
+1.0.13
+- hide meta data on widgets
+
 1.0.12
 - do not reuse same tab for different reports
 - attach tether to target to prevent coverage of input fields
