@@ -2,6 +2,7 @@ export const INITIALIZE = 'list/INITIALIZE'
 export const REQUEST_ENTITIES = 'list/REQUEST_ENTITIES'
 export const SET_ENTITIES = 'list/SET_ENTITIES'
 export const SET_FORM_DEFINITION = 'list/SET_FORM_DEFINITION'
+export const SET_SEARCH_LIST_FORM_DEFINITION = 'list/SET_SEARCH_LIST_FORM_DEFINITION'
 export const SET_ENTITY_MODEL = 'list/SET_ENTITY_MODEL'
 export const SET_SORTING = 'list/SET_SORTING'
 export const SET_LIMIT = 'list/SET_LIMIT'
@@ -17,11 +18,6 @@ export const SET_SEARCH_FILTERS = 'list/SET_SEARCH_FILTERS'
 export const SET_SIMPLE_SEARCH_FIELDS = 'list/SET_SIMPLE_SEARCH_FIELDS'
 export const ON_ROW_CLICK = 'list/ON_ROW_CLICK'
 export const NAVIGATE_TO_CREATE = 'entityList/NAVIGATE_TO_CREATE'
-export const SET_FORM_SELECTABLE = 'list/SET_FORM_SELECTABLE'
-export const SET_FORM_CLICKABLE = 'list/SET_FORM_CLICKABLE'
-export const SET_ENDPOINT = 'list/SET_ENDPOINT'
-export const SET_SEARCH_ENDPOINT = 'list/SET_SEARCH_ENDPOINT'
-export const SET_CONSTRICTION = 'list/SET_CONSTRICTION'
 export const QUERY_CHANGED = 'list/QUERY_CHANGED'
 export const SET_SHOW_LINK = 'list/SET_SHOW_LINK'
 export const SET_LAZY_DATA = 'list/SET_LAZY_DATA'
@@ -36,7 +32,6 @@ export const SET_INITIALIZED = 'list/SET_INITIALIZED'
 export const SET_SORTABLE = 'list/SET_SORTABLE'
 export const SET_MARKED = 'list/SET_MARKED'
 export const TOGGLE_MARKINGS = 'list/TOGGLE_MARKINGS'
-export const SET_DISABLE_PREFERENCES_MENU = 'list/SET_DISABLE_PREFERENCES_MENU'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -80,6 +75,13 @@ export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
   payload: {
     formDefinition
+  }
+})
+
+export const setSearchListFormDefinition = searchListFormDefinition => ({
+  type: SET_SEARCH_LIST_FORM_DEFINITION,
+  payload: {
+    searchListFormDefinition
   }
 })
 
@@ -154,41 +156,6 @@ export const navigateToCreate = relationName => ({
   type: NAVIGATE_TO_CREATE,
   payload: {
     relationName
-  }
-})
-
-export const setFormSelectable = formSelectable => ({
-  type: SET_FORM_SELECTABLE,
-  payload: {
-    formSelectable
-  }
-})
-
-export const setFormClickable = formClickable => ({
-  type: SET_FORM_CLICKABLE,
-  payload: {
-    formClickable
-  }
-})
-
-export const setEndpoint = endpoint => ({
-  type: SET_ENDPOINT,
-  payload: {
-    endpoint
-  }
-})
-
-export const setSearchEndpoint = searchEndpoint => ({
-  type: SET_SEARCH_ENDPOINT,
-  payload: {
-    searchEndpoint
-  }
-})
-
-export const setConstriction = constriction => ({
-  type: SET_CONSTRICTION,
-  payload: {
-    constriction
   }
 })
 
@@ -287,12 +254,5 @@ export const toggleMarkings = selection => ({
   type: TOGGLE_MARKINGS,
   payload: {
     selection
-  }
-})
-
-export const setDisablePreferencesMenu = disablePreferencesMenu => ({
-  type: SET_DISABLE_PREFERENCES_MENU,
-  payload: {
-    disablePreferencesMenu
   }
 })

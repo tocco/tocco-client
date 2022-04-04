@@ -4,6 +4,11 @@ import {api} from 'tocco-util'
 
 import cellRenderer from '../cellRenderer'
 
+export const getFormDefinition = (state, query) =>
+  (query || state.selection.query).hasUserChanges && state.list.searchListFormDefinition
+    ? state.list.searchListFormDefinition
+    : state.list.formDefinition
+
 export const getTable = formDefinition =>
   formDefinition.children.find(child => child.componentType === form.componentTypes.TABLE)
 
@@ -16,6 +21,9 @@ export const getSorting = formDefinition => {
 }
 
 export const getSelectable = formDefinition => {
+  if (!formDefinition) {
+    return false
+  }
   const table = getTable(formDefinition)
   return table.selectable !== false
 }
@@ -188,3 +196,13 @@ export const getTableColumns = (formDefinition, columnDisplayPreferences = {}, p
         ? !columnDisplayPreferences[column.id]
         : column.hidden
     }))
+
+export const splitFormId = formId => {
+  const index = formId.lastIndexOf('_')
+  const formName = formId.substring(0, index)
+  const scope = formId.substring(index + 1)
+  return {
+    formName,
+    scope
+  }
+}

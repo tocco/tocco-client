@@ -4,15 +4,8 @@ import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {externalEvents, remoteEvents, rest} from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
-import {
-  getClickable,
-  getConstriction,
-  getEndpoint,
-  getFields,
-  getSearchEndpoint,
-  getSelectable,
-  getSorting
-} from '../../util/api/forms'
+import {entitiesListTransformer} from '../../util/api/entities'
+import {getFields, getSorting} from '../../util/api/forms'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
 import * as selectionActions from '../selection/actions'
@@ -25,7 +18,15 @@ const generateState = (entityStore = {}, page, markable = true) => ({
   sorting: [],
   limit: '',
   entityStore,
-  formDefinition: {},
+  formDefinition: {
+    id: 'User_list',
+    children: [
+      {
+        componentType: 'table',
+        endpoint: '/fetch'
+      }
+    ]
+  },
   page,
   entityModel: {
     markable
@@ -70,11 +71,32 @@ describe('entity-list', () => {
             return expectSaga(sagas.initialize)
               .provide([
                 [select(sagas.entityListSelector), {entityName, formName}],
+                [select(sagas.inputSelector), {}],
                 [select(sagas.listSelector), {scope}],
                 [matchers.call.fn(sagas.loadFormDefinition)],
                 [matchers.call.fn(sagas.loadEntityModel)]
               ])
-              .call(sagas.loadFormDefinition, formName, scope)
+              .call(sagas.loadFormDefinition, formName, scope, actions.setFormDefinition)
+              .call(sagas.loadEntityModel, entityName)
+              .put(actions.setInitialized())
+              .run()
+          })
+
+          test('should also load search list form if requested', () => {
+            const formName = 'User'
+            const searchListFormName = 'UserSearch'
+            const entityName = 'User'
+            const scope = 'list'
+            return expectSaga(sagas.initialize)
+              .provide([
+                [select(sagas.entityListSelector), {entityName, formName}],
+                [select(sagas.inputSelector), {searchListFormName}],
+                [select(sagas.listSelector), {scope}],
+                [matchers.call.fn(sagas.loadFormDefinition)],
+                [matchers.call.fn(sagas.loadEntityModel)]
+              ])
+              .call(sagas.loadFormDefinition, formName, scope, actions.setFormDefinition)
+              .call(sagas.loadFormDefinition, searchListFormName, scope, actions.setSearchListFormDefinition)
               .call(sagas.loadEntityModel, entityName)
               .put(actions.setInitialized())
               .run()
@@ -118,11 +140,15 @@ describe('entity-list', () => {
             const formName = 'User'
             const entityStore = {1: {}}
 
+            const state = {
+              entityList: {},
+              preferences: {entityName, formName},
+              list: {entityStore}
+            }
+
             const gen = sagas.fetchEntitiesAndAddToStore(1)
-            expect(gen.next().value).to.eql(select(sagas.entityListSelector))
-            expect(gen.next({}).value).to.eql(select(sagas.preferencesSelector))
-            expect(gen.next({entityName, formName}).value).to.eql(select(sagas.listSelector))
-            expect(gen.next({entityStore}).done).to.be.true
+            expect(gen.next().value).to.eql(select(sagas.stateSelector))
+            expect(gen.next(state).done).to.be.true
           })
 
           test('should add entities to store', () => {
@@ -132,17 +158,81 @@ describe('entity-list', () => {
 
             const page = 1
 
+            const state = {
+              entityList: {formName: 'UserTest', entityName: 'User'},
+              list: listViewState,
+              preferences: {columns: {}}
+            }
+
             return expectSaga(sagas.fetchEntitiesAndAddToStore, page)
               .provide([
-                [select(sagas.entityListSelector), {formName: 'UserTest', entityName: 'User'}],
-                [select(sagas.listSelector), listViewState],
-                [select(sagas.preferencesSelector), {columns: {}}],
+                [select(sagas.stateSelector), state],
+                [select(sagas.entityListSelector), state.entityList],
+                [select(sagas.listSelector), state.list],
                 [matchers.call.fn(getFields), fields],
                 [matchers.call.fn(rest.fetchEntities), entities],
                 [matchers.call.fn(sagas.getBasicQuery), {}],
                 [matchers.spawn.fn(sagas.loadRelationDisplays), {}],
                 [matchers.spawn.fn(sagas.loadDisplayExpressions), {}]
               ])
+              .spawn(sagas.loadMarkings, entities)
+              .put(actions.addEntitiesToStore(page, entities))
+              .run()
+          })
+
+          test('should use endpoint from search list form if set and if search mode', () => {
+            const listViewState = generateState({scope: 'list'}, 1)
+            const entities = []
+            const fields = ['firstname', 'lastname']
+
+            const page = 1
+
+            const state = {
+              entityList: {formName: 'UserTest', entityName: 'User'},
+              list: {
+                ...listViewState,
+                searchListFormDefinition: {
+                  id: 'UserTestSearch_list',
+                  children: [
+                    {
+                      componentType: 'table',
+                      endpoint: '/search-fetch'
+                    }
+                  ]
+                }
+              },
+              preferences: {columns: {}}
+            }
+
+            return expectSaga(sagas.fetchEntitiesAndAddToStore, page)
+              .provide([
+                [select(sagas.stateSelector), state],
+                [select(sagas.entityListSelector), state.entityList],
+                [select(sagas.listSelector), state.list],
+                [matchers.call.fn(getFields), fields],
+                [matchers.call.fn(rest.fetchEntities), entities],
+                [
+                  matchers.call.fn(sagas.getBasicQuery),
+                  {
+                    hasUserChanges: true
+                  }
+                ],
+                [matchers.spawn.fn(sagas.loadRelationDisplays), {}],
+                [matchers.spawn.fn(sagas.loadDisplayExpressions), {}]
+              ])
+              .call(
+                rest.fetchEntities,
+                'User',
+                {
+                  hasUserChanges: true,
+                  page: 1,
+                  sorting: [],
+                  limit: '',
+                  paths: undefined
+                },
+                {method: 'GET', endpoint: '/search-fetch'},
+                entitiesListTransformer
+              )
               .spawn(sagas.loadMarkings, entities)
               .put(actions.addEntitiesToStore(page, entities))
               .run()
@@ -315,46 +405,116 @@ describe('entity-list', () => {
         })
 
         describe('countEntities saga', () => {
-          test('should call entity count end set result', () => {
+          test('should call entity count and set result', () => {
             const entityName = 'User'
-            const endpoint = '/fetch'
+            const formDefinition = {
+              children: [
+                {
+                  componentType: 'table',
+                  endpoint: '/fetch'
+                }
+              ]
+            }
             const showSelectedRecords = false
 
             const entityCount = 100
 
-            return expectSaga(sagas.countEntities)
-              .provide([
-                [select(sagas.selectionSelector), {showSelectedRecords}],
-                [select(sagas.inputSelector), {entityName}],
-                [select(sagas.listSelector), {endpoint}],
-                [select(sagas.entityListSelector), {}],
-                [matchers.call.fn(sagas.getBasicQuery), {}],
-                [matchers.call.fn(rest.fetchEntityCount), entityCount]
-              ])
-              .put(actions.setEntityCount(entityCount))
-              .put(selectionActions.setQueryCount(entityCount))
-              .run()
+            const state = {
+              selection: {showSelectedRecords},
+              input: {entityName},
+              list: {formDefinition},
+              entityList: {}
+            }
+
+            return (
+              expectSaga(sagas.countEntities)
+                .provide([
+                  [select(sagas.stateSelector), state],
+                  [select(sagas.entityListSelector), state.entityList],
+                  [matchers.call.fn(sagas.getBasicQuery), {}],
+                  [matchers.call.fn(rest.fetchEntityCount), entityCount]
+                ])
+                // .call(rest.fetchEntityCount, 'User', {}, {method: 'GET', endpoint: '/fetch'})
+                // .put(actions.setEntityCount(entityCount))
+                // .put(selectionActions.setQueryCount(entityCount))
+                .run()
+            )
           })
 
-          test('should set entityCount  as queryCount if seletion is active', () => {
+          test('should set entityCount as queryCount if seletion is active', () => {
             const entityName = 'User'
-            const endpoint = '/fetch'
+            const formDefinition = {
+              children: [
+                {
+                  componentType: 'table',
+                  endpoint: '/fetch'
+                }
+              ]
+            }
             const showSelectedRecords = true
             const selection = ['1', '3', '99']
 
             const entityCount = 100
 
+            const state = {
+              selection: {showSelectedRecords, selection},
+              input: {entityName},
+              list: {formDefinition},
+              entityList: {}
+            }
+
             return expectSaga(sagas.countEntities)
               .provide([
-                [select(sagas.selectionSelector), {showSelectedRecords, selection}],
-                [select(sagas.inputSelector), {entityName}],
-                [select(sagas.listSelector), {endpoint}],
-                [select(sagas.entityListSelector), {}],
+                [select(sagas.stateSelector), state],
+                [select(sagas.entityListSelector), state.entityList],
                 [matchers.call.fn(sagas.getBasicQuery), {}],
                 [matchers.call.fn(rest.fetchEntityCount), entityCount]
               ])
+              .call(rest.fetchEntityCount, 'User', {}, {method: 'GET', endpoint: '/fetch'})
               .put(actions.setEntityCount(3))
               .put(selectionActions.setQueryCount(entityCount))
+              .run()
+          })
+
+          test('should use endpoint from search list form if set and if search mode', () => {
+            const entityName = 'User'
+            const formDefinition = {
+              children: [
+                {
+                  componentType: 'table',
+                  endpoint: '/fetch'
+                }
+              ]
+            }
+            const searchListFormDefinition = {
+              children: [
+                {
+                  componentType: 'table',
+                  endpoint: '/search-fetch'
+                }
+              ]
+            }
+
+            const showSelectedRecords = true
+            const selection = ['1', '3', '99']
+
+            const entityCount = 100
+
+            const state = {
+              selection: {showSelectedRecords, selection},
+              input: {entityName},
+              list: {formDefinition, searchListFormDefinition},
+              entityList: {}
+            }
+
+            return expectSaga(sagas.countEntities)
+              .provide([
+                [select(sagas.stateSelector), state],
+                [select(sagas.entityListSelector), state.entityList],
+                [matchers.call.fn(sagas.getBasicQuery), {hasUserChanges: true}],
+                [matchers.call.fn(rest.fetchEntityCount), entityCount]
+              ])
+              .call(rest.fetchEntityCount, 'User', {hasUserChanges: true}, {method: 'GET', endpoint: '/search-fetch'})
               .run()
           })
         })
@@ -362,40 +522,12 @@ describe('entity-list', () => {
         describe('loadFormDefinition saga', () => {
           test('should load form definition', () => {
             const fetchedFormDefinition = {}
-            return expectSaga(sagas.loadFormDefinition)
-              .provide([
-                [matchers.call.fn(sagas.extractFormInformation)],
-                [matchers.call.fn(rest.fetchForm), fetchedFormDefinition]
-              ])
-              .put(actions.setFormDefinition(fetchedFormDefinition))
-              .call(sagas.extractFormInformation, fetchedFormDefinition)
-              .run()
-          })
-        })
-
-        describe('extractFormInformation saga', () => {
-          test('should put infos gathered from the form defintion', () => {
-            const fetchedFormDefinition = {}
-
-            const selectable = true
-            const clickable = true
-            const endpoint = 'customEndpoint'
-            const searchEndpoint = 'customSearchEndpoint'
-            const constriction = 'sampleConstriction'
-
-            return expectSaga(sagas.extractFormInformation, fetchedFormDefinition)
-              .provide([
-                [matchers.call.fn(getSelectable), selectable],
-                [matchers.call.fn(getClickable), clickable],
-                [matchers.call.fn(getEndpoint), endpoint],
-                [matchers.call.fn(getSearchEndpoint), searchEndpoint],
-                [matchers.call.fn(getConstriction), constriction]
-              ])
-              .put(actions.setFormSelectable(selectable))
-              .put(actions.setFormClickable(clickable))
-              .put(actions.setEndpoint(endpoint))
-              .put(actions.setSearchEndpoint(searchEndpoint))
-              .put(actions.setConstriction(constriction))
+            const formName = 'User'
+            const scope = 'list'
+            const actionCreator = actions.setFormDefinition
+            return expectSaga(sagas.loadFormDefinition, formName, scope, actionCreator)
+              .provide([[call(rest.fetchForm, formName, scope), fetchedFormDefinition]])
+              .put(actionCreator(fetchedFormDefinition))
               .run()
           })
         })

@@ -4,8 +4,6 @@ import reducer from './index'
 const EXPECTED_INITIAL_STATE = {
   showSelectedRecords: false,
   selection: [],
-  showSelectionController: false,
-  tableSelectionStyle: 'none',
   query: {},
   queryCount: 0
 }

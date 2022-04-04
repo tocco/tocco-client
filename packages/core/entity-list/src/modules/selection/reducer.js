@@ -17,12 +17,9 @@ const clearSelection = (state, {payload}) => ({
 })
 
 const ACTION_HANDLERS = {
-  [actions.SET_TABLE_SELECTION_STYLE]: reducerUtil.singleTransferReducer('tableSelectionStyle'),
   [actions.TOGGLE_SHOW_SELECTED_RECORDS]: reducerUtil.toggleReducer('showSelectedRecords'),
   [actions.SET_SELECTION]: setSelection,
   [actions.CLEAR_SELECTION]: clearSelection,
-  [actions.SET_SHOW_SELECTION_CONTROLLER]: reducerUtil.singleTransferReducer('showSelectionController'),
-  [actions.SET_TABLE_SELECTION_STYLE]: reducerUtil.singleTransferReducer('tableSelectionStyle'),
   [actions.SET_QUERY]: reducerUtil.singleTransferReducer('query'),
   [actions.SET_QUERY_COUNT]: reducerUtil.singleTransferReducer('queryCount')
 }
@@ -30,8 +27,6 @@ const ACTION_HANDLERS = {
 const initialState = {
   showSelectedRecords: false,
   selection: [],
-  showSelectionController: false,
-  tableSelectionStyle: 'none',
   query: {},
   queryCount: 0
 }
