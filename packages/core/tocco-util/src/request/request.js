@@ -38,7 +38,7 @@ export const prepareHeaders = options => {
   }
 
   if (!headers.has('X-Client')) {
-    headers.set('X-Client', 'client')
+    headers.set('X-Client', env.getEmbedType() === 'admin' ? 'client' : 'widget')
   }
 
   return headers
