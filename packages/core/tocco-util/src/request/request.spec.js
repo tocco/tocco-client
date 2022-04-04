@@ -39,6 +39,7 @@ describe('tocco-util', () => {
     describe('prepareHeaders', () => {
       afterEach(() => {
         env.setBusinessUnit(undefined)
+        env.setEmbedType('admin')
       })
 
       test('should handle empty headers', () => {
@@ -134,6 +135,14 @@ describe('tocco-util', () => {
         const headers = prepareHeaders(options)
 
         expect(headers.get('X-Client')).to.deep.equal('different')
+        expect(Array.from(headers).length).to.equal(3)
+      })
+
+      test('x-client depends on embed type', () => {
+        env.setEmbedType('widget')
+        const headers = prepareHeaders({})
+
+        expect(headers.get('X-Client')).to.deep.equal('widget')
         expect(Array.from(headers).length).to.equal(3)
       })
     })

@@ -5,6 +5,7 @@ import rest from '../rest'
 export const typeMapper = {
   failed: 'error',
   info: 'info',
+  warning: 'warning',
   success: 'success'
 }
 
