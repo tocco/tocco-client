@@ -593,6 +593,15 @@ describe('entity-list', () => {
           })
         })
       })
+
+      describe('splitFormId', () => {
+        test('should split form id into form name and scope', () => {
+          expect(forms.splitFormId('Root_docs_list_item_list')).to.eql({
+            formName: 'Root_docs_list_item',
+            scope: 'list'
+          })
+        })
+      })
     })
   })
 })

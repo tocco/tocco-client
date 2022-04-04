@@ -8,23 +8,19 @@ const EXPECTED_INITIAL_STATE = {
   scope: 'list',
   currentPage: 1,
   sorting: [],
-  sortable: true,
   formDefinition: null,
+  searchListFormDefinition: null,
   entityCount: null,
   entityStore: {},
   inProgress: true,
   searchFilters: [],
   createPermission: false,
-  formSelectable: false,
-  formClickable: false,
   showLink: false,
+  sortable: true,
   lazyData: {},
-  endpoint: null,
-  searchEndpoint: null,
-  constriction: null,
+  inputTql: null,
   inputKeys: null,
   inputSearchFilters: null,
-  inputTql: null,
   inputConstriction: null
 }
 
@@ -214,30 +210,6 @@ describe('entity-list', () => {
           expect(reducer(stateBefore, actions.setInProgress(true))).to.deep.equal(expectedStateAfter)
         })
 
-        test('should handle SET_FORM_SELECTABLE', () => {
-          const stateBefore = {
-            formSelectable: false
-          }
-
-          const expectedStateAfter = {
-            formSelectable: true
-          }
-
-          expect(reducer(stateBefore, actions.setFormSelectable(true))).to.deep.equal(expectedStateAfter)
-        })
-
-        test('should handle SET_FORM_CLICKABLE', () => {
-          const stateBefore = {
-            formClickable: false
-          }
-
-          const expectedStateAfter = {
-            formClickable: true
-          }
-
-          expect(reducer(stateBefore, actions.setFormClickable(true))).to.deep.equal(expectedStateAfter)
-        })
-
         test('should handle SET_LAZY_DATA', () => {
           const stateBefore = {
             lazyData: {}
@@ -333,20 +305,6 @@ describe('entity-list', () => {
           expect(reducer(expectedStateAfter, actions.setSortingInteractive('firstname', true))).to.deep.equal(
             expectedStateAfter2
           )
-        })
-
-        test('should handle SET_SEARCH_ENDPOINT', () => {
-          const newSearchEndpoint = '/foo/bar'
-
-          const stateBefore = {
-            searchEndpoint: null
-          }
-
-          const expectedStateAfter = {
-            searchEndpoint: newSearchEndpoint
-          }
-
-          expect(reducer(stateBefore, actions.setSearchEndpoint(newSearchEndpoint))).to.deep.equal(expectedStateAfter)
         })
 
         test('should handle SET_INPUT_CONSTRICTION', () => {

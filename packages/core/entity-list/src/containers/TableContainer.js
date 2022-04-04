@@ -5,6 +5,8 @@ import Table from '../components/Table'
 import {changePage, refresh, initialize, onRowClick, setSortingInteractive} from '../modules/list/actions'
 import {changePosition, resetSorting, changeWidth} from '../modules/preferences/actions'
 import {onSelectChange, setSelection} from '../modules/selection/actions'
+import {getFormDefinition, getClickable, getDisablePreferencesMenu, getSelectable} from '../util/api/forms'
+import {getTableSelectionStyle} from '../util/selection'
 
 const mapActionCreators = {
   initialize,
@@ -25,8 +27,8 @@ const mapStateToProps = (state, props) => ({
   entityCount: state.list.entityCount,
   limit: state.list.limit,
   inProgress: state.list.inProgress,
-  tableSelectionStyle: state.selection.tableSelectionStyle,
-  clickable: state.list.formClickable,
+  tableSelectionStyle: getTableSelectionStyle(state.input.selectionStyle, getSelectable(getFormDefinition(state))),
+  clickable: getClickable(getFormDefinition(state)),
   selection: state.selection.selection,
   parent: state.entityList.parent,
   showLink: state.list.showLink,
@@ -34,7 +36,7 @@ const mapStateToProps = (state, props) => ({
   positions: state.preferences.positions,
   widths: state.preferences.widths,
   markable: state.list.entityModel.markable && state.list.formDefinition.markable,
-  disablePreferencesMenu: state.list.disablePreferencesMenu,
+  disablePreferencesMenu: getDisablePreferencesMenu(getFormDefinition(state)),
   scrollBehaviour: state.entityList.scrollBehaviour
 })
 

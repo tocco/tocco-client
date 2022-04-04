@@ -153,6 +153,7 @@ EntityListApp.propTypes = {
   id: PropTypes.string.isRequired,
   entityName: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
+  searchListFormName: PropTypes.string,
   store: PropTypes.object,
   limit: PropTypes.number,
   searchFormType: searchFormTypePropTypes,

@@ -8,14 +8,12 @@ import {api, consoleLogger} from 'tocco-util'
 import {entitiesListTransformer} from '../../util/api/entities'
 import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
 import {
-  getClickable,
-  getConstriction,
-  getDisablePreferencesMenu,
   getEndpoint,
   getFields,
+  getFormDefinition,
   getSearchEndpoint,
-  getSelectable,
-  getSorting
+  getSorting,
+  splitFormId
 } from '../../util/api/forms'
 import * as preferencesActions from '../preferences/actions'
 import * as searchFormActions from '../searchForm/actions'
@@ -23,6 +21,7 @@ import {getSearchFormValues} from '../searchForm/sagas'
 import * as selectionActions from '../selection/actions'
 import * as actions from './actions'
 
+export const stateSelector = state => state
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
 export const listSelector = state => state.list
@@ -52,8 +51,15 @@ export default function* sagas() {
 
 export function* initialize() {
   const {entityName, formName} = yield select(entityListSelector)
+  const {searchListFormName} = yield select(inputSelector)
   const {scope} = yield select(listSelector)
-  yield all([call(loadFormDefinition, formName, scope), call(loadEntityModel, entityName)])
+  yield all([
+    call(loadFormDefinition, formName, scope, actions.setFormDefinition),
+    call(loadEntityModel, entityName),
+    searchListFormName
+      ? call(loadFormDefinition, searchListFormName, scope, actions.setSearchListFormDefinition)
+      : undefined
+  ])
 
   yield put(actions.setInitialized())
 }
@@ -138,12 +144,17 @@ export function* prepareEndpointUrl(endpoint, searchEndpoint, hasUserChanges) {
 }
 
 export function* countEntities() {
-  const {entityName} = yield select(inputSelector)
-  const {endpoint, searchEndpoint} = yield select(listSelector)
-  const {showSelectedRecords, selection} = yield select(selectionSelector)
+  const state = yield select(stateSelector)
+  const {entityName} = state.input
+  const {showSelectedRecords, selection} = state.selection
 
   const regardSelection = !showSelectedRecords
   const query = yield call(getBasicQuery, regardSelection)
+
+  const formDefinition = getFormDefinition(state, query)
+  const endpoint = getEndpoint(formDefinition)
+  const searchEndpoint = getSearchEndpoint(formDefinition)
+
   const preparedEndpoint = yield call(prepareEndpointUrl, endpoint, searchEndpoint, query.hasUserChanges)
 
   const requestOptions = {
@@ -268,12 +279,15 @@ export function* setLazyDataMarked(entityName, markings) {
 }
 
 export function* fetchEntitiesAndAddToStore(page) {
-  const {entityName, formName} = yield select(entityListSelector)
-  const {columns: columnPreferences} = yield select(preferencesSelector)
-  const {entityStore, sorting, limit, formDefinition, endpoint, searchEndpoint, scope} = yield select(listSelector)
+  const state = yield select(stateSelector)
+  const {entityName} = state.entityList
+  const {columns: columnPreferences} = state.preferences
+  const {entityStore, sorting, limit, scope} = state.list
   if (!entityStore[page]) {
-    const {paths, relationFields, displayExpressionFields} = yield call(getFields, formDefinition, columnPreferences)
     const basicQuery = yield call(getBasicQuery)
+    const formDefinition = getFormDefinition(state, basicQuery)
+
+    const {paths, relationFields, displayExpressionFields} = yield call(getFields, formDefinition, columnPreferences)
     const query = {
       ...basicQuery,
       page,
@@ -281,6 +295,11 @@ export function* fetchEntitiesAndAddToStore(page) {
       limit,
       paths
     }
+
+    const endpoint = getEndpoint(formDefinition)
+    const searchEndpoint = getSearchEndpoint(formDefinition)
+    const {formName} = splitFormId(formDefinition.id)
+
     const preparedEndpoint = yield call(prepareEndpointUrl, endpoint, searchEndpoint, basicQuery.hasUserChanges)
     const requestOptions = {
       method: endpoint ? 'GET' : 'POST',
@@ -361,25 +380,9 @@ export function* setSorting() {
   }
 }
 
-export function* loadFormDefinition(formName, scope) {
+export function* loadFormDefinition(formName, scope, actionCreator) {
   const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
-  yield put(actions.setFormDefinition(fetchedFormDefinition))
-  yield call(extractFormInformation, fetchedFormDefinition)
-}
-
-export function* extractFormInformation(formDefinition) {
-  const selectable = yield call(getSelectable, formDefinition)
-  yield put(actions.setFormSelectable(selectable))
-  const clickable = yield call(getClickable, formDefinition)
-  yield put(actions.setFormClickable(clickable))
-  const endpoint = yield call(getEndpoint, formDefinition)
-  yield put(actions.setEndpoint(endpoint))
-  const searchEndpoint = yield call(getSearchEndpoint, formDefinition)
-  yield put(actions.setSearchEndpoint(searchEndpoint))
-  const constriction = yield call(getConstriction, formDefinition)
-  yield put(actions.setConstriction(constriction))
-  const disablePreferencesMenu = yield call(getDisablePreferencesMenu, formDefinition)
-  yield put(actions.setDisablePreferencesMenu(disablePreferencesMenu))
+  yield put(actionCreator(fetchedFormDefinition))
 }
 
 export function* loadEntityModel(entityName) {

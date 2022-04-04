@@ -1,9 +1,8 @@
 import {call, put, select, takeLatest, all} from 'redux-saga/effects'
 import {externalEvents} from 'tocco-app-extensions'
 
-import {combineSelection, showSelectionComponent, getTableSelectionStyle} from '../../util/selection'
+import {combineSelection} from '../../util/selection'
 import selectionStyles from '../../util/selectionStyles'
-import {SET_FORM_SELECTABLE} from '../list/actions'
 import * as actions from './actions'
 
 export const inputSelector = state => state.input
@@ -15,8 +14,7 @@ export default function* sagas() {
   yield all([
     takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, reloadData),
     takeLatest(actions.ON_SELECT_CHANGE, onSelectChange),
-    takeLatest(actions.CLEAR_SELECTION, clearSelection),
-    takeLatest(SET_FORM_SELECTABLE, initialize)
+    takeLatest(actions.CLEAR_SELECTION, clearSelection)
   ])
 }
 
@@ -37,28 +35,4 @@ export function* clearSelection() {
 
 export function* reloadData() {
   yield put(actions.reloadData())
-}
-
-export function* initialize() {
-  const {formSelectable} = yield select(listSelector)
-  const {selectionStyle, disableSelectionController} = yield select(inputSelector)
-  const {selectionMode} = yield select(selectionSelector)
-
-  const selectionControllerVisible = yield call(
-    showSelectionComponent,
-    selectionStyle,
-    disableSelectionController,
-    formSelectable
-  )
-  yield put(actions.setShowSelectionController(selectionControllerVisible))
-
-  yield call(setTableStyle, selectionMode)
-}
-
-export function* setTableStyle() {
-  const {formSelectable} = yield select(listSelector)
-  const {selectionStyle} = yield select(inputSelector)
-
-  const tableSelectionStyle = yield call(getTableSelectionStyle, selectionStyle, formSelectable)
-  yield put(actions.setTableSelectionStyle(tableSelectionStyle))
 }

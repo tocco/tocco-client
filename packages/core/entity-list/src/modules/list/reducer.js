@@ -54,6 +54,7 @@ const setSortingInteractive = (state, {payload: {field, add}}) => {
 const ACTION_HANDLERS = {
   [actions.SET_ENTITIES]: reducerUtil.singleTransferReducer('entities'),
   [actions.SET_FORM_DEFINITION]: reducerUtil.singleTransferReducer('formDefinition'),
+  [actions.SET_SEARCH_LIST_FORM_DEFINITION]: reducerUtil.singleTransferReducer('searchListFormDefinition'),
   [actions.SET_ENTITY_MODEL]: reducerUtil.singleTransferReducer('entityModel'),
   [actions.SET_LIMIT]: reducerUtil.singleTransferReducer('limit'),
   [actions.SET_SCOPE]: reducerUtil.singleTransferReducer('scope'),
@@ -66,18 +67,12 @@ const ACTION_HANDLERS = {
   [actions.CLEAR_ENTITY_STORE]: clearEntityStore,
   [actions.SET_IN_PROGRESS]: reducerUtil.singleTransferReducer('inProgress'),
   [actions.SET_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('searchFilters'),
-  [actions.SET_FORM_SELECTABLE]: reducerUtil.singleTransferReducer('formSelectable'),
-  [actions.SET_FORM_CLICKABLE]: reducerUtil.singleTransferReducer('formClickable'),
-  [actions.SET_ENDPOINT]: reducerUtil.singleTransferReducer('endpoint'),
-  [actions.SET_SEARCH_ENDPOINT]: reducerUtil.singleTransferReducer('searchEndpoint'),
-  [actions.SET_CONSTRICTION]: reducerUtil.singleTransferReducer('constriction'),
   [actions.SET_SHOW_LINK]: reducerUtil.singleTransferReducer('showLink'),
   [actions.SET_SORTABLE]: reducerUtil.singleTransferReducer('sortable'),
   [actions.SET_INPUT_TQL]: reducerUtil.singleTransferReducer('inputTql'),
   [actions.SET_INPUT_KEYS]: reducerUtil.singleTransferReducer('inputKeys'),
   [actions.SET_INPUT_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('inputSearchFilters'),
-  [actions.SET_INPUT_CONSTRICTION]: reducerUtil.singleTransferReducer('inputConstriction'),
-  [actions.SET_DISABLE_PREFERENCES_MENU]: reducerUtil.singleTransferReducer('disablePreferencesMenu')
+  [actions.SET_INPUT_CONSTRICTION]: reducerUtil.singleTransferReducer('inputConstriction')
 }
 
 const initialState = {
@@ -88,19 +83,15 @@ const initialState = {
   currentPage: 1,
   sorting: [],
   formDefinition: null,
+  searchListFormDefinition: null,
   entityCount: null,
   entityStore: {},
   inProgress: true,
   searchFilters: [],
   createPermission: false,
-  formSelectable: false,
-  formClickable: false,
   showLink: false,
   sortable: true,
   lazyData: {},
-  endpoint: null,
-  searchEndpoint: null,
-  constriction: null,
   inputTql: null,
   inputKeys: null,
   inputSearchFilters: null,
