@@ -5,13 +5,7 @@ import {usePopper} from 'react-popper'
 
 import {StyledArrow, StyledBox, StyledBoxWrapper} from './StyledPopover'
 
-const placements = {
-  TOP: 'top',
-  BOTTOM: 'bottom',
-  RIGHT: 'right'
-}
-
-const Popover = ({children, content, isPlainHtml, rimless, placement}) => {
+const Popover = ({children, content, isPlainHtml, rimless}) => {
   const [referenceElement, setReferenceElement] = useState(null)
   const [popperElement, setPopperElement] = useState(null)
   const [arrowElement, setArrowElement] = useState(null)
@@ -46,7 +40,7 @@ const Popover = ({children, content, isPlainHtml, rimless, placement}) => {
     }
   ]
 
-  const {styles, attributes} = usePopper(referenceElement, popperElement, {placement, modifiers})
+  const {styles, attributes} = usePopper(referenceElement, popperElement, {modifiers})
 
   return (
     <>
@@ -59,7 +53,7 @@ const Popover = ({children, content, isPlainHtml, rimless, placement}) => {
         ReactDOM.createPortal(
           <StyledBoxWrapper ref={setPopperElement} style={styles.popper} rimless={rimless} {...attributes.popper}>
             <StyledBox isPlainHtml={isPlainHtml}>{content}</StyledBox>
-            <StyledArrow ref={setArrowElement} data-placement={placement} style={styles.arrow} />
+            <StyledArrow ref={setArrowElement} style={styles.arrow} {...attributes.popper} />
           </StyledBoxWrapper>,
           document.body
         )}
@@ -69,8 +63,7 @@ const Popover = ({children, content, isPlainHtml, rimless, placement}) => {
 
 Popover.defaultProps = {
   isPlainHtml: true,
-  rimless: false,
-  placement: placements.TOP
+  rimless: false
 }
 
 Popover.propTypes = {
@@ -90,11 +83,7 @@ Popover.propTypes = {
    * Add typographic styles for nested content. If content is already completely
    * styled disable this option (e.g. styled-components). Default is {true}.
    */
-  isPlainHtml: PropTypes.bool,
-  /**
-   * Content of the popover
-   */
-  placement: PropTypes.oneOf(Object.values(placements))
+  isPlainHtml: PropTypes.bool
 }
 
 export default Popover
