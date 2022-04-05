@@ -40,7 +40,7 @@ const StyledArrow = styled.i`
   height: ${ARROW_WIDTH / 2}px;
   left: 0;
 
-  &[data-placement*='bottom'] {
+  &[data-popper-placement*='bottom'] {
     top: ${ARROW_WIDTH / -2}px;
 
     &:before {
@@ -49,7 +49,7 @@ const StyledArrow = styled.i`
     }
   }
 
-  &[data-placement*='top'] {
+  &[data-popper-placement*='top'] {
     bottom: ${ARROW_WIDTH / -2.5}px;
 
     &:before {
@@ -58,7 +58,7 @@ const StyledArrow = styled.i`
     }
   }
 
-  &[data-placement*='right'] {
+  &[data-popper-placement*='right'] {
     left: -${ARROW_WIDTH}px;
     top: -6px !important;
 
