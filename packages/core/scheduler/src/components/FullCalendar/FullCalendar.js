@@ -135,7 +135,7 @@ const FullCalendar = forwardRef(
     const memoizedFullCalendar = useMemo(
       () => (
         <ReactFullCalendar
-          resourceOrder=""
+          resourceOrder="calendarType,title"
           schedulerLicenseKey={getLicense()}
           locale={locale}
           plugins={[adaptivePlugin, resourceTimelinePlugin, interactionPlugin]}
