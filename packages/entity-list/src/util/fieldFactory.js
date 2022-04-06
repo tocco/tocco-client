@@ -31,7 +31,7 @@ export default (fieldDefinition, entity, intl) => {
         <FormattedValueWrapper type={dataType} value={v} intl={intl} formField={fieldDefinition} />
       </formData.FormDataContainer>
     ))
-    .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx} />, curr])
+    .reduce((acc, curr, idx) => [...acc, ...(acc.length > 0 ? [<MultiSeparator key={`sep${idx}`} />] : []), curr], [])
 
   return <StyledSpan key={id}>{formDataContainer}</StyledSpan>
 }

@@ -76,6 +76,42 @@ describe('entity-list', () => {
         expect(wrapper.find(FormattedValue)).to.have.length(2)
         expect(wrapper.find(MultiSeparator)).to.have.length(1)
       })
+
+      test('should handle empty array as value', () => {
+        const field = {
+          id: 'relSomething.xy',
+          path: 'relSomething.xy',
+          dataType: 'string'
+        }
+        const entity = {
+          'relSomething.xy': []
+        }
+
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={getStore()}>{fieldFactory(field, entity, IntlStub)}</Provider>
+        )
+
+        expect(wrapper.find(FormattedValue)).to.have.length(0)
+        expect(wrapper.find(MultiSeparator)).to.have.length(0)
+      })
+
+      test('should not return separator with only one value', () => {
+        const field = {
+          id: 'relSomething.xy',
+          path: 'relSomething.xy',
+          dataType: 'string'
+        }
+        const entity = {
+          'relSomething.xy': [{value: 'V1', type: 'string'}]
+        }
+
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={getStore()}>{fieldFactory(field, entity, IntlStub)}</Provider>
+        )
+
+        expect(wrapper.find(FormattedValue)).to.have.length(1)
+        expect(wrapper.find(MultiSeparator)).to.have.length(0)
+      })
     })
   })
 })
