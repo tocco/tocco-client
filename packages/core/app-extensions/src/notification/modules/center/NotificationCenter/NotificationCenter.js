@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {useEffect, useRef} from 'react'
 import {FormattedMessage} from 'react-intl'
-import {LoadingSpinner} from 'tocco-ui'
+import {LoadingSpinner, Typography} from 'tocco-ui'
 
 import {resultTypes} from '../../../api'
 import {notificationPropType} from '../../../types'
@@ -40,7 +40,7 @@ const NotificationCenter = ({
     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
     .map(notification => (
       <Notification
-        key={'notification-' + notification.key}
+        key={`notification-${notification.key}`}
         markAsRead={markAsRead}
         cancelTask={cancelTask}
         notification={notification}
@@ -56,10 +56,14 @@ const NotificationCenter = ({
       {SortedNotifications}
       {isLoadingMoreNotifications && <LoadingSpinner />}
       {SortedNotifications.length > 0 && !moreNotificationsAvailable && (
-        <FormattedMessage id={'client.admin.notification.noMoreNotifications'} />
+        <Typography.I>
+          <FormattedMessage id={'client.admin.notification.noMoreNotifications'} />
+        </Typography.I>
       )}
       {SortedNotifications.length === 0 && !isLoadingMoreNotifications && (
-        <FormattedMessage id={'client.admin.notification.noNotification'} />
+        <Typography.I>
+          <FormattedMessage id={'client.admin.notification.noNotification'} />
+        </Typography.I>
       )}
     </StyledNotificationCenter>
   )
