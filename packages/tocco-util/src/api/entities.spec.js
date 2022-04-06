@@ -335,6 +335,112 @@ describe('tocco-util', () => {
 
         expect(result['relUser.relUser_address.city']).to.eql(['Zürich', 'Bern'])
       })
+
+      test('should handle nested to N relations (flatten nested values)', () => {
+        const entity = {
+          paths: {
+            relUser: {
+              type: 'entity',
+              writable: null,
+              value: {
+                _links: null,
+                key: '1',
+                model: 'User',
+                version: 340,
+                paths: {
+                  relUser_address: {
+                    type: 'entity-list',
+                    writable: null,
+                    value: [
+                      {
+                        _links: null,
+                        key: '1',
+                        model: 'User_address',
+                        version: 1,
+                        paths: {
+                          relUser_address_type: {
+                            type: 'entity-list',
+                            writable: null,
+                            value: [
+                              {
+                                _links: null,
+                                key: '1',
+                                model: 'User_address_type',
+                                version: 0,
+                                paths: {
+                                  label: {
+                                    type: 'text',
+                                    writable: null,
+                                    value: 'Home'
+                                  },
+                                  description: {
+                                    type: 'text',
+                                    writable: null,
+                                    value: 'This is a valid description'
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        _links: null,
+                        key: '4',
+                        model: 'User_address',
+                        version: 1,
+                        paths: {
+                          relUser_address_type: {
+                            type: 'entity-list',
+                            writable: null,
+                            value: [
+                              {
+                                _links: null,
+                                key: '2',
+                                model: 'User_address_type',
+                                version: 0,
+                                paths: {
+                                  label: {
+                                    type: 'text',
+                                    writable: null,
+                                    value: 'Work'
+                                  },
+                                  description: {
+                                    type: 'text',
+                                    writable: null,
+                                    value: null
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        const result = getFlattenEntity(entity)
+
+        expect(result.relUser).to.eql({key: '1', model: 'User', version: 340})
+        expect(result['relUser.relUser_address']).to.eql([
+          {key: '1', model: 'User_address', version: 1},
+          {key: '4', model: 'User_address', version: 1}
+        ])
+        expect(result['relUser.relUser_address.relUser_address_type']).to.eql([
+          {key: '1', model: 'User_address_type', version: 0},
+          {key: '2', model: 'User_address_type', version: 0}
+        ])
+
+        expect(result['relUser.relUser_address.relUser_address_type.label']).to.eql(['Home', 'Work'])
+        expect(result['relUser.relUser_address.relUser_address_type.description']).to.eql([
+          'This is a valid description'
+        ])
+      })
     })
 
     describe('toEntity', () => {
