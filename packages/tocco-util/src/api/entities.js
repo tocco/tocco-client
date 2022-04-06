@@ -1,8 +1,10 @@
 import _get from 'lodash/get'
+import _isEqual from 'lodash/isEqual'
 import _isObject from 'lodash/isObject'
 import _pick from 'lodash/pick'
 import _reduce from 'lodash/reduce'
 import _set from 'lodash/set'
+import _uniqWith from 'lodash/uniqWith'
 
 const metaFields = {
   KEY: '__key',
@@ -51,7 +53,10 @@ export const flattenPaths = (paths, currentPath = []) =>
             const flatten = flattenPaths(v.paths, [...currentPath, pathId])
             const combinedArrayVales = _reduce(
               flatten,
-              (acc2, val, key) => ({...acc2, [key]: [...(acc[key] || []), val]}),
+              (acc2, val, key) => ({
+                ...acc2,
+                [key]: _uniqWith([...(acc[key] || []), ...(val === null ? [] : [val])], _isEqual)
+              }),
               {}
             )
             return {...acc, ...combinedArrayVales}
