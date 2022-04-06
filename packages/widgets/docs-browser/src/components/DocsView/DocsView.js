@@ -171,6 +171,7 @@ const DocsView = props => {
           id="documents"
           entityName="Docs_list_item"
           formName={formName}
+          searchListFormName="Search_docs_list_item"
           limit={limit || 25}
           onRowClick={handleRowClick}
           searchFormPosition="left"
