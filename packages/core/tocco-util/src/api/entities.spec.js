@@ -2,7 +2,7 @@ import {getFlattenEntity, toEntity} from './entities'
 
 describe('tocco-util', () => {
   describe('api', () => {
-    describe('getEntityObject', () => {
+    describe('getFlattenEntity', () => {
       test('should set key, model and version', () => {
         const entity = {
           version: 1,
@@ -198,6 +198,142 @@ describe('tocco-util', () => {
         ])
 
         expect(result['relUser.relUser_code1.active']).to.eql([true, false])
+      })
+
+      test('should filter out empty values on to N relations', () => {
+        const entity = {
+          paths: {
+            relUser: {
+              type: 'entity',
+              writable: null,
+              value: {
+                _links: null,
+                key: '1',
+                model: 'User',
+                version: 340,
+                paths: {
+                  relUser_address: {
+                    type: 'entity-list',
+                    writable: null,
+                    value: [
+                      {
+                        _links: null,
+                        key: '1',
+                        model: 'User_address',
+                        version: 1,
+                        paths: {
+                          city: {
+                            type: 'text',
+                            writable: null,
+                            value: 'Zürich'
+                          }
+                        }
+                      },
+                      {
+                        _links: null,
+                        key: '301',
+                        model: 'User_address',
+                        version: 0,
+                        paths: {
+                          city: {
+                            type: 'text',
+                            writable: null,
+                            value: null
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        const result = getFlattenEntity(entity)
+
+        expect(result.relUser).to.eql({key: '1', model: 'User', version: 340})
+        expect(result['relUser.relUser_address']).to.eql([
+          {key: '1', model: 'User_address', version: 1},
+          {key: '301', model: 'User_address', version: 0}
+        ])
+
+        expect(result['relUser.relUser_address.city']).to.eql(['Zürich'])
+      })
+
+      test('should filter out duplicated values on to N relations', () => {
+        const entity = {
+          paths: {
+            relUser: {
+              type: 'entity',
+              writable: null,
+              value: {
+                _links: null,
+                key: '1',
+                model: 'User',
+                version: 340,
+                paths: {
+                  relUser_address: {
+                    type: 'entity-list',
+                    writable: null,
+                    value: [
+                      {
+                        _links: null,
+                        key: '1',
+                        model: 'User_address',
+                        version: 1,
+                        paths: {
+                          city: {
+                            type: 'text',
+                            writable: null,
+                            value: 'Zürich'
+                          }
+                        }
+                      },
+                      {
+                        _links: null,
+                        key: '4',
+                        model: 'User_address',
+                        version: 1,
+                        paths: {
+                          city: {
+                            type: 'text',
+                            writable: null,
+                            value: 'Zürich'
+                          }
+                        }
+                      },
+                      {
+                        _links: null,
+                        key: '12',
+                        model: 'User_address',
+                        version: 1,
+                        paths: {
+                          city: {
+                            type: 'text',
+                            writable: null,
+                            value: 'Bern'
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        const result = getFlattenEntity(entity)
+
+        expect(result.relUser).to.eql({key: '1', model: 'User', version: 340})
+        expect(result['relUser.relUser_address']).to.eql([
+          {key: '1', model: 'User_address', version: 1},
+          {key: '4', model: 'User_address', version: 1},
+          {key: '12', model: 'User_address', version: 1}
+        ])
+
+        expect(result['relUser.relUser_address.city']).to.eql(['Zürich', 'Bern'])
       })
     })
 
