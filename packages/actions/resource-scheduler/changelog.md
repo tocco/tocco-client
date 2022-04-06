@@ -1,3 +1,6 @@
+1.0.10
+- fix popper arrow positioning
+
 1.0.9
 - do not reuse same tab for different reports
 - update fullcalendar sizes on sidepanel toggle

@@ -1,3 +1,6 @@
+1.1.8
+- fix popper arrow positioning
+
 1.1.7
 - do not reuse same tab for different reports
 - attach tether to target to prevent coverage of input fields

@@ -1,3 +1,6 @@
+1.0.15
+- fix popper arrow positioning
+
 1.0.14
 - hide meta data on widgets
 
