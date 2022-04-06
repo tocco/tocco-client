@@ -42,31 +42,46 @@ export const getFlattenEntity = entity => ({
   ...flattenPaths(entity.paths)
 })
 
-export const flattenPaths = (paths, currentPath = []) =>
+const mergeChildFlatten = (flatten, childFlatten) =>
+  _reduce(
+    childFlatten,
+    (acc, val, key) => {
+      const value = (Array.isArray(val) ? val : [val]).filter(v => v !== null)
+      return {
+        ...acc,
+        [key]: _uniqWith([...(acc[key] || []), ...value], _isEqual)
+      }
+    },
+    flatten
+  )
+
+export const flattenPaths = (paths, prevPathKeys = []) =>
   _reduce(
     paths,
-    (acc, path, pathId) => {
-      let subPaths = {}
+    (accFlatten, path, pathKey) => {
+      const currentPathKeys = [...prevPathKeys, pathKey]
+
+      let childrenFlatten = {}
       if (path.value) {
         if (Array.isArray(path.value)) {
-          subPaths = path.value.reduce((acc, v) => {
-            const flatten = flattenPaths(v.paths, [...currentPath, pathId])
-            const combinedArrayVales = _reduce(
-              flatten,
-              (acc2, val, key) => ({
-                ...acc2,
-                [key]: _uniqWith([...(acc[key] || []), ...(val === null ? [] : [val])], _isEqual)
-              }),
-              {}
-            )
-            return {...acc, ...combinedArrayVales}
+          childrenFlatten = path.value.reduce((accChildrenFlatten, v) => {
+            const childFlatten = flattenPaths(v.paths, currentPathKeys)
+            return mergeChildFlatten(accChildrenFlatten, childFlatten)
           }, {})
         } else {
-          subPaths = flattenPaths(path.value.paths, [...currentPath, pathId])
+          childrenFlatten = flattenPaths(path.value.paths, currentPathKeys)
         }
       }
 
-      return {...acc, [[...currentPath, pathId].join('.')]: typeValueExtractor(path.type, path.value), ...subPaths}
+      const currentFlatten = {
+        [currentPathKeys.join('.')]: typeValueExtractor(path.type, path.value)
+      }
+
+      return {
+        ...accFlatten,
+        ...currentFlatten,
+        ...childrenFlatten
+      }
     },
     {}
   )
