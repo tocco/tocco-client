@@ -1,3 +1,6 @@
+1.0.2-hotfix31.9
+- fix double scrollbar on textarea
+
 1.0.2-hotfix31.8
 - do not reuse same tab for different reports
 
