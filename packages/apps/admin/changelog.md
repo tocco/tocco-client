@@ -1,3 +1,7 @@
+1.0.31
+- make notification message at the end of notification center italic
+- fix double scrollbar on textarea
+
 1.0.30
 - fix popper arrow positioning
 
