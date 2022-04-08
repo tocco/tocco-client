@@ -1,3 +1,7 @@
+1.0.32
+- filter out null values on nested paths
+- handle nested 'to many' relations on list forms
+
 1.0.31
 - make notification message at the end of notification center italic
 - fix double scrollbar on textarea
