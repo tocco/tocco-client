@@ -1,3 +1,7 @@
+0.1.4-hotfix31.2
+- filter out null values on nested paths
+- handle nested 'to many' relations on list forms
+
 0.1.4-hotfix31.1
 - Tiny millisecond values (1 - 3) are now displayed correctly.
 
