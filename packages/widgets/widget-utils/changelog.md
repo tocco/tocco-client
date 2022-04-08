@@ -1,3 +1,7 @@
+0.1.9
+- filter out null values on nested paths
+- handle nested 'to many' relations on list forms
+
 0.1.8
 - set embedType for widgets
 
