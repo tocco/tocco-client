@@ -1,3 +1,7 @@
+1.0.14-hotfix31.15
+- filter out null values on nested paths
+- handle nested 'to many' relations on list forms
+
 1.0.14-hotfix31.14
 - fix double scrollbar on textarea
 
