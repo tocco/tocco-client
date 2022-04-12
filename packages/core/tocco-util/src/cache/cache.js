@@ -1,8 +1,18 @@
 import nice from '../nice'
 
 /*
- * Short term caching is per browser tab. The short term cache is clear after login or business unit change
- * Long term cache is cleared if language or revision has changed
+ * Short term caching (sessionStorage) is per browser tab.
+ * Long term cache (localStorage) is shared across tabs and browser sessions.
+ *
+ * short term cache gets cleared
+ *  - individually (e.g. displays on change entity)
+ *  - whenever overall cache gets cleared
+ *
+ * overall cache gets cleared
+ *  - language change
+ *  - user change
+ *  - business unit change
+ *  - revision change
  */
 
 const prefix = `tocco.cache`

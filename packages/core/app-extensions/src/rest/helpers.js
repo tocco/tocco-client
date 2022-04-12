@@ -394,7 +394,7 @@ export const flattenObjectValues = value =>
  * Helper to fetch information about the currently logged in user including username and active business unit.
  */
 export function* fetchPrincipal() {
-  const cachedPrincipal = cache.getShortTerm('session', 'principal')
+  const cachedPrincipal = cache.getLongTerm('session', 'principal')
   if (cachedPrincipal !== undefined) {
     return cachedPrincipal
   }
@@ -407,7 +407,7 @@ export function* fetchPrincipal() {
     currentBusinessUnit
   }
 
-  yield cache.addShortTerm('session', 'principal', principal)
+  yield cache.addLongTerm('session', 'principal', principal)
 
   return principal
 }

@@ -23,14 +23,14 @@ describe('app-extensions', () => {
           const sessionResponse = {
             businessUnit: 'm2'
           }
-          cache.addShortTerm('session', 'principal', {
+          cache.addLongTerm('session', 'principal', {
             currentBusinessUnit: {
               id: 'm1'
             }
           })
           return expectSaga(sagas.sessionCheck)
             .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
-            .call(cache.clearShortTerm)
+            .call(cache.clearAll)
             .run()
         })
         test('should not clear cache on same bu', () => {
@@ -39,14 +39,14 @@ describe('app-extensions', () => {
           const sessionResponse = {
             businessUnit: 'm1'
           }
-          cache.addShortTerm('session', 'principal', {
+          cache.addLongTerm('session', 'principal', {
             currentBusinessUnit: {
               id: 'm1'
             }
           })
           return expectSaga(sagas.sessionCheck)
             .provide([[matchers.call(sagas.doSessionRequest), sessionResponse]])
-            .not.call(cache.clearShortTerm)
+            .not.call(cache.clearAll)
             .run()
         })
         test('should set logged in', () => {

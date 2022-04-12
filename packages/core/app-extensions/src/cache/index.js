@@ -1,5 +1,11 @@
+import {initialise} from './actions'
 import {addToStore} from './cache'
+import CacheInitLoadMask from './CacheInitLoadMask'
+import {hasInvalidCache} from './utils'
 
 export default {
-  addToStore
+  addToStore,
+  initialise,
+  CacheInitLoadMask,
+  hasInvalidCache
 }

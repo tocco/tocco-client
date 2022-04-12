@@ -1,6 +1,6 @@
 import {takeLatest, all, call, put, select} from 'redux-saga/effects'
-import {externalEvents, rest} from 'tocco-app-extensions'
-import {cache, intl} from 'tocco-util'
+import {externalEvents, rest, cache as cacheHelpers} from 'tocco-app-extensions'
+import {cache} from 'tocco-util'
 
 import {transformProviderEntities} from '../utils/providers'
 import * as actions from './actions'
@@ -22,8 +22,8 @@ export function* loadProviders() {
 }
 
 export function* loginCompleted({payload: {result}}) {
-  const localChanged = yield call(intl.hasUserLocaleChanged)
-  if (localChanged) {
+  const needsCacheInvalidation = yield call(cacheHelpers.hasInvalidCache)
+  if (needsCacheInvalidation) {
     yield call(cache.clearAll)
   } else {
     yield call(cache.clearShortTerm)

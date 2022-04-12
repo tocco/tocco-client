@@ -39,32 +39,35 @@ export const setLocale = async (store, modules, locale) => {
 }
 
 export const getUserLocale = async () => {
-  const cachedUserLocale = cache.getLongTerm('user', 'locale')
+  const cachedUserLocale = cache.getLongTerm('session', 'locale')
 
   if (cachedUserLocale) {
     return cachedUserLocale
   }
 
-  const locale = await loadUserLocale()
-  cache.addLongTerm('user', 'locale', locale)
+  const {locale} = await loadUserWithLocale()
+  cache.addLongTerm('session', 'locale', locale)
   return locale
 }
 
 export const hasUserLocaleChanged = async () => {
-  const cachedUserLocale = cache.getLongTerm('user', 'locale')
-  const locale = await loadUserLocale()
+  const cachedUserLocale = cache.getLongTerm('session', 'locale')
+  const {locale} = await loadUserWithLocale()
 
-  cache.addLongTerm('user', 'locale', locale)
+  cache.addLongTerm('session', 'locale', locale)
   return !cachedUserLocale || cachedUserLocale !== locale
 }
 
-const loadUserLocale = async () => {
+export const loadUserWithLocale = async () => {
   const userInfo = await request.executeRequest('username').then(request.extractBody)
   let {locale, username} = userInfo
   if (username === 'anonymous') {
     locale = getBrowserLocale()
   }
-  return locale
+  return {
+    ...userInfo,
+    locale
+  }
 }
 
 export const loadTextResources = async (locale, modules) => {
@@ -72,7 +75,7 @@ export const loadTextResources = async (locale, modules) => {
   const notLoadedModules = []
 
   modules.forEach(module => {
-    const cachedModuleResource = cache.getLongTerm('textResource', module)
+    const cachedModuleResource = cache.getLongTerm('textResource', `${locale}.${module}`)
     if (cachedModuleResource) {
       result = {...result, ...cachedModuleResource}
     } else {
@@ -94,7 +97,7 @@ export const loadTextResources = async (locale, modules) => {
           {}
         )
 
-      cache.addLongTerm('textResource', module, filtered)
+      cache.addLongTerm('textResource', `${locale}.${module}`, filtered)
       result = {...result, ...filtered}
     })
   }
