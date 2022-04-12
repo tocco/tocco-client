@@ -1,10 +1,21 @@
-import {nice} from 'tocco-util'
+import {nice, reducer as reducerUtil} from 'tocco-util'
 
+import cacheReducer from './reducer'
 import sagas from './sagas'
 
 /*
- * Short term caching is per browser tab. The short term cache is clear after login or business unit change
- * Long term cache is cleared if language or revision has changed
+ * Short term caching (sessionStorage) is per browser tab.
+ * Long term cache (localStorage) is shared across tabs and browser sessions.
+ *
+ * short term cache gets cleared
+ *  - individually (e.g. displays on change entity)
+ *  - whenever overall cache gets cleared
+ *
+ * overall cache gets cleared
+ *  - language change
+ *  - user change
+ *  - business unit change
+ *  - revision change
  */
 
 const getKey = (type, id) => `cache.${type}.${id}`
@@ -46,5 +57,7 @@ export const clearAll = () => {
 }
 
 export const addToStore = store => {
+  reducerUtil.injectReducers(store, {cache: cacheReducer})
+
   store.sagaMiddleware.run(sagas)
 }

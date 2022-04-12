@@ -1,3 +1,4 @@
+import {initialise} from './actions'
 import {
   addShortTerm,
   addLongTerm,
@@ -9,6 +10,9 @@ import {
   clearAll,
   addToStore
 } from './cache'
+import CacheInitLoadMask from './CacheInitLoadMask'
+import {hasInvalidCache} from './utils'
+
 export default {
   addShortTerm,
   addLongTerm,
@@ -18,5 +22,8 @@ export default {
   removeLongTerm,
   clearShortTerm,
   clearAll,
-  addToStore
+  addToStore,
+  initialise,
+  CacheInitLoadMask,
+  hasInvalidCache
 }

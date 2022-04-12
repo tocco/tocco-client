@@ -1,4 +1,4 @@
-import {cache, externalEvents, intl, rest} from 'tocco-app-extensions'
+import {cache, externalEvents, rest} from 'tocco-app-extensions'
 import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
@@ -114,8 +114,7 @@ describe('login', () => {
           const payload = {timeout: 33}
           return expectSaga(sagas.handleSuccessfulLogin, payload)
             .provide([
-              [matchers.call.fn(intl.hasUserLocaleChanged), false],
-              [matchers.call.fn(rest.hasRevisionIdChanged), false]
+              [matchers.call.fn(cache.hasInvalidCache), false]
             ])
             .put(externalEvents.fireExternalEvent('loginSuccess', payload))
             .call(cache.clearShortTerm)
@@ -126,8 +125,7 @@ describe('login', () => {
         test('should call external event with default timeout if none in body', () => {
           expectSaga(sagas.handleSuccessfulLogin, {})
             .provide([
-              [matchers.call.fn(intl.hasUserLocaleChanged), false],
-              [matchers.call.fn(rest.hasRevisionIdChanged), false]
+              [matchers.call.fn(cache.hasInvalidCache), false]
             ])
             .put(externalEvents.fireExternalEvent('loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT}))
             .call(cache.clearShortTerm)
@@ -138,8 +136,7 @@ describe('login', () => {
         test('should clear long and short term cache', () => {
           expectSaga(sagas.handleSuccessfulLogin, {})
             .provide([
-              [matchers.call.fn(intl.hasUserLocaleChanged), true],
-              [matchers.call.fn(rest.hasRevisionIdChanged), false]
+              [matchers.call.fn(cache.hasInvalidCache), true]
             ])
             .put(externalEvents.fireExternalEvent('loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT}))
             .call(cache.clearAll)
