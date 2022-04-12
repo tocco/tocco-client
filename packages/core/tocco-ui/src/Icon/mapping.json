@@ -283,6 +283,10 @@
     "id": "fal, map-marked",
     "lib": "fa"
   },
+  "merge": {
+    "id": "fal, merge",
+    "lib": "fa"
+  },
   "microsoft": {
     "id": "fab, microsoft",
     "lib": "fa",

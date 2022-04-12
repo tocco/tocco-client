@@ -70,6 +70,7 @@ import {
   faLock,
   faMailBulk,
   faMapMarked,
+  faMerge,
   faMinus,
   faNewspaper,
   faPen,
@@ -199,7 +200,8 @@ import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
     faLock,
     faCode,
     faFilter,
-    faLightbulbExclamation
+    faLightbulbExclamation,
+    faMerge
   )
 })()
 
