@@ -20,9 +20,9 @@ export function* doSessionRequest() {
 
 export function* sessionCheck() {
   const {success, businessUnit, adminAllowed} = yield call(doSessionRequest)
-  const cachedPrincipal = cache.getShortTerm('session', 'principal')
+  const cachedPrincipal = cache.getLongTerm('session', 'principal')
   if (cachedPrincipal && cachedPrincipal.currentBusinessUnit.id !== businessUnit) {
-    yield call(cache.clearShortTerm)
+    yield call(cache.clearAll)
   }
   yield put(actions.setAdminAllowed(adminAllowed))
   yield put(actions.setLoggedIn(success))
