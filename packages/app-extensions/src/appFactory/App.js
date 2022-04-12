@@ -5,9 +5,11 @@ import {Provider} from 'react-redux'
 import styled from 'styled-components'
 import {LoadMask} from 'tocco-ui'
 
+import cache from '../cache'
 import keyDown from '../keyDown'
 import ThemeWrapper from './ThemeWrapper'
 import './styles.css'
+
 const StyledApp = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,7 +34,9 @@ const App = ({store, initIntlPromise, content, theme}) => {
         <keyDown.KeyDownWatcher>
           <LoadMask promises={[initIntlPromise]}>
             <IntlProvider>
-              <StyledApp ref={wrapperCallback}>{content}</StyledApp>
+              <cache.CacheInitLoadMask>
+                <StyledApp ref={wrapperCallback}>{content}</StyledApp>
+              </cache.CacheInitLoadMask>
             </IntlProvider>
           </LoadMask>
         </keyDown.KeyDownWatcher>
