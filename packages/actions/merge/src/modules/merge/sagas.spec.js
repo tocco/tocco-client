@@ -162,7 +162,6 @@ describe('merge', () => {
           test('should call getMergeBody', () => {
             const merge = {
               sourceData: sourceData,
-              selection: selection,
               selected: {
                 targetEntity: '1',
                 single: {
@@ -185,7 +184,7 @@ describe('merge', () => {
             }
 
             const expectedBody = {
-              selection: selection,
+              entities: sourceData.entities,
               targetEntity: {
                 key: merge.selected.targetEntity,
                 paths: {
