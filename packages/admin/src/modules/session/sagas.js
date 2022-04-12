@@ -58,7 +58,7 @@ export function* changeBusinessUnitId({payload: {businessUnitId}}) {
   const {username} = yield select(sessionSelector)
   const resource = `principals/${username}/businessunit`
   yield call(rest.requestSaga, resource, {method: 'PUT', body: {businessUnit: businessUnitId}})
-  yield call(cache.clearShortTerm)
+  yield call(cache.clearAll)
   location.reload()
 }
 

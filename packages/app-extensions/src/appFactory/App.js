@@ -8,6 +8,8 @@ import styled from 'styled-components'
 import ThemeWrapper from './ThemeWrapper'
 import keyDown from '../keyDown'
 import './styles.css'
+import cache from '../cache'
+
 const StyledApp = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,9 +34,11 @@ const App = ({store, initIntlPromise, name, content, theme}) => {
         <keyDown.KeyDownWatcher>
           <LoadMask promises={[initIntlPromise]}>
             <IntlProvider>
-              <StyledApp ref={wrapperCallback}>
-                {content}
-              </StyledApp>
+              <cache.CacheInitLoadMask>
+                <StyledApp ref={wrapperCallback}>
+                  {content}
+                </StyledApp>
+              </cache.CacheInitLoadMask>
             </IntlProvider>
           </LoadMask>
         </keyDown.KeyDownWatcher>

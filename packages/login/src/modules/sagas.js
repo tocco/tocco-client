@@ -1,5 +1,5 @@
 import {consoleLogger} from 'tocco-util'
-import {cache, externalEvents, intl, rest} from 'tocco-app-extensions'
+import {cache, externalEvents, rest} from 'tocco-app-extensions'
 import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
@@ -78,8 +78,8 @@ export function* handleFailedResponse() {
 }
 
 export function* handleSuccessfulLogin(response) {
-  const localChanged = yield call(intl.hasUserLocaleChanged)
-  if (localChanged) {
+  const needsCacheInvalidation = yield call(cache.hasInvalidCache)
+  if (needsCacheInvalidation) {
     yield call(cache.clearAll)
   } else {
     yield call(cache.clearShortTerm)
