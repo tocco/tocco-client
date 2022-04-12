@@ -6,6 +6,7 @@ import {ToccoTheme, WidgetTheme} from 'tocco-theme'
 import {LoadMask} from 'tocco-ui'
 import {env} from 'tocco-util'
 
+import cache from '../cache'
 import keyDown from '../keyDown'
 import {StyledApp} from './StyledComponents'
 import ThemeWrapper from './ThemeWrapper'
@@ -33,7 +34,9 @@ const App = ({store, initIntlPromise, content, theme}) => {
         <keyDown.KeyDownWatcher>
           <LoadMask promises={[initIntlPromise]}>
             <IntlProvider>
-              <StyledApp ref={wrapperCallback}>{content}</StyledApp>
+              <cache.CacheInitLoadMask>
+                <StyledApp ref={wrapperCallback}>{content}</StyledApp>
+              </cache.CacheInitLoadMask>
             </IntlProvider>
           </LoadMask>
         </keyDown.KeyDownWatcher>

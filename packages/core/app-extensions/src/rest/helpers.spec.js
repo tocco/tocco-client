@@ -712,7 +712,7 @@ describe('app-extensions', () => {
               currentBusinessUnit: 'test1'
             }
 
-            cache.addShortTerm('session', 'principal', expectedReturn)
+            cache.addLongTerm('session', 'principal', expectedReturn)
 
             return expectSaga(helpers.fetchPrincipal).returns(expectedReturn).run()
           })

@@ -1,8 +1,8 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {takeLatest, select} from 'redux-saga/effects'
-import {externalEvents, rest} from 'tocco-app-extensions'
-import {cache, intl} from 'tocco-util'
+import {externalEvents, rest, cache as cacheHelpers} from 'tocco-app-extensions'
+import {cache} from 'tocco-util'
 
 import * as actions from './actions'
 import mainSaga, * as sagas from './sagas'
@@ -26,11 +26,17 @@ describe('sso-login', () => {
         test('should call external event with result', () => {
           const result = {successful: true, xy: 2}
           return expectSaga(sagas.loginCompleted, actions.loginCompleted(result))
-            .provide([
-              [matchers.call.fn(intl.hasUserLocaleChanged), false],
-              [matchers.call.fn(rest.hasRevisionIdChanged), false]
-            ])
+            .provide([[matchers.call.fn(cacheHelpers.hasInvalidCache), false]])
             .call(cache.clearShortTerm)
+            .put(externalEvents.fireExternalEvent('loginCompleted', result))
+            .run()
+        })
+
+        test('should clear cache if cache is invalid after login', () => {
+          const result = {successful: true, xy: 2}
+          return expectSaga(sagas.loginCompleted, actions.loginCompleted(result))
+            .provide([[matchers.call.fn(cacheHelpers.hasInvalidCache), true]])
+            .call(cache.clearAll)
             .put(externalEvents.fireExternalEvent('loginCompleted', result))
             .run()
         })

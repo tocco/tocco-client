@@ -47,7 +47,7 @@ describe('tocco-util', () => {
 
       test('should read from cache after first fetch', async () => {
         const cachedLocale = 'fr'
-        cache.addLongTerm('user', 'locale', cachedLocale)
+        cache.addLongTerm('session', 'locale', cachedLocale)
 
         const result = await getUserLocale()
         expect(result).to.eql(cachedLocale)
@@ -86,9 +86,9 @@ describe('tocco-util', () => {
         const resources2 = await loadTextResources('en-GB', ['merge', 'components', 'actions.[^.]*\\.title'])
         expect(resources2).to.eql(resources)
 
-        expect(cache.getLongTerm('textResource', 'merge')).to.eql(mergeMessages)
-        expect(cache.getLongTerm('textResource', 'components')).to.eql(componentsMessages)
-        expect(cache.getLongTerm('textResource', 'actions.[^.]*\\.title')).to.eql(actionTitles)
+        expect(cache.getLongTerm('textResource', 'en-GB.merge')).to.eql(mergeMessages)
+        expect(cache.getLongTerm('textResource', 'en-GB.components')).to.eql(componentsMessages)
+        expect(cache.getLongTerm('textResource', 'en-GB.actions.[^.]*\\.title')).to.eql(actionTitles)
       })
     })
   })
