@@ -1,3 +1,7 @@
+1.0.17
+- new prop `searchListFormName` to use separate list form for search mode
+- updated fontawesome and added merge icon
+
 1.0.16
 - filter out null values on nested paths
 - handle nested 'to many' relations on list forms

@@ -1,3 +1,6 @@
+1.1.12
+- updated fontawesome and added merge icon
+
 1.1.11
 - filter out null values on nested paths
 - handle nested 'to many' relations on list forms
