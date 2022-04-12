@@ -1,3 +1,7 @@
+1.0.12
+- updated fontawesome and added merge icon
+- merge action now handles resolved entities instead of selection directly
+
 1.0.11
 - filter out null values on nested paths
 - handle nested 'to many' relations on list forms
