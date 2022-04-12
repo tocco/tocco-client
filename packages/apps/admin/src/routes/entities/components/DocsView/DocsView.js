@@ -3,7 +3,7 @@ import {useEffect, useState, useCallback} from 'react'
 import {rest} from 'tocco-app-extensions'
 import DocsBrowserApp from 'tocco-docs-browser/src/main'
 
-const DocsView = ({entityName, entityKey, showActions, noLeftPadding, openResource}) => {
+const DocsView = ({entityName, entityKey, showActions, noLeftPadding, openResource, initialLocation}) => {
   const [folderKey, setFolderKey] = useState(null)
 
   const fetchFolder = useCallback(async () => {
@@ -20,6 +20,7 @@ const DocsView = ({entityName, entityKey, showActions, noLeftPadding, openResour
     folderKey && (
       <DocsBrowserApp
         routerType="routerless"
+        initialLocation={initialLocation}
         noLeftPadding={noLeftPadding}
         sortable={false}
         searchFormType="none"
@@ -45,7 +46,8 @@ DocsView.propTypes = {
   entityKey: PropTypes.string.isRequired,
   showActions: PropTypes.bool.isRequired,
   noLeftPadding: PropTypes.bool,
-  openResource: PropTypes.func
+  openResource: PropTypes.func,
+  initialLocation: PropTypes.string
 }
 
 export default DocsView
