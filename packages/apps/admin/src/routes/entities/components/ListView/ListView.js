@@ -19,8 +19,10 @@ const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollap
     history.push(match.url.replace(/list$/, '') + id)
   }
 
+  const initialLocation = history.location.hash ? history.location.hash.substring(1) : null
+
   if (currentViewInfo.model.name === 'Resource') {
-    return <DocsViewAdapter currentViewInfo={currentViewInfo} />
+    return <DocsViewAdapter currentViewInfo={currentViewInfo} initialLocation={initialLocation} />
   }
 
   return (
