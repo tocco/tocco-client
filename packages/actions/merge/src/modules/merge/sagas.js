@@ -32,7 +32,7 @@ export function* loadSourceData(selection) {
 }
 
 export function* getMergeBody() {
-  const {selection, selected, sourceData} = yield select(mergeSelector)
+  const {selected, sourceData} = yield select(mergeSelector)
 
   const paths = {}
   for (const [name, entityKey] of Object.entries(selected.single)) {
@@ -68,7 +68,7 @@ export function* getMergeBody() {
   }))
 
   return {
-    selection: selection,
+    entities: sourceData.entities,
     targetEntity: {
       key: selected.targetEntity,
       paths: paths
