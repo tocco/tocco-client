@@ -1,3 +1,6 @@
+1.0.0-hotfix30.23
+- invalidate cache on page refresh properly
+
 1.0.0-hotfix30.22
 - do not reuse same tab for different reports
 
