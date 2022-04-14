@@ -1,6 +1,6 @@
 import _throttle from 'lodash/throttle'
 import PropTypes from 'prop-types'
-import {useRef, useCallback} from 'react'
+import {useRef, useState, useCallback} from 'react'
 import ReactSelect from 'react-select'
 import {withTheme} from 'styled-components'
 
@@ -46,6 +46,10 @@ const Select = ({
 }) => {
   const selectComponent = useRef(null)
   const selectWrapper = useRef(null)
+  const getWrapperWidth = () => selectWrapper.current?.clientWidth || 300
+  const getWrapperHeight = () => selectWrapper.current?.clientHeight || 35
+  const [wrapperWidth, setWrapperWidth] = useState(getWrapperWidth())
+  const [wrapperHeight, setWrapperHeight] = useState(getWrapperHeight())
 
   const getOptions = () => [...(options || [])]
 
@@ -80,10 +84,9 @@ const Select = ({
 
   const handleFocus = () => {
     selectComponent.current.focus()
+    setWrapperWidth(getWrapperWidth())
+    setWrapperHeight(getWrapperHeight())
   }
-
-  const wrapperWidth = selectWrapper.current?.clientWidth || 300
-  const wrapperHeight = selectWrapper.current?.clientHeight || 35
 
   return (
     <StyledReactSelectOuterWrapper tabIndex="-1" id={id} onFocus={handleFocus}>
