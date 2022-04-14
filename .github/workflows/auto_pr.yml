@@ -21,7 +21,7 @@ jobs:
         shell: bash
         run: echo "##[set-output name=target_branch;]$(echo ${GITHUB_REF} | sed 's/.*_\(.*\)_.*/\1/')"
       - name: pull-request
-        uses: repo-sync/pull-request@v2.6
+        uses: repo-sync/pull-request@v2.6.2
         with:
           destination_branch: ${{ steps.get_target_branch.outputs.target_branch }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
