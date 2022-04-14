@@ -1,3 +1,6 @@
+1.0.34
+- fixed navigating to entity document
+
 1.0.33
 - new prop `searchListFormName` to use separate list form for search mode
 - define different list form for search mode
