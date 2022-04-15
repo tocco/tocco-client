@@ -1,3 +1,7 @@
+1.0.14
+- invalidate cache on page refresh properly
+- correct dimension calculation of select menu since in some situations it does not seem to calculate the correct width/height
+
 1.0.13
 - new prop `searchListFormName` to use separate list form for search mode
 - updated fontawesome and added merge icon

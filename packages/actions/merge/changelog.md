@@ -1,3 +1,7 @@
+1.0.13
+- invalidate cache on page refresh properly
+- correct dimension calculation of select menu since in some situations it does not seem to calculate the correct width/height
+
 1.0.12
 - updated fontawesome and added merge icon
 - merge action now handles resolved entities instead of selection directly
