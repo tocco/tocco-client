@@ -1,3 +1,6 @@
+1.1.3-hotfix31.11
+- invalidate cache on page refresh properly
+
 1.1.3-hotfix31.10
 - filter out null values on nested paths
 - handle nested 'to many' relations on list forms
