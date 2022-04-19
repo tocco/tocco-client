@@ -9,105 +9,103 @@ import {
   StyledDurationEdit
 } from './StyledDurationEdit'
 import {StyledEditableWrapper} from '../StyledEditableValue'
-
 class DurationEdit extends React.Component {
+  WIDTH_PADDING = 5
+
   constructor(props) {
     super(props)
     this.hoursShadow = React.createRef()
     this.minutesShadow = React.createRef()
     this.state = {
       ...this.millisecondsToDuration(props.value),
-      showUnits: props.value >= 0
+      focussed: false
     }
   }
 
   millisecondsToDuration = milliSeconds => {
     if (!milliSeconds && milliSeconds !== 0) {
-      return {hours: '', minutes: ''}
+      return {hours: null, minutes: null}
     }
 
-    const minutes = parseInt((milliSeconds / (1000 * 60)) % 60)
-    const hours = parseInt((milliSeconds / (1000 * 60 * 60)) % 24)
+    let minutes = parseInt((milliSeconds / (1000 * 60)) % 60)
+    const hours = parseInt(milliSeconds / (1000 * 60 * 60))
+
+    // only biggest unit should be negative if negative duration
+    if (hours < 0) {
+      minutes = Math.abs(minutes)
+    }
+
     return {hours, minutes}
   }
 
   componentDidMount = () => {
-    this.setState({
-      hoursWidth: this.hoursShadow.current.offsetWidth,
-      minutesWidth: this.minutesShadow.current.offsetWidth
-    })
+    this.setFieldWidths()
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.hours !== prevState.hours) {
-      this.setState({hoursWidth: this.hoursShadow.current.offsetWidth})
+    if (this.props.value !== prevProps.value) {
+      this.setState({
+        ...this.millisecondsToDuration(this.props.value)
+      })
     }
-    if (this.state.minutes !== prevState.minutes) {
-      this.setState({minutesWidth: this.minutesShadow.current.offsetWidth})
+    if (this.state.hours !== prevState.hours || this.state.minutes !== prevState.minutes) {
+      this.setFieldWidths()
     }
+  }
+
+  setFieldWidths = () => {
+    this.setState({
+      hoursWidth: this.hoursShadow.current.offsetWidth + this.WIDTH_PADDING,
+      minutesWidth: this.minutesShadow.current.offsetWidth + this.WIDTH_PADDING
+    })
   }
 
   handleHourChange = e => {
     const hours = e.target.value.replace(/[^-\d]/g, '')
-    this.setState({...this.state, hours})
     this.handleChange(hours, null)
   }
 
-  getDesiredInputInMinutes = target => {
-    let minutes = target.value.replace(/[^-\d]/g, '')
-
-    if (!target.validity.valid) {
-      minutes = 0
-    }
-
-    if (`${minutes}`.length > 2) {
-      minutes = `${minutes}`.slice(0, 2)
-    }
-
-    if (minutes > 59) {
-      minutes = 0
-    }
-
-    if (minutes < 0) {
-      minutes = 59
-    }
-
-    return minutes
-  }
-
   handleMinutesChange = e => {
-    const minutes = this.getDesiredInputInMinutes(e.target)
-    this.setState({...this.state, minutes})
-
+    const minutes = e.target.value.replace(/[^-\d]/g, '')
     this.handleChange(null, minutes)
-
-    if (minutes.toString().length === 2 || minutes === 0) {
-      e.target.select()
-    }
   }
 
   handleChange = (hours, minutes) => {
     const minutesValue = minutes !== null ? minutes : this.state.minutes
-    const hoursValue = (hours !== null ? hours : this.state.hours)
+    let hoursValue = hours !== null ? hours : this.state.hours
+
     if (minutesValue === '' && hoursValue === '') {
       this.props.onChange(null)
       return
     }
+    
+    if (minutesValue >= 60) {
+      // if at least 1 hour entered in minutes, we use only the minutes and calculate hours and
+      // minutes from that value and reset the hours that were set before
+      hoursValue = 0
+    }
+    
     this.props.onChange(calculateMilliseconds(hoursValue, minutesValue))
   }
 
-  handleOnBlur = () => this.setState({
-    showUnits:
-    (this.state.hours.toString().length >= 1 || this.state.minutes.toString().length >= 1)
-  })
+  handleOnFocus = () => this.setState({focussed: true})
 
-  handleOnFocus = () => this.setState({showUnits: true})
+  handleOnBlur = () => this.setState({focussed: false})
 
   preventNonNumeric = event => {
-    if (!(event.charCode >= 48 && event.charCode <= 57)) {
-      event.preventDefault()
+    if (event.charCode >= 48 && event.charCode <= 57) { // numbers
+      return
     }
+    if (event.charCode === 45 && this.props.options?.allowNegative === true) { // minus sign "-"
+      return
+    }
+    event.preventDefault() // else prevent inputting character
   }
+
+  // eslint-disable-next-line no-useless-escape
+  getPattern = () => this.props.options?.allowNegative === true ? '-?\d+' : '\d+'
+
+  unitsVisible = () => this.state.focussed || typeof this.props.value === 'number'
 
   render() {
     return (
@@ -119,34 +117,39 @@ class DurationEdit extends React.Component {
           <StyledDurationEdit
             disabled={this.props.immutable}
             immutable={this.props.immutable}
-            min={0}
+            min={this.props.options?.allowNegative === true ? undefined : 0}
             onChange={() => {}} // Empty onChange function to prevent React internal error
             onFocus={this.handleOnFocus}
+            onBlur={this.handleOnBlur}
             onInput={this.handleHourChange}
             onKeyPress={this.preventNonNumeric}
-            pattern="\d+"
+            pattern={this.getPattern()}
             step={1}
-            style={{width: this.state.hoursWidth}}
+            style={{width: this.state.hoursWidth + 'px'}}
             type="number"
-            value={this.state.hours}
+            value={this.state.hours !== null && this.state.hours !== 0 ? this.state.hours : ''}
           />
-          {this.state.showUnits && <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>}
+          {this.unitsVisible() && <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>}
         </StyledDurationEditFocusable>
         <StyledDurationEditFocusable immutable={this.props.immutable}>
           <StyledDurationEdit
             disabled={this.props.immutable}
             immutable={this.props.immutable}
+            min={this.props.options?.allowNegative === true && (this.state.hours === null || this.state.hours === 0)
+              ? undefined
+              : 0}
             onChange={() => {}} // Empty onChange function to prevent React internal error
             onFocus={this.handleOnFocus}
+            onBlur={this.handleOnBlur}
             onInput={this.handleMinutesChange}
             onKeyPress={this.preventNonNumeric}
-            pattern="\d+"
+            pattern={this.getPattern()}
             step={1}
-            style={{width: this.state.minutesWidth}}
+            style={{width: this.state.minutesWidth + 'px'}}
             type="number"
-            value={this.state.minutes}
+            value={this.state.minutes !== null ? this.state.minutes : ''}
           />
-          {this.state.showUnits && <Typography.Span>{this.props.options.minutesLabel}</Typography.Span>}
+          {this.unitsVisible() && <Typography.Span>{this.props.options.minutesLabel}</Typography.Span>}
         </StyledDurationEditFocusable>
         <StyledDurationEditShadow ref={this.hoursShadow}>{this.state.hours}</StyledDurationEditShadow>
         <StyledDurationEditShadow ref={this.minutesShadow}>{this.state.minutes}</StyledDurationEditShadow>
@@ -170,7 +173,8 @@ DurationEdit.propTypes = {
   immutable: PropTypes.bool,
   options: PropTypes.shape({
     hoursLabel: PropTypes.string,
-    minutesLabel: PropTypes.string
+    minutesLabel: PropTypes.string,
+    allowNegative: PropTypes.bool
   })
 }
 

@@ -48,16 +48,6 @@ describe('tocco-ui', () => {
           expect(onInputSpy).to.be.calledWith(expectedCallValue)
         })
 
-        test('should display 59 on sub zero minutes input', () => {
-          const onInputSpy = sinon.spy()
-          const wrapper = mount(
-            <DurationEdit value={null} onChange={onInputSpy}/>
-          )
-          const input = '-1'
-          wrapper.find('input').at(1).simulate('input', implyTargetObject(input))
-          expect(wrapper.find('input').at(1)).to.have.value('59')
-        })
-
         test('should set immutable prop to true', () => {
           const wrapper = mount(
             <DurationEdit value={null} onChange={EMPTY_FUNC} immutable/>
@@ -65,24 +55,16 @@ describe('tocco-ui', () => {
           expect(wrapper.find(DurationEdit).props().immutable).to.eql(true)
         })
 
-        test('should always show units', () => {
-          const wrapper = mount(
-            <DurationEdit value={0} onChange={EMPTY_FUNC}/>
-          )
-          expect(wrapper.find(Typography.Span)).to.have.length(2)
-          expect(wrapper.state('showUnits')).to.be.true
-        })
-
-        test('should show and hide units', () => {
+        test('should set focussed flag to show and hide units', () => {
           const wrapper = mount(
             <DurationEdit onChange={EMPTY_FUNC}/>
           )
           expect(wrapper.find(Typography.Span)).to.have.length(0)
-          expect(wrapper.state('showUnits')).to.be.false
+          expect(wrapper.state('focussed')).to.be.false
           wrapper.instance().handleOnFocus()
-          expect(wrapper.state('showUnits')).to.be.true
+          expect(wrapper.state('focussed')).to.be.true
           wrapper.instance().handleOnBlur()
-          expect(wrapper.state('showUnits')).to.be.false
+          expect(wrapper.state('focussed')).to.be.false
         })
       })
     })
