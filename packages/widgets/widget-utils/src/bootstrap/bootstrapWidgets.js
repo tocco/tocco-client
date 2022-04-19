@@ -50,7 +50,8 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
       locale,
       ...config,
       appContext: {
-        embedType: 'widget'
+        embedType: 'widget',
+        widgetConfigKey: key
       }
     }
     const eventHandlers = getEventHandlers(container)

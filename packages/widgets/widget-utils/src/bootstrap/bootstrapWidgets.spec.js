@@ -71,7 +71,7 @@ describe('widget-utils', () => {
           showTitle: true,
           passwordRequest: false,
           username: 'test-username',
-          appContext: {embedType: 'widget'}
+          appContext: {embedType: 'widget', widgetConfigKey: '1'}
         }
         expect(renderSpy).to.have.been.calledWith(
           'login',
@@ -146,7 +146,7 @@ describe('widget-utils', () => {
           backendUrl,
           customTheme: window[THEME_OBJ_NAME],
           locale: 'de',
-          appContext: {embedType: 'widget'}
+          appContext: {embedType: 'widget', widgetConfigKey: '1'}
         }
         expect(renderSpy).to.have.been.calledWith(
           'login',
@@ -186,7 +186,7 @@ describe('widget-utils', () => {
         const expectedInput = {
           backendUrl,
           locale: 'de',
-          appContext: {embedType: 'widget'}
+          appContext: {embedType: 'widget', widgetConfigKey: '1'}
         }
         expect(renderSpy).to.have.been.calledWith(
           'login',
@@ -225,7 +225,7 @@ describe('widget-utils', () => {
         const expectedInput = {
           backendUrl,
           locale: 'de',
-          appContext: {embedType: 'widget'}
+          appContext: {embedType: 'widget', widgetConfigKey: '1'}
         }
         expect(renderSpy).to.have.been.calledWith(
           'password-update',
@@ -264,7 +264,7 @@ describe('widget-utils', () => {
         const expectedInput = {
           backendUrl,
           locale: 'de',
-          appContext: {embedType: 'widget'}
+          appContext: {embedType: 'widget', widgetConfigKey: '1'}
         }
         expect(renderSpy).to.have.been.calledWith(
           'password-update',
