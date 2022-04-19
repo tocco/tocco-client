@@ -1,31 +1,25 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useState} from 'react'
 
 import StyledPanelGroup from './StyledPanelGroup'
 
-class PanelGroup extends React.Component {
-  state = {
-    openPanelIndex: this.props.openPanelIndex
+const PanelGroup = ({initialOpenPanelIndex, children}) => {
+  const [openPanelIndex, setOpenPanelIndex] = useState(initialOpenPanelIndex)
+
+  const onToggle = (index, open) => {
+    setOpenPanelIndex(open === true ? index : undefined)
   }
 
-  onToggle = (index, open) => {
-    this.setState({
-      openPanelIndex: open === true ? index : undefined
-    })
-  }
-
-  render() {
-    return (
-      <StyledPanelGroup>
-        {React.Children.map(this.props.children, (child, i) =>
-          React.cloneElement(child, {
-            controlledIsOpen: this.state.openPanelIndex === i,
-            onToggle: this.onToggle.bind(this, i)
-          })
-        )}
-      </StyledPanelGroup>
-    )
-  }
+  return (
+    <StyledPanelGroup>
+      {React.Children.map(children, (child, i) =>
+        React.cloneElement(child, {
+          controlledIsOpen: openPanelIndex === i,
+          onToggle: open => onToggle(i, open)
+        })
+      )}
+    </StyledPanelGroup>
+  )
 }
 
 PanelGroup.propTypes = {
@@ -33,7 +27,7 @@ PanelGroup.propTypes = {
   /**
    * Define a panel which is initially opened (zero-based index).
    */
-  openPanelIndex: PropTypes.number
+  initialOpenPanelIndex: PropTypes.number
 }
 
 export default PanelGroup

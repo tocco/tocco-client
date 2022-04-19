@@ -13,7 +13,7 @@ export default {
 }
 
 export const PanelGroup = args => (
-  <Panel.Group openPanelIndex={2}>
+  <Panel.Group initialOpenPanelIndex={2}>
     {['Group 1', 'Group 2', 'Group 3'].map((item, i) => (
       <Panel.Wrapper key={i} {...args}>
         <Panel.Header>
