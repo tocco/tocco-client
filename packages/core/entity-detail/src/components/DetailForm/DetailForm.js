@@ -6,8 +6,7 @@ import {react as customHooks, env} from 'tocco-util'
 
 import DetailFooterContainer from '../../containers/DetailFooterContainer'
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
-import MarkButton from './MarkButton'
-import SaveButton from './SaveButton'
+import {SaveButton, MarkButton} from '../Actions'
 import {StyledForm} from './StyledComponents'
 
 const DetailForm = props => {

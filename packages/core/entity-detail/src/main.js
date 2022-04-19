@@ -14,6 +14,8 @@ import EntityListApp from 'tocco-entity-list/src/main'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 import {navigationStrategy, reducer as reducerUtil} from 'tocco-util'
 
+import {SaveButton} from './components/Actions'
+import ErrorItems from './components/ErrorItems'
 import DetailViewContainer from './containers/DetailViewContainer'
 import customActions from './customActions'
 import {getDispatchActions} from './input'
@@ -123,3 +125,4 @@ EntityDetailApp.propTypes = {
 }
 
 export default EntityDetailApp
+export {SaveButton, ErrorItems}
