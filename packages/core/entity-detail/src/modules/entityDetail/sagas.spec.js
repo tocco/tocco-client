@@ -1,10 +1,8 @@
 import {actions as formActions, isValid as isValidSelector} from 'redux-form'
-import {SubmissionError} from 'redux-form/es/SubmissionError'
-import * as formActionTypes from 'redux-form/lib/actionTypes'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
-import {all, call, debounce, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {actions as actionExtensions, externalEvents, form, remoteEvents, rest} from 'tocco-app-extensions'
 
 import {createEntity, updateEntity} from '../../util/api/entities'
@@ -25,14 +23,12 @@ describe('entity-detail', () => {
               all([
                 takeLatest(actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
                 takeLatest(actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
-                takeLatest(actions.TOUCH_ALL_FIELDS, sagas.touchAllFields),
+                takeLatest(actions.TOUCH_ALL_FIELDS, form.sagasUtils.touchAllFields, sagas.formSagaConfig),
                 takeEvery(actions.SUBMIT_FORM, sagas.submitForm),
                 takeEvery(actions.FIRE_TOUCHED, sagas.fireTouched),
                 takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
                 takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
                 takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
-                debounce(500, formActionTypes.CHANGE, sagas.onChange),
-                takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, sagas.asyncValidationStop),
                 takeLatest(actions.UPDATE_MARKED, sagas.updateMarked),
                 takeLatest(actionExtensions.actions.ACTION_INVOKED, sagas.reloadAfterAction)
               ])
@@ -73,7 +69,7 @@ describe('entity-detail', () => {
               .provide([
                 [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
-                [matchers.call.fn(sagas.getEntityForSubmit), entity],
+                [matchers.call.fn(form.sagasUtils.getEntityForSubmit), entity],
                 [matchers.call.fn(sagas.submitValidate)]
               ])
               .put.like({action: {type: formActions.startSubmit().type}})
@@ -89,7 +85,7 @@ describe('entity-detail', () => {
               .provide([
                 [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
-                [matchers.call.fn(sagas.getEntityForSubmit), entity],
+                [matchers.call.fn(form.sagasUtils.getEntityForSubmit), entity],
                 [matchers.call.fn(sagas.submitValidate)]
               ])
               .call(sagas.updateFormSubmit, entity, fieldDefinitions)
@@ -104,11 +100,11 @@ describe('entity-detail', () => {
               .provide([
                 [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
-                [matchers.call.fn(sagas.getEntityForSubmit), entity],
+                [matchers.call.fn(form.sagasUtils.getEntityForSubmit), entity],
                 [matchers.call.fn(sagas.updateFormSubmit), throwError(error)],
                 [matchers.call.fn(sagas.submitValidate)]
               ])
-              .call(sagas.handleSubmitError, error)
+              .call(form.sagasUtils.handleSubmitError, sagas.formSagaConfig, error)
               .run()
           })
 
@@ -119,82 +115,10 @@ describe('entity-detail', () => {
                   return false
                 }
               })
-              .call(sagas.handleInvalidForm)
+              .call(form.sagasUtils.handleInvalidForm, sagas.formSagaConfig)
               .not.call(sagas.updateFormSubmit, entity)
               .not.call(sagas.createFormSubmit, entity)
               .run())
-        })
-
-        describe('handleSubmitError saga', () => {
-          test('should handle submission errors properly', () => {
-            const error = new SubmissionError({})
-            return expectSaga(sagas.handleSubmitError, error)
-              .provide([
-                [matchers.call.fn(sagas.touchAllFields), {}],
-                [matchers.call.fn(form.formErrorsUtil.getValidatorErrors), {}]
-              ])
-              .call(sagas.touchAllFields)
-              .put(formActions.stopSubmit(FORM_ID, error.errors))
-              .run()
-          })
-
-          test('should log regular error and show notification', () => {
-            const error = new Error('error')
-
-            return expectSaga(sagas.handleSubmitError, error)
-              .put(formActions.stopSubmit(FORM_ID))
-              .put.like({action: {type: 'tocco-util/LOG_ERROR'}})
-              .run()
-          })
-
-          test('should notify about information errors', () => {
-            const error = new rest.InformationError('error')
-
-            return expectSaga(sagas.handleSubmitError, error)
-              .put(formActions.stopSubmit(FORM_ID))
-              .put.like({
-                action: {
-                  type: 'notification/TOASTER',
-                  payload: {
-                    toaster: {
-                      type: 'info',
-                      title: 'client.entity-detail.saveAbortedTitle',
-                      body: 'error'
-                    }
-                  }
-                }
-              })
-              .run()
-          })
-
-          test('should notify about no permission', () => {
-            const error = new rest.ForbiddenException()
-
-            return expectSaga(sagas.handleSubmitError, error)
-              .put(formActions.stopSubmit(FORM_ID))
-              .put.like({
-                action: {
-                  type: 'notification/TOASTER',
-                  payload: {
-                    toaster: {
-                      type: 'error',
-                      title: 'client.entity-detail.saveAbortedTitle',
-                      body: 'client.entity-detail.noPermission'
-                    }
-                  }
-                }
-              })
-              .run()
-          })
-
-          test('should stop submit on ClientQuestionCancelledException and not log an error', () => {
-            const error = new rest.ClientQuestionCancelledException()
-
-            return expectSaga(sagas.handleSubmitError, error)
-              .put(formActions.stopSubmit(FORM_ID))
-              .not.put.like({action: {type: 'tocco-util/LOG_ERROR'}})
-              .run()
-          })
         })
 
         describe('updateFormSubmit saga', () => {
@@ -264,100 +188,6 @@ describe('entity-detail', () => {
           })
         })
 
-        describe('getEntityForSubmit saga', () => {
-          test('should return entity', () => {
-            const formValues = {
-              __key: '3',
-              __model: 'User',
-              firstname: 'test',
-              relAddress: {
-                key: '29242',
-                model: 'Address',
-                version: 2
-              },
-              'relAddress--city': 'Bern'
-            }
-            const initialValues = {firstname: 'tst'}
-            const dirtyFormValues = {
-              __key: '3',
-              __model: 'User',
-              firstname: 'test',
-              relAddress: {
-                key: '29242',
-                model: 'Address',
-                version: 2
-              },
-              'relAddress--city': 'Bern'
-            }
-            const fieldDefinitions = []
-
-            const mode = 'update'
-
-            const expectedReturn = {
-              model: 'User',
-              key: '3',
-              version: undefined,
-              paths: {
-                firstname: 'test',
-                relAddress: {
-                  key: '29242',
-                  version: 2,
-                  paths: {
-                    city: 'Bern'
-                  }
-                }
-              }
-            }
-
-            return expectSaga(sagas.getEntityForSubmit)
-              .provide([
-                [
-                  matchers.call.fn(sagas.getCurrentEntityState),
-                  {mode, initialValues, formValues, dirtyFormValues, fieldDefinitions}
-                ]
-              ])
-              .returns(expectedReturn)
-              .run()
-          })
-        })
-
-        describe('getCurrentEntityState saga', () => {
-          test('should return an object with mode, values and dirty fields', () => {
-            const formValues = {firstname: 'test', lastname: 'test2'}
-            const initialValues = {firstname: 'test'}
-            const entityModel = {}
-            const mode = 'update'
-            const fieldDefinitions = []
-
-            const expectedReturn = {
-              formValues,
-              initialValues,
-              mode,
-              dirtyFormValues: {lastname: 'test2'},
-              fieldDefinitions
-            }
-
-            let firstSelector = true
-
-            return expectSaga(sagas.getCurrentEntityState)
-              .provide([
-                {
-                  select(a, next, b) {
-                    if (firstSelector) {
-                      firstSelector = false
-                      return formValues
-                    }
-                    return next()
-                  }
-                },
-                [select(sagas.formInitialValueSelector, 'detailForm'), initialValues],
-                [select(sagas.entityDetailSelector), {entityModel, mode, fieldDefinitions}]
-              ])
-              .returns(expectedReturn)
-              .run()
-          })
-        })
-
         describe('submitValidate saga', () => {
           test('should call submitValidation', () => {
             const formValues = {firstname: 'test'}
@@ -367,89 +197,13 @@ describe('entity-detail', () => {
 
             return expectSaga(sagas.submitValidate)
               .provide([
-                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, initialValues, mode, fieldDefinitions}],
+                [
+                  matchers.call.fn(form.sagasUtils.getCurrentEntityState),
+                  {formValues, initialValues, mode, fieldDefinitions}
+                ],
                 [matchers.call.fn(form.submitValidation)]
               ])
               .call(form.submitValidation, formValues, initialValues, fieldDefinitions, mode)
-              .run()
-          })
-        })
-
-        describe('getEntityForSubmit saga', () => {
-          test('should create entity object', () => {
-            const formValues = {__model: 'User', __key: '1', firstname: 'test'}
-            const dirtyFormValues = formValues
-            const fieldDefinitions = []
-
-            const expectedReturn = {
-              model: 'User',
-              key: '1',
-              version: undefined,
-              paths: {firstname: 'test'}
-            }
-
-            return expectSaga(sagas.getEntityForSubmit)
-              .provide([
-                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFormValues, fieldDefinitions}]
-              ])
-              .returns(expectedReturn)
-
-              .run()
-          })
-
-          test('should map virtual fields to entity fields', () => {
-            const formValues = {__model: 'User', __key: '1', location: {postcode: '1234'}}
-            const dirtyFormValues = formValues
-            const fieldDefinitions = [
-              {
-                id: 'location',
-                componentType: 'field',
-                dataType: 'location',
-                locationMapping: {postcode: 'zip'}
-              }
-            ]
-
-            const expectedReturn = {
-              model: 'User',
-              key: '1',
-              version: undefined,
-              paths: {zip: '1234'}
-            }
-
-            return expectSaga(sagas.getEntityForSubmit)
-              .provide([
-                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFormValues, fieldDefinitions}]
-              ])
-              .returns(expectedReturn)
-
-              .run()
-          })
-
-          test('should map virtual fields to entity fields', () => {
-            const formValues = {__model: 'User', __key: '1', location: {postcode: '1234'}, zip: '1234'}
-            const dirtyFormValues = formValues
-            const fieldDefinitions = [
-              {
-                id: 'location',
-                componentType: 'field',
-                dataType: 'location',
-                locationMapping: {postcode: 'zip'}
-              }
-            ]
-
-            const expectedReturn = {
-              model: 'User',
-              key: '1',
-              version: undefined,
-              paths: {zip: '1234'}
-            }
-
-            return expectSaga(sagas.getEntityForSubmit)
-              .provide([
-                [matchers.call.fn(sagas.getCurrentEntityState), {formValues, dirtyFormValues, fieldDefinitions}]
-              ])
-              .returns(expectedReturn)
-
               .run()
           })
         })
@@ -489,52 +243,6 @@ describe('entity-detail', () => {
               .call.like({fn: sagas.loadEntity})
               .call.like({fn: form.entityToFormValues})
               .put.like({action: {type: formActions.initialize().type}})
-              .run()
-          })
-        })
-
-        describe('touchAllFields saga', () => {
-          test('should call redux form action with all fields', () => {
-            const action = {}
-            const fieldDefinitions = [{path: 'firstname'}, {path: 'relGender.label'}]
-            return expectSaga(sagas.touchAllFields, action)
-              .provide([[select(sagas.entityDetailSelector), {fieldDefinitions}]])
-
-              .put(formActions.touch(FORM_ID, 'firstname', 'relGender--label'))
-              .run()
-          })
-        })
-
-        describe('focusErrorField saga', () => {
-          test('should focus first error field', () => {
-            const formErrors = {
-              firstname: {
-                mandatory: ['This is a mandatory field']
-              },
-              lastname: {
-                mandatory: ['This is a mandatory field']
-              }
-            }
-            const elementFocusSpy = sinon.spy()
-            const mElement = {focus: elementFocusSpy}
-            document.getElementById = sinon.spy(() => mElement)
-
-            return expectSaga(sagas.focusErrorField)
-              .provide([[matchers.call.fn(sagas.getFormErrors), formErrors]])
-              .run()
-              .then(result => {
-                expect(document.getElementById).to.be.calledWith('input-detailForm-firstname')
-                expect(elementFocusSpy).to.be.calledOnce
-              })
-          })
-        })
-
-        describe('handleInvalidForm saga', () => {
-          test('should call touch and focus ', () => {
-            return expectSaga(sagas.handleInvalidForm)
-              .provide([[matchers.call.fn(sagas.touchAllFields)], [matchers.call.fn(sagas.focusErrorField)]])
-              .call(sagas.touchAllFields)
-              .call(sagas.focusErrorField)
               .run()
           })
         })
@@ -647,193 +355,6 @@ describe('entity-detail', () => {
               .provide([[select(sagas.entityDetailSelector), detailState]])
               .put(actions.setMarked(true))
               .run()
-          })
-        })
-
-        describe('autoComplete saga', () => {
-          test('should dispatch form value changes accordingly', () => {
-            const fieldName = 'firstname'
-            const autoCompleteEndpoint = '/nice2/rest/autoComplete'
-            const entity = {
-              paths: {
-                fistname: 'test',
-                callname: 'test'
-              }
-            }
-
-            const response = {
-              body: {
-                values: {
-                  lastname: {
-                    mode: 'override',
-                    value: 'tocco'
-                  },
-                  callname: {
-                    mode: 'if_empty',
-                    value: 'tocco'
-                  },
-                  callname2: {
-                    mode: 'if_empty',
-                    value: 'tocco'
-                  }
-                }
-              }
-            }
-
-            const formValues = {
-              firstname: 'test',
-              callname: 'test'
-            }
-
-            return expectSaga(sagas.autoComplete, fieldName, autoCompleteEndpoint)
-              .provide([
-                [matchers.call.fn(sagas.getEntityForSubmit), entity],
-                [matchers.call.fn(rest.requestSaga), response],
-                {
-                  select() {
-                    return formValues
-                  }
-                }
-              ])
-              .put(formActions.change(FORM_ID, 'lastname', 'tocco'))
-              .put(formActions.change(FORM_ID, 'callname2', 'tocco'))
-              .not.put(formActions.change(FORM_ID, 'callname', 'tocco'))
-              .run()
-          })
-        })
-
-        describe('onChange saga', () => {
-          test('should call autoComplete if endpoint is defined', () => {
-            const field = 'firstname'
-            const input = {
-              meta: {
-                field
-              }
-            }
-
-            const autoCompleteEndpoint = '/autoComplete'
-
-            const entityDetailState = {
-              fieldDefinitions: [
-                {
-                  id: field,
-                  autoCompleteEndpoint
-                }
-              ]
-            }
-            return expectSaga(sagas.onChange, input)
-              .provide([
-                [select(sagas.entityDetailSelector), entityDetailState],
-                [matchers.call.fn(sagas.autoComplete)]
-              ])
-              .call(sagas.autoComplete, field, autoCompleteEndpoint)
-              .run()
-          })
-
-          test('should not call autoComplete if endpoint is not defined', () => {
-            const field = 'firstname'
-            const input = {
-              meta: {
-                field
-              }
-            }
-
-            const entityDetailState = {
-              fieldDefinitions: [
-                {
-                  id: field
-                }
-              ]
-            }
-            return expectSaga(sagas.onChange, input)
-              .provide([
-                [select(sagas.entityDetailSelector), entityDetailState],
-                [matchers.call.fn(sagas.autoComplete)]
-              ])
-              .not.call.like({fn: sagas.autoComplete})
-              .run()
-          })
-        })
-
-        describe('focusErrorField saga', () => {
-          test('should call focus for first error field', () => {
-            const field = 'firstname'
-            return expectSaga(sagas.focusErrorField)
-              .provide([
-                [matchers.call.fn(sagas.getFormErrors), []],
-                [matchers.call.fn(sagas.focusField), true],
-                [matchers.call.fn(form.formErrorsUtil.getFirstErrorField), field]
-              ])
-              .call(sagas.focusField, field)
-              .run()
-          })
-
-          describe('loadMarked saga', () => {
-            test('should call focus for first error field', () =>
-              expectSaga(sagas.loadMarked, 'User', '235')
-                .provide([[call(rest.fetchMarked, 'User', '235'), true]])
-                .put(actions.setMarked(true))
-                .run())
-          })
-
-          describe('updateMarked saga', () => {
-            test('should call focus for first error field', () => {
-              const action = actions.updateMarked('User', '235', true)
-              return expectSaga(sagas.updateMarked, action)
-                .provide([[call(rest.setMarked, 'User', '235', true)]])
-                .put(actions.setMarked(true))
-                .call(rest.setMarked, 'User', '235', true)
-                .run()
-            })
-          })
-
-          describe('reloadAfterAction', () => {
-            test('should load data and send remote event', () => {
-              const payload = {
-                definition: {
-                  id: 'action'
-                }
-              }
-              return expectSaga(sagas.reloadAfterAction, {payload})
-                .provide([[call(sagas.loadData, true)]])
-                .put(externalEvents.fireExternalEvent('onRefresh'))
-                .call(sagas.loadData, true)
-                .run()
-            })
-
-            test('should do nothing on delete', () => {
-              const payload = {
-                definition: {
-                  id: 'delete'
-                }
-              }
-              return expectSaga(sagas.reloadAfterAction, {payload})
-                .provide([[call(sagas.loadData, true)]])
-                .not.put(externalEvents.fireExternalEvent('onRefresh'))
-                .not.call(sagas.loadData, true)
-                .run()
-            })
-          })
-
-          describe('asyncValidationStop saga', () => {
-            test('should show a toaster if outdated error is returned by the validation', () => {
-              const asyncValidationStopAction = {
-                payload: {
-                  _error: {
-                    outdatedError: {
-                      model: 'User',
-                      sameEntity: true,
-                      updateTimestamp: '2021-07-27T14:15:18.220Z',
-                      updateUser: 'user3'
-                    }
-                  }
-                }
-              }
-
-              return expectSaga(sagas.asyncValidationStop, asyncValidationStopAction)
-                .put.like({action: {type: 'notification/TOASTER'}})
-                .run()
-            })
           })
         })
       })

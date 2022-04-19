@@ -29,11 +29,12 @@ const DetailForm = props => {
 
   const formEl = useRef(null)
 
+  customHooks.useAutofocus(formEl)
+  const formEventProps = form.hooks.useFormEvents({submitForm})
+
   useEffect(() => {
     fireTouched(dirty && anyTouched)
   }, [dirty, anyTouched, fireTouched])
-
-  customHooks.useAutofocus(formEl)
 
   const customRenderedActions = useMemo(
     () => ({
@@ -52,21 +53,10 @@ const DetailForm = props => {
     [submitting, mode, valid, anyTouched, formErrors, intl]
   )
 
-  const handleSubmit = event => {
-    event.preventDefault()
-    submitForm()
-  }
-
-  const handleKeyPress = event => {
-    if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
-      event.preventDefault() // disable save on enter key down
-    }
-  }
-
   const embedType = env.getEmbedType()
 
   return (
-    <StyledForm onSubmit={handleSubmit} onKeyDown={handleKeyPress} ref={formEl}>
+    <StyledForm {...formEventProps} ref={formEl}>
       <form.FormBuilder
         entity={entity}
         formName={formName}

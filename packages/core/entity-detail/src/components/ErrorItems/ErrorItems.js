@@ -3,17 +3,7 @@ import PropTypes from 'prop-types'
 import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
 import styled from 'styled-components'
 import {form} from 'tocco-app-extensions'
-import {FormattedValue, scale, Typography} from 'tocco-ui'
-
-export const ErrorItem = ({message}) => (
-  <div>
-    <FormattedValue type="html" value={message} />
-  </div>
-)
-
-ErrorItem.propTypes = {
-  message: PropTypes.string.isRequired
-}
+import {scale, Typography} from 'tocco-ui'
 
 const StyledErrorItemWrapper = styled.div`
   &:not(:last-child) {
@@ -83,7 +73,7 @@ const ErrorItems = ({formErrors}) => {
           <FormattedMessage id="client.entity-detail.validatorErrors" />
         </Typography.H5>
         {validatorErrors.map((message, idx) => (
-          <ErrorItem key={idx} message={message} />
+          <form.ErrorItem key={idx} message={message} />
         ))}
       </StyledErrorItemWrapper>
     )
@@ -96,7 +86,7 @@ const ErrorItems = ({formErrors}) => {
           <FormattedMessage id="client.entity-detail.invalidRelationErrors" />
         </Typography.H5>
         {relatedEntityErrorsCompact.map((message, idx) => (
-          <ErrorItem key={idx} message={message} />
+          <form.ErrorItem key={idx} message={message} />
         ))}
       </StyledErrorItemWrapper>
     )
