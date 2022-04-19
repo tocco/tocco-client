@@ -7,7 +7,8 @@ import {
   externalEvents,
   formData,
   keyDown,
-  notification
+  notification,
+  form
 } from 'tocco-app-extensions'
 import EntityListApp from 'tocco-entity-list/src/main'
 import SimpleFormApp from 'tocco-simple-form/src/main'
@@ -16,7 +17,7 @@ import {navigationStrategy, reducer as reducerUtil} from 'tocco-util'
 import DetailViewContainer from './containers/DetailViewContainer'
 import customActions from './customActions'
 import {getDispatchActions} from './input'
-import reducers, {sagas} from './modules/reducers'
+import reducers, {sagas, formSagaConfig} from './modules/reducers'
 import shortcuts from './shortcuts'
 
 const packageName = 'entity-detail'
@@ -39,6 +40,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   actionEmitter.addToStore(store, events.emitAction)
   errorLogging.addToStore(store, false)
   notification.addToStore(store, false)
+  form.addToStore(store, formSagaConfig)
   actions.addToStore(store, {
     formApp: SimpleFormApp,
     listApp: EntityListApp,

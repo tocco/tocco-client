@@ -1,20 +1,7 @@
-import {selectUnit} from '@formatjs/intl-utils'
-import _get from 'lodash/get'
-import {FormattedMessage, FormattedRelativeTime} from 'react-intl'
-import {
-  actions as formActions,
-  getFormAsyncErrors,
-  getFormSubmitErrors,
-  getFormSyncErrors,
-  getFormValues,
-  isValid as isValidSelector
-} from 'redux-form'
-import * as formActionTypes from 'redux-form/es/actionTypes'
-import {SubmissionError} from 'redux-form/es/SubmissionError'
-import {all, call, debounce, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {actions as formActions, isValid as isValidSelector} from 'redux-form'
+import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {
   actions as actionExtensions,
-  errorLogging,
   externalEvents,
   form,
   notification,
@@ -24,7 +11,6 @@ import {
 } from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
-import {ErrorItem} from '../../components/ErrorItems/ErrorItems'
 import {createEntity, updateEntity} from '../../util/api/entities'
 import {getFooterPaths} from '../../util/detailFooter/helpers'
 import modes from '../../util/modes'
@@ -34,59 +20,28 @@ export const formInitialValueSelector = (state, formId) => state.form[formId].in
 
 export const entityDetailSelector = state => state.entityDetail
 
-const FORM_ID = 'detailForm'
-
 export const inputSelector = state => state.input
+
+export const FORM_ID = 'detailForm'
+
+export const formSagaConfig = {
+  formId: FORM_ID,
+  stateSelector: entityDetailSelector
+}
 
 export default function* sagas() {
   yield all([
     takeLatest(actions.LOAD_DETAIL_VIEW, loadDetailView),
     takeLatest(actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
-    takeLatest(actions.TOUCH_ALL_FIELDS, touchAllFields),
+    takeLatest(actions.TOUCH_ALL_FIELDS, form.sagasUtils.touchAllFields, formSagaConfig),
     takeEvery(actions.SUBMIT_FORM, submitForm),
     takeEvery(actions.FIRE_TOUCHED, fireTouched),
     takeEvery(actions.NAVIGATE_TO_CREATE, navigateToCreate),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
-    debounce(500, formActionTypes.CHANGE, onChange),
-    takeEvery(formActionTypes.STOP_ASYNC_VALIDATION, asyncValidationStop),
     takeLatest(actions.UPDATE_MARKED, updateMarked),
     takeLatest(actionExtensions.actions.ACTION_INVOKED, reloadAfterAction)
   ])
-}
-
-export function* autoComplete(fieldName, autoCompleteEndpoint) {
-  const options = {
-    method: 'POST',
-    body: {
-      triggerField: fieldName,
-      entity: yield call(getEntityForSubmit)
-    },
-    acceptedStatusCodes: [403]
-  }
-
-  const response = yield call(rest.requestSaga, autoCompleteEndpoint, options)
-  const values = _get(response, 'body.values', [])
-  const formValues = yield select(getFormValues(FORM_ID))
-
-  yield all(
-    Object.keys(values).map(fieldName => {
-      const value = values[fieldName]
-      const currentFieldValue = formValues[fieldName]
-      if (value.mode === 'override' || (value.mode === 'if_empty' && form.isValueEmpty(currentFieldValue))) {
-        return put(formActions.change(FORM_ID, fieldName, value.value))
-      }
-      return null
-    })
-  )
-}
-
-export function* onChange({meta}) {
-  const {field} = meta
-  const fieldDefinition = (yield select(entityDetailSelector)).fieldDefinitions.find(fd => fd.id === field)
-  if (fieldDefinition && fieldDefinition.autoCompleteEndpoint) {
-    yield call(autoComplete, field, fieldDefinition.autoCompleteEndpoint)
-  }
 }
 
 export function* loadDetailFormDefinition(formName, mode) {
@@ -158,134 +113,24 @@ export function* createFormSubmit(entity, fieldDefinitions) {
   yield call(showNotification, 'success', 'createSuccessfulTitle', 'createSuccessfulMessage')
 }
 
-export function* touchAllFields() {
-  const {fieldDefinitions} = yield select(entityDetailSelector)
-  yield put(formActions.touch(FORM_ID, ...fieldDefinitions.map(f => form.transformFieldName(f.path || f.id))))
-}
-
-export function* handleSubmitError(error) {
-  if (error instanceof SubmissionError) {
-    yield put(formActions.stopSubmit(FORM_ID, error.errors))
-    yield call(handleInvalidForm)
-
-    const validationErrors = yield call(form.formErrorsUtil.getValidatorErrors, error.errors)
-    const message =
-      validationErrors && validationErrors.length > 0
-        ? validationErrors.join('<br>')
-        : 'client.entity-detail.saveAbortedMessage'
-
-    yield put(
-      notification.toaster({
-        type: 'warning',
-        title: 'client.entity-detail.saveAbortedTitle',
-        body: () => <ErrorItem message={message} />,
-        /*
-         * normally a toaster of the type warning has a duration of -1 and the toaster must be manually closed
-         * as the validation error is also shown as a mouseover of the save button the toaster can disappear
-         * without manual closing
-         */
-        duration: 5000
-      })
-    )
-  } else if (error instanceof rest.InformationError) {
-    yield put(
-      notification.toaster({
-        type: 'info',
-        title: 'client.entity-detail.saveAbortedTitle',
-        body: error.message
-      })
-    )
-    yield put(formActions.stopSubmit(FORM_ID))
-  } else if (error instanceof rest.ForbiddenException) {
-    yield put(
-      notification.toaster({
-        type: 'error',
-        title: 'client.entity-detail.saveAbortedTitle',
-        body: 'client.entity-detail.noPermission'
-      })
-    )
-    yield put(formActions.stopSubmit(FORM_ID))
-  } else if (error instanceof rest.ClientQuestionCancelledException) {
-    yield put(formActions.stopSubmit(FORM_ID))
-  } else {
-    yield put(errorLogging.logError('client.common.unexpectedError', 'client.entity-detail.saveError', error))
-    yield put(formActions.stopSubmit(FORM_ID))
-  }
-}
-
-export function* getCurrentEntityState() {
-  const formValues = yield select(getFormValues(FORM_ID))
-  const initialFormValues = yield select(formInitialValueSelector, FORM_ID)
-  const {mode, fieldDefinitions} = yield select(entityDetailSelector)
-  const initialValues = mode === modes.CREATE ? {} : initialFormValues
-  const dirtyFormValues = yield call(form.getDirtyFormValues, initialValues, formValues, mode === modes.CREATE)
-
-  return {
-    formValues,
-    initialValues,
-    mode,
-    fieldDefinitions,
-    dirtyFormValues
-  }
-}
-
 export function* submitValidate() {
-  const {formValues, initialValues, mode, fieldDefinitions} = yield call(getCurrentEntityState)
+  const {formValues, initialValues, mode, fieldDefinitions} = yield call(
+    form.sagasUtils.getCurrentEntityState,
+    formSagaConfig
+  )
   yield call(form.submitValidation, formValues, initialValues, fieldDefinitions, mode)
-}
-
-export function* getEntityForSubmit() {
-  const {dirtyFormValues, fieldDefinitions} = yield call(getCurrentEntityState)
-  const flattenEntity = yield call(form.formValuesToFlattenEntity, dirtyFormValues, fieldDefinitions)
-  return yield call(api.toEntity, flattenEntity)
-}
-
-export function* getPaths() {
-  const {fieldDefinitions} = yield select(entityDetailSelector)
-  return yield call(form.getUsedPaths, fieldDefinitions)
-}
-
-export function* getFormErrors() {
-  return {
-    ...(yield select(getFormSyncErrors(FORM_ID))),
-    ...(yield select(getFormAsyncErrors(FORM_ID))),
-    ...(yield select(getFormSubmitErrors(FORM_ID)))
-  }
-}
-
-export function focusField(fieldName) {
-  const element = document.getElementById(form.getFieldId(FORM_ID, fieldName))
-  if (element) {
-    element.focus()
-    return true
-  }
-
-  return false
-}
-
-export function* focusErrorField() {
-  const formErrors = yield call(getFormErrors)
-  const firstErrorField = yield call(form.formErrorsUtil.getFirstErrorField, formErrors)
-  if (firstErrorField) {
-    yield call(focusField, firstErrorField)
-  }
-}
-
-export function* handleInvalidForm() {
-  yield call(touchAllFields)
-  yield call(focusErrorField)
 }
 
 export function* submitForm() {
   try {
     const isValid = yield select(isValidSelector(FORM_ID))
     if (!isValid) {
-      yield call(handleInvalidForm)
+      yield call(form.sagasUtils.handleInvalidForm, formSagaConfig)
     } else {
       yield put(formActions.startSubmit(FORM_ID))
       const {mode, fieldDefinitions} = yield select(entityDetailSelector)
       yield call(submitValidate)
-      const entity = yield call(getEntityForSubmit)
+      const entity = yield call(form.sagasUtils.getEntityForSubmit, formSagaConfig)
       if (mode === modes.UPDATE) {
         yield call(updateFormSubmit, entity, fieldDefinitions)
       } else if (mode === modes.CREATE) {
@@ -293,7 +138,7 @@ export function* submitForm() {
       }
     }
   } catch (error) {
-    yield call(handleSubmitError, error)
+    yield call(form.sagasUtils.handleSubmitError, formSagaConfig, error)
   }
 }
 
@@ -319,15 +164,6 @@ export function* showNotification(type, titleResourceName, messageResourceName) 
       body: `client.entity-detail.${messageResourceName}`
     })
   )
-}
-
-export function* loadDisplayExpressions(formName, mode, paths, entities) {
-  if (paths && paths.length > 0) {
-    const keys = entities.map(e => e.__key)
-    const entityName = entities[0].__model
-    const result = yield call(rest.fetchDisplayExpressions, formName, mode, keys, paths, entityName)
-    return result
-  }
 }
 
 export function* loadRelationDisplays(relationFields, entities) {
@@ -403,42 +239,6 @@ export function* remoteEvent(action) {
       case 'entity-update-event':
         yield call(loadData, false)
         break
-    }
-  }
-}
-
-export function* asyncValidationStop({payload}) {
-  if (payload) {
-    const hasOutdatedError = form.formErrorsUtil.hasOutdatedError(payload)
-    if (hasOutdatedError) {
-      const outdatedError = form.formErrorsUtil.getOutdatedError(payload)
-      const {value: timeStampValue, unit} = selectUnit(new Date(outdatedError.updateTimestamp))
-      const titleId = `client.entity-detail.${outdatedError.sameEntity ? 'outdated' : 'relatedOutdated'}ErrorTitle`
-
-      yield put(
-        notification.toaster({
-          type: 'warning',
-          key: 'outdated-warning',
-          title: (
-            <FormattedMessage
-              id={titleId}
-              values={{
-                model: outdatedError.model,
-                key: outdatedError.key
-              }}
-            />
-          ),
-          body: (
-            <FormattedMessage
-              id="client.entity-detail.outdatedErrorDescription"
-              values={{
-                ago: <FormattedRelativeTime value={timeStampValue} unit={unit} />,
-                user: outdatedError.updateUser
-              }}
-            />
-          )
-        })
-      )
     }
   }
 }

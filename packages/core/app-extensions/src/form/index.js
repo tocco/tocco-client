@@ -2,9 +2,12 @@ import {asyncValidation, submitValidation} from './asyncValidation'
 import componentTypes from './enums/componentTypes'
 import layoutTypes from './enums/layoutTypes'
 import scopes from './enums/scopes'
+import {ErrorItem} from './ErrorItem'
+import {addToStore} from './form'
 import FormBuilder from './FormBuilder'
 import {getFieldId, getFieldDefinitions, typeFieldMapping, getDefaultValues, getUsedPaths} from './formDefinition'
 import formErrorsUtil from './formErrors'
+import * as hooks from './hooks'
 import {
   formValuesToFlattenEntity,
   entityToFormValues,
@@ -14,6 +17,9 @@ import {
   transformFieldNameBack,
   isValueEmpty
 } from './reduxForm'
+import * as sagas from './sagas'
+import * as sagasUtils from './sagasUtils'
+import selectors from './selectors'
 import syncValidation from './syncValidation'
 import transformInputValues from './transformInputValues'
 import validators from './validators'
@@ -40,5 +46,11 @@ export default {
   asyncValidation,
   submitValidation,
   isValueEmpty,
-  typeFieldMapping
+  typeFieldMapping,
+  sagas,
+  sagasUtils,
+  addToStore,
+  ErrorItem,
+  hooks,
+  selectors
 }

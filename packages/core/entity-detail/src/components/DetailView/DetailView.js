@@ -1,11 +1,9 @@
-import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
-import {useEffect, useRef} from 'react'
+import {useEffect} from 'react'
 import {form} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 
 import DetailFormContainer from '../../containers/DetailFormContainer'
-import modes from '../../util/modes'
 
 const DetailView = ({unloadDetailView, mode, formInitialValues, fieldDefinitions, formDefinition, intl}) => {
   useEffect(() => {
@@ -14,17 +12,8 @@ const DetailView = ({unloadDetailView, mode, formInitialValues, fieldDefinitions
     }
   }, [unloadDetailView])
 
-  const handledAsyncValidate = formValues =>
-    form.asyncValidation(formValues, mode === modes.CREATE ? {} : formInitialValues, fieldDefinitions, mode)
-
-  const validateSingletonRef = useRef(null)
-
-  const getSyncValidation = () => {
-    if (!validateSingletonRef.current && !_isEmpty(fieldDefinitions)) {
-      validateSingletonRef.current = form.syncValidation(fieldDefinitions, formDefinition)
-    }
-    return validateSingletonRef.current
-  }
+  const handleAsyncValidate = form.hooks.useAsyncValidation({formInitialValues, fieldDefinitions, mode})
+  const handleAyncValidate = form.hooks.useSyncValidation({fieldDefinitions, formDefinition})
 
   const msg = id => intl.formatMessage({id})
   const fieldDefinitionPaths = fieldDefinitions.map(fD => fD.path)
@@ -33,8 +22,8 @@ const DetailView = ({unloadDetailView, mode, formInitialValues, fieldDefinitions
     <LoadMask required={[formInitialValues]} loadingText={msg('client.entity-detail.loadingText')}>
       <DetailFormContainer
         mode={mode}
-        validate={getSyncValidation()}
-        asyncValidate={handledAsyncValidate}
+        validate={handleAyncValidate}
+        asyncValidate={handleAsyncValidate}
         asyncBlurFields={fieldDefinitionPaths}
       />
     </LoadMask>

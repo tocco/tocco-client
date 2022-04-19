@@ -1,7 +1,8 @@
 import {mount} from 'enzyme'
 import {IntlProvider} from 'react-intl'
+import {form} from 'tocco-app-extensions'
 
-import ErrorItems, {ErrorItem} from './ErrorItems'
+import ErrorItems from './ErrorItems'
 
 const EMPTY_FUNC = () => {}
 
@@ -49,10 +50,10 @@ describe('entity-detail', () => {
         )
 
         expect(wrapper.find('FormattedMessage').text()).to.equal(messages['client.entity-detail.invalidRelationErrors'])
-        expect(wrapper.find(ErrorItem).at(0).text()).to.eql(
+        expect(wrapper.find(form.ErrorItem).at(0).text()).to.eql(
           'Pflichtfeld ist nicht ausgefüllt. (label_de, User_status, 3)'
         )
-        expect(wrapper.find(ErrorItem).at(1).text()).to.eql(
+        expect(wrapper.find(form.ErrorItem).at(1).text()).to.eql(
           'Pflichtfeld ist nicht ausgefüllt. (label_de, User_status2, 4)'
         )
       })
@@ -86,10 +87,10 @@ describe('entity-detail', () => {
           </IntlProvider>
         )
         expect(wrapper.find('FormattedMessage').text()).to.equal(messages['client.entity-detail.validatorErrors'])
-        expect(wrapper.find(ErrorItem)).to.have.length(3)
-        expect(wrapper.find(ErrorItem).at(0).text()).to.eql('1')
-        expect(wrapper.find(ErrorItem).at(1).text()).to.eql('2')
-        expect(wrapper.find(ErrorItem).at(2).text()).to.eql('3')
+        expect(wrapper.find(form.ErrorItem)).to.have.length(3)
+        expect(wrapper.find(form.ErrorItem).at(0).text()).to.eql('1')
+        expect(wrapper.find(form.ErrorItem).at(1).text()).to.eql('2')
+        expect(wrapper.find(form.ErrorItem).at(2).text()).to.eql('3')
       })
 
       test('should show outdated error', () => {
