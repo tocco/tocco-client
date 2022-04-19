@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import {useEffect, useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
 import {notification} from 'tocco-app-extensions'
-import {Icon} from 'tocco-ui'
+import {Icon, LoadMask} from 'tocco-ui'
 
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
 import SearchPanel from '../SearchPanel/SearchPanel'
@@ -35,7 +35,8 @@ const ResourceScheduler = ({
   updateRequestedCalendars,
   requestedCalendars,
   handleNotifications,
-  emitAction
+  emitAction,
+  initialCalendarType
 }) => {
   useEffect(() => {
     initialize()
@@ -85,13 +86,16 @@ const ResourceScheduler = ({
           <StyledToggleCollapse>
             <StyledToggleCollapseButton icon="chevron-left" onClick={toggleCollapse} />
           </StyledToggleCollapse>
-          <SearchPanel
-            locale={locale}
-            calendarTypes={calendarTypes}
-            updateRequestedCalendars={updateRequestedCalendars}
-            requestedCalendars={requestedCalendars}
-            emitAction={emitAction}
-          />
+          <LoadMask required={[calendarTypes]}>
+            <SearchPanel
+              locale={locale}
+              calendarTypes={calendarTypes}
+              updateRequestedCalendars={updateRequestedCalendars}
+              requestedCalendars={requestedCalendars}
+              emitAction={emitAction}
+              initialCalendarType={initialCalendarType}
+            />
+          </LoadMask>
         </StyledSplitPanelWrapperLeft>
         <StyledSplitPanelWrapperRight>
           <SchedulerAppContainer schedulerRef={schedulerRef} />
@@ -134,7 +138,8 @@ ResourceScheduler.propTypes = {
   ),
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   locale: PropTypes.string,
-  emitAction: PropTypes.func.isRequired
+  emitAction: PropTypes.func.isRequired,
+  initialCalendarType: PropTypes.string
 }
 
 export default ResourceScheduler

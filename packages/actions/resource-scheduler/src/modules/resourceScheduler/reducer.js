@@ -14,7 +14,10 @@ const updateRequestedCalendars = (state, {payload: {ids, calendarType}}) => ({
 const removeRequestedCalendar = (state, {payload}) => {
   const {id, entityModel} = payload
 
-  const typesToRemove = state.calendarTypes.filter(type => type.targetEntity === entityModel).map(type => type.name)
+  const typesToRemove = (state.calendarTypes || [])
+    .filter(type => type.targetEntity === entityModel)
+    .map(type => type.name)
+
   return {
     ...state,
     requestedCalendars: {
@@ -52,7 +55,7 @@ const ACTION_HANDLERS = {
 
 const initialState = {
   handleNotifications: false,
-  calendarTypes: [],
+  calendarTypes: null,
   requestedCalendars: {},
   calendars: [],
   dateRange: {}
