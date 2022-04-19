@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {Suspense, useState} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {all, put, takeLatest} from 'redux-saga/effects'
 import {notification} from 'tocco-app-extensions'
@@ -43,24 +43,26 @@ export function* chooseDocument({payload: {setDocument, formName, formFieldId}})
 
         return (
           <div>
-            <LazyDocsBrowser
-              routerType="routerless"
-              listLimit={10}
-              selectionStyle="none"
-              searchFormType="none"
-              disableViewPersistor={true}
-              getListFormName={listFormName}
-              getCustomLocation={getCustomLocation}
-              navigationStrategy={{}}
-              embedded={true}
-              noLeftPadding={true}
-              sortable={false}
-              onSelectChange={setSelection}
-              scrollBehaviour="none"
-            />
-            <StyledButton onClick={handleClick} look="raised" ink="primary" disabled={isDisabled}>
-              <FormattedMessage id="client.docs-browser.chooseDocument.select" />
-            </StyledButton>
+            <Suspense fallback="">
+              <LazyDocsBrowser
+                routerType="routerless"
+                listLimit={10}
+                selectionStyle="none"
+                searchFormType="none"
+                disableViewPersistor={true}
+                getListFormName={listFormName}
+                getCustomLocation={getCustomLocation}
+                navigationStrategy={{}}
+                embedded={true}
+                noLeftPadding={true}
+                sortable={false}
+                onSelectChange={setSelection}
+                scrollBehaviour="none"
+              />
+              <StyledButton onClick={handleClick} look="raised" ink="primary" disabled={isDisabled}>
+                <FormattedMessage id="client.docs-browser.chooseDocument.select" />
+              </StyledButton>
+            </Suspense>
           </div>
         )
       },
