@@ -20,6 +20,7 @@ const mapActionCreators = {
 
 const mapStateToProps = state => {
   return {
+    initialCalendarType: state.input.actionProperties?.calendarType,
     calendars: state.resourceScheduler.calendars,
     calendarTypes: state.resourceScheduler.calendarTypes,
     requestedCalendars: state.resourceScheduler.requestedCalendars,

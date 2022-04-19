@@ -2,7 +2,7 @@ import * as actions from './actions'
 import reducer from './index'
 
 const EXPECTED_INITIAL_STATE = {
-  calendarTypes: [],
+  calendarTypes: null,
   requestedCalendars: {},
   calendars: [],
   dateRange: {},

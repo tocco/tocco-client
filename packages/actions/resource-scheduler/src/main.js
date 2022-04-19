@@ -12,8 +12,8 @@ import {GlobalStyles} from 'tocco-ui'
 import {reducer as reducerUtil} from 'tocco-util'
 
 import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
+import {getDispatchActions} from './input'
 import reducers, {sagas} from './modules/reducers'
-import {setHandleNotifications, updateRequestedCalendars} from './modules/resourceScheduler/actions'
 
 const packageName = 'resource-scheduler'
 
@@ -36,20 +36,10 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, handleNotifications)
   cache.addToStore(store)
 
-  const dispatchActions = [
-    ...(input.selection &&
-    input.selection.type === 'ID' &&
-    input.actionProperties &&
-    input.actionProperties.calendarType
-      ? [updateRequestedCalendars(input.actionProperties.calendarType, input.selection.ids)]
-      : []),
-    setHandleNotifications(handleNotifications)
-  ]
-
   return appFactory.createApp(packageName, content, store, {
     input,
     events,
-    actions: dispatchActions,
+    actions: getDispatchActions(input, handleNotifications),
     publicPath,
     textResourceModules: ['component', 'common', packageName, 'entity-list', 'scheduler']
   })

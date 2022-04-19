@@ -20,7 +20,14 @@ PanelHeaderContent.propTypes = {
   label: PropTypes.string.isRequired
 }
 
-const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, calendarTypes, emitAction}) => {
+const SearchPanel = ({
+  updateRequestedCalendars,
+  locale,
+  requestedCalendars,
+  calendarTypes,
+  emitAction,
+  initialCalendarType
+}) => {
   const handleSelect = name => selection => {
     updateRequestedCalendars(name, selection)
   }
@@ -51,7 +58,11 @@ const SearchPanel = ({updateRequestedCalendars, locale, requestedCalendars, cale
       </Panel.Wrapper>
     ))
 
-  return <Panel.Group>{getSearchLists(calendarTypes)}</Panel.Group>
+  const initialCalendarTypeIndex = initialCalendarType
+    ? calendarTypes.findIndex(c => c.name === initialCalendarType)
+    : -1
+
+  return <Panel.Group initialOpenPanelIndex={initialCalendarTypeIndex}>{getSearchLists(calendarTypes)}</Panel.Group>
 }
 
 SearchPanel.propTypes = {
@@ -64,10 +75,11 @@ SearchPanel.propTypes = {
       targetEntity: PropTypes.string.isRequired,
       color: PropTypes.string
     })
-  ),
+  ).isRequired,
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
   locale: PropTypes.string,
-  emitAction: PropTypes.func.isRequired
+  emitAction: PropTypes.func.isRequired,
+  initialCalendarType: PropTypes.string
 }
 
 export default memo(SearchPanel)
