@@ -29,7 +29,8 @@ const FormBuilder = props => {
     formValues,
     formName,
     fieldMappingType,
-    customRenderedActions
+    customRenderedActions,
+    readonly
   } = props
 
   const formTraverser = (children, parentReadOnly = false) => {
@@ -192,7 +193,7 @@ const FormBuilder = props => {
     return component(field, key)
   }
 
-  return formTraverser(formDefinition.children, formDefinition.readonly)
+  return formTraverser(formDefinition.children, readonly || formDefinition.readonly)
 }
 
 FormBuilder.propTypes = {
@@ -200,6 +201,7 @@ FormBuilder.propTypes = {
   formName: PropTypes.string.isRequired,
   formDefinition: PropTypes.object.isRequired,
   formValues: PropTypes.object,
+  readonly: PropTypes.bool,
   mode: PropTypes.string,
   componentMapping: PropTypes.objectOf(PropTypes.func),
   beforeRenderField: PropTypes.func,
