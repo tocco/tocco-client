@@ -27,6 +27,7 @@ describe('resource-scheduler', () => {
               .all([
                 takeLatest(actions.INITIALIZE, sagas.initialize),
                 takeLatest(actions.UPDATE_REQUESTED_CALENDARS, sagas.retrieveCalendars),
+                takeLatest(actions.LOAD_REQUESTED_CALENDARS, sagas.resolveSelectedCalendars),
                 takeLatest(actions.SET_DATE_RANGE, sagas.retrieveCalendars),
                 takeLatest(actions.REMOVE_REQUESTED_CALENDAR, sagas.retrieveCalendars),
                 takeLatest(actions.ON_EVENT_CLICK, sagas.onEventClick),

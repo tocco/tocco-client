@@ -3,6 +3,7 @@ export const LOAD_CALENDAR_TYPES = 'resourceScheduler/LOAD_CALENDAR_TYPES'
 export const INITIALIZE = 'resourceScheduler/INITIALIZE'
 export const SEARCH_SELECTION_CHANGED = 'resourceScheduler/SEARCH_SELECTION_CHANGED'
 export const UPDATE_REQUESTED_CALENDARS = 'resourceScheduler/UPDATE_REQUESTED_CALENDARS'
+export const LOAD_REQUESTED_CALENDARS = 'resourceScheduler/LOAD_REQUESTED_CALENDARS'
 export const SET_CALENDARS = 'resourceScheduler/SET_CALENDARS'
 export const SET_DATE_RANGE = 'resourceScheduler/SET_DATE_RANGE'
 export const REMOVE_REQUESTED_CALENDAR = 'resourceScheduler/REMOVE_REQUESTED_CALENDAR'
@@ -39,6 +40,14 @@ export const updateRequestedCalendars = (calendarType, ids) => ({
   payload: {
     calendarType,
     ids
+  }
+})
+
+export const loadRequestedCalendars = (calendarType, selection) => ({
+  type: LOAD_REQUESTED_CALENDARS,
+  payload: {
+    calendarType,
+    selection
   }
 })
 
