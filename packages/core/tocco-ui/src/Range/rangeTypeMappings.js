@@ -4,6 +4,18 @@ const datetimeFormat = 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
 const dateFormat = 'YYYY-MM-DD'
 
 const rangeTypeMappings = {
+  number: {
+    icons: {
+      range: 'square-plus',
+      single: 'square-minus'
+    }
+  },
+  integer: {
+    icons: {
+      range: 'square-plus',
+      single: 'square-minus'
+    }
+  },
   datetime: {
     type: 'date',
     icons: {
