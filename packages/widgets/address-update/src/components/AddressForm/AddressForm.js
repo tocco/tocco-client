@@ -20,7 +20,7 @@ const AddressUpdate = ({
   form: formName,
   mode
 }) => {
-  const readOnly = !entity?.editable
+  const readonly = !entity?.editable
 
   const formEl = useRef(null)
 
@@ -33,7 +33,7 @@ const AddressUpdate = ({
 
   const customRenderedActions = {
     save: actionDefinition =>
-      readOnly ? null : (
+      readonly ? null : (
         <SaveButton
           intl={intl}
           submitting={submitting}
@@ -54,7 +54,7 @@ const AddressUpdate = ({
         formValues={formValues}
         fieldMappingType="editable"
         mode={mode}
-        readOnly={readOnly}
+        readonly={readonly}
         customRenderedActions={customRenderedActions}
       />
     </form>

@@ -60,20 +60,16 @@ export function* updateFormSubmit(entity, fieldDefinitions) {
   const {
     appContext: {widgetConfigKey}
   } = yield select(inputSelector)
-  const updateResponse = yield call(updateAddress, widgetConfigKey, entity, fieldDefinitions)
-  if (updateResponse.status === 404) {
-    // record was most likely moved to another business unit
-  } else {
-    yield call(loadData)
-    yield put(
-      notification.toaster({
-        type: 'success',
-        title: 'client.address-update.saveSuccessfulTitle',
-        body: 'client.address-update.saveSuccessfulMessage'
-      })
-    )
-    yield put(formActions.stopSubmit(FORM_ID))
-  }
+  yield call(updateAddress, widgetConfigKey, entity, fieldDefinitions)
+  yield call(loadData)
+  yield put(
+    notification.toaster({
+      type: 'success',
+      title: 'client.address-update.saveSuccessfulTitle',
+      body: 'client.address-update.saveSuccessfulMessage'
+    })
+  )
+  yield put(formActions.stopSubmit(FORM_ID))
 }
 
 export function* submitValidate() {
