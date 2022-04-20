@@ -1,14 +1,13 @@
 import _reduce from 'lodash/reduce'
-import {useState} from 'react'
-import {FormattedMessage} from 'react-intl'
 import {actions as formActions, getFormValues, isDirty} from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
 import {channel} from 'redux-saga'
 import {all, call, debounce, put, select, take, takeLatest} from 'redux-saga/effects'
 import {form, notification, rest} from 'tocco-app-extensions'
-import {EditableValue, StatedValue, ColumnPicker} from 'tocco-ui'
+import {ColumnPicker} from 'tocco-ui'
 import {tql} from 'tocco-util'
 
+import SearchFilterNameForm from '../../components/SearchFilterNameForm'
 import {changeParentFieldType, getEndpoint, getFormFieldFlat} from '../../util/api/forms'
 import searchFormTypes from '../../util/searchFormTypes'
 import {validateSearchFields} from '../../util/searchFormValidation'
@@ -16,7 +15,6 @@ import {setSearchFormType} from '../entityList/actions'
 import {SET_ENTITY_MODEL, SET_FORM_DEFINITION, setSorting, refresh} from '../list/actions'
 import {getBasicQuery, getSearchViewQuery} from '../list/sagas'
 import * as actions from './actions'
-import {StyledButton} from './StyledComponents'
 
 export const inputSelector = state => state.input
 export const searchFormSelector = state => state.searchForm
@@ -240,17 +238,7 @@ function* promptForSearchFilterName() {
           close()
           answerChannel.put(value)
         }
-        const [name, setName] = useState('')
-        return (
-          <>
-            <StatedValue label={'Name'}>
-              <EditableValue type={'string'} value={name} events={{onChange: setName}} />
-            </StatedValue>
-            <StyledButton onClick={() => onSave(name)} look={'raised'} ink={'primary'} disabled={!name}>
-              <FormattedMessage id="client.entity-list.search.settings.saveAsFilter.button" />
-            </StyledButton>
-          </>
-        )
+        return <SearchFilterNameForm onSave={onSave} />
       },
       true
     )
