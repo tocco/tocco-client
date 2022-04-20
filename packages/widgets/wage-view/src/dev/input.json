@@ -1,0 +1,9 @@
+{
+  "appContext": {
+    "embedType": "widget",
+    "widgetConfigKey": "1"
+  },
+  "reportIds": ["fee_invoice_period"],
+  "allowCreate": true,
+  "searchFilters": []
+}
