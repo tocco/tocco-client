@@ -358,6 +358,14 @@
     "id": "fas, square-full",
     "lib": "fa"
   },
+  "square-minus": {
+    "id": "fal, square-minus",
+    "lib": "fa"
+  },
+  "square-plus": {
+    "id": "fal, square-plus",
+    "lib": "fa"
+  },
   "star": {
     "id": "fal, star",
     "lib": "fa",
