@@ -1,6 +1,6 @@
 import Split from 'react-split'
 import styled from 'styled-components'
-import {Button, Menu, scale, StyledScrollbar, theme} from 'tocco-ui'
+import {Button, declareFont, Menu, scale, StyledScrollbar, theme} from 'tocco-ui'
 
 export const StyledSplit = styled(Split)``
 
@@ -103,4 +103,16 @@ export const StyledQueryBox = styled.div`
     z-index: 3; //higher than rest to lay over query field
   }
   ${StyledScrollbar}
+`
+
+export const StyledErrorMessage = styled.pre`
+  && {
+    ${declareFont({
+      fontFamily: theme.fontFamily('monospace')
+    })}
+    margin-left: ${scale.space(-1)};
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: ${theme.color('signal.danger.text')};
+  }
 `
