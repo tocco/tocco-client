@@ -1,5 +1,5 @@
 import {call, put, takeLatest, all, select} from 'redux-saga/effects'
-import {rest, externalEvents} from 'tocco-app-extensions'
+import {selection as selectionUtil, rest, externalEvents} from 'tocco-app-extensions'
 
 import {transformRequestedCalendars} from '../../utils/rest'
 import * as actions from './actions'
@@ -10,6 +10,7 @@ export default function* sagas() {
   yield all([
     takeLatest(actions.INITIALIZE, initialize),
     takeLatest(actions.UPDATE_REQUESTED_CALENDARS, retrieveCalendars),
+    takeLatest(actions.LOAD_REQUESTED_CALENDARS, resolveSelectedCalendars),
     takeLatest(actions.SET_DATE_RANGE, retrieveCalendars),
     takeLatest(actions.REMOVE_REQUESTED_CALENDAR, retrieveCalendars),
     takeLatest(actions.ON_EVENT_CLICK, onEventClick),
@@ -43,6 +44,11 @@ export function* retrieveCalendars() {
   } else {
     yield put(actions.setCalendars([]))
   }
+}
+
+export function* resolveSelectedCalendars({payload: {selection, calendarType}}) {
+  const {keys} = yield call(selectionUtil.getEntities, selection, rest.fetchEntities)
+  yield put(actions.updateRequestedCalendars(calendarType, keys))
 }
 
 export function* onEventClick({payload}) {
