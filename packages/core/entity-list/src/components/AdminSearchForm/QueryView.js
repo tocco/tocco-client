@@ -4,7 +4,21 @@ import {FormattedMessage} from 'react-intl'
 import {Ball, BallMenu, EditableValue, FormattedValue, MenuItem, StatedValue} from 'tocco-ui'
 import {react as customHooks} from 'tocco-util'
 
-import {AdminSearchGrid, StyledHeader, StyledQueryBox, StyledToggleCollapseButton} from './StyedComponents'
+import {
+  AdminSearchGrid,
+  StyledErrorMessage,
+  StyledHeader,
+  StyledQueryBox,
+  StyledToggleCollapseButton
+} from './StyedComponents'
+
+const detectSignal = (hasError, touched) => {
+  if (hasError) {
+    return 'danger'
+  } else if (touched) {
+    return 'info'
+  }
+}
 
 const QueryView = ({
   isCollapsed,
@@ -34,6 +48,10 @@ const QueryView = ({
   const queryHasErrors = queryError && Object.entries(queryError).length !== 0
   const disableQueryView = () => setQueryViewVisible(false)
   const isQueryFalsy = !queryExists || queryHasErrors
+
+  const queryErrorValues = Object.values(queryError || {})
+
+  const signal = detectSignal(queryHasErrors, queryExists)
 
   return (
     <AdminSearchGrid isCollapsed={isCollapsed}>
@@ -73,14 +91,17 @@ const QueryView = ({
           <FormattedValue type="string" value={entityModel} />
         </StatedValue>
         <StatedValue
-          error={queryError}
           touched={queryExists}
           fixLabel={true}
           hasValue={queryExists}
           label={msg('client.entity-list.query.editor')}
+          signal={signal}
         >
           <EditableValue type="code" value={query} options={codeEditorOptions} events={codeEditorEvents} />
         </StatedValue>
+        {queryErrorValues.map((error, index) => (
+          <StyledErrorMessage key={index}>{error}</StyledErrorMessage>
+        ))}
       </StyledQueryBox>
     </AdminSearchGrid>
   )
