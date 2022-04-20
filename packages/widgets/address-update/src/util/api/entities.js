@@ -10,7 +10,7 @@ export function* updateAddress(widgetConfigKey, entity, fieldDefinitions) {
     },
     body: entity,
     acceptedErrorCodes: ['VALIDATION_FAILED'],
-    acceptedStatusCodes: [404, 409]
+    acceptedStatusCodes: [409]
   }
 
   const resp = yield call(rest.requestSaga, 'widget/addressUpdate', options)
