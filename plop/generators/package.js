@@ -22,6 +22,7 @@ export default {
 
     const files = [
       'README.md',
+      'changelog.md',
       'package.json',
       '.yarnrc',
       '.npmignore',
