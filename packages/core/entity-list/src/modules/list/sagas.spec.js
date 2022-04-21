@@ -525,8 +525,12 @@ describe('entity-list', () => {
             const formName = 'User'
             const scope = 'list'
             const actionCreator = actions.setFormDefinition
+            const modifyFormDefinition = formDefinition => formDefinition
             return expectSaga(sagas.loadFormDefinition, formName, scope, actionCreator)
-              .provide([[call(rest.fetchForm, formName, scope), fetchedFormDefinition]])
+              .provide([
+                [call(rest.fetchForm, formName, scope), fetchedFormDefinition],
+                [select(sagas.inputSelector), {modifyFormDefinition}]
+              ])
               .put(actionCreator(fetchedFormDefinition))
               .run()
           })
