@@ -1,3 +1,7 @@
+1.1.14
+- possible to overwrite readonly form
+- use distinguishable icons for ranges
+
 1.1.13
 - invalidate cache on page refresh properly
 - correct dimension calculation of select menu since in some situations it does not seem to calculate the correct width/height
