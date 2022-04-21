@@ -23,7 +23,8 @@ const mapStateToProps = (state, props) => {
     limit: state.input.limit,
     searchFilters: state.input.searchFilters,
     preselectedSearchFields: state.input.preselectedSearchFields,
-    simpleSearchFields: state.input.simpleSearchFields
+    simpleSearchFields: state.input.simpleSearchFields,
+    modifyFormDefinition: state.input.modifyFormDefinition
   }
 }
 
