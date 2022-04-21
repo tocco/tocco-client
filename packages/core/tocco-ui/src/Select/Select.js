@@ -54,6 +54,12 @@ const Select = ({
 
   const getOptions = () => [...(options || [])]
 
+  const invokeFetchOptions = currentValue => {
+    if (fetchOptions) {
+      fetchOptions(currentValue)
+    }
+  }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const searchFunction = useCallback(
     searchOptions ||
@@ -70,17 +76,20 @@ const Select = ({
 
   const handleInputChange = (searchTerm, event) => {
     if (searchOptions && searchTerm) {
-      throttledSearchFunction(searchTerm)
+      throttledSearchFunction(searchTerm, value)
     }
     if (searchTerm === '' && event.action === 'input-change') {
-      fetchOptions()
+      invokeFetchOptions(value)
     }
   }
 
   const handleMenuOpen = () => {
-    if (fetchOptions) {
-      fetchOptions()
-    }
+    invokeFetchOptions(value)
+  }
+
+  const handleOnChange = newValue => {
+    onChange(newValue)
+    invokeFetchOptions(newValue)
   }
 
   const handleFocus = () => {
@@ -123,7 +132,7 @@ const Select = ({
           menuShouldScrollIntoView={false}
           autoFocus={false}
           value={value || null}
-          onChange={onChange}
+          onChange={handleOnChange}
           onInputChange={handleInputChange}
           options={getOptions()}
           isLoading={isLoading}
