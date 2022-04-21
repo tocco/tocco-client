@@ -1,3 +1,8 @@
+1.0.19
+- possible to overwrite readonly form
+- set focus on input on save filter
+- use distinguishable icons for ranges
+
 1.0.18
 - invalidate cache on page refresh properly
 - correct dimension calculation of select menu since in some situations it does not seem to calculate the correct width/height
