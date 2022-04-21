@@ -15,6 +15,7 @@ React-registry name: `entity-detail`
 | `defaultValues`        |           | Array of object with attributes id, value. Only for Create mode. e.g. [{id: 'lastname', value: 'Simpson}, {id:'relGender', value: '1'}]
 | `actionAppComponent`   |           | Component to render custom actions. Needs the appId and selection object property.
 | `navigationStrategy`   |           | Object consisting of various link factories. For more information see tocco-util/navigationStrategy documentation.
+| `modifyFormDefinition` |           | Function to modify form definition
 
 ### Events
 
