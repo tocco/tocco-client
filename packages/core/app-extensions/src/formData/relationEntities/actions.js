@@ -11,18 +11,20 @@ export const loadRelationEntities = (fieldName, entityName, options) => ({
   }
 })
 
-export const setRelationEntityLoading = fieldName => ({
+export const setRelationEntityLoading = (fieldName, clearData = false) => ({
   type: SET_RELATION_ENTITIES_LOADING,
   payload: {
-    fieldName
+    fieldName,
+    clearData
   }
 })
 
-export const setRelationEntities = (fieldName, entities, moreEntitiesAvailable = false) => ({
+export const setRelationEntities = (fieldName, entities, moreEntitiesAvailable = false, searchTerm = undefined) => ({
   type: SET_RELATION_ENTITIES,
   payload: {
     fieldName,
     entities,
+    searchTerm,
     moreEntitiesAvailable
   }
 })

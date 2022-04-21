@@ -6,6 +6,9 @@ const settings = {
   SUGGESTION_ORDER_FIELD: 'update_timestamp'
 }
 
+const getExcludeConstraint = value =>
+  !value || !Array.isArray(value) || value.length === 0 ? undefined : `not KEYS(${value.map(v => v.key).join(', ')})`
+
 export default {
   dataContainerProps: ({formField}) => ({
     relationEntities: [formField.id],
@@ -16,22 +19,26 @@ export default {
     options: _get(formData, ['relationEntities', formField.id, 'data'], []),
     moreOptionsAvailable: _get(formData, ['relationEntities', formField.id, 'moreEntitiesAvailable'], false),
     isLoading: _get(formData, ['relationEntities', formField.id, 'isLoading'], false),
-    fetchOptions: () =>
+    fetchOptions: currentValue => {
       formData.loadRelationEntities(formField.id, formField.targetEntity, {
         forceReload: true,
         limit: settings.SUGGESTION_LIMIT,
         sorting: [{field: settings.SUGGESTION_ORDER_FIELD, order: 'desc'}],
         formBase: formField.formBase,
-        formName: formField.formName
-      }),
-    searchOptions: searchTerm =>
+        formName: formField.formName,
+        where: getExcludeConstraint(currentValue)
+      })
+    },
+    searchOptions: (searchTerm, value) => {
       formData.loadRelationEntities(formField.id, formField.targetEntity, {
         searchTerm,
         limit: settings.SEARCH_RESULT_LIMIT,
         forceReload: true,
         formBase: formField.formBase,
-        formName: formField.formName
-      }),
+        formName: formField.formName,
+        where: getExcludeConstraint(value)
+      })
+    },
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
     tooltips: _get(formData.tooltips, formField.targetEntity, null),
     loadTooltip: id => formData.loadTooltip(formField.targetEntity, id),

@@ -19,7 +19,8 @@ export function* enhanceEntitiesWithDisplays(entities) {
 export function* loadRelationEntity({payload: {fieldName, entityName, options = {}}}) {
   const fieldData = yield select(fieldDataSelector, fieldName)
   if (!dataLoaded(fieldData) || options.forceReload) {
-    yield put(relationEntitiesActions.setRelationEntityLoading(fieldName))
+    const clearData = fieldData?.searchTerm !== options.searchTerm
+    yield put(relationEntitiesActions.setRelationEntityLoading(fieldName, clearData))
     const query = yield call(getQuery, options)
     const requestOptions = {
       method: 'GET'
@@ -27,7 +28,7 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
 
     const model = yield call(rest.fetchModel, entityName)
     if (_get(model, 'paths.active.type') === 'boolean') {
-      query.where = 'active'
+      query.where = query.where ? `${query.where} and active` : 'active'
     }
     let entities = yield call(rest.fetchEntities, entityName, query, requestOptions)
     entities = yield call(enhanceEntitiesWithDisplays, entities)
@@ -37,7 +38,8 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
       relationEntitiesActions.setRelationEntities(
         fieldName,
         options.limit ? entities.splice(0, options.limit) : entities,
-        moreEntitiesAvailable
+        moreEntitiesAvailable,
+        options.searchTerm
       )
     )
   }
@@ -45,12 +47,13 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
 
 export const fieldDataSelector = (state, fieldName) => state.formData.relationEntities.data[fieldName]
 
-const dataLoaded = fieldData => !!(fieldData && fieldData.data && fieldData.data.length > 0)
+const dataLoaded = fieldData => !!fieldData?.data?.length > 0
 
 export const getQuery = options => ({
   ...(options.limit ? {limit: options.limit + 1} : {}),
   ...(options.searchTerm ? {search: options.searchTerm} : {}),
   ...(options.sorting ? {sorting: options.sorting} : {}),
   ...(options.constriction ? {constriction: options.constriction} : {}),
-  ...(options.formName ? {form: options.formName} : {})
+  ...(options.formName ? {form: options.formName} : {}),
+  ...(options.where ? {where: options.where} : {})
 })
