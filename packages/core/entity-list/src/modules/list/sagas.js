@@ -381,8 +381,12 @@ export function* setSorting() {
 }
 
 export function* loadFormDefinition(formName, scope, actionCreator) {
+  const {modifyFormDefinition} = yield select(inputSelector)
   const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
-  yield put(actionCreator(fetchedFormDefinition))
+  const modifiedFormDefinition = modifyFormDefinition
+    ? modifyFormDefinition(fetchedFormDefinition)
+    : fetchedFormDefinition
+  yield put(actionCreator(modifiedFormDefinition))
 }
 
 export function* loadEntityModel(entityName) {
