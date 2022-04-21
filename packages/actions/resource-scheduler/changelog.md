@@ -1,3 +1,9 @@
+1.0.15
+- open panel according to calendar type
+- possible to overwrite readonly form
+- set focus on input on save filter
+- use distinguishable icons for ranges
+
 1.0.14
 - invalidate cache on page refresh properly
 - correct dimension calculation of select menu since in some situations it does not seem to calculate the correct width/height
