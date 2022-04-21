@@ -1,24 +1,33 @@
 import * as actions from './actions'
 
-export const setRelationEntities = (state, {payload: {fieldName, entities, moreEntitiesAvailable}}) => ({
+export const setRelationEntities = (state, {payload: {fieldName, entities, moreEntitiesAvailable, searchTerm}}) => ({
   ...state,
   data: {
     ...state.data,
     [fieldName]: {
       data: entities,
       isLoading: false,
-      moreEntitiesAvailable
+      moreEntitiesAvailable,
+      searchTerm
     }
   }
 })
 
-export const setRelationEntitiesLoading = (state, {payload: {fieldName}}) => ({
+export const setRelationEntitiesLoading = (state, {payload: {fieldName, clearData}}) => ({
   ...state,
   data: {
     ...state.data,
     [fieldName]: {
-      isLoading: true,
-      data: []
+      ...(clearData
+        ? {
+            searchTerm: undefined,
+            data: []
+          }
+        : {
+            searchTerm: state.data[fieldName]?.searchTerm,
+            data: state.data[fieldName]?.data || []
+          }),
+      isLoading: true
     }
   }
 })

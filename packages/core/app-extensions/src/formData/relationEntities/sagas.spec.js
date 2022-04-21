@@ -31,7 +31,7 @@ describe('app-extensions', () => {
                 [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
               ])
               .put(relationEntitiesActions.setRelationEntityLoading(fieldName))
-              .put(relationEntitiesActions.setRelationEntities(fieldName, entities, false))
+              .put(relationEntitiesActions.setRelationEntities(fieldName, entities, false, undefined))
               .run()
           })
 
@@ -63,7 +63,7 @@ describe('app-extensions', () => {
                 [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
               ])
               .put(relationEntitiesActions.setRelationEntityLoading(fieldName))
-              .put(relationEntitiesActions.setRelationEntities(fieldName, entities, false))
+              .put(relationEntitiesActions.setRelationEntities(fieldName, entities, false, undefined))
               .run()
           })
 
@@ -88,7 +88,9 @@ describe('app-extensions', () => {
                 [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
               ])
               .put(relationEntitiesActions.setRelationEntityLoading(fieldName))
-              .put(relationEntitiesActions.setRelationEntities(fieldName, [entities[0]], moreEntitiesAvailable))
+              .put(
+                relationEntitiesActions.setRelationEntities(fieldName, [entities[0]], moreEntitiesAvailable, undefined)
+              )
               .run()
           })
 
@@ -140,6 +142,51 @@ describe('app-extensions', () => {
                 fn: rest.fetchEntities,
                 args: ['User_status', {where: 'active'}]
               })
+              .run()
+          })
+
+          test('should clear existing entites when searchTerm changed', () => {
+            const fieldData = {data: [{key: '1', display: 'one'}], searchTerm: 'one'}
+            const fieldName = 'relUser'
+            const entities = [{display: 'two', key: 1}]
+            const options = {searchTerm: 'two', forceReload: true}
+
+            return expectSaga(
+              sagas.loadRelationEntity,
+              relationEntitiesActions.loadRelationEntities(fieldName, 'User', options)
+            )
+              .provide([
+                [select(sagas.fieldDataSelector, fieldName), fieldData],
+                [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(rest.fetchModel), {paths: {active: {type: 'boolean'}}}],
+                [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
+              ])
+              .put(relationEntitiesActions.setRelationEntityLoading(fieldName, true))
+              .put(relationEntitiesActions.setRelationEntities(fieldName, entities, false, 'two'))
+              .run()
+          })
+
+          test("should not clear existing entites when searchTerm hasn't changed", () => {
+            const fieldData = {data: [{key: '1', display: 'one'}], searchTerm: 'one'}
+            const fieldName = 'relUser'
+            const entities = [
+              {display: 'one', key: 1},
+              {display: 'two', key: 2}
+            ]
+            const options = {searchTerm: 'one', forceReload: true}
+
+            return expectSaga(
+              sagas.loadRelationEntity,
+              relationEntitiesActions.loadRelationEntities(fieldName, 'User', options)
+            )
+              .provide([
+                [select(sagas.fieldDataSelector, fieldName), fieldData],
+                [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(rest.fetchModel), {paths: {active: {type: 'boolean'}}}],
+                [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
+              ])
+              .put(relationEntitiesActions.setRelationEntityLoading(fieldName, false))
+              .put(relationEntitiesActions.setRelationEntities(fieldName, entities, false, 'one'))
               .run()
           })
         })

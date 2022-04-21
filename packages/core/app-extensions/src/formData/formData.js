@@ -56,7 +56,7 @@ export const addToStore = (store, config) => {
   const relationEntitiesData = _get(config, 'data.relationEntities', null)
   if (relationEntitiesData !== null) {
     Object.keys(relationEntitiesData).forEach(field => {
-      store.dispatch(setRelationEntities(field, relationEntitiesData[field], false))
+      store.dispatch(setRelationEntities(field, relationEntitiesData[field], false, undefined))
     })
   }
 }
