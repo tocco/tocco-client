@@ -1,6 +1,6 @@
 {
   "appContext": {
-    "emebdType": "widget",
+    "embedType": "widget",
     "widgetConfigKey": "113"
   },
   "formName": "Address_update"
