@@ -18,7 +18,8 @@ const EntityDetail = ({
   intl,
   dispatchEmittedAction,
   formTouched,
-  locale
+  locale,
+  modifyFormDefinition
 }) => {
   useEffect(() => {
     loadDetailParams(router.match.url)
@@ -91,6 +92,7 @@ const EntityDetail = ({
       }}
       theme={{}}
       locale={locale}
+      modifyFormDefinition={modifyFormDefinition}
     />
   )
 
@@ -130,7 +132,8 @@ EntityDetail.propTypes = {
   detailParams: PropTypes.object,
   formTouched: PropTypes.bool,
   showSubGridsCreateButton: PropTypes.bool,
-  appId: PropTypes.string
+  appId: PropTypes.string,
+  modifyFormDefinition: PropTypes.func
 }
 
 export default EntityDetail

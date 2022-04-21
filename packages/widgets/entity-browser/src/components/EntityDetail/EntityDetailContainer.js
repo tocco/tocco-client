@@ -19,7 +19,8 @@ const mapStateToProps = (state, props) => {
     detailParams: state.detail.detailParams,
     formTouched: state.detail.formTouched,
     locale: state.intl.locale,
-    actionAppComponent: Action
+    actionAppComponent: Action,
+    modifyFormDefinition: state.input.modifyFormDefinition
   }
 }
 

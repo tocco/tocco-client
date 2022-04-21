@@ -15,7 +15,7 @@ DetailLinkRelative.propTypes = {
   relation: PropTypes.string
 }
 
-const ListView = ({storeId, router, ...props}) => {
+const ListView = ({storeId, router, modifyFormDefinition, ...props}) => {
   const navigateToCreate = ({history, match, relationName}) => {
     if (relationName) {
       history.push(`${match}/${relationName}/`)
@@ -57,6 +57,7 @@ const ListView = ({storeId, router, ...props}) => {
       onStoreCreate={store => {
         viewPersistor.persistViewInfo(storeId, {store}, 0)
       }}
+      modifyFormDefinition={modifyFormDefinition}
     />
   )
 }
@@ -73,7 +74,8 @@ ListView.propTypes = {
   searchFitlers: PropTypes.array,
   preselectedSearchFields: PropTypes.array,
   simpleSearchFields: PropTypes.string,
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
+  modifyFormDefinition: PropTypes.func
 }
 
 export default ListView

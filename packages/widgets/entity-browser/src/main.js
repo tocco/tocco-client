@@ -160,7 +160,8 @@ EntityBrowserApp.propTypes = {
   memoryHistory: PropTypes.bool,
   backendUrl: PropTypes.string,
   scrollBehaviour: PropTypes.string,
-  appContext: appContext.propTypes
+  appContext: appContext.propTypes,
+  modifyFormDefinition: PropTypes.func
 }
 
 export default EntityBrowserApp
