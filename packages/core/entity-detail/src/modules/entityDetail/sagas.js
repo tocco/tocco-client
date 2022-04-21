@@ -45,11 +45,13 @@ export default function* sagas() {
 }
 
 export function* loadDetailFormDefinition(formName, mode) {
+  const {modifyFormDefinition} = yield select(inputSelector)
   const formDefinition = yield call(rest.fetchForm, formName, mode)
-  yield put(actions.setFormDefinition(formDefinition))
-  const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+  const modifiedFormDefinition = modifyFormDefinition ? modifyFormDefinition(formDefinition) : formDefinition
+  yield put(actions.setFormDefinition(modifiedFormDefinition))
+  const fieldDefinitions = yield call(form.getFieldDefinitions, modifiedFormDefinition)
   yield put(actions.setFieldDefinitions(fieldDefinitions))
-  return {formDefinition, fieldDefinitions}
+  return {formDefinition: modifiedFormDefinition, fieldDefinitions}
 }
 
 export function* loadEntity(entityName, entityId, fieldDefinitions) {

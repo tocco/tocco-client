@@ -176,15 +176,17 @@ describe('entity-detail', () => {
             const mode = 'update'
             const formDefinition = {}
             const fieldDefinitions = {}
-
-            const gen = sagas.loadDetailFormDefinition(formName, mode)
-            expect(gen.next().value).to.eql(call(rest.fetchForm, formName, mode))
-            expect(gen.next(formDefinition).value).to.eql(put(actions.setFormDefinition(formDefinition)))
-            expect(gen.next().value).to.eql(call(form.getFieldDefinitions, formDefinition))
-            expect(gen.next(fieldDefinitions).value).to.eql(put(actions.setFieldDefinitions(fieldDefinitions)))
-            const next = gen.next()
-            expect(next.value).to.eql({formDefinition, fieldDefinitions})
-            expect(next.done).to.be.true
+            const modifyFormDefinition = formDefinition => formDefinition
+            return expectSaga(sagas.loadDetailFormDefinition, formName, mode)
+              .provide([
+                [call(rest.fetchForm, formName, mode), formDefinition],
+                [select(sagas.inputSelector), {modifyFormDefinition}],
+                [call(form.getFieldDefinitions, formDefinition), fieldDefinitions]
+              ])
+              .put(actions.setFormDefinition(formDefinition))
+              .put(actions.setFieldDefinitions(fieldDefinitions))
+              .returns({formDefinition, fieldDefinitions})
+              .run()
           })
         })
 

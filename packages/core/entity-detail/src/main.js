@@ -121,7 +121,8 @@ EntityDetailApp.propTypes = {
   }, {}),
   navigationStrategy: navigationStrategy.propTypes,
   chooseDocument: PropTypes.func,
-  actionAppComponent: PropTypes.func
+  actionAppComponent: PropTypes.func,
+  modifyFormDefinition: PropTypes.func
 }
 
 export default EntityDetailApp
