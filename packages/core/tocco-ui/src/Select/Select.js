@@ -19,6 +19,7 @@ import {
   StyledReactSelectOuterWrapper,
   StyledReactSelectInnerWrapper
 } from './StyledComponents'
+import ValueContainer from './ValueContainer'
 
 /**
  * To select between multiple options. Loading of options and so on are remotely controlled.
@@ -88,6 +89,9 @@ const Select = ({
     setWrapperHeight(getWrapperHeight())
   }
 
+  const hasAdvancedSearch = Boolean(openAdvancedSearch)
+  const hasCreatePermission = Boolean(createPermission)
+
   return (
     <StyledReactSelectOuterWrapper tabIndex="-1" id={id} onFocus={handleFocus}>
       <StyledReactSelectInnerWrapper ref={selectWrapper}>
@@ -105,7 +109,8 @@ const Select = ({
             Menu: Menu,
             MenuList: MenuList,
             MultiValueLabel,
-            SingleValue
+            SingleValue,
+            ValueContainer
           }}
           noOptionsMessage={() => noResultsText || ' - '}
           isMulti={isMulti}
@@ -130,10 +135,12 @@ const Select = ({
           loadTooltip={loadTooltip}
           tooltips={tooltips}
           DetailLink={DetailLink}
+          hasAdvancedSearch={hasAdvancedSearch}
           openAdvancedSearch={openAdvancedSearch}
           moreOptionsAvailable={moreOptionsAvailable}
           moreOptionsAvailableText={moreOptionsAvailableText}
           blurInputOnSelect={false}
+          hasCreatePermission={hasCreatePermission}
           createPermission={createPermission}
           openRemoteCreate={openRemoteCreate}
         />
