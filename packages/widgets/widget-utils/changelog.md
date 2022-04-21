@@ -1,3 +1,6 @@
+0.1.10
+- add widgetConfigKey to appContext input params
+
 0.1.9
 - filter out null values on nested paths
 - handle nested 'to many' relations on list forms
