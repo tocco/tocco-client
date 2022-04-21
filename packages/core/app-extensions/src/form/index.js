@@ -7,6 +7,7 @@ import {addToStore} from './form'
 import FormBuilder from './FormBuilder'
 import {getFieldId, getFieldDefinitions, typeFieldMapping, getDefaultValues, getUsedPaths} from './formDefinition'
 import formErrorsUtil from './formErrors'
+import {addReports, removeCreate} from './formModifier'
 import * as hooks from './hooks'
 import {
   formValuesToFlattenEntity,
@@ -52,5 +53,7 @@ export default {
   addToStore,
   ErrorItem,
   hooks,
-  selectors
+  selectors,
+  addReports,
+  removeCreate
 }
