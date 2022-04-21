@@ -1,7 +1,7 @@
 import {getLuminance} from 'polished'
 import {components} from 'react-select'
 import TetherComponent from 'react-tether'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 
 import Ball from '../Ball'
 import {StyledScrollbar} from '../Layout'
@@ -20,7 +20,13 @@ export const StyledIndicatorsContainerWrapper = styled.div`
   position: relative;
   z-index: 1;
   background-color: ${theme.color('paper')};
-  ${({isBottomAligned}) => isBottomAligned && 'align-self: flex-end'};
+  ${({isTopAligned}) =>
+    isTopAligned &&
+    css`
+      position: absolute;
+      right: 0;
+      top: 0;
+    `};
 `
 
 export const StyledTether = styled(TetherComponent)`
@@ -79,6 +85,19 @@ export const StyledDropdownIndicatorBall = styled(Ball)`
   }
 `
 
+export const StyledMultiValueWrapper = styled.div`
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+`
+
+export const StyledMultiValueLabelWrapper = styled.span`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
 export const reactSelectTheme = (theme, outerTheme) => ({
   ...theme,
   borderRadius: 0,
@@ -99,6 +118,7 @@ export const reactSelectStyles = outerTheme => {
     action: getLuminance(outerTheme.colors.paper) > 0.5 ? 'darken' : 'lighten'
   })
   const textDisabled = generateDisabledShade(outerTheme.colors.text)
+  const space1 = scale.space(-1)({theme: outerTheme})
   const space2 = scale.space(-2)({theme: outerTheme})
   const typography = {
     color: text[0],
@@ -119,7 +139,9 @@ export const reactSelectStyles = outerTheme => {
       borderWidth: 0,
       boxShadow: null,
       minHeight: 0,
-      flexWrap: 'nowrap'
+      flexWrap: 'nowrap',
+      position: 'relative',
+      display: state.isMulti ? 'block' : base.display
     }),
     noOptionsMessage: (base, state) => ({
       ...base,
@@ -153,10 +175,22 @@ export const reactSelectStyles = outerTheme => {
         marginRight: `-${space2}`
       }
     }),
-    input: (base, state) => ({
-      ...base,
-      minHeight: '2.6rem'
-    }),
+    input: (base, state) => {
+      let indicatorWidth = 50
+      if (state.selectProps.hasAdvancedSearch) {
+        indicatorWidth += 25
+      }
+      if (state.selectProps.hasCreatePermission) {
+        indicatorWidth += 25
+      }
+
+      return {
+        ...base,
+        minHeight: '2.6rem',
+        width: `calc(100% - ${indicatorWidth}px)`,
+        overflow: 'hidden'
+      }
+    },
     menu: (base, state) => ({
       backgroundColor: outerTheme.colors.paper,
       boxShadow: `0 0 6px ${outerTheme.colors.signal.info.text}`
@@ -171,14 +205,18 @@ export const reactSelectStyles = outerTheme => {
     multiValue: (base, state) => ({
       ...base,
       borderRadius: 0,
-      margin: `${space2} ${space2} 0 0`
+      margin: `${space1} ${space2} 0 0`,
+      justifyContent: 'space-between',
+      ...(state.isMulti && state.selectProps.hasAdvancedSearch && !state.isDisabled
+        ? {width: '100%', maxWidth: '300px'}
+        : {})
     }),
     multiValueLabel: (base, state) => ({
       ...base,
       borderRadius: 0,
       color: state.isDisabled ? textDisabled : text[0],
       fontSize: 'inherit',
-      whiteSpace: 'wrap'
+      lineHeight: 1.8
     }),
     multiValueRemove: (base, state) => ({
       ...base,

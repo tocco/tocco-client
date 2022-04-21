@@ -20,13 +20,10 @@ const handlePropagation = e => {
 }
 
 const IndicatorsContainer = props => {
-  const {openAdvancedSearch, openRemoteCreate, isDisabled, createPermission, value, isMulti, wrapperHeight} =
-    props.selectProps
-  const rowHeight = 30 // roughly the height of a single row in px
-  const isBottomAligned = isMulti && value?.length && wrapperHeight > rowHeight
+  const {openAdvancedSearch, openRemoteCreate, isDisabled, createPermission, value, isMulti} = props.selectProps
 
   return (
-    <StyledIndicatorsContainerWrapper isBottomAligned={isBottomAligned}>
+    <StyledIndicatorsContainerWrapper isTopAligned={isMulti}>
       <components.IndicatorsContainer {...props}>
         {props.children}
         {openAdvancedSearch && !isDisabled && (
@@ -55,11 +52,11 @@ const IndicatorsContainer = props => {
 IndicatorsContainer.propTypes = {
   children: PropTypes.node,
   selectProps: PropTypes.shape({
+    hasAdvancedSearch: PropTypes.bool,
     openAdvancedSearch: PropTypes.func,
     openRemoteCreate: PropTypes.func,
     isDisabled: PropTypes.bool,
     isMulti: PropTypes.bool,
-    wrapperHeight: PropTypes.number,
     createPermission: PropTypes.bool,
     value: PropTypes.oneOfType([ItemPropType, PropTypes.arrayOf(ItemPropType)])
   }),
