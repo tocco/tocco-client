@@ -6,14 +6,13 @@ import * as actions from './actions'
 
 export const sessionSelector = state => state.session
 
-export function* sessionHeartBeat(sessionTimeout) {
-  const threeQuarterSeconds = sessionTimeout * 45000
-  yield put(login.setAdminAllowed(undefined))
+export function* sessionHeartbeat(sessionTimeoutInMinutes) {
+  const sessionHeartbeatTimeoutInMs = sessionTimeoutInMinutes / 2 * 60 * 1000
   const {success, adminAllowed} = yield call(login.doSessionRequest)
   yield put(login.setLoggedIn(success))
   yield put(login.setAdminAllowed(adminAllowed))
-  yield call(delayByTimeout, threeQuarterSeconds)
-  yield call(sessionHeartBeat, sessionTimeout)
+  yield call(delayByTimeout, sessionHeartbeatTimeoutInMs)
+  yield call(sessionHeartbeat, sessionTimeoutInMinutes)
 }
 
 /**
@@ -31,9 +30,16 @@ export function* doLogoutRequest() {
 
 export function* loginSuccessful({payload}) {
   const {sessionTimeout} = payload
+  /**
+   * `adminAllowed` will be set explicitly to true/false inside the sessionHeartbeat.
+   * Nevertheless it has to be reset toghether with `loggedIn=true`.
+   * With `adminAllowed=undefined` an empty page is shown instead
+   * "no roles" error message while fetching the session.
+   */
+  yield put(login.setAdminAllowed(undefined))
   yield put(login.setLoggedIn(true))
   yield put(notification.connectSocket())
-  yield call(sessionHeartBeat, sessionTimeout)
+  yield call(sessionHeartbeat, sessionTimeout)
 }
 
 export function* logout({payload}) {
