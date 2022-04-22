@@ -1,33 +1,11 @@
 import PropTypes from 'prop-types'
 import {useRef, useState, useEffect} from 'react'
-import {react, date} from 'tocco-util'
+import {date} from 'tocco-util'
 
 import Typography from '../../Typography'
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import {calculateMilliseconds} from '../utils'
 import {StyledDurationEditShadow, StyledDurationEditFocusable, StyledDurationEdit} from './StyledDurationEdit'
-
-const getDesiredInputInMinutes = target => {
-  let minutes = target.value.replace(/[^-\d]/g, '')
-
-  if (!target.validity.valid) {
-    minutes = 0
-  }
-
-  if (minutes.length > 2) {
-    minutes = minutes.slice(0, 2)
-  }
-
-  if (minutes > 59) {
-    minutes = 0
-  }
-
-  if (minutes < 0) {
-    minutes = 59
-  }
-
-  return minutes
-}
 
 const DurationEdit = ({value, immutable, onChange, options}) => {
   const hoursShadow = useRef(null)
@@ -35,78 +13,70 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
   const secondsShadow = useRef(null)
 
   const duration = date.millisecondsToDuration(value)
-  const {seconds} = duration
-
-  const [hours, setHours] = useState(duration.hours)
-  const [minutes, setMinutes] = useState(duration.minutes)
 
   const [hoursWidth, setHoursWidth] = useState(0)
   const [minutesWidth, setMinutesWidth] = useState(0)
   const secondsWidth = secondsShadow.current?.offsetWidth || 0
 
-  const [showUnits, setShowUnits] = useState(value >= 0)
-
-  const previousHours = react.usePrevious(hours)
-  const previousMinutes = react.usePrevious(minutes)
+  const [focused, setFocused] = useState(false)
 
   useEffect(() => {
     setHoursWidth(hoursShadow.current.offsetWidth)
     setMinutesWidth(minutesShadow.current.offsetWidth)
   }, [])
 
-  // previoursHours and previousMinutes can be ignored
-  useEffect(() => {
-    if (hours !== previousHours) {
-      setHoursWidth(hoursShadow.current.offsetWidth)
-    }
-    if (minutes !== previousMinutes) {
-      setMinutesWidth(minutesShadow.current.offsetWidth)
-    }
-  }, [hours, minutes]) // eslint-disable-line react-hooks/exhaustive-deps
-
   const handleHourChange = e => {
     const hours = e.target.value.replace(/[^-\d]/g, '')
-    setHours(hours)
     handleChange(hours, null)
   }
 
   const handleMinutesChange = e => {
-    const minutes = getDesiredInputInMinutes(e.target)
-    setMinutes(minutes)
+    const minutes = e.target.value.replace(/[^-\d]/g, '')
     handleChange(null, minutes)
-
-    if (minutes.toString().length === 2 || minutes === 0) {
-      e.target.select()
-    }
   }
 
   const handleChange = (hoursInput, minutesInput) => {
-    const minutesValue = minutesInput !== null ? minutesInput : minutes
-    const hoursValue = hoursInput !== null ? hoursInput : hours
+    const minutesValue = minutesInput !== null ? minutesInput : duration.minutes
+    let hoursValue = hoursInput !== null ? hoursInput : duration.hours
 
     if (minutesValue === '' && hoursValue === '') {
       onChange(null)
       return
     }
 
+    if (minutesValue >= 60) {
+      // if at least 1 hour entered in minutes, we use only the minutes and calculate hours and
+      // minutes from that value and reset the hours that were set before
+      hoursValue = 0
+    }
+
     onChange(calculateMilliseconds(hoursValue, minutesValue))
   }
 
   const handleOnBlur = () => {
-    setShowUnits(hours.toString().length >= 1 || minutes.toString().length >= 1)
+    setFocused(false)
   }
 
   const handleOnFocus = () => {
-    setShowUnits(true)
+    setFocused(true)
   }
 
-  const preventNonNumeric = e => {
-    const isNonNumericInput = !(e.charCode >= 48 && e.charCode <= 57)
-
-    if (isNonNumericInput) {
-      e.preventDefault()
+  const preventNonNumeric = event => {
+    if (event.charCode >= 48 && event.charCode <= 57) {
+      // numbers
+      return
     }
+    if (event.charCode === 45 && options.allowNegative === true) {
+      // minus sign "-"
+      return
+    }
+    event.preventDefault() // else prevent inputting character
   }
+
+  // eslint-disable-next-line no-useless-escape
+  const getPattern = () => (options.allowNegative === true ? '-?d+' : 'd+')
+
+  const unitsVisible = () => focused || typeof value === 'number'
 
   /**
    * We don't want to offer the user to enter the duration in seconds,
@@ -115,7 +85,7 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
    * Therefore, we show seconds/milliseconds only for immutable fields if such values are present.
    * (e.g. System_activity)
    */
-  const showSeconds = immutable && Boolean(seconds)
+  const showSeconds = immutable && Boolean(duration.seconds)
 
   return (
     <StyledEditableWrapper onBlur={handleOnBlur} immutable={immutable}>
@@ -123,34 +93,35 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
         <StyledDurationEdit
           disabled={immutable}
           immutable={immutable}
-          min={0}
+          min={options.allowNegative === true ? undefined : 0}
           onChange={() => {}} // Empty onChange function to prevent React internal error
           onFocus={handleOnFocus}
           onInput={handleHourChange}
           onKeyPress={preventNonNumeric}
-          pattern="\d+"
+          pattern={getPattern()}
           step={1}
           width={hoursWidth}
           type="number"
-          value={hours}
+          value={typeof duration.hours === 'number' && (duration.hours !== 0 || immutable) ? duration.hours : ''}
         />
-        {showUnits && <Typography.Span>{options.hoursLabel}</Typography.Span>}
+        {unitsVisible() && <Typography.Span>{options.hoursLabel}</Typography.Span>}
       </StyledDurationEditFocusable>
       <StyledDurationEditFocusable immutable={immutable}>
         <StyledDurationEdit
           disabled={immutable}
           immutable={immutable}
+          min={options.allowNegative === true && (duration.hours === null || duration.hours === 0) ? undefined : 0}
           onChange={() => {}} // Empty onChange function to prevent React internal error
           onFocus={handleOnFocus}
           onInput={handleMinutesChange}
           onKeyPress={preventNonNumeric}
-          pattern="\d+"
+          pattern={getPattern()}
           step={1}
           width={minutesWidth}
           type="number"
-          value={minutes}
+          value={duration.minutes}
         />
-        {showUnits && <Typography.Span>{options.minutesLabel}</Typography.Span>}
+        {unitsVisible() && <Typography.Span>{options.minutesLabel}</Typography.Span>}
       </StyledDurationEditFocusable>
       {showSeconds && (
         <StyledDurationEditFocusable immutable={immutable}>
@@ -160,14 +131,14 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
             onChange={() => {}} // Empty onChange function to prevent React internal error
             width={secondsWidth}
             type="number"
-            value={seconds}
+            value={duration.seconds}
           />
-          {showUnits && <Typography.Span>{options.secondsLabel}</Typography.Span>}
+          {unitsVisible() && <Typography.Span>{options.secondsLabel}</Typography.Span>}
         </StyledDurationEditFocusable>
       )}
-      <StyledDurationEditShadow ref={hoursShadow}>{hours}</StyledDurationEditShadow>
-      <StyledDurationEditShadow ref={minutesShadow}>{minutes}</StyledDurationEditShadow>
-      {showSeconds && <StyledDurationEditShadow ref={secondsShadow}>{seconds}</StyledDurationEditShadow>}
+      <StyledDurationEditShadow ref={hoursShadow}>{duration.hours}</StyledDurationEditShadow>
+      <StyledDurationEditShadow ref={minutesShadow}>{duration.minutes}</StyledDurationEditShadow>
+      {showSeconds && <StyledDurationEditShadow ref={secondsShadow}>{duration.seconds}</StyledDurationEditShadow>}
     </StyledEditableWrapper>
   )
 }
@@ -189,7 +160,8 @@ DurationEdit.propTypes = {
   options: PropTypes.shape({
     hoursLabel: PropTypes.string,
     minutesLabel: PropTypes.string,
-    secondsLabel: PropTypes.string
+    secondsLabel: PropTypes.string,
+    allowNegative: PropTypes.bool
   })
 }
 

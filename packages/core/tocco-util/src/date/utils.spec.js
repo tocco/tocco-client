@@ -22,10 +22,25 @@ describe('tocco-util', () => {
         })
 
         test('should correctly handle tiny values', () => {
-          // previously we used parseInt to cut of decimals, which has strange results when passing in small numbers
           expect(millisecondsToDuration(1)).to.be.eql({hours: 0, minutes: 0, seconds: 0.001})
           expect(millisecondsToDuration(2)).to.be.eql({hours: 0, minutes: 0, seconds: 0.002})
           expect(millisecondsToDuration(3)).to.be.eql({hours: 0, minutes: 0, seconds: 0.003})
+        })
+
+        test('should correctly handle negative values (milliseconds)', () => {
+          expect(millisecondsToDuration(-3)).to.be.eql({hours: 0, minutes: 0, seconds: -0.003})
+        })
+
+        test('should correctly handle negative values (seconds)', () => {
+          expect(millisecondsToDuration(-12003)).to.be.eql({hours: 0, minutes: 0, seconds: -12.003})
+        })
+
+        test('should correctly handle negative values (minutes)', () => {
+          expect(millisecondsToDuration(-1032003)).to.be.eql({hours: 0, minutes: -17, seconds: 12.003})
+        })
+
+        test('should correctly handle negative values (hours)', () => {
+          expect(millisecondsToDuration(-101832003)).to.be.eql({hours: -28, minutes: 17, seconds: 12.003})
         })
       })
 
