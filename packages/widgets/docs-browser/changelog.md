@@ -1,3 +1,6 @@
+1.0.22
+- remove vertical center alignment for marking column
+
 1.0.21
 - possible to overwrite readonly form
 - set focus on input on save filter
