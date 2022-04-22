@@ -137,7 +137,7 @@ const EntityBrowserApp = props => {
   react.useDidUpdate(() => {
     const changedProps = _pickBy(props, (value, key) => !_isEqual(value, prevProps[key]))
     if (!_isEmpty(changedProps)) {
-      getDispatchActions(changedProps).forEach(action => {
+      getDispatchActions(changedProps, false).forEach(action => {
         store.dispatch(action)
       })
     }
