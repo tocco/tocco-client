@@ -1,3 +1,7 @@
+1.0.37
+- query selections now get resolved in the resource-scheduler action
+- remove vertical center alignment for marking column
+
 1.0.36
 - open panel according to calendar type
 - possible to overwrite readonly form
