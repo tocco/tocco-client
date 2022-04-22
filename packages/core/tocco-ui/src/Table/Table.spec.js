@@ -1,6 +1,6 @@
 import {shallow} from 'enzyme'
 
-import StyledTable from './StyledTable'
+import {StyledTable} from './StyledComponents'
 import Table from './Table'
 
 const defaultProps = {

@@ -7,29 +7,29 @@ import {ScrollBehaviour} from './scrollBehaviour'
 import {getSelectionCell} from './selection/selectionColumnEnhancer'
 import {selectionStylePropType} from './selection/selectionStyles'
 import useSelection from './selection/useSelection'
-import StyledTable, {StretchingTableContainer, StyledTableWrapper} from './StyledTable'
+import {StyledTable, StretchingTableContainer, StyledTableWrapper} from './StyledComponents'
 import TableBody from './TableBody'
 import TableFooter from './TableFooter'
 import TableHeader from './TableHeader'
 
-const Table = props => {
-  const {
-    selection,
-    data,
-    onSelectionChange,
-    selectionStyle,
-    paginationInfo,
-    onColumnPositionChange,
-    onSortingChange,
-    dataLoadingInProgress,
-    onRowClick,
-    clickable,
-    onPageChange,
-    onPageRefresh,
-    scrollBehaviour = ScrollBehaviour.INLINE,
-    onColumnWidthChange
-  } = props
-  const [columns, setColumns] = useState(props.columns)
+const Table = ({
+  columns: columnsProp,
+  selection,
+  data,
+  onSelectionChange,
+  selectionStyle,
+  paginationInfo,
+  onColumnPositionChange,
+  onSortingChange,
+  dataLoadingInProgress,
+  onRowClick,
+  clickable,
+  onPageChange,
+  onPageRefresh,
+  scrollBehaviour = ScrollBehaviour.INLINE,
+  onColumnWidthChange
+}) => {
+  const [columns, setColumns] = useState(columnsProp)
   const tableEl = useRef(null)
 
   const onColumnWidthChanged = useCallback(
@@ -63,9 +63,9 @@ const Table = props => {
   const {isSelected, selectionChange} = useSelection(selection, currentKeys, onSelectionChange)
 
   useEffect(() => {
-    const selectionColumn = getSelectionCell(selectionStyle, props.columns, isSelected, selectionChange)
-    setColumns([...(selectionColumn ? [selectionColumn] : []), ...props.columns])
-  }, [props.columns, selection, isSelected, selectionChange, selectionStyle])
+    const selectionColumn = getSelectionCell(selectionStyle, columnsProp, isSelected, selectionChange)
+    setColumns([...(selectionColumn ? [selectionColumn] : []), ...columnsProp])
+  }, [columnsProp, selection, isSelected, selectionChange, selectionStyle])
 
   return (
     <StyledTableWrapper>

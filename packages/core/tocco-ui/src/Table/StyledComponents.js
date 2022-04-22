@@ -4,7 +4,6 @@ import styled, {css} from 'styled-components'
 
 import {declareFont, theme, shadeColor, StyledScrollbar, scale, StyledFontAwesomeAdapterWrapper} from '../'
 import {generateShades} from '../utilStyles'
-import {StyledResizeHandle} from './ResizingController'
 import {ScrollBehaviour} from './scrollBehaviour'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
@@ -17,6 +16,7 @@ export const StyledTableCell = styled.td`
     border-bottom: 1px solid ${borderColor};
     align-content: center;
     box-sizing: content-box;
+    text-align: ${({column}) => (column?.rightAligned ? 'right' : 'left')};
 
     ${StyledFontAwesomeAdapterWrapper} {
       display: inline-block;
@@ -33,6 +33,17 @@ export const StyledDnD = styled.div`
   opacity: ${({isDragged}) => (isDragged ? 0.2 : 1)};
 `
 
+export const StyledResizeHandle = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)};
+  opacity: 0;
+  width: 3px;
+  cursor: col-resize;
+`
+
 export const StyledTableHeaderCell = styled.th`
   && {
     position: sticky;
@@ -42,7 +53,7 @@ export const StyledTableHeaderCell = styled.th`
     border-bottom: 2px solid ${borderColor};
     ${declareFont({fontWeight: theme.fontWeight('bold')})};
     user-select: none;
-    cursor: ${({sortable}) => (sortable ? 'pointer' : 'auto')};
+    cursor: ${({isSortable}) => (isSortable ? 'pointer' : 'auto')};
     white-space: nowrap;
     display: flex;
     border-right: ${({isDraggedOver, theme}) => (isDraggedOver ? `3px solid ${theme.colors.text}` : 'none')};
@@ -68,15 +79,15 @@ export const StyledTableHeaderCell = styled.th`
       }
     }
   `}
-    ${({isResizingThisCell, sortable, fixedPosition, theme}) =>
-      !sortable
+    ${({isResizingThisCell, isSortable, fixedPosition, theme}) =>
+      !isSortable
         ? `
     &:hover {
       background-color: ${theme.colors.paper};
     }
     `
         : !isResizingThisCell &&
-          !sortable &&
+          !isSortable &&
           !fixedPosition &&
           `
         &:hover {
@@ -116,6 +127,12 @@ export const StyledSortingSpan = styled.span`
   margin-right: 2px;
 `
 
+export const StyledSortingRank = styled.span`
+  position: relative;
+  top: -0.5rem;
+  font-weight: ${theme.fontWeight('regular')};
+`
+
 export const StyledFullRowProgress = styled.td`
   && {
     grid-column: 1 / -1;
@@ -153,7 +170,7 @@ export const StyledTableBody = styled.tbody`
   ${selectionStyles}
 `
 
-const StyledTable = styled.table`
+export const StyledTable = styled.table`
   overflow: auto;
   display: grid;
   border-collapse: collapse;
@@ -201,4 +218,10 @@ export const StyledDraggable = styled.div`
   display: flex;
 `
 
-export default StyledTable
+export const StyledHeaderContentWrapper = styled.span`
+  display: flex;
+`
+
+export const StyledHeaderContent = styled.div`
+  width: 100%;
+`
