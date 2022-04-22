@@ -2,7 +2,8 @@ import {action} from 'tocco-util'
 
 import {setEntityName, setFormBase, setAppId, setScrollBehaviour} from './modules/entityBrowser/actions'
 
-export const getDispatchActions = input => action.getDispatchActions(input, actionSettings)
+export const getDispatchActions = (input, checkMandatory = true) =>
+  action.getDispatchActions(input, actionSettings, checkMandatory)
 
 const actionSettings = [
   {
