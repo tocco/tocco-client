@@ -9,9 +9,24 @@ export const millisecondsToDuration = ms => {
     }
   }
 
-  const seconds = roundDecimalPlaces((ms / 1000) % 60, 3)
-  const minutes = Math.floor((ms / (1000 * 60)) % 60)
-  const hours = Math.floor(ms / (1000 * 60 * 60))
+  let seconds = roundDecimalPlaces((ms / 1000) % 60, 3)
+
+  ms -= seconds * 1000
+
+  let minutes = parseInt((ms / (1000 * 60)) % 60)
+
+  ms -= minutes * 1000 * 60
+
+  const hours = parseInt(ms / (1000 * 60 * 60))
+
+  // only biggest unit should be negative if negative duration
+  if (minutes < 0 || hours < 0) {
+    seconds = Math.abs(seconds)
+  }
+  if (hours < 0) {
+    minutes = Math.abs(minutes)
+  }
+
   return {
     hours,
     minutes,
