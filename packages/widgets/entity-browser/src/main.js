@@ -152,7 +152,7 @@ EntityBrowserApp.propTypes = {
   formBase: PropTypes.string,
   limit: PropTypes.number,
   preselectedSearchFields: PropTypes.array,
-  searchFilters: PropTypes.array,
+  searchFilters: PropTypes.arrayOf(PropTypes.string),
   simpleSearchFields: PropTypes.string,
   initialKey: PropTypes.string,
   nullBusinessUnit: PropTypes.bool,
