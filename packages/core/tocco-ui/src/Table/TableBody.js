@@ -4,7 +4,7 @@ import {FormattedMessage} from 'react-intl'
 import {LoadingSpinner, Typography} from '../'
 import {columnPropType, dataPropType} from './propTypes'
 import StaticCell from './StaticCell'
-import {StyledFullRow, StyledFullRowProgress, StyledTableBody, StyledTableRow} from './StyledTable'
+import {StyledFullRow, StyledFullRowProgress, StyledTableBody, StyledTableRow} from './StyledComponents'
 
 const InProgressRow = () => (
   <StyledTableRow>

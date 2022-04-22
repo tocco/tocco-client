@@ -4,19 +4,17 @@ import {js} from 'tocco-util'
 
 import {Typography} from '../index'
 import {columnPropType, rowDataPropType} from './propTypes'
-import {StyledTableCell} from './StyledTable'
+import {StyledTableCell} from './StyledComponents'
 
-const StaticCell = React.memo(({column, rowData, rowIdx}) => {
-  return (
-    <StyledTableCell {...(column.rightAligned === true && {style: {textAlign: 'right'}})} data-cy="list-cell">
-      {column.CellRenderer ? (
-        <column.CellRenderer rowData={rowData} column={column} rowIdx={rowIdx} />
-      ) : (
-        <Typography.Span>{rowData[column.id]}</Typography.Span>
-      )}
-    </StyledTableCell>
-  )
-})
+const StaticCell = React.memo(({column, rowData, rowIdx}) => (
+  <StyledTableCell data-cy="list-cell">
+    {column.CellRenderer ? (
+      <column.CellRenderer rowData={rowData} column={column} rowIdx={rowIdx} />
+    ) : (
+      <Typography.Span>{rowData[column.id]}</Typography.Span>
+    )}
+  </StyledTableCell>
+))
 
 StaticCell.propTypes = {
   rowData: rowDataPropType.isRequired,

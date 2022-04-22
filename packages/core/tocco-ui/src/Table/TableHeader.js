@@ -5,17 +5,24 @@ import {dragAndDrop, resize} from 'tocco-util'
 import {columnPropType, dataPropType} from './propTypes'
 import ResizingController from './ResizingController'
 import SortingState from './SortingState'
-import {StyledDnD, StyledDraggable, StyledTableHead, StyledTableHeaderCell, StyledTableRow} from './StyledTable'
+import {
+  StyledHeaderContentWrapper,
+  StyledHeaderContent,
+  StyledDnD,
+  StyledDraggable,
+  StyledTableHead,
+  StyledTableHeaderCell,
+  StyledTableRow
+} from './StyledComponents'
 
 const ThContent = ({column, data}) =>
   column.HeaderRenderer ? (
     <column.HeaderRenderer column={column} data={data} />
   ) : (
-    <div
-      dangerouslySetInnerHTML={{__html: column.label}}
-      title={column.label}
-      style={{width: '100%'}} // div should take up full available width, otherwise content cannot be right aligned
-    />
+    <StyledHeaderContentWrapper>
+      <StyledHeaderContent title={column.label} dangerouslySetInnerHTML={{__html: column.label}} />
+      <SortingState column={column} />
+    </StyledHeaderContentWrapper>
   )
 
 ThContent.propTypes = {
@@ -35,12 +42,12 @@ const TableHeader = props => {
   )
 
   const handleResize = useCallback((el, {width}) => onColumnWidthChanging(el.id, width), [onColumnWidthChanging])
-  const handleResizeFinsihed = useCallback(el => onColumnWidthChanged(el.id), [onColumnWidthChanged])
+  const handleResizeFinished = useCallback(el => onColumnWidthChanged(el.id), [onColumnWidthChanged])
 
   const {startResize, resizingEvents, resizeState} = resize.useResize(
     currentResizeElementSelector,
     handleResize,
-    handleResizeFinsihed
+    handleResizeFinished
   )
 
   const {isResizing, resizingElement} = resizeState
@@ -51,41 +58,46 @@ const TableHeader = props => {
     }
   }
 
+  const StyledTableHeaderCells = columns.map(column => {
+    const headerCellKey = `header-cell-${column.id}`
+    const headerCellDropKey = `header-cell-drop-${column.id}`
+    const isSortable = column.sorting && column.sorting.sortable
+    const isResizingThisCell = isResizing && column.id === resizingElement?.id
+    const isDraggedOver = dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id
+    const isDragged = dndState.currentlyDragging === column.id
+
+    return (
+      <StyledTableHeaderCell
+        key={headerCellKey}
+        data-cy={headerCellKey}
+        id={headerCellKey}
+        onClick={thOnClick(column)}
+        isResizingAnyCell={isResizing}
+        isResizingThisCell={isResizingThisCell}
+        isSortable={isSortable}
+        isDraggedOver={isDraggedOver}
+        rightAligned={column.rightAligned}
+      >
+        <StyledDraggable
+          id={headerCellDropKey}
+          key={headerCellDropKey}
+          {...(!column.fixedPosition && {
+            draggable: true,
+            ...dndEvents(column.id)
+          })}
+        >
+          <StyledDnD isDragged={isDragged}>
+            <ThContent column={column} data={data} />
+          </StyledDnD>
+        </StyledDraggable>
+        {column.resizable && <ResizingController column={column} startResize={startResize} />}
+      </StyledTableHeaderCell>
+    )
+  })
+
   return (
     <StyledTableHead {...resizingEvents}>
-      <StyledTableRow>
-        {columns.map(column => {
-          const key = `header-cell-${column.id}`
-          return (
-            <StyledTableHeaderCell
-              key={key}
-              data-cy={key}
-              id={key}
-              onClick={thOnClick(column)}
-              isResizingAnyCell={isResizing}
-              isResizingThisCell={isResizing && column.id === resizingElement?.id}
-              sortable={column.sorting && column.sorting.sortable}
-              isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
-              rightAligned={column.rightAligned}
-            >
-              <StyledDraggable
-                id={`header-cell-drop-${column.id}`}
-                key={`header-cell-drop-${column.id}`}
-                {...(!column.fixedPosition && {
-                  draggable: true,
-                  ...dndEvents(column.id)
-                })}
-              >
-                <StyledDnD isDragged={dndState.currentlyDragging === column.id}>
-                  <SortingState column={column} />
-                  <ThContent column={column} data={data} />
-                </StyledDnD>
-              </StyledDraggable>
-              {column.resizable && <ResizingController column={column} startResize={startResize} />}
-            </StyledTableHeaderCell>
-          )
-        })}
-      </StyledTableRow>
+      <StyledTableRow>{StyledTableHeaderCells}</StyledTableRow>
     </StyledTableHead>
   )
 }

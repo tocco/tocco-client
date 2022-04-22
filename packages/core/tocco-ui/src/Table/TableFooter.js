@@ -3,7 +3,7 @@ import {injectIntl} from 'react-intl'
 
 import {Pagination} from '../'
 import Ball from '../Ball'
-import {StyledTableFooter} from './StyledTable'
+import {StyledTableFooter} from './StyledComponents'
 
 const TableFooter = ({onPageChange, onPageRefresh, paginationInfo, intl}) => {
   const showPagination = Boolean(paginationInfo)
