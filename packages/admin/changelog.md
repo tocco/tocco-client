@@ -1,3 +1,6 @@
+1.0.14-hotfix31.17
+- use preformatted error message for tql
+
 1.0.14-hotfix31.16
 - invalidate cache on page refresh properly
 
