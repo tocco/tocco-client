@@ -8,7 +8,7 @@ import * as actions from './actions'
 export const sessionSelector = state => state.session
 
 export function* sessionHeartbeat(sessionTimeoutInMinutes) {
-  const sessionHeartbeatTimeoutInMs = sessionTimeoutInMinutes / 2 * 60 * 1000
+  const sessionHeartbeatTimeoutInMs = (sessionTimeoutInMinutes / 2) * 60 * 1000
   const {success, adminAllowed} = yield call(login.doSessionRequest)
   yield put(login.setLoggedIn(success))
   yield put(login.setAdminAllowed(adminAllowed))
