@@ -47,17 +47,26 @@ export const map = {
   time: TimeEdit
 }
 
+const isFlatpickrType = type => ['date', 'datetime'].includes(type)
+
 const TypeEditorFactory = ({type, value, options, id, events, readOnly = false}) => {
-  const blurValue = useRef(undefined)
+  const flatpickrBlurValue = useRef(undefined)
+
   if (map[type]) {
     const Component = map[type]
 
-    // blur workaround for known react-select issue: https://github.com/erikras/redux-form/issues/82
-    // Date component only works properly on blur if the event is called with the value saved from the change event
+    /**
+     * blur workaround
+     * - for known react-select issue: https://github.com/erikras/redux-form/issues/82
+     * - for flatpickr components on firefox: https://toccoag.atlassian.net/browse/TOCDEV-5036
+     */
     if (events && events.onBlur) {
       const onBlur = events.onBlur
       events.onBlur = () => {
-        return onBlur(blurValue.current !== undefined ? blurValue.current : value)
+        const actualBlurValue = isFlatpickrType(type) && flatpickrBlurValue.current !== undefined
+          ? flatpickrBlurValue.current
+          : value
+        return onBlur(actualBlurValue)
       }
     }
 
@@ -66,7 +75,7 @@ const TypeEditorFactory = ({type, value, options, id, events, readOnly = false})
         <Component
           value={value}
           onChange={v => {
-            blurValue.current = v
+            flatpickrBlurValue.current = v
             events.onChange(v)
           }}
           {...(_isEmpty(options) ? {} : {options})}
