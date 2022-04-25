@@ -1,3 +1,8 @@
+1.0.21
+- use preformatted error message for tql
+- harmonize multi value select
+- exclude selected values in suggestion
+
 1.0.20
 - remove vertical center alignment for marking column
 

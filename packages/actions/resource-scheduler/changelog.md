@@ -1,3 +1,8 @@
+1.0.17
+- use preformatted error message for tql
+- harmonize multi value select
+- exclude selected values in suggestion
+
 1.0.16
 - query selections now get resolved in the resource-scheduler action
 - remove vertical center alignment for marking column
