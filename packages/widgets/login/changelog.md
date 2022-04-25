@@ -1,3 +1,7 @@
+1.1.14
+- harmonize multi value select
+- exclude selected values in suggestion
+
 1.1.13
 - possible to overwrite readonly form
 - use distinguishable icons for ranges
