@@ -21,16 +21,19 @@ export function* initialize(waitForInputDispatch = true) {
   if (waitForInputDispatch) {
     yield take(appFactory.inputDispatchActionType)
   }
+
   yield put(listActions.initialize())
-  yield put(preferenceActions.loadPreferences())
+  yield take(listActions.SET_INITIALIZED)
+
   yield put(searchFormActions.initialize())
-  yield all([
-    take(listActions.SET_INITIALIZED),
-    take(searchFormActions.SET_INITIALIZED),
-    take(preferenceActions.SET_PREFERENCES_LOADED)
-  ])
+  yield take(searchFormActions.SET_INITIALIZED)
+
+  yield put(preferenceActions.loadPreferences())
+  yield take(preferenceActions.SET_PREFERENCES_LOADED)
+
   yield put(listActions.defineSorting())
   yield take(listActions.SET_SORTING)
+
   yield put(searchFormActions.executeSearch())
 }
 
