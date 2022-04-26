@@ -1,3 +1,6 @@
+1.0.5-hotfix31.16
+- allow duration values to be negative
+
 1.0.5-hotfix31.15
 - use preformatted error message for tql
 

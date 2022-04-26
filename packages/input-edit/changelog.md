@@ -1,3 +1,6 @@
+1.1.3-hotfix31.12
+- allow duration values to be negative
+
 1.1.3-hotfix31.11
 - invalidate cache on page refresh properly
 
