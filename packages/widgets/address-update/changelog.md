@@ -1,3 +1,9 @@
+0.1.4
+- add modifyFormDefinition input property
+- add modifyFormDefinition input property
+- add form modifier helper methods
+- add report helper actions
+
 0.1.3
 - use preformatted error message for tql
 - harmonize multi value select
