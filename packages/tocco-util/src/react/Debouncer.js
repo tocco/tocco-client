@@ -11,7 +11,7 @@ const Debouncer = (Component, delay = 200, func = 'onChange') => {
   const Comp = React.forwardRef((props, ref) => {
     const {value} = props
     const [internalValue, setInternalValue] = useState(value)
-    const debouncedValue = useDebounce(internalValue, delay)
+    const [debouncedValue, setDebouncedValue] = useDebounce(internalValue, delay)
 
     const oldValue = useRef(value)
     const callback = props[func]
@@ -20,6 +20,8 @@ const Debouncer = (Component, delay = 200, func = 'onChange') => {
     useEffect(() => {
       if (internalValue !== value && internalValue === debouncedValue) {
         setInternalValue(value)
+        // reset debounce value to accept props.value changes anytime (ignore delay in this case)
+        setDebouncedValue(value)
         oldValue.current = value
       }
     }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
