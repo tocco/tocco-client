@@ -1,7 +1,6 @@
 import _isEmpty from 'lodash/isEmpty'
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import {useRef} from 'react'
 
 import BooleanSingleSelect from './typeEditors/BooleanSingleSelect'
 import BoolEdit from './typeEditors/BoolEdit'
@@ -49,36 +48,24 @@ export const map = {
   time: TimeEdit
 }
 
-const isFlatpickrType = type => ['date', 'datetime'].includes(type)
-
 const TypeEditorFactory = ({type, value, options, id, events, placeholder, readOnly = false}) => {
-  const flatpickrBlurValue = useRef(undefined)
-
   if (map[type]) {
     const Component = map[type]
 
     /**
      * blur workaround
      * - for known react-select issue: https://github.com/erikras/redux-form/issues/82
-     * - for flatpickr components on firefox: https://toccoag.atlassian.net/browse/TOCDEV-5036
      */
     if (events && events.onBlur) {
       const onBlur = events.onBlur
-      events.onBlur = () => {
-        const actualBlurValue =
-          isFlatpickrType(type) && flatpickrBlurValue.current !== undefined ? flatpickrBlurValue.current : value
-        return onBlur(actualBlurValue)
-      }
+      events.onBlur = () => onBlur(value)
     }
 
     return (
       <div {..._omit(events, 'onChange')} data-cy="form-field">
         <Component
           value={value}
-          onChange={v => {
-            flatpickrBlurValue.current = v
-            events.onChange(v)
-          }}
+          onChange={events?.onChange}
           {...(_isEmpty(options) ? {} : {options})}
           id={id}
           immutable={readOnly}
