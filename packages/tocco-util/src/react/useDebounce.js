@@ -16,5 +16,5 @@ export default function useDebounce(value, delay) {
     [value]
   )
 
-  return debouncedValue
+  return [debouncedValue, setDebouncedValue]
 }

@@ -10,13 +10,16 @@ import useDebounce from './useDebounce'
 const Debouncer = (Component, delay = 200, func = 'onChange') => {
   const Comp = React.forwardRef((props, ref) => {
     const [internalValue, setInternalValue] = useState(props.value)
-    const debouncedValue = useDebounce(internalValue, delay)
+    const [debouncedValue, setDebouncedValue] = useDebounce(internalValue, delay)
 
     const oldValue = useRef(props.value)
 
     useEffect(() => {
+      // props.value has explicitly changed from outside
       if (internalValue !== props.value && internalValue === debouncedValue) {
         setInternalValue(props.value)
+        // reset debounce value to accept props.value changes anytime (ignore delay in this case)
+        setDebouncedValue(props.value)
         oldValue.current = props.value
       }
     }, [props.value])
