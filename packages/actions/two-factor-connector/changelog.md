@@ -1,3 +1,7 @@
+1.0.15
+- add form modifier helper methods
+- add report helper actions
+
 1.0.14
 - harmonize multi value select
 - exclude selected values in suggestion
