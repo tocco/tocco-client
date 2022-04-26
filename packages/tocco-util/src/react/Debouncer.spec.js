@@ -7,7 +7,7 @@ import Debouncer from './Debouncer'
 
 describe('tocco-util', () => {
   describe('react', () => {
-    describe('useDebounce', () => {
+    describe('Debouncer', () => {
       let clock
 
       beforeEach(() => {
@@ -90,6 +90,23 @@ describe('tocco-util', () => {
 
         input.simulate('change', {target: {value: 'Test3'}})
         input.simulate('change', {target: {value: 'Test4'}})
+      })
+
+      test('should be able to change value from outside multiple times within the given debounce delay', async () => {
+        const value = 'Test'
+        const onChangeSpy = sinon.spy()
+
+        const wrapper = mount(<TestComponent value={value} onChange={onChangeSpy} />)
+
+        wrapper.setProps({value: 'ABC'})
+        wrapper.update()
+
+        expect(wrapper.find('input').prop('value')).to.eql('ABC')
+
+        wrapper.setProps({value: 'DEF'})
+        wrapper.update()
+
+        expect(wrapper.find('input').prop('value')).to.eql('DEF')
       })
     })
   })
