@@ -63,9 +63,8 @@ const TypeEditorFactory = ({type, value, options, id, events, readOnly = false})
     if (events && events.onBlur) {
       const onBlur = events.onBlur
       events.onBlur = () => {
-        const actualBlurValue = isFlatpickrType(type) && flatpickrBlurValue.current !== undefined
-          ? flatpickrBlurValue.current
-          : value
+        const actualBlurValue =
+          isFlatpickrType(type) && flatpickrBlurValue.current !== undefined ? flatpickrBlurValue.current : value
         return onBlur(actualBlurValue)
       }
     }
