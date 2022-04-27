@@ -1,3 +1,7 @@
+1.0.17
+- allow duration values to be negative
+- keep all values on blur
+
 1.0.16
 - add form modifier helper methods
 - add report helper actions

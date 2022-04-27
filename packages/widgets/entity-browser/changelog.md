@@ -1,3 +1,7 @@
+1.0.23
+- allow duration values to be negative
+- keep all values on blur
+
 1.0.22
 - add modifyFormDefinition input property
 - add modifyFormDefinition input property
