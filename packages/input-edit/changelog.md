@@ -1,3 +1,7 @@
+1.0.0-hotfix30.26
+- keep all values on blur
+- debouncer accepts value changes from outside
+
 1.0.0-hotfix30.25
 - allow duration values to be negative
 
