@@ -54,6 +54,7 @@ WageViewApp.propTypes = {
   allowCreate: PropTypes.bool,
   reports: PropTypes.arrayOf(PropTypes.string).isRequired,
   searchFilters: PropTypes.arrayOf(PropTypes.string),
+  limit: PropTypes.number,
   backendUrl: PropTypes.string,
   businessUnit: PropTypes.string,
   appContext: appContext.propTypes.isRequired

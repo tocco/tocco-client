@@ -16,3 +16,4 @@ React-registry name: `wage-view`
 | `searchFilters` | | Array of search-filter ids.
 | `backendUrl` | | Set backend url dynamic to point to nice2 installation. If not set it fallbacks to the build time environment __BACKEND_URL__.
 | `businessUnit`| | The unique id of a business unit. If present, all REST request will use this in their business unit header (X-Business-Unit).
+| `limit` | | Maximum records per page

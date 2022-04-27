@@ -11,6 +11,7 @@ const WageView = ({
   allowCreate,
   reportIds,
   searchFilters,
+  limit,
   intl,
   backendUrl,
   businessUnit,
@@ -38,6 +39,7 @@ const WageView = ({
         entityName="Wage"
         formBase="WageView"
         searchFilters={searchFilters}
+        limit={limit}
         modifyFormDefinition={modifyFormDefinition}
         backendUrl={backendUrl}
         businessUnit={businessUnit}
@@ -53,6 +55,7 @@ WageView.propTypes = {
   allowCreate: PropTypes.bool,
   reportIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   searchFilters: PropTypes.arrayOf(PropTypes.string),
+  limit: PropTypes.number,
   intl: PropTypes.object.isRequired,
   backendUrl: PropTypes.string,
   businessUnit: PropTypes.string,
