@@ -1,3 +1,6 @@
+1.1.3-hotfix31.13
+- keep all values on blur
+
 1.1.3-hotfix31.12
 - allow duration values to be negative
 
