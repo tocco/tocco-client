@@ -1,3 +1,6 @@
+0.1.11
+- debouncer accepts value changes from outside
+
 0.1.10
 - add widgetConfigKey to appContext input params
 

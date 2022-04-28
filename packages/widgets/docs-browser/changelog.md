@@ -1,3 +1,6 @@
+1.0.26
+- debouncer accepts value changes from outside
+
 1.0.25
 - allow duration values to be negative
 - keep all values on blur
