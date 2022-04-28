@@ -5,7 +5,7 @@
   "description": "tocco util",
   "main": "src/main.js",
   "dependencies": {
-    "dompurify": "^2.3.5",
+    "dompurify": "^2.3.6",
     "path-to-regexp": "^3.0.0"
   },
   "devDependencies": {}
