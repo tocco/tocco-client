@@ -1,3 +1,6 @@
+1.0.14-hotfix31.20
+- debouncer accepts value changes from outside
+
 1.0.14-hotfix31.19
 - keep all values on blur
 
