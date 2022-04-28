@@ -21,5 +21,5 @@ done
 for package in "${releasePackages[@]}"
 do
   echo "Tagging package $package $release_tag"
-  npm dist-tag add tocco-$package $release_tag
+  npm dist-tag add tocco-$package $release_tag --registry=https://registry.npmjs.org/
 done
