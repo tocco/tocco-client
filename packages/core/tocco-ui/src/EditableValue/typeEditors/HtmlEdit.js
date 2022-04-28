@@ -1,77 +1,55 @@
 import PropTypes from 'prop-types'
-import React, {lazy, Suspense} from 'react'
-import styled from 'styled-components'
+import {lazy, useEffect, Suspense} from 'react'
 import {html} from 'tocco-util'
 
-import Typography, {declareTypograhpy} from '../../Typography'
+import Typography from '../../Typography'
+import {StyledHtmlEdit} from './StyledHtmlEdit'
 
-const StyledHtmlEdit = styled.div`
-  && {
-    button {
-      margin-bottom: 0;
-    }
+const LazyQuill = lazy(() => import(/* webpackChunkName: "vendor-quill" */ 'react-quill'))
 
-    .ql-editor {
-      ${props => declareTypograhpy(props, 'quill')}
-
-      &[contenteditable='false'] * {
-        cursor: not-allowed;
-      }
-    }
-  }
-`
-
-class HtmlEdit extends React.Component {
-  lazyQuill = null
-
-  constructor(props) {
-    super(props)
-
+const HtmlEdit = ({onChange, immutable, value, name, id}) => {
+  useEffect(() => {
     // eslint-disable-next-line chai-friendly/no-unused-expressions
     import(/* webpackChunkName: "vendor-quill" */ '!style-loader!css-loader!react-quill/dist/quill.snow.css')
     // eslint-disable-next-line chai-friendly/no-unused-expressions
     import(/* webpackChunkName: "vendor-quill" */ '!style-loader!css-loader!react-quill/dist/quill.core.css')
+  }, [])
 
-    this.lazyQuill = lazy(() => import(/* webpackChunkName: "vendor-quill" */ 'react-quill'))
-  }
-
-  handleChange = (value, delta, source) => {
-    if (this.props.onChange && source === 'user') {
+  const handleChange = (value, delta, source) => {
+    if (onChange && source === 'user') {
       const v = value === '<p><br></p>' ? '' : value
-      this.props.onChange(v)
+      onChange(v)
     }
   }
 
-  render() {
-    const sanitizedValue = html.sanitizeHtml(this.props.value)
+  const sanitizedValue = html.sanitizeHtml(value)
 
-    if (this.props.immutable) {
-      return (
-        <Typography.Span>
-          <div dangerouslySetInnerHTML={{__html: sanitizedValue}}></div>
-        </Typography.Span>
-      )
-    }
-
+  if (immutable) {
     return (
-      <StyledHtmlEdit>
-        <Suspense fallback={<i />}>
-          <this.lazyQuill
-            name={this.props.name}
-            onChange={this.handleChange}
-            id={this.props.id}
-            theme="snow"
-            defaultValue={sanitizedValue}
-            modules={{
-              clipboard: {
-                matchVisual: false
-              }
-            }}
-          />
-        </Suspense>
-      </StyledHtmlEdit>
+      <Typography.Span>
+        <div dangerouslySetInnerHTML={{__html: sanitizedValue}} />
+      </Typography.Span>
     )
   }
+
+  return (
+    <StyledHtmlEdit>
+      <Suspense fallback={<i />}>
+        <LazyQuill
+          name={name}
+          onChange={handleChange}
+          id={id}
+          theme="snow"
+          defaultValue={sanitizedValue}
+          modules={{
+            clipboard: {
+              matchVisual: false
+            }
+          }}
+        />
+      </Suspense>
+    </StyledHtmlEdit>
+  )
 }
 
 HtmlEdit.defaultProps = {
