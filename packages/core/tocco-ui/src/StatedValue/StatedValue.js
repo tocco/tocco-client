@@ -27,68 +27,55 @@ const detectSignal = (dirty, hasError, mandatory, hasValue) => {
  * Wrap <EditableValue> and <FormattedValUe> in <StatedValue> to describe it
  * and signal conditions.
  */
-const StatedValue = props => {
-  const {
-    children,
-    description,
-    dirty,
-    fixLabel,
-    isDisplay,
-    error,
-    hasValue,
-    id,
-    label,
-    mandatory,
-    mandatoryTitle,
-    immutable,
-    touched,
-    signal: signalProp
-  } = props
-
+const StatedValue = ({
+  children,
+  description,
+  dirty,
+  isDisplay,
+  error,
+  hasValue,
+  id,
+  label,
+  mandatory,
+  mandatoryTitle,
+  immutable,
+  touched,
+  signal: signalProp
+}) => {
   const showError = !immutable && touched && error && Object.keys(error).length > 0
   const labelAlt = `${js.adjustedHTMLString(label)}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
   const signal = signalProp || detectSignal(dirty, showError, mandatory, hasValue)
 
   return (
     <FocusWithin>
-      {({focused, getRef}) => {
-        const secondaryPosition = (!immutable && focused) || hasValue || isDisplay || fixLabel
-        return (
-          <StyledStatedValueWrapper ref={getRef} secondaryPosition={secondaryPosition}>
-            <StyledStatedValueBox
-              className="StyledStatedValueBox"
-              hasValue={hasValue}
-              immutable={immutable}
-              isDisplay={isDisplay}
-              signal={signal}
-            >
-              {children}
-              {label && (
-                <StyledLabelWrapper>
-                  <StyledStatedValueLabel
-                    {...(!isDisplay && !immutable && {htmlFor: id})}
-                    hasValue={hasValue}
-                    dirty={dirty}
-                    title={labelAlt}
-                    secondaryPosition={secondaryPosition}
-                    immutable={immutable}
-                    isDisplay={isDisplay}
-                    signal={signal}
-                  >
-                    <span dangerouslySetInnerHTML={{__html: `${html.sanitizeHtml(label)}${mandatory ? ' *' : ''}`}} />
-                  </StyledStatedValueLabel>
-                </StyledLabelWrapper>
-              )}
-            </StyledStatedValueBox>
-            {description && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
-            {showError && (
-              <StyledStatedValueError>
-                <ErrorList error={error} />
-              </StyledStatedValueError>
+      {({getRef}) => (
+        <StyledStatedValueWrapper ref={getRef}>
+          <StyledStatedValueBox hasValue={hasValue} immutable={immutable} isDisplay={isDisplay} signal={signal}>
+            {children}
+            {label && (
+              <StyledLabelWrapper>
+                <StyledStatedValueLabel
+                  {...(!isDisplay && !immutable && {htmlFor: id})}
+                  hasValue={hasValue}
+                  dirty={dirty}
+                  title={labelAlt}
+                  immutable={immutable}
+                  isDisplay={isDisplay}
+                  signal={signal}
+                >
+                  <span dangerouslySetInnerHTML={{__html: `${html.sanitizeHtml(label)}${mandatory ? ' *' : ''}`}} />
+                </StyledStatedValueLabel>
+              </StyledLabelWrapper>
             )}
-          </StyledStatedValueWrapper>
-        )
-      }}
+          </StyledStatedValueBox>
+          {description && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
+          {showError && (
+            <StyledStatedValueError>
+              <ErrorList error={error} />
+            </StyledStatedValueError>
+          )}
+        </StyledStatedValueWrapper>
+      )}
     </FocusWithin>
   )
 }

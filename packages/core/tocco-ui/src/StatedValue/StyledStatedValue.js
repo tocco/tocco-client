@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 
 import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
 import {StyledUl} from '../Typography'
@@ -6,18 +6,12 @@ import {colorizeBorder, colorizeText, declareFocus, declareFont, scale, theme} f
 
 const borderWidth = '1.1px' // deliberately uneven to force correct rendering in chrome
 
-export const getTextColor = ({isDisplay, secondaryPosition, immutable, signal, hasValue}) => {
+export const getTextColor = ({isDisplay, immutable, signal, hasValue}) => {
   return signal
     ? 'signal'
     : hasValue
     ? 'hasValue'
-    : isDisplay && secondaryPosition && immutable && !signal
-    ? 'shade1'
     : isDisplay
-    ? secondaryPosition
-      ? 'shade0'
-      : 'shade1'
-    : secondaryPosition
     ? 'shade1'
     : immutable
     ? 'shade0'
@@ -30,17 +24,6 @@ export const getBorderColor = ({immutable, isDisplay, signal, isDirty}) => {
   return isDirty ? 'isDirty' : isDisplay || immutable ? 'transparent' : signal ? 'signal' : 'shade1'
 }
 
-const transformLabel = ({secondaryPosition}) => css`
-  &&& {
-    ${secondaryPosition &&
-    css`
-      top: 0;
-      font-size: ${scale.font(-0.8)};
-      margin: calc(${scale.font(-0.5)} / -2) 0 0;
-    `}
-  }
-`
-
 const declareCursor = ({isDisplay, immutable}) => `cursor: ${!isDisplay && immutable ? 'not-allowed' : 'auto'};`
 
 export const StyledLabelWrapper = styled.div`
@@ -50,7 +33,6 @@ export const StyledLabelWrapper = styled.div`
 export const StyledStatedValueLabel = styled.label`
   &&& {
     ${declareFont({
-      fontSize: scale.font(0),
       fontWeight: ({dirty}) => (dirty ? theme.fontWeight('bold') : theme.fontWeight('regular')),
       lineHeight: 1
     })}
@@ -59,15 +41,14 @@ export const StyledStatedValueLabel = styled.label`
     left: ${scale.space(-2)};
     margin: calc(${scale.font(0)} / -2) 0 0;
     padding: 1px ${scale.space(-2)}; // 1px to prevent label bottom from being cut
+    padding-left: ${({immutable}) => immutable && '0'};
     position: absolute;
-    top: 50%;
-    width: ${({secondaryPosition}) => (secondaryPosition ? 'auto' : 'inherit')};
+    width: auto;
     height: calc(${scale.font(0)} + 1px);
     overflow: hidden;
-    ${props => transformLabel(props)}
+    top: 0;
     ${props => declareCursor(props)}
-    pointer-events: ${({secondaryPosition}) => (secondaryPosition ? 'auto' : 'none')};
-    padding-left: ${({immutable}) => immutable && '0'};
+    pointer-events: auto;
 
     span {
       white-space: nowrap;
