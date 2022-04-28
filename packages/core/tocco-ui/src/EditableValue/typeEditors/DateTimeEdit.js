@@ -15,7 +15,7 @@ export const DateTimeEdit = ({intl, options, onChange, value, immutable, events,
 
   const parseDate = useCallback(
     s => {
-      const momentDate = moment(s, ['D.M.YYYY H:m', momentDateFormat, momentTimeFormat])
+      const momentDate = moment(s, ['D.M.YYYY H:m', momentDateFormat, momentTimeFormat, moment.ISO_8601])
       return momentDate.isValid() ? momentDate.toDate() : null
     },
     [momentDateFormat, momentTimeFormat]

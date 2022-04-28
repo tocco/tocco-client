@@ -18,7 +18,7 @@ export const DateEdit = ({onChange, options, id, value, immutable, events, place
 
   const parseDate = useCallback(
     s => {
-      const momentDate = moment(s, [getLocalizedAltFormat(), DATE_FORMAT])
+      const momentDate = moment(s, [getLocalizedAltFormat(), DATE_FORMAT, moment.ISO_8601])
       return momentDate.isValid() ? momentDate.toDate() : null
     },
     [getLocalizedAltFormat]
