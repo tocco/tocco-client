@@ -63,7 +63,7 @@ export function* getMergeBody() {
   }
 
   const mergeRelations = _uniq(sourceData.relations.map(r => r.relationName)).map(relationName => ({
-    relationName: relationName,
+    relationName,
     sourceKey: selected.multipleAll[relationName] || []
   }))
 
@@ -71,9 +71,9 @@ export function* getMergeBody() {
     entities: sourceData.entities,
     targetEntity: {
       key: selected.targetEntity,
-      paths: paths
+      paths
     },
-    mergeRelations: mergeRelations
+    mergeRelations
   }
 }
 

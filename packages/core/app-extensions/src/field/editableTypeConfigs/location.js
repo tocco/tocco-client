@@ -43,7 +43,7 @@ export default {
   dataContainerProps: ({formField, formName}) => ({
     locations: [formField.id],
     formValues: {
-      formName: formName,
+      formName,
       fields: formField.locationMapping ? Object.values(formField.locationMapping) : {}
     }
   }),

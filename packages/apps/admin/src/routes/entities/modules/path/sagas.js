@@ -113,7 +113,7 @@ export function* loadRouteInfo(pathname) {
               routeInfos.push({
                 type: 'list',
                 error: {
-                  relationName: relationName,
+                  relationName,
                   entityName: parent.model.name
                 }
               })

@@ -36,7 +36,7 @@ export const DateEdit = ({onChange, options, id, value, immutable, events, place
     altFormat: momentJStoToFlatpickrFormat(getLocalizedAltFormat()),
     dateFormat: momentJStoToFlatpickrFormat(DATE_FORMAT),
     allowInput: true,
-    parseDate: parseDate,
+    parseDate,
     ...(options?.flatpickrOptions || {})
   }
 

@@ -16,7 +16,7 @@ const FormFieldWrapper = props => {
 
   return (
     <StatedValue {...props} dirty={formData.isDirty || dirty} error={formData.errors || error} hasValue={hasValue}>
-      {React.cloneElement(children, {formData: formData})}
+      {React.cloneElement(children, {formData})}
     </StatedValue>
   )
 }

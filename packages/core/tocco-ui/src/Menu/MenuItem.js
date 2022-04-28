@@ -27,8 +27,8 @@ const MenuItem = ({children, onClick, onClose, disabled, closeOnClick, title, le
     if (child.type && child.type.displayName === 'MenuItem') {
       return React.cloneElement(child, {
         ...child.props,
-        onClose: onClose,
-        closeOnClick: closeOnClick,
+        onClose,
+        closeOnClick,
         level: lvl,
         key: `menu-item-${idx}-${lvl}`
       })

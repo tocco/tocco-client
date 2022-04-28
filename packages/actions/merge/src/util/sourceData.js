@@ -13,7 +13,7 @@ const getSortedPathsAndRelations = sourceData => {
   const sortByLabel = list =>
     list
       .map(name => ({
-        name: name,
+        name,
         label: sourceData.labels[name]
       }))
       .sort((a, b) => (a.label < b.label ? -1 : 1))

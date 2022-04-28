@@ -25,7 +25,7 @@ describe('docs-browser', () => {
         describe('listParentChange', () => {
           test('should fire external onListParentChange event', () => {
             const parent = {model: 'User', key: '1'}
-            return expectSaga(sagas.changeListParent, {payload: {parent: parent}})
+            return expectSaga(sagas.changeListParent, {payload: {parent}})
               .put(externalEvents.fireExternalEvent('onListParentChange', parent))
               .run()
           })

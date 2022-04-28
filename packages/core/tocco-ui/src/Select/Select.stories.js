@@ -87,18 +87,18 @@ export const Overview = props => {
   } = useSelectStoryHepers(props.delay || 2000)
 
   const basicProps = {
-    fetchOptions: fetchOptions,
-    isLoading: isLoading,
+    fetchOptions,
+    isLoading,
     isMulti: false,
     loadTooltip: loadToolTip,
-    moreOptionsAvailable: moreOptionsAvailable,
+    moreOptionsAvailable,
     moreOptionsAvailableText: 'More options available',
     noResultsText: 'No more options.',
     onChange: setValue,
-    options: options,
-    searchOptions: searchOptions,
-    tooltips: tooltips,
-    value: value
+    options,
+    searchOptions,
+    tooltips,
+    value
   }
 
   return (

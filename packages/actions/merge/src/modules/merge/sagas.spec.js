@@ -34,7 +34,7 @@ describe('merge', () => {
           test('should call initialize', () => {
             return expectSaga(sagas.initialize)
               .provide([
-                [select(sagas.mergeSelector), {selection: selection}],
+                [select(sagas.mergeSelector), {selection}],
                 [matchers.call.fn(sagas.loadSourceData), sourceData]
               ])
               .call(sagas.loadSourceData, selection)
@@ -55,7 +55,7 @@ describe('merge', () => {
 
         describe('executeMerge', () => {
           const body = {
-            selection: selection,
+            selection,
             targetEntity: {
               key: '1',
               paths: {}
@@ -84,7 +84,7 @@ describe('merge', () => {
             const mergeRequest = {
               method: 'POST',
               acceptedStatusCodes: [400, 500],
-              body: body
+              body
             }
 
             return expectSaga(sagas.executeMerge)
@@ -121,7 +121,7 @@ describe('merge', () => {
             const mergeRequest = {
               method: 'POST',
               acceptedStatusCodes: [400, 500],
-              body: body
+              body
             }
 
             return expectSaga(sagas.executeMerge)
@@ -144,7 +144,7 @@ describe('merge', () => {
             const mergeRequest = {
               method: 'POST',
               acceptedStatusCodes: [400, 500],
-              body: body
+              body
             }
 
             return expectSaga(sagas.executeMerge)
@@ -161,7 +161,7 @@ describe('merge', () => {
         describe('getMergeBody', () => {
           test('should call getMergeBody', () => {
             const merge = {
-              sourceData: sourceData,
+              sourceData,
               selected: {
                 targetEntity: '1',
                 single: {

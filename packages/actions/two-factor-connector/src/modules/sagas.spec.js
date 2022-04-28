@@ -38,7 +38,7 @@ describe('two-factor-connector', () => {
         test('should set secret if it is in input', () => {
           const secret = {secret: 'text', uri: 'uri'}
           return expectSaga(sagas.initialize)
-            .provide([[matchers.call.fn(sagas.loadPrincipal2FAInfo)], [select(sagas.inputSelector), {secret: secret}]])
+            .provide([[matchers.call.fn(sagas.loadPrincipal2FAInfo)], [select(sagas.inputSelector), {secret}]])
             .call(sagas.loadPrincipal2FAInfo)
             .put(actions.setSecret(secret))
             .put(actions.goToStart())

@@ -88,7 +88,7 @@ export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExp
       _paths: displayExpressionFields.join(',')
     },
     body: {
-      entityName: entityName,
+      entityName,
       type: 'ID',
       ids: entityKeys
     }

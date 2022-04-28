@@ -62,7 +62,7 @@ const Menu = ({referenceElement, onClose, open, children}) => {
       {children &&
         ReactDOM.createPortal(
           <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper} rectBottom={bottom}>
-            {React.Children.map(children, child => child && React.cloneElement(child, {onClose: onClose}))}
+            {React.Children.map(children, child => child && React.cloneElement(child, {onClose}))}
           </StyledPopper>,
           document.body
         )}

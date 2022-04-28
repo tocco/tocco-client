@@ -55,7 +55,7 @@ const LocationEdit = ({onChange: onChangeProp, options, value: valueProp, id, im
   const showGoogleMaps = value => Boolean(value.city || value.postcode)
 
   const inputPropsZip = {
-    id: id,
+    id,
     value: valueProp.postcode || '',
     onChange: onChange('postcode'),
     disabled: immutable

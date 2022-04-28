@@ -6,11 +6,11 @@ import remote from './remote'
 
 export default {
   binary: document,
-  document: document,
+  document,
   image: document,
   'multi-remote-field': remote,
   'single-remote-field': remote,
-  description: description,
-  number: number,
-  moneyamount: moneyamount
+  description,
+  number,
+  moneyamount
 }

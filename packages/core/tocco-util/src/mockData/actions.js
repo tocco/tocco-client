@@ -304,7 +304,7 @@ const simpleActionBackground = webSocketServer => (url, opts) => {
     message: 'Die Aktion wurde zur Ausführung eingeplant',
     params: {},
     result: null,
-    notificationKey: notificationKey
+    notificationKey
   }
 }
 
@@ -345,7 +345,7 @@ const simpleActionBackgroundProgress = webSocketServer => (url, opts) => {
     message: 'Die Aktion wurde zur Ausführung eingeplant',
     params: {},
     result: null,
-    notificationKey: notificationKey
+    notificationKey
   }
 }
 
