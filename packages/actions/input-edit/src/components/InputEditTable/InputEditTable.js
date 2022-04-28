@@ -73,7 +73,7 @@ const InputEditTable = ({
     const dataColumns = api.getColumnDefinition(dataFormColumns, sorting, dataCellRenderer)
 
     const inputColumns = inputEditForm.map((c, idx) => ({
-      idx: idx,
+      idx,
       id: c.id,
       label: c.label,
       sorting: {

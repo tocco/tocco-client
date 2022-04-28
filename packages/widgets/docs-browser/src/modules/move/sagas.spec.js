@@ -28,10 +28,10 @@ describe('docs-browser', () => {
             selectedEntityKeys: ['Folder/2', 'Resource/1']
           }
 
-          const requestOptions = {method: 'POST', acceptedStatusCodes: [400, 403], body: body}
+          const requestOptions = {method: 'POST', acceptedStatusCodes: [400, 403], body}
 
           test('moveElements successful', () => {
-            return expectSaga(sagas.moveElements, {payload: payload})
+            return expectSaga(sagas.moveElements, {payload})
               .provide([
                 [matchers.call.fn(rest.requestSaga), {status: 204}],
                 [matchers.call.fn(sagas.setDone), {}]
@@ -42,7 +42,7 @@ describe('docs-browser', () => {
           })
 
           test('moveElements no permission', () => {
-            return expectSaga(sagas.moveElements, {payload: payload})
+            return expectSaga(sagas.moveElements, {payload})
               .provide([
                 [matchers.call.fn(rest.requestSaga), {status: 403}],
                 [matchers.call.fn(sagas.setDone), {}]
@@ -61,7 +61,7 @@ describe('docs-browser', () => {
           })
 
           test('moveElements failed', () => {
-            return expectSaga(sagas.moveElements, {payload: payload})
+            return expectSaga(sagas.moveElements, {payload})
               .provide([[matchers.call.fn(rest.requestSaga), {status: 400, body: {errorCode: null}}]])
               .put(actions.setWaiting(true))
               .call(rest.requestSaga, 'documents/move', requestOptions)
@@ -82,7 +82,7 @@ describe('docs-browser', () => {
               errorCode: 'VALIDATION_FAILED',
               errors: [{model: 'User', entityValidatorErrors: {firstname: [msg, 'message2']}}]
             }
-            return expectSaga(sagas.moveElements, {payload: payload})
+            return expectSaga(sagas.moveElements, {payload})
               .provide([[matchers.call.fn(rest.requestSaga), {status: 400, body: response}]])
               .put(actions.setWaiting(true))
               .call(rest.requestSaga, 'documents/move', requestOptions)

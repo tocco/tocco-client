@@ -91,7 +91,7 @@ export function* handleCustomActionModal({definition, selection, config}) {
 
     yield put(notification.toaster({type, title, body: response.message}))
   }
-  return {success: success, remoteEvents: response.remoteEvents}
+  return {success, remoteEvents: response.remoteEvents}
 }
 
 export function* handleFullScreenActions({definition, selection, config}) {
@@ -130,5 +130,5 @@ export function* handleAnswer(answerChannel) {
     yield put(notification.toaster({type, title, body: response.message}))
   }
 
-  return {success: success, remoteEvents: response.remoteEvents}
+  return {success, remoteEvents: response.remoteEvents}
 }

@@ -80,7 +80,7 @@ describe('app-extensions', () => {
         const selection = {}
         const templateEntityName = 'Export_template'
         const payload = {
-          templateEntityName: templateEntityName,
+          templateEntityName,
           selection,
           customTemplateFields: {}
         }

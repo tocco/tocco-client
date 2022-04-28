@@ -24,7 +24,7 @@ describe('resource-scheduler', () => {
           }
 
           const expectedStateAfter = {
-            calendarTypes: calendarTypes
+            calendarTypes
           }
 
           expect(reducer(stateBefore, actions.setCalendarTypes(calendarTypes))).to.deep.equal(expectedStateAfter)

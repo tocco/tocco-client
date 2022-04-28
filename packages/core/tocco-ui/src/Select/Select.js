@@ -112,11 +112,11 @@ const Select = ({
           components={{
             ClearIndicator,
             LoadingIndicator,
-            DropdownIndicator: DropdownIndicator,
-            IndicatorsContainer: IndicatorsContainer,
+            DropdownIndicator,
+            IndicatorsContainer,
             IndicatorSeparator: null,
-            Menu: Menu,
-            MenuList: MenuList,
+            Menu,
+            MenuList,
             MultiValueLabel,
             SingleValue,
             ValueContainer

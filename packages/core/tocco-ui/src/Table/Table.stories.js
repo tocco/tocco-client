@@ -112,8 +112,8 @@ export const Basic = args => {
         onSelectionChange={onSelectionChange}
         paginationInfo={{
           totalCount: data.length,
-          currentPage: currentPage,
-          recordsPerPage: recordsPerPage
+          currentPage,
+          recordsPerPage
         }}
         onPageChange={onPageChange}
         onColumnPositionChange={onColumnPositionChange}

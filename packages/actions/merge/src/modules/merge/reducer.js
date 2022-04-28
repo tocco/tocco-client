@@ -12,7 +12,7 @@ const executeMerge = state => ({
 const mergeResponse = (state, {payload: {mergeResponse}}) => ({
   ...state,
   mergePending: false,
-  mergeResponse: mergeResponse
+  mergeResponse
 })
 
 const mergeErrors = (state, {payload: {errorMsg, validationErrors}}) => ({
@@ -51,7 +51,7 @@ const setSelectedMultiple = (state, {payload: {name, entityKey, relatedEntityKey
     ...state,
     selected: {
       ...state.selected,
-      multiple: multiple
+      multiple
     }
   }
 }
@@ -102,9 +102,9 @@ const setTargetEntity = (state, {payload: {entityKey}}) => {
     selected: {
       ...state.selected,
       targetEntity: entityKey,
-      single: single,
-      multiple: multiple,
-      multipleAll: multipleAll
+      single,
+      multiple,
+      multipleAll
     }
   }
 }

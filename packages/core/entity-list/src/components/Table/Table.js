@@ -51,7 +51,7 @@ const Table = ({
       onColumnWidthChange={changeWidth}
       dataLoadingInProgress={inProgress}
       paginationInfo={{
-        currentPage: currentPage,
+        currentPage,
         totalCount: entityCount,
         recordsPerPage: limit
       }}

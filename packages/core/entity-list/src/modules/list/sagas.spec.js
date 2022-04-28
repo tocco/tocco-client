@@ -106,7 +106,7 @@ describe('entity-list', () => {
         describe('changePage saga', () => {
           test('should set currentPage and requestEntities', () => {
             const page = 1
-            const gen = sagas.changePage({payload: {page: page}})
+            const gen = sagas.changePage({payload: {page}})
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(put(actions.setCurrentPage(page)))
             expect(gen.next().value).to.eql(call(sagas.requestEntities, page))
@@ -263,7 +263,7 @@ describe('entity-list', () => {
               {active: false, orderBy: 'firstname'}
             ]
             return expectSaga(sagas.hasActiveSearchFilterOrderBy)
-              .provide([[select(sagas.searchFormSelector), {searchFilters: searchFilters}]])
+              .provide([[select(sagas.searchFormSelector), {searchFilters}]])
               .returns(false)
               .run()
           })
@@ -271,7 +271,7 @@ describe('entity-list', () => {
           test('active search filter with order by', () => {
             const searchFilters = [{active: true, orderBy: 'firstname'}]
             return expectSaga(sagas.hasActiveSearchFilterOrderBy)
-              .provide([[select(sagas.searchFormSelector), {searchFilters: searchFilters}]])
+              .provide([[select(sagas.searchFormSelector), {searchFilters}]])
               .returns(true)
               .run()
           })
@@ -359,7 +359,7 @@ describe('entity-list', () => {
                 [matchers.call.fn(getSorting), []],
                 [select(sagas.listSelector), {entityModel, formDefinition}],
                 [select(sagas.preferencesSelector), {sorting: []}],
-                [select(sagas.searchFormSelector), {searchFilters: searchFilters}]
+                [select(sagas.searchFormSelector), {searchFilters}]
               ])
               .put(actions.setSorting([{field: sagas.FALLBACK_SORTING_FIELD, order: 'desc'}]))
               .run()

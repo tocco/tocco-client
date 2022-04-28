@@ -31,7 +31,7 @@ const Panel = ({children, isFramed = true, controlledIsOpen, isOpenInitial = tru
           isFramed,
           isOpen: controlled ? controlledIsOpen : isOpen,
           isToggleable,
-          toggleOpenState: toggleOpenState
+          toggleOpenState
         })
       )}
     </StyledPanel>

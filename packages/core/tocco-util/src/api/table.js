@@ -42,7 +42,7 @@ export const getColumnDefinition = (columns, sorting, cellRenderer, ...args) => 
     .filter(column => !column.hidden)
     .filter(column => column.children.filter(isDisplayableChild).length > 0)
     .map((c, idx) => ({
-      idx: idx,
+      idx,
       id: c.id,
       label: c.label,
       sorting: {

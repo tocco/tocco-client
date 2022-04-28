@@ -40,16 +40,16 @@ const mapStateToProps = (
 })
 
 const mapActionCreators = {
-  loadRelationEntities: loadRelationEntities,
-  loadTooltip: loadTooltip,
-  openAdvancedSearch: openAdvancedSearch,
-  uploadDocument: uploadDocument,
-  setDocument: setDocument,
-  changeFieldValue: changeFieldValue,
-  touchField: touchField,
-  loadSearchFilters: loadSearchFilters,
-  loadLocationsSuggestions: loadLocationsSuggestions,
-  openRemoteCreate: openRemoteCreate
+  loadRelationEntities,
+  loadTooltip,
+  openAdvancedSearch,
+  uploadDocument,
+  setDocument,
+  changeFieldValue,
+  touchField,
+  loadSearchFilters,
+  loadLocationsSuggestions,
+  openRemoteCreate
 }
 
 const FormDataContainer = connect(mapStateToProps, mapActionCreators, null, {

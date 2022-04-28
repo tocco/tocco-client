@@ -58,7 +58,7 @@ export default {
   }),
   dataContainerProps: ({formField, formName}) => ({
     formValues: {
-      formName: formName,
+      formName,
       fields: findImplicitModelField(formField)
     }
   })

@@ -88,7 +88,7 @@ export function* loadData({newSorting, newSearchQueries, newPage}) {
     sorting,
     page: currentPage,
     where: searchQueries.join(' and '),
-    paths: paths
+    paths
   })
   const response = yield call(rest.requestSaga, 'inputEdit/data/search', {
     method: 'POST',

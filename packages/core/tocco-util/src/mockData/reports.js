@@ -99,7 +99,7 @@ export const setupReports = (fetchMock, entityStore, webSocketServer, timeout = 
         message: 'Die Aktion wurde zur Ausführung eingeplant',
         params: {},
         result: null,
-        notificationKey: notificationKey
+        notificationKey
       }
     }
   })

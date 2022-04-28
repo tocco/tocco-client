@@ -27,7 +27,7 @@ export const DateTimeEdit = ({intl, options, onChange, value, immutable, events,
     enableTime: true,
     time_24hr: true,
     allowInput: true,
-    parseDate: parseDate,
+    parseDate,
     altFormat: `${altDateFormat} ${altTimeFormat}`,
     dateFormat: 'Y-m-d\\TH:i:S.000\\Z',
     ...(options?.flatpickrOptions || {})
