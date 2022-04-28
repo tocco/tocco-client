@@ -1,3 +1,6 @@
+0.1.4-hotfix31.3
+- debouncer accepts value changes from outside
+
 0.1.4-hotfix31.2
 - filter out null values on nested paths
 - handle nested 'to many' relations on list forms
