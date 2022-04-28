@@ -21,7 +21,7 @@ const SearchBox = React.forwardRef((props, ref) => {
 
   return (
     <StyledSearchBox>
-      <StatedValue hasValue={Boolean(inputValue)} label={placeholder}>
+      <StatedValue hasValue={Boolean(inputValue)}>
         <StyledEditableWrapper>
           <StyledSearchBoxInput
             data-cy="ui-search-box"
@@ -29,6 +29,7 @@ const SearchBox = React.forwardRef((props, ref) => {
             onChange={onChange}
             value={inputValue}
             aria-label={placeholder}
+            placeholder={placeholder}
           />
         </StyledEditableWrapper>
       </StatedValue>

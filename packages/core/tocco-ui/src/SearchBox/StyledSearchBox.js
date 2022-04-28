@@ -28,7 +28,8 @@ export const StyledSearchBox = styled.div`
 `
 
 export const StyledSearchBoxInput = styled.input.attrs(props => ({
-  type: 'search'
+  type: 'search',
+  placeholder: props.placeholder
 }))`
   && {
     ${StyledInputCss}
