@@ -138,9 +138,9 @@ cypress:
   stage: onschedule
   dependencies:
     - yarn_setup
-  image: cypress/base:10
+  image: cypress/base:16.14.2
   variables:
-    CYPRESS_INSTALL_BINARY: "9.1.0"
+    CYPRESS_INSTALL_BINARY: "9.6.0"
   only:
     variables:
       - $CI_RUN_CYPRESS == "1"
