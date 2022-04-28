@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import crypto from '@trust/webcrypto'
 import EnzymeAdapter from '@wojtekmaj/enzyme-adapter-react-17'
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
@@ -16,6 +17,8 @@ global.chai = chai
 global.sinon = sinon
 global.expect = chai.expect
 global.should = chai.should()
+
+global.crypto = crypto
 
 global.fetch = fetch
 global.Response = fetch.Response

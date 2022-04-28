@@ -54,7 +54,7 @@ export const StyledNavIconButton = styled(Ball)`
   font-weight: ${theme.fontWeight('bold')};
   font-size: ${scale.font(3)};
   padding-top: ${scale.space(-1.1)};
-  padding-bottom: cal(${scale.space(-1.1)} - 5px); /* subtract border-top width of 5px */
+  padding-bottom: calc(${scale.space(-1.1)} - 5px); /* subtract border-top width of 5px */
   ${({active}) =>
     active &&
     css`
