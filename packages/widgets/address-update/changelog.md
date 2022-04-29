@@ -1,3 +1,7 @@
+0.1.7
+- change rank icon position and refactor table components
+- convert HtmlEdit class component to functional component
+
 0.1.6
 - debouncer accepts value changes from outside
 
