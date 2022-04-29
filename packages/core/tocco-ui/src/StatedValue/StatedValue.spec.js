@@ -6,8 +6,7 @@ import {
   getBorderColor,
   StyledStatedValueBox,
   StyledStatedValueDescription,
-  StyledStatedValueLabel,
-  StyledStatedValueWrapper
+  StyledStatedValueLabel
 } from './StyledStatedValue'
 
 describe('tocco-ui', () => {
@@ -72,12 +71,6 @@ describe('tocco-ui', () => {
       expect(el.last().text()).to.be.equal('error 2')
     })
 
-    test('should pass prop hasValue as secondaryPosition', () => {
-      const wrapper = mount(<StatedValue hasValue={true} label="Label" />)
-      expect(wrapper.find(StyledStatedValueWrapper).prop('secondaryPosition')).to.be.true
-      expect(wrapper.find(StyledStatedValueLabel).prop('secondaryPosition')).to.be.true
-    })
-
     test('should show label', () => {
       const wrapper = mount(<StatedValue label="label a" />)
       const el = wrapper.find(StyledStatedValueLabel)
@@ -113,7 +106,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: false,
-          secondaryPosition: false,
           signal: 'success'
         },
         output: 'signal'
@@ -122,25 +114,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: false,
-          secondaryPosition: false,
-          signal: undefined
-        },
-        output: 'shade1'
-      },
-      {
-        input: {
-          immutable: false,
-          isDisplay: false,
-          secondaryPosition: true,
-          signal: 'success'
-        },
-        output: 'signal'
-      },
-      {
-        input: {
-          immutable: false,
-          isDisplay: false,
-          secondaryPosition: true,
           signal: undefined
         },
         output: 'shade1'
@@ -149,7 +122,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: false,
-          secondaryPosition: false,
           signal: 'success'
         },
         output: 'signal'
@@ -158,7 +130,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: false,
-          secondaryPosition: false,
           signal: undefined
         },
         output: 'shade0'
@@ -167,25 +138,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: false,
-          secondaryPosition: true,
-          signal: 'success'
-        },
-        output: 'signal'
-      },
-      {
-        input: {
-          immutable: true,
-          isDisplay: false,
-          secondaryPosition: true,
-          signal: undefined
-        },
-        output: 'shade1'
-      },
-      {
-        input: {
-          immutable: false,
-          isDisplay: true,
-          secondaryPosition: false,
           signal: 'success'
         },
         output: 'signal'
@@ -194,16 +146,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: true,
-          secondaryPosition: false,
-          signal: undefined
-        },
-        output: 'shade1'
-      },
-      {
-        input: {
-          immutable: false,
-          isDisplay: true,
-          secondaryPosition: true,
           signal: 'success'
         },
         output: 'signal'
@@ -212,25 +154,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: true,
-          secondaryPosition: true,
-          signal: undefined
-        },
-        output: 'shade0'
-      },
-      {
-        input: {
-          immutable: true,
-          isDisplay: true,
-          secondaryPosition: false,
-          signal: 'success'
-        },
-        output: 'signal'
-      },
-      {
-        input: {
-          immutable: true,
-          isDisplay: true,
-          secondaryPosition: false,
           signal: undefined
         },
         output: 'shade1'
@@ -239,7 +162,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: true,
-          secondaryPosition: true,
           signal: 'success'
         },
         output: 'signal'
@@ -248,7 +170,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: true,
-          secondaryPosition: true,
           signal: undefined
         },
         output: 'shade1'
@@ -266,7 +187,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: false,
-          secondaryPosition: false,
           signal: 'success'
         },
         output: 'signal'
@@ -275,7 +195,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: false,
-          secondaryPosition: false,
           signal: undefined
         },
         output: 'shade1'
@@ -284,7 +203,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: false,
-          secondaryPosition: true,
           signal: 'success'
         },
         output: 'signal'
@@ -293,7 +211,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: false,
-          secondaryPosition: true,
           signal: undefined
         },
         output: 'shade1'
@@ -302,7 +219,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: false,
-          secondaryPosition: false,
           signal: 'success'
         },
         output: 'transparent'
@@ -311,7 +227,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: false,
-          secondaryPosition: false,
           signal: undefined
         },
         output: 'transparent'
@@ -320,7 +235,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: false,
-          secondaryPosition: true,
           signal: 'success'
         },
         output: 'transparent'
@@ -329,7 +243,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: false,
-          secondaryPosition: true,
           signal: undefined
         },
         output: 'transparent'
@@ -338,7 +251,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: true,
-          secondaryPosition: true,
           signal: undefined
         },
         output: 'transparent'
@@ -347,7 +259,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: true,
-          secondaryPosition: false,
           signal: 'success'
         },
         output: 'transparent'
@@ -356,7 +267,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: true,
-          secondaryPosition: false,
           signal: undefined
         },
         output: 'transparent'
@@ -365,7 +275,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: false,
           isDisplay: true,
-          secondaryPosition: true,
           signal: 'success'
         },
         output: 'transparent'
@@ -374,7 +283,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: true,
-          secondaryPosition: false,
           signal: 'success'
         },
         output: 'transparent'
@@ -383,7 +291,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: true,
-          secondaryPosition: false,
           signal: undefined
         },
         output: 'transparent'
@@ -392,7 +299,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: true,
-          secondaryPosition: true,
           signal: 'success'
         },
         output: 'transparent'
@@ -401,7 +307,6 @@ describe('tocco-ui', () => {
         input: {
           immutable: true,
           isDisplay: true,
-          secondaryPosition: true,
           signal: undefined
         },
         output: 'transparent'
