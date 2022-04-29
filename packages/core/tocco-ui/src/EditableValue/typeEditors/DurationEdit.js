@@ -1,29 +1,18 @@
 import PropTypes from 'prop-types'
-import {useRef, useState, useEffect} from 'react'
+import {useState} from 'react'
 import {date} from 'tocco-util'
 
 import Typography from '../../Typography'
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import {calculateMilliseconds} from '../utils'
-import {StyledDurationEditShadow, StyledDurationEditFocusable, StyledDurationEdit} from './StyledDurationEdit'
+import {StyledDurationEditFocusable, StyledDurationEdit} from './StyledDurationEdit'
+
+const DIGIT_WIDTH = 9
 
 const DurationEdit = ({value, immutable, onChange, options}) => {
-  const hoursShadow = useRef(null)
-  const minutesShadow = useRef(null)
-  const secondsShadow = useRef(null)
-
   const duration = date.millisecondsToDuration(value)
 
-  const [hoursWidth, setHoursWidth] = useState(0)
-  const [minutesWidth, setMinutesWidth] = useState(0)
-  const secondsWidth = secondsShadow.current?.offsetWidth || 0
-
   const [focused, setFocused] = useState(false)
-
-  useEffect(() => {
-    setHoursWidth(hoursShadow.current.offsetWidth)
-    setMinutesWidth(minutesShadow.current.offsetWidth)
-  }, [])
 
   const handleHourChange = e => {
     const hours = e.target.value.replace(/[^-\d]/g, '')
@@ -78,6 +67,8 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
 
   const unitsVisible = () => focused || typeof value === 'number'
 
+  const getFieldWidth = value => (value + '').length * DIGIT_WIDTH
+
   /**
    * We don't want to offer the user to enter the duration in seconds,
    * because hours/minutes are already accurate enough.
@@ -100,9 +91,9 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
           onKeyPress={preventNonNumeric}
           pattern={getPattern()}
           step={1}
-          width={hoursWidth}
+          width={getFieldWidth(duration.hours)}
           type="number"
-          value={typeof duration.hours === 'number' && (duration.hours !== 0 || immutable) ? duration.hours : ''}
+          value={typeof duration.hours === 'number' && (duration.hours !== 0 || immutable) ? duration.hours + '' : ''}
         />
         {unitsVisible() && <Typography.Span>{options.hoursLabel}</Typography.Span>}
       </StyledDurationEditFocusable>
@@ -117,9 +108,9 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
           onKeyPress={preventNonNumeric}
           pattern={getPattern()}
           step={1}
-          width={minutesWidth}
+          width={getFieldWidth(duration.minutes)}
           type="number"
-          value={duration.minutes}
+          value={duration.minutes + ''}
         />
         {unitsVisible() && <Typography.Span>{options.minutesLabel}</Typography.Span>}
       </StyledDurationEditFocusable>
@@ -129,16 +120,13 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
             disabled={immutable}
             immutable={immutable}
             onChange={() => {}} // Empty onChange function to prevent React internal error
-            width={secondsWidth}
+            width={getFieldWidth(duration.seconds)}
             type="number"
-            value={duration.seconds}
+            value={duration.seconds + ''}
           />
           {unitsVisible() && <Typography.Span>{options.secondsLabel}</Typography.Span>}
         </StyledDurationEditFocusable>
       )}
-      <StyledDurationEditShadow ref={hoursShadow}>{duration.hours}</StyledDurationEditShadow>
-      <StyledDurationEditShadow ref={minutesShadow}>{duration.minutes}</StyledDurationEditShadow>
-      {showSeconds && <StyledDurationEditShadow ref={secondsShadow}>{duration.seconds}</StyledDurationEditShadow>}
     </StyledEditableWrapper>
   )
 }
