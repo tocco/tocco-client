@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import styled from 'styled-components'
 
-import {declareFont, generateDisabledShade, scale, theme} from '../../utilStyles'
+import {generateDisabledShade, scale, theme} from '../../utilStyles'
 import {StyledInputCss} from '../StyledEditableValue'
 
 const StyledDurationEdit = styled.input`
@@ -33,17 +33,4 @@ const StyledDurationEditFocusable = styled.label`
   }
 `
 
-const StyledDurationEditShadow = styled.span`
-  && {
-    border: 1px solid transparent;
-    left: 0;
-    max-width: 100%;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-    visibility: hidden;
-    ${declareFont}
-  }
-`
-
-export {StyledDurationEditShadow, StyledDurationEditFocusable, StyledDurationEdit}
+export {StyledDurationEditFocusable, StyledDurationEdit}
