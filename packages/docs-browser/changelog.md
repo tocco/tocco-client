@@ -1,3 +1,6 @@
+1.0.6-hotfix31.20
+- update of the values and field widths in duration edit fixed
+
 1.0.6-hotfix31.19
 - debouncer accepts value changes from outside
 
