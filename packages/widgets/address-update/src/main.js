@@ -9,7 +9,6 @@ import {
   formData,
   form
 } from 'tocco-app-extensions'
-import {chooseDocument} from 'tocco-docs-browser/src/main'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {reducer as reducerUtil, env, appContext} from 'tocco-util'
 
@@ -31,10 +30,8 @@ const initApp = (id, input, events = {}, publicPath) => {
   notification.addToStore(store, true)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   form.addToStore(store, formSagaConfig)
-  chooseDocument.addToStore(store)
   formData.addToStore(store, {
-    listApp: EntityListApp,
-    chooseDocument: (...params) => store.dispatch(chooseDocument.actions.chooseDocument(...params))
+    listApp: EntityListApp
   })
   cache.addToStore(store)
 
