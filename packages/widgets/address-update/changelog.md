@@ -1,3 +1,6 @@
+0.1.8
+- remove floating labels in favour of fixed labels
+
 0.1.7
 - change rank icon position and refactor table components
 - convert HtmlEdit class component to functional component
