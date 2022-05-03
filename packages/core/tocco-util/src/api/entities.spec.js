@@ -516,6 +516,42 @@ describe('tocco-util', () => {
         expect(result.model).to.eql('User')
         expect(result.version).to.eql(3)
       })
+
+      test('should set selectors correctly', () => {
+        const values = {
+          __version: 3,
+          __key: '2',
+          __model: 'User',
+          'relAddress_user[publication]': {key: '33', version: 4, model: 'Address_user'},
+          'relAddress_user[publication].relAddress': {key: '7', version: 1, model: 'Address'},
+          'relAddress_user[publication].relAddress.address_c': 'Hauptstrasse 1'
+        }
+
+        const result = toEntity(values)
+
+        const expected = {
+          key: '2',
+          version: 3,
+          model: 'User',
+          paths: {
+            'relAddress_user[publication]': {
+              key: '33',
+              version: 4,
+              paths: {
+                relAddress: {
+                  key: '7',
+                  version: 1,
+                  paths: {
+                    address_c: 'Hauptstrasse 1'
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        expect(result).to.deep.eql(expected)
+      })
     })
   })
 })
