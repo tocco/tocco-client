@@ -9,7 +9,6 @@
   },
   "devDependencies": {
     "tocco-app-extensions": "*",
-    "tocco-docs-browser": "*",
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
     "tocco-ui": "*",
