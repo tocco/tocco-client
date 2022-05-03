@@ -1,3 +1,6 @@
+1.0.44
+- dependency updates
+
 1.0.43
 - remove floating labels in favour of fixed labels
 
