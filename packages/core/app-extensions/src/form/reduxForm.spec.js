@@ -206,27 +206,51 @@ describe('app-extensions', () => {
           expect(drityFormValues).to.deep.eql({})
         })
 
-        test('should handle multi paths correclty', () => {
+        test('should handle multi paths correctly', () => {
           const values = {
             relGender: {key: '2', version: 3, model: 'Gender'},
-            'relGender.relXy': {key: '33', version: 4},
-            'relGender.relXy.Z': 'TEST',
-            'relGender.relXy.Y': 'TEST'
+            'relGender--relXy': {key: '33', version: 4},
+            'relGender--relXy--Z': 'TEST',
+            'relGender--relXy--Y': 'TEST'
           }
 
           const initialValues = {
             relGender: {key: '2', version: 3, model: 'Gender'},
-            'relGender.relXy': {key: '33', version: 4},
-            'relGender.relXy.Z': '', // changed
-            'relGender.relXy.Y': 'TEST'
+            'relGender--relXy': {key: '33', version: 4},
+            'relGender--relXy--Z': '', // changed
+            'relGender--relXy--Y': 'TEST'
           }
 
           const drityFormValues = reduxForm.getDirtyFormValues(initialValues, values)
 
           expect(drityFormValues).to.deep.eql({
             relGender: {key: '2', version: 3, model: 'Gender'},
-            'relGender.relXy': {key: '33', version: 4},
-            'relGender.relXy.Z': 'TEST'
+            'relGender--relXy': {key: '33', version: 4},
+            'relGender--relXy--Z': 'TEST'
+          })
+        })
+
+        test('should keep meta fields for selectors', () => {
+          const values = {
+            'relAddress_user=-=publication=_=': {key: '2', version: 3, model: 'Address_user'},
+            'relAddress_user=-=publication=_=--relAddress': {key: '7', version: 1, model: 'Address'},
+            'relAddress_user=-=publication=_=--relAddress--address_c': 'Hauptrasse 7a',
+            'relAddress_user=-=publication=_=--relAddress--zip_c': '8400'
+          }
+
+          const initialValues = {
+            'relAddress_user=-=publication=_=': {key: '2', version: 3, model: 'Address_user'},
+            'relAddress_user=-=publication=_=--relAddress': {key: '7', version: 1, model: 'Address'},
+            'relAddress_user=-=publication=_=--relAddress--address_c': 'Hauptrasse 1', // changed
+            'relAddress_user=-=publication=_=--relAddress--zip_c': '8400'
+          }
+
+          const drityFormValues = reduxForm.getDirtyFormValues(initialValues, values)
+
+          expect(drityFormValues).to.deep.eql({
+            'relAddress_user=-=publication=_=': {key: '2', version: 3, model: 'Address_user'},
+            'relAddress_user=-=publication=_=--relAddress': {key: '7', version: 1, model: 'Address'},
+            'relAddress_user=-=publication=_=--relAddress--address_c': 'Hauptrasse 7a' // changed
           })
         })
       })

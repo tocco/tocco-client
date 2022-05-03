@@ -102,10 +102,16 @@ export const toEntity = flattenEntity => {
     return _isObject(value) ? _pick(value, ['key', 'version', 'id', 'resourceKey']) : value
   }
 
-  const paths = Object.keys(flattenEntity).reduce((acc, path) => {
-    if (!ignoredPath(path)) {
-      const t = path.split('.').join('.paths.')
-      return _set(acc, t, valueSimplifier(flattenEntity[path]))
+  const paths = Object.keys(flattenEntity).reduce((acc, flattenEntityPath) => {
+    if (!ignoredPath(flattenEntityPath)) {
+      const entityPath = flattenEntityPath
+        .split('.')
+        // add `paths` object
+        .join('.paths.')
+        // use array to support selectors as valid object key (e.g. relAddress[publication])
+        .split('.')
+
+      return _set(acc, entityPath, valueSimplifier(flattenEntity[flattenEntityPath]))
     }
     return acc
   }, {})

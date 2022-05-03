@@ -54,9 +54,27 @@ export const validationErrorToFormError = (entity, fieldDefinitions, errors) => 
   return mapErrorsToFormErrors(result, fieldDefinitions)
 }
 
-// workaround: redux-forms can't get the value of a field if the field-name contains a dot.
-export const transformFieldName = fieldName => fieldName.replace(/\./g, '--')
-export const transformFieldNameBack = fieldName => fieldName.replace(/--/g, '.')
+const DotEscapeCharacters = '--'
+const OpenBracketEscapeCharacters = '=-='
+const CloseBracketEscapeCharacters = '=_='
+
+/**
+ * Workaround:
+ * redux-forms can't get the value of a field if the field-name contains
+ *  - dots
+ *  - brackets
+ *    - used for selectors (e.g. relAddress[publication])
+ */
+export const transformFieldName = fieldName =>
+  fieldName
+    .replace(/\./g, DotEscapeCharacters)
+    .replace(/\[/g, OpenBracketEscapeCharacters)
+    .replace(/\]/g, CloseBracketEscapeCharacters)
+export const transformFieldNameBack = fieldName =>
+  fieldName
+    .replace(new RegExp(DotEscapeCharacters, 'g'), '.')
+    .replace(new RegExp(OpenBracketEscapeCharacters, 'g'), '[')
+    .replace(new RegExp(CloseBracketEscapeCharacters, 'g'), ']')
 
 /**
  * Applies type field mapping to map real fields to form related (virtual) fields.
@@ -149,7 +167,7 @@ export const getDirtyFormValues = (initialValues, values, isCreate) => {
   return Object.keys(values).reduce((obj, key) => {
     const includedKey =
       Object.values(api.metaFields).includes(key) ||
-      dirtyPaths.some(dirtyPath => dirtyPath === key || dirtyPath.startsWith(key + '.'))
+      dirtyPaths.some(dirtyPath => dirtyPath === key || dirtyPath.startsWith(`${key}${DotEscapeCharacters}`))
 
     return includedKey
       ? {
