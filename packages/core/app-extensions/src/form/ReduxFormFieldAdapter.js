@@ -38,12 +38,13 @@ const ReduxFormFieldAdapter = props => {
     mandatoryTitle: props.intl.formatMessage({id: 'client.component.form.mandatoryFieldTitle'})
   }
 
-  return formField.formFieldFactory(props.fieldMappingType, fomFieldData, resources)
+  return <formField.FormField fieldMappingType={props.fieldMappingType} data={fomFieldData} resources={resources} />
 }
 
 ReduxFormFieldAdapter.propTypes = {
   intl: PropTypes.object.isRequired,
   id: PropTypes.string,
+  formName: PropTypes.string,
   input: PropTypes.shape({
     value: PropTypes.any,
     name: PropTypes.string,

@@ -1,28 +1,26 @@
 import PropTypes from 'prop-types'
 import {FormattedValue} from 'tocco-ui'
 
-import formattedTypeConfigs from './formattedTypeConfigs'
+import formattedComponentConfigs from './formattedComponentConfigs'
 
-const getOptions = (fieldType, formField, formData) =>
-  formattedTypeConfigs[fieldType] && formattedTypeConfigs[fieldType].getOptions
-    ? formattedTypeConfigs[fieldType].getOptions({formField, formData})
-    : {}
+const getOptions = (componentConfig, formField, formData) =>
+  componentConfig?.getOptions ? componentConfig.getOptions({formField, formData}) : {}
 
-const getValue = (fieldType, formField, formData, value) =>
-  formattedTypeConfigs[fieldType] && formattedTypeConfigs[fieldType].getValue
-    ? formattedTypeConfigs[fieldType].getValue({formField, formData})
-    : value
+const getValue = (componentConfig, formField, formData, value) =>
+  componentConfig?.getValue ? componentConfig.getValue({formField, formData}) : value
 
-const FormattedValueFactory = ({type, formField, value, formData, key, breakWords}) => {
-  const fieldType = formField.dataType || formField.componentType
-  const options = getOptions(fieldType, formField, formData)
-  const overwrittenValue = getValue(fieldType, formField, formData, value)
+const FormattedValueProvider = ({componentType, formField, value, formData, key, breakWords}) => {
+  const dataType = formField.dataType || formField.componentType
 
-  return <FormattedValue key={key} type={type} value={overwrittenValue} options={options} breakWords={breakWords} />
+  const componentConfig = formattedComponentConfigs[dataType]
+  const options = getOptions(componentConfig, formField, formData)
+  const actualValue = getValue(componentConfig, formField, formData, value)
+
+  return <FormattedValue key={key} type={componentType} value={actualValue} options={options} breakWords={breakWords} />
 }
 
-FormattedValueFactory.propTypes = {
-  type: PropTypes.string,
+FormattedValueProvider.propTypes = {
+  componentType: PropTypes.string,
   formField: PropTypes.shape({
     dataType: PropTypes.string,
     componentType: PropTypes.string
@@ -33,4 +31,7 @@ FormattedValueFactory.propTypes = {
   breakWords: PropTypes.bool
 }
 
-export default type => props => <FormattedValueFactory {...props} type={type} />
+const formattedValueFactory = componentType => props =>
+  <FormattedValueProvider {...props} componentType={componentType} />
+
+export default formattedValueFactory

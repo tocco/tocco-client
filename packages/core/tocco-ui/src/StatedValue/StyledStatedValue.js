@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
+import {StyledHtmlFormatter} from '../FormattedValue/formatters/HtmlFormatter'
 import {StyledUl} from '../Typography'
 import {colorizeBorder, colorizeText, declareFocus, declareFont, scale, theme} from '../utilStyles'
 
