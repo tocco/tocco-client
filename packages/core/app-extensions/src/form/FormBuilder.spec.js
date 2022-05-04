@@ -126,7 +126,7 @@ const testData = {
 
 describe('app-extensions', () => {
   describe('form', () => {
-    describe('formBuilder', () => {
+    describe('FormBuilder', () => {
       test('should render layout boxes and Fields', () => {
         const {entity, formName, formDefinition, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
@@ -463,6 +463,170 @@ describe('app-extensions', () => {
         const wrapper = shallow(<FormBuilder {...props} />)
 
         expect(wrapper.find(Field)).to.have.length(1)
+      })
+
+      test('should render empty selector fields', () => {
+        const entity = {
+          paths: {
+            'relAddress_user[publication]': {
+              type: 'entity',
+              writable: true,
+              value: {
+                key: '1',
+                model: 'Address_user',
+                version: 1,
+                paths: {
+                  relAddress: {
+                    type: 'entity',
+                    writable: true,
+                    value: {
+                      key: '1',
+                      model: 'Address',
+                      version: 18,
+                      paths: {
+                        company_c: {
+                          type: 'string',
+                          writable: true,
+                          value: 'Tocco AG'
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        const formDefinition = {
+          id: 'User_detail',
+          readonly: false,
+          children: [
+            {
+              id: 'address_information',
+              componentType: 'layout',
+              layoutType: 'vertical-box',
+              readonly: false,
+              children: [
+                {
+                  id: 'relAddress_user[publication].relAddress.company_c',
+                  label: 'Korresp.-Firma',
+                  componentType: 'field-set',
+                  children: [
+                    {
+                      id: 'relAddress_user[publication].relAddress.company_c',
+                      label: null,
+                      componentType: 'field',
+                      path: 'relAddress_user[publication].relAddress.company_c',
+                      dataType: 'string'
+                    }
+                  ],
+                  readonly: false,
+                  hidden: false,
+                  useLabel: 'yes',
+                  scopes: [],
+                  ignoreCopy: false
+                }
+              ]
+            }
+          ]
+        }
+
+        const formValues = {
+          'relAddress_user=-=publication=_=--relAddress--company_c': ''
+        }
+
+        const {formName} = testData
+        const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
+        const wrapper = shallow(<FormBuilder {...props} />)
+
+        expect(wrapper.find(Field)).to.have.length(1)
+      })
+
+      test('should not render empty selector fields on readonly form', () => {
+        const entity = {
+          paths: {
+            'relAddress_user[publication]': {
+              type: 'entity',
+              writable: true,
+              value: {
+                key: '1',
+                model: 'Address_user',
+                version: 1,
+                paths: {
+                  relAddress: {
+                    type: 'entity',
+                    writable: true,
+                    value: {
+                      key: '1',
+                      model: 'Address',
+                      version: 18,
+                      paths: {
+                        company_c: {
+                          type: 'string',
+                          writable: true,
+                          value: 'Tocco AG'
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        const formDefinition = {
+          id: 'User_detail',
+          readonly: false,
+          children: [
+            {
+              id: 'address_information',
+              componentType: 'layout',
+              layoutType: 'vertical-box',
+              readonly: false,
+              children: [
+                {
+                  id: 'relAddress_user[publication].relAddress.company_c',
+                  label: 'Korresp.-Firma',
+                  componentType: 'field-set',
+                  children: [
+                    {
+                      id: 'relAddress_user[publication].relAddress.company_c',
+                      label: null,
+                      componentType: 'field',
+                      path: 'relAddress_user[publication].relAddress.company_c',
+                      dataType: 'string'
+                    }
+                  ],
+                  readonly: false,
+                  hidden: false,
+                  useLabel: 'yes',
+                  scopes: [],
+                  ignoreCopy: false
+                }
+              ]
+            }
+          ]
+        }
+
+        const formValues = {
+          'relAddress_user=-=publication=_=--relAddress--company_c': ''
+        }
+
+        const {formName} = testData
+        const props = {
+          entity,
+          formName,
+          formDefinition,
+          formValues,
+          mode: 'update',
+          formFieldMapping: {},
+          readonly: true
+        }
+        const wrapper = shallow(<FormBuilder {...props} />)
+
+        expect(wrapper.find(Field)).to.have.length(0)
       })
     })
   })

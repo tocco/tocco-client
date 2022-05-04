@@ -61,7 +61,10 @@ const FormBuilder = props => {
     }
 
     const fieldName = formDefinitionField.path || formDefinitionField.id
-    const entityField = _get(entity, 'paths.' + fieldName.split('.').join('.value.paths.'))
+
+    // use array as getter path to support selectors as valid object keys (e.g. relAddress[publication])
+    const entityPath = `paths.${fieldName.split('.').join('.value.paths.')}`.split('.')
+    const entityField = _get(entity, entityPath)
 
     const shouldRenderField = (formDefinitionField, entityField) => {
       if (!modeFitsScope(mode, formDefinitionField.scopes)) {
