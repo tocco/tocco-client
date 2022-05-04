@@ -20,10 +20,13 @@ const handlePropagation = e => {
 }
 
 const IndicatorsContainer = props => {
-  const {openAdvancedSearch, openRemoteCreate, isDisabled, createPermission, value, isMulti} = props.selectProps
+  const {openAdvancedSearch, openRemoteCreate, isDisabled, hasAdvancedSearch, createPermission, value, isMulti} =
+    props.selectProps
+
+  const showInputAlwaysOnTop = isMulti && hasAdvancedSearch
 
   return (
-    <StyledIndicatorsContainerWrapper isTopAligned={isMulti}>
+    <StyledIndicatorsContainerWrapper isTopAligned={showInputAlwaysOnTop}>
       <components.IndicatorsContainer {...props}>
         {props.children}
         {openAdvancedSearch && !isDisabled && (
