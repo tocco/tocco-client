@@ -1,3 +1,6 @@
+0.1.6-hotfix32.1
+- remove "choose document" option for image upload
+
 0.1.6
 - debouncer accepts value changes from outside
 
