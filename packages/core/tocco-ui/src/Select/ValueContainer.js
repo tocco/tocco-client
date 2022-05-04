@@ -7,16 +7,21 @@ import {StyledMultiValueWrapper} from './StyledComponents'
 const isInput = child => child?.type?.name === 'Input'
 
 const ValueContainer = props => {
-  if (!props.selectProps.isMulti) {
+  const {selectProps, children} = props
+  const {isMulti, hasAdvancedSearch, isDisabled} = selectProps
+
+  const showInputAlwaysOnTop = isMulti && hasAdvancedSearch
+
+  if (!showInputAlwaysOnTop) {
     return <components.ValueContainer {...props} />
   }
 
-  const Input = Children.map(props.children, child => (isInput(child) ? child : null))
-  const Others = Children.map(props.children, child => (!isInput(child) ? child : null))
+  const Input = Children.map(children, child => (isInput(child) ? child : null))
+  const Others = Children.map(children, child => (!isInput(child) ? child : null))
 
   return (
     <>
-      {!props.selectProps.isDisabled && <>{Input}</>}
+      {!isDisabled && <>{Input}</>}
       <StyledMultiValueWrapper>{Others}</StyledMultiValueWrapper>
     </>
   )
