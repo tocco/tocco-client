@@ -1,7 +1,7 @@
 import _isEmpty from 'lodash/isEmpty'
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import React, {useRef} from 'react'
+import React, {useRef, useCallback} from 'react'
 
 import BoolEdit from './typeEditors/BoolEdit'
 import CodeEdit from './typeEditors/CodeEdit'
@@ -52,6 +52,12 @@ const isFlatpickrType = type => ['date', 'datetime'].includes(type)
 const TypeEditorFactory = ({type, value, options, id, events, readOnly = false}) => {
   const flatpickrBlurValue = useRef(undefined)
 
+  const onChange = events.onChange
+  const callback = useCallback(v => {
+    flatpickrBlurValue.current = v
+    onChange(v)
+  }, [onChange])
+
   if (map[type]) {
     const Component = map[type]
 
@@ -73,10 +79,7 @@ const TypeEditorFactory = ({type, value, options, id, events, readOnly = false})
       <div {..._omit(events, 'onChange')} data-cy="form-field">
         <Component
           value={value}
-          onChange={v => {
-            flatpickrBlurValue.current = v
-            events.onChange(v)
-          }}
+          onChange={callback}
           {...(_isEmpty(options) ? {} : {options})}
           id={id}
           immutable={readOnly}
