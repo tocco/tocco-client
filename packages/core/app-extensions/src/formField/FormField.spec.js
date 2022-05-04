@@ -1,0 +1,43 @@
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+import {intlEnzyme} from 'tocco-test-util'
+import {EditableValue, StatedValue} from 'tocco-ui'
+
+import FormField from './FormField'
+
+describe('app-extensions', () => {
+  describe('formField', () => {
+    describe('FormField', () => {
+      test('should return a StatedValue with correct EditableValue', () => {
+        const formDefinitionField = {
+          name: 'firstname',
+          dataType: 'string',
+          readonly: false,
+          children: [],
+          label: 'Vorname'
+        }
+        const formFieldData = {
+          formDefinitionField
+        }
+        const store = createStore(() => ({
+          formData: {
+            relationEntities: {data: {}},
+            tooltips: {data: {}}
+          },
+          form: {
+            detailForm: {}
+          }
+        }))
+
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <FormField fieldMappingType="editable" data={formFieldData} />
+          </Provider>
+        )
+
+        expect(wrapper.find(StatedValue)).to.have.length(1)
+        expect(wrapper.find(EditableValue)).to.have.length(1)
+      })
+    })
+  })
+})

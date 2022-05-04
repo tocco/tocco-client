@@ -1,12 +1,12 @@
 import {consoleLogger} from 'tocco-util'
 
-import mappings from './mappings'
+import fieldFactoryMappings from './fieldFactoryMappings'
 
-export default (mappingType, type) => {
-  if (!mappings[mappingType] || !mappings[mappingType][type]) {
-    consoleLogger.log(`Unable to display field: unknown mapping type combination (${mappingType} / ${type})`)
+export default (mappingType, dataType) => {
+  if (!fieldFactoryMappings[mappingType] || !fieldFactoryMappings[mappingType][dataType]) {
+    consoleLogger.log(`Unable to display field: unknown mapping type combination (${mappingType} / ${dataType})`)
     return () => <span />
   }
 
-  return mappings[mappingType][type]
+  return fieldFactoryMappings[mappingType][dataType]
 }
