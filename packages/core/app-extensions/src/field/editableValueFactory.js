@@ -1,32 +1,32 @@
 import PropTypes from 'prop-types'
 import {EditableValue, Range} from 'tocco-ui'
 
-import editableTypeConfigs from './editableTypeConfigs'
+import editableComponentConfigs from './editableComponentConfigs'
 
-const getEvents = (typeConfig, formField, formName, formData, events) =>
-  typeConfig && typeConfig.getEvents ? typeConfig.getEvents({formField, formName, formData, events}) : events
+const getOptions = (componentConfig, formField, formName, formData) =>
+  componentConfig?.getOptions ? componentConfig.getOptions({formField, formName, formData}) : {}
 
-const getValue = (typeConfig, formField, formName, formData, currentValue) =>
-  typeConfig && typeConfig.getValue ? typeConfig.getValue({formField, formName, formData, currentValue}) : currentValue
+const getValue = (componentConfig, formField, formName, formData, value) =>
+  componentConfig?.getValue ? componentConfig.getValue({formField, formName, formData, value}) : value
 
-const getOptions = (typeConfig, formField, formName, formData) =>
-  typeConfig && typeConfig.getOptions ? typeConfig.getOptions({formField, formName, formData}) : {}
+const getEvents = (componentConfig, formField, formName, formData, events) =>
+  componentConfig?.getEvents ? componentConfig.getEvents({formField, formName, formData, events}) : events
 
-const EditableValueFactory = ({type, range, formField, formName, value, info, events, formData}) => {
-  const formType = formField.dataType || formField.componentType
-  const typeConfig = editableTypeConfigs[type] || editableTypeConfigs[formType]
-  const options = getOptions(typeConfig, formField, formName, formData)
+const EditableValueProvider = ({componentType, range, formField, formName, value, info, events, formData}) => {
+  const dataType = formField.dataType || formField.componentType
 
-  events = getEvents(typeConfig, formField, formName, formData, events)
-  value = getValue(typeConfig, formField, formName, formData, value)
+  const componentConfig = editableComponentConfigs[componentType] || editableComponentConfigs[dataType]
+  const options = getOptions(componentConfig, formField, formName, formData)
+  const actualValue = getValue(componentConfig, formField, formName, formData, value)
+  const actualEvents = getEvents(componentConfig, formField, formName, formData, events)
 
   const Component = range ? Range : EditableValue
 
   return (
     <Component
-      type={type}
-      events={events}
-      value={value}
+      type={componentType}
+      events={actualEvents}
+      value={actualValue}
       {...info}
       options={options}
       {...(range && {
@@ -37,8 +37,8 @@ const EditableValueFactory = ({type, range, formField, formName, value, info, ev
   )
 }
 
-EditableValueFactory.propTypes = {
-  type: PropTypes.string,
+EditableValueProvider.propTypes = {
+  componentType: PropTypes.string,
   range: PropTypes.bool,
   formName: PropTypes.string,
   formField: PropTypes.shape({
@@ -51,4 +51,7 @@ EditableValueFactory.propTypes = {
   formData: PropTypes.object
 }
 
-export default (type, range) => props => <EditableValueFactory type={type} range={range} {...props} />
+const editableValueFactory = (componentType, range) => props =>
+  <EditableValueProvider componentType={componentType} range={range} {...props} />
+
+export default editableValueFactory

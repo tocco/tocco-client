@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types'
 
-import provider, {map as typeMap} from './typeFormatterProvider'
+import FormatterProvider, {map as typeMap} from './FormatterProvider'
 
 /**
  *  FormattedValue component to format values with given type.
  */
-const FormattedValue = props => {
+const FormattedValue = ({type: componentType, value, options, breakWords}) => {
   const isNotDefined = value => value === undefined || value === null || value === ''
 
-  if (isNotDefined(props.value)) {
+  if (isNotDefined(value)) {
     return <span />
   }
 
-  return provider(props.type, props.value, props.options, props.breakWords)
+  return <FormatterProvider componentType={componentType} value={value} options={options} breakWords={breakWords} />
 }
 
 FormattedValue.propTypes = {
   /**
-   * Type of value. E.g. Phone
+   * Type of component. (e.g. phone or single-select)
    */
   type: PropTypes.oneOf(Object.keys(typeMap)).isRequired,
   /**
