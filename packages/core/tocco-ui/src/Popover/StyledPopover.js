@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
+import {StyledHtmlFormatter} from '../FormattedValue/formatters/HtmlFormatter'
 import {declareTypograhpy} from '../Typography'
 import {scale, theme} from '../utilStyles'
 

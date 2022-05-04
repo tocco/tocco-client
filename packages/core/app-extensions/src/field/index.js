@@ -1,5 +1,5 @@
-import editableTypeConfigs, {editableModeMappings} from './editableTypeConfigs'
+import editableComponentConfigs, {editableModeMappings} from './editableComponentConfigs'
 import factory from './fieldFactory'
-import formattedTypeConfigs from './formattedTypeConfigs'
+import formattedComponentConfigs from './formattedComponentConfigs'
 
-export default {factory, editableTypeConfigs, editableModeMappings, formattedTypeConfigs}
+export default {factory, editableComponentConfigs, editableModeMappings, formattedComponentConfigs}

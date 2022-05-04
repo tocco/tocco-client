@@ -1,9 +1,10 @@
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
+import {formField} from 'tocco-app-extensions'
 import {intlEnzyme, IntlStub} from 'tocco-test-util'
 import {FormattedValue} from 'tocco-ui'
 
-import fieldFactory, {MultiSeparator} from './fieldFactory'
+import fieldFactory from './fieldFactory'
 
 describe('entity-list', () => {
   describe('util', () => {
@@ -73,7 +74,7 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(FormattedValue)).to.have.length(2)
-        expect(wrapper.find(MultiSeparator)).to.have.length(1)
+        expect(wrapper.find(formField.MultipleFieldsSeparator)).to.have.length(1)
       })
 
       test('should handle empty array as value', () => {
@@ -91,7 +92,7 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(FormattedValue)).to.have.length(0)
-        expect(wrapper.find(MultiSeparator)).to.have.length(0)
+        expect(wrapper.find(formField.MultipleFieldsSeparator)).to.have.length(0)
       })
 
       test('should not return separator with only one value', () => {
@@ -109,7 +110,7 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(FormattedValue)).to.have.length(1)
-        expect(wrapper.find(MultiSeparator)).to.have.length(0)
+        expect(wrapper.find(formField.MultipleFieldsSeparator)).to.have.length(0)
       })
     })
   })
