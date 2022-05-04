@@ -133,6 +133,9 @@ export const reactSelectStyles = outerTheme => {
     fontWeight: outerTheme.fontWeights.regular,
     lineHeight: outerTheme.lineHeights.regular
   }
+
+  const showInputAlwaysOnTop = state => state.isMulti && state.selectProps.hasAdvancedSearch
+
   return {
     container: (base, state) => ({
       ...base,
@@ -147,7 +150,7 @@ export const reactSelectStyles = outerTheme => {
       minHeight: 0,
       flexWrap: 'nowrap',
       position: 'relative',
-      display: state.isMulti ? 'block' : base.display
+      display: showInputAlwaysOnTop(state) ? 'block' : base.display
     }),
     noOptionsMessage: (base, state) => ({
       ...base,
@@ -193,7 +196,7 @@ export const reactSelectStyles = outerTheme => {
       return {
         ...base,
         minHeight: '2.6rem',
-        width: `calc(100% - ${indicatorWidth}px)`,
+        ...(showInputAlwaysOnTop(state) ? {width: `calc(100% - ${indicatorWidth}px)`} : {}),
         overflow: 'hidden'
       }
     },
@@ -213,9 +216,7 @@ export const reactSelectStyles = outerTheme => {
       borderRadius: 0,
       margin: `${space1} ${space2} 0 0`,
       justifyContent: 'space-between',
-      ...(state.isMulti && state.selectProps.hasAdvancedSearch && !state.isDisabled
-        ? {width: '100%', maxWidth: '300px'}
-        : {})
+      ...(showInputAlwaysOnTop(state) && !state.isDisabled ? {width: '100%', maxWidth: '300px'} : {})
     }),
     multiValueLabel: (base, state) => ({
       ...base,
