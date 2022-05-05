@@ -1,3 +1,6 @@
+0.1.12
+- support selectors in forms
+
 0.1.11
 - debouncer accepts value changes from outside
 

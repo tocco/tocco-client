@@ -1,3 +1,7 @@
+1.0.45
+- support selectors in forms
+- show empty fields that are children of selectors
+
 1.0.44
 - dependency updates
 
