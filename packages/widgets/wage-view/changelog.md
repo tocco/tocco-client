@@ -1,3 +1,7 @@
+0.1.5
+- support selectors in forms
+- show empty fields that are children of selectors
+
 0.1.4
 - remove floating labels in favour of fixed labels
 

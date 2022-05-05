@@ -1,3 +1,8 @@
+0.1.9
+- remove "choose document" option for image upload
+- support selectors in forms
+- show empty fields that are children of selectors
+
 0.1.8
 - remove floating labels in favour of fixed labels
 
