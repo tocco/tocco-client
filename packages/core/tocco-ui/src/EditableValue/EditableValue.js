@@ -1,21 +1,20 @@
-import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
 
-import EditorProvider, {map as typeEditorFactoryMap} from './EditorProvider'
 import StyledEditableValue from './StyledEditableValue'
+import TypeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
 
 /**
  *  To edit values of given type.
  */
 const EditableValue = props => (
   <StyledEditableValue>
-    <EditorProvider componentType={props.type} {..._omit(props, 'type')} />
+    <TypeEditorFactory {...props} />
   </StyledEditableValue>
 )
 
 EditableValue.propTypes = {
   /**
-   * Type of component. (e.g. phone or single-select)
+   * Type of value. e.g. 'string'
    */
   type: PropTypes.oneOf(Object.keys(typeEditorFactoryMap)).isRequired,
   /**
