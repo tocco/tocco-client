@@ -48,8 +48,8 @@ const fieldFactory = (fieldDefinition, entity, intl) => {
       ? componentConfig.dataContainerProps({formField: fieldDefinition})
       : {}
 
-  const formDataContainer = formField.enhanceMultipleFieldsWithSeparators(
-    values.map((v, idx) => (
+  const formDataContainer = values
+    .map((v, idx) => (
       <formData.FormDataContainer
         key={`formDataContainer-${entity.__key}-${path}-${idx}`}
         {...dataContainerProps}
@@ -58,7 +58,14 @@ const fieldFactory = (fieldDefinition, entity, intl) => {
         <FieldProvider type={dataType} value={v} intl={intl} formField={fieldDefinition} />
       </formData.FormDataContainer>
     ))
-  )
+    .reduce(
+      (acc, curr, idx) => [
+        ...acc,
+        ...(acc.length > 0 ? [<formField.MultipleFieldsSeparator key={`sep${idx}`} />] : []),
+        curr
+      ],
+      []
+    )
 
   return <StyledSpan key={id}>{formDataContainer}</StyledSpan>
 }
