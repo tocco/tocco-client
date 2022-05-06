@@ -35,6 +35,12 @@ export const StyledTether = styled(TetherComponent)`
   }
 `
 
+export const StyledNonTether = styled.div`
+  position: absolute;
+  padding-bottom: ${scale.space(-0.5)};
+  z-index: 2; // higher than StyledTether and StyledIndicatorsContainerWrapper
+`
+
 export const StyledMenu = styled(components.Menu)`
   && {
     margin: 8px 0 8px -10px;
