@@ -52,11 +52,16 @@ const isFlatpickrType = type => ['date', 'datetime'].includes(type)
 const TypeEditorFactory = ({type, value, options, id, events, readOnly = false}) => {
   const flatpickrBlurValue = useRef(undefined)
 
-  const onChange = events.onChange
-  const callback = useCallback(v => {
-    flatpickrBlurValue.current = v
-    onChange(v)
-  }, [onChange])
+  const onChange = events?.onChange
+  const callback = useCallback(
+    v => {
+      flatpickrBlurValue.current = v
+      if (onChange) {
+        onChange(v)
+      }
+    },
+    [onChange]
+  )
 
   if (map[type]) {
     const Component = map[type]
