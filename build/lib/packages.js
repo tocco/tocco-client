@@ -27,6 +27,11 @@ export function getAllPackages() {
   }, [])
 }
 
+export function getAllPackagesInDirectory(directory) {
+  const path = paths.client('packages')
+  return getAllDirectories(`${path}/${directory}`)
+}
+
 export function getPackageDirectory(packageName) {
   const path = paths.client('packages')
   const rootDirs = getAllDirectories(path)
