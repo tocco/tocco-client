@@ -4,4 +4,5 @@ module.exports = function (plop) {
   plop.setGenerator('Action', require('./plop/generators/action').default)
   plop.setGenerator('Package', require('./plop/generators/package').default)
   plop.setGenerator('Env', require('./plop/generators/env').default)
+  plop.setGenerator('Bundle app', require('./plop/generators/bundle-app').default)
 }

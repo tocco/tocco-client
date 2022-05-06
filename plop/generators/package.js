@@ -10,7 +10,7 @@ export default {
     {
       type: 'input',
       name: 'folder',
-      message: 'Folder (widgets, actions, apps, core)',
+      message: 'Folder (widgets, actions, apps, core, bundles)',
       validate: value => (value ? true : 'folder name is required')
     }
   ],
