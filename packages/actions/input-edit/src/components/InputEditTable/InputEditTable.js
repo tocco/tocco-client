@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import {useEffect, useState} from 'react'
 import {field} from 'tocco-app-extensions'
 import {Table, EditableValue, FormattedValue} from 'tocco-ui'
-import {api} from 'tocco-util'
+import {api, env} from 'tocco-util'
 
 import {arrowKeyHandler} from './keyHandler'
 import {StyledCell, StyledTableWrapper} from './StyledComponents'
@@ -93,15 +93,22 @@ const InputEditTable = ({
 
   const onColumnPositionChange = (dragColumn, dropColumn) => {
     setColumnPosition(
-      columns.reduce((acc, c) => {
-        return [...acc, ...(c.id === dropColumn ? [c.id, dragColumn] : []), ...(c.id === dragColumn ? [] : [c.id])]
-      }, [])
+      columns.reduce(
+        (acc, c) => [
+          ...acc,
+          ...(c.id === dropColumn ? [c.id, dragColumn] : []),
+          ...(c.id === dragColumn ? [] : [c.id])
+        ],
+        []
+      )
     )
   }
 
   if (columns.length === 0) {
     return null
   }
+
+  const embedType = env.getEmbedType()
 
   return (
     <StyledTableWrapper onKeyDown={arrowKeyHandler}>
@@ -117,6 +124,7 @@ const InputEditTable = ({
           totalCount
         }}
         onPageChange={setCurrentPage}
+        scrollBehaviour={embedType === 'widget' ? 'none' : 'inline'}
       />
     </StyledTableWrapper>
   )
