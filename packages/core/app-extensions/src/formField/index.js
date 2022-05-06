@@ -1,5 +1,3 @@
-import FormField from './FormField'
-import MultipleFieldsSeparator from './MultipleFieldsSeparator'
-import {isMultipleFields} from './utils'
+import {formFieldFactory} from './formField'
 
-export default {FormField, MultipleFieldsSeparator, isMultipleFields}
+export default {formFieldFactory}

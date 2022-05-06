@@ -2,7 +2,7 @@
 
 import {storybookHtmlMarkup} from '../util/storybookHtmlMarkup'
 import FormattedValue from './'
-import {map} from './FormatterProvider'
+import {map} from './typeFormatterProvider'
 export default {
   title: 'Tocco-UI/FormattedValue',
   component: FormattedValue,
