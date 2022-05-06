@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import {useMemo} from 'react'
 
 import field from '../field'
-import {isMultipleFields, enhanceMultipleFieldsWithSeparators} from './utils'
+import MultipleFieldsSeparator from './MultipleFieldsSeparator'
+import {isMultipleFields} from './utils'
 
 const FieldProvider = ({fieldMappingType, formName, formField, value, info, events, formData}) => {
   const dataType = formField.dataType || formField.componentType
@@ -10,8 +11,8 @@ const FieldProvider = ({fieldMappingType, formName, formField, value, info, even
   const Field = useMemo(() => field.factory(fieldMappingType, dataType), [fieldMappingType, dataType])
 
   if (isMultipleFields(value, formField.dataType)) {
-    return enhanceMultipleFieldsWithSeparators(
-      value.map((v, idx) => (
+    return value
+      .map((v, idx) => (
         <Field
           formField={formField}
           formName={formName}
@@ -22,7 +23,7 @@ const FieldProvider = ({fieldMappingType, formName, formField, value, info, even
           key={'valueField-' + formField.id + idx}
         />
       ))
-    )
+      .reduce((prev, curr, idx) => [prev, <MultipleFieldsSeparator key={`sep${idx}`} />, curr])
   }
 
   return (
