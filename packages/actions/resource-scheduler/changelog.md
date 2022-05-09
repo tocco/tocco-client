@@ -1,3 +1,6 @@
+1.0.24
+- fixate menu on multiremote select fields at bottom to improve ux
+
 1.0.23
 - support selectors in forms
 - show empty fields that are children of selectors

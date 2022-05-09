@@ -1,3 +1,6 @@
+0.1.10
+- fixate menu on multiremote select fields at bottom to improve ux
+
 0.1.9
 - remove "choose document" option for image upload
 - support selectors in forms
