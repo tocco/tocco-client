@@ -1,3 +1,7 @@
+0.1.6-hotfix32.2
+- support browser plugins for phone numbers
+- fixate menu on multiremote select fields at bottom to improve ux
+
 0.1.6-hotfix32.1
 - remove "choose document" option for image upload
 
