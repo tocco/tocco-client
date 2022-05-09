@@ -27,6 +27,7 @@ export const DEFINE_SORTING = 'list/DEFINE_SORTING'
 export const SET_INPUT_TQL = 'list/SET_INPUT_TQL'
 export const SET_INPUT_KEYS = 'list/SET_INPUT_KEYS'
 export const SET_INPUT_SEARCH_FILTERS = 'list/SET_INPUT_SEARCH_FILTERS'
+export const SET_CONSTRICTION = 'list/SET_CONSTRICTION'
 export const SET_INPUT_CONSTRICTION = 'list/SET_INPUT_CONSTRICTION'
 export const SET_INITIALIZED = 'list/SET_INITIALIZED'
 export const SET_SORTABLE = 'list/SET_SORTABLE'
@@ -220,6 +221,13 @@ export const setInputSearchFilters = inputSearchFilters => ({
   type: SET_INPUT_SEARCH_FILTERS,
   payload: {
     inputSearchFilters
+  }
+})
+
+export const setConstriction = constriction => ({
+  type: SET_CONSTRICTION,
+  payload: {
+    constriction
   }
 })
 
