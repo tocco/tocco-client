@@ -12,6 +12,7 @@ import {
   getFields,
   getFormDefinition,
   getSearchEndpoint,
+  getConstriction,
   getSorting,
   splitFormId
 } from '../../util/api/forms'
@@ -67,7 +68,7 @@ export function* initialize() {
 export function* queryChanged() {
   const query = yield call(getBasicQuery)
   yield put(selectionActions.setQuery(query))
-  yield put(externalEvents.fireExternalEvent('onSearchChange', {query: query}))
+  yield put(externalEvents.fireExternalEvent('onSearchChange', {query}))
 }
 
 export function* loadData(page) {
@@ -386,6 +387,8 @@ export function* loadFormDefinition(formName, scope, actionCreator) {
   const modifiedFormDefinition = modifyFormDefinition
     ? modifyFormDefinition(fetchedFormDefinition)
     : fetchedFormDefinition
+  const constriction = getConstriction(modifiedFormDefinition)
+  yield put(actions.setConstriction(constriction))
   yield put(actionCreator(modifiedFormDefinition))
 }
 
