@@ -1,3 +1,6 @@
+1.0.3-hotfix31.16
+- fix too many field callbacks being called
+
 1.0.3-hotfix31.15
 - update of the values and field widths in duration edit fixed
 
