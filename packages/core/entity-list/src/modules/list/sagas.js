@@ -12,6 +12,7 @@ import {
   getFields,
   getFormDefinition,
   getSearchEndpoint,
+  getConstriction,
   getSorting,
   splitFormId
 } from '../../util/api/forms'
@@ -386,6 +387,8 @@ export function* loadFormDefinition(formName, scope, actionCreator) {
   const modifiedFormDefinition = modifyFormDefinition
     ? modifyFormDefinition(fetchedFormDefinition)
     : fetchedFormDefinition
+  const constriction = getConstriction(modifiedFormDefinition)
+  yield put(actions.setConstriction(constriction))
   yield put(actionCreator(modifiedFormDefinition))
 }
 
