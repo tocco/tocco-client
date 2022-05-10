@@ -1,0 +1,17 @@
+{
+  "name": "tocco-widget-bundle",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "compile:prod": "cd ../../../ && npm run compile:prod -- --package=widget-bundle",
+    "prepublish": "npm run compile:prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tocco-address-update": "*",
+    "tocco-app-extensions": "*",
+    "tocco-wage-view": "*",
+    "tocco-docs-browser": "*",
+    "tocco-entity-browser": "*"
+  }
+}

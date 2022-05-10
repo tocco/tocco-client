@@ -85,3 +85,4 @@ AddressUpdateApp.propTypes = {
 }
 
 export default AddressUpdateApp
+export const app = appFactory.createBundleableApp(packageName, initApp)

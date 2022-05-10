@@ -61,3 +61,4 @@ WageViewApp.propTypes = {
 }
 
 export default WageViewApp
+export const app = appFactory.createBundleableApp(packageName, initApp)
