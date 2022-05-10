@@ -37,17 +37,29 @@ export const getDisablePreferencesMenu = formDefinition => formDefinition.disabl
 
 export const getEndpoint = formDefinition => {
   const table = getTable(formDefinition)
-  return table.endpoint || null
+  if (table) {
+    return table.endpoint || null
+  } else {
+    return null
+  }
 }
 
 export const getSearchEndpoint = formDefinition => {
   const table = getTable(formDefinition)
-  return table.searchEndpoint || null
+  if (table) {
+    return table.searchEndpoint || null
+  } else {
+    return null
+  }
 }
 
 export const getConstriction = formDefinition => {
   const table = getTable(formDefinition)
-  return table.constriction || null
+  if (table) {
+    return table.constriction || null
+  } else {
+    return null
+  }
 }
 
 const isDisplayableChild = child => !child.hidden
