@@ -63,6 +63,11 @@ export const registerAppInRegistry = (appName, initFunction) => {
   }
 }
 
+export const createBundleableApp = (name, init) => ({
+  name,
+  init
+})
+
 const dispatchActions = (actions, store) => {
   actions.forEach(action => {
     store.dispatch(action)

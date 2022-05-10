@@ -44,6 +44,8 @@ function setPackageDir() {
     packageDir="packages/widgets"
   elif [[ -d "packages/apps/${package}" ]]; then
     packageDir="packages/apps"
+  elif [[ -d "packages/bundles/${package}" ]]; then
+    packageDir="packages/bundles"
   else
     packageDir=""
   fi

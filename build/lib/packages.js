@@ -15,6 +15,8 @@ export const readFile = path => {
 export const getAllDirectories = path =>
   fs.readdirSync(path).filter(file => fs.statSync(path + '/' + file).isDirectory())
 
+export const getAllFiles = path => fs.readdirSync(path).filter(file => fs.statSync(path + '/' + file).isFile())
+
 export function getAllPackages() {
   const path = paths.client('packages')
 
