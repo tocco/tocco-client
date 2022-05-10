@@ -1,3 +1,6 @@
+1.0.17-hotfix32.2
+- fix too many field callbacks being called
+
 1.0.17-hotfix32.1
 - support browser plugins for phone numbers
 - fixate menu on multiremote select fields at bottom to improve ux
