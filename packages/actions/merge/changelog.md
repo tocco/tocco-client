@@ -1,3 +1,7 @@
+1.0.23
+- support browser plugins for phone numbers
+- fix too many field callbacks being called
+
 1.0.22
 - fixate menu on multiremote select fields at bottom to improve ux
 
