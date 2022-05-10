@@ -2,7 +2,7 @@ import consoleLogger from '../consoleLogger'
 
 export const NULL_BUSINESS_UNIT = '__n-u-l-l__'
 
-export const ALLOWED_EMBED_TYPES = ['admin', 'widget']
+export const ALLOWED_EMBED_TYPES = ['admin', 'widget', 'legacy-widget']
 
 const env = {
   backendUrl: undefined,
