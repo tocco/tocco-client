@@ -209,24 +209,24 @@ describe('app-extensions', () => {
         test('should handle multi paths correclty', () => {
           const values = {
             relGender: {key: '2', version: 3, model: 'Gender'},
-            'relGender.relXy': {key: '33', version: 4},
-            'relGender.relXy.Z': 'TEST',
-            'relGender.relXy.Y': 'TEST'
+            'relGender--relXy': {key: '33', version: 4},
+            'relGender--relXy--Z': 'TEST',
+            'relGender--relXy--Y': 'TEST'
           }
 
           const initialValues = {
             relGender: {key: '2', version: 3, model: 'Gender'},
-            'relGender.relXy': {key: '33', version: 4},
-            'relGender.relXy.Z': '', // changed
-            'relGender.relXy.Y': 'TEST'
+            'relGender--relXy': {key: '33', version: 4},
+            'relGender--relXy--Z': '', // changed
+            'relGender--relXy--Y': 'TEST'
           }
 
           const drityFormValues = reduxForm.getDirtyFormValues(initialValues, values)
 
           expect(drityFormValues).to.deep.eql({
             relGender: {key: '2', version: 3, model: 'Gender'},
-            'relGender.relXy': {key: '33', version: 4},
-            'relGender.relXy.Z': 'TEST'
+            'relGender--relXy': {key: '33', version: 4},
+            'relGender--relXy--Z': 'TEST'
           })
         })
       })
