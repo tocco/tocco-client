@@ -15,10 +15,9 @@ export function* loadSearchFilters({payload}) {
   const searchFilter = yield select(searchFiltersSelector)
 
   if (!searchFilter[entity]) {
-    const searchFilterResponse = yield call(
-      rest.requestSaga,
-      `client/searchfilters/${entity}${group ? `?group=${group}` : ''}`
-    )
+    const searchFilterResponse = yield call(rest.requestSaga, `client/searchfilters/${entity}`, {
+      ...(group ? {queryParams: {group}} : {})
+    })
     const searchFilters = yield call(searchFilterResponseTransformer, searchFilterResponse)
 
     yield put(actions.setSearchFilter(entity, searchFilters))
