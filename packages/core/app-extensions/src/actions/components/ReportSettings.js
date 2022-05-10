@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {useState, useMemo, useRef} from 'react'
+import {useState, useMemo} from 'react'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {Button} from 'tocco-ui'
 
@@ -13,25 +13,23 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
     valid: false,
     customSettingsValid: !customSettingsDefined
   })
-  const settingsRef = useRef()
-  settingsRef.current = settings // workaround to read current state in static callbacks (because of memo hook)
 
   const SimpleFormContainer = useMemo(() => simpleFormConnector(formApp), [formApp])
 
   const handleSettingsChange = ({values, valid}) => {
-    setSettings({
-      ...settingsRef.current,
+    setSettings(s => ({
+      ...s,
       values,
       valid
-    })
+    }))
   }
 
   const handleCustomSettingsChange = ({values, valid}) => {
-    setSettings({
-      ...settingsRef.current,
+    setSettings(s => ({
+      ...s,
       customSettings: values,
       customSettingsValid: valid
-    })
+    }))
   }
 
   const handleButtonClick = () => {
