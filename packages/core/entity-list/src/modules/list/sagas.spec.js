@@ -521,7 +521,7 @@ describe('entity-list', () => {
 
         describe('loadFormDefinition saga', () => {
           test('should load form definition', () => {
-            const fetchedFormDefinition = {}
+            const fetchedFormDefinition = {children: []}
             const formName = 'User'
             const scope = 'list'
             const actionCreator = actions.setFormDefinition
