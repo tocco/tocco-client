@@ -149,7 +149,7 @@ export const getDirtyFormValues = (initialValues, values, isCreate) => {
   return Object.keys(values).reduce((obj, key) => {
     const includedKey =
       Object.values(api.metaFields).includes(key) ||
-      dirtyPaths.some(dirtyPath => dirtyPath === key || dirtyPath.startsWith(key + '.'))
+      dirtyPaths.some(dirtyPath => dirtyPath === key || dirtyPath.startsWith(`${key}--`))
 
     return includedKey
       ? {
