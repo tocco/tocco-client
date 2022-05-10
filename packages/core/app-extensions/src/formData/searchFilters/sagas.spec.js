@@ -48,7 +48,7 @@ describe('app-extensions', () => {
                 [matchers.call.fn(rest.requestSaga), filtersResponse],
                 [matchers.call.fn(searchFilterResponseTransformer), searchFilters]
               ])
-              .call(requestSaga, 'client/searchfilters/User')
+              .call(requestSaga, 'client/searchfilters/User', {})
               .put(actions.setSearchFilter(args.payload.entity, searchFilters))
               .run()
           })
@@ -81,7 +81,7 @@ describe('app-extensions', () => {
                 [matchers.call.fn(rest.requestSaga), filtersResponse],
                 [matchers.call.fn(searchFilterResponseTransformer), searchFilters]
               ])
-              .call(requestSaga, 'client/searchfilters/User?group=group')
+              .call(requestSaga, 'client/searchfilters/User', {queryParams: {group: 'group'}})
               .put(actions.setSearchFilter(args.payload.entity, searchFilters))
               .run()
           })
