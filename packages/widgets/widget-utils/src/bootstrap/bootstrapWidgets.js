@@ -37,7 +37,8 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
     const {appName, packageName, locale, config} = widgetConfig
 
     try {
-      await loadScriptAsync(`${assetUrl}/js/tocco-${packageName}/dist/index.js`)
+      const entryFilename = packageName !== appName ? appName : 'index'
+      await loadScriptAsync(`${assetUrl}/js/tocco-${packageName}/dist/${entryFilename}.js`)
     } catch (error) {
       remoteLogger.logException(backendUrl, `Could not fetch package 'tocco-${packageName}'.`, error)
       return
