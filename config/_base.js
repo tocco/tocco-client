@@ -23,6 +23,7 @@ config.globals = {
   __BACKEND_URL__: JSON.stringify(argv.backend) || JSON.stringify(process.env.BACKEND),
   __PACKAGE__: argv.package,
   __PACKAGE_NAME__: JSON.stringify(argv.package),
+  __APP__: argv.app,
   __NO_MOCK__: !!(process.env.BACKEND || argv.backend || argv.noMock)
 }
 

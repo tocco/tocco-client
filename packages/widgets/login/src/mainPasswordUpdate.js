@@ -1,15 +1,14 @@
 import {appFactory} from 'tocco-app-extensions'
 import {reducer as reducerUtil} from 'tocco-util'
 
-import {initLoginApp, LoginApp} from './LoginApp'
 import {initPasswordUpdateApp, PasswordUpdateApp} from './PasswordUpdateApp'
 
 const packageName = 'login'
+const appName = 'password-update'
 
 ;(() => {
   if (__PACKAGE_NAME__ === packageName) {
-    appFactory.registerAppInRegistry(packageName, initLoginApp)
-    appFactory.registerAppInRegistry('password-update', initPasswordUpdateApp)
+    appFactory.registerAppInRegistry(appName, initPasswordUpdateApp)
 
     if (__DEV__) {
       if (!__NO_MOCK__) {
@@ -19,7 +18,7 @@ const packageName = 'login'
         setupFetchMocks(packageName, fetchMock)
       }
 
-      const app = initLoginApp('id', require('./dev/login_input.json'))
+      const app = initPasswordUpdateApp('id', require('./dev/password_update_input.json'))
 
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
@@ -33,5 +32,4 @@ const packageName = 'login'
   }
 })()
 
-export {PasswordUpdateApp}
-export default LoginApp
+export default PasswordUpdateApp
