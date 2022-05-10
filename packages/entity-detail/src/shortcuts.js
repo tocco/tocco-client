@@ -5,6 +5,7 @@ export default [
     ctrl: true,
     alt: true,
     code: 'KeyS',
-    actions: [submitForm()]
+    actions: [submitForm()],
+    global: true
   }
 ]
