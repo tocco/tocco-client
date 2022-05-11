@@ -1,3 +1,6 @@
+0.1.11-hotfix32.1
+- add legacy-widget embedType
+
 0.1.11
 - debouncer accepts value changes from outside
 
