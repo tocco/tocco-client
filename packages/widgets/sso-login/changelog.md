@@ -1,3 +1,6 @@
+1.0.17-hotfix32.4
+
+
 1.0.17-hotfix32.3
 - add legacy-widget embedType
 - show input on top only for remote multi selects
