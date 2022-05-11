@@ -1,3 +1,6 @@
+1.0.14-hotfix31.23
+- fix searchfilters url with query params
+
 1.0.14-hotfix31.22
 - fix too many field callbacks being called
 
