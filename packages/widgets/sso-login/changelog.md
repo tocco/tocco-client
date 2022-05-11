@@ -1,3 +1,8 @@
+1.0.23
+- add legacy-widget embedType
+- show input on top only for remote multi selects
+- fix broken disable styles on empty selects
+
 1.0.22
 - support browser plugins for phone numbers
 - fix too many field callbacks being called

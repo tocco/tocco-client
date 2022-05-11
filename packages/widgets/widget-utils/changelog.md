@@ -1,3 +1,6 @@
+0.1.13
+- add legacy-widget embedType
+
 0.1.12
 - support selectors in forms
 
