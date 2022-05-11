@@ -71,7 +71,8 @@ describe('tocco-ui', () => {
           const wrapper = mount(<IntegerEdit value={10} options={{minValue: 10}} onChange={spy} />)
 
           wrapper.find('input').simulate('change', {target: {value: '9', focus: () => {}}})
-          expect(wrapper.html()).to.contains('10')
+          // value still needs to be accepted into the field, otherwise min values > 10 block any single key input
+          expect(wrapper.html()).to.contains('9')
 
           setTimeout(() => {
             expect(spy).to.not.have.been.called
