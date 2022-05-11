@@ -1,3 +1,9 @@
+1.0.17-hotfix32.3
+- add legacy-widget embedType
+- show input on top only for remote multi selects
+- fix broken disable styles on empty selects
+- fix searchfilters url with query params
+
 1.0.17-hotfix32.2
 - fix too many field callbacks being called
 
