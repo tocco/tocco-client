@@ -3,7 +3,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 
 import TextContent from './TextContent'
 
-const ViewContent = ({entityId, onEntityCreated, onEntityUpdated}) =>
+const ViewContent = ({entityId, onEntityCreated, onEntityUpdated, emitAction}) =>
   entityId.entityName ? (
     <EntityDetailApp
       entityName={entityId.entityName}
@@ -12,6 +12,7 @@ const ViewContent = ({entityId, onEntityCreated, onEntityUpdated}) =>
       mode={entityId.key ? 'update' : 'create'}
       onEntityCreated={onEntityCreated}
       onEntityUpdated={onEntityUpdated}
+      emitAction={emitAction}
     />
   ) : (
     <TextContent messageId="client.widget-config-edit.noConfig" />
@@ -23,7 +24,8 @@ ViewContent.propTypes = {
     key: PropTypes.string
   }),
   onEntityCreated: PropTypes.func,
-  onEntityUpdated: PropTypes.func
+  onEntityUpdated: PropTypes.func,
+  emitAction: PropTypes.func
 }
 
 export default ViewContent
