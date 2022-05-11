@@ -1,3 +1,9 @@
+1.1.24
+- don't break table on collapsed sidepanel
+- add legacy-widget embedType
+- show input on top only for remote multi selects
+- fix broken disable styles on empty selects
+
 1.1.23
 - support browser plugins for phone numbers
 - fix too many field callbacks being called
