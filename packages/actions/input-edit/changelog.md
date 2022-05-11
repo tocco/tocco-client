@@ -1,3 +1,10 @@
+1.1.18-hotfix32.3
+- don't break table on collapsed sidepanel
+- add legacy-widget embedType
+- show input on top only for remote multi selects
+- fix broken disable styles on empty selects
+- fix searchfilters url with query params
+
 1.1.18-hotfix32.2
 - fix too many field callbacks being called
 

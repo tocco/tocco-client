@@ -1,6 +1,6 @@
 {
   "name": "tocco-entity-browser",
-  "version": "1.0.24-hotfix32.2",
+  "version": "1.0.24-hotfix32.3",
   "description": "Lists entities and allows to sort and search them",
   "main": "dist/index.js",
   "scripts": {
