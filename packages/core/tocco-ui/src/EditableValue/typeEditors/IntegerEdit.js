@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import {react} from 'tocco-util'
 
 import {StyledEditableWrapper} from '../StyledEditableValue'
+import {isAllowedValue, checkValueRange} from './NumberEdit'
 import StyledNumberEdit from './StyledNumberEdit'
 
 const IntegerEdit = ({value, onChange, options, immutable, name, id, placeholder}) => {
@@ -12,15 +13,15 @@ const IntegerEdit = ({value, onChange, options, immutable, name, id, placeholder
     if (newValue === undefined) {
       newValue = null
     }
-    onChange(newValue)
+    if (checkValueRange(minValue, maxValue, floatValue)) {
+      onChange(newValue)
+    }
   }
-
-  const isAllowed = ({floatValue}) => !((maxValue && floatValue > maxValue) || (minValue && floatValue < minValue))
 
   return (
     <StyledEditableWrapper immutable={immutable}>
       <StyledNumberEdit
-        isAllowed={isAllowed}
+        isAllowed={isAllowedValue(minValue, maxValue)}
         allowNegative={true}
         decimalScale={0}
         disabled={immutable}

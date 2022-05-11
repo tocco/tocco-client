@@ -19,7 +19,7 @@ const getPreDecimalPositions = number => (number !== 0 ? Math.ceil(Math.log10(Ma
 
 const isNumber = number => number !== null && number !== undefined && !isNaN(parseFloat(number))
 
-const checkValueRange = (minValue, maxValue, value) => {
+export const checkValueRange = (minValue, maxValue, value) => {
   if (!isNumber(value)) {
     return true
   }
