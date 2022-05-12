@@ -15,6 +15,7 @@ const FieldProvider = ({fieldMappingType, formName, formField, value, info, even
         <Field
           formField={formField}
           formName={formName}
+          mappingType={fieldMappingType}
           value={v}
           info={info}
           events={events}
@@ -26,7 +27,15 @@ const FieldProvider = ({fieldMappingType, formName, formField, value, info, even
   }
 
   return (
-    <Field formField={formField} formName={formName} value={value} info={info} events={events} formData={formData} />
+    <Field
+      formField={formField}
+      formName={formName}
+      mappingType={fieldMappingType}
+      value={value}
+      info={info}
+      events={events}
+      formData={formData}
+    />
   )
 }
 
