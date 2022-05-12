@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
 import {Helmet} from 'react-helmet'
+import {html} from 'tocco-util'
 
 import {AdminLink as StyledLink} from '../AdminLink'
 import Icon from '../Icon'
 import Typography from '../Typography'
+import BreadcrumbSeparator from './BreadcrumbSeparator'
 import {StyledBreadcrumbs, StyledBreadcrumbsLink, StyledBreadcrumbsTitle} from './StyledBreadcrumbs'
 
 const getTitle = breadcrumbsInfo =>
@@ -32,7 +34,6 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor,
         <title>{getTitle(breadcrumbs)}</title>
       </Helmet>
       <div>
-        {' '}
         {breadcrumbs
           .map((b, idx) => {
             const display = b.display || ''
@@ -48,19 +49,12 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor,
                 >
                   {b.type === 'list' && <Icon icon="list" />}
                   {b.type === 'error' && <Icon icon="exclamation-circle" />}
-                  {display}
+                  <span dangerouslySetInnerHTML={{__html: html.sanitizeHtml(display)}} />
                 </Comp>
               </Typography.Span>
             )
           })
-          .reduce((prev, curr, idx) => [
-            prev,
-            <Typography.Span key={'icon' + idx}>
-              {' '}
-              <Icon icon="chevron-right" />{' '}
-            </Typography.Span>,
-            curr
-          ])}
+          .reduce((prev, curr, idx) => [prev, <BreadcrumbSeparator key={'icon' + idx} />, curr])}
       </div>
     </StyledBreadcrumbs>
   )

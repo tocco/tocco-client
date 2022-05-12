@@ -2,6 +2,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import {StyledSpan} from '../Typography'
 import {theme} from '../utilStyles'
 
 export const StyledBreadcrumbs = styled.div`
@@ -10,11 +11,6 @@ export const StyledBreadcrumbs = styled.div`
   padding: 0.8rem 1.7rem;
   position: relative;
   z-index: 2; // higher than StyledTether to prevent cover on scroll
-
-  span:nth-child(even) {
-    margin-left: 0.9rem;
-    margin-right: 0.9rem;
-  }
 `
 
 export const StyledBreadcrumbsLink = styled(({component, ...props}) => React.cloneElement(component, props))`
@@ -59,4 +55,9 @@ export const StyledBreadcrumbsTitle = styled.span`
   &:active * {
     color: ${theme.color('primary')};
   }
+`
+
+export const StyledBreadcrumbSeparator = styled(StyledSpan)`
+  margin-left: 0.9rem;
+  margin-right: 0.9rem;
 `
