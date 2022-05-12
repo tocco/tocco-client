@@ -1,3 +1,7 @@
+1.0.6-hotfix31.23
+- fix integer input when min value is set
+- fix state handling for report settings
+
 1.0.6-hotfix31.22
 - fix searchfilters url with query params
 
