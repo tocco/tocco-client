@@ -54,7 +54,8 @@ const readOnlyMapping = {
 
 const searchMapping = {
   ...editableMapping,
-  boolean: booleanSelect
+  boolean: booleanSelect,
+  marking: booleanSelect
 }
 
 export default {

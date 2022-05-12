@@ -83,7 +83,7 @@ const typeHandlers = type => {
     case 'boolean':
       return (path, value) => (isDefined(value) ? `${path} == ${value}` : null)
     case 'marking':
-      return (path, value) => (value === false ? null : `exists(${path})`)
+      return (path, value) => (value === false ? `not exists(${path})` : `exists(${path})`)
     default:
       return (path, value, comp) => `${path} ${comp} ${value}`
   }
