@@ -15,7 +15,7 @@ DetailLinkRelative.propTypes = {
   relation: PropTypes.string
 }
 
-const ListView = ({storeId, router, modifyFormDefinition, ...props}) => {
+const ListView = ({storeId, router, modifyFormDefinition, disableDetailView, ...props}) => {
   const navigateToCreate = ({history, match, relationName}) => {
     if (relationName) {
       history.push(`${match}/${relationName}/`)
@@ -37,14 +37,16 @@ const ListView = ({storeId, router, modifyFormDefinition, ...props}) => {
   }
 
   const handleRowClick = e => {
-    router.history.push(`/detail/${e.id}`)
+    if (!disableDetailView) {
+      router.history.push(`/detail/${e.id}`)
+    }
   }
 
   return (
     <EntityListApp
       {...props}
       onRowClick={handleRowClick}
-      showLink
+      showLink={!disableDetailView}
       navigationStrategy={{
         DetailLinkRelative,
         navigateToActionRelative: (definition, selection) => navigateToAction(router.history, definition, selection),
@@ -75,7 +77,8 @@ ListView.propTypes = {
   preselectedSearchFields: PropTypes.array,
   simpleSearchFields: PropTypes.string,
   router: PropTypes.object.isRequired,
-  modifyFormDefinition: PropTypes.func
+  modifyFormDefinition: PropTypes.func,
+  disableDetailView: PropTypes.bool
 }
 
 export default ListView

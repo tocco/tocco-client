@@ -23,6 +23,7 @@ React-registry name: `entity-browser`
 | `backendUrl`           |           | Set backend url dynamic to point to nice2 installation. If not set it fallbacks to the build time environment __BACKEND_URL__.
 | `scrollBehaviour`      |           | "none": Does not handle scroll internally and will take as much space as needed. The container / page needs to handle the scroll. "inline": Does handle scroll internally and takes the space given by the container. Containers needs to have a predefined height (Default: `none`)
 | `modifyFormDefinition` |           | Function to modify form definition
+| `disableDetailView`    |           | If true, navigation to the detail view is disabled
 
 ### Events
 
