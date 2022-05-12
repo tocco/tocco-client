@@ -15,16 +15,9 @@ import remote from './remote'
 import searchFilter from './searchFilter'
 import select from './select'
 
-export const editableModeMappings = {
-  search: {
-    boolean: booleanSelect
-  }
-}
-
-export default {
+const editableMapping = {
   binary: document,
   boolean: boolean,
-  'boolean-select': booleanSelect,
   code: code,
   counter: number,
   'data-amount': number,
@@ -49,4 +42,24 @@ export default {
   'single-select-box': select,
   sorting: number,
   percent: percent
+}
+
+const listMapping = {
+  ...editableMapping
+}
+
+const readOnlyMapping = {
+  ...editableMapping
+}
+
+const searchMapping = {
+  ...editableMapping,
+  boolean: booleanSelect
+}
+
+export default {
+  editable: editableMapping,
+  readOnly: readOnlyMapping,
+  list: listMapping,
+  search: searchMapping
 }

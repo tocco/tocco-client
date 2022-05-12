@@ -76,7 +76,7 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
     const isDisplay = displayFieldAsDisplayOnly(value, componentType, dataType, parentReadOnly)
 
     const type = formDefinitionField.dataType || formDefinitionField.componentType
-    const typeEditable = _get(field.editableModeMappings, [mode, type], field.editableTypeConfigs[type])
+    const typeEditable = field.editableTypeConfigs[fieldMappingType]?.[type]
 
     let requestedFromData
     if (typeEditable && typeEditable.dataContainerProps) {
@@ -139,6 +139,7 @@ const ValueField = ({fieldMappingType, formName, formField, value, info, events,
         <Field
           formField={formField}
           formName={formName}
+          mappingType={fieldMappingType}
           value={v}
           info={info}
           events={events}
@@ -150,7 +151,15 @@ const ValueField = ({fieldMappingType, formName, formField, value, info, events,
   }
 
   return (
-    <Field formField={formField} formName={formName} value={value} info={info} events={events} formData={formData} />
+    <Field
+      formField={formField}
+      formName={formName}
+      mappingType={fieldMappingType}
+      value={value}
+      info={info}
+      events={events}
+      formData={formData}
+    />
   )
 }
 
