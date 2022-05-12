@@ -17,6 +17,7 @@ const FieldProvider = ({value, type, formData, formField}) => {
     <LazyDataEnhancer value={value} type={type}>
       <Field
         type={type}
+        mappingType="list"
         formField={formField}
         modelField={modelField}
         value={value}
