@@ -204,7 +204,7 @@ describe('entity-list', () => {
 
           test('should handle unchecked marking field', () => {
             const tql = getTql('relMark', false, 'marking')
-            expect(tql).to.be.null
+            expect(tql).to.eql('not exists(relMark)')
           })
         })
       })
