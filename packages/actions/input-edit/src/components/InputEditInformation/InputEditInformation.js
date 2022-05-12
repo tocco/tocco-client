@@ -25,6 +25,7 @@ const InputEditInformation = ({information}) => (
                 dataType: info.type
               }}
               value={info.value}
+              mappingType="readOnly"
             />
           </StatedValue>
         </StyledStatedValueWrapper>

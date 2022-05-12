@@ -14,7 +14,7 @@ const dataCellRenderer = (fieldDefinition, data) => {
 
   return (
     <StyledCell key={path}>
-      <Field type={dataType} formField={fieldDefinition} value={value} breakWords={false} />
+      <Field type={dataType} mappingType="list" formField={fieldDefinition} value={value} breakWords={false} />
     </StyledCell>
   )
 }

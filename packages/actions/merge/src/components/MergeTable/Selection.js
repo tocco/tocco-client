@@ -136,7 +136,7 @@ export const FormattedValueRadio = React.memo(({entityData, entityKey, name, set
         disabled={!writable}
       />
       <Typography.Label for={`${name}${entityKey}`}>
-        <Field formField={{dataType: mappedType}} value={entityData.value} />
+        <Field mappingType="list" formField={{dataType: mappedType}} value={entityData.value} />
       </Typography.Label>
     </StyledLabelWrapper>
   )

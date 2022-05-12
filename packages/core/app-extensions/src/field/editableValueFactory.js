@@ -12,9 +12,10 @@ const getValue = (typeConfig, formField, formName, formData, currentValue) =>
 const getOptions = (typeConfig, formField, formName, formData) =>
   typeConfig && typeConfig.getOptions ? typeConfig.getOptions({formField, formName, formData}) : {}
 
-const EditableValueFactory = ({type, range, formField, formName, value, info, events, formData}) => {
+const EditableValueFactory = ({type, range, mappingType, formField, formName, value, info, events, formData}) => {
   const formType = formField.dataType || formField.componentType
-  const typeConfig = editableTypeConfigs[type] || editableTypeConfigs[formType]
+
+  const typeConfig = editableTypeConfigs[mappingType || 'editable']?.[formType]
   const options = getOptions(typeConfig, formField, formName, formData)
 
   events = getEvents(typeConfig, formField, formName, formData, events)
@@ -40,6 +41,7 @@ const EditableValueFactory = ({type, range, formField, formName, value, info, ev
 EditableValueFactory.propTypes = {
   type: PropTypes.string,
   range: PropTypes.bool,
+  mappingType: PropTypes.oneOf(['editable', 'search', 'readOnly', 'list']),
   formName: PropTypes.string,
   formField: PropTypes.shape({
     dataType: PropTypes.string,
