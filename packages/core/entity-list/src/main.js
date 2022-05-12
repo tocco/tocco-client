@@ -189,6 +189,7 @@ EntityListApp.propTypes = {
     id: PropTypes.string,
     value: PropTypes.string
   }),
+  showLink: PropTypes.bool,
   actionAppComponent: PropTypes.func,
   navigationStrategy: navigationStrategy.propTypes,
   contextParams: PropTypes.object,
