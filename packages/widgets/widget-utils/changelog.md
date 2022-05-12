@@ -1,3 +1,6 @@
+0.1.14
+- use different entry files per app in package
+
 0.1.13
 - add legacy-widget embedType
 

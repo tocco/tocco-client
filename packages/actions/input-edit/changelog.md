@@ -1,3 +1,8 @@
+1.1.25
+- fix searchfilters url with query params
+- add bundle packages
+- fix integer input when min value is set
+
 1.1.24
 - don't break table on collapsed sidepanel
 - add legacy-widget embedType
