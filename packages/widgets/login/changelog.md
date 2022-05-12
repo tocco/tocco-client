@@ -1,3 +1,9 @@
+1.1.24
+- fix searchfilters url with query params
+- add bundle packages
+- create multipel entry files
+- fix integer input when min value is set
+
 1.1.23
 - add legacy-widget embedType
 - show input on top only for remote multi selects
