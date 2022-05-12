@@ -24,7 +24,8 @@ const mapStateToProps = (state, props) => {
     searchFilters: state.input.searchFilters,
     preselectedSearchFields: state.input.preselectedSearchFields,
     simpleSearchFields: state.input.simpleSearchFields,
-    modifyFormDefinition: state.input.modifyFormDefinition
+    modifyFormDefinition: state.input.modifyFormDefinition,
+    disableDetailView: state.input.disableDetailView
   }
 }
 
