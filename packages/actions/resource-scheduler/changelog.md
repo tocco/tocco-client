@@ -1,3 +1,6 @@
+1.0.20-hotfix32.4
+- fix integer input when min value is set
+
 1.0.20-hotfix32.3
 - add legacy-widget embedType
 - show input on top only for remote multi selects

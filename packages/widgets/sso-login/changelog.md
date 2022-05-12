@@ -1,3 +1,6 @@
+1.0.17-hotfix32.5
+- fix integer input when min value is set
+
 1.0.17-hotfix32.4
 
 
