@@ -1,3 +1,6 @@
+1.0.0-hotfix30.25
+- fix state handling for report settings
+
 1.0.0-hotfix30.24
 - keep all values on blur
 - debouncer accepts value changes from outside
