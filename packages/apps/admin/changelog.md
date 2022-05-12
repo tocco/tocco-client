@@ -1,3 +1,7 @@
+1.0.41-hotfix32.4
+- fix integer input when min value is set
+- emit actions to parent
+
 1.0.41-hotfix32.3
 - don't break table on collapsed sidepanel
 - add legacy-widget embedType

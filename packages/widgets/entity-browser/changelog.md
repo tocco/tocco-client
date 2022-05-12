@@ -1,3 +1,6 @@
+1.0.24-hotfix32.4
+- fix integer input when min value is set
+
 1.0.24-hotfix32.3
 - don't break table on collapsed sidepanel
 - add legacy-widget embedType
