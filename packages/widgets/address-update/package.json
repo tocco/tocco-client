@@ -1,6 +1,7 @@
 {
   "name": "tocco-address-update",
   "version": "0.1.15",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {

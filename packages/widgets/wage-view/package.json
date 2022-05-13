@@ -1,6 +1,7 @@
 {
   "name": "tocco-wage-view",
   "version": "0.1.10",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {
