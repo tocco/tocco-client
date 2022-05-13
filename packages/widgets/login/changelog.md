@@ -1,3 +1,8 @@
+1.1.25
+- fix state handling for report settings
+- fix form mapping for search componentConfig
+- use boolean search component for marking
+
 1.1.24
 - fix searchfilters url with query params
 - add bundle packages
