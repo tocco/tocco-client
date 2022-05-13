@@ -1,3 +1,9 @@
+1.1.3-hotfix31.19
+- show from and to placeholders on ranges
+- add calendar plus and minus icons
+- add specific range icons for datetime
+- use distinguishable icons for ranges
+
 1.1.3-hotfix31.18
 - fix integer input when min value is set
 - fix state handling for report settings
