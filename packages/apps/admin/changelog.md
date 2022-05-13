@@ -1,3 +1,9 @@
+1.0.50
+- emit actions to parent
+- fix state handling for report settings
+- fix form mapping for search componentConfig
+- use boolean search component for marking
+
 1.0.49
 - fix searchfilters url with query params
 - add bundle packages
