@@ -1,3 +1,6 @@
+0.1.11-hotfix32.2
+- use boolean search component for marking
+
 0.1.11-hotfix32.1
 - add legacy-widget embedType
 

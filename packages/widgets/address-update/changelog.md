@@ -1,3 +1,8 @@
+0.1.6-hotfix32.6
+- fix state handling for report settings
+- fix form mapping for search componentConfig
+- use boolean search component for marking
+
 0.1.6-hotfix32.5
 - fix integer input when min value is set
 
