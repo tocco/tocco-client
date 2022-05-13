@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import {Button, Typography, SignalBox} from 'tocco-ui'
-import {navigationStrategy} from 'tocco-util'
+import {navigationStrategy as navigationStrategyPropTypes} from 'tocco-util'
 
 import {deleteInfoPropType} from '../../utils/deleteRequestParser'
 import InfoPart from '../InfoPart'
@@ -73,7 +73,7 @@ Dialog.propTypes = {
   onCancel: PropTypes.func.isRequired,
   doDelete: PropTypes.func.isRequired,
   dialogInfo: deleteInfoPropType.isRequired,
-  navigationStrategy: navigationStrategy.propTypes
+  navigationStrategy: navigationStrategyPropTypes.propTypes
 }
 
 export default Dialog

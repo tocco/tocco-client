@@ -23,8 +23,8 @@ const packageName = 'login'
 
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
-          const reducers = require('./modules/reducers').default
-          reducerUtil.hotReloadReducers(app.store, reducers)
+          const hotReducers = require('./modules/reducers').default
+          reducerUtil.hotReloadReducers(app.store, hotReducers)
         })
       }
 

@@ -44,8 +44,8 @@ const initApp = (id, input, events, publicPath) => {
 
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
-          const reducers = require('./modules/reducers').default
-          reducerUtil.hotReloadReducers(app.store, reducers)
+          const hotReducers = require('./modules/reducers').default
+          reducerUtil.hotReloadReducers(app.store, hotReducers)
         })
       }
 
@@ -55,11 +55,11 @@ const initApp = (id, input, events, publicPath) => {
 })()
 
 const ConnectPrincipalApp = props => {
-  const events = EXTERNAL_EVENTS.reduce((events, event) => {
+  const events = EXTERNAL_EVENTS.reduce((accEvents, event) => {
     if (props[event]) {
-      events[event] = props[event]
+      accEvents[event] = props[event]
     }
-    return events
+    return accEvents
   }, {})
 
   return initApp(packageName, props, events).component
