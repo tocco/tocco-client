@@ -1,0 +1,3 @@
+import ReservationLecturerBookingView from './ReservationLecturerBookingViewContainer'
+
+export default ReservationLecturerBookingView
