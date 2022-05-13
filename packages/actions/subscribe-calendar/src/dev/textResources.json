@@ -1,0 +1,7 @@
+[
+  "client.subscribe-calendar.copy",
+  "client.actions.subscribe-calendar.toasterTitle",
+  "client.actions.subscribe-calendar.copiedMessage",
+  "client.actions.subscribe-calendar.copyFailedMessage",
+  "client.actions.subscribe-calendar.noLecturerCalendar"
+]
