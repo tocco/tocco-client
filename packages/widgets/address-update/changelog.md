@@ -1,3 +1,6 @@
+0.1.15
+
+
 0.1.14
 - fix state handling for report settings
 - fix form mapping for search componentConfig
