@@ -6,8 +6,9 @@ import {LoadMask} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
 const actions = {
+  delete: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Delete')),
   'input-edit': lazy(() => import(/* webpackChunkName: "actions" */ './actions/InputEdit')),
-  delete: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Delete'))
+  'subscribe-calendar': lazy(() => import(/* webpackChunkName: "actions" */ './actions/SubscribeCalendar'))
 }
 
 const renderLoader = () => <LoadMask />
