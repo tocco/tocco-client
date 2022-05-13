@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {Typography} from 'tocco-ui'
-import {navigationStrategy} from 'tocco-util'
+import {navigationStrategy as navigationStrategyPropTypes} from 'tocco-util'
 
 const maxCountLink = 100
 
@@ -20,5 +20,5 @@ ManyRelationEntityCount.propTypes = {
   model: PropTypes.string.isRequired,
   keys: PropTypes.arrayOf(PropTypes.string),
   totalKeys: PropTypes.number.isRequired,
-  navigationStrategy: navigationStrategy.propTypes
+  navigationStrategy: navigationStrategyPropTypes.propTypes
 }

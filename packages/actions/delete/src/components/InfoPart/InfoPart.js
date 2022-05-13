@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import {Typography} from 'tocco-ui'
-import {navigationStrategy} from 'tocco-util'
+import {navigationStrategy as navigationStrategyPropTypes} from 'tocco-util'
 
 import {deleteEntityPropType} from '../../utils/deleteRequestParser'
 import LinkPopOver from './LinkPopOver'
@@ -79,7 +79,7 @@ InfoPart.propTypes = {
   ).isRequired,
   relatedEntities: PropTypes.objectOf(deleteEntityPropType).isRequired,
   maxCountLink: PropTypes.number,
-  navigationStrategy: navigationStrategy.propTypes
+  navigationStrategy: navigationStrategyPropTypes.propTypes
 }
 
 export default InfoPart

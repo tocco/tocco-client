@@ -4,7 +4,7 @@ import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {field} from 'tocco-app-extensions'
 import {FormattedValue, MultiCheckbox, Typography} from 'tocco-ui'
-import {js, navigationStrategy} from 'tocco-util'
+import {js, navigationStrategy as navigationStrategyPropTypes} from 'tocco-util'
 
 import {ManyRelationEntityCount} from '../../util/manyRelationEntityCount'
 import {StyledLabelWrapper} from './StyledComponents'
@@ -52,7 +52,7 @@ ManyRelationsCheckBox.propTypes = {
   name: PropTypes.string.isRequired,
   setSelectedMultipleAll: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
-  navigationStrategy: navigationStrategy.propTypes
+  navigationStrategy: navigationStrategyPropTypes.propTypes
 }
 
 export const RelationsCheckBoxes = React.memo(

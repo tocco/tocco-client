@@ -2,7 +2,7 @@ import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
-import {navigationStrategy} from 'tocco-util'
+import {navigationStrategy as navigationStrategyPropTypes} from 'tocco-util'
 
 import {setSelectedMultiple, setSelectedMultipleAll, setSelectedSingle} from '../../modules/merge/actions'
 import {FormattedValueRadio, ManyRelationsCheckBox, RelationsCheckBoxes} from './Selection'
@@ -79,7 +79,7 @@ CellRenderer.propTypes = {
   selectedMultiple: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
   setSelectedMultipleAll: PropTypes.func.isRequired,
   selectedMultipleAll: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  navigationStrategy: navigationStrategy.propTypes
+  navigationStrategy: navigationStrategyPropTypes.propTypes
 }
 
 const mapActionCreatorsCell = {

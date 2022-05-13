@@ -2,7 +2,7 @@ import _groupBy from 'lodash/groupBy'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import {Icon, Typography} from 'tocco-ui'
-import {navigationStrategy} from 'tocco-util'
+import {navigationStrategy as navigationStrategyPropTypes} from 'tocco-util'
 
 import {ManyRelationEntityCount} from '../../util/manyRelationEntityCount'
 import {StyledButtonWrapper, StyledButton} from '../GlobalStyledComponents'
@@ -95,7 +95,7 @@ MergeSummary.propTypes = {
     notDeletedEntities: PropTypes.arrayOf(entityWarningPropType),
     showPermissionMessage: PropTypes.bool.isRequired
   }),
-  navigationStrategy: navigationStrategy.propTypes,
+  navigationStrategy: navigationStrategyPropTypes.propTypes,
   close: PropTypes.func.isRequired
 }
 
