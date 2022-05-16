@@ -1,3 +1,6 @@
+1.0.51
+- render html escape characters in breadcrumbs
+
 1.0.50
 - emit actions to parent
 - fix state handling for report settings
