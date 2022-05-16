@@ -1,3 +1,6 @@
+1.0.29
+- render html escape characters in breadcrumbs
+
 1.0.28
 - fix state handling for report settings
 - fix form mapping for search componentConfig
