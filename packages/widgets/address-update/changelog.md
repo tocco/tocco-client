@@ -1,3 +1,6 @@
+0.1.6-hotfix32.7
+- render html escape characters in breadcrumbs
+
 0.1.6-hotfix32.6
 - fix state handling for report settings
 - fix form mapping for search componentConfig
