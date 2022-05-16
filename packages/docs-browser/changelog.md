@@ -1,3 +1,6 @@
+1.0.6-hotfix31.25
+- render html escape characters in breadcrumbs
+
 1.0.6-hotfix31.24
 - show from and to placeholders on ranges
 - add calendar plus and minus icons
