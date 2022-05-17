@@ -67,11 +67,6 @@ const initApp = (id, input, events, publicPath) => {
   input = {...input, id}
 
   env.setInputEnvs(input)
-  if (input.nullBusinessUnit) {
-    env.setBusinessUnit(env.NULL_BUSINESS_UNIT)
-  } else if (input.runInBusinessUnit) {
-    env.setBusinessUnit(input.runInBusinessUnit)
-  }
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
@@ -155,8 +150,7 @@ EntityBrowserApp.propTypes = {
   searchFilters: PropTypes.arrayOf(PropTypes.string),
   simpleSearchFields: PropTypes.string,
   initialKey: PropTypes.string,
-  nullBusinessUnit: PropTypes.bool,
-  runInBusinessUnit: PropTypes.string,
+  businessUnit: PropTypes.string,
   memoryHistory: PropTypes.bool,
   backendUrl: PropTypes.string,
   scrollBehaviour: PropTypes.string,

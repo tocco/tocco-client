@@ -17,8 +17,7 @@ React-registry name: `entity-browser`
 | `searchFilters`        |           | Array of search-filter ids.
 | `simpleSearchFields`   |           | Comma separated String of searchfields which should be displayed by default.
 | `initialKey`           |           | If set, the entity browser will start on the detail page of the entity with the specified key instead of showing a list.
-| `nullBusinessUnit`     |           | If true, all REST-request have the null business unit header (X-Business-Unit: __n-u-l-l__)
-| `runInBusinessUnit`    |           | The unique id of a business unit. If present, all REST request will use this in their business unit header (X-Business-Unit). If `nullBusinessUnit` is set as well, it has precedence.
+| `businessUnit`         |           | The unique id of a business unit. If present, all REST request will use this in their business unit header (X-Business-Unit). Set input parameter to `__n-u-l-l__` if the null business unit should be used
 | `memoryHistory`        |           | If set to true in-memory history is used instead of hash history. This is useful in testing and non-DOM environments.
 | `backendUrl`           |           | Set backend url dynamic to point to nice2 installation. If not set it fallbacks to the build time environment __BACKEND_URL__.
 | `scrollBehaviour`      |           | "none": Does not handle scroll internally and will take as much space as needed. The container / page needs to handle the scroll. "inline": Does handle scroll internally and takes the space given by the container. Containers needs to have a predefined height (Default: `none`)
