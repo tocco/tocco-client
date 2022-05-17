@@ -6,7 +6,7 @@ export default {
     secondary: '#263E5B',
     secondaryLight: '#347da9',
     text: '#000',
-    backgroundBody: '#EDF1F5',
+    backgroundBody: '#DEE6ED',
     backgroundBreadcrumbs: '#DEE6ED',
     backgroundPopover: '#424242',
     signal: {
