@@ -11,7 +11,8 @@ export function* doRequest(definition, selection, parent) {
     method: 'POST',
     body: {
       selection,
-      parent
+      parent,
+      formProperties: definition.properties
     }
   })
   return response.body
