@@ -1,3 +1,6 @@
+1.0.52
+- add form properties to prepare request
+
 1.0.51
 - render html escape characters in breadcrumbs
 

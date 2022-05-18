@@ -1,3 +1,9 @@
+1.0.34
+- add disableDetailView property
+- add subscribe-calendar action
+- add subscribe-calendar action to entity-browser
+- add form properties to prepare request
+
 1.0.33
 - render html escape characters in breadcrumbs
 
