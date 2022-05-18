@@ -1,3 +1,10 @@
+0.1.2
+- add disableDetailView property
+- add reservation-lecturer-booking-view widget
+- add subscribe-calendar action to entity-browser
+- add reservation-lecturer-booking-view widget
+- add form properties to prepare request
+
 0.1.1
 - fix state handling for report settings
 - fix form mapping for search componentConfig
