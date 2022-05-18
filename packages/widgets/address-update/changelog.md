@@ -1,3 +1,6 @@
+0.1.6-hotfix32.8
+- remove floating labels in favour of fixed labels
+
 0.1.6-hotfix32.7
 - render html escape characters in breadcrumbs
 
