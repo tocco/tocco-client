@@ -1,33 +1,14 @@
 import PropTypes from 'prop-types'
 import {useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
-import styled from 'styled-components'
 
+import DashboardRoute from '../../../dashboard/components/Dashboard/DashboardContainer'
 import Action from '../../subroutes/action'
 import Entity from '../../subroutes/entity'
-import Overview from '../../subroutes/overview'
 import {currentViewPropType} from '../../utils/propTypes'
 import Breadcrumbs from '../Breadcrumbs'
 import ErrorView from '../ErrorView'
-
-const StyledWrapper = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    'breadcrumbs'
-    'content';
-  height: 100%;
-  width: 100%;
-`
-
-const StyledContent = styled.div`
-  grid-area: content;
-  overflow: hidden;
-`
-
-const StyledBreadcrumbs = styled.div`
-  grid-area: breadcrumbs;
-`
+import {StyledWrapper, StyledBreadcrumbs, StyledContent} from './StyledComponents'
 
 const EntitiesRoute = ({match, history, loadCurrentRoute, currentViewInfo}) => {
   const location = history.location
@@ -36,16 +17,15 @@ const EntitiesRoute = ({match, history, loadCurrentRoute, currentViewInfo}) => {
     loadCurrentRoute(location)
   }, [location, loadCurrentRoute])
 
-  const content =
-    currentViewInfo && currentViewInfo.error ? (
-      <ErrorView history={history} />
-    ) : (
-      <Switch>
-        <Route path={`${match.url}/action/:actionId`} component={Action} />
-        <Route path={`${match.url}/:entity`} component={Entity} />
-        <Route exact path={match.url} component={Overview} />
-      </Switch>
-    )
+  const content = currentViewInfo?.error ? (
+    <ErrorView history={history} />
+  ) : (
+    <Switch>
+      <Route path={`${match.url}/action/:actionId`} component={Action} />
+      <Route path={`${match.url}/:entity`} component={Entity} />
+      <Route exact path={match.url} component={DashboardRoute} />
+    </Switch>
+  )
 
   return (
     <StyledWrapper>
