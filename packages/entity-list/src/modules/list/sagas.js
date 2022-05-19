@@ -347,11 +347,14 @@ function* getPreferencesSorting() {
 export const FALLBACK_SORTING_FIELD = 'update_timestamp'
 export function* setSorting() {
   const {formDefinition, entityModel} = yield select(listSelector)
+  const {sorting: inputSorting} = yield select(inputSelector)
   const tableSorting = yield call(getSorting, formDefinition)
   const preferencesSorting = yield call(getPreferencesSorting)
   const activeSearchFilterHasOrderBy = yield call(hasActiveSearchFilterOrderBy)
   if (preferencesSorting && preferencesSorting.length > 0) {
     yield put(actions.setSorting(preferencesSorting))
+  } else if (inputSorting.length > 0) {
+    yield put(actions.setSorting(inputSorting))
   } else if (tableSorting.length > 0) {
     yield put(actions.setSorting(tableSorting))
   } else if (!activeSearchFilterHasOrderBy && entityModel.paths[FALLBACK_SORTING_FIELD]) {
