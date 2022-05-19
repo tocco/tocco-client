@@ -1,3 +1,6 @@
+1.0.35
+- refactor business unit input properties
+
 1.0.34
 - add disableDetailView property
 - add subscribe-calendar action

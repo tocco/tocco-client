@@ -1,3 +1,6 @@
+0.1.3
+- refactor business unit input properties
+
 0.1.2
 - add disableDetailView property
 - add reservation-lecturer-booking-view widget
