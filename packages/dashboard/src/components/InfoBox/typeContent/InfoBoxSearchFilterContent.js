@@ -28,7 +28,22 @@ DetailLinkRelativeWithoutIntl.propTypes = {
 }
 
 const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction}) => {
-  const {searchFilterUniqueId, entityName, scope, limit} = content
+  const {searchFilterUniqueId, entityName, scope, limit, sortingPath} = content
+  let sortingObjects
+
+  if (sortingPath) {
+    const sortingFields = sortingPath.split(',').map(sortingField => sortingField.trim().split(/\s+/))
+    sortingObjects = sortingFields.map(sortingField => {
+      const fieldVal = sortingField[0]
+      const orderVal = sortingField[1]
+
+      if (orderVal) {
+        return {field: fieldVal, order: orderVal}
+      }
+
+      return {field: fieldVal}
+    })
+  }
 
   const handleRowClick = ({id}) => {
     navigationStrategy.openDetail(entityName, id, false)
@@ -52,6 +67,7 @@ const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction
       emitAction={emitAction}
       navigationStrategy={{...navigationStrategy, DetailLinkRelative}}
       showLink={true}
+      sorting={sortingObjects}
     />
   </StyledInfoBoxContentWrapper>
 }
