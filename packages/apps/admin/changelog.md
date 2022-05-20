@@ -1,3 +1,6 @@
+1.0.53
+- remove static overview page and redirect to dashboard instead
+
 1.0.52
 - add form properties to prepare request
 
