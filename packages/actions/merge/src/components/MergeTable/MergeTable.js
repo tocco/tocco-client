@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {useMemo} from 'react'
+import {useCallback, useMemo} from 'react'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import {Table, Typography, LoadMask} from 'tocco-ui'
@@ -62,6 +62,8 @@ const ColumnHeaderRendererContainer = connect(
 const MergeTable = ({sourceData, mergePending, mergeErrorMsg, mergeValidationErrors, executeMerge}) => {
   const data = useMemo(() => (sourceData ? getDataRows(sourceData) : []), [sourceData])
 
+  const onSelectChange = useCallback(() => {}, [])
+
   const columns = useMemo(
     () =>
       sourceData
@@ -73,6 +75,8 @@ const MergeTable = ({sourceData, mergePending, mergeErrorMsg, mergeValidationErr
   if (mergePending) {
     return <LoadMask />
   }
+
+  const selection = []
 
   return (
     <>
@@ -93,6 +97,8 @@ const MergeTable = ({sourceData, mergePending, mergeErrorMsg, mergeValidationErr
           selectionStyle="none"
           dataLoadingInProgress={sourceData === null}
           onColumnPositionChange={() => {}}
+          onSelectionChange={onSelectChange}
+          selection={selection}
         />
       </StyledTableWrapper>
     </>

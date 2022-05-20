@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useCallback} from 'react'
 import {field} from 'tocco-app-extensions'
 import {Table, EditableValue, FormattedValue} from 'tocco-ui'
 import {api, env} from 'tocco-util'
@@ -68,6 +68,7 @@ const InputEditTable = ({
 }) => {
   const [columns, setColumns] = useState([])
   const [columnPosition, setColumnPosition] = useState([])
+  const onSelectChange = useCallback(() => {}, [])
 
   useEffect(() => {
     const dataColumns = api.getColumnDefinition(dataFormColumns, sorting, dataCellRenderer)
@@ -110,6 +111,8 @@ const InputEditTable = ({
 
   const embedType = env.getEmbedType()
 
+  const selection = []
+
   return (
     <StyledTableWrapper onKeyDown={arrowKeyHandler}>
       <Table
@@ -125,6 +128,8 @@ const InputEditTable = ({
         }}
         onPageChange={setCurrentPage}
         scrollBehaviour={embedType === 'admin' ? 'inline' : 'none'}
+        onSelectionChange={onSelectChange}
+        selection={selection}
       />
     </StyledTableWrapper>
   )
