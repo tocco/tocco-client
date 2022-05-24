@@ -249,6 +249,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), sorting],
+                [select(sagas.inputSelector), {}],
                 [select(sagas.listSelector), {entityModel, formDefinition}],
                 [select(sagas.preferencesSelector), {sorting: []}],
                 [select(sagas.searchFormSelector), {searchFilters: null}]
@@ -261,6 +262,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), []],
+                [select(sagas.inputSelector), {}],
                 [select(sagas.listSelector), {entityModel, formDefinition}],
                 [select(sagas.preferencesSelector), {sorting: []}],
                 [select(sagas.searchFormSelector), {searchFilters: null}]
@@ -274,6 +276,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), []],
+                [select(sagas.inputSelector), {}],
                 [select(sagas.listSelector), {entityModel, formDefinition}],
                 [select(sagas.preferencesSelector), {sorting: []}],
                 [select(sagas.searchFormSelector), {searchFilters: searchFilters}]
@@ -286,6 +289,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), []],
+                [select(sagas.inputSelector), {}],
                 [select(sagas.listSelector), {entityModel, formDefinition}],
                 [select(sagas.preferencesSelector), {sorting: []}],
                 [select(sagas.searchFormSelector), {searchFilters: [{active: true, orderBy: 'firstname'}]}]
@@ -294,17 +298,34 @@ describe('entity-list', () => {
               .run()
           })
 
-          test('should prefer sorting from preferences', () => {
+          test('should prefer sorting from preferences over table and input', () => {
+            const inputSorting = [{field: 'input', order: 'asc'}]
             const formSorting = [{field: 'firstname', order: 'asc'}]
             const preferenceSorting = [{field: 'other', order: 'desc'}]
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), formSorting],
+                [select(sagas.inputSelector), {sorting: inputSorting}],
                 [select(sagas.listSelector), {entityModel, formDefinition}],
                 [select(sagas.preferencesSelector), {sorting: preferenceSorting}],
                 [select(sagas.searchFormSelector), {searchFilters: null}]
               ])
               .put(actions.setSorting(preferenceSorting))
+              .run()
+          })
+
+          test('should prefer sorting from input over table', () => {
+            const inputSorting = [{field: 'input', order: 'asc'}]
+            const formSorting = [{field: 'firstname', order: 'asc'}]
+            return expectSaga(sagas.setSorting)
+              .provide([
+                [matchers.call.fn(getSorting), formSorting],
+                [select(sagas.inputSelector), {sorting: inputSorting}],
+                [select(sagas.listSelector), {entityModel, formDefinition}],
+                [select(sagas.preferencesSelector), {sorting: []}],
+                [select(sagas.searchFormSelector), {searchFilters: null}]
+              ])
+              .put(actions.setSorting(inputSorting))
               .run()
           })
         })
