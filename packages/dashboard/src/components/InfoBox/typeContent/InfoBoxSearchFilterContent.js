@@ -28,23 +28,23 @@ DetailLinkRelativeWithoutIntl.propTypes = {
   intl: PropTypes.object.isRequired
 }
 
-const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction}) => {
-  const {searchFilterUniqueId, entityName, scope, limit, sortingPath} = content
-  let sortingObjects
-
-  if (sortingPath) {
-    const sortingFields = sortingPath.split(',').map(sortingField => sortingField.trim().split(/\s+/))
-    sortingObjects = sortingFields.map(sortingField => {
-      const fieldVal = sortingField[0]
-      const orderVal = sortingField[1]
-
-      if (orderVal) {
-        return {field: fieldVal, order: orderVal}
-      }
-
-      return {field: fieldVal}
-    })
+const getSorting = orderBy => {
+  if (orderBy) {
+    return orderBy
+      .split(',')
+      .map(sortingField => sortingField.trim())
+      .map(sortingField => sortingField.split(/\s+/))
+      .map(sortingField => {
+        const field = sortingField[0]
+        const order = sortingField[1] || 'asc'
+        return {field, order}
+      })
   }
+  return []
+}
+
+const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction}) => {
+  const {searchFilterUniqueId, entityName, scope, limit, orderBy} = content
 
   const handleRowClick = ({id}) => {
     navigationStrategy.openDetail(entityName, id, false)
@@ -69,7 +69,7 @@ const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction
         emitAction={emitAction}
         navigationStrategy={{...navigationStrategy, DetailLinkRelative}}
         showLink={true}
-        sorting={sortingObjects}
+        sorting={getSorting(orderBy)}
         scrollBehaviour="inline"
         tableMinHeight="240px"
       />
