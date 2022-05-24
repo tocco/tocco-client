@@ -334,9 +334,9 @@ export function* setSorting() {
   const activeSearchFilterHasOrderBy = yield call(hasActiveSearchFilterOrderBy)
   if (preferencesSorting && preferencesSorting.length > 0) {
     yield put(actions.setSorting(preferencesSorting))
-  } else if (inputSorting.length > 0) {
+  } else if (inputSorting && inputSorting.length > 0) {
     yield put(actions.setSorting(inputSorting))
-  } else if (tableSorting.length > 0) {
+  } else if (tableSorting && tableSorting.length > 0) {
     yield put(actions.setSorting(tableSorting))
   } else if (!activeSearchFilterHasOrderBy && entityModel.paths[FALLBACK_SORTING_FIELD]) {
     yield put(actions.setSorting([{field: FALLBACK_SORTING_FIELD, order: 'desc'}]))
