@@ -14,7 +14,8 @@ const packageToNice2ModuleMap = {
   'address-update': 'optional/address',
   'resource-scheduler': 'optional/resourcescheduler',
   'docs-browser': 'core/dms',
-  devcon: 'core/devcon'
+  devcon: 'core/devcon',
+  'widget-bundle': 'optional/widget'
 }
 const nice2PropertiesPath = '/boot/src/main/resources/ch/tocco/nice2/boot/impl/default.properties'
 
