@@ -30,7 +30,7 @@ export function* onSelectChange({payload: {keys, isSelected}}) {
   yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))
 }
 
-function* handleActionResponse({payload: {response}}) {
+export function* handleActionResponse({payload: {response}}) {
   if (response.clearSelection) {
     yield put(actions.clearSelection())
   }

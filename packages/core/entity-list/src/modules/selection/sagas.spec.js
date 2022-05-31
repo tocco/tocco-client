@@ -1,6 +1,6 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import {select, takeLatest, all} from 'redux-saga/effects'
-import {externalEvents} from 'tocco-app-extensions'
+import {externalEvents, actions as actionExtensions} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -15,7 +15,8 @@ describe('entity-list', () => {
             all([
               takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, sagas.reloadData),
               takeLatest(actions.ON_SELECT_CHANGE, sagas.onSelectChange),
-              takeLatest(actions.CLEAR_SELECTION, sagas.clearSelection)
+              takeLatest(actions.CLEAR_SELECTION, sagas.clearSelection),
+              takeLatest(actionExtensions.actions.ACTION_INVOKED, sagas.handleActionResponse)
             ])
           )
           expect(generator.next().done).to.be.true
@@ -60,6 +61,23 @@ describe('entity-list', () => {
 
         describe('reloadData', () => {
           test('should dispatch reload action', () => expectSaga(sagas.reloadData).put(actions.reloadData()).run())
+        })
+      })
+
+      describe('handleActionResponse', () => {
+        test('should put clear action if requested', () => {
+          const payload = actionExtensions.actions.actionInvoked(null, null, {clearSelection: true})
+          return expectSaga(sagas.handleActionResponse, payload).put(actions.clearSelection()).run()
+        })
+
+        test('should not put clear action if not requested', () => {
+          const payload = actionExtensions.actions.actionInvoked(null, null, {clearSelection: false})
+          return expectSaga(sagas.handleActionResponse, payload).not.put(actions.clearSelection()).run()
+        })
+
+        test('should not put clear action if not specified', () => {
+          const payload = actionExtensions.actions.actionInvoked(null, null, {})
+          return expectSaga(sagas.handleActionResponse, payload).not.put(actions.clearSelection()).run()
         })
       })
     })
