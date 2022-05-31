@@ -1,5 +1,5 @@
 import {call, put, select, takeLatest, all} from 'redux-saga/effects'
-import {externalEvents} from 'tocco-app-extensions'
+import {externalEvents, actions as actionExtensions} from 'tocco-app-extensions'
 
 import {combineSelection} from '../../util/selection'
 import selectionStyles from '../../util/selectionStyles'
@@ -14,7 +14,8 @@ export default function* sagas() {
   yield all([
     takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, reloadData),
     takeLatest(actions.ON_SELECT_CHANGE, onSelectChange),
-    takeLatest(actions.CLEAR_SELECTION, clearSelection)
+    takeLatest(actions.CLEAR_SELECTION, clearSelection),
+    takeLatest(actionExtensions.actions.ACTION_INVOKED, handleActionResponse)
   ])
 }
 
@@ -27,6 +28,12 @@ export function* onSelectChange({payload: {keys, isSelected}}) {
 
   yield put(actions.setSelection(newSelection))
   yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))
+}
+
+function* handleActionResponse({payload: {response}}) {
+  if (response.clearSelection) {
+    yield put(actions.clearSelection())
+  }
 }
 
 export function* clearSelection() {
