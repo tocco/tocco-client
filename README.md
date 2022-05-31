@@ -1,9 +1,7 @@
 # Tocco Client
-[![gitlab-ci Build Status](https://gitlab.com/toccoag/tocco-client/badges/master/pipeline.svg)](https://gitlab.com/toccoag/tocco-client/-/pipelines/latest)
 [![codecov](https://codecov.io/gh/tocco/tocco-client/branch/master/graph/badge.svg)](https://codecov.io/gh/tocco/tocco-client)
-[![devDependencies Status](https://david-dm.org/tocco/tocco-client/dev-status.svg)](https://david-dm.org/tocco/tocco-client?type=dev)
 [![Documentation Status](https://img.shields.io/static/v1?label=docs&message=Sphinx&color=blue&logoColor=white&logo=readthedocs)](https://docs.tocco.ch/framework/client/)
-[![Storybook](https://raw.githubusercontent.com/storybooks/brand/master/badge/badge-storybook.svg?sanitize=true)](https://tocco.github.io/tocco-client)
+[![Storybook](https://raw.githubusercontent.com/storybooks/brand/master/badge/badge-storybook.svg?sanitize=true)](https://toccoag.gitlab.io/tocco-storybook/)
 
 This repository contains the web client for the [Tocco Business Framework](https://www.tocco.ch).
 
