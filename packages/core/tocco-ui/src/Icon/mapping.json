@@ -32,6 +32,11 @@
     "lib": "fa",
     "tags": ["upload"]
   },
+  "arrow-up-long": {
+    "id": "fal, arrow-up-long",
+    "lib": "fa",
+    "tags": ["arrow-up-long"]
+  },
   "barcode-alt": {
     "id": "fal, barcode-alt",
     "lib": "fa"
