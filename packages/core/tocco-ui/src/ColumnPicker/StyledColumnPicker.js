@@ -1,14 +1,19 @@
-import {lighten} from 'polished'
 import styled from 'styled-components'
 
 import {StyledButton} from '../Button'
 import {StyledLi, StyledLabel} from '../Typography'
-import {scale, theme} from '../utilStyles'
+import {scale, theme, generateShades} from '../utilStyles'
+
+export const StyledColumnPickerWrapper = styled.div``
+
+export const StyledControlsWrapper = styled.div`
+  margin-top: ${scale.space(0.7)};
+`
 
 export const StyledUl = styled.ul`
   list-style-type: none;
   margin-top: ${scale.space(-0.5)} !important; // Nice2 Reset
-  padding-left: ${scale.space(-0.5)} !important; // Nice2 Reset
+  padding-left: 0 !important; // Nice2 Reset
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
@@ -45,12 +50,13 @@ export const StyledId = styled.span`
 `
 
 export const StyledItem = styled(StyledLi)`
+  padding: ${scale.space(-2)} ${scale.space(-2)} ${scale.space(-2)} 0;
   border-right: ${({isDraggedOver, theme}) => (isDraggedOver ? `3px solid ${theme.colors.secondary}` : 'none')};
   ${({draggable, theme}) =>
     draggable &&
     `
     &:hover {
-      background-color: ${lighten(0.25, theme.colors.secondaryLight)};
+      background-color: ${generateShades(theme.colors.paper)[1]};
 
       &,
       label {
@@ -58,4 +64,11 @@ export const StyledItem = styled(StyledLi)`
       }
     }
   `}
+`
+
+export const StyledNumber = styled.span`
+  display: inline-block;
+  margin-right: ${scale.space(-1)};
+  color: ${theme.color('text')};
+  font-size: ${scale.font(0)};
 `
