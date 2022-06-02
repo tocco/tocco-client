@@ -97,6 +97,7 @@ const NumberEdit = props => {
         prefix={prefix}
         {...numberFormatOptions}
         format={format}
+        placeholder={props.placeholder}
         onBlur={handleBlur}
       />
     </StyledEditableWrapper>
@@ -108,6 +109,7 @@ NumberEdit.propTypes = {
   value: PropTypes.number,
   name: PropTypes.string,
   id: PropTypes.string,
+  placeholder: PropTypes.string,
   intl: PropTypes.object,
   immutable: PropTypes.bool,
   options: PropTypes.shape({
