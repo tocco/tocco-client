@@ -1,3 +1,6 @@
+1.0.0-hotfix30.27
+- Add sorting field to entity-list sagas
+
 1.0.0-hotfix30.26
 - fix state handling for report settings
 
