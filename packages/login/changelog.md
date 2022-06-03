@@ -1,3 +1,6 @@
+1.1.2-hotfix31.22
+- show from and to placeholders on number ranges
+
 1.1.2-hotfix31.21
 - render html escape characters in breadcrumbs
 

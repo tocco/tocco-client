@@ -1,3 +1,7 @@
+1.0.5-hotfix31.25
+- show from and to placeholders on number ranges
+- Add sorting field to entity-list sagas
+
 1.0.5-hotfix31.24
 - render html escape characters in breadcrumbs
 
