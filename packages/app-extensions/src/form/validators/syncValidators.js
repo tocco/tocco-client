@@ -3,8 +3,10 @@ import {FormattedMessage} from 'react-intl'
 import isEmail from 'validator/lib/isEmail'
 import isUrl from 'validator/lib/isURL'
 
+const isDefined = v => v !== null && v !== undefined
+
 export const minLengthValidator = (value, minLength) =>
-  value.length < minLength
+  isDefined(minLength) && value.length < minLength
     ? {
         minLength: [
           <FormattedMessage
@@ -17,7 +19,7 @@ export const minLengthValidator = (value, minLength) =>
     : null
 
 export const minNumberValidator = (value, minValue) =>
-  value < minValue
+  isDefined(minValue) && value < minValue
     ? {
         maxNumber: [
           <FormattedMessage
@@ -30,7 +32,7 @@ export const minNumberValidator = (value, minValue) =>
     : null
 
 export const maxLengthValidator = (value, maxLength) =>
-  value.length > maxLength
+  isDefined(maxLength) && value.length > maxLength
     ? {
         maxLength: [
           <FormattedMessage
@@ -43,7 +45,7 @@ export const maxLengthValidator = (value, maxLength) =>
     : null
 
 export const maxNumberValidator = (value, maxValue) =>
-  value > maxValue
+  isDefined(maxValue) && value > maxValue
     ? {
         maxNumber: [
           <FormattedMessage
