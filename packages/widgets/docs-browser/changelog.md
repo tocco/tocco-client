@@ -1,3 +1,8 @@
+1.0.37
+- show from and to placeholders on number ranges
+- Add sorting field to entity-list sagas
+- update of the values and field widths in duration edit fixed
+
 1.0.36
 - add form properties to prepare request
 

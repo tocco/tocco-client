@@ -1,3 +1,7 @@
+1.1.29
+- show from and to placeholders on number ranges
+- update of the values and field widths in duration edit fixed
+
 1.1.28
 - add form properties to prepare request
 

@@ -1,3 +1,9 @@
+1.0.54
+- show from and to placeholders on number ranges
+- pass sorting objects to entity list app
+- Add sorting field to entity-list sagas
+- update of the values and field widths in duration edit fixed
+
 1.0.53
 - remove static overview page and redirect to dashboard instead
 
