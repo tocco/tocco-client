@@ -1,3 +1,6 @@
+1.0.3-hotfix31.26
+- Length and size validators no longer trigger if the max or min is not defined
+
 1.0.3-hotfix31.25
 - show from and to placeholders on number ranges
 - Add sorting field to entity-list sagas

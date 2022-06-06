@@ -1,3 +1,6 @@
+1.0.14-hotfix31.28
+- Length and size validators no longer trigger if the max or min is not defined
+
 1.0.14-hotfix31.27
 - show from and to placeholders on number ranges
 - pass sorting objects to entity list app
