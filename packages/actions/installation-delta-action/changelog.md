@@ -1,3 +1,7 @@
+1.0.17-hotfix32.8
+- show from and to placeholders on number ranges
+- update of the values and field widths in duration edit fixed
+
 1.0.17-hotfix32.7
 - remove floating labels in favour of fixed labels
 

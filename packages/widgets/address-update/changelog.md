@@ -1,3 +1,8 @@
+0.1.6-hotfix32.9
+- show from and to placeholders on number ranges
+- Add sorting field to entity-list sagas
+- update of the values and field widths in duration edit fixed
+
 0.1.6-hotfix32.8
 - remove floating labels in favour of fixed labels
 
