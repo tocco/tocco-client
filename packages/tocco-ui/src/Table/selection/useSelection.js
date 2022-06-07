@@ -6,10 +6,10 @@ const removeAllTextSelections = () => {
   }
 }
 
-export default (selection = [], currentKeys, onSelectChange) => {
+export default (selection, currentKeys, onSelectChange) => {
   const [lastSelected, setLastSelected] = useState(null)
 
-  const isSelected = useCallback(key => selection.includes(key), [selection])
+  const isSelected = useCallback(key => (selection || []).includes(key), [selection])
 
   const selectionChange = useCallback(
     (key, value, shiftSelection) => {
