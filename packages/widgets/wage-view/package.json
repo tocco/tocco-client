@@ -1,6 +1,6 @@
 {
   "name": "tocco-wage-view",
-  "version": "0.1.2-hotfix32.8",
+  "version": "0.1.2-hotfix32.9",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
