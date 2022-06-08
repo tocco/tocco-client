@@ -1,3 +1,6 @@
+0.1.4
+- Length and size validators no longer trigger if the max or min is not defined
+
 0.1.3
 - refactor business unit input properties
 
