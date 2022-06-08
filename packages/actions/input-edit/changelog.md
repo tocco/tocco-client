@@ -1,3 +1,6 @@
+1.1.30
+- Length and size validators no longer trigger if the max or min is not defined
+
 1.1.29
 - show from and to placeholders on number ranges
 - update of the values and field widths in duration edit fixed
