@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import {useState} from 'react'
 
 import StatedValue from './StatedValue'
+import {StyledInput} from './StyledStatedValue'
 
 const errors = {
   no: {},
@@ -11,58 +12,37 @@ const errors = {
   }
 }
 
-class StatedValueWrapper extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      hasValue: props.value.length > 0 || false,
-      value: props.value
-    }
-    this.handleChange = this.handleChange.bind(this)
+const StatedValueWrapper = ({value: valueProp, id, args}) => {
+  const initialState = {
+    hasValue: valueProp.length > 0 || false,
+    value: valueProp
   }
+  const [statedValueState, setStatedValueState] = useState(initialState)
 
-  handleChange(event) {
-    this.setState({
-      dirty: event.target.value !== this.props.value,
+  const handleChange = event => {
+    setStatedValueState({
+      dirty: event.target.value !== valueProp.value,
       hasValue: event.target.value.length > 0,
       touched: true,
       value: event.target.value
     })
   }
 
-  render() {
-    const {id, args} = this.props
+  const {dirty, hasValue, touched, value} = statedValueState
 
-    const {dirty, hasValue, touched, value} = this.state
-
-    return (
-      <StatedValue
-        {...args}
-        dirty={dirty}
-        hasValue={hasValue}
-        id={id}
-        key={id}
-        mandatoryTitle="input is required"
-        touched={touched}
-      >
-        <input
-          id={id}
-          disabled={args.immutable}
-          onChange={this.handleChange}
-          style={{
-            border: 0,
-            cursor: args.immutable && !args.isDisplay ? 'not-allowed' : 'auto',
-            color: args.immutable && !args.isDisplay ? '#545454' : '#000',
-            outline: 0,
-            transition: 'color 200ms',
-            width: '100%'
-          }}
-          type="text"
-          value={value}
-        />
-      </StatedValue>
-    )
-  }
+  return (
+    <StatedValue
+      {...args}
+      dirty={dirty}
+      hasValue={hasValue}
+      id={id}
+      key={id}
+      mandatoryTitle="input is required"
+      touched={touched}
+    >
+      <StyledInput id={id} disabled={args.immutable} onChange={handleChange} type="text" value={value} args={args} />
+    </StatedValue>
+  )
 }
 
 StatedValueWrapper.defaultProps = {
