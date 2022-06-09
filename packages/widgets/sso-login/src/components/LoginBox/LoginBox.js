@@ -1,51 +1,31 @@
 import PropTypes from 'prop-types'
-import React from 'react'
-import styled from 'styled-components'
+import {useEffect} from 'react'
+import {react} from 'tocco-util'
 
 import {openLoginWindow} from '../../utils/loginWindow'
 import ProviderButton from '../ProviderButton/ProviderButton'
+import {StyledButtonContainer} from './StyledComponents'
 
-const StyledButtonContainer = styled.div`
-  width: 100%;
-  margin-top: 3rem;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+const LoginBox = props => {
+  const {loadProviders, autoLogin, providers, loginEndpoint, loginCompleted} = props
+  loadProviders()
+  const prevProps = react.usePrevious(props)
 
-  @media (max-width: 1024px) {
-    margin-top: 1.5rem;
-  }
-`
+  useEffect(() => {
+    if (autoLogin && prevProps.providers.length === 0 && providers.length > 0) {
+      const autoLoginProvider = providers.find(entity => entity.unique_id === autoLogin)
 
-class LoginBox extends React.Component {
-  constructor(props) {
-    super(props)
-    props.loadProviders()
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.autoLogin && prevProps.providers.length === 0 && this.props.providers.length > 0) {
-      const autoLoginProvider = this.props.providers.find(entity => entity.unique_id === this.props.autoLogin)
       if (autoLoginProvider) {
-        openLoginWindow(this.props.loginEndpoint, this.props.loginCompleted, autoLoginProvider)
+        openLoginWindow(loginEndpoint, loginCompleted, autoLoginProvider)
       }
     }
-  }
+  })
 
-  render() {
-    return (
-      <StyledButtonContainer>
-        {this.props.providers.map((provider, idx) => (
-          <ProviderButton
-            key={idx}
-            provider={provider}
-            loginEndpoint={this.props.loginEndpoint}
-            loginCompleted={this.props.loginCompleted}
-          />
-        ))}
-      </StyledButtonContainer>
-    )
-  }
+  const ProviderButtons = providers.map((provider, idx) => (
+    <ProviderButton key={idx} provider={provider} loginEndpoint={loginEndpoint} loginCompleted={loginCompleted} />
+  ))
+
+  return <StyledButtonContainer>{ProviderButtons}</StyledButtonContainer>
 }
 
 LoginBox.propTypes = {
