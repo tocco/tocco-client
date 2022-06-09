@@ -1,3 +1,6 @@
+0.1.2-hotfix32.10
+- enhance column picker ux by adding numbering, mass selection and sorting features
+
 0.1.2-hotfix32.9
 - Length and size validators no longer trigger if the max or min is not defined
 

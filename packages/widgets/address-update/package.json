@@ -1,6 +1,6 @@
 {
   "name": "tocco-address-update",
-  "version": "0.1.6-hotfix32.10",
+  "version": "0.1.6-hotfix32.11",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
