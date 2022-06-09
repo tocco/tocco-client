@@ -119,3 +119,11 @@ export const StyledStatedValueWrapper = styled.div`
     }
   }
 `
+export const StyledInput = styled.input`
+  border: 0;
+  cursor: ${({args}) => (args.immutable && !args.isDisplay ? 'not-allowed' : 'auto')};
+  color: ${({args}) => (args.immutable && !args.isDisplay ? '#545454' : '#000')};
+  outline: 0;
+  transition: color 200ms;
+  width: 100%;
+`
