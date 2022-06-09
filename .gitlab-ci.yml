@@ -66,6 +66,18 @@ formatting:
   script:
     - yarn format:check
 
+message-validation:
+  stage: quality
+  dependencies:
+    - yarn_setup
+  only:
+    - external_pull_requests
+    - master
+  before_script:
+    - apk update && apk add bash && apk add git
+  script:
+    - scripts/message_validation.sh
+
 test:
   stage: quality
   dependencies:
