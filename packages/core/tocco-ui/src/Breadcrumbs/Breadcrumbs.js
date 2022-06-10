@@ -12,7 +12,6 @@ const getTitle = breadcrumbsInfo =>
   breadcrumbsInfo
     .slice(breadcrumbsInfo.length - 2)
     .map(breadcrumb => breadcrumb.title || breadcrumb.display)
-    .reverse()
     .join(' - ')
 
 const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor, onClick, linkComp: LinkComp}) => {
@@ -28,34 +27,34 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor,
     }
   }
 
+  const Breadcrumbs = breadcrumbs
+    .map((b, idx) => {
+      const display = b.display || ''
+      const Breadcrumb = idx === breadcrumbs.length - 1 ? StyledBreadcrumbsTitle : StyledBreadcrumbsLink
+      const activeProp = idx === breadcrumbs.length - 1 && {active: 'true'}
+      const pathProp = typeof b.path !== 'undefined' ? {to: `${pathPrefix}/${b.path}`} : {}
+      const componentType = LinkComp ? <LinkComp /> : <StyledLink />
+      const ListIcon = b.type === 'list' && <Icon icon="list" />
+      const ErrorIcon = b.type === 'error' && <Icon icon="exclamation-circle" />
+
+      return (
+        <Typography.Span key={`breadcrumbItem-${idx}`}>
+          <Breadcrumb neutral {...activeProp} {...pathProp} onClick={handleClick(b)} component={componentType}>
+            {ListIcon}
+            {ErrorIcon}
+            <span dangerouslySetInnerHTML={{__html: html.sanitizeHtml(display)}} />
+          </Breadcrumb>
+        </Typography.Span>
+      )
+    })
+    .reduce((prev, curr, idx) => [prev, <BreadcrumbSeparator key={'icon' + idx} />, curr])
+
   return (
     <StyledBreadcrumbs backgroundColor={backgroundColor}>
       <Helmet defer={false}>
         <title>{getTitle(breadcrumbs)}</title>
       </Helmet>
-      <div>
-        {breadcrumbs
-          .map((b, idx) => {
-            const display = b.display || ''
-            const Comp = idx === breadcrumbs.length - 1 ? StyledBreadcrumbsTitle : StyledBreadcrumbsLink
-            return (
-              <Typography.Span key={`breadcrumbItem-${idx}`}>
-                <Comp
-                  neutral
-                  {...(idx === breadcrumbs.length - 1 && {active: 'true'})}
-                  {...(typeof b.path !== 'undefined' ? {to: `${pathPrefix}/${b.path}`} : {})}
-                  onClick={handleClick(b)}
-                  component={LinkComp ? <LinkComp /> : <StyledLink />}
-                >
-                  {b.type === 'list' && <Icon icon="list" />}
-                  {b.type === 'error' && <Icon icon="exclamation-circle" />}
-                  <span dangerouslySetInnerHTML={{__html: html.sanitizeHtml(display)}} />
-                </Comp>
-              </Typography.Span>
-            )
-          })
-          .reduce((prev, curr, idx) => [prev, <BreadcrumbSeparator key={'icon' + idx} />, curr])}
-      </div>
+      <>{Breadcrumbs}</>
     </StyledBreadcrumbs>
   )
 }
