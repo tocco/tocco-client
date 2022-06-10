@@ -6,6 +6,8 @@ const settings = {
   SUGGESTION_ORDER_FIELD: 'update_timestamp'
 }
 
+const joinConditions = conditions => conditions.filter(Boolean).join(' and ')
+
 const getExcludeConstraint = value =>
   !value || !Array.isArray(value) || value.length === 0 ? undefined : `not KEYS(${value.map(v => v.key).join(', ')})`
 
@@ -26,7 +28,7 @@ export default {
         sorting: [{field: settings.SUGGESTION_ORDER_FIELD, order: 'desc'}],
         formBase: formField.formBase,
         formName: formField.formName,
-        where: getExcludeConstraint(currentValue)
+        where: joinConditions([formField.condition, getExcludeConstraint(currentValue)])
       })
     },
     searchOptions: (searchTerm, value) => {
@@ -36,7 +38,7 @@ export default {
         forceReload: true,
         formBase: formField.formBase,
         formName: formField.formName,
-        where: getExcludeConstraint(value)
+        where: joinConditions([formField.condition, getExcludeConstraint(value)])
       })
     },
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
