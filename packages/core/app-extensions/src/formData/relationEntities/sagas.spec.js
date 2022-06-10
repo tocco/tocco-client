@@ -145,6 +145,29 @@ describe('app-extensions', () => {
               .run()
           })
 
+          test('should load only active entities with pk < 100', () => {
+            const fieldData = undefined
+            const fieldName = 'relUser_status'
+            const entities = [{display: 'Status', key: 1}]
+            const options = {where: 'pk < 100'}
+
+            return expectSaga(
+              sagas.loadRelationEntity,
+              relationEntitiesActions.loadRelationEntities(fieldName, 'User_status', options)
+            )
+              .provide([
+                [select(sagas.fieldDataSelector, fieldName), fieldData],
+                [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(rest.fetchModel), {paths: {active: {type: 'boolean'}}}],
+                [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
+              ])
+              .call.like({
+                fn: rest.fetchEntities,
+                args: ['User_status', {where: 'pk < 100 and active'}]
+              })
+              .run()
+          })
+
           test('should clear existing entites when searchTerm changed', () => {
             const fieldData = {data: [{key: '1', display: 'one'}], searchTerm: 'one'}
             const fieldName = 'relUser'
@@ -206,6 +229,16 @@ describe('app-extensions', () => {
             }
 
             expect(result).to.eql(expectedResult)
+          })
+
+          test('should return empty object for undefined property', () => {
+            const result = sagas.getQuery({where: undefined})
+            expect(result).to.eql({})
+          })
+
+          test('should return empty object for null property', () => {
+            const result = sagas.getQuery({where: null})
+            expect(result).to.eql({})
           })
 
           test('should return empty object for empty input', () => {

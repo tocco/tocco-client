@@ -19,7 +19,8 @@ export default {
       formData.loadRelationEntities(formField.id, formField.targetEntity, {
         forceReload: false,
         limit: settings.LIMIT,
-        constriction: formField.constriction
+        constriction: formField.constriction,
+        where: formField.condition
       })
   })
 }
