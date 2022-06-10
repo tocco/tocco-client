@@ -1,5 +1,5 @@
 export {AdminLink, AdminNavLink} from './AdminLink'
-export {default as Button, StyledButton, RouterLinkButton} from './Button'
+export {default as Button, StyledButton, RouterLinkButton, StyledLabelWrapper} from './Button'
 export {default as Ball, StyledBall} from './Ball'
 export {default as Breadcrumbs} from './Breadcrumbs'
 export {default as ButtonGroup, StyledButtonGroup} from './ButtonGroup'
