@@ -1,3 +1,6 @@
+1.0.39
+- enhance column picker ux by adding numbering, mass selection and sorting features
+
 1.0.38
 - Length and size validators no longer trigger if the max or min is not defined
 
