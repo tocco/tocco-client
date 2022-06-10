@@ -1,23 +1,19 @@
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-import styled from 'styled-components'
 import {PasswordUpdateApp} from 'tocco-login/src/main'
 import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
-import {MenuItem, ButtonMenu, BallMenu, StyledBall, scale, RouterLinkButton} from 'tocco-ui'
+import {MenuItem, ButtonMenu, BallMenu, RouterLinkButton} from 'tocco-ui'
 
 import {getDocsUrl} from '../../utils/docsUtils'
 import AboutTocco from '../AboutTocco'
 import NotificationCenterButton from './NotificationCenterButton'
-import {StyledBackgroundCover, StyledHeader, StyledConfig, StyledBackgroundLogo} from './StyledComponents'
-
-const StyledBallMenuWrapper = styled.span`
-  display: flex;
-  margin-top: 2px;
-
-  ${StyledBall} {
-    font-size: ${scale.font(1)};
-  }
-`
+import {
+  StyledBackgroundCover,
+  StyledHeader,
+  StyledConfig,
+  StyledBackgroundLogo,
+  StyledBallMenuWrapper
+} from './StyledComponents'
 
 const Header = ({
   username,
@@ -41,42 +37,73 @@ const Header = ({
   }
 
   const openPasswordUpdate = () => {
+    const handleSuccess = () => {
+      removeModalComponent('passwordUpdateModal')
+      info('success', 'client.login.passwordUpdate.success')
+    }
+
     openModalComponent(
       'passwordUpdateModal',
       'client.login.passwordUpdate.title',
       null,
-      () => (
-        <PasswordUpdateApp
-          username={username}
-          success={() => {
-            removeModalComponent('passwordUpdateModal')
-            info('success', 'client.login.passwordUpdate.success')
-          }}
-        />
-      ),
+      () => <PasswordUpdateApp username={username} success={handleSuccess} />,
       true
     )
   }
 
   const openTwoFactorConnector = () => {
+    const handleOnSuccess = () => {
+      removeModalComponent('passwordUpdateModal')
+    }
+
     openModalComponent(
       'passwordUpdateModal',
       'client.actions.two-factor-connector.title',
       null,
-      () => (
-        <TwoFactorConnectorApp
-          onSuccess={() => {
-            removeModalComponent('passwordUpdateModal')
-          }}
-        />
-      ),
+      () => <TwoFactorConnectorApp onSuccess={handleOnSuccess} />,
       true
     )
   }
 
-  const closeMenu = () => setMenuOpen(false)
+  const BusinessUnitMenuItems = businessUnits.map(bU => (
+    <MenuItem
+      key={`buMenu-${bU.id}`}
+      disabled={bU.id === currentBusinessUnit.id}
+      onClick={() => changeBusinessUnit(bU.id)}
+    >
+      {bU.label}
+    </MenuItem>
+  ))
 
+  const closeMenu = () => setMenuOpen(false)
   const msg = id => intl.formatMessage({id})
+  const MenuItemDocumentation = niceVersion && (
+    <MenuItem
+      onClick={() => {
+        window.open(getDocsUrl(niceVersion), '_blank')
+      }}
+    >
+      <FormattedMessage id="client.admin.menu.doc" />
+    </MenuItem>
+  )
+  const MenuItemRestDocumentation = (
+    <MenuItem
+      onClick={() => {
+        window.open('/nice2/swagger', '_blank')
+      }}
+    >
+      <FormattedMessage id="client.admin.menu.restDoc" />
+    </MenuItem>
+  )
+  const MenuItemAbout = (
+    <MenuItem
+      onClick={() => {
+        openModalComponent('about', null, null, () => <AboutTocco />, true)
+      }}
+    >
+      <FormattedMessage id="client.admin.menu.aboutToccoTitle" />
+    </MenuItem>
+  )
 
   return (
     <>
@@ -88,17 +115,7 @@ const Header = ({
             <FormattedMessage id="client.admin.dashboard" />
           </RouterLinkButton>
           <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
-            {businessUnits.map(bU => (
-              <MenuItem
-                key={`buMenu-${bU.id}`}
-                disabled={bU.id === currentBusinessUnit.id}
-                onClick={() => {
-                  changeBusinessUnit(bU.id)
-                }}
-              >
-                {bU.label}
-              </MenuItem>
-            ))}
+            {BusinessUnitMenuItems}
           </ButtonMenu>
           <ButtonMenu label={username}>
             <MenuItem onClick={openPasswordUpdate}>
@@ -118,29 +135,9 @@ const Header = ({
                 title: msg('client.admin.header.help')
               }}
             >
-              {niceVersion && (
-                <MenuItem
-                  onClick={() => {
-                    window.open(getDocsUrl(niceVersion), '_blank')
-                  }}
-                >
-                  <FormattedMessage id="client.admin.menu.doc" />
-                </MenuItem>
-              )}
-              <MenuItem
-                onClick={() => {
-                  window.open('/nice2/swagger', '_blank')
-                }}
-              >
-                <FormattedMessage id="client.admin.menu.restDoc" />
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  openModalComponent('about', null, null, () => <AboutTocco />, true)
-                }}
-              >
-                <FormattedMessage id="client.admin.menu.aboutToccoTitle" />
-              </MenuItem>
+              {MenuItemDocumentation}
+              {MenuItemRestDocumentation}
+              {MenuItemAbout}
             </BallMenu>
             <NotificationCenterButton />
           </StyledBallMenuWrapper>
