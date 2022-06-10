@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {AdminLink, Ball, scale, theme} from 'tocco-ui'
+import {AdminLink, Ball, scale, theme, StyledButton, StyledLabelWrapper} from 'tocco-ui'
 
 import ToccoLogo from '../../assets/tocco-circle.svg'
 
@@ -11,23 +11,33 @@ export const StyledBackgroundCover = styled.div`
   width: 100%;
   background-color: ${theme.color('paper')};
 `
+
 export const StyledHeader = styled.div`
   grid-area: header;
-  display: flex;
   height: 40px;
   padding-right: 10px;
   padding-left: 40px;
   position: relative;
   z-index: 3; // higher than StyledBackgroundCover to enable button interactions
+
+  ${StyledButton} {
+    overflow: hidden;
+
+    ${StyledLabelWrapper} {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 `
 
 export const StyledConfig = styled.div`
-  flex: 1;
   z-index: 2;
   display: flex;
   justify-content: flex-end;
   padding: 7px;
 `
+
 export const StyledBackgroundLogo = styled.div`
   position: absolute;
   z-index: 3; // higher than StyledBackgroundCover to prevent coverage
@@ -66,4 +76,13 @@ export const StyledRedDot = styled.span`
 export const StyledHeaderLink = styled(AdminLink)`
   display: inline-block;
   padding: ${scale.space(-2.1)} ${scale.space(0)};
+`
+
+export const StyledBallMenuWrapper = styled.span`
+  display: flex;
+  margin-top: 2px;
+
+  ${StyledBall} {
+    font-size: ${scale.font(1)};
+  }
 `
