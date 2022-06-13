@@ -1,3 +1,6 @@
+0.1.6-hotfix32.12
+- reverse title order to first display entity name and then default display
+
 0.1.6-hotfix32.11
 - enhance column picker ux by adding numbering, mass selection and sorting features
 
