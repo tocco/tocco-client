@@ -1,3 +1,6 @@
+1.0.14-hotfix31.30
+- add css classes for display expressions styling
+
 1.0.14-hotfix31.29
 - reverse title order to first display entity name and then default display
 
