@@ -13,6 +13,18 @@ const GlobalStyle = createGlobalStyle`
     color: ${theme.color('signal.success.text')};
   }
 
+  .text-info {
+    color: ${theme.color('signal.info.text')};
+  }
+
+  .text-warning {
+    color: ${theme.color('signal.warning.text')};
+  }
+
+  .text-danger {
+    color: ${theme.color('signal.danger.text')};
+  }
+
   .text-muted {
     color: ${({theme}) => darken(0.4, theme.colors.paper)};
   }
