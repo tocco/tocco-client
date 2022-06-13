@@ -1,3 +1,6 @@
+1.0.34
+- reverse title order to first display entity name and then default display
+
 1.0.33
 - enhance column picker ux by adding numbering, mass selection and sorting features
 
