@@ -1,3 +1,6 @@
+1.0.6-hotfix31.28
+- reverse title order to first display entity name and then default display
+
 1.0.6-hotfix31.27
 - Length and size validators no longer trigger if the max or min is not defined
 
