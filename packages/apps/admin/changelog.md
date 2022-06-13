@@ -1,3 +1,7 @@
+1.0.57
+- reverse title order to first display entity name and then default display
+- make menu buttons inside header responsive, so that oveflowing text gets ellipsis on smaller screens
+
 1.0.56
 - enhance column picker ux by adding numbering, mass selection and sorting features
 
