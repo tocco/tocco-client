@@ -37,7 +37,7 @@ const WageView = ({
     <LoadMask required={[reports]}>
       <EntityBrowserApp
         entityName="Wage"
-        formBase="WageView"
+        formBase="Wage_view"
         searchFilters={searchFilters}
         limit={limit}
         modifyFormDefinition={modifyFormDefinition}
