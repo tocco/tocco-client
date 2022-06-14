@@ -1,3 +1,6 @@
+1.0.35
+- add css classes for display expressions styling
+
 1.0.34
 - reverse title order to first display entity name and then default display
 
