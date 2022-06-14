@@ -34,7 +34,7 @@ const ReservationLecturerBookingView = ({
     <LoadMask required={[reports]}>
       <EntityBrowserApp
         entityName="Reservation_lecturer_booking"
-        formBase="ReservationLecturerBookingView"
+        formBase="Reservation_lecturer_booking_view"
         disableDetailView={true}
         searchFormType={searchFormType}
         searchFilters={searchFilters}
