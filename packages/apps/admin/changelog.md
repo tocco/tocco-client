@@ -1,3 +1,6 @@
+1.0.58
+- add css classes for display expressions styling
+
 1.0.57
 - reverse title order to first display entity name and then default display
 - make menu buttons inside header responsive, so that oveflowing text gets ellipsis on smaller screens

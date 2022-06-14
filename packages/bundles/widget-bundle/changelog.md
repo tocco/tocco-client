@@ -1,3 +1,6 @@
+0.1.5
+- add css classes for display expressions styling
+
 0.1.4
 - Length and size validators no longer trigger if the max or min is not defined
 
