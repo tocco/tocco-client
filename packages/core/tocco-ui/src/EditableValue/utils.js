@@ -1,15 +1,3 @@
-import _forOwn from 'lodash/forOwn'
-
-export const atMostOne = array => {
-  if (!array || array.length === 0) {
-    return null
-  } else if (array.length === 1) {
-    return array[0]
-  } else {
-    throw new Error(`Expected at most one item in array: ${array.join(', ')}`)
-  }
-}
-
 /**
  * Get a date value as `YYYY-MM-DD` string representation.
  *
@@ -28,28 +16,6 @@ export const toLocalDateString = date => {
   const day = dateObj.getDate()
 
   return [year, (month > 9 ? '' : '0') + month, (day > 9 ? '' : '0') + day].join('-')
-}
-
-/**
- * Converts the formatting string of momentJS to one compatible with flatpickr.
- * see: https://flatpickr.js.org/formatting/
- * @param format momentJS formatting string
- * @returns {string} flatpickr formatting string
- */
-export const momentJStoToFlatpickrFormat = format => {
-  const formattingMap = {
-    d: 'DD',
-    m: 'MM',
-    Y: 'YYYY',
-    K: 'A',
-    H: 'HH',
-    h: 'h',
-    i: 'mm'
-  }
-  _forOwn(formattingMap, (v, k) => {
-    format = format.replace(v, k)
-  })
-  return format
 }
 
 /*

@@ -32,14 +32,14 @@ export const Boolean = () => {
   return <EditableValue type="boolean" value={value} events={{onChange: setValue}} />
 }
 
-export const Date = () => {
+export const Date = ({...props}) => {
   const [value, setValue] = useState('2019-12-18')
-  return <EditableValue type="date" value={value} events={{onChange: setValue}} />
+  return <EditableValue {...props} type="date" value={value} events={{onChange: setValue}} />
 }
 
-export const DateTime = () => {
+export const DateTime = ({...props}) => {
   const [value, setValue] = useState('2017-01-25T15:15:00.000Z')
-  return <EditableValue type="datetime" value={value} events={{onChange: setValue}} />
+  return <EditableValue {...props} type="datetime" value={value} events={{onChange: setValue}} />
 }
 
 export const Document = ({upload, ...args}) => {

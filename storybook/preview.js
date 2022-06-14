@@ -4,6 +4,14 @@ import {withThemesProvider} from 'themeprovider-storybook'
 
 import darkTheme from '../packages/core/tocco-theme/src/ToccoTheme/darkTheme'
 import defaultTheme from '../packages/core/tocco-theme/src/ToccoTheme/defaultTheme'
+import GlobalStyles from '../packages/core/tocco-ui/src/GlobalStyles/GlobalStyles'
+
+addDecorator(Story => (
+  <>
+    <GlobalStyles />
+    <Story />
+  </>
+))
 
 const themes = [defaultTheme, darkTheme]
 addDecorator(withThemesProvider(themes))
