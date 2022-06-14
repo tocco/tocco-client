@@ -1,68 +1,78 @@
+import '!style-loader!css-loader!react-datepicker/dist/react-datepicker.css'
 import PropTypes from 'prop-types'
-import {useEffect, useRef} from 'react'
+import {useRef, useState} from 'react'
+import ReactDatePicker from 'react-datepicker'
 import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
 
-import {theme} from '../utilStyles'
-import {StyledWrapper} from './StyledDatePicker'
-import {useDatePickr} from './useDatePickr'
+import {StyledChildrenWrapper} from './StyledComponents'
+import {loadLocales} from './utils'
 
-export const DatePicker = props => {
-  const {value, children, intl, onChange} = props
-  const wrapperElement = useRef(null)
+loadLocales()
+
+const ChildrenWrapper = ({children, onOpen}) => (
+  <StyledChildrenWrapper onClick={onOpen}>{children}</StyledChildrenWrapper>
+)
+
+ChildrenWrapper.propTypes = {
+  children: PropTypes.any,
+  onOpen: PropTypes.func
+}
+
+const DatePicker = props => {
+  const {children, value, onChange, intl} = props
+
   const locale = intl.locale
-  const msg = id => intl.formatMessage({id})
 
-  const fontFamily = theme.fontFamily('regular')(props)
+  const datePickerRef = useRef(null)
+  const [open, setOpen] = useState(false)
 
-  const flatpickrOptions = {}
-  const initializeFlatPickr = useDatePickr(wrapperElement, {
-    value,
-    onChange,
-    fontFamily,
-    locale,
-    flatpickrOptions,
-    shouldAppend: true
-  })
-
-  // only on mount
-  useEffect(() => {
-    if (wrapperElement.current) {
-      initializeFlatPickr()
+  const handleOpen = val => {
+    setOpen(val)
+    if (datePickerRef.current?.setPreSelection) {
+      datePickerRef.current?.setPreSelection(value)
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }
 
   return (
-    <>
-      <StyledWrapper data-wrap ref={wrapperElement}>
-        <div data-toggle>
-          <input
-            style={{display: 'none'}}
-            type="text"
-            data-input
-            aria-label={msg('client.component.datePicker.label')}
-          />
+    <ReactDatePicker
+      ref={datePickerRef}
+      selected={value}
+      preSelection={null}
+      onChange={onChange}
+      showTimeInput={false}
+      dateFormat="P"
+      showPopperArrow={false}
+      showMonthDropdown
+      showYearDropdown
+      dropdownMode="select"
+      open={open}
+      onFocus={() => {
+        handleOpen(true)
+      }}
+      onClickOutside={() => {
+        handleOpen(false)
+      }}
+      locale={locale}
+      enableTabLoop={false}
+      customInput={
+        <ChildrenWrapper
+          onOpen={() => {
+            handleOpen(true)
+          }}
+        >
           {children}
-        </div>
-      </StyledWrapper>
-    </>
+        </ChildrenWrapper>
+      }
+    />
   )
 }
 
 DatePicker.propTypes = {
-  /**
-   * Any content to wrap a onclick around to open a calendar
-   */
-  children: PropTypes.node.isRequired,
-  /**
-   * Function triggered on every date selection. First parameter is the picked date as iso string.
-   */
+  intl: PropTypes.object.isRequired,
+  children: PropTypes.any,
   onChange: PropTypes.func.isRequired,
-  /**
-   * To set the selected date from outside the component.
-   */
-  value: PropTypes.any,
-  intl: PropTypes.object.isRequired
+  value: PropTypes.instanceOf(Date)
 }
 
 export default withTheme(injectIntl(DatePicker))

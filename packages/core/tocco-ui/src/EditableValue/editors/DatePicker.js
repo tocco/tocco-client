@@ -1,141 +1,155 @@
+import '!style-loader!css-loader!react-datepicker/dist/react-datepicker.css'
 import PropTypes from 'prop-types'
 import {useRef, useState} from 'react'
+import ReactDatePicker from 'react-datepicker'
 import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
 
 import Ball from '../../Ball'
-import {useDatePickr} from '../../DatePicker/useDatePickr'
-import {theme} from '../../utilStyles'
-import {
-  StyledDatePickerInput,
-  StyledDatePickerWrapper,
-  StyledDatePickerOuterWrapper,
-  StyledDatePickerValue
-} from './StyledDatePicker'
+import {loadLocales, parseISOValue} from '../../DatePicker/utils'
+import {StyledDatePickerWrapper, StyledDatePickerOuterWrapper, StyledTimeInput} from './StyledDatePicker'
 
-const focusFlatpickrInput = wrapper => {
-  // flatpickr add two input in the DOM. One for the actual value (hidden) and one for the altInput
-  const inputElement = wrapper.querySelector('input.flatpickr-input:not([type="hidden"])')
+loadLocales()
+
+const ReactDatepickerTimeInputClassName = 'react-datepicker-time__input'
+const ReactDatepickerDayClassName = 'react-datepicker__day'
+const ReactDatepickerInputClassName = 'react-datepicker-ignore-onclickoutside'
+
+const TimeInput = ({value, onChange, onKeyDown}) => (
+  <StyledTimeInput
+    type="time"
+    className={ReactDatepickerTimeInputClassName}
+    required
+    value={value}
+    onKeyDown={onKeyDown}
+    onChange={ev => {
+      if (onChange) {
+        onChange(ev.target.value)
+      }
+    }}
+    onClick={e => {
+      /**
+       * Workaround
+       * When a day is selected it's not possible to set focus with mouse by clicking inside time input.
+       */
+      e.target.focus()
+    }}
+  />
+)
+
+TimeInput.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  onKeyDown: PropTypes.func
+}
+
+const focusTimeInput = wrapper => {
+  const inputElement = wrapper.querySelector(`input.${ReactDatepickerTimeInputClassName}`)
   if (inputElement) {
     inputElement.focus()
   }
 }
 
-const DatePicker = props => {
-  const {immutable, id, options, value, onChange, formatDate, intl, placeholder} = props
-  const [initialized, setInitialized] = useState(false)
-  const flatpickr = useRef(null)
-  const wrapper = useRef(null)
-  const locale = intl.locale
-  const msg = id => intl.formatMessage({id})
+const isDay = element => element.classList.contains(ReactDatepickerDayClassName)
+const isTimeInput = element => element.classList.contains(ReactDatepickerTimeInputClassName)
+const isInput = element => element.classList.contains(ReactDatepickerInputClassName)
 
-  const fontFamily = theme.fontFamily('regular')(props)
+const DatePicker = props => {
+  const {immutable, id, value, onChange, intl, placeholder, hasTime, dateFormat} = props
+
+  const locale = intl.locale
+  const msg = msgId => intl.formatMessage({id: msgId})
+
+  const wrapper = useRef(null)
+  const datePickerRef = useRef(null)
+  const [open, setOpen] = useState(false)
+
+  const hasValue = !!value
+  const selectedDate = parseISOValue(value)
 
   const handleOnChange = val => {
     if (val) {
-      onChange([val])
+      onChange(val.toISOString())
     }
   }
 
-  const flatpickrOptions = {
-    altInput: true,
-    altInputClass: '',
-    clickOpens: !immutable,
-    ...(options ? options.flatpickrOptions : {})
-  }
-  const initializeFlatPickr = useDatePickr(wrapper, {
-    value,
-    onChange: handleOnChange,
-    fontFamily,
-    locale,
-    flatpickrOptions
-  })
-
-  const init = () => {
-    flatpickr.current = initializeFlatPickr()
-
-    flatpickr.current.calendarContainer.classList.add('tocco-ui-theme')
-    flatpickr.current.calendarContainer.addEventListener('keydown', handleConfirmKey)
-    setInitialized(true)
-  }
-
-  const altInput = flatpickr.current?.altInput?.value || ''
-
-  const focusInput = () => {
-    if (!initialized) {
-      init()
-
-      /**
-       * Workaround:
-       * To be sure that the initialized state has been updated
-       * before we change the focus we delay this to the next tick.
-       */
-      setTimeout(() => {
-        focusFlatpickrInput(wrapper.current)
-      })
-    } else {
-      focusFlatpickrInput(wrapper.current)
+  const handleOpen = val => {
+    setOpen(val)
+    if (datePickerRef.current?.setPreSelection) {
+      datePickerRef.current?.setPreSelection(selectedDate)
     }
   }
 
   const handleConfirmKey = e => {
-    if ((!e.target.classList.contains('flatpickr-hour') && e.key === 'Tab' && !e.shiftKey) || e.key === 'Enter') {
-      setTimeout(() => {
-        flatpickr.current.close()
-      })
+    if (e.key === 'Tab' && !e.shiftKey) {
+      if (isDay(e.target)) {
+        if (hasTime) {
+          // tab to time-input when tabbing on a day
+          focusTimeInput(wrapper.current)
+        } else {
+          handleOpen(false)
+        }
+      } else if (isTimeInput(e.target)) {
+        // Close Datepicker and tab to next input in time-input
+        handleOpen(false)
+      }
     }
+
+    if (isInput(e.target) && e.key === 'Tab' && e.shiftKey) {
+      // Close Datepicker and tab to prev input in datepicker-input
+      handleOpen(false)
+    }
+
     if (e.key === 'Enter') {
+      // Close Datepicker and do not submit form
+      handleOpen(false)
       e.preventDefault()
       e.stopPropagation()
     }
   }
 
-  const hasValue = value && value.length > 0 && value.every(v => v)
-
   return (
-    <>
-      <StyledDatePickerOuterWrapper
-        immutable={immutable}
-        id={id}
-        tabIndex="-1"
-        onFocus={() => {
-          focusInput()
+    <StyledDatePickerOuterWrapper immutable={immutable} id={id} tabIndex="-1">
+      <StyledDatePickerWrapper immutable={immutable} ref={wrapper} hasTime={hasTime}>
+        <ReactDatePicker
+          ref={datePickerRef}
+          selected={selectedDate}
+          onChange={handleOnChange}
+          disabled={immutable}
+          showTimeInput={hasTime}
+          dateFormat={dateFormat}
+          showPopperArrow={false}
+          placeholderText={placeholder}
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+          open={open}
+          onFocus={() => {
+            handleOpen(true)
+          }}
+          onClickOutside={() => {
+            handleOpen(false)
+          }}
+          locale={locale}
+          onKeyDown={handleConfirmKey}
+          customTimeInput={<TimeInput onKeyDown={handleConfirmKey} />}
+          enableTabLoop={false}
+          timeInputLabel=""
+        />
 
-          if (flatpickr.current) {
-            flatpickr.current.open()
-          }
-        }}
-        onKeyDown={handleConfirmKey}
-      >
-        <StyledDatePickerWrapper data-wrap immutable={immutable} ref={wrapper}>
-          <StyledDatePickerInput
-            {...(immutable ? {disabled: 'disabled'} : {})}
-            type="hidden"
-            data-input
-            immutable={immutable}
-            className="flatpickr-input"
-            placeholder={placeholder}
+        {!immutable && hasValue && (
+          <Ball
+            icon="times"
+            tabIndex={-1}
+            aria-label={msg('client.component.dateAbstract.clearDateLabel')}
+            onMouseDown={e => {
+              e.preventDefault()
+              onChange(null)
+            }}
           />
-          {!initialized && (
-            <StyledDatePickerValue tabIndex={0} hasValue={hasValue}>
-              {hasValue ? formatDate(value[0]) : placeholder}
-            </StyledDatePickerValue>
-          )}
-          <StyledDatePickerInput disabled immutable={immutable} value={altInput} placeholder={placeholder} />
-          {!immutable && hasValue && (
-            <Ball
-              icon="times"
-              tabIndex={-1}
-              aria-label={msg('client.component.dateAbstract.clearDateLabel')}
-              onMouseDown={e => {
-                e.preventDefault()
-                onChange(null)
-              }}
-            />
-          )}
-        </StyledDatePickerWrapper>
-      </StyledDatePickerOuterWrapper>
-    </>
+        )}
+      </StyledDatePickerWrapper>
+    </StyledDatePickerOuterWrapper>
   )
 }
 
@@ -143,13 +157,10 @@ DatePicker.propTypes = {
   id: PropTypes.string,
   intl: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.arrayOf(PropTypes.string),
-  options: PropTypes.shape({
-    flatpickrOptions: PropTypes.object
-  }),
+  value: PropTypes.string,
+  hasTime: PropTypes.bool,
+  dateFormat: PropTypes.string,
   placeholder: PropTypes.string,
-  parseDate: PropTypes.func,
-  formatDate: PropTypes.func,
   immutable: PropTypes.bool,
   initialized: PropTypes.func,
   events: PropTypes.shape({
