@@ -8,20 +8,23 @@ import {StyledEditableControl, StyledEditableWrapper} from '../StyledEditableVal
 import StyledPhoneEdit from './StyledPhoneEdit'
 
 const PhoneEdit = props => {
-  const {onChange, value: valueProp, immutable, id} = props
+  const {onChange, value: valueProp, immutable, id, onLibLoaded} = props
   const FALLBACK_DEFAULT_COUNTRY = 'CH'
   const defaultCountry = _get(props, 'options.defaultCountry') || FALLBACK_DEFAULT_COUNTRY
-  const [phoneImportState, setPhoneImportState] = useState({libPhoneImport: null, defaultCountry})
+  const [phoneLib, setPhoneLib] = useState(null)
   const inputElement = React.createRef()
-  const phoneImportDefaultCountry = phoneImportState.defaultCountry
 
   useEffect(() => {
-    ;(async () => {
+    const loadLib = async () => {
       const libPhoneImport = await import(/* webpackChunkName: "vendor-libphonenumber-js" */ 'libphonenumber-js')
-      setPhoneImportState({...phoneImportState, libPhoneImport})
-    })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+      setPhoneLib(libPhoneImport)
+
+      if (onLibLoaded) {
+        onLibLoaded()
+      }
+    }
+    loadLib()
+  }, [onLibLoaded])
 
   const amountOfSpacesBeforeCaret = (str, caretPosition) => {
     const spaces = str.substring(0, caretPosition - 1).match(/\s/g)
@@ -30,10 +33,8 @@ const PhoneEdit = props => {
 
   const repositionCaret = (value, previousValue, caretPosition) => {
     if (caretPosition && value.length !== caretPosition) {
-      const previousFormatted = new phoneImportState.libPhoneImport.AsYouType(phoneImportDefaultCountry).input(
-        previousValue
-      )
-      const currentFormatted = new phoneImportState.libPhoneImport.AsYouType(phoneImportDefaultCountry).input(value)
+      const previousFormatted = new phoneLib.AsYouType(defaultCountry).input(previousValue)
+      const currentFormatted = new phoneLib.AsYouType(defaultCountry).input(value)
 
       const spacesPrevious = amountOfSpacesBeforeCaret(previousFormatted, caretPosition)
       const spacesCurrent = amountOfSpacesBeforeCaret(currentFormatted, caretPosition)
@@ -53,12 +54,11 @@ const PhoneEdit = props => {
 
   const handleChange = e => {
     const newValue = e.target.value
-    const {libPhoneImport} = phoneImportState
-    const parsedNumber = libPhoneImport ? libPhoneImport.parseNumber(newValue, phoneImportDefaultCountry) : newValue
+    const parsedNumber = phoneLib ? phoneLib.parseNumber(newValue, defaultCountry) : newValue
 
     const valueNormalized = _isEmpty(parsedNumber)
-      ? removeSpaces(new phoneImportState.libPhoneImport.AsYouType(phoneImportDefaultCountry).input(newValue))
-      : libPhoneImport.formatNumber(parsedNumber, 'E.164')
+      ? removeSpaces(new phoneLib.AsYouType(defaultCountry).input(newValue))
+      : phoneLib.formatNumber(parsedNumber, 'E.164')
 
     onChange(valueNormalized)
 
@@ -67,8 +67,8 @@ const PhoneEdit = props => {
   }
 
   const determineDisplayValue = () => {
-    if (valueProp && phoneImportState.libPhoneImport?.AsYouType) {
-      return new phoneImportState.libPhoneImport.AsYouType(phoneImportDefaultCountry).input(valueProp)
+    if (valueProp && phoneLib?.AsYouType) {
+      return new phoneLib.AsYouType(defaultCountry).input(valueProp)
     }
 
     return valueProp || ''
@@ -79,11 +79,11 @@ const PhoneEdit = props => {
   return (
     <StyledEditableWrapper immutable={immutable}>
       <StyledPhoneEdit
-        disabled={immutable || !phoneImportState.libPhoneImport}
+        disabled={immutable || !phoneLib}
         id={id}
         name={name}
         onChange={handleChange}
-        immutable={immutable || !phoneImportState.libPhoneImport}
+        immutable={immutable || !phoneLib}
         ref={inputElement}
         value={displayValue}
       />
@@ -105,7 +105,8 @@ PhoneEdit.propTypes = {
   options: PropTypes.shape({
     defaultCountry: PropTypes.string,
     customPhoneRegex: PropTypes.string
-  })
+  }),
+  onLibLoaded: PropTypes.func
 }
 
 export default PhoneEdit
