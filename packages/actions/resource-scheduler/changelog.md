@@ -1,3 +1,7 @@
+1.0.36
+- add condition to remote and select field
+- simple actions add conditions
+
 1.0.35
 - add css classes for display expressions styling
 
