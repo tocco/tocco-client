@@ -12,6 +12,7 @@
     "tocco-app-extensions": "*",
     "tocco-entity-browser": "*",
     "tocco-entity-list": "*",
-    "tocco-util": "*"
+    "tocco-util": "*",
+    "tocco-ui": "*"
   }
 }
