@@ -5,6 +5,19 @@ export const ACTION_SAVE_ID = 'save'
 export const ACTION_GROUP_OUTPUT_ID = 'output'
 export const ACTION_GROUP_ACTIONS_ID = 'actions'
 
+export const removeBoxes = (formDefinition, boxIds) => ({
+  ...formDefinition,
+  children: formDefinition.children
+    .filter(item => item.componentType !== 'layout' || !boxIds.contains(item.id))
+    .map(item => {
+      if (item.componentType === 'layout') {
+        return removeBoxes(item, boxIds)
+      }
+
+      return item
+    })
+})
+
 /**
  * remove create action group from main action bar
  */
