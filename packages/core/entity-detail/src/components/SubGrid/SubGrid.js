@@ -47,6 +47,7 @@ const SubGrid = props => {
         scrollBehaviour="inline"
         tableMinHeight="300px"
         locale={props.locale}
+        modifyFormDefinition={props.modifyFormDefinition}
       />
     </StyledListApp>
   )
@@ -73,7 +74,8 @@ SubGrid.propTypes = {
   limit: PropTypes.number,
   emitAction: PropTypes.func.isRequired,
   navigationStrategy: PropTypes.objectOf(PropTypes.func),
-  locale: PropTypes.string
+  locale: PropTypes.string,
+  modifyFormDefinition: PropTypes.func
 }
 
 export default SubGrid
