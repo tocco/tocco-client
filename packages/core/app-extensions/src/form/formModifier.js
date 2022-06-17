@@ -39,6 +39,7 @@ export const removeCreate = formDefinition => ({
  * add reports to form definition (use reports helper of app-extensions to create correct format of reports parameter)
  */
 export const addReports = (formDefinition, reports, intl) => {
+  formDefinition = addMainActionBar(formDefinition)
   formDefinition = addOutputGroup(formDefinition, intl)
 
   return {
@@ -62,6 +63,27 @@ export const addReports = (formDefinition, reports, intl) => {
 
       return rootItem
     })
+  }
+}
+
+/**
+ * add main action bar if it not already exists
+ */
+export const addMainActionBar = formDefinition => {
+  const mainActionBarExists = formDefinition.children.filter(rootItem => rootItem.id === MAIN_ACTION_BAR_ID).length > 0
+
+  if (mainActionBarExists) {
+    return formDefinition
+  } else {
+    const mainActionBar = {
+      id: MAIN_ACTION_BAR_ID,
+      componentType: 'action-bar',
+      children: []
+    }
+    return {
+      ...formDefinition,
+      children: [mainActionBar, ...formDefinition.children]
+    }
   }
 }
 
