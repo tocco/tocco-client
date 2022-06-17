@@ -1,8 +1,12 @@
+import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
+import {reports} from 'tocco-app-extensions'
 
 import MailingList from './MailingList'
 
-const mapActionCreators = {}
+const mapActionCreators = {
+  loadReports: reports.loadReports
+}
 
 const mapStateToProps = state => ({
   searchFormType: state.input.searchFormType,
@@ -10,7 +14,9 @@ const mapStateToProps = state => ({
   limit: state.input.limit,
   backendUrl: state.input.backendUrl,
   businessUnit: state.input.businessUnit,
-  appContext: state.input.appContext
+  appContext: state.input.appContext,
+  reports: state.reports.reports,
+  reportIds: state.input.reportIds
 })
 
-export default connect(mapStateToProps, mapActionCreators)(MailingList)
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(MailingList))
