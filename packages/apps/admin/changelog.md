@@ -1,3 +1,6 @@
+1.0.60
+- replace flatpickr with react-datepicker
+
 1.0.59
 - add condition to remote and select field
 - simple actions add conditions
