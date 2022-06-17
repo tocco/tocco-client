@@ -10,7 +10,8 @@ const mapStateToProps = (state, props) => ({
   entityName: state.entityDetail.entity.model,
   detailFormName: state.entityDetail.formDefinition.id,
   navigationStrategy: state.input.navigationStrategy,
-  locale: state.intl.locale
+  locale: state.intl.locale,
+  modifyFormDefinition: state.input.modifyFormDefinition
 })
 
 const mapActionCreators = {
