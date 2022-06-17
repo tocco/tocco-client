@@ -387,8 +387,9 @@ export function* setSorting() {
 export function* loadFormDefinition(formName, scope, actionCreator) {
   const {modifyFormDefinition} = yield select(inputSelector)
   const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
+  const {parent} = yield select(entityListSelector)
   const modifiedFormDefinition = modifyFormDefinition
-    ? modifyFormDefinition(fetchedFormDefinition)
+    ? yield call(modifyFormDefinition, fetchedFormDefinition, {parent})
     : fetchedFormDefinition
   const constriction = getConstriction(modifiedFormDefinition)
   yield put(actions.setConstriction(constriction))
