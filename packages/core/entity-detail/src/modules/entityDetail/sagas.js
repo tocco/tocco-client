@@ -44,10 +44,12 @@ export default function* sagas() {
   ])
 }
 
-export function* loadDetailFormDefinition(formName, mode) {
+export function* loadDetailFormDefinition(formName, mode, entityName, entityId) {
   const {modifyFormDefinition} = yield select(inputSelector)
   const formDefinition = yield call(rest.fetchForm, formName, mode)
-  const modifiedFormDefinition = modifyFormDefinition ? modifyFormDefinition(formDefinition) : formDefinition
+  const modifiedFormDefinition = modifyFormDefinition
+    ? yield call(modifyFormDefinition, formDefinition, {entityName, entityId})
+    : formDefinition
   yield put(actions.setFormDefinition(modifiedFormDefinition))
   const fieldDefinitions = yield call(form.getFieldDefinitions, modifiedFormDefinition)
   yield put(actions.setFieldDefinitions(fieldDefinitions))
@@ -76,10 +78,10 @@ export function* loadEntityModel(entityName) {
 }
 
 export function* loadDetailView() {
-  const {entityName, formName, mode, defaultValues} = yield select(entityDetailSelector)
+  const {entityName, entityId, formName, mode, defaultValues} = yield select(entityDetailSelector)
 
   const model = yield call(loadEntityModel, entityName)
-  const {fieldDefinitions} = yield call(loadDetailFormDefinition, formName, mode)
+  const {fieldDefinitions} = yield call(loadDetailFormDefinition, formName, mode, entityName, entityId)
 
   if (mode === modes.CREATE) {
     yield put(actions.setEntity({paths: {}, model: entityName}))
