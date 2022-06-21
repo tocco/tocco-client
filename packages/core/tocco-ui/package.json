@@ -20,7 +20,6 @@
     "@fortawesome/pro-solid-svg-icons": "6.1.1",
     "@fortawesome/react-fontawesome": "0.1.18",
     "ace-builds": "^1.4.14",
-    "flatpickr": "4.6.13",
     "qrcode.react": "^3.0.1",
     "react-autosuggest": "^10.1.0",
     "react-datepicker": "^4.8.0",

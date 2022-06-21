@@ -49,32 +49,32 @@ describe('tocco-ui', () => {
       const dateValue = '2020-09-24'
       const result = rangeTypeMappings.datetime.getToOptions({testValue: 'test'}, dateValue)
       expect(result.testValue).to.eq('test')
-      expect(result.flatpickrOptions.minDate).to.be.eq(dateValue)
-      expect(result.flatpickrOptions.maxDate).to.be.undefined
+      expect(result.datePickerOptions.minDate).to.be.eq(dateValue)
+      expect(result.datePickerOptions.maxDate).to.be.undefined
     })
 
     test('should set from datetime limitation', () => {
       const dateValue = '2020-09-24'
       const result = rangeTypeMappings.datetime.getFromOptions({testValue: 'test'}, dateValue)
       expect(result.testValue).to.eq('test')
-      expect(result.flatpickrOptions.maxDate).to.be.eq(dateValue)
-      expect(result.flatpickrOptions.minDate).to.be.undefined
+      expect(result.datePickerOptions.maxDate).to.be.eq(dateValue)
+      expect(result.datePickerOptions.minDate).to.be.undefined
     })
 
     test('should set to date limitation', () => {
       const dateValue = '2020-09-24'
       const result = rangeTypeMappings.date.getToOptions({testValue: 'test'}, dateValue)
       expect(result.testValue).to.eq('test')
-      expect(result.flatpickrOptions.minDate).to.be.eq(dateValue)
-      expect(result.flatpickrOptions.maxDate).to.be.undefined
+      expect(result.datePickerOptions.minDate).to.be.eq(dateValue)
+      expect(result.datePickerOptions.maxDate).to.be.undefined
     })
 
     test('should set from date limitation', () => {
       const dateValue = '2020-09-24'
       const result = rangeTypeMappings.date.getFromOptions({testValue: 'test'}, dateValue)
       expect(result.testValue).to.eq('test')
-      expect(result.flatpickrOptions.maxDate).to.be.eq(dateValue)
-      expect(result.flatpickrOptions.minDate).to.be.undefined
+      expect(result.datePickerOptions.maxDate).to.be.eq(dateValue)
+      expect(result.datePickerOptions.minDate).to.be.undefined
     })
   })
 })

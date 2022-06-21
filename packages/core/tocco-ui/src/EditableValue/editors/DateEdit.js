@@ -5,11 +5,13 @@ import LazyDatePicker from './LazyDatePicker'
 
 const DateFormat = 'P' // MM/dd/yyyy od. dd.MM.yyyy
 
-export const DateEdit = ({onChange, id, value, immutable, events, placeholder}) => {
+export const DateEdit = ({onChange, options, id, value, immutable, events, placeholder}) => {
   const handleChange = dateTime => {
     const date = dateTime ? toLocalDateString(dateTime) : null
     onChange(date)
   }
+
+  const datePickerOptions = options?.datePickerOptions || {}
 
   return (
     <LazyDatePicker
@@ -21,6 +23,7 @@ export const DateEdit = ({onChange, id, value, immutable, events, placeholder}) 
       immutable={immutable}
       events={events}
       placeholder={placeholder}
+      {...datePickerOptions}
     />
   )
 }
@@ -31,6 +34,12 @@ DateEdit.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   immutable: PropTypes.bool,
+  options: PropTypes.shape({
+    datePickerOptions: PropTypes.shape({
+      minDate: PropTypes.string,
+      maxDate: PropTypes.string
+    })
+  }),
   events: PropTypes.shape({
     onFocus: PropTypes.func
   })
