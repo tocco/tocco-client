@@ -55,7 +55,7 @@ const isTimeInput = element => element.classList.contains(ReactDatepickerTimeInp
 const isInput = element => element.classList.contains(ReactDatepickerInputClassName)
 
 const DatePicker = props => {
-  const {immutable, id, value, onChange, intl, placeholder, hasTime, dateFormat} = props
+  const {immutable, id, value, minDate, maxDate, onChange, intl, placeholder, hasTime, dateFormat} = props
 
   const locale = intl.locale
   const msg = msgId => intl.formatMessage({id: msgId})
@@ -66,6 +66,8 @@ const DatePicker = props => {
 
   const hasValue = !!value
   const selectedDate = parseISOValue(value)
+  const minDateVal = minDate ? parseISOValue(minDate) : undefined
+  const maxDateVal = maxDate ? parseISOValue(maxDate) : undefined
 
   const handleOnChange = val => {
     if (val) {
@@ -135,6 +137,8 @@ const DatePicker = props => {
           customTimeInput={<TimeInput onKeyDown={handleConfirmKey} />}
           enableTabLoop={false}
           timeInputLabel=""
+          minDate={minDateVal}
+          maxDate={maxDateVal}
         />
 
         {!immutable && hasValue && (
@@ -163,6 +167,8 @@ DatePicker.propTypes = {
   placeholder: PropTypes.string,
   immutable: PropTypes.bool,
   initialized: PropTypes.func,
+  minDate: PropTypes.string,
+  maxDate: PropTypes.string,
   events: PropTypes.shape({
     onFocus: PropTypes.func
   })
