@@ -58,7 +58,8 @@ MailingListApp.propTypes = {
   backendUrl: PropTypes.string,
   businessUnit: PropTypes.string,
   appContext: appContextPropType.propTypes.isRequired,
-  reportIds: PropTypes.arrayOf(PropTypes.string)
+  reportIds: PropTypes.arrayOf(PropTypes.string),
+  allowEmail: PropTypes.bool
 }
 
 export default MailingListApp

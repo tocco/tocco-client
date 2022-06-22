@@ -17,15 +17,32 @@ const MailingList = ({
   loadReports,
   reportIds,
   reports,
-  intl
+  intl,
+  showEmailAction
 }) => {
   useEffect(() => {
     loadReports(reportIds)
   }, [loadReports, reportIds])
 
-  const modifyFormDefinition = async (formDefinition, {entityName, entityId}) => {
-    if (formDefinition.id === 'Mailing_list_detail_relUser_list' && reports?.length > 0) {
-      return form.addReports(formDefinition, reports, intl)
+  const modifyFormDefinition = async (formDefinition, {parent, entityName, entityId}) => {
+    if (formDefinition.id === 'Mailing_list_detail_relUser_list') {
+      let userListFormDefinition = formDefinition
+      if (reports?.length > 0) {
+        userListFormDefinition = form.addReports(userListFormDefinition, reports, intl)
+      }
+      if (!showEmailAction) {
+        userListFormDefinition = form.removeActions(userListFormDefinition, ['mailingListMailAction'])
+      } else {
+        userListFormDefinition = form.adjustAction(userListFormDefinition, 'mailingListMailAction', action => ({
+          ...action,
+          properties: {
+            ...action.properties,
+            widgetKey: appContext.widgetConfigKey,
+            eventKey: parent.key
+          }
+        }))
+      }
+      return userListFormDefinition
     }
 
     if (entityId && entityName === 'User') {
@@ -66,7 +83,8 @@ MailingList.propTypes = {
   loadReports: PropTypes.func.isRequired,
   reports: PropTypes.arrayOf(PropTypes.object),
   reportIds: PropTypes.arrayOf(PropTypes.string).isRequired,
-  intl: PropTypes.object.isRequired
+  intl: PropTypes.object.isRequired,
+  showEmailAction: PropTypes.bool
 }
 
 export default MailingList
