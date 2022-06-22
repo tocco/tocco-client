@@ -1,9 +1,9 @@
-import {consoleLogger} from 'tocco-util'
+import {consoleLogger, bundle} from 'tocco-util'
 
 import {ATTRIBUTE_WIDGET_KEY, BOOTSTRAP_SCRIPT_OBJ_NAME, ERROR_CODE_INVALID_DOMAIN} from './constants'
 import * as remoteLogger from './remoteLogger'
 import {executeRequest, enhanceExtractedBody} from './requests'
-import {attachMethods, getEventHandlers, getTheme, getVersion, loadScriptAsync} from './utils'
+import {attachMethods, getEventHandlers, getTheme, getVersion} from './utils'
 
 const getWidgetKey = container => container.getAttribute(ATTRIBUTE_WIDGET_KEY)
 
@@ -37,8 +37,7 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
     const {appName, packageName, locale, config} = widgetConfig
 
     try {
-      const entryFilename = packageName !== appName ? appName : 'index'
-      await loadScriptAsync(`${assetUrl}/js/tocco-${packageName}/dist/${entryFilename}.js`)
+      await bundle.loadScriptAsync(`${assetUrl}${bundle.getEntryFilePath(packageName, appName)}`)
     } catch (error) {
       remoteLogger.logException(backendUrl, `Could not fetch package 'tocco-${packageName}'.`, error)
       return

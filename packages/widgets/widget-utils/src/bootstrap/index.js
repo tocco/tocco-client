@@ -1,6 +1,8 @@
+import {bundle} from 'tocco-util'
+
 import bootstrapWidgets from './bootstrapWidgets'
 import {BACKEND_URL} from './constants'
-import {getAssetUrl, loadScriptAsync} from './utils'
+import {getAssetUrl} from './utils'
 ;(() => {
   const assetUrl = getAssetUrl(document)
   let backendUrl
@@ -17,7 +19,7 @@ import {getAssetUrl, loadScriptAsync} from './utils'
 
   // guarantee to initalize all widgets on the page
   document.addEventListener('DOMContentLoaded', async () => {
-    await loadScriptAsync(`${assetUrl}/nice2/javascript/nice2-react.release.js`)
+    await bundle.loadScriptAsync(`${assetUrl}/nice2/javascript/nice2-react.release.js`)
     await bootstrapWidgets(params)
   })
 })()
