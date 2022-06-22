@@ -11,7 +11,8 @@ const mapStateToProps = (state, props) => ({
   detailFormName: state.entityDetail.formDefinition.id,
   navigationStrategy: state.input.navigationStrategy,
   locale: state.intl.locale,
-  modifyFormDefinition: state.input.modifyFormDefinition
+  modifyFormDefinition: state.input.modifyFormDefinition,
+  actionAppComponent: state.input.actionAppComponent
 })
 
 const mapActionCreators = {
