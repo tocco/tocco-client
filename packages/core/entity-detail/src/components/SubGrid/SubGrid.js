@@ -48,6 +48,7 @@ const SubGrid = props => {
         tableMinHeight="300px"
         locale={props.locale}
         modifyFormDefinition={props.modifyFormDefinition}
+        actionAppComponent={props.actionAppComponent}
       />
     </StyledListApp>
   )
@@ -75,7 +76,8 @@ SubGrid.propTypes = {
   emitAction: PropTypes.func.isRequired,
   navigationStrategy: PropTypes.objectOf(PropTypes.func),
   locale: PropTypes.string,
-  modifyFormDefinition: PropTypes.func
+  modifyFormDefinition: PropTypes.func,
+  actionAppComponent: PropTypes.func
 }
 
 export default SubGrid

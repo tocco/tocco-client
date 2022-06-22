@@ -5,6 +5,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Button} from 'tocco-ui'
 import {queryString as queryStringUtil} from 'tocco-util'
 
+import Action from '../LazyAction'
 import {DetailLinkRelative} from './DetailLinkRelative'
 import {StyledEntityDetailBackButton} from './StyledEntityDetail'
 
@@ -93,6 +94,7 @@ const EntityDetail = ({
       theme={{}}
       locale={locale}
       modifyFormDefinition={modifyFormDefinition}
+      actionAppComponent={Action}
     />
   )
 
