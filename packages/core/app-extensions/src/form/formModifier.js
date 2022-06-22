@@ -18,6 +18,54 @@ export const removeBoxes = (formDefinition, boxIds) => ({
     })
 })
 
+export const removeActions = (formDefinition, actionIds) => ({
+  ...formDefinition,
+  children: formDefinition.children.map(rootItem => {
+    if (rootItem.id === MAIN_ACTION_BAR_ID) {
+      return {
+        ...rootItem,
+        children: rootItem.children
+          .map(group => {
+            if (group.componentType === 'action-group') {
+              return group.children.filter(action => !actionIds.contains(action.id))
+            }
+            return group
+          })
+          .filter(group => group.componentType !== 'action-group' || group.children.length > 0)
+      }
+    }
+
+    return rootItem
+  })
+})
+
+export const adjustAction = (formDefinition, actionId, adjuster) => ({
+  ...formDefinition,
+  children: formDefinition.children.map(rootItem => {
+    if (rootItem.id === MAIN_ACTION_BAR_ID) {
+      return {
+        ...rootItem,
+        children: rootItem.children.map(group => {
+          if (group.componentType === 'action-group') {
+            return {
+              ...group,
+              children: group.children.map(action => {
+                if (action.id === actionId) {
+                  return adjuster(action)
+                }
+                return action
+              })
+            }
+          }
+          return group
+        })
+      }
+    }
+
+    return rootItem
+  })
+})
+
 /**
  * remove create action group from main action bar
  */
