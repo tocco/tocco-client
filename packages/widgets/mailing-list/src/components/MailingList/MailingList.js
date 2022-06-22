@@ -18,9 +18,9 @@ function* modifyFormDefinition(
       userListFormDefinition = form.addReports(userListFormDefinition, reports, intl)
     }
     if (!showEmailAction) {
-      userListFormDefinition = form.removeActions(userListFormDefinition, ['mailingListMailAction'])
+      userListFormDefinition = form.removeActions(userListFormDefinition, ['mailing-list-mail-action'])
     } else {
-      userListFormDefinition = form.adjustAction(userListFormDefinition, 'mailingListMailAction', action => ({
+      userListFormDefinition = form.adjustAction(userListFormDefinition, 'mailing-list-mail-action', action => ({
         ...action,
         properties: {
           ...action.properties,
