@@ -4,5 +4,7 @@
     "widgetConfigKey": "1"
   },
   "searchFilters": [],
-  "limit": 15
+  "limit": 15,
+  "reportIds": [],
+  "allowEmail": true
 }

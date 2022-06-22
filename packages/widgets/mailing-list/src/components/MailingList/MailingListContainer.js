@@ -16,7 +16,8 @@ const mapStateToProps = state => ({
   businessUnit: state.input.businessUnit,
   appContext: state.input.appContext,
   reports: state.reports.reports,
-  reportIds: state.input.reportIds
+  reportIds: state.input.reportIds,
+  showEmailAction: state.input.allowEmail
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(MailingList))
