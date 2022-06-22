@@ -1,3 +1,6 @@
+1.1.36
+- fix datepicker max-, mind-date value for ranges
+
 1.1.35
 - replace flatpickr with react-datepicker
 
