@@ -34,7 +34,8 @@ const webpackConfig = {
   },
   module: {},
   externals: {
-    ...(__PROD__ ? {react: 'React', 'react-dom': 'ReactDOM'} : {})
+    react: 'React',
+    'react-dom': 'ReactDOM'
   },
   entry: [...(__DEV__ ? ['webpack-hot-middleware/client'] : []), paths.client(`${packageDir}/src/main.js`)],
   optimization: {
