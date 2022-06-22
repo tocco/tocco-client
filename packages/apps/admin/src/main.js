@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import {
   actionEmitter,
   appFactory,
+  actions,
   cache,
   errorLogging,
   externalEvents,
@@ -38,6 +39,7 @@ const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
+  actions.dynamicActionsAddToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   notification.addToStore(store, true, {withNotificationCenter: true})
   login.addToStore(store)
