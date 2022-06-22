@@ -5,7 +5,7 @@ import {viewPersistor} from 'tocco-util'
 
 import navigationStrategy from '../../utils/navigationStrategy'
 import {currentViewPropType} from '../../utils/propTypes'
-import Action from '../Action/LazyAction'
+import Action from '../Action'
 import DocsViewAdapter from './DocsViewAdapter'
 
 const ListView = ({match, history, currentViewInfo, emitAction, searchFormCollapsed, saveUserPreferences}) => {
