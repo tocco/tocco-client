@@ -39,8 +39,8 @@ export default {
       {
         type: 'modify',
         path: `${appDir}/src/main.js`,
-        pattern: /$/g,
-        template: 'export const app = appFactory.createBundleableApp(packageName, initApp)\n'
+        pattern: /(export default) (.*)\n/g,
+        template: '$1 $2\nexport const app = appFactory.createBundleableApp(packageName, initApp, $2)\n'
       }
     ]
   }

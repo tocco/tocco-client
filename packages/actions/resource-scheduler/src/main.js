@@ -90,3 +90,4 @@ ResourceSchedulerApp.propTypes = {
 }
 
 export default ResourceSchedulerApp
+export const app = appFactory.createBundleableApp(packageName, initApp, ResourceSchedulerApp)

@@ -65,3 +65,4 @@ DeleteApp.propTypes = {
 }
 
 export default DeleteApp
+export const app = appFactory.createBundleableApp(packageName, initApp, DeleteApp)

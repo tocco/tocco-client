@@ -168,4 +168,4 @@ DocsBrowserApp.propTypes = {
 
 export default DocsBrowserApp
 export {chooseDocument}
-export const app = appFactory.createBundleableApp(packageName, initApp)
+export const app = appFactory.createBundleableApp(packageName, initApp, DocsBrowserApp)

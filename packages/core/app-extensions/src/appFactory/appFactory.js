@@ -63,9 +63,11 @@ export const registerAppInRegistry = (appName, initFunction) => {
   }
 }
 
-export const createBundleableApp = (name, init) => ({
+export const createBundleableApp = (name, init, App) => ({
   name,
-  init
+  init,
+  App,
+  setWebpacksPublicPath
 })
 
 const dispatchActions = (actions, store) => {

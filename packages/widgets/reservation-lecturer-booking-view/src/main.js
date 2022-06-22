@@ -62,4 +62,4 @@ ReservationLecturerBookingViewApp.propTypes = {
 }
 
 export default ReservationLecturerBookingViewApp
-export const app = appFactory.createBundleableApp(packageName, initApp)
+export const app = appFactory.createBundleableApp(packageName, initApp, ReservationLecturerBookingViewApp)

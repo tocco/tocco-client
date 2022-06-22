@@ -160,4 +160,4 @@ EntityBrowserApp.propTypes = {
 }
 
 export default EntityBrowserApp
-export const app = appFactory.createBundleableApp(packageName, initApp)
+export const app = appFactory.createBundleableApp(packageName, initApp, EntityBrowserApp)
