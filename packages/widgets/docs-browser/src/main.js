@@ -3,7 +3,15 @@ import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
-import {actionEmitter, appFactory, cache, errorLogging, externalEvents, notification} from 'tocco-app-extensions'
+import {
+  actionEmitter,
+  appFactory,
+  actions,
+  cache,
+  errorLogging,
+  externalEvents,
+  notification
+} from 'tocco-app-extensions'
 import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
 import {scrollBehaviourPropType} from 'tocco-ui'
 import {appContext, react, reducer as reducerUtil, env} from 'tocco-util'
@@ -62,6 +70,7 @@ const initApp = (id, input, events = {}, publicPath) => {
 
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
+  actions.dynamicActionsAddToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
