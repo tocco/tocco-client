@@ -6,7 +6,16 @@ import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
 import React, {Suspense} from 'react'
 import {Router} from 'react-router-dom'
-import {actionEmitter, appFactory, cache, errorLogging, externalEvents, login, notification} from 'tocco-app-extensions'
+import {
+  actionEmitter,
+  appFactory,
+  actions,
+  cache,
+  errorLogging,
+  externalEvents,
+  login,
+  notification
+} from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/main'
 import {GlobalStyles} from 'tocco-ui'
 import {appContext, env, react, reducer as reducerUtil} from 'tocco-util'
@@ -71,6 +80,7 @@ const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
+  actions.dynamicActionsAddToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   notification.addToStore(store, true)
   login.addToStore(store)
