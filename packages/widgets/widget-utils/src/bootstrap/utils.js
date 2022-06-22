@@ -4,24 +4,6 @@ export const snakeToCamel = s => s.replace(/(-\w)/g, m => m[1].toUpperCase())
 
 const getId = container => container.getAttribute(ATTRIBUTE_ID)
 
-export const loadScriptAsync = src =>
-  new Promise((resolve, reject) => {
-    const tag = document.createElement('script')
-    tag.src = src
-    tag.async = true
-    tag.type = 'text/javascript'
-    tag.onload = () => {
-      resolve()
-    }
-    tag.onerror = () => {
-      reject(new Error('Could not load script.'))
-    }
-    tag.crossorogin = true
-
-    const firstScriptTag = document.getElementsByTagName('script')[0]
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
-  })
-
 export const transformObjectValue = val => {
   try {
     return JSON.parse(val)
