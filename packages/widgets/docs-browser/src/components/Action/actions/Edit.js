@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {selection} from 'tocco-app-extensions'
+import {selection as selectionPropType} from 'tocco-app-extensions'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 
 import getDetailFormName from '../../../utils/getDetailFormName'
@@ -80,7 +80,7 @@ const EditAction = ({selection, onSuccess, onCancel, locale, context, emitAction
 }
 
 EditAction.propTypes = {
-  selection: selection.propType,
+  selection: selectionPropType.propType,
   context: PropTypes.object.isRequired,
   onSuccess: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
