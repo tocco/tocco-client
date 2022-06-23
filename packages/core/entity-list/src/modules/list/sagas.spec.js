@@ -550,7 +550,8 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadFormDefinition, formName, scope, actionCreator)
               .provide([
                 [call(rest.fetchForm, formName, scope), fetchedFormDefinition],
-                [select(sagas.inputSelector), {modifyFormDefinition}]
+                [select(sagas.inputSelector), {modifyFormDefinition}],
+                [select(sagas.entityListSelector), {}]
               ])
               .put(actionCreator(fetchedFormDefinition))
               .run()

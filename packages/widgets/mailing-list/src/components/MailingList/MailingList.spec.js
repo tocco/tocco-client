@@ -38,11 +38,13 @@ describe('MailingList', () => {
       }
       test('should add reports', () => {
         const modifiedFormDefinition = modifyFormDefinition(formDefinition, {}, {reports, intl}).next().value
-        expect(_get(modifiedFormDefinition, ['children', '0', 'children', '0', '0', 'id'])).to.eq('example-report')
+        expect(_get(modifiedFormDefinition, ['children', '0', 'children', '0', 'children', '0', 'id'])).to.eq(
+          'example-report'
+        )
       })
       test('should remove action when disabled', () => {
         const modifiedFormDefinition = modifyFormDefinition(formDefinition, {}, {showEmailAction: false}).next().value
-        expect(_get(modifiedFormDefinition, ['children', '0', 'children', '0'])).to.be.empty
+        expect(_get(modifiedFormDefinition, ['children', '0', 'children'])).to.be.empty
       })
       test('should adjust action when enabled', () => {
         const modifiedFormDefinition = modifyFormDefinition(
