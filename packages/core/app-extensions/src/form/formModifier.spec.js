@@ -1,3 +1,4 @@
+import _get from 'lodash/get'
 import {IntlStub} from 'tocco-test-util'
 
 import {
@@ -8,7 +9,10 @@ import {
   addOutputGroup,
   addReports,
   MAIN_ACTION_BAR_ID,
-  removeCreate
+  removeCreate,
+  removeBoxes,
+  removeActions,
+  adjustAction
 } from './formModifier'
 
 describe('app-extensions', () => {
@@ -164,6 +168,119 @@ describe('app-extensions', () => {
             ACTION_GROUP_OUTPUT_ID,
             ACTION_GROUP_ACTIONS_ID
           ])
+        })
+      })
+
+      describe('removeBoxes', () => {
+        const formDefinitionBoxes = {
+          children: [
+            {
+              id: 'top-box',
+              componentType: 'layout',
+              children: [
+                {
+                  id: 'first-box',
+                  componentType: 'layout',
+                  children: []
+                },
+                {
+                  id: 'second-box',
+                  componentType: 'layout',
+                  children: [
+                    {
+                      id: 'low-box',
+                      componentType: 'layout',
+                      children: []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+
+        test('should remove boxes', () => {
+          const modifiedFormDefinition = removeBoxes(formDefinitionBoxes, ['top-box'])
+          expect(modifiedFormDefinition.children).to.be.empty
+        })
+        test('should remove boxes at any depth', () => {
+          const modifiedFormDefinition = removeBoxes(formDefinitionBoxes, ['low-box'])
+          expect(_get(modifiedFormDefinition, ['children', '0', 'children', '1', 'children'])).to.be.empty
+        })
+        test('should leave definition unchanged when boxes do not exist', () => {
+          const modifiedFormDefinition = removeBoxes(formDefinitionBoxes, ['third-box'])
+          expect(modifiedFormDefinition).to.deep.eq(formDefinitionBoxes)
+        })
+      })
+
+      describe('removeActions', () => {
+        const formDefinitionActions = {
+          children: [
+            {
+              id: MAIN_ACTION_BAR_ID,
+              children: [
+                {
+                  componentType: 'action-group',
+                  children: [
+                    {
+                      id: 'action1'
+                    },
+                    {
+                      id: 'action2'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        test('should remove actions', () => {
+          const modifiedFormDefinition = removeActions(formDefinitionActions, ['action1'])
+          expect(_get(modifiedFormDefinition, ['children', '0', 'children', '0', 'children'])).to.have.length(1)
+        })
+        test('should remove empty groups', () => {
+          const modifiedFormDefinition = removeActions(formDefinitionActions, ['action1', 'action2'])
+          expect(_get(modifiedFormDefinition, ['children', '0', 'children'])).to.be.empty
+        })
+        test('should leave definition unchanged when actions do not exist', () => {
+          const modifiedFormDefinition = removeActions(formDefinitionActions, ['action3'])
+          expect(modifiedFormDefinition).to.deep.eq(formDefinitionActions)
+        })
+      })
+
+      describe('adjustAction', () => {
+        const formDefinitionActions = {
+          children: [
+            {
+              id: MAIN_ACTION_BAR_ID,
+              children: [
+                {
+                  componentType: 'action-group',
+                  children: [
+                    {
+                      id: 'action1'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        test('should change action', () => {
+          const modifiedFormDefinition = adjustAction(formDefinitionActions, 'action1', action => ({
+            ...action,
+            id: 'new-id'
+          }))
+          expect(_get(modifiedFormDefinition, ['children', '0', 'children', '0', 'children', '0', 'id'])).to.eq(
+            'new-id'
+          )
+        })
+        test('should leave definition unchanged when action does not exist', () => {
+          const modifiedFormDefinition = adjustAction(formDefinitionActions, 'action2', action => ({
+            ...action,
+            id: 'new-id'
+          }))
+          expect(modifiedFormDefinition).to.deep.eq(formDefinitionActions)
         })
       })
     })

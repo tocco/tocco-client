@@ -8,7 +8,7 @@ export const ACTION_GROUP_ACTIONS_ID = 'actions'
 export const removeBoxes = (formDefinition, boxIds) => ({
   ...formDefinition,
   children: formDefinition.children
-    .filter(item => item.componentType !== 'layout' || !boxIds.contains(item.id))
+    .filter(item => item.componentType !== 'layout' || !boxIds.includes(item.id))
     .map(item => {
       if (item.componentType === 'layout') {
         return removeBoxes(item, boxIds)
@@ -27,7 +27,10 @@ export const removeActions = (formDefinition, actionIds) => ({
         children: rootItem.children
           .map(group => {
             if (group.componentType === 'action-group') {
-              return group.children.filter(action => !actionIds.contains(action.id))
+              return {
+                ...group,
+                children: group.children.filter(action => !actionIds.includes(action.id))
+              }
             }
             return group
           })

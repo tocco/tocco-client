@@ -7,7 +7,7 @@ import {searchFormTypePropTypes} from 'tocco-entity-list/src/main'
 import {LoadMask} from 'tocco-ui'
 import {appContext as appContextPropType} from 'tocco-util'
 
-function* modifyFormDefinition(
+export function* modifyFormDefinition(
   formDefinition,
   {parent, entityName, entityId},
   {reports, intl, showEmailAction, appContext}
@@ -32,7 +32,7 @@ function* modifyFormDefinition(
     return userListFormDefinition
   }
 
-  if (entityId && entityName === 'User') {
+  if (formDefinition.id === 'Mailing_list_User_detail' && entityId) {
     const user = yield rest.fetchEntity(entityName, entityId, {paths: ['publish_detail']})
     const publishDetail = _get(user, ['paths', 'publish_detail', 'value'])
     if (!publishDetail) {
