@@ -23,6 +23,7 @@ const DatePicker = props => {
   const {children, value, onChange, intl} = props
 
   const locale = intl.locale
+  const msg = msgId => intl.formatMessage({id: msgId})
 
   const datePickerRef = useRef(null)
   const [open, setOpen] = useState(false)
@@ -64,6 +65,7 @@ const DatePicker = props => {
           {children}
         </ChildrenWrapper>
       }
+      todayButton={msg('client.component.datePicker.todayLabel')}
     />
   )
 }

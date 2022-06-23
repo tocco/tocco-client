@@ -139,13 +139,14 @@ const DatePicker = props => {
           timeInputLabel=""
           minDate={minDateVal}
           maxDate={maxDateVal}
+          todayButton={msg('client.component.datePicker.todayLabel')}
         />
 
         {!immutable && hasValue && (
           <Ball
             icon="times"
             tabIndex={-1}
-            aria-label={msg('client.component.dateAbstract.clearDateLabel')}
+            aria-label={msg('client.component.datePicker.clearDateLabel')}
             onMouseDown={e => {
               e.preventDefault()
               onChange(null)
