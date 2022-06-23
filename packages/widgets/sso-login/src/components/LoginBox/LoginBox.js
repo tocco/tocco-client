@@ -8,18 +8,19 @@ import {StyledButtonContainer} from './StyledComponents'
 
 const LoginBox = props => {
   const {loadProviders, autoLogin, providers, loginEndpoint, loginCompleted} = props
-  loadProviders()
-  const prevProps = react.usePrevious(props)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => loadProviders(), []) // only invoke the loadprovider func once at the beginning
+  const prevProps = react.usePrevious(providers)
 
   useEffect(() => {
-    if (autoLogin && prevProps.providers.length === 0 && providers.length > 0) {
+    if (autoLogin && prevProps.length === 0 && providers.length > 0) {
       const autoLoginProvider = providers.find(entity => entity.unique_id === autoLogin)
 
       if (autoLoginProvider) {
         openLoginWindow(loginEndpoint, loginCompleted, autoLoginProvider)
       }
     }
-  })
+  }, [prevProps.length, providers, autoLogin, loginEndpoint, loginCompleted])
 
   const ProviderButtons = providers.map((provider, idx) => (
     <ProviderButton key={idx} provider={provider} loginEndpoint={loginEndpoint} loginCompleted={loginCompleted} />
