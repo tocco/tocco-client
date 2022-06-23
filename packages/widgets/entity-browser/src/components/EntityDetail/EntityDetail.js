@@ -71,7 +71,7 @@ const EntityDetail = ({
     router.history.push(detailParams.parentUrl)
   }
 
-  const getApp = ({entityName, entityId, formName, mode}, locale) => (
+  const getApp = ({entityName, entityId, formName, mode}) => (
     <EntityDetailApp
       id={`${appId}_detail_${formName}_${entityId}`}
       entityName={entityName}
@@ -114,7 +114,7 @@ const EntityDetail = ({
               />
             </StyledEntityDetailBackButton>
           )}
-          {getApp(detailParams, locale)}
+          {getApp(detailParams)}
         </>
       )}
     </>

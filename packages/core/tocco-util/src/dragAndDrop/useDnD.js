@@ -20,7 +20,7 @@ export default changePosition => {
   const events = useCallback(
     item => ({
       onDragStart: e => {
-        setState(state => ({...state, currentlyDragging: item}))
+        setState(currentState => ({...currentState, currentlyDragging: item}))
 
         /**
          * Workaround: https://github.com/facebook/react/issues/1355
@@ -44,16 +44,16 @@ export default changePosition => {
       onDragEnter: e => {
         if (currentlyDragging && !isEqual(currentlyDragOver, item)) {
           const bounding = e.target ? e.target.getBoundingClientRect() : {}
-          const offset = bounding.y + bounding.height / 2
-          setState(state => ({...state, currentlyDragOver: item, offset}))
+          const updatedOffset = bounding.y + bounding.height / 2
+          setState(currentState => ({...currentState, currentlyDragOver: item, offset: updatedOffset}))
         }
         e.stopPropagation()
       },
       onDragOver: e => {
         if (currentlyDragging) {
           const after = e.clientY - offset > 0
-          const dropPosition = after ? DropPosition.Bottom : DropPosition.Top
-          setState(state => ({...state, dropPosition}))
+          const updatedDropPosition = after ? DropPosition.Bottom : DropPosition.Top
+          setState(currentState => ({...currentState, dropPosition: updatedDropPosition}))
           e.preventDefault()
           e.stopPropagation()
           return true

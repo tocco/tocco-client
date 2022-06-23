@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {useEffect, useState} from 'react'
 import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'
-import {selection} from 'tocco-app-extensions'
+import {selection as selectionPropType} from 'tocco-app-extensions'
 import {Button, LoadMask, StyledButton} from 'tocco-ui'
 
 import DocsBrowser from '../../../main'
@@ -22,6 +22,8 @@ const StyledButtonsWrapper = styled.div`
 const StyledLoadMask = styled(LoadMask)`
   height: auto;
 `
+
+const getListFormName = parent => (parent === null ? 'Move_root_docs_list_item' : 'Move_docs_list_item')
 
 export const MoveAction = ({
   selection,
@@ -76,8 +78,8 @@ export const MoveAction = ({
         selectionStyle="none"
         searchFormType="none"
         disableViewPersistor={true}
-        getListFormName={parent => (parent === null ? 'Move_root_docs_list_item' : 'Move_docs_list_item')}
-        onListParentChange={parent => setParent(parent)}
+        getListFormName={getListFormName}
+        onListParentChange={setParent}
         getCustomLocation={getCustomLocation}
         navigationStrategy={{}}
         embedded={true}
@@ -105,7 +107,7 @@ export const MoveAction = ({
 }
 
 MoveAction.propTypes = {
-  selection: selection.propType,
+  selection: selectionPropType.propType,
   onSuccess: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,

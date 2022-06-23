@@ -96,7 +96,6 @@ describe('widget-utils', () => {
           attachTo: document.body
         })
 
-        const backendUrl = 'http://localhost:8080'
         await bootstrapWidgets({backendUrl})
 
         await fetchMock.flush()
@@ -110,7 +109,6 @@ describe('widget-utils', () => {
           attachTo: document.body
         })
 
-        const backendUrl = 'http://localhost:8080'
         await bootstrapWidgets({backendUrl})
 
         expect(window[BOOTSTRAP_SCRIPT_OBJ_NAME]).to.not.be.undefined
@@ -323,7 +321,6 @@ describe('widget-utils', () => {
 
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
 
-        const backendUrl = 'http://localhost:8080'
         await bootstrapWidgets({backendUrl})
 
         await fetchMock.flush()
@@ -350,7 +347,6 @@ describe('widget-utils', () => {
           .spy()
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
 
-        const backendUrl = 'http://localhost:8080'
         await bootstrapWidgets({backendUrl})
 
         await fetchMock.flush()
@@ -380,7 +376,6 @@ describe('widget-utils', () => {
           .spy()
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
 
-        const backendUrl = 'http://localhost:8080'
         await bootstrapWidgets({backendUrl})
 
         await fetchMock.flush()
@@ -407,7 +402,6 @@ describe('widget-utils', () => {
           .spy()
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
 
-        const backendUrl = 'http://localhost:8080'
         await bootstrapWidgets({backendUrl})
 
         await fetchMock.flush()

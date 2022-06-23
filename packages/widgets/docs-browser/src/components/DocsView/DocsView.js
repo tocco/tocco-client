@@ -27,8 +27,13 @@ export const getTql = domainTypes =>
     ? `exists(relDomain_type where IN(unique_id, ${domainTypes.map(type => `"${type}"`).join(',')}))`
     : null
 
-export const getFormName = (parent, keys) =>
-  parent ? 'Docs_list_item' : keys ? 'Root_docs_list_item_specific' : 'Root_docs_list_item'
+export const getFormName = (parent, keys) => {
+  if (parent) {
+    return 'Docs_list_item'
+  }
+
+  return keys ? 'Root_docs_list_item_specific' : 'Root_docs_list_item'
+}
 
 export const getDefaultLocation = (model, key) => {
   switch (model) {
@@ -104,9 +109,9 @@ const DocsView = props => {
     setSelection([])
   }, [parent, changeListParent])
 
-  const onSelectChange = selection => {
-    setSelection(selection)
-    changeSelection(selection)
+  const onSelectChange = updatedSelection => {
+    setSelection(updatedSelection)
+    changeSelection(updatedSelection)
   }
 
   const handleRowClick = ({id}) => {
@@ -135,12 +140,12 @@ const DocsView = props => {
 
   const tql = !parent && !keys ? getTql(domainTypes) : null
 
-  const handleUploadDocument = function* (definition, selection, parent, params, config, onSuccess, onError) {
+  const handleUploadDocument = function* (_definition, _selection, _parent, _params, _config, onSuccess, onError) {
     const directory = false
     openFileDialog(directory, onSuccess, onError)
   }
 
-  const handleUploadDirectory = function* (definition, selection, parent, params, config, onSuccess, onError) {
+  const handleUploadDirectory = function* (_definition, _selection, _parent, _params, _config, onSuccess, onError) {
     const directory = true
     openFileDialog(directory, onSuccess, onError)
   }
@@ -151,17 +156,21 @@ const DocsView = props => {
     }
   }
 
-  const store = disableViewPersistor
-    ? undefined
-    : isRootLocation(path)
-    ? viewPersistor.viewInfoSelector('search').store
-    : null
-
   const handleStoreCreation = store => {
     if (!disableViewPersistor) {
       viewPersistor.persistViewInfo(entityListKey, {store})
     }
   }
+
+  const getStore = () => {
+    if (disableViewPersistor) {
+      return undefined
+    }
+
+    return isRootLocation(path) ? viewPersistor.viewInfoSelector('search').store : null
+  }
+
+  const store = getStore()
 
   return (
     <>
