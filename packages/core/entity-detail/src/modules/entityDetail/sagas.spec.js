@@ -52,7 +52,7 @@ describe('entity-detail', () => {
               call(sagas.loadEntityModel, entityName)
             )
 
-            expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formName, mode))
+            expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formName, mode, entityName, entityId))
             expect(gen.next(formDefinition).value).to.eql(call(sagas.loadData))
             expect(gen.next().done).to.be.true
           })
