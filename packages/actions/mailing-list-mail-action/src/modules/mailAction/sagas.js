@@ -7,8 +7,8 @@ import {api} from 'tocco-util'
 import {REDUX_FORM_NAME} from '../../components/MailAction'
 import * as actions from './actions'
 
-const mailActionSelector = state => state.mailAction
-const inputSelector = state => state.input
+export const mailActionSelector = state => state.mailAction
+export const inputSelector = state => state.input
 
 export default function* sagas() {
   yield all([
@@ -28,7 +28,8 @@ export function* validate() {
   const formValues = yield select(getFormValues(REDUX_FORM_NAME))
   const {formDefinition} = yield select(mailActionSelector)
   const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
-  const errors = form.syncValidation(fieldDefinitions, formDefinition)(formValues)
+  const validator = yield call(form.syncValidation, fieldDefinitions, formDefinition)
+  const errors = yield call(validator, formValues)
   yield put(actions.setFormValid(_isEmpty(errors)))
 }
 
