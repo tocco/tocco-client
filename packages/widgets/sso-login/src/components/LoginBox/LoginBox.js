@@ -6,8 +6,7 @@ import {openLoginWindow} from '../../utils/loginWindow'
 import ProviderButton from '../ProviderButton/ProviderButton'
 import {StyledButtonContainer} from './StyledComponents'
 
-const LoginBox = props => {
-  const {loadProviders, autoLogin, providers, loginEndpoint, loginCompleted} = props
+const LoginBox = ({loadProviders, autoLogin, providers, loginEndpoint, loginCompleted}) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => loadProviders(), []) // only invoke the loadprovider func once at the beginning
   const prevProps = react.usePrevious(providers)
@@ -20,7 +19,7 @@ const LoginBox = props => {
         openLoginWindow(loginEndpoint, loginCompleted, autoLoginProvider)
       }
     }
-  }, [prevProps.length, providers, autoLogin, loginEndpoint, loginCompleted])
+  }, [prevProps, providers, autoLogin, loginEndpoint, loginCompleted])
 
   const ProviderButtons = providers.map((provider, idx) => (
     <ProviderButton key={idx} provider={provider} loginEndpoint={loginEndpoint} loginCompleted={loginCompleted} />

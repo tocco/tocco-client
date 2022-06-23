@@ -1,4 +1,4 @@
-import {shallow} from 'enzyme'
+import {mount, shallow} from 'enzyme'
 
 import ProviderButton from '../ProviderButton/ProviderButton'
 import LoginBox from './LoginBox'
@@ -18,7 +18,7 @@ describe('sso-login', () => {
     describe('LoginBox', () => {
       test('should call loadProviders', () => {
         const loadProviders = sinon.spy()
-        shallow(<LoginBox {...baseProps} loadProviders={loadProviders} />)
+        mount(<LoginBox {...baseProps} loadProviders={loadProviders} />)
         expect(loadProviders).to.have.calledOnce
       })
 
