@@ -1,3 +1,8 @@
+import de from 'date-fns/locale/de'
+import en from 'date-fns/locale/en-US'
+import fr from 'date-fns/locale/fr-CH'
+import it from 'date-fns/locale/it'
+
 import {roundDecimalPlaces} from '../js/helpers'
 
 export const millisecondsToDuration = ms => {
@@ -52,4 +57,19 @@ export const formatDuration = ms => {
    * (e.g. System_activity)
    */
   return seconds ? durationWithSeconds : duration
+}
+
+export const getDateFnsLocale = locale => {
+  switch (locale) {
+    case 'fr':
+      return fr
+    case 'en':
+      return en
+    case 'it':
+      return it
+    case 'de':
+    case 'de-CH':
+    default:
+      return de
+  }
 }
