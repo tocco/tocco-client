@@ -1,5 +1,5 @@
+import {add, dfferenceInDays} from 'date-fns/add'
 import _sample from 'lodash/sample'
-import Moment from 'moment'
 
 const getRandomNumber = limit => Math.floor(Math.random() * (limit + 1))
 
@@ -10,8 +10,7 @@ const getRandomDate = (start, end, startHour, endHour) => {
   return date
 }
 
-const addRandomHoursToDate = (date, maxHours) =>
-  new Moment(date).add(Math.floor(Math.random() * maxHours + 1), 'h').toDate()
+const addRandomHoursToDate = (date, maxHours) => add(date, {hours: Math.floor(Math.random() * maxHours + 1)})
 
 const conflicts = ['none', 'accepted', 'existing']
 const eventsNamePart1 = ['Lecture', 'Class', 'Exercise']
@@ -45,7 +44,7 @@ const eventFactory = (amount, startRange, endRange) => {
 const getModel = calendarType => (calendarType === 'dummy' ? 'Dummy_entity' : 'User')
 
 export const getCalendarResponse = (requestedCalendars, startDate, endDate) => {
-  const amountOfDays = Moment(endDate).diff(Moment(startDate), 'days')
+  const amountOfDays = dfferenceInDays(endDate, startDate)
 
   return requestedCalendars.reduce((accumulator, currentValue) => {
     const {keys, calendarTypeId} = currentValue

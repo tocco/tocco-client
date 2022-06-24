@@ -3,14 +3,12 @@ import ReactFullCalendar from '@fullcalendar/react'
 import adaptivePlugin from '@fullcalendar/adaptive'
 import interactionPlugin from '@fullcalendar/interaction'
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
-import moment from 'moment'
 import PropTypes from 'prop-types'
 import {forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef} from 'react'
-import 'twix'
 import {FormattedValue, Popover} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
-import {getFormattedTime} from '../../utils/time'
+import {getFormattedEventTime, getFormattedTime} from '../../utils/time'
 import Conflict from '../Conflict'
 import NavigationFullCalendar from '../NavigationFullCalendar'
 import ResourceLabelContent from './ResourceLabelContent'
@@ -59,7 +57,6 @@ const FullCalendar = forwardRef(
     }
 
     useEffect(() => {
-      moment.locale(locale)
       changeRange()
     }, [changeRange, locale])
 
@@ -105,9 +102,7 @@ const FullCalendar = forwardRef(
     )
 
     const renderEventContent = eventInfo => {
-      const time = moment(eventInfo.event.start)
-        .twix(moment(eventInfo.event.end))
-        .format({monthFormat: 'MMMM', dayFormat: 'Do'})
+      const time = getFormattedEventTime(locale, eventInfo.event.start, eventInfo.event.end)
       const tooltipDescriptionContent = (
         <div>
           <FormattedValue type="html" value={eventInfo.event.extendedProps.description} />
@@ -156,13 +151,13 @@ const FullCalendar = forwardRef(
           views={{
             dayView: {
               type: 'resourceTimelineDay',
-              slotLabelFormat: info => getFormattedTime(moment(info.date).locale(locale))
+              slotLabelFormat: info => getFormattedTime(locale, new Date(...info.date.array))
             },
             weekView: {
               type: 'resourceTimelineWeek',
               slotLabelFormat: [
                 {weekday: 'short', month: 'numeric', day: 'numeric'},
-                info => getFormattedTime(moment(info.date).locale(locale))
+                info => getFormattedTime(locale, new Date(...info.date.array))
               ]
             },
             weekViewSimple: {

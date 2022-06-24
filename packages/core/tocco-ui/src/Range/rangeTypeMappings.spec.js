@@ -1,5 +1,3 @@
-import moment from 'moment'
-
 import rangeTypeMappings from './rangeTypeMappings'
 
 describe('tocco-ui', () => {
@@ -12,10 +10,8 @@ describe('tocco-ui', () => {
       const dateValue = '2020-09-24'
       const result = rangeTypeMappings.datetime.toRange(dateValue)
       expect(result.isRangeValue).to.be.true
-      expect(moment(result.from, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]', true).isValid()).to.be.true
-      expect(moment(result.to, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]', true).isValid()).to.be.true
-      expect(moment(dateValue).isSame(result.from)).to.be.true
-      expect(moment(result.from).add(1, 'd').isSame(result.to)).to.be.true
+      expect(result.from).to.eql('2020-09-23T22:00:00.000Z')
+      expect(result.to).to.eql('2020-09-24T22:00:00.000Z')
     })
 
     test('should convert datetime range to single from date value', () => {
@@ -30,7 +26,7 @@ describe('tocco-ui', () => {
     test('should convert datetime range to single to date value', () => {
       const rangeValue = {
         from: null,
-        to: '2020-09-25T12:23:34.456Z'
+        to: '2020-09-24T22:00:00.000Z'
       }
       const result = rangeTypeMappings.datetime.fromRange(rangeValue)
       expect(result).to.eq('2020-09-25')

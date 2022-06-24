@@ -1,4 +1,5 @@
 import ReactFullCalendar from '@fullcalendar/react'
+import {addHours} from 'date-fns'
 import {TestThemeProvider, enzymeUtil} from 'tocco-test-util'
 
 import FullCalendar from './FullCalendar'
@@ -18,15 +19,6 @@ describe('scheduler', () => {
         const wrapper = enzymeUtil.mountEmbedded(<FullCalendar {...baseProps} />)
         expect(wrapper.find(ReactFullCalendar)).to.have.length(1)
       })
-
-      const mockEvents = [
-        {
-          resourceId: '0Dummy_entity',
-          title: 'Lecture IT 2',
-          start: new Date().getTime(),
-          end: new Date().getTime()
-        }
-      ]
 
       const mockResources = [{title: 'Dummy_entity 0', id: '0Dummy_entity', entityKey: '0', calendarType: 'dummy'}]
 
@@ -49,6 +41,17 @@ describe('scheduler', () => {
       })
 
       test('should show events', () => {
+        const start = new Date()
+        const end = addHours(new Date(start), 2)
+        const mockEvents = [
+          {
+            resourceId: '0Dummy_entity',
+            title: 'Lecture IT 2',
+            start: start.getTime(),
+            end: end.getTime()
+          }
+        ]
+
         const wrapper = enzymeUtil.mountEmbedded(<FullCalendar locale="de" {...baseProps} resources={mockResources} />)
         wrapper.setProps({events: mockEvents})
         // its not possible to check for updated events
