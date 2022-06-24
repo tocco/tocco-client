@@ -1,3 +1,6 @@
+1.1.36
+- show today button in datepicker
+
 1.1.35
 - fix datepicker max-, mind-date value for ranges
 
