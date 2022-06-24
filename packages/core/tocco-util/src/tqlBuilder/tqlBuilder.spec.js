@@ -1,5 +1,3 @@
-import moment from 'moment'
-
 import {getTql} from './tqlBuilder'
 
 describe('entity-list', () => {
@@ -54,8 +52,8 @@ describe('entity-list', () => {
             const value = '2021-06-15T09:12:00.000Z'
             const path = 'start'
             const fieldType = 'datetime'
-            const expectedValue = moment(value).utc().format('YYYY-MM-DD HH:mm')
 
+            const expectedValue = '2021-06-15 09:12'
             const expectedResult = `start == datetime:"${expectedValue}"`
             const result = getTql(path, value, fieldType)
 
@@ -177,9 +175,8 @@ describe('entity-list', () => {
             const value = '2021-06-16'
             const tql = getTql('date_from', value, 'datetime')
 
-            const expectedFrom = moment(value).utc().format('YYYY-MM-DD HH:mm')
-            const expectedTo = moment(value).utc().add(1, 'd').format('YYYY-MM-DD HH:mm')
-
+            const expectedFrom = '2021-06-15 22:00'
+            const expectedTo = '2021-06-16 22:00'
             const expected = `date_from >= datetime:"${expectedFrom}" and date_from < datetime:"${expectedTo}"`
             expect(tql).to.eql(expected)
           })
@@ -187,7 +184,8 @@ describe('entity-list', () => {
           test('should not adapt datetime value to range', () => {
             const value = '2020-04-29 00:00'
             const tql = getTql('datefield', value, 'datetime')
-            const expectedValue = moment(value).utc().format('YYYY-MM-DD HH:mm')
+
+            const expectedValue = '2020-04-28 22:00'
             const expected = 'datefield == datetime:"' + expectedValue + '"'
             expect(tql).to.eql(expected)
           })

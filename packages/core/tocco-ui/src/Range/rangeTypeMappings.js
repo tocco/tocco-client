@@ -1,7 +1,6 @@
-import moment from 'moment'
+import {parse, format, addDays} from 'date-fns'
 
-const datetimeFormat = 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
-const dateFormat = 'YYYY-MM-DD'
+const dateFormat = 'yyyy-MM-dd'
 
 const rangeTypeMappings = {
   number: {
@@ -23,16 +22,16 @@ const rangeTypeMappings = {
       single: 'calendar-minus'
     },
     toRange: value => {
-      const fromValue = value ? moment(value).utc().format(datetimeFormat) : null
-      const toValue = value ? moment(value).utc().add(1, 'd').format(datetimeFormat) : null
+      const fromValue = value ? parse(value, dateFormat, new Date()).toISOString() : null
+      const toValue = value ? addDays(parse(value, dateFormat, new Date()), 1).toISOString() : null
       return {from: fromValue, to: toValue, isRangeValue: true}
     },
     fromRange: value => {
       if (value && value.from) {
-        return moment.utc(value.from, datetimeFormat).local().format(dateFormat)
+        return format(new Date(value.from), dateFormat)
       }
       if (value && value.to) {
-        return moment.utc(value.to, datetimeFormat).local().format(dateFormat)
+        return format(new Date(value.to), dateFormat)
       }
       return null
     },

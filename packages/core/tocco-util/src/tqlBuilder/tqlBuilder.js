@@ -1,5 +1,7 @@
+import {format, parse, addDays} from 'date-fns'
 import _isObject from 'lodash/isObject'
-import moment from 'moment'
+
+import {parseInLocalTime, parseTime, formatTQLDatetime, formatTQLTime} from './utils'
 
 const isDefined = v => v !== null && v !== undefined && v !== ''
 
@@ -33,11 +35,13 @@ const rangeMappings = type => {
     case 'createts':
     case 'updatets':
       return value => {
-        const momentValue = moment(value, 'YYYY-MM-DD', true)
-        if (momentValue.isValid()) {
+        // TODO: @isbo move to utils
+        // only ranges for date-only values
+        const date = parse(value, 'yyyy-MM-dd', new Date())
+        if (!isNaN(date)) {
           return {
             from: value,
-            to: momentValue.add(1, 'd'),
+            to: format(addDays(date, 1), 'yyyy-MM-dd'),
             isRangeValue: true,
             exclusive: true
           }
@@ -70,9 +74,9 @@ const typeHandlers = type => {
     case 'datetime':
     case 'createts':
     case 'updatets':
-      return (path, value, comp) => `${path} ${comp} datetime:"${moment(value).utc().format('YYYY-MM-DD HH:mm')}"`
+      return (path, value, comp) => `${path} ${comp} datetime:"${formatTQLDatetime(parseInLocalTime(value))}"`
     case 'time':
-      return (path, value, comp) => `${path} ${comp} time:"${moment(value, 'HH:mm').format('HH:mm:ss.sss')}"`
+      return (path, value, comp) => `${path} ${comp} time:"${formatTQLTime(parseTime(value))}"`
     case 'compressed-text':
     case 'string':
     case 'text':
