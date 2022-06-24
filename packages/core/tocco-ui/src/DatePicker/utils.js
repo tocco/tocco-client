@@ -1,17 +1,14 @@
 import '!style-loader!css-loader!react-datepicker/dist/react-datepicker.css'
 import {parseISO} from 'date-fns'
-import de from 'date-fns/locale/de'
-import en from 'date-fns/locale/en-US'
-import fr from 'date-fns/locale/fr-CH'
-import it from 'date-fns/locale/it'
 import {registerLocale, setDefaultLocale} from 'react-datepicker'
+import {date} from 'tocco-util'
 
 const loadLocales = () => {
-  registerLocale('de-CH', de)
-  registerLocale('de', de)
-  registerLocale('en', en)
-  registerLocale('fr', fr)
-  registerLocale('it', it)
+  registerLocale('de-CH', date.getDateFnsLocale('de-CH'))
+  registerLocale('de', date.getDateFnsLocale('de'))
+  registerLocale('en', date.getDateFnsLocale('en'))
+  registerLocale('fr', date.getDateFnsLocale('fr'))
+  registerLocale('it', date.getDateFnsLocale('it'))
 
   setDefaultLocale('de')
 }

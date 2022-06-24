@@ -1,3 +1,3 @@
-import {millisecondsToDuration, formatDuration} from './utils'
+import {millisecondsToDuration, formatDuration, getDateFnsLocale} from './utils'
 
-export default {millisecondsToDuration, formatDuration}
+export default {millisecondsToDuration, formatDuration, getDateFnsLocale}
