@@ -1,3 +1,7 @@
+0.1.7
+- prepare for customer actions
+- prepare for customer actions
+
 0.1.6
 - add condition to remote and select field
 - simple actions add conditions
