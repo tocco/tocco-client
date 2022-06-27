@@ -1,4 +1,8 @@
 export const MAIN_ACTION_BAR_ID = 'main-action-bar'
+export const ACTION_BAR_TYPE = 'action-bar'
+export const ACTION_GROUP_TYPE = 'action-group'
+export const ACTION_TYPE = 'action'
+export const LAYOUT_TYPE = 'layout'
 export const ACTION_GROUP_CREATECOPY_ID = 'createcopy'
 export const ACTION_DELETE_ID = 'delete'
 export const ACTION_SAVE_ID = 'save'
@@ -8,9 +12,9 @@ export const ACTION_GROUP_ACTIONS_ID = 'actions'
 export const removeBoxes = (formDefinition, boxIds) => ({
   ...formDefinition,
   children: formDefinition.children
-    .filter(item => item.componentType !== 'layout' || !boxIds.includes(item.id))
+    .filter(item => item.componentType !== LAYOUT_TYPE || !boxIds.includes(item.id))
     .map(item => {
-      if (item.componentType === 'layout') {
+      if (item.componentType === LAYOUT_TYPE) {
         return removeBoxes(item, boxIds)
       }
 
@@ -18,55 +22,38 @@ export const removeBoxes = (formDefinition, boxIds) => ({
     })
 })
 
-export const removeActions = (formDefinition, actionIds) => ({
-  ...formDefinition,
-  children: formDefinition.children.map(rootItem => {
-    if (rootItem.id === MAIN_ACTION_BAR_ID) {
-      return {
-        ...rootItem,
-        children: rootItem.children
-          .map(group => {
-            if (group.componentType === 'action-group') {
-              return {
-                ...group,
-                children: group.children.filter(action => !actionIds.includes(action.id))
-              }
-            }
-            return group
-          })
-          .filter(group => group.componentType !== 'action-group' || group.children.length > 0)
+export const removeActions = (container, actionIds) => adjustActions(container, actionIds, () => false)
+
+/**
+ * looks for any actions whose id is contained in `actionIds` and then runs `adjuster` to change the actions.
+ *
+ * handles actions at any depth of action bar and group combination.
+ * be sure to return a full action definition from your own adjustement function.
+ * working with object destructuring is recommended for ease of use.
+ * actions can be removed by returning any falsy value from the adjustment function.
+ * any empty containers are removed after adjustement.
+ */
+export const adjustActions = (container, actionIds, adjuster) => ({
+  ...container,
+  children: container.children
+    .map(child => {
+      if (child.componentType === ACTION_BAR_TYPE || child.componentType === ACTION_GROUP_TYPE) {
+        return adjustActions(child, actionIds, adjuster)
       }
-    }
-
-    return rootItem
-  })
-})
-
-export const adjustAction = (formDefinition, actionId, adjuster) => ({
-  ...formDefinition,
-  children: formDefinition.children.map(rootItem => {
-    if (rootItem.id === MAIN_ACTION_BAR_ID) {
-      return {
-        ...rootItem,
-        children: rootItem.children.map(group => {
-          if (group.componentType === 'action-group') {
-            return {
-              ...group,
-              children: group.children.map(action => {
-                if (action.id === actionId) {
-                  return adjuster(action)
-                }
-                return action
-              })
-            }
-          }
-          return group
-        })
+      return child
+    })
+    .map(child => {
+      if (child.componentType === ACTION_TYPE && actionIds.includes(child.id)) {
+        return adjuster(child)
       }
-    }
-
-    return rootItem
-  })
+      return child
+    })
+    .filter(child => child)
+    .filter(
+      child =>
+        (child.componentType !== ACTION_BAR_TYPE && child.componentType !== ACTION_GROUP_TYPE) ||
+        child.children?.length > 0
+    )
 })
 
 /**
@@ -128,7 +115,7 @@ export const addMainActionBar = formDefinition => {
   } else {
     const mainActionBar = {
       id: MAIN_ACTION_BAR_ID,
-      componentType: 'action-bar',
+      componentType: ACTION_BAR_TYPE,
       children: []
     }
     return {
@@ -145,7 +132,7 @@ export const addOutputGroup = (formDefinition, intl) => {
   const outputGroup = {
     id: ACTION_GROUP_OUTPUT_ID,
     label: intl.formatMessage({id: 'client.actions.show-output-jobs-action.title'}),
-    componentType: 'action-group',
+    componentType: ACTION_GROUP_TYPE,
     icon: 'file-export',
     children: []
   }

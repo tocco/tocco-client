@@ -12,7 +12,7 @@ import {
   removeCreate,
   removeBoxes,
   removeActions,
-  adjustAction
+  adjustActions
 } from './formModifier'
 
 describe('app-extensions', () => {
@@ -218,15 +218,18 @@ describe('app-extensions', () => {
           children: [
             {
               id: MAIN_ACTION_BAR_ID,
+              componentType: 'action-bar',
               children: [
                 {
                   componentType: 'action-group',
                   children: [
                     {
-                      id: 'action1'
+                      id: 'action1',
+                      componentType: 'action'
                     },
                     {
-                      id: 'action2'
+                      id: 'action2',
+                      componentType: 'action'
                     }
                   ]
                 }
@@ -240,7 +243,7 @@ describe('app-extensions', () => {
         })
         test('should remove empty groups', () => {
           const modifiedFormDefinition = removeActions(formDefinitionActions, ['action1', 'action2'])
-          expect(_get(modifiedFormDefinition, ['children', '0', 'children'])).to.be.empty
+          expect(_get(modifiedFormDefinition, ['children'])).to.be.empty
         })
         test('should leave definition unchanged when actions do not exist', () => {
           const modifiedFormDefinition = removeActions(formDefinitionActions, ['action3'])
@@ -248,17 +251,19 @@ describe('app-extensions', () => {
         })
       })
 
-      describe('adjustAction', () => {
+      describe('adjustActions', () => {
         const formDefinitionActions = {
           children: [
             {
               id: MAIN_ACTION_BAR_ID,
+              componentType: 'action-bar',
               children: [
                 {
                   componentType: 'action-group',
                   children: [
                     {
-                      id: 'action1'
+                      id: 'action1',
+                      componentType: 'action'
                     }
                   ]
                 }
@@ -267,7 +272,7 @@ describe('app-extensions', () => {
           ]
         }
         test('should change action', () => {
-          const modifiedFormDefinition = adjustAction(formDefinitionActions, 'action1', action => ({
+          const modifiedFormDefinition = adjustActions(formDefinitionActions, ['action1'], action => ({
             ...action,
             id: 'new-id'
           }))
@@ -276,7 +281,7 @@ describe('app-extensions', () => {
           )
         })
         test('should leave definition unchanged when action does not exist', () => {
-          const modifiedFormDefinition = adjustAction(formDefinitionActions, 'action2', action => ({
+          const modifiedFormDefinition = adjustActions(formDefinitionActions, ['action2'], action => ({
             ...action,
             id: 'new-id'
           }))
