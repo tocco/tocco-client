@@ -1,3 +1,10 @@
+1.0.45
+- convert phoneEdit to functional component
+- convert layout to functional component
+- convert statedvalue.stories to functional component
+- convert typography to functional component
+- prepare for customer actions
+
 1.0.44
 - show today button in datepicker
 
