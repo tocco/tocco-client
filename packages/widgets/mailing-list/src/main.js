@@ -63,4 +63,4 @@ MailingListApp.propTypes = {
 }
 
 export default MailingListApp
-export const app = appFactory.createBundleableApp(packageName, initApp)
+export const app = appFactory.createBundleableApp(packageName, initApp, MailingListApp)

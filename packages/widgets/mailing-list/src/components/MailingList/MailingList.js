@@ -20,7 +20,8 @@ export function* modifyFormDefinition(
     if (!showEmailAction) {
       userListFormDefinition = form.removeActions(userListFormDefinition, ['mailing-list-mail-action'])
     } else {
-      userListFormDefinition = form.adjustAction(userListFormDefinition, 'mailing-list-mail-action', action => ({
+      // allows action to read widget config and the current event we're on
+      userListFormDefinition = form.adjustActions(userListFormDefinition, 'mailing-list-mail-action', action => ({
         ...action,
         properties: {
           ...action.properties,
