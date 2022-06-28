@@ -22,6 +22,7 @@ const AdvancedSearch = ({
       id={`advancedSearch-${uuid()}`}
       entityName={entityName}
       formName={formName}
+      scope="remotefield"
       listFormDefinition={listFormDefinition}
       limit={15}
       onSelectChange={selection => {
