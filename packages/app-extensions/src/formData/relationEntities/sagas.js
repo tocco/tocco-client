@@ -3,6 +3,7 @@ import _pick from 'lodash/pick'
 import {all, call, put, select, takeEvery} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
+import form from '../../form'
 import rest from '../../rest'
 import * as relationEntitiesActions from './actions'
 
@@ -19,6 +20,10 @@ export function* enhanceEntitiesWithDisplays(entities) {
 export function* loadRelationEntity({payload: {fieldName, entityName, options = {}}}) {
   const fieldData = yield select(fieldDataSelector, fieldName)
   if (!dataLoaded(fieldData) || options.forceReload) {
+    if (!options.constriction && options.loadRemoteFieldConstriction) {
+      options.constriction = yield call(loadRemoteFieldConstriction, entityName, options.formName, options.formBase)
+    }
+
     yield put(relationEntitiesActions.setRelationEntityLoading(fieldName))
     const query = yield call(getQuery, options)
     const requestOptions = {
@@ -42,6 +47,20 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
     )
   }
 }
+
+export function* loadRemoteFieldConstriction(entityName, formName, formBase) {
+  const remoteFieldFormName = formName ? `${entityName}_${formName}` : formBase || entityName
+  const remoteFieldFormDefinition = yield call(rest.fetchForm, remoteFieldFormName, 'remotefield')
+  return yield call(getConstriction, remoteFieldFormDefinition)
+}
+
+export const getConstriction = formDefinition => {
+  const table = getTable(formDefinition)
+  return table.constriction || null
+}
+
+export const getTable = formDefinition =>
+  formDefinition.children.find(child => child.componentType === form.componentTypes.TABLE)
 
 export const fieldDataSelector = (state, fieldName) => state.formData.relationEntities.data[fieldName]
 
