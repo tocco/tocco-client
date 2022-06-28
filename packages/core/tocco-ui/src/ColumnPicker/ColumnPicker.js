@@ -19,7 +19,8 @@ import {
 const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => {
   const [columns, setColumns] = useState([])
   const someUnchecked = columns.some(column => column.hidden)
-  useEffect(() => setColumns(initialColumns), [initialColumns])
+  const initialColumnsSorted = initialColumns.sort((a, b) => a.hidden - b.hidden)
+  useEffect(() => setColumns(initialColumnsSorted), [initialColumnsSorted])
   const [searchTerm, setSearchTerm] = useState(null)
   const changeColumnPosition = useCallback(
     (currentlyDragging, currentlyDragOver) => {
@@ -42,6 +43,7 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => 
     )
 
     return filteredColumns.map((column, idx) => {
+      const isDraggedOver = dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id
       const handleChange = value => {
         setColumns(
           columns
@@ -61,7 +63,7 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => 
         <StyledItem
           key={column.id}
           draggable={dndEnabled}
-          isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
+          isDraggedOver={isDraggedOver}
           {...(dndEnabled && {...dndEvents(column.id)})}
         >
           <StyledCheckbox type={'checkbox'} id={column.id} checked={!column.hidden} onChange={handleChange} />
