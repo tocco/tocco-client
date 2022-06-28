@@ -50,6 +50,7 @@ export const StyledId = styled.span`
 `
 
 export const StyledItem = styled(StyledLi)`
+  display: flex;
   padding: ${scale.space(-2)} ${scale.space(-2)} ${scale.space(-2)} 0;
   border-right: ${({isDraggedOver, theme}) => (isDraggedOver ? `3px solid ${theme.colors.secondary}` : 'none')};
   ${({draggable, theme}) =>
