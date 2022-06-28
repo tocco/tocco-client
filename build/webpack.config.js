@@ -68,7 +68,6 @@ webpackConfig.plugins = [
     paths: true,
     collections: true
   }), // optimize lodash import. reduces bundle size by around 30kb
-  new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(de|en|fr|it)$/), // prevent all moment locales from being loaded when importing momentjs
   new DotEnv()
 ]
 
