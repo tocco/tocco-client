@@ -23,7 +23,8 @@ export default {
         limit: settings.SUGGESTION_LIMIT,
         sorting: [{field: settings.SUGGESTION_ORDER_FIELD, order: 'desc'}],
         formBase: formField.formBase,
-        formName: formField.formName
+        formName: formField.formName,
+        loadRemoteFieldConstriction: true
       }),
     searchOptions: searchTerm =>
       formData.loadRelationEntities(formField.id, formField.targetEntity, {
@@ -31,7 +32,8 @@ export default {
         limit: settings.SEARCH_RESULT_LIMIT,
         forceReload: true,
         formBase: formField.formBase,
-        formName: formField.formName
+        formName: formField.formName,
+        loadRemoteFieldConstriction: true
       }),
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
     tooltips: _get(formData.tooltips, formField.targetEntity, null),
