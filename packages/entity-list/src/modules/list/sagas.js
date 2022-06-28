@@ -365,9 +365,14 @@ export function* setSorting() {
 }
 
 export function* loadFormDefinition(formName, scope) {
-  const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
-  yield put(actions.setFormDefinition(fetchedFormDefinition))
-  yield call(extractFormInformation, fetchedFormDefinition)
+  const {formDefinition} = yield select(listSelector)
+  if (!formDefinition) {
+    const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
+    yield put(actions.setFormDefinition(fetchedFormDefinition))
+    yield call(extractFormInformation, fetchedFormDefinition)
+  } else {
+    yield call(extractFormInformation, formDefinition)
+  }
 }
 
 export function* extractFormInformation(formDefinition) {
