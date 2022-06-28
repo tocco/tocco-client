@@ -385,14 +385,21 @@ export function* setSorting() {
 }
 
 export function* loadFormDefinition(formName, scope, actionCreator) {
-  const {modifyFormDefinition} = yield select(inputSelector)
-  const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
-  const modifiedFormDefinition = modifyFormDefinition
-    ? modifyFormDefinition(fetchedFormDefinition)
-    : fetchedFormDefinition
-  const constriction = getConstriction(modifiedFormDefinition)
-  yield put(actions.setConstriction(constriction))
-  yield put(actionCreator(modifiedFormDefinition))
+  const {formDefinition} = yield select(listSelector)
+  if (!formDefinition) {
+    const {modifyFormDefinition} = yield select(inputSelector)
+    const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
+    const modifiedFormDefinition = modifyFormDefinition
+      ? modifyFormDefinition(fetchedFormDefinition)
+      : fetchedFormDefinition
+    const constriction = getConstriction(modifiedFormDefinition)
+    yield put(actions.setConstriction(constriction))
+    yield put(actionCreator(modifiedFormDefinition))
+  } else {
+    const constriction = getConstriction(formDefinition)
+    yield put(actions.setConstriction(constriction))
+    yield put(actionCreator(formDefinition))
+  }
 }
 
 export function* loadEntityModel(entityName) {
