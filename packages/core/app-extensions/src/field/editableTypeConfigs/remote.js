@@ -26,7 +26,8 @@ export default {
         sorting: [{field: settings.SUGGESTION_ORDER_FIELD, order: 'desc'}],
         formBase: formField.formBase,
         formName: formField.formName,
-        where: getExcludeConstraint(currentValue)
+        where: getExcludeConstraint(currentValue),
+        loadRemoteFieldConstriction: true
       })
     },
     searchOptions: (searchTerm, value) => {
@@ -36,7 +37,8 @@ export default {
         forceReload: true,
         formBase: formField.formBase,
         formName: formField.formName,
-        where: getExcludeConstraint(value)
+        where: getExcludeConstraint(value),
+        loadRemoteFieldConstriction: true
       })
     },
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
