@@ -28,7 +28,8 @@ export default {
         sorting: [{field: settings.SUGGESTION_ORDER_FIELD, order: 'desc'}],
         formBase: formField.formBase,
         formName: formField.formName,
-        where: joinConditions([formField.condition, getExcludeConstraint(currentValue)])
+        where: joinConditions([formField.condition, getExcludeConstraint(currentValue)]),
+        loadRemoteFieldConstriction: true
       })
     },
     searchOptions: (searchTerm, value) => {
@@ -38,7 +39,8 @@ export default {
         forceReload: true,
         formBase: formField.formBase,
         formName: formField.formName,
-        where: joinConditions([formField.condition, getExcludeConstraint(value)])
+        where: joinConditions([formField.condition, getExcludeConstraint(value)]),
+        loadRemoteFieldConstriction: true
       })
     },
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
