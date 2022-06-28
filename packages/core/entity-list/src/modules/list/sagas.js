@@ -387,16 +387,22 @@ export function* setSorting() {
 }
 
 export function* loadFormDefinition(formName, scope, actionCreator) {
-  const {modifyFormDefinition, reportIds} = yield select(inputSelector)
-  const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
-  const {parent} = yield select(entityListSelector)
-  const modifiedFormDefinition = modifyFormDefinition
-    ? yield call(modifyFormDefinition, fetchedFormDefinition, {parent})
-    : fetchedFormDefinition
-  const constriction = getConstriction(modifiedFormDefinition)
-  yield put(actions.setConstriction(constriction))
-  const finalFormDefinition = yield call(addReportsToForm, reportIds, modifiedFormDefinition)
-  yield put(actionCreator(finalFormDefinition))
+  const {formDefinition} = yield select(listSelector)
+  if (!formDefinition) {
+    const {modifyFormDefinition, reportIds} = yield select(inputSelector)
+    const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
+    const {parent} = yield select(entityListSelector)
+    const modifiedFormDefinition = modifyFormDefinition
+      ? yield call(modifyFormDefinition, fetchedFormDefinition, {parent})
+      : fetchedFormDefinition
+    const constriction = getConstriction(modifiedFormDefinition)
+    yield put(actions.setConstriction(constriction))
+    const finalFormDefinition = yield call(addReportsToForm, reportIds, modifiedFormDefinition)
+    yield put(actionCreator(finalFormDefinition))
+  } else {
+    const constriction = getConstriction(formDefinition)
+    yield put(actions.setConstriction(constriction))
+  }
 }
 
 function* addReportsToForm(reportIds, formDefinition) {

@@ -197,7 +197,9 @@ EntityListApp.propTypes = {
   contextParams: PropTypes.object,
   searchFormCollapsed: PropTypes.bool,
   modifyFormDefinition: PropTypes.func,
-  reportIds: PropTypes.arrayOf(PropTypes.string)
+  reportIds: PropTypes.arrayOf(PropTypes.string),
+  scope: PropTypes.string,
+  listFormDefinition: PropTypes.object
 }
 
 export default EntityListApp
