@@ -44,7 +44,7 @@ describe('MailingList', () => {
       })
       test('should remove action when disabled', () => {
         const modifiedFormDefinition = modifyFormDefinition(formDefinition, {}, {showEmailAction: false}).next().value
-        expect(_get(modifiedFormDefinition, ['children', '0', 'children'])).to.be.empty
+        expect(_get(modifiedFormDefinition, ['children'])).to.be.empty
       })
       test('should adjust action when enabled', () => {
         const modifiedFormDefinition = modifyFormDefinition(
