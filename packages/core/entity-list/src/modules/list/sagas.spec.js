@@ -549,10 +549,22 @@ describe('entity-list', () => {
             const modifyFormDefinition = formDefinition => formDefinition
             return expectSaga(sagas.loadFormDefinition, formName, scope, actionCreator)
               .provide([
+                [select(sagas.listSelector), {}],
                 [call(rest.fetchForm, formName, scope), fetchedFormDefinition],
                 [select(sagas.inputSelector), {modifyFormDefinition}]
               ])
               .put(actionCreator(fetchedFormDefinition))
+              .run()
+          })
+          test('should not load form definition if already loaded', () => {
+            const selectFormDefinition = {}
+            return expectSaga(sagas.loadFormDefinition)
+              .provide([
+                [select(sagas.listSelector), {formDefinition: selectFormDefinition}],
+                [matchers.call.fn(sagas.extractFormInformation)]
+              ])
+              .not.put(actions.setFormDefinition(selectFormDefinition))
+              .call(sagas.extractFormInformation, selectFormDefinition)
               .run()
           })
         })
