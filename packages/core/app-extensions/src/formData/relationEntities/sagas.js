@@ -64,12 +64,12 @@ export function* finalizeOptions(entityName, options) {
 
 export const getSorting = formDefinition => {
   const table = getTable(formDefinition)
-  return table.sorting ? table.sorting : []
+  return table && table.sorting ? table.sorting : []
 }
 
 export const getConstriction = formDefinition => {
   const table = getTable(formDefinition)
-  return table.constriction || null
+  return (table && table.constriction) || null
 }
 
 export const getTable = formDefinition =>
