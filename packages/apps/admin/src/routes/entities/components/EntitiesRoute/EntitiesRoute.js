@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import {useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
+import {errorLogging} from 'tocco-app-extensions'
 
 import DashboardRoute from '../../../dashboard/components/Dashboard/DashboardContainer'
 import Action from '../../subroutes/action'
@@ -29,9 +30,11 @@ const EntitiesRoute = ({match, history, loadCurrentRoute, currentViewInfo}) => {
 
   return (
     <StyledWrapper>
-      <StyledBreadcrumbs>
-        <Breadcrumbs />
-      </StyledBreadcrumbs>
+      <errorLogging.ErrorBoundary>
+        <StyledBreadcrumbs>
+          <Breadcrumbs />
+        </StyledBreadcrumbs>
+      </errorLogging.ErrorBoundary>
       <StyledContent>{content}</StyledContent>
     </StyledWrapper>
   )

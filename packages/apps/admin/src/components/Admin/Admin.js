@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Redirect, Route, Router, Switch} from 'react-router-dom'
 import {withTheme} from 'styled-components'
-import {notification} from 'tocco-app-extensions'
+import {notification, errorLogging} from 'tocco-app-extensions'
 import {BurgerButton, GlobalStyles, LoadMask} from 'tocco-ui'
 import {viewPersistor} from 'tocco-util'
 
@@ -75,18 +75,22 @@ const Admin = ({
         customBurgerIcon={<BurgerButton isOpen={menuOpen} />}
         styles={burgerMenuStyles}
       >
-        <Navigation onClick={handleClick} />
+        <errorLogging.ErrorBoundary>
+          <Navigation onClick={handleClick} />
+        </errorLogging.ErrorBoundary>
       </StyledMenu>
       <StyledContent>
-        <Switch>
-          <Route exact path="/" render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />} />
-          <Redirect exact from="/dashboard/reload" to="/dashboard" />
-          <Route exact={true} path="/dashboard" component={DashboardRoute} />
-          <Route path="/e" component={EntitiesRoute} />
-          <Route path="/s" component={Settings} />
-          <Route path="/docs" component={DocsRoute} />
-          <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />} />
-        </Switch>
+        <errorLogging.ErrorBoundary>
+          <Switch>
+            <Route exact path="/" render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />} />
+            <Redirect exact from="/dashboard/reload" to="/dashboard" />
+            <Route exact={true} path="/dashboard" component={DashboardRoute} />
+            <Route path="/e" component={EntitiesRoute} />
+            <Route path="/s" component={Settings} />
+            <Route path="/docs" component={DocsRoute} />
+            <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`} />} />
+          </Switch>
+        </errorLogging.ErrorBoundary>
       </StyledContent>
     </>
   )

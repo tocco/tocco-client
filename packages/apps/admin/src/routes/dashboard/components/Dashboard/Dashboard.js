@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {errorLogging} from 'tocco-app-extensions'
 import DashboardApp from 'tocco-dashboard/src/main'
 import {Breadcrumbs} from 'tocco-ui'
 
@@ -12,7 +13,9 @@ const Dashboard = ({match, history, emitAction, intl}) => {
   return (
     <StyledWrapper>
       <StyledBreadcrumbs>
-        <Breadcrumbs currentView={{display: msg('client.admin.dashboard'), title: 'Tocco'}} pathPrefix="/dashboard" />
+        <errorLogging.ErrorBoundary>
+          <Breadcrumbs currentView={{display: msg('client.admin.dashboard'), title: 'Tocco'}} pathPrefix="/dashboard" />
+        </errorLogging.ErrorBoundary>
       </StyledBreadcrumbs>
       <StyledDashboardWrapper>
         <DashboardApp emitAction={emitAction} navigationStrategy={navigationStrategy(history, match)} />

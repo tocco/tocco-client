@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import {useState, useEffect} from 'react'
+import {errorLogging} from 'tocco-app-extensions'
 
 import {currentViewPropType} from '../../utils/propTypes'
 import EditView from '../EditView'
@@ -24,10 +25,14 @@ const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, sav
   return (
     <StyledDetailViewContainer>
       <StyledDetailViewLeft isCollapsed={isCollapsed}>
-        <EditView match={match} history={history} />
+        <errorLogging.ErrorBoundary>
+          <EditView match={match} history={history} />
+        </errorLogging.ErrorBoundary>
       </StyledDetailViewLeft>
       <StyledDetailViewRight isCollapsed={isCollapsed}>
-        <RelationsView match={match} history={history} isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
+        <errorLogging.ErrorBoundary>
+          <RelationsView match={match} history={history} isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
+        </errorLogging.ErrorBoundary>
       </StyledDetailViewRight>
     </StyledDetailViewContainer>
   )
