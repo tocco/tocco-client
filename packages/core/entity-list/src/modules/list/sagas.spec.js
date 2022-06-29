@@ -549,6 +549,7 @@ describe('entity-list', () => {
             const modifyFormDefinition = formDefinition => formDefinition
             return expectSaga(sagas.loadFormDefinition, formName, scope, actionCreator)
               .provide([
+                [select(sagas.listSelector), {}],
                 [call(rest.fetchForm, formName, scope), fetchedFormDefinition],
                 [select(sagas.inputSelector), {modifyFormDefinition}],
                 [select(sagas.entityListSelector), {}]
@@ -571,6 +572,7 @@ describe('entity-list', () => {
               .provide([
                 [matchers.call.fn(rest.fetchForm), fetchedFormDefinition],
                 [select(sagas.inputSelector), {modifyFormDefinition, reportIds: ['report-id']}],
+                [select(sagas.listSelector), {}],
                 [select(sagas.entityListSelector), {}],
                 [matchers.call.fn(form.addReports), modifiedFormDefinition],
                 [take(reports.SET_REPORTS), {payload: {reports: reportDefinitions}}],
@@ -582,6 +584,18 @@ describe('entity-list', () => {
                 args: [fetchedFormDefinition, reportDefinitions, groupLabel]
               })
               .put(actionCreator(modifiedFormDefinition))
+              .run()
+          })
+
+          test('should not load form definition if already loaded', () => {
+            const selectFormDefinition = {}
+            return expectSaga(sagas.loadFormDefinition)
+              .provide([
+                [select(sagas.listSelector), {formDefinition: selectFormDefinition}],
+                [matchers.call.fn(sagas.extractFormInformation)]
+              ])
+              .not.put(actions.setFormDefinition(selectFormDefinition))
+              .call(sagas.extractFormInformation, selectFormDefinition)
               .run()
           })
         })
