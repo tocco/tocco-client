@@ -53,8 +53,8 @@ export function* finalizeOptions(entityName, options) {
     const remoteFieldFormDefinition = yield call(rest.fetchForm, remoteFieldFormName, 'remotefield')
     return {
       ...options,
-      constriction: constriction || (yield call(getConstriction, remoteFieldFormDefinition)),
-      sorting: sorting || (yield call(getSorting, remoteFieldFormDefinition))
+      constriction: constriction || getConstriction(remoteFieldFormDefinition),
+      sorting: sorting || getSorting(remoteFieldFormDefinition)
     }
   }
   return options
@@ -62,12 +62,12 @@ export function* finalizeOptions(entityName, options) {
 
 export const getSorting = formDefinition => {
   const table = getTable(formDefinition)
-  return table && table.sorting ? table.sorting : []
+  return table?.sorting || []
 }
 
 export const getConstriction = formDefinition => {
   const table = getTable(formDefinition)
-  return (table && table.constriction) || null
+  return table?.constriction || null
 }
 
 export const getTable = formDefinition =>
