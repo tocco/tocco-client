@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import {useEffect, useReducer, useRef} from 'react'
+import {errorLogging} from 'tocco-app-extensions'
 import {scrollBehaviourPropType} from 'tocco-ui'
 import {viewPersistor} from 'tocco-util'
 
@@ -54,9 +55,11 @@ const DocsBrowser = ({
 
   return (
     <StyledWrapper scrollBehaviour={scrollBehaviour}>
-      <StyledBreadcrumbs noLeftPadding={noLeftPadding}>
-        <Breadcrumbs resetSearchMode={resetSearchMode} />
-      </StyledBreadcrumbs>
+      <errorLogging.ErrorBoundary>
+        <StyledBreadcrumbs noLeftPadding={noLeftPadding}>
+          <Breadcrumbs resetSearchMode={resetSearchMode} />
+        </StyledBreadcrumbs>
+      </errorLogging.ErrorBoundary>
       <StyledContent scrollBehaviour={scrollBehaviour}>
         <Content
           navigationStrategy={navigationStrategy}
