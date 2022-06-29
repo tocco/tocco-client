@@ -58,7 +58,7 @@ const BasicSearchForm = ({
   const simpleSearchFields =
     inputSimpleSearchFields && inputSimpleSearchFields.length > 0
       ? inputSimpleSearchFields
-      : fields.filter(field => field.simpleSearch === true).map(field => field.id)
+      : fields.filter(field => field.simpleSearch === true).map(field => field.path || field.id)
   const hasExtendedOnlySearchFields = !fields.every(field => simpleSearchFields.includes(field.id))
   const extendable = hasExtendedOnlySearchFields && searchFormType === searchFormTypes.SIMPLE_ADVANCED
 
