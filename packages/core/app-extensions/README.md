@@ -79,6 +79,8 @@ cache.addToStore(store);
 
 An abstraction to handle errors with multiple handlers such as remote logging.
 
+When using the `ErrorBoundary` the `errorLogging` should be added to the store.
+
 See the corresponding [story](src/errorLogging/errorLogging.stories.mdx) for more details.
 
 ## externalEvents
