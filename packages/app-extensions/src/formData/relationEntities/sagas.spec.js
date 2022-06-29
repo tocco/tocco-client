@@ -2,6 +2,7 @@ import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {select, takeEvery} from 'redux-saga/effects'
 
+import form from '../../form'
 import rest from '../../rest'
 import * as relationEntitiesActions from './actions'
 import * as sagas from './sagas'
@@ -142,6 +143,31 @@ describe('app-extensions', () => {
               })
               .run()
           })
+
+          test('should load remotefield form configs when requested', () => {
+            const initialOptions = {loadRemoteFieldConfiguration: true}
+            const finalOptions = {constriction: 'const', sorting: 'sort'}
+
+            return expectSaga(
+              sagas.loadRelationEntity,
+              relationEntitiesActions.loadRelationEntities('relUser', 'User', initialOptions)
+            )
+              .provide([
+                [select(sagas.fieldDataSelector, 'relUser'), undefined],
+                [matchers.call.fn(rest.fetchEntities), []],
+                [matchers.call.fn(rest.fetchModel), {paths: {}}],
+                [matchers.call.fn(sagas.finalizeOptions), finalOptions]
+              ])
+              .call.like({
+                fn: sagas.finalizeOptions,
+                args: ['User', initialOptions]
+              })
+              .call.like({
+                fn: sagas.getQuery,
+                args: [finalOptions]
+              })
+              .run()
+          })
         })
 
         describe('getQuery', () => {
@@ -196,6 +222,115 @@ describe('app-extensions', () => {
               .run()
               .then(result => {
                 expect(result.returnValue).to.eql(expectedReturnValue)
+              })
+          })
+        })
+
+        describe('finalizeOptions', () => {
+          const formDefinition = {
+            children: [
+              {
+                componentType: form.componentTypes.TABLE,
+                constriction: 'const',
+                sorting: 'sort'
+              }
+            ]
+          }
+
+          test('should load default form', () => {
+            const initialOptions = {loadRemoteFieldConfiguration: true}
+            return expectSaga(sagas.finalizeOptions, 'User', initialOptions)
+              .provide([[matchers.call.fn(rest.fetchForm), formDefinition]])
+              .call.like({
+                fn: rest.fetchForm,
+                args: ['User', 'remotefield']
+              })
+              .run()
+              .then(result => {
+                expect(result.returnValue).to.eql({
+                  constriction: 'const',
+                  sorting: 'sort',
+                  loadRemoteFieldConfiguration: true
+                })
+              })
+          })
+
+          test('should not overwrite passed constriction', () => {
+            const initialOptions = {loadRemoteFieldConfiguration: true, constriction: 'passed'}
+            return expectSaga(sagas.finalizeOptions, 'User', initialOptions)
+              .provide([[matchers.call.fn(rest.fetchForm), formDefinition]])
+              .call.like({
+                fn: rest.fetchForm,
+                args: ['User', 'remotefield']
+              })
+              .run()
+              .then(result => {
+                expect(result.returnValue).to.eql({
+                  constriction: 'passed',
+                  sorting: 'sort',
+                  loadRemoteFieldConfiguration: true
+                })
+              })
+          })
+
+          test('should not overwrite passed sorting', () => {
+            const initialOptions = {loadRemoteFieldConfiguration: true, sorting: 'passed'}
+            return expectSaga(sagas.finalizeOptions, 'User', initialOptions)
+              .provide([[matchers.call.fn(rest.fetchForm), formDefinition]])
+              .call.like({
+                fn: rest.fetchForm,
+                args: ['User', 'remotefield']
+              })
+              .run()
+              .then(result => {
+                expect(result.returnValue).to.eql({
+                  constriction: 'const',
+                  sorting: 'passed',
+                  loadRemoteFieldConfiguration: true
+                })
+              })
+          })
+
+          test('should not load form when nothing needs to be loaded', () => {
+            const initialOptions = {loadRemoteFieldConfiguration: true, sorting: 'passed', constriction: 'passed'}
+            return expectSaga(sagas.finalizeOptions, 'User', initialOptions)
+              .not.call.like({
+                fn: rest.fetchForm
+              })
+              .run()
+              .then(result => {
+                expect(result.returnValue).to.eql(initialOptions)
+              })
+          })
+
+          test('should load passed form name', () => {
+            const initialOptions = {loadRemoteFieldConfiguration: true, formBase: 'FormBase'}
+            return expectSaga(sagas.finalizeOptions, 'User', initialOptions)
+              .provide([[matchers.call.fn(rest.fetchForm), formDefinition]])
+              .call.like({
+                fn: rest.fetchForm,
+                args: ['FormBase', 'remotefield']
+              })
+              .run()
+          })
+
+          test('should load passed form name', () => {
+            const initialOptions = {loadRemoteFieldConfiguration: true, formName: 'custom'}
+            return expectSaga(sagas.finalizeOptions, 'User', initialOptions)
+              .provide([[matchers.call.fn(rest.fetchForm), formDefinition]])
+              .call.like({
+                fn: rest.fetchForm,
+                args: ['User_custom', 'remotefield']
+              })
+              .run()
+          })
+
+          test('should return options when not asked to load remote field config', () => {
+            const initialOptions = {}
+            return expectSaga(sagas.finalizeOptions, 'User', initialOptions)
+              .run()
+              .then(result => {
+                expect(result.returnValue).to.eql(initialOptions)
               })
           })
         })
