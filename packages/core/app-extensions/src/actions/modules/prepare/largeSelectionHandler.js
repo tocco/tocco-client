@@ -4,7 +4,7 @@ import {call, put, take} from 'redux-saga/effects'
 
 import notification from '../../../notification'
 
-export default function* largeSelectionHandler(preparationResponse, params, definition, selection, config) {
+export default function* largeSelectionHandler({definition, selection}) {
   if (definition.showConfirmation && selection && selection.count > definition.confirmationThreshold) {
     const confirmResponse = yield call(promptConfirm, selection.count)
     return {abort: !confirmResponse}

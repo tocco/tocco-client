@@ -9,7 +9,7 @@ describe('app-extensions', () => {
     describe('prepare', () => {
       describe('confirmHandler', () => {
         test('should prompt a confirm and return abort false on positive answer', () => {
-          const response = {
+          const preparationResponse = {
             preCheck: {
               confirmMessage: 'Are you sure?'
             }
@@ -17,7 +17,7 @@ describe('app-extensions', () => {
 
           const channelMock = channel()
 
-          return expectSaga(confirmHandler, response)
+          return expectSaga(confirmHandler, {preparationResponse})
             .provide([
               {
                 call(effect, next) {
@@ -33,7 +33,7 @@ describe('app-extensions', () => {
             .run()
         })
         test('should return abort true on negative answer', () => {
-          const response = {
+          const preparationResponse = {
             preCheck: {
               confirmMessage: 'Are you sure?'
             }
@@ -41,7 +41,7 @@ describe('app-extensions', () => {
 
           const channelMock = channel()
 
-          return expectSaga(confirmHandler, response)
+          return expectSaga(confirmHandler, {preparationResponse})
             .provide([
               {
                 call(effect, next) {
@@ -58,13 +58,13 @@ describe('app-extensions', () => {
         })
 
         test('should not prompt a confirm if not asked for', () => {
-          const response = {
+          const preparationResponse = {
             preCheck: {
               confirmMessage: null
             }
           }
 
-          return expectSaga(confirmHandler, response)
+          return expectSaga(confirmHandler, {preparationResponse})
             .not.put.like({action: {type: CONFIRM}})
             .returns({
               abort: false

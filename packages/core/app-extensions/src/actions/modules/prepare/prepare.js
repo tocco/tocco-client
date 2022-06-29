@@ -18,7 +18,13 @@ export function* doRequest(definition, selection, parent) {
   return response.body
 }
 
-export const getHandlers = () => [largeSelectionHandler, preCheckHandler, confirmHandler, initialFormHandler]
+export const getHandlers = config => [
+  largeSelectionHandler,
+  preCheckHandler,
+  confirmHandler,
+  initialFormHandler,
+  ...(config.customPreparationHandlers || [])
+]
 
 export default function* run(definition, selection, parent, config) {
   let abort = false
@@ -26,13 +32,20 @@ export default function* run(definition, selection, parent, config) {
   let params = {}
 
   const preparationResponse = definition.endpoint ? yield call(doRequest, definition, selection, parent) : {}
-  const handlers = yield call(getHandlers)
+  const handlers = yield call(getHandlers, config)
 
   let i = 0
 
   while (!abort && handlers[i]) {
     const handler = handlers[i]
-    const handlerResponse = yield call(handler, preparationResponse, params, definition, selection, config)
+    const handlerOptions = {
+      preparationResponse,
+      params,
+      definition,
+      selection,
+      config
+    }
+    const handlerResponse = yield call(handler, handlerOptions)
 
     abort = handlerResponse.abort
     params = {...params, ...handlerResponse.params}

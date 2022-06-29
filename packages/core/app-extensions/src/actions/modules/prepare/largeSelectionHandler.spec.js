@@ -16,7 +16,7 @@ describe('app-extensions', () => {
             confirmationThreshold: 100
           }
 
-          return expectSaga(largeSelectionHandler, {}, null, definition, {count: 200})
+          return expectSaga(largeSelectionHandler, {definition, selection: {count: 200}})
             .provide([
               {
                 call(effect, next) {
@@ -38,7 +38,7 @@ describe('app-extensions', () => {
             confirmationThreshold: 100
           }
 
-          return expectSaga(largeSelectionHandler, {}, null, definition, {count: 200})
+          return expectSaga(largeSelectionHandler, {definition, selection: {count: 200}})
             .provide([
               {
                 call(effect, next) {
@@ -59,7 +59,7 @@ describe('app-extensions', () => {
             showConfirmation: true,
             confirmationThreshold: 100
           }
-          return expectSaga(largeSelectionHandler, {}, null, definition, {count: 2})
+          return expectSaga(largeSelectionHandler, {definition, selection: {count: 2}})
             .not.put.like({action: {type: CONFIRM}})
             .returns({
               abort: false
@@ -77,7 +77,7 @@ describe('app-extensions', () => {
             count: 6
           }
 
-          return expectSaga(largeSelectionHandler, {}, null, definition, selection)
+          return expectSaga(largeSelectionHandler, {definition, selection})
             .provide([[matchers.call.fn(promptConfirm), false]])
             .call(promptConfirm, selection.count)
             .run()
@@ -93,7 +93,7 @@ describe('app-extensions', () => {
             count: 105
           }
 
-          return expectSaga(largeSelectionHandler, {}, null, definition, selection)
+          return expectSaga(largeSelectionHandler, {definition, selection})
             .provide([[matchers.call.fn(promptConfirm), false]])
             .not.call(promptConfirm, selection.count)
             .run()
@@ -108,7 +108,7 @@ describe('app-extensions', () => {
             count: 100000000000
           }
 
-          return expectSaga(largeSelectionHandler, {}, null, definition, selection)
+          return expectSaga(largeSelectionHandler, {definition, selection})
             .provide([[matchers.call.fn(promptConfirm), false]])
             .not.call(promptConfirm, selection.count)
             .run()
@@ -120,7 +120,7 @@ describe('app-extensions', () => {
             count: 100000000000
           }
 
-          return expectSaga(largeSelectionHandler, {}, null, definition, selection)
+          return expectSaga(largeSelectionHandler, {definition, selection})
             .provide([[matchers.call.fn(promptConfirm), false]])
             .not.call(promptConfirm, selection.count)
             .run()

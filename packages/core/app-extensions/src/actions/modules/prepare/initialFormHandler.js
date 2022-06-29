@@ -5,7 +5,7 @@ import {api} from 'tocco-util'
 import notification from '../../../notification'
 import simpleFormConnector from '../../containers/simpleFormConnector'
 
-export default function* initialFormHandler(preparationResponse, params, definition, selection, config) {
+export default function* initialFormHandler({preparationResponse, config}) {
   if (preparationResponse.initialFormValues) {
     const formValues = yield call(handleInitialForm, preparationResponse.initialFormValues, config)
 

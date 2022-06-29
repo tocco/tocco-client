@@ -9,7 +9,7 @@ describe('app-extensions', () => {
     describe('prepare', () => {
       describe('initialFormHandler', () => {
         test('should dispatch confirm and return abort eql false in case of positive answer', () => {
-          const response = {
+          const preparationResponse = {
             initialFormValues: {
               formDefinition: {
                 model: 'User',
@@ -23,7 +23,7 @@ describe('app-extensions', () => {
 
           const channelMock = channel()
 
-          return expectSaga(initialFormHandler, response, null, null, null, {formApp: () => {}})
+          return expectSaga(initialFormHandler, {preparationResponse, config: {formApp: () => {}}})
             .provide([
               {
                 call(effect, next) {
@@ -41,7 +41,7 @@ describe('app-extensions', () => {
         })
 
         test('should return abort in case of negative answer', () => {
-          const response = {
+          const preparationResponse = {
             initialFormValues: {
               formDefinition: {form: {}},
               formData: {},
@@ -52,7 +52,7 @@ describe('app-extensions', () => {
 
           const channelMock = channel()
 
-          return expectSaga(initialFormHandler, response, null, null, null, {formApp: () => {}})
+          return expectSaga(initialFormHandler, {preparationResponse, config: {formApp: () => {}}})
             .provide([
               {
                 call(effect, next) {
@@ -69,9 +69,9 @@ describe('app-extensions', () => {
             .run()
         })
         test('should not show form and return abort false if no form is defined', () => {
-          const response = {initialFormValues: null}
+          const preparationResponse = {initialFormValues: null}
 
-          return expectSaga(initialFormHandler, response, null, null, null, {formApp: () => {}})
+          return expectSaga(initialFormHandler, {preparationResponse, config: {formApp: () => {}}})
             .not.put.like({action: {type: MODAL}})
             .returns({
               abort: false

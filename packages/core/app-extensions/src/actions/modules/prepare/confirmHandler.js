@@ -4,7 +4,7 @@ import {call, put, take} from 'redux-saga/effects'
 
 import notification from '../../../notification'
 
-export default function* confirmHandler(preparationResponse, params, definition, selection, config) {
+export default function* confirmHandler({preparationResponse}) {
   if (preparationResponse.preCheck && preparationResponse.preCheck.confirmMessage) {
     const confirmResponse = yield call(promptConfirm, preparationResponse.preCheck.confirmMessage)
     return {abort: !confirmResponse}
