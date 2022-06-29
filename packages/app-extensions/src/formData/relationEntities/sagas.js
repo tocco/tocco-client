@@ -20,12 +20,10 @@ export function* enhanceEntitiesWithDisplays(entities) {
 export function* loadRelationEntity({payload: {fieldName, entityName, options = {}}}) {
   const fieldData = yield select(fieldDataSelector, fieldName)
   if (!dataLoaded(fieldData) || options.forceReload) {
-    if (!options.constriction && options.loadRemoteFieldConstriction) {
-      options.constriction = yield call(loadRemoteFieldConstriction, entityName, options.formName, options.formBase)
-    }
+    const finalOptions = yield call(finalizeOptions, entityName, options)
 
     yield put(relationEntitiesActions.setRelationEntityLoading(fieldName))
-    const query = yield call(getQuery, options)
+    const query = yield call(getQuery, finalOptions)
     const requestOptions = {
       method: 'GET'
     }
@@ -37,21 +35,34 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
     let entities = yield call(rest.fetchEntities, entityName, query, requestOptions)
     entities = yield call(enhanceEntitiesWithDisplays, entities)
     entities = entities.map(entity => _pick(entity, api.relevantRelationAttributes))
-    const moreEntitiesAvailable = options.limit ? entities.length > options.limit : false
+    const moreEntitiesAvailable = finalOptions.limit ? entities.length > finalOptions.limit : false
     yield put(
       relationEntitiesActions.setRelationEntities(
         fieldName,
-        options.limit ? entities.splice(0, options.limit) : entities,
+        finalOptions.limit ? entities.splice(0, finalOptions.limit) : entities,
         moreEntitiesAvailable
       )
     )
   }
 }
 
-export function* loadRemoteFieldConstriction(entityName, formName, formBase) {
-  const remoteFieldFormName = formName ? `${entityName}_${formName}` : formBase || entityName
-  const remoteFieldFormDefinition = yield call(rest.fetchForm, remoteFieldFormName, 'remotefield')
-  return yield call(getConstriction, remoteFieldFormDefinition)
+export function* finalizeOptions(entityName, options) {
+  if (options.loadRemoteFieldConfiguration && (!options.constriction || !options.sorting)) {
+    const {formName, formBase, constriction, sorting} = options
+    const remoteFieldFormName = formName ? `${entityName}_${formName}` : formBase || entityName
+    const remoteFieldFormDefinition = yield call(rest.fetchForm, remoteFieldFormName, 'remotefield')
+    return {
+      ...options,
+      constriction: constriction || (yield call(getConstriction, remoteFieldFormDefinition)),
+      sorting: sorting || (yield call(getSorting, remoteFieldFormDefinition))
+    }
+  }
+  return options
+}
+
+export const getSorting = formDefinition => {
+  const table = getTable(formDefinition)
+  return table.sorting ? table.sorting : []
 }
 
 export const getConstriction = formDefinition => {

@@ -21,10 +21,9 @@ export default {
       formData.loadRelationEntities(formField.id, formField.targetEntity, {
         forceReload: true,
         limit: settings.SUGGESTION_LIMIT,
-        sorting: [{field: settings.SUGGESTION_ORDER_FIELD, order: 'desc'}],
         formBase: formField.formBase,
         formName: formField.formName,
-        loadRemoteFieldConstriction: true
+        loadRemoteFieldConfiguration: true
       }),
     searchOptions: searchTerm =>
       formData.loadRelationEntities(formField.id, formField.targetEntity, {
@@ -33,7 +32,7 @@ export default {
         forceReload: true,
         formBase: formField.formBase,
         formName: formField.formName,
-        loadRemoteFieldConstriction: true
+        loadRemoteFieldConfiguration: true
       }),
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
     tooltips: _get(formData.tooltips, formField.targetEntity, null),
