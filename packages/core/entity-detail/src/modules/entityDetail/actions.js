@@ -19,6 +19,8 @@ export const SET_FIELD_DEFINITIONS = 'entityDetail/SET_FIELD_DEFINITIONS'
 export const NAVIGATE_TO_ACTION = 'entityDetail/NAVIGATE_TO_ACTION'
 export const UPDATE_MARKED = 'entityDetail/UPDATE_MARKED'
 export const SET_MARKED = 'entityDetail/SET_MARKED'
+export const FORM_SUBMISSION_FAILED = 'entityDetail/FORM_SUBMISSION_FAILED'
+export const FORM_SUBMITTED = 'entityDetail/FORM_SUBMITTED'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -159,4 +161,12 @@ export const setMarked = marked => ({
   payload: {
     marked
   }
+})
+
+export const setFormSubmissionFailed = () => ({
+  type: FORM_SUBMISSION_FAILED
+})
+
+export const setFormSubmitted = () => ({
+  type: FORM_SUBMITTED
 })

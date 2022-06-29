@@ -22,6 +22,7 @@ import ErrorItems from './components/ErrorItems'
 import DetailViewContainer from './containers/DetailViewContainer'
 import customActions from './customActions'
 import {getDispatchActions} from './input'
+import {pendingChangesHandler} from './modules/actions/sagas'
 import reducers, {sagas, formSagaConfig} from './modules/reducers'
 import shortcuts from './shortcuts'
 
@@ -55,7 +56,8 @@ const initApp = (id, input, events = {}, publicPath) => {
     context: {
       viewName: 'detail',
       formName: input.formName
-    }
+    },
+    customPreparationHandlers: [pendingChangesHandler]
   })
   formData.addToStore(store, {
     listApp: EntityListApp,
