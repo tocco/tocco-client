@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import {errorLogging} from 'tocco-app-extensions'
 import {Panel} from 'tocco-ui'
 
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
@@ -11,17 +12,21 @@ const SearchView = ({searchFormType, isCollapsed, toggleCollapse}) => {
   if (searchFormType === searchFormTypes.ADMIN) {
     return (
       <StyledAdminSearchFormWrapper>
-        <AdminSearchForm isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
+        <errorLogging.ErrorBoundary>
+          <AdminSearchForm isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
+        </errorLogging.ErrorBoundary>
       </StyledAdminSearchFormWrapper>
     )
   }
 
   return (
-    <Panel.Wrapper isToggleable={false} isFramed={false}>
-      <Panel.Body>
-        {searchFormType === searchFormTypes.FULLTEXT ? <FullTextSearchForm /> : <BasicSearchFormContainer />}
-      </Panel.Body>
-    </Panel.Wrapper>
+    <errorLogging.ErrorBoundary>
+      <Panel.Wrapper isToggleable={false} isFramed={false}>
+        <Panel.Body>
+          {searchFormType === searchFormTypes.FULLTEXT ? <FullTextSearchForm /> : <BasicSearchFormContainer />}
+        </Panel.Body>
+      </Panel.Wrapper>
+    </errorLogging.ErrorBoundary>
   )
 }
 

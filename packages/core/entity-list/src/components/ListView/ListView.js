@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
+import {errorLogging} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 import {js} from 'tocco-util'
 
@@ -88,8 +89,8 @@ const ListView = ({
   return (
     <LoadMask required={[formDefinition]} loadingText={msg('client.entity-list.loadingText')}>
       <StyledListView>
-        {ActionBar}
-        {List}
+        <errorLogging.ErrorBoundary>{ActionBar}</errorLogging.ErrorBoundary>
+        <errorLogging.ErrorBoundary>{List}</errorLogging.ErrorBoundary>
       </StyledListView>
     </LoadMask>
   )
