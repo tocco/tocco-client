@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {useEffect, useState, useRef} from 'react'
 import ReactDOM from 'react-dom'
-import {notification} from 'tocco-app-extensions'
+import {notification, errorLogging} from 'tocco-app-extensions'
 import {Icon, LoadMask} from 'tocco-ui'
 
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
@@ -83,22 +83,26 @@ const ResourceScheduler = ({
         isCollapsed={isCollapsed}
       >
         <StyledSplitPanelWrapperLeft isCollapsed={isCollapsed}>
-          <StyledToggleCollapse>
-            <StyledToggleCollapseButton icon="chevron-left" onClick={toggleCollapse} />
-          </StyledToggleCollapse>
-          <LoadMask required={[calendarTypes]}>
-            <SearchPanel
-              locale={locale}
-              calendarTypes={calendarTypes}
-              updateRequestedCalendars={updateRequestedCalendars}
-              requestedCalendars={requestedCalendars}
-              emitAction={emitAction}
-              initialCalendarType={initialCalendarType}
-            />
-          </LoadMask>
+          <errorLogging.ErrorBoundary>
+            <StyledToggleCollapse>
+              <StyledToggleCollapseButton icon="chevron-left" onClick={toggleCollapse} />
+            </StyledToggleCollapse>
+            <LoadMask required={[calendarTypes]}>
+              <SearchPanel
+                locale={locale}
+                calendarTypes={calendarTypes}
+                updateRequestedCalendars={updateRequestedCalendars}
+                requestedCalendars={requestedCalendars}
+                emitAction={emitAction}
+                initialCalendarType={initialCalendarType}
+              />
+            </LoadMask>
+          </errorLogging.ErrorBoundary>
         </StyledSplitPanelWrapperLeft>
         <StyledSplitPanelWrapperRight>
-          <SchedulerAppContainer schedulerRef={schedulerRef} />
+          <errorLogging.ErrorBoundary>
+            <SchedulerAppContainer schedulerRef={schedulerRef} />
+          </errorLogging.ErrorBoundary>
         </StyledSplitPanelWrapperRight>
       </StyledSplitPane>
     </StyledResourceSchedulerWrapper>

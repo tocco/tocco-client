@@ -33,7 +33,7 @@ const initApp = (id, input, events, publicPath) => {
   const handleNotifications = !events.emitAction
 
   notification.addToStore(store, handleNotifications)
-  errorLogging.addToStore(store, handleNotifications)
+  errorLogging.addToStore(store, handleNotifications, ['console', 'remote', 'notification'])
   cache.addToStore(store)
 
   return appFactory.createApp(packageName, content, store, {
