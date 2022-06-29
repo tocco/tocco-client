@@ -4,6 +4,7 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
 import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {actions as actionExtensions, externalEvents, form, remoteEvents, rest} from 'tocco-app-extensions'
+import {intl} from 'tocco-util'
 
 import {createEntity, updateEntity} from '../../util/api/entities'
 import modes from '../../util/modes'
@@ -67,13 +68,16 @@ describe('entity-detail', () => {
 
             return expectSaga(sagas.submitForm)
               .provide([
+                [select(intl.localeSelector), 'de'],
                 [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
                 [matchers.call.fn(form.sagasUtils.getEntityForSubmit), entity],
-                [matchers.call.fn(sagas.submitValidate)]
+                [matchers.call.fn(sagas.submitValidate)],
+                [matchers.call.fn(sagas.createFormSubmit)]
               ])
               .put.like({action: {type: formActions.startSubmit().type}})
               .call(sagas.createFormSubmit, entity, fieldDefinitions)
+              .put(actions.setFormSubmitted())
               .run()
           })
 
@@ -83,12 +87,15 @@ describe('entity-detail', () => {
 
             return expectSaga(sagas.submitForm)
               .provide([
+                [select(intl.localeSelector), 'de'],
                 [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
                 [matchers.call.fn(form.sagasUtils.getEntityForSubmit), entity],
-                [matchers.call.fn(sagas.submitValidate)]
+                [matchers.call.fn(sagas.submitValidate)],
+                [matchers.call.fn(sagas.updateFormSubmit)]
               ])
               .call(sagas.updateFormSubmit, entity, fieldDefinitions)
+              .put(actions.setFormSubmitted())
               .run()
           })
 
@@ -105,6 +112,7 @@ describe('entity-detail', () => {
                 [matchers.call.fn(sagas.submitValidate)]
               ])
               .call(form.sagasUtils.handleSubmitError, sagas.formSagaConfig, error)
+              .put(actions.setFormSubmissionFailed())
               .run()
           })
 
@@ -118,6 +126,7 @@ describe('entity-detail', () => {
               .call(form.sagasUtils.handleInvalidForm, sagas.formSagaConfig)
               .not.call(sagas.updateFormSubmit, entity)
               .not.call(sagas.createFormSubmit, entity)
+              .put(actions.setFormSubmissionFailed())
               .run())
         })
 

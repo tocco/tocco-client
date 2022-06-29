@@ -130,6 +130,7 @@ export function* submitForm() {
     const isValid = yield select(isValidSelector(FORM_ID))
     if (!isValid) {
       yield call(form.sagasUtils.handleInvalidForm, formSagaConfig)
+      yield put(actions.setFormSubmissionFailed())
     } else {
       yield put(formActions.startSubmit(FORM_ID))
       const {mode, fieldDefinitions} = yield select(entityDetailSelector)
@@ -140,9 +141,11 @@ export function* submitForm() {
       } else if (mode === modes.CREATE) {
         yield call(createFormSubmit, entity, fieldDefinitions)
       }
+      yield put(actions.setFormSubmitted())
     }
   } catch (error) {
     yield call(form.sagasUtils.handleSubmitError, formSagaConfig, error)
+    yield put(actions.setFormSubmissionFailed())
   }
 }
 
