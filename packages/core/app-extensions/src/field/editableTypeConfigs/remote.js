@@ -23,11 +23,10 @@ export default {
       formData.loadRelationEntities(formField.id, formField.targetEntity, {
         forceReload: true,
         limit: settings.SUGGESTION_LIMIT,
-        sorting: [{field: settings.SUGGESTION_ORDER_FIELD, order: 'desc'}],
         formBase: formField.formBase,
         formName: formField.formName,
         where: getExcludeConstraint(currentValue),
-        loadRemoteFieldConstriction: true
+        loadRemoteFieldConfiguration: true
       })
     },
     searchOptions: (searchTerm, value) => {
@@ -38,7 +37,7 @@ export default {
         formBase: formField.formBase,
         formName: formField.formName,
         where: getExcludeConstraint(value),
-        loadRemoteFieldConstriction: true
+        loadRemoteFieldConfiguration: true
       })
     },
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
