@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {appFactory, notification, actionEmitter} from 'tocco-app-extensions'
+import {appFactory, notification, actionEmitter, errorLogging} from 'tocco-app-extensions'
 import {reducer as reducerUtil} from 'tocco-util'
 
 import DashboardContainer from './components/Dashboard/DashboardContainer'
@@ -16,6 +16,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   actionEmitter.addToStore(store, events.emitAction)
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
+  errorLogging.addToStore(store, handleNotifications, ['console', 'remote', 'notification'])
 
   return appFactory.createApp(packageName, content, store, {
     input,
