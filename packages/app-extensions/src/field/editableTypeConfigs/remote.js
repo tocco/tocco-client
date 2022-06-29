@@ -3,8 +3,7 @@ import React from 'react'
 
 const settings = {
   SEARCH_RESULT_LIMIT: 50,
-  SUGGESTION_LIMIT: 10,
-  SUGGESTION_ORDER_FIELD: 'update_timestamp'
+  SUGGESTION_LIMIT: 10
 }
 
 export default {
