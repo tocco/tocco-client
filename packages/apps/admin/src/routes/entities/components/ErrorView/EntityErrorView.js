@@ -7,12 +7,12 @@ const EntityErrorView = ({currentViewInfo}) => {
   const prefix = 'client.admin.entity.errorView.'
   const title = currentViewInfo.type === 'detail' ? 'detailTitle' : 'defaultTitle'
 
-  const description =
-    currentViewInfo.type === 'detail'
-      ? 'detailDescription'
-      : currentViewInfo.type === 'list' && currentViewInfo.error.relationName
-      ? 'relationDescription'
-      : 'listDescription'
+  let description = 'listDescription'
+  if (currentViewInfo.type === 'detail') {
+    description = 'detailDescription'
+  } else if (currentViewInfo.type === 'list' && currentViewInfo.error.relationName) {
+    description = 'relationDescription'
+  }
 
   return (
     <ErrorView

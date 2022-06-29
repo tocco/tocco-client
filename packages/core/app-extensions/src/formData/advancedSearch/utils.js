@@ -1,16 +1,24 @@
 import AdvancedSearchContainer from './AdvancedSearchContainer'
 
-export const getSelection = (value, multi) => (value ? (multi ? value.map(v => v.key) : [value.key]) : [])
+export const getSelection = (value, multi) => {
+  if (value) {
+    return multi ? value.map(v => v.key) : [value.key]
+  }
+  return []
+}
 
-export const getValue = (entities, multi) =>
-  multi
-    ? entities
-    : entities.length > 0
+export const getValue = (entities, multi) => {
+  if (multi) {
+    return entities
+  }
+
+  return entities.length > 0
     ? {
         key: entities[0].key,
         display: entities[0].display
       }
     : null
+}
 
 export const getAdvancedSearchComponent =
   (

@@ -13,17 +13,13 @@ const CREATED_STATUS = 201
 
 export function* handleFilesSelected({payload: {location, files, isDirectory}}) {
   const blockingInfoId = yield call(uuid)
-  yield put(
-    notification.blockingInfo(
-      blockingInfoId,
-      isDirectory
-        ? 'client.docs-browser.uploadInProgressDirectory'
-        : files.length > 1
-        ? 'client.docs-browser.uploadInProgressMultiple'
-        : 'client.docs-browser.uploadInProgress',
-      null
-    )
-  )
+  let message = 'client.docs-browser.uploadInProgress'
+  if (isDirectory) {
+    message = 'client.docs-browser.uploadInProgressDirectory'
+  } else if (files.length > 1) {
+    message = 'client.docs-browser.uploadInProgressMultiple'
+  }
+  yield put(notification.blockingInfo(blockingInfoId, message, null))
 
   const {onSuccess, onError} = yield select(dialogSelector)
 

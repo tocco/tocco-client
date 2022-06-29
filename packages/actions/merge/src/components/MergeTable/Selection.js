@@ -55,6 +55,14 @@ ManyRelationsCheckBox.propTypes = {
   navigationStrategy: navigationStrategyPropTypes.propTypes
 }
 
+const getRowSelectionState = (numberTotal, numberSelected) => {
+  if (numberTotal === numberSelected) {
+    return 'checked'
+  }
+
+  return numberSelected > 0 ? 'indeterminate' : 'unchecked'
+}
+
 export const RelationsCheckBoxes = React.memo(
   ({entityData, entityKey, name, setSelectedMultiple, selectedMultiple}) => {
     const isSelected = key => _get(selectedMultiple, [name, key]) === entityKey
@@ -62,8 +70,7 @@ export const RelationsCheckBoxes = React.memo(
 
     const numberTotal = entityData.value.length
     const numberSelected = entityData.value.filter(relationEntity => isSelected(relationEntity.key)).length
-    const allRowsSelectionState =
-      numberTotal === numberSelected ? 'checked' : numberSelected > 0 ? 'indeterminate' : 'unchecked'
+    const allRowsSelectionState = getRowSelectionState(numberTotal, numberSelected)
     const allRowsSelectionChange = v => {
       entityData.value.forEach(relationEntity => {
         const checked = v === 'checked'

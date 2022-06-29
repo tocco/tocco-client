@@ -26,6 +26,16 @@ export function* copy() {
   }
 }
 
+const extractKeysFromValue = value => {
+  if (Array.isArray(value)) {
+    return value.map(v => v.key)
+  }
+  if (typeof value === 'object') {
+    return value.key
+  }
+  return value
+}
+
 export function* getValues(entityName, entityKey, formName) {
   const paths = yield call(getPaths, formName)
   const sourceEntity = yield call(rest.fetchEntity, entityName, entityKey, {paths})
@@ -37,11 +47,7 @@ export function* getValues(entityName, entityKey, formName) {
         return null
       }
 
-      const valueTransformed = Array.isArray(value)
-        ? value.map(v => v.key)
-        : typeof value === 'object'
-        ? value.key
-        : value
+      const valueTransformed = extractKeysFromValue(value)
 
       return {id, value: valueTransformed}
     })

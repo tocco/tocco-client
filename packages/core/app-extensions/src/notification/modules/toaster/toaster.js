@@ -5,6 +5,14 @@ import {iconMap, isWarningOrError, TYPES} from '../../types'
 
 export const DEFAULT_DURATION = 5000
 
+const getDuration = (duration, type) => {
+  if (Number.isInteger(duration)) {
+    return duration
+  }
+
+  return isWarningOrError(type) ? -1 : DEFAULT_DURATION
+}
+
 export const enhanceToaster = toaster => {
   if (!toaster.title && !toaster.body) {
     return null
@@ -20,7 +28,7 @@ export const enhanceToaster = toaster => {
     ...(toaster.body && {body: toaster.body}),
     icon: toaster.icon || iconMap[type],
     ...(toaster.onClose && typeof toaster.onClose === 'function' && {onClose: toaster.onClose}),
-    duration: Number.isInteger(toaster.duration) ? toaster.duration : isWarningOrError(type) ? -1 : DEFAULT_DURATION,
+    duration: getDuration(toaster.duration, type),
     time: toaster.time instanceof Date ? toaster.time : new Date()
   }
 }

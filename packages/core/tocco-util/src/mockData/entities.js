@@ -161,7 +161,7 @@ const entityListMutaters = [
         const path = 'paths.' + [fieldName] + '.value.value'
         const A = _get(a, path, 0)
         const B = _get(b, path, 0)
-        return A < B ? -1 : A > B ? 1 : 0
+        return A < B ? -1 : A > B ? 1 : 0 // eslint-disable-line no-nested-ternary
       })
       if (direction === 'desc') {
         sortedEntities.reverse()
@@ -182,6 +182,7 @@ const entityListMutaters = [
     doRun: params => !!params.search || !!params.where,
     mutate: (entities, params) => {
       const searchTerm = params.search || evaluateFulltext(params.where)
+      // eslint-disable-next-line no-nested-ternary
       return searchTerm === 'few' ? entities.slice(0, 3) : searchTerm === 'none' ? [] : entities
     }
   },
