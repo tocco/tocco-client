@@ -48,12 +48,33 @@ config, the second parameter, is an object that can have the following propertie
 - navigationStrategy: Object consisting of various link factories. For more information see
   tocco-util/navigationStrategy documentation.
 - appComponent: Component to render custom apps (E.g. rendering delete app for deleting a search filter)
+- customPreparationHandlers: An array of saga functions which will get invoked before an action is executed
 
 Render an action:
 
 ```javascript
 <actions.Action definition={actionDefinition} selection={selection} />
 ```
+
+### Custom Preparation Handler
+
+The handler receives an object as parameter:
+
+| Name | Type | Description |
+|---|---|---|
+| preparationResponse | object | response from call to `defintion.endpoint` or empty object |
+| params| object | Collected `params` from previous handlers |
+| definition| object | Action definition object |
+| selection| object | Selection object |
+| config| object | Action saga config object from app |
+
+
+A handler needs to return an object with the following keys:
+| Name | Mandatory | Type | Description |
+|---|---|---|---|
+| abort | x | bool | If false action will not be executed and any following handlers will not get invoked |
+| abortMessage |  | string | If abortMessage is returned an error toaster with given message will be shown |
+| params |  | object | Additional params that the action will receive |
 
 ## appFactory
 

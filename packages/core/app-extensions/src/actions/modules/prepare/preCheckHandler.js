@@ -1,4 +1,4 @@
-export default function* preCheckHandler(preparationResponse, params, definition, selection, config) {
+export default function* preCheckHandler({preparationResponse}) {
   if (preparationResponse.preCheck && preparationResponse.preCheck.success === false) {
     return {
       abort: true,

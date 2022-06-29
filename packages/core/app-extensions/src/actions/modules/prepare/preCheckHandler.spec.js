@@ -7,9 +7,9 @@ describe('app-extensions', () => {
     describe('prepare', () => {
       describe('preCheckHandler', () => {
         test('should not abort on undefined preCheck', () => {
-          const requestResponse = {preCheck: null}
+          const preparationResponse = {preCheck: null}
 
-          return expectSaga(preCheckHandler, requestResponse)
+          return expectSaga(preCheckHandler, {preparationResponse})
             .returns({
               abort: false
             })
@@ -17,7 +17,7 @@ describe('app-extensions', () => {
         })
 
         test('should not abort on success preCheck', () => {
-          return expectSaga(preCheckHandler, {preCheck: {success: true}})
+          return expectSaga(preCheckHandler, {preparationResponse: {preCheck: {success: true}}})
             .returns({
               abort: false
             })
@@ -25,7 +25,7 @@ describe('app-extensions', () => {
         })
 
         test('should abort on unsuccessful preCheck', () => {
-          return expectSaga(preCheckHandler, {preCheck: {success: false, message: 'test'}})
+          return expectSaga(preCheckHandler, {preparationResponse: {preCheck: {success: false, message: 'test'}}})
             .returns({
               abort: true,
               abortMessage: 'test'
