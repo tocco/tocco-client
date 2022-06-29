@@ -1,3 +1,6 @@
+import _isEmpty from 'lodash/isEmpty'
+import _isEqual from 'lodash/isEqual'
+import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
 import {
   actionEmitter,
@@ -12,7 +15,7 @@ import {
 } from 'tocco-app-extensions'
 import EntityListApp from 'tocco-entity-list/src/main'
 import SimpleFormApp from 'tocco-simple-form/src/main'
-import {navigationStrategy, reducer as reducerUtil} from 'tocco-util'
+import {navigationStrategy, react, reducer as reducerUtil} from 'tocco-util'
 
 import {SaveButton} from './components/Actions'
 import ErrorItems from './components/ErrorItems'
@@ -105,7 +108,18 @@ const initApp = (id, input, events = {}, publicPath) => {
 })()
 
 const EntityDetailApp = props => {
-  const {component} = appFactory.useApp({initApp, props, packageName: props.id, externalEvents: EXTERNAL_EVENTS})
+  const {component, store} = appFactory.useApp({initApp, props, packageName: props.id, externalEvents: EXTERNAL_EVENTS})
+
+  const prevProps = react.usePrevious(props)
+  react.useDidUpdate(() => {
+    const changedProps = _pickBy(props, (value, key) => !_isEqual(value, prevProps[key]))
+    if (!_isEmpty(changedProps)) {
+      getDispatchActions(changedProps, false).forEach(action => {
+        store.dispatch(action)
+      })
+    }
+  }, [props])
+
   return component
 }
 
