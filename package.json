@@ -17,7 +17,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "start": "yarn setup && babel-node build/scripts/dev-server",
-    "test": "jest",
+    "test": "cross-env TZ=Europe/Zurich jest",
     "codecov": "codecov --disable=gcov -f ./coverage/lcov.info",
     "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts --force-local",
     "setup:ci": "yarn install --frozen-lockfile && lerna bootstrap --no-progress --ignore-scripts --concurrency 2 --force-local",
