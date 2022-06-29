@@ -2,8 +2,7 @@ import _get from 'lodash/get'
 
 const settings = {
   SEARCH_RESULT_LIMIT: 50,
-  SUGGESTION_LIMIT: 10,
-  SUGGESTION_ORDER_FIELD: 'update_timestamp'
+  SUGGESTION_LIMIT: 10
 }
 
 const joinConditions = conditions => conditions.filter(Boolean).join(' and ')
