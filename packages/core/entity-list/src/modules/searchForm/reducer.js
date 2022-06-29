@@ -22,10 +22,14 @@ const setSimpleSearchFields = (state, {payload}) => {
 const setSearchFilterActive = (state, {payload: {searchFilterId, active, exclusive}}) => ({
   ...state,
   searchFilters: [
-    ...state.searchFilters.map(searchFilter => ({
-      ...searchFilter,
-      ...(searchFilterId === searchFilter.uniqueId ? {active} : exclusive ? {active: !active} : {})
-    }))
+    ...state.searchFilters.map(searchFilter => {
+      const isSearchFilter = searchFilterId === searchFilter.uniqueId
+      return {
+        ...searchFilter,
+        ...(isSearchFilter ? {active} : {}),
+        ...(!isSearchFilter && exclusive ? {active: !active} : {})
+      }
+    })
   ]
 })
 

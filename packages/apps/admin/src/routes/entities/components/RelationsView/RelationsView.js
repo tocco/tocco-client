@@ -61,11 +61,15 @@ const RelationsView = props => {
 
   const msg = id => intl.formatMessage({id})
   const hasCreateRights = relationName => relationsInfo[relationName]?.createPermission
-  const RelationPreview = selectedRelation
-    ? selectedRelation.targetEntity === 'Resource'
-      ? DocsViewAdapter
-      : ListView
-    : () => <React.Fragment />
+
+  const getRelationPreview = () => {
+    if (selectedRelation) {
+      return selectedRelation.targetEntity === 'Resource' ? DocsViewAdapter : ListView
+    }
+
+    return () => <React.Fragment />
+  }
+  const RelationPreview = getRelationPreview()
 
   const RelationBoxes = relations.map(relation => (
     <RelationBox key={`relation-${relation.relationName}`} relation={relation} entityName={entityName} {...props} />

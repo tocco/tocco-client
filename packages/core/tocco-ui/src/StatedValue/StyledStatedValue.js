@@ -7,21 +7,33 @@ import {colorizeBorder, colorizeText, declareFocus, declareFont, scale, theme} f
 const borderWidth = '1.1px' // deliberately uneven to force correct rendering in chrome
 
 export const getTextColor = ({isDisplay, immutable, signal, hasValue}) => {
-  return signal
-    ? 'signal'
-    : hasValue
-    ? 'hasValue'
-    : isDisplay
-    ? 'shade1'
-    : immutable
-    ? 'shade0'
-    : signal
-    ? 'signal'
-    : 'shade1'
+  if (signal) {
+    return 'signal'
+  }
+  if (hasValue) {
+    return 'hasValue'
+  }
+  if (isDisplay) {
+    return 'shade1'
+  }
+  if (immutable) {
+    return 'shade0'
+  }
+
+  return 'shade1'
 }
 
 export const getBorderColor = ({immutable, isDisplay, signal, isDirty}) => {
-  return isDirty ? 'isDirty' : isDisplay || immutable ? 'transparent' : signal ? 'signal' : 'shade1'
+  if (isDirty) {
+    return 'isDirty'
+  }
+  if (isDisplay || immutable) {
+    return 'transparent'
+  }
+  if (signal) {
+    return 'signal'
+  }
+  return 'shade1'
 }
 
 const declareCursor = ({isDisplay, immutable}) => `cursor: ${!isDisplay && immutable ? 'not-allowed' : 'auto'};`

@@ -4,13 +4,16 @@ import {design, StatedValue} from 'tocco-ui'
 import {StyledPasswordInput, StyledPasswordInputWrapper} from './StyledPasswordInput'
 
 const PasswordInput = props => {
-  const getSignal = props.value
-    ? props.valid === undefined
-      ? null
-      : props.valid
-      ? design.condition.SUCCESS
-      : design.condition.DANGER
-    : null
+  const getSignal = () => {
+    if (props.value) {
+      if (props.valid === undefined) {
+        return null
+      }
+
+      return props.valid ? design.condition.SUCCESS : design.condition.DANGER
+    }
+    return null
+  }
 
   return (
     <StatedValue
@@ -18,7 +21,7 @@ const PasswordInput = props => {
       id={`${props.name}-input`}
       immutable={props.readOnly === true}
       label={props.label}
-      signal={getSignal}
+      signal={getSignal()}
     >
       <StyledPasswordInputWrapper immutable={props.readOnly === true}>
         <StyledPasswordInput

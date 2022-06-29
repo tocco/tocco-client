@@ -7,17 +7,18 @@ import {StyledButtonWrapper} from '../GlobalStyledComponents'
 const Start = ({twoFactorActive, forced, requestSecret, intl}) => {
   const msg = id => intl.formatMessage({id})
 
+  const renderInfo = () => {
+    if (twoFactorActive) {
+      return <FormattedMessage id="client.two-factor-connector.overwriteInfo" />
+    }
+
+    const infoMsg = forced ? msg('client.two-factor-connector.forcedInfo') : msg('client.two-factor-connector.info')
+    return <span dangerouslySetInnerHTML={{__html: infoMsg}} />
+  }
+
   return (
     <>
-      <Typography.P>
-        {twoFactorActive ? (
-          <FormattedMessage id="client.two-factor-connector.overwriteInfo" />
-        ) : forced ? (
-          <span dangerouslySetInnerHTML={{__html: msg('client.two-factor-connector.forcedInfo')}} />
-        ) : (
-          <span dangerouslySetInnerHTML={{__html: msg('client.two-factor-connector.info')}} />
-        )}
-      </Typography.P>
+      <Typography.P>{renderInfo()}</Typography.P>
       <StyledButtonWrapper>
         <Button
           label={msg('client.two-factor-connector.nextButton')}

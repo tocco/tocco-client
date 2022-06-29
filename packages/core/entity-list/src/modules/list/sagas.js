@@ -131,7 +131,7 @@ export function* getSearchViewQuery() {
     ...relevantSearchFormFetchOptions,
     ...(filter && filter.length > 0 ? {filter} : {}),
     ...(where ? {where} : {}),
-    ...(inputConstriction ? {constriction: inputConstriction} : constriction ? {constriction} : {}),
+    ...(inputConstriction || constriction ? {constriction: inputConstriction || constriction} : {}),
     ...(inputKeys ? {keys: inputKeys} : {}),
     hasUserChanges
   }

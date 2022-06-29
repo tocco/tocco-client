@@ -38,11 +38,17 @@ const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInPro
     }
   }
 
+  if (dataLoadingInProgress) {
+    return (
+      <StyledTableBody>
+        <InProgressRow />
+      </StyledTableBody>
+    )
+  }
+
   return (
     <StyledTableBody>
-      {dataLoadingInProgress ? (
-        <InProgressRow />
-      ) : data.length > 0 ? (
+      {data.length > 0 ? (
         data.map((rowData, idx) => (
           <StyledTableRow
             key={`list-row-${rowData.__key}`}

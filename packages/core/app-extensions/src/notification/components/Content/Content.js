@@ -9,18 +9,18 @@ const isKey = s => s && s.startsWith('client.')
 /**
  * Helper component to render either a plain string, a string containing HTML, a text resource (key) or any children
  */
-const Content = ({children}) =>
-  _isString(children) ? (
-    containsHtml(children) ? (
-      <FormattedValue type="html" value={children} />
-    ) : isKey(children) ? (
-      <FormattedMessage id={children} />
-    ) : (
-      <span>{children}</span>
-    )
-  ) : (
-    children
-  )
+const Content = ({children}) => {
+  if (_isString(children)) {
+    if (containsHtml(children)) {
+      return <FormattedValue type="html" value={children} />
+    } else if (isKey(children)) {
+      return <FormattedMessage id={children} />
+    }
+    return <span>{children}</span>
+  }
+
+  return children
+}
 
 Content.propTypes = {
   children: PropTypes.any

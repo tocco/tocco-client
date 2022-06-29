@@ -176,9 +176,12 @@ export const StyledTable = styled.table`
   border-collapse: collapse;
   grid-template-columns: ${({columns}) =>
     columns
-      .map(column =>
-        column.width ? column.width + 'px' : column.shrinkToContent ? 'max-content' : 'minmax(100px, auto)'
-      )
+      .map(column => {
+        if (column.width) {
+          return column.width + 'px'
+        }
+        return column.shrinkToContent ? 'max-content' : 'minmax(100px, auto)'
+      })
       .join(' ')};
   grid-auto-rows: min-content;
   min-width: 100%;

@@ -164,15 +164,24 @@ export const reactSelectStyles = outerTheme => {
       cursor: 'default',
       textAlign: 'left'
     }),
-    option: (base, state) => ({
-      ...base,
-      color: outerTheme.colors.text,
-      backgroundColor: state.isSelected ? paper[2] : state.isFocused ? paper[1] : paper[0],
-      cursor: 'pointer',
-      ':active': {
-        backgroundColor: state.isSelected ? paper[2] : paper[1]
+    option: (base, state) => {
+      let backgroundColor = paper[0]
+      if (state.isSelected) {
+        backgroundColor = paper[2]
+      } else if (state.isFocused) {
+        backgroundColor = paper[1]
       }
-    }),
+
+      return {
+        ...base,
+        color: outerTheme.colors.text,
+        backgroundColor,
+        cursor: 'pointer',
+        ':active': {
+          backgroundColor: state.isSelected ? paper[2] : paper[1]
+        }
+      }
+    },
     indicatorsContainer: (base, state) => ({
       ...base,
       alignSelf: 'flex-end',
