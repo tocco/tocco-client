@@ -1,3 +1,12 @@
+0.1.8
+- fix remote error handler
+- create removeBoxes to help adjust forms
+- create mailing-list widget
+- use reports from widget config to user list
+- create mailing-list-mail-action for mailing-list flow
+- fix error logging app extension
+- add error boundary
+
 0.1.7
 - prepare for customer actions
 - prepare for customer actions
