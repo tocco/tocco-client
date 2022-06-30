@@ -1,3 +1,9 @@
+1.1.38
+- fix remote error handler
+- remove momentjs in favor of date-fns
+- create removeBoxes to help adjust forms
+- fix error logging app extension
+
 1.1.37
 - convert phoneEdit to functional component
 - convert layout to functional component

@@ -1,3 +1,14 @@
+1.0.46
+- fix remote error handler
+- remove momentjs in favor of date-fns
+- support simple search flag for fulltext search field
+- create removeBoxes to help adjust forms
+- allow modification of form in subgrid
+- create mailing-list-mail-action for mailing-list flow
+- listen to input param changes
+- fix error logging app extension
+- add error boundary
+
 1.0.45
 - convert phoneEdit to functional component
 - convert layout to functional component

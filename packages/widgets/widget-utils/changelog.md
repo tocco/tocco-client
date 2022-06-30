@@ -1,3 +1,6 @@
+0.1.16
+- remove momentjs in favor of date-fns
+
 0.1.15
 - use boolean search component for marking
 
