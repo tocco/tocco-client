@@ -16,77 +16,90 @@ import {
   StyledNumber
 } from './StyledColumnPicker'
 
+const sortColumns = (columns, sortCriteria = 'hidden') => columns.sort((a, b) => a[sortCriteria] - b[sortCriteria])
+const getFilteredColumns = (columns, searchTerm) =>
+  columns.filter(column => searchTerm === null || column.label.match(new RegExp(searchTerm, 'i')))
+
 const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => {
   const [columns, setColumns] = useState([])
-  const someUnchecked = columns.some(column => column.hidden)
-  const initialColumnsSorted = initialColumns.sort((a, b) => a.hidden - b.hidden)
+  const initialColumnsSorted = sortColumns(initialColumns)
+
   useEffect(() => setColumns(initialColumnsSorted), [initialColumnsSorted])
+
   const [searchTerm, setSearchTerm] = useState(null)
   const changeColumnPosition = useCallback(
     (currentlyDragging, currentlyDragOver) => {
       if (currentlyDragging !== currentlyDragOver) {
         const currentlyDraggingItem = columns.find(c => c.id === currentlyDragging)
-        setColumns(cols =>
-          cols
+        const updateColumns = prevColumns =>
+          prevColumns
             .filter(c => c !== currentlyDraggingItem)
             .reduce((acc, key) => [...acc, key, ...(key.id === currentlyDragOver ? [currentlyDraggingItem] : [])], [])
-        )
+
+        setColumns(updateColumns)
       }
     },
     [columns]
   )
   const {dndEvents, dndState} = dragAndDrop.useDnD(changeColumnPosition)
 
-  const listItems = useMemo(() => {
-    const filteredColumns = columns.filter(
-      column => searchTerm === null || column.label.match(new RegExp(searchTerm, 'i'))
-    )
+  const filteredColumns = useMemo(() => getFilteredColumns(columns, searchTerm), [columns, searchTerm])
+  const someUnchecked = filteredColumns.some(column => column.hidden)
 
-    return filteredColumns.map((column, idx) => {
-      const isDraggedOver = dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id
-      const handleChange = value => {
-        setColumns(
-          columns
-            .map(c =>
-              c.id === column.id
-                ? {
-                    ...c,
-                    hidden: !value.target.checked
-                  }
-                : c
+  const listItems = useMemo(
+    () =>
+      filteredColumns.map((column, idx) => {
+        const isDraggedOver = dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id
+
+        const handleChange = value => {
+          const updateColumns = prevColumns =>
+            sortColumns(
+              prevColumns.map(c =>
+                c.id === column.id
+                  ? {
+                      ...c,
+                      hidden: !value.target.checked
+                    }
+                  : c
+              )
             )
-            .sort((a, b) => a.hidden - b.hidden)
-        )
-      }
 
-      return (
-        <StyledItem
-          key={column.id}
-          draggable={dndEnabled}
-          isDraggedOver={isDraggedOver}
-          {...(dndEnabled && {...dndEvents(column.id)})}
-        >
-          <StyledCheckbox type={'checkbox'} id={column.id} checked={!column.hidden} onChange={handleChange} />
-          <Typography.Label for={column.id}>
-            <StyledNumber>{idx + 1}.</StyledNumber>
-            {column.label || <StyledId>{column.id}</StyledId>}
-          </Typography.Label>
-        </StyledItem>
-      )
-    })
-  }, [searchTerm, columns, dndState, dndEnabled, dndEvents])
+          setColumns(updateColumns)
+        }
+
+        return (
+          <StyledItem
+            key={column.id}
+            draggable={dndEnabled}
+            isDraggedOver={isDraggedOver}
+            {...(dndEnabled && {...dndEvents(column.id)})}
+          >
+            <StyledCheckbox type={'checkbox'} id={column.id} checked={!column.hidden} onChange={handleChange} />
+            <Typography.Label for={column.id}>
+              <StyledNumber>{idx + 1}.</StyledNumber>
+              {column.label || <StyledId>{column.id}</StyledId>}
+            </Typography.Label>
+          </StyledItem>
+        )
+      }),
+    [dndState, dndEnabled, dndEvents, filteredColumns]
+  )
 
   const toggleAllCheckBoxes = e => {
     const isChecked = e.target.checked
 
-    const toggledColumns = [
-      ...columns.map(column => ({
-        ...column,
-        hidden: !isChecked
-      }))
-    ]
+    const updateColumns = prevColumns => {
+      const prevFilteredColumns = getFilteredColumns(prevColumns, searchTerm)
 
-    setColumns(toggledColumns)
+      return sortColumns([
+        ...prevColumns.map(column => ({
+          ...column,
+          hidden: prevFilteredColumns.includes(column) ? !isChecked : column.hidden
+        }))
+      ])
+    }
+
+    setColumns(updateColumns)
   }
 
   return (
