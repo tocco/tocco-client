@@ -1,3 +1,8 @@
+1.0.2-hotfix31.26
+- remote fields now honor the constrictions defined on forms with remotefield scope
+- advanced search now uses form with remotefield scope if it exists
+- remotefields now use sorting of their forms or entity models instead of only their timestamp
+
 1.0.2-hotfix31.25
 - add css classes for display expressions styling
 
