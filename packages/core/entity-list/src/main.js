@@ -190,7 +190,7 @@ EntityListApp.propTypes = {
     value: PropTypes.string
   }),
   showLink: PropTypes.bool,
-  actionAppComponent: PropTypes.func,
+  actionAppComponent: PropTypes.elementType,
   navigationStrategy: navigationStrategy.propTypes,
   contextParams: PropTypes.object,
   searchFormCollapsed: PropTypes.bool,
