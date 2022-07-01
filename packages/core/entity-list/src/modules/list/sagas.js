@@ -398,7 +398,6 @@ export function* loadFormDefinition(formName, scope, actionCreator) {
   } else {
     const constriction = getConstriction(formDefinition)
     yield put(actions.setConstriction(constriction))
-    yield put(actionCreator(formDefinition))
   }
 }
 
