@@ -1,3 +1,6 @@
+1.0.65
+- show prompt before action for unsaved changes
+
 1.0.64
 - fix remote error handler
 - remove momentjs in favor of date-fns
