@@ -6,10 +6,6 @@ import {modifyFormDefinition} from './MailingList'
 
 describe('MailingList', () => {
   describe('modifyFormDefinition', () => {
-    const reports = [{id: 'example-report'}]
-    const intl = {
-      formatMessage: () => 'formatted message'
-    }
     const appContext = {widgetConfigKey: 'widget'}
     const parent = {key: 'parent'}
     describe('user list', () => {
@@ -36,12 +32,6 @@ describe('MailingList', () => {
           }
         ]
       }
-      test('should add reports', () => {
-        const modifiedFormDefinition = modifyFormDefinition(formDefinition, {}, {reports, intl}).next().value
-        expect(_get(modifiedFormDefinition, ['children', '0', 'children', '0', 'children', '0', 'id'])).to.eq(
-          'example-report'
-        )
-      })
       test('should remove action when disabled', () => {
         const modifiedFormDefinition = modifyFormDefinition(formDefinition, {}, {showEmailAction: false}).next().value
         expect(_get(modifiedFormDefinition, ['children'])).to.be.empty
