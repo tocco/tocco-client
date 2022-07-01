@@ -588,14 +588,12 @@ describe('entity-list', () => {
           })
 
           test('should not load form definition if already loaded', () => {
-            const selectFormDefinition = {}
-            return expectSaga(sagas.loadFormDefinition)
-              .provide([
-                [select(sagas.listSelector), {formDefinition: selectFormDefinition}],
-                [matchers.call.fn(sagas.extractFormInformation)]
-              ])
+            const selectFormDefinition = {children: []}
+            const actionCreator = actions.setFormDefinition
+            return expectSaga(sagas.loadFormDefinition, 'User', 'list', actionCreator)
+              .provide([[select(sagas.listSelector), {formDefinition: selectFormDefinition}]])
               .not.put(actions.setFormDefinition(selectFormDefinition))
-              .call(sagas.extractFormInformation, selectFormDefinition)
+              .put(actions.setConstriction(null))
               .run()
           })
         })
