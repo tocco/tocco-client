@@ -37,7 +37,7 @@ export const StyledTether = styled(TetherComponent)`
 
 export const StyledNonTether = styled.div`
   position: absolute;
-  padding-bottom: ${scale.space(-0.5)};
+  padding-bottom: ${scale.space(1.5)};
   z-index: 2; // higher than StyledTether and StyledIndicatorsContainerWrapper
 `
 
