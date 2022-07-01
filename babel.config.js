@@ -18,9 +18,9 @@ module.exports = function (api) {
             transform: 'tocco-app-extensions/src/${member}',
             preventFullImport: true
           },
-          'tocco-util': {
-            transform: 'tocco-util/src/${member}',
-            preventFullImport: true
+          'tocco-util/?(((\\w*)?/?)*)': {
+            transform: 'tocco-util/src/${1}/${member}',
+            preventFullImport: false
           },
           'tocco-test-util': {
             transform: 'tocco-test-util/src/${member}',
