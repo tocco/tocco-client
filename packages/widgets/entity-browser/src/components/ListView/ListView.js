@@ -78,7 +78,8 @@ ListView.propTypes = {
   simpleSearchFields: PropTypes.string,
   router: PropTypes.object.isRequired,
   modifyFormDefinition: PropTypes.func,
-  disableDetailView: PropTypes.bool
+  disableDetailView: PropTypes.bool,
+  reportIds: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default ListView

@@ -12,14 +12,16 @@ export default function* sagas() {
   yield all([takeLatest(actions.LOAD_REPORTS, loadReport)])
 }
 
-export function* loadReport({payload: {reportIds}}) {
+export function* loadReport({payload: {reportIds, entityName, scope}}) {
   if (reportIds.length === 0) {
     yield put(actions.setReports([]))
     return
   }
 
+  const reportConditions = getReportConditions(reportIds, entityName, scope)
+
   const query = {
-    where: `IN (unique_id,${reportIds.map(id => `"${id}"`).join(',')})`,
+    where: reportConditions,
     paths: 'unique_id,label,ignore_selection'
   }
 
@@ -36,4 +38,22 @@ export function* loadReport({payload: {reportIds}}) {
   }))
 
   yield put(actions.setReports(reports))
+}
+
+const getReportConditions = (reportIds, entityName, scope) => {
+  const conditions = []
+  conditions.push(`IN (unique_id,${reportIds.map(id => `"${id}"`).join(',')})`)
+  if (entityName && scope) {
+    conditions.push(
+      `exists (
+        relReport_placement where entity_model == "${entityName}"
+        and relReport_location.unique_id == "${scope}"
+      )`
+    )
+  } else if (entityName) {
+    conditions.push(`exists (relReport_placement where entity_model == "${entityName}")`)
+  } else if (scope) {
+    conditions.push(`exists (relReport_placement where relReport_location.unique_id == "${scope}")`)
+  }
+  return conditions.join(' and ')
 }

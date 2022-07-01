@@ -1,10 +1,12 @@
 export const LOAD_REPORTS = 'formData/LOAD_REPORTS'
 export const SET_REPORTS = 'formData/SET_REPORTS'
 
-export const loadReports = reportIds => ({
+export const loadReports = (reportIds, entityName, scope) => ({
   type: LOAD_REPORTS,
   payload: {
-    reportIds
+    reportIds,
+    entityName,
+    scope
   }
 })
 

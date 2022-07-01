@@ -9,7 +9,8 @@ import {
   actionEmitter,
   externalEvents,
   actions,
-  formData
+  formData,
+  reports
 } from 'tocco-app-extensions'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 import {scrollBehaviourPropType} from 'tocco-ui'
@@ -58,6 +59,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     actionEmitter.addToStore(store, events.emitAction)
     errorLogging.addToStore(store, false)
     notification.addToStore(store, false)
+    reports.addToStore(store)
     actions.addToStore(store, {
       formApp: SimpleFormApp,
       listApp: EntityListApp,
@@ -78,7 +80,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     events,
     actions: getDispatchActions(input),
     publicPath,
-    textResourceModules: ['component', 'common']
+    textResourceModules: ['actiongroup', 'component', 'common']
   })
 
   if (module.hot) {
@@ -194,7 +196,8 @@ EntityListApp.propTypes = {
   navigationStrategy: navigationStrategy.propTypes,
   contextParams: PropTypes.object,
   searchFormCollapsed: PropTypes.bool,
-  modifyFormDefinition: PropTypes.func
+  modifyFormDefinition: PropTypes.func,
+  reportIds: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default EntityListApp

@@ -49,6 +49,7 @@ const SubGrid = props => {
         locale={props.locale}
         modifyFormDefinition={props.modifyFormDefinition}
         actionAppComponent={props.actionAppComponent}
+        reportIds={props.reportIds}
       />
     </StyledListApp>
   )
@@ -77,7 +78,8 @@ SubGrid.propTypes = {
   navigationStrategy: PropTypes.objectOf(PropTypes.func),
   locale: PropTypes.string,
   modifyFormDefinition: PropTypes.func,
-  actionAppComponent: PropTypes.func
+  actionAppComponent: PropTypes.func,
+  reportIds: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default SubGrid

@@ -2,7 +2,7 @@ import _isEqual from 'lodash/isEqual'
 import _omit from 'lodash/omit'
 import _union from 'lodash/union'
 import {all, call, delay, fork, put, select, spawn, take, takeEvery, takeLatest} from 'redux-saga/effects'
-import {actionEmitter, externalEvents, remoteEvents, rest} from 'tocco-app-extensions'
+import {actionEmitter, externalEvents, remoteEvents, rest, reports, form} from 'tocco-app-extensions'
 import {api, consoleLogger} from 'tocco-util'
 
 import {entitiesListTransformer} from '../../util/api/entities'
@@ -29,6 +29,8 @@ export const listSelector = state => state.list
 export const searchFormSelector = state => state.searchForm
 export const selectionSelector = state => state.selection
 export const preferencesSelector = state => state.preferences
+export const reportsSelector = state => state.reports
+export const intlSelector = state => state.intl
 
 export default function* sagas() {
   yield all([
@@ -385,7 +387,7 @@ export function* setSorting() {
 }
 
 export function* loadFormDefinition(formName, scope, actionCreator) {
-  const {modifyFormDefinition} = yield select(inputSelector)
+  const {modifyFormDefinition, reportIds} = yield select(inputSelector)
   const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
   const {parent} = yield select(entityListSelector)
   const modifiedFormDefinition = modifyFormDefinition
@@ -393,7 +395,19 @@ export function* loadFormDefinition(formName, scope, actionCreator) {
     : fetchedFormDefinition
   const constriction = getConstriction(modifiedFormDefinition)
   yield put(actions.setConstriction(constriction))
-  yield put(actionCreator(modifiedFormDefinition))
+  const finalFormDefinition = yield call(addReportsToForm, reportIds, modifiedFormDefinition)
+  yield put(actionCreator(finalFormDefinition))
+}
+
+function* addReportsToForm(reportIds, formDefinition) {
+  if (reportIds?.length > 0) {
+    yield put(reports.loadReports(reportIds, formDefinition.modelName, 'list'))
+    const {payload} = yield take(reports.SET_REPORTS)
+    const {messages} = yield select(intlSelector)
+    return yield call(form.addReports, formDefinition, payload.reports, messages['client.actiongroup.output'])
+  } else {
+    return formDefinition
+  }
 }
 
 export function* loadEntityModel(entityName) {

@@ -1,5 +1,5 @@
 import {actions as formActions, isValid as isValidSelector} from 'redux-form'
-import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {all, call, fork, put, select, takeEvery, takeLatest, take} from 'redux-saga/effects'
 import {
   actions as actionExtensions,
   externalEvents,
@@ -7,7 +7,8 @@ import {
   notification,
   remoteEvents,
   rest,
-  display
+  display,
+  reports
 } from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
@@ -21,6 +22,7 @@ export const formInitialValueSelector = (state, formId) => state.form[formId].in
 export const entityDetailSelector = state => state.entityDetail
 
 export const inputSelector = state => state.input
+export const intlSelector = state => state.intl
 
 export const FORM_ID = 'detailForm'
 
@@ -45,15 +47,27 @@ export default function* sagas() {
 }
 
 export function* loadDetailFormDefinition(formName, mode, entityName, entityId) {
-  const {modifyFormDefinition} = yield select(inputSelector)
+  const {modifyFormDefinition, reportIds} = yield select(inputSelector)
   const formDefinition = yield call(rest.fetchForm, formName, mode)
   const modifiedFormDefinition = modifyFormDefinition
     ? yield call(modifyFormDefinition, formDefinition, {entityName, entityId})
     : formDefinition
-  yield put(actions.setFormDefinition(modifiedFormDefinition))
-  const fieldDefinitions = yield call(form.getFieldDefinitions, modifiedFormDefinition)
+  const finalFormDefinition = yield call(addReportsToForm, reportIds, entityName, modifiedFormDefinition)
+  yield put(actions.setFormDefinition(finalFormDefinition))
+  const fieldDefinitions = yield call(form.getFieldDefinitions, finalFormDefinition)
   yield put(actions.setFieldDefinitions(fieldDefinitions))
-  return {formDefinition: modifiedFormDefinition, fieldDefinitions}
+  return {formDefinition: finalFormDefinition, fieldDefinitions}
+}
+
+function* addReportsToForm(reportIds, entityName, formDefinition) {
+  if (reportIds?.length > 0) {
+    yield put(reports.loadReports(reportIds, entityName, 'detail'))
+    const {payload} = yield take(reports.SET_REPORTS)
+    const {messages} = yield select(intlSelector)
+    return yield call(form.addReports, formDefinition, payload.reports, messages['client.actiongroup.output'])
+  } else {
+    return formDefinition
+  }
 }
 
 export function* loadEntity(entityName, entityId, fieldDefinitions) {

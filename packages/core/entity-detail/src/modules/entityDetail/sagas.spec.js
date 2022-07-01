@@ -2,8 +2,8 @@ import {actions as formActions, isValid as isValidSelector} from 'redux-form'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
-import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
-import {actions as actionExtensions, externalEvents, form, remoteEvents, rest} from 'tocco-app-extensions'
+import {all, call, put, select, takeEvery, takeLatest, take} from 'redux-saga/effects'
+import {actions as actionExtensions, externalEvents, form, remoteEvents, rest, reports} from 'tocco-app-extensions'
 import {intl} from 'tocco-util'
 
 import {createEntity, updateEntity} from '../../util/api/entities'
@@ -195,6 +195,34 @@ describe('entity-detail', () => {
               .put(actions.setFormDefinition(formDefinition))
               .put(actions.setFieldDefinitions(fieldDefinitions))
               .returns({formDefinition, fieldDefinitions})
+              .run()
+          })
+
+          test('should handle report ids', () => {
+            const entityName = 'Entity_name'
+            const formName = 'User'
+            const mode = 'update'
+            const formDefinition = {children: []}
+            const modifiedFormDefinition = {children: [{id: 'fake modified child'}]}
+            const fieldDefinitions = {}
+            const reportDefinitions = [{}]
+            const groupLabel = 'label'
+            const modifyFormDefinition = formDefinition => formDefinition
+            return expectSaga(sagas.loadDetailFormDefinition, formName, mode, entityName)
+              .provide([
+                [matchers.call.fn(rest.fetchForm, formName, mode), formDefinition],
+                [select(sagas.inputSelector), {modifyFormDefinition, reportIds: ['report-id']}],
+                [select(sagas.intlSelector), {messages: {'client.actiongroup.output': groupLabel}}],
+                [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions],
+                [matchers.call.fn(form.addReports), modifiedFormDefinition],
+                [take(reports.SET_REPORTS), {payload: {reports: reportDefinitions}}]
+              ])
+              .put(reports.loadReports(['report-id'], entityName, 'detail'))
+              .call.like({
+                fn: form.addReports,
+                args: [formDefinition, reportDefinitions, groupLabel]
+              })
+              .returns({formDefinition: modifiedFormDefinition, fieldDefinitions})
               .run()
           })
         })

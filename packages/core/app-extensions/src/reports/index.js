@@ -1,7 +1,8 @@
-import {loadReports} from './actions'
+import {loadReports, SET_REPORTS} from './actions'
 import addToStore from './addToStore'
 
 export default {
   addToStore,
-  loadReports
+  loadReports,
+  SET_REPORTS
 }
