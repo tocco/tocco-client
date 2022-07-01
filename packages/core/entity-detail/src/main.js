@@ -11,7 +11,8 @@ import {
   formData,
   keyDown,
   notification,
-  form
+  form,
+  reports
 } from 'tocco-app-extensions'
 import EntityListApp from 'tocco-entity-list/src/main'
 import SimpleFormApp from 'tocco-simple-form/src/main'
@@ -47,6 +48,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   errorLogging.addToStore(store, false)
   notification.addToStore(store, false)
   form.addToStore(store, formSagaConfig)
+  reports.addToStore(store)
   actions.addToStore(store, {
     formApp: SimpleFormApp,
     listApp: EntityListApp,
@@ -72,7 +74,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     events,
     actions: getDispatchActions(input),
     publicPath,
-    textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
+    textResourceModules: ['actiongroup', 'component', 'common', 'entity-list', 'entity-detail']
   })
 
   if (module.hot) {
@@ -138,7 +140,8 @@ EntityDetailApp.propTypes = {
   navigationStrategy: navigationStrategy.propTypes,
   chooseDocument: PropTypes.func,
   actionAppComponent: PropTypes.func,
-  modifyFormDefinition: PropTypes.func
+  modifyFormDefinition: PropTypes.func,
+  reportIds: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default EntityDetailApp

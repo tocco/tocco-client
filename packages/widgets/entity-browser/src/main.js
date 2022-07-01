@@ -166,7 +166,8 @@ EntityBrowserApp.propTypes = {
   scrollBehaviour: PropTypes.string,
   appContext: appContext.propTypes,
   modifyFormDefinition: PropTypes.func,
-  disableDetailView: PropTypes.bool
+  disableDetailView: PropTypes.bool,
+  reportIds: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default EntityBrowserApp

@@ -16,6 +16,7 @@ React-registry name: `entity-detail`
 | `actionAppComponent`   |           | Component to render custom actions. Needs the appId and selection object property.
 | `navigationStrategy`   |           | Object consisting of various link factories. For more information see tocco-util/navigationStrategy documentation.
 | `modifyFormDefinition` |           | Function to modify form definition
+| `reportIds`            |           | Array of report ids to display in forms
 
 ### Events
 

@@ -41,6 +41,7 @@ React-registry name: `entity-list`
 | `scrollBehaviour`               |             | "none": Does not handle scroll internally and will take as much space as needed. The container / page needs to handle the scroll. "inline": Does handle scroll internally and takes the space given by the container. Containers needs to have a predefined height. | String  | "inline"          |
 | `tableMinHeight`                |             | Minimum height (e.g. "200px") which the list should have in order to be able to show any content when `scrollBehaviour="inline"`.                                                                         | String   |               |
 | `modifyFormDefinition`          |             | Function to modify form definition                                                                                                                                                                        | Function |               |
+| `reportIds`                     |             | Array of report ids to display in forms | Array of strings
 
 ### Events
 

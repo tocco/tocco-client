@@ -1,7 +1,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
-import {externalEvents, remoteEvents, rest} from 'tocco-app-extensions'
+import {all, call, put, select, takeEvery, takeLatest, take} from 'redux-saga/effects'
+import {externalEvents, remoteEvents, rest, form, reports} from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
 import {entitiesListTransformer} from '../../util/api/entities'
@@ -554,6 +554,34 @@ describe('entity-list', () => {
                 [select(sagas.entityListSelector), {}]
               ])
               .put(actionCreator(fetchedFormDefinition))
+              .run()
+          })
+
+          test('should handle report ids', () => {
+            const entityName = 'Entity_name'
+            const fetchedFormDefinition = {children: [], modelName: entityName}
+            const modifiedFormDefinition = {children: [{id: 'fake modified child'}]}
+            const reportDefinitions = [{}]
+            const groupLabel = 'group'
+            const formName = 'User'
+            const scope = 'list'
+            const actionCreator = actions.setFormDefinition
+            const modifyFormDefinition = formDefinition => formDefinition
+            return expectSaga(sagas.loadFormDefinition, formName, scope, actionCreator)
+              .provide([
+                [matchers.call.fn(rest.fetchForm), fetchedFormDefinition],
+                [select(sagas.inputSelector), {modifyFormDefinition, reportIds: ['report-id']}],
+                [select(sagas.entityListSelector), {}],
+                [matchers.call.fn(form.addReports), modifiedFormDefinition],
+                [take(reports.SET_REPORTS), {payload: {reports: reportDefinitions}}],
+                [select(sagas.intlSelector), {messages: {'client.actiongroup.output': groupLabel}}]
+              ])
+              .put(reports.loadReports(['report-id'], entityName, 'list'))
+              .call.like({
+                fn: form.addReports,
+                args: [fetchedFormDefinition, reportDefinitions, groupLabel]
+              })
+              .put(actionCreator(modifiedFormDefinition))
               .run()
           })
         })

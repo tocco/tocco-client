@@ -76,9 +76,13 @@ export const removeCreate = formDefinition => ({
 /**
  * add reports to form definition (use reports helper of app-extensions to create correct format of reports parameter)
  */
-export const addReports = (formDefinition, reports, intl) => {
+export const addReports = (formDefinition, reports, outputGroupLabel) => {
+  if (reports?.length === 0) {
+    return formDefinition
+  }
+
   formDefinition = addMainActionBar(formDefinition)
-  formDefinition = addOutputGroup(formDefinition, intl)
+  formDefinition = addOutputGroup(formDefinition, outputGroupLabel)
 
   return {
     ...formDefinition,
@@ -128,10 +132,10 @@ export const addMainActionBar = formDefinition => {
 /**
  * add output group to main action bar if it not already exists
  */
-export const addOutputGroup = (formDefinition, intl) => {
+export const addOutputGroup = (formDefinition, outputGroupLabel) => {
   const outputGroup = {
     id: ACTION_GROUP_OUTPUT_ID,
-    label: intl.formatMessage({id: 'client.actions.show-output-jobs-action.title'}),
+    label: outputGroupLabel,
     componentType: ACTION_GROUP_TYPE,
     icon: 'file-export',
     children: []

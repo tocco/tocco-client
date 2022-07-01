@@ -1,5 +1,4 @@
 import _get from 'lodash/get'
-import {IntlStub} from 'tocco-test-util'
 
 import {
   ACTION_GROUP_ACTIONS_ID,
@@ -90,13 +89,13 @@ describe('app-extensions', () => {
       describe('addReports', () => {
         test('add reports', () => {
           expect(
-            addReports(formDefinitionFull, reports, IntlStub).children[0].children[1].children.map(r => r.reportId)
+            addReports(formDefinitionFull, reports, 'output').children[0].children[1].children.map(r => r.reportId)
           ).to.be.eql(['report1', 'report2', 'report3'])
         })
 
         test('create output group and add reports', () => {
           expect(
-            addReports(formDefinitionCreate, reports, IntlStub).children[0].children[1].children.map(r => r.reportId)
+            addReports(formDefinitionCreate, reports, 'output').children[0].children[1].children.map(r => r.reportId)
           ).to.be.eql(['report2', 'report3'])
         })
       })
@@ -112,15 +111,15 @@ describe('app-extensions', () => {
             ]
           }
 
-          expect(getActionGroupIds(addOutputGroup(formDefinitionEmpty, IntlStub))).to.be.eql([ACTION_GROUP_OUTPUT_ID])
+          expect(getActionGroupIds(addOutputGroup(formDefinitionEmpty, 'output'))).to.be.eql([ACTION_GROUP_OUTPUT_ID])
         })
 
         test('output action group already exists', () => {
-          expect(getActionGroupIds(addOutputGroup(formDefinitionOutput, IntlStub))).to.be.eql([ACTION_GROUP_OUTPUT_ID])
+          expect(getActionGroupIds(addOutputGroup(formDefinitionOutput, 'output'))).to.be.eql([ACTION_GROUP_OUTPUT_ID])
         })
 
         test('add output action group after create', () => {
-          expect(getActionGroupIds(addOutputGroup(formDefinitionCreate, IntlStub))).to.be.eql([
+          expect(getActionGroupIds(addOutputGroup(formDefinitionCreate, 'output'))).to.be.eql([
             ACTION_GROUP_CREATECOPY_ID,
             ACTION_GROUP_OUTPUT_ID
           ])
@@ -143,7 +142,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          expect(getActionGroupIds(addOutputGroup(formDefinitionSave, IntlStub))).to.be.eql([
+          expect(getActionGroupIds(addOutputGroup(formDefinitionSave, 'output'))).to.be.eql([
             ACTION_GROUP_CREATECOPY_ID,
             ACTION_SAVE_ID,
             ACTION_GROUP_OUTPUT_ID
@@ -164,7 +163,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          expect(getActionGroupIds(addOutputGroup(formDefinitionSave, IntlStub))).to.be.eql([
+          expect(getActionGroupIds(addOutputGroup(formDefinitionSave, 'output'))).to.be.eql([
             ACTION_GROUP_OUTPUT_ID,
             ACTION_GROUP_ACTIONS_ID
           ])
