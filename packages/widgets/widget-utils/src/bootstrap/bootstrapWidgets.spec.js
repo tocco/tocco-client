@@ -1,6 +1,6 @@
 import {mount} from 'enzyme'
 import fetchMock from 'fetch-mock'
-import {bundle} from 'tocco-util'
+import {utils} from 'tocco-util/bundle'
 
 import bootstrapWidgets from './bootstrapWidgets'
 import {BOOTSTRAP_SCRIPT_OBJ_NAME, EVENT_HANDLERS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
@@ -12,7 +12,7 @@ describe('widget-utils', () => {
   describe('boostrap', () => {
     describe('bootstrapWidgets', () => {
       beforeEach(() => {
-        stub = sinon.stub(bundle, 'loadScriptAsync').returns({})
+        stub = sinon.stub(utils, 'loadScriptAsync').returns({})
         fetchMock.restore()
         fetchMock.config.warnOnFallback = false
       })
@@ -419,7 +419,7 @@ describe('widget-utils', () => {
 
     describe('bootstrapWidgets', () => {
       beforeEach(() => {
-        stub = sinon.stub(bundle, 'loadScriptAsync').rejects()
+        stub = sinon.stub(utils, 'loadScriptAsync').rejects()
         fetchMock.restore()
         fetchMock.config.warnOnFallback = false
       })

@@ -1,5 +1,9 @@
 import {useBundledApp} from './hook'
-import {loadScriptAsync, loadBundle} from './load'
-import {getEntryFilePath} from './utils'
+import utils from './utils'
 
-export default {useBundledApp, loadBundle, loadScriptAsync, getEntryFilePath}
+export default {
+  useBundledApp,
+  loadBundle: utils.loadBundle,
+  loadScriptAsync: utils.loadScriptAsync,
+  getEntryFilePath: utils.getEntryFilePath
+}
