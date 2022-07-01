@@ -13,7 +13,6 @@
     "tocco-docs-browser": "*",
     "tocco-entity-browser": "*",
     "tocco-mailing-list": "*",
-    "tocco-reservation-lecturer-booking-view": "*",
     "tocco-wage-view": "*"
   }
 }
