@@ -1,22 +1,13 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
-import {useEffect} from 'react'
 import {rest, form} from 'tocco-app-extensions'
 import EntityBrowserApp from 'tocco-entity-browser/src/main'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/main'
-import {LoadMask} from 'tocco-ui'
 import {appContext as appContextPropType} from 'tocco-util'
 
-export function* modifyFormDefinition(
-  formDefinition,
-  {parent, entityName, entityId},
-  {reports, intl, showEmailAction, appContext}
-) {
+export function* modifyFormDefinition(formDefinition, {parent, entityName, entityId}, {showEmailAction, appContext}) {
   if (formDefinition.id === 'Mailing_list_detail_relUser_list') {
     let userListFormDefinition = formDefinition
-    if (reports?.length > 0) {
-      userListFormDefinition = form.addReports(userListFormDefinition, reports, intl)
-    }
     if (!showEmailAction) {
       userListFormDefinition = form.removeActions(userListFormDefinition, ['mailing-list-mail-action'])
     } else {
@@ -45,26 +36,21 @@ export function* modifyFormDefinition(
 }
 
 const MailingList = props => {
-  const {searchFilters, searchFormType, limit, backendUrl, businessUnit, appContext, loadReports, reportIds, reports} =
-    props
-  useEffect(() => {
-    loadReports(reportIds)
-  }, [loadReports, reportIds])
+  const {searchFilters, searchFormType, limit, backendUrl, businessUnit, appContext, reportIds} = props
 
   return (
-    <LoadMask required={[reports]}>
-      <EntityBrowserApp
-        entityName="Event"
-        formBase="Mailing_list"
-        searchFilters={searchFilters}
-        limit={limit}
-        modifyFormDefinition={(formDefinition, context) => modifyFormDefinition(formDefinition, context, props)}
-        backendUrl={backendUrl}
-        businessUnit={businessUnit}
-        appContext={appContext}
-        searchFormType={searchFormType}
-      />
-    </LoadMask>
+    <EntityBrowserApp
+      entityName="Event"
+      formBase="Mailing_list"
+      searchFilters={searchFilters}
+      limit={limit}
+      modifyFormDefinition={(formDefinition, context) => modifyFormDefinition(formDefinition, context, props)}
+      backendUrl={backendUrl}
+      businessUnit={businessUnit}
+      appContext={appContext}
+      searchFormType={searchFormType}
+      reportIds={reportIds}
+    />
   )
 }
 
@@ -75,8 +61,6 @@ MailingList.propTypes = {
   backendUrl: PropTypes.string,
   businessUnit: PropTypes.string,
   appContext: appContextPropType.propTypes.isRequired,
-  loadReports: PropTypes.func.isRequired,
-  reports: PropTypes.arrayOf(PropTypes.object),
   reportIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   intl: PropTypes.object.isRequired,
   showEmailAction: PropTypes.bool
