@@ -4,7 +4,7 @@ import {act} from 'react-dom/test-utils'
 
 import ErrorComponent from './ErrorComponent'
 import {useBundledApp} from './hook'
-import * as load from './load'
+import utils from './utils'
 
 let stub
 
@@ -49,7 +49,7 @@ describe('tocco-util', () => {
         })
 
         test('should load bundle if not yet on window', async () => {
-          stub = sinon.stub(load, 'loadBundle').returns(bundle)
+          stub = sinon.stub(utils, 'loadBundle').returns(bundle)
 
           const TestComponent = () => {
             const App = useBundledApp(config)
@@ -78,7 +78,7 @@ describe('tocco-util', () => {
         })
 
         test('should return error component if bundle could not beend fetched', async () => {
-          stub = sinon.stub(load, 'loadBundle').throwsException()
+          stub = sinon.stub(utils, 'loadBundle').throwsException()
 
           const TestComponent = () => {
             const App = useBundledApp(config)
