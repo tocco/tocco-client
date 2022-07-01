@@ -14,9 +14,10 @@ export const StyledBackgroundCover = styled.div`
 
 export const StyledHeader = styled.div`
   grid-area: header;
+  width: calc(100vw - 50px); // absolute width necessary for FireFox
   height: 40px;
   padding-right: 10px;
-  padding-left: 40px;
+  margin-left: 40px;
   position: relative;
   z-index: 3; // higher than StyledBackgroundCover to enable button interactions
 
