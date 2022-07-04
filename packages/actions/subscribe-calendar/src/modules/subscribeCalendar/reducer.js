@@ -3,11 +3,11 @@ import {reducer as reducerUtil} from 'tocco-util'
 import * as actions from './actions'
 
 const ACTION_HANDLERS = {
-  [actions.SET_CALENDAR_LINK]: reducerUtil.singleTransferReducer('link')
+  [actions.SET_CALENDAR_LINKS]: reducerUtil.singleTransferReducer('links')
 }
 
 const initialState = {
-  link: undefined
+  links: undefined
 }
 
 export default function reducer(state = initialState, action) {

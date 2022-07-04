@@ -6,15 +6,16 @@ describe('subscribe-calendar', () => {
   describe('components', () => {
     describe('SubscribeCalendarCopy', () => {
       test('should render link', () => {
-        const fetchCalendarLink = sinon.spy()
+        const fetchCalendarLinks = sinon.spy()
         const copyCalendarLink = sinon.spy()
+        const label = 'label'
         const link = 'http://localhost:8080/my/path/1234567890'
 
         const wrapper = intlEnzyme.mountWithIntl(
           <SubscribeCalendarCopy
-            fetchCalendarLink={fetchCalendarLink}
+            fetchCalendarLinks={fetchCalendarLinks}
             copyCalendarLink={copyCalendarLink}
-            link={link}
+            links={[{link, label}]}
           />
         )
 
@@ -23,32 +24,33 @@ describe('subscribe-calendar', () => {
       })
 
       test('should fetch link', () => {
-        const fetchCalendarLink = sinon.spy()
+        const fetchCalendarLinks = sinon.spy()
         const copyCalendarLink = sinon.spy()
         const link = undefined
 
         const wrapper = intlEnzyme.mountWithIntl(
           <SubscribeCalendarCopy
-            fetchCalendarLink={fetchCalendarLink}
+            fetchCalendarLinks={fetchCalendarLinks}
             copyCalendarLink={copyCalendarLink}
             link={link}
           />
         )
 
         expect(wrapper.find('code')).to.have.length(0)
-        expect(fetchCalendarLink).to.have.been.calledOnce
+        expect(fetchCalendarLinks).to.have.been.calledOnce
       })
 
       test('should copy link', () => {
-        const fetchCalendarLink = sinon.spy()
+        const fetchCalendarLinks = sinon.spy()
         const copyCalendarLink = sinon.spy()
+        const label = 'label'
         const link = 'http://localhost:8080/my/path/1234567890'
 
         const wrapper = intlEnzyme.mountWithIntl(
           <SubscribeCalendarCopy
-            fetchCalendarLink={fetchCalendarLink}
+            fetchCalendarLinks={fetchCalendarLinks}
             copyCalendarLink={copyCalendarLink}
-            link={link}
+            links={[{link, label}]}
           />
         )
 

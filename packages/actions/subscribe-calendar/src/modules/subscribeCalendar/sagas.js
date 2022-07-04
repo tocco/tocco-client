@@ -1,6 +1,6 @@
-import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {all, call, put, takeEvery, takeLatest} from 'redux-saga/effects'
 import {externalEvents, rest, notification} from 'tocco-app-extensions'
-import {js, consoleLogger} from 'tocco-util'
+import {js, consoleLogger, api} from 'tocco-util'
 
 import * as actions from './actions'
 
@@ -8,17 +8,30 @@ export const subscribeCalendarSelector = state => state.subscribeCalendar
 
 export default function* sagas() {
   yield all([
-    takeEvery(actions.FETCH_CALENDAR_LINK, fetchCalendarLink),
+    takeEvery(actions.FETCH_CALENDAR_LINKS, fetchCalendarLinks),
     takeLatest(actions.COPY_CALENDAR_LINK, copyCalendarLink)
   ])
 }
 
-export function* fetchCalendarLink() {
-  const where = 'relCalendar.relCalendar_type.unique_id == "lecturer" and relCalendar.relLecturer.pk == :currentUser'
-  const entities = yield call(rest.fetchEntities, 'Calendar_export_conf', {where, paths: ['uuid']}, {method: 'GET'})
+export function* fetchCalendarLinks() {
+  const where = 'exists(relCalendar where relLecturer.pk == :currentUser or relParticipant.pk == :currentUser)'
+  const entities = yield call(
+    rest.fetchEntities,
+    'Calendar_export_conf',
+    {where, paths: ['uuid', 'relCalendar.relCalendar_type.label']},
+    {method: 'GET'}
+  )
   if (entities.length > 0) {
-    const response = yield call(rest.requestSaga, 'calendar/export/getBaseUrl')
-    yield put(actions.setCalendarLink(`${response.body.baseUrl}/${entities[0].paths.uuid.value}`))
+    const {
+      body: {baseUrl}
+    } = yield call(rest.requestSaga, 'calendar/export/getBaseUrl')
+    const calendarLinks = entities
+      .map(entity => api.getFlattenEntity(entity))
+      .map(entity => ({
+        link: `${baseUrl}/${entity.uuid}`,
+        label: entity['relCalendar.relCalendar_type.label'].join(', ')
+      }))
+    yield put(actions.setCalendarLinks(calendarLinks))
   } else {
     yield put(
       externalEvents.fireExternalEvent('onError', {
@@ -29,8 +42,7 @@ export function* fetchCalendarLink() {
   }
 }
 
-export function* copyCalendarLink() {
-  const {link} = yield select(subscribeCalendarSelector)
+export function* copyCalendarLink({payload: {link}}) {
   try {
     yield call(js.copyToClipboard, link)
     yield put(

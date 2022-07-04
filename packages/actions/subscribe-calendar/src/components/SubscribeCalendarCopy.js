@@ -1,31 +1,36 @@
 import PropTypes from 'prop-types'
 import {useEffect} from 'react'
 import {FormattedMessage} from 'react-intl'
-import {Button, LoadMask} from 'tocco-ui'
+import {Button, LoadMask, StyledLabel} from 'tocco-ui'
 
 import {StyledButtonWrapper, StyledCalendarCopy} from './StyledComponents'
 
-const SubscribeCalendarCopy = ({fetchCalendarLink, copyCalendarLink, link}) => {
+const SubscribeCalendarCopy = ({fetchCalendarLinks, copyCalendarLink, links}) => {
   useEffect(() => {
-    fetchCalendarLink()
-  }, [fetchCalendarLink])
+    fetchCalendarLinks()
+  }, [fetchCalendarLinks])
 
   return (
-    <LoadMask required={[link]}>
-      <StyledCalendarCopy>{link}</StyledCalendarCopy>
-      <StyledButtonWrapper>
-        <Button type="button" onClick={() => copyCalendarLink()} ink="primary" look="raised">
-          <FormattedMessage id="client.subscribe-calendar.copy" />
-        </Button>
-      </StyledButtonWrapper>
+    <LoadMask required={[links]}>
+      {links?.map(link => (
+        <>
+          <StyledLabel>{link.label}</StyledLabel>
+          <StyledCalendarCopy>{link.link}</StyledCalendarCopy>
+          <StyledButtonWrapper>
+            <Button type="button" onClick={() => copyCalendarLink(link.link)} ink="primary" look="raised">
+              <FormattedMessage id="client.subscribe-calendar.copy" />
+            </Button>
+          </StyledButtonWrapper>
+        </>
+      ))}
     </LoadMask>
   )
 }
 
 SubscribeCalendarCopy.propTypes = {
-  fetchCalendarLink: PropTypes.func.isRequired,
+  fetchCalendarLinks: PropTypes.func.isRequired,
   copyCalendarLink: PropTypes.func.isRequired,
-  link: PropTypes.string
+  links: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default SubscribeCalendarCopy
