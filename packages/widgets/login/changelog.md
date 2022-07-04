@@ -1,3 +1,7 @@
+1.1.39
+- optimize toggle behaviour of column picker to only select currently visible items
+- do not import react components in widget-utils
+
 1.1.38
 - fix remote error handler
 - remove momentjs in favor of date-fns

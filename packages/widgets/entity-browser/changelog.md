@@ -1,3 +1,7 @@
+1.0.48
+- optimize toggle behaviour of column picker to only select currently visible items
+- do not import react components in widget-utils
+
 1.0.47
 - show prompt before action for unsaved changes
 
