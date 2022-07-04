@@ -1,3 +1,6 @@
+0.1.17
+- do not import react components in widget-utils
+
 0.1.16
 - remove momentjs in favor of date-fns
 
