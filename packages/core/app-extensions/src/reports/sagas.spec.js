@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {all, takeLatest} from 'redux-saga/effects'
+import {all, takeLatest, select} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
@@ -37,6 +37,21 @@ describe('app-extensinos', () => {
                 },
                 ignore_selection: {
                   value: false
+                },
+                relOutput_template: {
+                  value: {
+                    paths: {
+                      relReport_file_format: {
+                        value: {
+                          paths: {
+                            unique_id: {
+                              value: 'fileType'
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -50,17 +65,26 @@ describe('app-extensinos', () => {
               id: 'id',
               label: 'label_de',
               reportId: 'id',
-              showConfirmation: true
+              showConfirmation: true,
+              icon: 'icon'
             }
           ]
 
           const expectedQuery = {
             where: 'IN (unique_id,"id")',
-            paths: 'unique_id,label,ignore_selection'
+            paths: 'unique_id,label,ignore_selection,relOutput_template.relReport_file_format.unique_id'
+          }
+
+          const icons = {
+            fileType: 'icon'
           }
 
           return expectSaga(sagas.loadReport, {payload: {reportIds: ['id']}})
-            .provide([[matchers.call.fn(rest.fetchEntities), result]])
+            .provide([
+              [matchers.call.fn(rest.fetchEntities), result],
+              [matchers.call.fn(rest.requestSaga, '/client/report-icons'), {body: icons}],
+              [select(sagas.reportsSelector), {}]
+            ])
             .call.like({
               fn: rest.fetchEntities,
               args: [
@@ -72,6 +96,29 @@ describe('app-extensinos', () => {
               ]
             })
             .put(actions.setReports(reports))
+            .put(actions.setReportIcons(icons))
+            .run()
+        })
+
+        test('should not load report icons if already loaded', () => {
+          const result = [
+            {
+              paths: {}
+            }
+          ]
+
+          const icons = {
+            fileType: 'icon'
+          }
+
+          return expectSaga(sagas.loadReport, {payload: {reportIds: ['id'], entityName: 'Entity'}})
+            .provide([
+              [matchers.call.fn(rest.fetchEntities), result],
+              [select(sagas.reportsSelector), {reportIcons: icons}]
+            ])
+            .not.call.like({
+              fn: rest.requestSaga
+            })
             .run()
         })
 
