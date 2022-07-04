@@ -13,7 +13,7 @@ const Selection = ({intl, loadReports, openReportAction, reports, selectedReport
 
   return (
     <LoadMask required={[reports]}>
-      <StatedValue>
+      <StatedValue label={msg('client.entity-report.label')}>
         <Select isMulti={false} value={selectedReport} options={reports} onChange={setSelectedReport} />
       </StatedValue>
       <StyledStickyButton>
