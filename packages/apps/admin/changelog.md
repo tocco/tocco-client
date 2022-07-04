@@ -1,3 +1,10 @@
+1.0.41-hotfix32.13
+- optimize toggle behaviour of column picker to only select currently visible items
+- remote fields now honor the constrictions defined on forms with remotefield scope
+- entity list now uses a form definition passed as input without reloading it
+- advanced search now uses form with remotefield scope if it exists
+- remotefields now use sorting of their forms or entity models instead of only their timestamp
+
 1.0.41-hotfix32.12
 - add css classes for display expressions styling
 
