@@ -563,7 +563,6 @@ describe('entity-list', () => {
             const fetchedFormDefinition = {children: [], modelName: entityName}
             const modifiedFormDefinition = {children: [{id: 'fake modified child'}]}
             const reportDefinitions = [{}]
-            const groupLabel = 'group'
             const formName = 'User'
             const scope = 'list'
             const actionCreator = actions.setFormDefinition
@@ -575,13 +574,12 @@ describe('entity-list', () => {
                 [select(sagas.listSelector), {}],
                 [select(sagas.entityListSelector), {}],
                 [matchers.call.fn(form.addReports), modifiedFormDefinition],
-                [take(reports.SET_REPORTS), {payload: {reports: reportDefinitions}}],
-                [select(sagas.intlSelector), {messages: {'client.actiongroup.output': groupLabel}}]
+                [take(reports.SET_REPORTS), {payload: {reports: reportDefinitions}}]
               ])
               .put(reports.loadReports(['report-id'], entityName, 'list'))
               .call.like({
                 fn: form.addReports,
-                args: [fetchedFormDefinition, reportDefinitions, groupLabel]
+                args: [fetchedFormDefinition, reportDefinitions]
               })
               .put(actionCreator(modifiedFormDefinition))
               .run()

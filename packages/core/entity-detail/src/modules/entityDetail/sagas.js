@@ -22,7 +22,6 @@ export const formInitialValueSelector = (state, formId) => state.form[formId].in
 export const entityDetailSelector = state => state.entityDetail
 
 export const inputSelector = state => state.input
-export const intlSelector = state => state.intl
 
 export const FORM_ID = 'detailForm'
 
@@ -63,8 +62,7 @@ function* addReportsToForm(reportIds, entityName, formDefinition) {
   if (reportIds?.length > 0) {
     yield put(reports.loadReports(reportIds, entityName, 'detail'))
     const {payload} = yield take(reports.SET_REPORTS)
-    const {messages} = yield select(intlSelector)
-    return yield call(form.addReports, formDefinition, payload.reports, messages['client.actiongroup.output'])
+    return yield call(form.addReports, formDefinition, payload.reports)
   } else {
     return formDefinition
   }

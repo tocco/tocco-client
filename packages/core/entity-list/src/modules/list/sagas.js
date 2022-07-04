@@ -30,7 +30,6 @@ export const searchFormSelector = state => state.searchForm
 export const selectionSelector = state => state.selection
 export const preferencesSelector = state => state.preferences
 export const reportsSelector = state => state.reports
-export const intlSelector = state => state.intl
 
 export default function* sagas() {
   yield all([
@@ -409,8 +408,7 @@ function* addReportsToForm(reportIds, formDefinition) {
   if (reportIds?.length > 0) {
     yield put(reports.loadReports(reportIds, formDefinition.modelName, 'list'))
     const {payload} = yield take(reports.SET_REPORTS)
-    const {messages} = yield select(intlSelector)
-    return yield call(form.addReports, formDefinition, payload.reports, messages['client.actiongroup.output'])
+    return yield call(form.addReports, formDefinition, payload.reports)
   } else {
     return formDefinition
   }
