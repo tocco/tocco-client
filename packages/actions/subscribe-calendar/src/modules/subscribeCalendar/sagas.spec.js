@@ -1,7 +1,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
-import {all, select, takeEvery, takeLatest} from 'redux-saga/effects'
+import {all, takeEvery, takeLatest} from 'redux-saga/effects'
 import {externalEvents, notification, rest} from 'tocco-app-extensions'
 import {js} from 'tocco-util'
 
@@ -17,7 +17,7 @@ describe('subscribe-calendar', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(
               all([
-                takeEvery(actions.FETCH_CALENDAR_LINK, sagas.fetchCalendarLink),
+                takeEvery(actions.FETCH_CALENDAR_LINKS, sagas.fetchCalendarLinks),
                 takeLatest(actions.COPY_CALENDAR_LINK, sagas.copyCalendarLink)
               ])
             )
@@ -32,6 +32,30 @@ describe('subscribe-calendar', () => {
                 paths: {
                   uuid: {
                     value: 'abcdef'
+                  },
+                  relCalendar: {
+                    type: 'entity-list',
+                    value: [
+                      {
+                        key: '36',
+                        model: 'Calendar',
+                        paths: {
+                          relCalendar_type: {
+                            type: 'entity',
+                            value: {
+                              key: '7',
+                              model: 'Calendar_type',
+                              paths: {
+                                label: {
+                                  type: 'string',
+                                  value: 'Dozent'
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               }
@@ -43,18 +67,25 @@ describe('subscribe-calendar', () => {
               }
             }
 
-            return expectSaga(sagas.fetchCalendarLink)
+            return expectSaga(sagas.fetchCalendarLinks)
               .provide([
                 [matchers.call.fn(rest.fetchEntities), entities],
                 [matchers.call.fn(rest.requestSaga), response]
               ])
-              .put(actions.setCalendarLink('http://localhost:8080/path/abcdef'))
+              .put(
+                actions.setCalendarLinks([
+                  {
+                    link: 'http://localhost:8080/path/abcdef',
+                    label: 'Dozent'
+                  }
+                ])
+              )
               .run()
           })
 
           test('should throw error when there is no lecturer calendar', () => {
             const entities = []
-            return expectSaga(sagas.fetchCalendarLink)
+            return expectSaga(sagas.fetchCalendarLinks)
               .provide([[matchers.call.fn(rest.fetchEntities), entities]])
               .put(
                 externalEvents.fireExternalEvent('onError', {
@@ -69,27 +100,24 @@ describe('subscribe-calendar', () => {
         describe('copyCalendarLink', () => {
           test('should show success toaster', () => {
             const link = 'http://localhost:8080'
-            return expectSaga(sagas.copyCalendarLink)
-              .provide([[select(sagas.subscribeCalendarSelector), {link}], [matchers.call.like(js.copyToClipboard)]])
+            return expectSaga(sagas.copyCalendarLink, {payload: {link}})
+              .provide([[matchers.call.like(js.copyToClipboard)]])
               .put.like({action: notification.toaster({type: 'success'})})
               .run()
           })
 
           test('should copy link', () => {
             const link = 'http://localhost:8080'
-            return expectSaga(sagas.copyCalendarLink)
-              .provide([[select(sagas.subscribeCalendarSelector), {link}], [matchers.call(js.copyToClipboard, link)]])
+            return expectSaga(sagas.copyCalendarLink, {payload: {link}})
+              .provide([[matchers.call(js.copyToClipboard, link)]])
               .put.like({action: notification.toaster({type: 'success'})})
               .run()
           })
 
           test('should show error toaster', () => {
             const link = 'http://localhost:8080'
-            return expectSaga(sagas.copyCalendarLink)
-              .provide([
-                [select(sagas.subscribeCalendarSelector), {link}],
-                [matchers.call.like(js.copyToClipboard), throwError(new Error('copy failed'))]
-              ])
+            return expectSaga(sagas.copyCalendarLink, {payload: {link}})
+              .provide([[matchers.call.like(js.copyToClipboard), throwError(new Error('copy failed'))]])
               .put.like({action: notification.toaster({type: 'error'})})
               .run()
           })

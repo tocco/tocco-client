@@ -1,7 +1,7 @@
-import {copyCalendarLink, fetchCalendarLink} from './actions'
+import {copyCalendarLink, fetchCalendarLinks} from './actions'
 import reducer from './reducer'
 import sagas from './sagas'
 
-export {copyCalendarLink, fetchCalendarLink}
+export {copyCalendarLink, fetchCalendarLinks}
 export {sagas}
 export default reducer
