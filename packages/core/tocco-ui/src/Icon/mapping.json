@@ -71,6 +71,14 @@
     "id": "fal, box-open",
     "lib": "fa"
   },
+  "calendar-arrow-down": {
+    "id": "fal, calendar-arrow-down",
+    "lib": "fa"
+  },
+  "calendar-circle-user": {
+    "id": "fal, calendar-circle-user",
+    "lib": "fa"
+  },
   "calendar-check": {
     "id": "fal, calendar-check",
     "lib": "fa"
