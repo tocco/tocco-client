@@ -206,13 +206,11 @@ describe('entity-detail', () => {
             const modifiedFormDefinition = {children: [{id: 'fake modified child'}]}
             const fieldDefinitions = {}
             const reportDefinitions = [{}]
-            const groupLabel = 'label'
             const modifyFormDefinition = formDefinition => formDefinition
             return expectSaga(sagas.loadDetailFormDefinition, formName, mode, entityName)
               .provide([
                 [matchers.call.fn(rest.fetchForm, formName, mode), formDefinition],
                 [select(sagas.inputSelector), {modifyFormDefinition, reportIds: ['report-id']}],
-                [select(sagas.intlSelector), {messages: {'client.actiongroup.output': groupLabel}}],
                 [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions],
                 [matchers.call.fn(form.addReports), modifiedFormDefinition],
                 [take(reports.SET_REPORTS), {payload: {reports: reportDefinitions}}]
@@ -220,7 +218,7 @@ describe('entity-detail', () => {
               .put(reports.loadReports(['report-id'], entityName, 'detail'))
               .call.like({
                 fn: form.addReports,
-                args: [formDefinition, reportDefinitions, groupLabel]
+                args: [formDefinition, reportDefinitions]
               })
               .returns({formDefinition: modifiedFormDefinition, fieldDefinitions})
               .run()
