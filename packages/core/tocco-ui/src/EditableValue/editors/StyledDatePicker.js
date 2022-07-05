@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {declareFont} from '../../utilStyles'
+import {declareFont, scale} from '../../utilStyles'
 import {StyledEditableWrapperCss, StyledInputCss} from '../StyledEditableValue'
 
 export const StyledDatePickerOuterWrapper = styled.div`
@@ -21,6 +21,7 @@ export const StyledDatePickerWrapper = styled.div`
     & .react-datepicker {
       & .react-datepicker__today-button {
         ${({hasTime}) => hasTime && 'border-bottom: 1px solid #aeaeae;'}
+        padding: 0; // allow custom button to fill entire space
       }
     }
   }
@@ -31,4 +32,8 @@ export const StyledTimeInput = styled.input`
   border: none;
   outline: none;
   min-height: 2.6rem;
+`
+
+export const StyledCustomTodayButton = styled.div`
+  padding: ${scale.space(-1)} ${scale.space(-2)};
 `

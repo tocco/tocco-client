@@ -7,13 +7,36 @@ import {withTheme} from 'styled-components'
 
 import Ball from '../../Ball'
 import {loadLocales, parseISOValue} from '../../DatePicker/utils'
-import {StyledDatePickerWrapper, StyledDatePickerOuterWrapper, StyledTimeInput} from './StyledDatePicker'
+import {
+  StyledDatePickerWrapper,
+  StyledDatePickerOuterWrapper,
+  StyledTimeInput,
+  StyledCustomTodayButton
+} from './StyledDatePicker'
 
 loadLocales()
 
 const ReactDatepickerTimeInputClassName = 'react-datepicker-time__input'
 const ReactDatepickerDayClassName = 'react-datepicker__day'
 const ReactDatepickerInputClassName = 'react-datepicker-ignore-onclickoutside'
+
+const CustomTodayButton = ({onChange, label}) => (
+  <StyledCustomTodayButton
+    onMouseDown={e => {
+      // this keeps the focus from changing, allowing handleConfirmKey on datepicker to keep working
+      e.preventDefault()
+      // this is a workaround for the previous date still being selected, see https://github.com/Hacker0x01/react-datepicker/issues/2206
+      onChange(null)
+    }}
+  >
+    {label}
+  </StyledCustomTodayButton>
+)
+
+CustomTodayButton.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired
+}
 
 const TimeInput = ({value, onChange, onKeyDown}) => (
   <StyledTimeInput
@@ -139,7 +162,7 @@ const DatePicker = props => {
           timeInputLabel=""
           minDate={minDateVal}
           maxDate={maxDateVal}
-          todayButton={msg('client.component.datePicker.todayLabel')}
+          todayButton={<CustomTodayButton onChange={onChange} label={msg('client.component.datePicker.todayLabel')} />}
         />
 
         {!immutable && hasValue && (
