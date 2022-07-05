@@ -1,3 +1,9 @@
+0.1.9
+- entity-browser can now display reports passed as ids in input
+- remote fields now honor the constrictions defined on forms with remotefield scope
+- advanced search now uses form with remotefield scope if it exists
+- remotefields now use sorting of their forms or entity models instead of only their timestamp
+
 0.1.8
 - fix remote error handler
 - create removeBoxes to help adjust forms
