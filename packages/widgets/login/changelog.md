@@ -1,3 +1,7 @@
+1.1.41
+- reports added through formModifier are now placed directly into the action bar, instead of the output group
+- report definitions now contain an icon as defined by the backend
+
 1.1.40
 - remote fields now honor the constrictions defined on forms with remotefield scope
 - advanced search now uses form with remotefield scope if it exists
