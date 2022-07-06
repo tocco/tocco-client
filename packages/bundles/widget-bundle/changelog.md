@@ -1,3 +1,7 @@
+0.1.10
+- reports added through formModifier are now placed directly into the action bar, instead of the output group
+- report definitions now contain an icon as defined by the backend
+
 0.1.9
 - entity-browser can now display reports passed as ids in input
 - remote fields now honor the constrictions defined on forms with remotefield scope

@@ -1,3 +1,9 @@
+1.0.68
+- fix header text-overflow in firefox
+- reports added through formModifier are now placed directly into the action bar, instead of the output group
+- report definitions now contain an icon as defined by the backend
+- action to subscribe to calendar now displays all personal calendar exports
+
 1.0.67
 - remote fields now honor the constrictions defined on forms with remotefield scope
 - entity list now uses a form definition passed as input without reloading it

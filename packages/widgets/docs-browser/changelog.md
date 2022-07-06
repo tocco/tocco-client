@@ -1,3 +1,7 @@
+1.0.51
+- reports added through formModifier are now placed directly into the action bar, instead of the output group
+- report definitions now contain an icon as defined by the backend
+
 1.0.50
 - remote fields now honor the constrictions defined on forms with remotefield scope
 - entity list now uses a form definition passed as input without reloading it
