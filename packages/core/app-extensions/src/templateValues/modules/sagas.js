@@ -9,6 +9,7 @@ import rest from '../../rest'
 import {REDUX_FORM_NAME} from '../components/TemplateForm'
 import * as actions from './actions'
 
+export const initializedSelector = state => state.templateValues.initialized
 export const formDefinitionSelector = state => state.templateValues.formDefinition
 export const selectedTemplateSelector = state => state.templateValues.selectedTemplate
 
@@ -40,7 +41,7 @@ export function* fetchTemplates({payload: {templateEntityName, selection, custom
     method: 'POST',
     body: selection
   })
-  const templateOptions = templates.map(responseTemplateTransformer)
+  const templateOptions = templates.map(responseTemplateTransformer(templateEntityName))
   yield put(actions.setTemplateOptions(templateOptions))
 
   const selectedTemplate = yield select(selectedTemplateSelector)
@@ -48,14 +49,20 @@ export function* fetchTemplates({payload: {templateEntityName, selection, custom
     yield put(
       actions.setValuesFromTemplate(
         templateEntityName,
-        responseTemplateTransformer(defaultTemplate),
+        responseTemplateTransformer(templateEntityName)(defaultTemplate),
         customTemplateFields
       )
     )
+  } else {
+    yield put(actions.setInitialized(true))
   }
 }
 
-const responseTemplateTransformer = template => ({display: template.label, key: template.key, model: 'Export_template'})
+const responseTemplateTransformer = templateEntityName => template => ({
+  display: template.label,
+  key: template.key,
+  model: templateEntityName
+})
 
 export function* setTemplateValues({payload: {templateEntityName, template, customTemplateFields}}) {
   if (template) {
@@ -65,6 +72,13 @@ export function* setTemplateValues({payload: {templateEntityName, template, cust
     const templateValues = yield call(rest.fetchEntity, templateEntityName, template.key, {paths})
     const flattenedValues = yield call(api.getFlattenEntity, templateValues)
     yield call(setFormValues, flattenedValues, fieldDefinitions, customTemplateFields)
+  } else {
+    Object.values(customTemplateFields).forEach(f => f(null))
+  }
+
+  const initialized = yield select(initializedSelector)
+  if (!initialized) {
+    yield put(actions.setInitialized(true))
   }
 }
 
