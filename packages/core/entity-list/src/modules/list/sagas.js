@@ -386,7 +386,7 @@ export function* setSorting() {
 
 export function* loadFormDefinition(formName, scope, actionCreator) {
   const {formDefinition} = yield select(listSelector)
-  if (!formDefinition) {
+  if (formDefinition?.id !== `${formName}_${scope}`) {
     const {modifyFormDefinition} = yield select(inputSelector)
     const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
     const modifiedFormDefinition = modifyFormDefinition
