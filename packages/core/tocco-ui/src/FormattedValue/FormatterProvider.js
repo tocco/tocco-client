@@ -7,6 +7,7 @@ import DescriptionFormatter from './formatters/DescriptionFormatter'
 import DocumentCompactFormatter from './formatters/DocumentCompactFormatter'
 import DocumentFormatter from './formatters/DocumentFormatter'
 import DurationFormatter from './formatters/DurationFormatter'
+import EmailFormatter from './formatters/EmailFormatter'
 import HtmlFormatter from './formatters/HtmlFormatter'
 import IntegerFormatter from './formatters/IntegerFormatter'
 import MultiSelectFormatter from './formatters/MultiSelectFormatter'
@@ -29,6 +30,7 @@ export const map = {
   document: DocumentFormatter,
   'document-compact': DocumentCompactFormatter,
   duration: DurationFormatter,
+  email: EmailFormatter,
   html: HtmlFormatter,
   integer: IntegerFormatter,
   'multi-remote': MultiSelectFormatter,
