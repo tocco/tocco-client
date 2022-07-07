@@ -1,23 +1,33 @@
 import PropTypes from 'prop-types'
 import {useEffect} from 'react'
 import {templateValues, selection as selectionPropType} from 'tocco-app-extensions'
-import {ColumnPicker} from 'tocco-ui'
+import {ColumnPicker, LoadMask} from 'tocco-ui'
 
-const Export = ({selection, intl, availableColumns, loadFormData, setAvailableColumns, defaultValues, runExport}) => {
+const Export = ({
+  selection,
+  intl,
+  availableColumns,
+  loadFormData,
+  defaultValues,
+  runExport,
+  handleTemplateChange,
+  templatesInitialized
+}) => {
   useEffect(() => loadFormData(selection), [loadFormData, selection])
 
-  if (defaultValues && availableColumns) {
-    return (
-      <>
-        <templateValues.TemplateForm
-          templateEntityName={'Export_template'}
-          formName={'Export_template_action'}
-          selection={selection}
-          customTemplateFields={{
-            text: value => setAvailableColumns(selectColumnsByFields(availableColumns, value))
-          }}
-          defaultValues={defaultValues}
-        />
+  return (
+    <LoadMask required={[defaultValues]}>
+      <templateValues.TemplateForm
+        templateEntityName={'Export_template'}
+        formName={'Export_template_action'}
+        selection={selection}
+        customTemplateFields={{
+          text: value => handleTemplateChange(value)
+        }}
+        defaultValues={defaultValues}
+      />
+
+      <LoadMask required={[availableColumns, templatesInitialized]}>
         <ColumnPicker
           onOk={values => runExport(values)}
           intl={intl}
@@ -25,19 +35,9 @@ const Export = ({selection, intl, availableColumns, loadFormData, setAvailableCo
           dndEnabled={true}
           buttonLabel={intl.formatMessage({id: 'client.actions.export.form.generate'})}
         />
-      </>
-    )
-  } else {
-    return null
-  }
-}
-
-const selectColumnsByFields = (columns, fields) => {
-  const fieldsToSelect = fields.split('\n')
-  return columns.map(column => ({
-    ...column,
-    hidden: !fieldsToSelect.includes(column.id)
-  }))
+      </LoadMask>
+    </LoadMask>
+  )
 }
 
 Export.propTypes = {
@@ -51,9 +51,10 @@ Export.propTypes = {
     })
   ),
   loadFormData: PropTypes.func.isRequired,
-  setAvailableColumns: PropTypes.func.isRequired,
   runExport: PropTypes.func.isRequired,
-  defaultValues: PropTypes.object
+  defaultValues: PropTypes.object,
+  handleTemplateChange: PropTypes.func.isRequired,
+  templatesInitialized: PropTypes.bool
 }
 
 export default Export

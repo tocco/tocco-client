@@ -15,7 +15,10 @@ describe('app-extensions', () => {
           expect(generator.next().value).to.deep.equal(
             all([
               takeLatest(actions.LOAD_FORM_DATA, sagas.loadFormData),
-              takeLatest(actions.RUN_EXPORT, sagas.runExport)
+              takeLatest(actions.RUN_EXPORT, sagas.runExport),
+              takeLatest(actions.HANDLE_TEMPLATE_CHANGE, sagas.handleTemplateChange),
+              takeLatest(actions.SET_DEFAULT_COLUMNS, sagas.calculateAvailableColumns),
+              takeLatest(actions.SET_TEMPLATE_COLUMNS, sagas.calculateAvailableColumns)
             ])
           )
           expect(generator.next().done).to.be.true
@@ -59,9 +62,9 @@ describe('app-extensions', () => {
             ])
             .put.like({
               action: {
-                type: actions.SET_AVAILABLE_COLUMNS,
+                type: actions.SET_DEFAULT_COLUMNS,
                 payload: {
-                  availableColumns: [
+                  defaultColumns: [
                     {
                       id: 'first',
                       label: 'First',
@@ -144,6 +147,184 @@ describe('app-extensions', () => {
               ]
             })
             .put(externalEvents.fireExternalEvent('onSuccess', {title: null}))
+            .run()
+        })
+      })
+
+      describe('handleTemplateChange', () => {
+        test('should load additional columns', () => {
+          const selection = {entityName: 'Model'}
+          const columns = [
+            {
+              fieldName: 'path',
+              label: 'Path',
+              selected: true
+            },
+            {
+              fieldName: 'other',
+              label: 'Other',
+              selected: true
+            }
+          ]
+
+          const transformedColumns = [
+            {
+              id: 'path',
+              label: 'Path',
+              hidden: false
+            },
+            {
+              id: 'other',
+              label: 'Other',
+              hidden: false
+            }
+          ]
+
+          return expectSaga(sagas.handleTemplateChange, {payload: {text: 'path\nother'}})
+            .provide([
+              [select(sagas.selectionSelector), selection],
+              [matchers.call.fn(rest.requestSaga), {body: {columns}}]
+            ])
+            .call.like({
+              fn: rest.requestSaga,
+              args: [
+                'action/export/templatePaths',
+                {
+                  method: 'POST',
+                  body: {
+                    entityName: 'Model',
+                    text: 'path\nother'
+                  }
+                }
+              ]
+            })
+            .put(actions.setTemplateColumns(transformedColumns))
+            .run()
+        })
+
+        test('should clear additional columns when no value passed', () => {
+          return expectSaga(sagas.handleTemplateChange, {payload: {text: null}})
+            .put(actions.setTemplateColumns(null))
+            .run()
+        })
+      })
+
+      describe('calculateAvailableColumns', () => {
+        test('should use default columns when nothing else is available', () => {
+          const defaultColumns = []
+
+          return expectSaga(sagas.calculateAvailableColumns)
+            .provide([
+              [select(sagas.availableColumnsSelector), null],
+              [select(sagas.defaultColumnsSelector), defaultColumns],
+              [select(sagas.templateColumnsSelector), null]
+            ])
+            .put(actions.setAvailableColumns(defaultColumns))
+            .run()
+        })
+
+        test('should combine default and template columns and unselect defaults', () => {
+          const defaultColumns = [
+            {
+              id: 'both',
+              label: 'Both',
+              hidden: true
+            },
+            {
+              id: 'default',
+              label: 'Default',
+              hidden: false
+            }
+          ]
+          const templateColumns = [
+            {
+              id: 'template',
+              label: 'Template',
+              hidden: false
+            },
+            {
+              id: 'both',
+              label: 'Both',
+              hidden: false
+            }
+          ]
+          const expectedColumns = [
+            {
+              id: 'default',
+              label: 'Default',
+              hidden: true
+            },
+            {
+              id: 'template',
+              label: 'Template',
+              hidden: false
+            },
+            {
+              id: 'both',
+              label: 'Both',
+              hidden: false
+            }
+          ]
+
+          return expectSaga(sagas.calculateAvailableColumns)
+            .provide([
+              [select(sagas.availableColumnsSelector), null],
+              [select(sagas.defaultColumnsSelector), defaultColumns],
+              [select(sagas.templateColumnsSelector), templateColumns]
+            ])
+            .put.like({
+              action: {
+                type: actions.SET_AVAILABLE_COLUMNS,
+                payload: {
+                  availableColumns: expectedColumns
+                }
+              }
+            })
+            .run()
+        })
+
+        test('should combine available and default columns and keep selected', () => {
+          const defaultColumns = [
+            {
+              id: 'both',
+              label: 'Both',
+              hidden: true
+            }
+          ]
+          const availableColumns = [
+            {
+              id: 'available',
+              label: 'Available',
+              hidden: false
+            },
+            {
+              id: 'both',
+              label: 'Both',
+              hidden: false
+            }
+          ]
+          const expectedColumns = [
+            {
+              id: 'both',
+              label: 'Both',
+              hidden: false
+            }
+          ]
+
+          return expectSaga(sagas.calculateAvailableColumns)
+            .provide([
+              [select(sagas.availableColumnsSelector), availableColumns],
+              [select(sagas.defaultColumnsSelector), defaultColumns],
+              [select(sagas.templateColumnsSelector), null]
+            ])
+            .put.like({
+              action: {
+                type: actions.SET_AVAILABLE_COLUMNS,
+                payload: {
+                  availableColumns: expectedColumns
+                }
+              }
+            })
             .run()
         })
       })
