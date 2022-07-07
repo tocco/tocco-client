@@ -168,6 +168,10 @@
     "lib": "fa",
     "tags": ["dots", "pünktli"]
   },
+  "envelope": {
+    "id": "fal, envelope",
+    "lib": "fa"
+  },
   "exclamation": {
     "id": "fal, exclamation",
     "lib": "fa",
