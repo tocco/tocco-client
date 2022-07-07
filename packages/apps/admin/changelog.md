@@ -1,3 +1,6 @@
+1.0.69
+- today button in datepicker now behaves as expected
+
 1.0.68
 - fix header text-overflow in firefox
 - reports added through formModifier are now placed directly into the action bar, instead of the output group

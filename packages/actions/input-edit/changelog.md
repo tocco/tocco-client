@@ -1,3 +1,6 @@
+1.1.43
+- today button in datepicker now behaves as expected
+
 1.1.42
 - reports added through formModifier are now placed directly into the action bar, instead of the output group
 - report definitions now contain an icon as defined by the backend
