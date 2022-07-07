@@ -542,7 +542,7 @@ describe('entity-list', () => {
 
         describe('loadFormDefinition saga', () => {
           test('should load form definition', () => {
-            const fetchedFormDefinition = {children: []}
+            const fetchedFormDefinition = {id: 'User_list', children: []}
             const formName = 'User'
             const scope = 'list'
             const actionCreator = actions.setFormDefinition
@@ -586,12 +586,30 @@ describe('entity-list', () => {
           })
 
           test('should not load form definition if already loaded', () => {
-            const selectFormDefinition = {children: []}
+            const selectFormDefinition = {id: 'User_list', children: []}
             const actionCreator = actions.setFormDefinition
             return expectSaga(sagas.loadFormDefinition, 'User', 'list', actionCreator)
               .provide([[select(sagas.listSelector), {formDefinition: selectFormDefinition}]])
               .not.put(actions.setFormDefinition(selectFormDefinition))
               .put(actions.setConstriction(null))
+              .run()
+          })
+
+          test('should load form definition if other formName is passed', () => {
+            const selectFormDefinition = {id: 'Root_docs_list_item_list', children: []}
+            const fetchedFormDefinition = {id: 'Docs_list_item_list', children: []}
+            const formName = 'Docs_list_item'
+            const scope = 'list'
+            const actionCreator = actions.setFormDefinition
+            const modifyFormDefinition = formDefinition => formDefinition
+            return expectSaga(sagas.loadFormDefinition, formName, scope, actionCreator)
+              .provide([
+                [select(sagas.listSelector), {formDefinition: selectFormDefinition}],
+                [select(sagas.entityListSelector), {}],
+                [call(rest.fetchForm, formName, scope), fetchedFormDefinition],
+                [select(sagas.inputSelector), {modifyFormDefinition}]
+              ])
+              .put(actionCreator(fetchedFormDefinition))
               .run()
           })
         })
