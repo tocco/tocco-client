@@ -1,3 +1,9 @@
+1.0.14-hotfix31.32
+- add envelope icon
+- add link to email and phone formatter
+- add link to email and phone formatter
+- fix loading form definition for dms
+
 1.0.14-hotfix31.31
 - remote fields now honor the constrictions defined on forms with remotefield scope
 - entity list now uses a form definition passed as input without reloading it
