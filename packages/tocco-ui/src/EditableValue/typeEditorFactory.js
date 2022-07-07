@@ -9,6 +9,7 @@ import DateEdit from './typeEditors/DateEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
 import Document from './typeEditors/Document'
 import DurationEdit from './typeEditors/DurationEdit'
+import EmailEdit from './typeEditors/EmailEdit'
 import HtmlEdit from './typeEditors/HtmlEdit'
 import IntegerEdit from './typeEditors/IntegerEdit'
 import LocationEdit from './typeEditors/LocationEdit'
@@ -31,6 +32,7 @@ export const map = {
   datetime: DateTimeEdit,
   document: Document,
   duration: DurationEdit,
+  email: EmailEdit,
   html: HtmlEdit,
   integer: IntegerEdit,
   location: LocationEdit,
