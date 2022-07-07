@@ -76,7 +76,7 @@ const readOnlyMapping = {
   duration: formattedValueFactory('duration'),
   document: formattedValueFactory('document'),
   double: formattedValueFactory('number'),
-  email: formattedValueFactory('string'),
+  email: formattedValueFactory('email'),
   html: formattedValueFactory('html'),
   image: formattedValueFactory('document'),
   ipaddress: formattedValueFactory('string'),

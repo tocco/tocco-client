@@ -2,6 +2,7 @@ import _isEmpty from 'lodash/isEmpty'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import Link from '../../Link'
 import Typography from '../../Typography'
 
 class PhoneFormatter extends React.Component {
@@ -39,7 +40,13 @@ class PhoneFormatter extends React.Component {
   }
 
   render() {
-    return <Typography.Span breakWords={this.props.breakWords}>{this.getFormattedInput()}</Typography.Span>
+    return (
+      <Typography.Span breakWords={this.props.breakWords}>
+        <Link href={`tel:${this.props.value}`} onClick={e => e.stopPropagation()}>
+          {this.getFormattedInput()}
+        </Link>
+      </Typography.Span>
+    )
   }
 }
 
