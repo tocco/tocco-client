@@ -24,7 +24,7 @@ const editableMapping = {
   document: editableValueFactory('document'),
   double: editableValueFactory('number'),
   duration: editableValueFactory('duration'),
-  email: editableValueFactory('string'),
+  email: editableValueFactory('email'),
   'fulltext-search': editableValueFactory('string'),
   html: editableValueFactory('html'),
   image: editableValueFactory('document'),
