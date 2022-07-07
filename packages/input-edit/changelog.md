@@ -1,3 +1,8 @@
+1.1.3-hotfix31.26
+- add envelope icon
+- add link to email and phone formatter
+- add link to email and phone formatter
+
 1.1.3-hotfix31.25
 - remote fields now honor the constrictions defined on forms with remotefield scope
 - advanced search now uses form with remotefield scope if it exists
