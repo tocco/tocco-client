@@ -1,3 +1,4 @@
+import {expect} from 'chai'
 import {actions as formActions} from 'redux-form'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
@@ -245,13 +246,32 @@ describe('app-extensions', () => {
           return expectSaga(sagas.setTemplateValues, {payload})
             .provide([
               [select(sagas.formDefinitionSelector), formDefinition],
+              [select(sagas.initializedSelector), false],
               [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions],
               [matchers.call.fn(rest.fetchEntity), templateEntity],
               [matchers.call.fn(api.getFlattenEntity), flattenedValues]
             ])
             .call(rest.fetchEntity, 'Export_template', '1', {paths: ['form-field', 'custom-field']})
             .call(sagas.setFormValues, flattenedValues, fieldDefinitions, customTemplateFields)
+            .put(actions.setInitialized(true))
             .run()
+        })
+
+        test('should send null to custom fields when no template is selected', () => {
+          const customFunction = sinon.spy()
+          const customTemplateFields = {
+            'custom-field': customFunction
+          }
+          const payload = {
+            templateEntityName: 'Export_template',
+            template: null,
+            customTemplateFields
+          }
+
+          return expectSaga(sagas.setTemplateValues, {payload})
+            .provide([[select(sagas.initializedSelector), true]])
+            .run()
+            .then(() => expect(customFunction).to.be.calledWith(null))
         })
       })
 
