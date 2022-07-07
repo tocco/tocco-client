@@ -382,8 +382,8 @@ describe('entity-list', () => {
 
         describe('loadFormDefinition saga', () => {
           test('should load form definition', () => {
-            const fetchedFormDefinition = {}
-            return expectSaga(sagas.loadFormDefinition)
+            const fetchedFormDefinition = {id: 'User_detail'}
+            return expectSaga(sagas.loadFormDefinition, 'User', 'detail')
               .provide([
                 [select(sagas.listSelector), {}],
                 [matchers.call.fn(sagas.extractFormInformation)],
@@ -393,15 +393,30 @@ describe('entity-list', () => {
               .call(sagas.extractFormInformation, fetchedFormDefinition)
               .run()
           })
+
           test('should not load form definition if already loaded', () => {
-            const selectFormDefinition = {}
-            return expectSaga(sagas.loadFormDefinition)
+            const selectFormDefinition = {id: 'User_detail'}
+            return expectSaga(sagas.loadFormDefinition, 'User', 'detail')
               .provide([
                 [select(sagas.listSelector), {formDefinition: selectFormDefinition}],
                 [matchers.call.fn(sagas.extractFormInformation)]
               ])
               .not.put(actions.setFormDefinition(selectFormDefinition))
               .call(sagas.extractFormInformation, selectFormDefinition)
+              .run()
+          })
+
+          test('should load form definition if other formName is passed', () => {
+            const selectFormDefinition = {id: 'Root_docs_list_item_list'}
+            const fetchedFormDefinition = {id: 'Docs_list_item_list'}
+            return expectSaga(sagas.loadFormDefinition, 'Docs_list_item', 'list')
+              .provide([
+                [select(sagas.listSelector), {formDefinition: selectFormDefinition}],
+                [matchers.call.fn(sagas.extractFormInformation)],
+                [matchers.call.fn(rest.fetchForm), fetchedFormDefinition]
+              ])
+              .put(actions.setFormDefinition(fetchedFormDefinition))
+              .call(sagas.extractFormInformation, fetchedFormDefinition)
               .run()
           })
         })
