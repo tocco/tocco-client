@@ -1,5 +1,6 @@
 export const INITIALIZE_TEMPLATES = 'templateValues/INITIALIZE_TEMPLATES'
 export const SET_FORM = 'templateValues/SET_FORM'
+export const SET_INITIALIZED = 'templateValues/SET_INITIALIZED'
 export const FETCH_TEMPLATES = 'templateValues/FETCH_TEMPLATES'
 export const SET_TEMPLATE_OPTIONS = 'templateValues/SET_TEMPLATE_OPTIONS'
 export const SET_TEMPLATE_VALUES = 'templateValues/SET_TEMPLATE_VALUES'
@@ -12,6 +13,11 @@ export const initializeTemplates = (templateEntityName, formName, selection, cus
 export const setForm = formDefinition => ({
   type: SET_FORM,
   payload: {formDefinition}
+})
+
+export const setInitialized = initialized => ({
+  type: SET_INITIALIZED,
+  payload: {initialized}
 })
 
 export const fetchTemplates = (templateEntityName, selection, customTemplateFields) => ({
