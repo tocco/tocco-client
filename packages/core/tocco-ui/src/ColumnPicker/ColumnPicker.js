@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {useState, useEffect, useMemo, useCallback} from 'react'
-import {dragAndDrop} from 'tocco-util'
+import {dragAndDrop, html} from 'tocco-util'
 
 import Button from '../Button'
 import SearchBox from '../SearchBox'
@@ -77,7 +77,11 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => 
             <StyledCheckbox type={'checkbox'} id={column.id} checked={!column.hidden} onChange={handleChange} />
             <Typography.Label for={column.id}>
               <StyledNumber>{idx + 1}.</StyledNumber>
-              {column.label || <StyledId>{column.id}</StyledId>}
+              {column.label ? (
+                <span dangerouslySetInnerHTML={{__html: html.sanitizeHtml(column.label)}} />
+              ) : (
+                <StyledId>{column.id}</StyledId>
+              )}
             </Typography.Label>
           </StyledItem>
         )
