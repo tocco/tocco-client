@@ -8,13 +8,36 @@ import Typography from '../Typography'
 import BreadcrumbSeparator from './BreadcrumbSeparator'
 import {StyledBreadcrumbs, StyledBreadcrumbsLink, StyledBreadcrumbsTitle} from './StyledBreadcrumbs'
 
-const getTitle = breadcrumbsInfo =>
-  breadcrumbsInfo
-    .slice(breadcrumbsInfo.length - 2)
-    .map(breadcrumb => breadcrumb.title || breadcrumb.display)
-    .join(' - ')
+export const getTitle = (breadcrumbsInfo, createTitle) => {
+  if (!breadcrumbsInfo || breadcrumbsInfo.length === 0) {
+    return 'Tocco'
+  }
 
-const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor, onClick, linkComp: LinkComp}) => {
+  const lastElement = breadcrumbsInfo[breadcrumbsInfo.length - 1]
+
+  if (lastElement.type === 'create') {
+    return `${getElementTitle(lastElement)} - ${createTitle}`
+  } else if (lastElement.type === 'detail') {
+    return breadcrumbsInfo
+      .slice(breadcrumbsInfo.length - 2)
+      .map(getElementTitle)
+      .join(' - ')
+  } else {
+    return getElementTitle(lastElement)
+  }
+}
+
+const getElementTitle = breadcrumb => breadcrumb.title || breadcrumb.display
+
+const Breadcrumbs = ({
+  intl,
+  pathPrefix,
+  breadcrumbsInfo,
+  currentView,
+  backgroundColor,
+  onClick,
+  linkComp: LinkComp
+}) => {
   const breadcrumbs = [...(breadcrumbsInfo || []), ...(currentView ? [currentView] : [])]
 
   if (breadcrumbs.length === 0) {
@@ -26,6 +49,8 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor,
       onClick(breadcrumbsItem)
     }
   }
+
+  const msg = id => intl.formatMessage({id})
 
   const Breadcrumbs = breadcrumbs
     .map((b, idx) => {
@@ -52,7 +77,7 @@ const Breadcrumbs = ({pathPrefix, breadcrumbsInfo, currentView, backgroundColor,
   return (
     <StyledBreadcrumbs backgroundColor={backgroundColor}>
       <Helmet defer={false}>
-        <title>{getTitle(breadcrumbs)}</title>
+        <title>{getTitle(breadcrumbs, msg('client.component.breadcrumbs.createTitle'))}</title>
       </Helmet>
       <>{Breadcrumbs}</>
     </StyledBreadcrumbs>
@@ -64,6 +89,7 @@ Breadcrumbs.defaultProps = {
 }
 
 Breadcrumbs.propTypes = {
+  intl: PropTypes.object.isRequired,
   pathPrefix: PropTypes.string,
   match: PropTypes.object,
   breadcrumbsInfo: PropTypes.arrayOf(
