@@ -1,3 +1,8 @@
+1.1.43
+- add envelope icon
+- add icon to email field to mail client
+- add link to email and phone formatter
+
 1.1.42
 - today button in datepicker now behaves as expected
 

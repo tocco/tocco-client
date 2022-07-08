@@ -1,3 +1,9 @@
+1.0.52
+- add envelope icon
+- add icon to email field to mail client
+- add link to email and phone formatter
+- fix loading form definition for dms
+
 1.0.51
 - today button in datepicker now behaves as expected
 
