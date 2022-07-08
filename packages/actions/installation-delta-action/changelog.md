@@ -1,3 +1,8 @@
+1.0.17-hotfix32.14
+- add envelope icon
+- add icon to email field to mail client
+- add link to email and phone formatter
+
 1.0.17-hotfix32.13
 - optimize toggle behaviour of column picker to only select currently visible items
 - remote fields now honor the constrictions defined on forms with remotefield scope
