@@ -1,3 +1,6 @@
+0.2.4-hotfix229.14
+- fix z-index for entity-browser in old client
+
 0.2.4-hotfix229.13
 - add title to custom action response
 
