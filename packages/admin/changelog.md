@@ -1,3 +1,6 @@
+0.4.37-hotfix229.23
+- fix z-index for entity-browser in old client
+
 0.4.37-hotfix229.22
 - add no permission message for uploading document
 - add no permission message for moving document
