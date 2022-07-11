@@ -41,6 +41,10 @@ export const parseInLocalTime = value => {
   if (isMatch(value, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")) {
     return new Date(value)
   }
+
+  if (isMatch(value, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")) {
+    return new Date(value)
+  }
 }
 
 /**
