@@ -45,6 +45,14 @@ describe('tocco-util', () => {
 
           expect(date.toISOString()).to.eql('2022-01-04T12:00:00.000Z')
         })
+
+        test('should parse datetime string with timezone as local time', () => {
+          const dateTimezoneString = '2022-01-04T14:00:00.000+02:00'
+
+          const date = parseInLocalTime(dateTimezoneString)
+
+          expect(date.toISOString()).to.eql('2022-01-04T12:00:00.000Z')
+        })
       })
 
       describe('parseTime', () => {
