@@ -5,23 +5,12 @@ import ReactDatePicker from 'react-datepicker'
 import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
 
-import {StyledChildrenWrapper} from './StyledComponents'
+import ChildrenWrapper from './ChildrenWrapper'
 import {loadLocales} from './utils'
 
 loadLocales()
 
-const ChildrenWrapper = ({children, onOpen}) => (
-  <StyledChildrenWrapper onClick={onOpen}>{children}</StyledChildrenWrapper>
-)
-
-ChildrenWrapper.propTypes = {
-  children: PropTypes.any,
-  onOpen: PropTypes.func
-}
-
-const DatePicker = props => {
-  const {children, value, onChange, intl} = props
-
+const DatePicker = ({children, value, onChange, intl}) => {
   const locale = intl.locale
   const msg = msgId => intl.formatMessage({id: msgId})
 
@@ -46,7 +35,8 @@ const DatePicker = props => {
       showPopperArrow={false}
       showMonthDropdown
       showYearDropdown
-      dropdownMode="select"
+      scrollableYearDropdown
+      fixedHeight
       open={open}
       onFocus={() => {
         handleOpen(true)
