@@ -10,7 +10,6 @@ export const StyledInputItemWrapper = styled.div`
   width: 50%;
 
   * {
-    line-height: unset !important;
     text-align: center;
   }
 `

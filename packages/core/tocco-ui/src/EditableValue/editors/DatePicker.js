@@ -6,13 +6,9 @@ import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
 
 import Ball from '../../Ball'
+import Button from '../../Button'
 import {loadLocales, parseISOValue} from '../../DatePicker/utils'
-import {
-  StyledDatePickerWrapper,
-  StyledDatePickerOuterWrapper,
-  StyledTimeInput,
-  StyledCustomTodayButton
-} from './StyledDatePicker'
+import {StyledDatePickerWrapper, StyledDatePickerOuterWrapper, StyledTimeInput} from './StyledDatePicker'
 
 loadLocales()
 
@@ -21,7 +17,7 @@ const ReactDatepickerDayClassName = 'react-datepicker__day'
 const ReactDatepickerInputClassName = 'react-datepicker-ignore-onclickoutside'
 
 const CustomTodayButton = ({onChange, label}) => (
-  <StyledCustomTodayButton
+  <Button
     onMouseDown={e => {
       // this keeps the focus from changing, allowing handleConfirmKey on datepicker to keep working
       e.preventDefault()
@@ -30,7 +26,7 @@ const CustomTodayButton = ({onChange, label}) => (
     }}
   >
     {label}
-  </StyledCustomTodayButton>
+  </Button>
 )
 
 CustomTodayButton.propTypes = {
@@ -77,9 +73,7 @@ const isDay = element => element.classList.contains(ReactDatepickerDayClassName)
 const isTimeInput = element => element.classList.contains(ReactDatepickerTimeInputClassName)
 const isInput = element => element.classList.contains(ReactDatepickerInputClassName)
 
-const DatePicker = props => {
-  const {immutable, id, value, minDate, maxDate, onChange, intl, placeholder, hasTime, dateFormat} = props
-
+const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, placeholder, hasTime, dateFormat}) => {
   const locale = intl.locale
   const msg = msgId => intl.formatMessage({id: msgId})
 
@@ -87,7 +81,7 @@ const DatePicker = props => {
   const datePickerRef = useRef(null)
   const [open, setOpen] = useState(false)
 
-  const hasValue = !!value
+  const hasValue = Boolean(value)
   const selectedDate = parseISOValue(value)
   const minDateVal = minDate ? parseISOValue(minDate) : undefined
   const maxDateVal = maxDate ? parseISOValue(maxDate) : undefined
@@ -147,7 +141,8 @@ const DatePicker = props => {
           placeholderText={placeholder}
           showMonthDropdown
           showYearDropdown
-          dropdownMode="select"
+          scrollableYearDropdown
+          fixedHeight
           open={open}
           onFocus={() => {
             handleOpen(true)
