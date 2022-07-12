@@ -1,13 +1,25 @@
 import {useEffect} from 'react'
 
-const useAutofocus = (reference, dependencies = []) =>
+/**
+ * options may contain:
+ * - selectFulltextFields, tries to find a search field with and id ending with txtFulltext first
+ */
+const useAutofocus = (reference, options = {}, dependencies = []) =>
   useEffect(() => {
     if (reference.current) {
-      const firstInput = reference.current.querySelector(
+      if (options.selectFulltextFields) {
+        const firstFulltextInput = reference.current.querySelector('input[id$="txtFulltext"]:not([disabled])')
+        if (firstFulltextInput) {
+          firstFulltextInput.focus()
+          return
+        }
+      }
+
+      const firstTextInput = reference.current.querySelector(
         'input[type = "text"]:not([disabled]), textarea:not([disabled])'
       )
-      if (firstInput) {
-        firstInput.focus()
+      if (firstTextInput) {
+        firstTextInput.focus()
       }
     }
   }, dependencies) // eslint-disable-line react-hooks/exhaustive-deps
