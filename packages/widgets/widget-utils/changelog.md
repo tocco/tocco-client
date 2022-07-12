@@ -1,3 +1,6 @@
+0.1.18
+- fix datetime in searchforms after using date-fns
+
 0.1.17
 - do not import react components in widget-utils
 
