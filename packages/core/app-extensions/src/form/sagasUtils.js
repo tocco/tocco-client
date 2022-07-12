@@ -86,16 +86,16 @@ export function* handleSubmitError(formConfig, error) {
     yield call(handleInvalidForm, formConfig)
 
     const validationErrors = yield call(formErrorUtils.getValidatorErrors, error.errors)
-    const message =
+    const body =
       validationErrors && validationErrors.length > 0
-        ? validationErrors.join('<br>')
+        ? () => <ErrorItem message={validationErrors.join('<br>')} />
         : 'client.component.form.saveAbortedMessage'
 
     yield put(
       notification.toaster({
         type: 'warning',
         title: 'client.component.form.saveAbortedTitle',
-        body: () => <ErrorItem message={message} />,
+        body,
         /*
          * normally a toaster of the type warning has a duration of -1 and the toaster must be manually closed
          * as the validation error is also shown as a mouseover of the save button the toaster can disappear
