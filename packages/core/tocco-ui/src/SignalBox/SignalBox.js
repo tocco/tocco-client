@@ -8,11 +8,11 @@ import StyledSignalBox, {ALLOWED_CONDITIONS} from './StyledSignalBox'
 /**
  * Emphasize important information by context. Group them by utilizing several instances of <SignalBox/>.
  */
-const SignalBox = props => (
-  <StyledSignalBox condition={props.condition}>
-    {props.title && <Typography.H5>{props.title}</Typography.H5>}
-    {React.Children.map(props.children, child => React.cloneElement(child))}
-    {props.meta && <Typography.Small>{props.meta}</Typography.Small>}
+const SignalBox = ({condition, title, children, meta}) => (
+  <StyledSignalBox condition={condition}>
+    {title && <Typography.H5>{title}</Typography.H5>}
+    {React.Children.map(children, child => React.cloneElement(child))}
+    {meta && <Typography.Small>{meta}</Typography.Small>}
   </StyledSignalBox>
 )
 
