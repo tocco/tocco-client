@@ -1,7 +1,6 @@
 import _get from 'lodash/get'
 import styled from 'styled-components'
 
-import {StyledSignalListItem} from '../SignalList'
 import {design, scale, shadeColor, theme} from '../utilStyles'
 
 const ALLOWED_CONDITIONS = [
@@ -12,9 +11,9 @@ const ALLOWED_CONDITIONS = [
 ]
 
 const COLORS = {
-  [design.condition.DANGER]: theme.color('signal.danger.paper'),
-  [design.condition.SUCCESS]: theme.color('signal.success.paper'),
-  [design.condition.WARNING]: theme.color('signal.warning.paper'),
+  [design.condition.DANGER]: theme.color('signal.danger.text'),
+  [design.condition.SUCCESS]: theme.color('signal.success.text'),
+  [design.condition.WARNING]: theme.color('signal.warning.text'),
   [design.condition.BASE]: props => shadeColor(_get(props.theme, 'colors.paper'), 1)
 }
 
@@ -29,13 +28,15 @@ const StyledSignalBox = styled.div`
     padding: ${scale.space(-1)};
     margin-bottom: ${scale.space(-1)};
     border-radius: ${theme.radii('radii.regular')};
-
+    ${({condition, theme}) =>
+      condition !== 'base' &&
+      `
+      * {
+        color: ${theme.colors.paper};
+      }
+    `}
     &:last-child {
       margin-bottom: 0;
-    }
-
-    ${StyledSignalListItem} {
-      color: inherit;
     }
   }
 `
