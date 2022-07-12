@@ -4,7 +4,7 @@ import React from 'react'
 import {currentViewPropType} from '../../utils/propTypes'
 import DocsView from '../DocsView'
 
-const DocsViewAdapter = ({currentViewInfo, history, selectedRelation}) => (
+const DocsViewAdapter = ({currentViewInfo, history, selectedRelation, sortable}) => (
   <DocsView
     entityName={currentViewInfo.model.name}
     entityKey={currentViewInfo.key}
@@ -14,6 +14,7 @@ const DocsViewAdapter = ({currentViewInfo, history, selectedRelation}) => (
     openResource={location => {
       history.push(`${selectedRelation.relationName}/list#${location}`)
     }}
+    sortable={sortable}
   />
 )
 
@@ -22,7 +23,8 @@ DocsViewAdapter.propTypes = {
   selectedRelation: PropTypes.shape({
     relationName: PropTypes.string.isRequired
   }).isRequired,
-  currentViewInfo: currentViewPropType
+  currentViewInfo: currentViewPropType,
+  sortable: PropTypes.bool
 }
 
 export default DocsViewAdapter
