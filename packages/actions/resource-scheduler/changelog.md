@@ -1,3 +1,8 @@
+1.0.47
+- fix datetime in searchforms after using date-fns
+- enhance breadcrumbs
+- column labels in ColumnPicker no longer display escaped html elements
+
 1.0.46
 - add envelope icon
 - add icon to email field to mail client
