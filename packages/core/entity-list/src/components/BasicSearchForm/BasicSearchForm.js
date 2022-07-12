@@ -25,7 +25,7 @@ const BasicSearchForm = ({
 }) => {
   const searchFormEl = useRef(null)
 
-  customHooks.useAutofocus(searchFormEl, [searchFormDefinition])
+  customHooks.useAutofocus(searchFormEl, {selectFulltextFields: true}, [searchFormDefinition])
 
   if (!searchFormDefinition.children) {
     return null
