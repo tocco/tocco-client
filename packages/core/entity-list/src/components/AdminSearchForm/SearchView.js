@@ -55,7 +55,7 @@ const SearchView = ({
   const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
   const [showExpandSearchFilter, setShowExpandSearchFilter] = useState(false)
 
-  customHooks.useAutofocus(searchFormEl, [initialized])
+  customHooks.useAutofocus(searchFormEl, {selectFulltextFields: true}, [initialized])
 
   useEffect(() => {
     const searchFilterHeight = searchFilters
