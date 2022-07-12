@@ -1,3 +1,6 @@
+1.1.17-hotfix32.15
+- column labels in ColumnPicker no longer display escaped html elements
+
 1.1.17-hotfix32.14
 - add envelope icon
 - add icon to email field to mail client
