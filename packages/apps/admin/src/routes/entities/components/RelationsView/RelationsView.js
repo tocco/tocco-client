@@ -107,6 +107,7 @@ const RelationsView = props => {
               history={history}
               currentViewInfo={currentViewInfo}
               emitAction={emitAction}
+              sortable={true}
             />
           </StyledPreviewBox>
         )}
