@@ -78,7 +78,10 @@ const declareInteractionColors = (colors, format = design.format.HTML) => {
 }
 
 const resolveColors = (theme, colors) =>
-  colors.split(/\s*,\s*/).map(color => (color.startsWith('colors.') ? _get(theme, color) : color))
+  colors
+    .split(',')
+    .map(s => s.trim())
+    .map(color => (color.startsWith('colors.') ? _get(theme, color) : color))
 
 const lightenOrDarken = (color = design.fallbackColors.SHADE) => (getLuminance(color) > 0.5 ? 'darken' : 'lighten')
 
