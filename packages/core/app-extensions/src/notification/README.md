@@ -113,7 +113,8 @@ store.dispatch(notification.modal(
         />
     </React.Fragment>
   ),
-  closable
+  cancelable,
+  () => {/* handle modal get cancelled (by escape key or x button) */}
 ))
 ```
 

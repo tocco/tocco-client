@@ -13,17 +13,21 @@ import {
   GlobalTetherStyle
 } from './StyledComponents'
 
-const ModalContent = ({closable, message, title, close, id, component: Component}) => {
+const ModalContent = ({cancelable, message, title, onClose, onCancel, id, component: Component}) => {
   const ref = useRef(null)
 
-  const handleCloseClick = useCallback(() => {
-    close(id)
-  }, [close, id])
+  const handleClose = useCallback(() => {
+    onClose(id)
+  }, [onClose, id])
+
+  const handelCancel = useCallback(() => {
+    onCancel(id)
+  }, [onCancel, id])
 
   useEffect(() => {
     const handleKeyInput = e => {
-      if (e.key === 'Escape') {
-        handleCloseClick()
+      if (e.key === 'Escape' && cancelable) {
+        handelCancel()
       }
     }
 
@@ -31,7 +35,7 @@ const ModalContent = ({closable, message, title, close, id, component: Component
     return () => {
       document.removeEventListener('keydown', handleKeyInput)
     }
-  }, [handleCloseClick])
+  }, [handelCancel, cancelable])
 
   useLayoutEffect(() => {
     if (ref.current) {
@@ -42,8 +46,8 @@ const ModalContent = ({closable, message, title, close, id, component: Component
 
   // Component is a valid dependency
   const ComponentMemo = useMemo(() => {
-    return <Component close={handleCloseClick} />
-  }, [Component, handleCloseClick]) // eslint-disable-line react-hooks/exhaustive-deps
+    return <Component close={handleClose} />
+  }, [Component, handleClose]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -58,8 +62,8 @@ const ModalContent = ({closable, message, title, close, id, component: Component
                 </Typography.H1>
               </StyledTitleWrapper>
             )}
-            {closable && (
-              <StyledCloseButton onClick={handleCloseClick} type="button">
+            {cancelable && (
+              <StyledCloseButton onClick={handelCancel} type="button">
                 ✕
               </StyledCloseButton>
             )}
@@ -81,10 +85,11 @@ const ModalContent = ({closable, message, title, close, id, component: Component
 ModalContent.propTypes = {
   id: PropTypes.any.isRequired,
   component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
-  close: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   message: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
-  closable: PropTypes.bool
+  cancelable: PropTypes.bool
 }
 
 export default ModalContent

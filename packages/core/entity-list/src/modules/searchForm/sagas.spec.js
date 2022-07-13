@@ -319,7 +319,7 @@ describe('entity-list', () => {
                     id: 'filter-save',
                     title: 'client.entity-list.search.settings.saveAsFilter',
                     message: null,
-                    closable: true
+                    cancelable: true
                   }
                 }
               })
@@ -393,7 +393,7 @@ describe('entity-list', () => {
                     id: 'filter-delete',
                     title: 'client.actions.delete.title',
                     message: null,
-                    closable: true
+                    cancelable: true
                   }
                 }
               })
@@ -421,7 +421,7 @@ describe('entity-list', () => {
                     id: 'filter-delete',
                     title: 'client.actions.delete.title',
                     message: null,
-                    closable: true
+                    cancelable: true
                   }
                 }
               })
@@ -542,7 +542,7 @@ describe('entity-list', () => {
                     id: 'User_search-search-fields-selection',
                     title: 'client.entity-list.search.settings.searchForm.edit',
                     message: null,
-                    closable: true
+                    cancelable: true
                   }
                 }
               })
@@ -625,7 +625,7 @@ describe('entity-list', () => {
                     id: 'User_search-search-fields-selection',
                     title: 'client.entity-list.search.settings.searchForm.edit',
                     message: null,
-                    closable: true
+                    cancelable: true
                   }
                 }
               })
@@ -708,7 +708,7 @@ describe('entity-list', () => {
                     id: 'filter-save',
                     title: 'client.entity-list.search.settings.saveAsFilter',
                     message: null,
-                    closable: true
+                    cancelable: true
                   }
                 }
               })

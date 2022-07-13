@@ -28,6 +28,7 @@ export const StyledCloseButton = styled.button`
   right: ${basePadding};
   top: ${basePadding};
   padding: 0;
+  z-index: 1;
 
   &:hover {
     opacity: 1;

@@ -19,14 +19,18 @@ describe('app-extensions', () => {
             const title = 'title'
             const message = 'message'
             const component = () => <div>TEST</div>
+            const cancelCallback = () => {}
 
             let stateAfter = reducer(INITIAL_STATE, actions.modal(id, title, message, component))
 
             expect(stateAfter).to.have.property('modals')
             expect(stateAfter.modals).to.have.length(1)
+            expect(stateAfter.modals[0].cancelable).to.be.false
 
-            stateAfter = reducer(stateAfter, actions.modal(id, title, message, component))
+            stateAfter = reducer(stateAfter, actions.modal(id, title, message, component, true, cancelCallback))
             expect(stateAfter.modals).to.have.length(2)
+            expect(stateAfter.modals[1].cancelable).to.be.true
+            expect(stateAfter.modals[1].cancelCallback).to.be.equal(cancelCallback)
           })
 
           test('should remove modals', () => {

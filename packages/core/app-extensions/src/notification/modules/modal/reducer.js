@@ -1,9 +1,9 @@
 import * as actions from './actions'
 
-const addModalComponent = (state, {payload: {id, title, message, component, closable}}) => {
+const addModalComponent = (state, {payload: {id, title, message, component, cancelable, cancelCallback}}) => {
   return {
     ...state,
-    modals: [...state.modals, {id, title, message, component, closable}]
+    modals: [...state.modals, {id, title, message, component, cancelable, cancelCallback}]
   }
 }
 
