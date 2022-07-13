@@ -2,7 +2,7 @@ import DOMPurify from 'dompurify'
 
 const allowedCssProperties = ['border', 'border-spacing', 'padding', 'margin', 'text-align', 'width']
 
-const isCssFunction = value => /\w+\(/.test(value)
+const isCssFunction = value => /\w\(/.test(value)
 
 const sanitizeInlineStyle = styles =>
   allowedCssProperties
