@@ -1,3 +1,6 @@
+0.1.19
+- fulltext search fields are now prioritized to be autofocused
+
 0.1.18
 - fix datetime in searchforms after using date-fns
 
