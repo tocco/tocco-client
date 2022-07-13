@@ -55,13 +55,10 @@ export function* promptConfirm(id) {
           close()
           answerChannel.put('continue')
         }
-        const onCancel = () => {
-          close()
-          answerChannel.put('abort')
-        }
-        return <PendingChangesModal onYes={onYes} onNo={onNo} onCancel={onCancel} />
+        return <PendingChangesModal onYes={onYes} onNo={onNo} />
       },
-      true
+      true,
+      () => answerChannel.put('abort')
     )
   )
   return yield take(answerChannel)
