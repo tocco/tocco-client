@@ -1,3 +1,6 @@
+1.0.18-hotfix32.16
+- fulltext search fields are now prioritized to be autofocused
+
 1.0.18-hotfix32.15
 - column labels in ColumnPicker no longer display escaped html elements
 
