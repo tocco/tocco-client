@@ -283,6 +283,10 @@
     "id": "fal, list",
     "lib": "fa"
   },
+  "list-check": {
+    "id": "fal, list-check",
+    "lib": "fa"
+  },
   "lock": {
     "id": "fal, lock",
     "lib": "fa"
@@ -327,6 +331,10 @@
   },
   "pen": {
     "id": "fal, pen",
+    "lib": "fa"
+  },
+  "percent": {
+    "id": "fal, percent",
     "lib": "fa"
   },
   "phone": {
