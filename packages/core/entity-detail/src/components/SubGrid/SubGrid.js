@@ -9,7 +9,8 @@ const StyledListApp = styled.div`
 
 const SubGrid = props => {
   const formBase = `${props.detailFormName}_${props.formField.path}`
-  const id = `${props.appId}-subgrid-${props.entityName}-${props.entityKey}-${props.formField.reverseRelation}`
+  // eslint-disable-next-line max-len
+  const id = `${props.appId}-subgrid-${props.entityName}-${props.entityKey}-${props.formField.targetEntity}-${props.formField.reverseRelation}`
 
   return (
     <StyledListApp>
