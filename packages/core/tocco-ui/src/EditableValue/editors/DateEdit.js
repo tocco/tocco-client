@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types'
+import {useIntl} from 'react-intl'
+import {date} from 'tocco-util'
 
 import {toLocalDateString} from '../utils'
 import LazyDatePicker from './LazyDatePicker'
@@ -6,6 +8,8 @@ import LazyDatePicker from './LazyDatePicker'
 const DateFormat = 'P' // MM/dd/yyyy od. dd.MM.yyyy
 
 export const DateEdit = ({onChange, options, id, value, immutable, events, placeholder}) => {
+  const intl = useIntl()
+
   const handleChange = dateTime => {
     const date = dateTime ? toLocalDateString(dateTime) : null
     onChange(date)
@@ -13,12 +17,15 @@ export const DateEdit = ({onChange, options, id, value, immutable, events, place
 
   const datePickerOptions = options?.datePickerOptions || {}
 
+  // to support direct input such as 01032020
+  const dateFormatWithoutPunctuation = date.getLocalizedDateFormatWithoutPunctuation(intl.locale)
+
   return (
     <LazyDatePicker
       id={id}
       value={value}
       onChange={handleChange}
-      dateFormat={DateFormat}
+      dateFormat={[DateFormat, dateFormatWithoutPunctuation]}
       hasTime={false}
       immutable={immutable}
       events={events}

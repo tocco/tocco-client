@@ -2,6 +2,7 @@ import {startOfDay, startOfMonth} from 'date-fns'
 import {mount} from 'enzyme'
 import {IntlProvider} from 'react-intl'
 import {intlEnzyme} from 'tocco-test-util'
+import {date as dateUtil} from 'tocco-util'
 
 import {loadLocales} from '../../DatePicker/utils'
 import DatePicker from './DatePicker'
@@ -84,6 +85,28 @@ describe('tocco-ui', () => {
 
           const expectedDate = new Date('06/14/2022 10:00').toISOString()
           expect(onChangeSpy).to.have.been.calledWith(expectedDate)
+        })
+
+        test('should be able to enter a date in different format', () => {
+          const onChangeSpy = sinon.spy()
+          const wrapper = mount(
+            <IntlProvider locale="de-CH" defaultLocale="de-CH">
+              <DatePicker
+                onChange={onChangeSpy}
+                hasTime
+                dateFormat={['P', dateUtil.getLocalizedDateFormatWithoutPunctuation('de-CH')]}
+              />
+            </IntlProvider>
+          )
+
+          const input = wrapper.find('.react-datepicker__input-container input')
+          input.simulate('focus')
+
+          input.simulate('change', {target: {value: '14062022'}})
+
+          const date = new Date('06/14/2022').toISOString()
+          expect(onChangeSpy).to.have.been.calledOnce
+          expect(onChangeSpy).to.have.been.calledWith(date)
         })
       })
     })

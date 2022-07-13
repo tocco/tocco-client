@@ -73,3 +73,20 @@ export const getDateFnsLocale = locale => {
       return de
   }
 }
+
+export const getLocalizedDateFormat = locale => {
+  const {formatLong} = getDateFnsLocale(locale)
+
+  return formatLong.date({width: 'short'})
+}
+
+export const getLocalizedTimeFormat = locale => {
+  const {formatLong} = getDateFnsLocale(locale)
+
+  return formatLong.time({width: 'short'})
+}
+
+export const getLocalizedDateFormatWithoutPunctuation = locale => getLocalizedDateFormat(locale).replace(/[/.]/g, '')
+export const getLocalizedTimeFormatWithoutPunctuation = locale => getLocalizedTimeFormat(locale).replace(/[:]/g, '')
+export const getLocalizedDateTimeFormatWithoutPunctuation = locale =>
+  `${getLocalizedDateFormatWithoutPunctuation(locale)} ${getLocalizedTimeFormatWithoutPunctuation(locale)}`
