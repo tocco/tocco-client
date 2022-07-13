@@ -7,6 +7,16 @@ These utils do not reference any other tocco package nor do they interact with r
 
 Helper function around tocco rest api.
 
+## appContext
+
+`appContext` is a global input parateter for apps and widgets which contains
+meta information about the embedded context.
+
+## bundle
+
+Helper functions and hooks for loading bundled components aynchronoulsy.
+This is mainly used for customer actions that will be loaded during runtime.
+
 ## cache
 
 Helper to store information in application and session store or in global objects.
@@ -19,9 +29,28 @@ Methods for color conversion and calculations.
 
 Abstraction of the console.log and .error with eslint ignore and undefined checks.
 
+## date
+
+Helper functions for date handling.
+
 ## download
 
 Browser download helpers.
+
+## dragAndDrop
+
+Hook for handling drag and drop logic.
+
+## env
+
+`env` holds global available settings which should be filled on app initialisation.
+Not to be confused by process environment variables. `env` are tocco runtime related variables (such as business unit).
+
+Helper functions for getting / setting env variables.
+
+## html
+
+Helper for html text sanitisation.
 
 ## intl
 
@@ -59,21 +88,37 @@ Contains react extensions such as custom hooks.
 
 Helpers for reducers.
 
+## remoteLogger
+
+Helper to log errors on remote backend.
+
+## request
+
+Helper to execute http nice2 requests.
+
+## resize
+
+Hook for handling resize logic.
+
 ## route
 
-Helper to load a route async.
+react-router helpers and loading routes aynchronously.
 
 ## saga
 
 Helpers for sagas.
 
+## tql
+
+Helper for query handling.
+
 ## tqlBuilder
 
 Helper to build tocco query language string out of query.
 
-## useDnD
+## userAgent
 
-Drag and drop react hook
+Helper for user agent distinction.
 
 ## validation
 
