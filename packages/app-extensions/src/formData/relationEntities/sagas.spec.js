@@ -291,6 +291,32 @@ describe('app-extensions', () => {
               })
           })
 
+          test('should use update_timestamp as fallback sorting', () => {
+            const formDefinitionWithoutSorting = {
+              children: [
+                {
+                  componentType: form.componentTypes.TABLE,
+                  constriction: 'const'
+                }
+              ]
+            }
+            const initialOptions = {loadRemoteFieldConfiguration: true}
+            return expectSaga(sagas.finalizeOptions, 'User', initialOptions)
+              .provide([[matchers.call.fn(rest.fetchForm), formDefinitionWithoutSorting]])
+              .call.like({
+                fn: rest.fetchForm,
+                args: ['User', 'remotefield']
+              })
+              .run()
+              .then(result => {
+                expect(result.returnValue).to.eql({
+                  constriction: 'const',
+                  sorting: [{field: 'update_timestamp', order: 'desc'}],
+                  loadRemoteFieldConfiguration: true
+                })
+              })
+          })
+
           test('should not load form when nothing needs to be loaded', () => {
             const initialOptions = {loadRemoteFieldConfiguration: true, sorting: 'passed', constriction: 'passed'}
             return expectSaga(sagas.finalizeOptions, 'User', initialOptions)
