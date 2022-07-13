@@ -1,4 +1,11 @@
-import {formatDuration, millisecondsToDuration} from './utils'
+import {
+  formatDuration,
+  millisecondsToDuration,
+  getLocalizedDateFormat,
+  getLocalizedDateFormatWithoutPunctuation,
+  getLocalizedDateTimeFormatWithoutPunctuation,
+  getLocalizedTimeFormat
+} from './utils'
 
 describe('tocco-util', () => {
   describe('date', () => {
@@ -61,6 +68,62 @@ describe('tocco-util', () => {
 
           const duration = '00:02'
           expect(formatDuration(ms)).to.equal(duration)
+        })
+      })
+
+      describe('getLocalizedDateFormat', () => {
+        test('should return P format for de-CH', () => {
+          const format = getLocalizedDateFormat('de-CH')
+
+          expect(format).to.eql('dd.MM.y')
+        })
+
+        test('should return P format for en', () => {
+          const format = getLocalizedDateFormat('en')
+
+          expect(format).to.eql('MM/dd/yyyy')
+        })
+      })
+
+      describe('getLocalizedTimeFormat', () => {
+        test('should return p format for de-CH', () => {
+          const format = getLocalizedTimeFormat('de-CH')
+
+          expect(format).to.eql('HH:mm')
+        })
+
+        test('should return p format for en', () => {
+          const format = getLocalizedTimeFormat('en')
+
+          expect(format).to.eql('h:mm a')
+        })
+      })
+
+      describe('getLocalizedDateFormatWithoutPunctuation', () => {
+        test('should return P format for de-CH without any dots', () => {
+          const format = getLocalizedDateFormatWithoutPunctuation('de-CH')
+
+          expect(format).to.eql('ddMMy')
+        })
+
+        test('should return P format for en without any slashes', () => {
+          const format = getLocalizedDateFormatWithoutPunctuation('en')
+
+          expect(format).to.eql('MMddyyyy')
+        })
+      })
+
+      describe('getLocalizedDateTimeFormatWithoutPunctuation', () => {
+        test('should return Pp format for de-CH without any dots and colons', () => {
+          const format = getLocalizedDateTimeFormatWithoutPunctuation('de-CH')
+
+          expect(format).to.eql('ddMMy HHmm')
+        })
+
+        test('should return Pp format for en without any slashes and colons', () => {
+          const format = getLocalizedDateTimeFormatWithoutPunctuation('en')
+
+          expect(format).to.eql('MMddyyyy hmm a')
         })
       })
     })

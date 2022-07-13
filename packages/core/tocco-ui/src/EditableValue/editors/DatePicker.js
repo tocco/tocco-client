@@ -182,7 +182,7 @@ DatePicker.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   hasTime: PropTypes.bool,
-  dateFormat: PropTypes.string,
+  dateFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   placeholder: PropTypes.string,
   immutable: PropTypes.bool,
   initialized: PropTypes.func,
