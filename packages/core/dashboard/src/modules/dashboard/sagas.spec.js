@@ -118,7 +118,7 @@ describe('dashboard', () => {
                     id: 'dashboard-infobox-settings',
                     title: 'client.dashboard.preferences.show.title',
                     message: null,
-                    closable: true
+                    cancelable: true
                   }
                 }
               })

@@ -1,14 +1,15 @@
 export const MODAL = 'notification/MODAL'
 export const REMOVE_MODAL = 'notification/REMOVE_MODAL'
 
-export const modal = (id, title, message, component, closable = false) => ({
+export const modal = (id, title, message, component, cancelable = false, cancelCallback = () => {}) => ({
   type: MODAL,
   payload: {
     id,
     title,
     message,
     component,
-    closable
+    cancelable,
+    cancelCallback
   }
 })
 

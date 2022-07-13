@@ -214,7 +214,7 @@ describe('entity-list', () => {
                     id: 'Some_list-column-selection',
                     title: 'client.entity-list.preferences.columns',
                     message: null,
-                    closable: true
+                    cancelable: true
                   }
                 }
               })

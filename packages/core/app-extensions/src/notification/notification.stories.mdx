@@ -127,7 +127,10 @@ store.dispatch(
         <Button label="Close" onClick={() => props.close()} />
       </React.Fragment>
     ),
-    closable
+    cancelable,
+    () => {
+      /* handle modal get cancelled (by escape key or x button) */
+    }
   )
 )
 ```
