@@ -69,8 +69,8 @@ export function* fetchDisplay(entityName, key, type) {
  * @param key {String} key of the entity
  * @param type {String} type of the display, default display if none passed
  */
-export function* invalidateDisplay(entityName, key, type) {
-  yield invalidateDisplays({[entityName]: [key]}, type)
+export function invalidateDisplay(entityName, key, type) {
+  invalidateDisplays({[entityName]: [key]}, type)
 }
 
 /**
@@ -140,7 +140,7 @@ export function* fetchDisplays(request, type) {
  * @param request {Object} Object containing model and keys of desired entities e.g. {User: ["123"], Gender: ["1", "2"]}
  * @param type {String} type of the display, default display if none passed
  */
-export function* invalidateDisplays(request, type) {
+export function invalidateDisplays(request, type) {
   Object.entries(request).forEach(([model, keys]) => {
     keys.forEach(key => cache.removeShortTerm('display', `${model}.${key}${type ? `.${type}` : ''}`))
   })

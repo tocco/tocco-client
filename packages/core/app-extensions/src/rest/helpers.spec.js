@@ -212,13 +212,13 @@ describe('app-extensions', () => {
         test('should clear cache for display', () => {
           cache.addShortTerm('display', 'User.1', 'Test')
 
-          expectSaga(helpers.invalidateDisplay, 'User', '1').run()
+          helpers.invalidateDisplay('User', '1')
 
           expect(cache.getShortTerm('display', 'User.1')).to.be.undefined
         })
 
         test('should clear cache for display even if it did not exist', () => {
-          expectSaga(helpers.invalidateDisplay, 'User', '1').run()
+          helpers.invalidateDisplay('User', '1')
 
           expect(cache.getShortTerm('display', 'User.1')).to.be.undefined
         })
@@ -226,7 +226,7 @@ describe('app-extensions', () => {
         test('should clear cache for specific display type', () => {
           cache.addShortTerm('display', 'User.1.test', 'Test')
 
-          expectSaga(helpers.invalidateDisplay, 'User', '1', 'test').run()
+          helpers.invalidateDisplay('User', '1', 'test')
 
           expect(cache.getShortTerm('display', 'User.1.test')).to.be.undefined
         })
@@ -421,7 +421,7 @@ describe('app-extensions', () => {
           cache.addShortTerm('display', 'User.1', 'Test')
           cache.addShortTerm('display', 'User.2', 'Test')
 
-          expectSaga(helpers.invalidateDisplays, {User: ['1', '2']}).run()
+          helpers.invalidateDisplays({User: ['1', '2']})
 
           expect(cache.getShortTerm('display', 'User.1')).to.be.undefined
           expect(cache.getShortTerm('display', 'User.2')).to.be.undefined
@@ -431,7 +431,7 @@ describe('app-extensions', () => {
           cache.addShortTerm('display', 'User.1', 'Test')
           cache.addShortTerm('display', 'Address.2', 'Test')
 
-          expectSaga(helpers.invalidateDisplays, {User: ['1'], Address: ['2']}).run()
+          helpers.invalidateDisplays({User: ['1'], Address: ['2']})
 
           expect(cache.getShortTerm('display', 'User.1')).to.be.undefined
           expect(cache.getShortTerm('display', 'Address.2')).to.be.undefined
@@ -441,7 +441,7 @@ describe('app-extensions', () => {
           cache.addShortTerm('display', 'User.1.test', 'Test')
           cache.addShortTerm('display', 'Address.2.test', 'Test')
 
-          expectSaga(helpers.invalidateDisplays, {User: ['1'], Address: ['2']}, 'test').run()
+          helpers.invalidateDisplays({User: ['1'], Address: ['2']}, 'test')
 
           expect(cache.getShortTerm('display', 'User.1.test')).to.be.undefined
           expect(cache.getShortTerm('display', 'Address.2.test')).to.be.undefined
