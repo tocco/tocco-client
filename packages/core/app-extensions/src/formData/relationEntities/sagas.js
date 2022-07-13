@@ -56,7 +56,7 @@ export function* finalizeOptions(entityName, options) {
     return {
       ...options,
       constriction: constriction || getConstriction(remoteFieldFormDefinition),
-      sorting: sorting || getSorting(remoteFieldFormDefinition)
+      sorting: sorting || getSorting(remoteFieldFormDefinition) || [{field: 'update_timestamp', order: 'desc'}]
     }
   }
   return options
@@ -64,7 +64,7 @@ export function* finalizeOptions(entityName, options) {
 
 export const getSorting = formDefinition => {
   const table = getTable(formDefinition)
-  return table?.sorting || []
+  return table?.sorting || null
 }
 
 export const getConstriction = formDefinition => {
