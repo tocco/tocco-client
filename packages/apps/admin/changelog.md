@@ -1,3 +1,6 @@
+1.0.41-hotfix32.16
+- fulltext search fields are now prioritized to be autofocused
+
 1.0.41-hotfix32.15
 - export action now handles additional paths from templates again
 - column labels in ColumnPicker no longer display escaped html elements
