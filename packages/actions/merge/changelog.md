@@ -1,3 +1,7 @@
+1.0.46
+- style new date picker like the old one
+- fulltext search fields are now prioritized to be autofocused
+
 1.0.45
 - fix datetime in searchforms after using date-fns
 - enhance breadcrumbs
