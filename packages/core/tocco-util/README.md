@@ -71,10 +71,6 @@ Helpers for sagas.
 
 Helper to build tocco query language string out of query.
 
-## units
-
-Helpers around unit conversion and calculators.
-
 ## useDnD
 
 Drag and drop react hook
