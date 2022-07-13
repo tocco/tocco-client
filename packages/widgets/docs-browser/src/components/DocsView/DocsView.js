@@ -140,12 +140,12 @@ const DocsView = props => {
 
   const tql = !parent && !keys ? getTql(domainTypes) : null
 
-  const handleUploadDocument = function* (_definition, _selection, _parent, _params, _config, onSuccess, onError) {
+  const handleUploadDocument = function (_definition, _selection, _parent, _params, _config, onSuccess, onError) {
     const directory = false
     openFileDialog(directory, onSuccess, onError)
   }
 
-  const handleUploadDirectory = function* (_definition, _selection, _parent, _params, _config, onSuccess, onError) {
+  const handleUploadDirectory = function (_definition, _selection, _parent, _params, _config, onSuccess, onError) {
     const directory = true
     openFileDialog(directory, onSuccess, onError)
   }

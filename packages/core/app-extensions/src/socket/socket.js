@@ -21,7 +21,7 @@ export function* connectSocket(params) {
   }
 }
 
-export function* closeSocket(name) {
+export function closeSocket(name) {
   sockets[name].close(WEBSOCKET_SUCCESSFUL_CLOSE_CODE)
 }
 

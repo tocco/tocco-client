@@ -108,7 +108,7 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
   yield put(actions.setValuesInitialized(true))
 }
 
-export function* transformFieldNames(formValues) {
+export function transformFieldNames(formValues) {
   return _reduce(formValues, (acc, val, key) => ({...acc, [form.transformFieldName(key)]: val}), {})
 }
 
