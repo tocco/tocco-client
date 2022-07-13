@@ -96,6 +96,10 @@ Initialization:
 cache.addToStore(store);
 ```
 
+## display
+
+Helper functions for handling display expression logic.
+
 ## errorLogging
 
 An abstraction to handle errors with multiple handlers such as remote logging.
@@ -212,15 +216,25 @@ more details.
 Remote event action are primarily dispatched by actions after execution.
 This util provides the action creator and action definition.
 
+## reports
+
+Helper module to load reports.
+
 ## rest
 
-TOCCO REST Api abstraction. Helps compose url, set headers, order params with proper error handling.
+REST Api abstraction and helpers
+
+- helps compose url, set headers, order params with proper error handling
+- caching logic for entity form models and display expressions
+- error handling
+- data transformation
+
 
 ## selection
 
 Helpers and proptypes for list selection.
 
-# templateValues
+## templateValues
 
 Can be used to display a select box of templates, that overwrite values in a form or through custom handlers on
 selecting one of them.
