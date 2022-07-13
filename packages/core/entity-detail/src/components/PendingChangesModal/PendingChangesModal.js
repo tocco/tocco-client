@@ -1,29 +1,31 @@
 import PropTypes from 'prop-types'
-import {useEffect, useRef} from 'react'
+import {useEffect} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Button} from 'tocco-ui'
 
 import {StyledButtonWrapper} from './StyledComponents'
 
-const PendingChangesModal = ({onYes, onNo, onCancel}) => {
-  const saveButtonRef = useRef(null)
-
+const PendingChangesModal = ({onYes, onNo}) => {
   useEffect(() => {
-    if (saveButtonRef.current) {
-      saveButtonRef.current.focus()
+    const handleKeyInput = e => {
+      if (e.key === 'Enter') {
+        onYes()
+      }
     }
-  }, [])
+
+    document.addEventListener('keydown', handleKeyInput)
+    return () => {
+      document.removeEventListener('keydown', handleKeyInput)
+    }
+  }, [onYes])
 
   return (
     <StyledButtonWrapper>
-      <Button ink="primary" type="button" onClick={onYes} ref={saveButtonRef}>
+      <Button ink="primary" type="button" onClick={onYes}>
         <FormattedMessage id="client.common.yes" />
       </Button>
       <Button type="button" onClick={onNo}>
         <FormattedMessage id="client.common.no" />
-      </Button>
-      <Button type="button" onClick={onCancel}>
-        <FormattedMessage id="client.common.cancel" />
       </Button>
     </StyledButtonWrapper>
   )
@@ -31,8 +33,7 @@ const PendingChangesModal = ({onYes, onNo, onCancel}) => {
 
 PendingChangesModal.propTypes = {
   onYes: PropTypes.func.isRequired,
-  onNo: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired
+  onNo: PropTypes.func.isRequired
 }
 
 export default PendingChangesModal
