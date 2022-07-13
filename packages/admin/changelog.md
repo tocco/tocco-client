@@ -1,3 +1,6 @@
+1.0.14-hotfix31.33
+- entity docs can now be sorted
+
 1.0.14-hotfix31.32
 - add envelope icon
 - add link to email and phone formatter
