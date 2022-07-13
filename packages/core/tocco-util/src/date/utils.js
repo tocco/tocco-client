@@ -90,3 +90,5 @@ export const getLocalizedDateFormatWithoutPunctuation = locale => getLocalizedDa
 export const getLocalizedTimeFormatWithoutPunctuation = locale => getLocalizedTimeFormat(locale).replace(/[:]/g, '')
 export const getLocalizedDateTimeFormatWithoutPunctuation = locale =>
   `${getLocalizedDateFormatWithoutPunctuation(locale)} ${getLocalizedTimeFormatWithoutPunctuation(locale)}`
+
+export const useTwoDigitYear = format => format.replace(/y+/, 'yy')

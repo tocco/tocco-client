@@ -4,7 +4,8 @@ import {
   getLocalizedDateFormat,
   getLocalizedDateFormatWithoutPunctuation,
   getLocalizedDateTimeFormatWithoutPunctuation,
-  getLocalizedTimeFormat
+  getLocalizedTimeFormat,
+  useTwoDigitYear
 } from './utils'
 
 describe('tocco-util', () => {
@@ -124,6 +125,18 @@ describe('tocco-util', () => {
           const format = getLocalizedDateTimeFormatWithoutPunctuation('en')
 
           expect(format).to.eql('MMddyyyy hmm a')
+        })
+      })
+
+      describe('useTwoDigitYear', () => {
+        test('should replace any year format with two year format', () => {
+          expect(useTwoDigitYear('dd.MM.yyyy')).to.eql('dd.MM.yy')
+          expect(useTwoDigitYear('dd.MM.y')).to.eql('dd.MM.yy')
+          expect(useTwoDigitYear('ddMMy')).to.eql('ddMMyy')
+          expect(useTwoDigitYear('MM/dd/yyyy')).to.eql('MM/dd/yy')
+          expect(useTwoDigitYear('MMddyyyy')).to.eql('MMddyy')
+          expect(useTwoDigitYear('dd.MM.y HH:mm')).to.eql('dd.MM.yy HH:mm')
+          expect(useTwoDigitYear('MMddyyyy hmm a')).to.eql('MMddyy hmm a')
         })
       })
     })

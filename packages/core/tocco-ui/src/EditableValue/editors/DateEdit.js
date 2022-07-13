@@ -5,7 +5,7 @@ import {date} from 'tocco-util'
 import {toLocalDateString} from '../utils'
 import LazyDatePicker from './LazyDatePicker'
 
-const DateFormat = 'P' // MM/dd/yyyy od. dd.MM.yyyy
+const DateFormat = 'P' // MM/dd/yyyy od. dd.MM.y
 
 export const DateEdit = ({onChange, options, id, value, immutable, events, placeholder}) => {
   const intl = useIntl()
@@ -19,13 +19,19 @@ export const DateEdit = ({onChange, options, id, value, immutable, events, place
 
   // to support direct input such as 01032020
   const dateFormatWithoutPunctuation = date.getLocalizedDateFormatWithoutPunctuation(intl.locale)
+  const dateFormats = [
+    DateFormat,
+    dateFormatWithoutPunctuation,
+    date.useTwoDigitYear(DateFormat), // to support direct input such as 01.03.22
+    date.useTwoDigitYear(dateFormatWithoutPunctuation) // to support direct input such as 010322
+  ]
 
   return (
     <LazyDatePicker
       id={id}
       value={value}
       onChange={handleChange}
-      dateFormat={[DateFormat, dateFormatWithoutPunctuation]}
+      dateFormat={dateFormats}
       hasTime={false}
       immutable={immutable}
       events={events}
