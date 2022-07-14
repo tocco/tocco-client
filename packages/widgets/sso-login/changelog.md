@@ -1,3 +1,6 @@
+1.0.17-hotfix32.18
+- use save aborted key as textresource instead of message directly
+
 1.0.17-hotfix32.17
 - fulltext search fields are now prioritized to be autofocused
 
