@@ -1,3 +1,6 @@
+0.1.11
+- use save aborted key as textresource instead of message directly
+
 0.1.10
 - reports added through formModifier are now placed directly into the action bar, instead of the output group
 - report definitions now contain an icon as defined by the backend

@@ -1,3 +1,9 @@
+1.0.47
+- add list-check and percent icons
+- allow date inputs without punctuation
+- allow two digits year formats
+- use save aborted key as textresource instead of message directly
+
 1.0.46
 - style new date picker like the old one
 - fulltext search fields are now prioritized to be autofocused
