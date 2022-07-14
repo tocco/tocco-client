@@ -30,6 +30,18 @@ describe('user-qr-action', () => {
             'TEL:+41441230099;EMAIL:max.muster@example.com;EMAIL:mm@test.ch;BDAY:19830613;'
         )
       })
+
+      test('should replace <br> and trim parts', () => {
+        const data = {
+          firstname: 'Max',
+          lastname: 'Muster',
+          c_address: 'Postfach <br/> Riedtlistrasse 27<br>8302 Kloten  <br />  Zürich  <br > CH '
+        }
+
+        expect(buildUserMecardString(data)).to.equal(
+          'MECARD:N:Muster,Max;ADR:Postfach,Riedtlistrasse 27,8302 Kloten,Zürich,CH;'
+        )
+      })
     })
   })
 })
