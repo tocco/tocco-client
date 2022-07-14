@@ -1,3 +1,7 @@
+1.0.41-hotfix32.17
+- entity docs can now be sorted
+- use save aborted key as textresource instead of message directly
+
 1.0.41-hotfix32.16
 - fulltext search fields are now prioritized to be autofocused
 
