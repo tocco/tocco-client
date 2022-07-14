@@ -1,7 +1,7 @@
 export const buildUserMecardString = data => {
   let string = `MECARD:N:${data.lastname},${data.firstname};`
 
-  string = appendField(data, 'c_address', 'ADR', string, address => address.replace(/\s*<br\s?\/?>\s*/gi, ','))
+  string = appendField(data, 'c_address', 'ADR', string, address => replaceBrTagsWithComma(address))
   string = appendField(data, 'phone_mobile', 'TEL', string)
   string = appendField(data, 'phone_company', 'TEL', string)
   string = appendField(data, 'phone_private', 'TEL', string)
@@ -18,3 +18,9 @@ const appendField = (data, fieldName, outputPrefix, output, handler = fieldData 
   }
   return output
 }
+
+const replaceBrTagsWithComma = address =>
+  address
+    .split(/<br\s?\/?>/i)
+    .map(line => line.trim())
+    .join(',')
