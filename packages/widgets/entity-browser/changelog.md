@@ -1,3 +1,7 @@
+1.0.56
+- remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
+- fix view persistor in sub grid
+
 1.0.55
 - add list-check and percent icons
 - allow date inputs without punctuation

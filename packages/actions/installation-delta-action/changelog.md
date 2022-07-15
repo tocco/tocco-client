@@ -1,3 +1,6 @@
+1.0.47
+- remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
+
 1.0.46
 - add list-check and percent icons
 - allow date inputs without punctuation
