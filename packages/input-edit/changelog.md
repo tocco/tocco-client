@@ -1,3 +1,6 @@
+1.1.3-hotfix31.27
+- remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
+
 1.1.3-hotfix31.26
 - add envelope icon
 - add link to email and phone formatter

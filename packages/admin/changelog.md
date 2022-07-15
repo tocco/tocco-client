@@ -1,3 +1,6 @@
+1.0.14-hotfix31.34
+- remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
+
 1.0.14-hotfix31.33
 - entity docs can now be sorted
 
