@@ -1,3 +1,6 @@
+0.1.12
+- remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
+
 0.1.11
 - use save aborted key as textresource instead of message directly
 

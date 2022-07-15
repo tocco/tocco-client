@@ -1,3 +1,7 @@
+1.0.74
+- remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
+- fix view persistor in sub grid
+
 1.0.73
 - entity docs can now be sorted
 - add list-check and percent icons
