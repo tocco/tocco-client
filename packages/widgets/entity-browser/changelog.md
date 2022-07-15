@@ -1,3 +1,6 @@
+1.0.24-hotfix32.18
+- remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
+
 1.0.24-hotfix32.17
 - use save aborted key as textresource instead of message directly
 
