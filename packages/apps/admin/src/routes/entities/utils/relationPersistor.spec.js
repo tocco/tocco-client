@@ -5,7 +5,7 @@ describe('admin', () => {
     describe('entities', () => {
       describe('utils', () => {
         describe('relationPersistor', () => {
-          describe('getRelation', () => {
+          describe('getRelation & setRelation', () => {
             test('should return undefined for non-defined entity', () => {
               setRelation('Address', 'relUser')
 
@@ -18,17 +18,6 @@ describe('admin', () => {
               expect(result).to.be.undefined
             })
 
-            test('should return previous set value', () => {
-              const entity = 'User'
-              const selectedRelation = 'relAddress'
-              setRelation(entity, selectedRelation)
-
-              const result = getRelation(entity)
-              expect(result).to.eql(selectedRelation)
-            })
-          })
-
-          describe('setRelation', () => {
             test('set selected relation', () => {
               const entity = 'User'
               const selectedRelation = 'relAddress'

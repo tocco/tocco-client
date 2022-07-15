@@ -65,33 +65,18 @@ const getFieldDefinition = (fieldName, fieldDefinition) => {
   return result
 }
 
-const typeValidators = {
-  string: value => {
-    const minLength = 2
-    if (value.length > 0 && value.length < minLength) {
-      return {
-        minLength: [
-          <FormattedMessage
-            key="minLength"
-            id="client.entity-list.searchFormValidationMinLength"
-            values={{minLength}}
-          />
-        ]
-      }
-    }
-  },
-  'fulltext-search': value => {
-    const minLength = 2
-    if (value.length > 0 && value.length < minLength) {
-      return {
-        minLength: [
-          <FormattedMessage
-            key="minLength"
-            id="client.entity-list.searchFormValidationMinLength"
-            values={{minLength}}
-          />
-        ]
-      }
+const stringValidator = value => {
+  const minLength = 2
+  if (value.length > 0 && value.length < minLength) {
+    return {
+      minLength: [
+        <FormattedMessage key="minLength" id="client.entity-list.searchFormValidationMinLength" values={{minLength}} />
+      ]
     }
   }
+}
+
+const typeValidators = {
+  string: stringValidator,
+  'fulltext-search': stringValidator
 }

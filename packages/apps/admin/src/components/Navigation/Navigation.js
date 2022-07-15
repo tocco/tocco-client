@@ -119,14 +119,6 @@ const Navigation = ({
       }),
     [onClick, hasFilterApplied, menuTabsConfig]
   )
-  const systemTypeMap = useMemo(
-    () =>
-      createMenuTypeMap({
-        onClick,
-        hasFilterApplied
-      }),
-    [onClick, hasFilterApplied]
-  )
   const completeTypeMap = useMemo(
     () =>
       createMenuTypeMap({
@@ -270,7 +262,7 @@ const Navigation = ({
           <MenuTree
             items={systemMenuTree}
             searchFilter={filter}
-            typeMapping={systemTypeMap}
+            typeMapping={completeTypeMap}
             extendedSearchItems={completeMenuTree}
           />
         )}

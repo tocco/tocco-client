@@ -139,14 +139,6 @@ describe('app-extensions', () => {
           })
           expect(fields).to.eql([])
         })
-
-        test('should return readonly attribute', () => {
-          const fields = formDefinition.getFieldDefinitions({
-            id: 'fromX',
-            children: []
-          })
-          expect(fields).to.eql([])
-        })
       })
 
       describe('getUsedPaths', () => {

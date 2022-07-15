@@ -101,23 +101,19 @@ export const Overview = props => {
     value
   }
 
+  const detailLink = ({entityKey, children}) => (
+    <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">
+      {children}
+    </a>
+  )
+
   return (
     <div style={{maxWidth: '400px'}}>
       <h2>Single Select</h2>
       <Select {...basicProps} />
 
       <h2>Multi Select</h2>
-      <Select
-        {...basicProps}
-        isMulti={true}
-        onChange={setValueMulti}
-        value={valueMulti}
-        DetailLink={({entityKey, children}) => (
-          <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">
-            {children}
-          </a>
-        )}
-      />
+      <Select {...basicProps} isMulti={true} onChange={setValueMulti} value={valueMulti} DetailLink={detailLink} />
 
       <h2>Multi Select immutable</h2>
       <Select
@@ -126,11 +122,7 @@ export const Overview = props => {
         onChange={setValueMulti}
         value={valueMulti}
         immutable
-        DetailLink={({entityKey, children}) => (
-          <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">
-            {children}
-          </a>
-        )}
+        DetailLink={detailLink}
       />
 
       <h2>Multi Remote Select</h2>
@@ -139,11 +131,7 @@ export const Overview = props => {
         isMulti={true}
         onChange={setValueMulti}
         value={valueMulti}
-        DetailLink={({entityKey, children}) => (
-          <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">
-            {children}
-          </a>
-        )}
+        DetailLink={detailLink}
         openAdvancedSearch={action('open advanced search')}
       />
 
@@ -154,11 +142,7 @@ export const Overview = props => {
         onChange={setValueMulti}
         value={valueMulti}
         immutable
-        DetailLink={({entityKey, children}) => (
-          <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">
-            {children}
-          </a>
-        )}
+        DetailLink={detailLink}
         openAdvancedSearch={action('open advanced search')}
       />
     </div>

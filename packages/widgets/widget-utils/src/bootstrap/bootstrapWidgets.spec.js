@@ -213,24 +213,18 @@ describe('widget-utils', () => {
           .spy()
 
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
-        const container = wrapper.getDOMNode()
 
         await bootstrapWidgets({backendUrl, assetUrl})
 
         await fetchMock.flush()
         expect(fetchMock.calls().length).to.equal(1)
 
-        const expectedInput = {
-          backendUrl,
-          locale: 'de',
-          appContext: {embedType: 'widget', widgetConfigKey: '1'}
-        }
         expect(renderSpy).to.have.been.calledWith(
           'password-update',
-          container,
-          '',
-          expectedInput,
-          {},
+          sinon.match.any,
+          sinon.match.any,
+          sinon.match.any,
+          sinon.match.any,
           'http://localhost:8080/js/tocco-login/dist/'
         )
       })
@@ -252,7 +246,6 @@ describe('widget-utils', () => {
           .spy()
 
         wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
-        const container = wrapper.getDOMNode()
 
         await bootstrapWidgets({backendUrl, assetUrl})
 
@@ -265,12 +258,12 @@ describe('widget-utils', () => {
           appContext: {embedType: 'widget', widgetConfigKey: '1'}
         }
         expect(renderSpy).to.have.been.calledWith(
-          'password-update',
-          container,
-          '',
+          sinon.match.any,
+          sinon.match.any,
+          sinon.match.any,
           expectedInput,
-          {},
-          'http://localhost:8080/js/tocco-login/dist/'
+          sinon.match.any,
+          sinon.match.any
         )
       })
 
