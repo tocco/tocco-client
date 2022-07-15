@@ -9,6 +9,12 @@ describe('tocco-util', () => {
         const InnerComp = () => <div>test</div>
         const InnerComp2 = () => <div>test</div>
 
+        const checkEachComponentRendered = (wrapper, components, done) => {
+          wrapper.update()
+          components.forEach(comp => expect(wrapper.find(comp)).to.have.length(1))
+          done()
+        }
+
         test('should load and render component', done => {
           const promise = Promise.resolve({
             default: {
@@ -20,11 +26,7 @@ describe('tocco-util', () => {
 
           const wrapper = mount(<Cmp />)
 
-          setTimeout(() => {
-            wrapper.update()
-            expect(wrapper.find(InnerComp)).to.have.length(1)
-            done()
-          }, 0)
+          setTimeout(() => checkEachComponentRendered(wrapper, [InnerComp], done), 0)
         })
 
         test('should return component class from cache if loaded with key', done => {
@@ -71,12 +73,7 @@ describe('tocco-util', () => {
             </div>
           )
 
-          setTimeout(() => {
-            wrapper.update()
-            expect(wrapper.find(InnerComp)).to.have.length(1)
-            expect(wrapper.find(InnerComp2)).to.have.length(1)
-            done()
-          }, 0)
+          setTimeout(() => checkEachComponentRendered(wrapper, [InnerComp, InnerComp2], done), 0)
         })
 
         test('should not return component class from cache if loaded with different key', done => {
@@ -97,12 +94,7 @@ describe('tocco-util', () => {
             </div>
           )
 
-          setTimeout(() => {
-            wrapper.update()
-            expect(wrapper.find(InnerComp)).to.have.length(1)
-            expect(wrapper.find(InnerComp2)).to.have.length(1)
-            done()
-          }, 0)
+          setTimeout(() => checkEachComponentRendered(wrapper, [InnerComp, InnerComp2], done), 0)
         })
       })
     })

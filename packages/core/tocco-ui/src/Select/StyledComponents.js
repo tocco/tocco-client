@@ -136,6 +136,13 @@ export const reactSelectStyles = outerTheme => {
 
   const showInputAlwaysOnTop = state => state.isMulti && state.selectProps.hasAdvancedSearch
 
+  const messageStyle = base => ({
+    ...base,
+    color: outerTheme.colors.signal.warning.text,
+    cursor: 'default',
+    textAlign: 'left'
+  })
+
   return {
     container: (base, state) => ({
       ...base,
@@ -152,18 +159,8 @@ export const reactSelectStyles = outerTheme => {
       position: 'relative',
       display: showInputAlwaysOnTop(state) ? 'block' : base.display
     }),
-    noOptionsMessage: (base, state) => ({
-      ...base,
-      color: outerTheme.colors.signal.warning.text,
-      cursor: 'default',
-      textAlign: 'left'
-    }),
-    loadingMessage: (base, state) => ({
-      ...base,
-      color: outerTheme.colors.signal.warning.text,
-      cursor: 'default',
-      textAlign: 'left'
-    }),
+    noOptionsMessage: messageStyle,
+    loadingMessage: messageStyle,
     option: (base, state) => {
       let backgroundColor = paper[0]
       if (state.isSelected) {

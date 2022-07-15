@@ -12,6 +12,16 @@ const EMPTY_FUNC = () => {}
 describe('entity-list', () => {
   describe('components', () => {
     describe('BasicSearchForm', () => {
+      const defaultStoreBuilder = () => ({
+        formData: {
+          relationEntities: {data: {}},
+          tooltips: {data: {}}
+        },
+        form: {
+          detailForm: {}
+        }
+      })
+
       test('should render nothing if searchFormDefinition empty', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = {}
@@ -56,15 +66,7 @@ describe('entity-list', () => {
       test('should render needed components', () => {
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        const store = createStore(() => ({
-          formData: {
-            relationEntities: {data: {}},
-            tooltips: {data: {}}
-          },
-          form: {
-            detailForm: {}
-          }
-        }))
+        const store = createStore(defaultStoreBuilder)
 
         const wrapper = intlEnzyme.mountWithIntl(
           <TestThemeProvider>
@@ -104,15 +106,7 @@ describe('entity-list', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        const store = createStore(() => ({
-          formData: {
-            relationEntities: {data: {}},
-            tooltips: {data: {}}
-          },
-          form: {
-            detailForm: {}
-          }
-        }))
+        const store = createStore(defaultStoreBuilder)
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>
@@ -152,15 +146,7 @@ describe('entity-list', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        const store = createStore(() => ({
-          formData: {
-            relationEntities: {data: {}},
-            tooltips: {data: {}}
-          },
-          form: {
-            detailForm: {}
-          }
-        }))
+        const store = createStore(defaultStoreBuilder)
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>
@@ -207,15 +193,7 @@ describe('entity-list', () => {
           }
         ]
 
-        const store = createStore(() => ({
-          formData: {
-            relationEntities: {data: {}},
-            tooltips: {data: {}}
-          },
-          form: {
-            detailForm: {}
-          }
-        }))
+        const store = createStore(defaultStoreBuilder)
 
         const wrapper = intlEnzyme.mountWithIntl(
           <TestThemeProvider>

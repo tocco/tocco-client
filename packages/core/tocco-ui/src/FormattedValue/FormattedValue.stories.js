@@ -83,7 +83,7 @@ export const Integer = args => <FormattedValue {...args} />
 
 Integer.argTypes = {value: {type: 'number', defaultValue: 87660000}, type: {defaultValue: 'integer'}}
 
-export const MultiRemote = args => (
+export const Remote = args => (
   <FormattedValue
     {...args}
     options={{
@@ -95,6 +95,13 @@ export const MultiRemote = args => (
     }}
   />
 )
+
+Remote.argTypes = {
+  value: {control: 'object', defaultValue: {key: '1', display: 'apple'}},
+  type: {defaultValue: 'remote'}
+}
+
+export const MultiRemote = Remote
 
 MultiRemote.argTypes = {
   value: {
@@ -131,24 +138,6 @@ Percent.argTypes = {value: {type: 'number', defaultValue: 65.89}, type: {default
 export const Phone = args => <FormattedValue {...args} />
 
 Phone.argTypes = {value: {type: 'string', defaultValue: '+41761234567'}, type: {defaultValue: 'phone'}}
-
-export const Remote = args => (
-  <FormattedValue
-    {...args}
-    options={{
-      DetailLink: ({entityKey, children}) => (
-        <a href={`/${entityKey}`} target="_blank" rel="noopener noreferrer">
-          {children}
-        </a>
-      )
-    }}
-  />
-)
-
-Remote.argTypes = {
-  value: {control: 'object', defaultValue: {key: '1', display: 'apple'}},
-  type: {defaultValue: 'remote'}
-}
 
 export const String = args => <FormattedValue {...args} />
 

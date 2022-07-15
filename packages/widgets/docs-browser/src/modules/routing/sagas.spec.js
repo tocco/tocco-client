@@ -53,7 +53,7 @@ describe('docs-browser', () => {
 
           test('should handle root path with trailing slash', () => {
             const payload = {
-              path: '/docs'
+              path: '/docs/'
             }
             const expectedParams = {}
 
