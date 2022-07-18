@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Link from '../../Link'
-import Typography from '../../Typography'
 
 class PhoneFormatter extends React.Component {
   mounted = false
@@ -41,11 +40,12 @@ class PhoneFormatter extends React.Component {
 
   render() {
     return (
-      <Typography.Span breakWords={this.props.breakWords}>
-        <Link href={`tel:${this.props.value}`} onClick={e => e.stopPropagation()}>
-          {this.getFormattedInput()}
-        </Link>
-      </Typography.Span>
+      <Link
+        href={`tel:${this.props.value}`}
+        onClick={e => e.stopPropagation()}
+        label={this.getFormattedInput()}
+        breakWords={this.props.breakWords}
+      />
     )
   }
 }
