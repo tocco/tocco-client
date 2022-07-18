@@ -2,14 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Link from '../../Link'
-import Typography from '../../Typography'
 
 const EmailFormatter = props => (
-  <Typography.Span breakWords={props.breakWords}>
-    <Link onClick={e => e.stopPropagation()} href={`mailto:${props.value.toString()}`}>
-      {props.value.toString()}
-    </Link>
-  </Typography.Span>
+  <Link
+    onClick={e => e.stopPropagation()}
+    href={`mailto:${props.value.toString()}`}
+    label={props.value.toString()}
+    breakWords={props.breakWords}
+  />
 )
 
 EmailFormatter.propTypes = {
