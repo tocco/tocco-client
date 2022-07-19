@@ -1,3 +1,4 @@
+import {format} from 'date-fns'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import {Link, Typography} from 'tocco-ui'
@@ -5,9 +6,10 @@ import {Link, Typography} from 'tocco-ui'
 import ToccoLogo from '../../assets/tocco_red.svg'
 import {StyledBlockWrapper, StyledFormattedMessageWrapper, StyledLogo} from './StyledComponents'
 
-const AboutTocco = ({niceVersion, niceRevision, intl}) => {
+const AboutTocco = ({niceVersion, niceRevision, buildTimestamp, intl}) => {
   const msg = id => intl.formatMessage({id})
   const json = require('../../../package.json')
+  const builTime = format(new Date(buildTimestamp), 'dd.MM.yyyy HH:mm')
 
   return (
     <Typography.Span>
@@ -36,6 +38,9 @@ const AboutTocco = ({niceVersion, niceRevision, intl}) => {
           <br />
           <FormattedMessage id="client.admin.about.clientVersionLabel" />
           :&nbsp; {json.version}
+          <br />
+          <FormattedMessage id="client.admin.about.buildTimeLabel" />
+          :&nbsp; {builTime}
         </Typography.P>
       </StyledBlockWrapper>
       <StyledFormattedMessageWrapper>
@@ -48,7 +53,8 @@ const AboutTocco = ({niceVersion, niceRevision, intl}) => {
 AboutTocco.propTypes = {
   intl: PropTypes.object,
   niceVersion: PropTypes.string,
-  niceRevision: PropTypes.string
+  niceRevision: PropTypes.string,
+  buildTimestamp: PropTypes.number
 }
 
 export default AboutTocco
