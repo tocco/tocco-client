@@ -9,7 +9,7 @@ const packageName = 'dashboard'
 
 const EXTERNAL_EVENTS = ['emitAction']
 
-const initApp = (id, input, events = {}, publicPath) => {
+const initApp = (id, input, events, publicPath) => {
   const content = <DashboardContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)

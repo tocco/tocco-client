@@ -94,7 +94,7 @@ describe('app-extensions', () => {
         }
         const ActionComp = actionFactory(actions)
 
-        const store = createStore((state = {}, action) => {
+        const store = createStore((state, action) => {
           if (action.type === fetchActionPackages().type) {
             return {...state, fetched: true}
           }

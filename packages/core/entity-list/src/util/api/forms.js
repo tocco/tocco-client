@@ -185,7 +185,7 @@ export const changeParentFieldType = (formElement, parentPath) => {
   return formElement
 }
 
-export const getTableColumns = (formDefinition, columnDisplayPreferences = {}, parent) =>
+export const getTableColumns = (formDefinition, parent, columnDisplayPreferences = {}) =>
   getTable(formDefinition)
     .children.filter(
       column => !parent || column.children.length !== 1 || column.children[0].path !== parent.reverseRelationName

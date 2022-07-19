@@ -21,7 +21,7 @@ export const getInitialState = input => {
   return initialState
 }
 
-export const createStore = (reducers = {}, sagas = [], input, name = '') => {
+export const createStore = (reducers = {}, sagas = [], input = {}, name = '') => {
   const initialState = getInitialState(input)
   const sagaMiddleware = createSagaMiddleware()
   let middleware = applyMiddleware(thunk, sagaMiddleware)

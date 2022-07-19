@@ -63,7 +63,7 @@ const getContent = ({routerType, store, rootPath, handleNotifications}) => {
   return <StandaloneApp history={history} rootPath={rootPath} handleNotifications={handleNotifications} />
 }
 
-const initApp = (id, input, events = {}, publicPath) => {
+const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   env.setInputEnvs(input)

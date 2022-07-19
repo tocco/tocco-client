@@ -102,7 +102,7 @@ export function* displayColumnModal() {
   const {formDefinition} = yield select(listSagas.listSelector)
   const {columns: preferencesColumns} = yield select(preferencesSelector)
   const {parent} = yield select(listSagas.entityListSelector)
-  const formColumns = getTableColumns(formDefinition, preferencesColumns, parent)
+  const formColumns = getTableColumns(formDefinition, parent, preferencesColumns)
 
   const answerChannel = yield call(channel)
   yield put(

@@ -18,7 +18,7 @@ import reducers, {sagas, formSagaConfig} from './modules/reducers'
 
 const packageName = 'address-update'
 
-const initApp = (id, input, events = {}, publicPath) => {
+const initApp = (id, input, events, publicPath) => {
   env.setInputEnvs(input)
 
   const content = <AddressUpdate />
