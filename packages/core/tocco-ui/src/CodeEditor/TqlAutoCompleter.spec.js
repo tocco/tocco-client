@@ -15,7 +15,7 @@ describe('tocco-ui', () => {
         expectedCompletions,
         positionToCompleteFrom,
         completionCallbacksToSkip = 0,
-        implicitModel
+        implicitModel = null
       ) => {
         const completions = await new Promise(resolve =>
           TqlAutoCompleter(implicitModel).getCompletions(

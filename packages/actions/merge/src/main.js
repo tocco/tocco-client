@@ -11,7 +11,7 @@ const packageName = 'merge'
 
 const EXTERNAL_EVENTS = ['emitAction', 'onSuccess']
 
-const initApp = (id, input, events = {}, publicPath) => {
+const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
   externalEvents.addToStore(store, events)

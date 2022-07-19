@@ -12,7 +12,7 @@ import * as selectionActions from '../selection/actions'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 
-const generateState = (entityStore = {}, page, markable = true) => ({
+const generateState = (entityStore, page, markable = true) => ({
   initialized: false,
   formName: '',
   sorting: [],

@@ -36,7 +36,7 @@ const EXTERNAL_EVENTS = [
   'onSearchFormCollapsedChange'
 ]
 
-const initApp = (id, input, events = {}, publicPath) => {
+const initApp = (id, input, events, publicPath) => {
   const content = <EntityList />
 
   let store = input.store

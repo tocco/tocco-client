@@ -2,7 +2,7 @@ import {consoleLogger} from 'tocco-util'
 
 import sagas from './sagas'
 
-export const invokeExternalEvent = (events = {}, eventName, ...args) => {
+export const invokeExternalEvent = (events, eventName, ...args) => {
   if (__DEV__) {
     consoleLogger.log('try call external event:', eventName, 'args:', ...args)
   }
