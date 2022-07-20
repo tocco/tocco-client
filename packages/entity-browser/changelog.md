@@ -1,3 +1,6 @@
+1.0.5-hotfix31.32
+- fix breakwords for email and phone formatter
+
 1.0.5-hotfix31.31
 - remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
 
