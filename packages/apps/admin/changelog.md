@@ -1,3 +1,6 @@
+1.0.75
+- fix breakwords for email and phone formatter
+
 1.0.74
 - remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
 - fix view persistor in sub grid
