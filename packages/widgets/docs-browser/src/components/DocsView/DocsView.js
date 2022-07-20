@@ -96,8 +96,10 @@ const DocsView = props => {
 
   const mounted = useRef(false)
   const searchModeRef = useRef(searchMode)
+  const pathRef = useRef(path)
 
   searchModeRef.current = searchMode
+  pathRef.current = path
 
   useEffect(() => {
     mounted.current = true
@@ -117,7 +119,14 @@ const DocsView = props => {
   const handleRowClick = ({id}) => {
     onSelectChange([id])
 
-    if (searchModeRef.current && isRootLocation(path)) {
+    /**
+     * Workaround for potential EntityList Bug:
+     *   onRowClick event is only attached once initially and does not get proper updates
+     *
+     * - props.searchMode and props.path are potentially outdated at time of invocation
+     * - using those values in refs will return always latest values
+     */
+    if (searchModeRef.current && isRootLocation(pathRef.current)) {
       if (!viewPersistor.viewInfoSelector('search').store) {
         // persist search store to allow a "go back to search"
         const searchStore = viewPersistor.viewInfoSelector(entityListKey).store
