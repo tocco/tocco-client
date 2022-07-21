@@ -1,8 +1,9 @@
+const https = require('https')
 const path = require('path')
 
 const compress = require('compression')
 const express = require('express')
-const request = require('request')
+const fetch = require('node-fetch')
 const webpack = require('webpack')
 
 const logger = require('../build/lib/logger').default
@@ -11,6 +12,10 @@ const config = require('../config').default
 
 const app = express()
 app.use(compress()) // Apply gzip compression
+
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false
+})
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
@@ -49,7 +54,16 @@ if (config.env === 'development') {
       const window = {location: {hostname: 'localhost'}}
       // eslint-disable-next-line
       const newUrl = eval(config.globals.__BACKEND_URL__) + req.originalUrl
-      req.pipe(request[req.method.toLowerCase()](newUrl)).pipe(res)
+
+      fetch(newUrl, {
+        method: req.method,
+        headers: {...req.headers},
+        body: req.body,
+        agent: httpsAgent
+      }).then(actual => {
+        actual.headers.forEach((v, n) => res.setHeader(n, v))
+        actual.body.pipe(res)
+      })
     })
   }
 
