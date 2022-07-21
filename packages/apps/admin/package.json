@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "js-cookie": "^3.0.1",
-    "react-burger-menu": "^3.0.6"
+    "react-burger-menu": "^3.0.8"
   },
   "devDependencies": {
     "tocco-app-extensions": "*",
