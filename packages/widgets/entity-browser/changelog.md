@@ -1,3 +1,6 @@
+1.0.58
+- save prompt w/o explicit cancel button
+
 1.0.57
 - fix breakwords for email and phone formatter
 
