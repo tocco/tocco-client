@@ -1,4 +1,4 @@
-import webpack from '@storybook/builder-webpack4/node_modules/webpack'
+import webpack from '@storybook/builder-webpack5/node_modules/webpack'
 
 import runConfig from '../config'
 
