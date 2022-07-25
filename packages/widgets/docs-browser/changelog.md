@@ -1,3 +1,6 @@
+1.0.60
+- fix navigation to subfolder inside search results
+
 1.0.59
 - save prompt w/o explicit cancel button
 
