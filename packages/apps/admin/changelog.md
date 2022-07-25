@@ -1,3 +1,6 @@
+1.0.76-hotfix33.1
+- fix navigation to subfolder inside search results
+
 1.0.76
 - save prompt w/o explicit cancel button
 

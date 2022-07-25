@@ -1,3 +1,6 @@
+0.1.12-hotfix33.1
+- fix navigation to subfolder inside search results
+
 0.1.12
 - remotefields now sort the same way in select box and advanced search (form sorting first, then last updated)
 
