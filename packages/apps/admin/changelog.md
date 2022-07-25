@@ -1,3 +1,6 @@
+1.0.41-hotfix32.20
+- fix navigation to subfolder inside search results
+
 1.0.41-hotfix32.19
 - fix breakwords for email and phone formatter
 
