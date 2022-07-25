@@ -27,7 +27,8 @@ export default {
         formBase: formField.formBase,
         formName: formField.formName,
         where: joinConditions([formField.condition, getExcludeConstraint(currentValue)]),
-        loadRemoteFieldConfiguration: true
+        loadRemoteFieldConfiguration: true,
+        constriction: formField.constriction
       })
     },
     searchOptions: (searchTerm, value) => {
@@ -38,7 +39,8 @@ export default {
         formBase: formField.formBase,
         formName: formField.formName,
         where: joinConditions([formField.condition, getExcludeConstraint(value)]),
-        loadRemoteFieldConfiguration: true
+        loadRemoteFieldConfiguration: true,
+        constriction: formField.constriction
       })
     },
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
