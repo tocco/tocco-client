@@ -1,9 +1,11 @@
 import '!style-loader!css-loader!react-datepicker/dist/react-datepicker.css'
+import {getHours, getMinutes, startOfDay} from 'date-fns'
 import PropTypes from 'prop-types'
 import {useRef, useState} from 'react'
 import ReactDatePicker from 'react-datepicker'
 import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
+import {date as dateUtil} from 'tocco-util'
 
 import Ball from '../../Ball'
 import Button from '../../Button'
@@ -88,6 +90,16 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
 
   const handleOnChange = val => {
     if (val) {
+      const changedInitially = !value && val
+
+      const startOfSelectedDay = startOfDay(val)
+      const hasTimeChanged =
+        getHours(val) !== getHours(startOfSelectedDay) || getMinutes(val) !== getMinutes(startOfSelectedDay)
+
+      // set time to now when time has not set explicitly yet
+      if (changedInitially && hasTime && !hasTimeChanged) {
+        val = dateUtil.setCurrentTime(val)
+      }
       onChange(val.toISOString())
     }
   }
