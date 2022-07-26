@@ -3,6 +3,7 @@ import {actions, form} from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
 import cellRenderer from '../cellRenderer'
+import {StyledColumnContentWrapper} from '../StyledComponents'
 
 export const getFormDefinition = (state, query) =>
   (query || state.selection.query).hasUserChanges && state.list.searchListFormDefinition
@@ -80,6 +81,44 @@ const rightAlignedTypes = [
 const isRightAligned = column =>
   column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
 
+const wrapColumnContent = content =>
+  content.length > 1 ? <StyledColumnContentWrapper>{content}</StyledColumnContentWrapper> : content
+
+const defaultCellRenderer = (rowData, parent, intl) => child => cellRenderer(child, rowData, parent, intl)
+
+const clientRenderer =
+  (renderer, parent, intl) =>
+  ({rowData, column}) =>
+    renderer(rowData, column, defaultCellRenderer(rowData, parent, intl))
+
+const fallbackRenderer =
+  (parent, intl) =>
+  ({rowData, column}) => {
+    const dataAvailable = column.children.some(
+      child => !child.onlyShowOnEmptyColumn && child.path && rowData[child.path]
+    )
+    const content = column.children
+      .filter(child => dataAvailable === !child.onlyShowOnEmptyColumn)
+      .map(defaultCellRenderer(rowData, parent, intl))
+    return wrapColumnContent(content)
+  }
+
+export const getColumnCellRenderer = ({cellRenderers, columnDefinition, parent, intl}) => {
+  const hasValidClientRenderer = columnDefinition.clientRenderer && cellRenderers[columnDefinition.clientRenderer]
+  if (hasValidClientRenderer) {
+    return clientRenderer(cellRenderers[columnDefinition.clientRenderer], parent, intl)
+  }
+
+  const hasFallbackChildren = columnDefinition.children.some(child => child.onlyShowOnEmptyColumn)
+  if (hasFallbackChildren) {
+    return fallbackRenderer(parent, intl)
+  }
+
+  return ({rowData, column}) => {
+    return wrapColumnContent(column.children.map(defaultCellRenderer(rowData, parent, intl)))
+  }
+}
+
 export const getColumnDefinition = ({
   table,
   sorting,
@@ -108,10 +147,7 @@ export const getColumnDefinition = ({
       children: c.children.filter(isDisplayableChild),
       resizable: !c.widthFixed,
       rightAligned: isRightAligned(c),
-      CellRenderer: ({rowData, column}) =>
-        c.clientRenderer && cellRenderers[c.clientRenderer]
-          ? cellRenderers[c.clientRenderer](rowData, column, child => cellRenderer(child, rowData, parent, intl))
-          : column.children.map(child => cellRenderer(child, rowData, parent, intl))
+      CellRenderer: getColumnCellRenderer({cellRenderers, columnDefinition: c, parent, intl})
     }))
 
 export const getFields = (formDefinition, columnDisplayPreferences) => {

@@ -1,5 +1,14 @@
 import styled from 'styled-components'
-import {StyledButton} from 'tocco-ui'
+import {StyledButton, scale} from 'tocco-ui'
+
+export const StyledColumnContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  > * {
+    margin-right: ${scale.space(-2)};
+  }
+`
 
 export const StyledActionWrapper = styled.div`
   ${StyledButton} {
