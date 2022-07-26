@@ -1,54 +1,32 @@
 import PropTypes from 'prop-types'
-import {lazy, useEffect, Suspense} from 'react'
-import {html} from 'tocco-util'
+import {lazy, Suspense} from 'react'
 
 import Typography from '../../Typography'
-import {StyledHtmlEdit} from './StyledHtmlEdit'
 
-const LazyQuill = lazy(() => import(/* webpackChunkName: "vendor-quill" */ 'react-quill'))
+const LazyHtmlEditor = lazy(() => import(/* webpackChunkName: "html-editor" */ '../../HtmlEditor'))
 
-const HtmlEdit = ({onChange, immutable, value, name, id}) => {
-  useEffect(() => {
-    // eslint-disable-next-line chai-friendly/no-unused-expressions
-    import(/* webpackChunkName: "vendor-quill" */ '!style-loader!css-loader!react-quill/dist/quill.snow.css')
-    // eslint-disable-next-line chai-friendly/no-unused-expressions
-    import(/* webpackChunkName: "vendor-quill" */ '!style-loader!css-loader!react-quill/dist/quill.core.css')
-  }, [])
-
-  const handleChange = (value, delta, source) => {
-    if (onChange && source === 'user') {
-      const v = value === '<p><br></p>' ? '' : value
-      onChange(v)
+const HtmlEdit = ({onChange, immutable, value, options}) => {
+  const handleChange = value => {
+    if (onChange) {
+      onChange(value)
     }
   }
 
-  const sanitizedValue = html.sanitizeHtml(value)
-
+  // value does not have to be sanitized because it's garanteed to be save form the backend
   if (immutable) {
     return (
       <Typography.Span>
-        <div dangerouslySetInnerHTML={{__html: sanitizedValue}} />
+        <div dangerouslySetInnerHTML={{__html: value}} />
       </Typography.Span>
     )
   }
 
+  const {contentLang, ckEditorConfig} = options || {}
+
   return (
-    <StyledHtmlEdit>
-      <Suspense fallback={<i />}>
-        <LazyQuill
-          name={name}
-          onChange={handleChange}
-          id={id}
-          theme="snow"
-          defaultValue={sanitizedValue}
-          modules={{
-            clipboard: {
-              matchVisual: false
-            }
-          }}
-        />
-      </Suspense>
-    </StyledHtmlEdit>
+    <Suspense fallback={<i />}>
+      <LazyHtmlEditor onChange={handleChange} value={value} contentLang={contentLang} ckEditorConfig={ckEditorConfig} />
+    </Suspense>
   )
 }
 
@@ -59,8 +37,10 @@ HtmlEdit.defaultProps = {
 HtmlEdit.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.node,
-  name: PropTypes.string,
-  id: PropTypes.string,
+  options: PropTypes.shape({
+    contentLang: PropTypes.oneOf(['de', 'fr', 'it', 'en']),
+    ckEditorConfig: PropTypes.object
+  }),
   immutable: PropTypes.bool
 }
 

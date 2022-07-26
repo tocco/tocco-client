@@ -1,6 +1,14 @@
+import {styles} from '@ckeditor/ckeditor5-dev-utils'
 import webpack from '@storybook/builder-webpack5/node_modules/webpack'
 
 import runConfig from '../config'
+function isCssRule(rule) {
+  return rule.test.toString().indexOf('css') > -1
+}
+
+function isSvgRule(rule) {
+  return rule.test.toString().indexOf('svg') > -1
+}
 
 module.exports = ({config, configType}) => {
   const globals = {
@@ -10,6 +18,18 @@ module.exports = ({config, configType}) => {
   }
 
   config.plugins.push(new webpack.DefinePlugin(globals))
+
+  config.module.rules.forEach(rule => {
+    if (isCssRule(rule)) {
+      rule.exclude = /ckeditor5-[^/]+\/theme\/[\w-/]+\.css$/
+    }
+  })
+
+  config.module.rules.forEach(rule => {
+    if (isSvgRule(rule)) {
+      rule.exclude = /ckeditor5-[^/]+\/theme\/icons\/[^/]+\.svg$/
+    }
+  })
 
   config.module.rules = config.module.rules.map(data => {
     if (/svg\|/.test(String(data.test))) {
@@ -21,6 +41,36 @@ module.exports = ({config, configType}) => {
   config.plugins = config.plugins.filter(p => String(p.resourceRegExp) !== '/core-js/')
 
   config.module.rules.push(
+    {
+      test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+      use: ['raw-loader']
+    },
+    {
+      test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+      use: [
+        {
+          loader: 'style-loader',
+          options: {
+            injectType: 'singletonStyleTag',
+            attributes: {
+              'data-cke': true
+            }
+          }
+        },
+        'css-loader',
+        {
+          loader: 'postcss-loader',
+          options: {
+            postcssOptions: styles.getPostCssConfig({
+              themeImporter: {
+                themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+              },
+              minify: true
+            })
+          }
+        }
+      ]
+    },
     {
       test: /\.scss$/,
       use: [
@@ -51,6 +101,7 @@ module.exports = ({config, configType}) => {
     },
     {
       test: /\.svg(\?.*)?$/,
+      exclude: [/ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/],
       use: 'file-loader?name=imgs/[name].[contenthash].[ext]&mimetype=image/svg+xml'
     },
     {
