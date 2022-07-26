@@ -1,3 +1,6 @@
+0.1.12-hotfix33.2
+- use constrictions from form in remotefield as well
+
 0.1.12-hotfix33.1
 - fix navigation to subfolder inside search results
 

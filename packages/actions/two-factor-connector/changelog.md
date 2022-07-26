@@ -1,3 +1,6 @@
+1.0.48-hotfix33.1
+- use constrictions from form in remotefield as well
+
 1.0.48
 - fix breakwords for email and phone formatter
 
