@@ -1,4 +1,7 @@
+import {expect} from 'chai'
+import {shallow} from 'enzyme'
 import _omit from 'lodash/omit'
+import {actions} from 'tocco-app-extensions'
 import {mockData} from 'tocco-util'
 
 import * as forms from './forms'
@@ -174,47 +177,6 @@ describe('entity-list', () => {
             expect(result[0].id).to.eql('lb1')
           })
 
-          test('should return custom cell renderer if defined', () => {
-            const field = {id: 'name1', componentType: 'field', label: 'label'}
-            const formDefinition = {
-              children: [
-                {
-                  hidden: false,
-                  id: 'lb1',
-                  label: 'label1',
-                  sortable: true,
-                  widthFixed: false,
-                  width: null,
-                  children: [field],
-                  clientRenderer: 'my-test-renderer'
-                }
-              ]
-            }
-
-            // eslint-disable-next-line react/prop-types
-            const CustomComponent = ({text}) => <div>{text}</div>
-
-            const cellRenderers = {
-              'my-test-renderer': (rowData, column, defaultRenderer) => {
-                return <CustomComponent text={rowData.text} />
-              }
-            }
-
-            const columnDefinitions = forms.getColumnDefinition({table: formDefinition, cellRenderers})
-
-            expect(columnDefinitions).to.have.length(1)
-
-            const renderer = columnDefinitions[0].CellRenderer
-
-            const result = renderer({
-              rowData: {
-                text: 'foo'
-              }
-            })
-
-            expect(result).to.eql(<CustomComponent text="foo" />)
-          })
-
           test('should set columns as not sortable if set', () => {
             const field1 = {id: 'name1', sortable: true, componentType: 'field', dataType: 'string', label: 'label'}
             const field2 = {id: 'name2', sortable: false, componentType: 'field', dataType: 'decimal', label: 'label'}
@@ -251,6 +213,98 @@ describe('entity-list', () => {
 
             expect(result2[0].sorting.sortable).to.eql(true)
             expect(result2[1].sorting.sortable).to.eql(false)
+          })
+        })
+
+        describe('getColumnCellRenderer', () => {
+          test('should return fall back cellrenderer', () => {
+            const contentField = {id: 'content field', componentType: 'field', label: 'field label', path: 'path'}
+            const fallbackAction = {
+              id: 'fallback action',
+              componentType: 'action',
+              label: 'action label',
+              onlyShowOnEmptyColumn: true
+            }
+            const columnDefinition = {
+              id: 'column',
+              label: 'column label',
+              children: [contentField, fallbackAction]
+            }
+
+            const renderer = forms.getColumnCellRenderer({columnDefinition})
+
+            const resultWithData = renderer({
+              rowData: {
+                path: 'test'
+              },
+              column: columnDefinition
+            })
+
+            expect(resultWithData).to.have.length(1)
+            expect(shallow(resultWithData[0]).find('FieldProvider').props()).to.contain({formField: contentField})
+
+            const resultWithFallback = renderer({
+              rowData: {
+                path: null
+              },
+              column: columnDefinition
+            })
+
+            expect(resultWithFallback).to.have.length(1)
+            expect(shallow(resultWithFallback[0]).find(actions.Action).props()).to.contain({definition: fallbackAction})
+          })
+
+          test('should return default cell renderer', () => {
+            const field = {id: 'content field', componentType: 'field', label: 'field label', path: 'path'}
+            const action = {id: 'fallback action', componentType: 'action', label: 'action label'}
+            const columnDefinition = {
+              id: 'column',
+              label: 'column label',
+              children: [field, action]
+            }
+
+            const renderer = forms.getColumnCellRenderer({columnDefinition})
+
+            const result = shallow(
+              renderer({
+                rowData: {
+                  path: 'test'
+                },
+                column: columnDefinition
+              })
+            )
+
+            expect(result.find('FieldProvider').props()).to.contain({formField: field})
+            expect(result.find(actions.Action).props()).to.contain({definition: action})
+          })
+
+          test('should return custom cell renderer if defined', () => {
+            const field = {id: 'name1', componentType: 'field', label: 'label'}
+            const columnDefinition = {
+              id: 'column',
+              label: 'column label',
+              children: [field],
+              clientRenderer: 'my-test-renderer'
+            }
+
+            // eslint-disable-next-line react/prop-types
+            const CustomComponent = ({text}) => <div>{text}</div>
+
+            const cellRenderers = {
+              'my-test-renderer': (rowData, column, defaultRenderer) => {
+                return <CustomComponent text={rowData.text} />
+              }
+            }
+
+            const renderer = forms.getColumnCellRenderer({columnDefinition, cellRenderers})
+
+            const result = renderer({
+              rowData: {
+                text: 'foo'
+              }
+            })
+
+            expect(result).to.eql(<CustomComponent text="foo" />)
           })
         })
 
