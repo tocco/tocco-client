@@ -1,5 +1,4 @@
 import _get from 'lodash/get'
-import _range from 'lodash/range'
 
 import {scale, shadeColor, theme} from '../utilStyles'
 
@@ -14,7 +13,6 @@ export const declareTypograhpy = (props, mode) => {
 
     a {
       color: ${theme.color('secondary')(props)};
-      text-decoration: none;
 
       &:hover,
       &:focus {
@@ -81,44 +79,13 @@ export const declareTypograhpy = (props, mode) => {
     }
   `
 
-  if (mode === 'quill') {
+  if (mode !== 'ckeditor') {
     css = `
       ${css}
-      ol,
-      ul {
-        display: block;
-        list-style-position: outside;
-        margin: 0 0 ${scale.space(-1)(props)} 0;
-        padding: 0;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-
-        li {
-          padding-left: 1.6rem;
-
-          &:before {
-            width: 1.6rem;
-            margin: 0 0 0 -1.6rem;
-            text-align: left;
-          }
-        }
-
-        ${_range(1, 11)
-          .map(value => `.ql-indent-${value} {padding-left: ${(value + 1) * 1.6}rem;}`)
-          .join('')}
+      a {
+        text-decoration: none;  
       }
 
-      ol {
-        ${_range(1, 11)
-          .map(value => `li.ql-indent-${value}:before {content: counter(list-${value}, decimal) '. ';}`)
-          .join('')}
-      }
-    `
-  } else {
-    css = `
-      ${css}
       ol,
       ul {
         display: block;

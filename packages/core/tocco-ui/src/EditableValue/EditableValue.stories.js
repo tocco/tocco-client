@@ -77,9 +77,9 @@ export const Duration = () => {
   return <EditableValue type="duration" value={value} events={{onChange: setValue}} />
 }
 
-export const Html = () => {
+export const Html = args => {
   const [value, setValue] = useState('<h1>Test</h1> TEst <span>TEST</span>')
-  return <EditableValue type="html" value={value} events={{onChange: setValue}} />
+  return <EditableValue type="html" value={value} events={{onChange: setValue}} {...args} />
 }
 
 export const Integer = () => {

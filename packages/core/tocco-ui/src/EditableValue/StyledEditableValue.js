@@ -100,29 +100,6 @@ export const StyledEditableValue = styled.span`
       color: inherit; // reset bootstrap default
     }
 
-    //html edit
-    .quill {
-      .ql-toolbar {
-        border-top-left-radius: 0.27rem;
-        border-top-right-radius: 0.27rem;
-      }
-
-      .ql-container {
-        border-bottom-left-radius: 0.27rem;
-        border-bottom-right-radius: 0.27rem;
-        background-color: #fff;
-      }
-
-      .ql-container.ql-disabled {
-        border-top-left-radius: 0.27rem;
-        border-top-right-radius: 0.27rem;
-
-        .ql-editor {
-          cursor: not-allowed;
-        }
-      }
-    }
-
     //date
     .date-edit {
       .input-group-addon {
