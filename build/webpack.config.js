@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 import fs from 'fs'
 
+import {styles} from '@ckeditor/ckeditor5-dev-utils'
+import CKEditorWebpackPlugin from '@ckeditor/ckeditor5-dev-webpack-plugin'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import DotEnv from 'dotenv-webpack'
@@ -63,11 +65,22 @@ webpackConfig.plugins = [
       __NO_MOCK__ ? '<script src="/nice2/javascript/nice2-newclient-react-registry.release.js"></script>' : ''
     ) // loads  legacy js file in index.html only with real (not mocked) backend
   }),
+  new CKEditorWebpackPlugin({
+    language: 'de',
+    additionalLanguages: ['de', 'fr', 'it', 'en'],
+    translationsOutputFile: __DEV__ ? /index/ : /html-editor/
+  }),
   new LodashModuleReplacementPlugin({
     shorthands: true,
     paths: true,
-    collections: true
-  }), // optimize lodash import. reduces bundle size by around 30kb
+    collections: true,
+    caching: true,
+    chaining: true,
+    memoizing: true,
+    cloning: true,
+    guards: true,
+    exotics: true
+  }), // optimize lodash import
   new DotEnv()
 ]
 
@@ -123,7 +136,38 @@ webpackConfig.module.rules = [
 
 webpackConfig.module.rules.push(
   {
+    test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+    use: ['raw-loader']
+  },
+  {
+    test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+    use: [
+      {
+        loader: 'style-loader',
+        options: {
+          injectType: 'singletonStyleTag',
+          attributes: {
+            'data-cke': true
+          }
+        }
+      },
+      'css-loader',
+      {
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: styles.getPostCssConfig({
+            themeImporter: {
+              themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+            },
+            minify: true
+          })
+        }
+      }
+    ]
+  },
+  {
     test: /\.css$/i,
+    exclude: [/ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/],
     use: ['style-loader', 'css-loader']
   },
   {
@@ -148,6 +192,7 @@ webpackConfig.module.rules.push(
   },
   {
     test: /\.svg(\?.*)?$/,
+    exclude: [/ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/],
     use: 'file-loader?name=imgs/[name].[contenthash].[ext]&mimetype=image/svg+xml'
   },
   {
