@@ -1,4 +1,14 @@
-import {startOfDay, startOfMonth} from 'date-fns'
+import {
+  getHours,
+  getMinutes,
+  getSeconds,
+  setHours,
+  setMilliseconds,
+  setMinutes,
+  setSeconds,
+  startOfDay,
+  startOfMonth
+} from 'date-fns'
 import {mount} from 'enzyme'
 import {IntlProvider} from 'react-intl'
 import {intlEnzyme} from 'tocco-test-util'
@@ -104,9 +114,43 @@ describe('tocco-ui', () => {
 
           input.simulate('change', {target: {value: '14062022'}})
 
-          const date = new Date('06/14/2022').toISOString()
+          const date = dateUtil.setCurrentTime(new Date('06/14/2022')).toISOString()
           expect(onChangeSpy).to.have.been.calledOnce
           expect(onChangeSpy).to.have.been.calledWith(date)
+        })
+
+        test('should set time automatically', () => {
+          const onChangeSpy = sinon.spy()
+          const wrapper = intlEnzyme.mountWithIntl(<DatePicker onChange={onChangeSpy} hasTime={true} dateFormat="P" />)
+
+          const input = wrapper.find('.react-datepicker__input-container input')
+          input.simulate('focus')
+          wrapper.find('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').simulate('click')
+
+          const firstOfMonth = startOfMonth(new Date())
+          const expectedDate = dateUtil.setCurrentTime(firstOfMonth)
+
+          expect(onChangeSpy).to.have.been.calledWith(expectedDate.toISOString())
+        })
+
+        test('should not overwrite time when already set', () => {
+          const onChangeSpy = sinon.spy()
+          const value = new Date()
+          const wrapper = intlEnzyme.mountWithIntl(
+            <DatePicker onChange={onChangeSpy} hasTime={true} dateFormat="P" value={value.toISOString()} />
+          )
+
+          const input = wrapper.find('.react-datepicker__input-container input')
+          input.simulate('focus')
+          wrapper.find('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').simulate('click')
+
+          const firstOfMonth = startOfMonth(new Date())
+          let expectedDate = setHours(firstOfMonth, getHours(value))
+          expectedDate = setMinutes(expectedDate, getMinutes(value))
+          expectedDate = setSeconds(expectedDate, getSeconds(value))
+          expectedDate = setMilliseconds(expectedDate, 0) // is reset by react-datepicker
+
+          expect(onChangeSpy).to.have.been.calledWith(expectedDate.toISOString())
         })
       })
     })
