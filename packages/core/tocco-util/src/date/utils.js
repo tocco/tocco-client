@@ -1,3 +1,4 @@
+import {getHours, getMinutes, setHours, setMilliseconds, setMinutes, setSeconds} from 'date-fns'
 import de from 'date-fns/locale/de'
 import en from 'date-fns/locale/en-US'
 import fr from 'date-fns/locale/fr-CH'
@@ -92,3 +93,15 @@ export const getLocalizedDateTimeFormatWithoutPunctuation = locale =>
   `${getLocalizedDateFormatWithoutPunctuation(locale)} ${getLocalizedTimeFormatWithoutPunctuation(locale)}`
 
 export const useTwoDigitYear = format => format.replace(/y+/, 'yy')
+
+export const setCurrentTime = date => {
+  const now = new Date()
+
+  let dateTime = new Date(date)
+  dateTime = setHours(dateTime, getHours(now))
+  dateTime = setMinutes(dateTime, getMinutes(now))
+  dateTime = setSeconds(dateTime, 0)
+  dateTime = setMilliseconds(dateTime, 0)
+
+  return dateTime
+}

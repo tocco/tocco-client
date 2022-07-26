@@ -6,7 +6,8 @@ import {
   getLocalizedDateFormatWithoutPunctuation,
   getLocalizedDateTimeFormatWithoutPunctuation,
   getLocalizedTimeFormat,
-  useTwoDigitYear
+  useTwoDigitYear,
+  setCurrentTime
 } from './utils'
 
 export default {
@@ -17,5 +18,6 @@ export default {
   getLocalizedDateFormatWithoutPunctuation,
   getLocalizedDateTimeFormatWithoutPunctuation,
   getLocalizedTimeFormat,
-  useTwoDigitYear
+  useTwoDigitYear,
+  setCurrentTime
 }

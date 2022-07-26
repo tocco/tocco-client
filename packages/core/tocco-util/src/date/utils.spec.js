@@ -1,3 +1,5 @@
+import {setMilliseconds, setSeconds, startOfDay} from 'date-fns'
+
 import {
   formatDuration,
   millisecondsToDuration,
@@ -5,7 +7,8 @@ import {
   getLocalizedDateFormatWithoutPunctuation,
   getLocalizedDateTimeFormatWithoutPunctuation,
   getLocalizedTimeFormat,
-  useTwoDigitYear
+  useTwoDigitYear,
+  setCurrentTime
 } from './utils'
 
 describe('tocco-util', () => {
@@ -137,6 +140,26 @@ describe('tocco-util', () => {
           expect(useTwoDigitYear('MMddyyyy')).to.eql('MMddyy')
           expect(useTwoDigitYear('dd.MM.y HH:mm')).to.eql('dd.MM.yy HH:mm')
           expect(useTwoDigitYear('MMddyyyy hmm a')).to.eql('MMddyy hmm a')
+        })
+      })
+
+      describe('setCurrentTime', () => {
+        test('should set hours and minutes to current time', () => {
+          const date = startOfDay(new Date())
+
+          const dateTime = setCurrentTime(date)
+
+          const expectedDate = setMilliseconds(setSeconds(new Date(), 0), 0)
+          expect(dateTime.toISOString()).to.eql(expectedDate.toISOString())
+        })
+
+        test('should reset seconds and milliseconds', () => {
+          const date = new Date()
+
+          const dateTime = setCurrentTime(date)
+
+          const expectedDate = setMilliseconds(setSeconds(date, 0), 0)
+          expect(dateTime.toISOString()).to.eql(expectedDate.toISOString())
         })
       })
     })
