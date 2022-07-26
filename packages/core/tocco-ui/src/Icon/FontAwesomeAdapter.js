@@ -70,6 +70,7 @@ import {
   faInfo,
   faInfoCircle,
   faLaptopCode,
+  faLink,
   faList,
   faListCheck,
   faLock,
@@ -217,7 +218,8 @@ import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
     faCode,
     faFilter,
     faLightbulbExclamation,
-    faMerge
+    faMerge,
+    faLink
   )
 })()
 

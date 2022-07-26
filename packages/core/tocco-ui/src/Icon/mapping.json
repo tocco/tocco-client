@@ -279,6 +279,10 @@
     "id": "fal, laptop-code",
     "lib": "fa"
   },
+  "link": {
+    "id": "fal, link",
+    "lib": "fa"
+  },
   "list": {
     "id": "fal, list",
     "lib": "fa"
