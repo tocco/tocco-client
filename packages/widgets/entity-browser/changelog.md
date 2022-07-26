@@ -1,3 +1,6 @@
+1.0.58-hotfix33.1
+- use constrictions from form in remotefield as well
+
 1.0.58
 - save prompt w/o explicit cancel button
 
