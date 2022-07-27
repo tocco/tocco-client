@@ -75,10 +75,12 @@ const Select = ({
   const throttledSearchFunction = useCallback(_throttle(searchFunction, 800, {trailing: true}), [])
 
   const handleInputChange = (searchTerm, event) => {
+    const {action} = event
+
     if (searchOptions && searchTerm) {
       throttledSearchFunction(searchTerm, value)
     }
-    if (searchTerm === '' && event.action === 'input-change') {
+    if (searchTerm === '' && action === 'input-change') {
       invokeFetchOptions(value)
     }
   }
