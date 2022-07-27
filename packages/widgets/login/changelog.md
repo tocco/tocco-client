@@ -1,3 +1,7 @@
+1.1.49
+- use constrictions from form in remotefield as well
+- set current time as default time value in datepicker
+
 1.1.48
 - fix breakwords for email and phone formatter
 

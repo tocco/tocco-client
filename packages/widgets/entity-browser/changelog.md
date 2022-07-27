@@ -1,3 +1,7 @@
+1.0.59
+- use constrictions from form in remotefield as well
+- set current time as default time value in datepicker
+
 1.0.58
 - save prompt w/o explicit cancel button
 

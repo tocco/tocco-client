@@ -1,3 +1,6 @@
+0.1.14
+- use constrictions from form in remotefield as well
+
 0.1.13
 - fix navigation to subfolder inside search results
 
