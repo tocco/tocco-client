@@ -5,14 +5,14 @@ import Ball from '../Ball'
 import ItemPropType from './ItemPropType'
 import {StyledIndicatorsContainerWrapper} from './StyledComponents'
 
-const handleAdvancedSearch = (openAdvancedSearch, value) => e => {
-  openAdvancedSearch(value)
+const handleAdvancedSearch = (openAdvancedSearch, searchTerm, value) => e => {
   e.stopPropagation()
+  openAdvancedSearch(searchTerm, value)
 }
 
 const handleCreate = (openCreate, value) => e => {
-  openCreate(value)
   e.stopPropagation()
+  openCreate(value)
 }
 
 const handlePropagation = e => {
@@ -20,11 +20,31 @@ const handlePropagation = e => {
 }
 
 const IndicatorsContainer = props => {
-  const {openAdvancedSearch, openRemoteCreate, isDisabled, hasAdvancedSearch, createPermission, value, isMulti} =
-    props.selectProps
+  const {
+    openAdvancedSearch,
+    openRemoteCreate,
+    isDisabled,
+    hasAdvancedSearch,
+    createPermission,
+    value,
+    isMulti,
+    inputValue
+  } = props.selectProps
 
   const showInputAlwaysOnTop = isMulti && hasAdvancedSearch
 
+  /**
+   * Workaround: `onMouseDown` vs. `onClick` handler
+   *
+   * 1. Usage of `inputValue`
+   *  Use `onMouseDown` to invoke the handler function before
+   *  the input get blurred and `inputValue` has been reset.
+   *
+   * 2. Prevent options menu to be toggled
+   *  When clicking on the search or create button the options menu will be toggled as well.
+   *  In order to prevent toggling the menu the event bubbling as to be stopped.
+   *  Since react-select is using `onMouseDown` by itself the event has to be stopped inside the `onMouseDown` event.
+   */
   return (
     <StyledIndicatorsContainerWrapper isTopAligned={showInputAlwaysOnTop}>
       <components.IndicatorsContainer {...props}>
@@ -32,18 +52,13 @@ const IndicatorsContainer = props => {
         {openAdvancedSearch && !isDisabled && (
           <span
             onTouchEnd={handlePropagation}
-            onMouseDown={handlePropagation}
-            onMouseUp={handleAdvancedSearch(openAdvancedSearch, value)}
+            onMouseDown={handleAdvancedSearch(openAdvancedSearch, inputValue, value)}
           >
             <Ball icon="search" tabIndex={-1} />
           </span>
         )}
         {createPermission && !isDisabled && (
-          <span
-            onTouchEnd={handlePropagation}
-            onMouseDown={handlePropagation}
-            onMouseUp={handleCreate(openRemoteCreate, value)}
-          >
+          <span onTouchEnd={handlePropagation} onMouseDown={handleCreate(openRemoteCreate, value)}>
             <Ball icon="plus" tabIndex={-1} />
           </span>
         )}
@@ -61,7 +76,8 @@ IndicatorsContainer.propTypes = {
     isDisabled: PropTypes.bool,
     isMulti: PropTypes.bool,
     createPermission: PropTypes.bool,
-    value: PropTypes.oneOfType([ItemPropType, PropTypes.arrayOf(ItemPropType)])
+    value: PropTypes.oneOfType([ItemPropType, PropTypes.arrayOf(ItemPropType)]),
+    inputValue: PropTypes.string
   }),
   value: PropTypes.oneOfType([ItemPropType, PropTypes.arrayOf(ItemPropType)])
 }
