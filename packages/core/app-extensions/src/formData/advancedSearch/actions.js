@@ -2,11 +2,12 @@ export const OPEN_ADVANCED_SEARCH = 'formData/OPEN_ADVANCED_SEARCH'
 export const ADVANCED_SEARCH_UPDATE = 'formData/ADVANCED_SEARCH_UPDATE'
 export const ADVANCED_SEARCH_CLOSE = 'formData/ADVANCED_SEARCH_CLOSE'
 
-export const openAdvancedSearch = (formName, formField, value) => ({
+export const openAdvancedSearch = (formName, formField, searchTerm, value) => ({
   type: OPEN_ADVANCED_SEARCH,
   payload: {
     formName,
     formField,
+    searchTerm,
     value
   }
 })

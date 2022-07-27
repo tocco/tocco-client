@@ -43,7 +43,7 @@ export default {
         constriction: formField.constriction
       })
     },
-    openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, value),
+    openAdvancedSearch: (searchTerm, value) => formData.openAdvancedSearch(formName, formField, searchTerm, value),
     tooltips: _get(formData.tooltips, formField.targetEntity, null),
     loadTooltip: id => formData.loadTooltip(formField.targetEntity, id),
     noResultsText: formData.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'}),
