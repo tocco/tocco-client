@@ -1,3 +1,7 @@
+1.0.78
+- use constrictions from form in remotefield as well
+- set current time as default time value in datepicker
+
 1.0.77
 - fix navigation to subfolder inside search results
 
