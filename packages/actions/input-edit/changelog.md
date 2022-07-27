@@ -1,3 +1,6 @@
+1.1.49-hotfix33.2
+- set current time as default time value in datepicker
+
 1.1.49-hotfix33.1
 - use constrictions from form in remotefield as well
 
