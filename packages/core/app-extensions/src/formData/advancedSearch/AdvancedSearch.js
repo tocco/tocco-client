@@ -11,6 +11,7 @@ const AdvancedSearch = ({
   listFormDefinition,
   onSelectionChange,
   selection,
+  searchTerm,
   emitAction,
   multi,
   constriction,
@@ -37,6 +38,7 @@ const AdvancedSearch = ({
       scrollBehaviour="inline"
       tableMinHeight="400px"
       constriction={constriction}
+      preselectedSearchFields={[{id: 'txtFulltext', value: searchTerm, hidden: false}]}
     />
     <StyledAdvancedSearchButtonWrapper>
       <Button look="raised" onClick={onOkClick}>
@@ -60,7 +62,8 @@ AdvancedSearch.propTypes = {
   onOkClick: PropTypes.func,
   appId: PropTypes.string,
   multi: PropTypes.bool,
-  constriction: PropTypes.string
+  constriction: PropTypes.string,
+  searchTerm: PropTypes.string
 }
 
 export default AdvancedSearch

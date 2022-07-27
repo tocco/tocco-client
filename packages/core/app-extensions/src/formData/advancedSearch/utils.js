@@ -31,7 +31,8 @@ export const getAdvancedSearchComponent =
     onOkClick,
     fieldId,
     multi,
-    constriction
+    constriction,
+    searchTerm
   ) =>
   () =>
     (
@@ -46,5 +47,6 @@ export const getAdvancedSearchComponent =
         field={fieldId}
         multi={multi}
         constriction={constriction}
+        searchTerm={searchTerm}
       />
     )

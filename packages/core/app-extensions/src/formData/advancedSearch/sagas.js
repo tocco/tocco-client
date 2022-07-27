@@ -17,7 +17,7 @@ export default function* sagas(config) {
 
 export function* openAdvancedSearch(config, {payload}) {
   const {listApp} = config
-  const {formName, formField, value} = payload
+  const {formName, formField, searchTerm, value} = payload
 
   const {
     id: fieldId,
@@ -50,7 +50,8 @@ export function* openAdvancedSearch(config, {payload}) {
     },
     fieldId,
     multi,
-    constriction
+    constriction,
+    searchTerm
   )
 
   yield put(notification.modal(modalId, `${label}: ${advancedSearchTitle}`, null, advancedSearchComponent, true))
