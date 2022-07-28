@@ -1,3 +1,6 @@
+1.0.50
+- accept fulltext search term for advanced search
+
 1.0.49
 - use constrictions from form in remotefield as well
 - set current time as default time value in datepicker
