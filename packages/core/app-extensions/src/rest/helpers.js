@@ -99,6 +99,17 @@ export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExp
   return response.body.displayExpressions.reduce((acc, val) => ({...acc, [val.key]: val.displayExpressions}), {})
 }
 
+const displayCache = {}
+export const isDisplayCached = key => displayCache[key] !== undefined
+export const getDisplayFromCache = key => displayCache[key]
+export const removeDisplayFromCache = key => {
+  displayCache[key] = undefined
+}
+export const addDisplayToCache = (key, value) => {
+  displayCache[key] = value
+}
+export const clearDisplayCache = () => Object.keys(displayCache).forEach(key => removeDisplayFromCache(key))
+
 /**
  * Helper to fetch the default-display of an entities.
  *
@@ -108,9 +119,9 @@ export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExp
 export function* fetchDisplays(request, type) {
   const currentDisplays = Object.entries(request).map(([model, keys]) => ({
     model,
-    keys: keys.filter(key => cache.getShortTerm('display', `${model}.${key}${type ? `.${type}` : ''}`) === undefined),
+    keys: keys.filter(key => !isDisplayCached(`${model}.${key}${type ? `.${type}` : ''}`)),
     displays: keys
-      .map(key => ({key, display: cache.getShortTerm('display', `${model}.${key}${type ? `.${type}` : ''}`)}))
+      .map(key => ({key, display: getDisplayFromCache(`${model}.${key}${type ? `.${type}` : ''}`)}))
       .filter(value => value.display !== undefined)
   }))
 
@@ -142,7 +153,7 @@ export function* fetchDisplays(request, type) {
  */
 export function invalidateDisplays(request, type) {
   Object.entries(request).forEach(([model, keys]) => {
-    keys.forEach(key => cache.removeShortTerm('display', `${model}.${key}${type ? `.${type}` : ''}`))
+    keys.forEach(key => removeDisplayFromCache(`${model}.${key}${type ? `.${type}` : ''}`))
   })
 }
 
@@ -164,7 +175,7 @@ function* loadDisplays(currentDisplays, type) {
     )
     Object.entries(loadedDisplays).forEach(([entityName, values]) => {
       Object.entries(values).forEach(([key, display]) => {
-        cache.addShortTerm('display', `${entityName}.${key}${type ? `.${type}` : ''}`, display)
+        addDisplayToCache(`${entityName}.${key}${type ? `.${type}` : ''}`, display)
       })
     })
     return loadedDisplays
