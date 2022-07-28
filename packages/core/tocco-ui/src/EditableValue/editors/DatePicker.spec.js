@@ -23,6 +23,11 @@ describe('tocco-ui', () => {
       describe('DatePicker ', () => {
         beforeEach(() => {
           loadLocales()
+          jest.useFakeTimers()
+        })
+
+        afterEach(() => {
+          jest.useRealTimers()
         })
 
         test('should be able to select a day', () => {
