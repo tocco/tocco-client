@@ -1,3 +1,7 @@
+1.0.76-hotfix33.4
+- use ckeditor
+- only cache displays as long as tab is open
+
 1.0.76-hotfix33.3
 - set current time as default time value in datepicker
 

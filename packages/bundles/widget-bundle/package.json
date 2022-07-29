@@ -1,6 +1,6 @@
 {
   "name": "tocco-widget-bundle",
-  "version": "0.1.12-hotfix33.2",
+  "version": "0.1.12-hotfix33.3",
   "description": "",
   "scripts": {
     "compile:prod": "cd ../../../ && npm run compile:prod -- --package=widget-bundle",
