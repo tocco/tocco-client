@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {appFactory, reports} from 'tocco-app-extensions'
+import {appFactory} from 'tocco-app-extensions'
 import {env, appContext} from 'tocco-util'
 
 import WageView from './components/WageView'
@@ -12,7 +12,6 @@ const initApp = (id, input, events, publicPath) => {
   const content = <WageView />
 
   const store = appFactory.createStore({}, null, input, packageName)
-  reports.addToStore(store)
 
   return appFactory.createApp(packageName, content, store, {
     input,
@@ -52,7 +51,7 @@ const WageViewApp = props => {
 
 WageViewApp.propTypes = {
   allowCreate: PropTypes.bool,
-  reports: PropTypes.arrayOf(PropTypes.string).isRequired,
+  reportIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   searchFilters: PropTypes.arrayOf(PropTypes.string),
   limit: PropTypes.number,
   backendUrl: PropTypes.string,
