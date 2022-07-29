@@ -7,6 +7,12 @@ import {StyledHtmlEditor} from './StyledHtmlEditor'
 
 const getCKEditorLanguageFromLocale = locale => {
   switch (locale) {
+    case 'fr-CH':
+      return 'fr'
+    case 'it-CH':
+      return 'it'
+    case 'en-US':
+      return 'en'
     case 'fr':
     case 'en':
     case 'it':
