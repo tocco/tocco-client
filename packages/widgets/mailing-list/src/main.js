@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {appFactory, reports} from 'tocco-app-extensions'
+import {appFactory} from 'tocco-app-extensions'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/main'
 import {env, appContext as appContextPropType} from 'tocco-util'
 
@@ -13,7 +13,6 @@ const initApp = (id, input, events, publicPath) => {
   const content = <MailingList />
 
   const store = appFactory.createStore({}, null, input, packageName)
-  reports.addToStore(store)
 
   return appFactory.createApp(packageName, content, store, {
     input,
