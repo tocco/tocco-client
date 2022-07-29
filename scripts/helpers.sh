@@ -9,7 +9,14 @@ function transformPackageName() {
 }
 
 function getDevDependenciesGreps() {
-  dev_dependencies=$(json -f "packages/${package}/package.json" devDependencies | json -ka)
+  # 1. get dependency graph of package
+  #     --a: all (transitive) dependencies, no depth limit
+  #     --silent: ignore unmet dependencies (such as react)
+  #     --parseble: return absolute path the node module folder
+  # 2. get package name (is the last folder name of the path)
+  # 3. only get tocco packages
+  # 4. sort packages and remove duplicates
+  dev_dependencies=$(npm --prefix ${packageDir}/${package} ls --a  --silent --parseable | sed 's/.*\///' | grep tocco | sort | uniq)
   package_greps=""
   for item in ${dev_dependencies//\\n/}
   do
