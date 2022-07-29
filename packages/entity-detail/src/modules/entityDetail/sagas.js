@@ -376,9 +376,9 @@ export function* enhanceEntityWithDisplays(entity) {
 }
 
 export function* loadData(reset = true) {
-  const {entityName, entityId, fieldDefinitions, entityModel} = yield select(entityDetailSelector)
+  const {entityName, entityId, fieldDefinitions, formDefinition, entityModel} = yield select(entityDetailSelector)
 
-  if (entityModel.markable === true) {
+  if (entityModel.markable && formDefinition.markable) {
     yield fork(loadMarked, entityName, entityId)
   }
 
