@@ -1,3 +1,6 @@
+0.1.12-hotfix33.3
+- only cache displays as long as tab is open
+
 0.1.12-hotfix33.2
 - use constrictions from form in remotefield as well
 
