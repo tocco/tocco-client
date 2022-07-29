@@ -4,11 +4,17 @@ import {registerLocale, setDefaultLocale} from 'react-datepicker'
 import {date} from 'tocco-util'
 
 const loadLocales = () => {
+  registerLocale('en', date.getDateFnsLocale('en'))
+  registerLocale('en-US', date.getDateFnsLocale('en'))
+
   registerLocale('de-CH', date.getDateFnsLocale('de-CH'))
   registerLocale('de', date.getDateFnsLocale('de'))
-  registerLocale('en', date.getDateFnsLocale('en'))
+
   registerLocale('fr', date.getDateFnsLocale('fr'))
+  registerLocale('fr-CH', date.getDateFnsLocale('fr'))
+
   registerLocale('it', date.getDateFnsLocale('it'))
+  registerLocale('it-CH', date.getDateFnsLocale('it'))
 
   setDefaultLocale('de')
 }
