@@ -13,6 +13,7 @@
     "tocco-docs-browser": "*",
     "tocco-entity-browser": "*",
     "tocco-mailing-list": "*",
+    "tocco-stint-auction": "*",
     "tocco-wage-view": "*"
   }
 }
