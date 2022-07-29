@@ -1,3 +1,5 @@
+import CKEditorWebpackPlugin from '@ckeditor/ckeditor5-dev-webpack-plugin'
+
 import {getAllFiles, getPackageDirectory} from './packages'
 
 const getAllApps = path => getAllFiles(path)
@@ -14,5 +16,10 @@ export const adjustConfigForBundles = (webpackConfig, config, paths) => {
   webpackConfig.entry = entry
   webpackConfig.output.filename = '[name].js'
 
+  return webpackConfig
+}
+
+export const removeCKEditor = webpackConfig => {
+  webpackConfig.plugins = webpackConfig.plugins.filter(plugin => !(plugin instanceof CKEditorWebpackPlugin))
   return webpackConfig
 }

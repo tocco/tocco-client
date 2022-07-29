@@ -44,7 +44,19 @@ const webpackConfig = {
     minimizer: [
       ...(!__DEV__ ? [new TerserPlugin({extractComments: false, sourceMap: true})] : []),
       new webpack.optimize.MinChunkSizePlugin({minChunkSize: 100000})
-    ]
+    ],
+    splitChunks: {
+      cacheGroups: {
+        /**
+         * Create explicit chunk for ckeditor
+         * to be able to bundle the translations.
+         */
+        ckeditor: {
+          filename: 'chunk-ckeditor.[contenthash].js',
+          test: /[\\/]node_modules[\\/]@ckeditor/
+        }
+      }
+    }
   }
 }
 
@@ -68,7 +80,13 @@ webpackConfig.plugins = [
   new CKEditorWebpackPlugin({
     language: 'de',
     additionalLanguages: ['de', 'fr', 'it', 'en'],
-    translationsOutputFile: __DEV__ ? /index/ : /html-editor/
+    translationsOutputFile: (file, _index, files) => {
+      const hasCKEditorChunk = files.some(f => /ckeditor/.test(f))
+      const isCKEditorChunk = /ckeditor/.test(file)
+      const isIndex = /index/.test(file)
+
+      return hasCKEditorChunk ? isCKEditorChunk : isIndex
+    }
   }),
   new LodashModuleReplacementPlugin({
     shorthands: true,
