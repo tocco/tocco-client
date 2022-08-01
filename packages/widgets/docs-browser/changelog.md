@@ -1,3 +1,9 @@
+1.0.63
+- add new list action icons
+- use actions as fallback content for empty columns and align column content at same height
+- use ckeditor
+- only cache displays as long as tab is open
+
 1.0.62
 - accept fulltext search term for advanced search
 

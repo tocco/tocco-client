@@ -1,3 +1,6 @@
+0.1.15
+- only cache displays as long as tab is open
+
 0.1.14
 - use constrictions from form in remotefield as well
 

@@ -1,3 +1,8 @@
+1.0.51
+- add new list action icons
+- use ckeditor
+- only cache displays as long as tab is open
+
 1.0.50
 - accept fulltext search term for advanced search
 
