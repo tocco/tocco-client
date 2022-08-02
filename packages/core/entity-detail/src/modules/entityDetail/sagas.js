@@ -176,9 +176,11 @@ export function* loadRelationDisplays(relationFields, entities) {
 }
 
 export function* loadData(reset = true) {
-  const {entityName, entityId, fieldDefinitions, formName, entityModel, mode} = yield select(entityDetailSelector)
+  const {entityName, entityId, fieldDefinitions, formDefinition, formName, entityModel, mode} = yield select(
+    entityDetailSelector
+  )
 
-  if (entityModel.markable === true) {
+  if (entityModel.markable && formDefinition.markable) {
     yield fork(loadMarked, entityName, entityId)
   }
 

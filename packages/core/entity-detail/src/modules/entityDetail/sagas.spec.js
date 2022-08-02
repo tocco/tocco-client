@@ -233,9 +233,14 @@ describe('entity-detail', () => {
 
         describe('loadData saga', () => {
           test('should fetch the entity and call form initialize', () => {
+            const entityDetail = {
+              entityModel: {markable: true},
+              fieldDefinitions: [],
+              formDefinition: {markable: true}
+            }
             return expectSaga(sagas.loadData)
               .provide([
-                [select(sagas.entityDetailSelector), {entityModel: {markable: true}, fieldDefinitions: []}],
+                [select(sagas.entityDetailSelector), entityDetail],
                 [matchers.fork.fn(sagas.loadMarked)],
                 [matchers.call.fn(sagas.loadEntity), {paths: {}}],
                 [matchers.call.fn(sagas.enhanceEntityWithDisplays), {}],
