@@ -139,7 +139,7 @@ EntityDetailApp.propTypes = {
   }, {}),
   navigationStrategy: navigationStrategy.propTypes,
   chooseDocument: PropTypes.func,
-  actionAppComponent: PropTypes.func,
+  actionAppComponent: PropTypes.elementType,
   modifyFormDefinition: PropTypes.func,
   reportIds: PropTypes.arrayOf(PropTypes.string)
 }

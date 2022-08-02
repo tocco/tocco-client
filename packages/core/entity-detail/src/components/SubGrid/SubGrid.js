@@ -79,7 +79,7 @@ SubGrid.propTypes = {
   navigationStrategy: PropTypes.objectOf(PropTypes.func),
   locale: PropTypes.string,
   modifyFormDefinition: PropTypes.func,
-  actionAppComponent: PropTypes.func,
+  actionAppComponent: PropTypes.elementType,
   reportIds: PropTypes.arrayOf(PropTypes.string)
 }
 
