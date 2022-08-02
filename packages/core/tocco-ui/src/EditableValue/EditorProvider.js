@@ -53,15 +53,23 @@ export const map = {
   time: TimeEdit
 }
 
+const isDatepickerType = componentType => ['date', 'datetime'].includes(componentType)
+
 const EditorProvider = ({componentType, value, options, id, events, placeholder, readOnly = false}) => {
   if (map[componentType]) {
     const Component = map[componentType]
 
     /**
      * blur workaround
-     * - for known react-select issue: https://github.com/erikras/redux-form/issues/82
+     * - for known react-select issue:
+     *  https://github.com/erikras/redux-form/issues/82
+     *
+     * - datepicker has issue with onBlur fix:
+     *  selecting a date in the search form via the calendar (not by entering inside the input)
+     *  the blur event always had previous value instead of just selected date
+     *  => disable onBlur fix for datepicker components
      */
-    if (events && events.onBlur) {
+    if (events && events.onBlur && !isDatepickerType(componentType)) {
       const onBlur = events.onBlur
       events.onBlur = () => onBlur(value)
     }
