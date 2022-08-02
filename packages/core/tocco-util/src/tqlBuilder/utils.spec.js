@@ -1,4 +1,11 @@
-import {formatTQLDatetime, formatTQLTime, parseDateOnlyInLocalTime, parseInLocalTime, parseTime} from './utils'
+import {
+  formatTQLDatetime,
+  formatTQLTime,
+  parseAsStartOfDayInLocalTime,
+  parseDateOnlyInLocalTime,
+  parseInLocalTime,
+  parseTime
+} from './utils'
 
 describe('tocco-util', () => {
   describe('tqlBuilder', () => {
@@ -16,6 +23,24 @@ describe('tocco-util', () => {
           const dateOnlyString = '2022-05-05'
 
           const date = parseDateOnlyInLocalTime(dateOnlyString)
+
+          expect(date.toISOString()).to.eql('2022-05-04T22:00:00.000Z')
+        })
+      })
+
+      describe('parseAsStartOfDayInLocalTime', () => {
+        test('should parse date only string as local and use correct start time of day', () => {
+          const dateOnlyString = '2022-01-05'
+
+          const date = parseAsStartOfDayInLocalTime(dateOnlyString)
+
+          expect(date.toISOString()).to.eql('2022-01-04T23:00:00.000Z')
+        })
+
+        test('should parse UTC string as local and use correct start time of day', () => {
+          const dateUTCString = '2022-05-04T23:00:00.000Z'
+
+          const date = parseAsStartOfDayInLocalTime(dateUTCString)
 
           expect(date.toISOString()).to.eql('2022-05-04T22:00:00.000Z')
         })

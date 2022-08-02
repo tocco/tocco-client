@@ -1,7 +1,7 @@
-import {format, parse, addDays} from 'date-fns'
+import {addDays} from 'date-fns'
 import _isObject from 'lodash/isObject'
 
-import {parseInLocalTime, parseTime, formatTQLDatetime, formatTQLTime} from './utils'
+import {parseInLocalTime, parseTime, formatTQLDatetime, formatTQLTime, parseAsStartOfDayInLocalTime} from './utils'
 
 const isDefined = v => v !== null && v !== undefined && v !== ''
 
@@ -35,13 +35,11 @@ const rangeMappings = type => {
     case 'createts':
     case 'updatets':
       return value => {
-        // TODO: @isbo move to utils
-        // only ranges for date-only values
-        const date = parse(value, 'yyyy-MM-dd', new Date())
+        const date = parseAsStartOfDayInLocalTime(value)
         if (!isNaN(date)) {
           return {
-            from: value,
-            to: format(addDays(date, 1), 'yyyy-MM-dd'),
+            from: date.toISOString(),
+            to: addDays(date, 1).toISOString(),
             isRangeValue: true,
             exclusive: true
           }
