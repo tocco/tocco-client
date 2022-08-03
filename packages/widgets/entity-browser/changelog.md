@@ -1,3 +1,6 @@
+1.0.58-hotfix33.4
+- check form definition if form is markable
+
 1.0.58-hotfix33.3
 - use ckeditor
 - only cache displays as long as tab is open
