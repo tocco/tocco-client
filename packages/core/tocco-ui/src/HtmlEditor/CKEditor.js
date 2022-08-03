@@ -11,6 +11,10 @@ import FontColor from '@ckeditor/ckeditor5-font/src/fontcolor'
 import FontFamily from '@ckeditor/ckeditor5-font/src/fontfamily'
 import FontSize from '@ckeditor/ckeditor5-font/src/fontsize'
 import Heading from '@ckeditor/ckeditor5-heading/src/heading'
+import GeneralHtmlSupport from '@ckeditor/ckeditor5-html-support/src/generalhtmlsupport'
+import HtmlComment from '@ckeditor/ckeditor5-html-support/src/htmlcomment'
+import ImageBlock from '@ckeditor/ckeditor5-image/src/imageblock'
+import ImageInline from '@ckeditor/ckeditor5-image/src/imageinline'
 import Link from '@ckeditor/ckeditor5-link/src/link'
 import List from '@ckeditor/ckeditor5-list/src/list'
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph'
@@ -21,7 +25,7 @@ import Table from '@ckeditor/ckeditor5-table/src/table'
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation'
 
-import {fontColor, fontFamily, fontSize, heading, table} from './config'
+import {fontColor, fontFamily, fontSize, heading, table, link, htmlSupport} from './config'
 
 class Editor extends ClassicEditor {}
 
@@ -33,7 +37,11 @@ Editor.builtinPlugins = [
   FontColor,
   FontFamily,
   FontSize,
+  GeneralHtmlSupport,
   Heading,
+  HtmlComment,
+  ImageBlock,
+  ImageInline,
   Italic,
   Link,
   List,
@@ -79,6 +87,8 @@ Editor.defaultConfig = {
     ui: 'de',
     content: 'de'
   },
+  link,
+  htmlSupport,
   table,
   heading,
   fontFamily,

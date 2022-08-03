@@ -1,3 +1,18 @@
+export const link = {
+  addTargetToExternalLinks: true
+}
+
+export const htmlSupport = {
+  allow: [
+    {
+      name: /.*/,
+      attributes: true,
+      classes: true,
+      styles: true
+    }
+  ]
+}
+
 export const table = {
   contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
 }
