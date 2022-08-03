@@ -1,3 +1,6 @@
+1.0.62
+- check form definition if form is markable
+
 1.0.61
 - add new list action icons
 - use actions as fallback content for empty columns and align column content at same height

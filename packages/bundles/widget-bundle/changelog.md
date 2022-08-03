@@ -1,3 +1,6 @@
+0.1.16
+- check form definition if form is markable
+
 0.1.15
 - only cache displays as long as tab is open
 
