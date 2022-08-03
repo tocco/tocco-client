@@ -21,7 +21,7 @@
     "codecov": "codecov --disable=gcov -f ./coverage/lcov.info",
     "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts --force-local",
     "setup:ci": "yarn install --frozen-lockfile && lerna bootstrap --no-progress --ignore-scripts --concurrency 2 --force-local",
-    "plop": "babel-node ./node_modules/plop",
+    "plop": "babel-node ./node_modules/plop/bin/plop",
     "release-packages": "yarn setup && ./scripts/release-packages.sh",
     "tag-all-packages": "yarn setup && ./scripts/tag-all-packages.sh",
     "sonarqube": "sonar-scanner",
