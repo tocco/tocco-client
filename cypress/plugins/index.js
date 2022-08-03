@@ -11,7 +11,7 @@ const getEnvs = () => {
     HIBERNATE_MAIN_DATABASENAME: process.env.HIBERNATE_MAIN_DATABASENAME,
     HIBERNATE_MAIN_USER: process.env.HIBERNATE_MAIN_USER,
     HIBERNATE_MAIN_PASSWORD: process.env.HIBERNATE_MAIN_PASSWORD,
-    DATABASE_SUPERUSER: process.env.DATABASE_SUPERUSER
+    POSTGRES_USER: process.env.POSTGRES_USER
   }
   return Object.keys(envs).reduce(
     (acc, key) => ({...acc, ...(typeof envs[key] !== 'undefined' ? {[key]: envs[key]} : {})}),

@@ -1,20 +1,14 @@
 const LONG_TIMEOUT = 15000
 
-const WidgetBaseUrl = 'http://localhost:3000'
-
-const visitEntityBrowser = (widgetConfigKey, suffix = '') => {
-  cy.visit(`${WidgetBaseUrl}/?key=${widgetConfigKey}#${suffix}`)
-}
-
 describe('Entity Browser', () => {
   beforeEach(() => {
     cy.task('db:empty', undefined, {timeout: 180000})
-    cy.login({backendUrl: WidgetBaseUrl})
+    cy.loginWidget()
   })
 
   it('should be able to create a new user with basic data', () => {
     cy.task('db:seed:entity-browser').then(response => {
-      visitEntityBrowser(response.pk)
+      cy.visitWidget(response.pk)
 
       cy.get('[data-cy=action-new]', {timeout: LONG_TIMEOUT}).should('be.enabled').click()
 
@@ -36,7 +30,7 @@ describe('Entity Browser', () => {
   it('should be able to navigate to and edit an existing user', () => {
     cy.task('db:seed:entity-browser').then(({pk: widgetConfigKey}) => {
       cy.task('db:seed:user').then(user => {
-        visitEntityBrowser(widgetConfigKey, `/detail/${user.pk}`)
+        cy.visitWidget(widgetConfigKey, `/detail/${user.pk}`)
 
         // should display detail view
         cy.get('[data-cy=form-field]').should('have.length.above', 1)
@@ -91,7 +85,7 @@ describe('Entity Browser', () => {
     cy.task('db:seed:user')
     cy.task('db:seed:user')
     cy.task('db:seed:entity-browser').then(({pk: widgetConfigKey}) => {
-      visitEntityBrowser(widgetConfigKey)
+      cy.visitWidget(widgetConfigKey)
     })
 
     // should load and display essential parts of the list view
@@ -143,7 +137,7 @@ describe('Entity Browser', () => {
   it('should be able to search', () => {
     cy.task('db:seed:user').then(user => {
       cy.task('db:seed:entity-browser').then(({pk: widgetConfigKey}) => {
-        visitEntityBrowser(widgetConfigKey)
+        cy.visitWidget(widgetConfigKey)
       })
 
       // should display extended search form

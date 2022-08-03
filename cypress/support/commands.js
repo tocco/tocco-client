@@ -1,6 +1,8 @@
+const WidgetBaseUrl = 'http://localhost:3000'
+
 Cypress.Commands.add('login', (options = {}) => {
-  const {backendUrl = Cypress.env('BACKEND_URL')} = options
-  cy.task('log', `Login into Tocco: ${backendUrl}`)
+  const {backendUrl = ''} = options
+  cy.task('log', 'Login into Tocco')
   cy.request({
     url: `${backendUrl}/nice2/session`,
     method: 'POST'
@@ -23,6 +25,14 @@ Cypress.Commands.add('login', (options = {}) => {
       cy.task('log', 'Already logged in')
     }
   })
+})
+
+Cypress.Commands.add('loginWidget', () => {
+  cy.login({backendUrl: WidgetBaseUrl})
+})
+
+Cypress.Commands.add('visitWidget', (widgetConfigKey, suffix = '') => {
+  cy.visit(`${WidgetBaseUrl}/?key=${widgetConfigKey}#${suffix}`)
 })
 
 Cypress.Commands.add('getByAttr', (...attrs) => {

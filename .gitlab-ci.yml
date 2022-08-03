@@ -60,18 +60,6 @@ stages:
   - apt-get install -y postgresql-client
   - apt-get install -y curl
 
-  # Wait for nice to be ready
-  - |
-    for (( i=0 ; ; i++ )); do
-        echo "attempt $i of $NICE_TIMEOUT_SECS"
-        timeout 1 wget --tries 1 -O /dev/null http://nice:8080/status-tocco && break
-        sleep 1;
-        if [ $i -ge $NICE_TIMEOUT_SECS ]; then
-            echo "giving up waiting for nice"
-            exit 1
-        fi
-    done
-  - echo "Nice up and running"
   - yarn nice2:wait-for-readyness
 
 yarn_setup:
@@ -197,9 +185,8 @@ cypress:
     CYPRESS_INSTALL_BINARY: "10.3.1"
     HIBERNATE_MAIN_SERVERNAME: "postgres"
     HIBERNATE_MAIN_DATABASENAME: "nice"
-    DATABASE_SUPERUSER: "postgres"
+    POSTGRES_USER: "postgres"
     CYPRESS_BASE_URL: "http://nice:8080"
-    CYPRESS_BACKEND_URL: "http://nice:8080"
     BACKEND_URL: "http://nice:8080"
   only:
     variables:

@@ -17,7 +17,7 @@ databaseUser="${HIBERNATE_MAIN_USER:-nice}"
 databasePassword="${HIBERNATE_MAIN_PASSWORD:-nice}"
 databaseDatabasename="${HIBERNATE_MAIN_DATABASENAME:-test_cypress}"
 databaseSslmode="${HIBERNATE_MAIN_SSLMODE:-disable}"
-databaseSuperuser="${DATABASE_SUPERUSER}"
+postgresUser="${POSTGRES_USER}"
 
 backendUrl="${BACKEND_URL:-http://localhost:8080}"
 
@@ -91,16 +91,30 @@ function emptyDB() {
   echo "drop database '$databaseDatabasename'"
 
   args=("-v" "ON_ERROR_STOP=1" "-h" "${databaseServername}" "-p" "$postgresPort")
-  if [[ ! -z "${databaseSuperuser}" ]] 
+  if [[ ! -z "${postgresUser}" ]] 
   then 
     args+=("-U")
-    args+=("${databaseSuperuser}")
+    args+=("${postgresUser}")
     args+=("-d")
     args+=("postgres")
   fi
 
   psql "${args[@]}" <<EOF
     DROP DATABASE IF EXISTS $databaseDatabasename;
+EOF
+
+  echo "create user '$databaseUser'"
+
+  psql "${args[@]}" <<EOF
+    DO \$$
+    BEGIN
+      IF NOT EXISTS (
+          SELECT FROM pg_catalog.pg_roles
+          WHERE  rolname = '$databaseUser') THEN
+        CREATE ROLE $databaseUser WITH SUPERUSER LOGIN PASSWORD '$databasePassword';
+      END IF;
+    END
+    \$$;
 EOF
 
   echo "create database '$databaseDatabasename'"

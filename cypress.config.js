@@ -3,9 +3,6 @@ const {defineConfig} = require('cypress')
 module.exports = defineConfig({
   defaultCommandTimeout: 10000,
   pageLoadTimeout: 180000,
-  env: {
-    BACKEND_URL: 'http://localhost:8080'
-  },
   retries: {
     runMode: 2,
     openMode: 0
