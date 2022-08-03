@@ -1,3 +1,6 @@
+1.0.41-hotfix32.21
+- check form definition if form is markable
+
 1.0.41-hotfix32.20
 - fix navigation to subfolder inside search results
 
