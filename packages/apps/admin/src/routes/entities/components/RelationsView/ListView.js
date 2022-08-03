@@ -8,6 +8,7 @@ import navigationStrategy from '../../utils/navigationStrategy'
 import {currentViewPropType} from '../../utils/propTypes'
 
 const ListView = ({selectedRelation, currentViewInfo, match, history, emitAction}) => {
+  const viewInfoName = `${selectedRelation.reverseRelationName}${selectedRelation.relationName}`
   return (
     <EntityListApp
       id={'preview' + selectedRelation.reverseRelationName + selectedRelation.targetEntity}
@@ -32,11 +33,11 @@ const ListView = ({selectedRelation, currentViewInfo, match, history, emitAction
       }}
       searchFormType="fulltext"
       selectionStyle="none"
-      store={viewPersistor.viewInfoSelector(history.location.pathname)[`store-${selectedRelation.relationName}`]}
+      store={viewPersistor.viewInfoSelector(history.location.pathname)[`store-${viewInfoName}`]}
       onStoreCreate={store => {
         viewPersistor.persistViewInfo(
           currentViewInfo.pathname,
-          {[`store-${selectedRelation.relationName}`]: store},
+          {[`store-${viewInfoName}`]: store},
           currentViewInfo.level
         )
       }}
