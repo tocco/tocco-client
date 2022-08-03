@@ -1,3 +1,6 @@
+1.0.5-hotfix31.33
+- check form definition if form is markable
+
 1.0.5-hotfix31.32
 - fix breakwords for email and phone formatter
 
