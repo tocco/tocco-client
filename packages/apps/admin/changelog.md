@@ -1,3 +1,9 @@
+1.0.82
+- fix change date on range date picker
+- fix datetime search field with default value
+- load correct store for relations view
+- keep ckeditor as similar as legacy editor
+
 1.0.81
 - check form definition if form is markable
 

@@ -1,3 +1,8 @@
+1.0.55
+- fix change date on range date picker
+- fix datetime search field with default value
+- keep ckeditor as similar as legacy editor
+
 1.0.54
 - add new list action icons
 - use actions as fallback content for empty columns and align column content at same height

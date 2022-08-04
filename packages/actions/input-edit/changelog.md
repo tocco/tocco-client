@@ -1,3 +1,8 @@
+1.1.53
+- fix change date on range date picker
+- fix datetime search field with default value
+- keep ckeditor as similar as legacy editor
+
 1.1.52
 - add new list action icons
 - use ckeditor

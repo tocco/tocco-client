@@ -1,3 +1,6 @@
+0.1.20
+- fix datetime search field with default value
+
 0.1.19
 - fulltext search fields are now prioritized to be autofocused
 
