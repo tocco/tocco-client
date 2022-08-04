@@ -83,13 +83,19 @@ export const addReports = (formDefinition, reports) => {
 
   formDefinition = addMainActionBar(formDefinition)
 
+  const actionGroupsBeforeReports = [ACTION_GROUP_CREATECOPY_ID, ACTION_DELETE_ID, ACTION_SAVE_ID]
+
   return {
     ...formDefinition,
     children: formDefinition.children.map(rootItem => {
       if (rootItem.id === MAIN_ACTION_BAR_ID) {
         return {
           ...rootItem,
-          children: [...rootItem.children, ...reports]
+          children: [
+            ...rootItem.children.filter(c => actionGroupsBeforeReports.includes(c.id)),
+            ...reports,
+            ...rootItem.children.filter(c => !actionGroupsBeforeReports.includes(c.id))
+          ]
         }
       }
 

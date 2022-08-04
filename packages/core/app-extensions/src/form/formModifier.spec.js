@@ -2,6 +2,7 @@ import _get from 'lodash/get'
 
 import {
   ACTION_GROUP_CREATECOPY_ID,
+  ACTION_GROUP_ACTIONS_ID,
   addReports,
   MAIN_ACTION_BAR_ID,
   removeCreate,
@@ -31,21 +32,12 @@ describe('app-extensions', () => {
                 id: ACTION_GROUP_CREATECOPY_ID
               },
               {
-                reportId: 'report1'
+                reportId: 'reportFormDefinition'
               }
             ]
           }
         ]
       }
-
-      const reports = [
-        {
-          reportId: 'report2'
-        },
-        {
-          reportId: 'report3'
-        }
-      ]
 
       const getActionGroupIds = formDefinition => formDefinition.children[0].children.map(r => r.id)
 
@@ -60,10 +52,40 @@ describe('app-extensions', () => {
       })
 
       describe('addReports', () => {
+        const reports = [
+          {
+            reportId: 'reportDynamic1'
+          },
+          {
+            reportId: 'reportDynamic2'
+          }
+        ]
+
         test('add reports', () => {
           expect(
             addReports(formDefinitionFull, reports, 'output').children[0].children.map(r => r.reportId || r.id)
-          ).to.be.eql([ACTION_GROUP_CREATECOPY_ID, 'report1', 'report2', 'report3'])
+          ).to.be.eql([ACTION_GROUP_CREATECOPY_ID, 'reportDynamic1', 'reportDynamic2', 'reportFormDefinition'])
+        })
+
+        test('add reports after createcopy and before action group', () => {
+          const formDefinition = {
+            children: [
+              {
+                id: MAIN_ACTION_BAR_ID,
+                children: [
+                  {
+                    id: ACTION_GROUP_CREATECOPY_ID
+                  },
+                  {
+                    id: ACTION_GROUP_ACTIONS_ID
+                  }
+                ]
+              }
+            ]
+          }
+          expect(
+            addReports(formDefinition, reports, 'output').children[0].children.map(r => r.reportId || r.id)
+          ).to.be.eql([ACTION_GROUP_CREATECOPY_ID, 'reportDynamic1', 'reportDynamic2', ACTION_GROUP_ACTIONS_ID])
         })
       })
 
