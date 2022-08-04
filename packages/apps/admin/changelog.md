@@ -1,3 +1,9 @@
+1.0.76-hotfix33.6
+- fix change date on range date picker
+- fix datetime search field with default value
+- load correct store for relations view
+- keep ckeditor as similar as legacy editor
+
 1.0.76-hotfix33.5
 - check form definition if form is markable
 

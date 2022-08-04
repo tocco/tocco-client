@@ -1,3 +1,8 @@
+1.0.58-hotfix33.5
+- fix change date on range date picker
+- fix datetime search field with default value
+- keep ckeditor as similar as legacy editor
+
 1.0.58-hotfix33.4
 - check form definition if form is markable
 
