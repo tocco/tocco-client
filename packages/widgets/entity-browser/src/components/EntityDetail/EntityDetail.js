@@ -76,6 +76,7 @@ const EntityDetail = ({
   const getApp = ({entityName, entityId, formName, mode}) => (
     <EntityDetailApp
       id={`${appId}_detail_${formName}_${entityId}`}
+      key={`${formName}_${entityId}`}
       entityName={entityName}
       entityId={entityId}
       formName={formName}
