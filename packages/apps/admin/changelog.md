@@ -1,3 +1,6 @@
+1.0.41-hotfix32.22
+- load correct store for relations view
+
 1.0.41-hotfix32.21
 - check form definition if form is markable
 
