@@ -196,6 +196,7 @@ cypress:
     - yarn db:prepare
     - yarn db:dump
     - yarn widgets:serve &
+    - yarn widgets:wait-for-readyness
     - yarn nice2:wait-for-readyness
     - yarn cypress:run
   artifacts:
