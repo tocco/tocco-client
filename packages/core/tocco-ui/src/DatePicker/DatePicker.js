@@ -32,7 +32,6 @@ const DatePicker = ({children, value, onChange, intl}) => {
       onChange={onChange}
       showTimeInput={false}
       dateFormat="P"
-      showPopperArrow={false}
       showMonthDropdown
       showYearDropdown
       scrollableYearDropdown
