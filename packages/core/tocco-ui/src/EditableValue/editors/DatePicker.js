@@ -149,7 +149,6 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
           disabled={immutable}
           showTimeInput={hasTime}
           dateFormat={dateFormat}
-          showPopperArrow={false}
           placeholderText={placeholder}
           showMonthDropdown
           showYearDropdown
