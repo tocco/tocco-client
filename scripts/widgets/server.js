@@ -2,7 +2,7 @@ const compress = require('compression')
 const express = require('express')
 const {createProxyMiddleware} = require('http-proxy-middleware')
 
-const backendUrl = process.env.CYPRESS_BACKEND_URL || 'http://localhost:8080'
+const backendUrl = process.env.BACKEND_URL || 'http://localhost:8080'
 
 const app = express()
 app.use(compress()) // Apply gzip compression

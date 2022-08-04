@@ -87,6 +87,21 @@ function waitForNice2() {
   echo "nice2 is connected"
 }
 
+function widgetServerIsReady() {
+  statusCode=$(curl --write-out '%{http_code}' --silent --output /dev/null http://localhost:3000)
+  if [[ "$statusCode" -ne 200 ]] ; then
+    return 1;
+  else
+    return 0;
+  fi
+}
+
+function waitForWidgetServer() {
+  echo "wait for widget-server: http://localhost:3000"
+  waitFor widgetServerIsReady
+  echo "widget-server is ready"
+}
+
 function emptyDB() {
   echo "drop database '$databaseDatabasename'"
 
