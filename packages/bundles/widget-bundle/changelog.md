@@ -1,3 +1,9 @@
+0.1.17
+- add stint auction widget
+- fix change date on range date picker
+- fix datetime search field with default value
+- keep ckeditor as similar as legacy editor
+
 0.1.16
 - check form definition if form is markable
 
