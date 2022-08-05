@@ -1,3 +1,4 @@
+import {darken} from 'polished'
 import styled from 'styled-components'
 
 import {StyledButton} from '../Button'
@@ -10,8 +11,29 @@ export const StyledSection = styled.section`
   justify-content: flex-end;
 `
 
+export const StyledButtonsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  ${StyledButton} {
+    margin: 0;
+    border-radius: 50%;
+    padding: ${scale.space(-2)};
+
+    a:hover {
+      color: unset;
+    }
+  }
+`
+
 export const StyledDropzone = styled.div`
   width: 100%;
+
+  &:hover {
+    ${StyledButton} {
+      background-color: ${({theme}) => darken(0.1, theme.colors.paper)};
+    }
+  }
 `
 
 export const StyledUploadInput = styled.div`
@@ -62,19 +84,4 @@ export const StyledView = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: ${scale.space(-2)};
-`
-
-export const StyledButtonsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  ${StyledButton} {
-    margin: 0;
-    border-radius: 50%;
-    padding: ${scale.space(-2)};
-
-    a:hover {
-      color: unset;
-    }
-  }
 `
