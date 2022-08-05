@@ -1,3 +1,6 @@
+1.0.56
+- change signal box background colors for more consistency
+
 1.0.55
 - fix change date on range date picker
 - fix datetime search field with default value
