@@ -80,6 +80,7 @@ const AddressUpdateApp = props => {
 
 AddressUpdateApp.propTypes = {
   formName: PropTypes.string.isRequired,
+  businessUnit: PropTypes.string,
   appContext: appContext.propTypes.isRequired,
   backendUrl: PropTypes.string
 }
