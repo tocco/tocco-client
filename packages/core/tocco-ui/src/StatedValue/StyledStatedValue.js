@@ -52,8 +52,7 @@ export const StyledStatedValueLabel = styled.label`
     color: ${props => colorizeText[getTextColor(props)](props)};
     left: ${scale.space(-2)};
     margin: calc(${scale.font(0)} / -2) 0 0;
-    padding: 1px ${scale.space(-2)}; // 1px to prevent label bottom from being cut
-    padding-left: ${({immutable}) => immutable && '0'};
+    padding: 0 ${scale.space(-2)} 0 ${({immutable}) => immutable && '0'}; // if immutable remove left padding
     position: absolute;
     width: auto;
     height: calc(${scale.font(0)} + 1px);
@@ -131,6 +130,7 @@ export const StyledStatedValueWrapper = styled.div`
     }
   }
 `
+
 export const StyledInput = styled.input`
   border: 0;
   cursor: ${({args}) => (args.immutable && !args.isDisplay ? 'not-allowed' : 'auto')};
