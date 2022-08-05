@@ -1,3 +1,7 @@
+1.0.64
+- remount entity-detail app after navigation
+- change signal box background colors for more consistency
+
 1.0.63
 - fix change date on range date picker
 - fix datetime search field with default value

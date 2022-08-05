@@ -1,3 +1,7 @@
+0.1.18
+- remount entity-detail app after navigation
+- change signal box background colors for more consistency
+
 0.1.17
 - add stint auction widget
 - fix change date on range date picker
