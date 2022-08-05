@@ -1,3 +1,6 @@
+1.0.76-hotfix33.7
+- remount entity-detail app after navigation
+
 1.0.76-hotfix33.6
 - fix change date on range date picker
 - fix datetime search field with default value
