@@ -1,3 +1,6 @@
+1.0.41-hotfix32.23
+- remount entity-detail app after navigation
+
 1.0.41-hotfix32.22
 - load correct store for relations view
 

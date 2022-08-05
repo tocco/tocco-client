@@ -1,3 +1,6 @@
+1.0.26-hotfix32.22
+- remount entity-detail app after navigation
+
 1.0.26-hotfix32.21
 - check form definition if form is markable
 
