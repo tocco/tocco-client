@@ -43,7 +43,6 @@
   "client.common.yes",
   "client.common.no",
   "client.common.unexpectedError",
-  "client.common.advancedSearch",
   "client.common.report.generate",
   "client.common.report.recipientSettings",
   "client.common.report.generalSettings",

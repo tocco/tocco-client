@@ -1,6 +1,6 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {takeEvery, all, select} from 'redux-saga/effects'
+import {takeEvery, all} from 'redux-saga/effects'
 import {rest, notification} from 'tocco-app-extensions'
 
 import * as advancedSearchActions from './actions'
@@ -35,7 +35,6 @@ describe('app-extensions', () => {
             const config = {ListApp}
             return expectSaga(sagas.openAdvancedSearch, config, action)
               .provide([
-                [select(sagas.textResourceSelector, 'client.common.advancedSearch'), {}],
                 [matchers.spawn.fn(sagas.closeAdvancedSearch), () => {}],
                 [matchers.call.fn(rest.fetchForm), {form: {}}]
               ])

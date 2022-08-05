@@ -1,5 +1,5 @@
 import {channel} from 'redux-saga'
-import {all, call, put, select, spawn, take, takeEvery} from 'redux-saga/effects'
+import {all, call, put, spawn, take, takeEvery} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 import {v4 as uuid} from 'uuid'
 
@@ -18,7 +18,6 @@ export default function* sagas(config) {
 export function* openAdvancedSearch(config, {payload}) {
   const {listApp} = config
   const {formName, formField, searchTerm, value} = payload
-
   const {
     id: fieldId,
     label,
@@ -33,7 +32,6 @@ export function* openAdvancedSearch(config, {payload}) {
   const listFormDefinition = yield call(rest.fetchForm, remoteFieldFormName, 'remotefield')
   const answerChannel = yield call(channel)
   const modalId = yield call(uuid)
-  const advancedSearchTitle = yield select(textResourceSelector, 'client.common.advancedSearch')
   const selection = yield call(getSelection, value, multi)
 
   const advancedSearchComponent = getAdvancedSearchComponent(
@@ -54,7 +52,7 @@ export function* openAdvancedSearch(config, {payload}) {
     searchTerm
   )
 
-  yield put(notification.modal(modalId, `${label}: ${advancedSearchTitle}`, null, advancedSearchComponent, true))
+  yield put(notification.modal(modalId, label, null, advancedSearchComponent, true))
   yield spawn(closeAdvancedSearch, answerChannel, modalId, fieldId, formName, entity, multi)
 }
 
@@ -66,10 +64,11 @@ export function* enhanceEntitiesWithDisplays(entities) {
 
 export function* closeAdvancedSearch(answerChannel, modalId, fieldId, formName, entity, multi) {
   let modalOpen = true
+
   while (modalOpen) {
     const {payload, type} = yield take(answerChannel)
     if (type === advancedSearchActions.ADVANCED_SEARCH_UPDATE) {
-      if (payload.ids && payload.ids.length > 0) {
+      if (payload.ids?.length > 0) {
         const query = {
           keys: payload.ids
         }
