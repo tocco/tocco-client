@@ -1,4 +1,5 @@
 import {mount} from 'enzyme'
+import {TestThemeProvider} from 'tocco-test-util'
 
 import Document from './Document'
 
@@ -24,7 +25,11 @@ describe('tocco-ui', () => {
     describe('editors', () => {
       describe('Document ', () => {
         test('should render', () => {
-          const wrapper = mount(<Document value={mockValue} options={mockOptions} />)
+          const wrapper = mount(
+            <TestThemeProvider>
+              <Document value={mockValue} options={mockOptions} />
+            </TestThemeProvider>
+          )
           expect(wrapper.find('Upload')).to.have.length(1)
         })
       })
