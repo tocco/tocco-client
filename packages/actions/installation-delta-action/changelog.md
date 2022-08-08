@@ -1,3 +1,9 @@
+1.0.54
+- improve datepicker styling and fix bugs in widgets
+- force hover styles of upload button when hovering upload field
+- remove advanced search text in modal title
+- fix input label being cut in widgets
+
 1.0.53
 - change signal box background colors for more consistency
 
