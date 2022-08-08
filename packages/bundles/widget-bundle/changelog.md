@@ -1,3 +1,9 @@
+0.1.19
+- improve datepicker styling and fix bugs in widgets
+- force hover styles of upload button when hovering upload field
+- remove advanced search text in modal title
+- fix input label being cut in widgets
+
 0.1.18
 - remount entity-detail app after navigation
 - change signal box background colors for more consistency
