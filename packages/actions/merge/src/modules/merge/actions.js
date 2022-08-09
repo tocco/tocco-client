@@ -1,5 +1,4 @@
 export const INITIALIZE = 'merge/INITIALIZE'
-export const SET_SELECTION = 'merge/SET_SELECTION'
 export const SET_SOURCE_DATA = 'merge/SET_SOURCE_DATA'
 export const SET_SELECTED_SINGLE = 'merge/SET_SELECTED_SINGLE'
 export const SET_SELECTED_MULTIPLE = 'merge/SET_SELECTED_MULTIPLE'
@@ -12,13 +11,6 @@ export const CLOSE = 'merge/CLOSE'
 
 export const initialize = () => ({
   type: INITIALIZE
-})
-
-export const setSelection = selection => ({
-  type: SET_SELECTION,
-  payload: {
-    selection
-  }
 })
 
 export const setSourceData = sourceData => ({

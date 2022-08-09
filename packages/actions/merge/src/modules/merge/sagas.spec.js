@@ -34,7 +34,7 @@ describe('merge', () => {
           test('should call initialize', () => {
             return expectSaga(sagas.initialize)
               .provide([
-                [select(sagas.mergeSelector), {selection}],
+                [select(sagas.inputSelector), {selection}],
                 [matchers.call.fn(sagas.loadSourceData), sourceData]
               ])
               .call(sagas.loadSourceData, selection)

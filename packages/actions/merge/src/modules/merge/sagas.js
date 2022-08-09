@@ -5,6 +5,7 @@ import {externalEvents, rest} from 'tocco-app-extensions'
 import * as actions from './actions'
 
 export const mergeSelector = state => state.merge
+export const inputSelector = state => state.input
 
 export default function* mainSagas() {
   yield all([
@@ -15,7 +16,7 @@ export default function* mainSagas() {
 }
 
 export function* initialize() {
-  const {selection} = yield select(mergeSelector)
+  const {selection} = yield select(inputSelector)
   yield call(loadSourceData, selection)
 }
 

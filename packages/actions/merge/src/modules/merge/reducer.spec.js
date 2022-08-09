@@ -1,12 +1,6 @@
 import * as actions from './actions'
 import reducer from './index'
 
-const selection = {
-  entityName: 'USER',
-  type: 'ID',
-  ids: [1, 2]
-}
-
 describe('merge', () => {
   describe('modules', () => {
     describe('merge', () => {
@@ -14,7 +8,6 @@ describe('merge', () => {
         describe('executeMerge', () => {
           test('should be pending', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 single: {
@@ -26,7 +19,6 @@ describe('merge', () => {
             }
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 single: {
@@ -44,7 +36,6 @@ describe('merge', () => {
         describe('mergeResponse', () => {
           test('no longer pending and set response', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 single: {
@@ -63,7 +54,6 @@ describe('merge', () => {
             }
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 single: {
@@ -82,7 +72,6 @@ describe('merge', () => {
         describe('mergeErrors', () => {
           test('no longer pending and set response error', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 single: {
@@ -99,7 +88,6 @@ describe('merge', () => {
             const mergeValidationErrors = []
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 single: {
@@ -121,7 +109,6 @@ describe('merge', () => {
         describe('setSelectedSingle', () => {
           test('should set single selected', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 single: {
@@ -132,7 +119,6 @@ describe('merge', () => {
             }
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 single: {
@@ -149,7 +135,6 @@ describe('merge', () => {
         describe('setSelectedMultiple', () => {
           test('should set multiple selected (add)', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multiple: {
@@ -165,7 +150,6 @@ describe('merge', () => {
             }
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multiple: {
@@ -188,7 +172,6 @@ describe('merge', () => {
 
           test('should set multiple selected (remove)', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multiple: {
@@ -205,7 +188,6 @@ describe('merge', () => {
             }
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multiple: {
@@ -227,7 +209,6 @@ describe('merge', () => {
 
           test('should set multiple selected (override)', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multiple: {
@@ -244,7 +225,6 @@ describe('merge', () => {
             }
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multiple: {
@@ -269,7 +249,6 @@ describe('merge', () => {
         describe('setSelectedMultipleAll', () => {
           test('should set multiple all selected (add to empty array)', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multipleAll: {
@@ -280,7 +259,6 @@ describe('merge', () => {
             }
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multipleAll: {
@@ -297,7 +275,6 @@ describe('merge', () => {
 
           test('should set multiple all selected (add)', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multipleAll: {
@@ -308,7 +285,6 @@ describe('merge', () => {
             }
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multipleAll: {
@@ -325,7 +301,6 @@ describe('merge', () => {
 
           test('should set multiple all selected (remove)', () => {
             const stateBefore = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multipleAll: {
@@ -336,7 +311,6 @@ describe('merge', () => {
             }
 
             const expectedStateAfter = {
-              selection,
               selected: {
                 targetEntity: '1',
                 multipleAll: {
@@ -357,7 +331,6 @@ describe('merge', () => {
             const sourceData = require('../../dev/data/sourceResponse.json')
 
             const stateBefore = {
-              selection,
               sourceData,
               selected: {
                 targetEntity: null,
@@ -369,7 +342,6 @@ describe('merge', () => {
 
             const expectedStateAfter = {
               sourceData,
-              selection,
               selected: {
                 targetEntity: '1',
                 single: {
