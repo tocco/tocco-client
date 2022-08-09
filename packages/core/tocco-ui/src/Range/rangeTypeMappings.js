@@ -1,6 +1,22 @@
-import {parse, format, addDays} from 'date-fns'
+import {parse, format, isMatch, addDays, startOfDay} from 'date-fns'
 
-const dateFormat = 'yyyy-MM-dd'
+const DateOnlyFormat = 'yyyy-MM-dd'
+
+const parseDatetime = value => {
+  if (isMatch(value, DateOnlyFormat)) {
+    return parse(value, DateOnlyFormat, new Date())
+  }
+
+  if (isMatch(value, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")) {
+    return startOfDay(new Date(value))
+  }
+
+  if (isMatch(value, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx")) {
+    return startOfDay(new Date(value))
+  }
+
+  return null
+}
 
 const rangeTypeMappings = {
   number: {
@@ -22,16 +38,16 @@ const rangeTypeMappings = {
       single: 'calendar-minus'
     },
     toRange: value => {
-      const fromValue = value ? parse(value, dateFormat, new Date()).toISOString() : null
-      const toValue = value ? addDays(parse(value, dateFormat, new Date()), 1).toISOString() : null
+      const fromValue = value ? parseDatetime(value).toISOString() : null
+      const toValue = value ? addDays(parseDatetime(value), 1).toISOString() : null
       return {from: fromValue, to: toValue, isRangeValue: true}
     },
     fromRange: value => {
       if (value && value.from) {
-        return format(new Date(value.from), dateFormat)
+        return format(new Date(value.from), DateOnlyFormat)
       }
       if (value && value.to) {
-        return format(new Date(value.to), dateFormat)
+        return format(new Date(value.to), DateOnlyFormat)
       }
       return null
     },
