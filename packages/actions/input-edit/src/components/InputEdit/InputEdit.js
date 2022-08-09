@@ -21,16 +21,11 @@ import {
 const InputEdit = ({
   selection,
   handleNotifications,
-  updateSelection,
   initializeTable,
   initializeSearch,
   initializeInformation,
   actionDefinitions
 }) => {
-  useEffect(() => {
-    updateSelection()
-  }, [selection, updateSelection])
-
   useEffect(() => {
     initializeTable()
     initializeSearch()
@@ -79,7 +74,6 @@ const InputEdit = ({
 InputEdit.propTypes = {
   selection: selectionPropType.propType.isRequired,
   handleNotifications: PropTypes.bool,
-  updateSelection: PropTypes.func.isRequired,
   initializeTable: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired,
   initializeInformation: PropTypes.func.isRequired,

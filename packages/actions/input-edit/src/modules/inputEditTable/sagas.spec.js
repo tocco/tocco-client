@@ -81,9 +81,9 @@ describe('input-edit', () => {
           const readonlyActions = ['action']
           return expectSaga(sagas.initialize)
             .provide([
-              [select(sagas.inputSelector), {}],
+              [select(sagas.inputSelector), {selection: [12]}],
               [select(sagas.inputEditSearchSelector), {initialized: true}],
-              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}}],
+              [select(sagas.inputEditSelector), {validation: {valid: true}}],
               [
                 matchers.call.fn(rest.requestSaga),
                 {
@@ -118,9 +118,9 @@ describe('input-edit', () => {
 
           const sagaRunner = expectSaga(sagas.initialize)
             .provide([
-              [select(sagas.inputSelector), {}],
+              [select(sagas.inputSelector), {selection: [12]}],
               [select(sagas.inputEditSearchSelector), {initialized: true}],
-              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}}],
+              [select(sagas.inputEditSelector), {validation: {valid: true}}],
               [
                 matchers.call.fn(rest.requestSaga),
                 {
@@ -166,13 +166,14 @@ describe('input-edit', () => {
               [
                 select(sagas.inputSelector),
                 {
+                  selection: [12],
                   actionProperties: {
                     inputEditDataForm: 'PublicInput_edit_data'
                   }
                 }
               ],
               [select(sagas.inputEditSearchSelector), {initialized: false}],
-              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}, updateInProgress: false}],
+              [select(sagas.inputEditSelector), {validation: {valid: true}, updateInProgress: false}],
               [
                 matchers.call.fn(rest.requestSaga),
                 {
@@ -206,13 +207,14 @@ describe('input-edit', () => {
               [
                 select(sagas.inputSelector),
                 {
+                  selection: [12],
                   actionProperties: {
                     inputEditDataForm: 'PublicInput_edit_data'
                   }
                 }
               ],
               [select(sagas.inputEditSearchSelector), {initialized: true}],
-              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}, updateInProgress: true}],
+              [select(sagas.inputEditSelector), {validation: {valid: true}, updateInProgress: true}],
               [
                 matchers.call.fn(rest.requestSaga),
                 {
@@ -244,6 +246,7 @@ describe('input-edit', () => {
             newPage: 2
           })
             .provide([
+              [select(sagas.inputSelector), {selection: fakeSelection}],
               [
                 select(sagas.inputEditTableSelector),
                 {
@@ -251,7 +254,7 @@ describe('input-edit', () => {
                   sorting: [{field: 'field', order: 'asc'}]
                 }
               ],
-              [select(sagas.inputEditSelector), {selection: fakeSelection, validation: {valid: true}}],
+              [select(sagas.inputEditSelector), {validation: {valid: true}}],
               [select(sagas.searchQueriesSelector), []],
               [
                 select(sagas.inputEditPaginationSelector),
@@ -295,7 +298,8 @@ describe('input-edit', () => {
           const fakeSelection = {ids: ['12']}
           return expectSaga(sagas.loadData, {})
             .provide([
-              [select(sagas.inputEditSelector), {selection: fakeSelection, validation: {valid: true}}],
+              [select(sagas.inputSelector), {selection: fakeSelection}],
+              [select(sagas.inputEditSelector), {validation: {valid: true}}],
               [
                 select(sagas.inputEditTableSelector),
                 {
@@ -350,7 +354,8 @@ describe('input-edit', () => {
         test('should update value', () => {
           return expectSaga(sagas.updateValue, actions.updateValue(123, 'node', 'value'))
             .provide([
-              [select(sagas.inputEditSelector), {selection: [], validation: {valid: true}}],
+              [select(sagas.inputSelector), {selection: []}],
+              [select(sagas.inputEditSelector), {validation: {valid: true}}],
               [
                 matchers.call.fn(rest.requestSaga),
                 {
@@ -372,7 +377,8 @@ describe('input-edit', () => {
         test('should set newly calculated values', () => {
           return expectSaga(sagas.updateValue, actions.updateValue(123, 'node', 'value'))
             .provide([
-              [select(sagas.inputEditSelector), {selection: [], validation: {valid: true}}],
+              [select(sagas.inputSelector), {selection: []}],
+              [select(sagas.inputEditSelector), {validation: {valid: true}}],
               [
                 matchers.call.fn(rest.requestSaga),
                 {
