@@ -7,7 +7,7 @@ import thunk from 'redux-thunk'
 import {reducer as reducerUtil, saga as sagaUtil} from 'tocco-util'
 
 import errorLogging from '../../errorLogging'
-import inputReducer from './input/reducer'
+import inputReducer from './input'
 
 export const getInitialState = input => {
   const initialState = window.__INITIAL_STATE__ || {}

@@ -5,8 +5,7 @@ import {consoleLogger, intl} from 'tocco-util'
 import cache from '../cache'
 import errorLogging from '../errorLogging'
 import App from './App'
-
-export const inputDispatchActionType = 'app/INPUT_DISPATCHED'
+import {inputInitialized} from './store/input'
 
 export const createApp = (
   name,
@@ -23,9 +22,10 @@ export const createApp = (
 
     if (actions) {
       dispatchActions(actions, store)
-      store.dispatch({type: inputDispatchActionType})
-      store.dispatch(cache.initialise())
     }
+
+    store.dispatch(inputInitialized())
+    store.dispatch(cache.initialise())
 
     const initIntlPromise = setupIntl(input, store, name, textResourceModules)
 

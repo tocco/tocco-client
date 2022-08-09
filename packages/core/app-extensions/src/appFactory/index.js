@@ -1,11 +1,5 @@
-import {
-  renderApp,
-  reloadApp,
-  createApp,
-  registerAppInRegistry,
-  createBundleableApp,
-  inputDispatchActionType
-} from './appFactory'
+import {renderApp, reloadApp, createApp, registerAppInRegistry, createBundleableApp} from './appFactory'
+import {setInput, inputChanged, INPUT_CHANGED, INPUT_INITIALIZED} from './store/input'
 import {createStore} from './store/store'
 import useApp, {getEvents} from './useApp'
 
@@ -16,7 +10,10 @@ export default {
   createStore,
   registerAppInRegistry,
   createBundleableApp,
-  inputDispatchActionType,
   useApp,
-  getEvents
+  getEvents,
+  setInput,
+  inputChanged,
+  INPUT_CHANGED,
+  INPUT_INITIALIZED
 }
