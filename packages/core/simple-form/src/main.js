@@ -10,7 +10,7 @@ const packageName = 'simple-form'
 const EXTERNAL_EVENTS = ['onSubmit', 'onCancel', 'onChange', 'emitAction']
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <FormContainer listApp={input.listApp} />
+  const content = <FormContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
