@@ -14,6 +14,14 @@ describe('tocco-ui', () => {
       expect(result.to).to.eql('2020-09-24T22:00:00.000Z')
     })
 
+    test('should convert datetime value to datetime range', () => {
+      const dateValue = '2022-08-09T09:17:13.533+02:00'
+      const result = rangeTypeMappings.datetime.toRange(dateValue)
+      expect(result.isRangeValue).to.be.true
+      expect(result.from).to.eql('2022-08-08T22:00:00.000Z')
+      expect(result.to).to.eql('2022-08-09T22:00:00.000Z')
+    })
+
     test('should convert datetime range to single from date value', () => {
       const rangeValue = {
         from: '2020-09-24T12:23:34.456Z',
