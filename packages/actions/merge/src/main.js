@@ -4,7 +4,6 @@ import {GlobalStyles} from 'tocco-ui'
 import {reducer as reducerUtil} from 'tocco-util'
 
 import Merge from './components/Merge'
-import {setSelection} from './modules/merge/actions'
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'merge'
@@ -30,7 +29,6 @@ const initApp = (id, input, events, publicPath) => {
   return appFactory.createApp(packageName, content, store, {
     input,
     events,
-    actions: [setSelection(input.selection)],
     publicPath,
     textResourceModules: ['component', 'common', packageName]
   })

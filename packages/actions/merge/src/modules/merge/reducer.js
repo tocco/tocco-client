@@ -122,7 +122,6 @@ const setTargetEntityMultiple = (multiple, entity) => {
 }
 
 const ACTION_HANDLERS = {
-  [actions.SET_SELECTION]: reducerUtil.singleTransferReducer('selection'),
   [actions.SET_SOURCE_DATA]: reducerUtil.singleTransferReducer('sourceData'),
   [actions.EXECUTE_MERGE]: executeMerge,
   [actions.SET_MERGE_RESPONSE]: mergeResponse,
@@ -134,7 +133,6 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  selection: null,
   sourceData: null,
   mergePending: false,
   mergeResponse: null,
