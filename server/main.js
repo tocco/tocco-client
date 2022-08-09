@@ -1,9 +1,8 @@
-const https = require('https')
 const path = require('path')
 
 const compress = require('compression')
 const express = require('express')
-const fetch = require('node-fetch')
+const {createProxyMiddleware} = require('http-proxy-middleware')
 const webpack = require('webpack')
 
 const logger = require('../build/lib/logger').default
@@ -12,10 +11,6 @@ const config = require('../config').default
 
 const app = express()
 app.use(compress()) // Apply gzip compression
-
-const httpsAgent = new https.Agent({
-  rejectUnauthorized: false
-})
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
@@ -46,25 +41,19 @@ if (config.env === 'development') {
   app.use('/static', express.static('server/static'))
 
   if (config.globals.__NO_MOCK__) {
-    // Most probably the following requests should be answered by the Nice2 instance
-    // -> pipe them through
-    app.use(['/nice2/*', '/js/*', '/img/*', '/css/*'], function (req, res, next) {
-      // `window.location.hostname` might be used in __BACKEND_URL__ variable
-      // eslint-disable-next-line
-      const window = {location: {hostname: 'localhost'}}
-      // eslint-disable-next-line
-      const newUrl = eval(config.globals.__BACKEND_URL__) + req.originalUrl
+    // `window.location.hostname` might be used in __BACKEND_URL__ variable
+    // eslint-disable-next-line
+    const window = {location: {hostname: 'localhost'}}
+    // eslint-disable-next-line
+    const backendUrl = eval(config.globals.__BACKEND_URL__)
 
-      fetch(newUrl, {
-        method: req.method,
-        headers: {...req.headers},
-        body: req.body,
-        agent: httpsAgent
-      }).then(actual => {
-        actual.headers.forEach((v, n) => res.setHeader(n, v))
-        actual.body.pipe(res)
+    app.use(
+      ['/nice2/*', '/js/*', '/img/*', '/css/*'],
+      createProxyMiddleware({
+        target: backendUrl,
+        changeOrigin: true
       })
-    })
+    )
   }
 
   // This rewrites all routes requests to the root /index.html file
