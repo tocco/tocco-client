@@ -1,6 +1,7 @@
 import _isEmpty from 'lodash/isEmpty'
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
+import {useRef} from 'react'
 
 import BooleanSingleSelect from './editors/BooleanSingleSelect'
 import BoolEdit from './editors/BoolEdit'
@@ -56,6 +57,8 @@ export const map = {
 const isDatepickerType = componentType => ['date', 'datetime'].includes(componentType)
 
 const EditorProvider = ({componentType, value, options, id, events, placeholder, readOnly = false}) => {
+  const datepickerValue = useRef(undefined)
+
   if (map[componentType]) {
     const Component = map[componentType]
 
@@ -64,21 +67,32 @@ const EditorProvider = ({componentType, value, options, id, events, placeholder,
      * - for known react-select issue:
      *  https://github.com/erikras/redux-form/issues/82
      *
-     * - datepicker has issue with onBlur fix:
-     *  selecting a date in the search form via the calendar (not by entering inside the input)
-     *  the blur event always had previous value instead of just selected date
-     *  => disable onBlur fix for datepicker components
+     * - datepicker has issue with onBlur:
+     *  1. Select via Calendar
+     *  Selecting a date in the search form via the calendar (not by entering inside the input)
+     *  causes that the blur event always had previous value instead of just selected date.
+     *
+     *  2. Click outside
+     *  Selecting a date in a detail form via the calendar and then click outside.
+     *  Then click again into the date input and click outside directly (without changing the date) cleares the input.
      */
-    if (events && events.onBlur && !isDatepickerType(componentType)) {
+    if (events && events.onBlur) {
       const onBlur = events.onBlur
-      events.onBlur = () => onBlur(value)
+      events.onBlur = () => {
+        const actualValue =
+          isDatepickerType(componentType) && datepickerValue.current !== undefined ? datepickerValue.current : value
+        onBlur(actualValue)
+      }
     }
 
     return (
       <div {..._omit(events, 'onChange')} data-cy="form-field">
         <Component
           value={value}
-          onChange={events?.onChange}
+          onChange={v => {
+            datepickerValue.current = v
+            events.onChange(v)
+          }}
           {...(_isEmpty(options) ? {} : {options})}
           id={id}
           immutable={readOnly}
