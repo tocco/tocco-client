@@ -8,7 +8,7 @@ import reducers, {sagas} from './modules/reducers'
 const packageName = 'user-qr-action'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <UserQrCode selection={input.selection} />
+  const content = <UserQrCode />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 

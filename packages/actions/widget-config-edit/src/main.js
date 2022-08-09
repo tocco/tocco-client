@@ -9,7 +9,7 @@ const packageName = 'widget-config-edit'
 const EXTERNAL_EVENTS = ['onSuccess', 'emitAction']
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <WidgetConfigDetailView selection={input.selection} />
+  const content = <WidgetConfigDetailView />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
