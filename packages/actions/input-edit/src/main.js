@@ -3,7 +3,7 @@ import {actionEmitter, actions, appFactory, cache, errorLogging, notification} f
 import {reducer as reducerUtil} from 'tocco-util'
 
 import InputEdit from './components/InputEdit/InputEditContainer'
-import {setHandleNotifications, setSelection} from './modules/inputEdit/actions'
+import {setHandleNotifications} from './modules/inputEdit/actions'
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'input-edit'
@@ -24,7 +24,7 @@ const initApp = (id, input, events, publicPath) => {
   return appFactory.createApp(packageName, content, store, {
     input,
     events,
-    actions: [setHandleNotifications(handleNotifications), setSelection(input.selection)],
+    actions: [setHandleNotifications(handleNotifications)],
     publicPath,
     textResourceModules: ['component', 'common', packageName]
   })

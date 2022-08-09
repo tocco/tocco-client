@@ -42,8 +42,7 @@ export function* processDataForm(dataForm, readonly, readonlyActions = []) {
 
 export function* initialize() {
   yield put(actions.setDataLoadingInProgress(true))
-  const {selection} = yield select(inputEditSelector)
-  const {actionProperties} = yield select(inputSelector)
+  const {actionProperties, selection} = yield select(inputSelector)
   const inputEditDataForm =
     actionProperties && actionProperties.inputEditDataForm ? actionProperties.inputEditDataForm : 'Input_edit_data'
   const [editFormDefinition, dataForm] = yield all([
@@ -76,7 +75,7 @@ export function* initialize() {
 
 export function* loadData({newSorting, newSearchQueries, newPage}) {
   yield put(actions.setDataLoadingInProgress(true))
-  const {selection} = yield select(inputEditSelector)
+  const {selection} = yield select(inputSelector)
   const sorting = newSorting || (yield select(inputEditTableSelector)).sorting
   const searchQueries = newSearchQueries || (yield select(searchQueriesSelector))
   const currentPage = newPage || (yield select(inputEditPaginationSelector)).currentPage
