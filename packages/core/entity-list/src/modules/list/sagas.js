@@ -52,9 +52,7 @@ export default function* sagas() {
 }
 
 export function* initialize() {
-  const {entityName, formName} = yield select(entityListSelector)
-  const {searchListFormName} = yield select(inputSelector)
-  const {scope} = yield select(listSelector)
+  const {entityName, formName, searchListFormName, scope} = yield select(inputSelector)
   yield all([
     call(loadFormDefinition, formName, scope, actions.setFormDefinition),
     call(loadEntityModel, entityName),
@@ -97,7 +95,8 @@ export function* getBasicQuery(regardSelection = true) {
 }
 
 function* getQueryViewQuery() {
-  const {inputKeys, constriction} = yield select(listSelector)
+  const {inputKeys} = yield select(inputSelector)
+  const {constriction} = yield select(listSelector)
   const {query, queryError} = yield select(searchFormSelector)
 
   const hasQueryError = queryError && Object.entries(queryError).length !== 0
@@ -114,7 +113,8 @@ function* getQueryViewQuery() {
 
 export function* getSearchViewQuery() {
   const {formFieldsFlat, searchFilters: searchFormSearchFilter} = yield select(searchFormSelector)
-  const {inputSearchFilters, inputTql, inputKeys, inputConstriction, constriction} = yield select(listSelector)
+  const {inputSearchFilters, inputTql, inputKeys, inputConstriction} = yield select(inputSelector)
+  const {constriction} = yield select(listSelector)
   const searchFormValues = yield call(getSearchFormValues)
 
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
@@ -139,7 +139,7 @@ export function* getSearchViewQuery() {
 }
 
 export function* prepareEndpointUrl(endpoint, searchEndpoint, hasUserChanges) {
-  const {parent} = yield select(entityListSelector)
+  const {parent} = yield select(inputSelector)
   const parentKey = parent ? parent.key : ''
   const selectedEndpoint = hasUserChanges && searchEndpoint ? searchEndpoint : endpoint
   return selectedEndpoint ? selectedEndpoint.replace('{parentKey}', parentKey) : null
@@ -282,9 +282,9 @@ export function* setLazyDataMarked(entityName, markings) {
 
 export function* fetchEntitiesAndAddToStore(page) {
   const state = yield select(stateSelector)
-  const {entityName} = state.entityList
+  const {entityName, scope, limit} = state.input
   const {columns: columnPreferences} = state.preferences
-  const {entityStore, sorting, limit, scope} = state.list
+  const {entityStore, sorting} = state.list
   if (!entityStore[page]) {
     const basicQuery = yield call(getBasicQuery)
     const formDefinition = getFormDefinition(state, basicQuery)
@@ -334,8 +334,9 @@ export function* delayedPreloadNextPage(page) {
 }
 
 export function* preloadNextPage(currentPage) {
+  const {limit} = yield select(inputSelector)
   const list = yield select(listSelector)
-  const {entityStore, limit} = list
+  const {entityStore} = list
   let {entityCount} = list
   const nextPage = currentPage + 1
 
@@ -388,9 +389,8 @@ export function* setSorting() {
 export function* loadFormDefinition(formName, scope, actionCreator) {
   const {formDefinition} = yield select(listSelector)
   if (formDefinition?.id !== `${formName}_${scope}`) {
-    const {modifyFormDefinition, reportIds} = yield select(inputSelector)
+    const {modifyFormDefinition, reportIds, parent} = yield select(inputSelector)
     const fetchedFormDefinition = yield call(rest.fetchForm, formName, scope)
-    const {parent} = yield select(entityListSelector)
     const modifiedFormDefinition = modifyFormDefinition
       ? yield call(modifyFormDefinition, fetchedFormDefinition, {parent})
       : fetchedFormDefinition

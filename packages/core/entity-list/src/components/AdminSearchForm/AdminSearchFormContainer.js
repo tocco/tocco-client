@@ -36,7 +36,7 @@ const mapStateToProps = (state, props) => ({
   initialized: state.searchForm.initialized,
   searchFilters: state.searchForm.searchFilters,
   searchFormDirty: isDirty('searchForm')(state),
-  entityModel: state.entityList.entityName,
+  entityModel: state.input.entityName,
   queryViewVisible: state.searchForm.queryViewVisible,
   query: state.searchForm.query,
   queryError: state.searchForm.queryError

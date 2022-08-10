@@ -4,8 +4,6 @@ import reducer from './index'
 const EXPECTED_INITIAL_STATE = {
   entityModel: {},
   entities: [],
-  limit: 10,
-  scope: 'list',
   currentPage: 1,
   sorting: [],
   formDefinition: null,
@@ -15,13 +13,7 @@ const EXPECTED_INITIAL_STATE = {
   inProgress: true,
   searchFilters: [],
   createPermission: false,
-  showLink: false,
-  sortable: true,
-  lazyData: {},
-  inputTql: null,
-  inputKeys: null,
-  inputSearchFilters: null,
-  inputConstriction: null
+  lazyData: {}
 }
 
 describe('entity-list', () => {
@@ -127,34 +119,6 @@ describe('entity-list', () => {
           }
 
           expect(reducer(stateBefore, actions.setEntityModel(newModel))).to.deep.equal(expectedStateAfter)
-        })
-
-        test('should handle SET_LIMIT', () => {
-          const newLimit = 100
-
-          const stateBefore = {
-            limit: 10
-          }
-
-          const expectedStateAfter = {
-            limit: newLimit
-          }
-
-          expect(reducer(stateBefore, actions.setLimit(newLimit))).to.deep.equal(expectedStateAfter)
-        })
-
-        test('should handle SET_SCOPE', () => {
-          const newScope = 'infobox'
-
-          const stateBefore = {
-            scope: 'list'
-          }
-
-          const expectedStateAfter = {
-            scope: newScope
-          }
-
-          expect(reducer(stateBefore, actions.setScope(newScope))).to.deep.equal(expectedStateAfter)
         })
 
         test('should handle SET_CURRENT_PAGE', () => {
@@ -304,20 +268,6 @@ describe('entity-list', () => {
 
           expect(reducer(expectedStateAfter, actions.setSortingInteractive('firstname', true))).to.deep.equal(
             expectedStateAfter2
-          )
-        })
-
-        test('should handle SET_INPUT_CONSTRICTION', () => {
-          const stateBefore = {
-            inputConstriction: null
-          }
-
-          const expectedStateAfter = {
-            inputConstriction: 'my_test_constriction'
-          }
-
-          expect(reducer(stateBefore, actions.setInputConstriction('my_test_constriction'))).to.deep.equal(
-            expectedStateAfter
           )
         })
       })

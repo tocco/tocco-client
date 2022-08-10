@@ -18,6 +18,7 @@ describe('entity-list', () => {
             expect(generator.next().value).to.deep.equal(
               all([
                 call(sagas.initialize),
+                takeLatest(appFactory.INPUT_CHANGED, sagas.inputChanged),
                 takeLatest(actions.RELOAD_DATA, sagas.reloadData),
                 takeLatest(actions.RELOAD_ALL, sagas.initialize, false),
                 takeLatest(actions.SET_SEARCH_FORM_COLLAPSED, sagas.searchFormCollapsed)
@@ -30,7 +31,7 @@ describe('entity-list', () => {
         describe('initialize', () => {
           test('should coordinate loading of modules and dependencies', () => {
             return expectSaga(sagas.initialize)
-              .dispatch({type: appFactory.inputDispatchActionType})
+              .dispatch({type: appFactory.INPUT_INITIALIZED})
               .put(listActions.initialize())
               .dispatch({type: listActions.SET_INITIALIZED})
               .put(searchFormActions.initialize())

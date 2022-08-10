@@ -42,7 +42,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  sortable: state.list.sortable,
+  sortable: state.input.sortable,
   disablePreferencesMenu: state.list.disablePreferencesMenu
 })
 

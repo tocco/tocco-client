@@ -24,11 +24,16 @@ export const entityDetailSelector = state => state.entityDetail
 
 export const inputSelector = state => state.input
 
+export const formStateSelector = state => ({
+  ...inputSelector(state),
+  ...entityDetailSelector(state)
+})
+
 export const FORM_ID = 'detailForm'
 
 export const formSagaConfig = {
   formId: FORM_ID,
-  stateSelector: entityDetailSelector
+  stateSelector: formStateSelector
 }
 
 export default function* sagas() {

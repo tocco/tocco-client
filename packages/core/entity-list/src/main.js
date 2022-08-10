@@ -1,7 +1,7 @@
-import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
+import React, {useReducer} from 'react'
 import {
   appFactory,
   notification,
@@ -18,8 +18,7 @@ import {react, reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 
 import EntityList from './components/EntityList'
 import customActions from './customActions'
-import {getDispatchActions, getReloadOption, reloadOptions} from './input'
-import {reloadData, reloadAll} from './modules/entityList/actions'
+import {getDispatchActions} from './input'
 import {refresh} from './modules/list/actions'
 import reducers, {sagas} from './modules/reducers'
 import {searchFormTypePropTypes} from './util/searchFormTypes'
@@ -46,29 +45,45 @@ const initApp = (id, input, events, publicPath) => {
     ...(input.customActions || {})
   }
 
-  const context = {
-    viewName: 'list',
-    formName: input.formName,
-    ...(input.contextParams || {})
+  const defaultInput = {
+    limit: 10,
+    scope: 'list',
+    showLink: false,
+    sortable: true,
+    lazyData: {},
+    inputTql: null,
+    inputKeys: null,
+    inputSearchFilters: null,
+    inputConstriction: null,
+    entityName: '',
+    formName: '',
+    searchFormPosition: 'top',
+    parent: null,
+    searchFormCollapsed: false,
+    scrollBehaviour: 'inline'
   }
 
   if (!store) {
-    store = appFactory.createStore(reducers, sagas, input, packageName)
+    store = appFactory.createStore(reducers, sagas, {...defaultInput, ...input}, packageName)
 
-    externalEvents.addToStore(store, events)
-    actionEmitter.addToStore(store, events.emitAction)
+    externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
+    actionEmitter.addToStore(store, state => state.input.emitAction)
     errorLogging.addToStore(store, false)
     notification.addToStore(store, false)
     reports.addToStore(store)
-    actions.addToStore(store, {
+    actions.addToStore(store, state => ({
       formApp: SimpleFormApp,
       listApp: EntityListApp,
       customActions: allCustomActions,
-      appComponent: input.actionAppComponent,
-      navigationStrategy: input.navigationStrategy,
-      context
-    })
-    formData.addToStore(store, {listApp: EntityListApp, navigationStrategy: input.navigationStrategy})
+      appComponent: state.input.actionAppComponent,
+      navigationStrategy: state.input.navigationStrategy,
+      context: {
+        viewName: 'list',
+        formName: state.input.formName,
+        ...(state.input.contextParams || {})
+      }
+    }))
+    formData.addToStore(store, state => ({listApp: EntityListApp, navigationStrategy: state.input.navigationStrategy}))
 
     store.dispatch(externalEvents.fireExternalEvent('onStoreCreate', store))
   } else {
@@ -105,7 +120,7 @@ const initApp = (id, input, events, publicPath) => {
       fetchMock.spy()
     }
 
-    const app = initApp('id', input)
+    const app = initApp(packageName, input)
     appFactory.renderApp(app.component)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
@@ -113,7 +128,8 @@ const initApp = (id, input, events, publicPath) => {
 })()
 
 const EntityListApp = props => {
-  const {component, setApp, store} = appFactory.useApp({
+  const [entityListNumber, forceEntityListUpdate] = useReducer(x => x + 1, 0)
+  const {component, setApp} = appFactory.useApp({
     initApp,
     props,
     packageName: props.id,
@@ -123,7 +139,10 @@ const EntityListApp = props => {
   const prevProps = react.usePrevious(props)
   react.useDidUpdate(() => {
     const changedProps = _pickBy(props, (value, key) => !_isEqual(value, prevProps[key]))
-    if (changedProps.store && typeof prevProps.store !== 'undefined') {
+    if (
+      (changedProps.store && typeof prevProps.store !== 'undefined') ||
+      (typeof changedProps.store === 'undefined' && typeof prevProps.store !== 'undefined')
+    ) {
       /**
        * Whenever the store gets explicitly changed from outside
        * the entity-list needs to be re-initialized in order to show correct information.
@@ -134,21 +153,11 @@ const EntityListApp = props => {
        *   Therefore only re-init when store has been set already.
        */
       setApp(initApp(props.id, props, appFactory.getEvents(EXTERNAL_EVENTS, props)))
-    } else if (!_isEmpty(changedProps)) {
-      getDispatchActions(changedProps).forEach(action => {
-        store.dispatch(action)
-      })
-
-      const reloadOption = getReloadOption(changedProps)
-      if (reloadOption === reloadOptions.ALL) {
-        store.dispatch(reloadAll())
-      } else if (reloadOption === reloadOptions.DATA) {
-        store.dispatch(reloadData())
-      }
+      forceEntityListUpdate()
     }
   }, [props])
 
-  return component
+  return <React.Fragment key={entityListNumber}>{component}</React.Fragment>
 }
 
 EntityListApp.propTypes = {

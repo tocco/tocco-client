@@ -10,8 +10,8 @@ describe('entity-list', () => {
   describe('util', () => {
     const getStore = () =>
       createStore(() => ({
-        formData: {navigationStrategy: {}},
-        entityList: {formName: 'User'},
+        formData: {navigationStrategy: {}, config: {configSelector: () => ({})}},
+        input: {formName: 'User'},
         list: {lazyData: {}}
       }))
 
