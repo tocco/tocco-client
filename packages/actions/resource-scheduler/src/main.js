@@ -27,8 +27,8 @@ const initApp = (id, input, events, publicPath) => {
     </>
   )
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  externalEvents.addToStore(store, events)
-  actionEmitter.addToStore(store, events.emitAction)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
+  actionEmitter.addToStore(store, state => state.input.emitAction)
 
   const handleNotifications = !events.emitAction
 

@@ -68,7 +68,7 @@ const initApp = (id, input, events, publicPath) => {
 
   env.setInputEnvs(input)
 
-  externalEvents.addToStore(store, events)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
   actionEmitter.addToStore(store)
   actions.dynamicActionsAddToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])

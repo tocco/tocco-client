@@ -75,7 +75,8 @@ describe('simple-form', () => {
         const store = createStore(() => ({
           formData: {
             relationEntities: {data: {}},
-            tooltips: {data: {}}
+            tooltips: {data: {}},
+            config: {configSelector: () => ({})}
           },
           form: {
             detailForm: {}

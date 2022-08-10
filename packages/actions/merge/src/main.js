@@ -12,8 +12,8 @@ const EXTERNAL_EVENTS = ['emitAction', 'onSuccess']
 
 const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  actionEmitter.addToStore(store, events.emitAction)
-  externalEvents.addToStore(store, events)
+  actionEmitter.addToStore(store, state => state.input.emitAction)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
   cache.addToStore(store)

@@ -13,10 +13,10 @@ const initApp = (id, input, events, publicPath) => {
   const content = <Delete />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  actionEmitter.addToStore(store, events.emitAction)
+  actionEmitter.addToStore(store, state => state.input.emitAction)
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
-  externalEvents.addToStore(store, events)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
 
   return appFactory.createApp(packageName, content, store, {
     input,

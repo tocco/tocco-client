@@ -13,7 +13,7 @@ const initApp = (id, input, events, publicPath) => {
   const content = <CopyProgress />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  externalEvents.addToStore(store, events)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
 
   return appFactory.createApp(packageName, content, store, {
     input,

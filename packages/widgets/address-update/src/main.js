@@ -25,14 +25,14 @@ const initApp = (id, input, events, publicPath) => {
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
-  externalEvents.addToStore(store, events)
+  externalEvents.addToStore(store, () => ({}))
   actionEmitter.addToStore(store)
   notification.addToStore(store, true)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
   form.addToStore(store, formSagaConfig)
-  formData.addToStore(store, {
+  formData.addToStore(store, () => ({
     listApp: EntityListApp
-  })
+  }))
   cache.addToStore(store)
 
   return appFactory.createApp(packageName, content, store, {

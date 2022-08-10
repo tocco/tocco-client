@@ -27,7 +27,7 @@ export const initLoginApp = (id, input, events, publicPath, customTheme) => {
 
   env.setInputEnvs(input)
 
-  externalEvents.addToStore(store, events)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
   errorLogging.addToStore(store, true, ['console', 'remote'])
   cache.addToStore(store)
 

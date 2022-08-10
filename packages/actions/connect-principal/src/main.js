@@ -13,8 +13,8 @@ const initApp = (id, input, events, publicPath) => {
   const content = <Progress />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  actionEmitter.addToStore(store, events.emitAction)
-  externalEvents.addToStore(store, events)
+  actionEmitter.addToStore(store, state => state.input.emitAction)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
 
   return appFactory.createApp(packageName, content, store, {
     input,

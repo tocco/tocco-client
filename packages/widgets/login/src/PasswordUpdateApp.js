@@ -31,7 +31,7 @@ export const initPasswordUpdateApp = (id, input, events, publicPath, customTheme
 
   env.setInputEnvs(input)
 
-  externalEvents.addToStore(store, events)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS_PASSWORD_UPDATE, state.input))
   errorLogging.addToStore(store, true, ['console', 'remote'])
 
   return appFactory.createApp(packageName, content, store, {
