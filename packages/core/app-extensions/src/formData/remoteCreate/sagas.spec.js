@@ -14,11 +14,11 @@ describe('app-extensions', () => {
       describe('sagas', () => {
         describe('root saga', () => {
           test('should handle remoteCreate', () => {
-            const config = {}
-            const generator = rootSaga(config)
+            const configSelector = () => ({})
+            const generator = rootSaga(configSelector)
 
             expect(generator.next().value).to.deep.equal(
-              all([takeEvery(remoteCreateActions.OPEN_REMOTE_CREATE, sagas.openRemoteCreate, config)])
+              all([takeEvery(remoteCreateActions.OPEN_REMOTE_CREATE, sagas.openRemoteCreate, configSelector)])
             )
 
             expect(generator.next().done).to.be.true
@@ -32,8 +32,8 @@ describe('app-extensions', () => {
             const formName = 'detailForm'
 
             const action = remoteCreateActions.openRemoteCreate(formField, formName, currentValue)
-            const config = {DetailApp}
-            return expectSaga(sagas.openRemoteCreate, config, action)
+            const configSelector = () => ({DetailApp})
+            return expectSaga(sagas.openRemoteCreate, configSelector, action)
               .provide([
                 [matchers.call.fn(rest.fetchDisplay), expectedDisplay],
                 [channel, {}],

@@ -1,5 +1,5 @@
 import {channel} from 'redux-saga'
-import {all, call, put, spawn, take, takeEvery} from 'redux-saga/effects'
+import {all, call, put, select, spawn, take, takeEvery} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 import {v4 as uuid} from 'uuid'
 
@@ -11,12 +11,12 @@ import {getAdvancedSearchComponent, getSelection, getValue} from './utils'
 
 export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
-export default function* sagas(config) {
-  yield all([takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch, config)])
+export default function* sagas(configSelector) {
+  yield all([takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch, configSelector)])
 }
 
-export function* openAdvancedSearch(config, {payload}) {
-  const {listApp} = config
+export function* openAdvancedSearch(configSelector, {payload}) {
+  const {listApp} = yield select(configSelector)
   const {formName, formField, searchTerm, value} = payload
   const {
     id: fieldId,

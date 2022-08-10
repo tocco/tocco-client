@@ -14,18 +14,18 @@ describe('app-extensions', () => {
       describe('sagas', () => {
         describe('root saga', () => {
           test('should handle invokeAction', () => {
-            const config = {}
-            const generator = rootSaga(config)
+            const configSelector = () => {}
+            const generator = rootSaga(configSelector)
 
             expect(generator.next().value).to.deep.equal(
-              all([takeEvery(actions.ACTION_INVOKE, sagas.invokeAction, config)])
+              all([takeEvery(actions.ACTION_INVOKE, sagas.invokeAction, configSelector)])
             )
 
             expect(generator.next().done).to.be.true
           })
         })
 
-        const config = {}
+        const configSelector = () => {}
         const payload = {
           definition: {
             actionType: 'simple',
@@ -38,21 +38,21 @@ describe('app-extensions', () => {
 
         describe('invokeAction', () => {
           test('should call preAction and call actionHandler if not abort', () => {
-            return expectSaga(sagas.invokeAction, config, {payload})
+            return expectSaga(sagas.invokeAction, configSelector, {payload})
               .provide([[matchers.call.fn(prepare), {abort: false}]])
               .call.like({fn: actionHandlers.simple})
               .run()
           })
 
           test('should call preAction and call actionHandler if abort returned', () => {
-            return expectSaga(sagas.invokeAction, config, {payload})
+            return expectSaga(sagas.invokeAction, configSelector, {payload})
               .provide([[matchers.call.fn(prepare), {abort: true}]])
               .not.call.like({fn: actionHandlers.simple})
               .run()
           })
 
           test('should call invoked action after successfull handled action call', () => {
-            return expectSaga(sagas.invokeAction, config, {payload})
+            return expectSaga(sagas.invokeAction, configSelector, {payload})
               .provide([
                 [matchers.call.fn(prepare), {abort: false}],
                 [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: true}]
@@ -62,7 +62,7 @@ describe('app-extensions', () => {
           })
 
           test('should call invoked action after successfull handled action call', () => {
-            return expectSaga(sagas.invokeAction, config, {payload})
+            return expectSaga(sagas.invokeAction, configSelector, {payload})
               .provide([
                 [matchers.call.fn(prepare), {abort: false}],
                 [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: false}]
@@ -85,7 +85,7 @@ describe('app-extensions', () => {
               success: true,
               remoteEvents: [remoteEvent1, remoteEvent2]
             }
-            return expectSaga(sagas.invokeAction, config, {payload})
+            return expectSaga(sagas.invokeAction, configSelector, {payload})
               .provide([
                 [matchers.call.fn(prepare), {abort: false}],
                 [matchers.call.fn(actionHandlers[payload.definition.actionType]), actionResponse]

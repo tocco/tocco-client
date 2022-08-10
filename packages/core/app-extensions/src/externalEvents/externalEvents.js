@@ -12,6 +12,6 @@ export const invokeExternalEvent = (events, eventName, ...args) => {
   }
 }
 
-export const addToStore = (store, events) => {
-  store.sagaMiddleware.run(sagas, events)
+export const addToStore = (store, configSelector = () => ({})) => {
+  store.sagaMiddleware.run(sagas, configSelector)
 }

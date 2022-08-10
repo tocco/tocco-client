@@ -1,5 +1,5 @@
 import sagas from './sagas'
 
-export const addToStore = (store, parentEmitAction) => {
-  store.sagaMiddleware.run(sagas, parentEmitAction)
+export const addToStore = (store, configSelector = () => null) => {
+  store.sagaMiddleware.run(sagas, configSelector)
 }
