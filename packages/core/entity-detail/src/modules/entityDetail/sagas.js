@@ -2,6 +2,7 @@ import {actions as formActions, isValid as isValidSelector} from 'redux-form'
 import {all, call, fork, put, select, takeEvery, takeLatest, take} from 'redux-saga/effects'
 import {
   actions as actionExtensions,
+  appFactory,
   externalEvents,
   form,
   notification,
@@ -32,6 +33,7 @@ export const formSagaConfig = {
 
 export default function* sagas() {
   yield all([
+    takeLatest(appFactory.INPUT_CHANGED, inputChanged),
     takeLatest(actions.LOAD_DETAIL_VIEW, loadDetailView),
     takeLatest(actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
     takeLatest(actions.TOUCH_ALL_FIELDS, form.sagasUtils.touchAllFields, formSagaConfig),
@@ -43,6 +45,17 @@ export default function* sagas() {
     takeLatest(actions.UPDATE_MARKED, updateMarked),
     takeLatest(actionExtensions.actions.ACTION_INVOKED, reloadAfterAction)
   ])
+}
+
+export function* inputChanged({payload}) {
+  const {input} = payload
+  const changedKeys = Object.keys(input)
+  const viewRelatedKeys = ['entityName', 'entityId', 'formName', 'mode', 'defaultValues']
+  const needsReload = changedKeys.some(key => viewRelatedKeys.includes(key))
+  if (needsReload) {
+    yield put(actions.unloadDetailView())
+    yield put(actions.loadDetailView())
+  }
 }
 
 export function* loadDetailFormDefinition(formName, mode, entityName, entityId) {
@@ -70,7 +83,8 @@ function* addReportsToForm(reportIds, entityName, formDefinition) {
 
 export function* loadEntity(entityName, entityId, fieldDefinitions) {
   const formPaths = yield call(form.getUsedPaths, fieldDefinitions)
-  const {mode, entityModel} = yield select(entityDetailSelector)
+  const {mode} = yield select(inputSelector)
+  const {entityModel} = yield select(entityDetailSelector)
   const footerPaths = yield call(getFooterPaths, mode, entityModel)
   const paths = [...formPaths, ...footerPaths]
   const entity = yield call(rest.fetchEntity, entityName, entityId, {paths})
@@ -79,8 +93,8 @@ export function* loadEntity(entityName, entityId, fieldDefinitions) {
 }
 
 export function* unloadDetailView() {
-  yield put(actions.setEntity(null))
   yield put(formActions.destroy(FORM_ID))
+  yield put(actions.setEntity({}))
 }
 
 export function* loadEntityModel(entityName) {
@@ -90,7 +104,7 @@ export function* loadEntityModel(entityName) {
 }
 
 export function* loadDetailView() {
-  const {entityName, entityId, formName, mode, defaultValues} = yield select(entityDetailSelector)
+  const {entityName, entityId, formName, mode, defaultValues} = yield select(inputSelector)
 
   const model = yield call(loadEntityModel, entityName)
   const {fieldDefinitions} = yield call(loadDetailFormDefinition, formName, mode, entityName, entityId)
@@ -145,7 +159,8 @@ export function* submitForm() {
       yield put(actions.setFormSubmissionFailed())
     } else {
       yield put(formActions.startSubmit(FORM_ID))
-      const {mode, fieldDefinitions} = yield select(entityDetailSelector)
+      const {mode} = yield select(inputSelector)
+      const {fieldDefinitions} = yield select(entityDetailSelector)
       yield call(submitValidate)
       const entity = yield call(form.sagasUtils.getEntityForSubmit, formSagaConfig)
       if (mode === modes.UPDATE) {
@@ -193,9 +208,8 @@ export function* loadRelationDisplays(relationFields, entities) {
 }
 
 export function* loadData(reset = true) {
-  const {entityName, entityId, fieldDefinitions, formDefinition, formName, entityModel, mode} = yield select(
-    entityDetailSelector
-  )
+  const {entityName, entityId, formName, mode} = yield select(inputSelector)
+  const {fieldDefinitions, formDefinition, entityModel} = yield select(entityDetailSelector)
 
   if (entityModel.markable && formDefinition.markable) {
     yield fork(loadMarked, entityName, entityId)
@@ -248,7 +262,7 @@ export const isCurrentEntity = (event, entityName, entityId) =>
 
 export function* remoteEvent(action) {
   const event = action.payload.event
-  const {entityName, entityId} = yield select(entityDetailSelector)
+  const {entityName, entityId} = yield select(inputSelector)
 
   if (event.type === 'action-trigger-event') {
     yield put(event.payload.func(...event.payload.args))

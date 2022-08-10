@@ -4,22 +4,21 @@ import {getFormInitialValues} from 'redux-form'
 import {errorLogging} from 'tocco-app-extensions'
 
 import DetailView from '../components/DetailView/DetailView'
-import {loadDetailView, unloadDetailView} from '../modules/entityDetail/actions'
+import {unloadDetailView} from '../modules/entityDetail/actions'
 
 const mapActionCreators = {
-  loadDetailView,
   unloadDetailView,
   logError: errorLogging.logError
 }
 
 const mapStateToProps = (state, props) => {
   return {
-    entityName: state.entityDetail.entityName,
-    entityId: state.entityDetail.entityId,
+    entityName: state.input.entityName,
+    entityId: state.input.entityId,
+    mode: state.input.mode,
     entityModel: state.entityDetail.entityModel,
     formDefinition: state.entityDetail.formDefinition,
     fieldDefinitions: state.entityDetail.fieldDefinitions,
-    mode: state.entityDetail.mode,
     formInitialValues: getFormInitialValues('detailForm')(state)
   }
 }

@@ -3,7 +3,15 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
 import {all, call, put, select, takeEvery, takeLatest, take} from 'redux-saga/effects'
-import {actions as actionExtensions, externalEvents, form, remoteEvents, rest, reports} from 'tocco-app-extensions'
+import {
+  actions as actionExtensions,
+  externalEvents,
+  form,
+  remoteEvents,
+  rest,
+  reports,
+  appFactory
+} from 'tocco-app-extensions'
 import {intl} from 'tocco-util'
 
 import {createEntity, updateEntity} from '../../util/api/entities'
@@ -22,6 +30,7 @@ describe('entity-detail', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(
               all([
+                takeLatest(appFactory.INPUT_CHANGED, sagas.inputChanged),
                 takeLatest(actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
                 takeLatest(actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
                 takeLatest(actions.TOUCH_ALL_FIELDS, form.sagasUtils.touchAllFields, sagas.formSagaConfig),
@@ -40,15 +49,14 @@ describe('entity-detail', () => {
 
         describe('loadDetailView saga', () => {
           test('should fetch entity and set it in store', () => {
-            const modelPaths = []
             const entityId = 99
             const formName = 'UserSearch'
             const entityName = 'User'
             const formDefinition = {}
             const mode = 'update'
 
-            const gen = sagas.loadDetailView(actions.loadDetailView(modelPaths, entityId))
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            const gen = sagas.loadDetailView()
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({entityName, entityId, formName, mode}).value).to.eql(
               call(sagas.loadEntityModel, entityName)
             )
@@ -69,7 +77,8 @@ describe('entity-detail', () => {
             return expectSaga(sagas.submitForm)
               .provide([
                 [select(intl.localeSelector), 'de'],
-                [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
+                [select(sagas.inputSelector), {mode}],
+                [select(sagas.entityDetailSelector), {fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
                 [matchers.call.fn(form.sagasUtils.getEntityForSubmit), entity],
                 [matchers.call.fn(sagas.submitValidate)],
@@ -88,7 +97,8 @@ describe('entity-detail', () => {
             return expectSaga(sagas.submitForm)
               .provide([
                 [select(intl.localeSelector), 'de'],
-                [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
+                [select(sagas.inputSelector), {mode}],
+                [select(sagas.entityDetailSelector), {fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
                 [matchers.call.fn(form.sagasUtils.getEntityForSubmit), entity],
                 [matchers.call.fn(sagas.submitValidate)],
@@ -105,7 +115,8 @@ describe('entity-detail', () => {
             const error = new Error('error')
             return expectSaga(sagas.submitForm)
               .provide([
-                [select(sagas.entityDetailSelector), {mode, fieldDefinitions}],
+                [select(sagas.inputSelector), {mode}],
+                [select(sagas.entityDetailSelector), {fieldDefinitions}],
                 [select(isValidSelector(FORM_ID)), true],
                 [matchers.call.fn(form.sagasUtils.getEntityForSubmit), entity],
                 [matchers.call.fn(sagas.updateFormSubmit), throwError(error)],
@@ -275,6 +286,7 @@ describe('entity-detail', () => {
             }
             return expectSaga(sagas.loadData)
               .provide([
+                [select(sagas.inputSelector), {}],
                 [select(sagas.entityDetailSelector), entityDetail],
                 [matchers.fork.fn(sagas.loadMarked)],
                 [matchers.call.fn(sagas.loadEntity), {paths: {}}],
@@ -336,23 +348,23 @@ describe('entity-detail', () => {
           })
 
           test('should call external event onEntityDeleted', () => {
-            const detailState = {
+            const inputState = {
               entityName: 'User',
               entityId: '1'
             }
             return expectSaga(sagas.remoteEvent, deleteEventAction)
-              .provide([[select(sagas.entityDetailSelector), detailState]])
+              .provide([[select(sagas.inputSelector), inputState]])
               .put(externalEvents.fireExternalEvent('onEntityDeleted'))
               .run()
           })
 
           test('should not call external event onEntityDeleted if irrelevant event', () => {
-            const detailState = {
+            const inputState = {
               entityName: 'Classroom',
               entityId: '99'
             }
             return expectSaga(sagas.remoteEvent, deleteEventAction)
-              .provide([[select(sagas.entityDetailSelector), detailState]])
+              .provide([[select(sagas.inputSelector), inputState]])
               .not.put(externalEvents.fireExternalEvent('onEntityDeleted'))
               .run()
           })
@@ -365,14 +377,14 @@ describe('entity-detail', () => {
               }
             })
 
-            const detailState = {
+            const inputState = {
               entityName: 'User',
               entityId: '1'
             }
 
             return expectSaga(sagas.remoteEvent, updateEventAction)
               .provide([
-                [select(sagas.entityDetailSelector), detailState],
+                [select(sagas.inputSelector), inputState],
                 [matchers.call.fn(sagas.loadData), {paths: {}}]
               ])
               .call(sagas.loadData, false)
@@ -388,13 +400,13 @@ describe('entity-detail', () => {
               }
             })
 
-            const detailState = {
+            const inputState = {
               entityName: 'User',
               entityId: '1'
             }
 
             return expectSaga(sagas.remoteEvent, triggerActionEvent)
-              .provide([[select(sagas.entityDetailSelector), detailState]])
+              .provide([[select(sagas.inputSelector), inputState]])
               .put(actions.setMarked(true))
               .run()
           })

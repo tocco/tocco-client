@@ -104,13 +104,16 @@ describe('entity-detail', () => {
         const store = createStore(() => ({
           formData: {
             relationEntities: {data: {}},
-            tooltips: {data: {}}
+            tooltips: {data: {}},
+            config: {configSelector: () => ({})}
           },
           form: {
             detailForm: {values: {}}
           },
+          input: {
+            mode: 'update'
+          },
           entityDetail: {
-            mode: 'update',
             entityModel: {
               useNiceFields: false,
               keyField: 'pk'

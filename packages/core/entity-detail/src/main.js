@@ -1,6 +1,3 @@
-import _isEmpty from 'lodash/isEmpty'
-import _isEqual from 'lodash/isEqual'
-import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
 import {
   actionEmitter,
@@ -16,14 +13,14 @@ import {
 } from 'tocco-app-extensions'
 import EntityListApp from 'tocco-entity-list/src/main'
 import SimpleFormApp from 'tocco-simple-form/src/main'
-import {navigationStrategy, react, reducer as reducerUtil} from 'tocco-util'
+import {navigationStrategy, reducer as reducerUtil} from 'tocco-util'
 
 import {SaveButton} from './components/Actions'
 import ErrorItems from './components/ErrorItems'
 import DetailViewContainer from './containers/DetailViewContainer'
 import customActions from './customActions'
-import {getDispatchActions} from './input'
 import {pendingChangesHandler} from './modules/actions/sagas'
+import {loadDetailView} from './modules/entityDetail/actions'
 import reducers, {sagas, formSagaConfig} from './modules/reducers'
 import shortcuts from './shortcuts'
 
@@ -43,36 +40,36 @@ const initApp = (id, input, events, publicPath) => {
   const content = <DetailViewContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  externalEvents.addToStore(store, events)
-  actionEmitter.addToStore(store, events.emitAction)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
+  actionEmitter.addToStore(store, state => state.input.emitAction)
   errorLogging.addToStore(store, false)
   notification.addToStore(store, false)
   form.addToStore(store, formSagaConfig)
   reports.addToStore(store)
-  actions.addToStore(store, {
+  actions.addToStore(store, state => ({
     formApp: SimpleFormApp,
     listApp: EntityListApp,
     customActions,
-    appComponent: input.actionAppComponent,
-    navigationStrategy: input.navigationStrategy,
+    appComponent: state.input.actionAppComponent,
+    navigationStrategy: state.input.navigationStrategy,
     context: {
       viewName: 'detail',
-      formName: input.formName
+      formName: state.input.formName
     },
     customPreparationHandlers: [pendingChangesHandler]
-  })
-  formData.addToStore(store, {
+  }))
+  formData.addToStore(store, state => ({
     listApp: EntityListApp,
     detailApp: EntityDetailApp,
-    navigationStrategy: input.navigationStrategy,
-    chooseDocument: input.chooseDocument
-  })
+    navigationStrategy: state.input.navigationStrategy,
+    chooseDocument: state.input.chooseDocument
+  }))
   keyDown.addToStore(store, shortcuts)
 
   const app = appFactory.createApp(packageName, content, store, {
     input,
     events,
-    actions: getDispatchActions(input),
+    actions: [loadDetailView()],
     publicPath,
     textResourceModules: ['actiongroup', 'component', 'common', 'entity-list', 'entity-detail']
   })
@@ -104,7 +101,7 @@ const initApp = (id, input, events, publicPath) => {
       fetchMock.spy()
     }
 
-    const app = initApp('id', input)
+    const app = initApp(packageName, input)
     appFactory.renderApp(app.component)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
@@ -112,18 +109,7 @@ const initApp = (id, input, events, publicPath) => {
 })()
 
 const EntityDetailApp = props => {
-  const {component, store} = appFactory.useApp({initApp, props, packageName: props.id, externalEvents: EXTERNAL_EVENTS})
-
-  const prevProps = react.usePrevious(props)
-  react.useDidUpdate(() => {
-    const changedProps = _pickBy(props, (value, key) => !_isEqual(value, prevProps[key]))
-    if (!_isEmpty(changedProps)) {
-      getDispatchActions(changedProps, false).forEach(action => {
-        store.dispatch(action)
-      })
-    }
-  }, [props])
-
+  const {component} = appFactory.useApp({initApp, props, packageName: props.id, externalEvents: EXTERNAL_EVENTS})
   return component
 }
 

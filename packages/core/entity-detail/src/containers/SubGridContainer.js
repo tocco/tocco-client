@@ -5,7 +5,7 @@ import SubGrid from '../components/SubGrid'
 import {navigateToCreate} from './../modules/entityDetail/actions'
 
 const mapStateToProps = (state, props) => ({
-  appId: state.entityDetail.appId,
+  appId: state.input.appId,
   entityKey: state.entityDetail.entity.key,
   entityName: state.entityDetail.entity.model,
   detailFormName: state.entityDetail.formDefinition.id,
