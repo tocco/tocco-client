@@ -1,3 +1,7 @@
+1.0.76-hotfix33.8
+- fix datetime range with single default value
+- do not clear date input on blur
+
 1.0.76-hotfix33.7
 - remount entity-detail app after navigation
 

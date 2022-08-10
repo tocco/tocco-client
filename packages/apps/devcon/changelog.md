@@ -1,3 +1,7 @@
+1.0.49-hotfix33.5
+- fix datetime range with single default value
+- do not clear date input on blur
+
 1.0.49-hotfix33.4
 - fix change date on range date picker
 - fix datetime search field with default value
