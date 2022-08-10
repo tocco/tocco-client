@@ -1,3 +1,8 @@
+1.0.56
+- fix position of reports in form modifier
+- fix datetime range with single default value
+- do not clear date input on blur
+
 1.0.55
 - improve datepicker styling and fix bugs in widgets
 - force hover styles of upload button when hovering upload field

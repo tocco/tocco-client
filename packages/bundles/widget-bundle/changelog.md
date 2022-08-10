@@ -1,3 +1,9 @@
+0.1.20
+- add business unit to input props
+- fix position of reports in form modifier
+- fix datetime range with single default value
+- do not clear date input on blur
+
 0.1.19
 - improve datepicker styling and fix bugs in widgets
 - force hover styles of upload button when hovering upload field
