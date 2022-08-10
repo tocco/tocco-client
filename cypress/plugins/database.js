@@ -11,7 +11,8 @@ const resetDatabase = config => {
       ...setEnv(config, 'HIBERNATE_MAIN_DATABASENAME'),
       ...setEnv(config, 'HIBERNATE_MAIN_USER'),
       ...setEnv(config, 'HIBERNATE_MAIN_PASSWORD'),
-      ...setEnv(config, 'POSTGRES_USER')
+      ...setEnv(config, 'POSTGRES_USER'),
+      ...setEnv(config, 'POSTGRES_PASSWORD')
     }
 
     const child = spawn('bash', ['./scripts/nice2/db-reset.sh'], {env: {...process.env, ...env}})

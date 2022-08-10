@@ -18,6 +18,7 @@ databasePassword="${HIBERNATE_MAIN_PASSWORD:-nice}"
 databaseDatabasename="${HIBERNATE_MAIN_DATABASENAME:-test_cypress}"
 databaseSslmode="${HIBERNATE_MAIN_SSLMODE:-disable}"
 postgresUser="${POSTGRES_USER}"
+postgresPassword="${POSTGRES_PASSWORD}"
 
 backendUrl="${BACKEND_URL:-http://localhost:8080}"
 
@@ -114,13 +115,13 @@ function emptyDB() {
     args+=("postgres")
   fi
 
-  psql "${args[@]}" <<EOF
+  PGPASSWORD=$postgresPassword psql "${args[@]}" <<EOF
     DROP DATABASE IF EXISTS $databaseDatabasename;
 EOF
 
   echo "create user '$databaseUser'"
 
-  psql "${args[@]}" <<EOF
+  PGPASSWORD=$postgresPassword psql "${args[@]}" <<EOF
     DO \$$
     BEGIN
       IF NOT EXISTS (
@@ -134,11 +135,11 @@ EOF
 
   echo "create database '$databaseDatabasename'"
 
-  psql "${args[@]}" <<EOF
+  PGPASSWORD=$postgresPassword psql "${args[@]}" <<EOF
     CREATE DATABASE $databaseDatabasename WITH OWNER $databaseUser;
 EOF
 
-  psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort -d ${databaseDatabasename} -U $databaseUser <<EOF
+  PGPASSWORD=$databasePassword psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort -d ${databaseDatabasename} -U $databaseUser <<EOF
     CREATE EXTENSION IF NOT EXISTS lo;
     CREATE EXTENSION IF NOT EXISTS pg_trgm;
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -149,7 +150,7 @@ EOF
 function setupCypressUser() {
   echo "insert principal '$CYPRESS_USER'"
 
-  psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} <<EOF
+  PGPASSWORD=$databasePassword psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} <<EOF
 BEGIN;
 
 INSERT INTO nice_principal
@@ -266,13 +267,13 @@ function restoreDB() {
 
   if [[ -f "$backupFile" ]]; then
     echo "restore database '$databaseDatabasename' from file '$backupFile'"
-    pg_restore -h ${databaseServername} -p $postgresPort -U ${databaseUser} -j 4 --role ${databaseUser} --no-owner --no-acl -d ${databaseDatabasename} $backupFile
+    PGPASSWORD=$databasePassword pg_restore -h ${databaseServername} -p $postgresPort -U ${databaseUser} -j 4 --role ${databaseUser} --no-owner --no-acl -d ${databaseDatabasename} $backupFile
   fi
 }
 
 function createDump() {
   echo "create database dump from '$databaseDatabasename' to file '$backupFile'"
-  pg_dump -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} -Fc -f $backupFile
+  PGPASSWORD=$databasePassword pg_dump -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} -Fc -f $backupFile
 }
 
 function forceRestoreDB() {
@@ -281,7 +282,7 @@ function forceRestoreDB() {
 
   echo "kill all active db connections to '$databaseDatabasename'"
 
-  psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} <<EOF
+  PGPASSWORD=$databasePassword psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} <<EOF
 SELECT
   pg_terminate_backend(pg_stat_activity.pid)
 FROM
