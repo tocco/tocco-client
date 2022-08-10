@@ -1,5 +1,5 @@
 import {channel} from 'redux-saga'
-import {all, call, put, take, takeEvery} from 'redux-saga/effects'
+import {all, call, put, select, take, takeEvery} from 'redux-saga/effects'
 import {v4 as uuid} from 'uuid'
 
 import notification from '../../notification'
@@ -8,11 +8,12 @@ import * as valueActions from '../values/actions'
 import * as actions from './actions'
 import RemoteCreate from './RemoteCreateContainer'
 
-export default function* sagas(config) {
-  yield all([takeEvery(actions.OPEN_REMOTE_CREATE, openRemoteCreate, config)])
+export default function* sagas(configSelector) {
+  yield all([takeEvery(actions.OPEN_REMOTE_CREATE, openRemoteCreate, configSelector)])
 }
 
-export function* openRemoteCreate({detailApp}, {payload: {formName, formField, value}}) {
+export function* openRemoteCreate(configSelector, {payload: {formName, formField, value}}) {
+  const {detailApp} = yield select(configSelector)
   const answerChannel = yield call(channel)
   const modalId = yield call(uuid)
   const buildCreateForm = ({close}) => (

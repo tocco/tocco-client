@@ -1,4 +1,4 @@
-import {takeEvery, all, call} from 'redux-saga/effects'
+import {takeEvery, all, call, select} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {invokeExternalEvent} from './externalEvents'
@@ -9,14 +9,14 @@ describe('app-extensions', () => {
     describe('sagas', () => {
       describe('root saga', () => {
         test('should handle fire action', () => {
-          const events = {
+          const configSelector = () => ({
             a: () => {}
-          }
+          })
 
-          const generator = rootSaga(events)
+          const generator = rootSaga(configSelector)
 
           expect(generator.next().value).to.deep.equal(
-            all([takeEvery(actions.FIRE_EXTERNAL_EVENT, sagas.fireExternalEvent, events)])
+            all([takeEvery(actions.FIRE_EXTERNAL_EVENT, sagas.fireExternalEvent, configSelector)])
           )
 
           expect(generator.next().done).to.be.true
@@ -28,10 +28,12 @@ describe('app-extensions', () => {
           const events = {
             a: () => {}
           }
+          const configSelector = () => events
           const fireAction = actions.fireExternalEvent('a', 1)
 
-          const generator = sagas.fireExternalEvent(events, fireAction)
-          expect(generator.next().value).to.deep.equal(call(invokeExternalEvent, events, 'a', 1))
+          const generator = sagas.fireExternalEvent(configSelector, fireAction)
+          expect(generator.next().value).to.deep.equal(select(configSelector))
+          expect(generator.next(events).value).to.deep.equal(call(invokeExternalEvent, events, 'a', 1))
           expect(generator.next().done).to.be.true
         })
       })

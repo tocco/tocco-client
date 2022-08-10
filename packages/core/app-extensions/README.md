@@ -17,10 +17,10 @@ import { actionEmitter } from "tocco-app-extensions";
 Initialization:
 
 ```javascript
-actionEmitter.addToStore(store, events.emitAction);
+actionEmitter.addToStore(store, state => state.input.emitAction);
 ```
 
-the second (optional) parameter is an action which is dispatched to interact with the parent app.
+the second (optional) parameter is a selector function which returns an action which is dispatched to interact with the parent app.
 
 ## actions
 
@@ -35,10 +35,10 @@ import { actions } from "tocco-app-extensions";
 Initialization:
 
 ```javascript
-actions.addToStore(store, { formApp, listApp, customActions });
+actions.addToStore(store, state => ({ formApp, listApp, customActions }));
 ```
 
-config, the second parameter, is an object that can have the following properties:
+config, the second parameter, is a selector function which returns an object that can have the following properties:
 
 - formApp: Simple form App, is needed to render simple Action settings.
 - listApp: Entity-List App, is needed to render remote fields in action settings.
@@ -119,7 +119,7 @@ import { externalEvents } from "tocco-app-extensions";
 Initialization:
 
 ```javascript
-externalEvents.addToStore(store, events);
+externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input));
 ```
 
 ## field
@@ -143,10 +143,10 @@ import { formData } from "tocco-app-extensions";
 Initialization:
 
 ```javascript
-formData.addToStore(store, { listApp, navigationStrategy });
+formData.addToStore(store, state => ({ listApp, navigationStrategy }));
 ```
 
-config, the second parameter, is an object an can have the following properties:
+config, the second parameter, is a selector function which returns an object an can have the following properties:
 
 - listApp: Entity-List App component. Is used to connect the remote field with a list search.
 - detailApp: Entity-detail App component. Is used for the remote create.

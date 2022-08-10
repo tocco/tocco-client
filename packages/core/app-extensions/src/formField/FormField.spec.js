@@ -13,7 +13,8 @@ describe('app-extensions', () => {
         createStore(() => ({
           formData: {
             relationEntities: {data: {}},
-            tooltips: {data: {}}
+            tooltips: {data: {}},
+            config: {configSelector: () => ({})}
           },
           form: {
             detailForm: {}

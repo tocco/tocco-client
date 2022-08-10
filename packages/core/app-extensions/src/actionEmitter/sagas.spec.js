@@ -1,4 +1,4 @@
-import {takeEvery, all, call, put} from 'redux-saga/effects'
+import {takeEvery, all, call, put, select} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -26,20 +26,24 @@ describe('app-extensions', () => {
       describe('emitAction', () => {
         test('should call parentEmitAction with action', () => {
           const parentEmitAction = () => {}
+          const configSelector = () => parentEmitAction
           const action = {TYPE: 'ANY_ACTION'}
           const emitAction = actions.emitAction(action)
 
-          const generator = sagas.emitAction(parentEmitAction, emitAction)
-          expect(generator.next().value).to.deep.equal(call(parentEmitAction, action))
+          const generator = sagas.emitAction(configSelector, emitAction)
+          expect(generator.next().value).to.deep.equal(select(configSelector))
+          expect(generator.next(parentEmitAction).value).to.deep.equal(call(parentEmitAction, action))
           expect(generator.next().done).to.be.true
         })
 
         test('should do nothing if parentEmitAction is undefined', () => {
           const parentEmitAction = undefined
+          const configSelector = () => parentEmitAction
           const action = {TYPE: 'ANY_ACTION'}
           const emitAction = actions.emitAction(action)
 
-          const generator = sagas.emitAction(parentEmitAction, emitAction)
+          const generator = sagas.emitAction(configSelector, emitAction)
+          expect(generator.next().value).to.deep.equal(select(configSelector))
           expect(generator.next().done).to.be.true
         })
       })

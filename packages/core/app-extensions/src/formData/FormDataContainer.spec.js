@@ -15,7 +15,8 @@ describe('app-extensions', () => {
               relUser2: [{key: 33}]
             }
           },
-          tooltips: {data: {}}
+          tooltips: {data: {}},
+          config: {configSelector: () => ({})}
         },
         form: {
           detailForm: {

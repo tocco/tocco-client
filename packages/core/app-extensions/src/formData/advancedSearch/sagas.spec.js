@@ -12,11 +12,11 @@ describe('app-extensions', () => {
       describe('sagas', () => {
         describe('root saga', () => {
           test('should handle openAdvancedSearch', () => {
-            const config = {}
-            const generator = rootSaga(config)
+            const configSelector = () => ({})
+            const generator = rootSaga(configSelector)
 
             expect(generator.next().value).to.deep.equal(
-              all([takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch, config)])
+              all([takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch, configSelector)])
             )
 
             expect(generator.next().done).to.be.true
@@ -32,8 +32,8 @@ describe('app-extensions', () => {
             const formName = 'searchForm'
 
             const action = advancedSearchActions.openAdvancedSearch(formName, formField, searchTerm, value)
-            const config = {ListApp}
-            return expectSaga(sagas.openAdvancedSearch, config, action)
+            const configSelector = () => ({ListApp})
+            return expectSaga(sagas.openAdvancedSearch, configSelector, action)
               .provide([
                 [matchers.spawn.fn(sagas.closeAdvancedSearch), () => {}],
                 [matchers.call.fn(rest.fetchForm), {form: {}}]
