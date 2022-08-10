@@ -56,8 +56,6 @@ const ACTION_HANDLERS = {
   [actions.SET_FORM_DEFINITION]: reducerUtil.singleTransferReducer('formDefinition'),
   [actions.SET_SEARCH_LIST_FORM_DEFINITION]: reducerUtil.singleTransferReducer('searchListFormDefinition'),
   [actions.SET_ENTITY_MODEL]: reducerUtil.singleTransferReducer('entityModel'),
-  [actions.SET_LIMIT]: reducerUtil.singleTransferReducer('limit'),
-  [actions.SET_SCOPE]: reducerUtil.singleTransferReducer('scope'),
   [actions.SET_CURRENT_PAGE]: reducerUtil.singleTransferReducer('currentPage'),
   [actions.SET_SORTING]: reducerUtil.singleTransferReducer('sorting'),
   [actions.SET_SORTING_INTERACTIVE]: setSortingInteractive,
@@ -67,20 +65,12 @@ const ACTION_HANDLERS = {
   [actions.CLEAR_ENTITY_STORE]: clearEntityStore,
   [actions.SET_IN_PROGRESS]: reducerUtil.singleTransferReducer('inProgress'),
   [actions.SET_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('searchFilters'),
-  [actions.SET_SHOW_LINK]: reducerUtil.singleTransferReducer('showLink'),
-  [actions.SET_SORTABLE]: reducerUtil.singleTransferReducer('sortable'),
-  [actions.SET_INPUT_TQL]: reducerUtil.singleTransferReducer('inputTql'),
-  [actions.SET_INPUT_KEYS]: reducerUtil.singleTransferReducer('inputKeys'),
-  [actions.SET_INPUT_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('inputSearchFilters'),
-  [actions.SET_INPUT_CONSTRICTION]: reducerUtil.singleTransferReducer('inputConstriction'),
   [actions.SET_CONSTRICTION]: reducerUtil.singleTransferReducer('constriction')
 }
 
 const initialState = {
   entityModel: {},
   entities: [],
-  limit: 10,
-  scope: 'list',
   currentPage: 1,
   sorting: [],
   formDefinition: null,
@@ -90,13 +80,7 @@ const initialState = {
   inProgress: true,
   searchFilters: [],
   createPermission: false,
-  showLink: false,
-  sortable: true,
-  lazyData: {},
-  inputTql: null,
-  inputKeys: null,
-  inputSearchFilters: null,
-  inputConstriction: null
+  lazyData: {}
 }
 
 export default function reducer(state = initialState, action) {

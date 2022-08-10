@@ -14,9 +14,7 @@ import rootSaga, * as sagas from './sagas'
 
 const generateState = (entityStore, page, markable = true) => ({
   initialized: false,
-  formName: '',
   sorting: [],
-  limit: '',
   entityStore,
   formDefinition: {
     id: 'User_list',
@@ -70,9 +68,7 @@ describe('entity-list', () => {
             const scope = 'list'
             return expectSaga(sagas.initialize)
               .provide([
-                [select(sagas.entityListSelector), {entityName, formName}],
-                [select(sagas.inputSelector), {}],
-                [select(sagas.listSelector), {scope}],
+                [select(sagas.inputSelector), {entityName, formName, scope}],
                 [matchers.call.fn(sagas.loadFormDefinition)],
                 [matchers.call.fn(sagas.loadEntityModel)]
               ])
@@ -89,9 +85,7 @@ describe('entity-list', () => {
             const scope = 'list'
             return expectSaga(sagas.initialize)
               .provide([
-                [select(sagas.entityListSelector), {entityName, formName}],
-                [select(sagas.inputSelector), {searchListFormName}],
-                [select(sagas.listSelector), {scope}],
+                [select(sagas.inputSelector), {entityName, formName, scope, searchListFormName}],
                 [matchers.call.fn(sagas.loadFormDefinition)],
                 [matchers.call.fn(sagas.loadEntityModel)]
               ])
@@ -142,7 +136,8 @@ describe('entity-list', () => {
 
             const state = {
               entityList: {},
-              preferences: {entityName, formName},
+              input: {entityName, formName},
+              preferences: {},
               list: {entityStore}
             }
 
@@ -152,14 +147,14 @@ describe('entity-list', () => {
           })
 
           test('should add entities to store', () => {
-            const listViewState = generateState({scope: 'list'}, 1)
+            const listViewState = generateState({}, 1)
             const entities = []
             const fields = ['firstname', 'lastname']
 
             const page = 1
 
             const state = {
-              entityList: {formName: 'UserTest', entityName: 'User'},
+              input: {formName: 'UserTest', entityName: 'User', scope: 'list'},
               list: listViewState,
               preferences: {columns: {}}
             }
@@ -167,7 +162,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.fetchEntitiesAndAddToStore, page)
               .provide([
                 [select(sagas.stateSelector), state],
-                [select(sagas.entityListSelector), state.entityList],
+                [select(sagas.inputSelector), state.input],
                 [select(sagas.listSelector), state.list],
                 [matchers.call.fn(getFields), fields],
                 [matchers.call.fn(rest.fetchEntities), entities],
@@ -181,14 +176,14 @@ describe('entity-list', () => {
           })
 
           test('should use endpoint from search list form if set and if search mode', () => {
-            const listViewState = generateState({scope: 'list'}, 1)
+            const listViewState = generateState({}, 1)
             const entities = []
             const fields = ['firstname', 'lastname']
 
             const page = 1
 
             const state = {
-              entityList: {formName: 'UserTest', entityName: 'User'},
+              input: {formName: 'UserTest', entityName: 'User', scope: 'list', limit: ''},
               list: {
                 ...listViewState,
                 searchListFormDefinition: {
@@ -207,7 +202,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.fetchEntitiesAndAddToStore, page)
               .provide([
                 [select(sagas.stateSelector), state],
-                [select(sagas.entityListSelector), state.entityList],
+                [select(sagas.inputSelector), state.input],
                 [select(sagas.listSelector), state.list],
                 [matchers.call.fn(getFields), fields],
                 [matchers.call.fn(rest.fetchEntities), entities],
@@ -451,7 +446,7 @@ describe('entity-list', () => {
               expectSaga(sagas.countEntities)
                 .provide([
                   [select(sagas.stateSelector), state],
-                  [select(sagas.entityListSelector), state.entityList],
+                  [select(sagas.inputSelector), state.input],
                   [matchers.call.fn(sagas.getBasicQuery), {}],
                   [matchers.call.fn(rest.fetchEntityCount), entityCount]
                 ])
@@ -487,7 +482,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.countEntities)
               .provide([
                 [select(sagas.stateSelector), state],
-                [select(sagas.entityListSelector), state.entityList],
+                [select(sagas.inputSelector), state.input],
                 [matchers.call.fn(sagas.getBasicQuery), {}],
                 [matchers.call.fn(rest.fetchEntityCount), entityCount]
               ])
@@ -531,7 +526,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.countEntities)
               .provide([
                 [select(sagas.stateSelector), state],
-                [select(sagas.entityListSelector), state.entityList],
+                [select(sagas.inputSelector), state.input],
                 [matchers.call.fn(sagas.getBasicQuery), {hasUserChanges: true}],
                 [matchers.call.fn(rest.fetchEntityCount), entityCount]
               ])
@@ -655,59 +650,59 @@ describe('entity-list', () => {
 
         describe('prepareEndpointUrl', () => {
           test('should replace parentKey if parent exists', () => {
-            const entityList = {parent: {key: 123}}
+            const input = {parent: {key: 123}}
             const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
             const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint)
-              .provide([[select(sagas.entityListSelector), entityList]])
+              .provide([[select(sagas.inputSelector), input]])
               .returns(expectedResult)
               .run()
           })
 
           test('should remove parentKey placeholder if parent is undefined', () => {
-            const entityList = {parent: null}
+            const input = {parent: null}
             const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
             const expectedResult = 'nice2/rest/entities/2.0/User//test' // REST API doesn't care about duplicate slash
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint)
-              .provide([[select(sagas.entityListSelector), entityList]])
+              .provide([[select(sagas.inputSelector), input]])
               .returns(expectedResult)
               .run()
           })
 
           test('should use search endpoint if defined and has user search input', () => {
-            const entityList = {parent: {key: 123}}
+            const input = {parent: {key: 123}}
             const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
             const searchEndpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test/searchresults'
             const expectedResult = 'nice2/rest/entities/2.0/User/123/test/searchresults'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint, searchEndpoint, true)
-              .provide([[select(sagas.entityListSelector), entityList]])
+              .provide([[select(sagas.inputSelector), input]])
               .returns(expectedResult)
               .run()
           })
 
           test('should use regular endpoint if search endpoint not defined and has user search input', () => {
-            const entityList = {parent: {key: 123}}
+            const input = {parent: {key: 123}}
             const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
             const searchEndpoint = undefined
             const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint, searchEndpoint, true)
-              .provide([[select(sagas.entityListSelector), entityList]])
+              .provide([[select(sagas.inputSelector), input]])
               .returns(expectedResult)
               .run()
           })
 
           test('should use regular endpoint if search endpoint defined and does not have user search input', () => {
-            const entityList = {parent: {key: 123}}
+            const input = {parent: {key: 123}}
             const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
             const searchEndpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test/searchresults'
             const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint, searchEndpoint, false)
-              .provide([[select(sagas.entityListSelector), entityList]])
+              .provide([[select(sagas.inputSelector), input]])
               .returns(expectedResult)
               .run()
           })
@@ -715,7 +710,7 @@ describe('entity-list', () => {
 
         describe('getBasicQuery', () => {
           test('should return an object with correct attributes', () => {
-            const listState = {
+            const inputState = {
               inputSearchFilters: ['filter1', 'filter2'],
               inputTql: 'foo == "bar"',
               inputKeys: ['235', '18', '120']
@@ -746,7 +741,8 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.searchFormSelector), searchForm],
                 [select(sagas.selectionSelector), selection],
-                [select(sagas.listSelector), listState],
+                [select(sagas.inputSelector), inputState],
+                [select(sagas.listSelector), {}],
                 [matchers.call.fn(getSearchFormValues), searchFormValues]
               ])
               .returns(expectedResult)
@@ -754,7 +750,7 @@ describe('entity-list', () => {
           })
 
           test('should return an object with hasUserChanges `false` if has only input attributes', () => {
-            const listState = {inputSearchFilters: ['filter1', 'filter2'], inputTql: 'foo == "bar"'}
+            const inputState = {inputSearchFilters: ['filter1', 'filter2'], inputTql: 'foo == "bar"'}
             const searchForm = {
               formFieldsFlat: {
                 relGender: 'single-remote-field'
@@ -775,7 +771,8 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.searchFormSelector), searchForm],
                 [select(sagas.selectionSelector), selection],
-                [select(sagas.listSelector), listState],
+                [select(sagas.inputSelector), inputState],
+                [select(sagas.listSelector), {}],
                 [matchers.call.fn(getSearchFormValues), searchFormValues]
               ])
               .returns(expectedResult)
@@ -799,7 +796,8 @@ describe('entity-list', () => {
           })
 
           test('should handle query view', () => {
-            const listState = {inputKeys: ['1', '2'], constriction: 'constriction'}
+            const inputState = {inputKeys: ['1', '2']}
+            const listState = {constriction: 'constriction'}
             const searchForm = {
               queryViewVisible: true,
               query: 'query'
@@ -819,6 +817,7 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.searchFormSelector), searchForm],
                 [select(sagas.selectionSelector), selection],
+                [select(sagas.inputSelector), inputState],
                 [select(sagas.listSelector), listState]
               ])
               .returns(expectedResult)
@@ -826,10 +825,8 @@ describe('entity-list', () => {
           })
 
           test('should add constriction of list state (= constriction from list form)', async () => {
-            const listState = {
-              constriction: 'my_list_constriction',
-              inputConstriction: null
-            }
+            const inputState = {inputConstriction: null}
+            const listState = {constriction: 'my_list_constriction'}
 
             const expectedResult = {
               constriction: 'my_list_constriction',
@@ -840,6 +837,7 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.searchFormSelector), {}],
                 [select(sagas.selectionSelector), {}],
+                [select(sagas.inputSelector), inputState],
                 [select(sagas.listSelector), listState],
                 [matchers.call.fn(getSearchFormValues), {}]
               ])
@@ -848,10 +846,8 @@ describe('entity-list', () => {
           })
 
           test('should add input constriction of list state if set (overrides list form constriction)', async () => {
-            const listState = {
-              constriction: 'my_list_constriction',
-              inputConstriction: 'my_input_constriction'
-            }
+            const inputState = {inputConstriction: 'my_input_constriction'}
+            const listState = {constriction: 'my_list_constriction'}
 
             const expectedResult = {
               constriction: 'my_input_constriction',
@@ -862,6 +858,7 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.searchFormSelector), {}],
                 [select(sagas.selectionSelector), {}],
+                [select(sagas.inputSelector), inputState],
                 [select(sagas.listSelector), listState],
                 [matchers.call.fn(getSearchFormValues), {}]
               ])
@@ -872,14 +869,15 @@ describe('entity-list', () => {
 
         describe('preloadNextPage saga', () => {
           test('should load next page if not already done and not end', () => {
+            const inputState = {limit: 10}
             const listState = {
               entityStore: {},
-              limit: 10,
               entityCount: 20
             }
 
             return expectSaga(sagas.preloadNextPage, 1)
               .provide([
+                [select(sagas.inputSelector), inputState],
                 [select(sagas.listSelector), listState],
                 [matchers.call.fn(sagas.fetchEntitiesAndAddToStore), null]
               ])
@@ -888,14 +886,15 @@ describe('entity-list', () => {
           })
 
           test('should not load next page if at end', () => {
+            const inputState = {limit: 10}
             const listState = {
               entityStore: {},
-              limit: 10,
               entityCount: 20
             }
 
             return expectSaga(sagas.preloadNextPage, 2)
               .provide([
+                [select(sagas.inputSelector), inputState],
                 [select(sagas.listSelector), listState],
                 [matchers.call.fn(sagas.fetchEntitiesAndAddToStore), null]
               ])

@@ -48,7 +48,8 @@ export default function* sagas() {
 }
 
 export function* initialize() {
-  const {searchFormType, entityName} = yield select(entityListSelector)
+  const {entityName} = yield select(inputSelector)
+  const {searchFormType} = yield select(entityListSelector)
   const searchFormVisible = searchFormType !== searchFormTypes.NONE
 
   const formDefinition = searchFormVisible ? yield call(loadSearchForm) : null
@@ -71,8 +72,7 @@ export function* getListFormDefinition() {
 }
 
 export function* setInitialFormValues(searchFormVisible, formDefinition) {
-  const {preselectedSearchFields} = yield select(inputSelector)
-  const {parent} = yield select(entityListSelector)
+  const {preselectedSearchFields, parent} = yield select(inputSelector)
   let formValues = {}
   if (preselectedSearchFields) {
     const model = yield call(getEntityModel)
@@ -125,7 +125,7 @@ export function* submitSearchFrom() {
 export function* loadSearchFilter(entityName) {
   const searchFilters = yield call(rest.fetchSearchFilters, entityName)
 
-  const {parent} = yield select(entityListSelector)
+  const {parent} = yield select(inputSelector)
   const listHasNoParent = !parent
   yield put(
     actions.setSearchFilters(
@@ -143,7 +143,8 @@ export function* setFulltextForm() {
 }
 
 export function* loadSearchForm(forceLoad = false) {
-  const {searchFormType, formName} = yield select(entityListSelector)
+  const {formName} = yield select(inputSelector)
+  const {searchFormType} = yield select(entityListSelector)
   if (searchFormType === searchFormTypes.FULLTEXT) {
     yield call(setFulltextForm)
     return null
@@ -214,7 +215,7 @@ export function* saveSearchFilter() {
   const searchFilterName = yield call(promptForSearchFilterName)
   const {where, filter} = yield call(getBasicQuery, false)
   const {sorting} = yield select(listSelector)
-  const {entityName} = yield select(entityListSelector)
+  const {entityName} = yield select(inputSelector)
 
   yield call(createNewSearchFilter, searchFilterName, entityName, where, sorting, filter)
 }
@@ -300,7 +301,7 @@ export function* deleteSearchFilter({payload: {primaryKey}}) {
 
   const isSearchFilterDeleted = yield take(answerChannel)
   if (isSearchFilterDeleted) {
-    const {entityName} = yield select(entityListSelector)
+    const {entityName} = yield select(inputSelector)
     yield call(loadSearchFilter, entityName)
     yield call(resetSearch)
   }
@@ -394,7 +395,7 @@ export function* loadSearchAsQuery() {
   const {where: condition, filter: filters} = yield call(getSearchViewQuery)
   const {sorting} = yield select(listSelector)
   const sortingString = sorting.map(({field, order}) => `${field} ${order}`).join(', ')
-  const {entityName} = yield select(entityListSelector)
+  const {entityName} = yield select(inputSelector)
 
   const resource = `client/query/${entityName}/build`
   const options = {
@@ -416,7 +417,7 @@ export function* loadSearchAsQuery() {
 export function* saveQueryAsFilter() {
   const searchFilterName = yield call(promptForSearchFilterName)
   const {query} = yield select(searchFormSelector)
-  const {entityName} = yield select(entityListSelector)
+  const {entityName} = yield select(inputSelector)
   const sorting = tql.getSortingFromQuery(query)
   const sortingIndex = query.indexOf('order by')
   const condition = sortingIndex >= 0 ? query.substring(0, sortingIndex - 1) : query
@@ -427,7 +428,7 @@ export function* saveQueryAsFilter() {
 
 export function* checkQuery() {
   const {query} = yield select(searchFormSelector)
-  const {entityName} = yield select(entityListSelector)
+  const {entityName} = yield select(inputSelector)
   const resource = `client/query/${entityName}/validation`
   const options = {
     method: 'POST',

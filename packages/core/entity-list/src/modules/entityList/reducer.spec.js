@@ -3,14 +3,9 @@ import * as actions from './actions'
 import reducer from './index'
 
 const INITIAL_STATE = {
-  entityName: '',
-  formName: '',
   initialized: false,
   searchFormType: searchFormTypes.SIMPLE_ADVANCED,
-  searchFormPosition: 'top',
-  parent: null,
-  searchFormCollapsed: false,
-  scrollBehaviour: 'inline'
+  searchFormCollapsed: false
 }
 
 describe('entity-list', () => {

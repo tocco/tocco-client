@@ -6,10 +6,8 @@ describe('entity-list', () => {
       test('should handle query selection ', () => {
         const state = {
           input: {
+            entityName: 'User',
             selectionStyle: 'multi'
-          },
-          entityList: {
-            entityName: 'User'
           },
           selection: {
             query: {search: 'test'},
@@ -30,7 +28,7 @@ describe('entity-list', () => {
 
       test('should handle selection', () => {
         const state = {
-          entityList: {
+          input: {
             entityName: 'User'
           },
           selection: {
@@ -51,10 +49,8 @@ describe('entity-list', () => {
       test('should return selection with multi_explicit', () => {
         const state = {
           input: {
+            entityName: 'User',
             selectionStyle: 'multi_explicit'
-          },
-          entityList: {
-            entityName: 'User'
           },
           selection: {
             selection: []

@@ -54,7 +54,8 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.initialize, actions.initialize())
               .provide([
-                [select(sagas.entityListSelector), {searchFormType, entityName}],
+                [select(sagas.inputSelector), {entityName}],
+                [select(sagas.entityListSelector), {searchFormType}],
                 [matchers.call.fn(sagas.loadSearchForm), formDefinition],
                 [matchers.call.fn(sagas.setInitialFormValues)],
                 [matchers.call.fn(sagas.loadSearchFilter)]
@@ -96,8 +97,7 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.setInitialFormValues, false, null)
               .provide([
-                [select(sagas.entityListSelector), {parent}],
-                [select(sagas.inputSelector), {}],
+                [select(sagas.inputSelector), {parent}],
                 [matchers.call.fn(sagas.getListFormDefinition), null],
                 [matchers.call.fn(getEndpoint), null],
                 [matchers.call.fn(rest.fetchDisplay), 'Test User']
@@ -207,7 +207,8 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadSearchForm)
               .provide([
                 [matchers.call.fn(rest.fetchForm), formDefinition],
-                [select(sagas.entityListSelector), {searchFormType: 'basic'}]
+                [select(sagas.entityListSelector), {searchFormType: 'basic'}],
+                [select(sagas.inputSelector), {}]
               ])
               .not.put(actions.setFormDefinition(formDefinition))
               .call(sagas.setFulltextForm)
@@ -217,7 +218,10 @@ describe('entity-list', () => {
 
           test('should set simple form if type is simple', () => {
             return expectSaga(sagas.loadSearchForm)
-              .provide([[select(sagas.entityListSelector), {searchFormType: 'fulltext'}]])
+              .provide([
+                [select(sagas.entityListSelector), {searchFormType: 'fulltext'}],
+                [select(sagas.inputSelector), {}]
+              ])
               .call(sagas.setFulltextForm)
               .run()
           })
@@ -268,7 +272,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadSearchFilter, 'User')
               .provide([
                 [matchers.call.fn(rest.fetchSearchFilters), searchFilters],
-                [select(sagas.entityListSelector), {}]
+                [select(sagas.inputSelector), {}]
               ])
               .put(actions.setSearchFilters(expectedDispatch))
               .run()
@@ -287,7 +291,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadSearchFilter, 'User')
               .provide([
                 [matchers.call.fn(rest.fetchSearchFilters), searchFilters],
-                [select(sagas.entityListSelector), {parent: {}}]
+                [select(sagas.inputSelector), {parent: {}}]
               ])
               .put(actions.setSearchFilters(expectedDispatch))
               .run()
@@ -300,7 +304,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.saveSearchFilter)
               .provide([
                 [select(sagas.listSelector), {sorting: expectedSorting}],
-                [select(sagas.entityListSelector), {entityName: 'entityName'}],
+                [select(sagas.inputSelector), {entityName: 'entityName'}],
                 [matchers.call.fn(listSagas.getBasicQuery), {where: 'query', filter: ['filtername']}],
                 [channel, {}],
                 {
@@ -375,8 +379,10 @@ describe('entity-list', () => {
           test('should reload filters after modal', () => {
             return expectSaga(sagas.deleteSearchFilter, {payload: {primaryKey: '1'}})
               .provide([
-                [select(sagas.inputSelector), {actionAppComponent: {}, navigationStrategy: {}}],
-                [select(sagas.entityListSelector), {entityName: 'entityName'}],
+                [
+                  select(sagas.inputSelector),
+                  {entityName: 'entityName', actionAppComponent: {}, navigationStrategy: {}}
+                ],
                 [channel, {}],
                 {
                   take() {
@@ -590,7 +596,7 @@ describe('entity-list', () => {
                     ]
                   }
                 ],
-                [select(sagas.entityListSelector), {entityName: 'Entity_name'}],
+                [select(sagas.inputSelector), {entityName: 'Entity_name'}],
                 [matchers.call.fn(listSagas.getSearchViewQuery), {where: 'condition', filter: ['filter1', 'filter2']}],
                 [matchers.call.fn(rest.requestSaga), {body: {query: 'query'}}],
                 [matchers.call.fn(sagas.checkQuery)]
@@ -607,7 +613,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.saveQueryAsFilter)
               .provide([
                 [select(sagas.searchFormSelector), {query: 'condition order by field, other desc'}],
-                [select(sagas.entityListSelector), {entityName: 'entityName'}],
+                [select(sagas.inputSelector), {entityName: 'entityName'}],
                 [channel, {}],
                 {
                   take() {
@@ -665,7 +671,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.checkQuery)
               .provide([
                 [select(sagas.searchFormSelector), {query: 'query'}],
-                [select(sagas.entityListSelector), {entityName: 'Entity_name'}],
+                [select(sagas.inputSelector), {entityName: 'Entity_name'}],
                 [matchers.call.fn(rest.requestSaga), {body: {valid: true, message: null}}]
               ])
               .call(rest.requestSaga, 'client/query/Entity_name/validation', {method: 'POST', body: expectedBody})
@@ -677,7 +683,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.checkQuery)
               .provide([
                 [select(sagas.searchFormSelector), {query: 'query'}],
-                [select(sagas.entityListSelector), {entityName: 'Entity_name'}],
+                [select(sagas.inputSelector), {entityName: 'Entity_name'}],
                 [matchers.call.fn(rest.requestSaga), {body: {valid: false, message: 'error message'}}]
               ])
               .call(rest.requestSaga, 'client/query/Entity_name/validation', {method: 'POST', body: expectedBody})

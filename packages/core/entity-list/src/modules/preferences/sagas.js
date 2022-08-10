@@ -27,9 +27,8 @@ export default function* sagas() {
 }
 
 export function* loadPreferences() {
-  const entityListState = yield select(listSagas.entityListSelector)
-  const listState = yield select(listSagas.listSelector)
-  const formName = `${entityListState.formName}_${listState.scope}`
+  const inputState = yield select(inputSelector)
+  const formName = `${inputState.formName}_${inputState.scope}`
   const preferences = yield call(rest.fetchUserPreferences, `${formName}*`)
   yield put(setPositions(util.getPositions(preferences)))
   yield put(setSorting(util.getSorting(preferences)))
@@ -47,9 +46,8 @@ export function* changePosition({payload}) {
 
   const newPositions = yield call(util.changePosition, positions, field, afterFieldPosition)
   yield put(setPositions(newPositions))
-  const entityListState = yield select(listSagas.entityListSelector)
-  const listState = yield select(listSagas.listSelector)
-  const formName = `${entityListState.formName}_${listState.scope}`
+  const inputState = yield select(inputSelector)
+  const formName = `${inputState.formName}_${inputState.scope}`
   yield call(rest.deleteUserPreferences, `${formName}.*.positions`)
   const positionPreferences = yield call(util.getPositionsPreferencesToSave, formName, newPositions)
   yield call(rest.savePreferences, positionPreferences)
@@ -58,9 +56,8 @@ export function* changePosition({payload}) {
 export function* saveSorting() {
   const {sorting: sortings} = yield select(listSagas.listSelector)
   if (sortings.length > 0) {
-    const entityListState = yield select(listSagas.entityListSelector)
-    const listState = yield select(listSagas.listSelector)
-    const formName = `${entityListState.formName}_${listState.scope}`
+    const inputState = yield select(inputSelector)
+    const formName = `${inputState.formName}_${inputState.scope}`
     yield all([
       call(rest.deleteUserPreferences, `${formName}.sortingField*`),
       call(rest.deleteUserPreferences, `${formName}.sortingDirection*`)
@@ -80,20 +77,18 @@ export function* saveSorting() {
 }
 
 export function* resetSorting() {
-  const entityListState = yield select(listSagas.entityListSelector)
-  const listState = yield select(listSagas.listSelector)
+  const inputState = yield select(inputSelector)
   yield all([
-    call(rest.deleteUserPreferences, `${entityListState.formName}_${listState.scope}.sortingField*`),
-    call(rest.deleteUserPreferences, `${entityListState.formName}_${listState.scope}.sortingDirection*`)
+    call(rest.deleteUserPreferences, `${inputState.formName}_${inputState.scope}.sortingField*`),
+    call(rest.deleteUserPreferences, `${inputState.formName}_${inputState.scope}.sortingDirection*`)
   ])
   yield call(listSagas.setSorting)
   yield call(listSagas.reloadData)
 }
 
 export function* resetPreferences() {
-  const entityListState = yield select(listSagas.entityListSelector)
-  const listState = yield select(listSagas.listSelector)
-  yield call(rest.deleteUserPreferences, `${entityListState.formName}_${listState.scope}.*`)
+  const inputState = yield select(inputSelector)
+  yield call(rest.deleteUserPreferences, `${inputState.formName}_${inputState.scope}.*`)
   yield call(listSagas.setSorting)
   yield call(listSagas.reloadData)
 }
@@ -101,7 +96,7 @@ export function* resetPreferences() {
 export function* displayColumnModal() {
   const {formDefinition} = yield select(listSagas.listSelector)
   const {columns: preferencesColumns} = yield select(preferencesSelector)
-  const {parent} = yield select(listSagas.entityListSelector)
+  const {parent} = yield select(inputSelector)
   const formColumns = getTableColumns(formDefinition, parent, preferencesColumns)
 
   const answerChannel = yield call(channel)
@@ -149,11 +144,10 @@ function* saveColumnPreferences(answerChannel, preferencesColumns, formDefinitio
 }
 
 export function* resetColumns() {
-  const entityListState = yield select(listSagas.entityListSelector)
-  const listState = yield select(listSagas.listSelector)
+  const inputState = yield select(inputSelector)
   yield all([
-    call(rest.deleteUserPreferences, `${entityListState.formName}_${listState.scope}.*.position`),
-    call(rest.deleteUserPreferences, `${entityListState.formName}_${listState.scope}.*.hidden`)
+    call(rest.deleteUserPreferences, `${inputState.formName}_${inputState.scope}.*.position`),
+    call(rest.deleteUserPreferences, `${inputState.formName}_${inputState.scope}.*.hidden`)
   ])
   yield put(listActions.refresh())
 }

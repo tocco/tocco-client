@@ -1,26 +1,7 @@
 import {action} from 'tocco-util'
 
-import {
-  setSearchFormType,
-  setFormName,
-  setEntityName,
-  setParent,
-  setSearchFormPosition,
-  setSearchFormCollapsedInitialValue,
-  setScrollBehaviour
-} from './modules/entityList/actions'
-import {
-  setLimit,
-  setScope,
-  setSearchFilters,
-  setFormDefinition as setListFormDefinition,
-  setShowLink,
-  setSortable,
-  setInputTql,
-  setInputKeys,
-  setInputSearchFilters,
-  setInputConstriction
-} from './modules/list/actions'
+import {setSearchFormType, setSearchFormCollapsedInitialValue} from './modules/entityList/actions'
+import {setSearchFilters, setFormDefinition as setListFormDefinition} from './modules/list/actions'
 import {setSimpleSearchFields} from './modules/searchForm/actions'
 import {setSelection} from './modules/selection/actions'
 
@@ -45,25 +26,21 @@ export const getReloadOption = input => {
 const actionSettings = [
   {
     name: 'entityName',
-    action: setEntityName,
     argsFactory: input => [input.entityName],
     reload: reloadOptions.ALL
   },
   {
     name: 'formName',
-    action: setFormName,
     argsFactory: input => [input.formName],
     reload: reloadOptions.ALL
   },
   {
     name: 'limit',
-    action: setLimit,
     argsFactory: input => [input.limit],
     reload: reloadOptions.DATA
   },
   {
     name: 'scope',
-    action: setScope,
     argsFactory: input => [input.scope],
     reload: reloadOptions.ALL
   },
@@ -81,7 +58,6 @@ const actionSettings = [
   },
   {
     name: 'searchFormPosition',
-    action: setSearchFormPosition,
     argsFactory: input => [input.searchFormPosition],
     reload: reloadOptions.DATA
   },
@@ -100,13 +76,11 @@ const actionSettings = [
   },
   {
     name: 'scrollBehaviour',
-    action: setScrollBehaviour,
     argsFactory: input => [input.scrollBehaviour],
     reload: reloadOptions.NOTHING
   },
   {
     name: 'parent',
-    action: setParent,
     argsFactory: input => [input.parent],
     reload: reloadOptions.DATA
   },
@@ -118,37 +92,31 @@ const actionSettings = [
   },
   {
     name: 'showLink',
-    action: setShowLink,
     argsFactory: input => [input.showLink],
     reload: reloadOptions.NOTHING
   },
   {
     name: 'sortable',
-    action: setSortable,
     argsFactory: input => [input.sortable],
     reload: reloadOptions.NOTHING
   },
   {
     name: 'tql',
-    action: setInputTql,
     argsFactory: input => [input.tql],
     reload: reloadOptions.DATA
   },
   {
     name: 'keys',
-    action: setInputKeys,
     argsFactory: input => [input.keys],
     reload: reloadOptions.DATA
   },
   {
     name: 'searchFilters',
-    action: setInputSearchFilters,
     argsFactory: input => [input.searchFilters],
     reload: reloadOptions.DATA
   },
   {
     name: 'constriction',
-    action: setInputConstriction,
     argsFactory: input => [input.constriction],
     reload: reloadOptions.DATA
   },
