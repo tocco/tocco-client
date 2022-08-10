@@ -46,8 +46,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => ({
-  entityName: state.entityDetail.entityName,
-  entityId: state.entityDetail.entityId,
+  entityName: state.input.entityName,
+  entityId: state.input.entityId,
   marked: state.entityDetail.marked
 })
 

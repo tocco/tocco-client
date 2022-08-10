@@ -35,7 +35,6 @@ export default DetailView
 DetailView.propTypes = {
   intl: PropTypes.object.isRequired,
   mode: PropTypes.oneOf(['update', 'create']),
-  loadDetailView: PropTypes.func.isRequired,
   unloadDetailView: PropTypes.func.isRequired,
   logError: PropTypes.func.isRequired,
   entityModel: PropTypes.object.isRequired,

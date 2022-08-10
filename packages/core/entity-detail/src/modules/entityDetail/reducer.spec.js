@@ -2,16 +2,10 @@ import * as actions from './actions'
 import reducer from './index'
 
 const EXPECTED_INITIAL_STATE = {
-  appId: '',
   formDefinition: {},
   entity: {},
   entityModel: {},
-  entityName: '',
-  entityId: '',
-  formName: '',
-  mode: '',
   touched: false,
-  defaultValues: [],
   fieldDefinitions: [],
   marked: false
 }

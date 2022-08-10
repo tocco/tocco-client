@@ -4,10 +4,9 @@ import {getFormValues, getFormInitialValues} from 'redux-form'
 import {errorLogging, form} from 'tocco-app-extensions'
 
 import DetailForm from '../components/DetailForm/DetailForm'
-import {unloadDetailView, submitForm, fireTouched} from '../modules/entityDetail/actions'
+import {submitForm, fireTouched} from '../modules/entityDetail/actions'
 
 const mapActionCreators = {
-  unloadDetailView,
   submitForm,
   fireTouched,
   logError: errorLogging.logError

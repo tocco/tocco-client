@@ -22,7 +22,6 @@ describe('entity-detail', () => {
           <DetailView
             intl={IntlStub}
             router={routerProp}
-            loadDetailView={EMPTY_FUNC}
             closeEntityDetail={EMPTY_FUNC}
             entityModel={{}}
             fieldDefinitions={[]}
