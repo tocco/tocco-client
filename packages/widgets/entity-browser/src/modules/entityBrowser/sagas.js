@@ -6,6 +6,6 @@ export default function* sagas() {
 }
 
 export function* connectSocket() {
-  yield take(appFactory.inputDispatchActionType)
+  yield take(appFactory.INPUT_INITIALIZED)
   yield put(login.doSessionCheck())
 }
