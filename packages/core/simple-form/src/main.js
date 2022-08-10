@@ -13,9 +13,9 @@ const initApp = (id, input, events, publicPath) => {
   const content = <FormContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  actionEmitter.addToStore(store, events.emitAction)
-  externalEvents.addToStore(store, events)
-  formData.addToStore(store, {data: input.formData, listApp: input.listApp})
+  actionEmitter.addToStore(store, state => state.input.emitAction)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
+  formData.addToStore(store, state => ({initialData: state.input.formData, listApp: state.input.listApp}))
   notification.addToStore(store, false)
 
   const app = appFactory.createApp(packageName, content, store, {

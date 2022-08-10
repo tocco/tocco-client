@@ -13,8 +13,8 @@ const initApp = (id, input, events, publicPath) => {
   const content = <MailAction />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  formData.addToStore(store, {})
-  externalEvents.addToStore(store, events)
+  formData.addToStore(store, () => ({}))
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
   actionEmitter.addToStore(store)
 
   return appFactory.createApp(packageName, content, store, {

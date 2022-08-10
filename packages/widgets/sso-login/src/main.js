@@ -15,7 +15,7 @@ const initApp = (id, input, events, publicPath) => {
   env.setInputEnvs(input)
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  externalEvents.addToStore(store, events)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
   cache.addToStore(store)
 
   return appFactory.createApp(packageName, content, store, {

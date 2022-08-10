@@ -13,7 +13,7 @@ const initApp = (id, input, events, publicPath) => {
   const content = <DashboardContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  actionEmitter.addToStore(store, events.emitAction)
+  actionEmitter.addToStore(store, state => state.input.emitAction)
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
   errorLogging.addToStore(store, handleNotifications, ['console', 'remote', 'notification'])

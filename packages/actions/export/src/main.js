@@ -13,9 +13,9 @@ const initApp = (id, input, events, publicPath) => {
   const content = <Export />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  formData.addToStore(store, {})
+  formData.addToStore(store, () => ({}))
   templateValues.addToStore(store)
-  externalEvents.addToStore(store, events)
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
 
   return appFactory.createApp(packageName, content, store, {
     input,
