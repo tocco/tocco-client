@@ -154,6 +154,7 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
           showYearDropdown
           scrollableYearDropdown
           fixedHeight
+          showPopperArrow={false}
           open={open}
           onFocus={() => {
             handleOpen(true)
