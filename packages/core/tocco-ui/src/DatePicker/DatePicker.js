@@ -36,6 +36,7 @@ const DatePicker = ({children, value, onChange, intl}) => {
       showYearDropdown
       scrollableYearDropdown
       fixedHeight
+      showPopperArrow={false}
       open={open}
       onFocus={() => {
         handleOpen(true)
