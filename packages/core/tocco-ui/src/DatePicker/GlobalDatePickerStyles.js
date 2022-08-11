@@ -24,18 +24,6 @@ export const GlobalDatePickerStyles = createGlobalStyle`
     }
   }
 
-  .react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle:before {
-    border-bottom-color: ${secondaryLight} !important;
-  }
-
-  .react-datepicker-popper[data-placement^='bottom'] .react-datepicker__triangle:after {
-    border-bottom-color: ${secondaryLight} !important;
-  }
-
-  .react-datepicker-popper[data-placement^='top'] .react-datepicker__triangle:before {
-    border-top-color: ${secondaryLight} !important;
-  }
-
   .react-datepicker {
     && {
       * {
