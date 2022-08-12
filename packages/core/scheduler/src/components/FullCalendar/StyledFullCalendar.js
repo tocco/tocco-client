@@ -21,6 +21,10 @@ export const StyledFullCalendarWrapper = styled.div`
       }
     }
 
+    .fc-timeline-event {
+      overflow: hidden;
+    }
+
     .fc-timeline-slot-frame a {
       text-decoration: none;
     }
