@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {AdminLink as StyledLink, StyledSpan, theme, scale, StyledScrollbar, Button} from 'tocco-ui'
+import {AdminLink as StyledLink, StyledSpan, theme, scale, StyledScrollbar, Button, declareFont} from 'tocco-ui'
 
 export const StyledRelationsViewWrapper = styled.div`
   display: ${({isCollapsed}) => (isCollapsed ? 'none' : 'flex')};
@@ -131,4 +131,8 @@ export const StyledRelationLabel = styled(StyledSpan)`
   && {
     max-width: 110px;
   }
+`
+
+export const StyledCountLabel = styled.span`
+  ${declareFont()}
 `
