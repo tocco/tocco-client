@@ -29,18 +29,17 @@ export function* handleInitialForm({formDefinition, defaultValues, conditions, f
   const onCancel = () => answerChannel.put(formValues(null))
   const SimpleFormContainer = simpleFormConnector(config.formApp)
   const modifiedForm = addConditionsToFormDefinition(formDefinition.form, conditions)
-  yield put(
-    notification.modal(id, formTitle, formMessage, () => (
-      <SimpleFormContainer
-        form={modifiedForm}
-        listApp={config.listApp}
-        onSubmit={onSend}
-        onCancel={onCancel}
-        defaultValues={defaultValues}
-        mode="create"
-      />
-    ))
-  )
+  const modal = notification.modal(id, formTitle, formMessage, () => (
+    <SimpleFormContainer
+      form={modifiedForm}
+      listApp={config.listApp}
+      onSubmit={onSend}
+      onCancel={onCancel}
+      defaultValues={defaultValues}
+      mode="create"
+    />
+  ))
+  yield put(modal)
 
   const response = yield take(answerChannel)
   yield put(notification.removeModal(id))

@@ -72,6 +72,10 @@ export const StyledModalBody = styled.div`
   ${StyledScrollbar}
 `
 
+export const StyledMessageWrapper = styled.div`
+  padding-bottom: ${scale.space(0)};
+`
+
 export const StyledPageOverlay = styled.div`
   background-color: rgba(50, 50, 50, 0.7);
   height: 100%;
