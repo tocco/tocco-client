@@ -3,8 +3,11 @@ import {useHistory, useLocation, useParams} from 'react-router-dom'
 
 import {navigate} from '../modules/routing/actions'
 
+const listenHistory = () => () => {}
+
 const mapActionCreators = {
-  navigate
+  navigate,
+  listenHistory
 }
 
 const mapStateToProps = state => ({
@@ -19,5 +22,13 @@ export const withReactRouter = WrappedComponent => props => {
   const history = useHistory()
   const params = useParams()
 
-  return <WrappedComponent {...props} path={location.pathname} navigate={history.push} params={params} />
+  return (
+    <WrappedComponent
+      {...props}
+      path={location.pathname}
+      navigate={history.push}
+      params={params}
+      listenHistory={history.listen}
+    />
+  )
 }

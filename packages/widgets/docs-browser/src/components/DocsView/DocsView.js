@@ -116,6 +116,19 @@ const DocsView = props => {
     changeSelection(updatedSelection)
   }
 
+  const saveSearchStore = () => {
+    if (!viewPersistor.viewInfoSelector('search').store) {
+      // persist search store to allow a "go back to search"
+      const searchStore = viewPersistor.viewInfoSelector(entityListKey).store
+      viewPersistor.persistViewInfo('search', {store: searchStore})
+    }
+    /**
+     * Force entity-list to mount a complete new component. This will create a new redux store.
+     * Otherwise "searchStore" will get updated in behind and does not keep original state.
+     */
+    forceEntityListUpdate()
+  }
+
   const handleRowClick = ({id}) => {
     onSelectChange([id])
 
@@ -126,13 +139,8 @@ const DocsView = props => {
      * - props.searchMode and props.path are potentially outdated at time of invocation
      * - using those values in refs will return always latest values
      */
-    if (searchModeRef.current && isRootLocation(pathRef.current)) {
-      if (!viewPersistor.viewInfoSelector('search').store) {
-        // persist search store to allow a "go back to search"
-        const searchStore = viewPersistor.viewInfoSelector(entityListKey).store
-        viewPersistor.persistViewInfo('search', {store: searchStore})
-      }
-      forceEntityListUpdate()
+    if (searchMode && isRootLocation(path)) {
+      saveSearchStore()
     }
 
     const [model, key] = id.split('/')
@@ -161,6 +169,11 @@ const DocsView = props => {
 
   const handleSearch = e => {
     if (mounted.current) {
+      const hasUserChanges = e.query && e.query.hasUserChanges
+      if (hasUserChanges) {
+        saveSearchStore()
+      }
+
       onSearchChange(e)
     }
   }

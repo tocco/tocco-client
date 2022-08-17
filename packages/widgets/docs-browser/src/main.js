@@ -1,7 +1,4 @@
 import createHashHistory from 'history/createHashHistory'
-import _isEmpty from 'lodash/isEmpty'
-import _isEqual from 'lodash/isEqual'
-import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
 import {
   actionEmitter,
@@ -14,10 +11,9 @@ import {
 } from 'tocco-app-extensions'
 import {searchFormTypePropTypes, selectionStylePropType} from 'tocco-entity-list/src/main'
 import {scrollBehaviourPropType} from 'tocco-ui'
-import {appContext, react, reducer as reducerUtil, env} from 'tocco-util'
+import {appContext, reducer as reducerUtil, env} from 'tocco-util'
 
 import {InheritedApp, RouterlessApp, StandaloneApp} from './components/App'
-import {getDispatchActions} from './input'
 import chooseDocument from './modules/chooseDocument'
 import reducers, {sagas} from './modules/reducers'
 import {navigate} from './modules/routing/actions'
@@ -64,7 +60,11 @@ const getContent = ({routerType, store, rootPath, handleNotifications}) => {
 }
 
 const initApp = (id, input, events, publicPath) => {
-  const store = appFactory.createStore(reducers, sagas, input, packageName)
+  const defaultInput = {
+    scrollBehaviour: 'inline'
+  }
+
+  const store = appFactory.createStore(reducers, sagas, {...defaultInput, ...input}, packageName)
 
   env.setInputEnvs(input)
 
@@ -95,7 +95,7 @@ const initApp = (id, input, events, publicPath) => {
   return appFactory.createApp(packageName, content, store, {
     input,
     events,
-    actions: [...getDispatchActions(input), navigate(input.initialLocation)],
+    actions: [navigate(input.initialLocation)],
     publicPath,
     textResourceModules: ['component', 'common', 'actions', 'entity-list', 'entity-detail', packageName]
   })
@@ -116,7 +116,7 @@ const initApp = (id, input, events, publicPath) => {
         fetchMock.spy()
       }
 
-      const app = initApp(packageName, input)
+      const app = initApp(packageName, input, {})
 
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
@@ -131,17 +131,7 @@ const initApp = (id, input, events, publicPath) => {
 })()
 
 const DocsBrowserApp = props => {
-  const {component, store} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
-
-  const prevProps = react.usePrevious(props)
-  react.useDidUpdate(() => {
-    const changedProps = _pickBy(props, (value, key) => !_isEqual(value, prevProps[key]))
-    if (!_isEmpty(changedProps)) {
-      getDispatchActions(changedProps).forEach(action => {
-        store.dispatch(action)
-      })
-    }
-  }, [props])
+  const {component} = appFactory.useApp({initApp, props, packageName, externalEvents: EXTERNAL_EVENTS})
 
   return component
 }
