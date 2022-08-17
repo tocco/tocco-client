@@ -138,8 +138,8 @@ export function* initLegacyActionsEnv() {
 
 export const listSelector = state => state.list
 
-export const entityListSelector = state => state.entityList
-export const entityDetailSelector = state => state.entityDetail
+export const entityListSelector = state => (state.entityList ? {...state.input, ...state.entityList} : undefined)
+export const entityDetailSelector = state => (state.entityDetail ? {...state.input, ...state.entityDetail} : undefined)
 
 export const getManualQuery = selection => ({
   ...new window.nice2.netui.ManualQuery(),
