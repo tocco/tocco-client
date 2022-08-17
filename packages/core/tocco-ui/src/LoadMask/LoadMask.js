@@ -9,12 +9,12 @@ import StyledLoadMask, {StyledLoadingIconAndTest} from './StyledLoadMask'
  * A loadmask that can hide elements as long as promises are not resolved
  */
 const LoadMask = ({promises, required, children, loadingText, className}) => {
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isPromiseLoaded, setIsPromiseLoaded] = useState(false)
   const [isMounted, setIsMounted] = useState(true)
 
   const setIsLoadedSafe = isLoaded => {
     if (isMounted) {
-      setIsLoaded(isLoaded)
+      setIsPromiseLoaded(isLoaded)
     }
   }
 
@@ -30,11 +30,20 @@ const LoadMask = ({promises, required, children, loadingText, className}) => {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
+  const getIsLoaded = () => {
     if (required && Array.isArray(required)) {
-      setIsLoaded(!required.some(r => !r))
+      return !required.some(r => !r)
     }
-  }, [required])
+
+    if (promises) {
+      return isPromiseLoaded
+    }
+
+    // show infinite loading mask when no required and no promises are provided
+    return false
+  }
+
+  const isLoaded = getIsLoaded()
 
   return (
     <StyledLoadMask className={className}>
