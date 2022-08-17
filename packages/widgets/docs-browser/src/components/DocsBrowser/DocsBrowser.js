@@ -19,7 +19,8 @@ const DocsBrowser = ({
   emitAction,
   openFileDialog,
   noLeftPadding,
-  scrollBehaviour
+  scrollBehaviour,
+  listenHistory
 }) => {
   // eslint-disable-next-line no-unused-vars
   const [docsViewNumber, forceDocsViewUpdate] = useReducer(x => x + 1, 0)
@@ -29,6 +30,15 @@ const DocsBrowser = ({
 
   useEffect(() => {
     loadBreadcrumbs(path)
+  })
+
+  useEffect(() => {
+    return listenHistory((location, action) => {
+      if (isRootLocation(path) && searchMode && action === 'POP') {
+        // history back on search results
+        resetSearchMode()
+      }
+    })
   })
 
   const resetSearchMode = () => {
@@ -80,6 +90,7 @@ DocsBrowser.propTypes = {
   emitAction: PropTypes.func.isRequired,
   openFileDialog: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
+  listenHistory: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
   searchMode: PropTypes.bool.isRequired,
   navigationStrategy: PropTypes.object,
