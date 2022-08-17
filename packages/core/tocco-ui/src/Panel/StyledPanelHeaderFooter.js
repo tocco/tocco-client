@@ -48,11 +48,15 @@ const declareDivider = ({theme, isOpen, isFramed}) => {
 }
 
 export const StyledIconWrapper = styled.span`
-  opacity: 0;
   font-size: ${scale.font(1)};
 
-  &:hover {
-    color: ${theme.color('secondaryLight')};
+  /* only hide arrow on non-touch devices */
+  @media (hover: hover) and (pointer: fine) {
+    opacity: 0;
+
+    &:hover {
+      color: ${theme.color('secondaryLight')};
+    }
   }
 `
 
@@ -63,11 +67,14 @@ const StyledPanelHeaderFooter = styled.div`
     padding: ${({isFramed}) => (isFramed ? '4px 8px 4px 8px' : 0)};
     align-items: center;
 
-    &:hover {
-      cursor: pointer;
+    /* only apply arrow styles on non-touch devices */
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        cursor: pointer;
 
-      ${StyledIconWrapper} {
-        opacity: 1;
+        ${StyledIconWrapper} {
+          opacity: 1;
+        }
       }
     }
 
