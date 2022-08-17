@@ -9,6 +9,7 @@ import {
   StyledModalHeader,
   StyledTitleWrapper,
   StyledModalBody,
+  StyledMessageWrapper,
   StyledCloseButton,
   GlobalTetherStyle
 } from './StyledComponents'
@@ -70,9 +71,11 @@ const ModalContent = ({cancelable, message, title, onClose, onCancel, id, compon
           </StyledModalHeader>
           <StyledModalBody>
             {message && (
-              <Typography.Span>
-                <Content>{message}</Content>
-              </Typography.Span>
+              <StyledMessageWrapper>
+                <Typography.Span>
+                  <Content>{message}</Content>
+                </Typography.Span>
+              </StyledMessageWrapper>
             )}
             {ComponentMemo}
           </StyledModalBody>
