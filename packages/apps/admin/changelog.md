@@ -1,3 +1,8 @@
+1.0.86
+- remove date picker arrow as the positioning seems to be off when fields are too long
+- fix overflowing text in fullcalender entries
+- prevent relation box count label from being cut on overflow
+
 1.0.85
 - fix position of reports in form modifier
 - fix datetime range with single default value
