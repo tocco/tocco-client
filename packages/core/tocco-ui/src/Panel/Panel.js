@@ -10,11 +10,11 @@ import StyledPanel from './StyledPanel'
 const Panel = ({children, isFramed = true, controlledIsOpen, isOpenInitial = true, isToggleable = true, onToggle}) => {
   const [isOpen, setIsOpen] = useState(isOpenInitial)
 
-  const controlled = typeof controlledIsOpen === 'boolean'
+  const isControlled = typeof controlledIsOpen === 'boolean'
 
   const toggleOpenState = () => {
     if (isToggleable) {
-      if (controlled) {
+      if (isControlled) {
         if (typeof onToggle === 'function') {
           onToggle(!controlledIsOpen)
         }
@@ -29,7 +29,7 @@ const Panel = ({children, isFramed = true, controlledIsOpen, isOpenInitial = tru
       {React.Children.map(children, child =>
         React.cloneElement(child, {
           isFramed,
-          isOpen: controlled ? controlledIsOpen : isOpen,
+          isOpen: isControlled ? controlledIsOpen : isOpen,
           isToggleable,
           toggleOpenState
         })
