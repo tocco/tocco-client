@@ -1,3 +1,6 @@
+1.1.56
+- remove date picker arrow as the positioning seems to be off when fields are too long
+
 1.1.55
 - fix position of reports in form modifier
 - fix datetime range with single default value

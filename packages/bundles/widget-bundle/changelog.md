@@ -1,3 +1,6 @@
+0.1.21
+- remove date picker arrow as the positioning seems to be off when fields are too long
+
 0.1.20
 - add business unit to input props
 - fix position of reports in form modifier
