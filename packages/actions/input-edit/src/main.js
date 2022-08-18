@@ -14,7 +14,7 @@ const initApp = (id, input, events, publicPath) => {
   const content = <InputEdit />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  actionEmitter.addToStore(store, events.emitAction)
+  actionEmitter.addToStore(store, state => state.input.emitAction)
   actions.addToStore(store, () => ({}))
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
