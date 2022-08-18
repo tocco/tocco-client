@@ -8,7 +8,7 @@ const DashboardInfoBox = ({infoBox, isResizing, startResize, onDragStart, onDrag
   const {id, type, label, height, content} = infoBox
   return (
     <errorLogging.ErrorBoundary>
-      <StyledInfoBoxWrapper key={`${type}-${id}`} id={`infobox-${id}`}>
+      <StyledInfoBoxWrapper key={`${type}-${id}`} id={`infobox-${id}`} data-cy={`infobox-${id}`}>
         <InfoBox
           id={id}
           label={label}
