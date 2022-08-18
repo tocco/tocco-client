@@ -10,6 +10,7 @@ describe('Admin', () => {
              Navigate to list and with a click on row, open detail`, () => {
       cy.visit('/tocco')
       cy.contains('tocco-test') // wait till username is shown in top right corner
+      cy.getByAttr('infobox-newapplications') // wait until dashboards are loaded
       cy.get('body').type('{ctrl}{alt}m')
       cy.getByAttr('admin-nav', 'ui-search-box').should('be.focused').clear().type('Veranstaltung')
       cy.getByAttr('admin-menuitem-address').should('not.exist')
