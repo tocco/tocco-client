@@ -11,7 +11,7 @@ const {parsed: envs} = dotenv.config({path: './.env'})
 
 const defaultModule = 'core/web-core'
 const packageToNice2ModuleMap = {
-  'address-update': 'optional/address',
+  'input-edit': 'optional/qualification',
   'resource-scheduler': 'optional/resourcescheduler',
   'docs-browser': 'core/dms',
   devcon: 'core/devcon',
