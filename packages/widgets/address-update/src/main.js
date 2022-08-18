@@ -10,6 +10,7 @@ import {
   form
 } from 'tocco-app-extensions'
 import EntityListApp from 'tocco-entity-list/src/main'
+import {GlobalStyles} from 'tocco-ui'
 import {reducer as reducerUtil, env, appContext} from 'tocco-util'
 
 import AddressUpdate from './components/AddressUpdate'
@@ -21,7 +22,12 @@ const packageName = 'address-update'
 const initApp = (id, input, events, publicPath) => {
   env.setInputEnvs(input)
 
-  const content = <AddressUpdate />
+  const content = (
+    <>
+      <GlobalStyles />
+      <AddressUpdate />
+    </>
+  )
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
