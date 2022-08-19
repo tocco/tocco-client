@@ -1,5 +1,14 @@
 import styled from 'styled-components'
-import {AdminLink as StyledLink, StyledSpan, theme, scale, StyledScrollbar, Button, declareFont} from 'tocco-ui'
+import {
+  AdminLink as StyledLink,
+  StyledSpan,
+  theme,
+  scale,
+  StyledScrollbar,
+  Button,
+  declareFont,
+  nonTouchDeviceOnlyStyles
+} from 'tocco-ui'
 
 export const StyledRelationsViewWrapper = styled.div`
   display: ${({isCollapsed}) => (isCollapsed ? 'none' : 'flex')};
@@ -104,8 +113,8 @@ export const StyledRelationBox = styled.div`
     }
     `};
 
-  // allow hover styles only on non-touch devices
-  @media (hover: hover) and (pointer: fine) {
+  /* allow hover styles only on non-touch devices */
+  ${nonTouchDeviceOnlyStyles(`
     &:hover ${StyledRelationLinks} {
       display: flex;
     }
@@ -124,7 +133,7 @@ export const StyledRelationBox = styled.div`
     ${/* sc-selector */ StyledLink}:hover * {
       color: ${theme.color('secondary')};
     }
-  }
+  `)}
 `
 
 export const StyledRelationLabel = styled(StyledSpan)`

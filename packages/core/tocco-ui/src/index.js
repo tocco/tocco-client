@@ -72,7 +72,9 @@ export {
   generateInteractionColors,
   scale,
   shadeColor,
-  theme
+  theme,
+  touchDeviceOnlyStyles,
+  nonTouchDeviceOnlyStyles
 } from './utilStyles'
 
 export {default as DatePicker} from './DatePicker'

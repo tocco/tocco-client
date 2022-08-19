@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import styled from 'styled-components'
 
-import {shadeColor, scale, theme} from '../utilStyles'
+import {shadeColor, scale, theme, nonTouchDeviceOnlyStyles} from '../utilStyles'
 
 const declareDivider = ({theme, isOpen, isFramed}) => {
   const cssShared = `
@@ -51,13 +51,13 @@ export const StyledIconWrapper = styled.span`
   font-size: ${scale.font(1)};
 
   /* only hide arrow on non-touch devices */
-  @media (hover: hover) and (pointer: fine) {
+  ${nonTouchDeviceOnlyStyles(`
     opacity: 0;
 
     &:hover {
       color: ${theme.color('secondaryLight')};
     }
-  }
+  `)}
 `
 
 const StyledPanelHeaderFooter = styled.div`
@@ -68,7 +68,7 @@ const StyledPanelHeaderFooter = styled.div`
     align-items: center;
 
     /* only apply arrow styles on non-touch devices */
-    @media (hover: hover) and (pointer: fine) {
+    ${nonTouchDeviceOnlyStyles(`
       &:hover {
         cursor: pointer;
 
@@ -76,8 +76,7 @@ const StyledPanelHeaderFooter = styled.div`
           opacity: 1;
         }
       }
-    }
-
+    `)}
     > div {
       flex: 1 1 auto;
     }

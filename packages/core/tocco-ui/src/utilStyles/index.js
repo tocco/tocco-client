@@ -10,6 +10,7 @@ import {
   getBestContrast,
   shadeColor
 } from './declareInteractionColors'
+import {touchDeviceOnlyStyles, nonTouchDeviceOnlyStyles} from './declareTouchCss'
 import {declareNoneWrappingText, declareWrappingText} from './declareWrapping'
 import design from './designConstants'
 import filterObjectByKeysStartingWith from './filterObjectByKeysStartingWith'
@@ -39,5 +40,7 @@ export {
   scale,
   shadeColor,
   theme,
-  validateCssDimension
+  validateCssDimension,
+  touchDeviceOnlyStyles,
+  nonTouchDeviceOnlyStyles
 }

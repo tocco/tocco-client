@@ -1,5 +1,13 @@
 import styled, {createGlobalStyle} from 'styled-components'
-import {Button, scale, StyledScrollbar, StyledTether, theme} from 'tocco-ui'
+import {
+  Button,
+  scale,
+  StyledScrollbar,
+  StyledTether,
+  theme,
+  touchDeviceOnlyStyles,
+  nonTouchDeviceOnlyStyles
+} from 'tocco-ui'
 
 export const basePadding = scale.space(0.5)
 
@@ -7,23 +15,19 @@ export const StyledModalContent = styled.div`
   position: relative;
   background-color: ${theme.color('paper')};
   padding: ${basePadding};
-
-  /* mouse, touch pad */
-  @media (hover: hover) and (pointer: fine) {
+  ${nonTouchDeviceOnlyStyles(`
     top: 10%;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
     max-height: 80vh;
     min-width: 350px;
     max-width: 700px;
-  }
-
-  /* smartphones, touchscreens */
-  @media (pointer: coarse) {
+    margin: auto;
+  `)}
+  ${touchDeviceOnlyStyles(`
     box-sizing: border-box;
     height: 100vh;
     width: 100vw;
-  }
-  margin: auto;
+  `)}
   display: grid;
   grid-template-rows: [header] auto [body] 1fr;
 `
