@@ -63,13 +63,25 @@ export const buttonStyle = css`
   & > span:first-child {
     margin-left: 0;
   }
-  ${({icon}) =>
-    icon &&
-    `
-    @media screen and (max-width: 1024px) {
+  ${({icon, showIconOnly}) => {
+    const hideLabelStyles = `
       ${StyledLabelWrapper} {
         display: none;
       }
+    `
+
+    if (icon && showIconOnly) {
+      return hideLabelStyles
     }
-  `}
+
+    return (
+      icon &&
+      typeof showIconOnly === 'undefined' &&
+      `
+    @media screen and (max-width: 1024px) {
+      ${hideLabelStyles}
+    }
+  `
+    )
+  }}
 `

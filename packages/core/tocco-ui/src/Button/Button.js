@@ -4,6 +4,7 @@ import React from 'react'
 import Icon from '../Icon'
 import LoadingSpinner from '../LoadingSpinner'
 import {design} from '../utilStyles'
+import {useButtonContext} from './ButtonContext'
 import StyledButton, {StyledLabelWrapper} from './StyledButton'
 
 /**
@@ -12,8 +13,18 @@ import StyledButton, {StyledLabelWrapper} from './StyledButton'
 const Button = React.forwardRef((props, ref) => {
   const {aria, ink, label, icon, pending, look, iconPosition, iconOnly, children} = props
 
+  const {showIconOnly} = useButtonContext()
+
   return (
-    <StyledButton ref={ref} {...aria} {...props} ink={ink || design.ink.BASE} data-cy={props['data-cy']} title={label}>
+    <StyledButton
+      ref={ref}
+      {...aria}
+      {...props}
+      ink={ink || design.ink.BASE}
+      data-cy={props['data-cy']}
+      title={label}
+      showIconOnly={showIconOnly}
+    >
       {icon && !pending && <Icon icon={icon} />}
       {pending && <LoadingSpinner ink={ink || design.ink.BASE} look={look} position={iconPosition} size="1em" />}
       {!iconOnly && label ? <StyledLabelWrapper>{label}</StyledLabelWrapper> : children || '\u200B'}
