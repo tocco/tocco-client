@@ -6,13 +6,24 @@ export const basePadding = scale.space(0.5)
 export const StyledModalContent = styled.div`
   position: relative;
   background-color: ${theme.color('paper')};
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
   padding: ${basePadding};
-  max-height: 80vh;
-  min-width: 350px;
-  max-width: 700px;
+
+  /* mouse, touch pad */
+  @media (hover: hover) and (pointer: fine) {
+    top: 10%;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+    max-height: 80vh;
+    min-width: 350px;
+    max-width: 700px;
+  }
+
+  /* smartphones, touchscreens */
+  @media (pointer: coarse) {
+    box-sizing: border-box;
+    height: 100vh;
+    width: 100vw;
+  }
   margin: auto;
-  top: 10%;
   display: grid;
   grid-template-rows: [header] auto [body] 1fr;
 `

@@ -12,6 +12,7 @@ export const StyledAdvancedSearch = styled.div`
 export const StyledAdvancedSearchButtonWrapper = styled.div`
   background: ${theme.color('paper')};
   padding-top: ${scale.space(0.5)};
+  padding-bottom: ${scale.space(-0.1)};
   z-index: 1;
   position: sticky;
   bottom: 0;
