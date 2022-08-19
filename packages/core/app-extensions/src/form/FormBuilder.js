@@ -7,14 +7,13 @@ import {Field} from 'redux-form'
 import {Layout, Panel, Typography} from 'tocco-ui'
 import {consoleLogger, js} from 'tocco-util'
 
-import actions from '../actions'
 import {isAction} from '../actions/actions'
 import componentTypes from './enums/componentTypes'
 import layoutTypes from './enums/layoutTypes'
+import FormActions from './FormActions'
 import {getFieldId} from './formDefinition'
 import {transformFieldName} from './reduxForm'
 import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
-import {StyledActionsWrapper} from './StyledFormBuilder'
 import {getFormFieldDefinition} from './utils'
 
 const modeFitsScope = (mode, scopes) => !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
@@ -132,14 +131,14 @@ const FormBuilder = props => {
     const entityKey = _get(props, 'entity.key')
 
     return (
-      <StyledActionsWrapper key={`action-${action.id}`}>
-        <actions.Action
-          definition={action}
-          selection={actions.getSingleEntitySelection(entityName, entityKey)}
-          mode={mode}
-          customRenderedActions={customRenderedActions}
-        />
-      </StyledActionsWrapper>
+      <FormActions
+        key={`action-${action.id}`}
+        action={action}
+        entityKey={entityKey}
+        entityName={entityName}
+        mode={mode}
+        customRenderedActions={customRenderedActions}
+      />
     )
   }
 
