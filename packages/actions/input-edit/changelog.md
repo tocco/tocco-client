@@ -1,3 +1,7 @@
+1.1.58
+- show collapse/expand icon on touch devices in panel header/footer
+- harmonize modal spacing of modal message
+
 1.1.57
 - remove date picker arrow as the positioning seems to be off when fields are too long
 
