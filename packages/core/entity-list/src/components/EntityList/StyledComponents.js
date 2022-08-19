@@ -37,6 +37,7 @@ export const LeftPositioning = styled.div`
 
 export const SearchGrid = styled.div`
   grid-area: search;
+  min-height: 50px; /* prevent collapse on shorter screens */
   ${({scrollBehaviour, searchFormType}) =>
     scrollBehaviour === 'inline' && searchFormType !== 'simple' && 'overflow-y: auto;'}
 
