@@ -1,5 +1,6 @@
 import {CKEditor} from '@ckeditor/ckeditor5-react'
 import PropTypes from 'prop-types'
+import {useRef} from 'react'
 import {useIntl} from 'react-intl'
 
 import ToccoCKEditor from './CKEditor'
@@ -40,6 +41,35 @@ const HtmlEditor = ({value, onChange, contentLang, ckEditorConfig}) => {
   const intl = useIntl()
   const {locale} = intl
 
+  const sourceEditingChangeHandled = useRef(false)
+
+  const handleChange = (_event, editor) => {
+    const isSourceEditingMode = editor.plugins.get('SourceEditing').isSourceEditingMode
+    if (isSourceEditingMode) {
+      if (sourceEditingChangeHandled.current === true) {
+        // Handle onChange only once if source editing mode is active.
+        //
+        // The 'SourceEditing' plugin internally updates the editor sources
+        // on `editor.getData()`. This leads to an infinite loop of
+        // `getData()` calls and `onChange` events (as this `onChange`
+        // event handler calls `getData()`.) Therefore, we have to make
+        // sure that we handle the `onChange` only once if we're in the
+        // source editing mode.
+        //
+        // Note:
+        // The `onChange` never actually gets fired during changes in the
+        // source editing mode. Rather, the editor gets unmounted before the form
+        // gets saved. During this procedure an internal destroy function is called
+        // which updates the sources and in turn fires the `onChange` event.
+        return
+      }
+      sourceEditingChangeHandled.current = true
+    }
+
+    const data = editor.getData()
+    onChange(data)
+  }
+
   return (
     <StyledHtmlEditor>
       <CKEditor
@@ -52,10 +82,7 @@ const HtmlEditor = ({value, onChange, contentLang, ckEditorConfig}) => {
           ...ckEditorConfig
         }}
         data={value}
-        onChange={(_event, editor) => {
-          const data = editor.getData()
-          onChange(data)
-        }}
+        onChange={handleChange}
       />
     </StyledHtmlEditor>
   )
