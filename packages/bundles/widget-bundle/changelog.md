@@ -1,3 +1,7 @@
+0.1.23
+- apply global styles to fix datepicker
+- enable fullscreen modals for mobile/touch devices
+
 0.1.22
 - show collapse/expand icon on touch devices in panel header/footer
 - harmonize modal spacing of modal message

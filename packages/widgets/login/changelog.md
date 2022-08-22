@@ -1,3 +1,6 @@
+1.1.58
+- enable fullscreen modals for mobile/touch devices
+
 1.1.57
 - show collapse/expand icon on touch devices in panel header/footer
 - harmonize modal spacing of modal message
