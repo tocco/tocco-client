@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import {useEffect} from 'react'
 import {Prompt} from 'react-router-dom'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
-import {Button} from 'tocco-ui'
+import {Button, ButtonContextProvider} from 'tocco-ui'
 import {queryString as queryStringUtil} from 'tocco-util'
 
 import Action from '../LazyAction'
@@ -108,15 +108,19 @@ const EntityDetail = ({
       {detailParams && (
         <>
           {detailParams.showBackButton && (
-            <StyledEntityDetailBackButton>
-              <Button
-                data-cy="entity-detail_back-button"
-                icon="chevron-left"
-                label={msg('client.entity-browser.back')}
-                look="raised"
-                onClick={handleGoBack}
-              />
-            </StyledEntityDetailBackButton>
+            <ButtonContextProvider>
+              {ref => (
+                <StyledEntityDetailBackButton ref={ref}>
+                  <Button
+                    data-cy="entity-detail_back-button"
+                    icon="chevron-left"
+                    label={msg('client.entity-browser.back')}
+                    look="raised"
+                    onClick={handleGoBack}
+                  />
+                </StyledEntityDetailBackButton>
+              )}
+            </ButtonContextProvider>
           )}
           {getApp(detailParams)}
         </>
