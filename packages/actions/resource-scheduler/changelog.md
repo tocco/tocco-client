@@ -1,3 +1,6 @@
+1.0.62
+- HTML editor: fix saving the form in source editing mode
+
 1.0.61
 - enable fullscreen modals for mobile/touch devices
 
