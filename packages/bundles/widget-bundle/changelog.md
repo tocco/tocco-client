@@ -1,3 +1,6 @@
+0.1.24
+- HTML editor: fix saving the form in source editing mode
+
 0.1.23
 - apply global styles to fix datepicker
 - enable fullscreen modals for mobile/touch devices
