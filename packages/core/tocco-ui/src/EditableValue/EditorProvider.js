@@ -1,7 +1,7 @@
 import _isEmpty from 'lodash/isEmpty'
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import {useRef} from 'react'
+import {useCallback, useRef} from 'react'
 
 import BooleanSingleSelect from './editors/BooleanSingleSelect'
 import BoolEdit from './editors/BoolEdit'
@@ -58,6 +58,17 @@ const isDatepickerType = componentType => ['date', 'datetime'].includes(componen
 
 const EditorProvider = ({componentType, value, options, id, events, placeholder, readOnly = false}) => {
   const datepickerValue = useRef(undefined)
+  // this quick fix should be removed with TOCDEV-5926
+  const onChange = useCallback(
+    v => {
+      if (isDatepickerType(componentType)) {
+        datepickerValue.current = v
+      }
+      events.onChange(v)
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [componentType]
+  )
 
   if (map[componentType]) {
     const Component = map[componentType]
@@ -89,10 +100,7 @@ const EditorProvider = ({componentType, value, options, id, events, placeholder,
       <div {..._omit(events, 'onChange')} data-cy="form-field">
         <Component
           value={value}
-          onChange={v => {
-            datepickerValue.current = v
-            events.onChange(v)
-          }}
+          onChange={onChange}
           {...(_isEmpty(options) ? {} : {options})}
           id={id}
           immutable={readOnly}
