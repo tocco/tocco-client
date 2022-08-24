@@ -2,6 +2,7 @@ export const SET_SHOW_OLD_PASSWORD = 'PasswordUpdateDialog/SET_SHOW_OLD_PASSWORD
 export const SET_STANDALONE = 'PasswordUpdateDialog/SET_STANDALONE'
 export const SET_FORCED_UPDATE = 'PasswordUpdateDialog/SET_FORCED_UPDATE'
 export const SET_USERNAME_OR_PK = 'PasswordUpdateDialog/SET_USERNAME_OR_PK'
+export const SET_CURRENT_USERNAME = 'PasswordUpdateDialog/SET_CURRENT_USERNAME'
 
 export const setShowOldPasswordField = showOldPasswordField => ({
   type: SET_SHOW_OLD_PASSWORD,
@@ -29,4 +30,8 @@ export const setUsernameOrPk = usernameOrPk => ({
   payload: {
     usernameOrPk
   }
+})
+
+export const setCurrentUsername = () => ({
+  type: SET_CURRENT_USERNAME
 })

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
-import {consoleLogger, env, appContext} from 'tocco-util'
+import {env, appContext} from 'tocco-util'
 
-import LoginContainer from './containers/LoginContainer'
+import LoadUsernameMask from './components/LoadUsernameMask'
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
 import loginReducers, {sagas} from './modules/reducers'
 
@@ -14,14 +14,14 @@ export const initPasswordUpdateApp = (id, input, events, publicPath, customTheme
   const showTitle = !!input.showTitle
   const forcedUpdate = !!input.forcedUpdate
 
-  const content = <LoginContainer currentPage="PASSWORD_UPDATE" showTitle={showTitle} />
+  const content = <LoadUsernameMask showTitle={showTitle} />
 
+  const actions = [passwordUpdate.setForcedUpdate(forcedUpdate)]
   if (typeof input.username !== 'string' || input.username.length === 0) {
-    consoleLogger.logError('Mandatory input "username" is not set on password-update')
-    return
+    actions.push(passwordUpdate.setCurrentUsername())
+  } else {
+    actions.push(passwordUpdate.setUsernameOrPk(input.username))
   }
-
-  const actions = [passwordUpdate.setUsernameOrPk(input.username), passwordUpdate.setForcedUpdate(forcedUpdate)]
 
   if (typeof input.showOldPasswordField === 'boolean') {
     actions.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
