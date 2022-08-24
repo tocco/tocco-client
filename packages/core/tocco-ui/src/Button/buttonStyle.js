@@ -1,6 +1,7 @@
 import {css} from 'styled-components'
 
 import {declareFont, design, interactiveStyling, scale, theme as themeSelector} from '../utilStyles'
+import {LabelVisibility} from './ButtonContext'
 import {StyledLabelWrapper} from './StyledButton'
 
 const declareIconPosition = ({icon, pending, iconPosition}) => {
@@ -63,20 +64,20 @@ export const buttonStyle = css`
   & > span:first-child {
     margin-left: 0;
   }
-  ${({icon, showIconOnly}) => {
+  ${({icon, labelVisibility}) => {
     const hideLabelStyles = `
       ${StyledLabelWrapper} {
         display: none;
       }
     `
 
-    if (icon && showIconOnly) {
+    if (icon && labelVisibility === LabelVisibility.hidden) {
       return hideLabelStyles
     }
 
     return (
       icon &&
-      typeof showIconOnly === 'undefined' &&
+      labelVisibility === LabelVisibility.responsive &&
       `
     @media screen and (max-width: 1024px) {
       ${hideLabelStyles}

@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types'
 import React, {useContext, useMemo, useState, useCallback, useEffect, useRef} from 'react'
 
+export const LabelVisibility = {
+  visible: 'visible',
+  hidden: 'hidden',
+  responsive: 'responsive'
+}
+
 const useResizeObserver = () => {
   const [contentRect, setContentRect] = useState()
 
@@ -27,19 +33,20 @@ const useResizeObserver = () => {
     [handleResize]
   )
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (resizeObserverRef.current) {
         resizeObserverRef.current.disconnect()
         resizeObserverRef.current = null
       }
-    }
-  }, [])
+    },
+    []
+  )
 
   return [ref, contentRect]
 }
 
-const defaultValue = {showIconOnly: undefined}
+const defaultValue = {labelVisibility: LabelVisibility.responsive}
 const ButtonContext = React.createContext(defaultValue)
 
 const HeightThreshold = 50
@@ -53,25 +60,28 @@ const ButtonContextProvider = ({children}) => {
    * Keep the width of the threshold and only show full buttons again, when wrapper has reached threshold again.
    * This prevents from infinite toggling between icon only buttons and full buttons when height threshold has reached.
    */
-  const showIconOnly = !widthThreshold.current
+  const hideLabel = !widthThreshold.current
     ? contentRect?.height > HeightThreshold
     : contentRect?.width < widthThreshold.current
 
   /**
-   * Only change widthThreshold when `showIconOnly` has changed.
+   * Only change widthThreshold when `hideLabel` has changed.
    * `contentRect.width` should be ignored in the `deps`:
-   *  - `showIconOnly` will only change when `contentRect.width` has changed too
-   *  - useEffect code should not run when only `contentReact.width` has changed without `showIconOnly`
+   *  - `hideLabel` will only change when `contentRect.width` has changed too
+   *  - useEffect code should not run when only `contentReact.width` has changed without `hideLabel`
    */
   useEffect(() => {
-    if (showIconOnly) {
+    if (hideLabel) {
       widthThreshold.current = contentRect.width + 1
     } else {
       widthThreshold.current = null
     }
-  }, [showIconOnly]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [hideLabel]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const value = useMemo(() => ({showIconOnly}), [showIconOnly])
+  const value = useMemo(
+    () => ({labelVisibility: hideLabel ? LabelVisibility.hidden : LabelVisibility.visible}),
+    [hideLabel]
+  )
   return <ButtonContext.Provider value={value}>{children(wrapperRef)}</ButtonContext.Provider>
 }
 
@@ -79,9 +89,6 @@ ButtonContextProvider.propTypes = {
   children: PropTypes.func.isRequired
 }
 
-export const useButtonContext = () => {
-  const buttonContext = useContext(ButtonContext)
-  return buttonContext
-}
+export const useButtonContext = () => useContext(ButtonContext)
 
 export default ButtonContextProvider
