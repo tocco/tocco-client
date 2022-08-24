@@ -4,10 +4,9 @@ import {errorLogging} from 'tocco-app-extensions'
 import {ButtonContextProvider, LoadMask} from 'tocco-ui'
 import {js} from 'tocco-util'
 
-import ActionContainer from '../../containers/ActionContainer'
-import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
 import TableContainer from '../../containers/TableContainer'
-import {getColumnDefinition, getTable, getActionBar} from '../../util/api/forms'
+import {getColumnDefinition, getTable} from '../../util/api/forms'
+import {getActionBarContent} from './getActionBarContent'
 import {StyledListWrapper, StyledActionWrapper, StyledListView} from './StyledComponents'
 
 const ListView = ({
@@ -65,20 +64,8 @@ const ListView = ({
 
   const ActionBar = useMemo(() => {
     if (formDefinition) {
-      const actionBar = getActionBar(formDefinition)
-      const content = [
-        ...(showSelectionController ? [<SelectionControllerContainer key="selectionController" />] : []),
-        ...(showActions !== false && actionBar
-          ? [
-              <ActionContainer
-                key={`listAction-${actionBar.id}`}
-                definition={actionBar}
-                parent={parent}
-                disabled={dataLoadingInProgress}
-              />
-            ]
-          : [])
-      ]
+      const {content, actionBar} =
+        getActionBarContent({formDefinition, parent, dataLoadingInProgress, showSelectionController, showActions}) || {}
 
       if (content.length > 0 && actionBar) {
         return (
