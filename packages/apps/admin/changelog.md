@@ -1,3 +1,6 @@
+1.0.76-hotfix33.9
+- HTML editor: fix saving the form in source editing mode
+
 1.0.76-hotfix33.8
 - fix datetime range with single default value
 - do not clear date input on blur
