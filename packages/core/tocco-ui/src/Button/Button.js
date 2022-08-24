@@ -13,7 +13,7 @@ import StyledButton, {StyledLabelWrapper} from './StyledButton'
 const Button = React.forwardRef((props, ref) => {
   const {aria, ink, label, icon, pending, look, iconPosition, iconOnly, children} = props
 
-  const {showIconOnly} = useButtonContext()
+  const {labelVisibility} = useButtonContext()
 
   return (
     <StyledButton
@@ -23,7 +23,7 @@ const Button = React.forwardRef((props, ref) => {
       ink={ink || design.ink.BASE}
       data-cy={props['data-cy']}
       title={label}
-      showIconOnly={showIconOnly}
+      labelVisibility={labelVisibility}
     >
       {icon && !pending && <Icon icon={icon} />}
       {pending && <LoadingSpinner ink={ink || design.ink.BASE} look={look} position={iconPosition} size="1em" />}
