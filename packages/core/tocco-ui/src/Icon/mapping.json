@@ -37,6 +37,10 @@
     "lib": "fa",
     "tags": ["arrow-up-long"]
   },
+  "ballot-check": {
+    "id": "fal, ballot-check",
+    "lib": "fa"
+  },
   "barcode-alt": {
     "id": "fal, barcode-alt",
     "lib": "fa"
