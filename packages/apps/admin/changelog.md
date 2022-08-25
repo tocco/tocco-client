@@ -1,3 +1,7 @@
+1.0.90
+- quick fix that onChange is not infinite often triggered
+- make username input prop optional else use current user
+
 1.0.89
 - HTML editor: fix saving the form in source editing mode
 
