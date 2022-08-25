@@ -1,3 +1,6 @@
+1.0.63
+- quick fix that onChange is not infinite often triggered
+
 1.0.62
 - HTML editor: fix saving the form in source editing mode
 
