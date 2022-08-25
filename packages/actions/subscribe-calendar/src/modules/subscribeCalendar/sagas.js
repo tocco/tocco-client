@@ -36,7 +36,7 @@ export function* fetchCalendarLinks() {
     yield put(
       externalEvents.fireExternalEvent('onError', {
         title: 'client.actions.subscribe-calendar.toasterTitle',
-        message: 'client.actions.subscribe-calendar.noLecturerCalendar'
+        message: 'client.actions.subscribe-calendar.noCalendars'
       })
     )
   }
