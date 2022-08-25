@@ -1,3 +1,8 @@
+1.0.59-hotfix33.10
+- quick fix that onChange is not infinite often triggered
+- improve datepicker styling and fix bugs in widgets
+- remove date picker arrow as the positioning seems to be off when fields are too long
+
 1.0.59-hotfix33.9
 - HTML editor: fix saving the form in source editing mode
 
