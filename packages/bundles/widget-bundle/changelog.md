@@ -1,3 +1,7 @@
+0.1.26
+- add ballot-check icon
+- use more generic error message when no Calendar_export_conf could be found
+
 0.1.25
 - quick fix that onChange is not infinite often triggered
 

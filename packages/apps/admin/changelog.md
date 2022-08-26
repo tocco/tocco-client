@@ -1,3 +1,7 @@
+1.0.91
+- add ballot-check icon
+- use more generic error message when no Calendar_export_conf could be found
+
 1.0.90
 - quick fix that onChange is not infinite often triggered
 - make username input prop optional else use current user
