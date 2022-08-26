@@ -1,6 +1,6 @@
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import {useMemo, useRef} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
 
 import Ball from '../Ball'
 import EditableValue from '../EditableValue'
@@ -15,11 +15,42 @@ import {
   StyledRange
 } from './StyledRange'
 
+const ViewMode = {
+  EXPANDED_INITIAL: 'expanded_initial', // initial expanded render (if defined in form config)
+  EXPANDED: 'expanded', // expanded manually by user
+  COLLAPSED: 'collapsed'
+}
+
 /**
  * Allows to render EditableValues as a range. The value can be switched between a range or single value.
  */
 const Range = props => {
-  const {value, events, readOnly, type, options, fromText, toText} = props
+  const {value, events, readOnly, type, options, fromText, toText, expanded} = props
+
+  const [viewMode, setViewMode] = useState(expanded ? ViewMode.EXPANDED_INITIAL : ViewMode.COLLAPSED)
+
+  const typeMapping = rangeTypeMappings[type]
+
+  useEffect(() => {
+    const getFromOrTo = value =>
+      typeMapping?.fromRange ? typeMapping.fromRange(value) : value?.from || value?.to || null
+
+    const getRangeValue = value =>
+      typeMapping?.toRange ? typeMapping.toRange(value) : {from: value, to: value, isRangeValue: true}
+
+    if (viewMode === ViewMode.EXPANDED_INITIAL && value && !value.isRangeValue) {
+      // initial expanded render with single default value (user hasn't collased and expanded the component yet)
+      // in this case we want to keep the open range and use the default value as `from` value (if there is one)
+      events.onChange({from: value, to: undefined, isRangeValue: true})
+    } else if (viewMode === ViewMode.EXPANDED && !value?.isRangeValue) {
+      // user has changed to expanded mode -> change to range value
+      events.onChange(getRangeValue(value))
+    } else if (viewMode === ViewMode.COLLAPSED && value?.isRangeValue) {
+      // user has changed to collapsed mode -> change to single value
+      events.onChange(getFromOrTo(value))
+    }
+  }, [viewMode, value, events, typeMapping])
+
   const hasRangeValue = value?.isRangeValue || false
 
   /**
@@ -65,19 +96,11 @@ const Range = props => {
     }
   }
 
-  const typeMapping = rangeTypeMappings[type]
-
   const getToOptions = (options, fromValue) =>
     typeMapping?.getToOptions ? typeMapping.getToOptions(options, fromValue) : options
 
   const getFromOptions = (options, toValue) =>
     typeMapping?.getFromOptions ? typeMapping.getFromOptions(options, toValue) : options
-
-  const getFromOrTo = value =>
-    typeMapping?.fromRange ? typeMapping.fromRange(value) : value?.from || value?.to || null
-
-  const getRangeValue = value =>
-    typeMapping?.toRange ? typeMapping.toRange(value) : {from: value, to: value, isRangeValue: true}
 
   const rangeValueIcon = typeMapping?.icons?.range || 'chevron-down'
   const singleValueIcon = typeMapping?.icons?.single || 'chevron-left'
@@ -120,8 +143,7 @@ const Range = props => {
           disabled={readOnly}
           icon={hasRangeValue ? singleValueIcon : rangeValueIcon}
           onClick={() => {
-            const val = hasRangeValue ? getFromOrTo(value) : getRangeValue(value)
-            events.onChange(val)
+            setViewMode(hasRangeValue ? ViewMode.COLLAPSED : ViewMode.EXPANDED)
           }}
         ></Ball>
       </StyledExtender>
@@ -166,7 +188,11 @@ Range.propTypes = {
   /**
    * Shown above "to" input
    */
-  toText: PropTypes.string
+  toText: PropTypes.string,
+  /**
+   * Set to true if the initial render should be in expanded view mode (default false)
+   */
+  expanded: PropTypes.bool
 }
 
 export default Range

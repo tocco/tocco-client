@@ -21,6 +21,14 @@ describe('tocco-ui', () => {
         expect(wrapper.find(EditableValue)).to.have.length(2)
       })
 
+      test('should change to range value if expanded prop and single value', () => {
+        const onChangeSpy = sinon.spy()
+        intlEnzyme.mountWithIntl(
+          <Range type="number" options={{}} value={3} events={{onChange: onChangeSpy}} expanded />
+        )
+        expect(onChangeSpy).to.have.been.calledWith({isRangeValue: true, from: 3, to: undefined})
+      })
+
       test('should change to range value on expander click', () => {
         const onChangeSpy = sinon.spy()
         const wrapper = intlEnzyme.mountWithIntl(
