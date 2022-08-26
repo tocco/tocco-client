@@ -41,7 +41,8 @@ const EditableValueProvider = ({
       options={options}
       {...(range && {
         fromText: formData.intl.formatMessage({id: 'client.component.range.from'}),
-        toText: formData.intl.formatMessage({id: 'client.component.range.to'})
+        toText: formData.intl.formatMessage({id: 'client.component.range.to'}),
+        expanded: formField.expanded
       })}
     />
   )
@@ -54,7 +55,8 @@ EditableValueProvider.propTypes = {
   formName: PropTypes.string,
   formField: PropTypes.shape({
     dataType: PropTypes.string,
-    componentType: PropTypes.string
+    componentType: PropTypes.string,
+    expanded: PropTypes.bool // only if it's a range component
   }),
   value: PropTypes.any,
   info: PropTypes.object,
