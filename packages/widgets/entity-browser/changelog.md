@@ -1,3 +1,6 @@
+1.0.58-hotfix33.10
+- use more generic error message when no Calendar_export_conf could be found
+
 1.0.58-hotfix33.9
 - quick fix that onChange is not infinite often triggered
 - improve datepicker styling and fix bugs in widgets
