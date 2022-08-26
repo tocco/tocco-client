@@ -1,3 +1,6 @@
+1.1.61
+- add ballot-check icon
+
 1.1.60
 - quick fix that onChange is not infinite often triggered
 - make username input prop optional else use current user

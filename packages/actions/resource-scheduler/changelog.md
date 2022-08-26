@@ -1,3 +1,6 @@
+1.0.64
+- add ballot-check icon
+
 1.0.63
 - quick fix that onChange is not infinite often triggered
 
