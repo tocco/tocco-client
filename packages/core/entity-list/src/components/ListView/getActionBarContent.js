@@ -10,10 +10,13 @@ export const getActionBarContent = ({
   showActions
 }) => {
   if (formDefinition) {
+    const selectionController = showSelectionController
+      ? [<SelectionControllerContainer key="selectionController" />]
+      : []
+
     const actionBar = getActionBar(formDefinition)
-    const content = [
-      ...(showSelectionController ? [<SelectionControllerContainer key="selectionController" />] : []),
-      ...(showActions !== false && actionBar
+    const actions =
+      showActions !== false && actionBar
         ? [
             <ActionContainer
               key={`listAction-${actionBar.id}`}
@@ -22,8 +25,9 @@ export const getActionBarContent = ({
               disabled={dataLoadingInProgress}
             />
           ]
-        : [])
-    ]
+        : []
+
+    const content = [...selectionController, ...actions]
 
     return {content, actionBar}
   }
