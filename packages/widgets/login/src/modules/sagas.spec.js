@@ -35,6 +35,7 @@ describe('login', () => {
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, payload))
           const response = {success: true}
           expect(gen.next(response).value).to.eql(call(sagas.handleSuccessfulLogin, response))
+          expect(gen.next().value).to.eql(call(sagas.handleRedirect))
           expect(gen.next().done).to.deep.equal(true)
         })
 
