@@ -15,6 +15,7 @@ export const DEFAULT_TIMEOUT = 30
 
 export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 export const loginSelector = state => state.login
+export const inputSelector = state => state.input
 
 export function doRequest(url, options) {
   return new Promise(resolve => {
@@ -79,6 +80,13 @@ export function* handleFailedResponse() {
   yield put(setMessage(text, true))
 }
 
+export function* handleRedirect() {
+  const {redirectUrl} = yield select(inputSelector)
+  if (redirectUrl) {
+    window.location.href = redirectUrl
+  }
+}
+
 export function* handleSuccessfulLogin(response) {
   const needsCacheInvalidation = yield call(cacheHelpers.hasInvalidCache)
   if (needsCacheInvalidation) {
@@ -104,6 +112,7 @@ export function* loginSaga({payload}) {
   const response = yield call(doLoginRequest, loginData)
   if (response.success) {
     yield call(handleSuccessfulLogin, response)
+    yield call(handleRedirect)
   } else {
     yield put(changePage(Pages.LOGIN_FORM)) // in order to display possible error message
     if (response.CAPTCHA) {
@@ -129,6 +138,8 @@ export function* checkSessionSaga() {
   if (response.success) {
     yield call(handleSuccessfulLogin, response)
   }
+
+  return response.success
 }
 
 export function* loadSettings() {
@@ -137,8 +148,11 @@ export function* loadSettings() {
 }
 
 export function* initialize() {
-  yield call(checkSessionSaga)
+  const success = yield call(checkSessionSaga)
   yield call(loadSettings)
+  if (success) {
+    yield call(handleRedirect)
+  }
 }
 
 export default function* mainSagas() {

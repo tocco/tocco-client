@@ -30,6 +30,7 @@ React-registry name: `login`
 | `passwordRequest`      |           | Boolean to open login app in reset mode. 
 | `username`             |           | Open login app with pre-filled username.
 | `backendUrl`           |           | Set backend url dynamic to point to nice2 installation. If not set it fallbacks to the build time environment __BACKEND_URL__.
+| `redirectUrl`          |           | A URL that the user gets redirected to after they're logged in. If empty, the `loginSuccess` event will probably need to be used.
 
 ### Methods
 
