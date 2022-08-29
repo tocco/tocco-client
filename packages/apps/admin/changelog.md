@@ -1,3 +1,8 @@
+1.0.92
+- collapse buttons when wrapper is too small
+- use responsiveness buttons on action bar
+- use responsiveness buttons for actions
+
 1.0.91
 - add ballot-check icon
 - use more generic error message when no Calendar_export_conf could be found

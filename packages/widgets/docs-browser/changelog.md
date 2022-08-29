@@ -1,3 +1,8 @@
+1.0.75
+- collapse buttons when wrapper is too small
+- use responsiveness buttons on action bar
+- use responsiveness buttons for actions
+
 1.0.74
 - add ballot-check icon
 
