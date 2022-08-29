@@ -1,6 +1,6 @@
 import {channel} from 'redux-saga'
 import {call, put, take} from 'redux-saga/effects'
-import {api} from 'tocco-util'
+import {api, env} from 'tocco-util'
 import {v4 as uuid} from 'uuid'
 
 import notification from '../../../notification'
@@ -9,21 +9,17 @@ import ReportSettings from '../../components/ReportSettings'
 import {invokeActionAsync} from './simpleAction'
 
 export default function* (actionDefinition, selection, parent, params, config) {
-  const answerChannel = yield call(channel)
-  const settingsModalId = yield call(displayReportSettings, actionDefinition, selection, answerChannel, config)
-  yield call(awaitSettingsSubmit, actionDefinition, answerChannel, settingsModalId, selection)
+  if (env.getEmbedType() === 'widget') {
+    yield call(generateReportWithoutSettings, actionDefinition, selection)
+  } else {
+    const answerChannel = yield call(channel)
+    const settingsModalId = yield call(displayReportSettings, actionDefinition, selection, answerChannel, config)
+    yield call(awaitSettingsSubmit, actionDefinition, answerChannel, settingsModalId, selection)
+  }
 }
 
 export function* displayReportSettings(actionDefinition, selection, answerChannel, config) {
-  const options = {
-    queryParams: {
-      model: selection.entityName,
-      ...(selection.mode === 'ID' ? {keys: selection.ids.join(',')} : {})
-    }
-  }
-
-  const resource = `report/${actionDefinition.reportId}/settings`
-  const {body: settingsDefinition} = yield call(rest.requestSaga, resource, options)
+  const settingsDefinition = yield call(getSettingsDefinition, actionDefinition, selection)
   const onSubmit = formValues =>
     answerChannel.put({
       formValues,
@@ -49,6 +45,41 @@ export function* displayReportSettings(actionDefinition, selection, answerChanne
   )
 
   return settingsModalId
+}
+
+export function* generateReportWithoutSettings(actionDefinition, selection) {
+  const settingsDefinition = yield call(getSettingsDefinition, actionDefinition, selection)
+  const generalSettings = settingsDefinition.generalSettings.reduce(
+    (acc, field) => ({
+      ...acc,
+      [field.id]: field.defaultValue?.key || field.defaultValue
+    }),
+    {}
+  )
+  actionDefinition.endpoint = 'report/generations'
+  const params = {
+    additionalProperties: {
+      reportId: actionDefinition.reportId,
+      generalSettings,
+      recipientSettings: {}
+    },
+    formData: null
+  }
+
+  yield call(invokeActionAsync, actionDefinition, selection, null, params)
+}
+
+function* getSettingsDefinition(actionDefinition, selection) {
+  const options = {
+    queryParams: {
+      model: selection.entityName,
+      ...(selection.mode === 'ID' ? {keys: selection.ids.join(',')} : {})
+    }
+  }
+
+  const resource = `report/${actionDefinition.reportId}/settings`
+  const {body: settingsDefinition} = yield call(rest.requestSaga, resource, options)
+  return settingsDefinition
 }
 
 export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId, selection) {
