@@ -2,6 +2,7 @@ import _forOwn from 'lodash/forOwn'
 import {FormattedMessage} from 'react-intl'
 import {form} from 'tocco-app-extensions'
 
+// replace cache
 export const validateSearchFields = (values, formDefinition) => {
   const errors = {}
 
