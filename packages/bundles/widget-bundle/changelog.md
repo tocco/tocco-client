@@ -1,3 +1,6 @@
+0.1.28
+- generate reports without dialog in widgets
+
 0.1.27
 - collapse buttons when wrapper is too small
 - use responsiveness buttons on action bar
