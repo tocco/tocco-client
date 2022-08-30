@@ -1,3 +1,4 @@
+import _isEmpty from 'lodash/isEmpty'
 import _isEqual from 'lodash/isEqual'
 import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
@@ -18,7 +19,8 @@ import {react, reducer as reducerUtil, navigationStrategy} from 'tocco-util'
 
 import EntityList from './components/EntityList'
 import customActions from './customActions'
-import {getDispatchActions} from './input'
+import {getDispatchActions, getReloadOption, reloadOptions} from './input'
+import {reloadData, reloadAll} from './modules/entityList/actions'
 import {refresh} from './modules/list/actions'
 import reducers, {sagas} from './modules/reducers'
 import {searchFormTypePropTypes} from './util/searchFormTypes'
@@ -129,7 +131,7 @@ const initApp = (id, input, events, publicPath) => {
 
 const EntityListApp = props => {
   const [entityListNumber, forceEntityListUpdate] = useReducer(x => x + 1, 0)
-  const {component, setApp} = appFactory.useApp({
+  const {component, setApp, store} = appFactory.useApp({
     initApp,
     props,
     packageName: props.id,
@@ -154,6 +156,13 @@ const EntityListApp = props => {
        */
       setApp(initApp(props.id, props, appFactory.getEvents(EXTERNAL_EVENTS, props)))
       forceEntityListUpdate()
+    } else if (!_isEmpty(changedProps)) {
+      const reloadOption = getReloadOption(changedProps)
+      if (reloadOption === reloadOptions.ALL) {
+        store.dispatch(reloadAll())
+      } else if (reloadOption === reloadOptions.DATA) {
+        store.dispatch(reloadData())
+      }
     }
   }, [props])
 
