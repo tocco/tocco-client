@@ -60,6 +60,11 @@ export const GlobalDatePickerStyles = createGlobalStyle`
 
       .react-datepicker__header__dropdown {
         font-size: ${scale.font(2.85)};
+
+        /* decrease padding to prevent overflow on small screens */
+        @media only screen and (max-width: 480px) {
+          font-size: ${scale.font(1.8)};
+        }
       }
 
       .react-datepicker__current-month {
@@ -77,6 +82,11 @@ export const GlobalDatePickerStyles = createGlobalStyle`
       .react-datepicker__day-name {
         border: 1px solid transparent;
         padding: ${scale.space(-0.6)};
+
+        /* decrease padding to prevent overflow on small screens */
+        @media only screen and (max-width: 480px) {
+          padding: ${scale.space(-1.2)};
+        }
       }
 
       .react-datepicker__day--selected,
@@ -148,9 +158,23 @@ export const GlobalDatePickerStyles = createGlobalStyle`
       .react-datepicker__month-read-view--down-arrow,
       .react-datepicker__month-year-read-view--down-arrow {
         top: 6px;
-        right: -9px;
+        right: -10px;
         width: 5px;
         height: 5px;
+
+        /* decrease padding to prevent overflow on small screens */
+        @media only screen and (max-width: 480px) {
+          right: -8px;
+        }
+      }
+
+      .react-datepicker__year-read-view--down-arrow {
+        right: -4px;
+
+        /* decrease padding to prevent overflow on small screens */
+        @media only screen and (max-width: 480px) {
+          right: 3px;
+        }
       }
 
       .react-datepicker__day:hover,
