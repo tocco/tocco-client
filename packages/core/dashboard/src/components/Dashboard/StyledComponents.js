@@ -1,6 +1,12 @@
 import _get from 'lodash/get'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {scale, StyledScrollbar, shadeColor, theme} from 'tocco-ui'
+
+const mobileStyles = styles => css`
+  @media only screen and (max-width: 800px) {
+    ${styles}
+  }
+`
 
 export const StyledDashboardWrapper = styled.div`
   width: 100%;
@@ -16,6 +22,10 @@ export const StyledDashboardWrapper = styled.div`
 export const StyledColumnWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
+  ${mobileStyles(`
+    display: block;
+    flex-wrap: unset;
+  `)}
 `
 
 export const StyledColumn = styled.div`
@@ -24,12 +34,19 @@ export const StyledColumn = styled.div`
   flex-wrap: wrap;
   align-content: flex-start;
   position: relative;
+  ${mobileStyles(`
+    width: unset;
+    display: block;
+    flex-wrap: unset;
+    align-content: unset;
+  `)}
 `
 
 export const StyledInfoBoxWrapper = styled.div`
   position: relative;
   width: 100%;
   margin: ${scale.space(-0.5)};
+  ${mobileStyles(`width: auto;`)}
 `
 
 export const StyledResizeHandle = styled.div`
