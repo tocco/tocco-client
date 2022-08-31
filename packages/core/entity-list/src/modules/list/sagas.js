@@ -95,7 +95,7 @@ export function* getBasicQuery(regardSelection = true) {
 }
 
 function* getQueryViewQuery() {
-  const {inputKeys} = yield select(inputSelector)
+  const {keys: inputKeys} = yield select(inputSelector)
   const {constriction} = yield select(listSelector)
   const {query, queryError} = yield select(searchFormSelector)
 
@@ -113,7 +113,12 @@ function* getQueryViewQuery() {
 
 export function* getSearchViewQuery() {
   const {formFieldsFlat, searchFilters: searchFormSearchFilter} = yield select(searchFormSelector)
-  const {inputSearchFilters, inputTql, inputKeys, inputConstriction} = yield select(inputSelector)
+  const {
+    searchFilters: inputSearchFilters,
+    tql: inputTql,
+    keys: inputKeys,
+    constriction: inputConstriction
+  } = yield select(inputSelector)
   const {constriction} = yield select(listSelector)
   const searchFormValues = yield call(getSearchFormValues)
 

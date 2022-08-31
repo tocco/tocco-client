@@ -711,9 +711,9 @@ describe('entity-list', () => {
         describe('getBasicQuery', () => {
           test('should return an object with correct attributes', () => {
             const inputState = {
-              inputSearchFilters: ['filter1', 'filter2'],
-              inputTql: 'foo == "bar"',
-              inputKeys: ['235', '18', '120']
+              searchFilters: ['filter1', 'filter2'],
+              tql: 'foo == "bar"',
+              keys: ['235', '18', '120']
             }
             const searchForm = {
               formFieldsFlat: {
@@ -750,7 +750,7 @@ describe('entity-list', () => {
           })
 
           test('should return an object with hasUserChanges `false` if has only input attributes', () => {
-            const inputState = {inputSearchFilters: ['filter1', 'filter2'], inputTql: 'foo == "bar"'}
+            const inputState = {searchFilters: ['filter1', 'filter2'], tql: 'foo == "bar"'}
             const searchForm = {
               formFieldsFlat: {
                 relGender: 'single-remote-field'
@@ -796,7 +796,7 @@ describe('entity-list', () => {
           })
 
           test('should handle query view', () => {
-            const inputState = {inputKeys: ['1', '2']}
+            const inputState = {keys: ['1', '2']}
             const listState = {constriction: 'constriction'}
             const searchForm = {
               queryViewVisible: true,
@@ -825,7 +825,7 @@ describe('entity-list', () => {
           })
 
           test('should add constriction of list state (= constriction from list form)', async () => {
-            const inputState = {inputConstriction: null}
+            const inputState = {constriction: null}
             const listState = {constriction: 'my_list_constriction'}
 
             const expectedResult = {
@@ -846,7 +846,7 @@ describe('entity-list', () => {
           })
 
           test('should add input constriction of list state if set (overrides list form constriction)', async () => {
-            const inputState = {inputConstriction: 'my_input_constriction'}
+            const inputState = {constriction: 'my_input_constriction'}
             const listState = {constriction: 'my_list_constriction'}
 
             const expectedResult = {
