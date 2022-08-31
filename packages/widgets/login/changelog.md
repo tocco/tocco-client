@@ -1,3 +1,6 @@
+1.1.64
+- add redirect that happens after successful login, destination defined by widget config
+
 1.1.63
 - generate reports without dialog in widgets
 
