@@ -229,16 +229,16 @@ import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
  * The following icons are solely used to support custom display expressions and should not be removed: faSquareSolid
  */
 
-const FontAwesomeAdapter = ({icon, style, hasFixedWidth}) => (
-  <StyledFontAwesomeAdapterWrapper>
-    <FontAwesomeIcon
-      icon={icon.includes(',') ? icon.replace(/\s+/, '').split(',') : icon}
-      style={style}
-      {...(_get(style, 'color') && {color: style.color})}
-      fixedWidth={hasFixedWidth}
-    />
-  </StyledFontAwesomeAdapterWrapper>
-)
+const FontAwesomeAdapter = ({icon, style, hasFixedWidth}) => {
+  const getIcon = icon.includes(',') ? icon.replace(/\s+/, '').split(',') : icon
+  const getIconColor = {...(_get(style, 'color') && {color: style.color})}
+
+  return (
+    <StyledFontAwesomeAdapterWrapper>
+      <FontAwesomeIcon icon={getIcon} style={style} {...getIconColor} fixedWidth={hasFixedWidth} />
+    </StyledFontAwesomeAdapterWrapper>
+  )
+}
 
 FontAwesomeAdapter.defaultProps = {
   hasFixedWidth: true
