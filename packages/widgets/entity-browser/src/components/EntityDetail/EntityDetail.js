@@ -48,9 +48,9 @@ const EntityDetail = ({
 
   const handleEntityCreated = ({id}) => {
     setFormTouched(false)
-    let url = router.match.url
-    url = url.substr(-1) !== '/' ? (url += '/') : url
-    router.history.push(`${url}${id}`)
+    const getUrl = router.match.url
+    const cleanUrl = getUrl.substr(-1) !== '/' ? getUrl + '/' : getUrl
+    router.history.push(cleanUrl + id)
   }
 
   const navigateToAction = (definition, selection) => {
@@ -113,9 +113,8 @@ const EntityDetail = ({
                 <StyledEntityDetailBackButton ref={ref}>
                   <Button
                     data-cy="entity-detail_back-button"
-                    icon="chevron-left"
+                    icon="arrow-left"
                     label={msg('client.entity-browser.back')}
-                    look="raised"
                     onClick={handleGoBack}
                   />
                 </StyledEntityDetailBackButton>
