@@ -1,3 +1,6 @@
+1.1.65
+- adjust sizing of datepicker on mobile screens
+
 1.1.64
 - add redirect that happens after successful login, destination defined by widget config
 

@@ -1,3 +1,7 @@
+1.0.95
+- adjust sizing of datepicker on mobile screens
+- make constriction, search filters, tql and keys passed through input props work again
+
 1.0.94
 - add redirect that happens after successful login, destination defined by widget config
 
