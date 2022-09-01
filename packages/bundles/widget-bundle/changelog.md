@@ -1,3 +1,7 @@
+0.1.29
+- adjust sizing of datepicker on mobile screens
+- make constriction, search filters, tql and keys passed through input props work again
+
 0.1.28
 - generate reports without dialog in widgets
 

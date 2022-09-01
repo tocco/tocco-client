@@ -1,3 +1,6 @@
+1.1.65
+- adjust sizing of datepicker on mobile screens
+
 1.1.64
 - generate reports without dialog in widgets
 
