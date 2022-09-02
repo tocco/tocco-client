@@ -1,11 +1,12 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
-import {queryString as queryStringUtil, js} from 'tocco-util'
+import {js, queryString as queryStringUtil} from 'tocco-util'
 
 import {goBack} from '../../../../utils/routing'
 import navigationStrategy from '../../utils/navigationStrategy'
 import {currentViewPropType} from '../../utils/propTypes'
+import {getPathInfo} from '../../utils/url'
 import Action from '../Action'
 
 const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}) => {
@@ -29,7 +30,9 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
   const actionProperties = _get(location, 'state.definition.properties', queryParams.actionProperties)
 
   const navigateBack = () => {
-    history.replace(goBack(match.url, 2))
+    const pathInfo = getPathInfo(match.url)
+    const originUrl = pathInfo.key ? goBack(match.url) : goBack(match.url, 2)
+    history.replace(originUrl)
   }
 
   return (
