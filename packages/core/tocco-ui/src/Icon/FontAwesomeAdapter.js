@@ -102,7 +102,8 @@ import {
   faTrash,
   faUpload,
   faUsers,
-  faLightbulbExclamation
+  faLightbulbExclamation,
+  faHouseBlank
 } from '@fortawesome/pro-light-svg-icons'
 import {
   faPaperclip,
@@ -221,7 +222,8 @@ import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
     faFilter,
     faLightbulbExclamation,
     faMerge,
-    faLink
+    faLink,
+    faHouseBlank
   )
 })()
 

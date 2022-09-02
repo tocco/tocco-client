@@ -14,7 +14,10 @@ const Dashboard = ({match, history, emitAction, intl}) => {
     <StyledWrapper>
       <StyledBreadcrumbs>
         <errorLogging.ErrorBoundary>
-          <Breadcrumbs currentView={{display: msg('client.admin.dashboard'), title: 'Tocco'}} pathPrefix="/dashboard" />
+          <Breadcrumbs
+            currentView={{display: msg('client.admin.dashboard'), title: 'Tocco', type: 'home'}}
+            pathPrefix="/dashboard"
+          />
         </errorLogging.ErrorBoundary>
       </StyledBreadcrumbs>
       <StyledDashboardWrapper>

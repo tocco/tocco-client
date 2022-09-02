@@ -8,37 +8,43 @@ import Typography from '../Typography'
 import BreadcrumbSeparator from './BreadcrumbSeparator'
 import {StyledBreadcrumbs, StyledBreadcrumbsLink, StyledBreadcrumbsTitle} from './StyledBreadcrumbs'
 
+const getElementTitle = breadcrumb => breadcrumb.title || breadcrumb.display
+
 export const getTitle = (breadcrumbsInfo, createTitle) => {
   if (!breadcrumbsInfo || breadcrumbsInfo.length === 0) {
     return 'Tocco'
   }
 
-  const lastElement = breadcrumbsInfo[breadcrumbsInfo.length - 1]
+  const lastElement = breadcrumbsInfo.at(-1)
+  let title = ''
 
-  if (lastElement.type === 'create') {
-    return `${getElementTitle(lastElement)} - ${createTitle}`
-  } else if (lastElement.type === 'detail') {
-    return breadcrumbsInfo
-      .slice(breadcrumbsInfo.length - 2)
-      .map(getElementTitle)
-      .join(' - ')
-  } else {
-    return getElementTitle(lastElement)
+  switch (lastElement.type) {
+    case 'create':
+      title = `${getElementTitle(lastElement)} - ${createTitle}`
+      break
+    case 'detail':
+      title = breadcrumbsInfo
+        .slice(breadcrumbsInfo.length - 2)
+        .map(getElementTitle)
+        .join(' - ')
+      break
+    default:
+      title = getElementTitle(lastElement)
   }
-}
 
-const getElementTitle = breadcrumb => breadcrumb.title || breadcrumb.display
+  return title
+}
 
 const Breadcrumbs = ({
   intl,
   pathPrefix,
-  breadcrumbsInfo,
+  breadcrumbsInfo = [],
   currentView,
   backgroundColor,
   onClick,
   linkComp: LinkComp
 }) => {
-  const breadcrumbs = [...(breadcrumbsInfo || []), ...(currentView ? [currentView] : [])]
+  const breadcrumbs = [...breadcrumbsInfo, ...(currentView ? [currentView] : [])]
 
   if (breadcrumbs.length === 0) {
     return null
@@ -53,26 +59,28 @@ const Breadcrumbs = ({
   const msg = id => intl.formatMessage({id})
 
   const Breadcrumbs = breadcrumbs
-    .map((b, idx) => {
-      const display = b.display || ''
+    .map((breadcrumb, idx) => {
+      const display = breadcrumb.display || ''
       const Breadcrumb = idx === breadcrumbs.length - 1 ? StyledBreadcrumbsTitle : StyledBreadcrumbsLink
       const activeProp = idx === breadcrumbs.length - 1 && {active: 'true'}
-      const pathProp = typeof b.path !== 'undefined' ? {to: `${pathPrefix}/${b.path}`} : {}
+      const pathProp = typeof breadcrumb.path !== 'undefined' ? {to: `${pathPrefix}/${breadcrumb.path}`} : {}
       const componentType = LinkComp ? <LinkComp /> : <StyledLink />
-      const ListIcon = b.type === 'list' && <Icon icon="list" />
-      const ErrorIcon = b.type === 'error' && <Icon icon="exclamation-circle" />
+      const ListIcon = breadcrumb.type === 'list' && <Icon icon="list" />
+      const ErrorIcon = breadcrumb.type === 'error' && <Icon icon="exclamation-circle" />
+      const HomeIcon = breadcrumb.type === 'home' && <Icon icon="house-blank" />
 
       return (
         <Typography.Span key={`breadcrumbItem-${idx}`}>
-          <Breadcrumb neutral {...activeProp} {...pathProp} onClick={handleClick(b)} component={componentType}>
+          <Breadcrumb neutral {...activeProp} {...pathProp} onClick={handleClick(breadcrumb)} component={componentType}>
             {ListIcon}
             {ErrorIcon}
+            {HomeIcon}
             <span dangerouslySetInnerHTML={{__html: html.sanitizeHtml(display)}} />
           </Breadcrumb>
         </Typography.Span>
       )
     })
-    .reduce((prev, curr, idx) => [prev, <BreadcrumbSeparator key={'icon' + idx} />, curr])
+    .reduce((prev, curr, idx) => [prev, <BreadcrumbSeparator key={`icon${idx}`} />, curr])
 
   return (
     <StyledBreadcrumbs backgroundColor={backgroundColor}>
