@@ -94,8 +94,14 @@ const Select = ({
 
   const handleFocus = () => {
     selectComponent.current.focus()
-    setWrapperWidth(getWrapperWidth())
-    setWrapperHeight(getWrapperHeight())
+    // The timeout method ensures that the function
+    // call happens at the end of the call stack
+    // after the container has fully rendered.
+    // Otherwise misscalculations of dimensions can occur.
+    setTimeout(() => {
+      setWrapperWidth(getWrapperWidth())
+      setWrapperHeight(getWrapperHeight())
+    }, 0)
   }
 
   const hasAdvancedSearch = Boolean(openAdvancedSearch)
