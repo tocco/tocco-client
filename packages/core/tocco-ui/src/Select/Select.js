@@ -100,6 +100,8 @@ const Select = ({
     setWrapperHeight(getWrapperHeight())
   }
 
+  const handleScroll = e => !e.target.classList.contains('MenuList')
+
   const hasAdvancedSearch = Boolean(openAdvancedSearch)
   const hasCreatePermission = Boolean(createPermission)
 
@@ -154,6 +156,7 @@ const Select = ({
           hasCreatePermission={hasCreatePermission}
           createPermission={createPermission}
           openRemoteCreate={openRemoteCreate}
+          closeMenuOnScroll={handleScroll}
         />
       </StyledReactSelectInnerWrapper>
     </StyledReactSelectOuterWrapper>
