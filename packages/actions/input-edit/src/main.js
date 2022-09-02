@@ -3,6 +3,7 @@ import {actionEmitter, actions, appFactory, cache, errorLogging, notification} f
 import {reducer as reducerUtil} from 'tocco-util'
 
 import InputEdit from './components/InputEdit/InputEditContainer'
+import customActions from './customActions'
 import {setHandleNotifications} from './modules/inputEdit/actions'
 import reducers, {sagas} from './modules/reducers'
 
@@ -15,7 +16,9 @@ const initApp = (id, input, events, publicPath) => {
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, state => state.input.emitAction)
-  actions.addToStore(store, () => ({}))
+  actions.addToStore(store, () => ({
+    customActions: customActions(input)
+  }))
   const handleNotifications = !events.emitAction
   notification.addToStore(store, handleNotifications)
   errorLogging.addToStore(store, handleNotifications, ['console', 'remote', 'notification'])
