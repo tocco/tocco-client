@@ -7,7 +7,7 @@ const MenuList = props => {
   const {selectProps, children, theme} = props
   const {moreOptionsAvailable, moreOptionsAvailableText} = selectProps
   return (
-    <components.MenuList {...props}>
+    <components.MenuList {...props} className="MenuList">
       {children}
       {moreOptionsAvailable && (
         <StyledMoreOptionsAvailable reactSelectTheme={theme}>{moreOptionsAvailableText}</StyledMoreOptionsAvailable>
