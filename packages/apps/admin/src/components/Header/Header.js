@@ -111,7 +111,7 @@ const Header = ({
       <StyledBackgroundCover />
       <StyledHeader>
         <StyledConfig>
-          <RouterLinkButton to="/dashboard/reload" onClick={closeMenu}>
+          <RouterLinkButton to="/dashboard/reload" onClick={closeMenu} icon={'house-blank'}>
             <FormattedMessage id="client.admin.dashboard" />
           </RouterLinkButton>
           <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>

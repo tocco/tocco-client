@@ -448,5 +448,9 @@
   "lightbulb-exclamation": {
     "id": "fal, lightbulb-exclamation",
     "lib": "fa"
+  },
+  "house-blank": {
+    "id": "fal, house-blank",
+    "lib": "fa"
   }
 }
