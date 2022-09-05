@@ -1,3 +1,7 @@
+1.1.66
+- reset select dropdown to older state and implement close on scroll feature
+- fix select dropdown dimension calculations
+
 1.1.65
 - adjust sizing of datepicker on mobile screens
 
