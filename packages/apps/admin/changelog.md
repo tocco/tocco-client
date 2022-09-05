@@ -1,3 +1,7 @@
+1.0.76-hotfix33.12
+- implement sticky buttons for simple-form modal
+- fix select dropdown dimension calculations
+
 1.0.76-hotfix33.11
 - use more generic error message when no Calendar_export_conf could be found
 
