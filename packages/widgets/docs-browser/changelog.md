@@ -1,3 +1,7 @@
+1.0.59-hotfix33.11
+- implement sticky buttons for simple-form modal
+- fix select dropdown dimension calculations
+
 1.0.59-hotfix33.10
 - quick fix that onChange is not infinite often triggered
 - improve datepicker styling and fix bugs in widgets

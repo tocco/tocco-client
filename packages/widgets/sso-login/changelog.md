@@ -1,3 +1,6 @@
+1.0.48-hotfix33.8
+- fix select dropdown dimension calculations
+
 1.0.48-hotfix33.7
 - quick fix that onChange is not infinite often triggered
 - improve datepicker styling and fix bugs in widgets
