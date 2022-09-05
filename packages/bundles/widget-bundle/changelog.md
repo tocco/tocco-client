@@ -1,3 +1,8 @@
+0.1.30
+- implement sticky buttons for simple-form modal
+- reset select dropdown to older state and implement close on scroll feature
+- fix select dropdown dimension calculations
+
 0.1.29
 - adjust sizing of datepicker on mobile screens
 - make constriction, search filters, tql and keys passed through input props work again
