@@ -1,3 +1,7 @@
+1.1.18-hotfix32.20
+- implement sticky buttons for simple-form modal
+- fix select dropdown dimension calculations
+
 1.1.18-hotfix32.19
 - fix breakwords for email and phone formatter
 

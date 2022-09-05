@@ -1,3 +1,6 @@
+1.0.17-hotfix32.21
+- fix select dropdown dimension calculations
+
 1.0.17-hotfix32.20
 - fix breakwords for email and phone formatter
 
