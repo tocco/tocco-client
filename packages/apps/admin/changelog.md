@@ -1,3 +1,7 @@
+1.0.41-hotfix32.24
+- implement sticky buttons for simple-form modal
+- fix select dropdown dimension calculations
+
 1.0.41-hotfix32.23
 - remount entity-detail app after navigation
 
