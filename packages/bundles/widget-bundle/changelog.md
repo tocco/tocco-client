@@ -1,3 +1,6 @@
+0.1.31
+- add 'cancel' custom action to go back
+
 0.1.30
 - implement sticky buttons for simple-form modal
 - reset select dropdown to older state and implement close on scroll feature
