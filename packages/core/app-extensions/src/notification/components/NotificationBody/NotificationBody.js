@@ -78,7 +78,11 @@ const Result = injectIntl(({notification: {result}, navigationStrategy, intl}) =
           <StyledDetailLinkWrapper key={'entitylink-' + model}>
             {navigationStrategy && navigationStrategy.ListOrDetailLink && (
               <navigationStrategy.ListOrDetailLink entityName={model} entityKeys={entities.map(e => e.key)}>
-                <Icon icon="arrow-right" /> <FormattedMessage id="client.common.notification.entitiesOpen" />
+                <Icon icon="arrow-right" />
+                <FormattedMessage
+                  id="client.common.notification.entitiesOpen"
+                  values={{modelName: entities.at(0).modelName}}
+                />
               </navigationStrategy.ListOrDetailLink>
             )}
           </StyledDetailLinkWrapper>
