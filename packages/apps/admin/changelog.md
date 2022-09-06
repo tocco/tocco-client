@@ -1,3 +1,8 @@
+1.0.97
+- add home icon to header and breadcrumbs
+- fix navigating back handler for fullscreen actions
+- add 'cancel' custom action to go back
+
 1.0.96
 - implement sticky buttons for simple-form modal
 - reset select dropdown to older state and implement close on scroll feature
