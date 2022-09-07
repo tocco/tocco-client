@@ -1,3 +1,7 @@
+1.0.6-hotfix31.35
+- implement sticky buttons for simple-form modal
+- add model name to notification
+
 1.0.6-hotfix31.34
 - check form definition if form is markable
 

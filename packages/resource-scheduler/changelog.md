@@ -1,3 +1,7 @@
+1.0.3-hotfix31.33
+- implement sticky buttons for simple-form modal
+- add model name to notification
+
 1.0.3-hotfix31.32
 - fix breakwords for email and phone formatter
 
