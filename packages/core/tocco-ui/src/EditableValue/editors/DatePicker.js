@@ -18,45 +18,49 @@ const ReactDatepickerTimeInputClassName = 'react-datepicker-time__input'
 const ReactDatepickerDayClassName = 'react-datepicker__day'
 const ReactDatepickerInputClassName = 'react-datepicker-ignore-onclickoutside'
 
-const CustomTodayButton = ({onChange, label}) => (
-  <Button
-    onMouseDown={e => {
-      // this keeps the focus from changing, allowing handleConfirmKey on datepicker to keep working
-      e.preventDefault()
-      // this is a workaround for the previous date still being selected, see https://github.com/Hacker0x01/react-datepicker/issues/2206
-      onChange(null)
-    }}
-  >
-    {label}
-  </Button>
-)
+const CustomTodayButton = ({onChange, label}) => {
+  const handleOnMouseDown = e => {
+    // this keeps the focus from changing, allowing handleConfirmKey on datepicker to keep working
+    e.preventDefault()
+    // this is a workaround for the previous date still being selected, see https://github.com/Hacker0x01/react-datepicker/issues/2206
+    onChange(null)
+  }
+
+  return <Button onMouseDown={handleOnMouseDown}>{label}</Button>
+}
 
 CustomTodayButton.propTypes = {
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired
 }
 
-const TimeInput = ({value, onChange, onKeyDown}) => (
-  <StyledTimeInput
-    type="time"
-    className={ReactDatepickerTimeInputClassName}
-    required
-    value={value}
-    onKeyDown={onKeyDown}
-    onChange={ev => {
-      if (onChange) {
-        onChange(ev.target.value)
-      }
-    }}
-    onClick={e => {
-      /**
-       * Workaround
-       * When a day is selected it's not possible to set focus with mouse by clicking inside time input.
-       */
-      e.target.focus()
-    }}
-  />
-)
+const TimeInput = ({value, onChange, onKeyDown}) => {
+  const handleOnChange = ev => {
+    if (onChange) {
+      onChange(ev.target.value)
+    }
+  }
+
+  const handleOnClick = e => {
+    /**
+     * Workaround
+     * When a day is selected it's not possible to set focus with mouse by clicking inside time input.
+     */
+    e.target.focus()
+  }
+
+  return (
+    <StyledTimeInput
+      type="time"
+      className={ReactDatepickerTimeInputClassName}
+      required
+      value={value}
+      onKeyDown={onKeyDown}
+      onChange={handleOnChange}
+      onClick={handleOnClick}
+    />
+  )
+}
 
 TimeInput.propTypes = {
   value: PropTypes.string,
@@ -81,7 +85,7 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
 
   const wrapper = useRef(null)
   const datePickerRef = useRef(null)
-  const [open, setOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const hasValue = Boolean(value)
   const selectedDate = parseISOValue(value)
@@ -105,7 +109,7 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
   }
 
   const handleOpen = val => {
-    setOpen(val)
+    setIsOpen(val)
     if (datePickerRef.current?.setPreSelection) {
       datePickerRef.current?.setPreSelection(selectedDate)
     }
@@ -139,6 +143,26 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
     }
   }
 
+  const handleFocus = () => {
+    handleOpen(true)
+  }
+
+  const handleClickOutside = () => {
+    handleOpen(false)
+  }
+
+  const showClearButton = !immutable && hasValue
+
+  const handleOnMouseDown = e => {
+    e.preventDefault()
+    onChange(null)
+  }
+
+  const handleCloseOnScroll = () => {
+    handleOpen(false)
+    return true
+  }
+
   return (
     <StyledDatePickerOuterWrapper immutable={immutable} id={id} tabIndex="-1">
       <StyledDatePickerWrapper immutable={immutable} ref={wrapper} hasTime={hasTime}>
@@ -155,13 +179,10 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
           scrollableYearDropdown
           fixedHeight
           showPopperArrow={false}
-          open={open}
-          onFocus={() => {
-            handleOpen(true)
-          }}
-          onClickOutside={() => {
-            handleOpen(false)
-          }}
+          closeOnScroll={handleCloseOnScroll}
+          open={isOpen}
+          onFocus={handleFocus}
+          onClickOutside={handleClickOutside}
           locale={locale}
           onKeyDown={handleConfirmKey}
           customTimeInput={<TimeInput onKeyDown={handleConfirmKey} />}
@@ -169,18 +190,15 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
           timeInputLabel=""
           minDate={minDateVal}
           maxDate={maxDateVal}
+          popperProps={{strategy: 'fixed'}}
           todayButton={<CustomTodayButton onChange={onChange} label={msg('client.component.datePicker.todayLabel')} />}
         />
-
-        {!immutable && hasValue && (
+        {showClearButton && (
           <Ball
             icon="times"
             tabIndex={-1}
             aria-label={msg('client.component.datePicker.clearDateLabel')}
-            onMouseDown={e => {
-              e.preventDefault()
-              onChange(null)
-            }}
+            onMouseDown={handleOnMouseDown}
           />
         )}
       </StyledDatePickerWrapper>
