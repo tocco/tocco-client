@@ -201,6 +201,17 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
             onMouseDown={handleOnMouseDown}
           />
         )}
+        {!immutable && (
+          <Ball
+            icon="calendar"
+            tabIndex={-1}
+            onMouseDown={e => {
+              e.preventDefault()
+              e.stopPropagation()
+              handleOpen(!open)
+            }}
+          />
+        )}
       </StyledDatePickerWrapper>
     </StyledDatePickerOuterWrapper>
   )
