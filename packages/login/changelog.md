@@ -1,3 +1,6 @@
+1.1.2-hotfix31.30
+- add model name to notification
+
 1.1.2-hotfix31.29
 - fix breakwords for email and phone formatter
 
