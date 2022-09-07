@@ -16,7 +16,7 @@ function getDevDependenciesGreps() {
   # 2. get package name (is the last folder name of the path)
   # 3. only get tocco packages
   # 4. sort packages and remove duplicates
-  dev_dependencies=$(npm --prefix ${packageDir}/${package} ls --a  --silent --parseable | sed 's/.*\///' | grep tocco | sort | uniq)
+  dev_dependencies=$(npm --prefix packages/${package} ls --a  --silent --parseable | sed 's/.*\///' | grep tocco | sort | uniq)
   package_greps=""
   for item in ${dev_dependencies//\\n/}
   do
