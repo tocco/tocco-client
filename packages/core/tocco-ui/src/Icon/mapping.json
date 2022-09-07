@@ -71,6 +71,10 @@
     "id": "fal, box-open",
     "lib": "fa"
   },
+  "calendar": {
+    "id": "fal, calendar",
+    "lib": "fa"
+  },
   "calendar-arrow-down": {
     "id": "fal, calendar-arrow-down",
     "lib": "fa"
