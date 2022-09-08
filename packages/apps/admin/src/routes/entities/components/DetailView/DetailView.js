@@ -8,30 +8,43 @@ import RelationsView from '../RelationsView'
 import {StyledDetailViewContainer, StyledDetailViewLeft, StyledDetailViewRight} from './StyledComponents'
 
 const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, saveUserPreferences}) => {
-  const [isCollapsed, setIsCollapsed] = useState(false)
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed)
-    onSearchFormCollapsedChange(!isCollapsed)
-  }
+  const [isRightPaneCollapsed, setIsRightPaneIsCollapsed] = useState(false)
+  const getWindowWidth = () => window.innerWidth
 
   useEffect(() => {
-    setIsCollapsed(relationViewCollapsed)
+    setIsRightPaneIsCollapsed(relationViewCollapsed)
   }, [relationViewCollapsed])
+
+  useEffect(() => {
+    if (getWindowWidth() < 768) {
+      setIsRightPaneIsCollapsed(true)
+    }
+  }, [])
 
   const onSearchFormCollapsedChange = collapsed => {
     saveUserPreferences({'admin.detail.relationViewCollapsed': collapsed})
   }
 
+  const toggleCollapse = () => {
+    setIsRightPaneIsCollapsed(!isRightPaneCollapsed)
+    onSearchFormCollapsedChange(!isRightPaneCollapsed)
+  }
+
   return (
     <StyledDetailViewContainer>
-      <StyledDetailViewLeft isCollapsed={isCollapsed}>
+      <StyledDetailViewLeft isRightPaneCollapsed={isRightPaneCollapsed} windowWidth={getWindowWidth()}>
         <errorLogging.ErrorBoundary>
           <EditView match={match} history={history} />
         </errorLogging.ErrorBoundary>
       </StyledDetailViewLeft>
-      <StyledDetailViewRight isCollapsed={isCollapsed}>
+      <StyledDetailViewRight isRightPaneCollapsed={isRightPaneCollapsed}>
         <errorLogging.ErrorBoundary>
-          <RelationsView match={match} history={history} isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
+          <RelationsView
+            match={match}
+            history={history}
+            isRightPaneCollapsed={isRightPaneCollapsed}
+            toggleCollapse={toggleCollapse}
+          />
         </errorLogging.ErrorBoundary>
       </StyledDetailViewRight>
     </StyledDetailViewContainer>

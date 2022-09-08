@@ -13,14 +13,10 @@ export const StyledDetailViewContainer = styled.div`
 export const StyledDetailViewLeft = styled.div`
   flex: 1;
   margin-right: 1rem;
-  ${({isCollapsed}) =>
-    !isCollapsed &&
-    ` @media(max - width: 1024px) {
-      flex: none;
-      width: 40%;
-    }`}
+  /* Only show one panel at a time on screens <= 500px */
+  display: ${({windowWidth, isRightPaneCollapsed}) => windowWidth <= 500 && !isRightPaneCollapsed && 'none'};
 `
 
 export const StyledDetailViewRight = styled.div`
-  flex: ${({isCollapsed}) => (isCollapsed ? '0' : '1')};
+  flex: ${({isRightPaneCollapsed}) => (isRightPaneCollapsed ? '0' : '1')};
 `
