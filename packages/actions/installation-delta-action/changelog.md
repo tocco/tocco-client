@@ -1,3 +1,6 @@
+1.0.66
+- add model name to notification
+
 1.0.65
 - reset select dropdown to older state and implement close on scroll feature
 - fix select dropdown dimension calculations
