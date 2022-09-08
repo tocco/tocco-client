@@ -1,3 +1,6 @@
+1.0.48-hotfix33.9
+- add model name to notification
+
 1.0.48-hotfix33.8
 - fix select dropdown dimension calculations
 
