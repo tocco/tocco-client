@@ -1,3 +1,6 @@
+1.0.26-hotfix32.24
+- add model name to notification
+
 1.0.26-hotfix32.23
 - implement sticky buttons for simple-form modal
 - fix select dropdown dimension calculations
