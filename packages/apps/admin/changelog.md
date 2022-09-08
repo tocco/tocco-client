@@ -1,3 +1,6 @@
+1.0.98
+- add model name to notification
+
 1.0.97
 - add home icon to header and breadcrumbs
 - fix navigating back handler for fullscreen actions

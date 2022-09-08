@@ -1,3 +1,6 @@
+1.0.79
+- add model name to notification
+
 1.0.78
 - implement sticky buttons for simple-form modal
 - reset select dropdown to older state and implement close on scroll feature

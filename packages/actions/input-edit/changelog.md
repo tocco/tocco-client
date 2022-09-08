@@ -1,3 +1,6 @@
+1.1.68
+- add model name to notification
+
 1.1.67
 - add 'cancel' custom action to go back
 
