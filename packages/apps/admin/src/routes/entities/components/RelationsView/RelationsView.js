@@ -29,7 +29,7 @@ const RelationsView = props => {
     relationsInfo,
     emitAction,
     intl,
-    isCollapsed,
+    isRightPaneCollapsed,
     toggleCollapse,
     selectedRelation,
     selectRelation
@@ -77,7 +77,7 @@ const RelationsView = props => {
 
   return (
     <>
-      <StyledRelationsViewWrapper isCollapsed={isCollapsed}>
+      <StyledRelationsViewWrapper isRightPaneCollapsed={isRightPaneCollapsed}>
         <StyledToggleCollapse>
           <StyledToggleCollapseButton icon="chevron-right" onClick={toggleCollapse} />
         </StyledToggleCollapse>
@@ -112,8 +112,8 @@ const RelationsView = props => {
           </StyledPreviewBox>
         )}
       </StyledRelationsViewWrapper>
-      <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
-        <StyledToggleCollapseButton icon={'chevron-left'} isCollapsed={isCollapsed} />
+      <StyledPlaceHolder onClick={toggleCollapse} isRightPaneCollapsed={isRightPaneCollapsed}>
+        <StyledToggleCollapseButton icon={'chevron-left'} isRightPaneCollapsed={isRightPaneCollapsed} />
       </StyledPlaceHolder>
     </>
   )
@@ -132,7 +132,7 @@ RelationsView.propTypes = {
   ),
   emitAction: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
-  isCollapsed: PropTypes.bool,
+  isRightPaneCollapsed: PropTypes.bool,
   toggleCollapse: PropTypes.func.isRequired,
   selectRelation: PropTypes.func.isRequired,
   selectedRelation: PropTypes.object

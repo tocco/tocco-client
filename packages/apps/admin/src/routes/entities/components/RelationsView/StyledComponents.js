@@ -11,13 +11,13 @@ import {
 } from 'tocco-ui'
 
 export const StyledRelationsViewWrapper = styled.div`
-  display: ${({isCollapsed}) => (isCollapsed ? 'none' : 'flex')};
+  display: ${({isRightPaneCollapsed}) => (isRightPaneCollapsed ? 'none' : 'flex')};
   height: 100%;
   flex-direction: column;
 `
 
 export const StyledPlaceHolder = styled.div`
-  display: ${({isCollapsed}) => (isCollapsed ? 'flex' : 'none')};
+  display: ${({isRightPaneCollapsed}) => (isRightPaneCollapsed ? 'flex' : 'none')};
   flex: 1;
   height: 100%;
   width: 25px;
