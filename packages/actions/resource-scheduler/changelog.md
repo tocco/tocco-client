@@ -1,3 +1,7 @@
+1.0.51-hotfix33.10
+- add calendar icon
+- add icon to date picker
+
 1.0.51-hotfix33.9
 - add model name to notification
 
