@@ -5,7 +5,7 @@ import {FormattedMessage} from 'react-intl'
 import {Redirect, Route, Router, Switch} from 'react-router-dom'
 import {withTheme} from 'styled-components'
 import {notification, errorLogging} from 'tocco-app-extensions'
-import {BurgerButton, GlobalStyles, LoadMask} from 'tocco-ui'
+import {BurgerButton, GlobalStyles, LoadMask, useWindowWidth} from 'tocco-ui'
 import {viewPersistor} from 'tocco-util'
 
 import DashboardRoute from '../../routes/dashboard'
@@ -109,7 +109,7 @@ const Admin = ({
       <Router history={history || {}}>
         <GlobalStyles />
         <notification.Notifications navigationStrategy={navigationStrategy()} />
-        <StyledWrapper>
+        <StyledWrapper width={useWindowWidth()}>
           <Header />
           {adminAllowedContent || adminForbiddenContent}
         </StyledWrapper>

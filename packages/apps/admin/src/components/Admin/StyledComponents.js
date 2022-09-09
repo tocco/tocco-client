@@ -20,6 +20,10 @@ export const StyledWrapper = styled.div`
   background-color: ${theme.color('paper')};
   height: calc(var(--vh, 1vh) * 100);
 
+  .bm-menu-wrap {
+    width: ${({width}) => (width <= 400 ? '100%' : '16%')} !important;
+  }
+
   .bm-burger-button button:focus {
     outline: 0;
   }
@@ -51,7 +55,6 @@ export const burgerMenuStyles = {
   bmMenuWrap: {
     position: 'fixed',
     height: '100%',
-    width: '16%',
     minWidth: '350px'
   },
   bmMenu: {
