@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
-import {theme, scale} from 'tocco-ui'
+import {theme, scale, touchDeviceOnlyStyles} from 'tocco-ui'
 
 const secondaryLight = theme.color('secondaryLight')
 
@@ -26,6 +26,10 @@ export const StyledMenuLink = styled(Link)`
 `
 
 export const StyledIconLink = styled(Link)`
+  /* Disable open new tab feature on mobile */
+  ${touchDeviceOnlyStyles(`
+      display: none;
+  `)}
   opacity: 0;
   color: ${theme.color('text')};
   text-decoration: none;
@@ -55,6 +59,10 @@ export const StyledMenuLinkWrapper = styled.span`
 
 export const StyledTogglerIconWrapper = styled.span`
   display: none;
+  /* Always show expand/collapse icon on mobile */
+  ${touchDeviceOnlyStyles(`
+    display: block;
+  `)}
   margin-left: ${scale.space(-1)};
 
   &:hover {
