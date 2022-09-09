@@ -1,3 +1,8 @@
+1.1.69
+- close datepicker on scroll
+- add calendar icon
+- add icon to date picker
+
 1.1.68
 - add model name to notification
 
