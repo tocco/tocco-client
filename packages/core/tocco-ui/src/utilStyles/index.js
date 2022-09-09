@@ -19,6 +19,7 @@ import interactiveStyling from './interactiveStyling'
 import scale from './modularScale'
 import {validateCssDimension} from './propTypesValidator'
 import theme from './resolveThemePath'
+import {useWindowWidth} from './useWindowWidth'
 
 export {
   interactiveStyling,
@@ -42,5 +43,6 @@ export {
   theme,
   validateCssDimension,
   touchDeviceOnlyStyles,
-  nonTouchDeviceOnlyStyles
+  nonTouchDeviceOnlyStyles,
+  useWindowWidth
 }

@@ -74,7 +74,8 @@ export {
   shadeColor,
   theme,
   touchDeviceOnlyStyles,
-  nonTouchDeviceOnlyStyles
+  nonTouchDeviceOnlyStyles,
+  useWindowWidth
 } from './utilStyles'
 
 export {default as DatePicker} from './DatePicker'
