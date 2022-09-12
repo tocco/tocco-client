@@ -1,3 +1,6 @@
+1.0.48-hotfix33.11
+- fix whitespace in notification
+
 1.0.48-hotfix33.10
 - add calendar icon
 - add icon to date picker
