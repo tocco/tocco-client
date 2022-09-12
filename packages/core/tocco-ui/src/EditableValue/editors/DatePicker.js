@@ -208,7 +208,7 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
             onMouseDown={e => {
               e.preventDefault()
               e.stopPropagation()
-              handleOpen(!open)
+              handleOpen(!isOpen)
             }}
           />
         )}
