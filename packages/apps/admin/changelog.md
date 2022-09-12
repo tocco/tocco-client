@@ -1,3 +1,7 @@
+1.0.76-hotfix33.15
+- fix null pointer in login box
+- fix whitespace in notification
+
 1.0.76-hotfix33.14
 - add calendar icon
 - add icon to date picker
