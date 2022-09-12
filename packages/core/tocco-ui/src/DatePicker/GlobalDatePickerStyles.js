@@ -186,6 +186,39 @@ export const GlobalDatePickerStyles = createGlobalStyle`
         color: ${paper};
       }
 
+      .react-datepicker__year-dropdown {
+        left: 40%;
+        top: 45px;
+      }
+
+      .react-datepicker__navigation--years-upcoming:before {
+        border-width: 1.5px 1.5px 0 0;
+        border-color: ${theme.color('text')};
+        border-style: solid;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 8px;
+        left: 12px;
+        height: 5px;
+        width: 5px;
+        transform: rotate(-45deg);
+      }
+
+      .react-datepicker__navigation--years-previous:before {
+        border-width: 1.5px 1.5px 0 0;
+        border-color: ${theme.color('text')};
+        border-style: solid;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 6px;
+        left: 12px;
+        height: 5px;
+        width: 5px;
+        transform: rotate(135deg);
+      }
+
       .react-datepicker__year-dropdown,
       .react-datepicker__month-dropdown,
       .react-datepicker__month-year-dropdown {
