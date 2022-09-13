@@ -1,7 +1,7 @@
 import {actions as formActions, isValid as isValidSelector} from 'redux-form'
 import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {form, rest, display, notification} from 'tocco-app-extensions'
-import {api} from 'tocco-util'
+import {api, env} from 'tocco-util'
 
 import {fetchAddress, updateAddress} from '../../util/api/entities'
 import * as actions from './actions'
@@ -36,9 +36,7 @@ export function* loadDetailFormDefinition(formName, mode) {
 }
 
 export function* loadEntity(fieldDefinitions) {
-  const {
-    appContext: {widgetConfigKey}
-  } = yield select(inputSelector)
+  const widgetConfigKey = env.getWidgetConfigKey()
   const paths = yield call(form.getUsedPaths, fieldDefinitions)
   const entity = yield call(fetchAddress, widgetConfigKey, {paths})
   yield put(actions.setEntity(entity))
@@ -57,9 +55,7 @@ export function* loadView() {
 }
 
 export function* updateFormSubmit(entity, fieldDefinitions) {
-  const {
-    appContext: {widgetConfigKey}
-  } = yield select(inputSelector)
+  const widgetConfigKey = env.getWidgetConfigKey()
   yield call(updateAddress, widgetConfigKey, entity, fieldDefinitions)
   yield call(loadData)
   yield put(

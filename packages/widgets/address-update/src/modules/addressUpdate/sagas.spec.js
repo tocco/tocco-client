@@ -4,6 +4,7 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 import {throwError} from 'redux-saga-test-plan/providers'
 import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {form, rest, notification} from 'tocco-app-extensions'
+import {env} from 'tocco-util'
 
 import {updateAddress} from '../../util/api/entities'
 import * as actions from './actions'
@@ -92,11 +93,11 @@ describe('address-update', () => {
 
         describe('updateFormSubmit saga', () => {
           const entity = {key: '123', model: 'User', paths: {lastname: 'test'}}
+          env.setWidgetConfigKey('1')
           test('should call updateAddress, load data, show notification', () => {
             const updateResponse = {status: 200}
             return expectSaga(sagas.updateFormSubmit, entity)
               .provide([
-                [matchers.select(sagas.inputSelector), {appContext: {widgetConfigKey: '1'}}],
                 [matchers.call.fn(updateAddress), updateResponse],
                 [matchers.call.fn(sagas.loadData), null]
               ])
