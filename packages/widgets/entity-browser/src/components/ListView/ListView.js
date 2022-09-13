@@ -31,7 +31,11 @@ const ListView = ({storeId, router, modifyFormDefinition, disableDetailView, ...
     })
     history.push({
       pathname: '/action/' + definition.appId,
-      state: {definition, selection},
+      state: {
+        definition,
+        selection,
+        originUrl: history.location.pathname
+      },
       search
     })
   }

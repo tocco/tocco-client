@@ -60,7 +60,11 @@ const EntityDetail = ({
     })
     router.history.push({
       pathname: '/action/' + definition.appId,
-      state: {definition, selection},
+      state: {
+        definition,
+        selection,
+        originUrl: router.history.location.pathname
+      },
       search
     })
   }
