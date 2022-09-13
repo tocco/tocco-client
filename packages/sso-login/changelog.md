@@ -1,3 +1,6 @@
+1.0.2-hotfix31.30
+- fix whitespace in notification
+
 1.0.2-hotfix31.29
 - add model name to notification
 

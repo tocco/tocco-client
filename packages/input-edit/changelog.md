@@ -1,3 +1,6 @@
+1.1.3-hotfix31.30
+- fix whitespace in notification
+
 1.1.3-hotfix31.29
 - implement sticky buttons for simple-form modal
 - add model name to notification
