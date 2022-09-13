@@ -40,7 +40,7 @@ export function* inputChanged({payload}) {
   }
 
   const derivedActions = getDispatchActions(input)
-  yield derivedActions.map(action => put(action))
+  yield all(derivedActions.map(action => put(action)))
 
   if (reloadOption === reloadOptions.ALL) {
     yield put(actions.reloadAll())
