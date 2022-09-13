@@ -5,6 +5,8 @@ import {
   setBusinessUnit,
   getEmbedType,
   setEmbedType,
+  getWidgetConfigKey,
+  setWidgetConfigKey,
   NULL_BUSINESS_UNIT,
   ALLOWED_EMBED_TYPES
 } from './env'
@@ -17,6 +19,8 @@ export default {
   setBusinessUnit,
   getEmbedType,
   setEmbedType,
+  getWidgetConfigKey,
+  setWidgetConfigKey,
   NULL_BUSINESS_UNIT,
   ALLOWED_EMBED_TYPES,
   setInputEnvs

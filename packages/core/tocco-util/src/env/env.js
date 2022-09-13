@@ -24,7 +24,8 @@ export const ALLOWED_EMBED_TYPES = ['admin', 'widget', 'legacy-widget']
 const env = {
   backendUrl: undefined,
   businessUnit: undefined,
-  embedType: 'admin'
+  embedType: 'admin',
+  widgetConfigKey: undefined
 }
 
 export const getBackendUrl = () => env.backendUrl || __BACKEND_URL__
@@ -50,4 +51,10 @@ export const setEmbedType = value => {
   }
 
   env.embedType = value
+}
+
+export const getWidgetConfigKey = () => env.widgetConfigKey
+
+export const setWidgetConfigKey = value => {
+  env.widgetConfigKey = value
 }

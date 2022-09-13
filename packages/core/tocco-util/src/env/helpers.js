@@ -1,4 +1,4 @@
-import {setBackendUrl, setBusinessUnit, setEmbedType} from './env'
+import {setBackendUrl, setBusinessUnit, setEmbedType, setWidgetConfigKey} from './env'
 
 export const setInputEnvs = input => {
   if (input.backendUrl) {
@@ -11,5 +11,9 @@ export const setInputEnvs = input => {
 
   if (input.appContext?.embedType) {
     setEmbedType(input.appContext?.embedType)
+  }
+
+  if (input.appContext?.widgetConfigKey) {
+    setWidgetConfigKey(input.appContext?.widgetConfigKey)
   }
 }
