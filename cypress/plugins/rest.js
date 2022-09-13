@@ -23,6 +23,7 @@ const addEntity = async (config, entity, data) => {
 
   const response = await fetch(`${config.baseUrl}/nice2/rest/entities/2.0/${entity}`, options)
   const location = response.headers.get('location')
+  console.log(`added entity '${entity}'`, response.status)
 
   return {response, pk: getPrimaryKeyFromLocation(location)}
 }
@@ -64,7 +65,7 @@ const addEntityBrowserWidget = async (config, label) => {
   return addWidget(
     config,
     label,
-    {key: '3', version: 1},
+    {key: '3', version: 1}, // Entity-Browser Widget is not available anymore
     {
       model: 'Entity_browser_widget_config',
       paths: {system_entity: false, entity_name: 'User'}
@@ -79,7 +80,7 @@ const addLoginWidget = async (config, label) => {
     {key: '1', version: 1},
     {
       model: 'Login_widget_config',
-      paths: {system_entity: false, show_title: true}
+      paths: {}
     }
   )
 }
