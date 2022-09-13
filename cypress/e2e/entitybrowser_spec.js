@@ -1,6 +1,10 @@
 const LONG_TIMEOUT = 15000
 
-describe('Entity Browser', () => {
+/**
+ * Entity-Browser Widget has been removed.
+ * TO DO: Migrate tests to specific Widget e.g. Einsatzeinsicht
+ */
+describe.skip('Entity Browser', () => {
   beforeEach(() => {
     cy.task('db:empty', undefined, {timeout: 180000})
     cy.loginWidget()

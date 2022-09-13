@@ -23,7 +23,6 @@ describe('Login', () => {
 
     cy.get('[data-cy=login-form_user-input]').type('{selectall}{del}some_user')
     cy.get('[data-cy=login-form_login-button]').should('be.disabled')
-    cy.contains('Dieser Bereich ist privat.')
     cy.get('[data-cy=login-form_user-input]').type('{selectall}{del}')
     cy.get('[data-cy=login-form_password-input]').type('{selectall}{del}12345')
     cy.get('[data-cy=login-form_login-button]').should('be.disabled')
