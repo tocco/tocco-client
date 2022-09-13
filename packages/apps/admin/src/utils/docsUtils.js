@@ -4,5 +4,5 @@ export const getDocsUrl = niceVersion => {
     // always use two digits (01 vs 1) except for the first number
     .map((d, index) => (index === 0 ? d : d.padStart(2, '0')))
     .join('')
-  return `https://${subdomain}.docs.tocco.ch/de/`
+  return `https://${subdomain}.docs.tocco.ch/`
 }
