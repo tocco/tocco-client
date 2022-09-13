@@ -1,3 +1,10 @@
+1.0.100
+- enable fullscreen menu on mobile devices
+- fix datepicker year dropdown closing on scroll
+- add mobile collapse feature to detail view
+- fix null pointer in login box
+- fix whitespace in notification
+
 1.0.99
 - close datepicker on scroll
 - add calendar icon
