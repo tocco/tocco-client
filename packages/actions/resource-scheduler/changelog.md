@@ -1,3 +1,7 @@
+1.0.71
+- fix datepicker year dropdown closing on scroll
+- fix whitespace in notification
+
 1.0.70
 - close datepicker on scroll
 - add calendar icon

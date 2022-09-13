@@ -1,3 +1,8 @@
+1.0.68
+- fix datepicker year dropdown closing on scroll
+- fix null pointer in login box
+- fix whitespace in notification
+
 1.0.67
 - close datepicker on scroll
 - add calendar icon
