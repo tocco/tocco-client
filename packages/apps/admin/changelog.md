@@ -1,3 +1,8 @@
+1.0.101
+- fix null pointer when starting in standalone mode
+- added action callbacks to navigate back
+- remove locale from documentation url
+
 1.0.100
 - enable fullscreen menu on mobile devices
 - fix datepicker year dropdown closing on scroll

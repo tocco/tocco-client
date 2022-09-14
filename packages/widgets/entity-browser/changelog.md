@@ -1,3 +1,7 @@
+1.0.81
+- fix null pointer when starting in standalone mode
+- added action callbacks to navigate back
+
 1.0.80
 - fix datepicker year dropdown closing on scroll
 - fix whitespace in notification
