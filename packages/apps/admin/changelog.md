@@ -1,3 +1,6 @@
+1.0.76-hotfix33.16
+- remove locale from documentation url
+
 1.0.76-hotfix33.15
 - fix null pointer in login box
 - fix whitespace in notification
