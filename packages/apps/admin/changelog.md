@@ -1,3 +1,6 @@
+1.0.102
+- fix date picker icon
+
 1.0.101
 - fix null pointer when starting in standalone mode
 - added action callbacks to navigate back
