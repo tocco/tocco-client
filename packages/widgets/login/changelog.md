@@ -1,3 +1,6 @@
+1.1.70
+- fix date picker icon
+
 1.1.69
 - fix datepicker year dropdown closing on scroll
 - fix null pointer in login box
