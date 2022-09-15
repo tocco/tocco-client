@@ -23,9 +23,9 @@ export const useSyncValidation = ({fieldDefinitions, formDefinition}) => {
   return getSyncValidation()
 }
 
-export const useAsyncValidation = ({formInitialValues, fieldDefinitions, mode}) => {
+export const useAsyncValidation = ({formInitialValues, fieldDefinitions, formDefinition, mode}) => {
   const handleAsyncValidate = formValues =>
-    asyncValidation(formValues, mode === 'create' ? {} : formInitialValues, fieldDefinitions, mode)
+    asyncValidation(formValues, mode === 'create' ? {} : formInitialValues, fieldDefinitions, formDefinition, mode)
 
   return handleAsyncValidate
 }

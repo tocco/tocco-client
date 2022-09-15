@@ -153,13 +153,15 @@ describe('app-extensions', () => {
           const entityModel = {}
           const mode = 'update'
           const fieldDefinitions = []
+          const formDefinition = {}
 
           const expectedReturn = {
             formValues,
             initialValues,
             mode,
             dirtyFormValues: {lastname: 'test2'},
-            fieldDefinitions
+            fieldDefinitions,
+            formDefinition
           }
 
           let firstSelector = true
@@ -176,7 +178,7 @@ describe('app-extensions', () => {
                 }
               },
               [select(sagas.formInitialValueSelector, formConfig.formId), initialValues],
-              [select(formConfig.stateSelector), {entityModel, mode, fieldDefinitions}]
+              [select(formConfig.stateSelector), {entityModel, mode, fieldDefinitions, formDefinition}]
             ])
             .returns(expectedReturn)
             .run()

@@ -60,7 +60,7 @@ export function* getCurrentEntityState(formConfig) {
   const {formId, stateSelector} = formConfig
   const formValues = yield select(getFormValues(formId))
   const initialFormValues = yield select(formInitialValueSelector, formId)
-  const {mode, fieldDefinitions} = yield select(stateSelector)
+  const {mode, fieldDefinitions, formDefinition} = yield select(stateSelector)
   const initialValues = mode === 'create' ? {} : initialFormValues
   const dirtyFormValues = yield call(getDirtyFormValues, initialValues, formValues, mode === 'create')
 
@@ -69,6 +69,7 @@ export function* getCurrentEntityState(formConfig) {
     initialValues,
     mode,
     fieldDefinitions,
+    formDefinition,
     dirtyFormValues
   }
 }
