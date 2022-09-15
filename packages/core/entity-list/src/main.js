@@ -3,23 +3,24 @@ import _pickBy from 'lodash/pickBy'
 import PropTypes from 'prop-types'
 import React, {useReducer} from 'react'
 import {
-  appFactory,
-  notification,
-  errorLogging,
   actionEmitter,
-  externalEvents,
   actions,
+  appFactory,
+  errorLogging,
+  externalEvents,
   formData,
+  notification,
   reports
 } from 'tocco-app-extensions'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 import {scrollBehaviourPropType} from 'tocco-ui'
-import {react, reducer as reducerUtil, navigationStrategy} from 'tocco-util'
+import {navigationStrategy, react, reducer as reducerUtil} from 'tocco-util'
 
 import EntityList from './components/EntityList'
 import customActions from './customActions'
 import {getDispatchActions} from './input'
 import {refresh} from './modules/list/actions'
+import {customEndpointActionPrepareHandler} from './modules/list/sagas'
 import reducers, {sagas} from './modules/reducers'
 import {searchFormTypePropTypes} from './util/searchFormTypes'
 import {selectionStylePropType} from './util/selectionStyles'
@@ -81,7 +82,8 @@ const initApp = (id, input, events, publicPath) => {
         viewName: 'list',
         formName: state.input.formName,
         ...(state.input.contextParams || {})
-      }
+      },
+      customPreparationHandlers: [customEndpointActionPrepareHandler]
     }))
     formData.addToStore(store, state => ({listApp: EntityListApp, navigationStrategy: state.input.navigationStrategy}))
 

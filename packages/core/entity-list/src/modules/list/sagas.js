@@ -2,17 +2,17 @@ import _isEqual from 'lodash/isEqual'
 import _omit from 'lodash/omit'
 import _union from 'lodash/union'
 import {all, call, delay, fork, put, select, spawn, take, takeEvery, takeLatest} from 'redux-saga/effects'
-import {actionEmitter, externalEvents, remoteEvents, rest, reports, form} from 'tocco-app-extensions'
+import {actionEmitter, externalEvents, form, remoteEvents, reports, rest} from 'tocco-app-extensions'
 import {api, consoleLogger} from 'tocco-util'
 
-import {entitiesListTransformer} from '../../util/api/entities'
+import {entitiesListKeyTransformer, entitiesListTransformer} from '../../util/api/entities'
 import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
 import {
+  getConstriction,
   getEndpoint,
   getFields,
   getFormDefinition,
   getSearchEndpoint,
-  getConstriction,
   getSorting,
   splitFormId
 } from '../../util/api/forms'
@@ -467,4 +467,54 @@ export function* remoteEvent(action) {
   }
 
   yield put(actionEmitter.emitAction(action))
+}
+
+/**
+ * Action prepare handler to transform a query selection into an ID selection to pass to the action
+ * *if* the list form where the action was called from has a custom endpoint defined.
+ *
+ * To get the keys for the selection, the custom endpoint is called with query param `_allKeys=true`
+ * to return the keys without pagination (and without paths, no matter which paths actually get requested).
+ */
+export function* customEndpointActionPrepareHandler({selection}) {
+  if (selection.type === 'QUERY') {
+    const state = yield select(stateSelector)
+    const formDefinition = getFormDefinition(state, selection.query)
+    const endpoint = getEndpoint(formDefinition)
+
+    if (endpoint) {
+      const searchEndpoint = getSearchEndpoint(formDefinition)
+      const preparedEndpoint = yield call(prepareEndpointUrl, endpoint, searchEndpoint, selection.query.hasUserChanges)
+      const requestOptions = {
+        method: 'GET',
+        endpoint: preparedEndpoint,
+        allKeys: true
+      }
+
+      const {entityName} = state.input
+
+      const ids = yield call(
+        rest.fetchEntities,
+        entityName,
+        selection.query,
+        requestOptions,
+        entitiesListKeyTransformer
+      )
+
+      const newSelection = {
+        type: 'ID',
+        entityName,
+        ids
+      }
+
+      return {
+        selection: newSelection,
+        abort: false
+      }
+    }
+  }
+
+  return {
+    abort: false
+  }
 }
