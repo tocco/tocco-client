@@ -1,4 +1,4 @@
-import {takeEvery, all, call, put, select} from 'redux-saga/effects'
+import {all, call, put, select, takeEvery} from 'redux-saga/effects'
 
 import notification from '../../notification'
 import remoteEvents from '../../remoteEvents'
@@ -11,10 +11,10 @@ export default function* sagas(configSelector) {
 }
 
 export function* invokeAction(configSelector, {payload}) {
-  const {definition, selection, parent} = payload
+  const {definition, selection: initialSelection, parent} = payload
   const config = yield select(configSelector)
 
-  const {abort, abortMessage, params} = yield call(prepare, definition, selection, parent, config)
+  const {abort, abortMessage, params, selection} = yield call(prepare, definition, initialSelection, parent, config)
 
   if (!abort) {
     const actionHandler = actionHandlers[definition.actionType]

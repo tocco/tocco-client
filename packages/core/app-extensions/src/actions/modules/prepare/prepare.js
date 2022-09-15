@@ -30,6 +30,7 @@ export default function* run(definition, selection, parent, config) {
   let abort = false
   let abortMessage = null
   let params = {}
+  let newSelection = selection
 
   const preparationResponse = definition.endpoint ? yield call(doRequest, definition, selection, parent) : {}
   const handlers = yield call(getHandlers, config)
@@ -42,7 +43,7 @@ export default function* run(definition, selection, parent, config) {
       preparationResponse,
       params,
       definition,
-      selection,
+      selection: newSelection,
       config
     }
     const handlerResponse = yield call(handler, handlerOptions)
@@ -52,9 +53,12 @@ export default function* run(definition, selection, parent, config) {
     if (handlerResponse.abortMessage) {
       abortMessage = handlerResponse.abortMessage
     }
+    if (handlerResponse.selection) {
+      newSelection = handlerResponse.selection
+    }
 
     i++
   }
 
-  return {abort, abortMessage, params}
+  return {abort, abortMessage, params, selection: newSelection}
 }
