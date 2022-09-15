@@ -1,6 +1,6 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {takeEvery, all} from 'redux-saga/effects'
+import {all, takeEvery} from 'redux-saga/effects'
 
 import remoteEvents from '../../remoteEvents'
 import actionHandlers from './actionHandlers'
@@ -32,8 +32,10 @@ describe('app-extensions', () => {
             componentType: 'action',
             config: {}
           },
-          entity: 'User',
-          ids: ['2123']
+          selection: {
+            type: 'ID',
+            ids: ['1', '2']
+          }
         }
 
         describe('invokeAction', () => {
@@ -41,6 +43,17 @@ describe('app-extensions', () => {
             return expectSaga(sagas.invokeAction, configSelector, {payload})
               .provide([[matchers.call.fn(prepare), {abort: false}]])
               .call.like({fn: actionHandlers.simple})
+              .run()
+          })
+
+          test('should call preAction and call actionHandler with new selection', () => {
+            const newSelection = {
+              type: 'ID',
+              ids: ['1', '2', '3']
+            }
+            return expectSaga(sagas.invokeAction, configSelector, {payload})
+              .provide([[matchers.call.fn(prepare), {abort: false, selection: newSelection}]])
+              .call(actionHandlers.simple, payload.definition, newSelection, undefined, undefined, configSelector())
               .run()
           })
 

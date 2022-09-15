@@ -32,7 +32,8 @@ describe('app-extensions', () => {
             .returns({
               abort: false,
               abortMessage: null,
-              params: {}
+              params: {},
+              selection: fakeSelection
             })
             .run()
         })
@@ -51,7 +52,8 @@ describe('app-extensions', () => {
             .returns({
               abort: true,
               abortMessage: null,
-              params: {}
+              params: {},
+              selection: fakeSelection
             })
             .run()
             .then(() => {
@@ -98,7 +100,8 @@ describe('app-extensions', () => {
             .returns({
               abort: false,
               abortMessage: null,
-              params: {test: 1, test2: 2}
+              params: {test: 1, test2: 2},
+              selection: fakeSelection
             })
             .run()
         })
@@ -114,9 +117,53 @@ describe('app-extensions', () => {
             .returns({
               abort: true,
               abortMessage: 'test',
-              params: {}
+              params: {},
+              selection: fakeSelection
             })
             .run()
+        })
+
+        test('should pass new selection to the subsequent handlers and return the new selection', () => {
+          const newSelection = {
+            count: 3,
+            entityName: 'User',
+            ids: ['1', '2', '3'],
+            type: 'ID'
+          }
+          const handlerArgs = {
+            preparationResponse: {},
+            params: {},
+            definition: {endpoint: 'actions/simpleAction'},
+            selection: fakeSelection,
+            config: {}
+          }
+
+          const handler1 = sinon.spy(() => ({abort: false}))
+          const handler2 = sinon.spy(() => ({abort: false, selection: newSelection}))
+          const handler3 = sinon.spy(() => ({abort: false}))
+
+          const fakeHandlers = [handler1, handler2, handler3]
+
+          return expectSaga(prepare, definition, fakeSelection, null, {})
+            .provide([
+              [matchers.call.fn(getHandlers), fakeHandlers],
+              [matchers.call.fn(doRequest), {}]
+            ])
+            .returns({
+              abort: false,
+              abortMessage: null,
+              params: {},
+              selection: newSelection
+            })
+            .run()
+            .then(() => {
+              expect(handler1).to.have.been.calledWith(handlerArgs)
+              expect(handler2).to.have.been.calledWith(handlerArgs)
+              expect(handler3).to.have.been.calledWith({
+                ...handlerArgs,
+                selection: newSelection
+              })
+            })
         })
       })
 
