@@ -1,5 +1,6 @@
 import fetchMock from 'fetch-mock'
 import {SubmissionError} from 'redux-form/es/SubmissionError'
+import {env} from 'tocco-util'
 
 import {asyncValidation, submitValidation} from './asyncValidation'
 
@@ -42,6 +43,7 @@ const mockData = {
       }
     }
   ],
+  formDefinition: {},
   mode: 'update',
   entityName: 'User',
   entityId: '1'
@@ -51,6 +53,7 @@ describe('app-extensions', () => {
   beforeEach(() => {
     fetchMock.reset()
     fetchMock.restore()
+    env.setWidgetConfigKey(undefined)
   })
   describe('form', () => {
     describe('asyncValidation', () => {
@@ -65,7 +68,7 @@ describe('app-extensions', () => {
             firstname: ''
           }
 
-          await submitValidation(values, mockData.initialValues, [], mockData.mode)
+          await submitValidation(values, mockData.initialValues, [], mockData.formDefinition, mockData.mode)
         })
 
         test('should not throw an error if user has no permission', async () => {
@@ -75,7 +78,7 @@ describe('app-extensions', () => {
             firstname: ''
           }
 
-          await submitValidation(values, mockData.initialValues, [], mockData.mode)
+          await submitValidation(values, mockData.initialValues, [], mockData.formDefinition, mockData.mode)
         })
 
         test('should throw a SubmissionError', async () => {
@@ -99,7 +102,7 @@ describe('app-extensions', () => {
             firstname: ''
           }
           try {
-            await submitValidation(formValues, mockData.initialValues, [], mockData.mode)
+            await submitValidation(formValues, mockData.initialValues, [], mockData.formDefinition, mockData.mode)
           } catch (err) {
             expect(err).to.be.instanceof(SubmissionError)
             expect(err.errors).to.have.property('firstname')
@@ -134,7 +137,13 @@ describe('app-extensions', () => {
             }
           }
 
-          await submitValidation(values, mockData.initialValues, fieldDefinitions, mockData.mode)
+          await submitValidation(
+            values,
+            mockData.initialValues,
+            fieldDefinitions,
+            mockData.formDefinition,
+            mockData.mode
+          )
 
           expect(fetchMock.calls().length).to.equal(1)
           expect(
@@ -174,7 +183,13 @@ describe('app-extensions', () => {
             }
           }
 
-          await submitValidation(values, mockData.initialValues, fieldDefinitions, mockData.mode)
+          await submitValidation(
+            values,
+            mockData.initialValues,
+            fieldDefinitions,
+            mockData.formDefinition,
+            mockData.mode
+          )
 
           expect(fetchMock.calls().length).to.equal(1)
           expect(
@@ -215,11 +230,94 @@ describe('app-extensions', () => {
             ...mockData.baseFormValues
           }
           try {
-            await submitValidation(formValues, mockData.initialValues, fieldDefinitions, mockData.mode)
+            await submitValidation(
+              formValues,
+              mockData.initialValues,
+              fieldDefinitions,
+              mockData.formDefinition,
+              mockData.mode
+            )
           } catch (err) {
             expect(err).to.be.instanceof(SubmissionError)
             expect(err.errors).to.have.property('location')
           }
+        })
+
+        describe('custom endpoints', () => {
+          const mode = 'create'
+          const initialValues = {
+            __model: 'User',
+            firstname: ''
+          }
+          const formDefinition = {
+            createEndpoint: 'test/customEndpoint'
+          }
+
+          test('no custom endpoint defined and without widget config key', async () => {
+            fetchMock.post('*', {valid: true}).spy()
+
+            await submitValidation(
+              initialValues,
+              initialValues,
+              mockData.fieldDefinitions,
+              mockData.formDefinition,
+              mode
+            )
+
+            expect(fetchMock.calls().length).to.equal(1)
+            expect(
+              fetchMock.called('begin:/nice2/rest/entities/2.0/User?_validate=true', {
+                method: 'POST'
+              })
+            ).to.be.true
+          })
+
+          test('no custom endpoint defined and with widget config key', async () => {
+            fetchMock.post('*', {valid: true}).spy()
+            env.setWidgetConfigKey('1')
+
+            await submitValidation(
+              initialValues,
+              initialValues,
+              mockData.fieldDefinitions,
+              mockData.formDefinition,
+              mode
+            )
+
+            expect(fetchMock.calls().length).to.equal(1)
+            expect(
+              fetchMock.called('begin:/nice2/rest/entities/2.0/User?_validate=true&_widget_key=1', {
+                method: 'POST'
+              })
+            ).to.be.true
+          })
+
+          test('custom endpoint defined and with widget config key', async () => {
+            fetchMock.post('*', {valid: true}).spy()
+            env.setWidgetConfigKey('1')
+
+            await submitValidation(initialValues, initialValues, mockData.fieldDefinitions, formDefinition, mode)
+
+            expect(fetchMock.calls().length).to.equal(1)
+            expect(
+              fetchMock.called('begin:/nice2/rest/test/customEndpoint?_validate=true&_widget_key=1', {
+                method: 'POST'
+              })
+            ).to.be.true
+          })
+
+          test('custom endpoint defined and without widget config key', async () => {
+            fetchMock.post('*', {valid: true}).spy()
+
+            await submitValidation(initialValues, initialValues, mockData.fieldDefinitions, formDefinition, mode)
+
+            expect(fetchMock.calls().length).to.equal(1)
+            expect(
+              fetchMock.called('begin:/nice2/rest/test/customEndpoint?_validate=true', {
+                method: 'POST'
+              })
+            ).to.be.true
+          })
         })
       })
 
@@ -231,7 +329,13 @@ describe('app-extensions', () => {
           })
 
           const values = {phone_mobile: '+41444005555'}
-          await asyncValidation(values, mockData.initialValues, mockData.fieldDefinitions, mockData.mode)
+          await asyncValidation(
+            values,
+            mockData.initialValues,
+            mockData.fieldDefinitions,
+            mockData.formDefinition,
+            mockData.mode
+          )
         })
 
         test('should throw an error if async locale error exists', async () => {
@@ -242,7 +346,13 @@ describe('app-extensions', () => {
 
           const values = {phone_mobile: '....1234'}
           try {
-            await asyncValidation(values, mockData.initialValues, mockData.fieldDefinitions, mockData.mode)
+            await asyncValidation(
+              values,
+              mockData.initialValues,
+              mockData.fieldDefinitions,
+              mockData.formDefinition,
+              mockData.mode
+            )
           } catch (error) {
             expect(error).to.have.property('phone_mobile')
           }
@@ -268,7 +378,13 @@ describe('app-extensions', () => {
             firstname: ''
           }
           try {
-            await asyncValidation(values, mockData.initialValues, mockData.fieldDefinitions, mockData.mode)
+            await asyncValidation(
+              values,
+              mockData.initialValues,
+              mockData.fieldDefinitions,
+              mockData.formDefinition,
+              mockData.mode
+            )
           } catch (error) {
             expect(error).to.have.property('firstname')
           }
@@ -284,7 +400,13 @@ describe('app-extensions', () => {
           }
 
           try {
-            await asyncValidation(values, mockData.initialValues, mockData.fieldDefinitions, mockData.mode)
+            await asyncValidation(
+              values,
+              mockData.initialValues,
+              mockData.fieldDefinitions,
+              mockData.formDefinition,
+              mockData.mode
+            )
           } catch (error) {
             expect(error).to.have.property('phone_mobile')
             expect(error).to.not.have.property('firstname')
@@ -306,7 +428,13 @@ describe('app-extensions', () => {
         const values = {}
 
         try {
-          await asyncValidation(values, mockData.initialValues, mockData.fieldDefinitions, mockData.mode)
+          await asyncValidation(
+            values,
+            mockData.initialValues,
+            mockData.fieldDefinitions,
+            mockData.formDefinition,
+            mockData.mode
+          )
         } catch (error) {
           expect(error).to.have.property('_error')
           expect(error._error).to.have.property('outdatedError')
