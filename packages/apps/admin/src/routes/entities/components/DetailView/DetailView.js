@@ -10,16 +10,27 @@ import {StyledDetailViewContainer, StyledDetailViewLeft, StyledDetailViewRight} 
 const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, saveUserPreferences}) => {
   const [isRightPaneCollapsed, setIsRightPaneIsCollapsed] = useState(false)
   const getWindowWidth = () => window.innerWidth
+  const [windowWidth, setWindowWidth] = useState(getWindowWidth())
 
   useEffect(() => {
-    setIsRightPaneIsCollapsed(relationViewCollapsed)
-  }, [relationViewCollapsed])
-
-  useEffect(() => {
-    if (getWindowWidth() < 768) {
-      setIsRightPaneIsCollapsed(true)
+    const handleResize = () => {
+      setWindowWidth(getWindowWidth())
     }
-  }, [])
+
+    if (windowWidth < 768) {
+      setIsRightPaneIsCollapsed(true)
+    } else {
+      setIsRightPaneIsCollapsed(relationViewCollapsed)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [windowWidth])
+  /*
+    We only want to trigger when windowWidth changes.
+    Otherwise there is a double click needed to reopen the panel on screens smaller than 768px
+  */
 
   const onSearchFormCollapsedChange = collapsed => {
     saveUserPreferences({'admin.detail.relationViewCollapsed': collapsed})
