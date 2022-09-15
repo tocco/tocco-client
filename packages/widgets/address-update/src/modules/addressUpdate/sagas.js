@@ -69,11 +69,11 @@ export function* updateFormSubmit(entity, fieldDefinitions) {
 }
 
 export function* submitValidate() {
-  const {formValues, initialValues, mode, fieldDefinitions} = yield call(
+  const {formValues, initialValues, mode, fieldDefinitions, formDefinition} = yield call(
     form.sagasUtils.getCurrentEntityState,
     formSagaConfig
   )
-  yield call(form.submitValidation, formValues, initialValues, fieldDefinitions, mode)
+  yield call(form.submitValidation, formValues, initialValues, fieldDefinitions, formDefinition, mode)
 }
 
 export function* submitForm() {
