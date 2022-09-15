@@ -26,6 +26,7 @@ describe('entity-detail', () => {
             closeEntityDetail={EMPTY_FUNC}
             entityModel={{}}
             fieldDefinitions={[]}
+            formDefinition={{}}
             entityName="User"
             entityId="21"
             modelPaths={[]}
@@ -35,7 +36,6 @@ describe('entity-detail', () => {
             saveEntity={EMPTY_FUNC}
             submitForm={EMPTY_FUNC}
             logError={EMPTY_FUNC}
-            formDefinition={{}}
           />
         )
         expect(screen.getByText('client.entity-detail.loadingText')).to.exist

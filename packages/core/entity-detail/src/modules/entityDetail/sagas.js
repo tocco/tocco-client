@@ -143,17 +143,18 @@ export function* updateFormSubmit(entity, fieldDefinitions) {
 }
 
 export function* createFormSubmit(entity, fieldDefinitions) {
-  const createdEntityId = yield call(createEntity, entity, fieldDefinitions)
+  const {formDefinition} = yield call(form.sagasUtils.getCurrentEntityState, formSagaConfig)
+  const createdEntityId = yield call(createEntity, entity, fieldDefinitions, formDefinition)
   yield put(externalEvents.fireExternalEvent('onEntityCreated', {id: createdEntityId}))
   yield call(showNotification, 'success', 'createSuccessfulTitle', 'createSuccessfulMessage')
 }
 
 export function* submitValidate() {
-  const {formValues, initialValues, mode, fieldDefinitions} = yield call(
+  const {formValues, initialValues, mode, fieldDefinitions, formDefinition} = yield call(
     form.sagasUtils.getCurrentEntityState,
     formSagaConfig
   )
-  yield call(form.submitValidation, formValues, initialValues, fieldDefinitions, mode)
+  yield call(form.submitValidation, formValues, initialValues, fieldDefinitions, formDefinition, mode)
 }
 
 export function* submitForm() {

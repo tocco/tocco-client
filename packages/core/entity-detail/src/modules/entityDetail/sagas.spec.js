@@ -174,19 +174,18 @@ describe('entity-detail', () => {
         describe('createFormSubmit saga', () => {
           const entity = {paths: {}}
           const fieldDefinitions = []
+          const formDefinition = {}
           const createdEntityId = 99
-          const updatedFormValues = {firstname: 'karl'}
 
           test('should call api and store response', () => {
-            const gen = sagas.createFormSubmit(entity, fieldDefinitions)
-            expect(gen.next().value).to.eql(call(createEntity, entity, fieldDefinitions))
-            expect(gen.next(createdEntityId).value).to.eql(
-              put(externalEvents.fireExternalEvent('onEntityCreated', {id: createdEntityId}))
-            )
-            expect(gen.next(updatedFormValues).value).to.eql(
-              call(sagas.showNotification, 'success', 'createSuccessfulTitle', 'createSuccessfulMessage')
-            )
-            expect(gen.next().done).to.be.true
+            return expectSaga(sagas.createFormSubmit, entity, fieldDefinitions)
+              .provide([
+                [call(form.sagasUtils.getCurrentEntityState, sagas.formSagaConfig), {formDefinition}],
+                [call(createEntity, entity, fieldDefinitions, formDefinition), createdEntityId]
+              ])
+              .put(externalEvents.fireExternalEvent('onEntityCreated', {id: createdEntityId}))
+              .call(sagas.showNotification, 'success', 'createSuccessfulTitle', 'createSuccessfulMessage')
+              .run()
           })
         })
 
@@ -242,16 +241,17 @@ describe('entity-detail', () => {
             const initialValues = {firstname: 'test1'}
             const mode = 'update'
             const fieldDefinitions = []
+            const formDefinition = {}
 
             return expectSaga(sagas.submitValidate)
               .provide([
                 [
                   matchers.call.fn(form.sagasUtils.getCurrentEntityState),
-                  {formValues, initialValues, mode, fieldDefinitions}
+                  {formValues, initialValues, mode, fieldDefinitions, formDefinition}
                 ],
                 [matchers.call.fn(form.submitValidation)]
               ])
-              .call(form.submitValidation, formValues, initialValues, fieldDefinitions, mode)
+              .call(form.submitValidation, formValues, initialValues, fieldDefinitions, formDefinition, mode)
               .run()
           })
         })
