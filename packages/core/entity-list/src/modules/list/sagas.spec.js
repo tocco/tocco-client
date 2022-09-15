@@ -1,7 +1,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {all, call, put, select, takeEvery, takeLatest, take} from 'redux-saga/effects'
-import {externalEvents, remoteEvents, rest, form, reports} from 'tocco-app-extensions'
+import {all, call, put, select, take, takeEvery, takeLatest} from 'redux-saga/effects'
+import {externalEvents, form, remoteEvents, reports, rest} from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
 import {entitiesListTransformer} from '../../util/api/entities'
@@ -1300,6 +1300,72 @@ describe('entity-list', () => {
             return expectSaga(sagas.setLazyDataMarked, 'User', newMarkings)
               .provide([[select(sagas.listSelector), {lazyData}]])
               .put(actions.setLazyData('markings', 'User', expectedUserMarkings))
+              .run()
+          })
+        })
+
+        describe('customEndpointActionPrepareHandler', () => {
+          const idSelection = {
+            type: 'ID',
+            entityName: 'User',
+            ids: ['1', '2', '3']
+          }
+          const querySelection = {
+            type: 'QUERY',
+            entityName: 'User',
+            query: {}
+          }
+
+          test('should do nothing if not QUERY selection', () =>
+            expectSaga(sagas.customEndpointActionPrepareHandler, {selection: idSelection})
+              .returns({abort: false})
+              .run())
+
+          test('should do nothing if no custom endpoint', () => {
+            const state = {
+              list: {
+                formDefinition: {
+                  children: [
+                    {
+                      componentType: 'TABLE',
+                      endpoint: null
+                    }
+                  ]
+                }
+              }
+            }
+
+            return expectSaga(sagas.customEndpointActionPrepareHandler, {selection: querySelection})
+              .provide([[select(sagas.stateSelector), state]])
+              .returns({abort: false})
+              .run()
+          })
+
+          test('should fetch keys and return new selection if custom endpoint', () => {
+            const state = {
+              list: {
+                formDefinition: {
+                  children: [
+                    {
+                      componentType: 'table',
+                      endpoint: '/my-custom-endpoint'
+                    }
+                  ]
+                }
+              },
+              input: {
+                entityName: 'User'
+              },
+              intl: {}
+            }
+
+            return expectSaga(sagas.customEndpointActionPrepareHandler, {selection: querySelection})
+              .provide([
+                [select(sagas.stateSelector), state],
+                [select(sagas.inputSelector), state.input],
+                [matchers.call.fn(rest.fetchEntities), ['1', '2', '3']]
+              ])
+              .returns({abort: false, selection: idSelection})
               .run()
           })
         })

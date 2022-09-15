@@ -202,6 +202,18 @@ describe('entity-list', () => {
             expect(transformedResult[1].title).to.eql('<p>TEST 2</p>')
           })
         })
+
+        describe('entitiesListKeyTransformer', () => {
+          test('should return only the keys of the entities', () => {
+            const fetchResult = {
+              data: [{key: '1'}, {key: '22'}]
+            }
+
+            const ids = entities.entitiesListKeyTransformer(fetchResult)
+
+            expect(ids).to.eql(['1', '22'])
+          })
+        })
       })
     })
   })
