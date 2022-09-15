@@ -172,6 +172,27 @@ describe('app-extensions', () => {
             .returns(responseEntities)
             .run()
         })
+
+        test('should set _allKeys param if requested', () => {
+          const query = {
+            paths: ['firstname', 'lastname'],
+            forms: 'User_detail'
+          }
+
+          return expectSaga(helpers.fetchEntities, 'User', query, {allKeys: true})
+            .provide([[matchers.call.fn(requestSaga), {body: {data: []}}]])
+            .call(requestSaga, 'entities/2.0/User/search', {
+              method: 'POST',
+              queryParams: {
+                _omitLinks: true,
+                _allKeys: true
+              },
+              body: {
+                paths: ['firstname', 'lastname']
+              }
+            })
+            .run()
+        })
       })
 
       describe('fetchDisplay', () => {

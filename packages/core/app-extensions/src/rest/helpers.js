@@ -214,12 +214,13 @@ export function* fetchEntityCount(entityName, query, {method = 'POST', endpoint}
  * @param requestOptions {Object} An object which can contain the following options:
  * - method {String} HTTP Method of request. Default is POST
  * - endpoint {String} To overwrite default endpoint entities/2.0/{entityName}/search
+ * - allKeys {Boolean} To fetch all keys without pagination (sets the _allKeys=true query param)
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
  */
 export function* fetchEntities(
   entityName,
   query,
-  {method = 'POST', endpoint} = {},
+  {method = 'POST', endpoint, allKeys} = {},
   transformer = defaultEntityTransformer
 ) {
   const requestQuery = yield call(buildRequestQuery, query)
@@ -229,6 +230,7 @@ export function* fetchEntities(
     method,
     queryParams: {
       _omitLinks: true,
+      _allKeys: allKeys,
       ...(method === 'GET' && requestQueryToUrlParams(requestQuery))
     },
     ...(method === 'POST' && {body: requestQuery})
