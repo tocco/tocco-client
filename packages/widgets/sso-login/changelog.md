@@ -1,3 +1,6 @@
+1.0.48-hotfix33.12
+- ignore any text and textarea fields of a datepicker when autofocusing
+
 1.0.48-hotfix33.11
 - fix null pointer in login box
 - fix whitespace in notification
