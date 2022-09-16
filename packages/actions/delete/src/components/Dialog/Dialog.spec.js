@@ -1,18 +1,21 @@
-import {shallow} from 'enzyme'
-import {Button, SignalBox} from 'tocco-ui'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
-import {dialogInfo} from '../../utils/deleteRequestParser.spec'
-import InfoPart from '../InfoPart'
+import {dialogInfo} from '../../dev/dialogInfoExample'
 import Dialog from './Dialog'
 
 describe('delete', () => {
   describe('components', () => {
     describe('Dialog', () => {
       it('should render Dialog if dialogInfo is set', () => {
-        const wrapper = shallow(<Dialog doDelete={() => {}} onCancel={() => {}} dialogInfo={dialogInfo} />)
-        expect(wrapper.find(InfoPart)).to.have.length(2)
-        expect(wrapper.find(SignalBox)).to.have.length(1)
-        expect(wrapper.find(Button)).to.have.length(2)
+        testingLibrary.renderWithIntl(
+          <Dialog doDelete={() => {}} onCancel={() => {}} dialogInfo={dialogInfo} navigationStrategy={{}} />
+        )
+
+        expect(screen.getByText((content, element) => content !== '' && element.textContent === 'Person (1)')).to.exist
+        expect(screen.getByText((content, element) => content !== '' && element.textContent === 'Person (2)')).to.exist
+        expect(screen.getByText('client.delete.unreadableEntities')).not.to.be.undefined
+        expect(screen.queryAllByRole('button')).to.have.length('2')
       })
     })
   })

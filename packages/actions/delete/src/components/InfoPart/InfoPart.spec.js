@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import {mount} from 'enzyme'
+import {screen} from '@testing-library/react'
 import {MemoryRouter} from 'react-router-dom'
+import {testingLibrary} from 'tocco-test-util'
 import {RouterLink} from 'tocco-ui'
 
 import InfoPart from './InfoPart'
@@ -9,7 +10,7 @@ describe('delete', () => {
   describe('components', () => {
     describe('InfoPart', () => {
       it('should information and Links', () => {
-        const wrapper = mount(
+        testingLibrary.renderWithIntl(
           <MemoryRouter>
             <InfoPart
               rootEntities={{
@@ -38,12 +39,17 @@ describe('delete', () => {
           </MemoryRouter>
         )
 
-        expect(wrapper.text()).to.eql('Person (2) / Dokument (2), Adresse (1)')
-        expect(wrapper.find(RouterLink)).to.have.length(2)
+        expect(
+          screen.getByText(
+            (content, element) => content !== '' && element.textContent === 'Person (2) / Dokument (2), Adresse (1)'
+          )
+        ).to.exist
+
+        expect(screen.queryAllByRole('link')).to.have.length(2)
       })
 
       it('should display zeros', () => {
-        const wrapper = mount(
+        testingLibrary.renderWithIntl(
           <MemoryRouter>
             <InfoPart
               rootEntities={{
@@ -58,7 +64,7 @@ describe('delete', () => {
           </MemoryRouter>
         )
 
-        expect(wrapper.text()).to.eql('Person (0)')
+        expect(screen.getByText((content, element) => content !== '' && element.textContent === 'Person (0)')).to.exist
       })
     })
   })

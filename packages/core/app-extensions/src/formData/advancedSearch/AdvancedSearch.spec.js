@@ -1,4 +1,5 @@
-import {shallow} from 'enzyme'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import AdvancedSearch from './AdvancedSearch'
 
@@ -7,11 +8,11 @@ describe('app-extensions', () => {
     describe('advancedSearch', () => {
       describe('AdvancedSearch', () => {
         test('should render ListApp', () => {
-          const ListApp = () => <div>ListApp</div>
-          const wrapper = shallow(
+          const ListApp = () => <div data-testid="entity-list">ListApp</div>
+          testingLibrary.renderWithIntl(
             <AdvancedSearch ListApp={ListApp} entityName="User" formName="User" emitAction={() => {}} />
           )
-          expect(wrapper.find(ListApp)).to.have.length(1)
+          expect(screen.getByTestId('entity-list')).to.exist
         })
       })
     })

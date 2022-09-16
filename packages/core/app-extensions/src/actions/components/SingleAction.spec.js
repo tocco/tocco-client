@@ -1,6 +1,5 @@
-import {shallow} from 'enzyme'
-import {IntlStub} from 'tocco-test-util'
-import {Button} from 'tocco-ui'
+import {screen, fireEvent} from '@testing-library/react'
+import {IntlStub, testingLibrary} from 'tocco-test-util'
 
 import {SingleAction} from './SingleAction'
 
@@ -11,11 +10,12 @@ describe('app-extensions', () => {
         test('should invoke onclick and stop propagation', () => {
           const definition = {}
           const clickSpy = sinon.spy()
-          const stopPropagationSpy = sinon.spy()
-          const wrapper = shallow(<SingleAction definition={definition} onClick={clickSpy} intl={IntlStub} />)
-          wrapper.find(Button).simulate('click', {stopPropagation: stopPropagationSpy})
+
+          testingLibrary.renderWithIntl(<SingleAction definition={definition} onClick={clickSpy} intl={IntlStub} />)
+
+          fireEvent.click(screen.getByRole('button'))
+
           expect(clickSpy).to.have.property('callCount', 1)
-          expect(stopPropagationSpy).to.have.property('callCount', 1)
         })
       })
     })

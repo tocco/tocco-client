@@ -119,6 +119,7 @@
     "@storybook/manager-webpack5": "^6.5.9",
     "@storybook/react": "^6.5.9",
     "@storybook/theming": "^6.5.9",
+    "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@trust/webcrypto": "^0.9.2",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",

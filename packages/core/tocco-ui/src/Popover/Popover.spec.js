@@ -1,30 +1,26 @@
-import {act} from '@testing-library/react-hooks'
-import {mount} from 'enzyme'
+import {render, screen, fireEvent} from '@testing-library/react'
 
 import Popover from './Popover'
 
 describe('tocco-ui', () => {
   describe('Popover', () => {
     test('should show popover content on mouseover and hide on mouseout', () => {
-      const wrapper = mount(
-        <Popover content={<span className="content">Popover</span>}>
-          <span className="child">Test</span>
+      render(
+        <Popover content={<span data-testid="content">Popover</span>}>
+          <span data-testid="child">Test</span>
         </Popover>
       )
-      expect(wrapper.find('.child')).to.have.length(1)
-      expect(wrapper.find('.content')).to.have.length(0)
 
-      act(() => {
-        wrapper.find('span').first().simulate('mouseover')
-      })
+      expect(screen.queryAllByTestId('child')).to.have.length(1)
+      expect(screen.queryAllByTestId('content')).to.have.length(0)
 
-      expect(wrapper.find('.content')).to.have.length(1)
+      fireEvent.mouseOver(screen.getByText('Test'))
 
-      act(() => {
-        wrapper.find('span').first().simulate('mouseout')
-      })
+      expect(screen.queryAllByTestId('content')).to.have.length(1)
 
-      expect(wrapper.find('.content')).to.have.length(0)
+      fireEvent.mouseOut(screen.getByText('Test'))
+
+      expect(screen.queryAllByTestId('content')).to.have.length(0)
     })
   })
 })

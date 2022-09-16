@@ -1,8 +1,10 @@
-import {IntlStub, intlEnzyme} from 'tocco-test-util'
-import {LoadMask} from 'tocco-ui'
+import {screen} from '@testing-library/react'
+import {appFactory} from 'tocco-app-extensions'
+import {IntlStub, testingLibrary} from 'tocco-test-util'
 
-import {dialogInfo} from '../../utils/deleteRequestParser.spec'
-import Dialog from '../Dialog'
+import {dialogInfo} from '../../dev/dialogInfoExample'
+import {setDeleteDialogInfo} from '../../modules/delete/actions'
+import reducers, {sagas} from '../../modules/reducers'
 import Delete from './Delete'
 
 describe('delete', () => {
@@ -10,17 +12,21 @@ describe('delete', () => {
     describe('Delete', () => {
       it('should render', () => {
         const loadSpy = sinon.spy()
-        const wrapper = intlEnzyme.shallowWithIntl(
-          <Delete intl={IntlStub} dialogInfo={null} loadDialogInfo={loadSpy} />
-        )
-        expect(wrapper.find(LoadMask)).to.have.length(1)
+
+        testingLibrary.renderWithIntl(<Delete intl={IntlStub} dialogInfo={null} loadDialogInfo={loadSpy} />)
+
+        expect(screen.getAllByText('client.delete.loadingText')).to.have.length(1)
       })
 
       it('should render Dialog if dialogInfo is set', () => {
-        const wrapper = intlEnzyme.shallowWithIntl(
-          <Delete intl={IntlStub} dialogInfo={dialogInfo} loadDialogInfo={() => {}} />
-        )
-        expect(wrapper.find(Dialog)).to.have.length(1)
+        const store = appFactory.createStore(reducers, sagas, {navigationStrategy: {}})
+        store.dispatch(setDeleteDialogInfo(dialogInfo))
+        testingLibrary.renderWithStore(<Delete intl={IntlStub} dialogInfo={dialogInfo} loadDialogInfo={() => {}} />, {
+          store
+        })
+
+        expect(screen.queryAllByText('client.delete.loadingText')).to.have.length(0)
+        expect(screen.getAllByText('client.delete.confirmText')).to.have.length(1)
       })
     })
   })
