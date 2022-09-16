@@ -1,3 +1,6 @@
+1.1.73
+- ignore any text and textarea fields of a datepicker when autofocusing
+
 1.1.72
 - fix date picker icon
 

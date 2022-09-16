@@ -1,3 +1,7 @@
+1.0.83
+- let entity list handle changed props properly
+- ignore any text and textarea fields of a datepicker when autofocusing
+
 1.0.82
 - fix date picker icon
 
