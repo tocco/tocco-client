@@ -1,3 +1,6 @@
+1.1.49-hotfix33.12
+- ignore any text and textarea fields of a datepicker when autofocusing
+
 1.1.49-hotfix33.11
 - fix whitespace in notification
 

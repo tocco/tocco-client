@@ -1,3 +1,6 @@
+1.0.76-hotfix33.17
+- ignore any text and textarea fields of a datepicker when autofocusing
+
 1.0.76-hotfix33.16
 - remove locale from documentation url
 
