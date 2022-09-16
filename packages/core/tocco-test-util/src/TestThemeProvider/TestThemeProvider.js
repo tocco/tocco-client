@@ -5,7 +5,12 @@ const toccoTheme = {
   colors: {
     paper: '#fff',
     primary: '#9E2124',
+    secondary: '#263E5B',
+    secondaryLight: '#347da9',
     text: '#212121',
+    backgroundBody: '#DEE6ED',
+    backgroundBreadcrumbs: '#DEE6ED',
+    backgroundPopover: '#424242',
     signal: {
       danger: {
         paper: '#EF9A9A',
