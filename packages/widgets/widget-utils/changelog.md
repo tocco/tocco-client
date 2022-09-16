@@ -1,3 +1,6 @@
+0.1.21
+- ignore any text and textarea fields of a datepicker when autofocusing
+
 0.1.20
 - fix datetime search field with default value
 
