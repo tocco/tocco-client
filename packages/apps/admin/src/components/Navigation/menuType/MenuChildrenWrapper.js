@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {StyledMenuChildrenWrapper} from './StyledComponents'
 
 const MenuChildrenWrapper = ({isOpen, canCollapse, children}) => (
-  <StyledMenuChildrenWrapper isOpen={!canCollapse || isOpen}>
+  <StyledMenuChildrenWrapper isOpen={!canCollapse || isOpen} data-cy="menu-children-wrapper">
     {(!canCollapse || isOpen) && children}
   </StyledMenuChildrenWrapper>
 )

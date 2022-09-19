@@ -40,7 +40,7 @@ const MenuTree = ({items, extendedSearchItems, searchFilter, typeMapping, requir
   const showExtendedSearch = searchFilter && actualItems.length === 0
   const hasExtendedSearchResult = actualExtendedSearchItems.length > 0
   const ExtendedSearch = (
-    <StyledExtendedSearchWrapper>
+    <StyledExtendedSearchWrapper data-cy="extended-search-wrapper">
       <StyledNoSearchResultsTxt>
         <FormattedMessage id="client.admin.navigation.noResults" />
       </StyledNoSearchResultsTxt>
@@ -61,7 +61,7 @@ const MenuTree = ({items, extendedSearchItems, searchFilter, typeMapping, requir
   )
 
   return (
-    <StyledMenuEntryWrapper>
+    <StyledMenuEntryWrapper data-cy="menu-entry-wrapper">
       {MenuItems}
       {showExtendedSearch && ExtendedSearch}
     </StyledMenuEntryWrapper>

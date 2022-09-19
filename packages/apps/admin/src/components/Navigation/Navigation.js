@@ -79,23 +79,27 @@ const Navigation = ({
         items: modulesMenuTree,
         preferencesPrefix: '',
         label: msg('client.admin.navigation.modules'),
-        icon: 'cube'
+        icon: 'cube',
+        dataCy: [menuTabs.MODULES]
       },
       [menuTabs.COMPLETE]: {
         items: completeMenuTree,
         label: msg('client.admin.navigation.complete'),
-        icon: 'chart-network'
+        icon: 'chart-network',
+        dataCy: [menuTabs.COMPLETE]
       },
       [menuTabs.SETTINGS]: {
         items: settingsMenuTree,
         preferencesPrefix: 'settings',
         label: msg('client.admin.navigation.settings'),
-        icon: 'cog'
+        icon: 'cog',
+        dataCy: [menuTabs.SETTINGS]
       },
       [menuTabs.SYSTEM]: {
         items: systemMenuTree,
         label: msg('client.admin.navigation.system'),
-        icon: 'laptop-code'
+        icon: 'laptop-code',
+        dataCy: [menuTabs.SYSTEM]
       }
     }),
     [msg, modulesMenuTree, completeMenuTree, settingsMenuTree, systemMenuTree]
@@ -186,8 +190,8 @@ const Navigation = ({
     setActiveMenuTab(tab)
   }
 
-  const MenuTabs = Object.keys(menuTabs)
-    .map(key => menuTabs[key])
+  const menuTabKeys = Object.keys(menuTabs).map(key => menuTabs[key])
+  const MenuTabs = menuTabKeys
     .filter(menuTab => menuTabsConfig[menuTab].items?.length > 0)
     .map(menuTab => (
       <StyledNavIconButton
@@ -206,6 +210,7 @@ const Navigation = ({
         }}
         title={menuTabsConfig[menuTab].label}
         icon={menuTabsConfig[menuTab].icon}
+        data-cy={`menu-tab-${menuTabsConfig[menuTab].dataCy}`}
       />
     ))
 
@@ -232,12 +237,14 @@ const Navigation = ({
               type="button"
               onClick={handleExpandAll}
               title={msg('client.admin.navigation.expandAll')}
+              data-cy="expand-all-menu-entries"
             />
             <StyledMenuButton
               icon="chevron-double-up"
               type="button"
               onClick={handleCollapseAll}
               title={msg('client.admin.navigation.collapseAll')}
+              data-cy="collapse-all-menu-entries"
             />
           </StyledMenuButtonsWrapper>
         )}
