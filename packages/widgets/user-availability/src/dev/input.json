@@ -1,0 +1,10 @@
+{
+  "appContext": {
+    "embedType": "widget",
+    "widgetConfigKey": "1"
+  },
+  "reportIds": [],
+  "allowCreate": true,
+  "searchFilters": [],
+  "limit": 15
+}

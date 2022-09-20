@@ -1,0 +1,17 @@
+{
+  "name": "tocco-user-availability",
+  "version": "0.1.10",
+  "private": true,
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile:prod": "cd ../../../ && npm run compile:prod -- --package=user-availability",
+    "prepublish": "npm run compile:prod"
+  },
+  "devDependencies": {
+    "tocco-app-extensions": "*",
+    "tocco-entity-browser": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
+  }
+}
