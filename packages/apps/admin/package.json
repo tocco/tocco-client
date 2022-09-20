@@ -23,6 +23,7 @@
     "tocco-entity-report": "*",
     "tocco-export": "*",
     "tocco-input-edit": "*",
+    "tocco-leaderboard": "*",
     "tocco-login": "*",
     "tocco-merge": "*",
     "tocco-resource-scheduler": "*",
