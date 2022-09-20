@@ -1,3 +1,6 @@
+1.0.104
+- fix mobile pane bug in detail view on small screens when right pane is open
+
 1.0.103
 - let entity list handle changed props properly
 - ignore any text and textarea fields of a datepicker when autofocusing
