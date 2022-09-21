@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {appFactory} from 'tocco-app-extensions'
-import {reducer as reducerUtil, appContext} from 'tocco-util'
+import {env, reducer as reducerUtil, appContext} from 'tocco-util'
 
 import Tournament from './components/Tournament'
 import reducers, {sagas} from './modules/reducers'
@@ -9,6 +9,8 @@ const packageName = 'tournament'
 
 const initApp = (id, input, events, publicPath) => {
   const content = <Tournament tournamentKey={input.tournamentKey} />
+
+  env.setInputEnvs(input)
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
