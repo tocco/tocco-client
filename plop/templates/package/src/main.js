@@ -1,5 +1,5 @@
-import {appFactory} from 'tocco-app-extensions'
-import {reducer as reducerUtil} from 'tocco-util'
+import {appFactory, selection} from 'tocco-app-extensions'
+import {reducer as reducerUtil, appContext} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
 
@@ -47,3 +47,15 @@ const initApp = (id, input, events, publicPath) => {
     }
   }
 })()
+
+const {{titleCase package}}App = props => {
+  const {component} = appFactory.useApp({initApp, props, packageName})
+  return component
+}
+
+{{titleCase package}}App.propTypes = {
+  appContext: appContext.propTypes.isRequired,
+  selection: selection.propType.isRequired,
+}
+
+export default {{titleCase package}}App
