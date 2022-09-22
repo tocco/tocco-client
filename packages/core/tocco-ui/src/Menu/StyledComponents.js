@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 
 import {Button, declareFont, scale, theme, StyledScrollbar} from '../index'
-import {interactiveStyling} from '../utilStyles'
+import {interactiveStyling, isTouchDevice} from '../utilStyles'
 
 export const StyledIconWrapper = styled.div`
   margin-left: ${scale.space(-1.7)};
@@ -38,10 +38,18 @@ export const StyledItemLabel = styled.div`
   cursor: ${({hasOnClick}) => (hasOnClick ? 'pointer' : 'default')};
   ${declareFont()}
   ${interactiveStyling}
-  padding:
-    ${scale.space(-2)}
-    ${scale.space(-0.5)}
-    ${scale.space(-2)}
+  /* increased padding on touchdevices */
+  padding: ${isTouchDevice
+    ? css`
+        ${scale.space(-1.4)}
+        ${scale.space(-0.5)}
+      ${scale.space(-1.4)}
+      `
+    : css`
+        ${scale.space(-2)}
+        ${scale.space(-0.5)}
+      ${scale.space(-2)}
+      `}
     calc(${scale.space(-0.5)} + ${({level}) => (level || 0) * 5 + 'px'});
   font-weight: ${({isGroup}) => (isGroup ? theme.fontWeight('bold') : theme.fontWeight('regular'))};
   box-shadow: none;
