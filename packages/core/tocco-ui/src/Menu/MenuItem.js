@@ -24,7 +24,9 @@ const MenuItem = ({children, onClick, onClose, disabled, closeOnClick, title, le
 
   const menuItem = childrenArr.map((child, idx) => {
     const lvl = level ? level++ : 1
-    if (child.type && child.type.displayName === 'MenuItem') {
+    const isMenuItem = child.type?.displayName === 'MenuItem'
+
+    if (isMenuItem) {
       return React.cloneElement(child, {
         ...child.props,
         onClose,
@@ -33,6 +35,7 @@ const MenuItem = ({children, onClick, onClose, disabled, closeOnClick, title, le
         key: `menu-item-${idx}-${lvl}`
       })
     }
+
     return (
       <StyledItemLabel
         key={`menu-item-label-${idx}-${lvl}`}
