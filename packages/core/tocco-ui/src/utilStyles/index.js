@@ -10,9 +10,9 @@ import {
   getBestContrast,
   shadeColor
 } from './declareInteractionColors'
-import {touchDeviceOnlyStyles, nonTouchDeviceOnlyStyles} from './declareTouchCss'
 import {declareNoneWrappingText, declareWrappingText} from './declareWrapping'
 import design from './designConstants'
+import {isTouchDevice} from './detectTouchDevice'
 import filterObjectByKeysStartingWith from './filterObjectByKeysStartingWith'
 import getTextOfChildren from './getTextOfChildren'
 import interactiveStyling from './interactiveStyling'
@@ -42,7 +42,6 @@ export {
   shadeColor,
   theme,
   validateCssDimension,
-  touchDeviceOnlyStyles,
-  nonTouchDeviceOnlyStyles,
+  isTouchDevice,
   useWindowWidth
 }
