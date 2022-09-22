@@ -73,8 +73,7 @@ export {
   scale,
   shadeColor,
   theme,
-  touchDeviceOnlyStyles,
-  nonTouchDeviceOnlyStyles,
+  isTouchDevice,
   useWindowWidth
 } from './utilStyles'
 
