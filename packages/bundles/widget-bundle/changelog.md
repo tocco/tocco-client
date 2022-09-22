@@ -1,3 +1,6 @@
+0.1.38
+- transform QUERY to ID selection for actions (if custom endpoint)
+
 0.1.37
 - let entity list handle changed props properly
 - ignore any text and textarea fields of a datepicker when autofocusing

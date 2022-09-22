@@ -1,3 +1,6 @@
+1.0.105
+- transform QUERY to ID selection for actions (if custom endpoint)
+
 1.0.104
 - fix mobile pane bug in detail view on small screens when right pane is open
 

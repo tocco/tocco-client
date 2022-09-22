@@ -1,6 +1,6 @@
 {
   "name": "tocco-docs-browser",
-  "version": "1.0.83",
+  "version": "1.0.84",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
