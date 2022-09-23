@@ -74,7 +74,8 @@ export {
   shadeColor,
   theme,
   isTouchDevice,
-  useWindowWidth
+  useWindowWidth,
+  useCollapseOnMobile
 } from './utilStyles'
 
 export {default as DatePicker} from './DatePicker'

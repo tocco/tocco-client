@@ -19,6 +19,7 @@ import interactiveStyling from './interactiveStyling'
 import scale from './modularScale'
 import {validateCssDimension} from './propTypesValidator'
 import theme from './resolveThemePath'
+import {useCollapseOnMobile} from './useCollapseOnMobile'
 import {useWindowWidth} from './useWindowWidth'
 
 export {
@@ -43,5 +44,6 @@ export {
   theme,
   validateCssDimension,
   isTouchDevice,
-  useWindowWidth
+  useWindowWidth,
+  useCollapseOnMobile
 }
