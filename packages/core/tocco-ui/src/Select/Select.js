@@ -106,8 +106,7 @@ const Select = ({
     }, 0)
   }
 
-  const handleScroll = e => !e.target.classList.contains('MenuList')
-
+  const handleScroll = e => !e.target.classList?.contains('MenuList')
   const hasAdvancedSearch = Boolean(openAdvancedSearch)
   const hasCreatePermission = Boolean(createPermission)
 
