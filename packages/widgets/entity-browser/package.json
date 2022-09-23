@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "tocco-app-extensions": "*",
+    "tocco-copy": "*",
     "tocco-delete": "*",
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
