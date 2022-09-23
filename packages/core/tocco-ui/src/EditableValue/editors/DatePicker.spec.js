@@ -96,7 +96,7 @@ describe('tocco-ui', () => {
           const input = wrapper.find('.react-datepicker__input-container input')
           input.simulate('focus')
 
-          wrapper.find('input.react-datepicker-time__input').simulate('change', {target: {value: '10:00'}})
+          wrapper.find('.react-datepicker-time__input input').simulate('change', {target: {value: '10:00'}})
 
           const expectedDate = new Date('06/14/2022 10:00').toISOString()
           expect(onChangeSpy).to.have.been.calledWith(expectedDate)
