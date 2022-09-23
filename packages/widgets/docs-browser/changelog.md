@@ -1,3 +1,7 @@
+1.0.85
+- add pen-field icon
+- increase menu item padding on touch devices for better usability
+
 1.0.84
 - transform QUERY to ID selection for actions (if custom endpoint)
 

@@ -1,3 +1,8 @@
+0.1.39
+- add user availability widget
+- add pen-field icon
+- increase menu item padding on touch devices for better usability
+
 0.1.38
 - transform QUERY to ID selection for actions (if custom endpoint)
 
