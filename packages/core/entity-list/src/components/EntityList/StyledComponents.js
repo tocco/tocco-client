@@ -21,14 +21,11 @@ export const TopPositioning = styled.div`
 export const LeftPositioning = styled.div`
   display: grid;
   column-gap: 1rem;
-  ${({isCollapsed}) =>
-    !isCollapsed
-      ? `
-      grid: 'search list' / minmax(350px, 16%) auto;
-    `
-      : `
-      grid: 'search list' / 25px auto;
-    `}
+  /* only show one panel at a time on screens <= 500px */
+  grid: ${({isCollapsed, windowWidth}) =>
+    (windowWidth <= 500 && !isCollapsed && `'search list' / 100% 0`) ||
+    (!isCollapsed && `'search list' / minmax(350px, 16%) auto`) ||
+    `'search list' / 25px auto`};
 
   @media (max-width: 600px) {
     column-gap: 8px;
