@@ -2,6 +2,7 @@ import {lazy} from 'react'
 import {actions} from 'tocco-app-extensions'
 
 const actionMap = {
+  copy: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Copy')),
   delete: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Delete')),
   'input-edit': lazy(() => import(/* webpackChunkName: "actions" */ './actions/InputEdit')),
   'subscribe-calendar': lazy(() => import(/* webpackChunkName: "actions" */ './actions/SubscribeCalendar')),
