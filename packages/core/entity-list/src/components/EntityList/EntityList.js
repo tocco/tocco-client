@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {scrollBehaviourPropType} from 'tocco-ui'
+import {scrollBehaviourPropType, useCollapseOnMobile} from 'tocco-ui'
 
 import ListViewContainer from '../../containers/ListViewContainer'
 import SearchViewContainer from '../../containers/SearchViewContainer'
@@ -13,8 +13,17 @@ const EntityList = ({
   scrollBehaviour,
   setSearchFormCollapsed
 }) => {
+  const [isCollapsed, setIsCollapsed] = useCollapseOnMobile(searchFormCollapsed)
+  const getWindowWidth = () => window.innerWidth
+
   const toggleCollapse = () => {
-    setSearchFormCollapsed(!searchFormCollapsed)
+    setIsCollapsed(!isCollapsed)
+
+    /* only toggle searchFormCollapsed on larger resolutions */
+    /* otherwise a double click is needed to reopen collapsed panel on smaller screens */
+    if (getWindowWidth() > 768) {
+      setSearchFormCollapsed(!isCollapsed)
+    }
   }
 
   if (searchFormType === searchFormTypes.NONE) {
@@ -27,10 +36,11 @@ const EntityList = ({
     <PositioningContainer
       scrollBehaviour={scrollBehaviour}
       searchFormType={searchFormType}
-      isCollapsed={searchFormCollapsed}
+      isCollapsed={isCollapsed}
+      windowWidth={getWindowWidth()}
     >
       <SearchGrid searchFormType={searchFormType} scrollBehaviour={scrollBehaviour}>
-        <SearchViewContainer isCollapsed={searchFormCollapsed} toggleCollapse={toggleCollapse} />
+        <SearchViewContainer isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
       </SearchGrid>
       <ListGrid searchFormType={searchFormType}>
         <ListViewContainer />
