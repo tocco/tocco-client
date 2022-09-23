@@ -123,6 +123,10 @@ export const GlobalDatePickerStyles = createGlobalStyle`
 
         .react-datepicker-time__input {
           margin: 0;
+
+          input {
+            text-align: center;
+          }
         }
       }
 
