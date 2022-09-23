@@ -3,35 +3,18 @@ import PropTypes from 'prop-types'
 import Ball from '../../Ball'
 import {StyledEditableControl, StyledEditableWrapper} from '../StyledEditableValue'
 import StyledTimeEdit from './StyledTimeEdit'
+import useTimeEdit from './useTimeEdit'
 
-const TimeEdit = props => {
-  const handleChange = e => {
-    props.onChange(e.target.value)
-  }
-
-  const clearInput = () => {
-    props.onChange(null)
-  }
-
-  const isFirefox = !!window.sidebar
-
-  const showClearButton = props.value && !props.immutable && !isFirefox
-
-  const value = props.value || ''
+const TimeEdit = ({onChange, value, immutable, id, name}) => {
+  const {inputProps, clearButtonProps} = useTimeEdit(value, onChange)
+  const showClearButton = value && !immutable
 
   return (
-    <StyledEditableWrapper immutable={props.immutable}>
-      <StyledTimeEdit
-        disabled={props.immutable}
-        id={props.id}
-        immutable={props.immutable}
-        name={props.name}
-        onChange={handleChange}
-        value={value}
-      />
+    <StyledEditableWrapper immutable={immutable}>
+      <StyledTimeEdit type="text" disabled={immutable} id={id} immutable={immutable} name={name} {...inputProps} />
       {showClearButton && (
         <StyledEditableControl>
-          <Ball icon="times" onClick={clearInput} tabIndex={-1} />
+          <Ball icon="times" {...clearButtonProps} tabIndex={-1} />
         </StyledEditableControl>
       )}
     </StyledEditableWrapper>

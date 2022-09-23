@@ -11,6 +11,7 @@ import Ball from '../../Ball'
 import Button from '../../Button'
 import {loadLocales, parseISOValue} from '../../DatePicker/utils'
 import {StyledDatePickerWrapper, StyledDatePickerOuterWrapper, StyledTimeInput} from './StyledDatePicker'
+import useTimeEdit from './useTimeEdit'
 
 loadLocales()
 
@@ -35,11 +36,12 @@ CustomTodayButton.propTypes = {
 }
 
 const TimeInput = ({value, onChange, onKeyDown}) => {
-  const handleOnChange = ev => {
+  const handleOnChange = val => {
     if (onChange) {
-      onChange(ev.target.value)
+      onChange(val || '00:00')
     }
   }
+  const {inputProps} = useTimeEdit(value, handleOnChange)
 
   const handleOnClick = e => {
     /**
@@ -49,17 +51,7 @@ const TimeInput = ({value, onChange, onKeyDown}) => {
     e.target.focus()
   }
 
-  return (
-    <StyledTimeInput
-      type="time"
-      className={ReactDatepickerTimeInputClassName}
-      required
-      value={value}
-      onKeyDown={onKeyDown}
-      onChange={handleOnChange}
-      onClick={handleOnClick}
-    />
-  )
+  return <StyledTimeInput {...inputProps} type="text" onKeyDown={onKeyDown} onClick={handleOnClick} />
 }
 
 TimeInput.propTypes = {
