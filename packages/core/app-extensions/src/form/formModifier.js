@@ -57,6 +57,47 @@ export const adjustActions = (container, actionIds, adjuster) => ({
 })
 
 /**
+ * add create action to main action bar
+ */
+export const addCreate = (formDefinition, intl) => {
+  if (formDefinition.id.endsWith('_create')) {
+    return formDefinition
+  }
+
+  formDefinition = addMainActionBar(formDefinition)
+
+  const create = {
+    id: 'new',
+    label: intl.formatMessage({id: 'client.actions.create'}),
+    componentType: 'action',
+    children: [],
+    actionType: 'custom',
+    useLabel: 'YES',
+    buttonType: 'REGULAR',
+    icon: 'plus'
+  }
+
+  return {
+    ...formDefinition,
+    children: formDefinition.children.map(rootItem => {
+      if (rootItem.id === MAIN_ACTION_BAR_ID) {
+        const createCopyExists = rootItem.children.some(c => ACTION_GROUP_CREATECOPY_ID === c.id)
+        if (createCopyExists) {
+          return rootItem
+        } else {
+          return {
+            ...rootItem,
+            children: [create, ...rootItem.children]
+          }
+        }
+      }
+
+      return rootItem
+    })
+  }
+}
+
+/**
  * add reports to form definition (use reports helper of app-extensions to create correct format of reports parameter)
  */
 export const addReports = (formDefinition, reports) => {

@@ -1,8 +1,10 @@
 import _get from 'lodash/get'
+import {IntlStub} from 'tocco-test-util'
 
 import {
   ACTION_GROUP_CREATECOPY_ID,
   ACTION_GROUP_ACTIONS_ID,
+  addCreate,
   addReports,
   MAIN_ACTION_BAR_ID,
   removeBoxes,
@@ -14,6 +16,7 @@ describe('app-extensions', () => {
   describe('form', () => {
     describe('formModifier', () => {
       const formDefinitionFull = {
+        id: 'Test_list',
         children: [
           {
             id: MAIN_ACTION_BAR_ID,
@@ -28,6 +31,54 @@ describe('app-extensions', () => {
           }
         ]
       }
+
+      describe('addCreate', () => {
+        test('in create scope do not add new action', () => {
+          const emptyFormDefinition = {
+            id: 'Test_create',
+            children: []
+          }
+          expect(addCreate(emptyFormDefinition, IntlStub).children.size, 0)
+        })
+
+        test('do not add create action if createcopy actiongroup already exists', () => {
+          expect(addCreate(formDefinitionFull, IntlStub).children[0].children.map(r => r.reportId || r.id)).to.be.eql([
+            ACTION_GROUP_CREATECOPY_ID,
+            'reportFormDefinition'
+          ])
+        })
+
+        test('add create action if no main action bar exists', () => {
+          const formDefinition = {
+            id: 'Test_list',
+            children: []
+          }
+          expect(addCreate(formDefinition, IntlStub).children[0].children.map(r => r.reportId || r.id)).to.be.eql([
+            'new'
+          ])
+        })
+
+        test('add create action if no createcopy action group exists', () => {
+          const formDefinition = {
+            id: 'Test_list',
+            children: [
+              {
+                id: MAIN_ACTION_BAR_ID,
+                children: [
+                  {
+                    reportId: 'reportFormDefinition'
+                  }
+                ]
+              }
+            ]
+          }
+
+          expect(addCreate(formDefinition, IntlStub).children[0].children.map(r => r.reportId || r.id)).to.be.eql([
+            'new',
+            'reportFormDefinition'
+          ])
+        })
+      })
 
       describe('addReports', () => {
         const reports = [
