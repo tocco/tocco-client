@@ -1,3 +1,7 @@
+1.0.72
+- add pen-field icon
+- increase menu item padding on touch devices for better usability
+
 1.0.70
 - ignore any text and textarea fields of a datepicker when autofocusing
 
