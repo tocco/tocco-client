@@ -1,3 +1,7 @@
+1.0.49-hotfix33.14
+- close datepicker on scroll
+- fix datepicker year dropdown closing on scroll
+
 1.0.49-hotfix33.12
 - ignore any text and textarea fields of a datepicker when autofocusing
 
