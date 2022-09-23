@@ -57,23 +57,6 @@ export const adjustActions = (container, actionIds, adjuster) => ({
 })
 
 /**
- * remove create action group from main action bar
- */
-export const removeCreate = formDefinition => ({
-  ...formDefinition,
-  children: formDefinition.children.map(rootItem => {
-    if (rootItem.id === MAIN_ACTION_BAR_ID) {
-      return {
-        ...rootItem,
-        children: rootItem.children.filter(item => item.id !== ACTION_GROUP_CREATECOPY_ID)
-      }
-    }
-
-    return rootItem
-  })
-})
-
-/**
  * add reports to form definition (use reports helper of app-extensions to create correct format of reports parameter)
  */
 export const addReports = (formDefinition, reports) => {

@@ -5,7 +5,6 @@ import {
   ACTION_GROUP_ACTIONS_ID,
   addReports,
   MAIN_ACTION_BAR_ID,
-  removeCreate,
   removeBoxes,
   removeActions,
   adjustActions
@@ -14,15 +13,6 @@ import {
 describe('app-extensions', () => {
   describe('form', () => {
     describe('formModifier', () => {
-      const formDefinitionOutput = {
-        children: [
-          {
-            id: MAIN_ACTION_BAR_ID,
-            children: []
-          }
-        ]
-      }
-
       const formDefinitionFull = {
         children: [
           {
@@ -38,18 +28,6 @@ describe('app-extensions', () => {
           }
         ]
       }
-
-      const getActionGroupIds = formDefinition => formDefinition.children[0].children.map(r => r.id)
-
-      describe('removeCreate', () => {
-        test('remove create action group', () => {
-          expect(getActionGroupIds(removeCreate(formDefinitionFull)).length).to.be.eql(1)
-        })
-
-        test('create action group does not exist', () => {
-          expect(getActionGroupIds(removeCreate(formDefinitionOutput)).length).to.be.eql(0)
-        })
-      })
 
       describe('addReports', () => {
         const reports = [
