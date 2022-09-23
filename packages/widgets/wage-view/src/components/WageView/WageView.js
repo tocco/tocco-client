@@ -3,10 +3,10 @@ import {form} from 'tocco-app-extensions'
 import EntityBrowserApp from 'tocco-entity-browser/src/main'
 import {appContext as appContextPropType} from 'tocco-util'
 
-const WageView = ({allowCreate, reportIds, searchFilters, limit, backendUrl, businessUnit, appContext}) => {
+const WageView = ({allowCreate, reportIds, searchFilters, limit, backendUrl, businessUnit, appContext, intl}) => {
   const modifyFormDefinition = formDefinition => {
-    if (!allowCreate) {
-      formDefinition = form.removeCreate(formDefinition)
+    if (allowCreate) {
+      formDefinition = form.addCreate(formDefinition, intl)
     }
 
     return formDefinition
