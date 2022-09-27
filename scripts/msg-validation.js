@@ -9,6 +9,14 @@
 const fs = require('fs')
 
 const allowedMaxLength = 70
+
+/**
+ * Pattern: <type>(<scope>): <subject>
+ * Matching groups:
+ * type: match[1]
+ * (scope): match[2]
+ * subject: match[3]
+ */
 const allowedPattern = /^(\w+)(\(.+\))?: (.+)$/
 const allowedTypes = ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore']
 
@@ -35,8 +43,6 @@ const isFirstLineValid = line => {
   }
 
   const type = match[1]
-  // const scope = match[3]
-  // const subject = match[4]
 
   if (!allowedTypes.includes(type)) {
     error(`"${type}" is not allowed type !`)

@@ -70,7 +70,6 @@ const useSelectStoryHepers = delay => {
   }
 }
 
-// export const Overview = () => <SelectStory action={action} delay={2000} />
 export const Overview = props => {
   const {
     isLoading,
