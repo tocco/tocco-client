@@ -12,17 +12,28 @@ import {requestSaga} from './rest'
  * @param entityName {String} Name of the entity
  * @param key {String} key of the entity
  * @param query {Object} see 'buildRequestQuery' function
+ * @param requestOptions {Object} An object which can contain the following options:
+ * - method {String} HTTP Method of request. Default is POST.
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
  */
-export function* fetchEntity(entityName, key, query, transformer = json => json) {
+export function* fetchEntity(entityName, key, query, requestOptions = {}, transformer = json => json) {
+  const {method = 'POST'} = requestOptions
   const requestQuery = yield call(buildRequestQuery, query)
   const options = {
-    method: 'GET',
+    method,
     queryParams: {
-      ...requestQueryToUrlParams(requestQuery),
-      _permissions: true,
-      _omitLinks: true
-    }
+      _omitLinks: true,
+      ...(method === 'GET' && {
+        ...requestQueryToUrlParams(requestQuery),
+        _permissions: true
+      })
+    },
+    ...(method === 'POST' && {
+      body: {
+        ...requestQuery,
+        permissions: true
+      }
+    })
   }
 
   const resp = yield call(requestSaga, `entities/2.0/${entityName}/${key}`, options)
@@ -193,7 +204,8 @@ function* loadDisplays(currentDisplays, type) {
  * - method {String} HTTP Method of request. Default is POST
  * - endpoint {String} To overwrite default endpoint entities/2.0/{entityName}/count
  */
-export function* fetchEntityCount(entityName, query, {method = 'POST', endpoint} = {}) {
+export function* fetchEntityCount(entityName, query, requestOptions = {}) {
+  const {method = 'POST', endpoint} = requestOptions
   const requestQuery = yield call(buildRequestQuery, query)
   const resource = (endpoint || `entities/2.0/${entityName}`) + '/count'
 
@@ -217,12 +229,8 @@ export function* fetchEntityCount(entityName, query, {method = 'POST', endpoint}
  * - allKeys {Boolean} To fetch all keys without pagination (sets the _allKeys=true query param)
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
  */
-export function* fetchEntities(
-  entityName,
-  query,
-  {method = 'POST', endpoint, allKeys} = {},
-  transformer = defaultEntityTransformer
-) {
+export function* fetchEntities(entityName, query, requestOptions = {}, transformer = defaultEntityTransformer) {
+  const {method = 'POST', endpoint, allKeys} = requestOptions
   const requestQuery = yield call(buildRequestQuery, query)
   const resource = endpoint || `entities/2.0/${entityName}${method === 'POST' ? '/search' : ''}`
 
