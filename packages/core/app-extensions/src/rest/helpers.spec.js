@@ -126,15 +126,41 @@ describe('app-extensions', () => {
       })
 
       describe('fetchEntity', () => {
-        test('should call fetch', async () => {
+        test('should send POST request', async () => {
           const query = {
-            paths: ['firstname', 'lastname'],
-            forms: 'User_detail'
+            paths: ['firstname', 'lastname']
+          }
+          const requestOptions = {
+            method: 'POST',
+            queryParams: {_omitLinks: true},
+            body: {paths: ['firstname', 'lastname'], permissions: true}
           }
           const responseEntity = {paths: {firstname: 'Jack'}}
 
           await expectSaga(helpers.fetchEntity, 'User', '1', query)
             .provide([[matchers.call.fn(requestSaga), {body: responseEntity}]])
+            .call(requestSaga, 'entities/2.0/User/1', requestOptions)
+            .returns(responseEntity)
+            .run()
+        })
+
+        test('should send GET request on demand', async () => {
+          const query = {
+            paths: ['firstname', 'lastname']
+          }
+          const requestOptions = {
+            method: 'GET',
+            queryParams: {
+              _omitLinks: true,
+              _paths: 'firstname,lastname',
+              _permissions: true
+            }
+          }
+          const responseEntity = {paths: {firstname: 'Jack'}}
+
+          await expectSaga(helpers.fetchEntity, 'User', '1', query, {method: 'GET'})
+            .provide([[matchers.call.fn(requestSaga), {body: responseEntity}]])
+            .call(requestSaga, 'entities/2.0/User/1', requestOptions)
             .returns(responseEntity)
             .run()
         })
