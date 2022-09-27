@@ -143,7 +143,7 @@ const EntityListApp = props => {
     const changedProps = _pickBy(props, (value, key) => !_isEqual(value, prevProps[key]))
     if (
       (changedProps.store && typeof prevProps.store !== 'undefined') ||
-      (typeof changedProps.store === 'undefined' && typeof prevProps.store !== 'undefined')
+      (typeof props.store === 'undefined' && typeof prevProps.store !== 'undefined')
     ) {
       /**
        * Whenever the store gets explicitly changed from outside
