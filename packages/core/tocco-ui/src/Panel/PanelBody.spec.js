@@ -2,7 +2,6 @@ import {mount} from 'enzyme'
 
 import PanelBody from './PanelBody'
 import StyledPanelBody from './StyledPanelBody'
-// import 'styled-components-test-utils/lib/chai';
 
 describe('tocco-ui', () => {
   describe('Panel', () => {
