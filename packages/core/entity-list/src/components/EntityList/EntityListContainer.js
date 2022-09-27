@@ -14,7 +14,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => ({
-  searchFormType: state.input.searchFormType,
+  searchFormType: state.entityList.searchFormType,
   searchFormPosition: state.input.searchFormPosition,
   searchFormCollapsed: state.input.searchFormCollapsed,
   scrollBehaviour: state.input.scrollBehaviour

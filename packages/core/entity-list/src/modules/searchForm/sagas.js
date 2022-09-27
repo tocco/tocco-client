@@ -11,7 +11,7 @@ import SearchFilterNameForm from '../../components/SearchFilterNameForm'
 import {changeParentFieldType, getEndpoint, getFormFieldFlat} from '../../util/api/forms'
 import searchFormTypes from '../../util/searchFormTypes'
 import {validateSearchFields} from '../../util/searchFormValidation'
-import {setSearchFormType} from '../entityList/actions'
+import {setSearchFormType, SET_SEARCH_FORM_TYPE_FROM_INPUT} from '../entityList/actions'
 import {SET_ENTITY_MODEL, SET_FORM_DEFINITION, setSorting, refresh} from '../list/actions'
 import {getBasicQuery, getSearchViewQuery} from '../list/sagas'
 import * as actions from './actions'
@@ -31,6 +31,7 @@ export default function* sagas() {
     takeLatest(actions.INITIALIZE, initialize),
     takeLatest(formActionTypes.CHANGE, submitSearchFrom),
     takeLatest(actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
+    takeLatest(SET_SEARCH_FORM_TYPE_FROM_INPUT, initSearchFormType),
     takeLatest(actions.RESET_SEARCH, resetSearch),
     takeLatest(actions.SAVE_SEARCH_FILTER, saveSearchFilter),
     takeLatest(actions.DELETE_SEARCH_FILTER, deleteSearchFilter),
@@ -52,13 +53,21 @@ export function* initialize() {
   const {searchFormType} = yield select(entityListSelector)
   const searchFormVisible = searchFormType !== searchFormTypes.NONE
 
-  const formDefinition = searchFormVisible ? yield call(loadSearchForm) : null
+  const formDefinition = yield call(initSearchFormType)
   yield call(setInitialFormValues, searchFormVisible, formDefinition)
   if (searchFormType === searchFormTypes.ADMIN) {
     yield call(loadSearchFilter, entityName)
   }
 
   yield put(actions.setInitialized())
+}
+
+export function* initSearchFormType() {
+  const {searchFormType} = yield select(entityListSelector)
+  const searchFormVisible = searchFormType !== searchFormTypes.NONE
+
+  const formDefinition = searchFormVisible ? yield call(loadSearchForm) : null
+  return formDefinition
 }
 
 export function* getListFormDefinition() {

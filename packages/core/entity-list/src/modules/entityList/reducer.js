@@ -15,6 +15,7 @@ const setSearchFormType = (state, {payload}) => {
 const ACTION_HANDLERS = {
   [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
   [actions.SET_SEARCH_FORM_TYPE]: setSearchFormType,
+  [actions.SET_SEARCH_FORM_TYPE_FROM_INPUT]: setSearchFormType,
   [actions.SET_SEARCH_FORM_COLLAPSED]: reducerUtil.singleTransferReducer('searchFormCollapsed'),
   [actions.SET_SEARCH_FORM_COLLAPSED_INITIAL_VALUE]: reducerUtil.singleTransferReducer('searchFormCollapsed')
 }

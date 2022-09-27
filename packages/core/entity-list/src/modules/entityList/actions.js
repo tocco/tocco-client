@@ -1,6 +1,7 @@
 export const SET_INITIALIZED = 'entityList/SET_INITIALIZED'
 export const INITIALIZE = 'entityList/INITIALIZE'
 export const SET_SEARCH_FORM_TYPE = 'entityList/SET_SEARCH_FORM_TYPE'
+export const SET_SEARCH_FORM_TYPE_FROM_INPUT = 'entityList/SET_SEARCH_FORM_TYPE_FROM_INPUT'
 export const RELOAD_ALL = 'entityList/RELOAD_ALL'
 export const RELOAD_DATA = 'entityList/RELOAD_DATA'
 export const SET_SEARCH_FORM_COLLAPSED = 'entityList/SET_SEARCH_FORM_COLLAPSED'
@@ -15,6 +16,13 @@ export const setInitialized = (initialized = true) => ({
 
 export const initialize = () => ({
   type: INITIALIZE
+})
+
+export const setSearchFormTypeFromInput = searchFormType => ({
+  type: SET_SEARCH_FORM_TYPE_FROM_INPUT,
+  payload: {
+    searchFormType
+  }
 })
 
 export const setSearchFormType = searchFormType => ({

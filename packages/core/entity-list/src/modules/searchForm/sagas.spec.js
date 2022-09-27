@@ -8,7 +8,7 @@ import {form, notification, rest} from 'tocco-app-extensions'
 
 import {getEndpoint} from '../../util/api/forms'
 import {validateSearchFields} from '../../util/searchFormValidation'
-import {setSearchFormType} from '../entityList/actions'
+import {setSearchFormType, SET_SEARCH_FORM_TYPE_FROM_INPUT} from '../entityList/actions'
 import {SET_ENTITY_MODEL, setFormDefinition, setSorting} from '../list/actions'
 import * as listSagas from '../list/sagas'
 import * as actions from './actions'
@@ -27,6 +27,7 @@ describe('entity-list', () => {
                 takeLatest(actions.INITIALIZE, sagas.initialize),
                 takeLatest(formActionTypes.CHANGE, sagas.submitSearchFrom),
                 takeLatest(actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
+                takeLatest(SET_SEARCH_FORM_TYPE_FROM_INPUT, sagas.initSearchFormType),
                 takeLatest(actions.RESET_SEARCH, sagas.resetSearch),
                 takeLatest(actions.SAVE_SEARCH_FILTER, sagas.saveSearchFilter),
                 takeLatest(actions.DELETE_SEARCH_FILTER, sagas.deleteSearchFilter),
