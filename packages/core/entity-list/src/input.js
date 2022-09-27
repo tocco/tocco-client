@@ -1,6 +1,6 @@
 import {action} from 'tocco-util'
 
-import {setSearchFormType, setSearchFormCollapsedInitialValue} from './modules/entityList/actions'
+import {setSearchFormCollapsedInitialValue, setSearchFormTypeFromInput} from './modules/entityList/actions'
 import {setSearchFilters, setFormDefinition as setListFormDefinition} from './modules/list/actions'
 import {setSimpleSearchFields} from './modules/searchForm/actions'
 import {setSelection} from './modules/selection/actions'
@@ -52,7 +52,7 @@ const actionSettings = [
   },
   {
     name: 'searchFormType',
-    action: setSearchFormType,
+    action: setSearchFormTypeFromInput,
     argsFactory: input => [input.searchFormType],
     reload: reloadOptions.DATA
   },
