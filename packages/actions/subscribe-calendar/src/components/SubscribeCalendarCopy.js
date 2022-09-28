@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Button, LoadMask, StyledLabel} from 'tocco-ui'
 
@@ -12,8 +12,8 @@ const SubscribeCalendarCopy = ({fetchCalendarLinks, copyCalendarLink, links}) =>
 
   return (
     <LoadMask required={[links]}>
-      {links?.map(link => (
-        <>
+      {links?.map((link, index) => (
+        <React.Fragment key={index}>
           <StyledLabel>{link.label}</StyledLabel>
           <StyledCalendarCopy>{link.link}</StyledCalendarCopy>
           <StyledButtonWrapper>
@@ -21,7 +21,7 @@ const SubscribeCalendarCopy = ({fetchCalendarLinks, copyCalendarLink, links}) =>
               <FormattedMessage id="client.subscribe-calendar.copy" />
             </Button>
           </StyledButtonWrapper>
-        </>
+        </React.Fragment>
       ))}
     </LoadMask>
   )
@@ -30,7 +30,7 @@ const SubscribeCalendarCopy = ({fetchCalendarLinks, copyCalendarLink, links}) =>
 SubscribeCalendarCopy.propTypes = {
   fetchCalendarLinks: PropTypes.func.isRequired,
   copyCalendarLink: PropTypes.func.isRequired,
-  links: PropTypes.arrayOf(PropTypes.string)
+  links: PropTypes.arrayOf(PropTypes.shape({link: PropTypes.string, label: PropTypes.string}))
 }
 
 export default SubscribeCalendarCopy

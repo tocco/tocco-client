@@ -1,2 +1,2 @@
-import {renderWithIntl, renderWithStore} from './utils'
+import {renderWithIntl, renderWithStore} from './testingLibrary'
 export default {renderWithIntl, renderWithStore}
