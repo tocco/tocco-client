@@ -2,99 +2,106 @@ import PropTypes from 'prop-types'
 import {FormattedMessage, injectIntl} from 'react-intl'
 import {Button, ButtonGroup, Icon, Typography, DatePicker} from 'tocco-ui'
 
-import StyledNavigationFullCalendar from './StyledNavigationFullCalendar'
+import {
+  StyledNavigationFullCalendar,
+  StyledButtonGroupReloadWrapper,
+  StyledReloadButtonWrapper
+} from './StyledComponents'
 
-const getButtonInkProps = (viewType, type) => (viewType === type ? {ink: 'secondary'} : {})
+export const getButtonInkProps = (viewType, type) => (viewType === type ? {ink: 'secondary'} : {})
 
 const msg = (id, intl) => intl.formatMessage({id})
 
-const NavigationFullCalendar = props => {
-  const {
-    date,
-    changeRange,
-    changeView,
-    chooseNext,
-    choosePrev,
-    chooseToday,
-    goToDate,
-    intl,
-    isLoading,
-    refresh,
-    title,
-    type
-  } = props
+const NavigationFullCalendar = ({
+  date,
+  changeRange,
+  changeView,
+  chooseNext,
+  choosePrev,
+  chooseToday,
+  goToDate,
+  intl,
+  isLoading,
+  refresh,
+  title,
+  type
+}) => {
+  const handleReload = () => {
+    if (!isLoading) {
+      refresh()
+    }
+  }
+
+  const handleToday = () => {
+    chooseToday()
+    changeRange()
+  }
+
+  const handlePrevious = () => {
+    choosePrev()
+    changeRange()
+  }
+
+  const handleNext = () => {
+    chooseNext()
+    changeRange()
+  }
+
+  const handleDateChange = date => {
+    goToDate(date)
+    changeRange()
+  }
+
+  const handleDayView = () => changeView('dayView')
+  const handleWeekView = () => (type !== 'weekViewSimple' ? changeView('weekViewSimple') : changeView('weekView'))
+  const handleMonthView = () => changeView('monthView')
 
   return (
     <StyledNavigationFullCalendar>
       <div>
-        <Button
-          look="raised"
-          onClick={() => {
-            chooseToday()
-            changeRange()
-          }}
-        >
+        <Button look="raised" onClick={handleToday}>
           <FormattedMessage id="client.scheduler.today" />
         </Button>
         <ButtonGroup>
           <Button
             look="raised"
-            onClick={() => {
-              choosePrev()
-              changeRange()
-            }}
+            onClick={handlePrevious}
             icon="chevron-left"
             title={msg('client.scheduler.previous', intl)}
           />
-          <Button
-            look="raised"
-            onClick={() => {
-              chooseNext()
-              changeRange()
-            }}
-            icon="chevron-right"
-            title={msg('client.scheduler.next', intl)}
-          />
+          <Button look="raised" onClick={handleNext} icon="chevron-right" title={msg('client.scheduler.next', intl)} />
         </ButtonGroup>
-        <DatePicker
-          value={date}
-          onChange={date => {
-            goToDate(date)
-            changeRange()
-          }}
-        >
+        <DatePicker value={date} onChange={date => handleDateChange(date)}>
           <Typography.Span>{title}</Typography.Span>
           <Icon style={{marginLeft: '5px'}} icon="chevron-down" />
         </DatePicker>
       </div>
-      <div>
+      <StyledButtonGroupReloadWrapper>
         <ButtonGroup>
-          <Button look="raised" {...getButtonInkProps('dayView', type)} onClick={() => changeView('dayView')}>
+          <Button look="raised" {...getButtonInkProps('dayView', type)} onClick={handleDayView}>
             <FormattedMessage id="client.scheduler.day" />
           </Button>
           <Button
             look="raised"
             {...getButtonInkProps('weekView', type)}
             {...getButtonInkProps('weekViewSimple', type)}
-            onClick={() => (type !== 'weekViewSimple' ? changeView('weekViewSimple') : changeView('weekView'))}
+            onClick={handleWeekView}
           >
             <FormattedMessage id="client.scheduler.week" />
           </Button>
-          <Button look="raised" {...getButtonInkProps('monthView', type)} onClick={() => changeView('monthView')}>
+          <Button look="raised" {...getButtonInkProps('monthView', type)} onClick={handleMonthView}>
             <FormattedMessage id="client.scheduler.month" />
           </Button>
         </ButtonGroup>
-        <Button
-          icon={isLoading ? '' : 'sync'}
-          onClick={() => {
-            if (!isLoading) {
-              refresh()
-            }
-          }}
-          pending={isLoading}
-          title={msg('client.scheduler.reload', intl)}
-        />
-      </div>
+        <StyledReloadButtonWrapper>
+          <Button
+            icon={isLoading ? '' : 'sync'}
+            onClick={handleReload}
+            pending={isLoading}
+            title={msg('client.scheduler.reload', intl)}
+          />
+        </StyledReloadButtonWrapper>
+      </StyledButtonGroupReloadWrapper>
     </StyledNavigationFullCalendar>
   )
 }
@@ -114,5 +121,4 @@ NavigationFullCalendar.propTypes = {
   type: PropTypes.string
 }
 
-export {getButtonInkProps}
 export default injectIntl(NavigationFullCalendar)
