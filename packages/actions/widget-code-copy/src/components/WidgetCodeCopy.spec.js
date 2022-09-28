@@ -1,4 +1,5 @@
-import {intlEnzyme} from 'tocco-test-util'
+import {screen, fireEvent} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import {generateWidgetCode} from '../utils/widgetCode'
 import WidgetCodeCopy from './WidgetCodeCopy'
@@ -13,7 +14,7 @@ describe('widget-code-copy', () => {
 
         const expectedWidgetCode = generateWidgetCode(widgetConfig)
 
-        const wrapper = intlEnzyme.mountWithIntl(
+        testingLibrary.renderWithIntl(
           <WidgetCodeCopy
             fetchWidgetConfig={fetchWidgetConfig}
             copyWidgetCode={copyWidgetCode}
@@ -21,8 +22,10 @@ describe('widget-code-copy', () => {
           />
         )
 
-        expect(wrapper.find('code')).to.have.length(1)
-        expect(wrapper.find('code').first().text()).to.equal(expectedWidgetCode)
+        const codeElement = screen.getByText(
+          content => content.replaceAll(/\s/g, '') === expectedWidgetCode.replaceAll(/\s/g, '')
+        )
+        expect(codeElement).to.exist
       })
 
       test('should fetch widget code ', () => {
@@ -30,7 +33,7 @@ describe('widget-code-copy', () => {
         const copyWidgetCode = sinon.spy()
         const widgetConfig = undefined
 
-        const wrapper = intlEnzyme.mountWithIntl(
+        testingLibrary.renderWithIntl(
           <WidgetCodeCopy
             fetchWidgetConfig={fetchWidgetConfig}
             copyWidgetCode={copyWidgetCode}
@@ -38,7 +41,7 @@ describe('widget-code-copy', () => {
           />
         )
 
-        expect(wrapper.find('code')).to.have.length(0)
+        expect(screen.queryAllByRole('button')).to.have.length(0)
         expect(fetchWidgetConfig).to.have.been.calledOnce
       })
 
@@ -47,7 +50,7 @@ describe('widget-code-copy', () => {
         const copyWidgetCode = sinon.spy()
         const widgetConfig = {key: '1', paths: {domain: {value: 'localhost'}}}
 
-        const wrapper = intlEnzyme.mountWithIntl(
+        testingLibrary.renderWithIntl(
           <WidgetCodeCopy
             fetchWidgetConfig={fetchWidgetConfig}
             copyWidgetCode={copyWidgetCode}
@@ -55,8 +58,8 @@ describe('widget-code-copy', () => {
           />
         )
 
-        expect(wrapper.find('button')).to.have.length(1)
-        wrapper.find('button').first().simulate('click')
+        expect(screen.getByRole('button')).to.exist
+        fireEvent.click(screen.getByRole('button'))
         expect(copyWidgetCode).to.have.been.calledOnce
       })
     })

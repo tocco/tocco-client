@@ -1,4 +1,5 @@
-import {intlEnzyme} from 'tocco-test-util'
+import {screen, fireEvent} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import SubscribeCalendarCopy from './SubscribeCalendarCopy'
 
@@ -11,7 +12,7 @@ describe('subscribe-calendar', () => {
         const label = 'label'
         const link = 'http://localhost:8080/my/path/1234567890'
 
-        const wrapper = intlEnzyme.mountWithIntl(
+        testingLibrary.renderWithIntl(
           <SubscribeCalendarCopy
             fetchCalendarLinks={fetchCalendarLinks}
             copyCalendarLink={copyCalendarLink}
@@ -19,8 +20,7 @@ describe('subscribe-calendar', () => {
           />
         )
 
-        expect(wrapper.find('code')).to.have.length(1)
-        expect(wrapper.find('code').first().text()).to.equal(link)
+        expect(screen.getByText(link)).to.exist
       })
 
       test('should fetch link', () => {
@@ -28,7 +28,7 @@ describe('subscribe-calendar', () => {
         const copyCalendarLink = sinon.spy()
         const link = undefined
 
-        const wrapper = intlEnzyme.mountWithIntl(
+        testingLibrary.renderWithIntl(
           <SubscribeCalendarCopy
             fetchCalendarLinks={fetchCalendarLinks}
             copyCalendarLink={copyCalendarLink}
@@ -36,7 +36,7 @@ describe('subscribe-calendar', () => {
           />
         )
 
-        expect(wrapper.find('code')).to.have.length(0)
+        expect(screen.queryAllByRole('button')).to.have.length(0)
         expect(fetchCalendarLinks).to.have.been.calledOnce
       })
 
@@ -46,7 +46,7 @@ describe('subscribe-calendar', () => {
         const label = 'label'
         const link = 'http://localhost:8080/my/path/1234567890'
 
-        const wrapper = intlEnzyme.mountWithIntl(
+        testingLibrary.renderWithIntl(
           <SubscribeCalendarCopy
             fetchCalendarLinks={fetchCalendarLinks}
             copyCalendarLink={copyCalendarLink}
@@ -54,8 +54,9 @@ describe('subscribe-calendar', () => {
           />
         )
 
-        expect(wrapper.find('button')).to.have.length(1)
-        wrapper.find('button').first().simulate('click')
+        expect(screen.queryAllByRole('button')).to.have.length(1)
+        expect(screen.getByText(link)).to.exist
+        fireEvent.click(screen.getByRole('button'))
         expect(copyCalendarLink).to.have.been.calledOnce
       })
     })
