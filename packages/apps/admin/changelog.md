@@ -1,3 +1,6 @@
+1.0.41-hotfix32.27
+- change HTTP method of `rest.fetchEntity` to POST
+
 1.0.41-hotfix32.26
 - fix whitespace in notification
 
