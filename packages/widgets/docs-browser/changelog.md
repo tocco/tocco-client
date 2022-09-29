@@ -1,3 +1,7 @@
+1.0.86
+- do not refresh list multiple times
+- show correct search form in subgrid
+
 1.0.85
 - add pen-field icon
 - increase menu item padding on touch devices for better usability

@@ -1,3 +1,7 @@
+0.1.40
+- do not refresh list multiple times
+- show correct search form in subgrid
+
 0.1.39
 - add user availability widget
 - add pen-field icon
