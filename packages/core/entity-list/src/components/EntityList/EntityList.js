@@ -13,7 +13,7 @@ const EntityList = ({
   scrollBehaviour,
   setSearchFormCollapsed
 }) => {
-  const [isCollapsed, toggleCollapse] = useCollapseOnMobile(searchFormCollapsed, setSearchFormCollapsed)
+  const {isCollapsed, toggleCollapse} = useCollapseOnMobile(searchFormCollapsed, setSearchFormCollapsed)
   const getWindowWidth = () => window.innerWidth
 
   if (searchFormType === searchFormTypes.NONE) {

@@ -11,7 +11,7 @@ const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, sav
   const onSearchFormCollapsedChange = collapsed => {
     saveUserPreferences({'admin.detail.relationViewCollapsed': collapsed})
   }
-  const [isCollapsed, toggleCollapse] = useCollapseOnMobile(relationViewCollapsed, onSearchFormCollapsedChange)
+  const {isCollapsed, toggleCollapse} = useCollapseOnMobile(relationViewCollapsed, onSearchFormCollapsedChange)
   const getWindowWidth = () => window.innerWidth
 
   return (
