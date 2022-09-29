@@ -32,5 +32,5 @@ export const useCollapseOnMobile = (initialCollapseState, setSearchFormCollapsed
     }
   }
 
-  return [isCollapsed, toggleCollapse]
+  return {isCollapsed, toggleCollapse}
 }
