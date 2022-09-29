@@ -13,18 +13,8 @@ const EntityList = ({
   scrollBehaviour,
   setSearchFormCollapsed
 }) => {
-  const [isCollapsed, setIsCollapsed] = useCollapseOnMobile(searchFormCollapsed)
+  const [isCollapsed, toggleCollapse] = useCollapseOnMobile(searchFormCollapsed, setSearchFormCollapsed)
   const getWindowWidth = () => window.innerWidth
-
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed)
-
-    /* only toggle searchFormCollapsed on larger resolutions */
-    /* otherwise a double click is needed to reopen collapsed panel on smaller screens */
-    if (getWindowWidth() > 768) {
-      setSearchFormCollapsed(!isCollapsed)
-    }
-  }
 
   if (searchFormType === searchFormTypes.NONE) {
     return <ListViewContainer />

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 
-export const useCollapseOnMobile = initialCollapseState => {
+export const useCollapseOnMobile = (initialCollapseState, setSearchFormCollapsed) => {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const getWindowWidth = () => window.innerWidth
   const [windowWidth, setWindowWidth] = useState(getWindowWidth())
@@ -22,5 +22,15 @@ export const useCollapseOnMobile = initialCollapseState => {
     }
   }, [windowWidth, initialCollapseState])
 
-  return [isCollapsed, setIsCollapsed]
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed)
+
+    /* only toggle searchFormCollapsed on larger resolutions */
+    /* otherwise a double click is needed to reopen collapsed panel on smaller screens */
+    if (getWindowWidth() > 768) {
+      setSearchFormCollapsed(!isCollapsed)
+    }
+  }
+
+  return [isCollapsed, toggleCollapse]
 }

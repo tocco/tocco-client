@@ -8,22 +8,11 @@ import RelationsView from '../RelationsView'
 import {StyledDetailViewContainer, StyledDetailViewLeft, StyledDetailViewRight} from './StyledComponents'
 
 const DetailView = ({match, history, currentViewInfo, relationViewCollapsed, saveUserPreferences}) => {
-  const [isCollapsed, setIsCollapsed] = useCollapseOnMobile(relationViewCollapsed)
-  const getWindowWidth = () => window.innerWidth
-
   const onSearchFormCollapsedChange = collapsed => {
     saveUserPreferences({'admin.detail.relationViewCollapsed': collapsed})
   }
-
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed)
-
-    /* only toggle searchFormCollapsed on larger resolutions */
-    /* otherwise a double click is needed to reopen collapsed panel on smaller screens */
-    if (getWindowWidth() > 768) {
-      onSearchFormCollapsedChange(!isCollapsed)
-    }
-  }
+  const [isCollapsed, toggleCollapse] = useCollapseOnMobile(relationViewCollapsed, onSearchFormCollapsedChange)
+  const getWindowWidth = () => window.innerWidth
 
   return (
     <StyledDetailViewContainer>
