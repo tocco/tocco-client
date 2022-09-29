@@ -1,5 +1,6 @@
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
+import {getFormValues} from 'redux-form'
 import {form} from 'tocco-app-extensions'
 
 import Form from '../components/Form'
@@ -18,6 +19,7 @@ const mapStateToProps = (state, props) => ({
   submitText: state.input.submitText,
   cancelText: state.input.cancelText,
   formDefinition: state.input.form,
+  formValues: getFormValues('simpleForm')(state),
   validate:
     state.input.validate !== false
       ? form.syncValidation(state.simpleForm.fieldDefinitions, state.input.form)
