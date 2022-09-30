@@ -1,3 +1,6 @@
+1.0.49-hotfix33.15
+- change HTTP method of `rest.fetchEntity` to POST
+
 1.0.49-hotfix33.14
 - close datepicker on scroll
 - fix datepicker year dropdown closing on scroll

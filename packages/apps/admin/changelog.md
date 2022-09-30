@@ -1,3 +1,8 @@
+1.0.76-hotfix33.20
+- fix reload button shifting when interacting with fullcalendar navigation
+- change HTTP method of `rest.fetchEntity` to POST
+- load defalut values on action forms
+
 1.0.76-hotfix33.19
 - close datepicker on scroll
 - fix datepicker year dropdown closing on scroll
