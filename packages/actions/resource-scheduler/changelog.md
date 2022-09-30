@@ -1,3 +1,7 @@
+1.0.51-hotfix33.15
+- fix reload button shifting when interacting with fullcalendar navigation
+- load defalut values on action forms
+
 1.0.51-hotfix33.14
 - close datepicker on scroll
 - fix datepicker year dropdown closing on scroll
