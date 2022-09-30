@@ -1,6 +1,6 @@
 {
   "name": "tocco-admin",
-  "version": "1.0.41-hotfix32.27",
+  "version": "1.0.41-hotfix32.28",
   "description": "Alpha version of new tocco admin.",
   "main": "dist/index.js",
   "scripts": {

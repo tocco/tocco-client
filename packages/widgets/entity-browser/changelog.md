@@ -1,3 +1,6 @@
+1.0.24-hotfix32.25
+- load defalut values on action forms
+
 1.0.24-hotfix32.24
 - fix whitespace in notification
 
