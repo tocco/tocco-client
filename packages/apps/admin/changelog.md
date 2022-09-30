@@ -1,3 +1,6 @@
+1.0.41-hotfix32.28
+- load defalut values on action forms
+
 1.0.41-hotfix32.27
 - change HTTP method of `rest.fetchEntity` to POST
 
