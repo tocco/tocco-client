@@ -1,3 +1,16 @@
+0.1.41
+- add mobile collapse feature on list view
+- add widget config key to env
+- use widget config key from env
+- add custom create endpoint to validation
+- add custom create endpoint
+- add copy action to entity-browser
+- remove removeCreate form modifier
+- add addCreate form modifier
+- use addCreate form modifier
+- use addCreate form modifier
+- load defalut values on action forms
+
 0.1.40
 - do not refresh list multiple times
 - show correct search form in subgrid

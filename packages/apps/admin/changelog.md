@@ -1,3 +1,15 @@
+1.0.108
+- fix reload button shifting when interacting with fullcalendar navigation
+- add mobile collapse feature on list view
+- change HTTP method of `rest.fetchEntity` to POST
+- add widget config key to env
+- add custom create endpoint to validation
+- add custom create endpoint
+- add copy action to entity-browser
+- remove removeCreate form modifier
+- add addCreate form modifier
+- load defalut values on action forms
+
 1.0.107
 - do not refresh list multiple times
 - show correct search form in subgrid

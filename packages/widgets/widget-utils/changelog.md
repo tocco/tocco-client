@@ -1,3 +1,6 @@
+0.1.22
+- add widget config key to env
+
 0.1.21
 - ignore any text and textarea fields of a datepicker when autofocusing
 

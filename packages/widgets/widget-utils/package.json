@@ -1,6 +1,6 @@
 {
   "name": "tocco-widget-utils",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "",
   "scripts": {
     "compile:prod": "cd ../../../ && npm run compile:prod -- --package=widget-utils",
