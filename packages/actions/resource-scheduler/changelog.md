@@ -1,3 +1,12 @@
+1.0.77
+- fix reload button shifting when interacting with fullcalendar navigation
+- add mobile collapse feature on list view
+- add widget config key to env
+- add custom create endpoint to validation
+- remove removeCreate form modifier
+- add addCreate form modifier
+- load defalut values on action forms
+
 1.0.76
 - do not refresh list multiple times
 - show correct search form in subgrid

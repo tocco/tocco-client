@@ -1,3 +1,10 @@
+1.0.74
+- change HTTP method of `rest.fetchEntity` to POST
+- add widget config key to env
+- add custom create endpoint to validation
+- remove removeCreate form modifier
+- add addCreate form modifier
+
 1.0.73
 - add pen-field icon
 - increase menu item padding on touch devices for better usability

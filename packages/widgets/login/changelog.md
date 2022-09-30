@@ -1,3 +1,9 @@
+1.1.73
+- add widget config key to env
+- add custom create endpoint to validation
+- remove removeCreate form modifier
+- add addCreate form modifier
+
 1.1.72
 - add pen-field icon
 - increase menu item padding on touch devices for better usability
