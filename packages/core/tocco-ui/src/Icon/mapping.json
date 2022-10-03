@@ -458,7 +458,10 @@
     "lib": "fa"
   },
   "house-blank": {
-    "id": "fal, house-blank",
+    "id": "fal, house-blank"
+  },
+  "floppy-disk-circle-xmark": {
+    "id": "fal, floppy-disk-circle-xmark",
     "lib": "fa"
   }
 }

@@ -20,7 +20,7 @@ const SaveButton = ({submitting, mode, intl, hasErrors, formErrors, icon}) => {
         pending={submitting}
         type="submit"
         hasErrors={hasErrors}
-        icon={hasErrors ? 'exclamation' : icon}
+        icon={hasErrors ? 'floppy-disk-circle-xmark' : icon}
       />
     </Popover>
   )
