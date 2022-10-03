@@ -1,3 +1,7 @@
+1.0.75
+- time input component
+- fix scroll on select
+
 1.0.74
 - change HTTP method of `rest.fetchEntity` to POST
 - add widget config key to env

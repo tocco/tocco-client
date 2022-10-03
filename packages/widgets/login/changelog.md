@@ -1,3 +1,7 @@
+1.1.74
+- time input component
+- fix scroll on select
+
 1.1.73
 - add widget config key to env
 - add custom create endpoint to validation
