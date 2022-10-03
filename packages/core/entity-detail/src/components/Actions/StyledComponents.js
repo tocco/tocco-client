@@ -2,10 +2,11 @@ import styled from 'styled-components'
 import {Button, theme} from 'tocco-ui'
 
 export const StyledSaveButton = styled(Button)`
-  ${({hasErrors}) =>
+  ${({hasErrors, theme}) =>
     hasErrors &&
     `
-    background-color: ${theme.color('paper')};
+      box-shadow: 0 0 0 1px ${theme.colors.signal.danger.text};
+      background-color: ${theme.colors.paper};
   `}
   display: block;
 `
