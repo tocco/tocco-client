@@ -1,3 +1,7 @@
+1.0.109
+- time input component
+- fix scroll on select
+
 1.0.108
 - fix reload button shifting when interacting with fullcalendar navigation
 - add mobile collapse feature on list view

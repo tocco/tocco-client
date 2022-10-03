@@ -1,3 +1,7 @@
+0.1.42
+- time input component
+- fix scroll on select
+
 0.1.41
 - add mobile collapse feature on list view
 - add widget config key to env
