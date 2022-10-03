@@ -444,5 +444,9 @@
   "lightbulb-exclamation": {
     "id": "fal, lightbulb-exclamation",
     "lib": "fa"
+  },
+  "floppy-disk-circle-xmark": {
+    "id": "fal, floppy-disk-circle-xmark",
+    "lib": "fa"
   }
 }
