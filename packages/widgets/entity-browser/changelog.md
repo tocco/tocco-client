@@ -1,3 +1,6 @@
+1.0.58-hotfix33.19
+- time input component
+
 1.0.58-hotfix33.18
 - load defalut values on action forms
 

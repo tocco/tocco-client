@@ -1,3 +1,6 @@
+1.1.48-hotfix33.15
+- time input component
+
 1.1.48-hotfix33.14
 - close datepicker on scroll
 - fix datepicker year dropdown closing on scroll

@@ -1,3 +1,6 @@
+1.0.76-hotfix33.21
+- time input component
+
 1.0.76-hotfix33.20
 - fix reload button shifting when interacting with fullcalendar navigation
 - change HTTP method of `rest.fetchEntity` to POST
