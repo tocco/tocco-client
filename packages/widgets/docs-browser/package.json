@@ -1,6 +1,6 @@
 {
   "name": "tocco-docs-browser",
-  "version": "1.0.59-hotfix33.19",
+  "version": "1.0.59-hotfix33.20",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
