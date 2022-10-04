@@ -35,7 +35,7 @@ describe('tocco-ui', () => {
           const wrapper = intlEnzyme.mountWithIntl(<DatePicker onChange={onChangeSpy} hasTime={false} dateFormat="P" />)
 
           const input = wrapper.find('.react-datepicker__input-container input')
-          input.simulate('focus')
+          input.simulate('click')
           wrapper.find('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').simulate('click')
 
           const firstOfMonth = startOfMonth(new Date()).toISOString()
@@ -94,7 +94,7 @@ describe('tocco-ui', () => {
           )
 
           const input = wrapper.find('.react-datepicker__input-container input')
-          input.simulate('focus')
+          input.simulate('click')
 
           wrapper.find('.react-datepicker-time__input input').simulate('change', {target: {value: '10:00'}})
 
@@ -129,7 +129,7 @@ describe('tocco-ui', () => {
           const wrapper = intlEnzyme.mountWithIntl(<DatePicker onChange={onChangeSpy} hasTime={true} dateFormat="P" />)
 
           const input = wrapper.find('.react-datepicker__input-container input')
-          input.simulate('focus')
+          input.simulate('click')
           wrapper.find('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').simulate('click')
 
           const firstOfMonth = startOfMonth(new Date())
@@ -146,7 +146,7 @@ describe('tocco-ui', () => {
           )
 
           const input = wrapper.find('.react-datepicker__input-container input')
-          input.simulate('focus')
+          input.simulate('click')
           wrapper.find('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').simulate('click')
 
           const firstOfMonth = startOfMonth(new Date())

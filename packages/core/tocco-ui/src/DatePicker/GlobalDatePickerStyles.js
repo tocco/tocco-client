@@ -82,6 +82,7 @@ export const GlobalDatePickerStyles = createGlobalStyle`
       .react-datepicker__day-name {
         border: 1px solid transparent;
         padding: ${scale.space(-0.6)};
+        outline: none;
 
         /* decrease padding to prevent overflow on small screens */
         @media only screen and (max-width: 480px) {
@@ -89,10 +90,20 @@ export const GlobalDatePickerStyles = createGlobalStyle`
         }
       }
 
-      .react-datepicker__day--selected,
-      .react-datepicker__day--keyboard-selected {
+      .react-datepicker__day--selected {
         background-color: ${secondary};
         border-color: ${secondary};
+        border-radius: 50%;
+
+        &:focus {
+          border-color: ${secondary};
+          background-color: ${secondaryLight};
+        }
+      }
+
+      .react-datepicker__day--keyboard-selected {
+        background-color: ${secondaryLight};
+        border-color: ${secondaryLight};
         border-radius: 50%;
       }
 
@@ -185,6 +196,7 @@ export const GlobalDatePickerStyles = createGlobalStyle`
       .react-datepicker__month-text:hover,
       .react-datepicker__quarter-text:hover,
       .react-datepicker__year-text:hover {
+        border-color: ${secondaryLight};
         background-color: ${secondaryLight};
         border-radius: 50%;
         color: ${paper};
