@@ -1,23 +1,18 @@
 import '!style-loader!css-loader!react-datepicker/dist/react-datepicker.css'
-import {getHours, getMinutes, startOfDay} from 'date-fns'
 import PropTypes from 'prop-types'
-import {useRef, useState} from 'react'
+import {useRef} from 'react'
 import ReactDatePicker from 'react-datepicker'
 import {injectIntl} from 'react-intl'
 import {withTheme} from 'styled-components'
-import {date as dateUtil} from 'tocco-util'
 
 import Ball from '../../Ball'
 import Button from '../../Button'
-import {loadLocales, parseISOValue} from '../../DatePicker/utils'
+import {loadLocales} from '../../DatePicker/utils'
 import {StyledDatePickerWrapper, StyledDatePickerOuterWrapper, StyledTimeInput} from './StyledDatePicker'
+import useDatePicker from './useDatePicker'
 import useTimeEdit from './useTimeEdit'
 
 loadLocales()
-
-const ReactDatepickerTimeInputClassName = 'react-datepicker-time__input'
-const ReactDatepickerDayClassName = 'react-datepicker__day'
-const ReactDatepickerInputClassName = 'react-datepicker-ignore-onclickoutside'
 
 const CustomTodayButton = ({onChange, label}) => {
   const handleOnMouseDown = e => {
@@ -27,7 +22,11 @@ const CustomTodayButton = ({onChange, label}) => {
     onChange(null)
   }
 
-  return <Button onMouseDown={handleOnMouseDown}>{label}</Button>
+  return (
+    <Button onMouseDown={handleOnMouseDown} tabIndex={-1}>
+      {label}
+    </Button>
+  )
 }
 
 CustomTodayButton.propTypes = {
@@ -35,7 +34,7 @@ CustomTodayButton.propTypes = {
   label: PropTypes.string.isRequired
 }
 
-const TimeInput = ({value, onChange, onKeyDown}) => {
+const TimeInput = ({value, onChange, onKeyDown, ...timeInputProps}) => {
   const handleOnChange = val => {
     if (onChange) {
       onChange(val || '00:00')
@@ -51,7 +50,9 @@ const TimeInput = ({value, onChange, onKeyDown}) => {
     e.target.focus()
   }
 
-  return <StyledTimeInput {...inputProps} type="text" onKeyDown={onKeyDown} onClick={handleOnClick} />
+  return (
+    <StyledTimeInput {...inputProps} {...timeInputProps} type="text" onKeyDown={onKeyDown} onClick={handleOnClick} />
+  )
 }
 
 TimeInput.propTypes = {
@@ -60,110 +61,29 @@ TimeInput.propTypes = {
   onKeyDown: PropTypes.func
 }
 
-const focusTimeInput = wrapper => {
-  const inputElement = wrapper.querySelector(`input.${ReactDatepickerTimeInputClassName}`)
-  if (inputElement) {
-    inputElement.focus()
-  }
-}
-
-const isDay = element => element.classList.contains(ReactDatepickerDayClassName)
-const isTimeInput = element => element.classList.contains(ReactDatepickerTimeInputClassName)
-const isInput = element => element.classList.contains(ReactDatepickerInputClassName)
+const popperProps = {strategy: 'fixed'}
 
 const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, placeholder, hasTime, dateFormat}) => {
   const locale = intl.locale
   const msg = msgId => intl.formatMessage({id: msgId})
 
   const wrapper = useRef(null)
-  const datePickerRef = useRef(null)
-  const [isOpen, setIsOpen] = useState(false)
 
   const hasValue = Boolean(value)
-  const selectedDate = parseISOValue(value)
-  const minDateVal = minDate ? parseISOValue(minDate) : undefined
-  const maxDateVal = maxDate ? parseISOValue(maxDate) : undefined
-
-  const handleOnChange = val => {
-    if (val) {
-      const changedInitially = !value && val
-
-      const startOfSelectedDay = startOfDay(val)
-      const hasTimeChanged =
-        getHours(val) !== getHours(startOfSelectedDay) || getMinutes(val) !== getMinutes(startOfSelectedDay)
-
-      // set time to now when time has not set explicitly yet
-      if (changedInitially && hasTime && !hasTimeChanged) {
-        val = dateUtil.setCurrentTime(val)
-      }
-      onChange(val.toISOString())
-    }
-  }
-
-  const handleOpen = val => {
-    setIsOpen(val)
-    if (datePickerRef.current?.setPreSelection) {
-      datePickerRef.current?.setPreSelection(selectedDate)
-    }
-  }
-
-  const handleConfirmKey = e => {
-    if (e.key === 'Tab' && !e.shiftKey) {
-      if (isDay(e.target)) {
-        if (hasTime) {
-          // tab to time-input when tabbing on a day
-          focusTimeInput(wrapper.current)
-        } else {
-          handleOpen(false)
-        }
-      } else if (isTimeInput(e.target)) {
-        // Close Datepicker and tab to next input in time-input
-        handleOpen(false)
-      }
-    }
-
-    if (isInput(e.target) && e.key === 'Tab' && e.shiftKey) {
-      // Close Datepicker and tab to prev input in datepicker-input
-      handleOpen(false)
-    }
-
-    if (e.key === 'Enter') {
-      // Close Datepicker and do not submit form
-      handleOpen(false)
-      e.preventDefault()
-      e.stopPropagation()
-    }
-  }
-
-  const handleFocus = () => {
-    handleOpen(true)
-  }
-
-  const handleClickOutside = () => {
-    handleOpen(false)
-  }
-
   const showClearButton = !immutable && hasValue
 
-  const handleOnMouseDown = e => {
-    e.preventDefault()
-    onChange(null)
-  }
-
-  const handleCloseOnScroll = () => {
-    handleOpen(false)
-    return true
-  }
+  const {reactDatePickerProps, timeInputProps, clearButtonProps, calendarButtonProps} = useDatePicker(value, onChange, {
+    minDate,
+    maxDate,
+    hasTime
+  })
 
   return (
     <StyledDatePickerOuterWrapper immutable={immutable} id={id} tabIndex="-1">
       <StyledDatePickerWrapper immutable={immutable} ref={wrapper} hasTime={hasTime}>
         <ReactDatePicker
-          ref={datePickerRef}
-          selected={selectedDate}
-          onChange={handleOnChange}
+          {...reactDatePickerProps}
           disabled={immutable}
-          showTimeInput={hasTime}
           dateFormat={dateFormat}
           placeholderText={placeholder}
           showMonthDropdown
@@ -171,18 +91,10 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
           scrollableYearDropdown={false}
           fixedHeight
           showPopperArrow={false}
-          closeOnScroll={handleCloseOnScroll}
-          open={isOpen}
-          onFocus={handleFocus}
-          onClickOutside={handleClickOutside}
           locale={locale}
-          onKeyDown={handleConfirmKey}
-          customTimeInput={<TimeInput onKeyDown={handleConfirmKey} />}
-          enableTabLoop={false}
+          customTimeInput={<TimeInput {...timeInputProps} />}
           timeInputLabel=""
-          minDate={minDateVal}
-          maxDate={maxDateVal}
-          popperProps={{strategy: 'fixed'}}
+          popperProps={popperProps}
           todayButton={<CustomTodayButton onChange={onChange} label={msg('client.component.datePicker.todayLabel')} />}
         />
         {showClearButton && (
@@ -190,20 +102,10 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
             icon="times"
             tabIndex={-1}
             aria-label={msg('client.component.datePicker.clearDateLabel')}
-            onMouseDown={handleOnMouseDown}
+            {...clearButtonProps}
           />
         )}
-        {!immutable && (
-          <Ball
-            icon="calendar"
-            tabIndex={-1}
-            onMouseDown={e => {
-              e.preventDefault()
-              e.stopPropagation()
-              handleOpen(!isOpen)
-            }}
-          />
-        )}
+        {!immutable && <Ball icon="calendar" tabIndex={-1} {...calendarButtonProps} />}
       </StyledDatePickerWrapper>
     </StyledDatePickerOuterWrapper>
   )
