@@ -3,6 +3,7 @@ export const ACTION_BAR_TYPE = 'action-bar'
 export const ACTION_GROUP_TYPE = 'action-group'
 export const ACTION_TYPE = 'action'
 export const LAYOUT_TYPE = 'layout'
+export const TABLE_TYPE = 'table'
 export const ACTION_GROUP_CREATECOPY_ID = 'createcopy'
 export const ACTION_DELETE_ID = 'delete'
 export const ACTION_SAVE_ID = 'save'
@@ -16,6 +17,36 @@ export const removeBoxes = (formDefinition, boxIds) => ({
     .map(item => {
       if (item.componentType === LAYOUT_TYPE) {
         return removeBoxes(item, boxIds)
+      }
+
+      return item
+    })
+})
+
+/**
+ * remove fields by name anywhere in the form definition
+ * @param {*} container the form definition (or any other container object)
+ * @param {*} fieldIds the fields to remove
+ * @returns a copy of the container with the fields removed
+ */
+export const removeFields = (container, fieldIds) =>
+  removeFieldsByPredicate(container, item => fieldIds.includes(item.id))
+
+/**
+ * remove any field that match a predicate anywhere in the form definition
+ * @param {*} container container the form definition (or any other container object)
+ * @param {*} predicate the predicate function, receives the field as first and its container as the second parameter
+ * @returns a copy of the container with the fields removed
+ */
+export const removeFieldsByPredicate = (container, predicate) => ({
+  ...container,
+  children: container.children
+    .filter(
+      item => item.componentType === LAYOUT_TYPE || item.componentType === TABLE_TYPE || !predicate(item, container)
+    )
+    .map(item => {
+      if (item.componentType === LAYOUT_TYPE || item.componentType === TABLE_TYPE) {
+        return removeFieldsByPredicate(item, predicate)
       }
 
       return item

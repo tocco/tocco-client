@@ -8,6 +8,8 @@ import {
   addReports,
   MAIN_ACTION_BAR_ID,
   removeBoxes,
+  removeFields,
+  removeFieldsByPredicate,
   removeActions,
   adjustActions
 } from './formModifier'
@@ -157,6 +159,69 @@ describe('app-extensions', () => {
         test('should leave definition unchanged when boxes do not exist', () => {
           const modifiedFormDefinition = removeBoxes(formDefinitionBoxes, ['third-box'])
           expect(modifiedFormDefinition).to.deep.eq(formDefinitionBoxes)
+        })
+      })
+
+      describe('removeFields', () => {
+        const formDefinitionBoxes = {
+          children: [
+            {
+              id: 'top-box',
+              componentType: 'layout',
+              children: [
+                {
+                  id: 'first-box',
+                  componentType: 'layout',
+                  children: [
+                    {
+                      id: 'field_1',
+                      componentType: 'field'
+                    },
+                    {
+                      id: 'field_2',
+                      componentType: 'field'
+                    }
+                  ]
+                },
+                {
+                  id: 'second-box',
+                  componentType: 'layout',
+                  children: [
+                    {
+                      id: 'low-box',
+                      componentType: 'layout',
+                      children: [
+                        {
+                          id: 'field_3',
+                          componentType: 'field'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+
+        test('should remove fields', () => {
+          const modifiedFormDefinition = removeFields(formDefinitionBoxes, ['field_1', 'field_3'])
+          expect(modifiedFormDefinition.children[0].children[0].children[0].id).to.eq('field_2')
+          expect(modifiedFormDefinition.children[0].children[1].children[0].children).to.be.empty
+        })
+        test('should not remove box', () => {
+          const modifiedFormDefinition = removeFields(formDefinitionBoxes, ['second-box'])
+          expect(modifiedFormDefinition.children[0].children[1]).to.not.be.null
+        })
+
+        describe('removeFieldsByPredicate', () => {
+          test('should remove fields from box', () => {
+            const modifiedFormDefinition = removeFieldsByPredicate(
+              formDefinitionBoxes,
+              (item, container) => container.id === 'first-box'
+            )
+            expect(modifiedFormDefinition.children[0].children[0].children).to.be.empty
+          })
         })
       })
 
