@@ -16,13 +16,12 @@ const useAutofocus = (reference, options = {}, dependencies = []) =>
       }
 
       const firstTextInput = reference.current.querySelector(
-        [
-          ':not(.react-datepicker-wrapper) input[type = "text"]:not([disabled])',
-          ':not(.react-datepicker-wrapper) textarea:not([disabled])'
-        ].join(',')
+        'input[type="text"]:not([disabled]), textarea:not([disabled])'
       )
       if (firstTextInput) {
-        firstTextInput.focus()
+        setTimeout(() => {
+          firstTextInput.focus()
+        }, 0)
       }
     }
   }, dependencies) // eslint-disable-line react-hooks/exhaustive-deps
