@@ -1,4 +1,4 @@
+import DatePicker from './DatePicker'
 import {GlobalDatePickerStyles} from './GlobalDatePickerStyles'
-import LazyDatePicker from './LazyDatePicker'
 
-export {LazyDatePicker as default, GlobalDatePickerStyles}
+export {DatePicker as default, GlobalDatePickerStyles}

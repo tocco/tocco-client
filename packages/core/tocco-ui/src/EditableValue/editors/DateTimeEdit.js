@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import {injectIntl, useIntl} from 'react-intl'
 import {date} from 'tocco-util'
 
-import LazyDatePicker from './LazyDatePicker'
+import DatePicker from './DatePicker'
 
 const DateTimeFormat = 'Pp' // MM/dd/yyyy hh:mm a.m. od. dd.MM.y hh:mm
 
@@ -21,7 +21,7 @@ export const DateTimeEdit = ({onChange, options, value, immutable, events, place
   ]
 
   return (
-    <LazyDatePicker
+    <DatePicker
       value={value}
       onChange={onChange}
       dateFormat={dateFormats}
