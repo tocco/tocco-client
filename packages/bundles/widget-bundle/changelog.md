@@ -1,3 +1,6 @@
+0.1.43
+- improve save button look on error
+
 0.1.42
 - time input component
 - fix scroll on select
