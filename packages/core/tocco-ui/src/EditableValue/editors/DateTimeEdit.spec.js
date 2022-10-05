@@ -1,7 +1,7 @@
 import {enzymeUtil} from 'tocco-test-util'
 
+import DatePicker from './DatePicker'
 import DateTimeEdit from './DateTimeEdit'
-import LazyDatePicker from './LazyDatePicker'
 
 const EMPTY_FUNC = () => {}
 
@@ -12,7 +12,7 @@ describe('tocco-ui', () => {
         test('should render an instance of DatePicker', () => {
           const wrapper = enzymeUtil.mountEmbedded(<DateTimeEdit onChange={EMPTY_FUNC} />)
 
-          const datePicker = wrapper.find(LazyDatePicker)
+          const datePicker = wrapper.find(DatePicker)
           expect(datePicker).to.have.length(1)
         })
       })

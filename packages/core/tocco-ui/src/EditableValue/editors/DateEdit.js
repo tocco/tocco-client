@@ -3,7 +3,7 @@ import {useIntl} from 'react-intl'
 import {date} from 'tocco-util'
 
 import {toLocalDateString} from '../utils'
-import LazyDatePicker from './LazyDatePicker'
+import DatePicker from './DatePicker'
 
 const DateFormat = 'P' // MM/dd/yyyy od. dd.MM.y
 
@@ -27,7 +27,7 @@ export const DateEdit = ({onChange, options, id, value, immutable, events, place
   ]
 
   return (
-    <LazyDatePicker
+    <DatePicker
       id={id}
       value={value}
       onChange={handleChange}
