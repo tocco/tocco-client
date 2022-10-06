@@ -7,7 +7,8 @@ import {consoleLogger} from 'tocco-util'
 
 const actions = {
   'input-edit': lazy(() => import(/* webpackChunkName: "actions" */ './actions/InputEdit')),
-  delete: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Delete'))
+  delete: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Delete')),
+  export: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Export'))
 }
 
 const renderLoader = () => <LoadMask />
