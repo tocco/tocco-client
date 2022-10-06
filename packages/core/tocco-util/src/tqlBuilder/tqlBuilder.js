@@ -52,6 +52,8 @@ const rangeMappings = type => {
   }
 }
 
+const escapeFulltextValue = value => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+
 const typeHandlers = type => {
   switch (type) {
     case 'multi-select-box':
@@ -61,10 +63,12 @@ const typeHandlers = type => {
     case 'single-select-box':
       return (path, value) => `${path}.pk == ${value.key}`
     case 'fulltext-search':
-      return (path, value) =>
-        path === 'txtFulltext'
-          ? `(fulltext("${value}") or fulltext("${value}*"))`
-          : `(fulltext("${value}", ${path}) or fulltext("${value}*", ${path}))`
+      return (path, value) => {
+        const escapedValue = escapeFulltextValue(value)
+        return path === 'txtFulltext'
+          ? `(fulltext("${escapedValue}") or fulltext("${escapedValue}*"))`
+          : `(fulltext("${escapedValue}", ${path}) or fulltext("${escapedValue}*", ${path}))`
+      }
     case 'birthdate':
     case 'date':
     case 'create_timestamp':

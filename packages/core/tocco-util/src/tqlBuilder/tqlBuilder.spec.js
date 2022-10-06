@@ -114,6 +114,39 @@ describe('tocco-util', () => {
         expect(result).to.deep.eql(expectedResult)
       })
 
+      test('should escape double quotes on fulltext fields', () => {
+        const value = '"Test Value"'
+        const path = 'txtFulltext'
+        const fieldType = 'fulltext-search'
+
+        const expectedResult = '(fulltext("\\"Test Value\\"") or fulltext("\\"Test Value\\"*"))'
+        const result = getTql(path, value, fieldType)
+
+        expect(result).to.deep.eql(expectedResult)
+      })
+
+      test('should escape backslashes on fulltext fields', () => {
+        const value = 'Test \\ Value'
+        const path = 'txtFulltext'
+        const fieldType = 'fulltext-search'
+
+        const expectedResult = '(fulltext("Test \\\\ Value") or fulltext("Test \\\\ Value*"))'
+        const result = getTql(path, value, fieldType)
+
+        expect(result).to.deep.eql(expectedResult)
+      })
+
+      test('should escape all in one on fulltext fields', () => {
+        const value = '"Test \\ Value"'
+        const path = 'txtFulltext'
+        const fieldType = 'fulltext-search'
+
+        const expectedResult = '(fulltext("\\"Test \\\\ Value\\"") or fulltext("\\"Test \\\\ Value\\"*"))'
+        const result = getTql(path, value, fieldType)
+
+        expect(result).to.deep.eql(expectedResult)
+      })
+
       test('should handle boolean with true value', () => {
         const value = true
         const path = 'active'
