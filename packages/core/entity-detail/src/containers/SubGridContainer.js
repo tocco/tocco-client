@@ -10,6 +10,7 @@ const mapStateToProps = (state, props) => ({
   entityName: state.entityDetail.entity.model,
   detailFormName: state.entityDetail.formDefinition.id,
   navigationStrategy: state.input.navigationStrategy,
+  actionAppComponent: state.input.actionAppComponent,
   locale: state.intl.locale
 })
 
