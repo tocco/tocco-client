@@ -12,6 +12,7 @@
     "tocco-delete": "*",
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
+    "tocco-export": "*",
     "tocco-input-edit": "*",
     "tocco-mailing-list-mail-action": "*",
     "tocco-subscribe-calendar": "*",
