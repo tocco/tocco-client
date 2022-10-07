@@ -1,3 +1,6 @@
+1.0.76-hotfix33.23
+- fix escape handling in tql fulltext search
+
 1.0.76-hotfix33.22
 - improve save button look on error
 
