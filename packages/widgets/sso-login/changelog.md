@@ -1,3 +1,6 @@
+1.0.48-hotfix33.16
+- fix escape handling in tql fulltext search
+
 1.0.48-hotfix33.15
 - time input component
 
