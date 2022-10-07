@@ -1,3 +1,6 @@
+1.0.111
+- fix escape handling in tql fulltext search
+
 1.0.110
 - improve save button look on error
 

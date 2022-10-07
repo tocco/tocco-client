@@ -1,3 +1,6 @@
+1.0.79
+- fix escape handling in tql fulltext search
+
 1.0.78
 - time input component
 - fix scroll on select
