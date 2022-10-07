@@ -1,3 +1,6 @@
+0.1.23
+- fix escape handling in tql fulltext search
+
 0.1.22
 - add widget config key to env
 
