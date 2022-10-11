@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
 import {errorLogging} from 'tocco-app-extensions'
 import {ButtonContextProvider, LoadMask} from 'tocco-ui'
-import {js} from 'tocco-util'
+import {js, env} from 'tocco-util'
 
 import TableContainer from '../../containers/TableContainer'
 import {getColumnDefinition, getTable} from '../../util/api/forms'
@@ -70,7 +70,11 @@ const ListView = ({
       if (content.length > 0 && actionBar) {
         return (
           <ButtonContextProvider key={`listActionWrapper-${actionBar.id}`}>
-            {ref => <StyledActionWrapper ref={ref}>{content}</StyledActionWrapper>}
+            {ref => (
+              <StyledActionWrapper ref={ref} env={env.getEmbedType()}>
+                {content}
+              </StyledActionWrapper>
+            )}
           </ButtonContextProvider>
         )
       }

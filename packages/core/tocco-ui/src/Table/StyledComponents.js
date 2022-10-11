@@ -2,12 +2,25 @@ import _get from 'lodash/get'
 import {darken} from 'polished'
 import styled, {css} from 'styled-components'
 
-import {declareFont, theme, shadeColor, StyledScrollbar, scale, StyledFontAwesomeAdapterWrapper} from '../'
+import {declareFont, theme, shadeColor, StyledScrollbar, scale, StyledFontAwesomeAdapterWrapper, StyledBall} from '../'
 import {generateShades} from '../utilStyles'
 import {ScrollBehaviour} from './scrollBehaviour'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
 const basePadding = scale.space(-1.5)
+
+export const StyledTableFooter = styled.div`
+  grid-row-start: pagination-start;
+  display: flex;
+  align-items: flex-start;
+  padding-top: ${scale.space(-0.5)};
+  padding-bottom: ${scale.space(-1)};
+  border-top: 1px solid ${borderColor};
+
+  ${StyledBall} {
+    margin-right: ${scale.space(-1)};
+  }
+`
 
 export const StyledTableCell = styled.td`
   && {
@@ -95,14 +108,6 @@ export const StyledTableHeaderCell = styled.th`
         }
     `}
   }
-`
-
-export const StyledTableFooter = styled.div`
-  grid-row-start: pagination-start;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  border-top: 1px solid ${borderColor};
 `
 
 const selectionStyles = css`
@@ -200,18 +205,21 @@ export const StyledTable = styled.table`
 export const StretchingTableContainer = styled.div`
   grid-row-start: table-start;
   position: relative;
+  overflow-x: auto;
 `
 
 export const StyledTableWrapper = styled.div`
   display: grid;
   background-color: ${theme.color('paper')};
   grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
+  grid-template-columns: 100%;
   height: 100%;
 
   // reset external styles in old client
   input[type='checkbox'],
   input[type='radio'] {
     margin: 3px 3px 3px 4px !important;
+    min-width: 12px;
   }
 `
 
