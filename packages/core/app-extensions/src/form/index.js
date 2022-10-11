@@ -10,6 +10,7 @@ import formErrorsUtil from './formErrors'
 import {
   adjustActions,
   addCreate,
+  addBack,
   addReports,
   removeBoxes,
   removeFields,
@@ -63,6 +64,7 @@ export default {
   hooks,
   selectors,
   addCreate,
+  addBack,
   addReports,
   removeBoxes,
   removeFields,

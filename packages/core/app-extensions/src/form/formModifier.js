@@ -95,7 +95,7 @@ export const addCreate = (formDefinition, intl) => {
     return formDefinition
   }
 
-  formDefinition = addMainActionBar(formDefinition)
+  const formDefinitionWithActionBar = addMainActionBar(formDefinition)
 
   const create = {
     id: 'new',
@@ -109,8 +109,8 @@ export const addCreate = (formDefinition, intl) => {
   }
 
   return {
-    ...formDefinition,
-    children: formDefinition.children.map(rootItem => {
+    ...formDefinitionWithActionBar,
+    children: formDefinitionWithActionBar.children.map(rootItem => {
       if (rootItem.id === MAIN_ACTION_BAR_ID) {
         const createCopyExists = rootItem.children.some(c => ACTION_GROUP_CREATECOPY_ID === c.id)
         if (createCopyExists) {
@@ -129,6 +129,38 @@ export const addCreate = (formDefinition, intl) => {
 }
 
 /**
+ * add back button to main action bar
+ */
+export const addBack = (formDefinition, intl) => {
+  const formDefinitionWithActionBar = addMainActionBar(formDefinition)
+
+  const back = {
+    id: 'back',
+    label: intl.formatMessage({id: 'client.actions.back'}),
+    componentType: 'action',
+    children: [],
+    actionType: 'custom',
+    useLabel: 'YES',
+    buttonType: 'REGULAR',
+    icon: 'arrow-left'
+  }
+
+  return {
+    ...formDefinitionWithActionBar,
+    children: formDefinitionWithActionBar.children.map(rootItem => {
+      if (rootItem.id === MAIN_ACTION_BAR_ID) {
+        return {
+          ...rootItem,
+          children: [back, ...rootItem.children]
+        }
+      }
+
+      return rootItem
+    })
+  }
+}
+
+/**
  * add reports to form definition (use reports helper of app-extensions to create correct format of reports parameter)
  */
 export const addReports = (formDefinition, reports) => {
@@ -136,13 +168,13 @@ export const addReports = (formDefinition, reports) => {
     return formDefinition
   }
 
-  formDefinition = addMainActionBar(formDefinition)
+  const formDefinitionWithActionBar = addMainActionBar(formDefinition)
 
   const actionGroupsBeforeReports = [ACTION_GROUP_CREATECOPY_ID, ACTION_DELETE_ID, ACTION_SAVE_ID]
 
   return {
-    ...formDefinition,
-    children: formDefinition.children.map(rootItem => {
+    ...formDefinitionWithActionBar,
+    children: formDefinitionWithActionBar.children.map(rootItem => {
       if (rootItem.id === MAIN_ACTION_BAR_ID) {
         return {
           ...rootItem,
