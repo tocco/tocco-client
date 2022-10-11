@@ -49,7 +49,10 @@ const initApp = (id, input, events, publicPath) => {
   actions.addToStore(store, state => ({
     formApp: SimpleFormApp,
     listApp: EntityListApp,
-    customActions,
+    customActions: {
+      ...customActions,
+      ...(state.input.customActions || {})
+    },
     appComponent: state.input.actionAppComponent,
     navigationStrategy: state.input.navigationStrategy,
     context: {
@@ -126,6 +129,7 @@ EntityDetailApp.propTypes = {
   navigationStrategy: navigationStrategy.propTypes,
   chooseDocument: PropTypes.func,
   actionAppComponent: PropTypes.elementType,
+  customActions: PropTypes.object,
   modifyFormDefinition: PropTypes.func,
   reportIds: PropTypes.arrayOf(PropTypes.string)
 }
