@@ -1,3 +1,6 @@
+1.0.75
+- add helpers to remove fields from forms
+
 1.0.74
 - fix escape handling in tql fulltext search
 
