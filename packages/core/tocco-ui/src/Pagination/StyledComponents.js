@@ -6,7 +6,9 @@ import Button from '../Button'
 export const StyledPagination = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: ${scale.space(-1)};
   margin-left: 5px;
 
   span {

@@ -10,7 +10,8 @@ export const StyledActionWrapper = styled.div`
   display: flex;
   background-color: ${theme.color('paper')};
   margin-bottom: 3px;
-  padding: 0 8px 8px;
+  /* remove left padding on widget */
+  padding: ${({env}) => (env === 'widget' ? '0 0 8px 0' : '0 8px 8px')};
   grid-row-start: action-start;
   flex-wrap: wrap;
 
