@@ -2,27 +2,26 @@ import PropTypes from 'prop-types'
 import {useEffect} from 'react'
 import {Prompt} from 'react-router-dom'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
-import {Button, ButtonContextProvider} from 'tocco-ui'
 import {queryString as queryStringUtil} from 'tocco-util'
 
 import Action from '../LazyAction'
 import {DetailLinkRelative} from './DetailLinkRelative'
-import {StyledEntityDetailBackButton} from './StyledEntityDetail'
+import {modifyFormDefinition} from './formModifier'
 
-const EntityDetail = ({
-  loadDetailParams,
-  router,
-  setFormTouched,
-  clearDetailParams,
-  detailParams,
-  appId,
-  intl,
-  dispatchEmittedAction,
-  formTouched,
-  locale,
-  modifyFormDefinition,
-  reportIds
-}) => {
+const EntityDetail = props => {
+  const {
+    loadDetailParams,
+    router,
+    setFormTouched,
+    clearDetailParams,
+    detailParams,
+    appId,
+    intl,
+    dispatchEmittedAction,
+    formTouched,
+    locale,
+    reportIds
+  } = props
   useEffect(() => {
     loadDetailParams(router.match.url)
     setFormTouched(false)
@@ -98,9 +97,12 @@ const EntityDetail = ({
       }}
       theme={{}}
       locale={locale}
-      modifyFormDefinition={modifyFormDefinition}
+      modifyFormDefinition={(formDefinition, context) => modifyFormDefinition(formDefinition, context, props)}
       actionAppComponent={Action}
       reportIds={reportIds}
+      customActions={{
+        back: handleGoBack
+      }}
     />
   )
 
@@ -109,25 +111,7 @@ const EntityDetail = ({
   return (
     <>
       <Prompt when={formTouched} message={msg('client.entity-browser.detail.confirmTouchedFormLeave')} />
-      {detailParams && (
-        <>
-          {detailParams.showBackButton && (
-            <ButtonContextProvider>
-              {ref => (
-                <StyledEntityDetailBackButton ref={ref}>
-                  <Button
-                    data-cy="entity-detail_back-button"
-                    icon="arrow-left"
-                    label={msg('client.entity-browser.back')}
-                    onClick={handleGoBack}
-                  />
-                </StyledEntityDetailBackButton>
-              )}
-            </ButtonContextProvider>
-          )}
-          {getApp(detailParams)}
-        </>
-      )}
+      {detailParams && <>{getApp(detailParams)}</>}
     </>
   )
 }
