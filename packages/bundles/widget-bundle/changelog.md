@@ -1,3 +1,7 @@
+0.1.45
+- add helpers to remove fields from forms
+- create user-grades widget
+
 0.1.44
 - fix escape handling in tql fulltext search
 
