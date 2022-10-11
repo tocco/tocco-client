@@ -11,7 +11,8 @@ import {
   removeFields,
   removeFieldsByPredicate,
   removeActions,
-  adjustActions
+  adjustActions,
+  addBack
 } from './formModifier'
 
 describe('app-extensions', () => {
@@ -78,6 +79,62 @@ describe('app-extensions', () => {
           expect(addCreate(formDefinition, IntlStub).children[0].children.map(r => r.reportId || r.id)).to.be.eql([
             'new',
             'reportFormDefinition'
+          ])
+        })
+      })
+
+      describe('addBack', () => {
+        test('add back action if no main action bar exists', () => {
+          const formDefinition = {
+            id: 'Test_list',
+            children: []
+          }
+          expect(addBack(formDefinition, IntlStub).children[0].children.map(r => r.reportId || r.id)).to.be.eql([
+            'back'
+          ])
+        })
+
+        test('add back action inside existing main action bar', () => {
+          const formDefinition = {
+            id: 'Test_list',
+            children: [
+              {
+                id: MAIN_ACTION_BAR_ID,
+                children: [
+                  {
+                    reportId: 'reportFormDefinition'
+                  }
+                ]
+              }
+            ]
+          }
+
+          expect(addBack(formDefinition, IntlStub).children[0].children.map(r => r.reportId || r.id)).to.be.eql([
+            'back',
+            'reportFormDefinition'
+          ])
+        })
+
+        test('add back before createcopy', () => {
+          const formDefinition = {
+            children: [
+              {
+                id: MAIN_ACTION_BAR_ID,
+                children: [
+                  {
+                    id: ACTION_GROUP_CREATECOPY_ID
+                  },
+                  {
+                    id: ACTION_GROUP_ACTIONS_ID
+                  }
+                ]
+              }
+            ]
+          }
+          expect(addBack(formDefinition, IntlStub).children[0].children.map(r => r.reportId || r.id)).to.be.eql([
+            'back',
+            ACTION_GROUP_CREATECOPY_ID,
+            ACTION_GROUP_ACTIONS_ID
           ])
         })
       })
