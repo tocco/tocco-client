@@ -1,6 +1,6 @@
 import {darken} from 'polished'
 import styled from 'styled-components'
-import {scale, theme} from 'tocco-ui'
+import {scale, themeSelector} from 'tocco-ui'
 
 export const StyledTaskProgressWrapper = styled.div`
   margin-bottom: ${scale.space(-1.5)};
@@ -21,7 +21,7 @@ export const StyledProgressOuter = styled.div`
 `
 
 export const StyledProgressInner = styled.div`
-  background-color: ${theme.color('paper')};
+  background-color: ${themeSelector.color('paper')};
   width: ${({percentage}) => percentage}%;
   height: 5px;
 `
@@ -42,7 +42,7 @@ export const StyledDetailLinkWrapper = styled.div`
 
 export const StyledOutputJobWrapper = styled.div`
   a {
-    color: ${theme.color('text')};
+    color: ${themeSelector.color('text')};
     text-decoration: none;
 
     &:hover {
@@ -66,7 +66,7 @@ export const StyledIconWrapper = styled.span`
 `
 
 export const StyledCancelWrapper = styled.div`
-  color: ${theme.color('text')};
+  color: ${themeSelector.color('text')};
   text-decoration: none;
 
   &:hover {

@@ -1,5 +1,5 @@
 import styled, {keyframes} from 'styled-components'
-import {Ball, declareFont, scale, StyledH1, theme} from 'tocco-ui'
+import {Ball, declareFont, scale, StyledH1, themeSelector} from 'tocco-ui'
 
 const fadeIn = keyframes`
   0% {
@@ -28,7 +28,7 @@ export const StyledToaster = styled.div`
   *,
   a:link // reset legacy styling
   {
-    color: ${theme.color('paper')} !important;
+    color: ${themeSelector.color('paper')} !important;
   }
   animation-name: ${fadeIn};
   animation-duration: 0.8s;
@@ -38,7 +38,7 @@ export const StyledToaster = styled.div`
 export const StyledCloseButton = styled(Ball)`
   padding: 0;
   font-size: ${scale.font(3)};
-  color: ${theme.color('backgroundBody')};
+  color: ${themeSelector.color('backgroundBody')};
   float: right;
   opacity: 0.9;
 
@@ -50,7 +50,7 @@ export const StyledCloseButton = styled(Ball)`
 
   &:hover {
     opacity: 1;
-    color: ${theme.color('paper')};
+    color: ${themeSelector.color('paper')};
   }
 `
 
@@ -66,7 +66,7 @@ export const StyledIconTitleWrapper = styled.div`
 
 export const StyledTitleWrapper = styled.span`
   font-size: ${scale.font(1.5)};
-  font-weight: ${theme.fontWeight('regular')};
+  font-weight: ${themeSelector.fontWeight('regular')};
   position: relative;
   bottom: 2px;
 `
@@ -78,7 +78,7 @@ export const StyledIconWrapper = styled.div`
 
 export const StyledContentWrapper = styled.div`
   padding-top: ${scale.space(-1)};
-  color: ${theme.color('paper')};
+  color: ${themeSelector.color('paper')};
 `
 
 export const StyledToasterBox = styled.div`

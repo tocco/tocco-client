@@ -4,24 +4,24 @@ import PropTypes from 'prop-types'
 import {useMemo} from 'react'
 import {ThemeProvider, withTheme, createGlobalStyle} from 'styled-components'
 import {ToccoTheme} from 'tocco-theme'
-import {theme} from 'tocco-ui'
+import {themeSelector} from 'tocco-ui'
 
 const GlobalStyle = createGlobalStyle`
   // Legacy (display expression) icons styling
   .text-success {
-    color: ${theme.color('signal.success.text')};
+    color: ${themeSelector.color('signal.success.text')};
   }
 
   .text-info {
-    color: ${theme.color('signal.info.text')};
+    color: ${themeSelector.color('signal.info.text')};
   }
 
   .text-warning {
-    color: ${theme.color('signal.warning.text')};
+    color: ${themeSelector.color('signal.warning.text')};
   }
 
   .text-danger {
-    color: ${theme.color('signal.danger.text')};
+    color: ${themeSelector.color('signal.danger.text')};
   }
 
   .text-muted {

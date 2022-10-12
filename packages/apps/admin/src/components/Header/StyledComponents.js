@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {AdminLink, Ball, scale, theme, StyledButton, StyledLabelWrapper} from 'tocco-ui'
+import {AdminLink, Ball, scale, themeSelector, StyledButton, StyledLabelWrapper} from 'tocco-ui'
 
 import ToccoLogo from '../../assets/tocco-circle.svg'
 
@@ -9,7 +9,7 @@ export const StyledBackgroundCover = styled.div`
   z-index: 2; // higher than StyledTether to prevent cover on scroll
   height: 40px;
   width: 100%;
-  background-color: ${theme.color('paper')};
+  background-color: ${themeSelector.color('paper')};
 `
 
 export const StyledHeader = styled.div`
@@ -70,7 +70,7 @@ export const StyledRedDot = styled.span`
   position: absolute;
   top: 3px;
   left: 21.5px;
-  background-color: ${theme.color('secondaryLight')};
+  background-color: ${themeSelector.color('secondaryLight')};
   border-radius: 50%;
   display: inline-block;
 `

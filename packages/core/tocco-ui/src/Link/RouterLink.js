@@ -2,7 +2,7 @@ import _get from 'lodash/get'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 
-import {declareFont, shadeColor, theme} from '../utilStyles'
+import {declareFont, shadeColor, themeSelector} from '../utilStyles'
 
 /**
  * A styled version of https://reactrouter.com/web/api/Link
@@ -10,10 +10,10 @@ import {declareFont, shadeColor, theme} from '../utilStyles'
 export default styled(Link)`
   ${declareFont()}
   text-decoration: none;
-  color: ${theme.color('secondary')};
+  color: ${themeSelector.color('secondary')};
 
   * {
-    color: ${theme.color('text')};
+    color: ${themeSelector.color('text')};
     text-decoration: none;
   }
 
@@ -21,7 +21,7 @@ export default styled(Link)`
   &:hover *,
   &:focus,
   &:focus * {
-    color: ${theme.color('secondaryLight')};
+    color: ${themeSelector.color('secondaryLight')};
     text-decoration: ${({neutral}) => (neutral ? 'none' : 'underline')};
   }
 

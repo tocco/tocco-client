@@ -22,6 +22,7 @@ import theme from './resolveThemePath'
 import {useCollapseOnMobile} from './useCollapseOnMobile'
 import {useWindowWidth} from './useWindowWidth'
 
+const themeSelector = theme
 export {
   interactiveStyling,
   assertObjectValuesMatchOtherObjectKeys,
@@ -42,6 +43,7 @@ export {
   scale,
   shadeColor,
   theme,
+  themeSelector,
   validateCssDimension,
   isTouchDevice,
   useWindowWidth,

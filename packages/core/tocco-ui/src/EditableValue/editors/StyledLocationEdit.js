@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import styled from 'styled-components'
 
-import {generateDisabledShade, scale, shadeColor, theme} from '../../utilStyles'
+import {generateDisabledShade, scale, shadeColor, themeSelector} from '../../utilStyles'
 import {StyledEditableWrapperCss, StyledInputCss} from '../StyledEditableValue'
 
 export const StyledLocationEdit = styled.div`
@@ -34,9 +34,9 @@ export const StyledLocationEdit = styled.div`
 
     .react-autosuggest__suggestions-container--open {
       width: calc(100% + 17.5px);
-      background-color: ${theme.color('paper')};
-      box-shadow: 0 0 6px ${theme.color('signal.info.text')};
-      border: 1px solid ${theme.color('secondaryLight')};
+      background-color: ${themeSelector.color('paper')};
+      box-shadow: 0 0 6px ${themeSelector.color('signal.info.text')};
+      border: 1px solid ${themeSelector.color('secondaryLight')};
       bottom: -9px;
       left: -10px;
       max-height: 300px;

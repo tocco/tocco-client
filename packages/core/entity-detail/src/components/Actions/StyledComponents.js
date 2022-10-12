@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Button, theme} from 'tocco-ui'
+import {Button, themeSelector} from 'tocco-ui'
 
 export const StyledSaveButton = styled(Button)`
   ${({hasErrors, theme}) =>
@@ -20,7 +20,7 @@ export const StyledActionSpan = styled.span`
   align-items: center;
 
   &:hover {
-    color: ${theme.color('secondaryLight')};
+    color: ${themeSelector.color('secondaryLight')};
   }
   ${({marked, theme}) => marked && `color: ${theme.colors.secondary};`}
 `

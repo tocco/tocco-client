@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme, declareFont} from 'tocco-ui'
+import {themeSelector, declareFont} from 'tocco-ui'
 
 export const StyledMarkingWrapper = styled.span`
   ${declareFont()}
@@ -9,7 +9,7 @@ export const StyledMarkingWrapper = styled.span`
   align-items: center;
 
   &:hover {
-    color: ${theme.color('secondaryLight')};
+    color: ${themeSelector.color('secondaryLight')};
   }
   ${({marked, theme}) => marked && `color: ${theme.colors.secondary};`}
 `

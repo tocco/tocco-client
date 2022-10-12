@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import {StyledButton} from '../Button'
 import {StyledSpan} from '../Typography'
-import {colorizeText, declareFont, scale, theme} from '../utilStyles'
+import {colorizeText, declareFont, scale, themeSelector} from '../utilStyles'
 
 export const StyledSection = styled.section`
   flex: 1;
@@ -39,7 +39,7 @@ export const StyledDropzone = styled.div`
 export const StyledUploadInput = styled.div`
   ${declareFont()}
   cursor: ${({immutable}) => (immutable ? 'not-allowed' : 'pointer')};
-  background-color: ${theme.color('paper')};
+  background-color: ${themeSelector.color('paper')};
   color: ${props => (props.immutable ? colorizeText.shade2(props) : colorizeText.shade0(props))};
   padding: ${scale.space(-2)} 0 0 0;
   display: flex;

@@ -2,7 +2,15 @@ import _get from 'lodash/get'
 import {darken} from 'polished'
 import styled, {css} from 'styled-components'
 
-import {declareFont, theme, shadeColor, StyledScrollbar, scale, StyledFontAwesomeAdapterWrapper, StyledBall} from '../'
+import {
+  declareFont,
+  themeSelector,
+  shadeColor,
+  StyledScrollbar,
+  scale,
+  StyledFontAwesomeAdapterWrapper,
+  StyledBall
+} from '../'
 import {generateShades} from '../utilStyles'
 import {ScrollBehaviour} from './scrollBehaviour'
 
@@ -25,7 +33,7 @@ export const StyledTableFooter = styled.div`
 export const StyledTableCell = styled.td`
   && {
     padding: ${basePadding};
-    background-color: ${theme.color('paper')};
+    background-color: ${themeSelector.color('paper')};
     border-bottom: 1px solid ${borderColor};
     align-content: center;
     box-sizing: content-box;
@@ -61,10 +69,10 @@ export const StyledTableHeaderCell = styled.th`
   && {
     position: sticky;
     top: 0;
-    background-color: ${theme.color('paper')};
+    background-color: ${themeSelector.color('paper')};
     text-align: ${({rightAligned}) => (rightAligned ? 'right' : 'left')};
     border-bottom: 2px solid ${borderColor};
-    ${declareFont({fontWeight: theme.fontWeight('bold')})};
+    ${declareFont({fontWeight: themeSelector.fontWeight('bold')})};
     user-select: none;
     cursor: ${({isSortable}) => (isSortable ? 'pointer' : 'auto')};
     white-space: nowrap;
@@ -135,7 +143,7 @@ export const StyledSortingSpan = styled.span`
 export const StyledSortingRank = styled.span`
   position: relative;
   top: -0.5rem;
-  font-weight: ${theme.fontWeight('regular')};
+  font-weight: ${themeSelector.fontWeight('regular')};
 `
 
 export const StyledFullRowProgress = styled.td`
@@ -210,7 +218,7 @@ export const StretchingTableContainer = styled.div`
 
 export const StyledTableWrapper = styled.div`
   display: grid;
-  background-color: ${theme.color('paper')};
+  background-color: ${themeSelector.color('paper')};
   grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
   grid-template-columns: 100%;
   height: 100%;
