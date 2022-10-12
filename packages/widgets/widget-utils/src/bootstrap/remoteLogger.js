@@ -2,7 +2,7 @@ import {consoleLogger} from 'tocco-util'
 
 import {executeRequest} from './requests'
 
-const logLevel = {
+const LogLevels = {
   error: 'error'
 }
 
@@ -11,12 +11,12 @@ const logException = async (backendUrl, message, error) => {
   const logMessage = `${message}\n${errorMessage}`
 
   consoleLogger.logError(logMessage)
-  await logRemote(logLevel.error, backendUrl, logMessage)
+  await logRemote(LogLevels.error, backendUrl, logMessage)
 }
 
 const logError = async (backendUrl, message) => {
   consoleLogger.logError(message)
-  await logRemote(logLevel.error, backendUrl, message)
+  await logRemote(LogLevels.error, backendUrl, message)
 }
 
 const logRemote = async (logLevel, backendUrl, message) => {

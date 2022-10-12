@@ -132,9 +132,9 @@ export function* loadRouteInfo(pathname) {
           } else {
             const key = relationStringPart
             const model = parent.model
-            const entityExists = yield call(rest.entityExists, model.name, key)
+            const parentEntityExists = yield call(rest.entityExists, model.name, key)
 
-            if (entityExists) {
+            if (parentEntityExists) {
               const display = yield call(rest.fetchDisplay, model.name, key)
               routeInfos.push({
                 type: 'detail',
@@ -222,7 +222,7 @@ export const deriveBreadcrumbs = routeInfos => {
 }
 
 export function* initMultiRelations(model, key) {
-  const relations = _pickBy(model.paths, (value, key) => value.relationDisplay && value.relationDisplay.show)
+  const relations = _pickBy(model.paths, value => value.relationDisplay && value.relationDisplay.show)
 
   const relationsTransformed = Object.keys(relations)
     .map(k =>

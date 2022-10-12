@@ -32,9 +32,7 @@ const InstallationDelta = ({keys}) => {
   }, [keys])
 
   useEffect(() => {
-    fetchData().then(delta => {
-      setDelta(delta)
-    })
+    fetchData().then(d => setDelta(d))
   }, [fetchData])
 
   return (

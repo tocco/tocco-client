@@ -84,7 +84,7 @@ const EntityDetail = props => {
       formName={formName}
       mode={mode}
       navigationStrategy={{
-        DetailLinkRelative: props => <DetailLinkRelative {...props} currentKey={entityId} />,
+        DetailLinkRelative: linkProps => <DetailLinkRelative {...linkProps} currentKey={entityId} />,
         navigateToCreateRelative: navigateToCreate,
         navigateToActionRelative: navigateToAction
       }}

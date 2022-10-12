@@ -61,8 +61,8 @@ export const sources = [
   {src: '/css/nice2-new-client-legacy-actions.css', handler: loadCss, envs: ['new']}
 ]
 
-export const channelFeedingCallback = (channel, responseChannel) => arg => {
-  channel.put(arg)
+export const channelFeedingCallback = (remoteEventsChannel, responseChannel) => arg => {
+  remoteEventsChannel.put(arg)
   if (responseChannel) {
     responseChannel.put(arg)
   }

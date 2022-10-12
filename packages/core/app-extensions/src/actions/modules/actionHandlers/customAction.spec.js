@@ -17,7 +17,7 @@ describe('app-extensions', () => {
       const parent = {}
       const params = {}
 
-      const config = {}
+      let config = {}
       const selection = {type: 'ID', ids: ['1']}
 
       describe('actionHandler', () => {
@@ -31,7 +31,7 @@ describe('app-extensions', () => {
             }
 
             const handler = () => {}
-            const config = {
+            config = {
               customActions: {
                 new: handler
               }
@@ -66,7 +66,7 @@ describe('app-extensions', () => {
             }
 
             const handler = () => {}
-            const config = {
+            config = {
               customActions: {
                 new: handler
               }
@@ -77,9 +77,7 @@ describe('app-extensions', () => {
                 .provide([
                   [channel, {}],
                   {
-                    take({channel}, next) {
-                      return {status: 'ok', title: 'msg'}
-                    }
+                    take: () => ({status: 'ok', title: 'msg'})
                   }
                 ])
                 .put.actionType('notification/TOASTER')
@@ -92,9 +90,7 @@ describe('app-extensions', () => {
                 .provide([
                   [channel, {}],
                   {
-                    take({channel}, next) {
-                      return {status: 'ok', title: null}
-                    }
+                    take: () => ({status: 'ok', title: null})
                   }
                 ])
                 .not.put.actionType('notification/TOASTER')
@@ -106,9 +102,7 @@ describe('app-extensions', () => {
                 .provide([
                   [channel, {}],
                   {
-                    take({channel}, next) {
-                      return {status: 'ok', title: 'default', message: 'msg'}
-                    }
+                    take: () => ({status: 'ok', title: 'default', message: 'msg'})
                   }
                 ])
                 .put(
@@ -126,9 +120,7 @@ describe('app-extensions', () => {
                 .provide([
                   [channel, {}],
                   {
-                    take({channel}, next) {
-                      return {status: 'not_ok', title: 'msg'}
-                    }
+                    take: () => ({status: 'not_ok', title: 'msg'})
                   }
                 ])
                 .put.actionType('notification/TOASTER')
@@ -142,9 +134,7 @@ describe('app-extensions', () => {
                   [channel, {}],
                   [select(intl.localeSelector), 'fr'],
                   {
-                    take({channel}, next) {
-                      return {status: 'cancel', title: 'msg'}
-                    }
+                    take: () => ({status: 'cancel', title: 'msg'})
                   }
                 ])
                 .not.put.actionType('notification/TOASTER')
@@ -161,7 +151,7 @@ describe('app-extensions', () => {
               type: 'custom'
             }
 
-            const config = {
+            config = {
               customActions: {
                 fullscreen: () => {}
               }
@@ -181,7 +171,7 @@ describe('app-extensions', () => {
               type: 'custom'
             }
 
-            const config = {
+            config = {
               appComponent: {
                 fullscreen: () => {}
               }
@@ -203,7 +193,7 @@ describe('app-extensions', () => {
           }
 
           const handler = () => {}
-          const config = {
+          config = {
             customActions: {
               new: handler
             }
@@ -215,9 +205,7 @@ describe('app-extensions', () => {
                 [channel, {}],
                 [select(intl.localeSelector), 'fr'],
                 {
-                  take({channel}, next) {
-                    return {status: 'ok', message: null}
-                  }
+                  take: () => ({status: 'ok', message: null})
                 }
               ])
               .not.put.actionType('notifier/INFO')
@@ -231,9 +219,7 @@ describe('app-extensions', () => {
                 [channel, {}],
                 [select(intl.localeSelector), 'fr'],
                 {
-                  take({channel}, next) {
-                    return {status: 'ok', title: 'msg'}
-                  }
+                  take: () => ({status: 'ok', title: 'msg'})
                 }
               ])
               .put.actionType('notification/MODAL')
@@ -247,9 +233,7 @@ describe('app-extensions', () => {
                 [channel, {}],
                 [select(intl.localeSelector), 'fr'],
                 {
-                  take({channel}, next) {
-                    return {status: 'not_ok', title: 'msg'}
-                  }
+                  take: () => ({status: 'not_ok', title: 'msg'})
                 }
               ])
               .put.actionType('notification/MODAL')
@@ -263,9 +247,7 @@ describe('app-extensions', () => {
                 [channel, {}],
                 [select(intl.localeSelector), 'fr'],
                 {
-                  take({channel}, next) {
-                    return {status: 'cancel', title: 'msg'}
-                  }
+                  take: () => ({status: 'cancel', title: 'msg'})
                 }
               ])
               .put.actionType('notification/MODAL')

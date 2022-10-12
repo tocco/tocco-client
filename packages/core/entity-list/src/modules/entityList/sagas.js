@@ -15,7 +15,7 @@ export default function* sagas() {
     takeLatest(appFactory.INPUT_CHANGED, inputChanged),
     takeLatest(actions.RELOAD_DATA, reloadData),
     takeLatest(actions.RELOAD_ALL, initialize, false),
-    takeLatest(actions.SET_SEARCH_FORM_COLLAPSED, searchFormCollapsed)
+    takeLatest(actions.SET_SEARCH_FORM_COLLAPSED, setSearchFormCollapsed)
   ])
 }
 
@@ -75,6 +75,6 @@ export function* reloadData() {
   yield put(searchFormActions.executeSearch())
 }
 
-export function* searchFormCollapsed({payload: {searchFormCollapsed}}) {
+export function* setSearchFormCollapsed({payload: {searchFormCollapsed}}) {
   yield put(externalEvents.fireExternalEvent('onSearchFormCollapsedChange', {collapsed: searchFormCollapsed}))
 }

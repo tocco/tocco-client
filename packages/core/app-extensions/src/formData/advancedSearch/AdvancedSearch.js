@@ -26,9 +26,7 @@ const AdvancedSearch = ({
       scope="remotefield"
       listFormDefinition={listFormDefinition}
       limit={15}
-      onSelectChange={selection => {
-        onSelectionChange(selection)
-      }}
+      onSelectChange={onSelectionChange}
       selection={selection}
       emitAction={emitAction}
       selectionStyle={multi ? 'multi' : 'single'}

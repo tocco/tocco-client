@@ -47,14 +47,14 @@ const fieldDefinitionCache = (() => {
   }
 })()
 
-const getFieldDefinition = (fieldName, fieldDefinition) => {
-  if (fieldDefinition.id === fieldName) {
-    return fieldDefinition.children[0]
+const getFieldDefinition = (fieldName, formDefinition) => {
+  if (formDefinition.id === fieldName) {
+    return formDefinition.children[0]
   }
 
   let result = null
-  if (fieldDefinition.children) {
-    fieldDefinition.children.forEach(child => {
+  if (formDefinition.children) {
+    formDefinition.children.forEach(child => {
       const fieldDefinition = getFieldDefinition(fieldName, child)
       if (fieldDefinition) {
         result = fieldDefinition

@@ -6,9 +6,9 @@ import FormatterProvider, {map as typeMap} from './FormatterProvider'
  *  FormattedValue component to format values with given type.
  */
 const FormattedValue = ({type: componentType, value, options, breakWords}) => {
-  const isNotDefined = value => value === undefined || value === null || value === ''
+  const isNotDefined = value === undefined || value === null || value === ''
 
-  if (isNotDefined(value)) {
+  if (isNotDefined) {
     return <span />
   }
 

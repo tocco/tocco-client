@@ -6,7 +6,7 @@ import {consoleLogger} from 'tocco-util'
 
 import actionEmitter from '../actionEmitter'
 import DynamicAction from './components/DynamicAction'
-import {fetchActionPackages} from './modules/dynamicActions/actions'
+import {fetchActionPackages as fetchActionPackagesAction} from './modules/dynamicActions/actions'
 
 const renderLoader = () => <LoadMask />
 
@@ -69,7 +69,7 @@ const actionFactory = actions => {
   })
 
   const mapActionCreators = {
-    fetchActionPackages
+    fetchActionPackages: fetchActionPackagesAction
   }
 
   LazyActionWrapper.propTypes = {

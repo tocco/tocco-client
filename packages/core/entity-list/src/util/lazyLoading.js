@@ -1,11 +1,11 @@
 import _get from 'lodash/get'
 
-const multiRelationHandler = (value, lazyData) => {
-  if (!value) {
-    return value
+const multiRelationHandler = (multiValue, lazyData) => {
+  if (!multiValue) {
+    return multiValue
   }
 
-  return value.map(value => {
+  return multiValue.map(value => {
     const display = _get(lazyData, ['defaultDisplays', value.model, value.key], '')
     return {...value, display}
   })

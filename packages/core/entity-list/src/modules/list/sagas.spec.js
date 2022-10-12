@@ -1055,7 +1055,7 @@ describe('entity-list', () => {
           })
 
           test('should clean up selection on delete event', () => {
-            const deleteEventAction = remoteEvents.remoteEvent({
+            const deleteEventActionWithMultipleUsers = remoteEvents.remoteEvent({
               type: 'entity-delete-event',
               payload: {
                 entities: [
@@ -1070,7 +1070,7 @@ describe('entity-list', () => {
               entityModel: {name: 'User'}
             }
 
-            return expectSaga(sagas.remoteEvent, deleteEventAction)
+            return expectSaga(sagas.remoteEvent, deleteEventActionWithMultipleUsers)
               .provide([[select(sagas.listSelector), listState], [call(sagas.reloadData)]])
               .put(selectionActions.onSelectChange(['1', '99'], false))
               .run()

@@ -85,7 +85,7 @@ describe('entity-detail', () => {
               .provide([
                 [matchers.call.fn(channel), fakeChannel],
                 {
-                  take: ({channel}, next) => (channel === fakeChannel ? 'save' : next())
+                  take: (effect, next) => (effect.channel === fakeChannel ? 'save' : next())
                 }
               ])
               .put.like({action: {type: 'notification/MODAL'}})

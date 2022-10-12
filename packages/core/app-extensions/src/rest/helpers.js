@@ -139,17 +139,11 @@ export function* fetchDisplays(request, type) {
   const loadedDisplays = yield loadDisplays(currentDisplays, type)
 
   return currentDisplays.reduce(
-    (acc, {model, displays}) => ({
-      ...acc,
+    (displaysPerModel, {model, displays}) => ({
+      ...displaysPerModel,
       [model]: {
-        ...acc[model],
-        ...displays.reduce(
-          (acc, {key, display}) => ({
-            ...acc,
-            [key]: display
-          }),
-          {}
-        )
+        ...displaysPerModel[model],
+        ...displays.reduce((displaysPerKey, {key, display}) => ({...displaysPerKey, [key]: display}), {})
       }
     }),
     loadedDisplays
@@ -178,9 +172,9 @@ function* loadDisplays(currentDisplays, type) {
     const response = yield call(requestSaga, `entities/2.0/displays${type ? `/${type}` : ''}`, options)
 
     const loadedDisplays = response.body.data.reduce(
-      (acc, value) => ({
-        ...acc,
-        [value.model]: value.values.reduce((acc, value) => ({...acc, [value.key]: value.display}), {})
+      (displaysPerModel, {model, values}) => ({
+        ...displaysPerModel,
+        [model]: values.reduce((displaysPerKey, {key, display}) => ({...displaysPerKey, [key]: display}), {})
       }),
       {}
     )
@@ -401,9 +395,9 @@ export const requestQueryToUrlParams = queryObject =>
     {}
   )
 
-export const flattenObjectValues = value =>
+export const flattenObjectValues = object =>
   _reduce(
-    value,
+    object,
     (result, value, key) => ({
       ...result,
       [key]: _isObject(value) && value.value ? value.value : value

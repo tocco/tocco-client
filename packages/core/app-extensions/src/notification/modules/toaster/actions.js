@@ -2,10 +2,10 @@ export const TOASTER = 'notification/TOASTER'
 export const REMOVE_TOASTER = 'notification/REMOVE_TOASTER'
 export const REMOVE_TOASTER_FROM_STORE = 'notification/REMOVE_TOASTER_FROM_STORE'
 
-export const toaster = toaster => ({
+export const toaster = toasterObj => ({
   type: TOASTER,
   payload: {
-    toaster
+    toaster: toasterObj
   }
 })
 

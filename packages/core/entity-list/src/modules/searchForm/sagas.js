@@ -358,9 +358,9 @@ export function* displaySearchFieldsModal() {
       'client.entity-list.search.settings.searchForm.edit',
       null,
       ({close}) => {
-        const onOk = columns => {
+        const onOk = pickedColumns => {
           close()
-          answerChannel.put(columns)
+          answerChannel.put(pickedColumns)
         }
 
         return <ColumnPicker initialColumns={columnsSorted} onOk={onOk} dndEnabled={true} />

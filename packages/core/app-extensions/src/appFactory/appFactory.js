@@ -46,9 +46,9 @@ export const createApp = (
   }
 }
 
-export const renderApp = (App, mountElementName = 'root') => {
+export const renderApp = (app, mountElementName = 'root') => {
   const mountElement = document.getElementById(mountElementName)
-  ReactDOM.render(App, mountElement)
+  ReactDOM.render(app, mountElement)
 }
 
 export const reloadApp = (app, mountElementName = 'root') => {
@@ -63,10 +63,10 @@ export const registerAppInRegistry = (appName, initFunction) => {
   }
 }
 
-export const createBundleableApp = (name, init, App) => ({
+export const createBundleableApp = (name, init, app) => ({
   name,
   init,
-  App,
+  App: app,
   setWebpacksPublicPath
 })
 

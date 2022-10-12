@@ -67,7 +67,7 @@ const DurationEdit = ({value, immutable, onChange, options}) => {
 
   const unitsVisible = () => focused || typeof value === 'number'
 
-  const getFieldWidth = value => (value + '').length * DIGIT_WIDTH
+  const getFieldWidth = val => (val + '').length * DIGIT_WIDTH
 
   /**
    * We don't want to offer the user to enter the duration in seconds,

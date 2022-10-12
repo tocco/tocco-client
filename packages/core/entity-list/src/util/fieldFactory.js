@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {useMemo} from 'react'
-import {formData, field, formField} from 'tocco-app-extensions'
+import {formData as formDataUtils, field, formField as formFieldUtils} from 'tocco-app-extensions'
 import {js} from 'tocco-util'
 
 import LazyDataEnhancer from '../components/LazyDataEnhancer'
@@ -41,7 +41,7 @@ FieldProvider.propTypes = {
 const fieldFactory = (fieldDefinition, entity, intl) => {
   const {id, path, dataType} = fieldDefinition
   const pathValue = entity[path]
-  const values = formField.isMultipleFields(pathValue, dataType) ? pathValue : [pathValue]
+  const values = formFieldUtils.isMultipleFields(pathValue, dataType) ? pathValue : [pathValue]
 
   const componentConfig = field.formattedComponentConfigs[dataType]
   const dataContainerProps =
@@ -49,15 +49,15 @@ const fieldFactory = (fieldDefinition, entity, intl) => {
       ? componentConfig.dataContainerProps({formField: fieldDefinition})
       : {}
 
-  const formDataContainer = formField.enhanceMultipleFieldsWithSeparators(
+  const formDataContainer = formFieldUtils.enhanceMultipleFieldsWithSeparators(
     values.map((v, idx) => (
-      <formData.FormDataContainer
+      <formDataUtils.FormDataContainer
         key={`formDataContainer-${entity.__key}-${path}-${idx}`}
         {...dataContainerProps}
         navigationStrategy={true}
       >
         <FieldProvider type={dataType} value={v} intl={intl} formField={fieldDefinition} />
-      </formData.FormDataContainer>
+      </formDataUtils.FormDataContainer>
     ))
   )
 

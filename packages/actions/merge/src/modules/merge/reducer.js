@@ -9,13 +9,13 @@ const executeMerge = state => ({
   mergePending: true
 })
 
-const mergeResponse = (state, {payload: {mergeResponse}}) => ({
+const setMergeResponse = (state, {payload: {mergeResponse}}) => ({
   ...state,
   mergePending: false,
   mergeResponse
 })
 
-const mergeErrors = (state, {payload: {errorMsg, validationErrors}}) => ({
+const setMergeErrors = (state, {payload: {errorMsg, validationErrors}}) => ({
   ...state,
   mergePending: false,
   mergeErrorMsg: errorMsg,
@@ -124,8 +124,8 @@ const setTargetEntityMultiple = (multiple, entity) => {
 const ACTION_HANDLERS = {
   [actions.SET_SOURCE_DATA]: reducerUtil.singleTransferReducer('sourceData'),
   [actions.EXECUTE_MERGE]: executeMerge,
-  [actions.SET_MERGE_RESPONSE]: mergeResponse,
-  [actions.SET_MERGE_ERROR]: mergeErrors,
+  [actions.SET_MERGE_RESPONSE]: setMergeResponse,
+  [actions.SET_MERGE_ERROR]: setMergeErrors,
   [actions.SET_SELECTED_SINGLE]: setSelectedSingle,
   [actions.SET_SELECTED_MULTIPLE]: setSelectedMultiple,
   [actions.SET_SELECTED_MULTIPLE_ALL]: setSelectedMultipleAll,

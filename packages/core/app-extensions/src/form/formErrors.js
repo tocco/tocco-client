@@ -72,7 +72,7 @@ const getRelatedEntityErrorsCompact = formErrors => {
         r.push(
           ..._reduce(
             entityValidatorErrors,
-            (result, value) => [...result, ...value.map(e => `${e} (${model}, ${key})`)],
+            (errors, value) => [...errors, ...value.map(e => `${e} (${model}, ${key})`)],
             []
           )
         )

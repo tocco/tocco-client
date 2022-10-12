@@ -18,11 +18,11 @@ export default function* sagas(formConfig) {
   ])
 }
 
-export function* autoComplete({formId}, fieldName, entity, autoCompleteEndpoint) {
+export function* autoComplete({formId}, triggerFieldName, entity, autoCompleteEndpoint) {
   const options = {
     method: 'POST',
     body: {
-      triggerField: fieldName,
+      triggerField: triggerFieldName,
       entity
     },
     acceptedStatusCodes: [403]

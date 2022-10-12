@@ -51,10 +51,10 @@ export const updateNotification = notification => ({
   }
 })
 
-export const isLoadingMoreNotifications = (isLoadingMoreNotifications = true) => ({
+export const isLoadingMoreNotifications = (isLoading = true) => ({
   type: IS_LOADING_MORE_NOTIFICATIONS,
   payload: {
-    isLoadingMoreNotifications
+    isLoadingMoreNotifications: isLoading
   }
 })
 

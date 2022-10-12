@@ -20,7 +20,7 @@ const EntityRecordRoute = ({match}) => {
       <Route
         exact
         path={`${match.url}`}
-        render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/detail`} />}
+        render={props => <Redirect to={`${props.match.url.replace(/\/$/, '')}/detail`} />}
       />
       <Route path={`${match.path}/detail`} component={Detail} />
       <Route path={`${match.path}/edit`} component={Edit} />

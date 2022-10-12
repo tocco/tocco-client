@@ -21,7 +21,7 @@ describe('entity-list', () => {
                 takeLatest(appFactory.INPUT_CHANGED, sagas.inputChanged),
                 takeLatest(actions.RELOAD_DATA, sagas.reloadData),
                 takeLatest(actions.RELOAD_ALL, sagas.initialize, false),
-                takeLatest(actions.SET_SEARCH_FORM_COLLAPSED, sagas.searchFormCollapsed)
+                takeLatest(actions.SET_SEARCH_FORM_COLLAPSED, sagas.setSearchFormCollapsed)
               ])
             )
             expect(generator.next().done).to.be.true

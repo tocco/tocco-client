@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {Icon} from 'tocco-ui'
 
-import {setMarked} from '../../modules/list/actions'
+import {setMarked as setMarkedAction} from '../../modules/list/actions'
 import {StyledMarkingWrapper} from './StyledComponents'
 
 const CellRenderer = ({rowData, markings, setMarked}) => {
@@ -44,7 +44,7 @@ CellRenderer.propTypes = {
 }
 
 const mapActionCreators = {
-  setMarked
+  setMarked: setMarkedAction
 }
 
 const mapStateToProps = state => ({

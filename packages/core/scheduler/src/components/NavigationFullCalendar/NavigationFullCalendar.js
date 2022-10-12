@@ -47,8 +47,8 @@ const NavigationFullCalendar = ({
     changeRange()
   }
 
-  const handleDateChange = date => {
-    goToDate(date)
+  const handleDateChange = changedDate => {
+    goToDate(changedDate)
     changeRange()
   }
 
@@ -71,7 +71,7 @@ const NavigationFullCalendar = ({
           />
           <Button look="raised" onClick={handleNext} icon="chevron-right" title={msg('client.scheduler.next', intl)} />
         </ButtonGroup>
-        <DatePicker value={date} onChange={date => handleDateChange(date)}>
+        <DatePicker value={date} onChange={handleDateChange}>
           <Typography.Span>{title}</Typography.Span>
           <Icon style={{marginLeft: '5px'}} icon="chevron-down" />
         </DatePicker>

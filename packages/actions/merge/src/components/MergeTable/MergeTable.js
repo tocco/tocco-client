@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types'
 import {useMemo} from 'react'
-import {FormattedMessage, injectIntl} from 'react-intl'
-import {connect} from 'react-redux'
+import {FormattedMessage} from 'react-intl'
 import {Table, Typography, LoadMask} from 'tocco-ui'
 
-import {setTargetEntity} from '../../modules/merge/actions'
 import {getColumnDefinition, getDataRows} from '../../util/sourceData'
 import sourceDataPropType from '../../util/sourceDataPropType'
 import {StyledButton, StyledButtonWrapper} from '../GlobalStyledComponents'
-import {CellRendererContainer} from './CellRender'
+import CellRendererContainer from './CellRenderContainer'
+import ColumnHeaderRendererContainer from './ColumnHeaderRendererContainer'
 import MergeErrors, {mergeValidationErrorsPropTypes} from './MergeErrors'
-import {StyledTableWrapper, StyledStatusWrapper} from './StyledComponents'
+import {StyledTableWrapper} from './StyledComponents'
 
 const LabelCellRenderer = ({rowIdx, sourceData, allPaths}) => {
   const columnName = allPaths[rowIdx]
@@ -22,42 +21,6 @@ LabelCellRenderer.propTypes = {
   sourceData: sourceDataPropType,
   allPaths: PropTypes.arrayOf(PropTypes.string)
 }
-
-const ColumnHeaderRenderer = ({label, entityKey, setTargetEntity, targetEntity, mergeStrategyDisplay}) => {
-  const isChecked = targetEntity === entityKey
-  const status = isChecked ? <FormattedMessage id="client.merge.strategy.keep" /> : mergeStrategyDisplay
-  const onChange = () => setTargetEntity(entityKey)
-
-  return (
-    <>
-      <input type="radio" name="column" onChange={onChange} checked={isChecked} id={`targetEntity${entityKey}`} />
-      <Typography.Label for={`targetEntity${entityKey}`}>
-        <Typography.B>{label}</Typography.B>
-        <StyledStatusWrapper isChecked={isChecked}> ({status})</StyledStatusWrapper>
-      </Typography.Label>
-    </>
-  )
-}
-
-ColumnHeaderRenderer.propTypes = {
-  label: PropTypes.string,
-  entityKey: PropTypes.string.isRequired,
-  setTargetEntity: PropTypes.func.isRequired,
-  targetEntity: PropTypes.string,
-  mergeStrategyDisplay: PropTypes.string.isRequired
-}
-
-const mapActionCreatorsColumn = {
-  setTargetEntity
-}
-const mapStateToPropsColumn = state => ({
-  targetEntity: state.merge.selected.targetEntity,
-  mergeStrategyDisplay: state.merge.sourceData.mergeStrategyDisplay
-})
-const ColumnHeaderRendererContainer = connect(
-  mapStateToPropsColumn,
-  mapActionCreatorsColumn
-)(injectIntl(ColumnHeaderRenderer))
 
 const MergeTable = ({sourceData, mergePending, mergeErrorMsg, mergeValidationErrors, executeMerge}) => {
   const data = useMemo(() => (sourceData ? getDataRows(sourceData) : []), [sourceData])

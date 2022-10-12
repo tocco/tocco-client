@@ -1,10 +1,7 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
-import {injectIntl} from 'react-intl'
-import {connect} from 'react-redux'
 import {navigationStrategy as navigationStrategyPropTypes} from 'tocco-util'
 
-import {setSelectedMultiple, setSelectedMultipleAll, setSelectedSingle} from '../../modules/merge/actions'
 import {FormattedValueRadio, ManyRelationsCheckBox, RelationsCheckBoxes} from './Selection'
 
 const CellRenderer = ({
@@ -82,15 +79,4 @@ CellRenderer.propTypes = {
   navigationStrategy: navigationStrategyPropTypes.propTypes
 }
 
-const mapActionCreatorsCell = {
-  setSelectedSingle,
-  setSelectedMultiple,
-  setSelectedMultipleAll
-}
-const mapStateToPropsCell = state => ({
-  selectedSingle: state.merge.selected.single,
-  selectedMultiple: state.merge.selected.multiple,
-  selectedMultipleAll: state.merge.selected.multipleAll,
-  navigationStrategy: state.input.navigationStrategy
-})
-export const CellRendererContainer = connect(mapStateToPropsCell, mapActionCreatorsCell)(injectIntl(CellRenderer))
+export default CellRenderer

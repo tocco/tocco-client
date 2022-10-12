@@ -45,8 +45,8 @@ const initApp = (id, input, events, publicPath) => {
 
       if (module.hot) {
         module.hot.accept('./modules/reducers', () => {
-          const reducers = require('./modules/reducers').default
-          reducerUtil.hotReloadReducers(app.store, reducers)
+          const hotReloadedReducers = require('./modules/reducers').default
+          reducerUtil.hotReloadReducers(app.store, hotReloadedReducers)
         })
       }
 
@@ -56,14 +56,7 @@ const initApp = (id, input, events, publicPath) => {
 })()
 
 const SubscribeCalendarApp = props => {
-  const events = EXTERNAL_EVENTS.reduce((events, event) => {
-    if (props[event]) {
-      events[event] = props[event]
-    }
-    return events
-  }, {})
-
-  return initApp(packageName, props, events).component
+  return initApp(packageName, props, appFactory.getEvents(EXTERNAL_EVENTS, props)).component
 }
 
 SubscribeCalendarApp.propTypes = {

@@ -4,8 +4,8 @@ import {MultiCheckbox} from '../../'
 import {rowDataPropType} from '../propTypes'
 
 const MultiSelectCell = ({rowData, isSelected, selectionChange, rowIdx}) => {
-  const rowSelectionState = rowData => (isSelected(rowData.__key) ? 'checked' : 'unchecked')
-  const rowSelectionChange = rowData => value => selectionChange(rowData.__key, value === 'checked')
+  const rowSelectionState = data => (isSelected(data.__key) ? 'checked' : 'unchecked')
+  const rowSelectionChange = data => value => selectionChange(data.__key, value === 'checked')
 
   return (
     <div

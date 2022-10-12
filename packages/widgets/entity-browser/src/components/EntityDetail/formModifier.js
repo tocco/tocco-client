@@ -5,9 +5,9 @@ import {form} from 'tocco-app-extensions'
  * adds back button if needed
  */
 export function* modifyFormDefinition(formDefinition, context, props) {
-  const {detailParams = {}, intl, modifyFormDefinition} = props
-  const modifiedFormDefinition = modifyFormDefinition
-    ? yield call(modifyFormDefinition, formDefinition, context)
+  const {detailParams = {}, intl, modifyFormDefinition: customModifyFormDefinition} = props
+  const modifiedFormDefinition = customModifyFormDefinition
+    ? yield call(customModifyFormDefinition, formDefinition, context)
     : formDefinition
 
   const {entityName: formEntityName, entityId: formEntityId} = context || {}
