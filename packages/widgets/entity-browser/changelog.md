@@ -1,3 +1,9 @@
+1.0.92
+- improve responsiveness of table component
+- datepicker keyboard handling
+- do not lazy load datepicker
+- autofocus datepickers
+
 1.0.91
 - add helpers to remove fields from forms
 
