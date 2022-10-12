@@ -1,3 +1,8 @@
+1.0.49-hotfix33.17
+- datepicker keyboard handling
+- do not lazy load datepicker
+- autofocus datepickers
+
 1.0.49-hotfix33.16
 - fix escape handling in tql fulltext search
 
