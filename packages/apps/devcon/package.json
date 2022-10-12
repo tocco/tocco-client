@@ -1,6 +1,6 @@
 {
   "name": "tocco-devcon",
-  "version": "1.0.49-hotfix33.16",
+  "version": "1.0.49-hotfix33.17",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
