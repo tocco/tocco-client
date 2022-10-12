@@ -23,10 +23,6 @@ const lineHeight =
   path =>
   ({theme}) =>
     _get(getTheme(theme), `lineHeights.${path}`)
-const path =
-  path =>
-  ({theme}) =>
-    _get(getTheme(theme), path)
 const radii =
   path =>
   ({theme}) =>
@@ -42,7 +38,6 @@ export default {
   fontSize,
   fontWeight,
   lineHeight,
-  path,
   radii,
   space
 }

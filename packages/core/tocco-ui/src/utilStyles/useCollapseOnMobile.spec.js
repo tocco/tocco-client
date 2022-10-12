@@ -2,15 +2,13 @@ import {renderHook, act} from '@testing-library/react-hooks'
 
 import {useCollapseOnMobile} from '../utilStyles'
 
-const EMPTY_FUNC = () => {}
-const setSearchFormCollapsed = EMPTY_FUNC
-
 describe('tocco-ui', () => {
   describe('utilStyles', () => {
     describe('useCollapseOnMobile', () => {
       test('should collapse on screens smaller than 768px', () => {
         global.innerWidth = 767
         const initialCollapseState = false
+        const setSearchFormCollapsed = sinon.spy()
         const {result} = renderHook(() => useCollapseOnMobile(initialCollapseState, setSearchFormCollapsed))
 
         expect(result.current.isCollapsed).to.be.true
@@ -19,6 +17,7 @@ describe('tocco-ui', () => {
       test('should expand on screens larger than 768px', () => {
         global.innerWidth = 769
         const initialCollapseState = false
+        const setSearchFormCollapsed = sinon.spy()
         const {result} = renderHook(() => useCollapseOnMobile(initialCollapseState, setSearchFormCollapsed))
 
         expect(result.current.isCollapsed).to.be.false

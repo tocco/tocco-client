@@ -6,9 +6,9 @@ import Typography from '../../Typography'
 const LazyHtmlEditor = lazy(() => import(/* webpackChunkName: "html-editor" */ '../../HtmlEditor'))
 
 const HtmlEdit = ({onChange, immutable, value, options}) => {
-  const handleChange = value => {
+  const handleChange = changedValue => {
     if (onChange) {
-      onChange(value)
+      onChange(changedValue)
     }
   }
 

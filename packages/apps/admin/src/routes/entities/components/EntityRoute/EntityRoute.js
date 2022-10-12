@@ -8,7 +8,7 @@ import Record from '../../subroutes/record'
 
 const EntityRoute = ({match}) => (
   <Switch>
-    <Route exact path={match.url} render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/list`} />} />
+    <Route exact path={match.url} render={props => <Redirect to={`${props.match.url.replace(/\/$/, '')}/list`} />} />
     <Route path={`${match.path}/action/:id`} component={Action} />
     <Route path={`${match.path}/list`} component={List} />
     <Route path={`${match.path}/create`} component={Create} />

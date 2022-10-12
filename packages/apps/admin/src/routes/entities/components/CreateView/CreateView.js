@@ -46,7 +46,7 @@ const CreateView = props => {
   }
 
   const msg = id => intl.formatMessage({id})
-  const handleToucheChanged = ({touched}) => setTouched(touched)
+  const handleToucheChanged = ({touched: changedTouched}) => setTouched(changedTouched)
 
   return (
     <StyledEntityDetailAppWrapper>

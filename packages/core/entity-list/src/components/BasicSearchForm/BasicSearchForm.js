@@ -39,16 +39,13 @@ const BasicSearchForm = ({
     submitSearchForm()
   }
 
-  const isHidden = (preselectedSearchFields, name) => {
-    if (!preselectedSearchFields) {
+  const isHidden = (searchFields, name) => {
+    if (!searchFields) {
       return false
     }
-    const field = preselectedSearchFields.find(f => f.id === name)
+    const field = searchFields.find(f => f.id === name)
     return field && field.hidden
   }
-
-  const shouldRenderField = (preselectedSearchFields, showExtendedSearchForm, simpleSearchFields) => name =>
-    !isHidden(preselectedSearchFields, name) && (showExtendedSearchForm || simpleSearchFields.includes(name))
 
   const toggleExtendedSearchForm = () => {
     setShowExtendedSearchForm(!showExtendedSearchForm)
@@ -61,6 +58,9 @@ const BasicSearchForm = ({
       : fields.filter(field => field.simpleSearch === true).map(field => field.path || field.id)
   const hasExtendedOnlySearchFields = !fields.every(field => simpleSearchFields.includes(field.id))
   const extendable = hasExtendedOnlySearchFields && searchFormType === searchFormTypes.SIMPLE_ADVANCED
+
+  const shouldRenderField = name =>
+    !isHidden(preselectedSearchFields, name) && (showExtendedSearchForm || simpleSearchFields.includes(name))
 
   return (
     <StyledBasicSearchForm ref={searchFormEl}>
@@ -81,7 +81,7 @@ const BasicSearchForm = ({
           formDefinition={searchFormDefinition}
           formValues={formValues}
           fieldMappingType="search"
-          beforeRenderField={shouldRenderField(preselectedSearchFields, showExtendedSearchForm, simpleSearchFields)}
+          beforeRenderField={shouldRenderField}
           mode="search"
         />
       </form>

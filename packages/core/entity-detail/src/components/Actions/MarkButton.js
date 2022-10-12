@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Icon, Typography} from 'tocco-ui'
 
-import {updateMarked} from '../../modules/entityDetail/actions'
+import {updateMarked as updateMarkedAction} from '../../modules/entityDetail/actions'
 import {StyledActionSpan} from './StyledComponents'
 
 const MarkButton = ({entityName, entityId, marked, updateMarked}) => {
@@ -42,7 +42,7 @@ MarkButton.propTypes = {
 }
 
 const mapActionCreators = {
-  updateMarked
+  updateMarked: updateMarkedAction
 }
 
 const mapStateToProps = state => ({

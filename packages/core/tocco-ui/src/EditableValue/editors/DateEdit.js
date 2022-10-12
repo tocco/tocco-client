@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {useIntl} from 'react-intl'
-import {date} from 'tocco-util'
+import {date as dateUtils} from 'tocco-util'
 
 import {toLocalDateString} from '../utils'
 import DatePicker from './DatePicker'
@@ -18,12 +18,12 @@ export const DateEdit = ({onChange, options, id, value, immutable, events, place
   const datePickerOptions = options?.datePickerOptions || {}
 
   // to support direct input such as 01032020
-  const dateFormatWithoutPunctuation = date.getLocalizedDateFormatWithoutPunctuation(intl.locale)
+  const dateFormatWithoutPunctuation = dateUtils.getLocalizedDateFormatWithoutPunctuation(intl.locale)
   const dateFormats = [
     DateFormat,
     dateFormatWithoutPunctuation,
-    date.useTwoDigitYear(DateFormat), // to support direct input such as 01.03.22
-    date.useTwoDigitYear(dateFormatWithoutPunctuation) // to support direct input such as 010322
+    dateUtils.useTwoDigitYear(DateFormat), // to support direct input such as 01.03.22
+    dateUtils.useTwoDigitYear(dateFormatWithoutPunctuation) // to support direct input such as 010322
   ]
 
   return (

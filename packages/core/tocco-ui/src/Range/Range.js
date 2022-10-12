@@ -32,11 +32,10 @@ const Range = props => {
   const typeMapping = rangeTypeMappings[type]
 
   useEffect(() => {
-    const getFromOrTo = value =>
-      typeMapping?.fromRange ? typeMapping.fromRange(value) : value?.from || value?.to || null
+    const getFromOrTo = val => (typeMapping?.fromRange ? typeMapping.fromRange(val) : val?.from || val?.to || null)
 
-    const getRangeValue = value =>
-      typeMapping?.toRange ? typeMapping.toRange(value) : {from: value, to: value, isRangeValue: true}
+    const getRangeValue = val =>
+      typeMapping?.toRange ? typeMapping.toRange(val) : {from: val, to: val, isRangeValue: true}
 
     if (viewMode === ViewMode.EXPANDED_INITIAL && value && !value.isRangeValue) {
       // initial expanded render with single default value (user hasn't collased and expanded the component yet)
@@ -71,9 +70,7 @@ const Range = props => {
   const exactEvents = useMemo(
     () => ({
       ...events,
-      onChange: value => {
-        events.onChange(value)
-      }
+      onChange: events.onChange
     }),
     [events]
   )
@@ -96,11 +93,11 @@ const Range = props => {
     }
   }
 
-  const getToOptions = (options, fromValue) =>
-    typeMapping?.getToOptions ? typeMapping.getToOptions(options, fromValue) : options
+  const getToOptions = (opts, fromValue) =>
+    typeMapping?.getToOptions ? typeMapping.getToOptions(opts, fromValue) : opts
 
-  const getFromOptions = (options, toValue) =>
-    typeMapping?.getFromOptions ? typeMapping.getFromOptions(options, toValue) : options
+  const getFromOptions = (opts, toValue) =>
+    typeMapping?.getFromOptions ? typeMapping.getFromOptions(opts, toValue) : opts
 
   const rangeValueIcon = typeMapping?.icons?.range || 'chevron-down'
   const singleValueIcon = typeMapping?.icons?.single || 'chevron-left'

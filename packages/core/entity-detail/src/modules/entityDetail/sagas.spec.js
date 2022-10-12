@@ -195,7 +195,7 @@ describe('entity-detail', () => {
             const mode = 'update'
             const formDefinition = {}
             const fieldDefinitions = {}
-            const modifyFormDefinition = formDefinition => formDefinition
+            const modifyFormDefinition = formDef => formDef
             return expectSaga(sagas.loadDetailFormDefinition, formName, mode)
               .provide([
                 [call(rest.fetchForm, formName, mode), formDefinition],
@@ -216,7 +216,7 @@ describe('entity-detail', () => {
             const modifiedFormDefinition = {children: [{id: 'fake modified child'}]}
             const fieldDefinitions = {}
             const reportDefinitions = [{}]
-            const modifyFormDefinition = formDefinition => formDefinition
+            const modifyFormDefinition = formDef => formDef
             return expectSaga(sagas.loadDetailFormDefinition, formName, mode, entityName)
               .provide([
                 [matchers.call.fn(rest.fetchForm, formName, mode), formDefinition],

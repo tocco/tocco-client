@@ -58,7 +58,7 @@ const Breadcrumbs = ({
 
   const msg = id => intl.formatMessage({id})
 
-  const Breadcrumbs = breadcrumbs
+  const BreadcrumbList = breadcrumbs
     .map((breadcrumb, idx) => {
       const display = breadcrumb.display || ''
       const Breadcrumb = idx === breadcrumbs.length - 1 ? StyledBreadcrumbsTitle : StyledBreadcrumbsLink
@@ -87,7 +87,7 @@ const Breadcrumbs = ({
       <Helmet defer={false}>
         <title>{getTitle(breadcrumbs, msg('client.component.breadcrumbs.createTitle'))}</title>
       </Helmet>
-      <>{Breadcrumbs}</>
+      <>{BreadcrumbList}</>
     </StyledBreadcrumbs>
   )
 }

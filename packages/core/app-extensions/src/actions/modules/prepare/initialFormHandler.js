@@ -19,14 +19,14 @@ export default function* initialFormHandler({preparationResponse, config}) {
   }
 }
 
-export const formValues = formValues => ({formValues})
+export const wrapFormValues = formValues => ({formValues})
 
 export function* handleInitialForm({formDefinition, defaultValues, conditions, formTitle, formMessage}, config) {
   const answerChannel = yield call(channel)
 
   const id = new Date().valueOf()
-  const onSend = ({values}) => answerChannel.put(formValues(values))
-  const onCancel = () => answerChannel.put(formValues(null))
+  const onSend = ({values}) => answerChannel.put(wrapFormValues(values))
+  const onCancel = () => answerChannel.put(wrapFormValues(null))
   const SimpleFormContainer = simpleFormConnector(config.formApp)
   const modifiedForm = addConditionsToFormDefinition(formDefinition.form, conditions)
   const modal = notification.modal(id, formTitle, formMessage, () => (

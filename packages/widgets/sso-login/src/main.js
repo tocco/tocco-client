@@ -46,8 +46,8 @@ const initApp = (id, input, events, publicPath) => {
 
       if (module.hot) {
         module.hot.accept('./modules/index', () => {
-          const reducers = require('./modules').default
-          reducerUtil.hotReloadReducers(app.store, reducers)
+          const hotReloadedReducers = require('./modules').default
+          reducerUtil.hotReloadReducers(app.store, hotReloadedReducers)
         })
       }
 

@@ -8,8 +8,8 @@ import StyledNumberEdit from './StyledNumberEdit'
 const IntegerEdit = ({value, onChange, options, immutable, name, id, placeholder}) => {
   const {minValue, maxValue, format, allowLeadingZeros} = options || {}
 
-  const handleChange = ({value, floatValue}) => {
-    let newValue = allowLeadingZeros ? value : floatValue
+  const handleChange = ({value: changedValue, floatValue}) => {
+    let newValue = allowLeadingZeros ? changedValue : floatValue
     if (newValue === undefined) {
       newValue = null
     }

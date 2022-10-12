@@ -32,7 +32,7 @@ const SearchPanel = ({
     updateRequestedCalendars(name, selection)
   }
 
-  const getSearchLists = calendarTypes =>
+  const getSearchLists = () =>
     calendarTypes.map(calendarType => (
       <Panel.Wrapper key={calendarType.name}>
         <Panel.Header>
@@ -62,7 +62,7 @@ const SearchPanel = ({
     ? calendarTypes.findIndex(c => c.name === initialCalendarType)
     : -1
 
-  return <Panel.Group initialOpenPanelIndex={initialCalendarTypeIndex}>{getSearchLists(calendarTypes)}</Panel.Group>
+  return <Panel.Group initialOpenPanelIndex={initialCalendarTypeIndex}>{getSearchLists()}</Panel.Group>
 }
 
 SearchPanel.propTypes = {

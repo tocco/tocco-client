@@ -11,7 +11,7 @@ export const MultiValueLabel = props => {
   const {tooltips, loadTooltip, DetailLink} = props.selectProps
   const tooltip = _get(tooltips, data.key, null)
 
-  const MultiValueLabel = <span {...innerProps}>{children}</span>
+  const Children = <span {...innerProps}>{children}</span>
 
   const content = DetailLink ? (
     <ClickableWrapper
@@ -22,12 +22,12 @@ export const MultiValueLabel = props => {
     >
       <DetailLink entityKey={data.key}>
         <Popover content={tooltip ? <div dangerouslySetInnerHTML={{__html: html.sanitizeHtml(tooltip)}} /> : null}>
-          <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(data.key)}>{MultiValueLabel}</span>
+          <span onMouseOver={() => loadTooltip && !tooltip && loadTooltip(data.key)}>{Children}</span>
         </Popover>
       </DetailLink>
     </ClickableWrapper>
   ) : (
-    MultiValueLabel
+    Children
   )
 
   return <StyledMultiValueLabelWrapper>{content}</StyledMultiValueLabelWrapper>

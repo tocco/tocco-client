@@ -44,16 +44,14 @@ export function* doDelete() {
   const entitiesToDelete = yield select(entitiesToDeleteSelector)
 
   yield put(actions.setDeletingInProgress(true))
-  const body = {
-    entityModel: entitiesToDelete.entityName,
-    keys: entitiesToDelete.keys
-  }
-
   const deleteEndpoint = yield call(getDeleteEndpoint)
 
   const response = yield call(rest.requestSaga, deleteEndpoint, {
     method: 'POST',
-    body,
+    body: {
+      entityModel: entitiesToDelete.entityName,
+      keys: entitiesToDelete.keys
+    },
     acceptedStatusCodes: [409]
   })
 

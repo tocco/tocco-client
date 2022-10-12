@@ -1,7 +1,7 @@
 import consoleLogger from '../consoleLogger'
 import request from '../request'
 
-const logLevel = {
+const LogLevels = {
   error: 'error'
 }
 
@@ -9,12 +9,12 @@ const logException = async error => {
   const logMessage = `ERROR MESSAGE: ${error.message} \nSTACK: ${error.stack ? error.stack.substring(0, 1000) : '-'}`
 
   consoleLogger.logError(logMessage)
-  await logRemote(logLevel.error, logMessage)
+  await logRemote(LogLevels.error, logMessage)
 }
 
 const logError = async message => {
   consoleLogger.logError(message)
-  await logRemote(logLevel.error, message)
+  await logRemote(LogLevels.error, message)
 }
 
 const logRemote = async (logLevel, message) => {

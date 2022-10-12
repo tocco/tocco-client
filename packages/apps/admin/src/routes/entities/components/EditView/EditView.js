@@ -40,9 +40,7 @@ const EditView = props => {
 
   const queryFormName = queryString.parse(location.search).formName
 
-  const handleToucheChanged = ({touched}) => {
-    setTouched(touched)
-  }
+  const handleToucheChanged = ({touched: changedTouched}) => setTouched(changedTouched)
 
   const navigateToCreateRelative = (relationName, state) => {
     if (relationName) {

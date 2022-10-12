@@ -36,8 +36,8 @@ const Dashboard = ({infoBoxes: storedInfoBoxes, saveInfoBoxHeight, saveInfoBoxPo
   )
 
   const onInfoBoxHeightChanging = useCallback((id, {height}) => {
-    setInfoBoxes(infoBoxes => [
-      ...infoBoxes.map(c =>
+    setInfoBoxes(boxes => [
+      ...boxes.map(c =>
         c.id === id
           ? {
               ...c,

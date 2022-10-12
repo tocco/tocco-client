@@ -1,7 +1,13 @@
 import {channel} from 'redux-saga'
 import {call, take} from 'redux-saga/effects'
 
-import {handleClientQuestion, getAnswer, handleConfirmQuestion, handleYesNoQuestion, answer} from './clientQuestions'
+import {
+  handleClientQuestion,
+  getAnswer,
+  handleConfirmQuestion,
+  handleYesNoQuestion,
+  wrapAnswer
+} from './clientQuestions'
 import {sendRequest} from './request'
 
 describe('app-extensions', () => {
@@ -124,7 +130,7 @@ describe('app-extensions', () => {
 
           expect(gen.next().value).to.eql(call(handleConfirmQuestion, question))
 
-          const ans = answer(true)
+          const ans = wrapAnswer(true)
 
           const next = gen.next(ans)
 
@@ -142,7 +148,7 @@ describe('app-extensions', () => {
 
           expect(gen.next().value).to.eql(call(handleYesNoQuestion, question))
 
-          const ans = answer(true)
+          const ans = wrapAnswer(true)
 
           const next = gen.next(ans)
 
@@ -177,7 +183,7 @@ describe('app-extensions', () => {
 
           expect(gen.next().value).to.eql(take(mockedChannel))
 
-          const ans = answer(true)
+          const ans = wrapAnswer(true)
 
           const next = gen.next(ans)
 
@@ -215,7 +221,7 @@ describe('app-extensions', () => {
 
           expect(gen.next().value).to.eql(take(mockedChannel))
 
-          const ans = answer(true)
+          const ans = wrapAnswer(true)
 
           const next = gen.next(ans)
 

@@ -51,13 +51,13 @@ export function* getAnswer(question) {
   throw new Error('No question handler found for client question', question)
 }
 
-export const answer = answer => ({answer})
+export const wrapAnswer = answer => ({answer})
 
 export function* handleConfirmQuestion(question) {
   const answerChannel = yield call(channel)
 
-  const confirm = () => answerChannel.put(answer(true))
-  const cancel = () => answerChannel.put(answer(null))
+  const confirm = () => answerChannel.put(wrapAnswer(true))
+  const cancel = () => answerChannel.put(wrapAnswer(null))
 
   const {header, message, okText, cancelText} = question
 
@@ -69,9 +69,9 @@ export function* handleConfirmQuestion(question) {
 export function* handleYesNoQuestion(question) {
   const answerChannel = yield call(channel)
 
-  const onYes = () => answerChannel.put(answer(true))
-  const onNo = () => answerChannel.put(answer(false))
-  const onCancel = () => answerChannel.put(answer(null))
+  const onYes = () => answerChannel.put(wrapAnswer(true))
+  const onNo = () => answerChannel.put(wrapAnswer(false))
+  const onCancel = () => answerChannel.put(wrapAnswer(null))
 
   const {header, message, yesText, noText, cancelText} = question
 

@@ -4,7 +4,7 @@ import Typography from '../../Typography'
 
 export const MultiSeparator = () => ', '
 
-const MultiSelectFormatter = ({value, options, breakWords}) => {
+const MultiSelectFormatter = ({value: values, options, breakWords}) => {
   const {navigationStrategy, linkProps} = options || {}
 
   const mapValueToDisplay = value =>
@@ -19,8 +19,8 @@ const MultiSelectFormatter = ({value, options, breakWords}) => {
     )
 
   const displays =
-    value?.length > 0
-      ? value.map(mapValueToDisplay).reduce((prev, curr, idx) => [prev, <MultiSeparator key={`sep${idx}`} />, curr])
+    values?.length > 0
+      ? values.map(mapValueToDisplay).reduce((prev, curr, idx) => [prev, <MultiSeparator key={`sep${idx}`} />, curr])
       : null
 
   return <Typography.Span breakWords={breakWords}>{displays}</Typography.Span>

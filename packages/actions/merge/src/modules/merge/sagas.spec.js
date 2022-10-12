@@ -221,7 +221,7 @@ describe('merge', () => {
 
         describe('close', () => {
           test('should call close', () => {
-            const sourceData = {
+            const entitiesSourceData = {
               entities: [
                 {
                   model: 'User',
@@ -253,7 +253,7 @@ describe('merge', () => {
             ]
 
             return expectSaga(sagas.close)
-              .provide([[select(sagas.mergeSelector), {sourceData}]])
+              .provide([[select(sagas.mergeSelector), {sourceData: entitiesSourceData}]])
               .put(externalEvents.fireExternalEvent('onSuccess', {remoteEvents}))
               .run()
           })

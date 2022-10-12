@@ -18,6 +18,57 @@ import {getFormFieldDefinition} from './utils'
 
 const modeFitsScope = (mode, scopes) => !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
 
+const shouldRenderField = ({
+  formDefinitionField,
+  formDefinition,
+  entityField,
+  parentReadOnly,
+  beforeRenderField,
+  fieldName,
+  formValues,
+  mode,
+  fieldMappingType
+}) => {
+  if (!modeFitsScope(mode, formDefinitionField.scopes)) {
+    return false
+  }
+
+  if (formDefinitionField.hidden) {
+    return false
+  }
+
+  if (beforeRenderField && !beforeRenderField(fieldName)) {
+    return false
+  }
+
+  if (fieldMappingType === 'search') {
+    return true
+  }
+
+  const transformedFieldName = transformFieldName(fieldName)
+  const hasEmptyValue = () => {
+    if (!Object.prototype.hasOwnProperty.call(formValues || {}, transformedFieldName)) {
+      return true
+    } else {
+      const value = formValues[transformedFieldName]
+      return value == null || value === '' || (Array.isArray(value) && value.length === 0)
+    }
+  }
+
+  const readOnly =
+    parentReadOnly ||
+    formDefinition.readonly ||
+    (entityField && entityField.writable === false) ||
+    (mode !== 'create' &&
+      !entityField &&
+      formDefinitionField.componentType !== 'description' &&
+      formDefinitionField.dataType !== 'location') ||
+    formDefinitionField.readonly ||
+    formDefinitionField.componentType === 'display'
+
+  return !(readOnly && hasEmptyValue())
+}
+
 const FormBuilder = props => {
   const {
     componentMapping,
@@ -49,13 +100,13 @@ const FormBuilder = props => {
   }
 
   const createFieldSet = (fieldSet, parentReadOnly, siblings) => {
-    const formDefinition = getFormFieldDefinition(fieldSet)
-    if (!formDefinition) {
+    const formFieldDefinition = getFormFieldDefinition(fieldSet)
+    if (!formFieldDefinition) {
       return null
     }
 
     const formDefinitionField = {
-      ...formDefinition,
+      ...formFieldDefinition,
       siblings: siblings.map(getFormFieldDefinition).filter(Boolean)
     }
 
@@ -65,47 +116,19 @@ const FormBuilder = props => {
     const entityPath = `paths.${fieldName.split('.').join('.value.paths.')}`.split('.')
     const entityField = _get(entity, entityPath)
 
-    const shouldRenderField = (formDefinitionField, entityField) => {
-      if (!modeFitsScope(mode, formDefinitionField.scopes)) {
-        return false
-      }
-
-      if (formDefinitionField.hidden) {
-        return false
-      }
-
-      if (beforeRenderField && !beforeRenderField(fieldName)) {
-        return false
-      }
-
-      if (fieldMappingType === 'search') {
-        return true
-      }
-
-      const hasEmptyValue = (fieldName, formValues) => {
-        if (!Object.prototype.hasOwnProperty.call(formValues || {}, fieldName)) {
-          return true
-        } else {
-          const value = formValues[fieldName]
-          return value == null || value === '' || (Array.isArray(value) && value.length === 0)
-        }
-      }
-
-      const readOnly =
-        parentReadOnly ||
-        formDefinition.readonly ||
-        (entityField && entityField.writable === false) ||
-        (mode !== 'create' &&
-          !entityField &&
-          formDefinitionField.componentType !== 'description' &&
-          formDefinitionField.dataType !== 'location') ||
-        formDefinitionField.readonly ||
-        formDefinitionField.componentType === 'display'
-
-      return !(readOnly && hasEmptyValue(transformFieldName(fieldName), formValues))
-    }
-
-    if (shouldRenderField(formDefinitionField, entityField)) {
+    if (
+      shouldRenderField({
+        parentReadOnly,
+        formDefinition: formFieldDefinition,
+        formDefinitionField,
+        entityField,
+        beforeRenderField,
+        fieldName,
+        formValues,
+        mode,
+        fieldMappingType
+      })
+    ) {
       return (
         <Field
           key={`field-${fieldName}`}

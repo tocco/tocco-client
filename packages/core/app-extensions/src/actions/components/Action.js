@@ -20,8 +20,8 @@ const ActionVisual = ({definition, onClick, selection, parent, mode, callback, d
   return (
     <ActionType
       definition={definition}
-      onClick={definition => {
-        onClick(_omit(definition, ['label']), selection, parent, callback)
+      onClick={currentDefinition => {
+        onClick(_omit(currentDefinition, ['label']), selection, parent, callback)
       }}
       selectedCount={selection.count}
       disabled={disabled}

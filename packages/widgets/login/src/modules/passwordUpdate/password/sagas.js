@@ -71,8 +71,8 @@ export function* validate() {
     if (result.valid === true) {
       yield put(actions.setNewPasswordValidationErrors({}))
     } else {
-      const errors = validationMessagesToErrorMap(result.validationMessages)
-      yield put(actions.setNewPasswordValidationErrors(errors))
+      const validationMessageErrors = validationMessagesToErrorMap(result.validationMessages)
+      yield put(actions.setNewPasswordValidationErrors(validationMessageErrors))
     }
   }
 }

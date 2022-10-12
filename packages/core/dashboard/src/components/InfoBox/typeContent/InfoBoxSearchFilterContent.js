@@ -45,8 +45,8 @@ const getSorting = orderBy => {
 const InfoBoxSearchFilterContent = ({id, content, navigationStrategy, emitAction}) => {
   const {searchFilterUniqueId, entityName, scope, limit, orderBy} = content
 
-  const handleRowClick = ({id}) => {
-    navigationStrategy.openDetail(entityName, id, false)
+  const handleRowClick = ({id: rowEntityId}) => {
+    navigationStrategy.openDetail(entityName, rowEntityId, false)
   }
 
   return (
