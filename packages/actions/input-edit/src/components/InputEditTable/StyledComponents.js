@@ -1,13 +1,13 @@
 import _get from 'lodash/get'
 import {lighten} from 'polished'
 import styled from 'styled-components'
-import {scale, shadeColor, theme, declareFont, declareFocus} from 'tocco-ui'
+import {scale, shadeColor, themeSelector, declareFont, declareFocus} from 'tocco-ui'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
 const baseSpace = scale.space(-1)
 
 export const StyledTable = styled.table`
-  background-color: ${theme.color('paper')};
+  background-color: ${themeSelector.color('paper')};
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
@@ -46,7 +46,7 @@ export const StyledCell = styled.div`
       width: 100%;
       margin-left: 5px;
       margin-bottom: 5px;
-      background-color: ${theme.color('paper')};
+      background-color: ${themeSelector.color('paper')};
     }
 
     &.single-select button {
@@ -66,10 +66,10 @@ export const StyledTableRow = styled.tr`
 
 export const StyledHeader = styled.th`
   padding: ${baseSpace};
-  background-color: ${theme.color('paper')};
+  background-color: ${themeSelector.color('paper')};
   text-align: left;
   border-bottom: 2px solid ${borderColor};
-  ${declareFont({fontWeight: theme.fontWeight('bold')})};
+  ${declareFont({fontWeight: themeSelector.fontWeight('bold')})};
   user-select: none;
   text-overflow: ellipsis;
 

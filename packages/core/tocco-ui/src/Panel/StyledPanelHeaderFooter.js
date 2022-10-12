@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import styled, {css} from 'styled-components'
 
-import {shadeColor, scale, theme, isTouchDevice} from '../utilStyles'
+import {shadeColor, scale, themeSelector, isTouchDevice} from '../utilStyles'
 
 const declareDivider = ({theme, isOpen, isFramed}) => {
   const cssShared = `
@@ -56,7 +56,7 @@ export const StyledIconWrapper = styled.span`
     opacity: 0;
 
     &:hover {
-      color: ${theme.color('secondaryLight')};
+      color: ${themeSelector.color('secondaryLight')};
     }
   `}
 `

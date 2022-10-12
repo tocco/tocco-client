@@ -1,11 +1,11 @@
 import {lighten} from 'polished'
 import styled from 'styled-components'
 
-import {theme} from '../utilStyles'
+import {themeSelector} from '../utilStyles'
 
 const StyledPanel = styled.div`
   && {
-    background-color: ${theme.color('paper')};
+    background-color: ${themeSelector.color('paper')};
     border: 1px ${({isFramed}) => (isFramed ? 'solid' : 'none')} ${({theme}) => lighten(0.93, theme.colors.text)};
   }
 `

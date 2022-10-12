@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import {StyledButton} from '../Button'
 import {StyledLi, StyledLabel} from '../Typography'
-import {scale, theme, generateShades} from '../utilStyles'
+import {scale, themeSelector, generateShades} from '../utilStyles'
 
 export const StyledColumnPickerWrapper = styled.div``
 
@@ -35,7 +35,7 @@ export const StyledButtonWrapper = styled.div`
   position: sticky;
   bottom: 0;
   padding-top: ${scale.space(0)};
-  background-color: ${theme.color('paper')};
+  background-color: ${themeSelector.color('paper')};
   display: flex;
   justify-content: flex-end;
 
@@ -45,7 +45,7 @@ export const StyledButtonWrapper = styled.div`
 `
 
 export const StyledId = styled.span`
-  color: ${theme.color('text')};
+  color: ${themeSelector.color('text')};
   font-style: italic;
 `
 
@@ -70,6 +70,6 @@ export const StyledItem = styled(StyledLi)`
 export const StyledNumber = styled.span`
   display: inline-block;
   margin-right: ${scale.space(-1)};
-  color: ${theme.color('text')};
+  color: ${themeSelector.color('text')};
   font-size: ${scale.font(0)};
 `

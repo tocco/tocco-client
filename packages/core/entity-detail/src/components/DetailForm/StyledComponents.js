@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Button, scale, theme, StyledScrollbar} from 'tocco-ui'
+import {Button, scale, themeSelector, StyledScrollbar} from 'tocco-ui'
 
 export const StyledForm = styled.form`
   display: flex;
@@ -14,7 +14,7 @@ export const StyledSaveButton = styled(Button)`
   ${({hasErrors}) =>
     hasErrors &&
     `
-    background-color: ${theme.color('paper')};
+    background-color: ${themeSelector.color('paper')};
   `}
   display: block;
 `
@@ -41,7 +41,7 @@ export const StyledActionSpan = styled.span`
   align-items: center;
 
   &:hover {
-    color: ${theme.color('secondaryLight')};
+    color: ${themeSelector.color('secondaryLight')};
   }
   ${({marked, theme}) => marked && `color: ${theme.colors.secondary};`}
 `

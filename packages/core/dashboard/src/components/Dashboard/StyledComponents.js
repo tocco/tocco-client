@@ -1,6 +1,6 @@
 import _get from 'lodash/get'
 import styled, {css} from 'styled-components'
-import {scale, StyledScrollbar, shadeColor, theme} from 'tocco-ui'
+import {scale, StyledScrollbar, shadeColor, themeSelector} from 'tocco-ui'
 
 const mobileStyles = styles => css`
   @media only screen and (max-width: 800px) {
@@ -11,7 +11,7 @@ const mobileStyles = styles => css`
 export const StyledDashboardWrapper = styled.div`
   width: 100%;
   height: calc(100% - 75px); // ~75px the height of header and breadcrumbs
-  background: ${theme.color('paper')};
+  background: ${themeSelector.color('paper')};
   padding: ${scale.space(-0.5)} ${scale.space(-2)} ${scale.space(-0.5)} ${scale.space(-0.5)};
   overflow-y: scroll;
   box-sizing: border-box;

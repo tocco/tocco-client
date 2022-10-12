@@ -2,11 +2,11 @@
 import {darken, lighten} from 'polished'
 import {createGlobalStyle} from 'styled-components'
 
-import {theme, declareFont, scale} from '../utilStyles'
+import {themeSelector, declareFont, scale} from '../utilStyles'
 
-const secondaryLight = theme.color('secondaryLight')
-const paper = theme.color('paper')
-const secondary = theme.color('secondary')
+const secondaryLight = themeSelector.color('secondaryLight')
+const paper = themeSelector.color('paper')
+const secondary = themeSelector.color('secondary')
 
 // put long css rule in variable to avoid eslint problem https://github.com/eslint/eslint/issues/11138
 const disableTitleCss = `
@@ -69,7 +69,7 @@ export const GlobalDatePickerStyles = createGlobalStyle`
 
       .react-datepicker__current-month {
         ${declareFont({
-          fontWeight: theme.fontWeight('bold')
+          fontWeight: themeSelector.fontWeight('bold')
         })}
       }
 
@@ -209,7 +209,7 @@ export const GlobalDatePickerStyles = createGlobalStyle`
 
       .react-datepicker__navigation--years-upcoming:before {
         border-width: 1.5px 1.5px 0 0;
-        border-color: ${theme.color('text')};
+        border-color: ${themeSelector.color('text')};
         border-style: solid;
         content: '';
         display: block;
@@ -223,7 +223,7 @@ export const GlobalDatePickerStyles = createGlobalStyle`
 
       .react-datepicker__navigation--years-previous:before {
         border-width: 1.5px 1.5px 0 0;
-        border-color: ${theme.color('text')};
+        border-color: ${themeSelector.color('text')};
         border-style: solid;
         content: '';
         display: block;

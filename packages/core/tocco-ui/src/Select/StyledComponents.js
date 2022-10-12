@@ -5,7 +5,7 @@ import styled, {css} from 'styled-components'
 
 import Ball from '../Ball'
 import {StyledScrollbar} from '../Layout'
-import {declareFont, generateDisabledShade, generateShades, scale, theme} from '../utilStyles'
+import {declareFont, generateDisabledShade, generateShades, scale, themeSelector} from '../utilStyles'
 
 export const StyledReactSelectOuterWrapper = styled.div`
   outline-style: none;
@@ -19,7 +19,7 @@ export const StyledReactSelectInnerWrapper = styled.div`
 export const StyledIndicatorsContainerWrapper = styled.div`
   position: relative;
   z-index: 1;
-  background-color: ${theme.color('paper')};
+  background-color: ${themeSelector.color('paper')};
   ${({isTopAligned}) =>
     isTopAligned &&
     css`
@@ -56,7 +56,7 @@ export const StyledMenu = styled(components.Menu)`
 export const StyledMoreOptionsAvailable = styled.div`
   && {
     ${declareFont({
-      color: theme.color('signal.warning.text'),
+      color: themeSelector.color('signal.warning.text'),
       lineHeight: 'normal'
     })}
     cursor: default;
@@ -68,7 +68,7 @@ export const StyledMoreOptionsAvailable = styled.div`
 export const StyledSingleValueWrapper = styled.div`
   overflow-x: hidden;
   position: relative;
-  color: ${({isDisabled}) => (isDisabled ? theme.color('text') : 'inherit')};
+  color: ${({isDisabled}) => (isDisabled ? themeSelector.color('text') : 'inherit')};
 `
 
 /**

@@ -1,6 +1,6 @@
 import _get from 'lodash/get'
 import styled, {createGlobalStyle} from 'styled-components'
-import {declareFont, theme, StyledScrollbar, shadeColor, scale} from 'tocco-ui'
+import {declareFont, themeSelector, StyledScrollbar, shadeColor, scale} from 'tocco-ui'
 
 export const StyledFullCalendarWrapper = styled.div`
   height: 100%;
@@ -50,7 +50,7 @@ export const StyledFullCalendarWrapper = styled.div`
 
     .fc-timeline-header-row {
       th {
-        font-weight: ${theme.fontWeight('regular')};
+        font-weight: ${themeSelector.fontWeight('regular')};
       }
     }
 
@@ -58,21 +58,21 @@ export const StyledFullCalendarWrapper = styled.div`
       cursor: pointer;
 
       .dark {
-        color: ${theme.color('text')};
+        color: ${themeSelector.color('text')};
       }
 
       .bright {
-        color: ${theme.color('paper')};
+        color: ${themeSelector.color('paper')};
       }
 
       .conflict {
-        border: 2px dashed ${theme.color('signal.danger.text')};
+        border: 2px dashed ${themeSelector.color('signal.danger.text')};
       }
 
       .fc-event-time {
         overflow: visible;
         font-size: ${scale.font(0)};
-        font-weight: ${theme.fontWeight('regular')};
+        font-weight: ${themeSelector.fontWeight('regular')};
       }
     }
 
@@ -96,7 +96,7 @@ export const CalendarGlobalPrintStyle = createGlobalStyle`
     #section-to-print,
     #section-to-print * {
       visibility: visible;
-      color: ${theme.color('text')};
+      color: ${themeSelector.color('text')};
 
       input[type='checkbox'] {
         visibility: hidden !important;

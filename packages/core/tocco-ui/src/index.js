@@ -73,6 +73,7 @@ export {
   scale,
   shadeColor,
   theme,
+  themeSelector,
   isTouchDevice,
   useWindowWidth,
   useCollapseOnMobile
