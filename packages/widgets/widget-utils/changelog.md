@@ -1,3 +1,6 @@
+0.1.24
+- autofocus datepickers
+
 0.1.23
 - fix escape handling in tql fulltext search
 
