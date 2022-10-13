@@ -61,8 +61,8 @@ const typeHandlers = type => {
     case 'fulltext-search':
       return (path, value) =>
         path === 'txtFulltext'
-          ? `(fulltext("${value}") or fulltext("${value}*"))`
-          : `(fulltext("${value}", ${path}) or fulltext("${value}*", ${path}))`
+          ? `fulltext("(${value}) OR (${value}*)")`
+          : `fulltext("(${value}) OR (${value}*)", ${path})`
     case 'birthdate':
     case 'date':
     case 'create_timestamp':
