@@ -11,7 +11,7 @@ import {
   StyledModalBody,
   StyledMessageWrapper,
   StyledCloseButton,
-  GlobalTetherStyle
+  GlobalStyles
 } from './StyledComponents'
 
 const ModalContent = ({cancelable, message, title, onClose, onCancel, id, component: Component}) => {
@@ -52,7 +52,7 @@ const ModalContent = ({cancelable, message, title, onClose, onCancel, id, compon
 
   return (
     <>
-      <GlobalTetherStyle />
+      <GlobalStyles />
       <StyledModalWrapper>
         <StyledModalContent ref={ref}>
           <StyledModalHeader>

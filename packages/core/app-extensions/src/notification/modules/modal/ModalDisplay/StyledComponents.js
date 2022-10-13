@@ -107,10 +107,16 @@ export const StyledModalButtonWrapper = styled.div`
   justify-content: flex-end;
 `
 
-export const GlobalTetherStyle = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   ${StyledTether} {
     && {
       z-index: 9999999; // higher than StyledModalHolder
     }
+  }
+
+  /* prevent scroll of background when modal is open */
+  html,
+  body {
+    overflow-y: hidden;
   }
 `
