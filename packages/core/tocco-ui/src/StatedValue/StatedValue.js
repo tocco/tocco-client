@@ -45,6 +45,8 @@ const StatedValue = ({
   const showError = !immutable && touched && error && Object.keys(error).length > 0
   const labelAlt = `${js.adjustedHTMLString(label)}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
   const signal = signalProp || detectSignal(dirty, showError, mandatory, hasValue)
+  const statedValueLabelText = {__html: `${html.sanitizeHtml(label)}${mandatory ? ' *' : ''}`}
+  const forAttr = !isDisplay && !immutable && {htmlFor: id}
 
   return (
     <FocusWithin>
@@ -55,7 +57,7 @@ const StatedValue = ({
             {label && (
               <StyledLabelWrapper>
                 <StyledStatedValueLabel
-                  {...(!isDisplay && !immutable && {htmlFor: id})}
+                  {...forAttr}
                   hasValue={hasValue}
                   dirty={dirty}
                   title={labelAlt}
@@ -63,7 +65,7 @@ const StatedValue = ({
                   isDisplay={isDisplay}
                   signal={signal}
                 >
-                  <span dangerouslySetInnerHTML={{__html: `${html.sanitizeHtml(label)}${mandatory ? ' *' : ''}`}} />
+                  <span dangerouslySetInnerHTML={statedValueLabelText} />
                 </StyledStatedValueLabel>
               </StyledLabelWrapper>
             )}
