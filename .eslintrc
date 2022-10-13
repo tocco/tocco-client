@@ -82,6 +82,16 @@
     "eol-last": 2,
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "unused-imports/no-unused-imports": "error"
-  }
+    "unused-imports/no-unused-imports": "error",
+    "no-shadow": "error",
+    "default-param-last": "error"
+  },
+  "overrides": [
+    {
+      "files": ["**/reducer.js"],
+      "rules": {
+        "default-param-last": "off"
+      }
+    }
+  ]
 }
