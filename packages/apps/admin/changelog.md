@@ -1,3 +1,7 @@
+1.0.41-hotfix32.29
+- use action components in subtale
+- add export action to entity-browser
+
 1.0.41-hotfix32.28
 - load defalut values on action forms
 

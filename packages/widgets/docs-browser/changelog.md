@@ -1,3 +1,6 @@
+1.0.26-hotfix32.27
+- use action components in subtale
+
 1.0.26-hotfix32.26
 - load defalut values on action forms
 
