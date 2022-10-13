@@ -33,6 +33,7 @@ export const getBorderColor = ({immutable, isDisplay, signal, isDirty}) => {
   if (signal) {
     return 'signal'
   }
+
   return 'shade1'
 }
 
@@ -46,7 +47,7 @@ export const StyledStatedValueLabel = styled.label`
   &&& {
     ${declareFont({
       fontWeight: ({dirty}) => (dirty ? theme.fontWeight('bold') : theme.fontWeight('regular')),
-      lineHeight: 1
+      lineHeight: theme.lineHeight('dense')
     })}
     background-color: ${theme.color('paper')};
     color: ${props => colorizeText[getTextColor(props)](props)};
@@ -58,8 +59,8 @@ export const StyledStatedValueLabel = styled.label`
     height: calc(${scale.font(0)} + 1px);
     overflow: hidden;
     top: 0;
-    ${props => declareCursor(props)}
     pointer-events: auto;
+    ${props => declareCursor(props)}
 
     span {
       white-space: nowrap;
@@ -72,11 +73,11 @@ export const StyledStatedValueBox = styled.div`
     border: ${borderWidth} solid ${props => colorizeBorder[getBorderColor(props)](props)};
     padding: ${scale.space(-1)} ${scale.space(-1)} ${scale.space(-2)} ${scale.space(-1)};
     position: relative;
-    ${props => !props.immutable && declareFocus(props)}
-    ${props => declareCursor(props)}
     margin-top: ${({isDisplay}) => isDisplay && scale.space(-1)};
     padding-left: ${({immutable}) => immutable && scale.space(-2)};
     padding-top: ${({isDisplay, immutable}) => isDisplay && immutable && scale.space(-1)};
+    ${props => !props.immutable && declareFocus(props)}
+    ${props => declareCursor(props)}
 
     * {
       padding-left: ${({isDisplay}) => isDisplay && '0'};
@@ -108,7 +109,7 @@ export const StyledStatedValueError = styled.div``
 export const StyledStatedValueWrapper = styled.div`
   &&& {
     margin-bottom: ${scale.space(-1)};
-    padding-top: ${scale.space(-2)};
+    padding-top: ${scale.space(-1.5)};
 
     ${/* sc-selector */ StyledStatedValueBox},
     ${/* sc-selector */ StyledStatedValueDescription},
