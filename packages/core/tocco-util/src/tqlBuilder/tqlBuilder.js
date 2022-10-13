@@ -66,8 +66,8 @@ const typeHandlers = type => {
       return (path, value) => {
         const escapedValue = escapeFulltextValue(value)
         return path === 'txtFulltext'
-          ? `(fulltext("${escapedValue}") or fulltext("${escapedValue}*"))`
-          : `(fulltext("${escapedValue}", ${path}) or fulltext("${escapedValue}*", ${path}))`
+          ? `fulltext("(${escapedValue}) OR (${escapedValue}*)")`
+          : `fulltext("(${escapedValue}) OR (${escapedValue}*)", ${path})`
       }
     case 'birthdate':
     case 'date':
