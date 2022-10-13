@@ -1,3 +1,6 @@
+0.1.47
+- use back button in main action bar
+
 0.1.46
 - improve responsiveness of table component
 - datepicker keyboard handling
