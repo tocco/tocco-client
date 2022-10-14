@@ -1,6 +1,13 @@
+import {env} from 'tocco-util'
+
+import {resultTypes} from '../../api'
 import NotificationBody from '../../components/NotificationBody'
 
 export const TOASTER_KEY_PREFIX = 'socket-msg-'
+
+const isRunning = notification => notification.taskProgress && notification.taskProgress.isRunning
+export const hasOutputjobInWidget = notification =>
+  env.getEmbedType() === 'widget' && notification.result?.type === resultTypes.outputjob
 
 export const notificationToToaster = notification => {
   return {
@@ -13,6 +20,6 @@ export const notificationToToaster = notification => {
     body: ({navigationStrategy, cancelTask}) => (
       <NotificationBody notification={notification} navigationStrategy={navigationStrategy} cancelTask={cancelTask} />
     ),
-    ...(notification.taskProgress && notification.taskProgress.isRunning ? {duration: -1} : {})
+    ...(isRunning(notification) || hasOutputjobInWidget(notification) ? {duration: -1} : {})
   }
 }
