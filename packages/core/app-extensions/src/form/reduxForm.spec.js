@@ -333,6 +333,38 @@ describe('app-extensions', () => {
         })
       })
 
+      describe('transformFieldName', () => {
+        test('null as field name', () => {
+          expect(reduxForm.transformFieldName(null)).to.be.eql(null)
+        })
+
+        test('transform field with relation', () => {
+          expect(reduxForm.transformFieldName('relAddress.address_c')).to.be.eql('relAddress--address_c')
+        })
+
+        test('transform field with selector', () => {
+          expect(reduxForm.transformFieldName('relAddress_user[publication].relAddress.address_c')).to.be.eql(
+            'relAddress_user=-=publication=_=--relAddress--address_c'
+          )
+        })
+      })
+
+      describe('transformFieldNameBack', () => {
+        test('null as field name', () => {
+          expect(reduxForm.transformFieldNameBack(null)).to.be.eql(null)
+        })
+
+        test('transform field with relation', () => {
+          expect(reduxForm.transformFieldNameBack('relAddress--address_c')).to.be.eql('relAddress.address_c')
+        })
+
+        test('transform field with selector', () => {
+          expect(reduxForm.transformFieldNameBack('relAddress_user=-=publication=_=--relAddress--address_c')).to.be.eql(
+            'relAddress_user[publication].relAddress.address_c'
+          )
+        })
+      })
+
       describe('isValueEmpty', () => {
         test('should return true for empty values', () => {
           expect(reduxForm.isValueEmpty(null)).to.be.true

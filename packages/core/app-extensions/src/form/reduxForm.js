@@ -65,16 +65,26 @@ const CloseBracketEscapeCharacters = '=_='
  *  - brackets
  *    - used for selectors (e.g. relAddress[publication])
  */
-export const transformFieldName = fieldName =>
-  fieldName
+export const transformFieldName = fieldName => {
+  if (!fieldName) {
+    return fieldName
+  }
+
+  return fieldName
     .replace(/\./g, DotEscapeCharacters)
     .replace(/\[/g, OpenBracketEscapeCharacters)
     .replace(/\]/g, CloseBracketEscapeCharacters)
-export const transformFieldNameBack = fieldName =>
-  fieldName
+}
+export const transformFieldNameBack = fieldName => {
+  if (!fieldName) {
+    return fieldName
+  }
+
+  return fieldName
     .replace(new RegExp(DotEscapeCharacters, 'g'), '.')
     .replace(new RegExp(OpenBracketEscapeCharacters, 'g'), '[')
     .replace(new RegExp(CloseBracketEscapeCharacters, 'g'), ']')
+}
 
 /**
  * Applies type field mapping to map real fields to form related (virtual) fields.
