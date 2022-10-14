@@ -1,3 +1,6 @@
+1.0.58-hotfix33.23
+- add export action to entity-browser
+
 1.0.58-hotfix33.22
 - datepicker keyboard handling
 - do not lazy load datepicker
