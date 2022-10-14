@@ -26,25 +26,27 @@ const ViewMode = {
  */
 const Range = props => {
   const {value, events, readOnly, type, options, fromText, toText, expanded} = props
-
-  const [viewMode, setViewMode] = useState(expanded ? ViewMode.EXPANDED_INITIAL : ViewMode.COLLAPSED)
+  const inititalViewMode = expanded ? ViewMode.EXPANDED_INITIAL : ViewMode.COLLAPSED
+  const [viewMode, setViewMode] = useState(inititalViewMode)
 
   const typeMapping = rangeTypeMappings[type]
 
   useEffect(() => {
     const getFromOrTo = val => (typeMapping?.fromRange ? typeMapping.fromRange(val) : val?.from || val?.to || null)
-
     const getRangeValue = val =>
       typeMapping?.toRange ? typeMapping.toRange(val) : {from: val, to: val, isRangeValue: true}
+    const isInitiallyExpandedSingleValue = viewMode === ViewMode.EXPANDED_INITIAL && value && !value.isRangeValue
+    const isUserExpandedRangeValue = viewMode === ViewMode.EXPANDED && !value?.isRangeValue
+    const isUserCollapsedSingleValue = viewMode === ViewMode.COLLAPSED && value?.isRangeValue
 
-    if (viewMode === ViewMode.EXPANDED_INITIAL && value && !value.isRangeValue) {
-      // initial expanded render with single default value (user hasn't collased and expanded the component yet)
+    if (isInitiallyExpandedSingleValue) {
+      // initial expanded render with single default value (user hasn't collapsed and expanded the component yet)
       // in this case we want to keep the open range and use the default value as `from` value (if there is one)
       events.onChange({from: value, to: undefined, isRangeValue: true})
-    } else if (viewMode === ViewMode.EXPANDED && !value?.isRangeValue) {
+    } else if (isUserExpandedRangeValue) {
       // user has changed to expanded mode -> change to range value
       events.onChange(getRangeValue(value))
-    } else if (viewMode === ViewMode.COLLAPSED && value?.isRangeValue) {
+    } else if (isUserCollapsedSingleValue) {
       // user has changed to collapsed mode -> change to single value
       events.onChange(getFromOrTo(value))
     }
@@ -104,6 +106,10 @@ const Range = props => {
 
   const baseType = typeMapping?.type || type
 
+  const handleExtend = () => {
+    setViewMode(hasRangeValue ? ViewMode.COLLAPSED : ViewMode.EXPANDED)
+  }
+
   return (
     <StyledRange>
       <StyledInputWrapper>
@@ -136,13 +142,7 @@ const Range = props => {
         )}
       </StyledInputWrapper>
       <StyledExtender>
-        <Ball
-          disabled={readOnly}
-          icon={hasRangeValue ? singleValueIcon : rangeValueIcon}
-          onClick={() => {
-            setViewMode(hasRangeValue ? ViewMode.COLLAPSED : ViewMode.EXPANDED)
-          }}
-        ></Ball>
+        <Ball disabled={readOnly} icon={hasRangeValue ? singleValueIcon : rangeValueIcon} onClick={handleExtend} />
       </StyledExtender>
     </StyledRange>
   )

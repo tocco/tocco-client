@@ -25,7 +25,7 @@ export const LeftPositioning = styled.div`
   /* only show one panel at a time on screens <= 500px */
   grid: ${({isCollapsed, windowWidth}) =>
     (windowWidth <= 500 && !isCollapsed && `'sidepanel content' / 100% 0`) ||
-    (!isCollapsed && `'sidepanel content' / minmax(350px, 16%) auto`) ||
+    (!isCollapsed && `'sidepanel content' / minmax(390px, 16%) auto`) ||
     `'sidepanel content' / 25px auto`};
 
   @media (max-width: 600px) {

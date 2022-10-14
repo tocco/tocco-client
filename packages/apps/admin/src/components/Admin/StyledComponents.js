@@ -45,7 +45,7 @@ export const burgerMenuStyles = {
   bmMenuWrap: {
     position: 'fixed',
     height: '100%',
-    minWidth: '350px'
+    minWidth: '390px'
   },
   bmMenu: {
     background: '#fff',
