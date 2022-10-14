@@ -1,3 +1,4 @@
+import {transformFieldName} from '../reduxForm'
 import {getFormFieldDefinition, hasError} from '../utils'
 import {syncValidateField} from './syncValidation'
 
@@ -19,8 +20,8 @@ export const locationValidator = (_value, fieldDefinition, formDefinition, value
   const cityField = getField(locationMapping.city, formDefinition)
   const postcodeField = getField(locationMapping.postcode, formDefinition)
 
-  const cityErrors = syncValidateField(cityField, values[cityField.path], {})
-  const postcodeErrors = syncValidateField(postcodeField, values[postcodeField.path], {})
+  const cityErrors = syncValidateField(cityField, values[transformFieldName(cityField.path)], {})
+  const postcodeErrors = syncValidateField(postcodeField, values[transformFieldName(postcodeField.path)], {})
 
   return hasError(cityErrors) || hasError(postcodeErrors)
     ? {

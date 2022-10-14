@@ -1,19 +1,23 @@
 import _get from 'lodash/get'
 
+import {transformFieldName} from '../../form/reduxForm'
+
 /**
  * `location` field covers `city` and `postcode` value.
  */
 export default {
   hasValue: ({formValues, formField}) => {
     const locationMapping = formField.locationMapping
-    return !!(formValues[locationMapping.city] || formValues[locationMapping.postcode])
+    return !!(
+      formValues[transformFieldName(locationMapping.city)] || formValues[transformFieldName(locationMapping.postcode)]
+    )
   },
   getValue: ({formField, formData}) => {
     const locationMapping = formField.locationMapping
 
     return {
-      postcode: formData.formValues[locationMapping.postcode],
-      city: formData.formValues[locationMapping.city]
+      postcode: formData.formValues[transformFieldName(locationMapping.postcode)],
+      city: formData.formValues[transformFieldName(locationMapping.city)]
     }
   },
   getEvents: ({formField, formName, formData, events}) => {
@@ -44,7 +48,9 @@ export default {
     locations: [formField.id],
     formValues: {
       formName,
-      fields: formField.locationMapping ? Object.values(formField.locationMapping) : {}
+      fields: formField.locationMapping
+        ? Object.values(formField.locationMapping).map(name => transformFieldName(name))
+        : {}
     }
   }),
   getOptions: ({formField, formData}) => ({
@@ -54,7 +60,7 @@ export default {
     suggestions: _get(formData, ['locations', formField.id, 'suggestions'], null),
     mapButtonTitle: formData.intl.formatMessage({id: 'client.component.location.mapButtonTitle'}),
     locationValues: Object.keys(formField.locationMapping || {}).reduce(
-      (acc, key) => ({...acc, [key]: formData.formValues[formField.locationMapping[key]]}),
+      (acc, key) => ({...acc, [key]: formData.formValues[transformFieldName(formField.locationMapping[key])]}),
       {}
     )
   }),

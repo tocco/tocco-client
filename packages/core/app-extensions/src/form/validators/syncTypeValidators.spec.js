@@ -106,6 +106,60 @@ describe('app-extensions', () => {
 
             expect(errors).to.deep.equal(expectedErrors)
           })
+
+          test('should validate relAddress.city and relAddress.postcode', () => {
+            const fieldDefinition = {
+              id: 'location',
+              locationMapping: {
+                city: 'relAddress.city',
+                postcode: 'relAddress.postcode'
+              }
+            }
+            const formDefinition = {
+              id: 'box',
+              children: [
+                {
+                  id: 'relAddress.city',
+                  children: [
+                    {
+                      path: 'relAddress.city',
+                      validation: {
+                        mandatory: true
+                      }
+                    }
+                  ]
+                },
+                {
+                  id: 'relAddress.postcode',
+                  children: [
+                    {
+                      path: 'relAddress.postcode',
+                      validation: {
+                        mandatory: true,
+                        length: {
+                          toIncluding: 5
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+            const values = {
+              'relAddress--postcode': '123456'
+            }
+
+            const expectedErrors = {
+              location: {
+                ...mandatoryError,
+                ...maxLenthError
+              }
+            }
+
+            const errors = locationValidator(undefined, fieldDefinition, formDefinition, values)
+
+            expect(errors).to.deep.equal(expectedErrors)
+          })
         })
       })
     })
