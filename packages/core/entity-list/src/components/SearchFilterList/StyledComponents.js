@@ -1,7 +1,7 @@
 /* stylelint-disable no-descending-specificity */
 /* stylelint-disable rule-empty-line-before */
-import styled from 'styled-components'
-import {Button, scale, StyledSpan, theme, StyledItemLabel} from 'tocco-ui'
+import styled, {css} from 'styled-components'
+import {Button, scale, StyledSpan, theme, StyledItemLabel, isTouchDevice} from 'tocco-ui'
 
 export const SearchFilterListWrapper = styled.div`
   margin-top: 0.4rem;
@@ -61,16 +61,26 @@ export const StyledSearchFilterButton = styled.div`
       color: ${({active}) => active && theme.color('paper')};
     }
   }
-
-  &:hover {
+  ${!isTouchDevice &&
+  css`
+    &:hover {
+      ${/* sc-selector */ StyledSpanSearchFilter},
+      ${/* sc-selector */ StyledMenuWrapper} button,
+      ${/* sc-selector */ StyledAddRemoveButton} * {
+        color: ${theme.color('paper')};
+      }
+      background-color: ${({active}) => !active && theme.color('secondaryLight')};
+      cursor: pointer;
+    }
+  `}
+  ${isTouchDevice &&
+  css`
     ${/* sc-selector */ StyledSpanSearchFilter},
     ${/* sc-selector */ StyledMenuWrapper} button,
     ${/* sc-selector */ StyledAddRemoveButton} * {
-      color: ${theme.color('paper')};
+      color: ${theme.color('secondary')};
     }
-    background-color: ${({active}) => !active && theme.color('secondaryLight')};
-    cursor: pointer;
-  }
+  `}
 `
 
 export const StyledMessageWrapper = styled.div`
