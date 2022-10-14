@@ -1,3 +1,6 @@
+1.0.93
+- prevent body scroll when modal is opened
+
 1.0.92
 - improve responsiveness of table component
 - datepicker keyboard handling

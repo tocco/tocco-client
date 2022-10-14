@@ -1,3 +1,7 @@
+0.1.48
+- add export action to entity-browser
+- prevent body scroll when modal is opened
+
 0.1.47
 - use back button in main action bar
 

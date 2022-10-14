@@ -1,3 +1,7 @@
+1.0.114
+- add export action to entity-browser
+- prevent body scroll when modal is opened
+
 1.0.113
 - improve responsiveness of table component
 - datepicker keyboard handling
