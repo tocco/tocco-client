@@ -7,6 +7,8 @@ const WageView = ({allowCreate, reportIds, searchFilters, limit, backendUrl, bus
   const modifyFormDefinition = formDefinition => {
     if (allowCreate) {
       formDefinition = form.addCreate(formDefinition, intl)
+    } else {
+      formDefinition = form.removeActions(formDefinition, ['new', 'copy'])
     }
 
     return formDefinition
