@@ -1,3 +1,7 @@
+0.1.49
+- disable removing outputjob toasters in widgets
+- fix performance of fulltext search
+
 0.1.48
 - add export action to entity-browser
 - prevent body scroll when modal is opened

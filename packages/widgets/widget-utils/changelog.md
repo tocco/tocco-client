@@ -1,3 +1,6 @@
+0.1.25
+- fix performance of fulltext search
+
 0.1.24
 - autofocus datepickers
 

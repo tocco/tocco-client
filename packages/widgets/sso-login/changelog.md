@@ -1,3 +1,7 @@
+1.0.78
+- disable removing outputjob toasters in widgets
+- fix performance of fulltext search
+
 1.0.77
 - prevent body scroll when modal is opened
 
