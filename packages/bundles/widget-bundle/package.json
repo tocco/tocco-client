@@ -13,6 +13,7 @@
     "tocco-docs-browser": "*",
     "tocco-entity-browser": "*",
     "tocco-mailing-list": "*",
+    "tocco-personal-dms": "*",
     "tocco-stint-auction": "*",
     "tocco-user-availability": "*",
     "tocco-user-grades": "*",
