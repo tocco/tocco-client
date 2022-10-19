@@ -7,7 +7,7 @@ const getOptions = (componentConfig, formField, formData) =>
   componentConfig?.getOptions ? componentConfig.getOptions({formField, formData}) : {}
 
 const getValue = (componentConfig, formField, formData, value) =>
-  componentConfig?.getValue ? componentConfig.getValue({formField, formData}) : value
+  componentConfig?.getValue ? componentConfig.getValue({formField, formData, value}) : value
 
 const FormattedValueProvider = ({componentType, formField, value, formData, key, breakWords}) => {
   const dataType = formField.dataType || formField.componentType

@@ -1,4 +1,5 @@
 import {mount} from 'enzyme'
+import {IntlProvider} from 'react-intl'
 import {TestThemeProvider} from 'tocco-test-util'
 import {FormattedValue} from 'tocco-ui'
 
@@ -56,6 +57,23 @@ describe('app-extensions', () => {
       )
 
       expect(wrapper.find(FormattedValue)).to.have.prop('options').deep.equal({mode, title})
+    })
+
+    test('should use adjusted value from type', () => {
+      const Field = formattedValueFactory('percent')
+      const formField = {
+        componentType: 'percent'
+      }
+
+      const wrapper = mount(
+        <TestThemeProvider>
+          <IntlProvider locale="en">
+            <Field value={85} formField={formField} />
+          </IntlProvider>
+        </TestThemeProvider>
+      )
+
+      expect(wrapper.find(FormattedValue)).to.have.prop('value').equal(0.85)
     })
   })
 })
