@@ -94,7 +94,7 @@ const readOnlyMapping = {
   'multi-select-box': formattedValueFactory('multi-select'),
   'named-upload': formattedValueFactory('document'),
   integer: formattedValueFactory('integer'),
-  percent: formattedValueFactory('number'),
+  percent: formattedValueFactory('percent'),
   phone: formattedValueFactory('phone'),
   postcode: formattedValueFactory('string'),
   'pulldown-date': formattedValueFactory('date'),
