@@ -1,6 +1,6 @@
 import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 import {externalEvents, rest, cache as cacheHelpers} from 'tocco-app-extensions'
-import {consoleLogger, request, cache} from 'tocco-util'
+import {consoleLogger, request, cache, queryString} from 'tocco-util'
 
 import {Pages} from '../types/Pages'
 import * as actions from './actions'
@@ -81,9 +81,19 @@ export function* handleFailedResponse() {
 }
 
 export function* handleRedirect() {
-  const {redirectUrl} = yield select(inputSelector)
+  const redirectUrl = yield loadRedirectUrl()
   if (redirectUrl) {
     window.location.href = redirectUrl
+  }
+}
+
+export function* loadRedirectUrl() {
+  const {_redirect_url: queryUrl} = queryString.fromQueryString(window.location.search)
+  if (queryUrl) {
+    return queryUrl
+  } else {
+    const {redirectUrl: inputUrl} = yield select(inputSelector)
+    return inputUrl
   }
 }
 
