@@ -1,3 +1,6 @@
+0.1.50
+- add personal dms widget
+
 0.1.49
 - disable removing outputjob toasters in widgets
 - fix performance of fulltext search
