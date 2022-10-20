@@ -2,12 +2,12 @@ import PropTypes from 'prop-types'
 import React, {useState} from 'react'
 import {react} from 'tocco-util'
 
+import Ball from '../Ball'
 import {StyledEditableWrapper} from '../EditableValue/StyledEditableValue'
 import StatedValue from '../StatedValue'
 import {StyledSearchBox, StyledSearchBoxInput} from './StyledSearchBox'
 
-const SearchBox = React.forwardRef((props, ref) => {
-  const {value, minInputLength, onSearch, placeholder} = props
+const SearchBox = React.forwardRef(({value, minInputLength, onSearch, placeholder}, ref) => {
   const [inputValue, setInputValue] = useState(value || '')
 
   const onChange = e => {
@@ -17,6 +17,11 @@ const SearchBox = React.forwardRef((props, ref) => {
     if (newValue.length === 0 || newValue.length >= minInputLength) {
       onSearch(newValue)
     }
+  }
+
+  const resetSearch = () => {
+    setInputValue('')
+    onSearch('')
   }
 
   return (
@@ -31,6 +36,7 @@ const SearchBox = React.forwardRef((props, ref) => {
             aria-label={placeholder}
             placeholder={placeholder}
           />
+          {inputValue?.length > 0 && <Ball data-cy="reset-button" icon="times" onClick={resetSearch} />}
         </StyledEditableWrapper>
       </StatedValue>
     </StyledSearchBox>
