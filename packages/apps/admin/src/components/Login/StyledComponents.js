@@ -13,8 +13,6 @@ export const GlobalBodyStyle = createGlobalStyle`
 `
 
 export const StyledLogin = styled.div`
-  height: 100vh;
-  width: 100vw;
   background-image: url(${ToccoLogo});
   background-repeat: no-repeat;
   background-size: 61vw;
