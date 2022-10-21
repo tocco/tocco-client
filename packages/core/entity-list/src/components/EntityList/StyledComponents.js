@@ -20,6 +20,7 @@ export const TopPositioning = styled.div`
 
 export const LeftPositioning = styled.div`
   display: grid;
+  height: 100%; /* use full height available */
   column-gap: 1rem;
   /* only show one panel at a time on screens <= 500px */
   grid: ${({isCollapsed, windowWidth}) =>

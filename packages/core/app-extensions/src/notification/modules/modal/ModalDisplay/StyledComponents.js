@@ -11,7 +11,7 @@ export const StyledModalContent = styled.div`
   css`
     top: 10%;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
-    max-height: 80vh;
+    max-height: 80%;
     min-width: 350px;
     max-width: 700px;
     margin: auto;
@@ -19,8 +19,8 @@ export const StyledModalContent = styled.div`
   ${isTouchDevice &&
   css`
     box-sizing: border-box;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
   `}
   display: grid;
   grid-template-rows: [header] auto [body] 1fr;
@@ -117,6 +117,6 @@ export const GlobalStyles = createGlobalStyle`
   /* prevent scroll of background when modal is open */
   html,
   body {
-    overflow-y: hidden;
+    overflow: hidden !important;
   }
 `
