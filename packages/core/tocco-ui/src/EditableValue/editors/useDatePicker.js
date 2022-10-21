@@ -46,6 +46,9 @@ const focusInput = inputElement => {
   }, 0)
 }
 
+const isoStringToDate = parseISOValue
+const dateToIsoString = date => (date ? date.toISOString() : null)
+
 /**
  * Keyboard Handling Requirements:
  * https://toccoag.atlassian.net/browse/TOCDEV-6134
@@ -65,13 +68,17 @@ const focusInput = inputElement => {
  *      Returns the initial preSelection state.
  */
 
-const useDatePicker = (value, onChange, {minDate, maxDate, hasTime}) => {
+const useDatePicker = (
+  value,
+  onChange,
+  {minDate, maxDate, hasTime, valueToDate = isoStringToDate, dateToValue = dateToIsoString}
+) => {
   const datePickerRef = useRef(null)
   const [isOpen, setIsOpen] = useState(false)
 
-  const selectedDate = parseISOValue(value)
-  const minDateVal = minDate ? parseISOValue(minDate) : undefined
-  const maxDateVal = maxDate ? parseISOValue(maxDate) : undefined
+  const selectedDate = valueToDate(value)
+  const minDateVal = minDate ? valueToDate(minDate) : undefined
+  const maxDateVal = maxDate ? valueToDate(maxDate) : undefined
 
   useEffect(() => {
     /**
@@ -130,19 +137,19 @@ const useDatePicker = (value, onChange, {minDate, maxDate, hasTime}) => {
     }
   }
 
-  const handleOnChange = (val, event) => {
-    if (val) {
-      const changedInitially = !value && val
+  const handleOnChange = (date, event) => {
+    if (date) {
+      const changedInitially = !value && date
 
-      const startOfSelectedDay = startOfDay(val)
+      const startOfSelectedDay = startOfDay(date)
       const hasTimeChanged =
-        getHours(val) !== getHours(startOfSelectedDay) || getMinutes(val) !== getMinutes(startOfSelectedDay)
+        getHours(date) !== getHours(startOfSelectedDay) || getMinutes(date) !== getMinutes(startOfSelectedDay)
 
       // set time to now when time has not set explicitly yet
       if (changedInitially && hasTime && !hasTimeChanged) {
-        val = dateUtil.setCurrentTime(val)
+        date = dateUtil.setCurrentTime(date)
       }
-      onChange(val.toISOString())
+      onChange(dateToValue(date))
     } else {
       clearValue()
     }
