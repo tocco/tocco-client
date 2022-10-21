@@ -1,3 +1,10 @@
+1.0.96
+- allow componentConfigs to adjust value used
+- use correct decimal digits and % suffix for percentage fields
+- use FormattedNumber in percent mode in PercentFormatter
+- always show search filter button icons on touch devices because of missing hover function
+- increase top padding of input label to prevent cut off
+
 1.0.95
 - disable removing outputjob toasters in widgets
 - fix performance of fulltext search
