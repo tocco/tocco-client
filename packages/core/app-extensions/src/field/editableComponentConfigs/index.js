@@ -1,6 +1,7 @@
 import boolean from './boolean'
 import booleanSelect from './booleanSelect'
 import code from './code'
+import datetime from './datetime'
 import decimal from './decimal'
 import document from './document'
 import duration from './duration'
@@ -21,6 +22,7 @@ const editableMapping = {
   code,
   counter: number,
   'data-amount': number,
+  datetime,
   decimal,
   document,
   double: decimal,
