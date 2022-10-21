@@ -1,3 +1,9 @@
+1.1.83
+- allow componentConfigs to adjust value used
+- use correct decimal digits and % suffix for percentage fields
+- use FormattedNumber in percent mode in PercentFormatter
+- increase top padding of input label to prevent cut off
+
 1.1.82
 - disable removing outputjob toasters in widgets
 - fix performance of fulltext search

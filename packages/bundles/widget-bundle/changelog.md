@@ -1,3 +1,10 @@
+0.1.51
+- allow componentConfigs to adjust value used
+- use correct decimal digits and % suffix for percentage fields
+- use FormattedNumber in percent mode in PercentFormatter
+- always show search filter button icons on touch devices because of missing hover function
+- increase top padding of input label to prevent cut off
+
 0.1.50
 - add personal dms widget
 
