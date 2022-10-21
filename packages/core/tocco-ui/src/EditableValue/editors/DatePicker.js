@@ -63,7 +63,20 @@ TimeInput.propTypes = {
 
 const popperProps = {strategy: 'fixed'}
 
-const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, placeholder, hasTime, dateFormat}) => {
+const DatePicker = ({
+  immutable,
+  id,
+  value,
+  minDate,
+  maxDate,
+  valueToDate,
+  dateToValue,
+  onChange,
+  intl,
+  placeholder,
+  hasTime,
+  dateFormat
+}) => {
   const locale = intl.locale
   const msg = msgId => intl.formatMessage({id: msgId})
 
@@ -75,6 +88,8 @@ const DatePicker = ({immutable, id, value, minDate, maxDate, onChange, intl, pla
   const {reactDatePickerProps, timeInputProps, clearButtonProps, calendarButtonProps} = useDatePicker(value, onChange, {
     minDate,
     maxDate,
+    valueToDate,
+    dateToValue,
     hasTime
   })
 
@@ -123,6 +138,8 @@ DatePicker.propTypes = {
   initialized: PropTypes.func,
   minDate: PropTypes.string,
   maxDate: PropTypes.string,
+  valueToDate: PropTypes.func,
+  dateToValue: PropTypes.func,
   events: PropTypes.shape({
     onFocus: PropTypes.func
   })

@@ -336,6 +336,28 @@ describe('tocco-ui', () => {
           expect(result.current.reactDatePickerProps.open).to.be.true
           expect(event.key).to.not.be.eql('ArrowDown')
         })
+
+        test('should use custom parsing functions', () => {
+          const value = 'abc'
+          const onChangeSpy = sinon.spy()
+          const date = new Date(2022, 0, 1, 8, 51, 0, 0)
+          const options = {
+            valueToDate: sinon.spy(() => date),
+            dateToValue: sinon.spy(() => 'def')
+          }
+
+          const {result} = renderHook(() => useDatePicker(value, onChangeSpy, options))
+
+          expect(result.current.reactDatePickerProps.selected).to.eql(date)
+          expect(options.valueToDate).has.been.calledWith('abc')
+
+          const changedDate = new Date(2022, 0, 3, 13, 20, 0, 0)
+          act(() => {
+            result.current.reactDatePickerProps.onChange(changedDate)
+          })
+
+          expect(onChangeSpy).to.have.been.calledWith('def')
+        })
       })
 
       describe('timeInputProps', () => {
