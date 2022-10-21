@@ -24,6 +24,7 @@ export const StyledToaster = styled.div`
   background-color: ${({type, theme}) => colorMapper(type, theme)};
   margin-bottom: ${scale.space(-0.5)};
   padding: ${scale.space(-0.5)};
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
 
   *,
   a:link // reset legacy styling
@@ -33,6 +34,12 @@ export const StyledToaster = styled.div`
   animation-name: ${fadeIn};
   animation-duration: 0.8s;
   pointer-events: auto;
+
+  @media only screen and (max-width: 500px) {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `
 
 export const StyledCloseButton = styled(Ball)`
@@ -91,4 +98,14 @@ export const StyledToasterBox = styled.div`
   right: 10px;
   // lower than StyledModalHolder and very high value to prevent other elements blocking it when implemented as a widget
   z-index: 99999;
+
+  @media only screen and (max-width: 500px) {
+    width: 100%;
+    height: calc(100% - 40px); // subtract height of header
+    right: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
 `
