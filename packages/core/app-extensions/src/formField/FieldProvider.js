@@ -4,7 +4,7 @@ import {useMemo} from 'react'
 import field from '../field'
 import {isMultipleFields, enhanceMultipleFieldsWithSeparators} from './utils'
 
-const FieldProvider = ({fieldMappingType, formName, formField, value, info, events, formData}) => {
+const FieldProvider = ({fieldMappingType, formName, formField, entityField, value, info, events, formData}) => {
   const dataType = formField.dataType || formField.componentType
 
   const Field = useMemo(() => field.factory(fieldMappingType, dataType), [fieldMappingType, dataType])
@@ -14,6 +14,7 @@ const FieldProvider = ({fieldMappingType, formName, formField, value, info, even
       value.map((v, idx) => (
         <Field
           formField={formField}
+          entityField={entityField}
           formName={formName}
           mappingType={fieldMappingType}
           value={v}
@@ -29,6 +30,7 @@ const FieldProvider = ({fieldMappingType, formName, formField, value, info, even
   return (
     <Field
       formField={formField}
+      entityField={entityField}
       formName={formName}
       mappingType={fieldMappingType}
       value={value}
@@ -44,6 +46,7 @@ FieldProvider.propTypes = {
   fieldMappingType: PropTypes.string.isRequired,
   formData: PropTypes.object,
   formField: PropTypes.object,
+  entityField: PropTypes.object,
   formName: PropTypes.string,
   info: PropTypes.object,
   value: PropTypes.any
