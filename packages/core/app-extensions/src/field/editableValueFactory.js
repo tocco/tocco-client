@@ -3,20 +3,21 @@ import {EditableValue, Range} from 'tocco-ui'
 
 import editableComponentConfigs from './editableComponentConfigs'
 
-const getOptions = (componentConfig, formField, formName, formData) =>
-  componentConfig?.getOptions ? componentConfig.getOptions({formField, formName, formData}) : {}
+const getOptions = (componentConfig, formField, formName, formData, entityField) =>
+  componentConfig?.getOptions ? componentConfig.getOptions({formField, formName, formData, entityField}) : {}
 
-const getValue = (componentConfig, formField, formName, formData, value) =>
-  componentConfig?.getValue ? componentConfig.getValue({formField, formName, formData, value}) : value
+const getValue = (componentConfig, formField, formName, formData, entityField, value) =>
+  componentConfig?.getValue ? componentConfig.getValue({formField, formName, formData, entityField, value}) : value
 
-const getEvents = (componentConfig, formField, formName, formData, events) =>
-  componentConfig?.getEvents ? componentConfig.getEvents({formField, formName, formData, events}) : events
+const getEvents = (componentConfig, formField, formName, formData, entityField, events) =>
+  componentConfig?.getEvents ? componentConfig.getEvents({formField, formName, formData, entityField, events}) : events
 
 const EditableValueProvider = ({
   componentType,
   mappingType,
   range,
   formField,
+  entityField,
   formName,
   value,
   info,
@@ -26,9 +27,9 @@ const EditableValueProvider = ({
   const dataType = formField.dataType || formField.componentType
 
   const componentConfig = editableComponentConfigs[mappingType || 'editable']?.[dataType]
-  const options = getOptions(componentConfig, formField, formName, formData)
-  const actualValue = getValue(componentConfig, formField, formName, formData, value)
-  const actualEvents = getEvents(componentConfig, formField, formName, formData, events)
+  const options = getOptions(componentConfig, formField, formName, formData, entityField)
+  const actualValue = getValue(componentConfig, formField, formName, formData, entityField, value)
+  const actualEvents = getEvents(componentConfig, formField, formName, formData, entityField, events)
 
   const Component = range ? Range : EditableValue
 
@@ -58,6 +59,7 @@ EditableValueProvider.propTypes = {
     componentType: PropTypes.string,
     expanded: PropTypes.bool // only if it's a range component
   }),
+  entityField: PropTypes.object,
   value: PropTypes.any,
   info: PropTypes.object,
   events: PropTypes.object,

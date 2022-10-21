@@ -88,6 +88,7 @@ const FormField = ({fieldMappingType, data, resources = {}}) => {
             fieldMappingType={isDisplay ? 'readOnly' : fieldMappingType}
             formName={formName}
             formField={formDefinitionField}
+            entityField={entityField}
             value={value}
             info={{id, readOnly, mandatory}}
             events={events}
