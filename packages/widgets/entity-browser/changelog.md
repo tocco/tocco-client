@@ -1,3 +1,7 @@
+1.0.58-hotfix33.24
+- provide entityField for create field config
+- use long as datetime value
+
 1.0.58-hotfix33.23
 - add export action to entity-browser
 

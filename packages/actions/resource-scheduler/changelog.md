@@ -1,3 +1,7 @@
+1.0.51-hotfix33.19
+- provide entityField for create field config
+- use long as datetime value
+
 1.0.51-hotfix33.18
 - datepicker keyboard handling
 - do not lazy load datepicker
