@@ -1,3 +1,9 @@
+0.1.52
+- fix null values in field name transformation
+- support nested paths in location field
+- provide entityField for create field config
+- use long as datetime value
+
 0.1.51
 - allow componentConfigs to adjust value used
 - use correct decimal digits and % suffix for percentage fields
