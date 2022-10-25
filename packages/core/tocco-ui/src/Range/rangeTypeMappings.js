@@ -51,16 +51,28 @@ const rangeTypeMappings = {
       }
       return null
     },
-    getToOptions: (options, fromValue) => ({...options, datePickerOptions: {minDate: fromValue}}),
-    getFromOptions: (options, toValue) => ({...options, datePickerOptions: {maxDate: toValue}})
+    getToOptions: (options, fromValue) => ({
+      ...options,
+      datePickerOptions: {minDate: fromValue, ...options?.datePickerOptions}
+    }),
+    getFromOptions: (options, toValue) => ({
+      ...options,
+      datePickerOptions: {maxDate: toValue, ...options?.datePickerOptions}
+    })
   },
   date: {
     icons: {
       range: 'calendar-plus',
       single: 'calendar-minus'
     },
-    getToOptions: (options, fromValue) => ({...options, datePickerOptions: {minDate: fromValue}}),
-    getFromOptions: (options, toValue) => ({...options, datePickerOptions: {maxDate: toValue}})
+    getToOptions: (options, fromValue) => ({
+      ...options,
+      datePickerOptions: {minDate: fromValue, ...options?.datePickerOptions}
+    }),
+    getFromOptions: (options, toValue) => ({
+      ...options,
+      datePickerOptions: {maxDate: toValue, ...options?.datePickerOptions}
+    })
   }
 }
 

@@ -2,18 +2,12 @@ import PropTypes from 'prop-types'
 import {useIntl} from 'react-intl'
 import {date} from 'tocco-util'
 
-import {toLocalDateString} from '../utils'
 import DatePicker from './DatePicker'
 
 const DateFormat = 'P' // MM/dd/yyyy od. dd.MM.y
 
 export const DateEdit = ({onChange, options, id, value, immutable, events, placeholder}) => {
   const intl = useIntl()
-
-  const handleChange = dateTime => {
-    const date = dateTime ? toLocalDateString(dateTime) : null
-    onChange(date)
-  }
 
   const datePickerOptions = options?.datePickerOptions || {}
 
@@ -30,12 +24,12 @@ export const DateEdit = ({onChange, options, id, value, immutable, events, place
     <DatePicker
       id={id}
       value={value}
-      onChange={handleChange}
+      onChange={onChange}
       dateFormat={dateFormats}
       hasTime={false}
       immutable={immutable}
-      events={events}
       placeholder={placeholder}
+      events={events}
       {...datePickerOptions}
     />
   )
@@ -50,12 +44,12 @@ DateEdit.propTypes = {
   options: PropTypes.shape({
     datePickerOptions: PropTypes.shape({
       minDate: PropTypes.string,
-      maxDate: PropTypes.string
+      maxDate: PropTypes.string,
+      dateToValue: PropTypes.func,
+      valueToDate: PropTypes.func
     })
   }),
-  events: PropTypes.shape({
-    onFocus: PropTypes.func
-  })
+  events: PropTypes.object
 }
 
 export default DateEdit
