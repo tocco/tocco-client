@@ -1,7 +1,6 @@
 import _isEmpty from 'lodash/isEmpty'
 import _omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import {useCallback, useRef} from 'react'
 
 import BooleanSingleSelect from './editors/BooleanSingleSelect'
 import BoolEdit from './editors/BoolEdit'
@@ -54,53 +53,46 @@ export const map = {
   time: TimeEdit
 }
 
-const isDatepickerType = componentType => ['date', 'datetime'].includes(componentType)
-
 const EditorProvider = ({componentType, value, options, id, events, placeholder, readOnly = false}) => {
-  const datepickerValue = useRef(undefined)
-  // this quick fix should be removed with TOCDEV-5926
-  const onChange = useCallback(
-    v => {
-      if (isDatepickerType(componentType)) {
-        datepickerValue.current = v
-      }
-      events.onChange(v)
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [componentType]
-  )
-
   if (map[componentType]) {
     const Component = map[componentType]
 
     /**
-     * blur workaround
-     * - for known react-select issue:
-     *  https://github.com/erikras/redux-form/issues/82
+     * Redux-Form Blur Workaround
+     *  - onBlur event takes `event.nativeEvent.text` as a field value
+     *    - https://github.com/redux-form/redux-form/blob/d1067cb6f0fb76d76d91462676cd0b2c3927f9db/src/events/getValue.js#L23
+     *    - https://github.com/redux-form/redux-form/blob/master/src/ConnectedField.js#L176
      *
-     * - datepicker has issue with onBlur:
-     *  1. Select via Calendar
-     *  Selecting a date in the search form via the calendar (not by entering inside the input)
-     *  causes that the blur event always had previous value instead of just selected date.
+     *  - for components with non-text values (e.g. IntegerEdit)
+     *    blurring the field will reset the value to the corresponding text value
+     *    and any parsing functions on onChange will not get triggered anymore
      *
-     *  2. Click outside
-     *  Selecting a date in a detail form via the calendar and then click outside.
-     *  Then click again into the date input and click outside directly (without changing the date) cleares the input.
+     * React Select Blur Workaround
+     *  - blurring the select input will empty the value
+     *    - known react-select issue: https://github.com/erikras/redux-form/issues/82
+     *    - passing the value to the onBlur event handler keeps the selected value
      */
-    if (events && events.onBlur) {
-      const onBlur = events.onBlur
-      events.onBlur = () => {
-        const actualValue =
-          isDatepickerType(componentType) && datepickerValue.current !== undefined ? datepickerValue.current : value
-        onBlur(actualValue)
+    const handleBlur = () => {
+      if (typeof events?.onBlur === 'function') {
+        events.onBlur(value)
       }
     }
 
+    /**
+     * Form event handlers passed in by redux-forms.
+     * To overwrite default behaviour attach specific event handler to child element and
+     * use `event.stopPropagation()` to not let event bubble up.
+     */
+    const formEventHandlers = {
+      ..._omit(events, 'onChange'),
+      onBlur: handleBlur
+    }
+
     return (
-      <div {..._omit(events, 'onChange')} data-cy="form-field">
+      <div {...formEventHandlers} data-cy="form-field">
         <Component
           value={value}
-          onChange={onChange}
+          onChange={events?.onChange}
           {...(_isEmpty(options) ? {} : {options})}
           id={id}
           immutable={readOnly}
@@ -118,7 +110,13 @@ const EditorProvider = ({componentType, value, options, id, events, placeholder,
 
 EditorProvider.propTypes = {
   componentType: PropTypes.oneOf(Object.keys(map)).isRequired,
-  events: PropTypes.objectOf(PropTypes.func),
+  events: PropTypes.shape({
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onDragStart: PropTypes.func,
+    onDrop: PropTypes.func
+  }),
   id: PropTypes.string,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
