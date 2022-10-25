@@ -17,6 +17,7 @@
     "tocco-stint-auction": "*",
     "tocco-user-availability": "*",
     "tocco-user-grades": "*",
+    "tocco-user-menu": "*",
     "tocco-wage-view": "*"
   }
 }
