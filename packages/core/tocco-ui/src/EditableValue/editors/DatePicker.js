@@ -75,8 +75,10 @@ const DatePicker = ({
   intl,
   placeholder,
   hasTime,
-  dateFormat
+  dateFormat,
+  events
 }) => {
+  const datepickerValue = useRef(undefined)
   const locale = intl.locale
   const msg = msgId => intl.formatMessage({id: msgId})
 
@@ -85,17 +87,44 @@ const DatePicker = ({
   const hasValue = Boolean(value)
   const showClearButton = !immutable && hasValue
 
-  const {reactDatePickerProps, timeInputProps, clearButtonProps, calendarButtonProps} = useDatePicker(value, onChange, {
-    minDate,
-    maxDate,
-    valueToDate,
-    dateToValue,
-    hasTime
-  })
+  const handleChange = v => {
+    datepickerValue.current = v
+    onChange(v)
+  }
 
+  /**
+   * blur workaround
+   *  1. Select via Calendar
+   *  Selecting a date in the search form via the calendar (not by entering inside the input)
+   *  causes that the blur event always had previous value instead of just selected date.
+   *
+   *  2. Click outside
+   *  Selecting a date in a detail form via the calendar and then click outside.
+   *  Then click again into the date input and click outside directly (without changing the date) cleares the input.
+   */
+  const handleBlur = ev => {
+    if (typeof events?.onBlur === 'function') {
+      const actualValue = datepickerValue.current !== undefined ? datepickerValue.current : value
+      events.onBlur(actualValue)
+    }
+
+    ev.stopPropagation()
+  }
+
+  const {reactDatePickerProps, timeInputProps, clearButtonProps, calendarButtonProps} = useDatePicker(
+    value,
+    handleChange,
+    {
+      minDate,
+      maxDate,
+      valueToDate,
+      dateToValue,
+      hasTime
+    }
+  )
   return (
     <StyledDatePickerOuterWrapper immutable={immutable} id={id} tabIndex="-1">
-      <StyledDatePickerWrapper immutable={immutable} ref={wrapper} hasTime={hasTime}>
+      <StyledDatePickerWrapper immutable={immutable} ref={wrapper} hasTime={hasTime} onBlur={handleBlur}>
         <ReactDatePicker
           {...reactDatePickerProps}
           disabled={immutable}
@@ -110,7 +139,9 @@ const DatePicker = ({
           customTimeInput={<TimeInput {...timeInputProps} />}
           timeInputLabel=""
           popperProps={popperProps}
-          todayButton={<CustomTodayButton onChange={onChange} label={msg('client.component.datePicker.todayLabel')} />}
+          todayButton={
+            <CustomTodayButton onChange={handleChange} label={msg('client.component.datePicker.todayLabel')} />
+          }
         />
         {showClearButton && (
           <Ball
@@ -140,9 +171,7 @@ DatePicker.propTypes = {
   maxDate: PropTypes.string,
   valueToDate: PropTypes.func,
   dateToValue: PropTypes.func,
-  events: PropTypes.shape({
-    onFocus: PropTypes.func
-  })
+  events: PropTypes.object
 }
 
 export default withTheme(injectIntl(DatePicker))
