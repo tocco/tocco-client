@@ -1,30 +1,8 @@
-import {getExpectedDate} from './specUtils'
-import {toLocalDateString, convertStringToNumber, calculateMilliseconds} from './utils'
+import {convertStringToNumber, calculateMilliseconds} from './utils'
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('utils', () => {
-      describe('toLocalDateString', () => {
-        test('should return null if null given', () => {
-          expect(toLocalDateString(null)).to.be.null
-        })
-
-        test('should return null if undefined given', () => {
-          expect(toLocalDateString(undefined)).to.be.null
-        })
-
-        test('should return first date if 0 given', () => {
-          const expectedDate = getExpectedDate('1969-12-31', '1970-01-01', 0)
-          expect(toLocalDateString(0)).to.eql(expectedDate)
-        })
-
-        test('should return the local date if a UTC date time string is given', () => {
-          const localDateString = toLocalDateString('2017-08-20T22:00:00.000Z')
-          const expectedDate = getExpectedDate('2017-08-20', '2017-08-21', -120)
-          expect(localDateString).to.eql(expectedDate)
-        })
-      })
-
       describe('convertStringToNumber', () => {
         test('should return float number', () => {
           const result = 123456.78

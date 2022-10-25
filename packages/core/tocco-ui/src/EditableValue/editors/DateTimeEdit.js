@@ -6,7 +6,7 @@ import DatePicker from './DatePicker'
 
 const DateTimeFormat = 'Pp' // MM/dd/yyyy hh:mm a.m. od. dd.MM.y hh:mm
 
-export const DateTimeEdit = ({onChange, options, value, immutable, events, placeholder}) => {
+export const DateTimeEdit = ({onChange, options, value, immutable, placeholder}) => {
   const intl = useIntl()
 
   const datePickerOptions = options?.datePickerOptions || {}
@@ -27,7 +27,6 @@ export const DateTimeEdit = ({onChange, options, value, immutable, events, place
       dateFormat={dateFormats}
       hasTime
       immutable={immutable}
-      events={events}
       placeholder={placeholder}
       {...datePickerOptions}
     />
@@ -43,11 +42,10 @@ DateTimeEdit.propTypes = {
   options: PropTypes.shape({
     datePickerOptions: PropTypes.shape({
       minDate: PropTypes.string,
-      maxDate: PropTypes.string
+      maxDate: PropTypes.string,
+      dateToValue: PropTypes.func,
+      valueToDate: PropTypes.func
     })
-  }),
-  events: PropTypes.shape({
-    onFocus: PropTypes.func
   })
 }
 
