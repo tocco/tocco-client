@@ -110,6 +110,7 @@ const getPathsFromTable = dataFormColumns => [
 
 export function* updateValue({payload: {inputDataKey, node, value}}) {
   yield put(actions.setValue(inputDataKey, node, value))
+  yield put(actions.setCalculating(inputDataKey, true))
 
   const response = yield call(rest.requestSaga, 'inputEdit/data', {
     method: 'POST',
@@ -119,13 +120,14 @@ export function* updateValue({payload: {inputDataKey, node, value}}) {
       value
     }
   })
-  yield handleResponse(response)
+  yield handleResponse(response, inputDataKey)
 }
 
-function* handleResponse(response) {
+function* handleResponse(response, inputDataKey) {
   const values = response.body.calculatedValues
   if (values) {
     const actionsToPut = values.map(value => actions.setValue(value.inputDataKey, value.node, value.value))
     yield all(actionsToPut.map(action => put(action)))
   }
+  yield put(actions.setCalculating(inputDataKey, false))
 }

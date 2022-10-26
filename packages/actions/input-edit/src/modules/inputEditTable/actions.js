@@ -8,6 +8,7 @@ export const SET_SORTING = 'inputEditTable/SET_SORTING'
 export const SET_DATA_FORM_COLUMNS = 'inputEditTable/SET_DATA_FORM_COLUMNS'
 export const SET_ACTION_DEFINITIONS = 'inputEditTable/SET_ACTION_DEFINITIONS'
 export const SET_DATA_LOADING_IN_PROGRESS = 'inputEditTable/SET_DATA_LOADING_IN_PROGRESS'
+export const SET_CALCULATING = 'inputEditTable/SET_CALCULATING'
 
 export const initializeTable = () => ({
   type: INITIALIZE_TABLE
@@ -71,5 +72,13 @@ export const setDataLoadingInProgress = dataLoadingInProgress => ({
   type: SET_DATA_LOADING_IN_PROGRESS,
   payload: {
     dataLoadingInProgress
+  }
+})
+
+export const setCalculating = (inputData, loading) => ({
+  type: SET_CALCULATING,
+  payload: {
+    inputData,
+    loading
   }
 })

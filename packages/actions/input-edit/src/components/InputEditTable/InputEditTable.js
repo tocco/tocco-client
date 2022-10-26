@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {useEffect, useState} from 'react'
 import {field} from 'tocco-app-extensions'
-import {Table, EditableValue, FormattedValue} from 'tocco-ui'
+import {Table, EditableValue, FormattedValue, LoadingSpinner} from 'tocco-ui'
 import {api, env} from 'tocco-util'
 
 import {arrowKeyHandler} from './keyHandler'
@@ -28,11 +28,19 @@ const inputCellRenderer = (fieldDefinition, data, updateValue, rowIdx) => {
   const value = data[id]
 
   if (readonly) {
-    return (
-      <StyledCell key={id}>
-        <FormattedValue id={id} type={dataType} value={value} options={options} />
-      </StyledCell>
-    )
+    if (data.loading) {
+      return (
+        <StyledCell key={id}>
+          <LoadingSpinner size="1.8em" icon="circle-notch-light" />
+        </StyledCell>
+      )
+    } else {
+      return (
+        <StyledCell key={id}>
+          <FormattedValue id={id} type={dataType} value={value} options={options} />
+        </StyledCell>
+      )
+    }
   } else {
     return (
       <StyledCell key={id}>

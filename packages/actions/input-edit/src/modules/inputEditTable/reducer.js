@@ -54,6 +54,22 @@ const setSorting = (state, {payload: {field, add}}) => {
   }
 }
 
+const setCalculating = (state, {payload: {inputData, loading}}) => {
+  return {
+    ...state,
+    data: state.data.map(data => {
+      if (data.pk === inputData) {
+        return {
+          ...data,
+          loading
+        }
+      } else {
+        return data
+      }
+    })
+  }
+}
+
 const ACTION_HANDLERS = {
   [actions.SET_DATA_FORM_COLUMNS]: reducerUtil.singleTransferReducer('dataFormColumns'),
   [actions.SET_ACTION_DEFINITIONS]: reducerUtil.singleTransferReducer('actionDefinitions'),
@@ -61,7 +77,8 @@ const ACTION_HANDLERS = {
   [actions.SET_DATA]: reducerUtil.singleTransferReducer('data'),
   [actions.SET_DATA_LOADING_IN_PROGRESS]: reducerUtil.singleTransferReducer('dataLoadingInProgress'),
   [actions.SET_VALUE]: setValue,
-  [actions.SET_SORTING]: setSorting
+  [actions.SET_SORTING]: setSorting,
+  [actions.SET_CALCULATING]: setCalculating
 }
 
 export default function reducer(state = initialState, action) {
