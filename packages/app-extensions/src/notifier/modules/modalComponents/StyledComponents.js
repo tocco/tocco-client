@@ -49,7 +49,7 @@ export const StyledModalHolder = styled.div`
   left: 0;
   position: absolute;
   // higher than StyledHeader and very high value to prevent other elements blocking it when implemented as a widget
-  z-index: 99999;
+  z-index: 99999999;
 `
 
 export const StyledModalWrapper = styled.div`
