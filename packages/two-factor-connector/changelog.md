@@ -1,3 +1,6 @@
+0.1.13-hotfix229.4
+- increase z-index for selects in modals
+
 0.1.13-hotfix229.3
 - fix z-index for entity-browser in old client
 
