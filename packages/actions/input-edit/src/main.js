@@ -76,3 +76,4 @@ InputEditApp.propTypes = {
 }
 
 export default InputEditApp
+export const app = appFactory.createBundleableApp(packageName, initApp, InputEditApp)
