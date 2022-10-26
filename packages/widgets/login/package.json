@@ -1,6 +1,7 @@
 {
   "name": "tocco-login",
   "version": "1.1.81",
+  "private": true,
   "description": "Login dialog with password-update dialog that can run independently",
   "main": "dist/index.js",
   "scripts": {

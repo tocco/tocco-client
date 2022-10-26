@@ -1,6 +1,7 @@
 {
   "name": "tocco-installation-delta-action",
   "version": "1.0.81",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {

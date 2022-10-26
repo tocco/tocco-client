@@ -1,6 +1,7 @@
 {
   "name": "tocco-sso-login",
   "version": "1.0.80",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {
