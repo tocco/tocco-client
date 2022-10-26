@@ -23,6 +23,10 @@ const addEntity = async (config, entity, data) => {
 
   const response = await fetch(`${config.baseUrl}/nice2/rest/entities/2.0/${entity}`, options)
   const location = response.headers.get('location')
+  if (response.status >= 400) {
+    console.error(`cannot add entity '${entity}':`, response.status)
+    throw new Error(`cannot add entity '${entity}', ${response.status}`)
+  }
   console.log(`added entity '${entity}'`, response.status)
 
   return {response, pk: getPrimaryKeyFromLocation(location)}
@@ -80,7 +84,10 @@ const addLoginWidget = async (config, label) => {
     {key: '1', version: 1},
     {
       model: 'Login_widget_config',
-      paths: {}
+      paths: {
+        relBusiness_unit: {key: 2, version: 1},
+        redirect_url: 'http://localhost:3000/'
+      }
     }
   )
 }
