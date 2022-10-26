@@ -364,6 +364,8 @@ describe('input-edit', () => {
               ]
             ])
             .put(actions.setValue(123, 'node', 'value'))
+            .put(actions.setCalculating(123, true))
+            .put(actions.setCalculating(123, false))
             .call(rest.requestSaga, 'inputEdit/data', {
               method: 'POST',
               body: {
