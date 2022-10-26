@@ -1,12 +1,12 @@
-import {faCircleNotch} from '@fortawesome/pro-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import PropTypes from 'prop-types'
+
+import Icon from '../Icon'
 
 /**
  * Spinner that indicates a loading process
  */
-const LoadingSpinner = ({size, style}) => (
-  <FontAwesomeIcon {...style} style={{fontSize: size}} spin icon={faCircleNotch} />
+const LoadingSpinner = ({size, style, icon}) => (
+  <Icon {...style} style={{fontSize: size}} spin icon={icon || 'circle-notch'} />
 )
 
 LoadingSpinner.propTypes = {
@@ -17,7 +17,11 @@ LoadingSpinner.propTypes = {
   /**
    * css properties object. color can be used to set the color of the spinner
    */
-  style: PropTypes.object
+  style: PropTypes.object,
+  /**
+   * font awesome icon object to user, solid circle notch by default
+   */
+  icon: PropTypes.string
 }
 
 export default LoadingSpinner
