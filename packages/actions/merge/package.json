@@ -1,6 +1,7 @@
 {
   "name": "tocco-merge",
   "version": "1.0.82",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {
