@@ -44,6 +44,7 @@ import {
   faChevronRight,
   faChevronUp,
   faCircle,
+  faCircleNotch,
   faCode,
   faCog,
   faComment,
@@ -109,6 +110,7 @@ import {
   faFloppyDiskCircleXmark
 } from '@fortawesome/pro-light-svg-icons'
 import {
+  faCircleNotch as faCircleNotchSolid,
   faPaperclip,
   faSquare as faSquareSolid,
   faSquareFull,
@@ -121,6 +123,8 @@ import PropTypes from 'prop-types'
 import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
 ;(() => {
   library.add(
+    faCircleNotchSolid,
+    faCircleNotch,
     faChevronDoubleLeft,
     faChevronDoubleRight,
     faChevronRight,
@@ -237,13 +241,13 @@ import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
  * The following icons are solely used to support custom display expressions and should not be removed: faSquareSolid
  */
 
-const FontAwesomeAdapter = ({icon, style, hasFixedWidth}) => {
+const FontAwesomeAdapter = ({icon, style, hasFixedWidth, ...otherProps}) => {
   const getIcon = icon.includes(',') ? icon.replace(/\s+/, '').split(',') : icon
   const getIconColor = {...(_get(style, 'color') && {color: style.color})}
 
   return (
     <StyledFontAwesomeAdapterWrapper>
-      <FontAwesomeIcon icon={getIcon} style={style} {...getIconColor} fixedWidth={hasFixedWidth} />
+      <FontAwesomeIcon icon={getIcon} style={style} {...getIconColor} fixedWidth={hasFixedWidth} {...otherProps} />
     </StyledFontAwesomeAdapterWrapper>
   )
 }

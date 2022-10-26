@@ -154,6 +154,14 @@
     "lib": "fa",
     "tags": ["selection"]
   },
+  "circle-notch": {
+    "id": "fa, circle-notch",
+    "lib": "fa"
+  },
+  "circle-notch-light": {
+    "id": "fal, circle-notch",
+    "lib": "fa"
+  },
   "code": {
     "id": "fal, code",
     "lib": "fa"
