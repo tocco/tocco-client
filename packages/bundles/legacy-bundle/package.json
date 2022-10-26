@@ -1,0 +1,22 @@
+{
+  "name": "tocco-legacy-bundle",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "compile:prod": "cd ../../../ && npm run compile:prod -- --package=legacy-bundle",
+    "prepublish": "npm run compile:prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tocco-app-extensions": "*",
+    "tocco-docs-browser": "*",
+    "tocco-entity-browser": "*",
+    "tocco-input-edit": "*",
+    "tocco-installation-delta-action": "*",
+    "tocco-login": "*",
+    "tocco-merge": "*",
+    "tocco-resource-scheduler": "*",
+    "tocco-sso-login": "*",
+    "tocco-two-factor-connector": "*"
+  }
+}

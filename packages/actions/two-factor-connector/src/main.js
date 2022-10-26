@@ -74,3 +74,4 @@ TwoFactorConnectorApp.propTypes = {
 }
 
 export default TwoFactorConnectorApp
+export const app = appFactory.createBundleableApp(packageName, initApp, TwoFactorConnectorApp)

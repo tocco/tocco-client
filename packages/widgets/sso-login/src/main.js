@@ -69,3 +69,4 @@ SsoLoginApp.propTypes = {
 }
 
 export default SsoLoginApp
+export const app = appFactory.createBundleableApp(packageName, initApp, SsoLoginApp)

@@ -79,3 +79,4 @@ MergeApp.propTypes = {
 }
 
 export default MergeApp
+export const app = appFactory.createBundleableApp(packageName, initApp, MergeApp)

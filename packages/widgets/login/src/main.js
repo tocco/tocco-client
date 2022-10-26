@@ -35,3 +35,9 @@ const packageName = 'login'
 
 export {PasswordUpdateApp}
 export default LoginApp
+export const app = appFactory.createBundleableApp(packageName, initLoginApp, LoginApp)
+export const appPasswordUpdate = appFactory.createBundleableApp(
+  'password-update',
+  initPasswordUpdateApp,
+  PasswordUpdateApp
+)
