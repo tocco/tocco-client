@@ -7,7 +7,7 @@ import _omit from 'lodash/omit'
 
 export const StyledTether = styled(TetherComponent)`
   && {
-    z-index: 1;
+    z-index: 99999999 !important;
   }
 `
 
