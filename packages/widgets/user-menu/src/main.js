@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {appFactory} from 'tocco-app-extensions'
-import {reducer as reducerUtil, appContext} from 'tocco-util'
+import {reducer as reducerUtil, appContext, env} from 'tocco-util'
 
 import UserMenu from './components/UserMenu'
 import {getDispatchActions} from './input'
@@ -9,6 +9,8 @@ import reducers, {sagas} from './modules/reducers'
 const packageName = 'user-menu'
 
 const initApp = (id, input, events, publicPath) => {
+  env.setInputEnvs(input)
+
   const content = <UserMenu />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
