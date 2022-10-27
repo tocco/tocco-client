@@ -1,3 +1,6 @@
+1.0.76-hotfix33.27
+- move component specific event handlers
+
 1.0.76-hotfix33.26
 - provide entityField for create field config
 - use long as datetime value
