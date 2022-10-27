@@ -1,3 +1,6 @@
+0.1.54
+- add missing setInputEnvs
+
 0.1.53
 - move component specific event handlers
 - pass redirectUri for sso logins in widgets
