@@ -81,6 +81,8 @@ describe('widget-utils', () => {
           {},
           'http://localhost:8080/js/tocco-login/dist/'
         )
+        expect(window[BOOTSTRAP_SCRIPT_OBJ_NAME].backendUrl).to.eql(backendUrl)
+        expect(window[BOOTSTRAP_SCRIPT_OBJ_NAME].assetUrl).to.eql(assetUrl)
       })
 
       test('should not execute when bootstrap script has run before', async () => {
@@ -102,6 +104,14 @@ describe('widget-utils', () => {
         expect(fetchMock.calls().length).to.equal(0)
 
         expect(renderSpy).to.not.have.been.called
+      })
+
+      test('should ignore bootstrap script when bootstrap script has been initialized', async () => {
+        window[BOOTSTRAP_SCRIPT_OBJ_NAME] = {version: '1.0', backendUrl: 'foo.ch'}
+
+        await bootstrapWidgets({backendUrl})
+
+        expect(window[BOOTSTRAP_SCRIPT_OBJ_NAME].backendUrl).to.eql('foo.ch')
       })
 
       test('should initialize bootstrap script', async () => {

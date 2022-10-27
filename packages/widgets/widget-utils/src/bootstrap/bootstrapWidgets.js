@@ -1,3 +1,4 @@
+import _eq from 'lodash/eq'
 import {consoleLogger} from 'tocco-util'
 import {utils} from 'tocco-util/bundle'
 
@@ -74,24 +75,38 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
  *
  * @returns boolean to indicate whether script can be executed
  */
-const initializeBootstrap = () => {
-  if (window[BOOTSTRAP_SCRIPT_OBJ_NAME]) {
+const initializeBootstrap = params => {
+  const version = getVersion()
+  const bootstrapScriptObj = {version, ...params}
+
+  const existingBootstrapScriptObj = window[BOOTSTRAP_SCRIPT_OBJ_NAME]
+  if (existingBootstrapScriptObj) {
     consoleLogger.log('tocco-widget-utils - bootstrap script is already initialized')
+
+    const mismatch = !_eq(existingBootstrapScriptObj, bootstrapScriptObj)
+    if (mismatch) {
+      /* eslint-disable max-len */
+      consoleLogger.logError(
+        'More than one bootstrap script with different settings has been found. Add only one bootstrap script per page.',
+        '\nInitialized bootstrap script:',
+        existingBootstrapScriptObj,
+        '\nIgnored bootstrap script:',
+        bootstrapScriptObj
+      )
+      /* eslint-enable max-len */
+    }
+
     return false
   }
 
-  const version = getVersion()
-
-  window[BOOTSTRAP_SCRIPT_OBJ_NAME] = {
-    version
-  }
+  window[BOOTSTRAP_SCRIPT_OBJ_NAME] = bootstrapScriptObj
   consoleLogger.log(`tocco-widget-utils - v${version} - bootstrap`)
 
   return true
 }
 
 const bootstrapWidgets = async params => {
-  const canExecute = initializeBootstrap()
+  const canExecute = initializeBootstrap(params)
   if (!canExecute) {
     return
   }
