@@ -8,7 +8,8 @@ const getBaseUrl = domain => {
     return `https://${domain}`
   }
 
-  return `https://tocco.${domain}`
+  // use either cms tocco backend proxy url or tocco backend url
+  return window.location.origin
 }
 
 export const generateWidgetCode = widgetConfig => {

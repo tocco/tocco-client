@@ -32,14 +32,27 @@ describe('widget-code-copy', () => {
           expect(trim(generateWidgetCode(widgetConfig))).to.equal(expectedWidgetCode)
         })
 
-        test('should add tocco subdomain for foreign domains', () => {
+        test('should use tocco backend url instead foreign domain', () => {
           const widgetConfig = {
             key: 1,
             paths: {domain: {value: 'abc.ch'}}
           }
           const expectedWidgetCode = trim(`
             <div data-tocco-widget-key="1"></div>
-            <script src="https://tocco.abc.ch/js/tocco-widget-utils/dist/bootstrap.js"></script>
+            <script src="http://localhost/js/tocco-widget-utils/dist/bootstrap.js"></script>
+          `)
+
+          expect(trim(generateWidgetCode(widgetConfig))).to.equal(expectedWidgetCode)
+        })
+
+        test('should use tocco backend url instead foreign www domain', () => {
+          const widgetConfig = {
+            key: 1,
+            paths: {domain: {value: 'www.abc.ch'}}
+          }
+          const expectedWidgetCode = trim(`
+            <div data-tocco-widget-key="1"></div>
+            <script src="http://localhost/js/tocco-widget-utils/dist/bootstrap.js"></script>
           `)
 
           expect(trim(generateWidgetCode(widgetConfig))).to.equal(expectedWidgetCode)
