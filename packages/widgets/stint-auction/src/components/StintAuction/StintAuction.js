@@ -1,23 +1,9 @@
 import PropTypes from 'prop-types'
-import {form} from 'tocco-app-extensions'
 import EntityBrowserApp from 'tocco-entity-browser/src/main'
 import {searchFormTypePropTypes} from 'tocco-entity-list/src/main'
 import {appContext as appContextPropType} from 'tocco-util'
 
-export function* modifyFormDefinition(formDefinition, appContext) {
-  if (formDefinition.id === 'Stint_auction_detail') {
-    // allows action to read widget config we're on
-    return form.adjustActions(formDefinition, 'stintAuctionRegisterLecturer', action => ({
-      ...action,
-      properties: {
-        ...action.properties,
-        widgetKey: appContext.widgetConfigKey
-      }
-    }))
-  }
-
-  return formDefinition
-}
+import {modifyFormDefinition} from './formModifier'
 
 const StintAuction = props => {
   const {searchFilters, searchFormType, limit, backendUrl, businessUnit, appContext, reportIds} = props
