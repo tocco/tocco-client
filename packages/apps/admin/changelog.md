@@ -1,3 +1,8 @@
+1.0.118
+- move component specific event handlers
+- pass redirectUri for sso logins in widgets
+- add sso-login and login package to widget bundle
+
 1.0.117
 - fix null values in field name transformation
 - support nested paths in location field

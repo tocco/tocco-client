@@ -1,3 +1,6 @@
+1.0.82
+- move component specific event handlers
+
 1.0.81
 - fix null values in field name transformation
 - support nested paths in location field
