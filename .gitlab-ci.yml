@@ -1,7 +1,6 @@
 image: node:16.13.2-alpine
 
 variables:
-  NICE_VERSION: '3.4'
   # Docker image tag: master, 3.0, 3.1, …
   DOCKER_NICE_VERSION: 'master'
   NICE_TIMEOUT_SECS: '300'
