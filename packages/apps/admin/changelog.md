@@ -1,3 +1,7 @@
+1.0.119
+- use Icon component in LoadingSpinner
+- replace values of readonly input fields with loading spinner while the update request is processing
+
 1.0.118
 - move component specific event handlers
 - pass redirectUri for sso logins in widgets
