@@ -1,9 +1,9 @@
-import NumberFormat from 'react-number-format'
+import {NumericFormat} from 'react-number-format'
 import styled from 'styled-components'
 
 import {StyledInputCss} from '../StyledEditableValue'
 
-const StyledNumberEdit = styled(({immutable, ...rest}) => <NumberFormat {...rest} />)`
+const StyledNumberEdit = styled(({immutable, ...rest}) => <NumericFormat {...rest} />)`
   && {
     ${StyledInputCss}
   }
