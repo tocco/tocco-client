@@ -10,9 +10,9 @@ const packageName = 'sso-login'
 const EXTERNAL_EVENTS = ['loginCompleted']
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <LoginBoxContainer />
-
   env.setInputEnvs(input)
+
+  const content = <LoginBoxContainer />
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
@@ -65,7 +65,9 @@ SsoLoginApp.propTypes = {
   ssoLoginEndpoint: PropTypes.string.isRequired,
   locale: PropTypes.string,
   autoLogin: PropTypes.bool,
-  appContext: appContext.propTypes
+  appContext: appContext.propTypes,
+  businessUnit: PropTypes.string,
+  redirectUrl: PropTypes.string
 }
 
 export default SsoLoginApp
