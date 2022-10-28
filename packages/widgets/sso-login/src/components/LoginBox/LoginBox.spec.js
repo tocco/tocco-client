@@ -1,6 +1,6 @@
-import {mount, shallow} from 'enzyme'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
-import ProviderButton from '../ProviderButton/ProviderButton'
 import LoginBox from './LoginBox'
 
 const EMPTY_FUNC = () => {}
@@ -18,14 +18,18 @@ describe('sso-login', () => {
     describe('LoginBox', () => {
       test('should call loadProviders', () => {
         const loadProviders = sinon.spy()
-        mount(<LoginBox {...baseProps} loadProviders={loadProviders} />)
+        testingLibrary.renderWithIntl(<LoginBox {...baseProps} loadProviders={loadProviders} />)
         expect(loadProviders).to.have.calledOnce
       })
 
-      test('should render render  ProviderButton', () => {
-        const providers = [{id: 'google'}, {id: 'microsoft'}]
-        const wrapper = shallow(<LoginBox {...baseProps} providers={providers} />)
-        expect(wrapper.find(ProviderButton)).to.have.length(2)
+      test('should render render ProviderButton', () => {
+        const providers = [
+          {id: 'google', button_primary_color: 'blue'},
+          {id: 'microsoft', button_primary_color: 'red'}
+        ]
+        testingLibrary.renderWithIntl(<LoginBox {...baseProps} providers={providers} />)
+
+        expect(screen.queryAllByRole('button')).to.have.length(2)
       })
     })
   })
