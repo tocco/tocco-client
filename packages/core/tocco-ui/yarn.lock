@@ -579,10 +579,10 @@ react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-number-format@^4.9.3:
-  version "4.9.3"
-  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-4.9.3.tgz#338500fe9c61b1ac73c8d6dff4ec97dd13fd2b50"
-  integrity sha512-am1A1xYAbENuKJ+zpM7V+B1oRTSeOHYltqVKExznIVFweBzhLmOBmyb1DfIKjHo90E0bo1p3nzVJ2NgS5xh+sQ==
+react-number-format@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-5.1.0.tgz#64f3d760395df4d34b09fb6bf2d483e1a2ea50d3"
+  integrity sha512-zAJokH+4czPhvXbvWWQvWoa0/HNMvGGGT09xBgfoiXYnsJYWqxvHfAl0eDhIZ+BJQ5ssiHZK8OW54fj2Dc8HMQ==
   dependencies:
     prop-types "^15.7.2"
 

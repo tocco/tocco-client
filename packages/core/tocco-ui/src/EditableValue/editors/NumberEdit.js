@@ -87,7 +87,7 @@ const NumberEdit = props => {
         decimalSeparator={decimalSeparator}
         disabled={props.immutable}
         id={props.id}
-        isNumericString={true}
+        valueIsNumericString
         name={props.name}
         onValueChange={handleChange}
         immutable={props.immutable}
