@@ -1,4 +1,5 @@
-import {mount} from 'enzyme'
+import {screen, fireEvent} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import ProviderButton from './ProviderButton'
 
@@ -20,17 +21,17 @@ describe('sso-login', () => {
 
     describe('ProviderButton', () => {
       test('should render a button', () => {
-        const wrapper = mount(<ProviderButton {...baseProps} />)
-        expect(wrapper.find('button')).to.have.length(1)
+        testingLibrary.renderWithIntl(<ProviderButton {...baseProps} />)
+        expect(screen.queryAllByRole('button')).to.have.length(1)
       })
 
       test('should call window.open and loginCompleted callback', () => {
         global.open = jest.fn(() => ({close: jest.fn()}))
 
         const loginCompleted = jest.fn()
-        const wrapper = mount(<ProviderButton {...baseProps} loginCompleted={loginCompleted} />)
+        testingLibrary.renderWithIntl(<ProviderButton {...baseProps} loginCompleted={loginCompleted} />)
 
-        wrapper.find('button').simulate('click')
+        fireEvent.click(screen.getByRole('button'))
 
         const result = {successful: false}
         global.window.ssoPopUpCallback(result)
