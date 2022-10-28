@@ -1,3 +1,8 @@
+0.1.55
+- do not use unnecessary generator function
+- use Icon component in LoadingSpinner
+- replace values of readonly input fields with loading spinner while the update request is processing
+
 0.1.54
 - add missing setInputEnvs
 

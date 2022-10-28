@@ -1,3 +1,6 @@
+1.0.83
+- use Icon component in LoadingSpinner
+
 1.0.82
 - move component specific event handlers
 

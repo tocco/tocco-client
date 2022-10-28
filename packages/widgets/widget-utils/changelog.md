@@ -1,3 +1,6 @@
+0.1.26
+- warn about mismatching bootstrap scripts
+
 0.1.25
 - fix performance of fulltext search
 
