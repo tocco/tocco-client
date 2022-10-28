@@ -1,5 +1,9 @@
 {
   "ssoLoginEndpoint": "/test.html",
   "locale": "en",
-  "autoLogin": "google"
+  "autoLogin": "google",
+  "businessUnit": "test1",
+  "appContext": {
+    "embedType": "widget"
+  }
 }

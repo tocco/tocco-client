@@ -14,6 +14,7 @@ React-registry name: `sso-login`
 | `ssoLoginEndpoint`     | x         | Relative path to sso login endpoint e.g. '/sso'
 | `locale`               |           | ISO Language Code
 | `autoLogin`            |           | The unique_id of a provider. If this parameter is set, the component automatically initialises the authentication for the given provider.
+| `redirectUrl`          |           | A URL that the user gets redirected to after they're logged in. If empty, the `loginCompleted` event will probably need to be used.
 
 
 ### Methods
