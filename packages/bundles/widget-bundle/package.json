@@ -20,6 +20,7 @@
     "tocco-user-availability": "*",
     "tocco-user-grades": "*",
     "tocco-user-menu": "*",
-    "tocco-wage-view": "*"
+    "tocco-wage-view": "*",
+    "tocco-bettinggame": "*"
   }
 }
