@@ -1,3 +1,6 @@
+0.1.56
+- remove tocco subdomain
+
 0.1.55
 - do not use unnecessary generator function
 - use Icon component in LoadingSpinner
