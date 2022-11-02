@@ -8,6 +8,11 @@ export const NULL_BUSINESS_UNIT = '__n-u-l-l__'
  *  - Apply Tocco-Admin theme
  *  - X-Client header in REST requests is 'client'
  *
+ * legacy-admin: Root package is `action` that runs in the legacy client.
+ *  - Fullscreen entity-list with `scrollBehaviour=inline`
+ *  - Apply Tocco-Admin theme
+ *  - X-Client header in REST requests is 'client'
+ *
  * widget: Root package is a `widget` and runs in an external CMS.
  *  - Inline entity-list with `scrollBehaviour=none`
  *  - Hiding meta information on entity-detail
@@ -19,7 +24,7 @@ export const NULL_BUSINESS_UNIT = '__n-u-l-l__'
  *  - Apply Tocco-Admin theme
  *  - X-Client header in REST requests is 'widget'
  */
-export const ALLOWED_EMBED_TYPES = ['admin', 'widget', 'legacy-widget']
+export const ALLOWED_EMBED_TYPES = ['admin', 'legacy-admin', 'widget', 'legacy-widget']
 
 const env = {
   backendUrl: undefined,
