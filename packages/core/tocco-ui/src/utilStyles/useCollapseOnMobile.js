@@ -1,8 +1,9 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
+
+const getWindowWidth = () => window.innerWidth
 
 export const useCollapseOnMobile = (initialCollapseState, setSearchFormCollapsed) => {
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const getWindowWidth = () => window.innerWidth
   const [windowWidth, setWindowWidth] = useState(getWindowWidth())
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export const useCollapseOnMobile = (initialCollapseState, setSearchFormCollapsed
     }
   }, [windowWidth, initialCollapseState])
 
-  const toggleCollapse = () => {
+  const toggleCollapse = useCallback(() => {
     setIsCollapsed(!isCollapsed)
 
     /* only toggle searchFormCollapsed on larger resolutions */
@@ -30,7 +31,7 @@ export const useCollapseOnMobile = (initialCollapseState, setSearchFormCollapsed
     if (getWindowWidth() > 768) {
       setSearchFormCollapsed(!isCollapsed)
     }
-  }
+  }, [isCollapsed, setSearchFormCollapsed])
 
   return {isCollapsed, toggleCollapse}
 }
