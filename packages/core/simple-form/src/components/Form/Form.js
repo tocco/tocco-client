@@ -22,7 +22,8 @@ const Form = ({
   noButtons,
   submitting,
   submitText,
-  cancelText
+  cancelText,
+  beforeRenderField
 }) => {
   const msg = id => intl.formatMessage({id})
   const handleCancel = () => onCancel()
@@ -43,6 +44,7 @@ const Form = ({
         formValues={formValues}
         fieldMappingType={mappingType || 'editable'}
         mode={mode}
+        beforeRenderField={beforeRenderField}
       />
       {!noButtons && (
         <StyledButtonsWrapper>
@@ -78,7 +80,8 @@ Form.propTypes = {
   formValues: PropTypes.object,
   form: PropTypes.string,
   mappingType: PropTypes.oneOf(['editable', 'search', 'readonly']),
-  mode: PropTypes.oneOf(['list', 'detail', 'create', 'update', 'search'])
+  mode: PropTypes.oneOf(['list', 'detail', 'create', 'update', 'search']),
+  beforeRenderField: PropTypes.func
 }
 
 export default reduxForm({form: REDUX_FORM_NAME, destroyOnUnmount: false})(Form)

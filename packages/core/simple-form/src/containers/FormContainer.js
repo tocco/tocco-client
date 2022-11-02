@@ -19,6 +19,7 @@ const mapStateToProps = (state, props) => ({
   submitText: state.input.submitText,
   cancelText: state.input.cancelText,
   formDefinition: state.input.form,
+  beforeRenderField: state.input.beforeRenderField,
   formValues: getFormValues('simpleForm')(state),
   validate:
     state.input.validate !== false
