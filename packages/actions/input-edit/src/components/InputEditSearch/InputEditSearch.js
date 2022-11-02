@@ -1,49 +1,82 @@
 import _debounce from 'lodash/debounce'
 import PropTypes from 'prop-types'
+import {useState} from 'react'
+import {form} from 'tocco-app-extensions'
 import SimpleFormApp from 'tocco-simple-form/src/main'
-import {tqlBuilder} from 'tocco-util'
+import {Ball} from 'tocco-ui'
+import {tqlBuilder, env} from 'tocco-util'
 
-import {Box} from './StyledComponents'
+import {Box, StyledExtendSearchButtonWrapper} from './StyledComponents'
 
-const InputEditSearch = ({form, setSearchFields}) => {
-  return form.children ? (
+const InputEditSearch = ({form: searchFormDefinition, setSearchFields}) => {
+  const embedType = env.getEmbedType()
+  const isAdmin = ['admin', 'legacy-admin'].includes(embedType)
+
+  const [showExtendedSearchForm, setShowExtendedSearchForm] = useState(isAdmin)
+
+  const toggleExtendedSearchForm = () => {
+    setShowExtendedSearchForm(!showExtendedSearchForm)
+  }
+
+  if (!searchFormDefinition.children) {
+    return null
+  }
+
+  const fields = form.getFieldDefinitions(searchFormDefinition)
+  const simpleSearchFields = fields.filter(field => field.simpleSearch === true).map(field => field.path || field.id)
+  const extendable = !isAdmin && !fields.every(field => simpleSearchFields.includes(field.id))
+
+  const shouldRenderField = name => showExtendedSearchForm || simpleSearchFields.includes(name)
+
+  return (
     <Box>
+      {extendable && (
+        <StyledExtendSearchButtonWrapper>
+          <Ball
+            data-cy="extend-search-button"
+            icon={`chevron-${showExtendedSearchForm ? 'up' : 'down'}`}
+            onClick={toggleExtendedSearchForm}
+            title={'asdf'}
+          />
+        </StyledExtendSearchButtonWrapper>
+      )}
       <SimpleFormApp
-        form={form}
-        onChange={_debounce(handleChange(form, setSearchFields), 500)}
-        noButtons={true}
+        form={searchFormDefinition}
+        onChange={_debounce(handleChange(searchFormDefinition, setSearchFields), 500)}
+        noButtons
         validate={false}
         mappingType="search"
         mode="search"
+        beforeRenderField={shouldRenderField}
       />
     </Box>
-  ) : null
+  )
 }
 
 const handleChange =
-  (form, setSearchFields) =>
+  (searchFormDefinition, setSearchFields) =>
   ({values}) => {
     if (Object.keys(values).length > 0) {
-      const tql = transformFormValuesToTql(values, form)
+      const tql = transformFormValuesToTql(values, searchFormDefinition)
       setSearchFields(tql)
     } else {
       setSearchFields([])
     }
   }
 
-const transformFormValuesToTql = (values, form) =>
+const transformFormValuesToTql = (values, searchFormDefinition) =>
   Object.entries(values)
     .map(([path, value]) => ({
       path,
-      fieldType: getFieldType(path, form),
+      fieldType: getFieldType(path, searchFormDefinition),
       value
     }))
     .filter(({path, fieldType, value}) => value && (!Array.isArray(value) || value.length > 0))
     .map(({path, fieldType, value}) => tqlBuilder.getTql(path, value, fieldType))
     .filter(tql => tql.length > 0)
 
-const getFieldType = (path, form) => {
-  const container = form.children.find(child => child.children.length > 0)
+const getFieldType = (path, searchFormDefinition) => {
+  const container = searchFormDefinition.children.find(child => child.children.length > 0)
   if (container) {
     const field = container.children.find(child => child.id === path)
 
