@@ -117,6 +117,7 @@ const InputEditTable = ({
   }
 
   const embedType = env.getEmbedType()
+  const isAdmin = ['admin', 'legacy-admin'].includes(embedType)
 
   return (
     <StyledTableWrapper onKeyDown={arrowKeyHandler}>
@@ -132,7 +133,7 @@ const InputEditTable = ({
           totalCount
         }}
         onPageChange={setCurrentPage}
-        scrollBehaviour={embedType === 'admin' ? 'inline' : 'none'}
+        scrollBehaviour={isAdmin ? 'inline' : 'none'}
       />
     </StyledTableWrapper>
   )

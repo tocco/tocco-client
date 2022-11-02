@@ -3,16 +3,20 @@ import PropTypes from 'prop-types'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 import {tqlBuilder} from 'tocco-util'
 
+import {Box} from './StyledComponents'
+
 const InputEditSearch = ({form, setSearchFields}) => {
   return form.children ? (
-    <SimpleFormApp
-      form={form}
-      onChange={_debounce(handleChange(form, setSearchFields), 500)}
-      noButtons={true}
-      validate={false}
-      mappingType="search"
-      mode="search"
-    />
+    <Box>
+      <SimpleFormApp
+        form={form}
+        onChange={_debounce(handleChange(form, setSearchFields), 500)}
+        noButtons={true}
+        validate={false}
+        mappingType="search"
+        mode="search"
+      />
+    </Box>
   ) : null
 }
 

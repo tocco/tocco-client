@@ -2,6 +2,9 @@
   "selection": {
     "entityName": "Input",
     "type": "ID",
-    "ids": [1]
+    "ids": [222]
+  },
+  "appContext": {
+    "embedType": "widget"
   }
 }
