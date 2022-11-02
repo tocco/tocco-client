@@ -2,20 +2,11 @@ import PropTypes from 'prop-types'
 import {useEffect, useRef, useState} from 'react'
 import ReactDOM from 'react-dom'
 import {FormattedMessage} from 'react-intl'
-import {Ball, BallMenu, Icon, MenuItem, Popover} from 'tocco-ui'
-import {react as customHooks} from 'tocco-util'
+import {Ball, BallMenu, Icon, MenuItem, Popover, SidepanelHeader} from 'tocco-ui'
 
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import SearchFilterList from '../SearchFilterList'
-import {
-  AdminSearchGrid,
-  Box,
-  StyledGutter,
-  StyledHeader,
-  StyledSplit,
-  StyledSplitWrapper,
-  StyledToggleCollapseButton
-} from './StyedComponents'
+import {Box, StyledGutter, StyledSplit, StyledSplitWrapper} from './StyedComponents'
 
 const SEARCH_FILTER_BUTTON_HEIGHT = 28
 const SEARCH_FILTER_PADDING = 10
@@ -43,19 +34,13 @@ const SearchView = ({
   displaySearchFieldsModal,
   resetSearchFields,
   searchFormDirty,
-  isCollapsed,
-  toggleCollapse,
-  initialized,
   setQueryViewVisible,
   loadSearchAsQuery
 }) => {
   const splitWrapperEl = useRef(null)
-  const searchFormEl = useRef(null)
   const [size, setSize] = useState([MAX_SIZE_SEARCH_FILTER, 100 - MAX_SIZE_SEARCH_FILTER])
   const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
   const [showExpandSearchFilter, setShowExpandSearchFilter] = useState(false)
-
-  customHooks.useAutofocus(searchFormEl, {selectFulltextFields: true}, [initialized])
 
   useEffect(() => {
     const searchFilterHeight = searchFilters
@@ -84,9 +69,8 @@ const SearchView = ({
   const expandBallTitle = searchFilterExpanded ? msg('client.entity-list.contract') : msg('client.entity-list.expand')
 
   return (
-    <AdminSearchGrid isCollapsed={isCollapsed}>
-      <StyledHeader>
-        <StyledToggleCollapseButton icon={'chevron-left'} isCollapsed={isCollapsed} onClick={toggleCollapse} />
+    <>
+      <SidepanelHeader>
         <Ball
           data-cy="query-view-button"
           icon="code"
@@ -125,23 +109,22 @@ const SearchView = ({
             <FormattedMessage id="client.entity-list.query.search.open" />
           </MenuItem>
         </BallMenu>
-      </StyledHeader>
+      </SidepanelHeader>
       <StyledSplitWrapper ref={splitWrapperEl}>
         <StyledSplit direction="vertical" gutterSize={20} sizes={size} minSize={[90, 0]} gutter={getGutter()}>
           <Box>
             <SearchFilterList />
           </Box>
-          <Box ref={searchFormEl}>
+          <Box>
             <BasicSearchFormContainer />
           </Box>
         </StyledSplit>
       </StyledSplitWrapper>
-    </AdminSearchGrid>
+    </>
   )
 }
 
 SearchView.propTypes = {
-  initialized: PropTypes.bool.isRequired,
   msg: PropTypes.func.isRequired,
   searchFilters: PropTypes.arrayOf(PropTypes.object),
   resetSearch: PropTypes.func.isRequired,
@@ -151,8 +134,6 @@ SearchView.propTypes = {
   displaySearchFieldsModal: PropTypes.func.isRequired,
   resetSearchFields: PropTypes.func.isRequired,
   searchFormDirty: PropTypes.bool,
-  isCollapsed: PropTypes.bool,
-  toggleCollapse: PropTypes.func.isRequired,
   setQueryViewVisible: PropTypes.func.isRequired,
   loadSearchAsQuery: PropTypes.func.isRequired
 }

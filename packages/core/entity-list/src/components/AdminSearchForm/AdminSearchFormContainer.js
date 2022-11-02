@@ -32,8 +32,7 @@ const mapActionCreators = {
   clearQuery
 }
 
-const mapStateToProps = (state, props) => ({
-  initialized: state.searchForm.initialized,
+const mapStateToProps = state => ({
   searchFilters: state.searchForm.searchFilters,
   searchFormDirty: isDirty('searchForm')(state),
   entityModel: state.input.entityName,

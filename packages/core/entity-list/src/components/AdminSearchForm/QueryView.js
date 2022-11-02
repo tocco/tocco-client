@@ -1,16 +1,10 @@
 import PropTypes from 'prop-types'
 import {useRef} from 'react'
 import {FormattedMessage} from 'react-intl'
-import {Ball, BallMenu, EditableValue, FormattedValue, MenuItem, StatedValue} from 'tocco-ui'
+import {Ball, BallMenu, EditableValue, FormattedValue, MenuItem, SidepanelHeader, StatedValue} from 'tocco-ui'
 import {react as customHooks} from 'tocco-util'
 
-import {
-  AdminSearchGrid,
-  StyledErrorMessage,
-  StyledHeader,
-  StyledQueryBox,
-  StyledToggleCollapseButton
-} from './StyedComponents'
+import {StyledErrorMessage, StyledQueryBox} from './StyedComponents'
 
 const detectSignal = (hasError, touched) => {
   if (hasError) {
@@ -21,7 +15,6 @@ const detectSignal = (hasError, touched) => {
 }
 
 const QueryView = ({
-  isCollapsed,
   setQueryViewVisible,
   msg,
   entityModel,
@@ -31,8 +24,7 @@ const QueryView = ({
   saveQueryAsFilter,
   setQuery,
   runQuery,
-  clearQuery,
-  toggleCollapse
+  clearQuery
 }) => {
   const formEl = useRef(null)
   customHooks.useAutofocus(formEl)
@@ -54,9 +46,8 @@ const QueryView = ({
   const signal = detectSignal(queryHasErrors, queryExists)
 
   return (
-    <AdminSearchGrid isCollapsed={isCollapsed}>
-      <StyledHeader>
-        <StyledToggleCollapseButton icon={'chevron-left'} isCollapsed={isCollapsed} onClick={toggleCollapse} />
+    <>
+      <SidepanelHeader>
         <Ball
           data-cy="search-view-button"
           icon="filter"
@@ -85,7 +76,7 @@ const QueryView = ({
             <FormattedMessage id="client.entity-list.query.filter.save" />
           </MenuItem>
         </BallMenu>
-      </StyledHeader>
+      </SidepanelHeader>
       <StyledQueryBox ref={formEl}>
         <StatedValue isDisplay={true} hasValue={true} label={msg('client.entity-list.query.entity-model')}>
           <FormattedValue type="string" value={entityModel} />
@@ -103,13 +94,12 @@ const QueryView = ({
           <StyledErrorMessage key={index}>{error}</StyledErrorMessage>
         ))}
       </StyledQueryBox>
-    </AdminSearchGrid>
+    </>
   )
 }
 
 QueryView.propTypes = {
   msg: PropTypes.func.isRequired,
-  isCollapsed: PropTypes.bool,
   setQueryViewVisible: PropTypes.func.isRequired,
   entityModel: PropTypes.string.isRequired,
   query: PropTypes.string,
@@ -118,8 +108,7 @@ QueryView.propTypes = {
   saveQueryAsFilter: PropTypes.func.isRequired,
   setQuery: PropTypes.func.isRequired,
   runQuery: PropTypes.func.isRequired,
-  clearQuery: PropTypes.func.isRequired,
-  toggleCollapse: PropTypes.func.isRequired
+  clearQuery: PropTypes.func.isRequired
 }
 
 export default QueryView
