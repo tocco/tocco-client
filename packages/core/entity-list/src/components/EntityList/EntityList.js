@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types'
-import {scrollBehaviourPropType, useCollapseOnMobile} from 'tocco-ui'
+import {scrollBehaviourPropType, SidepanelMainContent, Sidepanel, SidepanelContainer} from 'tocco-ui'
 
 import ListViewContainer from '../../containers/ListViewContainer'
 import SearchViewContainer from '../../containers/SearchViewContainer'
 import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTypes'
-import {TopPositioning, LeftPositioning, ListGrid, SearchGrid} from './StyledComponents'
 
 const EntityList = ({
   searchFormType,
@@ -13,29 +12,24 @@ const EntityList = ({
   scrollBehaviour,
   setSearchFormCollapsed
 }) => {
-  const {isCollapsed, toggleCollapse} = useCollapseOnMobile(searchFormCollapsed, setSearchFormCollapsed)
-  const getWindowWidth = () => window.innerWidth
-
   if (searchFormType === searchFormTypes.NONE) {
     return <ListViewContainer />
   }
 
-  const PositioningContainer = searchFormPosition === 'left' ? LeftPositioning : TopPositioning
-
   return (
-    <PositioningContainer
+    <SidepanelContainer
+      sidepanelPosition={searchFormPosition}
+      sidepanelCollapsed={searchFormCollapsed}
+      setSidepanelCollapsed={setSearchFormCollapsed}
       scrollBehaviour={scrollBehaviour}
-      searchFormType={searchFormType}
-      isCollapsed={isCollapsed}
-      windowWidth={getWindowWidth()}
     >
-      <SearchGrid searchFormType={searchFormType} scrollBehaviour={scrollBehaviour}>
-        <SearchViewContainer isCollapsed={isCollapsed} toggleCollapse={toggleCollapse} />
-      </SearchGrid>
-      <ListGrid searchFormType={searchFormType}>
+      <Sidepanel>
+        <SearchViewContainer />
+      </Sidepanel>
+      <SidepanelMainContent>
         <ListViewContainer />
-      </ListGrid>
-    </PositioningContainer>
+      </SidepanelMainContent>
+    </SidepanelContainer>
   )
 }
 

@@ -4,25 +4,20 @@ import {withTheme} from 'styled-components'
 
 import QueryView from './QueryView'
 import SearchView from './SearchView'
-import {StyledPlaceHolder, StyledToggleCollapseButton} from './StyedComponents'
 
 const AdminSearchForm = props => {
-  const {intl, isCollapsed, toggleCollapse, queryViewVisible} = props
+  const {intl, queryViewVisible} = props
   const msg = id => intl.formatMessage({id})
 
   return (
     <>
       {!queryViewVisible && <SearchView msg={msg} {...props} />}
       {queryViewVisible && <QueryView msg={msg} {...props} />}
-      <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
-        <StyledToggleCollapseButton icon={'chevron-right'} isCollapsed={isCollapsed} />
-      </StyledPlaceHolder>
     </>
   )
 }
 
 AdminSearchForm.propTypes = {
-  initialized: PropTypes.bool.isRequired,
   intl: PropTypes.object.isRequired,
   searchFilters: PropTypes.arrayOf(PropTypes.object),
   resetSearch: PropTypes.func.isRequired,
@@ -33,8 +28,6 @@ AdminSearchForm.propTypes = {
   displaySearchFieldsModal: PropTypes.func.isRequired,
   resetSearchFields: PropTypes.func.isRequired,
   searchFormDirty: PropTypes.bool,
-  isCollapsed: PropTypes.bool,
-  toggleCollapse: PropTypes.func.isRequired,
   entityModel: PropTypes.string.isRequired,
   queryViewVisible: PropTypes.bool.isRequired,
   setQueryViewVisible: PropTypes.func.isRequired,

@@ -1,64 +1,15 @@
 import Split from 'react-split'
 import styled from 'styled-components'
-import {Button, declareFont, Menu, scale, StyledScrollbar, theme} from 'tocco-ui'
+import {declareFont, Menu, scale, StyledScrollbar, theme} from 'tocco-ui'
 
-export const StyledSplit = styled(Split)``
+export const StyledSplit = styled(Split)`
+  height: calc(100% - 40px);
+  display: flex;
+  flex-direction: column;
+`
 
 export const StyledSplitWrapper = styled.div`
   height: 100%;
-`
-
-export const StyledHeader = styled.div`
-  background-color: ${theme.color('paper')};
-  border-bottom: 3px solid ${theme.color('backgroundBody')};
-  display: flex;
-  justify-content: flex-end;
-  padding: ${scale.space(-0.53)};
-  position: relative;
-  z-index: 2; // higher than StyledTether to prevent cover on scroll
-
-  ${Menu} {
-    z-index: 3; //higher than rest to lay over search filter list
-  }
-`
-
-export const AdminSearchGrid = styled.div`
-  display: ${({isCollapsed}) => (isCollapsed ? 'none' : 'block')};
-  height: 100%;
-  overflow: hidden;
-
-  ${StyledSplit} {
-    height: calc(100% - 40px);
-    display: flex;
-    flex-direction: column;
-  }
-`
-
-export const StyledPlaceHolder = styled.div`
-  display: ${({isCollapsed}) => (isCollapsed ? 'flex' : 'none')};
-  flex: 1;
-  align-items: flex-start;
-  background: ${theme.color('paper')};
-  padding-top: ${scale.space(-0.5)};
-  padding-left: ${scale.space(-2.5)};
-
-  &:hover {
-    cursor: pointer;
-  }
-`
-
-export const StyledToggleCollapseButton = styled(Button)`
-  font-size: ${scale.font(0)};
-  padding: 0;
-  margin-right: auto;
-  position: relative;
-  left: ${({isCollapsed}) => (!isCollapsed ? '-5px' : '2.5px')};
-
-  &:hover,
-  ${/* sc-selector */ StyledPlaceHolder}:hover & {
-    background-color: transparent;
-    color: ${theme.color('secondaryLight')};
-  }
 `
 
 export const Box = styled.div`
