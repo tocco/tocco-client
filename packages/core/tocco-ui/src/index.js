@@ -89,3 +89,4 @@ export {default as QRCode} from './QRCode'
 export {default as Table, columnPropType, selectionStylePropType, scrollBehaviourPropType} from './Table'
 
 export {Menu, MenuItem, BallMenu, ButtonMenu, StyledItemLabel} from './Menu'
+export {Sidepanel, SidepanelContainer, SidepanelHeader, SidepanelMainContent} from './Sidepanel'
