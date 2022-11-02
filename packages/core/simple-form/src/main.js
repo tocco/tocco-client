@@ -73,7 +73,8 @@ SimpleFormApp.propTypes = {
     propTypes[event] = PropTypes.func
     return propTypes
   }, {}),
-  defaultValues: PropTypes.object
+  defaultValues: PropTypes.object,
+  beforeRenderField: PropTypes.func
 }
 
 export default SimpleFormApp

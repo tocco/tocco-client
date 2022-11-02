@@ -19,6 +19,8 @@ React-registry name: `simple-form`
 | `mappingType`          |           | Will be passed to field factory. Default is "editable". But can be set to use "search" mapping.
 | `mode`                 |           | Will be passed to field factory. Per default no mode is set. Can be set to "search" that fields are no longer mandatory.
 | `defaultValues`        |           | Object where the keys are representing the paths. e.g. {'lastname': 'Simpson', relGender: {key: '1', display: 'Male'}}. Overwrittes form default values
+| `beforeRenderField`    |           | Function that gets call before each field render to determine if field should gets rendered
+
 
 ### Events
 
