@@ -1,0 +1,9 @@
+{
+  "businessUnit": "test1",
+  "listLimit": 15,
+  "entityModel": "Order",
+  "appContext": {
+    "embedType": "widget",
+    "widgetConfigKey": "1"
+  }
+}

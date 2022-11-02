@@ -12,6 +12,7 @@
     "tocco-app-extensions": "*",
     "tocco-docs-browser": "*",
     "tocco-entity-browser": "*",
+    "tocco-entity-dms": "*",
     "tocco-login": "*",
     "tocco-mailing-list": "*",
     "tocco-personal-dms": "*",
