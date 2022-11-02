@@ -12,3 +12,10 @@ export const Box = styled.div`
   }
   ${StyledScrollbar}
 `
+
+export const StyledExtendSearchButtonWrapper = styled.div`
+  && {
+    width: 100%;
+    text-align: center;
+  }
+`
