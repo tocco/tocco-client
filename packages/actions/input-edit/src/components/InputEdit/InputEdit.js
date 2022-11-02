@@ -1,22 +1,12 @@
 import PropTypes from 'prop-types'
 import {useEffect, useState} from 'react'
 import {actions, notification, selection as selectionPropType} from 'tocco-app-extensions'
-import {GlobalStyles} from 'tocco-ui'
+import {SidepanelMainContent, GlobalStyles, Sidepanel, SidepanelContainer, SidepanelHeader} from 'tocco-ui'
+import {env} from 'tocco-util'
 
-import InputEditInformation from '../InputEditInformation'
 import InputEditSearch from '../InputEditSearch'
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
-import {
-  StyledPanelWrapperLeft,
-  StyledPanelWrapperRight,
-  StyledLeftPane,
-  StyledActionsWrapper,
-  StyledInputEditSearchWrapper,
-  StyledPaneWrapper,
-  StyledToggleCollapse,
-  StyledToggleCollapseButton,
-  StyledPlaceHolder
-} from './StyledInputEdit'
+import {StyledActionsWrapper, StyledPaneWrapper, StyledListWrapper, StyledListView} from './StyledInputEdit'
 
 const InputEdit = ({
   selection,
@@ -33,39 +23,39 @@ const InputEdit = ({
   }, [selection, initializeTable, initializeSearch, initializeInformation])
 
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed)
-  }
 
   const Actions = actionDefinitions.map(definition => (
     <actions.Action key={definition.id} definition={definition} selection={selection} />
   ))
+
+  const embedType = env.getEmbedType()
+  const isAdmin = ['admin', 'legacy-admin'].includes(embedType)
 
   return (
     <>
       <GlobalStyles />
       {handleNotifications && <notification.Notifications />}
       <StyledPaneWrapper>
-        <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
-          <StyledToggleCollapse isCollapsed={isCollapsed}>
-            <StyledToggleCollapseButton icon="chevron-right" isCollapsed={isCollapsed} />
-          </StyledToggleCollapse>
-        </StyledPlaceHolder>
-        <StyledPanelWrapperLeft isCollapsed={isCollapsed}>
-          <StyledToggleCollapse>
-            <StyledToggleCollapseButton icon="chevron-left" onClick={toggleCollapse} />
-          </StyledToggleCollapse>
-          <StyledLeftPane>
-            <StyledInputEditSearchWrapper>
-              <InputEditSearch />
-            </StyledInputEditSearchWrapper>
-            <InputEditInformation />
-          </StyledLeftPane>
-        </StyledPanelWrapperLeft>
-        <StyledPanelWrapperRight>
-          <StyledActionsWrapper>{Actions}</StyledActionsWrapper>
-          <InputEditTable />
-        </StyledPanelWrapperRight>
+        <SidepanelContainer
+          sidepanelPosition={isAdmin ? 'left' : 'top'}
+          sidepanelCollapsed={isCollapsed}
+          setSidepanelCollapsed={setIsCollapsed}
+          scrollBehaviour={isAdmin ? 'inline' : 'none'}
+        >
+          <Sidepanel>
+            <SidepanelHeader />
+            <InputEditSearch />
+          </Sidepanel>
+
+          <SidepanelMainContent>
+            <StyledListView>
+              <StyledActionsWrapper>{Actions}</StyledActionsWrapper>
+              <StyledListWrapper>
+                <InputEditTable />
+              </StyledListWrapper>
+            </StyledListView>
+          </SidepanelMainContent>
+        </SidepanelContainer>
       </StyledPaneWrapper>
     </>
   )
