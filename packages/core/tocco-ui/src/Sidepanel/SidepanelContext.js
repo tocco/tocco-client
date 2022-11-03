@@ -20,8 +20,8 @@ const SidepanelContext = React.createContext(defaultValue)
 const SidepanelContextProvider = ({
   children,
   sidepanelPosition = SidepanelPosition.top,
-  sidepanelCollapsed,
-  setSidepanelCollapsed,
+  sidepanelCollapsed = false,
+  setSidepanelCollapsed = () => {},
   scrollBehaviour = 'none'
 }) => {
   const {isCollapsed, toggleCollapse} = useCollapseOnMobile(sidepanelCollapsed, setSidepanelCollapsed)
