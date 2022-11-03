@@ -14,14 +14,7 @@ const PersonalDms = ({personalFolderKey, listLimit, backendUrl, businessUnit, ap
     }
   }
 
-  const rootNodes = []
-
-  if (personalFolderKey) {
-    rootNodes.push({
-      entityName: 'Folder',
-      key: `${personalFolderKey}`
-    })
-  }
+  const rootNodes = personalFolderKey ? [{entityName: 'Folder', key: `${personalFolderKey}`}] : []
 
   return (
     <LoadMask required={[personalFolderKey]}>
