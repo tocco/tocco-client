@@ -8,19 +8,11 @@ import InputEditSearch from '../InputEditSearch'
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
 import {StyledActionsWrapper, StyledPaneWrapper, StyledListWrapper, StyledListView} from './StyledInputEdit'
 
-const InputEdit = ({
-  selection,
-  handleNotifications,
-  initializeTable,
-  initializeSearch,
-  initializeInformation,
-  actionDefinitions
-}) => {
+const InputEdit = ({selection, handleNotifications, initializeTable, initializeSearch, actionDefinitions}) => {
   useEffect(() => {
     initializeTable()
     initializeSearch()
-    initializeInformation()
-  }, [selection, initializeTable, initializeSearch, initializeInformation])
+  }, [selection, initializeTable, initializeSearch])
 
   const [isCollapsed, setIsCollapsed] = useState(false)
 
@@ -66,7 +58,6 @@ InputEdit.propTypes = {
   handleNotifications: PropTypes.bool,
   initializeTable: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired,
-  initializeInformation: PropTypes.func.isRequired,
   actionDefinitions: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired

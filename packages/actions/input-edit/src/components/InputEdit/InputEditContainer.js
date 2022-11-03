@@ -1,7 +1,6 @@
 import {connect} from 'react-redux'
 import {notification} from 'tocco-app-extensions'
 
-import {initializeInformation} from '../../modules/inputEditInformation/actions'
 import {initializeSearch} from '../../modules/inputEditSearch/actions'
 import {initializeTable} from '../../modules/inputEditTable/actions'
 import InputEdit from './InputEdit'
@@ -9,7 +8,6 @@ import InputEdit from './InputEdit'
 const mapActionCreators = {
   initializeTable,
   initializeSearch,
-  initializeInformation,
   notify: notification.toaster
 }
 
