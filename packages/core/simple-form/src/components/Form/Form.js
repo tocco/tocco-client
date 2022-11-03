@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import {useEffect} from 'react'
+import {useEffect, useRef} from 'react'
 import {reduxForm} from 'redux-form'
 import {form} from 'tocco-app-extensions'
 import {Button} from 'tocco-ui'
+import {react as customHooks} from 'tocco-util'
 
 import {StyledButtonsWrapper} from './StyledComponents'
 
@@ -31,12 +32,15 @@ const Form = ({
   // delay closing of the window so it won't close immediately with the click
   const handleSubmit = () => sleep(400).then(() => onSubmit())
 
+  const searchFormEl = useRef(null)
+  customHooks.useAutofocus(searchFormEl, {selectFulltextFields: true}, [formDefinition])
+
   useEffect(() => {
     initializeForm()
   }, [initializeForm])
 
   return (
-    <form onSubmit={handleSubmitProp(handleSubmit)}>
+    <form onSubmit={handleSubmitProp(handleSubmit)} ref={searchFormEl}>
       <form.FormBuilder
         entity={undefined}
         formName={formName}
