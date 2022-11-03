@@ -1,0 +1,10 @@
+{
+  "tournamentKey": "47",
+  "formBase": "TournamentWidget",
+  "entityName": "Tournament",
+  "locale": "de-CH",
+  "appContext": {
+    "embedType": "widget",
+    "widgetConfigKey": "1"
+  }
+}
