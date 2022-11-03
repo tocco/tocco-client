@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "tocco-app-extensions": "*",
+    "tocco-input-edit-info": "*",
     "tocco-simple-form": "*",
     "tocco-ui": "*",
     "tocco-util": "*"

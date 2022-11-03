@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import {actionEmitter, actions, appFactory, cache, errorLogging, notification} from 'tocco-app-extensions'
 import {appContext, reducer as reducerUtil, env} from 'tocco-util'
 
+import Action from './components/Action'
 import InputEdit from './components/InputEdit/InputEditContainer'
 import customActions from './customActions'
 import {setHandleNotifications} from './modules/inputEdit/actions'
@@ -18,8 +19,10 @@ const initApp = (id, input, events, publicPath) => {
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, state => state.input.emitAction)
+  actions.dynamicActionsAddToStore(store)
   actions.addToStore(store, () => ({
-    customActions: customActions(input)
+    customActions: customActions(input),
+    appComponent: Action
   }))
   const handleNotifications = !events?.emitAction
   notification.addToStore(store, handleNotifications)
@@ -31,7 +34,7 @@ const initApp = (id, input, events, publicPath) => {
     events,
     actions: [setHandleNotifications(handleNotifications)],
     publicPath,
-    textResourceModules: ['component', 'common', packageName]
+    textResourceModules: ['component', 'common', 'actions', packageName]
   })
 }
 
