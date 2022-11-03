@@ -57,6 +57,7 @@ LoginApp.propTypes = {
   username: PropTypes.string,
   setLocale: PropTypes.func,
   backendUrl: PropTypes.string,
+  redirectUrl: PropTypes.string,
   appContext: appContext.propTypes,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func

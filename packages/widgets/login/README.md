@@ -1,9 +1,9 @@
-#Login
+# Login
 App to authenticate with nice2 services and request or update passwords.
 
-##Development
+## Development
 
-###Users
+### Users
 The following users can be entered to simulate different scenarios
 
 | Login          	  | Effect                                 	|
@@ -17,7 +17,7 @@ The following users can be entered to simulate different scenarios
 | `error`          	| Server error (status 500)              	|
 
 
-##Embedding
+## Embedding
 
 React-registry name: `login`
 
@@ -52,10 +52,10 @@ React-registry name: `login`
 # Password-Update
 Password-update can be embedded independently and works without login dialog.
 
-##Development
+## Development
 To run password-update dialog separately, uncomment line 91 in main.js
 
-###Passwords
+### Passwords
 The following passwords can be entered to simulate different scenarios
 
 | Password       	                | Effect                                 	|
@@ -66,7 +66,7 @@ The following passwords can be entered to simulate different scenarios
 | new password containing `error`	| 500 error on serverside validation    	|
 
 
-##Embedding
+## Embedding
 
 React-registry name: `password-update`
 
