@@ -13,11 +13,8 @@ export const doLogout = () => ({
   type: DO_LOGOUT
 })
 
-export const loginSuccessful = sessionTimeout => ({
-  type: LOGIN_SUCCESSFUL,
-  payload: {
-    sessionTimeout
-  }
+export const loginSuccessful = () => ({
+  type: LOGIN_SUCCESSFUL
 })
 
 export const loadPrincipal = () => ({

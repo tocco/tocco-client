@@ -60,16 +60,12 @@ describe('admin', () => {
       })
       describe('sessionHeartbeat', () => {
         test('should set flags and call itself', () => {
-          const sessionTimeoutInMinutes = 30
           const sessionResponse = {
             success: true,
             adminAllowed: true
           }
 
-          // after the half time of the session timeout
-          const expectedHeartbeatDelayInMilliseconds = 15 * 60 * 1000
-
-          return expectSaga(sagas.sessionHeartbeat, sessionTimeoutInMinutes)
+          return expectSaga(sagas.sessionHeartbeat)
             .provide([
               [matchers.call.fn(login.doSessionRequest), sessionResponse],
               [matchers.call.fn(sagas.sessionHeartbeat)],
@@ -77,8 +73,8 @@ describe('admin', () => {
             ])
             .put(login.setLoggedIn(true))
             .put(login.setAdminAllowed(true))
-            .call(sagas.sessionHeartbeat, sessionTimeoutInMinutes)
-            .call(sagas.delayByTimeout, expectedHeartbeatDelayInMilliseconds)
+            .call(sagas.sessionHeartbeat)
+            .call(sagas.delayByTimeout, sagas.HEARTBEAT_INTERVAL_IN_MS)
             .run()
         })
       })

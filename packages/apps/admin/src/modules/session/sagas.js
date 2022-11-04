@@ -5,15 +5,16 @@ import {cache} from 'tocco-util'
 
 import * as actions from './actions'
 
+export const HEARTBEAT_INTERVAL_IN_MS = 30 * 1000
+
 export const sessionSelector = state => state.session
 
-export function* sessionHeartbeat(sessionTimeoutInMinutes) {
-  const sessionHeartbeatTimeoutInMs = (sessionTimeoutInMinutes / 2) * 60 * 1000
+export function* sessionHeartbeat() {
   const {success, adminAllowed} = yield call(login.doSessionRequest)
   yield put(login.setLoggedIn(success))
   yield put(login.setAdminAllowed(adminAllowed))
-  yield call(delayByTimeout, sessionHeartbeatTimeoutInMs)
-  yield call(sessionHeartbeat, sessionTimeoutInMinutes)
+  yield call(delayByTimeout, HEARTBEAT_INTERVAL_IN_MS)
+  yield call(sessionHeartbeat)
 }
 
 /**
@@ -29,8 +30,7 @@ export function* doLogoutRequest() {
   return yield call(login.doRequest, 'logout', {method: 'POST'})
 }
 
-export function* loginSuccessful({payload}) {
-  const {sessionTimeout} = payload
+export function* loginSuccessful() {
   /**
    * `adminAllowed` will be set explicitly to true/false inside the sessionHeartbeat.
    * Nevertheless it has to be reset toghether with `loggedIn=true`.
@@ -40,10 +40,10 @@ export function* loginSuccessful({payload}) {
   yield put(login.setAdminAllowed(undefined))
   yield put(login.setLoggedIn(true))
   yield put(notification.connectSocket())
-  yield call(sessionHeartbeat, sessionTimeout)
+  yield call(sessionHeartbeat)
 }
 
-export function* logout({payload}) {
+export function* logout() {
   yield call(Cookies.remove, 'sso-autologin')
   yield call(doLogoutRequest)
   yield put(login.setLoggedIn(false))

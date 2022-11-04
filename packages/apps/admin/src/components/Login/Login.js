@@ -27,14 +27,10 @@ const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
     checkSsoAvailable()
   }, [checkSsoAvailable])
 
-  const loginSuccess = ({timeout}) => {
-    loginSuccessful(timeout)
-  }
-
   const ssoLoginCompleted = ({successful, provider, registration}) => {
     if (successful) {
       Cookies.set('sso-autologin', provider, {expires: 365})
-      loginSuccessful(30)
+      loginSuccessful()
     } else if (!successful && registration) {
       setShowRegistrationText(true)
     } else {
@@ -72,7 +68,7 @@ const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
             <FormattedMessage id="client.admin.welcomeTitle" />
           </StyledHeadingLogin>
           {ssoAvailable && <SsoLoginPart />}
-          <ToccoLogin loginSuccess={loginSuccess} showTitle={false} />
+          <ToccoLogin loginSuccess={loginSuccessful} showTitle={false} />
         </StyledLoginWrapper>
       </StyledLogin>
     </>
