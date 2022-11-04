@@ -112,6 +112,31 @@ describe('app-extensions', () => {
 
         expect(store.getState().fetched).to.be.true
       })
+
+      test('should not re-fetch action packages on mount when packages are loaded already', () => {
+        const actions = {
+          myaction: () => <div id="myaction" />
+        }
+        const ActionComp = actionFactory(actions)
+
+        const store = createStore((state, action) => {
+          if (action.type === fetchActionPackages().type) {
+            return {...state, fetched: true}
+          }
+
+          return {
+            dynamicActions: {actionPackages: []}
+          }
+        })
+
+        intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <ActionComp appId="myaction" />
+          </Provider>
+        )
+
+        expect(store.getState().fetched).to.not.be.true
+      })
     })
   })
 })
