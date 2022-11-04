@@ -37,12 +37,16 @@ const actionFactory = actions => {
   const LazyActionWrapper = props => {
     const {appId, fetchActionPackages, actionPackages, ...actionProps} = props
 
+    const actionPackagesLoaded = typeof actionPackages !== 'undefined' && actionPackages !== null
+
     useEffect(() => {
-      fetchActionPackages()
-    }, [fetchActionPackages])
+      if (!actionPackagesLoaded) {
+        fetchActionPackages()
+      }
+    }, [fetchActionPackages, actionPackagesLoaded])
 
     // wait until all actions have beend loaded
-    if (typeof actionPackages === 'undefined' || actionPackages === null) {
+    if (!actionPackagesLoaded) {
       return renderLoader()
     }
 
