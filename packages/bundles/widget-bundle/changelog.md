@@ -1,3 +1,14 @@
+0.1.57
+- add widget entity-dms
+- add collapsible sidepanel component
+- possible to pass beforeRenderField func
+- introduce legacy-admin embed type
+- same sidepanel behaviour as in admin
+- use reusable sidepanel component
+- use simple_advanced search form
+- autofocus form fields
+- prepare sso-login widget for widget embedType
+
 0.1.56
 - remove tocco subdomain
 

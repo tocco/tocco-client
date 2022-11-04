@@ -1,3 +1,7 @@
+1.0.84
+- add collapsible sidepanel component
+- introduce legacy-admin embed type
+
 1.0.83
 - use Icon component in LoadingSpinner
 
