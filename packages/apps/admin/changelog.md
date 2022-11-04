@@ -1,3 +1,13 @@
+1.0.121
+- add collapsible sidepanel component
+- possible to pass beforeRenderField func
+- introduce legacy-admin embed type
+- same sidepanel behaviour as in admin
+- use reusable sidepanel component
+- use simple_advanced search form
+- autofocus form fields
+- prepare sso-login widget for widget embedType
+
 1.0.120
 - remove tocco subdomain
 

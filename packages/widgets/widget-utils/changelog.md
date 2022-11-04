@@ -1,3 +1,6 @@
+0.1.27
+- introduce legacy-admin embed type
+
 0.1.26
 - warn about mismatching bootstrap scripts
 
