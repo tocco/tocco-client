@@ -1,5 +1,6 @@
+import {format} from 'date-fns'
 import PropTypes from 'prop-types'
-import {FormattedDate, FormattedTime, injectIntl} from 'react-intl'
+import {FormattedDate, injectIntl} from 'react-intl'
 
 import Typography from '../../Typography'
 
@@ -11,11 +12,14 @@ export const DateTimeFormatter = ({value, intl}) => {
     return <Typography.Span />
   }
 
+  // show alwas 24h format
+  const formattedTime = format(date, 'HH:mm')
+
   return (
-    <Typography.Time dateTime={date.toISOString()} title={`${intl.formatDate(date)}, ${intl.formatTime(date)}`}>
+    <Typography.Time dateTime={date.toISOString()} title={`${intl.formatDate(date)}, ${formattedTime}`}>
       <FormattedDate value={date} year="numeric" month="2-digit" day="2-digit" />
       ,&nbsp;
-      <FormattedTime value={date} />
+      {formattedTime}
     </Typography.Time>
   )
 }
