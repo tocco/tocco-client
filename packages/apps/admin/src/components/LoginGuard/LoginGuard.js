@@ -3,7 +3,7 @@ import {useEffect} from 'react'
 import {Helmet} from 'react-helmet'
 import {LoadMask} from 'tocco-ui'
 
-import Login from '../../components/Login'
+import LoginScreen from '../../components/LoginScreen'
 import Admin from '../Admin'
 
 const LoginGuard = ({connectSocket, sessionHeartbeat, loggedIn}) => {
@@ -18,7 +18,7 @@ const LoginGuard = ({connectSocket, sessionHeartbeat, loggedIn}) => {
         <title>Tocco</title>
       </Helmet>
       <LoadMask required={[loggedIn !== undefined]} loadingText="Logging in...">
-        <div>{!loggedIn ? <Login /> : <Admin />}</div>
+        <div>{!loggedIn ? <LoginScreen /> : <Admin />}</div>
       </LoadMask>
     </div>
   )

@@ -5,18 +5,7 @@ import {FormattedMessage} from 'react-intl'
 import ToccoLogin from 'tocco-login/src/main'
 import SsoLogin from 'tocco-sso-login/src/main'
 
-import ToccoSlogan from '../../assets/tocco_white.svg'
-import {
-  StyledSsoMsg,
-  StyledSsoError,
-  StyledSpanLogin,
-  StyledLogin,
-  StyledMobileSloganImg,
-  StyledSloganImg,
-  StyledLoginWrapper,
-  StyledHeadingLogin,
-  GlobalBodyStyle
-} from './StyledComponents'
+import {StyledSsoMsg, StyledSsoError, StyledSpanLogin} from './StyledComponents'
 
 const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
   const [showError, setShowError] = useState(false)
@@ -59,18 +48,8 @@ const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
 
   return (
     <>
-      <GlobalBodyStyle />
-      <StyledLogin>
-        <StyledMobileSloganImg src={ToccoSlogan} alt="Tocco Slogan" height="42.3" width="460" />
-        <StyledSloganImg src={ToccoSlogan} alt="Tocco Slogan" height="42.3" width="460" />
-        <StyledLoginWrapper>
-          <StyledHeadingLogin>
-            <FormattedMessage id="client.admin.welcomeTitle" />
-          </StyledHeadingLogin>
-          {ssoAvailable && <SsoLoginPart />}
-          <ToccoLogin loginSuccess={loginSuccessful} showTitle={false} />
-        </StyledLoginWrapper>
-      </StyledLogin>
+      {ssoAvailable && <SsoLoginPart />}
+      <ToccoLogin loginSuccess={loginSuccessful} showTitle={false} />
     </>
   )
 }
