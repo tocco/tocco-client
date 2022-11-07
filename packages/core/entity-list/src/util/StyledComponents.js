@@ -10,13 +10,10 @@ export const StyledColumnContentWrapper = styled.div`
   }
 `
 
-export const StyledActionWrapper = styled.div`
-  ${StyledButton} {
-    width: 100%;
-    max-width: fit-content;
-    justify-content: center;
-    box-sizing: border-box;
+export const StyledActionWrapper = styled.span`
+  display: inline-block;
 
+  ${StyledButton} {
     > * {
       overflow: hidden;
     }
