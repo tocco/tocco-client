@@ -33,6 +33,7 @@
     "tocco-user-qr-action": "*",
     "tocco-util": "*",
     "tocco-widget-code-copy": "*",
-    "tocco-widget-config-edit": "*"
+    "tocco-widget-config-edit": "*",
+    "tocco-score": "*"
   }
 }
