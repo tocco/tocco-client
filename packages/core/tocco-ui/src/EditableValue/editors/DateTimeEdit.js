@@ -4,7 +4,7 @@ import {date} from 'tocco-util'
 
 import DatePicker from './DatePicker'
 
-const DateTimeFormat = 'Pp' // MM/dd/yyyy hh:mm a.m. od. dd.MM.y hh:mm
+const DateTimeFormat = 'P HH:mm' // MM/dd/yyyy HH:mm od. dd.MM.y HH:mm
 
 export const DateTimeEdit = ({onChange, options, value, immutable, placeholder}) => {
   const intl = useIntl()
