@@ -1,3 +1,4 @@
+export const SESSION_HEARTBEAT = 'session/SESSION_HEARTBEAT'
 export const DO_LOGOUT = 'session/DO_LOGOUT'
 export const LOGIN_SUCCESSFUL = 'session/LOGIN_SUCCESSFUL'
 export const LOAD_PRINCIPAL = 'session/LOAD_PRINCIPAL'
@@ -8,6 +9,10 @@ export const SET_BUSINESS_UNITS = 'session/SET_BUSINESS_UNITS'
 export const CHANGE_BUSINESS_UNIT = 'session/CHANGE_BUSINESS_UNIT'
 export const CHECK_SSO_AVAILABLE = 'session/CHECK_SSO_AVAILABLE'
 export const SET_SSO_AVAILABLE = 'session/SET_SSO_AVAILABLE'
+
+export const sessionHeartbeat = () => ({
+  type: SESSION_HEARTBEAT
+})
 
 export const doLogout = () => ({
   type: DO_LOGOUT

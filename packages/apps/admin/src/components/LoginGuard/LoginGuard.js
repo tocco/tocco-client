@@ -6,10 +6,11 @@ import {LoadMask} from 'tocco-ui'
 import Login from '../../components/Login'
 import Admin from '../Admin'
 
-const LoginGuard = ({doSessionCheck, loggedIn}) => {
+const LoginGuard = ({connectSocket, sessionHeartbeat, loggedIn}) => {
   useEffect(() => {
-    doSessionCheck()
-  }, [doSessionCheck])
+    connectSocket()
+    sessionHeartbeat()
+  }, [connectSocket, sessionHeartbeat])
 
   return (
     <div>
@@ -25,7 +26,8 @@ const LoginGuard = ({doSessionCheck, loggedIn}) => {
 
 LoginGuard.propTypes = {
   loggedIn: PropTypes.bool,
-  doSessionCheck: PropTypes.func.isRequired
+  connectSocket: PropTypes.func.isRequired,
+  sessionHeartbeat: PropTypes.func.isRequired
 }
 
 export default LoginGuard

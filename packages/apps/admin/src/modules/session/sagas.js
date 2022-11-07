@@ -10,11 +10,15 @@ export const HEARTBEAT_INTERVAL_IN_MS = 30 * 1000
 export const sessionSelector = state => state.session
 
 export function* sessionHeartbeat() {
+  yield call(doSessionRequest)
+  yield call(delayByTimeout, HEARTBEAT_INTERVAL_IN_MS)
+  yield call(sessionHeartbeat)
+}
+
+function* doSessionRequest() {
   const {success, adminAllowed} = yield call(login.doSessionRequest)
   yield put(login.setLoggedIn(success))
   yield put(login.setAdminAllowed(adminAllowed))
-  yield call(delayByTimeout, HEARTBEAT_INTERVAL_IN_MS)
-  yield call(sessionHeartbeat)
 }
 
 /**
@@ -32,7 +36,7 @@ export function* doLogoutRequest() {
 
 export function* loginSuccessful() {
   /**
-   * `adminAllowed` will be set explicitly to true/false inside the sessionHeartbeat.
+   * `adminAllowed` will be set explicitly to true/false inside the doSessionRequest.
    * Nevertheless it has to be reset toghether with `loggedIn=true`.
    * With `adminAllowed=undefined` an empty page is shown instead
    * "no roles" error message while fetching the session.
@@ -40,7 +44,7 @@ export function* loginSuccessful() {
   yield put(login.setAdminAllowed(undefined))
   yield put(login.setLoggedIn(true))
   yield put(notification.connectSocket())
-  yield call(sessionHeartbeat)
+  yield call(doSessionRequest)
 }
 
 export function* logout() {
@@ -92,6 +96,7 @@ export function* isSsoAvailable() {
 
 export default function* mainSagas() {
   yield all([
+    takeLatest(actions.SESSION_HEARTBEAT, sessionHeartbeat),
     takeLatest(actions.LOGIN_SUCCESSFUL, loginSuccessful),
     takeLatest(actions.DO_LOGOUT, logout),
     takeLatest(actions.LOAD_PRINCIPAL, loadPrincipal),

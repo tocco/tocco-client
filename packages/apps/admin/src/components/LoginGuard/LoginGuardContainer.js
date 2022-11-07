@@ -1,11 +1,13 @@
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
-import {notification, login} from 'tocco-app-extensions'
+import {notification} from 'tocco-app-extensions'
 
+import {sessionHeartbeat} from '../../modules/session/actions'
 import LoginGuard from './LoginGuard'
 
 const mapActionCreators = {
-  doSessionCheck: login.doSessionCheck,
+  sessionHeartbeat,
+  connectSocket: notification.connectSocket,
   confirm: notification.confirm
 }
 
