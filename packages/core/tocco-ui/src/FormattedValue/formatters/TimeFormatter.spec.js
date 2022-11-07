@@ -10,7 +10,7 @@ describe('tocco-ui', () => {
         const leftToRightMark = /\u200E/g // required for browser Edge
 
         const timeOutputIso = '23:15:00.000'
-        const timeOutputEn = '11:15 PM'
+        const timeOutputEn = '23:15'
         const timeOutputDe = '23:15'
 
         const timeValue = '23:15'
