@@ -7,13 +7,13 @@ import {date} from 'tocco-util'
  * @param {string} locale (de-CH | de | it | fr | en)
  * @param {Date} datetime javascript date
  *
- * @return {String} Hours of datetime e.g. '08' or '8 PM' depending on the locale
+ * @return {String} 24h Hours of datetime e.g. '08' or '22'
  */
 export const getFormattedTime = (locale, datetime) => {
   const formatOptions = {
     locale: date.getDateFnsLocale(locale)
   }
-  return format(datetime, 'p', formatOptions).replace(/(:|\.|e)[0-9]{2}/, '')
+  return format(datetime, 'HH', formatOptions)
 }
 
 export const getFormattedEventTime = (locale, startDate, endDate) => {
