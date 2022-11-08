@@ -1,3 +1,9 @@
+1.0.122
+- input edit info action for showing meta info
+- add input-edit-info action
+- do not reload fullscreen action on single action
+- be able to click on row in action cell
+
 1.0.121
 - add collapsible sidepanel component
 - possible to pass beforeRenderField func

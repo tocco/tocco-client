@@ -1,3 +1,6 @@
+1.0.85
+- do not reload fullscreen action on single action
+
 1.0.84
 - add collapsible sidepanel component
 - introduce legacy-admin embed type
