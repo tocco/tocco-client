@@ -1,6 +1,6 @@
+import {screen, fireEvent} from '@testing-library/react'
 import {expect} from 'chai'
-import {intlEnzyme} from 'tocco-test-util'
-import {Icon} from 'tocco-ui'
+import {testingLibrary} from 'tocco-test-util'
 
 import MenuEntry from './MenuEntry'
 
@@ -22,9 +22,9 @@ describe('admin', () => {
               preferencesPrefix: ''
             }
 
-            const wrapper = intlEnzyme.mountWithIntl(<MenuEntry {...props} />)
+            testingLibrary.renderWithIntl(<MenuEntry {...props} />)
 
-            expect(wrapper.find(Icon)).to.have.length(1)
+            expect(screen.queryByRole('button', {hidden: true})).to.exist
           })
 
           test('should not show collapsible icon for non-collapsible entries', () => {
@@ -40,9 +40,9 @@ describe('admin', () => {
               preferencesPrefix: undefined
             }
 
-            const wrapper = intlEnzyme.mountWithIntl(<MenuEntry {...props} />)
+            testingLibrary.renderWithIntl(<MenuEntry {...props} />)
 
-            expect(wrapper.find(Icon)).to.have.length(0)
+            expect(screen.queryByRole('button', {hidden: true})).not.to.exist
           })
 
           test('should be able to expand and collapse', () => {
@@ -58,15 +58,15 @@ describe('admin', () => {
               preferencesPrefix: ''
             }
 
-            const wrapper = intlEnzyme.mountWithIntl(<MenuEntry {...props} />)
+            const {rerender} = testingLibrary.renderWithIntl(<MenuEntry {...props} />)
 
             // expand
-            wrapper.simulate('click')
+            fireEvent.click(screen.getByRole('button', {hidden: true}))
             expect(props.saveUserPreferences).to.have.been.calledWith({'admintree.address.collapsed': false})
 
             // collapse
-            wrapper.setProps({isOpen: true})
-            wrapper.simulate('click')
+            rerender(<MenuEntry {...props} isOpen />)
+            fireEvent.click(screen.getByRole('button', {hidden: true}))
             expect(props.saveUserPreferences).to.have.been.calledWith({'admintree.address.collapsed': true})
           })
         })

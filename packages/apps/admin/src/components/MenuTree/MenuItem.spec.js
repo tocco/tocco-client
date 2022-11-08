@@ -1,16 +1,17 @@
-import {intlEnzyme} from 'tocco-test-util'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import MenuItem from './MenuItem'
 
 /* eslint-disable react/prop-types */
 
-const AComp = ({item: {label}}) => <div>{label}</div>
-const WrapperComp = ({children}) => <div>{children}</div>
+const MenuEntryTestComp = ({item: {label}}) => <div>{label}</div>
+const ChildrenWrapperTestComp = ({children}) => <div data-testid="children-wrapper">{children}</div>
 
 const typeMapping = {
-  a: {
-    component: AComp,
-    childrenWrapperComponent: WrapperComp,
+  test: {
+    component: MenuEntryTestComp,
+    childrenWrapperComponent: ChildrenWrapperTestComp,
     props: {},
     filterAttributes: []
   }
@@ -24,7 +25,8 @@ describe('admin', () => {
           const children = [
             {
               name: 'person',
-              menuType: 'a'
+              menuType: 'test',
+              label: 'person'
             }
           ]
 
@@ -32,17 +34,17 @@ describe('admin', () => {
             item: {
               name: 'address',
               children,
-              menuType: 'a'
+              menuType: 'test',
+              label: 'address'
             },
             menuTreePath: 'address',
             typeMapping
           }
 
-          const wrapper = intlEnzyme.mountWithIntl(<MenuItem {...props} />)
+          testingLibrary.renderWithIntl(<MenuItem {...props} />)
 
-          expect(wrapper.find(AComp)).to.have.length(2)
-          expect(wrapper.find(AComp).at(0).prop('menuTreePath')).to.equal('address')
-          expect(wrapper.find(AComp).at(1).prop('menuTreePath')).to.equal('address.person')
+          expect(screen.getByText('address')).to.exist
+          expect(screen.getByText('person')).to.exist
         })
 
         test('should not render children wrapper when no children are present', () => {
@@ -50,17 +52,17 @@ describe('admin', () => {
             item: {
               name: 'address',
               children: [],
-              menuType: 'a'
+              menuType: 'test',
+              label: 'address'
             },
             menuTreePath: 'address',
             typeMapping
           }
 
-          const wrapper = intlEnzyme.mountWithIntl(<MenuItem {...props} />)
+          testingLibrary.renderWithIntl(<MenuItem {...props} />)
 
-          expect(wrapper.find(AComp)).to.have.length(1)
-          expect(wrapper.find(AComp).at(0).prop('item').name).to.equal('address')
-          expect(wrapper.find(WrapperComp)).to.have.length(0)
+          expect(screen.getByText('address')).to.exist
+          expect(screen.queryByTestId('children-wrapper')).to.not.exist
         })
       })
     })

@@ -58,8 +58,14 @@ export const StyledMenuLinkWrapper = styled.span`
   }
 `
 
-export const StyledTogglerIconWrapper = styled.span`
+export const StyledTogglerButton = styled.button`
   display: none;
+  background: transparent;
+  border: transparent;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+
   /* Always show expand/collapse icon on mobile */
   ${isTouchDevice &&
   css`
@@ -82,7 +88,7 @@ export const StyledMenuEntry = styled.span`
   &:hover {
     ${({onClick}) => (onClick ? 'cursor: pointer;' : 'cursor: auto;')}
 
-    ${StyledTogglerIconWrapper} {
+    ${StyledTogglerButton} {
       display: block;
     }
   }

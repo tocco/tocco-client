@@ -1,7 +1,7 @@
-import {intlEnzyme} from 'tocco-test-util'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import MenuChildrenWrapper from './MenuChildrenWrapper'
-import {StyledMenuChildrenWrapper} from './StyledComponents'
 
 describe('admin', () => {
   describe('components', () => {
@@ -11,7 +11,7 @@ describe('admin', () => {
           test('should render children when expanded', () => {
             const isOpen = true
             const canCollapse = true
-            const children = <div id="child">Hallo</div>
+            const children = <div>Hallo</div>
 
             const props = {
               isOpen,
@@ -19,15 +19,15 @@ describe('admin', () => {
               menuTreePath: 'address',
               preferencesPrefix: ''
             }
-            const wrapper = intlEnzyme.mountWithIntl(<MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>)
+            testingLibrary.renderWithIntl(<MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>)
 
-            expect(wrapper.find(StyledMenuChildrenWrapper).prop('isOpen')).to.be.true
+            expect(screen.queryByText('Hallo')).to.exist
           })
 
           test('should not render children when collapsed', () => {
             const isOpen = false
             const canCollapse = true
-            const children = <div id="child">Hallo</div>
+            const children = <div>Hallo</div>
 
             const props = {
               isOpen,
@@ -35,15 +35,15 @@ describe('admin', () => {
               menuTreePath: 'address',
               preferencesPrefix: ''
             }
-            const wrapper = intlEnzyme.mountWithIntl(<MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>)
+            testingLibrary.renderWithIntl(<MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>)
 
-            expect(wrapper.find(StyledMenuChildrenWrapper).prop('isOpen')).to.be.false
+            expect(screen.queryByText('Hallo')).to.not.exist
           })
 
           test('should render children when not collapsible', () => {
             const isOpen = false
             const canCollapse = false
-            const children = <div id="child">Hallo</div>
+            const children = <div>Hallo</div>
 
             const props = {
               isOpen,
@@ -51,9 +51,9 @@ describe('admin', () => {
               menuTreePath: 'address',
               preferencesPrefix: ''
             }
-            const wrapper = intlEnzyme.mountWithIntl(<MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>)
+            testingLibrary.renderWithIntl(<MenuChildrenWrapper {...props}>{children}</MenuChildrenWrapper>)
 
-            expect(wrapper.find(StyledMenuChildrenWrapper).prop('isOpen')).to.be.true
+            expect(screen.queryByText('Hallo')).to.exist
           })
         })
       })
