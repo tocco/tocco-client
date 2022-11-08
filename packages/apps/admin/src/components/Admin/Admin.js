@@ -14,6 +14,7 @@ import EntitiesRoute from '../../routes/entities'
 import Settings from '../../routes/settings'
 import ErrorView from '../ErrorView'
 import Header from '../Header'
+import InvalidSession from '../InvalidSession'
 import Navigation from '../Navigation'
 import navigationStrategy from './../../routes/entities/utils/navigationStrategy'
 import {burgerMenuStyles, StyledContent, StyledMenu, StyledWrapper} from './StyledComponents'
@@ -105,16 +106,21 @@ const Admin = ({
   )
 
   return (
-    <LoadMask required={[history !== null]}>
-      <Router history={history || {}}>
-        <GlobalStyles />
-        <notification.Notifications navigationStrategy={navigationStrategy()} />
-        <StyledWrapper width={useWindowWidth()}>
-          <Header />
-          {adminAllowedContent || adminForbiddenContent}
-        </StyledWrapper>
-      </Router>
-    </LoadMask>
+    <>
+      <errorLogging.ErrorBoundary>
+        <InvalidSession />
+      </errorLogging.ErrorBoundary>
+      <LoadMask required={[history !== null]}>
+        <Router history={history || {}}>
+          <GlobalStyles />
+          <notification.Notifications navigationStrategy={navigationStrategy()} />
+          <StyledWrapper width={useWindowWidth()}>
+            <Header />
+            {adminAllowedContent || adminForbiddenContent}
+          </StyledWrapper>
+        </Router>
+      </LoadMask>
+    </>
   )
 }
 

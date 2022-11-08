@@ -9,6 +9,7 @@ export const SET_BUSINESS_UNITS = 'session/SET_BUSINESS_UNITS'
 export const CHANGE_BUSINESS_UNIT = 'session/CHANGE_BUSINESS_UNIT'
 export const CHECK_SSO_AVAILABLE = 'session/CHECK_SSO_AVAILABLE'
 export const SET_SSO_AVAILABLE = 'session/SET_SSO_AVAILABLE'
+export const SET_INVALID_SESSION = 'session/SET_INVALID_SESSION'
 
 export const sessionHeartbeat = () => ({
   type: SESSION_HEARTBEAT
@@ -66,5 +67,12 @@ export const setSsoAvailable = ssoAvailable => ({
   type: SET_SSO_AVAILABLE,
   payload: {
     ssoAvailable
+  }
+})
+
+export const setInvalidSession = invalidSession => ({
+  type: SET_INVALID_SESSION,
+  payload: {
+    invalidSession
   }
 })

@@ -8,6 +8,7 @@ import * as actions from './actions'
 export const HEARTBEAT_INTERVAL_IN_MS = 30 * 1000
 
 export const sessionSelector = state => state.session
+export const loginSelector = state => state.login
 
 export function* sessionHeartbeat() {
   yield call(doSessionRequest)
@@ -15,10 +16,20 @@ export function* sessionHeartbeat() {
   yield call(sessionHeartbeat)
 }
 
-function* doSessionRequest() {
+export function* doSessionRequest() {
+  const {loggedIn} = yield select(loginSelector)
   const {success, adminAllowed} = yield call(login.doSessionRequest)
-  yield put(login.setLoggedIn(success))
-  yield put(login.setAdminAllowed(adminAllowed))
+  if (!success && loggedIn) {
+    /**
+     * setLoggedIn and setAdminAllowed should not be called if the session is invalid.
+     * Otherwise unsaved changes will be lost.
+     */
+    yield put(actions.setInvalidSession(true))
+  } else {
+    yield put(login.setLoggedIn(success))
+    yield put(login.setAdminAllowed(adminAllowed))
+    yield put(actions.setInvalidSession(false))
+  }
 }
 
 /**
@@ -35,13 +46,20 @@ export function* doLogoutRequest() {
 }
 
 export function* loginSuccessful() {
+  const {invalidSession} = yield select(sessionSelector)
   /**
-   * `adminAllowed` will be set explicitly to true/false inside the doSessionRequest.
-   * Nevertheless it has to be reset toghether with `loggedIn=true`.
-   * With `adminAllowed=undefined` an empty page is shown instead
-   * "no roles" error message while fetching the session.
+   * During relogin via the session invalid modal `adminAllowed=undefined` should not be set.
+   * Otherwise unsaved changes will be lost.
    */
-  yield put(login.setAdminAllowed(undefined))
+  if (!invalidSession) {
+    /**
+     * `adminAllowed` will be set explicitly to true/false inside the doSessionRequest.
+     * Nevertheless it has to be reset toghether with `loggedIn=true`.
+     * With `adminAllowed=undefined` an empty page is shown instead
+     * "no roles" error message while fetching the session.
+     */
+    yield put(login.setAdminAllowed(undefined))
+  }
   yield put(login.setLoggedIn(true))
   yield put(notification.connectSocket())
   yield call(doSessionRequest)
