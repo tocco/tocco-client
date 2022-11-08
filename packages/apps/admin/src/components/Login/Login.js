@@ -28,7 +28,7 @@ const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
   }
 
   const SsoLoginPart = () => (
-    <>
+    <div>
       <SsoLogin ssoLoginEndpoint="/sso" loginCompleted={ssoLoginCompleted} autoLogin={autoLogin} />
       {showRegistrationText && (
         <StyledSsoMsg breakWords={true}>
@@ -43,13 +43,15 @@ const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
       <StyledSpanLogin>
         <FormattedMessage id="client.admin.loginChoice" />
       </StyledSpanLogin>
-    </>
+    </div>
   )
 
   return (
     <>
       {ssoAvailable && <SsoLoginPart />}
-      <ToccoLogin loginSuccess={loginSuccessful} showTitle={false} />
+      <div>
+        <ToccoLogin loginSuccess={loginSuccessful} showTitle={false} />
+      </div>
     </>
   )
 }
