@@ -1,20 +1,28 @@
-import {Provider} from 'react-redux'
+import {screen} from '@testing-library/react'
 import {createStore} from 'redux'
-import {intlEnzyme} from 'tocco-test-util'
-import {LoadMask} from 'tocco-ui'
+import {testingLibrary} from 'tocco-test-util'
 import {bundle} from 'tocco-util'
 
 import actionFactory from './actionFactory'
-import DynamicAction from './components/DynamicAction'
 import {fetchActionPackages} from './modules/dynamicActions/actions'
 
 let stub
+
+const packageName = 'package-name'
+const appName = 'app-name'
 
 describe('app-extensions', () => {
   describe('actions', () => {
     describe('actionFactory', () => {
       beforeEach(() => {
-        stub = sinon.stub(bundle, 'useBundledApp').returns(() => <div id="dynamicaction" />)
+        stub = sinon.stub(bundle, 'useBundledApp')
+
+        stub.withArgs({packageName, appName}).returns(() => (
+          <div data-testid="dynamicaction">
+            <span>{packageName}</span>
+            <span>{appName}</span>
+          </div>
+        ))
       })
 
       afterEach(() => {
@@ -25,7 +33,7 @@ describe('app-extensions', () => {
 
       test('should render action', () => {
         const actions = {
-          myaction: () => <div id="myaction" />
+          myaction: () => <div data-testid="myaction" />
         }
         const ActionComp = actionFactory(actions)
 
@@ -33,39 +41,28 @@ describe('app-extensions', () => {
           dynamicActions: {actionPackages: []}
         }))
 
-        const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <ActionComp appId="myaction" />
-          </Provider>
-        )
+        testingLibrary.renderWithStore(<ActionComp appId="myaction" />, {store})
 
-        expect(wrapper.find('#myaction')).to.have.length(1)
+        expect(screen.getByTestId('myaction')).to.exist
       })
 
       test('should render dynamic action', () => {
         const actions = {
-          myaction: () => <div id="myaction" />
+          myaction: () => <div data-testid="myaction" />
         }
         const ActionComp = actionFactory(actions)
 
         const store = createStore(() => ({
           dynamicActions: {
-            actionPackages: [{actionName: 'mydynamicaction', packageName: 'package-name', appName: 'app-name'}]
+            actionPackages: [{actionName: 'mydynamicaction', packageName, appName}]
           }
         }))
 
-        const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <ActionComp appId="mydynamicaction" />
-          </Provider>
-        )
+        testingLibrary.renderWithStore(<ActionComp appId="mydynamicaction" />, {store})
 
-        const Action = wrapper.find(DynamicAction)
-        expect(Action).to.have.length(1)
-        expect(Action.prop('packageName')).to.eql('package-name')
-        expect(Action.prop('appName')).to.eql('app-name')
-
-        expect(wrapper.find('#dynamicaction')).to.have.length(1)
+        expect(screen.getByTestId('dynamicaction')).to.exist
+        expect(screen.getByText('package-name')).to.exist
+        expect(screen.getByText('app-name')).to.exist
       })
 
       test('should render loading when action packages are not fetched yet', () => {
@@ -78,14 +75,9 @@ describe('app-extensions', () => {
           dynamicActions: {actionPackages: undefined}
         }))
 
-        const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <ActionComp appId="myaction" />
-          </Provider>
-        )
+        testingLibrary.renderWithStore(<ActionComp appId="myaction" />, {store})
 
-        expect(wrapper.find(LoadMask)).to.have.length(1)
-        expect(wrapper.find('#myaction')).to.have.length(0)
+        expect(screen.queryByTestId('myaction')).to.not.exist
       })
 
       test('should fetch action packages on mount', () => {
@@ -104,11 +96,7 @@ describe('app-extensions', () => {
           }
         })
 
-        intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <ActionComp appId="myaction" />
-          </Provider>
-        )
+        testingLibrary.renderWithStore(<ActionComp appId="myaction" />, {store})
 
         expect(store.getState().fetched).to.be.true
       })
@@ -129,11 +117,7 @@ describe('app-extensions', () => {
           }
         })
 
-        intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <ActionComp appId="myaction" />
-          </Provider>
-        )
+        testingLibrary.renderWithStore(<ActionComp appId="myaction" />, {store})
 
         expect(store.getState().fetched).to.not.be.true
       })

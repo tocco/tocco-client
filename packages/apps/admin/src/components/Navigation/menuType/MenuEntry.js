@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import {Icon} from 'tocco-ui'
 
 import {getMenuPreferencesKey} from '../../../utils/navigationUtils'
-import {StyledMenuEntry, StyledMenuIconWrapper, StyledTogglerIconWrapper} from './StyledComponents'
+import {StyledMenuEntry, StyledMenuIconWrapper, StyledTogglerButton} from './StyledComponents'
 
 const MenuEntry = props => {
   const {item, isOpen, canCollapse, preferencesPrefix, menuTreePath, saveUserPreferences} = props
@@ -22,9 +22,9 @@ const MenuEntry = props => {
         {label}
       </span>
       {canCollapse && (
-        <StyledTogglerIconWrapper>
-          <Icon icon={isOpen ? 'chevron-up' : 'chevron-down'} onClick={toggleMenuEntryCollapsed} />
-        </StyledTogglerIconWrapper>
+        <StyledTogglerButton onClick={toggleMenuEntryCollapsed}>
+          <Icon icon={isOpen ? 'chevron-up' : 'chevron-down'} />
+        </StyledTogglerButton>
       )}
     </StyledMenuEntry>
   )

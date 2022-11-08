@@ -1,17 +1,17 @@
-import {intlEnzyme} from 'tocco-test-util'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
-import MenuItem from './MenuItem'
 import MenuTree from './MenuTree'
 
 /* eslint-disable react/prop-types */
 
-const AComp = ({item: {label}}) => <div>{label}</div>
-const WrapperComp = ({children}) => <div>{children}</div>
+const MenuEntryTestComp = ({item: {label}}) => <div>{label}</div>
+const ChildrenWrapperTestComp = ({children}) => <div data-testid="children-wrapper">{children}</div>
 
 const typeMapping = {
-  a: {
-    component: AComp,
-    childrenWrapperComponent: WrapperComp,
+  test: {
+    component: MenuEntryTestComp,
+    childrenWrapperComponent: ChildrenWrapperTestComp,
     props: {},
     filterAttributes: ['name']
   }
@@ -26,37 +26,46 @@ describe('admin', () => {
             items: [
               {
                 name: 'level1',
+                label: 'level1',
                 children: [
                   {
                     name: 'level1.1',
-                    menuType: 'a',
+                    label: 'level1.1',
+                    menuType: 'test',
                     children: [
                       {
                         name: 'level1.1.1',
-                        menuType: 'a'
+                        label: 'level1.1.1',
+                        menuType: 'test'
                       },
                       {
                         name: 'level1.1.2',
-                        menuType: 'a'
+                        label: 'level1.1.2',
+                        menuType: 'test'
                       }
                     ]
                   }
                 ],
-                menuType: 'a'
+                menuType: 'test'
               },
               {
                 name: 'level2',
+                label: 'level2',
                 children: [],
-                menuType: 'a'
+                menuType: 'test'
               }
             ],
             typeMapping,
             requireSearch: false
           }
 
-          const wrapper = intlEnzyme.mountWithIntl(<MenuTree {...props} />)
+          testingLibrary.renderWithIntl(<MenuTree {...props} />)
 
-          expect(wrapper.find(MenuItem)).to.have.length(5)
+          expect(screen.getByText('level1')).to.exist
+          expect(screen.getByText('level1.1')).to.exist
+          expect(screen.getByText('level1.1.1')).to.exist
+          expect(screen.getByText('level1.1.2')).to.exist
+          expect(screen.getByText('level2')).to.exist
         })
 
         test('should render tree with applied search filter', () => {
@@ -64,28 +73,33 @@ describe('admin', () => {
             items: [
               {
                 name: 'level1',
+                label: 'level1',
                 children: [
                   {
                     name: 'level1.1',
-                    menuType: 'a',
+                    label: 'level1.1',
+                    menuType: 'test',
                     children: [
                       {
                         name: 'level1.1.1',
-                        menuType: 'a'
+                        label: 'level1.1.1',
+                        menuType: 'test'
                       },
                       {
                         name: 'level1.1.2',
-                        menuType: 'a'
+                        label: 'level1.1.2',
+                        menuType: 'test'
                       }
                     ]
                   }
                 ],
-                menuType: 'a'
+                menuType: 'test'
               },
               {
                 name: 'level2',
+                label: 'level2',
                 children: [],
-                menuType: 'a'
+                menuType: 'test'
               }
             ],
             typeMapping,
@@ -93,9 +107,13 @@ describe('admin', () => {
             requireSearch: false
           }
 
-          const wrapper = intlEnzyme.mountWithIntl(<MenuTree {...props} />)
+          testingLibrary.renderWithIntl(<MenuTree {...props} />)
 
-          expect(wrapper.find(MenuItem)).to.have.length(3)
+          expect(screen.getByText('level1')).to.exist
+          expect(screen.getByText('level1.1')).to.exist
+          expect(screen.getByText('level1.1.1')).to.exist
+          expect(screen.queryByText('level1.1.2')).to.not.exist
+          expect(screen.queryByText('level2')).to.not.exist
         })
       })
     })
