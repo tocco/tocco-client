@@ -6,7 +6,7 @@ describe('resource-scheduler', () => {
       test('should return time', () => {
         const time = new Date('2015-06-17 14:24:36')
         const result = getFormattedTime('en', time)
-        expect(result).to.eql('2 PM')
+        expect(result).to.eql('14')
       })
 
       test('should return 24h time for locale de', () => {
