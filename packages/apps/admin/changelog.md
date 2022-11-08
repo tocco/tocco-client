@@ -1,3 +1,6 @@
+1.0.119-hotfix34.1
+- be able to click on row in action cell
+
 1.0.119
 - use Icon component in LoadingSpinner
 - replace values of readonly input fields with loading spinner while the update request is processing
