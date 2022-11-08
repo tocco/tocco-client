@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {appFactory} from 'tocco-app-extensions'
-import {reducer as reducerUtil, appContext} from 'tocco-util'
+import {reducer as reducerUtil, appContext, env} from 'tocco-util'
 
 import EntityDms from './components/EntityDms'
 import {getDispatchActions} from './input'
@@ -10,6 +10,8 @@ const packageName = 'entity-dms'
 
 const initApp = (id, input, events, publicPath) => {
   const content = <EntityDms />
+
+  env.setInputEnvs(input)
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
