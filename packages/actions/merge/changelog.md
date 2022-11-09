@@ -1,3 +1,6 @@
+1.0.49-hotfix33.21
+- show time in 24h format for all locales
+
 1.0.49-hotfix33.20
 - move component specific event handlers
 
