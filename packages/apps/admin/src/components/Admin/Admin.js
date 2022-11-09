@@ -134,7 +134,7 @@ Admin.propTypes = {
   initializeNavigation: PropTypes.func.isRequired,
   loadSettingsAndPreferences: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
-  adminAllowed: PropTypes.bool.isRequired
+  adminAllowed: PropTypes.bool
 }
 
 export default withTheme(Admin)
