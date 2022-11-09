@@ -1,3 +1,8 @@
+0.1.59
+- move toasters on mobile to bottom for better ux as most of the interaction elements (e.g actions) are on top and should not be covered
+- setup envs for entity-dms
+- setup envs for personal-dms
+
 0.1.58
 - input edit info action for showing meta info
 - add input-edit-info action
