@@ -1,3 +1,6 @@
+1.0.83-hotfix34.1
+- show time in 24h format for all locales
+
 1.0.83
 - use Icon component in LoadingSpinner
 
