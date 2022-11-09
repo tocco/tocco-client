@@ -1,0 +1,16 @@
+{
+  "name": "tocco-scoreboard",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile:prod": "cd ../../../ && npm run compile:prod -- --package=scoreboard",
+    "prepublish": "npm run compile:prod"
+  },
+  "devDependencies": {
+    "tocco-app-extensions": "*",
+    "tocco-util": "*",
+    "tocco-ui": "*"
+  }
+}
