@@ -1,3 +1,7 @@
+1.0.119-hotfix34.2
+- show time in 24h format for all locales
+- show time in 24h format for all locales
+
 1.0.119-hotfix34.1
 - be able to click on row in action cell
 
