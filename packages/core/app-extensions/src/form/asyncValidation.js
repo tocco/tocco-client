@@ -23,7 +23,7 @@ const validateRequest = (formValues, initialValues, fieldDefinitions, formDefini
     method: mode === 'create' ? 'POST' : 'PATCH',
     headers: {'X-Client': 'rest'}, // client type REST does not use client questions, which would interrupt validation
     body: entity,
-    acceptedStatusCodes: [403],
+    acceptedStatusCodes: [400, 403],
     acceptedErrorCodes: [OUTDATED_ENTITY_ERROR_CODE]
   }
 
@@ -31,7 +31,7 @@ const validateRequest = (formValues, initialValues, fieldDefinitions, formDefini
   const endpoint = customEndpoint || `entities/2.0/${entity.model}${entity.key ? `/${entity.key}` : ''}`
   return rest.simpleRequest(endpoint, options).then(resp => {
     const body = resp.body
-    if (resp.status === 403) {
+    if (resp.status === 400 || resp.status === 403) {
       return {}
     }
     if (body.valid) {

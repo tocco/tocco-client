@@ -1,11 +1,18 @@
 import {all, call, put, take} from 'redux-saga/effects'
-import {appFactory, login} from 'tocco-app-extensions'
+import {appFactory, cache as cacheHelpers, notification} from 'tocco-app-extensions'
+import {cache} from 'tocco-util'
 
 export default function* sagas() {
-  yield all([call(connectSocket)])
+  yield all([call(initialize)])
 }
 
-export function* connectSocket() {
+export function* initialize() {
   yield take(appFactory.INPUT_INITIALIZED)
-  yield put(login.doSessionCheck())
+
+  const needsCacheInvalidation = yield call(cacheHelpers.hasInvalidCache)
+
+  if (needsCacheInvalidation) {
+    yield call(cache.clearAll)
+  }
+  yield put(notification.connectSocket())
 }
