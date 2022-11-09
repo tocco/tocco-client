@@ -1,3 +1,6 @@
+1.0.86
+- move toasters on mobile to bottom for better ux as most of the interaction elements (e.g actions) are on top and should not be covered
+
 1.0.85
 - do not reload fullscreen action on single action
 

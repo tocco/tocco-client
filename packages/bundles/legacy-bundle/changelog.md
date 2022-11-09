@@ -1,3 +1,6 @@
+0.1.5
+- move toasters on mobile to bottom for better ux as most of the interaction elements (e.g actions) are on top and should not be covered
+
 0.1.4
 - input edit info action for showing meta info
 - add input-edit-info action
