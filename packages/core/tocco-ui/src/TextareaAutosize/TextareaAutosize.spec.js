@@ -1,41 +1,51 @@
-import {intlEnzyme} from 'tocco-test-util'
+import {screen, render, fireEvent} from '@testing-library/react'
 import {userAgent} from 'tocco-util'
 
-import {StyledSizeWrapper} from './StyledComponents'
 import TextareaAutosize from './TextareaAutosize'
 
 describe('tocco-ui', () => {
   describe('TextareaAutosize', () => {
-    describe('TextareaAutosize', () => {
-      test('should have replicated value', () => {
-        const value = 'abcd'
-        const wrapper = intlEnzyme.mountWithIntl(<TextareaAutosize value={value} />)
+    test('should have replicated value', () => {
+      const value = 'abcd'
 
-        expect(wrapper.find(StyledSizeWrapper).prop('data-replicated-value')).to.equal(value)
-      })
+      render(<TextareaAutosize value={value} />)
 
-      test('should skip replicated value for Safari', () => {
-        const stub = sinon.stub(userAgent, 'isSafari').returns(true)
+      expect(screen.getByRole('textbox').value).equals(value)
+      expect(screen.getByTestId('replicated-test').getAttribute('data-replicated-value')).equal(value)
+    })
 
-        const value = 'abcd'
-        const wrapper = intlEnzyme.mountWithIntl(<TextareaAutosize value={value} />)
+    test('should skip replicated value for Safari', () => {
+      const stub = sinon.stub(userAgent, 'isSafari').returns(true)
+      const value = 'abcd'
 
-        stub.restore()
+      render(<TextareaAutosize value={value} />)
+      stub.restore()
 
-        expect(wrapper.find(StyledSizeWrapper).prop('data-replicated-value')).to.be.undefined
-      })
+      expect(screen.getByTestId('replicated-test').getAttribute('data-replicated-value')).equal(null)
+      expect(screen.getByRole('textbox').value).equals(value)
+    })
 
-      test('should update replicated value', () => {
-        const clock = sinon.useFakeTimers()
-        const value = 'abcd'
-        const wrapper = intlEnzyme.mountWithIntl(<TextareaAutosize value={value} />)
-        wrapper.setProps({value: 'test'})
+    test('should update replicated value', () => {
+      const clock = sinon.useFakeTimers()
+      const value = 'abcd'
+      const {rerender} = render(<TextareaAutosize value={value} />)
 
-        clock.tick(1000)
-        wrapper.update()
+      rerender(<TextareaAutosize value="test" />)
+      clock.tick(1000)
 
-        expect(wrapper.find(StyledSizeWrapper).prop('data-replicated-value')).to.equal('test')
-      })
+      expect(screen.getByRole('textbox').value).equals('test')
+      expect(screen.getByTestId('replicated-test').getAttribute('data-replicated-value')).equal('test')
+    })
+
+    test('should invoke onChange handler', () => {
+      const onChangeHandler = sinon.spy()
+      const value = 'abcd'
+      render(<TextareaAutosize value={value} onChange={onChangeHandler} />)
+
+      const textAreaConst = screen.getByRole('textbox')
+      fireEvent.change(textAreaConst, {target: {value: 'test'}})
+
+      expect(onChangeHandler).to.have.been.calledOnce
     })
   })
 })

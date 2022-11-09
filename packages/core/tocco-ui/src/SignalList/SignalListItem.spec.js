@@ -1,49 +1,32 @@
-import {shallow} from 'enzyme'
+import {screen, render} from '@testing-library/react'
 
-import Icon from '../Icon'
 import SignalList from './'
 
 describe('tocco-ui', () => {
   describe('SignalListItem', () => {
     test('should have 1 defaultProps', () => {
-      const wrapper = shallow(<SignalList.Item label="Lorem ipsum" />)
-      const {condition} = wrapper.props()
-      expect(condition).to.equal('base')
+      render(<SignalList.Item label="Lorem ipsum" />)
+
+      const listItems = screen.getAllByRole('listitem')
+
+      expect(listItems).to.have.length(1)
+      expect(screen.getByText('Lorem ipsum')).exist
     })
 
     test('should render label, icon and children', () => {
-      const wrapper = shallow(
+      render(
         <SignalList.Item label="Lorem ipsum">
-          <span />
-          <span />
+          <span>spanText</span>
+          <span>spanText</span>
         </SignalList.Item>
       )
-      expect(wrapper).to.contain.text('Lorem ipsum')
-      expect(wrapper.find('i')).to.have.length(1)
-      expect(wrapper.find('span')).to.have.length(2)
-    })
 
-    test('should show correct icon per condition', () => {
-      let wrapper = shallow(<SignalList.Item label="Lorem ipsum" />)
-      expect(wrapper.find('i').text()).to.equal('•')
+      const listItems = screen.getAllByRole('listitem')
+      const spanItems = screen.getAllByText('spanText')
 
-      wrapper = shallow(<SignalList.Item condition="base" label="Lorem ipsum" />)
-      expect(wrapper.find('i').text()).to.equal('•')
-
-      wrapper = shallow(<SignalList.Item condition="primary" label="Lorem ipsum" />)
-      expect(wrapper.find('i').text()).to.equal('•')
-
-      wrapper = shallow(<SignalList.Item condition="danger" label="Lorem ipsum" />)
-      expect(wrapper.find(Icon).prop('icon')).to.equal('times')
-      expect(wrapper.find(Icon).prop('position')).to.equal('sole')
-
-      wrapper = shallow(<SignalList.Item condition="success" label="Lorem ipsum" />)
-      expect(wrapper.find(Icon).prop('icon')).to.equal('check')
-      expect(wrapper.find(Icon).prop('position')).to.equal('sole')
-
-      wrapper = shallow(<SignalList.Item condition="warning" label="Lorem ipsum" />)
-      expect(wrapper.find(Icon).prop('icon')).to.equal('exclamation-triangle')
-      expect(wrapper.find(Icon).prop('position')).to.equal('sole')
+      expect(listItems).to.have.length(1)
+      expect(spanItems).to.have.length(2)
+      expect(screen.getByText('Lorem ipsum')).exist
     })
   })
 })
