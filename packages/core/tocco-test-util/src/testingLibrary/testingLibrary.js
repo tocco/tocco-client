@@ -8,18 +8,23 @@ import TestThemeProvider from '../TestThemeProvider'
 const defaultLocale = 'en'
 const locale = defaultLocale
 
-const IntlProviderWrapper = ({children}) => {
+const IntlProviderWrapper = ({intlMessages = {}, children}) => {
   const ignoreError = () => {}
   return (
-    <IntlProvider onError={ignoreError} locale={locale} defaultLocale={defaultLocale}>
+    <IntlProvider messages={intlMessages} onError={ignoreError} locale={locale} defaultLocale={defaultLocale}>
       <TestThemeProvider>{children}</TestThemeProvider>
     </IntlProvider>
   )
 }
 IntlProviderWrapper.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
+  intlMessages: PropTypes.object
 }
-const renderWithIntl = (ui, options) => render(ui, {wrapper: IntlProviderWrapper, ...options})
+const renderWithIntl = (ui, options) =>
+  render(ui, {
+    wrapper: props => <IntlProviderWrapper {...props} intlMessages={options?.intlMessages} />,
+    ...options
+  })
 
 const ReduxProviderWrapper = ({store, children}) => (
   <Provider store={store}>
