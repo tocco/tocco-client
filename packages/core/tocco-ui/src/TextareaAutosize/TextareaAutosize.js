@@ -22,7 +22,10 @@ const TextareaAutosize = ({value, onChange, name, id, disabled, immutable}) => {
   }, [value, useAutosizeFeature, setThrottledReplicatedValue])
 
   return (
-    <StyledSizeWrapper {...(useAutosizeFeature ? {'data-replicated-value': replicatedValue} : {})}>
+    <StyledSizeWrapper
+      data-testid="replicated-test"
+      {...(useAutosizeFeature ? {'data-replicated-value': replicatedValue} : {})}
+    >
       <StyledTextarea
         value={value}
         name={name}

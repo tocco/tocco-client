@@ -1,17 +1,17 @@
-import {shallow} from 'enzyme'
+import {screen, render} from '@testing-library/react'
 
 import SignalList from './'
 
 describe('tocco-ui', () => {
   describe('SignalList', () => {
     test('should render children', () => {
-      const wrapper = shallow(
+      render(
         <SignalList.List>
-          <span />
-          <span />
+          <span>SpanItem</span>
+          <span>SpanItem</span>
         </SignalList.List>
       )
-      expect(wrapper.find('span')).to.have.length(2)
+      expect(screen.queryAllByText('SpanItem')).to.have.length(2)
     })
   })
 })
