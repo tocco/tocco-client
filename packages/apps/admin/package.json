@@ -26,6 +26,7 @@
     "tocco-login": "*",
     "tocco-merge": "*",
     "tocco-resource-scheduler": "*",
+    "tocco-scoreboard": "*",
     "tocco-sso-login": "*",
     "tocco-test-util": "*",
     "tocco-two-factor-connector": "*",
