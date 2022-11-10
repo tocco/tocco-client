@@ -8,7 +8,7 @@ const declareBall = () => css`
   align-items: center;
   padding: ${scale.space(-3)};
   // ensure that width has at least the size of height
-  width: calc(
+  min-width: calc(
     1rem * ${themeSelector.fontSize('base')} * ${themeSelector.lineHeight('regular')} + 2.4 * ${scale.space(-3)}
   );
   box-sizing: border-box;
