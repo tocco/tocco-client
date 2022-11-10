@@ -20,7 +20,7 @@ import scale from './modularScale'
 import {validateCssDimension} from './propTypesValidator'
 import theme from './resolveThemePath'
 import {useCollapseOnMobile} from './useCollapseOnMobile'
-import {useWindowWidth} from './useWindowWidth'
+import {useWindowSize} from './useWindowSize'
 
 const themeSelector = theme
 export {
@@ -46,6 +46,6 @@ export {
   themeSelector,
   validateCssDimension,
   isTouchDevice,
-  useWindowWidth,
+  useWindowSize,
   useCollapseOnMobile
 }

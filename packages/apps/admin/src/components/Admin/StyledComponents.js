@@ -2,22 +2,13 @@ import SlideMenu from 'react-burger-menu/lib/menus/slide'
 import styled from 'styled-components'
 import {theme} from 'tocco-ui'
 
-const documentHeight = () => {
-  const doc = document.documentElement
-  const viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-  doc.style.setProperty('--doc-height', `${viewportHeight}px`)
-}
-
-documentHeight()
-window.addEventListener('resize', () => documentHeight())
-
-export const StyledWrapper = styled.div`
+export const StyledAdminWrapper = styled.div`
   display: grid;
   grid-template:
     'header header' auto
     'menu content' 1fr / auto 1fr;
   background-color: ${theme.color('paper')};
-  height: var(--doc-height);
+  height: ${({height}) => height}px;
 
   .bm-menu-wrap {
     width: ${({width}) => (width <= 400 ? '100%' : '16%')} !important;

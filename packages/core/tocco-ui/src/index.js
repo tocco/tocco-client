@@ -75,7 +75,7 @@ export {
   theme,
   themeSelector,
   isTouchDevice,
-  useWindowWidth,
+  useWindowSize,
   useCollapseOnMobile
 } from './utilStyles'
 
