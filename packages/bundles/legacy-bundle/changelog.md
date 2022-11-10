@@ -1,3 +1,7 @@
+0.1.6
+- show time in 24h format for all locales
+- show time in 24h format for all locales
+
 0.1.5
 - move toasters on mobile to bottom for better ux as most of the interaction elements (e.g actions) are on top and should not be covered
 
