@@ -5,7 +5,7 @@ import {FormattedMessage} from 'react-intl'
 import {Redirect, Route, Router, Switch} from 'react-router-dom'
 import {withTheme} from 'styled-components'
 import {notification, errorLogging} from 'tocco-app-extensions'
-import {BurgerButton, GlobalStyles, LoadMask, useWindowWidth} from 'tocco-ui'
+import {BurgerButton, GlobalStyles, LoadMask, useWindowSize} from 'tocco-ui'
 import {viewPersistor} from 'tocco-util'
 
 import DashboardRoute from '../../routes/dashboard'
@@ -16,7 +16,7 @@ import ErrorView from '../ErrorView'
 import Header from '../Header'
 import Navigation from '../Navigation'
 import navigationStrategy from './../../routes/entities/utils/navigationStrategy'
-import {burgerMenuStyles, StyledContent, StyledMenu, StyledWrapper} from './StyledComponents'
+import {burgerMenuStyles, StyledContent, StyledMenu, StyledAdminWrapper} from './StyledComponents'
 
 const Admin = ({
   initializeNavigation,
@@ -28,6 +28,7 @@ const Admin = ({
   loadSettingsAndPreferences,
   adminAllowed
 }) => {
+  const windowSize = useWindowSize()
   const [history, setHistory] = useState(null)
 
   // only on mount
@@ -109,10 +110,10 @@ const Admin = ({
       <Router history={history || {}}>
         <GlobalStyles />
         <notification.Notifications navigationStrategy={navigationStrategy()} />
-        <StyledWrapper width={useWindowWidth()}>
+        <StyledAdminWrapper width={windowSize.width} height={windowSize.height}>
           <Header />
           {adminAllowedContent || adminForbiddenContent}
-        </StyledWrapper>
+        </StyledAdminWrapper>
       </Router>
     </LoadMask>
   )
