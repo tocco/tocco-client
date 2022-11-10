@@ -29,7 +29,7 @@ const SidepanelContextProvider = ({
   const value = useMemo(
     () => ({
       sidepanelPosition,
-      isCollapsed,
+      isCollapsed: sidepanelPosition === SidepanelPosition.left ? isCollapsed : false,
       toggleCollapse,
       scrollBehaviour
     }),
