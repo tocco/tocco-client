@@ -1,6 +1,6 @@
 {
   "name": "tocco-devcon",
-  "version": "1.0.87",
+  "version": "1.0.88",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
