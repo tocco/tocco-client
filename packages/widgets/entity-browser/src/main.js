@@ -18,11 +18,9 @@ const packageName = 'entity-browser'
 
 const LazyEntityBrowserComp = React.lazy(() => import('./components/EntityBrowser'))
 const LazyEntityBrowser = () => (
-  <div>
-    <Suspense fallback="">
-      <LazyEntityBrowserComp />
-    </Suspense>
-  </div>
+  <Suspense fallback="">
+    <LazyEntityBrowserComp />
+  </Suspense>
 )
 
 const textResourceSelector = (state, key) => state.intl.messages[key] || key
