@@ -1,3 +1,6 @@
+1.0.125
+- do not collapse sidepanel on top
+
 1.0.124
 - show time in 24h format for all locales
 - show time in 24h format for all locales
