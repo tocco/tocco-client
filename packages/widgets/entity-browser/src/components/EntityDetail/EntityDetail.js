@@ -4,6 +4,7 @@ import {Prompt} from 'react-router-dom'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {queryString as queryStringUtil} from 'tocco-util'
 
+import BackButton from '../Actions/BackButton'
 import Action from '../LazyAction'
 import {DetailLinkRelative} from './DetailLinkRelative'
 import {modifyFormDefinition} from './formModifier'
@@ -30,6 +31,8 @@ const EntityDetail = props => {
       clearDetailParams()
     }
   }, [clearDetailParams, loadDetailParams, router.match.url, setFormTouched])
+
+  const msg = id => intl.formatMessage({id})
 
   const handleSubGridRowClick = ({id, gridName, relationName}) => {
     router.history.push(`${router.match.url}/${relationName}/${id}`)
@@ -76,6 +79,10 @@ const EntityDetail = props => {
     router.history.push(detailParams.parentUrl)
   }
 
+  const customRenderedActions = {
+    back: () => <BackButton onClick={handleGoBack} label={msg('client.entity-browser.back')} />
+  }
+
   const getApp = ({entityName, entityId, formName, mode}) => (
     <EntityDetailApp
       id={`${appId}_detail_${formName}_${entityId}`}
@@ -100,13 +107,9 @@ const EntityDetail = props => {
       modifyFormDefinition={(formDefinition, context) => modifyFormDefinition(formDefinition, context, props)}
       actionAppComponent={Action}
       reportIds={reportIds}
-      customActions={{
-        back: handleGoBack
-      }}
+      customRenderedActions={customRenderedActions}
     />
   )
-
-  const msg = id => intl.formatMessage({id})
 
   return (
     <>
