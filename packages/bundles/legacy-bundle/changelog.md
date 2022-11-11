@@ -1,3 +1,6 @@
+0.1.1-hotfix34.3
+- reintroduce min-width for Ball component, since normal width caused rendering issues in the main menu
+
 0.1.1-hotfix34.2
 - show time in 24h format for all locales
 - show time in 24h format for all locales
