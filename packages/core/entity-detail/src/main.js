@@ -130,6 +130,7 @@ EntityDetailApp.propTypes = {
   chooseDocument: PropTypes.func,
   actionAppComponent: PropTypes.elementType,
   customActions: PropTypes.object,
+  customRenderedActions: PropTypes.objectOf(PropTypes.func),
   modifyFormDefinition: PropTypes.func,
   reportIds: PropTypes.arrayOf(PropTypes.string)
 }

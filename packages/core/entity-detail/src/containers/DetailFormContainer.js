@@ -13,6 +13,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => ({
+  customRenderedActions: state.input.customRenderedActions,
   formDefinition: state.entityDetail.formDefinition,
   entity: state.entityDetail.entity,
   formValues: getFormValues('detailForm')(state),
