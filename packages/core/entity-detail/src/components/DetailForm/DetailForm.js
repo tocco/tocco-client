@@ -23,7 +23,8 @@ const DetailForm = props => {
     formDefinition,
     formValues,
     anyTouched,
-    form: formName
+    form: formName,
+    customRenderedActions
   } = props
 
   const formEl = useRef(null)
@@ -35,7 +36,7 @@ const DetailForm = props => {
     fireTouched(dirty && anyTouched)
   }, [dirty, anyTouched, fireTouched])
 
-  const customRenderedActions = useMemo(
+  const allCustomRenderedActions = useMemo(
     () => ({
       save: actionDefinition => (
         <SaveButton
@@ -47,9 +48,10 @@ const DetailForm = props => {
           {...actionDefinition}
         />
       ),
-      mark: actionDefinition => <MarkButton {...actionDefinition} />
+      mark: actionDefinition => <MarkButton {...actionDefinition} />,
+      ...customRenderedActions
     }),
-    [submitting, mode, valid, anyTouched, formErrors, intl]
+    [submitting, mode, valid, anyTouched, formErrors, intl, customRenderedActions]
   )
 
   const embedType = env.getEmbedType()
@@ -64,7 +66,7 @@ const DetailForm = props => {
         fieldMappingType={formDefinition.readOnly ? 'readonly' : 'editable'}
         mode={mode}
         componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
-        customRenderedActions={customRenderedActions}
+        customRenderedActions={allCustomRenderedActions}
       />
       {embedType === 'admin' && <DetailFooterContainer />}
     </StyledForm>
@@ -86,7 +88,8 @@ DetailForm.propTypes = {
   dirty: PropTypes.bool,
   lastSave: PropTypes.number,
   fireTouched: PropTypes.func.isRequired,
-  anyTouched: PropTypes.bool
+  anyTouched: PropTypes.bool,
+  customRenderedActions: PropTypes.objectOf(PropTypes.func)
 }
 
 export default reduxForm({
