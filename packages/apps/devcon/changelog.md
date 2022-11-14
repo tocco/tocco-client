@@ -1,3 +1,7 @@
+1.0.89
+- reintroduce min-width for Ball component, since normal width caused rendering issues in the main menu
+- replace useWindowWidth hook with universal useWindowSize hook
+
 1.0.88
 - do not collapse sidepanel on top
 

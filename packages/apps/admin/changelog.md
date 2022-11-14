@@ -1,3 +1,9 @@
+1.0.126
+- reintroduce min-width for Ball component, since normal width caused rendering issues in the main menu
+- correct height calculation method of admin to always ensure that the full viewport height is filled
+- replace useWindowWidth hook with universal useWindowSize hook
+- possible to define custom render for actions
+
 1.0.125
 - do not collapse sidepanel on top
 
