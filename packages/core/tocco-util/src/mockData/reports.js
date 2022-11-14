@@ -2,7 +2,7 @@ import originId from '../originId'
 import {getRandomInt} from './utils'
 
 export const setupReports = (fetchMock, entityStore, webSocketServer, timeout = 2000) => {
-  fetchMock.get(new RegExp('^.*?/nice2/rest/report/.*/settings*?'), require('./data/report_settings.json'))
+  fetchMock.post(new RegExp('^.*?/nice2/rest/report/.*/settings*?'), require('./data/report_settings.json'))
 
   fetchMock.post(new RegExp('^.*?/nice2/rest/report/generation'), (url, opts) => {
     const body = JSON.parse(opts.body)

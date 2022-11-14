@@ -71,10 +71,8 @@ export function* generateReportWithoutSettings(actionDefinition, selection) {
 
 function* getSettingsDefinition(actionDefinition, selection) {
   const options = {
-    queryParams: {
-      model: selection.entityName,
-      ...(selection.mode === 'ID' ? {keys: selection.ids.join(',')} : {})
-    }
+    body: selection,
+    method: 'POST'
   }
 
   const resource = `report/${actionDefinition.reportId}/settings`
