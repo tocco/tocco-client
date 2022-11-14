@@ -28,7 +28,7 @@ describe('tocco-util', () => {
           test('should return valid response with generalSettings', () => {
             setupReports(fetchMock)
             const resource = '/nice2/rest/report/sample_report/settings'
-            return fetch(resource)
+            return fetch(resource, {method: 'POST'})
               .then(res => res.json())
               .should.eventually.have.property('generalSettings')
           })
