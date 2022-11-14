@@ -1,0 +1,8 @@
+{
+  "businessUnit": "test1",
+  "listLimit": 15,
+  "appContext": {
+    "embedType": "widget",
+    "widgetConfigKey": "1"
+  }
+}

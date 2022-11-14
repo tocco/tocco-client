@@ -1,0 +1,17 @@
+{
+  "name": "tocco-public-dms",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile:prod": "cd ../../../ && npm run compile:prod -- --package=public-dms",
+    "prepublish": "npm run compile:prod"
+  },
+  "devDependencies": {
+    "tocco-app-extensions": "*",
+    "tocco-docs-browser": "*",
+    "tocco-util": "*",
+    "tocco-ui": "*"
+  }
+}
