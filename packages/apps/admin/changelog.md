@@ -1,3 +1,6 @@
+1.0.119-hotfix34.4
+- possible to define custom render for actions
+
 1.0.119-hotfix34.3
 - reintroduce min-width for Ball component, since normal width caused rendering issues in the main menu
 
