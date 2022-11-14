@@ -1,3 +1,7 @@
+0.1.1-hotfix34.4
+- possible to define custom render for actions
+- define back button through custom render
+
 0.1.1-hotfix34.3
 - reintroduce min-width for Ball component, since normal width caused rendering issues in the main menu
 
