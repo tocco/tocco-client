@@ -1,6 +1,6 @@
 {
   "name": "tocco-widget-bundle",
-  "version": "0.1.62",
+  "version": "0.1.63",
   "description": "",
   "scripts": {
     "compile:prod": "cd ../../../ && npm run compile:prod -- --package=widget-bundle",
@@ -16,12 +16,12 @@
     "tocco-login": "*",
     "tocco-mailing-list": "*",
     "tocco-personal-dms": "*",
+    "tocco-public-dms": "*",
     "tocco-sso-login": "*",
     "tocco-stint-auction": "*",
     "tocco-user-availability": "*",
     "tocco-user-grades": "*",
     "tocco-user-menu": "*",
-    "tocco-wage-view": "*",
-    "tocco-public-dms": "*"
+    "tocco-wage-view": "*"
   }
 }

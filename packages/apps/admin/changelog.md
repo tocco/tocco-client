@@ -1,3 +1,7 @@
+1.0.127
+- harmonize spacing of ranged dates by increasing search panel width
+- simplify widget code
+
 1.0.126
 - reintroduce min-width for Ball component, since normal width caused rendering issues in the main menu
 - correct height calculation method of admin to always ensure that the full viewport height is filled

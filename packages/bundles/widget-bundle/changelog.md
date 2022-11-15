@@ -1,3 +1,9 @@
+0.1.63
+- harmonize spacing of ranged dates by increasing search panel width
+- add public dms widget
+- add public-dms widget to bundle
+- simplify widget code
+
 0.1.62
 - reintroduce min-width for Ball component, since normal width caused rendering issues in the main menu
 - replace useWindowWidth hook with universal useWindowSize hook

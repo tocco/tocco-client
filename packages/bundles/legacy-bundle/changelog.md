@@ -1,3 +1,7 @@
+0.1.9
+- harmonize spacing of ranged dates by increasing search panel width
+- simplify widget code
+
 0.1.8
 - reintroduce min-width for Ball component, since normal width caused rendering issues in the main menu
 - replace useWindowWidth hook with universal useWindowSize hook
