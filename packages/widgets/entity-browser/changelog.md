@@ -1,3 +1,7 @@
+1.0.24-hotfix32.27
+- remove div wrapper of entity-browser as it was preventing it from filling the full available height when embedded in the old client
+- fix performance of fulltext search
+
 1.0.24-hotfix32.26
 - use action components in subtale
 - add export action to entity-browser

@@ -1,3 +1,6 @@
+1.0.26-hotfix32.28
+- fix performance of fulltext search
+
 1.0.26-hotfix32.27
 - use action components in subtale
 

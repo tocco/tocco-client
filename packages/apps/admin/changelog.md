@@ -1,3 +1,6 @@
+1.0.41-hotfix32.30
+- fix performance of fulltext search
+
 1.0.41-hotfix32.29
 - use action components in subtale
 - add export action to entity-browser
