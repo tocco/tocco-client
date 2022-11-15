@@ -1,6 +1,6 @@
 {
   "name": "tocco-sso-login",
-  "version": "1.0.48-hotfix33.20",
+  "version": "1.0.48-hotfix33.21",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
