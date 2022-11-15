@@ -1,3 +1,6 @@
+1.1.3-hotfix31.31
+- fix performance of fulltext search
+
 1.1.3-hotfix31.30
 - fix whitespace in notification
 
