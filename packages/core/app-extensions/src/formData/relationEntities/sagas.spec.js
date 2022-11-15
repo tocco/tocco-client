@@ -298,7 +298,7 @@ describe('app-extensions', () => {
             ]
 
             return expectSaga(sagas.enhanceEntitiesWithDisplays, entities)
-              .provide([[matchers.call.fn(rest.fetchDisplays), displays]])
+              .provide([[matchers.call.fn(rest.fetchDisplays), displays, 'remote']])
               .run()
               .then(result => {
                 expect(result.returnValue).to.eql(expectedReturnValue)
