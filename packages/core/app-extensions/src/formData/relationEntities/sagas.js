@@ -13,7 +13,7 @@ export default function* sagas() {
 
 export function* enhanceEntitiesWithDisplays(entities) {
   const requestedDisplays = yield call(api.getDisplayRequest, entities)
-  const displays = yield call(rest.fetchDisplays, requestedDisplays)
+  const displays = yield call(rest.fetchDisplays, requestedDisplays, 'remote')
   return entities.map(entity => ({...entity, display: displays[entity.model][entity.key]}))
 }
 
