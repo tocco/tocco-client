@@ -1,3 +1,6 @@
+0.1.1-hotfix34.5
+- remove div wrapper of entity-browser as it was preventing it from filling the full available height when embedded in the old client
+
 0.1.1-hotfix34.4
 - possible to define custom render for actions
 - define back button through custom render
