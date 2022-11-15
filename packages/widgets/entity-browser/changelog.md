@@ -1,3 +1,8 @@
+1.0.58-hotfix33.27
+- reset select dropdown to older state and implement close on scroll feature
+- remove div wrapper of entity-browser as it was preventing it from filling the full available height when embedded in the old client
+- fix performance of fulltext search
+
 1.0.58-hotfix33.26
 - show time in 24h format for all locales
 

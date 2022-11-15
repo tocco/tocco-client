@@ -1,3 +1,7 @@
+1.0.76-hotfix33.29
+- reset select dropdown to older state and implement close on scroll feature
+- fix performance of fulltext search
+
 1.0.76-hotfix33.28
 - show time in 24h format for all locales
 - show time in 24h format for all locales
