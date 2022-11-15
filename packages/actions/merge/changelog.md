@@ -1,3 +1,6 @@
+1.0.18-hotfix32.24
+- fix performance of fulltext search
+
 1.0.18-hotfix32.23
 - change HTTP method of `rest.fetchEntity` to POST
 

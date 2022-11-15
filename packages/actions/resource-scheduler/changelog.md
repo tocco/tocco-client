@@ -1,3 +1,6 @@
+1.0.20-hotfix32.24
+- fix performance of fulltext search
+
 1.0.20-hotfix32.23
 - load defalut values on action forms
 
