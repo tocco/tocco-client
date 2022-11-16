@@ -1,3 +1,8 @@
+0.1.64
+- remove div wrapper of entity-browser as it was preventing it from filling the full available height when embedded in the old client
+- send selection to adjusted POST endpoint when loading report settings
+- use a new custom display when displaying entities in select boxes
+
 0.1.63
 - harmonize spacing of ranged dates by increasing search panel width
 - add public dms widget
