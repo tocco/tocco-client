@@ -1,3 +1,6 @@
+0.1.1-hotfix34.6
+- send selection to adjusted POST endpoint when loading report settings
+
 0.1.1-hotfix34.5
 - remove div wrapper of entity-browser as it was preventing it from filling the full available height when embedded in the old client
 
