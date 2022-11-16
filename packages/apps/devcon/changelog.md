@@ -1,3 +1,7 @@
+1.0.91
+- send selection to adjusted POST endpoint when loading report settings
+- use a new custom display when displaying entities in select boxes
+
 1.0.90
 - harmonize spacing of ranged dates by increasing search panel width
 
