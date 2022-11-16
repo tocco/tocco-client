@@ -1,3 +1,6 @@
+1.0.119-hotfix34.5
+- send selection to adjusted POST endpoint when loading report settings
+
 1.0.119-hotfix34.4
 - possible to define custom render for actions
 

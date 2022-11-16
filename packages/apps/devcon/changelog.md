@@ -1,3 +1,6 @@
+1.0.83-hotfix34.3
+- send selection to adjusted POST endpoint when loading report settings
+
 1.0.83-hotfix34.2
 - reintroduce min-width for Ball component, since normal width caused rendering issues in the main menu
 
