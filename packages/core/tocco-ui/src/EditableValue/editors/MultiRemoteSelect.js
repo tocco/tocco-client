@@ -24,6 +24,7 @@ MultiRemoteSelect.propTypes = {
     options: PropTypes.array,
     fetchOptions: PropTypes.func,
     searchOptions: PropTypes.func,
+    openDocsTreeSearch: PropTypes.func,
     openAdvancedSearch: PropTypes.func,
     isLoading: PropTypes.bool,
     valueClick: PropTypes.func,

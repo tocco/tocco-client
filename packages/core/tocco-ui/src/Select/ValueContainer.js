@@ -8,9 +8,9 @@ const isInput = child => child?.type?.name === 'Input'
 
 const ValueContainer = props => {
   const {selectProps, hasValue, children} = props
-  const {isMulti, hasAdvancedSearch, isDisabled} = selectProps
+  const {isMulti, hasAdvancedSearch, hasDocsTreeSearch, isDisabled} = selectProps
 
-  const showInputAlwaysOnTop = isMulti && hasAdvancedSearch
+  const showInputAlwaysOnTop = isMulti && (hasAdvancedSearch || hasDocsTreeSearch)
 
   if (!showInputAlwaysOnTop) {
     return <components.ValueContainer {...props} />
@@ -34,6 +34,7 @@ ValueContainer.propTypes = {
   hasValue: PropTypes.bool,
   selectProps: PropTypes.shape({
     isMulti: PropTypes.bool,
+    hasDocsTreeSearch: PropTypes.bool,
     hasAdvancedSearch: PropTypes.bool,
     isDisabled: PropTypes.bool
   })

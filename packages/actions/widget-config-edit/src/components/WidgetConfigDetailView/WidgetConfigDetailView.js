@@ -10,7 +10,9 @@ const WidgetConfigDetailView = ({
   fetchSpecificConfigEntityId,
   linkCreatedSpecificConfig,
   fireSuccess,
-  emitAction
+  emitAction,
+  docsApp,
+  listApp
 }) => {
   useEffect(() => {
     fetchSpecificConfigEntityId()
@@ -30,6 +32,8 @@ const WidgetConfigDetailView = ({
         onEntityCreated={handleEntityCreated}
         onEntityUpdated={fireSuccess}
         emitAction={emitAction}
+        docsApp={docsApp}
+        listApp={listApp}
       />
     </LoadMask>
   )
@@ -44,7 +48,9 @@ WidgetConfigDetailView.propTypes = {
   fetchSpecificConfigEntityId: PropTypes.func.isRequired,
   linkCreatedSpecificConfig: PropTypes.func.isRequired,
   fireSuccess: PropTypes.func.isRequired,
-  emitAction: PropTypes.func.isRequired
+  emitAction: PropTypes.func.isRequired,
+  docsApp: PropTypes.func,
+  listApp: PropTypes.func
 }
 
 export default WidgetConfigDetailView

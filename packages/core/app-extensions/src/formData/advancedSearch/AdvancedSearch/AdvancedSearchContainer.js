@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 
-import actionEmitter from '../../actionEmitter'
+import actionEmitter from '../../../actionEmitter'
 import AdvancedSearch from './AdvancedSearch'
 
 const mapActionCreators = {

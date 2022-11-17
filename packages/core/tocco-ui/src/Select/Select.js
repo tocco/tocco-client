@@ -35,6 +35,7 @@ const Select = ({
   moreOptionsAvailableText,
   noResultsText,
   onChange,
+  openDocsTreeSearch,
   openAdvancedSearch,
   options,
   searchOptions,
@@ -108,6 +109,7 @@ const Select = ({
 
   const handleScroll = e => !e.target.classList?.contains('MenuList')
   const hasAdvancedSearch = Boolean(openAdvancedSearch)
+  const hasDocsTreeSearch = Boolean(openDocsTreeSearch)
   const hasCreatePermission = Boolean(createPermission)
 
   return (
@@ -153,6 +155,8 @@ const Select = ({
           loadTooltip={loadTooltip}
           tooltips={tooltips}
           DetailLink={DetailLink}
+          hasDocsTreeSearch={hasDocsTreeSearch}
+          openDocsTreeSearch={openDocsTreeSearch}
           hasAdvancedSearch={hasAdvancedSearch}
           openAdvancedSearch={openAdvancedSearch}
           moreOptionsAvailable={moreOptionsAvailable}
@@ -209,6 +213,10 @@ Select.propTypes = {
    * Text that is shown if moreOptionsAvailable is true.
    */
   moreOptionsAvailableText: PropTypes.string,
+  /**
+   * If defined a button is shown next to the select box that invokes this callback.
+   */
+  openDocsTreeSearch: PropTypes.func,
   /**
    * If defined a button is shown next to the select box that invokes this callback.
    */

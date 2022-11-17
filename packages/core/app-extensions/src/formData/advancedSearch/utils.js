@@ -1,4 +1,5 @@
-import AdvancedSearchContainer from './AdvancedSearchContainer'
+import AdvancedSearch from './AdvancedSearch'
+import DocsTreeSearch from './DocsTreeSearch'
 
 export const getSelection = (value, multi) => {
   if (value) {
@@ -36,7 +37,7 @@ export const getAdvancedSearchComponent =
   ) =>
   () =>
     (
-      <AdvancedSearchContainer
+      <AdvancedSearch
         ListApp={listApp}
         entityName={entity}
         formName={formName}
@@ -50,3 +51,15 @@ export const getAdvancedSearchComponent =
         searchTerm={searchTerm}
       />
     )
+
+export const getDocsTreeSearchComponent = (docsApp, entity, selection, onSelectionChange, onOkClick, multi) => () =>
+  (
+    <DocsTreeSearch
+      DocsApp={docsApp}
+      entityName={entity}
+      selection={selection}
+      onSelectionChange={onSelectionChange}
+      onOkClick={onOkClick}
+      multi={multi}
+    />
+  )

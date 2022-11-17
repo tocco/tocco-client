@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
+import EntityListApp from 'tocco-entity-list/src/main'
 
+import DocsBrowserApp from '../../../main'
 import getDetailFormName from '../../../utils/getDetailFormName'
 import getNode from '../../../utils/getNode'
 import {withRouterTypeCompProvider} from '../../../utils/withRouterTypeCompProvider'
@@ -50,6 +52,8 @@ const CreateFolder = ({context, path, onSuccess, intl, locale, emitAction}) => {
       locale={locale}
       onEntityCreated={handleEntityCreated}
       emitAction={emitActionBarrier}
+      listApp={EntityListApp}
+      docsApp={DocsBrowserApp}
     />
   )
 }

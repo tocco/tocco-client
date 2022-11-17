@@ -64,7 +64,9 @@ WidgetConfigEditApp.propTypes = {
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
-  }, {})
+  }, {}),
+  listApp: PropTypes.func,
+  docsApp: PropTypes.func
 }
 
 export default WidgetConfigEditApp

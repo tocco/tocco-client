@@ -11,7 +11,6 @@ import {
   form,
   reports
 } from 'tocco-app-extensions'
-import EntityListApp from 'tocco-entity-list/src/main'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 import {navigationStrategy, reducer as reducerUtil} from 'tocco-util'
 
@@ -48,7 +47,7 @@ const initApp = (id, input, events, publicPath) => {
   reports.addToStore(store)
   actions.addToStore(store, state => ({
     formApp: SimpleFormApp,
-    listApp: EntityListApp,
+    listApp: state.input.listApp,
     customActions: {
       ...customActions,
       ...(state.input.customActions || {})
@@ -62,8 +61,9 @@ const initApp = (id, input, events, publicPath) => {
     customPreparationHandlers: [pendingChangesHandler]
   }))
   formData.addToStore(store, state => ({
-    listApp: EntityListApp,
+    listApp: state.input.listApp,
     detailApp: EntityDetailApp,
+    docsApp: state.input.docsApp,
     navigationStrategy: state.input.navigationStrategy,
     chooseDocument: state.input.chooseDocument
   }))
@@ -132,7 +132,9 @@ EntityDetailApp.propTypes = {
   customActions: PropTypes.object,
   customRenderedActions: PropTypes.objectOf(PropTypes.func),
   modifyFormDefinition: PropTypes.func,
-  reportIds: PropTypes.arrayOf(PropTypes.string)
+  reportIds: PropTypes.arrayOf(PropTypes.string),
+  listApp: PropTypes.func,
+  docsApp: PropTypes.func
 }
 
 export default EntityDetailApp

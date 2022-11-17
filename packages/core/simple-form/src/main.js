@@ -15,7 +15,11 @@ const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, state => state.input.emitAction)
   externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
-  formData.addToStore(store, state => ({initialData: state.input.formData, listApp: state.input.listApp}))
+  formData.addToStore(store, state => ({
+    initialData: state.input.formData,
+    listApp: state.input.listApp,
+    docsApp: state.input.docsApp
+  }))
   notification.addToStore(store, false)
 
   const app = appFactory.createApp(packageName, content, store, {
@@ -64,7 +68,7 @@ const SimpleFormApp = props => {
 }
 
 SimpleFormApp.propTypes = {
-  hideButton: PropTypes.bool,
+  noButtons: PropTypes.bool,
   submitText: PropTypes.string,
   cancelText: PropTypes.string,
   form: PropTypes.object.isRequired,
@@ -74,7 +78,12 @@ SimpleFormApp.propTypes = {
     return propTypes
   }, {}),
   defaultValues: PropTypes.object,
-  beforeRenderField: PropTypes.func
+  formData: PropTypes.object,
+  beforeRenderField: PropTypes.func,
+  docsApp: PropTypes.func,
+  listApp: PropTypes.func,
+  mappingType: PropTypes.oneOf(['editable', 'search', 'readonly']),
+  mode: PropTypes.oneOf(['list', 'detail', 'create', 'update', 'search'])
 }
 
 export default SimpleFormApp

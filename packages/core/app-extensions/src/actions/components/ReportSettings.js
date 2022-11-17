@@ -7,7 +7,7 @@ import simpleFormConnector from '../containers/simpleFormConnector'
 import {getFormDefinition, getGroupedValues, reportSettingsDefinitionPropType, transformValues} from '../utils/report'
 import {StyledStickyButtons, StyledReportSettings} from './StyledReportSettings'
 
-export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, intl}) => {
+export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, docsApp, intl}) => {
   const customSettingsDefined = settingsDefinition.customSettings && settingsDefinition.customSettings.entity
   const [settings, setSettings] = useState({
     valid: false,
@@ -45,6 +45,7 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
     <StyledReportSettings>
       <SimpleFormContainer
         listApp={listApp}
+        docsApp={docsApp}
         form={getFormDefinition(settingsDefinition, intl)}
         noButtons
         onChange={handleSettingsChange}
@@ -53,6 +54,7 @@ export const ReportSettings = ({settingsDefinition, formApp, onSubmit, listApp, 
       {customSettingsDefined && (
         <SimpleFormContainer
           listApp={listApp}
+          docsApp={docsApp}
           form={settingsDefinition.customSettings.form.form}
           noButtons
           onChange={handleCustomSettingsChange}
@@ -77,6 +79,7 @@ ReportSettings.propTypes = {
   intl: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   listApp: PropTypes.func.isRequired,
+  docsApp: PropTypes.func.isRequired,
   formApp: PropTypes.func.isRequired,
   settingsDefinition: reportSettingsDefinitionPropType.isRequired
 }

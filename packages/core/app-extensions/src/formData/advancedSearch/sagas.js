@@ -7,12 +7,46 @@ import rest from '../../rest'
 import * as valueActions from '../values/actions'
 import notification from './../../notification'
 import * as advancedSearchActions from './actions'
-import {getAdvancedSearchComponent, getSelection, getValue} from './utils'
+import {getDocsTreeSearchComponent, getAdvancedSearchComponent, getSelection, getValue} from './utils'
 
 export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
 export default function* sagas(configSelector) {
-  yield all([takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch, configSelector)])
+  yield all([
+    takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch, configSelector),
+    takeEvery(advancedSearchActions.OPEN_DOCS_TREE_SEARCH, openDocsTreeSearch, configSelector)
+  ])
+}
+
+export function* openDocsTreeSearch(configSelector, {payload}) {
+  const {docsApp} = yield select(configSelector)
+  const {formName, formField, value} = payload
+  const {id: fieldId, label, targetEntity: entity, dataType} = formField
+  const multi = dataType === 'multi-remote-field'
+
+  const answerChannel = yield call(channel)
+  const modalId = yield call(uuid)
+  const selection = yield call(getSelection, value, multi)
+
+  const onSelectionChange = ids => {
+    answerChannel.put(advancedSearchActions.advancedSearchUpdate(ids))
+  }
+
+  const onOkClick = () => {
+    answerChannel.put(advancedSearchActions.advancedSearchClose())
+  }
+
+  const advancedSearchComponent = getDocsTreeSearchComponent(
+    docsApp,
+    entity,
+    selection,
+    onSelectionChange,
+    onOkClick,
+    multi
+  )
+
+  yield put(notification.modal(modalId, label, null, advancedSearchComponent, true))
+  yield spawn(closeAdvancedSearch, answerChannel, modalId, fieldId, formName, entity, multi)
 }
 
 export function* openAdvancedSearch(configSelector, {payload}) {

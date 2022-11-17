@@ -33,6 +33,7 @@ export function* handleInitialForm({formDefinition, defaultValues, conditions, f
     <SimpleFormContainer
       form={modifiedForm}
       listApp={config.listApp}
+      docsApp={config.docsApp}
       onSubmit={onSend}
       onCancel={onCancel}
       defaultValues={defaultValues}

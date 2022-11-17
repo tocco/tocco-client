@@ -11,15 +11,38 @@ describe('app-extensions', () => {
     describe('advancedSearch', () => {
       describe('sagas', () => {
         describe('root saga', () => {
-          test('should handle openAdvancedSearch', () => {
+          test('should handle open search', () => {
             const configSelector = () => ({})
             const generator = rootSaga(configSelector)
 
             expect(generator.next().value).to.deep.equal(
-              all([takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch, configSelector)])
+              all([
+                takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch, configSelector),
+                takeEvery(advancedSearchActions.OPEN_DOCS_TREE_SEARCH, sagas.openDocsTreeSearch, configSelector)
+              ])
             )
 
             expect(generator.next().done).to.be.true
+          })
+        })
+
+        describe('openDocsTreeSearch', () => {
+          test('should prompt a modal and spawn close saga', () => {
+            const DocsApp = () => <div>DocsApp</div>
+            const formField = {id: 'relRemote', dataType: 'multi-remote-field', targetEntity: 'User'}
+            const value = []
+            const formName = 'searchForm'
+
+            const action = advancedSearchActions.openDocsTreeSearch(formName, formField, value)
+            const configSelector = () => ({DocsApp})
+            return expectSaga(sagas.openDocsTreeSearch, configSelector, action)
+              .provide([
+                [matchers.spawn.fn(sagas.closeAdvancedSearch), () => {}],
+                [matchers.call.fn(rest.fetchForm), {form: {}}]
+              ])
+              .put.actionType(notification.modal().type)
+              .spawn.like(sagas.closeAdvancedSearch)
+              .run()
           })
         })
 

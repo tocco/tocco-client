@@ -43,7 +43,18 @@ export default {
         constriction: formField.constriction
       })
     },
-    openAdvancedSearch: (searchTerm, value) => formData.openAdvancedSearch(formName, formField, searchTerm, value),
+    openDocsTreeSearch: formField.displayDocsTree
+      ? value => formData.openDocsTreeSearch(formName, formField, value)
+      : undefined,
+    /**
+     * `displayAdvancedSearch` can be null or undefined.
+     * In these cases the default value should be `true`.
+     * Only when set explicitly to `false` the advanced search should be hidden.
+     */
+    openAdvancedSearch:
+      formField.displayAdvancedSearch === false
+        ? undefined
+        : (searchTerm, value) => formData.openAdvancedSearch(formName, formField, searchTerm, value),
     tooltips: _get(formData.tooltips, formField.targetEntity, null),
     loadTooltip: id => formData.loadTooltip(formField.targetEntity, id),
     noResultsText: formData.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'}),
