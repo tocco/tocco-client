@@ -1,4 +1,4 @@
 import Select from './Select'
-import {StyledTether} from './StyledComponents'
+import {StyledTether, StyledReactSelectOuterWrapper} from './StyledComponents'
 
-export {Select as default, StyledTether}
+export {Select as default, StyledTether, StyledReactSelectOuterWrapper}
