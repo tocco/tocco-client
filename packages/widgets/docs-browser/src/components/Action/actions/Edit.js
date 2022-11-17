@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import {selection as selectionPropType} from 'tocco-app-extensions'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
+import EntityListApp from 'tocco-entity-list/src/main'
 
+import DocsBrowserApp from '../../../main'
 import getDetailFormName from '../../../utils/getDetailFormName'
 import {withRouterTypeCompProvider} from '../../../utils/withRouterTypeCompProvider'
 
@@ -75,6 +77,8 @@ const EditAction = ({selection, onSuccess, onCancel, locale, context, emitAction
       onEntityUpdated={handleEntityUpdated}
       onEntityDeleted={handleEntityDeleted}
       emitAction={emitActionBarrier}
+      listApp={EntityListApp}
+      docsApp={DocsBrowserApp}
     />
   )
 }

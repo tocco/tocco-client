@@ -10,6 +10,11 @@ const handleAdvancedSearch = (openAdvancedSearch, searchTerm, value) => e => {
   openAdvancedSearch(searchTerm, value)
 }
 
+const handleDocsTreeSearch = (openDocsTreeSearch, value) => e => {
+  e.stopPropagation()
+  openDocsTreeSearch(value)
+}
+
 const handleCreate = (openCreate, value) => e => {
   e.stopPropagation()
   openCreate(value)
@@ -21,9 +26,11 @@ const handlePropagation = e => {
 
 const IndicatorsContainer = props => {
   const {
+    openDocsTreeSearch,
     openAdvancedSearch,
     openRemoteCreate,
     isDisabled,
+    hasDocsTreeSearch,
     hasAdvancedSearch,
     createPermission,
     value,
@@ -31,7 +38,7 @@ const IndicatorsContainer = props => {
     inputValue
   } = props.selectProps
 
-  const showInputAlwaysOnTop = isMulti && hasAdvancedSearch
+  const showInputAlwaysOnTop = isMulti && (hasAdvancedSearch || hasDocsTreeSearch)
 
   /**
    * Workaround: `onMouseDown` vs. `onClick` handler
@@ -49,6 +56,11 @@ const IndicatorsContainer = props => {
     <StyledIndicatorsContainerWrapper isTopAligned={showInputAlwaysOnTop}>
       <components.IndicatorsContainer {...props}>
         {props.children}
+        {openDocsTreeSearch && !isDisabled && (
+          <span onTouchEnd={handlePropagation} onMouseDown={handleDocsTreeSearch(openDocsTreeSearch, value)}>
+            <Ball icon="folder" tabIndex={-1} />
+          </span>
+        )}
         {openAdvancedSearch && !isDisabled && (
           <span
             onTouchEnd={handlePropagation}
@@ -70,6 +82,8 @@ const IndicatorsContainer = props => {
 IndicatorsContainer.propTypes = {
   children: PropTypes.node,
   selectProps: PropTypes.shape({
+    hasDocsTreeSearch: PropTypes.bool,
+    openDocsTreeSearch: PropTypes.func,
     hasAdvancedSearch: PropTypes.bool,
     openAdvancedSearch: PropTypes.func,
     openRemoteCreate: PropTypes.func,

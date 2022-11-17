@@ -6,7 +6,7 @@ import React from 'react'
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 
-import {openAdvancedSearch} from './advancedSearch/actions'
+import {openAdvancedSearch, openDocsTreeSearch} from './advancedSearch/actions'
 import {formDataConfigSelector} from './formData'
 import {loadLocationsSuggestions} from './locations/actions'
 import {loadRelationEntities} from './relationEntities/actions'
@@ -45,6 +45,7 @@ const mapActionCreators = {
   loadRelationEntities,
   loadTooltip,
   openAdvancedSearch,
+  openDocsTreeSearch,
   uploadDocument,
   setDocument,
   changeFieldValue,

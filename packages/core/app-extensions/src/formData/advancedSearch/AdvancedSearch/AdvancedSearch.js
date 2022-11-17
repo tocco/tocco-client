@@ -3,7 +3,7 @@ import {FormattedMessage} from 'react-intl'
 import {Button} from 'tocco-ui'
 import {v4 as uuid} from 'uuid'
 
-import {StyledAdvancedSearch, StyledAdvancedSearchButtonWrapper} from './StyledAdvancedSearch'
+import {StyledAdvancedSearch, StyledAdvancedSearchButtonWrapper} from '../StyledAdvancedSearch'
 
 const AdvancedSearch = ({
   entityName,

@@ -12,6 +12,7 @@
     "tocco-app-extensions": "*",
     "tocco-copy": "*",
     "tocco-delete": "*",
+    "tocco-docs-browser": "*",
     "tocco-entity-detail": "*",
     "tocco-entity-list": "*",
     "tocco-export": "*",

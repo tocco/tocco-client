@@ -8,10 +8,11 @@ React-registry name: `widget-config-edit`
 
 ### Inputs
 
-| Name                            | Mandatory   | Description                                                                                                                                                                                               | Type     | Default-Value              |
-|-------------------------------- | :---------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| -------- | ---------------------------|
-| `selection`                     | *           | Selection of Widget_config (only type `ID` supported and requires exactly one key)                                                                                                                                | Object   |                            |
-
+| Name | Mandatory | Description | Type | Default-Value |
+|------| :-------: | ----------- | ---- | --------------|
+| `selection` | * | Selection of Widget_config (only type `ID` supported and requires exactly one key)  | Object   |   |
+| `listApp` |   | List app (tocco-entity-list) must be provided to support remote fields | Function |   |
+| `docsApp` |   | Docs app (tocco-docs-browser) must be provided to support remote fields | Function |   |
 
 ### Events
 

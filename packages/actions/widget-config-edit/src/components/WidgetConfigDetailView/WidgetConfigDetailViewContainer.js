@@ -13,7 +13,9 @@ const mapActionCreators = {
 
 const mapStateToProps = state => ({
   specificConfigEntityId: state.detailView.specificConfigEntityId,
-  linking: state.detailView.linking
+  linking: state.detailView.linking,
+  docsApp: state.input.docsApp,
+  listApp: state.input.listApp
 })
 
 export default connect(mapStateToProps, mapActionCreators)(WidgetConfigDetailView)

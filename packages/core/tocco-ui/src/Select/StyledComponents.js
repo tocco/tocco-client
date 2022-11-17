@@ -134,7 +134,8 @@ export const reactSelectStyles = outerTheme => {
     lineHeight: outerTheme.lineHeights.regular
   }
 
-  const showInputAlwaysOnTop = state => state.isMulti && state.selectProps.hasAdvancedSearch
+  const showInputAlwaysOnTop = state =>
+    state.isMulti && (state.selectProps.hasAdvancedSearch || state.selectProps.hasDocsTreeSearch)
 
   const messageStyle = base => ({
     ...base,
@@ -192,6 +193,9 @@ export const reactSelectStyles = outerTheme => {
     }),
     input: (base, state) => {
       let indicatorWidth = 50
+      if (state.selectProps.hasDocsTreeSearch) {
+        indicatorWidth += 25
+      }
       if (state.selectProps.hasAdvancedSearch) {
         indicatorWidth += 25
       }

@@ -29,6 +29,7 @@ RemoteSelect.propTypes = {
     noResultsText: PropTypes.string,
     moreOptionsAvailable: PropTypes.bool,
     moreOptionsAvailableText: PropTypes.string,
+    openDocsTreeSearch: PropTypes.func,
     openAdvancedSearch: PropTypes.func,
     tooltips: PropTypes.objectOf(PropTypes.string),
     loadTooltip: PropTypes.func,

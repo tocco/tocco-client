@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import {useEffect} from 'react'
 import {Prompt} from 'react-router-dom'
+import DocsBrowserApp from 'tocco-docs-browser/src/main'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
+import EntityListApp from 'tocco-entity-list/src/main'
 import {queryString as queryStringUtil} from 'tocco-util'
 
 import BackButton from '../Actions/BackButton'
@@ -108,6 +110,8 @@ const EntityDetail = props => {
       actionAppComponent={Action}
       reportIds={reportIds}
       customRenderedActions={customRenderedActions}
+      listApp={EntityListApp}
+      docsApp={DocsBrowserApp}
     />
   )
 

@@ -3,7 +3,9 @@ import queryString from 'query-string'
 import {useState} from 'react'
 import {Prompt} from 'react-router'
 import styled from 'styled-components'
+import DocsBrowserApp from 'tocco-docs-browser/src/main'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
+import EntityListApp from 'tocco-entity-list/src/main'
 import {scale, theme} from 'tocco-ui'
 
 import {goBack} from '../../../../utils/routing'
@@ -107,6 +109,8 @@ const EditView = props => {
         onRefresh={handleRefresh}
         actionAppComponent={Action}
         onSubGridRowClick={handleSubGridRowClick}
+        listApp={EntityListApp}
+        docsApp={DocsBrowserApp}
       />
     </StyledEntityDetailAppWrapper>
   )

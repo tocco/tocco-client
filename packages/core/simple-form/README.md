@@ -14,7 +14,8 @@ React-registry name: `simple-form`
 | `submitText`           |           | Text on submit button
 | `cancelText`           |           | Text on cancel button
 | `formData`             |           | Provides the option to set relation-entities formData in advance (To show dropdown options that are not entites for example)
-| `listApp`              |           | List app (tocco-entity-list) must be provided to support
+| `listApp`              |           | List app (tocco-entity-list) must be provided to support remote fields
+| `docsApp`              |           | Docs app (tocco-docs-browser) must be provided to support remote fields
 | `validate`             |           | pass false if the form should not validate inputs, defaults to true
 | `mappingType`          |           | Will be passed to field factory. Default is "editable". But can be set to use "search" mapping.
 | `mode`                 |           | Will be passed to field factory. Per default no mode is set. Can be set to "search" that fields are no longer mandatory.

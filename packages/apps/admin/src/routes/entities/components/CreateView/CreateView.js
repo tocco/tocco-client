@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import {useState} from 'react'
 import {Prompt} from 'react-router'
 import styled from 'styled-components'
+import DocsBrowserApp from 'tocco-docs-browser/src/main'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
+import EntityListApp from 'tocco-entity-list/src/main'
 import {theme, scale} from 'tocco-ui'
 
 import navigationStrategy from '../../utils/navigationStrategy'
@@ -63,6 +65,8 @@ const CreateView = props => {
         chooseDocument={chooseDocument}
         onEntityCreated={handleEntityCreated}
         onTouchedChange={handleToucheChanged}
+        listApp={EntityListApp}
+        docsApp={DocsBrowserApp}
       />
     </StyledEntityDetailAppWrapper>
   )

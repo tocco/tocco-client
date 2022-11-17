@@ -35,6 +35,7 @@ export function* displayReportSettings(actionDefinition, selection, answerChanne
       () => (
         <ReportSettings
           listApp={config.listApp}
+          docsApp={config.docsApp}
           formApp={config.formApp}
           onSubmit={onSubmit}
           settingsDefinition={settingsDefinition}

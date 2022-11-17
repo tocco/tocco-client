@@ -19,6 +19,8 @@ React-registry name: `entity-detail`
 | `customActions`        |           | Map of custom action handlers. Note that this prop should only be used if you have an action without a component (i.e. an action that only puts a redux action to trigger a saga). If rendering of a component is involved (like it is in most cases), you should use `actionAppComponent`.
 | `customRenderedActions` |          | Map of custom action components. Note that this prop should only be used if you have an action without a component and without any pre-check conditions.
 | `reportIds`            |           | Array of report ids to display in forms
+| `listApp`              |           | List app (tocco-entity-list) must be provided to support remote fields
+| `docsApp`              |           | Docs app (tocco-docs-browser) must be provided to support remote fields
 
 ### Events
 
