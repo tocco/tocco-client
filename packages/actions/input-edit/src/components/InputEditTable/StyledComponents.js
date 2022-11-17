@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import {lighten} from 'polished'
 import styled from 'styled-components'
-import {scale, shadeColor, themeSelector, declareFont, declareFocus} from 'tocco-ui'
+import {scale, shadeColor, themeSelector, declareFont, declareFocus, StyledReactSelectOuterWrapper} from 'tocco-ui'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 3)
 const baseSpace = scale.space(-1)
@@ -28,6 +28,10 @@ export const StyledCell = styled.div`
   align-items: center;
   width: 100%;
 
+  ${StyledReactSelectOuterWrapper} {
+    margin-right: 10px;
+  }
+
   && {
     input,
     textarea,
@@ -38,7 +42,10 @@ export const StyledCell = styled.div`
       &:not([disabled]):hover {
         cursor: pointer;
       }
-      ${declareFocus}
+      /* prevent focus style within react select components */
+      :not([id*='react-select']) {
+        ${declareFocus}
+      }
     }
 
     &.single-select > span {
