@@ -16,7 +16,7 @@ export function* loadToolTip({payload: {entity, id}}) {
     const tooltip = yield select(tooltipSelector, entity, id)
 
     if (tooltip == null) {
-      const display = yield call(rest.fetchDisplay, entity, id, 'tooltip')
+      const display = yield call(rest.fetchDisplay, entity, id, 'tooltip', true)
       yield put(tooltipActions.setToolTip(entity, id, display))
     }
   }
