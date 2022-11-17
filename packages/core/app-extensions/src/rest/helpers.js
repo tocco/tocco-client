@@ -68,9 +68,10 @@ export function* entityExists(entityName, key) {
  * @param entityName {String} Name of the entity
  * @param key {String} key of the entity
  * @param type {String} type of the display, default display if none passed
+ * @param ignoreFallback {boolean} whether to fallback to default display if specific display for type can't be found
  */
-export function* fetchDisplay(entityName, key, type) {
-  return _get(yield fetchDisplays({[entityName]: [key]}, type), `${entityName}.${key}`, null)
+export function* fetchDisplay(entityName, key, type, ignoreFallback = false) {
+  return _get(yield fetchDisplays({[entityName]: [key]}, type, ignoreFallback), `${entityName}.${key}`, null)
 }
 
 /**
@@ -126,8 +127,9 @@ export const clearDisplayCache = () => Object.keys(displayCache).forEach(key => 
  *
  * @param request {Object} Object containing model and keys of desired entities e.g. {User: ["123"], Gender: ["1", "2"]}
  * @param type {String} type of the display, default display if none passed
+ * @param ignoreFallback {boolean} whether to fallback to default display if specific display for type can't be found
  */
-export function* fetchDisplays(request, type) {
+export function* fetchDisplays(request, type, ignoreFallback = false) {
   const currentDisplays = Object.entries(request).map(([model, keys]) => ({
     model,
     keys: keys.filter(key => !isDisplayCached(`${model}.${key}${type ? `.${type}` : ''}`)),
@@ -136,7 +138,7 @@ export function* fetchDisplays(request, type) {
       .filter(value => value.display !== undefined)
   }))
 
-  const loadedDisplays = yield loadDisplays(currentDisplays, type)
+  const loadedDisplays = yield loadDisplays(currentDisplays, type, ignoreFallback)
 
   return currentDisplays.reduce(
     (displaysPerModel, {model, displays}) => ({
@@ -162,12 +164,15 @@ export function invalidateDisplays(request, type) {
   })
 }
 
-function* loadDisplays(currentDisplays, type) {
+function* loadDisplays(currentDisplays, type, ignoreFallback = false) {
   const keysToLoad = currentDisplays.filter(({keys}) => keys.length > 0).map(({model, keys}) => ({model, keys}))
   if (keysToLoad.length > 0) {
     const options = {
       method: 'POST',
-      body: {data: keysToLoad}
+      body: {data: keysToLoad},
+      queryParams: {
+        _ignoreFallback: ignoreFallback
+      }
     }
     const response = yield call(requestSaga, `entities/2.0/displays${type ? `/${type}` : ''}`, options)
 

@@ -347,6 +347,9 @@ describe('app-extensions', () => {
                   keys: ['1', '2']
                 }
               ]
+            },
+            queryParams: {
+              _ignoreFallback: false
             }
           }
 
@@ -396,6 +399,66 @@ describe('app-extensions', () => {
             .run()
         })
 
+        test('should add _ignoreFallback query param', () => {
+          const request = {
+            User_status: ['2293'],
+            Gender: ['1', '2']
+          }
+
+          const expectedOptions = {
+            method: 'POST',
+            body: {
+              data: [
+                {
+                  model: 'User_status',
+                  keys: ['2293']
+                },
+                {
+                  model: 'Gender',
+                  keys: ['1', '2']
+                }
+              ]
+            },
+            queryParams: {
+              _ignoreFallback: true
+            }
+          }
+
+          const responseFake = {
+            body: {
+              data: [
+                {
+                  model: 'User_status',
+                  values: [
+                    {
+                      key: '2293',
+                      display: 'Hans Muster 123'
+                    }
+                  ]
+                },
+                {
+                  model: 'Gender',
+                  values: [
+                    {
+                      key: '1',
+                      display: 'Male'
+                    },
+                    {
+                      key: '2',
+                      display: 'Female'
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+
+          return expectSaga(helpers.fetchDisplays, request, 'type', true)
+            .provide([[matchers.call.fn(requestSaga), responseFake]])
+            .call(requestSaga, 'entities/2.0/displays/type', expectedOptions)
+            .run()
+        })
+
         test('should only load uncached displays and combine results', () => {
           helpers.addDisplayToCache('Gender.1', 'Male')
 
@@ -412,6 +475,9 @@ describe('app-extensions', () => {
                   keys: ['2']
                 }
               ]
+            },
+            queryParams: {
+              _ignoreFallback: false
             }
           }
 
