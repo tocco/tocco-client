@@ -1,3 +1,6 @@
+1.0.92
+- do not use default display for tooltips again
+
 1.0.91
 - send selection to adjusted POST endpoint when loading report settings
 - use a new custom display when displaying entities in select boxes
