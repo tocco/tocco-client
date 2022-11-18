@@ -1,3 +1,6 @@
+1.0.58-hotfix33.28
+- fix save button being clipped and change hover on error
+
 1.0.58-hotfix33.27
 - reset select dropdown to older state and implement close on scroll feature
 - remove div wrapper of entity-browser as it was preventing it from filling the full available height when embedded in the old client
