@@ -1,3 +1,6 @@
+0.1.65
+- do not use default display for tooltips again
+
 0.1.64
 - remove div wrapper of entity-browser as it was preventing it from filling the full available height when embedded in the old client
 - send selection to adjusted POST endpoint when loading report settings
