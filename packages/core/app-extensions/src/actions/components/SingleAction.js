@@ -4,29 +4,30 @@ import {Button} from 'tocco-ui'
 
 import {isValidSelection, selectionText} from './selectionHelper'
 
-export const SingleAction = ({definition, onClick, selectedCount, disabled, intl}) => (
-  <Button
-    iconOnly={definition.buttonType === 'ICON'}
-    data-cy={`action-${definition.id}`}
-    look={definition.buttonType === 'ICON' ? 'flat' : 'raised'}
-    withoutBackground={definition.buttonType === 'ICON'}
-    onClick={e => {
-      onClick(definition)
-      e.stopPropagation()
-    }}
-    icon={definition.icon}
-    label={getLabel(definition)}
-    title={getTitle(selectedCount, definition, intl)}
-    disabled={definition.readonly === true || !isValidSelection(selectedCount, definition) || disabled}
-  />
-)
+export const SingleAction = ({definition, onClick, selectedCount, disabled, intl}) => {
+  const shouldUseLabel = def => !(def.useLabel === 'NO' || def.useLabel === 'HIDE')
+  const isDisabled = definition.readonly === true || !isValidSelection(selectedCount, definition) || disabled
+  const label = definition.label && shouldUseLabel(definition) ? definition.label : ''
+  const title = selectionText(selectedCount, definition, intl) || (!shouldUseLabel(definition) ? definition.label : '')
+  const handleClick = e => {
+    onClick(definition)
+    e.stopPropagation()
+  }
 
-const getLabel = definition => (definition.label && shouldUseLabel(definition) ? definition.label : '')
-
-const getTitle = (selectedCount, definition, intl) =>
-  selectionText(selectedCount, definition, intl) || (!shouldUseLabel(definition) ? definition.label : '')
-
-const shouldUseLabel = definition => !(definition.useLabel === 'NO' || definition.useLabel === 'HIDE')
+  return (
+    <Button
+      iconOnly={definition.buttonType === 'ICON'}
+      data-cy={`action-${definition.id}`}
+      look={definition.buttonType === 'ICON' ? 'flat' : 'raised'}
+      withoutBackground={definition.buttonType === 'ICON'}
+      onClick={handleClick}
+      icon={definition.icon}
+      label={label}
+      title={title}
+      disabled={isDisabled}
+    />
+  )
+}
 
 SingleAction.propTypes = {
   intl: PropTypes.object.isRequired,
