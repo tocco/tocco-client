@@ -1,3 +1,6 @@
+1.0.76-hotfix33.30
+- fix save button being clipped and change hover on error
+
 1.0.76-hotfix33.29
 - reset select dropdown to older state and implement close on scroll feature
 - fix performance of fulltext search
