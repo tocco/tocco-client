@@ -62,6 +62,8 @@ const DocsView = props => {
     limit,
     searchFormType,
     selectionStyle,
+    selection: inputSelection,
+    selectionFilterFn,
     getCustomLocation,
     disableViewPersistor,
     getListFormName,
@@ -86,6 +88,8 @@ const DocsView = props => {
   const entityListKey = `entity-list-${entityListNumber}`
 
   const [selection, setSelection] = useState([])
+  const actualSelection = inputSelection || selection
+
   const parent = useMemo(() => getParent(params), [params])
 
   const keys = !parent && rootNodes ? rootNodes.map(node => `${node.entityName}/${node.key}`) : null
@@ -108,6 +112,12 @@ const DocsView = props => {
 
   useEffect(() => {
     changeListParent(parent)
+    /**
+     * Reset selection when changing page so that an action is only applied on one page.
+     * Do not call `changeSelection` since this is not an active user action.
+     * So far we use the `onSelectionChange` for choosing a document and selecting e.g. folders for remote fields.
+     * For those use cases we want to keep the selection over multiple pages.
+     */
     setSelection([])
   }, [parent, changeListParent])
 
@@ -130,8 +140,6 @@ const DocsView = props => {
   }
 
   const handleRowClick = ({id}) => {
-    onSelectChange([id])
-
     /**
      * Workaround for potential EntityList Bug:
      *   onRowClick event is only attached once initially and does not get proper updates
@@ -152,6 +160,8 @@ const DocsView = props => {
       } else {
         navigate(location)
       }
+    } else {
+      onSelectChange([id])
     }
   }
 
@@ -245,7 +255,8 @@ const DocsView = props => {
           keys={keys}
           selectionStyle={selectionStyle || 'multi_explicit'}
           onSelectChange={onSelectChange}
-          selection={selection}
+          selection={actualSelection}
+          selectionFilterFn={selectionFilterFn}
           showActions={showActions}
           sortable={sortable}
           searchFormCollapsed={searchFormCollapsed}
@@ -291,7 +302,9 @@ DocsView.propTypes = {
   scrollBehaviour: scrollBehaviourPropType,
   locale: PropTypes.string,
   changeSelection: PropTypes.func.isRequired,
-  changeSearchFormCollapsed: PropTypes.func.isRequired
+  changeSearchFormCollapsed: PropTypes.func.isRequired,
+  selection: PropTypes.arrayOf(PropTypes.string),
+  selectionFilterFn: PropTypes.func
 }
 
 export default DocsView

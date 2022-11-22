@@ -11,6 +11,7 @@ const mapStateToProps = state => ({
   limit: state.input.listLimit,
   searchFormType: state.input.searchFormType,
   selectionStyle: state.input.selectionStyle,
+  selectionFilterFn: state.input.selectionFilterFn,
   getCustomLocation: state.input.getCustomLocation,
   disableViewPersistor: state.input.disableViewPersistor,
   getListFormName: state.input.getListFormName,
@@ -21,6 +22,7 @@ const mapStateToProps = state => ({
   openResource: state.input.openResource,
   searchFormCollapsed: state.input.searchFormCollapsed,
   scrollBehaviour: state.input.scrollBehaviour,
+  selection: state.input.selection,
   locale: state.intl.locale
 })
 

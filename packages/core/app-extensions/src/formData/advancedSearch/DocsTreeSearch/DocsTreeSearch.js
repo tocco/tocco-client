@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import {useState} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Button} from 'tocco-ui'
 
@@ -10,16 +11,16 @@ const getListFormName = parent =>
 const DocsTreeSearch = ({
   entityName,
   onSelectionChange,
-  selection: idSelection,
+  selection: initialSelection,
   emitAction,
   multi,
   onOkClick,
   DocsApp
 }) => {
-  const selection = idSelection ? idSelection.map(id => `${entityName}/${id}`) : []
-
-  const handleSelectionChange = selectedFolder => {
-    const ids = selectedFolder
+  const convertIdSelectionToDmsSelection = idSelection =>
+    idSelection ? idSelection.map(id => `${entityName}/${id}`) : []
+  const convertDmsSelectionToIdSelection = dmsSelection =>
+    dmsSelection
       .map(f => {
         const [name, key] = f.split('/')
         return {name, key}
@@ -27,7 +28,11 @@ const DocsTreeSearch = ({
       .filter(({name}) => name === entityName)
       .map(({key}) => key)
 
-    onSelectionChange(ids)
+  const [selection, setSelection] = useState(convertIdSelectionToDmsSelection(initialSelection))
+
+  const handleSelectionChange = dmsSelection => {
+    onSelectionChange(convertDmsSelectionToIdSelection(dmsSelection))
+    setSelection(dmsSelection)
   }
 
   return (
@@ -37,6 +42,7 @@ const DocsTreeSearch = ({
         listLimit={15}
         selectionStyle={multi ? 'multi' : 'single'}
         selection={selection}
+        selectionFilterFn={row => row?.type === entityName}
         searchFormType="none"
         disableViewPersistor={true}
         getListFormName={getListFormName}

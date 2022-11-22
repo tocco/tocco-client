@@ -151,6 +151,8 @@ DocsBrowserApp.propTypes = {
   documentDetailFormName: PropTypes.string,
   searchFormType: searchFormTypePropTypes,
   selectionStyle: selectionStylePropType,
+  selectionFilterFn: PropTypes.func,
+  selection: PropTypes.arrayOf(PropTypes.string),
   scrollBehaviour: scrollBehaviourPropType,
   getListFormName: PropTypes.func,
   disableViewPersistor: PropTypes.bool,

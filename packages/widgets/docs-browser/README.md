@@ -22,6 +22,8 @@ React-registry name: `docs-browser`
 | `folderDetailFormName` |           | Name of the folder detail form to use (default: "DmsFolder")
 | `searchFormType`       |           | Possible values: none (no search form shown), fulltext (only one fulltext search field), simple (simple search only), simple_advanced (usual (simple) search form with advanced expansion), advanced (extended advanced search form only), admin (full search with search filter, works only in admin for layouting reasons)
 | `selectionStyle`       |           | none", "multi" or "single". If not defined and form model selectable is true, "multi" is used. Otherwise no selection is possible.
+| `selection`            |           | Current selection. When this is set the internal selection state management is skipped and `selection` input is taken.
+| `selectionFilterFn`    |           | Function that should return true if row is selectable and false when row is not selectable.
 | `getCustomLocation`    |           | Pass a function to define a custom navigation for a row click event
 | `initialLocation`      |           | If set, the docs browser will initially navigate to this location.
 | `disableViewPersistor` |           | Per default the docs view is persisted with the view persistor. This property allows to disable using the view persistor
