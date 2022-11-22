@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
   listLimit: state.input.listLimit,
   backendUrl: state.input.backendUrl,
   businessUnit: state.input.businessUnit,
-  appContext: state.input.appContext
+  appContext: state.input.appContext,
+  folderKeys: state.input.folderKeys
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(PublicDms))

@@ -1,8 +1,9 @@
 {
   "businessUnit": "test1",
   "listLimit": 15,
+  "folderKeys": ["34185", "34159", "34186", "34184", "34160"],
   "appContext": {
     "embedType": "widget",
-    "widgetConfigKey": "1"
+    "widgetConfigKey": "255"
   }
 }
