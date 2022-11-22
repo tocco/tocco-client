@@ -3,16 +3,16 @@ import MultiSelectHeader from './MultiSelectHeader'
 import selectionStyles from './selectionStyles'
 import SingleSelectCell from './SingleSelectCell'
 
-export const getSelectionCell = (selectionStyle, columns, isSelected, selectionChange) => {
+export const getSelectionCell = (selectionStyle, columns, isSelected, selectionChange, selectionFilterFn) => {
   if (selectionStyle && selectionStyle !== selectionStyles.NONE) {
     return selectionStyle === selectionStyles.MULTI
-      ? getMultiSelectionCell(isSelected, selectionChange)
-      : getSingleSelectionCell(isSelected, selectionChange)
+      ? getMultiSelectionCell(isSelected, selectionChange, selectionFilterFn)
+      : getSingleSelectionCell(isSelected, selectionChange, selectionFilterFn)
   }
   return null
 }
 
-const getSingleSelectionCell = (isSelected, selectionChange) => ({
+const getSingleSelectionCell = (isSelected, selectionChange, selectionFilterFn) => ({
   id: 'single-selection',
   width: 30,
   resizable: false,
@@ -22,10 +22,17 @@ const getSingleSelectionCell = (isSelected, selectionChange) => ({
     sortable: false
   },
   HeaderRenderer: () => null,
-  CellRenderer: props => <SingleSelectCell {...props} isSelected={isSelected} selectionChange={selectionChange} />
+  CellRenderer: props => (
+    <SingleSelectCell
+      {...props}
+      isSelected={isSelected}
+      selectionChange={selectionChange}
+      selectionFilterFn={selectionFilterFn}
+    />
+  )
 })
 
-const getMultiSelectionCell = (isSelected, selectionChange) => ({
+const getMultiSelectionCell = (isSelected, selectionChange, selectionFilterFn) => ({
   id: 'multi-selection',
   dynamic: true,
   resizable: false,
@@ -34,6 +41,20 @@ const getMultiSelectionCell = (isSelected, selectionChange) => ({
   sorting: {
     sortable: false
   },
-  HeaderRenderer: props => <MultiSelectHeader {...props} isSelected={isSelected} selectionChange={selectionChange} />,
-  CellRenderer: props => <MultiSelectCell {...props} isSelected={isSelected} selectionChange={selectionChange} />
+  HeaderRenderer: props => (
+    <MultiSelectHeader
+      {...props}
+      isSelected={isSelected}
+      selectionChange={selectionChange}
+      selectionFilterFn={selectionFilterFn}
+    />
+  ),
+  CellRenderer: props => (
+    <MultiSelectCell
+      {...props}
+      isSelected={isSelected}
+      selectionChange={selectionChange}
+      selectionFilterFn={selectionFilterFn}
+    />
+  )
 })
