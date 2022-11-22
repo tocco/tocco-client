@@ -37,7 +37,8 @@ const sanitizeHtml = html => {
   if (!html) {
     return html
   }
-  return DOMPurify.sanitize(html, {FORBID_TAGS: ['style']})
+
+  return DOMPurify.sanitize(html, {FORBID_TAGS: ['style'], ADD_ATTR: ['target']})
 }
 
 export default sanitizeHtml

@@ -68,6 +68,16 @@ describe('tocco-util', () => {
         const clean = '<div style="border:1px;width:100%;">Hi!</div>'
         expect(sanitizeHtml(dirty)).to.equal(clean)
       })
+      test('should allow target attribute on links', () => {
+        const dirty = '<a href="https://www.google.ch" target="_blank">Hi!</a>'
+        const clean = '<a target="_blank" href="https://www.google.ch">Hi!</a>'
+        expect(sanitizeHtml(dirty)).to.equal(clean)
+      })
+      test('should allow links without target attribute', () => {
+        const dirty = '<a href="https://www.google.ch">Hi!</a>'
+        const clean = '<a href="https://www.google.ch">Hi!</a>'
+        expect(sanitizeHtml(dirty)).to.equal(clean)
+      })
     })
   })
 })
