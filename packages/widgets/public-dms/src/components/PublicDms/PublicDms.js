@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import DocsBrowserApp from 'tocco-docs-browser/src/main'
 import {appContext as appContextPropType} from 'tocco-util'
 
-const PublicDms = ({listLimit, backendUrl, businessUnit, appContext}) => {
+const PublicDms = ({listLimit, backendUrl, businessUnit, folderKeys, appContext}) => {
   const getListFormName = (parent, keys) => {
     if (parent !== null) {
       return 'DmsPublic_docs_list_item'
@@ -12,6 +12,8 @@ const PublicDms = ({listLimit, backendUrl, businessUnit, appContext}) => {
       return 'DmsPublic_root_docs_list_item'
     }
   }
+
+  const rootNodes = folderKeys ? folderKeys.map(key => ({key, entityName: 'Folder'})) : undefined
 
   return (
     <DocsBrowserApp
@@ -27,6 +29,7 @@ const PublicDms = ({listLimit, backendUrl, businessUnit, appContext}) => {
       backendUrl={backendUrl}
       businessUnit={businessUnit}
       appContext={appContext}
+      rootNodes={rootNodes}
     />
   )
 }
@@ -35,6 +38,7 @@ PublicDms.propTypes = {
   listLimit: PropTypes.number,
   backendUrl: PropTypes.string,
   businessUnit: PropTypes.string,
+  folderKeys: PropTypes.arrayOf(PropTypes.string),
   appContext: appContextPropType.propTypes.isRequired
 }
 
