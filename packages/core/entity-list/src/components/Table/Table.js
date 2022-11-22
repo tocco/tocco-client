@@ -29,6 +29,7 @@ const Table = ({
   tableSelectionStyle,
   onSelectChange,
   selection,
+  selectionFilterFn,
   scrollBehaviour,
   onRowClick,
   changePosition
@@ -61,6 +62,7 @@ const Table = ({
       selectionStyle={tableSelectionStyle}
       onSelectionChange={onSelectChange}
       selection={selection}
+      selectionFilterFn={selectionFilterFn}
       scrollBehaviour={scrollBehaviour}
       onRowClick={onRowClick}
       clickable={clickable}
@@ -84,6 +86,7 @@ Table.propTypes = {
   tableSelectionStyle: selectionStylePropType,
   onSelectChange: PropTypes.func,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  selectionFilterFn: PropTypes.func,
   scrollBehaviour: scrollBehaviourPropType,
   parent: PropTypes.shape({
     key: PropTypes.string.isRequired,

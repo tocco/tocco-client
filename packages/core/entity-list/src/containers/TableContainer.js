@@ -30,6 +30,7 @@ const mapStateToProps = (state, props) => ({
   tableSelectionStyle: getTableSelectionStyle(state.input.selectionStyle, getSelectable(getFormDefinition(state))),
   clickable: getClickable(getFormDefinition(state)),
   selection: state.selection.selection,
+  selectionFilterFn: state.input.selectionFilterFn,
   parent: state.input.parent,
   showLink: state.input.showLink,
   navigationStrategy: state.input.navigationStrategy,

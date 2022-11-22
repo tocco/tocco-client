@@ -3,9 +3,14 @@ import PropTypes from 'prop-types'
 import {MultiCheckbox} from '../../'
 import {rowDataPropType} from '../propTypes'
 
-const MultiSelectCell = ({rowData, isSelected, selectionChange, rowIdx}) => {
+const MultiSelectCell = ({rowData, isSelected, selectionChange, selectionFilterFn, rowIdx}) => {
   const rowSelectionState = data => (isSelected(data.__key) ? 'checked' : 'unchecked')
   const rowSelectionChange = data => value => selectionChange(data.__key, value === 'checked')
+
+  const isRowSelectable = typeof selectionFilterFn === 'function' ? selectionFilterFn(rowData) : true
+  if (!isRowSelectable) {
+    return null
+  }
 
   return (
     <div
@@ -31,7 +36,8 @@ MultiSelectCell.propTypes = {
   isSelected: PropTypes.func.isRequired,
   rowData: rowDataPropType.isRequired,
   rowIdx: PropTypes.number,
-  selectionChange: PropTypes.func.isRequired
+  selectionChange: PropTypes.func.isRequired,
+  selectionFilterFn: PropTypes.func
 }
 
 export default MultiSelectCell

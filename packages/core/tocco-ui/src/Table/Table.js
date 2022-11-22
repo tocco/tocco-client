@@ -27,7 +27,8 @@ const Table = ({
   onPageChange,
   onPageRefresh,
   scrollBehaviour = ScrollBehaviour.INLINE,
-  onColumnWidthChange
+  onColumnWidthChange,
+  selectionFilterFn
 }) => {
   const [columns, setColumns] = useState(columnsProp)
   const tableEl = useRef(null)
@@ -63,9 +64,15 @@ const Table = ({
   const {isSelected, selectionChange} = useSelection(selection, currentKeys, onSelectionChange)
 
   useEffect(() => {
-    const selectionColumn = getSelectionCell(selectionStyle, columnsProp, isSelected, selectionChange)
+    const selectionColumn = getSelectionCell(
+      selectionStyle,
+      columnsProp,
+      isSelected,
+      selectionChange,
+      selectionFilterFn
+    )
     setColumns([...(selectionColumn ? [selectionColumn] : []), ...columnsProp])
-  }, [columnsProp, selection, isSelected, selectionChange, selectionStyle])
+  }, [columnsProp, selection, isSelected, selectionChange, selectionFilterFn, selectionStyle])
 
   return (
     <StyledTableWrapper>
@@ -160,7 +167,11 @@ Table.propTypes = {
   /**
    * Callback if a row is clicked
    */
-  onRowClick: PropTypes.func
+  onRowClick: PropTypes.func,
+  /**
+   * Returns a bool to determine if passed row is selectable
+   */
+  selectionFilterFn: PropTypes.func
 }
 
 const areEqual = (prevProps, nextProps) => {
