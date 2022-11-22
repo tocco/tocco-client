@@ -15,15 +15,15 @@ describe('app-extensions', () => {
 
         test('should map id selection to dms selection', () => {
           // eslint-disable-next-line react/prop-types
-          const DocsApp = ({initialSelection}) => (
+          const DocsApp = ({selection}) => (
             <div data-testid="docs-browser">
-              <div data-testid="initialSelection">{JSON.stringify(initialSelection)}</div>
+              <div data-testid="selection">{JSON.stringify(selection)}</div>
             </div>
           )
 
           testingLibrary.renderWithIntl(<DocsTreeSearch DocsApp={DocsApp} entityName="Folder" selection={['2', '3']} />)
 
-          expect(screen.getByTestId('initialSelection').textContent).to.has.eql('["Folder/2","Folder/3"]')
+          expect(screen.getByTestId('selection').textContent).to.has.eql('["Folder/2","Folder/3"]')
         })
 
         test('should apply selection for defined entity', () => {
