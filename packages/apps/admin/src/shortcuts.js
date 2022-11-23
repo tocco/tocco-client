@@ -21,5 +21,12 @@ export default [
     code: 'KeyO',
     actions: [setShortcutMenu('complete')],
     global: true
+  },
+  {
+    ctrl: true,
+    alt: true,
+    code: 'KeyK',
+    actions: [setShortcutMenu('system')],
+    global: true
   }
 ]
