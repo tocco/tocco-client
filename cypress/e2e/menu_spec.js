@@ -37,5 +37,14 @@ describe('Menu', () => {
     cy.get('body').type('{ctrl}{alt}m')
     cy.getByAttr('admin-nav', 'ui-search-box').should('be.focused').clear().type('bus')
     cy.getByAttr('extended-search-wrapper').should('be.visible')
+    cy.getByAttr('admin-nav', 'ui-search-box').should('be.focused').clear()
+    cy.get('body').type('{ctrl}{alt}m')
+  })
+
+  it('Should open and close system-menu with shortcut', () => {
+    cy.get('body').type('{ctrl}{alt}k')
+    cy.getByAttr('admin-menuitem-system_activity').should('be.visible')
+    cy.get('body').type('{ctrl}{alt}k')
+    cy.getByAttr('admin-menuitem-system_activity').should('not.be.visible')
   })
 })
