@@ -27,6 +27,7 @@
     "tocco-log": "*",
     "tocco-login": "*",
     "tocco-merge": "*",
+    "tocco-reload-configuration": "*",
     "tocco-resource-scheduler": "*",
     "tocco-sso-login": "*",
     "tocco-test-util": "*",

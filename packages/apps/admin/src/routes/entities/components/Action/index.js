@@ -16,7 +16,8 @@ const actionMap = {
   'password-update': lazy(() => import(/* webpackChunkName: "actions" */ './actions/PasswordUpdate')),
   'widget-config-edit': lazy(() => import(/* webpackChunkName: "actions" */ './actions/WidgetConfigEdit')),
   'connect-principal': lazy(() => import(/* webpackChunkName: "actions" */ './actions/ConnectPrincipal')),
-  export: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Export'))
+  export: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Export')),
+  'reload-configuration': lazy(() => import(/* webpackChunkName: "actions" */ './actions/Configuration'))
 }
 
 const LazyAction = actions.actionFactory(actionMap)
