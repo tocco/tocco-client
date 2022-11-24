@@ -1,3 +1,6 @@
+0.1.28
+- allow target attribute in html
+
 0.1.27
 - introduce legacy-admin embed type
 
