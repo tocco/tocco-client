@@ -3,8 +3,7 @@ import {useEffect, useRef} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {LoadingSpinner, Typography} from 'tocco-ui'
 
-import {resultTypes} from '../../../api'
-import {notificationPropType} from '../../../types'
+import {notificationPropType, resultTypes} from '../../../types'
 import Notification from './Notification'
 import {StyledNotificationCenter, StyledNotificationTitleWrapper} from './StyledComponents'
 
