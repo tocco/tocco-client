@@ -6,14 +6,7 @@ import Ball from '../Ball'
 import EditableValue from '../EditableValue'
 import Icon from '../Icon'
 import rangeTypeMappings from './rangeTypeMappings'
-import {
-  StyledExtender,
-  StyledIconWrapper,
-  StyledInput,
-  StyledInputItemWrapper,
-  StyledInputWrapper,
-  StyledRange
-} from './StyledRange'
+import {StyledExtender, StyledIconWrapper, StyledInput, StyledRange} from './StyledRange'
 
 const ViewMode = {
   EXPANDED_INITIAL: 'expanded_initial', // initial expanded render (if defined in form config)
@@ -25,7 +18,7 @@ const ViewMode = {
  * Allows to render EditableValues as a range. The value can be switched between a range or single value.
  */
 const Range = props => {
-  const {value, events, readOnly, type, options, fromText, toText, expanded} = props
+  const {value, events, readOnly, type, options: optionsProp, fromText, toText, expanded} = props
   const inititalViewMode = expanded ? ViewMode.EXPANDED_INITIAL : ViewMode.COLLAPSED
   const [viewMode, setViewMode] = useState(inititalViewMode)
 
@@ -95,11 +88,11 @@ const Range = props => {
     }
   }
 
-  const getToOptions = (opts, fromValue) =>
-    typeMapping?.getToOptions ? typeMapping.getToOptions(opts, fromValue) : opts
+  const getToOptions = (options, fromValue) =>
+    typeMapping?.getToOptions ? typeMapping.getToOptions(options, fromValue) : options
 
-  const getFromOptions = (opts, toValue) =>
-    typeMapping?.getFromOptions ? typeMapping.getFromOptions(opts, toValue) : opts
+  const getFromOptions = (options, toValue) =>
+    typeMapping?.getFromOptions ? typeMapping.getFromOptions(options, toValue) : options
 
   const rangeValueIcon = typeMapping?.icons?.range || 'chevron-down'
   const singleValueIcon = typeMapping?.icons?.single || 'chevron-left'
@@ -110,37 +103,32 @@ const Range = props => {
     setViewMode(hasRangeValue ? ViewMode.COLLAPSED : ViewMode.EXPANDED)
   }
 
+  const SingleValueContent = <EditableValue type={baseType} {..._omit(props, ['type'])} events={exactEvents} />
+  const RangeValuesContent = (
+    <StyledInput>
+      <EditableValue
+        {...props}
+        options={getFromOptions(optionsProp, value?.to)}
+        value={value?.from || null}
+        events={fromEvents}
+        placeholder={fromText}
+      />
+      <StyledIconWrapper>
+        <Icon icon="horizontal-rule" />
+      </StyledIconWrapper>
+      <EditableValue
+        {...props}
+        options={getToOptions(optionsProp, value?.from)}
+        value={value?.to || null}
+        events={toEvents}
+        placeholder={toText}
+      />
+    </StyledInput>
+  )
+
   return (
     <StyledRange>
-      <StyledInputWrapper>
-        {!hasRangeValue ? (
-          <EditableValue type={baseType} {..._omit(props, ['type'])} events={exactEvents} />
-        ) : (
-          <StyledInput>
-            <StyledInputItemWrapper>
-              <EditableValue
-                {...props}
-                options={getFromOptions(options, value.to)}
-                value={value?.from || null}
-                events={fromEvents}
-                placeholder={fromText}
-              />
-            </StyledInputItemWrapper>
-            <StyledIconWrapper>
-              <Icon icon="horizontal-rule" />
-            </StyledIconWrapper>
-            <StyledInputItemWrapper>
-              <EditableValue
-                {...props}
-                options={getToOptions(options, value.from)}
-                value={value?.to || null}
-                events={toEvents}
-                placeholder={toText}
-              />
-            </StyledInputItemWrapper>
-          </StyledInput>
-        )}
-      </StyledInputWrapper>
+      {hasRangeValue ? RangeValuesContent : SingleValueContent}
       <StyledExtender>
         <Ball disabled={readOnly} icon={hasRangeValue ? singleValueIcon : rangeValueIcon} onClick={handleExtend} />
       </StyledExtender>
@@ -154,8 +142,8 @@ Range.propTypes = {
    */
   type: PropTypes.string,
   /**
-   * The Range Component can either handle a single value or and object with the following three
-   * attributes: isRangeValue (true), from, to. The later two are single values.
+   * The Range Component can either handle a single value or an object with the following three
+   * attributes: isRangeValue (true), from, to. The latter two are single values.
    * example:
    *  {
    *    isRangeValue: true,
