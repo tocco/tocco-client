@@ -1,7 +1,5 @@
-import {mount} from 'enzyme'
-import {FormattedMessage} from 'react-intl'
-import {intlEnzyme} from 'tocco-test-util'
-import {FormattedValue} from 'tocco-ui'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import Content from './Content'
 
@@ -10,30 +8,36 @@ describe('app-extensions', () => {
     describe('Components', () => {
       describe('Content', () => {
         test('should render string content', () => {
-          const wrapper = mount(<Content>Test</Content>)
-          expect(wrapper.text()).to.be.equal('Test')
-          expect(wrapper.find(FormattedValue)).to.have.length(0)
+          testingLibrary.renderWithIntl(<Content>Test</Content>)
+
+          expect(screen.queryByText('Test')).to.exist
         })
 
         test('should render html content', () => {
-          const wrapper = mount(<Content>{'<b>Test</b>'}</Content>)
-          expect(wrapper.text()).to.be.equal('Test')
-          expect(wrapper.find(FormattedValue)).to.have.length(1)
+          testingLibrary.renderWithIntl(<Content>{'<b data-testid="content">Test</b>'}</Content>)
+
+          expect(screen.queryByTestId('content')).to.exist
+          expect(screen.queryByText('Test')).to.exist
         })
 
         test('should render text resources', () => {
-          const wrapper = intlEnzyme.mountWithIntl(<Content>{'client.example.title'}</Content>)
-          expect(wrapper.find(FormattedMessage)).to.have.length(1)
+          testingLibrary.renderWithIntl(<Content>{'client.example.title'}</Content>, {
+            intlMessages: {'client.example.title': 'Das ist ein Test'}
+          })
+
+          expect(screen.queryByText('Das ist ein Test')).to.exist
         })
 
         test('should render component content', () => {
-          const Compo = () => <span>TEST</span>
-          const wrapper = mount(
+          const Compo = () => <span data-testid="content">TEST</span>
+          testingLibrary.renderWithIntl(
             <Content>
               <Compo />
             </Content>
           )
-          expect(wrapper.find(Compo)).to.have.length(1)
+
+          expect(screen.queryByTestId('content')).to.exist
+          expect(screen.queryByText('TEST')).to.exist
         })
       })
     })
