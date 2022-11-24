@@ -1,3 +1,7 @@
+1.0.130
+- allow target attribute in html
+- harmonize spacing of input edit action wrapper
+
 1.0.129
 - do not use default display for tooltips again
 

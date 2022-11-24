@@ -1,3 +1,6 @@
+1.0.93
+- allow target attribute in html
+
 1.0.92
 - do not use default display for tooltips again
 
