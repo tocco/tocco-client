@@ -1,8 +1,9 @@
 import {call} from 'redux-saga/effects'
 
 import rest from '../rest'
+import {resultTypes} from './types'
 
-export const typeMapper = {
+const typeMapper = {
   failed: 'error',
   info: 'info',
   warning: 'warning',
@@ -16,11 +17,6 @@ const taskProgressStatus = {
   failed: 'failed',
   completed: 'completed',
   cancelled: 'cancelled'
-}
-
-export const resultTypes = {
-  outputjob: 'OUTPUTJOB',
-  entities: 'ENTITIES'
 }
 
 const isTaskRunning = taskProgress =>

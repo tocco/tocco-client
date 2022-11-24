@@ -8,6 +8,11 @@ export const TYPES = {
   success: 'success'
 }
 
+export const resultTypes = {
+  outputjob: 'OUTPUTJOB',
+  entities: 'ENTITIES'
+}
+
 export const isWarningOrError = type => type === TYPES.error || type === TYPES.warning
 
 export const iconMap = {

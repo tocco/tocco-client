@@ -1,7 +1,7 @@
 import {env} from 'tocco-util'
 
-import {resultTypes} from '../../api'
 import NotificationBody from '../../components/NotificationBody'
+import {resultTypes} from '../../types'
 
 export const TOASTER_KEY_PREFIX = 'socket-msg-'
 

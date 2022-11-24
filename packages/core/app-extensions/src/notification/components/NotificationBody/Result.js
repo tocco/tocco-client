@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 
-import {resultTypes} from '../../api'
-import {notificationPropType} from '../../types'
+import {notificationPropType, resultTypes} from '../../types'
 import EntitiesResult from './results/EntitiesResult'
 import OutputjobResult from './results/OutputJobResult'
 
