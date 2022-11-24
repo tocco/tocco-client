@@ -1,3 +1,7 @@
+0.1.1-hotfix34.7
+- fix react-select dropdown being clipped inside input-edit table
+- fix save button being clipped and change hover on error
+
 0.1.1-hotfix34.6
 - send selection to adjusted POST endpoint when loading report settings
 
