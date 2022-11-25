@@ -1,3 +1,12 @@
+0.1.67
+- fix save button being clipped and change hover on error
+- fix react-select dropdown being clipped inside input-edit table
+- link for max 100 created entities
+- add docs-tree search
+- add conditional selection for tables
+- only select entities for docs tree search
+- set folders as root folders
+
 0.1.66
 - allow target attribute in html
 - harmonize spacing of input edit action wrapper

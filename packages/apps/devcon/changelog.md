@@ -1,3 +1,9 @@
+1.0.94
+- link for max 100 created entities
+- add docs-tree search
+- add conditional selection for tables
+- only select entities for docs tree search
+
 1.0.93
 - allow target attribute in html
 
