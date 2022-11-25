@@ -1,3 +1,6 @@
 {
-  "logoutRedirectUrl": "https://tocco.ch"
+  "logoutRedirectUrl": "https://tocco.ch",
+  "appContext": {
+    "embedType": "widget"
+  }
 }
