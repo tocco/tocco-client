@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import {appFactory} from 'tocco-app-extensions'
 import {reducer as reducerUtil, appContext, env} from 'tocco-util'
 
+import FixedWrapper from './components/FixedWrapper'
 import UserMenu from './components/UserMenu'
 import {getDispatchActions} from './input'
 import reducers, {sagas} from './modules/reducers'
@@ -13,15 +14,29 @@ const initApp = (id, input, events, publicPath) => {
 
   const content = <UserMenu />
 
-  const store = appFactory.createStore(reducers, sagas, input, packageName)
+  const defaultInputs = {
+    width: '120px',
+    height: '40px'
+  }
+  const actualInputs = {...defaultInputs, ...input}
+  const store = appFactory.createStore(reducers, sagas, actualInputs, packageName)
 
-  return appFactory.createApp(packageName, content, store, {
+  const app = appFactory.createApp(packageName, content, store, {
     input,
     events,
     actions: getDispatchActions(),
     publicPath,
     textResourceModules: ['component', 'common', packageName]
   })
+
+  return {
+    ...app,
+    component: (
+      <FixedWrapper width={actualInputs.width} height={actualInputs.height}>
+        {app.component}
+      </FixedWrapper>
+    )
+  }
 }
 
 ;(() => {
