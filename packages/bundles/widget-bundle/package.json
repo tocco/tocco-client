@@ -1,6 +1,6 @@
 {
   "name": "tocco-widget-bundle",
-  "version": "0.1.66",
+  "version": "0.1.67",
   "description": "",
   "scripts": {
     "compile:prod": "cd ../../../ && npm run compile:prod -- --package=widget-bundle",
