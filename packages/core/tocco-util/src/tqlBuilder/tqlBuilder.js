@@ -80,6 +80,7 @@ const typeHandlers = type => {
     case 'time':
       return (path, value, comp) => `${path} ${comp} time:"${formatTQLTime(parseTime(value))}"`
     case 'compressed-text':
+    case 'identifier':
     case 'string':
     case 'text':
     case 'createuser':
