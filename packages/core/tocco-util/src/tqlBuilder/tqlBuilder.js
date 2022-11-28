@@ -74,6 +74,7 @@ const typeHandlers = type => {
     case 'time':
       return (path, value, comp) => `${path} ${comp} time:"${moment(value, 'HH:mm').format('HH:mm:ss.sss')}"`
     case 'compressed-text':
+    case 'identifier':
     case 'string':
     case 'text':
     case 'createuser':
