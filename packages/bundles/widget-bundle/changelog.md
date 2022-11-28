@@ -1,3 +1,6 @@
+0.1.68
+- fixed width for user-menu
+
 0.1.67
 - fix save button being clipped and change hover on error
 - fix react-select dropdown being clipped inside input-edit table
