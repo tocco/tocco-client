@@ -26,6 +26,7 @@ export default {
       'package.json',
       '.yarnrc',
       '.npmignore',
+      'jest.config.js',
       '/src/main.js',
       '/src/modules/reducers.js',
       '/src/dev/fetchMocks.js',

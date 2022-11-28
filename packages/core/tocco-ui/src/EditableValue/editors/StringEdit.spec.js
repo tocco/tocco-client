@@ -1,4 +1,5 @@
-import {mount} from 'enzyme'
+import {screen, fireEvent, waitFor} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import StringEdit from './StringEdit'
 
@@ -7,32 +8,33 @@ describe('tocco-ui', () => {
     describe('editors', () => {
       describe('StringEdit ', () => {
         test('should show input with value', () => {
-          const wrapper = mount(<StringEdit value="TEST" />)
-          expect(wrapper.find('input')).to.have.length(1)
-          expect(wrapper.find('input').first()).to.have.attr('value', 'TEST')
+          const spy = sinon.spy()
+
+          testingLibrary.renderWithIntl(<StringEdit onChange={spy} value="TEST" />)
+
+          expect(screen.getByRole('textbox').value).to.eql('TEST')
         })
 
         test('should handle undefined value', () => {
-          const wrapper = mount(<StringEdit />)
-          expect(wrapper.find('input')).to.have.length(1)
-          expect(wrapper.find('input').first()).to.have.attr('value', '')
+          const spy = sinon.spy()
+          testingLibrary.renderWithIntl(<StringEdit onChange={spy} />)
+
+          expect(screen.getByRole('textbox').value).to.eql('')
         })
 
         test('should call onChange', async () => {
           const spy = sinon.spy()
           const newValue = 'newValue'
 
-          const wrapper = mount(<StringEdit onChange={spy} />)
-          wrapper
-            .find('input')
-            .first()
-            .simulate('change', {target: {value: newValue}})
-          await new Promise(resolve =>
-            setTimeout(() => {
-              expect(spy).to.have.been.calledWith(newValue)
-              resolve()
-            }, 350)
-          )
+          testingLibrary.renderWithIntl(<StringEdit onChange={spy} />)
+
+          fireEvent.change(screen.getByRole('textbox'), {target: {value: newValue}})
+
+          await waitFor(() => {
+            expect(spy).to.have.been.calledOnce
+          })
+
+          expect(spy).to.have.been.calledWith(newValue)
         })
       })
     })

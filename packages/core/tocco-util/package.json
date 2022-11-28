@@ -4,6 +4,9 @@
   "private": true,
   "description": "tocco util",
   "main": "src/main.js",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "dompurify": "^2.4.0",
     "path-to-regexp": "^6.2.1"

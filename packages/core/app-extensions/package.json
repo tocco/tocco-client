@@ -4,6 +4,9 @@
   "private": true,
   "description": "app extensions",
   "main": "src/main.js",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "es6-error": "^4.1.1",
     "redux-thunk": "^2.4.1",

@@ -112,14 +112,8 @@ test:
   only:
     - external_pull_requests
     - master
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - coverage/
   script:
     - yarn test --ci
-  after_script:
-    - yarn codecov
   interruptible: true
 
 storybook:
