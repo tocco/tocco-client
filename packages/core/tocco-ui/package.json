@@ -7,7 +7,8 @@
   "sideEffects": false,
   "scripts": {
     "compile:prod": "cd ../../../ && npm run compile:prod -- --package=tocco-ui",
-    "prepublish": "npm run compile:prod"
+    "prepublish": "npm run compile:prod",
+    "test": "jest"
   },
   "peerDependencies": {
     "react": "^17.0.2",

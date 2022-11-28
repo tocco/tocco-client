@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "compile:prod": "cd ../../../ && npm run compile:prod -- --package=widget-utils",
-    "prepublish": "npm run compile:prod"
+    "prepublish": "npm run compile:prod",
+    "test": "jest"
   },
   "dependencies": {},
   "devDependencies": {

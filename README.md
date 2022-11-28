@@ -1,5 +1,4 @@
 # Tocco Client
-[![codecov](https://codecov.io/gh/tocco/tocco-client/branch/master/graph/badge.svg)](https://codecov.io/gh/tocco/tocco-client)
 [![Documentation Status](https://img.shields.io/static/v1?label=docs&message=Sphinx&color=blue&logoColor=white&logo=readthedocs)](https://docs.tocco.ch/framework/client/)
 [![Storybook](https://raw.githubusercontent.com/storybooks/brand/master/badge/badge-storybook.svg?sanitize=true)](https://toccoag.gitlab.io/tocco-storybook/)
 

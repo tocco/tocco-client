@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "compile:prod": "cd ../../../ && npm run compile:prod -- --package=delete",
-    "prepublish": "npm run compile:prod"
+    "prepublish": "npm run compile:prod",
+    "test": "jest"
   },
   "devDependencies": {
     "tocco-app-extensions": "*",

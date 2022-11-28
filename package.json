@@ -16,10 +16,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "start": "yarn setup && babel-node build/scripts/dev-server",
-    "test": "cross-env TZ=Europe/Zurich jest",
-    "codecov": "codecov --disable=gcov -f ./coverage/lcov.info",
-    "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts --force-local",
-    "setup:ci": "yarn install --frozen-lockfile && lerna bootstrap --no-progress --ignore-scripts --concurrency 2 --force-local",
+    "test": "cross-env TZ=Europe/Zurich lerna run --no-bail --concurrency=3 test -- --passWithNoTests",
+    "test:jest": "cross-env TZ=Europe/Zurich jest",
+    "setup": "yarn && cd server/static && yarn && cd .. && yarn",
+    "setup:ci": "yarn install --frozen-lockfile",
     "plop": "babel-node ./node_modules/plop/bin/plop",
     "release-packages": "yarn setup && ./scripts/release-packages.sh",
     "tag-all-packages": "yarn setup && ./scripts/tag-all-packages.sh",
@@ -41,6 +41,14 @@
     "cypress:run": "yarn cypress run",
     "prepare": "husky install"
   },
+  "private": true,
+  "workspaces": [
+    "packages/actions/*",
+    "packages/apps/*",
+    "packages/core/*",
+    "packages/widgets/*",
+    "packages/bundles/*"
+  ],
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -133,7 +141,6 @@
     "chai-as-promised": "^7.1.1",
     "chai-enzyme": "^1.0.0-beta.1",
     "chalk": "^4.1.0",
-    "codecov": "^3.8.3",
     "compression": "^1.7.4",
     "copy-webpack-plugin": "^11.0.0",
     "core-js": "3.26.0",
@@ -169,7 +176,7 @@
     "jest": "^29.2.2",
     "jest-environment-jsdom": "^29.2.2",
     "json": "^11.0.0",
-    "lerna": "^5.1.8",
+    "lerna": "^6.0.3",
     "lodash-webpack-plugin": "^0.11.6",
     "mock-socket": "^9.1.5",
     "node-fetch": "2",
