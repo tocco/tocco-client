@@ -32,6 +32,7 @@
     "tocco-ui": "*",
     "tocco-user-qr-action": "*",
     "tocco-util": "*",
+    "tocco-log": "*",
     "tocco-widget-code-copy": "*",
     "tocco-widget-config-edit": "*"
   }
