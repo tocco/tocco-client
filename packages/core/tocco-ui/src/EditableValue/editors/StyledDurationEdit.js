@@ -5,7 +5,7 @@ import {generateDisabledShade, scale, theme} from '../../utilStyles'
 import {StyledInputCss} from '../StyledEditableValue'
 
 const StyledDurationEdit = styled.input`
-  && {
+  &&&& {
     ${StyledInputCss}
     flex-grow: 0;
     width: ${({width}) => width}px;
