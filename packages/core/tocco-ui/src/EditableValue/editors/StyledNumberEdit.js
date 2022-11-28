@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {StyledInputCss} from '../StyledEditableValue'
 
 const StyledNumberEdit = styled(({immutable, ...rest}) => <NumericFormat {...rest} />)`
-  && {
+  &&&& {
     ${StyledInputCss}
   }
 `

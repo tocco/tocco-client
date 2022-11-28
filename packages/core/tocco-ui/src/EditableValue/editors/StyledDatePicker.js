@@ -8,7 +8,7 @@ export const StyledDatePickerOuterWrapper = styled.div`
 `
 
 export const StyledDatePickerWrapper = styled.div`
-  && {
+  &&&& {
     ${StyledEditableWrapperCss}
 
     & .react-datepicker__input-container {
