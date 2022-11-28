@@ -8,7 +8,8 @@ export const StyledLoginFormInput = styled.input`
     }
   }
 
-  && {
+  &&&& {
+    ${StyledInputCss}
     transition: background-color 50000s, color 50000s, filter 50000s;
 
     &:-webkit-autofill {
@@ -18,11 +19,10 @@ export const StyledLoginFormInput = styled.input`
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
   }
-  ${StyledInputCss}
 `
 
 export const StyledLoginFormInputWrapper = styled.div`
-  && {
+  &&& {
     ${StyledEditableWrapperCss}
   }
 `
