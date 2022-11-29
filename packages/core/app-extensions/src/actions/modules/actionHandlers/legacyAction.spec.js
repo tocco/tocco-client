@@ -210,6 +210,36 @@ describe('app-extensions', () => {
                 .run()
             })
 
+            test('should use ENTITY_DOCS selection for Folder', () => {
+              const selection = {
+                entityName: 'Folder',
+                type: 'ID',
+                ids: ['5', '18', '3']
+              }
+              return expectSaga(legacyAction.getSelection, selection)
+                .returns({
+                  entityName: 'Folder',
+                  selectionType: 'ENTITY_DOCS',
+                  selectedEntities: ['5', '18', '3']
+                })
+                .run()
+            })
+
+            test('should use ENTITY_DOCS selection for Resource', () => {
+              const selection = {
+                entityName: 'Resource',
+                type: 'ID',
+                ids: ['5', '18', '3']
+              }
+              return expectSaga(legacyAction.getSelection, selection)
+                .returns({
+                  entityName: 'Resource',
+                  selectionType: 'ENTITY_DOCS',
+                  selectedEntities: ['5', '18', '3']
+                })
+                .run()
+            })
+
             test('should return search params for QUERY selection', () => {
               const selection = {
                 entityName: 'User',
