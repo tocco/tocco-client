@@ -102,7 +102,7 @@ const FullCalendar = forwardRef(
     )
 
     const renderEventContent = eventInfo => {
-      const time = getFormattedEventTime(locale, eventInfo.event.start, eventInfo.event.end)
+      const time = getFormattedEventTime(locale, eventInfo.event.start, eventInfo.event.end || eventInfo.event.start)
       const tooltipDescriptionContent = (
         <div>
           <FormattedValue type="html" value={eventInfo.event.extendedProps.description} />
