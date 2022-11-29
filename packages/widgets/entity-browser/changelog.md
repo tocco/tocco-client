@@ -1,3 +1,6 @@
+1.0.24-hotfix32.28
+- support identifier type in tql builder
+
 1.0.24-hotfix32.27
 - remove div wrapper of entity-browser as it was preventing it from filling the full available height when embedded in the old client
 - fix performance of fulltext search

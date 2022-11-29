@@ -1,6 +1,6 @@
 {
   "name": "tocco-merge",
-  "version": "1.0.18-hotfix32.24",
+  "version": "1.0.18-hotfix32.25",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
