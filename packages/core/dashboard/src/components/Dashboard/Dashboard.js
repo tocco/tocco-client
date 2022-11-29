@@ -14,6 +14,7 @@ import Menu from '../Menu/MenuContainer'
 import DashboardColumn from './DashboardColumn'
 import {StyledDashboardWrapper, StyledColumnWrapper} from './StyledComponents'
 
+// only to test lerna
 const Dashboard = ({infoBoxes: storedInfoBoxes, saveInfoBoxHeight, saveInfoBoxPositions}) => {
   const infoBoxesLoaded = storedInfoBoxes?.length >= 0
 
