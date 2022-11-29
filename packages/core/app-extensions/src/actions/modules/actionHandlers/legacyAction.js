@@ -7,6 +7,7 @@ import remoteEvents from '../../../remoteEvents'
 import rest from '../../../rest'
 
 const ignoredExceptionMessages = ['Single selection only, aborting...', 'Nothing selected, aborting...']
+const entityDocsEntity = ['Folder', 'Resource']
 
 export const loadScript = src =>
   new Promise((resolve, reject) => {
@@ -159,8 +160,9 @@ export function* getSelection(selection) {
   }
 
   if (selection.type === 'ID') {
+    const isEntityDocsEntity = entityDocsEntity.includes(selection.entityName)
     legacySelection.selectedEntities = selection.ids
-    legacySelection.selectionType = 'SELECTION'
+    legacySelection.selectionType = isEntityDocsEntity ? 'ENTITY_DOCS' : 'SELECTION'
   } else if (selection.type === 'QUERY') {
     const listState = yield select(listSelector)
 
