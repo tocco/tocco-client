@@ -1,3 +1,6 @@
+1.0.59-hotfix33.28
+- support identifier type in tql builder
+
 1.0.59-hotfix33.27
 - fix save button being clipped and change hover on error
 

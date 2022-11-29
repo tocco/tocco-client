@@ -1,3 +1,6 @@
+1.1.49-hotfix33.23
+- support identifier type in tql builder
+
 1.1.49-hotfix33.22
 - reset select dropdown to older state and implement close on scroll feature
 - fix performance of fulltext search
