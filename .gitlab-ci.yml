@@ -113,7 +113,7 @@ test:
     - external_pull_requests
     - master
   script:
-    - yarn test --ci
+    - yarn test:ci
   interruptible: true
 
 storybook:
