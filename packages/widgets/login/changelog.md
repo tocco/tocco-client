@@ -1,3 +1,6 @@
+1.1.17-hotfix32.24
+- support identifier type in tql builder
+
 1.1.17-hotfix32.23
 - fix performance of fulltext search
 
