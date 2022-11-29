@@ -61,6 +61,15 @@ stages:
 
   - yarn nice2:wait-for-readyness
 
+.test:
+  stage: quality
+  dependencies:
+    - yarn_setup
+  before_script:
+    - apk update && apk add git
+    - LERNA_SINCE=${CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_SHA}
+  interruptible: true
+
 yarn_setup:
   stage: setup
   needs: []
@@ -105,16 +114,21 @@ formatting:
   script:
     - yarn format:check
 
-test:
-  stage: quality
-  dependencies:
-    - yarn_setup
+test_all:
+  extends:
+    - .test
   only:
-    - external_pull_requests
     - master
   script:
-    - yarn test --ci
-  interruptible: true
+    - yarn test:ci
+
+test_pr:
+  extends:
+    - .test
+  only:
+    - external_pull_requests
+  script:
+    - yarn test:ci:pr $LERNA_SINCE
 
 storybook:
   stage: quality
@@ -212,7 +226,7 @@ sonarqube:
   stage: onschedule
   dependencies:
     - yarn_setup
-    - test
+    - test_all
   only:
     variables:
       - $CI_RUN_SONARQUBE == "1"
