@@ -14,7 +14,8 @@ const Export = ({
   defaultValues,
   runExport,
   handleTemplateChange,
-  templatesInitialized
+  templatesInitialized,
+  formValid
 }) => {
   const [columns, setColumns] = useState(availableColumns)
   useEffect(() => loadFormData(selection), [loadFormData, selection])
@@ -38,7 +39,7 @@ const Export = ({
       <LoadMask required={[columns, templatesInitialized]}>
         <ColumnPicker intl={intl} columns={columns} onColumnsChange={setColumns} dndEnabled={true} />
         <StyledButtonWrapper>
-          <Button onClick={() => runExport(columns)} look="raised">
+          <Button onClick={() => runExport(columns)} ink="primary" look="raised" disabled={!formValid}>
             <FormattedMessage id="client.actions.export.form.generate" />
           </Button>
         </StyledButtonWrapper>
@@ -50,6 +51,7 @@ const Export = ({
 Export.propTypes = {
   selection: selectionPropType.propType,
   intl: PropTypes.object.isRequired,
+  formValid: PropTypes.bool.isRequired,
   availableColumns: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
