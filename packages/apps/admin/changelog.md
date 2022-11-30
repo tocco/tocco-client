@@ -1,3 +1,7 @@
+1.0.119-hotfix34.7
+- support identifier type in tql builder
+- fix null as end date
+
 1.0.119-hotfix34.6
 - fix react-select dropdown being clipped inside input-edit table
 - fix save button being clipped and change hover on error
