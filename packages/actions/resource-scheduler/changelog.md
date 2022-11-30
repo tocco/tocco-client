@@ -1,3 +1,6 @@
+1.0.51-hotfix33.24
+- fix null as end date
+
 1.0.51-hotfix33.23
 - support identifier type in tql builder
 
