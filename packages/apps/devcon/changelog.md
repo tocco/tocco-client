@@ -1,3 +1,7 @@
+1.0.95
+- support identifier type in tql builder
+- enforce css selectors
+
 1.0.94
 - link for max 100 created entities
 - add docs-tree search
