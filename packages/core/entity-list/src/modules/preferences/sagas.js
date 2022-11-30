@@ -1,8 +1,8 @@
 import {channel} from 'redux-saga'
 import {all, call, put, select, take, takeLatest} from 'redux-saga/effects'
 import {rest, notification} from 'tocco-app-extensions'
-import {ColumnPicker} from 'tocco-ui'
 
+import ColumnModal from '../../components/ColumnModal'
 import {getTableColumns} from '../../util/api/forms'
 import * as util from '../../util/preferences'
 import * as listActions from '../list/actions'
@@ -111,7 +111,7 @@ export function* displayColumnModal() {
           answerChannel.put(columns)
         }
 
-        return <ColumnPicker initialColumns={formColumns} onOk={onOk} dndEnabled={false} />
+        return <ColumnModal onOk={onOk} initialColumns={formColumns} dndEnabled={false} />
       },
       true
     )
