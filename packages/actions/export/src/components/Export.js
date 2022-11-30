@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
+import {FormattedMessage} from 'react-intl'
 import {templateValues, selection as selectionPropType} from 'tocco-app-extensions'
-import {ColumnPicker, LoadMask} from 'tocco-ui'
+import {Button, ColumnPicker, LoadMask} from 'tocco-ui'
+
+import {StyledButtonWrapper} from './StyledComponents'
 
 const Export = ({
   selection,
@@ -13,13 +16,18 @@ const Export = ({
   handleTemplateChange,
   templatesInitialized
 }) => {
+  const [columns, setColumns] = useState(availableColumns)
   useEffect(() => loadFormData(selection), [loadFormData, selection])
+
+  useEffect(() => {
+    setColumns(availableColumns)
+  }, [availableColumns])
 
   return (
     <LoadMask required={[defaultValues]}>
       <templateValues.TemplateForm
-        templateEntityName={'Export_template'}
-        formName={'Export_template_action'}
+        templateEntityName="Export_template"
+        formName="Export_template_action"
         selection={selection}
         customTemplateFields={{
           text: value => handleTemplateChange(value)
@@ -27,14 +35,13 @@ const Export = ({
         defaultValues={defaultValues}
       />
 
-      <LoadMask required={[availableColumns, templatesInitialized]}>
-        <ColumnPicker
-          onOk={values => runExport(values)}
-          intl={intl}
-          initialColumns={availableColumns}
-          dndEnabled={true}
-          buttonLabel={intl.formatMessage({id: 'client.actions.export.form.generate'})}
-        />
+      <LoadMask required={[columns, templatesInitialized]}>
+        <ColumnPicker intl={intl} columns={columns} onColumnsChange={setColumns} dndEnabled={true} />
+        <StyledButtonWrapper>
+          <Button onClick={() => runExport(columns)} look="raised">
+            <FormattedMessage id="client.actions.export.form.generate" />
+          </Button>
+        </StyledButtonWrapper>
       </LoadMask>
     </LoadMask>
   )

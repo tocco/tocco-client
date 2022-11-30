@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-import {StyledButton} from '../Button'
 import {StyledLi, StyledLabel} from '../Typography'
 import {scale, theme, generateShades} from '../utilStyles'
 
@@ -28,19 +27,6 @@ export const StyledCheckbox = styled.input`
 
   &:hover {
     cursor: pointer;
-  }
-`
-
-export const StyledButtonWrapper = styled.div`
-  position: sticky;
-  bottom: 0;
-  padding-top: ${scale.space(0)};
-  background-color: ${theme.color('paper')};
-  display: flex;
-  justify-content: flex-end;
-
-  ${StyledButton} {
-    margin-right: 0;
   }
 `
 
