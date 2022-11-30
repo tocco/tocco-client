@@ -4,9 +4,9 @@ import * as formActionTypes from 'redux-form/es/actionTypes'
 import {channel} from 'redux-saga'
 import {all, call, debounce, put, select, take, takeLatest} from 'redux-saga/effects'
 import {form, notification, rest} from 'tocco-app-extensions'
-import {ColumnPicker} from 'tocco-ui'
 import {tql} from 'tocco-util'
 
+import ColumnModal from '../../components/ColumnModal'
 import SearchFilterNameForm from '../../components/SearchFilterNameForm'
 import {changeParentFieldType, getEndpoint, getFormFieldFlat} from '../../util/api/forms'
 import searchFormTypes from '../../util/searchFormTypes'
@@ -363,7 +363,7 @@ export function* displaySearchFieldsModal() {
           answerChannel.put(pickedColumns)
         }
 
-        return <ColumnPicker initialColumns={columnsSorted} onOk={onOk} dndEnabled={true} />
+        return <ColumnModal onOk={onOk} initialColumns={columnsSorted} dndEnabled={true} />
       },
       true
     )

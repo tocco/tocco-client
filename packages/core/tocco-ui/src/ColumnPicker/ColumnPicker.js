@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
-import {useState, useEffect, useMemo, useCallback} from 'react'
+import {useState, useMemo, useCallback} from 'react'
 import {dragAndDrop, html} from 'tocco-util'
 
-import Button from '../Button'
 import SearchBox from '../SearchBox'
 import Typography from '../Typography'
 import {
@@ -10,7 +9,6 @@ import {
   StyledControlsWrapper,
   StyledCheckbox,
   StyledUl,
-  StyledButtonWrapper,
   StyledId,
   StyledItem,
   StyledNumber
@@ -20,11 +18,8 @@ const sortColumns = (columns, sortCriteria = 'hidden') => columns.sort((a, b) =>
 const getFilteredColumns = (columns, searchTerm) =>
   columns.filter(column => searchTerm === null || column.label.match(new RegExp(searchTerm, 'i')))
 
-const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => {
-  const [columns, setColumns] = useState([])
-  const initialColumnsSorted = sortColumns(initialColumns)
-
-  useEffect(() => setColumns(initialColumnsSorted), [initialColumnsSorted])
+const ColumnPicker = ({dndEnabled, columns: unsortedColumns = [], onColumnsChange, intl}) => {
+  const columns = sortColumns(unsortedColumns)
 
   const [searchTerm, setSearchTerm] = useState(null)
   const changeColumnPosition = useCallback(
@@ -36,10 +31,10 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => 
             .filter(c => c !== currentlyDraggingItem)
             .reduce((acc, key) => [...acc, key, ...(key.id === currentlyDragOver ? [currentlyDraggingItem] : [])], [])
 
-        setColumns(updateColumns)
+        onColumnsChange(updateColumns)
       }
     },
-    [columns]
+    [columns, onColumnsChange]
   )
   const {dndEvents, dndState} = dragAndDrop.useDnD(changeColumnPosition)
 
@@ -64,7 +59,7 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => 
               )
             )
 
-          setColumns(updateColumns)
+          onColumnsChange(updateColumns)
         }
 
         return (
@@ -86,7 +81,7 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => 
           </StyledItem>
         )
       }),
-    [dndState, dndEnabled, dndEvents, filteredColumns]
+    [dndState, dndEnabled, dndEvents, filteredColumns, onColumnsChange]
   )
 
   const toggleAllCheckBoxes = e => {
@@ -103,7 +98,7 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => 
       ])
     }
 
-    setColumns(updateColumns)
+    onColumnsChange(updateColumns)
   }
 
   return (
@@ -119,27 +114,21 @@ const ColumnPicker = ({onOk, dndEnabled, initialColumns, intl, buttonLabel}) => 
         </Typography.Span>
       </StyledControlsWrapper>
       <StyledUl>{listItems}</StyledUl>
-      <StyledButtonWrapper>
-        <Button onClick={() => onOk(columns)} look={'raised'}>
-          {buttonLabel || intl.formatMessage({id: 'client.entity-list.preferences.columns.okButton'})}
-        </Button>
-      </StyledButtonWrapper>
     </StyledColumnPickerWrapper>
   )
 }
 
 ColumnPicker.propTypes = {
-  initialColumns: PropTypes.arrayOf(
+  columns: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       label: PropTypes.string,
       hidden: PropTypes.bool.isRequired
     })
   ).isRequired,
-  onOk: PropTypes.func.isRequired,
+  onColumnsChange: PropTypes.func.isRequired,
   dndEnabled: PropTypes.bool.isRequired,
-  intl: PropTypes.object.isRequired,
-  buttonLabel: PropTypes.string
+  intl: PropTypes.object.isRequired
 }
 
 export default ColumnPicker
