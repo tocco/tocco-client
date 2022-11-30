@@ -46,8 +46,9 @@ describe('app-extensions', () => {
               [matchers.call.fn(sagas.fetchTemplates)]
             ])
             .call(rest.fetchForm, 'Export_template_action', 'detail')
-            .put(formActions.initialize('template'))
             .put(actions.setForm({}))
+            .put(actions.setFieldDefinitions([]))
+            .put(formActions.initialize('template'))
             .call(sagas.setFormValues, {}, [], {})
             .call(sagas.fetchTemplates, {payload})
             .run()
@@ -237,7 +238,6 @@ describe('app-extensions', () => {
             customTemplateFields
           }
 
-          const formDefinition = {name: 'Export_template_action'}
           const fieldDefinitions = [{id: 'form-field'}]
 
           const templateEntity = {key: '1'}
@@ -245,9 +245,8 @@ describe('app-extensions', () => {
 
           return expectSaga(sagas.setTemplateValues, {payload})
             .provide([
-              [select(sagas.formDefinitionSelector), formDefinition],
+              [select(sagas.fieldDefinitionSelector), fieldDefinitions],
               [select(sagas.initializedSelector), false],
-              [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions],
               [matchers.call.fn(rest.fetchEntity), templateEntity],
               [matchers.call.fn(api.getFlattenEntity), flattenedValues]
             ])

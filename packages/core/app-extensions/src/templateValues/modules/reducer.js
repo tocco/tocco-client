@@ -5,12 +5,14 @@ import * as actions from './actions'
 const ACTION_HANDLERS = {
   [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
   [actions.SET_FORM]: reducerUtil.singleTransferReducer('formDefinition'),
+  [actions.SET_FIELD_DEFINITIONS]: reducerUtil.singleTransferReducer('fieldDefinitions'),
   [actions.SET_TEMPLATE_OPTIONS]: reducerUtil.singleTransferReducer('templateOptions'),
   [actions.SET_TEMPLATE_VALUES]: reducerUtil.mappingTransferReducer('template', 'selectedTemplate')
 }
 
 const initialState = {
   formDefinition: null,
+  fieldDefinitions: null,
   templateOptions: [],
   selectedTemplate: null,
   initialized: false
