@@ -1,3 +1,8 @@
+0.1.69
+- support identifier type in tql builder
+- enforce css selectors
+- enforce css selectors
+
 0.1.68
 - fixed width for user-menu
 

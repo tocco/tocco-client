@@ -1,3 +1,13 @@
+1.0.132
+- fixed width for user-menu
+- add system menu shortcut
+- add the full size log view action
+- add the full size log view action to the admin
+- support identifier type in tql builder
+- enforce css selectors
+- enforce css selectors
+- fix null as end date
+
 1.0.131
 - fix save button being clipped and change hover on error
 - fix react-select dropdown being clipped inside input-edit table

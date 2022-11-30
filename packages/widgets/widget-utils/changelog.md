@@ -1,3 +1,6 @@
+0.1.29
+- support identifier type in tql builder
+
 0.1.28
 - allow target attribute in html
 

@@ -1,3 +1,9 @@
+0.1.14
+- support identifier type in tql builder
+- enforce css selectors
+- enforce css selectors
+- fix null as end date
+
 0.1.13
 - fix save button being clipped and change hover on error
 - fix react-select dropdown being clipped inside input-edit table
