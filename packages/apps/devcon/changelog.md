@@ -1,3 +1,6 @@
+1.0.83-hotfix34.4
+- support identifier type in tql builder
+
 1.0.83-hotfix34.3
 - send selection to adjusted POST endpoint when loading report settings
 
