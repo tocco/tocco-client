@@ -11,6 +11,7 @@ import * as actions from './actions'
 
 export const initializedSelector = state => state.templateValues.initialized
 export const formDefinitionSelector = state => state.templateValues.formDefinition
+export const fieldDefinitionSelector = state => state.templateValues.fieldDefinitions
 export const selectedTemplateSelector = state => state.templateValues.selectedTemplate
 
 export default function* sagas() {
@@ -26,9 +27,12 @@ export function* initialize({payload}) {
   if (!currentFormDefinition) {
     const {formName, defaultValues, customTemplateFields} = payload
     const formDefinition = yield call(rest.fetchForm, formName, 'detail')
-    yield put(formActions.initialize(REDUX_FORM_NAME))
-    yield put(actions.setForm(formDefinition))
     const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+    yield put(actions.setFieldDefinitions(fieldDefinitions))
+    yield put(actions.setForm(formDefinition))
+
+    yield put(formActions.initialize(REDUX_FORM_NAME))
+
     yield call(setFormValues, defaultValues, fieldDefinitions, customTemplateFields)
     yield call(fetchTemplates, {payload})
   }
@@ -66,8 +70,7 @@ const responseTemplateTransformer = templateEntityName => template => ({
 
 export function* setTemplateValues({payload: {templateEntityName, template, customTemplateFields}}) {
   if (template) {
-    const formDefinition = yield select(formDefinitionSelector)
-    const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+    const fieldDefinitions = yield select(fieldDefinitionSelector)
     const paths = [...fieldDefinitions.map(field => field.id), ...Object.keys(customTemplateFields)]
     const templateValues = yield call(rest.fetchEntity, templateEntityName, template.key, {paths})
     const flattenedValues = yield call(api.getFlattenEntity, templateValues)
@@ -84,6 +87,7 @@ export function* setTemplateValues({payload: {templateEntityName, template, cust
 
 export function* setFormValues(values, fieldDefinitions, customTemplateFields) {
   yield call(display.enhanceEntityWithDisplays, values, fieldDefinitions)
+
   const formValues = yield call(form.entityToFormValues, values, fieldDefinitions)
   for (const [fieldName, fieldValue] of Object.entries(formValues).filter(([, value]) => !!value)) {
     if (_isFunction(customTemplateFields[fieldName])) {
@@ -96,7 +100,6 @@ export function* setFormValues(values, fieldDefinitions, customTemplateFields) {
 
 export function* getValues() {
   const formValues = yield select(getFormValues(REDUX_FORM_NAME))
-  const formDefinition = yield select(formDefinitionSelector)
-  const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+  const fieldDefinitions = yield select(fieldDefinitionSelector)
   return yield call(form.formValuesToFlattenEntity, formValues, fieldDefinitions)
 }
