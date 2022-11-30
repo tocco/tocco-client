@@ -17,10 +17,10 @@ const TemplateForm = ({
   defaultValues = {},
   selection
 }) => {
-  useEffect(
-    () => initializeTemplates(templateEntityName, formName, selection, customTemplateFields, defaultValues),
-    [initializeTemplates, templateEntityName, formName, selection, customTemplateFields, defaultValues]
-  )
+  // run only once on mount
+  useEffect(() => {
+    initializeTemplates(templateEntityName, formName, selection, customTemplateFields, defaultValues)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (formDefinition) {
     return (
