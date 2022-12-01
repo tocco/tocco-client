@@ -8,6 +8,7 @@ import {reducer as reducerUtil, saga as sagaUtil} from 'tocco-util'
 
 import errorLogging from '../../errorLogging'
 import inputReducer from './input'
+import themeReducer from './theme'
 
 export const getInitialState = input => {
   const initialState = window.__INITIAL_STATE__ || {}
@@ -37,6 +38,7 @@ export const createStore = (reducers = {}, sagas = [], input = {}, name = '') =>
   const allReducers = {
     ...reducers,
     input: inputReducer,
+    theme: themeReducer,
     intl: intlReducer
   }
 

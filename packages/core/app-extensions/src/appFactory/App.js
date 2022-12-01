@@ -9,12 +9,12 @@ import {env} from 'tocco-util'
 import cache from '../cache'
 import keyDown from '../keyDown'
 import {StyledApp} from './StyledComponents'
-import ThemeWrapper from './ThemeWrapper'
+import ThemeWrapper from './ThemeWrapperContainer'
 import './styles.css'
 
-const getDefaultTheme = embedType => (embedType === 'widget' ? WidgetTheme : ToccoTheme.defaultTheme)
-
 const App = ({store, initIntlPromise, content, theme}) => {
+  const getDefaultTheme = embedType => (embedType === 'widget' ? WidgetTheme : ToccoTheme)
+
   const wrapperCallback = useCallback(node => {
     if (node) {
       import(/* webpackChunkName: "vendor-fontawesome" */ '@fortawesome/fontawesome-svg-core').then(fontawesome => {
@@ -29,8 +29,8 @@ const App = ({store, initIntlPromise, content, theme}) => {
   const embedType = env.getEmbedType()
 
   return (
-    <ThemeWrapper customTheme={theme} defaultTheme={getDefaultTheme(embedType)}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <ThemeWrapper customTheme={theme} defaultTheme={getDefaultTheme(embedType)}>
         <keyDown.KeyDownWatcher>
           <LoadMask promises={[initIntlPromise]}>
             <IntlProvider>
@@ -40,8 +40,8 @@ const App = ({store, initIntlPromise, content, theme}) => {
             </IntlProvider>
           </LoadMask>
         </keyDown.KeyDownWatcher>
-      </Provider>
-    </ThemeWrapper>
+      </ThemeWrapper>
+    </Provider>
   )
 }
 

@@ -1,6 +1,6 @@
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
-import {notification} from 'tocco-app-extensions'
+import {notification, appFactory} from 'tocco-app-extensions'
 
 import {setMenuOpen} from '../../modules/navigation/actions'
 import {doLogout, loadBusinessUnits, changeBusinessUnit} from '../../modules/session/actions'
@@ -13,7 +13,8 @@ const mapActionCreators = {
   openModalComponent: notification.modal,
   removeModalComponent: notification.removeModal,
   info: notification.toaster,
-  setMenuOpen
+  setMenuOpen,
+  setThemeType: appFactory.setThemeType
 }
 
 const mapStateToProps = (state, props) => ({
@@ -21,7 +22,8 @@ const mapStateToProps = (state, props) => ({
   currentBusinessUnit: state.session.currentBusinessUnit,
   businessUnits: state.session.businessUnits,
   runEnv: state.preferences.serverSettings.runEnv,
-  niceVersion: state.preferences.serverSettings.niceVersion
+  niceVersion: state.preferences.serverSettings.niceVersion,
+  themeType: state.theme.themeType
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Header))

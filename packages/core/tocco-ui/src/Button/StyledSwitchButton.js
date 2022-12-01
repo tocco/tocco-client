@@ -1,12 +1,15 @@
 import styled from 'styled-components'
 
+import {scale} from '../utilStyles'
+
 export const StyledSwitch = styled.div`
+  margin-left: ${scale.space(-0.5)};
   position: relative;
-  width: 30px;
-  height: 14px;
+  width: 20px;
+  height: 8px;
   background: transparent;
   border: 1px solid #000;
-  border-radius: 32px;
+  border-radius: 35px;
   padding: 4px;
   transition: 300ms all;
 
@@ -14,14 +17,14 @@ export const StyledSwitch = styled.div`
     transition: 300ms all;
     content: '';
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 3px;
+    height: 3px;
     border-radius: 35px;
     top: 50%;
     left: 1px;
     background: transparent;
     transform: translate(0, -50%);
-    border: 5px solid #b71c1c;
+    border: 5px solid #000;
   }
 `
 
@@ -40,7 +43,8 @@ export const StyledSwitchInput = styled.input`
     border: 1px solid #fff;
 
     &:before {
-      transform: translate(16px, -50%);
+      transform: translate(12px, -50%);
+      border: 5px solid #b22a31;
     }
   }
 `

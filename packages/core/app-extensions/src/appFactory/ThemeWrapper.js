@@ -29,7 +29,9 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const ThemeWrapper = ({defaultTheme, customTheme, children, theme}) => {
+const ThemeWrapper = ({themeType, defaultTheme, customTheme, children, theme}) => {
+  defaultTheme = themeType === 'light' ? defaultTheme.defaultTheme : defaultTheme.darkTheme
+
   const mergedTheme = useMemo(() => _merge({}, defaultTheme, customTheme), [defaultTheme, customTheme])
 
   return (
@@ -48,6 +50,7 @@ ThemeWrapper.propTypes = {
   customTheme: PropTypes.object,
   defaultTheme: PropTypes.object,
   theme: PropTypes.object,
+  themeType: PropTypes.string,
   children: PropTypes.node
 }
 

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 
 import {StyledSwitch, StyledSwitchInput, StyledSwitchLabel} from './StyledSwitchButton'
 
-// TODO: PropTypes
 const SwitchButton = ({checked, onChange}) => {
   return (
     <StyledSwitchLabel>
@@ -13,7 +12,7 @@ const SwitchButton = ({checked, onChange}) => {
 }
 
 SwitchButton.propTypes = {
-  checked: PropTypes.func.isRequired,
+  checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired
 }
 

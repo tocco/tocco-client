@@ -29,13 +29,16 @@ const Header = ({
   removeModalComponent,
   info,
   intl,
-  setMenuOpen
+  setMenuOpen,
+  setThemeType
 }) => {
   const [checked, setChecked] = useState(false)
 
   const handleChange = e => {
     setChecked(e.target.checked)
+    setThemeType(checked ? 'light' : 'dark')
   }
+  // console.log(themeType)
 
   const handleBusinessUnitOpen = () => {
     if (businessUnits.length === 0) {
@@ -173,7 +176,9 @@ Header.propTypes = {
   removeModalComponent: PropTypes.func.isRequired,
   info: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
-  setMenuOpen: PropTypes.func.isRequired
+  setMenuOpen: PropTypes.func.isRequired,
+  themeType: PropTypes.string,
+  setThemeType: PropTypes.func.isRequired
 }
 
 export default Header
