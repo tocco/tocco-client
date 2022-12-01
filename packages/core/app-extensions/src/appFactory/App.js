@@ -12,7 +12,7 @@ import {StyledApp} from './StyledComponents'
 import ThemeWrapper from './ThemeWrapper'
 import './styles.css'
 
-const getDefaultTheme = embedType => (embedType === 'widget' ? WidgetTheme : ToccoTheme)
+const getDefaultTheme = embedType => (embedType === 'widget' ? WidgetTheme : ToccoTheme.defaultTheme)
 
 const App = ({store, initIntlPromise, content, theme}) => {
   const wrapperCallback = useCallback(node => {

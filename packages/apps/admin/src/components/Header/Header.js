@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
+import {useState} from 'react'
 import {FormattedMessage} from 'react-intl'
 import {PasswordUpdateApp} from 'tocco-login/src/main'
 import TwoFactorConnectorApp from 'tocco-two-factor-connector/src/main'
-import {MenuItem, ButtonMenu, BallMenu, RouterLinkButton} from 'tocco-ui'
+import {MenuItem, ButtonMenu, BallMenu, RouterLinkButton, SwitchButton} from 'tocco-ui'
 
 import {getDocsUrl} from '../../utils/docsUtils'
 import AboutTocco from '../AboutTocco'
@@ -30,6 +31,12 @@ const Header = ({
   intl,
   setMenuOpen
 }) => {
+  const [checked, setChecked] = useState(false)
+
+  const handleChange = e => {
+    setChecked(e.target.checked)
+  }
+
   const handleBusinessUnitOpen = () => {
     if (businessUnits.length === 0) {
       loadBusinessUnits()
@@ -140,6 +147,7 @@ const Header = ({
               {MenuItemAbout}
             </BallMenu>
             <NotificationCenterButton />
+            <SwitchButton checked={checked} onChange={handleChange} />
           </StyledBallMenuWrapper>
         </StyledConfig>
       </StyledHeader>
