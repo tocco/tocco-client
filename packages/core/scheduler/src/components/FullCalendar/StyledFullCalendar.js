@@ -38,6 +38,10 @@ export const StyledFullCalendarWrapper = styled.div`
       margin-right: 6px;
     }
 
+    .fc-scroller {
+      ${StyledScrollbar}
+    }
+
     .fc-scrollgrid {
       border-top: 0; // remove top border as it otherwise causes a double border when not scrolling
       border-color: ${({theme}) => shadeColor(_get(theme, 'colors.paper'), 1)};
@@ -84,7 +88,6 @@ export const StyledFullCalendarWrapper = styled.div`
 
 export const StyledMemoizedFullCalender = styled.div`
   overflow-y: auto;
-  ${StyledScrollbar}
 `
 
 export const CalendarGlobalPrintStyle = createGlobalStyle`

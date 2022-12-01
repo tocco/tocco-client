@@ -137,7 +137,7 @@ const FullCalendar = forwardRef(
           ref={calendarEl}
           initialView={'dayView'}
           headerToolbar={false}
-          height="auto"
+          height="100%"
           resourceAreaWidth="15%"
           resourceAreaColumns={[{labelText: '', headerContent}]}
           resourceLabelContent={props => <ResourceLabelContent {...props} onCalendarRemove={onCalendarRemove} />}

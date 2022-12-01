@@ -1,32 +1,11 @@
 import PropTypes from 'prop-types'
 import {useEffect, useState, useRef} from 'react'
-import ReactDOM from 'react-dom'
 import {notification, errorLogging} from 'tocco-app-extensions'
-import {Icon, LoadMask} from 'tocco-ui'
+import {LoadMask, SidepanelMainContent, Sidepanel, SidepanelHeader, SidepanelContainer} from 'tocco-ui'
 
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
 import SearchPanel from '../SearchPanel/SearchPanel'
-import {
-  StyledResourceSchedulerWrapper,
-  StyledSplitPanelWrapperLeft,
-  StyledSplitPanelWrapperRight,
-  StyledSplitPane,
-  StyledGutter,
-  StyledPlaceHolder,
-  StyledToggleCollapse,
-  StyledToggleCollapseButton
-} from './StyledComponents'
-
-const getGutter = () => () => {
-  const gutterEl = document.createElement('div')
-  ReactDOM.render(
-    <StyledGutter tabIndex={0}>
-      <Icon icon="vertical-rule" />
-    </StyledGutter>,
-    gutterEl
-  )
-  return gutterEl
-}
+import {StyledSearchPanelWrapper, StyledSchedulerAppContainerWrapper} from './StyledComponents'
 
 const ResourceScheduler = ({
   initialize,
@@ -43,51 +22,26 @@ const ResourceScheduler = ({
   }, [initialize])
 
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [percentageSizes, setPercentageSizes] = useState([20, 80])
-  const [minPxSizes, setMinPxSizes] = useState([325, 650])
-
-  const toggleSizes = () => {
-    if (!isCollapsed) {
-      setPercentageSizes([0, 99])
-      setMinPxSizes([0, 975])
-    } else {
-      setPercentageSizes([20, 80])
-      setMinPxSizes([325, 650])
-    }
-  }
-
   const schedulerRef = useRef(null)
 
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed)
-    toggleSizes()
+  useEffect(() => {
     if (schedulerRef.current) {
       schedulerRef.current.updateSize()
     }
-  }
+  }, [isCollapsed])
 
   return (
-    <StyledResourceSchedulerWrapper>
-      <StyledPlaceHolder onClick={toggleCollapse} isCollapsed={isCollapsed}>
-        <StyledToggleCollapse isCollapsed={isCollapsed}>
-          <StyledToggleCollapseButton icon="chevron-right" isCollapsed={isCollapsed} />
-        </StyledToggleCollapse>
-      </StyledPlaceHolder>
+    <SidepanelContainer
+      sidepanelPosition={'left'}
+      sidepanelCollapsed={isCollapsed}
+      setSidepanelCollapsed={setIsCollapsed}
+    >
       {handleNotifications && <notification.Notifications />}
-      <StyledSplitPane
-        sizes={percentageSizes}
-        minSize={minPxSizes}
-        direction="horizontal"
-        cursor="col-resize"
-        gutter={getGutter()}
-        isCollapsed={isCollapsed}
-      >
-        <StyledSplitPanelWrapperLeft isCollapsed={isCollapsed}>
-          <errorLogging.ErrorBoundary>
-            <StyledToggleCollapse>
-              <StyledToggleCollapseButton icon="chevron-left" onClick={toggleCollapse} />
-            </StyledToggleCollapse>
-            <LoadMask required={[calendarTypes]}>
+      <Sidepanel>
+        <errorLogging.ErrorBoundary>
+          <LoadMask required={[calendarTypes]}>
+            <SidepanelHeader />
+            <StyledSearchPanelWrapper>
               <SearchPanel
                 locale={locale}
                 calendarTypes={calendarTypes}
@@ -96,16 +50,19 @@ const ResourceScheduler = ({
                 emitAction={emitAction}
                 initialCalendarType={initialCalendarType}
               />
-            </LoadMask>
-          </errorLogging.ErrorBoundary>
-        </StyledSplitPanelWrapperLeft>
-        <StyledSplitPanelWrapperRight>
-          <errorLogging.ErrorBoundary>
+            </StyledSearchPanelWrapper>
+          </LoadMask>
+        </errorLogging.ErrorBoundary>
+      </Sidepanel>
+
+      <SidepanelMainContent>
+        <errorLogging.ErrorBoundary>
+          <StyledSchedulerAppContainerWrapper>
             <SchedulerAppContainer schedulerRef={schedulerRef} />
-          </errorLogging.ErrorBoundary>
-        </StyledSplitPanelWrapperRight>
-      </StyledSplitPane>
-    </StyledResourceSchedulerWrapper>
+          </StyledSchedulerAppContainerWrapper>
+        </errorLogging.ErrorBoundary>
+      </SidepanelMainContent>
+    </SidepanelContainer>
   )
 }
 
