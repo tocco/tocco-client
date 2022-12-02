@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useState} from 'react'
 import {field} from 'tocco-app-extensions'
 import {Table, EditableValue, FormattedValue} from 'tocco-ui'
-import {api} from 'tocco-util'
+import {api, env} from 'tocco-util'
 
 import {arrowKeyHandler} from './keyHandler'
 import {StyledCell, StyledTableWrapper} from './StyledComponents'
@@ -103,6 +103,8 @@ const InputEditTable = ({
     return null
   }
 
+  const embedType = env.getEmbedType()
+
   return (
     <StyledTableWrapper onKeyDown={arrowKeyHandler}>
       <Table
@@ -117,6 +119,7 @@ const InputEditTable = ({
           totalCount
         }}
         onPageChange={setCurrentPage}
+        scrollBehaviour={embedType === 'admin' ? 'inline' : 'none'}
       />
     </StyledTableWrapper>
   )
