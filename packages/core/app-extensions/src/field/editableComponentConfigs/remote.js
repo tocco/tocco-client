@@ -71,7 +71,9 @@ export default {
         : null,
     createPermission:
       formField.relationName &&
-      _get(formData, ['entityModel', 'paths', formField.relationName, 'createPermission'], false),
+      _get(formData, ['entityModel', 'paths', formField.relationName, 'createPermission'], false) &&
+      _get(formData, ['entityModel', 'paths', formField.relationName, 'useRemoteFieldNewButton'], true) &&
+      _get(formField, 'displayCreateButton', true),
     openRemoteCreate: value => formData.openRemoteCreate(formField, formName, value)
   })
 }
