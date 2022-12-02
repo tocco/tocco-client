@@ -26,7 +26,7 @@ export const StyledMenuLink = styled(Link)`
 `
 
 export const StyledIconLink = styled(Link)`
-  /* disable open new tab feature on touch devices */
+  /* Disable open new tab feature on mobile */
   ${isTouchDevice &&
   css`
     display: none;
@@ -60,7 +60,7 @@ export const StyledMenuLinkWrapper = styled.span`
 
 export const StyledTogglerIconWrapper = styled.span`
   display: none;
-  /* always show expand/collapse icon on touch devices */
+  /* Always show expand/collapse icon on mobile */
   ${isTouchDevice &&
   css`
     display: block;
