@@ -61,6 +61,7 @@ export const StyledSearchFilterButton = styled.div`
       color: ${({active}) => active && theme.color('paper')};
     }
   }
+  /* allow hover styles only on non-touch devices */
   ${!isTouchDevice &&
   css`
     &:hover {
@@ -73,6 +74,7 @@ export const StyledSearchFilterButton = styled.div`
       cursor: pointer;
     }
   `}
+  /* apply font color only on touch devices to always show them */
   ${isTouchDevice &&
   css`
     ${/* sc-selector */ StyledSpanSearchFilter},
