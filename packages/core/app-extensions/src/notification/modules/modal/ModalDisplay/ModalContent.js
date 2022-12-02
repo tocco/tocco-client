@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {useMemo, useRef, useLayoutEffect, useCallback, useEffect} from 'react'
-import {Typography} from 'tocco-ui'
+import {Typography, useWindowWidth} from 'tocco-ui'
 
 import Content from '../../../components/Content'
 import {
@@ -54,7 +54,7 @@ const ModalContent = ({cancelable, message, title, onClose, onCancel, id, compon
     <>
       <GlobalStyles />
       <StyledModalWrapper>
-        <StyledModalContent ref={ref}>
+        <StyledModalContent ref={ref} width={useWindowWidth()}>
           <StyledModalHeader>
             {title && (
               <StyledTitleWrapper>
