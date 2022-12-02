@@ -1,5 +1,5 @@
-import styled, {createGlobalStyle, css} from 'styled-components'
-import {Button, scale, StyledScrollbar, StyledTether, theme, isTouchDevice} from 'tocco-ui'
+import styled, {createGlobalStyle} from 'styled-components'
+import {Button, scale, StyledScrollbar, StyledTether, theme} from 'tocco-ui'
 
 export const basePadding = scale.space(0.5)
 
@@ -7,23 +7,23 @@ export const StyledModalContent = styled.div`
   position: relative;
   background-color: ${theme.color('paper')};
   padding: ${basePadding};
-  ${!isTouchDevice &&
-  css`
+  display: grid;
+  grid-template-rows: [header] auto [body] 1fr;
+
+  @media (min-width: 501px) {
     top: 10%;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
     max-height: 80%;
     min-width: 350px;
     max-width: 700px;
     margin: auto;
-  `}
-  ${isTouchDevice &&
-  css`
+  }
+
+  @media (max-width: 500px) {
     box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-  `}
-  display: grid;
-  grid-template-rows: [header] auto [body] 1fr;
+    height: 100vh;
+    width: 100vw;
+  }
 `
 
 export const StyledCloseButton = styled.button`
