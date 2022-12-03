@@ -14,6 +14,8 @@ export const StyledActionWrapper = styled.span`
   display: inline-block;
 
   ${StyledButton} {
+    display: inline;
+
     > * {
       overflow: hidden;
     }
