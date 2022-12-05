@@ -28,6 +28,8 @@ app.use('*', function (req, res, next) {
 </head>
 <body>
     <h1>Widget</h1>
+    <div data-tocco-widget-ref="${widgetKey}" data-tocco-visibility="success">Success</div>
+    <div data-tocco-widget-ref="${widgetKey}" data-tocco-visibility="failed">Failed</div>
     <script>window.toccoBackendUrl = "http://localhost:3000";</script>
     <div data-id="widget" data-tocco-widget-key="${widgetKey}"></div>
     <script src="http://localhost:3000/js/tocco-widget-utils/dist/bootstrap.js"></script>

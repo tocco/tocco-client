@@ -79,3 +79,16 @@ window.toccoTheme = {
   }
 }
 ```
+
+### Visibility States
+A widgets can be in different visibility states. Dependend on the visiblity state other html elements can be shown.
+
+In order to show an element dependend on a visiblity state it has to have two attributes:
+- `data-tocco-widget-ref` to define which widget it should listen to 
+- `data-tocco-visibility` to define the visbility state of the widget to show the element
+
+```html
+<div data-tocco-widget-key="12"></div>
+
+<div data-tocco-widget-ref="12" data-tocco-visibility="success">Erfolgreich.</div>
+```

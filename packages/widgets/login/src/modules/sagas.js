@@ -106,6 +106,7 @@ export function* handleSuccessfulLogin(response) {
   }
   yield put(setPassword(''))
   const timeout = response.timeout || DEFAULT_TIMEOUT
+  yield put(externalEvents.fireExternalEvent('onVisibilityStateChange', 'success'))
   yield put(externalEvents.fireExternalEvent('loginSuccess', {timeout}))
 }
 
@@ -124,6 +125,7 @@ export function* loginSaga({payload}) {
     yield call(handleSuccessfulLogin, response)
     yield call(handleRedirect)
   } else {
+    yield put(externalEvents.fireExternalEvent('onVisibilityStateChange', 'failed'))
     yield put(changePage(Pages.LOGIN_FORM)) // in order to display possible error message
     if (response.CAPTCHA) {
       yield put(activateRecaptcha())

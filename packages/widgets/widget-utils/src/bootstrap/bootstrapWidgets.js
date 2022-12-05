@@ -2,6 +2,7 @@ import _eq from 'lodash/eq'
 import {consoleLogger} from 'tocco-util'
 import {utils} from 'tocco-util/bundle'
 
+import {setVisibilityStateStyles} from './bootstrapVisibilityElements'
 import {ATTRIBUTE_WIDGET_KEY, BOOTSTRAP_SCRIPT_OBJ_NAME, ERROR_CODE_INVALID_DOMAIN} from './constants'
 import * as remoteLogger from './remoteLogger'
 import {executeRequest, enhanceExtractedBody} from './requests'
@@ -25,6 +26,9 @@ const handleRequestError = (backendUrl, response, key) => {
   return response
 }
 
+const makeHandleVisibilityStateChange = (backendUrl, widgetKey) => visibilityState =>
+  setVisibilityStateStyles(backendUrl, widgetKey, visibilityState)
+
 const initializeWidget = async (backendUrl, assetUrl, container) => {
   const key = getWidgetKey(container)
   const widgetConfig = await executeRequest(`${backendUrl}/nice2/rest/widget/configs/${key}`)
@@ -45,6 +49,10 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
       return
     }
 
+    const eventHandlers = {
+      ...getEventHandlers(container),
+      onVisibilityStateChange: makeHandleVisibilityStateChange(backendUrl, key)
+    }
     const customTheme = getTheme()
     const input = {
       backendUrl,
@@ -54,9 +62,9 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
       appContext: {
         embedType: 'widget',
         widgetConfigKey: key
-      }
+      },
+      ...eventHandlers
     }
-    const eventHandlers = getEventHandlers(container)
     const srcPath = `${assetUrl}/js/tocco-${packageName}/dist/`
 
     try {

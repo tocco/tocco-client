@@ -10,7 +10,7 @@ import loginReducers, {sagas} from './modules/reducers'
 
 const packageName = 'login'
 
-const EXTERNAL_EVENTS = ['loginSuccess', 'resize']
+const EXTERNAL_EVENTS = ['loginSuccess', 'resize', 'onVisibilityStateChange']
 
 export const initLoginApp = (id, input, events, publicPath, customTheme) => {
   const actions = [
