@@ -1,3 +1,7 @@
+1.1.49-hotfix33.24
+- move submit button to parent
+- add sync validation to template form
+
 1.1.49-hotfix33.23
 - support identifier type in tql builder
 
