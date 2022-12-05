@@ -1,3 +1,9 @@
+1.0.83-hotfix34.5
+- create ENTITY_DOCS selection for legacy actions
+- show fullscreen modal based on screen width instead of generally switching to fullscreen on touch devices
+- move submit button to parent
+- add sync validation to template form
+
 1.0.83-hotfix34.4
 - support identifier type in tql builder
 
