@@ -1,3 +1,13 @@
+1.0.133
+- order range values on top instead of side by side to improve ux
+- remove the split pane feature as it doesn not improve UX and wrap scheduler in generic sidepanel component
+- create ENTITY_DOCS selection for legacy actions
+- support disabling remote create button
+- move submit button to parent
+- add sync validation to template form
+- disable submit button for invalid form
+- add reload action
+
 1.0.132
 - fixed width for user-menu
 - add system menu shortcut

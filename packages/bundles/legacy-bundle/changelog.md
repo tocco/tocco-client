@@ -1,3 +1,11 @@
+0.1.15
+- order range values on top instead of side by side to improve ux
+- remove the split pane feature as it doesn not improve UX and wrap scheduler in generic sidepanel component
+- create ENTITY_DOCS selection for legacy actions
+- move submit button to parent
+- add sync validation to template form
+- disable submit button for invalid form
+
 0.1.14
 - support identifier type in tql builder
 - enforce css selectors

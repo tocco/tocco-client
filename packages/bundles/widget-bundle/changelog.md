@@ -1,3 +1,10 @@
+0.1.70
+- order range values on top instead of side by side to improve ux
+- create ENTITY_DOCS selection for legacy actions
+- move submit button to parent
+- add sync validation to template form
+- disable submit button for invalid form
+
 0.1.69
 - support identifier type in tql builder
 - enforce css selectors
