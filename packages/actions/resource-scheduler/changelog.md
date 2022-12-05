@@ -1,3 +1,7 @@
+1.0.51-hotfix33.25
+- move submit button to parent
+- add sync validation to template form
+
 1.0.51-hotfix33.24
 - fix null as end date
 

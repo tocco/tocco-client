@@ -1,6 +1,6 @@
 {
   "name": "tocco-two-factor-connector",
-  "version": "1.0.48-hotfix33.22",
+  "version": "1.0.48-hotfix33.23",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
