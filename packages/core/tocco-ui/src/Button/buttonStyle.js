@@ -31,8 +31,8 @@ const getDensityStyle = ({dense, theme}) =>
       `
     : null
 
-const getIconOnlyStyle = ({iconOnly}) =>
-  iconOnly
+const getRemovedPaddingStyle = ({iconOnly, removePadding}) =>
+  iconOnly || removePadding
     ? css`
         padding: 0;
         margin: 0;
@@ -58,7 +58,7 @@ export const buttonStyle = css`
   ${declareFont()}
   ${props => (props.withoutBackground ? transparentBackground() : interactiveStyling(props))}
   ${props => getDensityStyle(props)}
-  ${props => getIconOnlyStyle(props)}
+  ${props => getRemovedPaddingStyle(props)}
   ${props => declareIconPosition(props)}
 
   & > span:first-child {

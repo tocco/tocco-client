@@ -111,7 +111,11 @@ Button.propTypes = {
   /**
    * If true, renders only the icon and minimal space around it
    */
-  iconOnly: PropTypes.bool
+  iconOnly: PropTypes.bool,
+  /**
+   * If true, removes all padding
+   */
+  removePadding: PropTypes.bool
 }
 
 export default Button
