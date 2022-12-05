@@ -48,6 +48,29 @@ export const StyledIconLink = styled(Link)`
   }
 `
 
+export const StyledMenuText = styled.span`
+  button {
+    color: ${theme.color('text')};
+    text-decoration: none;
+
+    &:hover {
+      color: ${theme.color('secondaryLight')};
+      text-decoration: none; // nice2 reset
+    }
+
+    &:focus {
+      outline: none;
+      text-decoration: none; // nice2 reset
+      font-weight: ${theme.fontWeight('bold')};
+      color: ${secondaryLight};
+    }
+
+    &.active {
+      text-decoration: underline;
+    }
+  }
+`
+
 export const StyledMenuLinkWrapper = styled.span`
   display: inline-block;
   padding-top: ${scale.space(-2)};

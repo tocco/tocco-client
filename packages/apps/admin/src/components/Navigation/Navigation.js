@@ -153,7 +153,9 @@ const Navigation = ({
   }, [activeMenuTab, menuOpen])
 
   const handleCursorNavigation = key => {
-    const focusableElements = navigationEl.current.querySelectorAll('a[data-quick-navigation="true"], input')
+    const focusableElements = navigationEl.current.querySelectorAll(
+      'a[data-quick-navigation="true"], span[data-quick-navigation="true"] button, input'
+    )
     const currentIdx = [...focusableElements].findIndex(el => document.activeElement.isEqualNode(el))
 
     if (currentIdx > -1) {
