@@ -61,7 +61,7 @@ store.dispatch(notification.toaster({type: 'warning', title: 'client.title', dur
 store.dispatch(notification.toaster({type: 'error', title: 'client.title'}))
 ```
 
-### Show notifications
+### Show confirmation
 ```javascript
 store.dispatch(notification.confirm(
   'Title',
@@ -69,7 +69,8 @@ store.dispatch(notification.confirm(
   'OK text',
   'Cancel text',
   () => console.log('Ok'),
-  () => console.log('Cancel')
+  () => console.log('Cancel'),
+  'cancel' // default action
  ))
 ```
 
