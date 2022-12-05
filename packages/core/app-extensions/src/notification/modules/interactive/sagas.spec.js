@@ -47,15 +47,16 @@ describe('app-extensions', () => {
               const cancelText = 'cancel'
               const onOk = EMPTY_FUNC
               const onCancel = EMPTY_FUNC
+              const defaultAction = 'cancel'
 
-              const confirmAction = actions.confirm(title, message, okText, cancelText, onOk, onCancel)
+              const confirmAction = actions.confirm(title, message, okText, cancelText, onOk, onCancel, defaultAction)
 
               const generator = sagas.handleConfirm(confirmAction)
 
               const resultAction = {TYPE: 'something'}
 
               expect(generator.next().value).to.deep.equal(
-                call(getConfirmationAction, title, message, okText, cancelText, onOk, onCancel)
+                call(getConfirmationAction, {title, message, okText, cancelText, onOk, onCancel, defaultAction})
               )
               expect(generator.next(resultAction).value).to.deep.equal(put(resultAction))
 
@@ -90,7 +91,7 @@ describe('app-extensions', () => {
               const resultAction = {TYPE: 'something'}
 
               expect(generator.next().value).to.deep.equal(
-                call(getYesNoAction, title, message, yesText, noText, cancelText, onYes, onNo, onCancel)
+                call(getYesNoAction, {title, message, yesText, noText, cancelText, onYes, onNo, onCancel})
               )
               expect(generator.next(resultAction).value).to.deep.equal(put(resultAction))
 

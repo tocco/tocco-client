@@ -13,14 +13,12 @@ export default function* sagas(accept) {
 }
 
 export function* handleConfirm({payload}) {
-  const {title, message, okText, cancelText, onOk, onCancel} = payload
-  const action = yield call(getConfirmationAction, title, message, okText, cancelText, onOk, onCancel)
+  const action = yield call(getConfirmationAction, payload)
   yield put(action)
 }
 
 export function* handleYesNoQuestion({payload}) {
-  const {title, message, yesText, noText, cancelText, onYes, onNo, onCancel} = payload
-  const action = yield call(getYesNoAction, title, message, yesText, noText, cancelText, onYes, onNo, onCancel)
+  const action = yield call(getYesNoAction, payload)
   yield put(action)
 }
 

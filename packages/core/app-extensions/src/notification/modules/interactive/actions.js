@@ -1,7 +1,7 @@
 export const CONFIRM = 'notification/CONFIRM'
 export const YES_NO_QUESTION = 'notification/YES_NO_QUESTION'
 
-export const confirm = (title, message, okText, cancelText, onOk, onCancel) => ({
+export const confirm = (title, message, okText, cancelText, onOk, onCancel, defaultAction) => ({
   type: CONFIRM,
   payload: {
     title,
@@ -9,7 +9,8 @@ export const confirm = (title, message, okText, cancelText, onOk, onCancel) => (
     okText,
     cancelText,
     onOk,
-    onCancel
+    onCancel,
+    defaultAction
   }
 })
 

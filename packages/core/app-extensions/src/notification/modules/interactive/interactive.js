@@ -5,14 +5,18 @@ import {v4 as uuid} from 'uuid'
 import {modal} from '../modal/actions'
 import ModalButtons from '../modal/ModalDisplay/ModalButtons'
 
-export function getConfirmationAction(title, message, okText, cancelText, onOk, onCancel) {
+export function getConfirmationAction({title, message, okText, cancelText, onOk, onCancel, defaultAction = 'submit'}) {
   const id = uuid()
 
   const Content = ({close}) => {
     const handleKeyDown = event => {
       if (event.key === 'Enter') {
         event.preventDefault()
-        onOk()
+        if (defaultAction === 'submit') {
+          onOk()
+        } else if (defaultAction === 'cancel') {
+          onCancel()
+        }
         close()
       } else if (event.key === 'Escape') {
         onCancel()
@@ -32,7 +36,7 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
     const buttons = [
       {
         label: okText,
-        primary: true,
+        primary: defaultAction === 'submit',
         callback: () => {
           onOk()
           close()
@@ -40,6 +44,7 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
       },
       {
         label: cancelText,
+        primary: defaultAction === 'cancel',
         callback: () => {
           onCancel()
           close()
@@ -54,7 +59,7 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
   return modal(id, title, message, Content, false)
 }
 
-export function getYesNoAction(title, message, yesText, noText, cancelText, onYes, onNo, onCancel) {
+export function getYesNoAction({title, message, yesText, noText, cancelText, onYes, onNo, onCancel}) {
   const id = uuid()
 
   const Content = ({close}) => {

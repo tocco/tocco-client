@@ -6,14 +6,15 @@ import notification from '../../../notification'
 
 export default function* confirmHandler({preparationResponse}) {
   if (preparationResponse.preCheck && preparationResponse.preCheck.confirmMessage) {
-    const confirmResponse = yield call(promptConfirm, preparationResponse.preCheck.confirmMessage)
+    const {confirmMessage, defaultAction} = preparationResponse.preCheck
+    const confirmResponse = yield call(promptConfirm, confirmMessage, defaultAction)
     return {abort: !confirmResponse}
   }
 
   return {abort: false}
 }
 
-export function* promptConfirm(message) {
+export function* promptConfirm(message, defaultAction) {
   const answerChannel = yield call(channel)
   const onYes = () => answerChannel.put(true)
   const onCancel = () => answerChannel.put(false)
@@ -25,7 +26,8 @@ export function* promptConfirm(message) {
       <FormattedMessage id="client.common.yes" />,
       <FormattedMessage id="client.common.cancel" />,
       onYes,
-      onCancel
+      onCancel,
+      defaultAction
     )
   )
   return yield take(answerChannel)
