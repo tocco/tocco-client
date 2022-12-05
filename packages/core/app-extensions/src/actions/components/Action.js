@@ -43,7 +43,7 @@ ActionVisual.propTypes = {
     scopes: PropTypes.arrayOf(PropTypes.string),
     componentType: PropTypes.string,
     children: PropTypes.array,
-    buttonType: PropTypes.oneOf(['REGULAR', 'ICON'])
+    buttonType: PropTypes.oneOf(['REGULAR', 'ICON', 'TEXT'])
   }).isRequired,
   selection: PropTypes.shape({
     entityName: PropTypes.string.isRequired,

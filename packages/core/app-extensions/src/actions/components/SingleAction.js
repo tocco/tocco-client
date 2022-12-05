@@ -13,13 +13,16 @@ export const SingleAction = ({definition, onClick, selectedCount, disabled, intl
     onClick(definition)
     e.stopPropagation()
   }
+  const styleAsIcon = definition.buttonType === 'ICON'
+  const styleAsText = definition.buttonType === 'TEXT'
 
   return (
     <Button
-      iconOnly={definition.buttonType === 'ICON'}
+      iconOnly={styleAsIcon}
+      removePadding={styleAsText}
       data-cy={`action-${definition.id}`}
-      look={definition.buttonType === 'ICON' ? 'flat' : 'raised'}
-      withoutBackground={definition.buttonType === 'ICON'}
+      look={styleAsIcon || styleAsText ? 'flat' : 'raised'}
+      withoutBackground={styleAsIcon || styleAsText}
       onClick={handleClick}
       icon={definition.icon}
       label={label}
