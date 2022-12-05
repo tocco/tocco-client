@@ -1,3 +1,6 @@
+1.1.3-hotfix31.33
+- add scrollbehaviour prop to input edit table to prevent table collapse in widget context
+
 1.1.3-hotfix31.32
 - support identifier type in tql builder
 
