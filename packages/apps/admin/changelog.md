@@ -1,3 +1,6 @@
+1.0.134
+- show fullscreen modal based on screen width instead of generally switching to fullscreen on touch devices
+
 1.0.133
 - order range values on top instead of side by side to improve ux
 - remove the split pane feature as it doesn not improve UX and wrap scheduler in generic sidepanel component
