@@ -4,8 +4,12 @@ import {Icon} from 'tocco-ui'
 
 import {StyledIconLink, StyledMenuLink, StyledMenuLinkWrapper, StyledMenuText} from './StyledComponents'
 
-const ActionEntry = ({onClick, item}) =>
-  isCustomAction(item) ? (
+const ActionEntry = ({onClick, item}) => {
+  if (!isCustomAction(item)) {
+    return <></>
+  }
+
+  return (
     <StyledMenuLinkWrapper>
       {item.fullscreen && (
         <>
@@ -32,9 +36,8 @@ const ActionEntry = ({onClick, item}) =>
         </StyledMenuText>
       )}
     </StyledMenuLinkWrapper>
-  ) : (
-    <></>
   )
+}
 
 const isCustomAction = item => item.name && !item.path
 
