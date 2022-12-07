@@ -1,3 +1,6 @@
+0.1.71
+- prevent action buttons within table of being missaligned in widgets
+
 0.1.70
 - order range values on top instead of side by side to improve ux
 - create ENTITY_DOCS selection for legacy actions

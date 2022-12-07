@@ -1,3 +1,6 @@
+0.1.16
+- prevent action buttons within table of being missaligned in widgets
+
 0.1.15
 - order range values on top instead of side by side to improve ux
 - remove the split pane feature as it doesn not improve UX and wrap scheduler in generic sidepanel component

@@ -1,3 +1,6 @@
+1.0.135
+- prevent action buttons within table of being missaligned in widgets
+
 1.0.134
 - show fullscreen modal based on screen width instead of generally switching to fullscreen on touch devices
 
