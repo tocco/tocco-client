@@ -1,3 +1,10 @@
+1.0.136
+- allow padding of Button to be removed like when used as icon
+- allow Action to be rendered as text without button visual
+- export action types to use same names everywhere
+- custom actions that should open in a modal are now displayed in menu
+- confirm modals now use whichever default action the backend declares, which means switching the styling and keyboard shortcut
+
 1.0.135
 - prevent action buttons within table of being missaligned in widgets
 

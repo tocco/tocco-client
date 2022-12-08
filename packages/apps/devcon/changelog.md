@@ -1,3 +1,9 @@
+1.0.97
+- allow padding of Button to be removed like when used as icon
+- allow Action to be rendered as text without button visual
+- export action types to use same names everywhere
+- confirm modals now use whichever default action the backend declares, which means switching the styling and keyboard shortcut
+
 1.0.96
 - order range values on top instead of side by side to improve ux
 - create ENTITY_DOCS selection for legacy actions
