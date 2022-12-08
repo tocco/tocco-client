@@ -2,6 +2,8 @@ import _forOwn from 'lodash/forOwn'
 import {FormattedMessage} from 'react-intl'
 import {form} from 'tocco-app-extensions'
 
+// TODO: TOCDEV-6433 - replace cache with object cache
+
 export const validateSearchFields = (values, formDefinition) => {
   const errors = {}
 

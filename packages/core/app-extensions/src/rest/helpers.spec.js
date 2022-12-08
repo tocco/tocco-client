@@ -12,10 +12,6 @@ describe('app-extensions', () => {
     describe('helpers', () => {
       beforeEach(() => {
         cache.clearAll()
-        helpers.clearDisplayCache()
-        Object.keys(helpers.formCache).forEach(key => {
-          delete helpers.formCache[key]
-        })
       })
 
       describe('buildRequestQuery', () => {
@@ -244,13 +240,13 @@ describe('app-extensions', () => {
         })
 
         test('should serve display from cache if already loaded', () => {
-          helpers.addDisplayToCache('User.1', 'Test')
+          cache.addObjectCache('display', 'User.1', 'Test')
 
           return expectSaga(helpers.fetchDisplay, 'User', '1').returns('Test').run()
         })
 
         test('should serve display with type from cache if already loaded', () => {
-          helpers.addDisplayToCache('User.1.tooltip', 'Test')
+          cache.addObjectCache('display', 'User.1.tooltip', 'Test')
 
           return expectSaga(helpers.fetchDisplay, 'User', '1', 'tooltip').returns('Test').run()
         })
@@ -258,25 +254,25 @@ describe('app-extensions', () => {
 
       describe('invalidateDisplay', () => {
         test('should clear cache for display', () => {
-          helpers.addDisplayToCache('User.1', 'Test')
+          cache.addObjectCache('display', 'User.1', 'Test')
 
           helpers.invalidateDisplay('User', '1')
 
-          expect(helpers.getDisplayFromCache('User.1')).to.be.undefined
+          expect(cache.getObjectCache('display', 'User.1')).to.be.undefined
         })
 
         test('should clear cache for display even if it did not exist', () => {
           helpers.invalidateDisplay('User', '1')
 
-          expect(helpers.getDisplayFromCache('User.1')).to.be.undefined
+          expect(cache.getObjectCache('display', 'User.1')).to.be.undefined
         })
 
         test('should clear cache for specific display type', () => {
-          helpers.addDisplayToCache('User.1.test', 'Test')
+          cache.addObjectCache('display', 'User.1.test', 'Test')
 
           helpers.invalidateDisplay('User', '1', 'test')
 
-          expect(helpers.getDisplayFromCache('User.1.test')).to.be.undefined
+          expect(cache.getObjectCache('display', 'User.1.test')).to.be.undefined
         })
       })
 
@@ -397,7 +393,7 @@ describe('app-extensions', () => {
         })
 
         test('should only load uncached displays and combine results', () => {
-          helpers.addDisplayToCache('Gender.1', 'Male')
+          cache.addObjectCache('display', 'Gender.1', 'Male')
 
           const request = {
             Gender: ['1', '2']
@@ -446,8 +442,8 @@ describe('app-extensions', () => {
         })
 
         test('should not request anything if all displays are cached', () => {
-          helpers.addDisplayToCache('Gender.1', 'Male')
-          helpers.addDisplayToCache('Gender.2', 'Female')
+          cache.addObjectCache('display', 'Gender.1', 'Male')
+          cache.addObjectCache('display', 'Gender.2', 'Female')
 
           const request = {
             Gender: ['1', '2']
@@ -466,33 +462,33 @@ describe('app-extensions', () => {
 
       describe('invalidateDisplays', () => {
         test('should clear cache for displays', () => {
-          helpers.addDisplayToCache('User.1', 'Test')
-          helpers.addDisplayToCache('User.2', 'Test')
+          cache.addObjectCache('display', 'User.1', 'Test')
+          cache.addObjectCache('display', 'User.2', 'Test')
 
           helpers.invalidateDisplays({User: ['1', '2']})
 
-          expect(helpers.getDisplayFromCache('User.1')).to.be.undefined
-          expect(helpers.getDisplayFromCache('User.2')).to.be.undefined
+          expect(cache.getObjectCache('display', 'User.1')).to.be.undefined
+          expect(cache.getObjectCache('display', 'User.2')).to.be.undefined
         })
 
         test('should clear cache for multiple models', () => {
-          helpers.addDisplayToCache('User.1', 'Test')
-          helpers.addDisplayToCache('Address.2', 'Test')
+          cache.addObjectCache('display', 'User.1', 'Test')
+          cache.addObjectCache('display', 'Address.2', 'Test')
 
           helpers.invalidateDisplays({User: ['1'], Address: ['2']})
 
-          expect(helpers.getDisplayFromCache('User.1')).to.be.undefined
-          expect(helpers.getDisplayFromCache('Address.2')).to.be.undefined
+          expect(cache.getObjectCache('display', 'User.1')).to.be.undefined
+          expect(cache.getObjectCache('display', 'Address.2')).to.be.undefined
         })
 
         test('should clear cache specific display type', () => {
-          helpers.addDisplayToCache('User.1.test', 'Test')
-          helpers.addDisplayToCache('Address.2.test', 'Test')
+          cache.addObjectCache('display', 'User.1.test', 'Test')
+          cache.addObjectCache('display', 'Address.2.test', 'Test')
 
           helpers.invalidateDisplays({User: ['1'], Address: ['2']}, 'test')
 
-          expect(helpers.getDisplayFromCache('User.1.test')).to.be.undefined
-          expect(helpers.getDisplayFromCache('Address.2.test')).to.be.undefined
+          expect(cache.getObjectCache('display', 'User.1.test')).to.be.undefined
+          expect(cache.getObjectCache('display', 'Address.2.test')).to.be.undefined
         })
       })
 
