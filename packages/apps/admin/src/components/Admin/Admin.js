@@ -32,6 +32,7 @@ const Admin = ({
 
   // only on mount
   useEffect(() => {
+    viewPersistor.clearPersistedViews()
     initializeHistory()
     initializeNavigation()
     loadPrincipal()
