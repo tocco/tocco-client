@@ -111,17 +111,6 @@ export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExp
   return response.body.displayExpressions.reduce((acc, val) => ({...acc, [val.key]: val.displayExpressions}), {})
 }
 
-const displayCache = {}
-export const isDisplayCached = key => displayCache[key] !== undefined
-export const getDisplayFromCache = key => displayCache[key]
-export const removeDisplayFromCache = key => {
-  displayCache[key] = undefined
-}
-export const addDisplayToCache = (key, value) => {
-  displayCache[key] = value
-}
-export const clearDisplayCache = () => Object.keys(displayCache).forEach(key => removeDisplayFromCache(key))
-
 /**
  * Helper to fetch the default-display of an entities.
  *
@@ -132,9 +121,9 @@ export const clearDisplayCache = () => Object.keys(displayCache).forEach(key => 
 export function* fetchDisplays(request, type, ignoreFallback = false) {
   const currentDisplays = Object.entries(request).map(([model, keys]) => ({
     model,
-    keys: keys.filter(key => !isDisplayCached(`${model}.${key}${type ? `.${type}` : ''}`)),
+    keys: keys.filter(key => cache.getObjectCache('display', `${model}.${key}${type ? `.${type}` : ''}`) === undefined),
     displays: keys
-      .map(key => ({key, display: getDisplayFromCache(`${model}.${key}${type ? `.${type}` : ''}`)}))
+      .map(key => ({key, display: cache.getObjectCache('display', `${model}.${key}${type ? `.${type}` : ''}`)}))
       .filter(value => value.display !== undefined)
   }))
 
@@ -160,7 +149,7 @@ export function* fetchDisplays(request, type, ignoreFallback = false) {
  */
 export function invalidateDisplays(request, type) {
   Object.entries(request).forEach(([model, keys]) => {
-    keys.forEach(key => removeDisplayFromCache(`${model}.${key}${type ? `.${type}` : ''}`))
+    keys.forEach(key => cache.removeObjectCache('display', `${model}.${key}${type ? `.${type}` : ''}`))
   })
 }
 
@@ -185,7 +174,7 @@ function* loadDisplays(currentDisplays, type, ignoreFallback = false) {
     )
     Object.entries(loadedDisplays).forEach(([entityName, values]) => {
       Object.entries(values).forEach(([key, display]) => {
-        addDisplayToCache(`${entityName}.${key}${type ? `.${type}` : ''}`, display)
+        cache.addObjectCache('display', `${entityName}.${key}${type ? `.${type}` : ''}`, display)
       })
     })
     return loadedDisplays
@@ -254,11 +243,10 @@ export function* fetchEntities(entityName, query, requestOptions = {}, transform
  * @param allowNotFound {Boolean} If true and the form does not exist null is returned.
  *                                Otherwise an exception will be thrown.
  */
-export const formCache = {}
 export function* fetchForm(formName, scope, allowNotFound = false, forceLoad = false) {
   const request = `${formName}/${scope}`
-  if (formCache[request] !== undefined && !forceLoad) {
-    return formCache[request]
+  if (cache.getObjectCache('forms', request) !== undefined && !forceLoad) {
+    return cache.getObjectCache('forms', request)
   }
 
   const options = {
@@ -269,12 +257,12 @@ export function* fetchForm(formName, scope, allowNotFound = false, forceLoad = f
   const response = yield call(requestSaga, `forms/${request}`, options)
 
   if (allowNotFound && response.status === 404) {
-    formCache[request] = null
+    cache.clearObjectCache('forms', request)
     return null
   }
 
   const form = yield call(defaultFormTransformer, response.body)
-  formCache[request] = form
+  cache.addObjectCache('forms', request, form)
   return form
 }
 

@@ -8,6 +8,8 @@ import rest from '../../rest'
 const LOCATION_ENDPOINT = 'location/suggestions'
 const countryCodeField = 'iso2'
 
+// TODO: TOCDEV-6432 - replace cache with object cache
+
 // Caches country response to reduce resolving of key or ISO code.
 // e.g. {'CH': {key: '22', display: 'Switzerland'}
 let countryCache = {}
