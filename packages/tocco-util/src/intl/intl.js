@@ -76,7 +76,7 @@ export const loadTextResources = async(locale, modules) => {
   const notLoadedModules = []
 
   modules.forEach(module => {
-    const cachedModuleResource = cache.getLongTerm('textResource', module)
+    const cachedModuleResource = cache.getLongTerm('textResource', `${locale}.${module}`)
     if (cachedModuleResource) {
       result = {...result, ...cachedModuleResource}
     } else {
@@ -95,7 +95,7 @@ export const loadTextResources = async(locale, modules) => {
           [key]: resources[key]
         }), {})
 
-      cache.addLongTerm('textResource', module, filtered)
+      cache.addLongTerm('textResource', `${locale}.${module}`, filtered)
       result = {...result, ...filtered}
     })
   }
