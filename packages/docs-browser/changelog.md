@@ -1,3 +1,6 @@
+0.2.4-hotfix229.16
+- add locale to text resource caching key
+
 0.2.4-hotfix229.15
 - increase z-index for selects in modals
 
