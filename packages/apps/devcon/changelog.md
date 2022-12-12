@@ -1,3 +1,7 @@
+1.0.83-hotfix34.6
+- add object cache
+- use global object cache
+
 1.0.83-hotfix34.5
 - create ENTITY_DOCS selection for legacy actions
 - show fullscreen modal based on screen width instead of generally switching to fullscreen on touch devices
