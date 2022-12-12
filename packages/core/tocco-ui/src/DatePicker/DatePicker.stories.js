@@ -1,6 +1,5 @@
-import {useState} from 'react'
-
 import Button from '../Button'
+import GlobalStyles from '../GlobalStyles'
 import DatePicker from './DatePicker'
 
 export default {
@@ -8,12 +7,22 @@ export default {
   component: DatePicker
 }
 
-export const Basic = ({...props}) => {
-  const [value, setValue] = useState(new Date())
-  return (
-    <DatePicker {...props} value={value} onChange={setValue}>
-      <Button icon="calendar" />
-      {value.toLocaleString()}
-    </DatePicker>
-  )
+export const Basic = args => (
+  <DatePicker {...args}>
+    <Button icon="calendar" />
+    {args.value.toLocaleString()}
+  </DatePicker>
+)
+
+Basic.args = {
+  value: new Date()
 }
+
+Basic.decorators = [
+  Story => (
+    <>
+      <GlobalStyles />
+      {Story()}
+    </>
+  )
+]
