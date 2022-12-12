@@ -1,3 +1,7 @@
+0.2.4-hotfix229.17
+- Use app locale automatically for all (REST) requests
+- support `locale` input
+
 0.2.4-hotfix229.16
 - add locale to text resource caching key
 
