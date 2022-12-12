@@ -1,3 +1,8 @@
+0.1.73
+- re-load data on login
+- add object cache
+- use global object cache
+
 0.1.72
 - allow padding of Button to be removed like when used as icon
 - allow Action to be rendered as text without button visual
