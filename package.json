@@ -30,7 +30,7 @@
     "widgets:serve": "node ./scripts/widgets/server.js",
     "widgets:wait-for-readyness": "bash ./scripts/widgets/wait-for-readyness.sh",
     "nice2:copy-package": "babel-node build/scripts/copy-package-to-nice2",
-    "nice2:deploy-package": "both () { yarn compile:prod \"$*\"; yarn nice2:copy-package \"$*\";}; both",
+    "nice2:deploy-package": "both () { yarn setup && yarn compile:prod \"$*\"; yarn nice2:copy-package \"$*\";}; both",
     "nice2:run": "bash ./scripts/nice2/run.sh",
     "nice2:wait-for-readyness": "bash ./scripts/nice2/wait-for-readyness.sh",
     "nice2:ping": "bash ./scripts/nice2/ping.sh",
