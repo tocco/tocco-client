@@ -1,3 +1,6 @@
+0.1.30
+- add object cache
+
 0.1.29
 - support identifier type in tql builder
 

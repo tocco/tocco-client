@@ -1,3 +1,7 @@
+1.0.98
+- add object cache
+- use global object cache
+
 1.0.97
 - allow padding of Button to be removed like when used as icon
 - allow Action to be rendered as text without button visual
