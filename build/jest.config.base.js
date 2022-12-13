@@ -22,12 +22,12 @@ function createJestConfig(packageDirname) {
       __BACKEND_URL__: ''
     },
     verbose: true,
-    collectCoverage: true,
     cacheDirectory: '.jestcache',
-    coverageReporters: ['json', 'lcov'],
     testEnvironment: 'jsdom',
     displayName: packageName,
     testMatch: [`<rootDir>${srcPath}**/*.spec.{js,jsx}`],
+    collectCoverage: false,
+    coverageReporters: ['json', 'lcov'],
     collectCoverageFrom: [`<rootDir>${srcPath}**/*.js`, `!<rootDir>${srcPath}**/main.js`],
     coverageDirectory: `<rootDir>${srcPath}coverage/`
   }

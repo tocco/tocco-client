@@ -212,7 +212,6 @@ sonarqube:
   stage: onschedule
   dependencies:
     - yarn_setup
-    - test
   only:
     variables:
       - $CI_RUN_SONARQUBE == "1"

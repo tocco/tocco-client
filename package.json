@@ -24,7 +24,7 @@
     "plop": "babel-node ./node_modules/plop/bin/plop",
     "release-packages": "yarn setup && ./scripts/release-packages.sh",
     "tag-all-packages": "yarn setup && ./scripts/tag-all-packages.sh",
-    "sonarqube": "sonar-scanner",
+    "sonarqube": "yarn test:jest --coverage && sonar-scanner",
     "storybook": "start-storybook -p 3003 -c ./storybook",
     "storybook:master": "cross-env BACKEND=https://master.tocco.ch yarn storybook",
     "widgets:serve": "node ./scripts/widgets/server.js",
