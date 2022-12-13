@@ -1,3 +1,6 @@
+1.0.119-hotfix34.10
+- fix object cache
+
 1.0.119-hotfix34.9
 - re-load data on login
 - add object cache
