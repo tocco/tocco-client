@@ -79,3 +79,18 @@ window.toccoTheme = {
   }
 }
 ```
+
+### Widget States
+A widget can be in different states. Dependend on the state other html elements can be shown.
+
+In order to show an element dependend on a widget state it has to have two attributes:
+- `data-tocco-widget-ref` to define which widget it should listen to 
+- `data-tocco-widget-states` to define the states of the widget to show the element as whitespace-separated list
+
+```html
+<div data-tocco-widget-key="12"></div>
+
+<div data-tocco-widget-ref="12" data-tocco-widget-states="success">Erfolgreich.</div>
+
+<div data-tocco-widget-ref="12" data-tocco-widget-states="list detail">...</div>
+```

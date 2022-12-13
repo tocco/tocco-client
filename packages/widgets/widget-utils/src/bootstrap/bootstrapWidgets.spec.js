@@ -1,4 +1,4 @@
-import {mount} from 'enzyme'
+import {render} from '@testing-library/react'
 import fetchMock from 'fetch-mock'
 import {utils} from 'tocco-util/bundle'
 
@@ -6,7 +6,19 @@ import bootstrapWidgets from './bootstrapWidgets'
 import {BOOTSTRAP_SCRIPT_OBJ_NAME, EVENT_HANDLERS_OBJ_NAME, THEME_OBJ_NAME} from './constants'
 
 let stub
-let wrapper
+
+const srcPath = 'http://localhost:8080/js/tocco-login/dist/'
+const applyFetchMockForLoginWidget = (config = {}) => {
+  fetchMock
+    .get('http://localhost:8080/nice2/rest/widget/configs/1', {
+      key: '1',
+      appName: 'login',
+      packageName: 'login',
+      locale: 'de',
+      config
+    })
+    .spy()
+}
 
 describe('widget-utils', () => {
   describe('boostrap', () => {
@@ -20,10 +32,6 @@ describe('widget-utils', () => {
       afterEach(() => {
         if (stub) {
           stub.restore()
-        }
-
-        if (wrapper) {
-          wrapper.detach()
         }
 
         delete window[THEME_OBJ_NAME]
@@ -41,24 +49,15 @@ describe('widget-utils', () => {
           render: renderSpy
         }
 
-        fetchMock
-          .get('http://localhost:8080/nice2/rest/widget/configs/1', {
-            key: '1',
-            appName: 'login',
-            packageName: 'login',
-            locale: 'de',
-            config: {
-              showTitle: true,
-              passwordRequest: false,
-              username: 'test-username'
-            }
-          })
-          .spy()
+        const config = {
+          showTitle: true,
+          passwordRequest: false,
+          username: 'test-username'
+        }
+        applyFetchMockForLoginWidget(config)
 
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {
-          attachTo: document.body
-        })
-        const container = wrapper.getDOMNode()
+        const {container: wrapper} = render(<div data-tocco-widget-key="1"></div>)
+        const container = wrapper.firstChild
 
         await bootstrapWidgets({backendUrl, assetUrl})
 
@@ -73,14 +72,7 @@ describe('widget-utils', () => {
           username: 'test-username',
           appContext: {embedType: 'widget', widgetConfigKey: '1'}
         }
-        expect(renderSpy).to.have.been.calledWith(
-          'login',
-          container,
-          '',
-          expectedInput,
-          {},
-          'http://localhost:8080/js/tocco-login/dist/'
-        )
+        expect(renderSpy).to.have.been.calledWithMatch('login', container, '', expectedInput, {}, srcPath)
         expect(window[BOOTSTRAP_SCRIPT_OBJ_NAME].backendUrl).to.eql(backendUrl)
         expect(window[BOOTSTRAP_SCRIPT_OBJ_NAME].assetUrl).to.eql(assetUrl)
       })
@@ -94,9 +86,7 @@ describe('widget-utils', () => {
 
         fetchMock.spy()
 
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {
-          attachTo: document.body
-        })
+        render(<div data-tocco-widget-key="1"></div>)
 
         await bootstrapWidgets({backendUrl})
 
@@ -115,9 +105,7 @@ describe('widget-utils', () => {
       })
 
       test('should initialize bootstrap script', async () => {
-        wrapper = mount(<div></div>, {
-          attachTo: document.body
-        })
+        render(<div></div>)
 
         await bootstrapWidgets({backendUrl})
 
@@ -132,18 +120,10 @@ describe('widget-utils', () => {
         }
         window[THEME_OBJ_NAME] = {fontSize: 30}
 
-        fetchMock
-          .get('http://localhost:8080/nice2/rest/widget/configs/1', {
-            key: '1',
-            appName: 'login',
-            packageName: 'login',
-            locale: 'de',
-            config: {}
-          })
-          .spy()
+        applyFetchMockForLoginWidget()
 
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
-        const container = wrapper.getDOMNode()
+        const {container: wrapper} = render(<div data-tocco-widget-key="1"></div>)
+        const container = wrapper.firstChild
 
         await bootstrapWidgets({backendUrl, assetUrl})
 
@@ -156,14 +136,7 @@ describe('widget-utils', () => {
           locale: 'de',
           appContext: {embedType: 'widget', widgetConfigKey: '1'}
         }
-        expect(renderSpy).to.have.been.calledWith(
-          'login',
-          container,
-          '',
-          expectedInput,
-          {},
-          'http://localhost:8080/js/tocco-login/dist/'
-        )
+        expect(renderSpy).to.have.been.calledWithMatch('login', container, '', expectedInput, {}, srcPath)
       })
 
       test('should apply event handlers', async () => {
@@ -173,18 +146,10 @@ describe('widget-utils', () => {
         }
         window[EVENT_HANDLERS_OBJ_NAME] = {someEvent: () => {}}
 
-        fetchMock
-          .get('http://localhost:8080/nice2/rest/widget/configs/1', {
-            key: '1',
-            appName: 'login',
-            packageName: 'login',
-            locale: 'de',
-            config: {}
-          })
-          .spy()
+        applyFetchMockForLoginWidget()
 
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
-        const container = wrapper.getDOMNode()
+        const {container: wrapper} = render(<div data-tocco-widget-key="1"></div>)
+        const container = wrapper.firstChild
 
         await bootstrapWidgets({backendUrl, assetUrl})
 
@@ -196,14 +161,38 @@ describe('widget-utils', () => {
           locale: 'de',
           appContext: {embedType: 'widget', widgetConfigKey: '1'}
         }
-        expect(renderSpy).to.have.been.calledWith(
+        expect(renderSpy).to.have.been.calledWithMatch(
           'login',
           container,
           '',
           expectedInput,
           window[EVENT_HANDLERS_OBJ_NAME],
-          'http://localhost:8080/js/tocco-login/dist/'
+          srcPath
         )
+      })
+
+      test('should invoke onStateChange event handlers', async () => {
+        const renderMock = (_apName, _container, _id, input, eventHandlers, _srcPath) => {
+          input.onStateChange({states: ['list']})
+          eventHandlers.onStateChange({states: ['detail']})
+        }
+        const onStateChangeSpy = sinon.spy()
+        window.reactRegistry = {
+          render: renderMock
+        }
+        window[EVENT_HANDLERS_OBJ_NAME] = {onStateChange: onStateChangeSpy}
+
+        applyFetchMockForLoginWidget()
+
+        render(<div data-tocco-widget-key="1"></div>)
+
+        await bootstrapWidgets({backendUrl, assetUrl})
+
+        await fetchMock.flush()
+        expect(fetchMock.calls().length).to.equal(1)
+
+        expect(onStateChangeSpy).to.have.been.calledWith({states: ['list']})
+        expect(onStateChangeSpy).to.have.been.calledWith({states: ['detail']})
       })
 
       test('should consider package name', async () => {
@@ -222,7 +211,7 @@ describe('widget-utils', () => {
           })
           .spy()
 
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+        render(<div data-tocco-widget-key="1"></div>)
 
         await bootstrapWidgets({backendUrl, assetUrl})
 
@@ -235,7 +224,7 @@ describe('widget-utils', () => {
           sinon.match.any,
           sinon.match.any,
           sinon.match.any,
-          'http://localhost:8080/js/tocco-login/dist/'
+          srcPath
         )
       })
 
@@ -255,7 +244,7 @@ describe('widget-utils', () => {
           })
           .spy()
 
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+        render(<div data-tocco-widget-key="1"></div>)
 
         await bootstrapWidgets({backendUrl, assetUrl})
 
@@ -271,7 +260,7 @@ describe('widget-utils', () => {
           sinon.match.any,
           sinon.match.any,
           sinon.match.any,
-          expectedInput,
+          sinon.match(expectedInput),
           sinon.match.any,
           sinon.match.any
         )
@@ -294,7 +283,7 @@ describe('widget-utils', () => {
           })
           .spy()
 
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+        render(<div data-tocco-widget-key="1"></div>)
 
         await bootstrapWidgets({backendUrl, assetUrl})
 
@@ -322,7 +311,7 @@ describe('widget-utils', () => {
           })
           .spy()
 
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+        render(<div data-tocco-widget-key="1"></div>)
 
         await bootstrapWidgets({backendUrl})
 
@@ -348,7 +337,7 @@ describe('widget-utils', () => {
             throws: new Error('Failed to fetch')
           })
           .spy()
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+        render(<div data-tocco-widget-key="1"></div>)
 
         await bootstrapWidgets({backendUrl})
 
@@ -377,7 +366,7 @@ describe('widget-utils', () => {
             throws: new Error('Failed to fetch')
           })
           .spy()
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+        render(<div data-tocco-widget-key="1"></div>)
 
         await bootstrapWidgets({backendUrl})
 
@@ -394,16 +383,9 @@ describe('widget-utils', () => {
           render: renderFailure
         }
 
-        fetchMock
-          .get('http://localhost:8080/nice2/rest/widget/configs/1', {
-            key: '1',
-            appName: 'login',
-            packageName: 'login',
-            locale: 'de',
-            config: {}
-          })
-          .spy()
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+        applyFetchMockForLoginWidget()
+
+        render(<div data-tocco-widget-key="1"></div>)
 
         await bootstrapWidgets({backendUrl})
 
@@ -431,10 +413,6 @@ describe('widget-utils', () => {
         if (stub) {
           stub.restore()
         }
-
-        if (wrapper) {
-          wrapper.detach()
-        }
       })
 
       test('should handle errors while fetching the package', async () => {
@@ -443,16 +421,9 @@ describe('widget-utils', () => {
           render: renderSpy
         }
 
-        fetchMock
-          .get('http://localhost:8080/nice2/rest/widget/configs/1', {
-            key: '1',
-            appName: 'login',
-            packageName: 'login',
-            locale: 'de',
-            config: {}
-          })
-          .spy()
-        wrapper = mount(<div data-tocco-widget-key="1"></div>, {attachTo: document.body})
+        applyFetchMockForLoginWidget()
+
+        render(<div data-tocco-widget-key="1"></div>)
 
         const backendUrl = 'http://localhost:8080'
         await bootstrapWidgets({backendUrl})
