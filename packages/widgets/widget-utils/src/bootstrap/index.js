@@ -1,6 +1,7 @@
 import {utils} from 'tocco-util/bundle'
 
 import bootstrapWidgets from './bootstrapWidgets'
+import bootstrapWidgetStates from './bootstrapWidgetStates'
 import {BACKEND_URL} from './constants'
 import {getAssetUrl} from './utils'
 ;(() => {
@@ -16,6 +17,8 @@ import {getAssetUrl} from './utils'
     backendUrl,
     assetUrl
   }
+
+  bootstrapWidgetStates(params)
 
   // guarantee to initalize all widgets on the page
   document.addEventListener('DOMContentLoaded', async () => {
