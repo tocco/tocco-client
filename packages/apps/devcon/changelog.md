@@ -1,3 +1,6 @@
+1.0.83-hotfix34.7
+- fix object cache
+
 1.0.83-hotfix34.6
 - add object cache
 - use global object cache
