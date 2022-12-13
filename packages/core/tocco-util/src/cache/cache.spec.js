@@ -21,7 +21,7 @@ describe('tocco-util', () => {
       test('should return cached longterm value', () => {
         const value = 'Test'
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         addLongTerm(type, id, value)
 
@@ -32,7 +32,7 @@ describe('tocco-util', () => {
       test('should return cached shortterm value', () => {
         const value = 'Test'
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         addShortTerm(type, id, value)
 
@@ -43,7 +43,7 @@ describe('tocco-util', () => {
       test('should return cached object value', () => {
         const value = 'Test'
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         addObjectCache(type, id, value)
 
@@ -53,7 +53,7 @@ describe('tocco-util', () => {
 
       test('should return undefined on uncached value', () => {
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         expect(getLongTerm(type, id)).to.be.undefined
         expect(getShortTerm(type, id)).to.be.undefined
@@ -63,7 +63,7 @@ describe('tocco-util', () => {
       test('should return undefined if added short term but get on long term', () => {
         const value = 'Test'
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         addShortTerm(type, id, value)
 
@@ -73,7 +73,7 @@ describe('tocco-util', () => {
 
       test('should return null values', () => {
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         addLongTerm(type, id, null)
         expect(getLongTerm(type, id)).to.be.null
@@ -88,7 +88,7 @@ describe('tocco-util', () => {
       test('should cache object', () => {
         const value = {a: 21}
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         addLongTerm(type, id, value)
         expect(getLongTerm(type, id).a).to.eql(21)
@@ -103,7 +103,7 @@ describe('tocco-util', () => {
       test('should not cache if __DEV__', () => {
         const value = 'Test'
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         const resetDEVValue = __DEV__
         // eslint-disable-next-line no-global-assign
@@ -120,7 +120,7 @@ describe('tocco-util', () => {
       test('should not cache if nice env is not production', () => {
         const value = 'Test'
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         global.app = {
           getRunEnv: () => 'DEVELOPMENT'
@@ -134,7 +134,7 @@ describe('tocco-util', () => {
       test('should cache if nice env is production', () => {
         const value = 'Test'
         const type = 'label'
-        const id = 1
+        const id = 'entity.1'
 
         global.app = {
           getRunEnv: () => 'PRODUCTION'
@@ -148,7 +148,7 @@ describe('tocco-util', () => {
 
     describe('clear', () => {
       test('should clear all cache', () => {
-        const id = 'id'
+        const id = 'entity.1'
         const type = 'label'
 
         addLongTerm(type, id, 'test')
@@ -164,7 +164,7 @@ describe('tocco-util', () => {
 
       test('should clear short term cache', () => {
         const value = 'test'
-        const id = 'id'
+        const id = 'entity.1'
         const type = 'label'
 
         addShortTerm(type, id, value)
@@ -181,8 +181,8 @@ describe('tocco-util', () => {
       test('should remove single item from long term cache', () => {
         const value1 = 'test1'
         const value2 = 'test2'
-        const id1 = 'id1'
-        const id2 = 'id2'
+        const id1 = 'id.1'
+        const id2 = 'id.2'
         const type = 'label'
 
         addLongTerm(type, id1, value1)
@@ -197,8 +197,8 @@ describe('tocco-util', () => {
       test('should remove single item from object cache', () => {
         const value1 = 'test1'
         const value2 = 'test2'
-        const id1 = 'id1'
-        const id2 = 'id2'
+        const id1 = 'id.1'
+        const id2 = 'id.2'
         const type = 'label'
 
         addObjectCache(type, id1, value1)
