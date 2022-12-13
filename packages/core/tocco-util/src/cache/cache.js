@@ -1,5 +1,3 @@
-import _get from 'lodash/get'
-import _set from 'lodash/set'
 import _unset from 'lodash/unset'
 
 import nice from '../nice'
@@ -25,7 +23,9 @@ const getKey = (type, id) => `${prefix}.${type}.${id}`
 
 const objectCache = {}
 
-const objectWriter = (key, value) => _set(objectCache, key, value)
+const objectWriter = (key, value) => {
+  objectCache[key] = value
+}
 const storageWriter = storage => (key, value) => storage.setItem(key, JSON.stringify(value))
 
 export const addObjectCache = (type, id, value) => add(type, id, value, objectWriter)
@@ -40,7 +40,7 @@ const add = (type, id, value, write) => {
   return write(getKey(type, id), value)
 }
 
-export const getObjectCache = (type, id) => _get(objectCache, getKey(type, id))
+export const getObjectCache = (type, id) => objectCache[getKey(type, id)]
 export const getShortTerm = (type, id) => getFromStorage(type, id, sessionStorage)
 export const getLongTerm = (type, id) => getFromStorage(type, id, localStorage)
 
