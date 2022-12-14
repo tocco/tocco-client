@@ -122,6 +122,8 @@ Initialization:
 externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input));
 ```
 
+See the corresponding [README](src/externalEvents/README.md) for more details.
+
 ## field
 
 Helper to create a data field. Depending on the mapping a type as editable or readonly value.
