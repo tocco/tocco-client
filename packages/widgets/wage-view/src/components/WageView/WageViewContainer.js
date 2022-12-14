@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
   limit: state.input.limit,
   backendUrl: state.input.backendUrl,
   businessUnit: state.input.businessUnit,
-  appContext: state.input.appContext
+  appContext: state.input.appContext,
+  onStateChange: state.input.onStateChange
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(WageView))

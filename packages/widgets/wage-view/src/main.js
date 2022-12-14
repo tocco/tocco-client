@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types'
-import {appFactory} from 'tocco-app-extensions'
+import {appFactory, externalEvents} from 'tocco-app-extensions'
 import {env, appContext} from 'tocco-util'
 
 import WageView from './components/WageView'
 
 const packageName = 'wage-view'
+
+const EXTERNAL_EVENTS = ['onStateChange']
 
 const initApp = (id, input, events, publicPath) => {
   env.setInputEnvs(input)
@@ -56,7 +58,8 @@ WageViewApp.propTypes = {
   limit: PropTypes.number,
   backendUrl: PropTypes.string,
   businessUnit: PropTypes.string,
-  appContext: appContext.propTypes.isRequired
+  appContext: appContext.propTypes.isRequired,
+  ...externalEvents.createPropTypes(EXTERNAL_EVENTS)
 }
 
 export default WageViewApp
