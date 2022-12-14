@@ -25,6 +25,8 @@ import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'entity-browser'
 
+const EXTERNAL_EVENTS = ['onStateChange']
+
 const LazyEntityBrowserComp = React.lazy(() => import('./components/EntityBrowser'))
 const LazyEntityBrowser = () => (
   <Suspense fallback="">
@@ -76,7 +78,7 @@ const initApp = (id, input, events, publicPath) => {
   env.setInputEnvs(input)
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  externalEvents.addToStore(store, () => ({}))
+  externalEvents.addToStore(store, state => appFactory.getEvents(EXTERNAL_EVENTS, state.input))
   actionEmitter.addToStore(store)
   actions.dynamicActionsAddToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notification'])
@@ -165,7 +167,8 @@ EntityBrowserApp.propTypes = {
   appContext: appContext.propTypes,
   modifyFormDefinition: PropTypes.func,
   disableDetailView: PropTypes.bool,
-  reportIds: PropTypes.arrayOf(PropTypes.string)
+  reportIds: PropTypes.arrayOf(PropTypes.string),
+  ...externalEvents.createPropTypes(EXTERNAL_EVENTS)
 }
 
 export default EntityBrowserApp

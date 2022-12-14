@@ -6,6 +6,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {queryString as queryStringUtil} from 'tocco-util'
 
+import {States} from '../../states'
 import BackButton from '../Actions/BackButton'
 import Action from '../LazyAction'
 import {DetailLinkRelative} from './DetailLinkRelative'
@@ -23,7 +24,8 @@ const EntityDetail = props => {
     dispatchEmittedAction,
     formTouched,
     locale,
-    reportIds
+    reportIds,
+    fireStateChangeEvent
   } = props
   useEffect(() => {
     loadDetailParams(router.match.url)
@@ -33,6 +35,10 @@ const EntityDetail = props => {
       clearDetailParams()
     }
   }, [clearDetailParams, loadDetailParams, router.match.url, setFormTouched])
+
+  useEffect(() => {
+    fireStateChangeEvent([States.detail])
+  }, [fireStateChangeEvent])
 
   const msg = id => intl.formatMessage({id})
 
@@ -136,7 +142,8 @@ EntityDetail.propTypes = {
   showSubGridsCreateButton: PropTypes.bool,
   appId: PropTypes.string,
   modifyFormDefinition: PropTypes.func,
-  reportIds: PropTypes.arrayOf(PropTypes.string)
+  reportIds: PropTypes.arrayOf(PropTypes.string),
+  fireStateChangeEvent: PropTypes.func.isRequired
 }
 
 export default EntityDetail
