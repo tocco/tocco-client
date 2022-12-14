@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
+import {useEffect} from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {RouterLink, scrollBehaviourPropType} from 'tocco-ui'
 import {queryString as queryStringUtil, viewPersistor} from 'tocco-util'
 
+import {States} from '../../states'
 import Action from '../LazyAction'
 
 const DetailLinkRelative = ({entityKey, children, relation}) => (
@@ -15,7 +17,11 @@ DetailLinkRelative.propTypes = {
   relation: PropTypes.string
 }
 
-const ListView = ({storeId, router, modifyFormDefinition, disableDetailView, ...props}) => {
+const ListView = ({storeId, router, modifyFormDefinition, disableDetailView, fireStateChangeEvent, ...props}) => {
+  useEffect(() => {
+    fireStateChangeEvent([States.list])
+  }, [fireStateChangeEvent])
+
   const navigateToCreate = ({history, match, relationName}) => {
     if (relationName) {
       history.push(`${match}/${relationName}/`)
@@ -83,7 +89,8 @@ ListView.propTypes = {
   router: PropTypes.object.isRequired,
   modifyFormDefinition: PropTypes.func,
   disableDetailView: PropTypes.bool,
-  reportIds: PropTypes.arrayOf(PropTypes.string)
+  reportIds: PropTypes.arrayOf(PropTypes.string),
+  fireStateChangeEvent: PropTypes.func.isRequired
 }
 
 export default ListView

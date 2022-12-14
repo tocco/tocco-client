@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types'
+import {useEffect} from 'react'
 
+import {States} from '../../states'
 import LazyAction from '../LazyAction'
 
-const ActionView = props => {
+const ActionView = ({fireStateChangeEvent, ...props}) => {
   const {
     router: {history, location, match}
   } = props
+
+  useEffect(() => {
+    fireStateChangeEvent([States.fullscreenAction])
+  }, [fireStateChangeEvent])
 
   const navigateBack = () => {
     const originUrl = location.state.originUrl || '/'
@@ -28,7 +34,8 @@ ActionView.propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
-  }).isRequired
+  }).isRequired,
+  fireStateChangeEvent: PropTypes.func.isRequired
 }
 
 export default ActionView

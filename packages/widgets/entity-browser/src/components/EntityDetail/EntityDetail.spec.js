@@ -1,51 +1,62 @@
-import {mount} from 'enzyme'
-import fetchMock from 'fetch-mock'
+import {screen} from '@testing-library/react'
 import {MemoryRouter} from 'react-router-dom'
-import EntityDetailApp from 'tocco-entity-detail/src/main'
-import {IntlStub} from 'tocco-test-util'
+import {IntlStub, testingLibrary} from 'tocco-test-util'
 
+import {States} from '../../states'
 import EntityDetail from './EntityDetail'
-import {setupFetchMock} from './mockData/setupFetchMock'
 
 const EMPTY_FUNC = () => {}
+
+jest.mock('tocco-entity-detail/src/main', () => () => <div data-testid="entity-detail" />)
 
 describe('entity-browser', () => {
   describe('components', () => {
     describe('EntityDetail', () => {
-      beforeEach(() => {
-        fetchMock.reset()
-        fetchMock.restore()
+      const detailParams = {
+        entityName: 'User',
+        entityId: '1',
+        formName: 'User',
+        mode: 'update'
+      }
+
+      const routerMock = {
+        match: {url: '/detail', history: {}}
+      }
+
+      const actionsMock = {
+        loadDetailParams: EMPTY_FUNC,
+        dispatchEmittedAction: EMPTY_FUNC,
+        clearDetailParams: EMPTY_FUNC,
+        setFormTouched: EMPTY_FUNC,
+        fireStateChangeEvent: EMPTY_FUNC
+      }
+
+      test('should render App', () => {
+        testingLibrary.renderWithIntl(
+          <MemoryRouter>
+            <EntityDetail router={routerMock} {...actionsMock} intl={IntlStub} detailParams={detailParams} />
+          </MemoryRouter>
+        )
+
+        expect(screen.queryByTestId('entity-detail')).to.exist
       })
 
-      test('should render App ', () => {
-        const detailParams = {
-          entityName: 'User',
-          entityId: '1',
-          formName: 'User',
-          mode: 'update'
-        }
+      test('should fire state change event for detail', () => {
+        const fireStateChangeEvent = sinon.spy()
 
-        const routerMock = {
-          match: {url: '/detail', history: {}}
-        }
-
-        setupFetchMock(fetchMock)
-
-        const wrapper = mount(
+        testingLibrary.renderWithIntl(
           <MemoryRouter>
             <EntityDetail
               router={routerMock}
-              loadDetailParams={EMPTY_FUNC}
-              dispatchEmittedAction={EMPTY_FUNC}
-              clearDetailParams={EMPTY_FUNC}
-              setFormTouched={EMPTY_FUNC}
+              {...actionsMock}
+              fireStateChangeEvent={fireStateChangeEvent}
               intl={IntlStub}
               detailParams={detailParams}
             />
           </MemoryRouter>
         )
 
-        expect(wrapper.find(EntityDetailApp)).to.have.length(1)
+        expect(fireStateChangeEvent).to.have.been.calledWith([States.detail])
       })
     })
   })

@@ -27,4 +27,6 @@ React-registry name: `entity-browser`
 
 ### Events
 
-none so far
+| Name            | Payload attributes | Description
+|-----------------|--------------------|-------------
+| `onStateChange` | `states` (array of active states) | fired whenever a state change happened (e.g. ['list'] => ['detail'])

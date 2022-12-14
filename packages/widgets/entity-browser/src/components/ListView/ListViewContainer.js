@@ -1,13 +1,12 @@
 import {connect} from 'react-redux'
-import {actionEmitter} from 'tocco-app-extensions'
+import {actionEmitter, externalEvents} from 'tocco-app-extensions'
 
 import ListView from './ListView'
 
-const mapDispatchToProps = dispatch => ({
-  emitAction: action => {
-    dispatch(actionEmitter.dispatchEmittedAction(action))
-  }
-})
+const mapActionCreators = {
+  emitAction: action => actionEmitter.dispatchEmittedAction(action),
+  fireStateChangeEvent: externalEvents.fireStateChangeEvent
+}
 
 const mapStateToProps = (state, props) => {
   const id = `${state.entityBrowser.appId}_entity-browser-list`
@@ -30,4 +29,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListView)
+export default connect(mapStateToProps, mapActionCreators)(ListView)

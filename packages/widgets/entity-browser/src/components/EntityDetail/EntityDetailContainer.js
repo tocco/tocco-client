@@ -1,6 +1,6 @@
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
-import {actionEmitter} from 'tocco-app-extensions'
+import {actionEmitter, externalEvents} from 'tocco-app-extensions'
 
 import {loadDetailParams, clearDetailParams, setFormTouched} from '../../modules/detail/actions'
 import Action from '../LazyAction'
@@ -10,7 +10,8 @@ const mapActionCreators = {
   loadDetailParams,
   clearDetailParams,
   setFormTouched,
-  dispatchEmittedAction: actionEmitter.dispatchEmittedAction
+  dispatchEmittedAction: actionEmitter.dispatchEmittedAction,
+  fireStateChangeEvent: externalEvents.fireStateChangeEvent
 }
 
 const mapStateToProps = (state, props) => {
