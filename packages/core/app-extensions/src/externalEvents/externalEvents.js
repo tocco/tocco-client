@@ -7,7 +7,7 @@ export const invokeExternalEvent = (events, eventName, ...args) => {
     consoleLogger.log('try call external event:', eventName, 'args:', ...args)
   }
 
-  if (events[eventName]) {
+  if (events && events[eventName]) {
     events[eventName](...args)
   }
 }
