@@ -1,3 +1,6 @@
+1.0.138
+- fix object cache
+
 1.0.137
 - re-load data on login
 - add object cache

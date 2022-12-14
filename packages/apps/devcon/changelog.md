@@ -1,3 +1,6 @@
+1.0.99
+- fix object cache
+
 1.0.98
 - add object cache
 - use global object cache

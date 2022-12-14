@@ -1,3 +1,6 @@
+0.1.31
+- fix object cache
+
 0.1.30
 - add object cache
 
