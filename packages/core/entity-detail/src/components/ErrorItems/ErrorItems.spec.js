@@ -1,6 +1,6 @@
-import {mount} from 'enzyme'
+import {screen} from '@testing-library/react'
 import {IntlProvider} from 'react-intl'
-import {form} from 'tocco-app-extensions'
+import {testingLibrary} from 'tocco-test-util'
 
 import ErrorItems from './ErrorItems'
 
@@ -43,54 +43,48 @@ describe('entity-detail', () => {
           }
         }
 
-        const wrapper = mount(
+        testingLibrary.renderWithIntl(
           <IntlProvider locale="en" messages={messages}>
             <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
           </IntlProvider>
         )
 
-        expect(wrapper.find('FormattedMessage').text()).to.equal(messages['client.entity-detail.invalidRelationErrors'])
-        expect(wrapper.find(form.ErrorItem).at(0).text()).to.eql(
-          'Pflichtfeld ist nicht ausgefüllt. (label_de, User_status, 3)'
-        )
-        expect(wrapper.find(form.ErrorItem).at(1).text()).to.eql(
-          'Pflichtfeld ist nicht ausgefüllt. (label_de, User_status2, 4)'
-        )
+        expect(screen.queryByText(messages['client.entity-detail.invalidRelationErrors'])).to.exist
+        expect(screen.queryByText('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status, 3)')).to.exist
+        expect(screen.queryByText('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status2, 4)')).to.exist
       })
 
       test('should show field', () => {
         const formErrors = {_error: {}, firstname: {mandatory: ['mandatory!']}}
-        const wrapper = mount(
+        testingLibrary.renderWithIntl(
           <IntlProvider locale="en" messages={messages}>
             <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
           </IntlProvider>
         )
 
-        expect(wrapper.find('FormattedMessage').first().text()).to.equal(
-          messages['client.entity-detail.invalidFieldsError']
-        )
+        expect(screen.queryByText(messages['client.entity-detail.invalidFieldsError'])).to.exist
       })
 
       test('should show entityValidatorErrors', () => {
         const formErrors = {
           _error: {
             entityValidatorErrors: {
-              UsernameAsciiValidator: ['1'],
-              OtherId: ['2', '3']
+              UsernameAsciiValidator: ['AsciiValidatorError'],
+              OtherId: ['OtherId1', 'OtherId2']
             }
           }
         }
 
-        const wrapper = mount(
+        testingLibrary.renderWithIntl(
           <IntlProvider locale="en" messages={messages}>
             <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
           </IntlProvider>
         )
-        expect(wrapper.find('FormattedMessage').text()).to.equal(messages['client.entity-detail.validatorErrors'])
-        expect(wrapper.find(form.ErrorItem)).to.have.length(3)
-        expect(wrapper.find(form.ErrorItem).at(0).text()).to.eql('1')
-        expect(wrapper.find(form.ErrorItem).at(1).text()).to.eql('2')
-        expect(wrapper.find(form.ErrorItem).at(2).text()).to.eql('3')
+
+        expect(screen.queryByText(messages['client.entity-detail.validatorErrors'])).to.exist
+        expect(screen.queryByText('AsciiValidatorError')).to.exist
+        expect(screen.queryByText('OtherId1')).to.exist
+        expect(screen.queryByText('OtherId2')).to.exist
       })
 
       test('should show outdated error', () => {
@@ -105,18 +99,13 @@ describe('entity-detail', () => {
           }
         }
 
-        const wrapper = mount(
+        testingLibrary.renderWithIntl(
           <IntlProvider locale="en" messages={messages}>
             <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
           </IntlProvider>
         )
 
-        expect(wrapper.find('FormattedMessage').at(0).text()).to.equal(
-          messages['client.entity-detail.outdatedErrorTitle']
-        )
-        expect(wrapper.find('FormattedMessage').at(1).text()).to.equal(
-          messages['client.entity-detail.outdatedErrorTitle']
-        )
+        expect(screen.queryAllByText(messages['client.entity-detail.outdatedErrorTitle'])).to.have.length(2)
       })
     })
   })

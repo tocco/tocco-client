@@ -1,7 +1,25 @@
-import {shallow} from 'enzyme'
-import EntityListApp from 'tocco-entity-list/src/main'
+import {fireEvent, screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import SubGrid from './SubGrid'
+
+/* eslint-disable react/prop-types */
+jest.mock('tocco-entity-list/src/main', () => props => (
+  <div data-testid="entity-list">
+    <div>entityName: {props.entityName}</div>
+    <div>formName: {props.formName}</div>
+    <div>limit: {props.limit}</div>
+
+    <button
+      onClick={() => {
+        props.onRowClick({id: 'testId'})
+      }}
+    >
+      row click
+    </button>
+  </div>
+))
+/* eslint-enable react/prop-types */
 
 describe('entity-detail', () => {
   describe('components', () => {
@@ -20,22 +38,51 @@ describe('entity-detail', () => {
       }
 
       test('should render', () => {
-        const wrapper = shallow(<SubGrid {...testProps} />)
-        expect(wrapper.find(EntityListApp)).to.have.length(1)
+        testingLibrary.renderWithIntl(<SubGrid {...testProps} />)
+        expect(screen.getByTestId('entity-list')).to.exist
+      })
+
+      test('should render with entityName', () => {
+        testingLibrary.renderWithIntl(<SubGrid {...testProps} />)
+
+        expect(screen.getByTestId('entity-list')).to.exist
+        expect(screen.getByText('entityName: Foo')).to.exist
+      })
+
+      test('should render with formName', () => {
+        testingLibrary.renderWithIntl(<SubGrid {...testProps} />)
+
+        expect(screen.getByTestId('entity-list')).to.exist
+        expect(screen.getByText('formName: User_relFoo')).to.exist
       })
 
       test('should render with default limit 5', () => {
-        const wrapper = shallow(<SubGrid {...testProps} />)
+        testingLibrary.renderWithIntl(<SubGrid {...testProps} />)
 
-        const listApp = wrapper.find(EntityListApp)
-        expect(listApp.props().limit).to.equal(5)
+        expect(screen.getByTestId('entity-list')).to.exist
+        expect(screen.getByText('limit: 5')).to.exist
       })
 
       test('should render with custom limit', () => {
-        const wrapper = shallow(<SubGrid {...testProps} limit={10} />)
+        testingLibrary.renderWithIntl(<SubGrid {...testProps} limit={10} />)
 
-        const listApp = wrapper.find(EntityListApp)
-        expect(listApp.props().limit).to.equal(10)
+        expect(screen.getByTestId('entity-list')).to.exist
+        expect(screen.getByText('limit: 10')).to.exist
+      })
+
+      test('should render with rowClick', () => {
+        const rowClickSpy = sinon.spy()
+        testingLibrary.renderWithIntl(<SubGrid {...testProps} onRowClick={rowClickSpy} />)
+
+        const buttonElement = screen.getByRole('button')
+        fireEvent.click(buttonElement)
+
+        expect(screen.getByTestId('entity-list')).to.exist
+        expect(rowClickSpy).to.have.been.calledWith({
+          id: 'testId',
+          gridName: 'relFoo',
+          relationName: 'relFoo'
+        })
       })
     })
   })
