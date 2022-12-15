@@ -1,7 +1,7 @@
-import {intlEnzyme} from 'tocco-test-util'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import DetailFooter from './DetailFooter'
-import FooterItem from './FooterItem'
 
 describe('entity-detail', () => {
   describe('components', () => {
@@ -20,9 +20,14 @@ describe('entity-detail', () => {
           }
         }
 
-        const wrapper = intlEnzyme.mountWithIntl(<DetailFooter mode={mode} entity={entity} entityModel={entityModel} />)
+        testingLibrary.renderWithIntl(<DetailFooter mode={mode} entity={entity} entityModel={entityModel} />)
 
-        expect(wrapper.find(FooterItem)).to.have.length(1)
+        expect(screen.queryByText('client.entity-detail.footer.key:')).to.exist
+
+        expect(screen.queryByText('client.entity-detail.footer.created:')).to.not.exist
+        expect(screen.queryByText('client.entity-detail.footer.updated:')).to.not.exist
+        expect(screen.queryByText('client.entity-detail.footer.version:')).to.not.exist
+        expect(screen.queryByText('client.entity-detail.footer.by:')).to.not.exist
       })
 
       test('should display the full footer for entities with nice fields', () => {
@@ -54,9 +59,13 @@ describe('entity-detail', () => {
           }
         }
 
-        const wrapper = intlEnzyme.mountWithIntl(<DetailFooter mode={mode} entity={entity} entityModel={entityModel} />)
+        testingLibrary.renderWithIntl(<DetailFooter mode={mode} entity={entity} entityModel={entityModel} />)
 
-        expect(wrapper.find(FooterItem)).to.have.length(6)
+        expect(screen.queryByText('client.entity-detail.footer.created:')).to.exist
+        expect(screen.queryAllByText('client.entity-detail.footer.by:')).to.have.length(2)
+        expect(screen.queryByText('client.entity-detail.footer.updated:')).to.exist
+        expect(screen.queryByText('client.entity-detail.footer.version:')).to.exist
+        expect(screen.queryByText('client.entity-detail.footer.key:')).to.exist
       })
 
       test('should not display the footer for `create` mode', () => {
@@ -88,9 +97,13 @@ describe('entity-detail', () => {
           }
         }
 
-        const wrapper = intlEnzyme.mountWithIntl(<DetailFooter mode={mode} entity={entity} entityModel={entityModel} />)
+        testingLibrary.renderWithIntl(<DetailFooter mode={mode} entity={entity} entityModel={entityModel} />)
 
-        expect(wrapper.find(FooterItem)).to.have.length(0)
+        expect(screen.queryByText('client.entity-detail.footer.key:')).to.not.exist
+        expect(screen.queryByText('client.entity-detail.footer.created:')).to.not.exist
+        expect(screen.queryByText('client.entity-detail.footer.updated:')).to.not.exist
+        expect(screen.queryByText('client.entity-detail.footer.version:')).to.not.exist
+        expect(screen.queryByText('client.entity-detail.footer.by:')).to.not.exist
       })
 
       test('should handle different key field', () => {
@@ -102,14 +115,15 @@ describe('entity-detail', () => {
         const entity = {
           paths: {
             id: {
-              value: 1
+              value: 123654
             }
           }
         }
 
-        const wrapper = intlEnzyme.mountWithIntl(<DetailFooter mode={mode} entity={entity} entityModel={entityModel} />)
+        testingLibrary.renderWithIntl(<DetailFooter mode={mode} entity={entity} entityModel={entityModel} />)
 
-        expect(wrapper.find(FooterItem)).to.have.length(1)
+        expect(screen.queryByText('client.entity-detail.footer.key:')).to.exist
+        expect(screen.queryByText('123654')).to.exist
       })
     })
   })

@@ -1,4 +1,5 @@
-import {intlEnzyme} from 'tocco-test-util'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import TimestampValue from './TimestampValue'
 
@@ -9,9 +10,8 @@ describe('entity-detail', () => {
         const now = new Date()
         const dateInPast = new Date(now.setFullYear(now.getFullYear() - 1))
 
-        const wrapper = intlEnzyme.mountWithIntl(<TimestampValue value={dateInPast.toISOString()} />)
-
-        expect(wrapper.text()).to.include('1 year')
+        testingLibrary.renderWithIntl(<TimestampValue value={dateInPast.toISOString()} />)
+        expect(screen.queryByText('(1 year ago)')).to.exist
       })
     })
   })

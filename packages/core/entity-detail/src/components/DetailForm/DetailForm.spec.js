@@ -1,8 +1,8 @@
+import {screen} from '@testing-library/react'
 import {Provider} from 'react-redux'
 import {MemoryRouter} from 'react-router-dom'
 import {createStore} from 'redux'
-import {Field} from 'redux-form'
-import {IntlStub, intlEnzyme} from 'tocco-test-util'
+import {IntlStub, testingLibrary} from 'tocco-test-util'
 
 import DetailForm from './DetailForm'
 
@@ -128,7 +128,7 @@ describe('entity-detail', () => {
           }
         }))
 
-        const wrapper = intlEnzyme.mountWithIntl(
+        testingLibrary.renderWithIntl(
           <Provider store={store}>
             <MemoryRouter>
               <DetailForm
@@ -153,8 +153,9 @@ describe('entity-detail', () => {
           </Provider>
         )
 
-        expect(wrapper.find('form')).to.have.length(1)
-        expect(wrapper.find(Field)).to.have.length(2)
+        expect(screen.queryAllByRole('textbox')).to.have.length(2)
+        expect(screen.queryByText('Vorname')).to.exist
+        expect(screen.queryByText('Nachname')).to.exist
       })
     })
   })
