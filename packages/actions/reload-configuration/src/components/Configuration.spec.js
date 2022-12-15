@@ -68,7 +68,7 @@ describe('reload-configuration', () => {
         expect(fetchDataSpy).to.have.been.calledOnce
       })
 
-      test('should reload selected data', async () => {
+      test('should reload selected data', () => {
         const postDataSpy = sinon.spy()
         const fetchData = () => {}
 
@@ -91,7 +91,8 @@ describe('reload-configuration', () => {
           />
         )
 
-        const checkboxes = await screen.getAllByRole('checkbox')
+        const checkboxes = screen.getAllByRole('checkbox')
+
         // select menu
         fireEvent.click(checkboxes[0])
         fireEvent.click(checkboxes[1])
