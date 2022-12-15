@@ -103,8 +103,10 @@ function waitForWidgetServer() {
   echo "widget-server is ready"
 }
 
-function emptyDB() {
+function createEmptyDB() {
   echo "drop database '$databaseDatabasename'"
+
+  killDatabaseConnections
 
   args=("-v" "ON_ERROR_STOP=1" "-h" "${databaseServername}" "-p" "$postgresPort")
   if [[ ! -z "${postgresUser}" ]] 
@@ -262,9 +264,57 @@ COMMIT;
 EOF
 }
 
-function restoreDB() {
-  emptyDB
+function doesTemplateExist() {
+  args=("-v" "ON_ERROR_STOP=1" "-h" "${databaseServername}" "-p" "$postgresPort")
+  if [[ ! -z "${postgresUser}" ]] 
+  then 
+    args+=("-U")
+    args+=("${postgresUser}")
+    args+=("-d")
+    args+=("postgres")
+  fi
 
+  if [ "$( PGPASSWORD=$postgresPassword psql ${args[@]} -XtAc "SELECT 1 FROM pg_database WHERE datname='${databaseDatabasename}_template'" )" = '1' ]
+  then
+    return
+  fi
+  false
+}
+
+function restoreDB() {
+  if doesTemplateExist;
+  then
+    echo "restore database from template"
+    restoreDBFromTemplate
+  else
+    echo "restore database from file"
+    restoreDBFromFile
+  fi
+}
+
+function restoreDBFromTemplate() {
+  args=("-v" "ON_ERROR_STOP=1" "-h" "${databaseServername}" "-p" "$postgresPort")
+  if [[ ! -z "${postgresUser}" ]] 
+  then 
+    args+=("-U")
+    args+=("${postgresUser}")
+    args+=("-d")
+    args+=("postgres")
+  fi
+
+  echo "drop database '$databaseDatabasename'"
+  PGPASSWORD=$postgresPassword psql "${args[@]}" <<EOF
+    DROP DATABASE IF EXISTS $databaseDatabasename;
+EOF
+
+  echo "restore '${databaseDatabasename}' from '${databaseDatabasename}_template'"
+  PGPASSWORD=$postgresPassword psql "${args[@]}" <<EOF
+    CREATE DATABASE $databaseDatabasename WITH OWNER $databaseUser TEMPLATE ${databaseDatabasename}_template;
+EOF
+}
+
+function restoreDBFromFile() {
+  createEmptyDB
   if [[ -f "$backupFile" ]]; then
     echo "restore database '$databaseDatabasename' from file '$backupFile'"
     PGPASSWORD=$databasePassword pg_restore -h ${databaseServername} -p $postgresPort -U ${databaseUser} -j 4 --role ${databaseUser} --no-owner --no-acl -d ${databaseDatabasename} $backupFile
@@ -276,22 +326,63 @@ function createDump() {
   PGPASSWORD=$databasePassword pg_dump -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} -Fc -f $backupFile
 }
 
+function createTemplate() {
+  clearTemplate
+
+  killDatabaseConnections
+
+  echo "create '${databaseDatabasename}_template' from '${databaseDatabasename}'"
+  PGPASSWORD=$postgresPassword psql "${args[@]}" <<EOF
+    CREATE DATABASE ${databaseDatabasename}_template WITH OWNER $databaseUser TEMPLATE ${databaseDatabasename};
+EOF
+}
+
+function clearTemplate() {
+  echo "drop database '${databaseDatabasename}_template'"
+
+  args=("-v" "ON_ERROR_STOP=1" "-h" "${databaseServername}" "-p" "$postgresPort")
+  if [[ ! -z "${postgresUser}" ]] 
+  then 
+    args+=("-U")
+    args+=("${postgresUser}")
+    args+=("-d")
+    args+=("postgres")
+  fi
+
+  PGPASSWORD=$postgresPassword psql "${args[@]}" <<EOF
+    DROP DATABASE IF EXISTS ${databaseDatabasename}_template;
+EOF
+}
+
+function killDatabaseConnections() {
+  echo "kill all active db connections to '$databaseDatabasename'"
+
+
+  args=("-v" "ON_ERROR_STOP=1" "-h" "${databaseServername}" "-p" "$postgresPort")
+  if [[ ! -z "${postgresUser}" ]] 
+  then 
+    args+=("-U")
+    args+=("${postgresUser}")
+    args+=("-d")
+    args+=("postgres")
+  fi
+
+  PGPASSWORD=$postgresPassword psql "${args[@]}" <<EOF
+    SELECT
+      pg_terminate_backend(pg_stat_activity.pid)
+    FROM
+      pg_stat_activity
+    WHERE
+      pg_stat_activity.datname = '$databaseDatabasename'
+      AND pid <> pg_backend_pid();
+EOF
+}
+
 function forceRestoreDB() {
   echo "check if nice2 can be reached actually"
   waitForNice2
 
-  echo "kill all active db connections to '$databaseDatabasename'"
-
-  PGPASSWORD=$databasePassword psql -v ON_ERROR_STOP=1 -h ${databaseServername} -p $postgresPort -U ${databaseUser} -d ${databaseDatabasename} <<EOF
-SELECT
-  pg_terminate_backend(pg_stat_activity.pid)
-FROM
-  pg_stat_activity
-WHERE
-  pg_stat_activity.datname = '$databaseDatabasename'
-  AND pid <> pg_backend_pid();
-EOF
-
+  killDatabaseConnections
   restoreDB
   echo "restored"
 

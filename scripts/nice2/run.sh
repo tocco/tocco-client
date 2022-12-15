@@ -25,13 +25,12 @@ function runDbRefactoring() {
 }
 
 function initDB () {
-  waitForNice2
-
+  previousPwd=$(echo $currentPwd)
   cd $(echo $currentPwd)
 
   setupCypressUser
 
-  createDump
+  createTemplate
 }
 
 function start() {
@@ -42,15 +41,17 @@ function start() {
   restoreDB
 
   nice2Repo=$(getNice2Folder)
-  cd $(echo $nice2Repo | tr -d '\r')
-
   echo "run nice2 from folder '${nice2Repo}'"
 
   setupEnvs
 
+  cd $(echo $nice2Repo | tr -d '\r')
   runDbRefactoring
 
-  runNice2 & initDB && fg
+  initDB
+
+  cd $(echo $nice2Repo | tr -d '\r')
+  runNice2 && fg
 }
 
 start
