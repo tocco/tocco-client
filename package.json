@@ -35,6 +35,8 @@
     "nice2:wait-for-readyness": "bash ./scripts/nice2/wait-for-readyness.sh",
     "nice2:ping": "bash ./scripts/nice2/ping.sh",
     "db:dump": "bash ./scripts/nice2/db-dump.sh",
+    "db:create-template": "bash ./scripts/nice2/db-create-template.sh",
+    "db:clear-template": "bash ./scripts/nice2/db-clear-template.sh",
     "db:reset": "bash ./scripts/nice2/db-reset.sh",
     "db:prepare": "bash ./scripts/nice2/db-prepare.sh",
     "cypress:nice2": "yarn nice2:run & yarn widgets:serve",

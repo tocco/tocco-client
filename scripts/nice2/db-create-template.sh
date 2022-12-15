@@ -3,4 +3,4 @@ set -e
 
 source ./scripts/nice2/helpers.sh
 
-forceRestoreDB
+createTemplate
