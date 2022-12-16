@@ -1,4 +1,4 @@
-import {mount} from 'enzyme'
+import {screen, render, fireEvent} from '@testing-library/react'
 
 import MultiCheckbox from './MultiCheckbox'
 
@@ -6,30 +6,30 @@ describe('tocco-ui', () => {
   describe('MultiCheckbox', () => {
     test('should render input', () => {
       const cb = sinon.spy()
-      const wrapper = mount(<MultiCheckbox onChange={cb} />)
-      expect(wrapper.find('input')).to.have.lengthOf(1)
+      render(<MultiCheckbox onChange={cb} />)
+      expect(screen.getByRole('checkbox')).exist
     })
 
     test("should call onChange('checked') on status unchecked", () => {
       const cb = sinon.spy()
-      const wrapper = mount(<MultiCheckbox value="unchecked" onChange={cb} />)
-      wrapper.find('input').simulate('change', {target: {checked: true}})
+      render(<MultiCheckbox value="unchecked" onChange={cb} />)
+      fireEvent.click(screen.getByRole('checkbox'))
       expect(cb).to.be.calledOnce
       expect(cb).to.have.been.calledWith('checked')
     })
 
     test("should call onChange('unchecked') on status checked", () => {
       const cb = sinon.spy()
-      const wrapper = mount(<MultiCheckbox value="checked" onChange={cb} />)
-      wrapper.find('input').simulate('change', {target: {checked: false}})
+      render(<MultiCheckbox value="checked" onChange={cb} />)
+      fireEvent.click(screen.getByRole('checkbox'))
       expect(cb).to.be.calledOnce
       expect(cb).to.have.been.calledWith('unchecked')
     })
 
     test("should call onChange('unchecked') on status indeterminate", () => {
       const cb = sinon.spy()
-      const wrapper = mount(<MultiCheckbox value="indeterminate" onChange={cb} />)
-      wrapper.find('input').simulate('change', {target: {checked: false}})
+      render(<MultiCheckbox value="indeterminate" onChange={cb} />)
+      fireEvent.click(screen.getByRole('checkbox'))
       expect(cb).to.be.calledOnce
       expect(cb).to.have.been.calledWith('unchecked')
     })

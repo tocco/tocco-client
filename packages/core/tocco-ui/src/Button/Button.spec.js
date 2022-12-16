@@ -1,97 +1,109 @@
+import {screen, fireEvent, waitFor} from '@testing-library/react'
 import {MemoryRouter} from 'react-router'
-import {enzymeUtil} from 'tocco-test-util'
+import {testingLibrary} from 'tocco-test-util'
 
-import Icon from '../Icon'
-import LoadingSpinner from '../LoadingSpinner'
 import Button from './Button'
 import RouterLinkButton from './RouterLinkButton'
 
 describe('tocco-ui', () => {
   describe('Button', () => {
-    describe('Button', () => {
-      test('should handle click events', () => {
-        const onButtonClick = sinon.spy()
-        const wrapper = enzymeUtil.mountEmbedded(<Button onClick={onButtonClick} />)
-        wrapper.find('button').simulate('click')
-        expect(onButtonClick).to.have.property('callCount', 1)
-      })
+    test('should handle click events', () => {
+      const onButtonClick = sinon.spy()
+      testingLibrary.renderWithIntl(<Button onClick={onButtonClick} />)
+      fireEvent.click(screen.getByRole('button'))
+      expect(onButtonClick).to.have.been.calledOnce
+    })
 
-      test('should show label', () => {
-        const wrapper = enzymeUtil.mountEmbedded(<Button label="test" />)
-        expect(wrapper.find('button').text()).to.equal('test')
-      })
+    test('should show label', () => {
+      testingLibrary.renderWithIntl(<Button label="test" />)
+      expect(screen.getByText('test')).exist
+    })
 
-      test('should show children if no label is provided', () => {
-        const child = 'test123'
-        const wrapper = enzymeUtil.mountEmbedded(<Button>{child}</Button>)
-        expect(wrapper.find('button').text()).to.equal(child)
-      })
+    test('should show children if no label is provided', () => {
+      const child = 'test123'
+      testingLibrary.renderWithIntl(<Button>{child}</Button>)
+      expect(screen.getByText(child)).exist
+    })
 
-      test('should be disabled and hidden', () => {
-        let wrapper = enzymeUtil.mountEmbedded(<Button />)
-        expect(wrapper.find('button')).to.not.have.property('disabled')
+    test('should not be disabled initially', () => {
+      testingLibrary.renderWithIntl(<Button />)
+      jestExpect(screen.getByRole('button')).not.toBeDisabled()
+    })
 
-        wrapper = enzymeUtil.mountEmbedded(<Button disabled={false} />)
-        expect(wrapper.find('button')).to.not.have.property('disabled')
+    test('should apply disabled attribute with value', () => {
+      testingLibrary.renderWithIntl(<Button disabled={false} />)
+      jestExpect(screen.getByRole('button')).not.toBeDisabled()
+    })
 
-        wrapper = enzymeUtil.mountEmbedded(<Button disabled />)
-        expect(wrapper.find('button')).to.be.disabled()
-      })
+    test('should apply disabled attribute', () => {
+      testingLibrary.renderWithIntl(<Button disabled />)
+      jestExpect(screen.getByRole('button')).toBeDisabled()
+    })
 
-      test('should show pending spinner', () => {
-        let wrapper = enzymeUtil.mountEmbedded(<Button />)
-        expect(wrapper.find(LoadingSpinner)).to.have.length(0)
+    test('should not show pending spinner if pending is not set', async () => {
+      testingLibrary.renderWithIntl(<Button />)
+      const pendingIcon = await waitFor(() => screen.queryByTestId('icon-circle-notch'))
+      expect(pendingIcon).to.not.exist
+    })
 
-        wrapper = enzymeUtil.mountEmbedded(<Button pending={false} />)
-        expect(wrapper.find(LoadingSpinner)).to.have.length(0)
+    test('should not show pending spinner if pending is set to false', async () => {
+      testingLibrary.renderWithIntl(<Button pending={false} />)
+      const pendingIcon = await waitFor(() => screen.queryByTestId('icon-circle-notch'))
+      expect(pendingIcon).to.not.exist
+    })
 
-        wrapper = enzymeUtil.mountEmbedded(<Button pending />)
-        expect(wrapper.find(LoadingSpinner)).to.have.length(1)
-      })
+    test('should show pending spinner if pending is set', async () => {
+      testingLibrary.renderWithIntl(<Button pending />)
+      const pendingIcon = await waitFor(() => screen.getByTestId('icon-circle-notch'))
+      expect(pendingIcon).to.exist
+    })
 
-      test('should show icon', () => {
-        const wrapper = enzymeUtil.mountEmbedded(<Button icon="icon" />)
-        expect(wrapper.find(Icon)).to.have.length(1)
-      })
+    test('should show icon', async () => {
+      testingLibrary.renderWithIntl(<Button icon="cog" />)
+      const cogIcon = await waitFor(() => screen.getByTestId('icon-cog'))
+      expect(cogIcon).to.exist
+    })
 
-      test('should set default type to button', () => {
-        const wrapper = enzymeUtil.mountEmbedded(<Button />)
-        expect(wrapper.find('button').prop('type')).to.equal('button')
-      })
+    test('should set default type to button', () => {
+      testingLibrary.renderWithIntl(<Button />)
+      expect(screen.getByRole('button').getAttribute('type')).match(/button/)
+    })
 
-      test('should set type', () => {
-        const wrapper = enzymeUtil.mountEmbedded(<Button type="submit" />)
-        expect(wrapper.find('button').prop('type')).to.equal('submit')
-      })
+    test('should set type', () => {
+      testingLibrary.renderWithIntl(<Button type="submit" />)
+      expect(screen.getByRole('button').getAttribute('type')).match(/submit/)
     })
 
     describe('RouterLinkButton', () => {
       test('should show label', () => {
-        const wrapper = enzymeUtil.mountEmbedded(
+        testingLibrary.renderWithIntl(
           <MemoryRouter>
             <RouterLinkButton label="test" />
           </MemoryRouter>
         )
-        expect(wrapper.find('a').text()).to.equal('test')
+        screen.getByRole('link', {name: 'test'})
       })
 
       test('should show children if no label is provided', () => {
         const child = 'test123'
-        const wrapper = enzymeUtil.mountEmbedded(
+
+        testingLibrary.renderWithIntl(
           <MemoryRouter>
             <RouterLinkButton>{child}</RouterLinkButton>
           </MemoryRouter>
         )
-        expect(wrapper.find('a').text()).to.equal(child)
+        expect(screen.getByText(child)).exist
       })
 
-      test('should show icon', () => {
-        const wrapper = enzymeUtil.mountEmbedded(
+      test('should show icon', async () => {
+        testingLibrary.renderWithIntl(
           <MemoryRouter>
-            <RouterLinkButton icon="icon" />
+            <RouterLinkButton icon="cog" />
           </MemoryRouter>
         )
-        expect(wrapper.find(Icon)).to.have.length(1)
+
+        const cogIcon = await waitFor(() => screen.getByTestId('icon-cog'))
+        expect(cogIcon).to.exist
       })
     })
   })

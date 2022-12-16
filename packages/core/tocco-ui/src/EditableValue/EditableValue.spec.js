@@ -1,4 +1,4 @@
-import {mount} from 'enzyme'
+import {screen, render} from '@testing-library/react'
 
 import EditableValue from './'
 
@@ -6,8 +6,10 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('<EditableValue>', () => {
       test('should export component that', () => {
-        const wrapper = mount(<EditableValue type="string" value="test" />)
-        expect(wrapper.find('span')).to.have.length(1)
+        const testValue = 'test'
+
+        render(<EditableValue type="string" value={testValue} />)
+        expect(screen.getByDisplayValue(testValue)).exist
       })
     })
   })
