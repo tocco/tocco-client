@@ -8,6 +8,7 @@ import Enzyme from 'enzyme'
 import fetch from 'node-fetch'
 import sinon from 'sinon'
 import sinonChai from 'sinon-chai'
+import '@testing-library/jest-dom'
 
 Enzyme.configure({adapter: new EnzymeAdapter()})
 
@@ -15,7 +16,9 @@ global.__PACKAGE_NAME__ = 'jest'
 
 global.chai = chai
 global.sinon = sinon
+const jestExpect = global.expect
 global.expect = chai.expect
+global.jestExpect = jestExpect
 global.should = chai.should()
 
 global.crypto = crypto
