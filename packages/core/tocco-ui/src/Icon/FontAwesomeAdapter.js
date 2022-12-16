@@ -242,12 +242,21 @@ import {StyledFontAwesomeAdapterWrapper} from './StyledComponents'
  */
 
 const FontAwesomeAdapter = ({icon, style, hasFixedWidth, ...otherProps}) => {
-  const getIcon = icon.includes(',') ? icon.replace(/\s+/, '').split(',') : icon
-  const getIconColor = {...(_get(style, 'color') && {color: style.color})}
+  const iconProp = icon.includes(',') ? icon.replace(/\s+/, '').split(',') : icon
+  const iconColorProps = {...(_get(style, 'color') && {color: style.color})}
+
+  const actualIcon = Array.isArray(iconProp) ? iconProp[1] : iconProp
 
   return (
     <StyledFontAwesomeAdapterWrapper>
-      <FontAwesomeIcon icon={getIcon} style={style} {...getIconColor} fixedWidth={hasFixedWidth} {...otherProps} />
+      <FontAwesomeIcon
+        icon={iconProp}
+        style={style}
+        {...iconColorProps}
+        fixedWidth={hasFixedWidth}
+        {...otherProps}
+        data-testid={`icon-${actualIcon}`}
+      />
     </StyledFontAwesomeAdapterWrapper>
   )
 }
