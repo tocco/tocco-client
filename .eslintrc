@@ -34,6 +34,7 @@
     "test": false,
     "it": false,
     "expect": false,
+    "jestExpect": false,
     "describe": false,
     "sinon": false,
     "beforeAll": false,
