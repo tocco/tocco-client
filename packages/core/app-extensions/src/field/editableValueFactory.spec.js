@@ -1,34 +1,11 @@
-import {Provider} from 'react-redux'
-import {createStore} from 'redux'
-import {intlEnzyme} from 'tocco-test-util'
-import {EditableValue, Range} from 'tocco-ui'
+import {screen, waitFor} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import editableValueFactory from './editableValueFactory'
 
 describe('app-extensions', () => {
   describe('formField', () => {
     describe('editableValueFactory', () => {
-      const store = createStore(() => ({
-        formData: {
-          relationEntities: {
-            data: {
-              relUser: [{key: 1}, {key: 3}],
-              relUser2: [{key: 33}]
-            }
-          },
-          tooltips: {data: {}}
-        },
-        form: {
-          detailForm: {
-            values: {
-              canton_c: 'ZH',
-              city_c: 'Zurich',
-              postcode: '8000'
-            }
-          }
-        }
-      }))
-
       test('should return simple editableValue', () => {
         const Field = editableValueFactory('string')
 
@@ -40,32 +17,32 @@ describe('app-extensions', () => {
         const onChangeSpy = sinon.spy()
         const events = {onChange: onChangeSpy}
 
-        const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <Field
-              formField={formField}
-              modelField={modelField}
-              formName={formName}
-              value={value}
-              info={info}
-              events={events}
-            />
-          </Provider>
+        testingLibrary.renderWithIntl(
+          <Field
+            formField={formField}
+            modelField={modelField}
+            formName={formName}
+            value={value}
+            info={info}
+            events={events}
+          />
         )
 
-        expect(wrapper.find(EditableValue)).to.have.length(1)
-        expect(wrapper.find(EditableValue).props()).to.have.property('value', 'test')
+        const inputElement = screen.getByRole('textbox')
+
+        expect(inputElement).to.exist
+        expect(inputElement).to.have.property('value', 'test')
       })
 
-      test('should return range component if requested', () => {
-        const Field = editableValueFactory('date')
+      test('should return range component if requested', async () => {
+        const Field = editableValueFactory('number')
 
         const formField = {
           expanded: true
         }
         const modelField = {}
         const formName = 'searchForm'
-        const value = '2022-04-26'
+        const value = {isRangeValue: true, from: 3, to: 6}
         const info = {mandatory: false, readOnly: false}
         const onChangeSpy = sinon.spy()
         const events = {onChange: onChangeSpy}
@@ -75,31 +52,31 @@ describe('app-extensions', () => {
           }
         }
 
-        const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <Field
-              formField={formField}
-              modelField={modelField}
-              formName={formName}
-              value={value}
-              info={info}
-              events={events}
-              formData={formData}
-              range
-            />
-          </Provider>
+        testingLibrary.renderWithIntl(
+          <Field
+            formField={formField}
+            modelField={modelField}
+            formName={formName}
+            value={value}
+            info={info}
+            events={events}
+            formData={formData}
+            range
+          />
         )
 
-        const rangeCmp = wrapper.find(Range)
+        const collapseButton = await waitFor(() => screen.getByTestId('icon-square-minus'))
 
-        expect(rangeCmp).to.have.length(1)
+        const fromElement = screen.queryByPlaceholderText('client.component.range.from')
+        const toElement = screen.queryByPlaceholderText('client.component.range.to')
 
-        const rangeProps = rangeCmp.props()
+        expect(fromElement).to.exist
+        expect(fromElement).to.have.property('value', '3')
 
-        expect(rangeProps).to.have.property('expanded', true)
-        expect(rangeProps).to.have.property('value', '2022-04-26')
-        expect(rangeProps).to.have.property('fromText', 'client.component.range.from')
-        expect(rangeProps).to.have.property('toText', 'client.component.range.to')
+        expect(toElement).to.exist
+        expect(toElement).to.have.property('value', '6')
+
+        expect(collapseButton).to.exist
       })
     })
   })

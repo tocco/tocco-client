@@ -1,7 +1,5 @@
-import {mount} from 'enzyme'
-import {IntlProvider} from 'react-intl'
-import {TestThemeProvider} from 'tocco-test-util'
-import {FormattedValue} from 'tocco-ui'
+import {screen} from '@testing-library/react'
+import {testingLibrary} from 'tocco-test-util'
 
 import formattedValueFactory from './formattedValueFactory'
 
@@ -14,10 +12,9 @@ describe('app-extensions', () => {
 
         const value = 'test'
 
-        const wrapper = mount(<Field value={value} formField={formField} />)
+        testingLibrary.renderWithIntl(<Field value={value} formField={formField} />)
 
-        expect(wrapper.find(FormattedValue)).to.have.length(1)
-        expect(wrapper.find(FormattedValue)).to.have.prop('value', value)
+        expect(screen.queryByText(value)).to.exist
       })
     })
 
@@ -26,18 +23,14 @@ describe('app-extensions', () => {
       const text = 'Test'
       const formField = {
         componentType: 'description',
-        mode: 'tooltip',
+        mode: 'text',
         title: 'Title',
         text
       }
 
-      const wrapper = mount(
-        <TestThemeProvider>
-          <Field value={null} formField={formField} />
-        </TestThemeProvider>
-      )
+      testingLibrary.renderWithIntl(<Field value="Ignored" formField={formField} />)
 
-      expect(wrapper.find(FormattedValue)).to.have.prop('value', text)
+      expect(screen.queryByText(text)).to.exist
     })
 
     test('should set options if type overwrites it', () => {
@@ -47,33 +40,14 @@ describe('app-extensions', () => {
       const formField = {
         componentType: 'description',
         mode,
-        title
+        title,
+        text: 'text'
       }
 
-      const wrapper = mount(
-        <TestThemeProvider>
-          <Field value={null} formField={formField} />
-        </TestThemeProvider>
-      )
+      testingLibrary.renderWithIntl(<Field value={null} formField={formField} />)
 
-      expect(wrapper.find(FormattedValue)).to.have.prop('options').deep.equal({mode, title})
-    })
-
-    test('should use adjusted value from type', () => {
-      const Field = formattedValueFactory('percent')
-      const formField = {
-        componentType: 'percent'
-      }
-
-      const wrapper = mount(
-        <TestThemeProvider>
-          <IntlProvider locale="en">
-            <Field value={85} formField={formField} />
-          </IntlProvider>
-        </TestThemeProvider>
-      )
-
-      expect(wrapper.find(FormattedValue)).to.have.prop('value').equal(0.85)
+      // title is passed via options to DescriptionFormatter
+      expect(screen.queryByText(title)).to.exist
     })
   })
 })
