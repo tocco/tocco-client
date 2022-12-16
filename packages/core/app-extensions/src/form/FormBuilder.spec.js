@@ -1,8 +1,22 @@
-import {shallow} from 'enzyme'
-import {Field} from 'redux-form'
-import {Layout} from 'tocco-ui'
+import {screen} from '@testing-library/react'
+import {reduxForm} from 'redux-form'
+import {testingLibrary} from 'tocco-test-util'
 
+import appFactory from '../appFactory'
 import FormBuilder from './FormBuilder'
+
+/* eslint-disable react/prop-types */
+jest.mock('../formField', () => ({
+  FormField: ({data}) => {
+    const {id, parentReadOnly} = data
+    return (
+      <div data-testid="form-field" data-prop-parentreadonly={parentReadOnly}>
+        {id}
+      </div>
+    )
+  }
+}))
+/* eslint-enable react/prop-types */
 
 const testData = {
   entity: {
@@ -52,6 +66,7 @@ const testData = {
             children: [
               {
                 id: 'user_information',
+                label: 'Box 1',
                 componentType: 'layout',
                 layoutType: 'vertical-box',
                 readonly: true,
@@ -96,6 +111,7 @@ const testData = {
                 componentType: 'layout',
                 layoutType: 'vertical-box',
                 readonly: true,
+                label: 'Box 2',
                 children: [
                   {
                     id: 'not-readonly-field-set',
@@ -124,15 +140,30 @@ const testData = {
   }
 }
 
+const Form = reduxForm({form: 'test-form'})(({children}) => children)
+const createStore = () => appFactory.createStore(() => {}, null, {})
+
 describe('app-extensions', () => {
   describe('form', () => {
     describe('FormBuilder', () => {
-      test('should render layout boxes and Fields', () => {
+      test('should render layout boxes and Fields', async () => {
         const {entity, formName, formDefinition, formValues} = testData
-        const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
-        expect(wrapper.find(Layout.Box)).to.have.length(3)
-        expect(wrapper.find(Field)).to.have.length(3)
+        const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}, fieldMappingType: 'editable'}
+
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('Box 1')).to.exist
+        expect(screen.queryByText('input-detail-firstname')).to.exist
+        expect(screen.queryByText('input-detail-lastname')).to.exist
+
+        expect(screen.queryByText('Box 2')).to.exist
+        expect(screen.queryByText('input-detail-not-readonly-field')).to.exist
       })
 
       test('should not render field if beforeRenderField returns false', () => {
@@ -140,18 +171,47 @@ describe('app-extensions', () => {
 
         const beforeRenderField = name => name !== 'lastname'
 
-        const props = {entity, formName, formDefinition, formValues, beforeRenderField, formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
-        expect(wrapper.find(Layout.Box)).to.have.length(3)
-        expect(wrapper.find(Field)).to.have.length(2)
+        const props = {
+          entity,
+          formName,
+          formDefinition,
+          formValues,
+          beforeRenderField,
+          formFieldMapping: {},
+          fieldMappingType: 'editable'
+        }
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('Box 1')).to.exist
+        expect(screen.queryByText('input-detail-firstname')).to.exist
+        expect(screen.queryByText('input-detail-lastname')).to.not.exist
+
+        expect(screen.queryByText('Box 2')).to.exist
+        expect(screen.queryByText('input-detail-not-readonly-field')).to.exist
       })
 
       test('should not require an entity (should not check readable flag in this case)', () => {
         const {formName, formDefinition, formValues} = testData
         const entity = null
-        const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
-        expect(wrapper.find(Field)).to.have.length(3)
+        const props = {entity, formName, formDefinition, formValues, formFieldMapping: {}, fieldMappingType: 'editable'}
+
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-firstname')).to.exist
+        expect(screen.queryByText('input-detail-lastname')).to.exist
+        expect(screen.queryByText('input-detail-not-readonly-field')).to.exist
       })
 
       test('should not render empty values in readonly form', () => {
@@ -159,34 +219,71 @@ describe('app-extensions', () => {
         const formDefinitionReadOnly = {...formDefinition, readonly: true}
         const formValues = {lastname: undefined}
         const props = {entity, formName, formValues, formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} formDefinition={formDefinitionReadOnly} />)
-        expect(wrapper.find(Field)).to.have.length(0)
+
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} formDefinition={formDefinitionReadOnly} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-firstname')).to.not.exist
+        expect(screen.queryByText('input-detail-lastname')).to.not.exist
+        expect(screen.queryByText('input-detail-not-readonly-field')).to.not.exist
       })
 
-      test('should render fields with matching scope', () => {
+      test('should render fields with matching scope/mode', () => {
         const {formName, formDefinition, formValues} = testData
         const entity = null
         const props = {entity, formName, formDefinition, formValues, mode: 'create', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
-        expect(wrapper.find(Field)).to.have.length(3)
+
+        const store = appFactory.createStore(() => {}, null, {})
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-firstname')).to.exist
+        expect(screen.queryByText('input-detail-lastname')).to.exist
+        expect(screen.queryByText('input-detail-not-readonly-field')).to.exist
       })
 
-      test('should NOT render fields with unmatching scope', () => {
+      test('should NOT render fields with unmatching scope/mode', () => {
         const {formName, formDefinition, formValues} = testData
         const entity = null
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
-        expect(wrapper.find(Field)).to.have.length(2)
+
+        const store = appFactory.createStore(() => {}, null, {})
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-firstname')).to.not.exist
+        expect(screen.queryByText('input-detail-lastname')).to.exist
+        expect(screen.queryByText('input-detail-not-readonly-field')).to.exist
       })
 
       test('should render children of readonly layouts to readonly', () => {
         const {formName, formDefinition, formValues} = testData
         const entity = null
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
-        const field = wrapper.findWhere(e => e.props().id === 'input-detail-not-readonly-field')
-        expect(field).to.have.length(1)
-        expect(field.props().parentReadOnly).to.be.true
+
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        const el = screen.getByText('input-detail-not-readonly-field')
+        expect(el.getAttribute('data-prop-parentreadonly')).to.eql('true')
       })
 
       test('should read multi paths entity fields', () => {
@@ -251,11 +348,15 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
-
-        expect(wrapper.find(Field).first().props().entityField).to.equal(
-          entity.paths.relOrder.value.paths.relOrder_debitor_status
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
         )
+
+        expect(screen.queryByText('input-detail-relOrder.relOrder_debitor_status')).to.exist
       })
 
       test('should not render multipath fields with missing parts', () => {
@@ -287,7 +388,7 @@ describe('app-extensions', () => {
                   readonly: false,
                   children: [
                     {
-                      id: 'relOrder.relOrder_debitor_status',
+                      id: 'relOrder_debitor_status',
                       componentType: 'field',
                       path: 'relOrder.relOrder_debitor_status',
                       dataType: 'string',
@@ -302,9 +403,16 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
 
-        expect(wrapper.find(Field)).to.have.length(0)
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-relOrder.relOrder_debitor_status')).to.not.exist
       })
 
       test('should render multipath fields with missing parts in create mode', () => {
@@ -336,7 +444,7 @@ describe('app-extensions', () => {
                   readonly: false,
                   children: [
                     {
-                      id: 'relOrder.relOrder_debitor_status',
+                      id: 'relOrder_debitor_status',
                       componentType: 'field',
                       path: 'relOrder.relOrder_debitor_status',
                       dataType: 'string',
@@ -351,9 +459,16 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'create', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
 
-        expect(wrapper.find(Field)).to.have.length(1)
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-relOrder.relOrder_debitor_status')).to.exist
       })
 
       test('should render description field', () => {
@@ -404,9 +519,16 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
 
-        expect(wrapper.find(Field)).to.have.length(1)
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-email_change_field_description')).to.exist
       })
 
       test('should always render location field', () => {
@@ -460,9 +582,16 @@ describe('app-extensions', () => {
 
         const {formName, formValues} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
 
-        expect(wrapper.find(Field)).to.have.length(1)
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-locationfield_c')).to.exist
       })
 
       test('should render empty selector fields', () => {
@@ -538,9 +667,16 @@ describe('app-extensions', () => {
 
         const {formName} = testData
         const props = {entity, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props} />)
 
-        expect(wrapper.find(Field)).to.have.length(1)
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-relAddress_user[publication].relAddress.company_c')).to.exist
       })
 
       test('should not render empty selector fields on readonly form', () => {
@@ -624,9 +760,16 @@ describe('app-extensions', () => {
           formFieldMapping: {},
           readonly: true
         }
-        const wrapper = shallow(<FormBuilder {...props} />)
 
-        expect(wrapper.find(Field)).to.have.length(0)
+        const store = createStore()
+        testingLibrary.renderWithStore(
+          <Form>
+            <FormBuilder {...props} />
+          </Form>,
+          {store}
+        )
+
+        expect(screen.queryByText('input-detail-relAddress_user[publication].relAddress.company_c')).to.not.exist
       })
     })
   })

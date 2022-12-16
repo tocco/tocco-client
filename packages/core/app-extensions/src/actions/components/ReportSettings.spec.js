@@ -1,49 +1,47 @@
-import {Provider} from 'react-redux'
+import {screen} from '@testing-library/react'
 import {createStore} from 'redux'
-import {IntlStub, intlEnzyme} from 'tocco-test-util'
+import {IntlStub, testingLibrary} from 'tocco-test-util'
 
 import {ReportSettings} from './ReportSettings'
+
 const EMPTY_FUNC = () => {}
+const FormApp = () => <div data-testid="simple-form">form</div>
 
 describe('app-extensions', () => {
   describe('actions', () => {
     describe('components', () => {
       describe('ReportSettings', () => {
         const store = createStore(() => ({}))
-        test('should render simple-form for general and recipient settings and one for custom settings', () => {
-          const FormApp = () => <div>form</div>
-          const wrapper = intlEnzyme.mountWithIntl(
-            <Provider store={store}>
-              <ReportSettings
-                onSubmit={EMPTY_FUNC}
-                intl={IntlStub}
-                settingsDefinition={formDefinitionFull}
-                listApp={EMPTY_FUNC}
-                formApp={FormApp}
-              />
-            </Provider>
-          )
 
-          expect(wrapper.find(FormApp)).to.have.length(2)
+        test('should render simple-form for general and recipient settings and one for custom settings', () => {
+          testingLibrary.renderWithStore(
+            <ReportSettings
+              onSubmit={EMPTY_FUNC}
+              intl={IntlStub}
+              settingsDefinition={formDefinitionFull}
+              listApp={EMPTY_FUNC}
+              formApp={FormApp}
+            />,
+            {store}
+          )
+          expect(screen.queryAllByTestId('simple-form')).to.have.length(2)
         })
 
         test('should not render custom settings simple-form if custom settings are null', () => {
           const settingsDefinition = {...formDefinitionFull, customSettings: null}
 
-          const FormApp = () => <div>form</div>
-          const wrapper = intlEnzyme.mountWithIntl(
-            <Provider store={store}>
-              <ReportSettings
-                onSubmit={EMPTY_FUNC}
-                intl={IntlStub}
-                settingsDefinition={settingsDefinition}
-                listApp={EMPTY_FUNC}
-                formApp={FormApp}
-              />
-            </Provider>
+          testingLibrary.renderWithStore(
+            <ReportSettings
+              onSubmit={EMPTY_FUNC}
+              intl={IntlStub}
+              settingsDefinition={settingsDefinition}
+              listApp={EMPTY_FUNC}
+              formApp={FormApp}
+            />,
+            {store}
           )
 
-          expect(wrapper.find(FormApp)).to.have.length(1)
+          expect(screen.queryAllByTestId('simple-form')).to.have.length(1)
         })
       })
     })
