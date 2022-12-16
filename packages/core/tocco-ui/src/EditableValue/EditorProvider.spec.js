@@ -1,4 +1,4 @@
-import {mount} from 'enzyme'
+import {screen, render, fireEvent} from '@testing-library/react'
 
 import EditorProvider from './EditorProvider'
 
@@ -6,10 +6,10 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeFormatterProvider', () => {
       test('should render a type and set props', () => {
-        const wrapper = mount(<EditorProvider componentType="string" value="test" />)
+        render(<EditorProvider componentType="string" value="test" />)
 
-        expect(wrapper.find('StringEdit')).to.have.length(1)
-        expect(wrapper.find('StringEdit').props().value).to.eql('test')
+        expect(screen.getByRole('textbox')).exist
+        expect(screen.getByDisplayValue('test')).exist
       })
 
       test('should attach events', () => {
@@ -20,12 +20,12 @@ describe('tocco-ui', () => {
           onBlur: blurSpy,
           onFocus: focusSpy
         }
-        const wrapper = mount(<EditorProvider componentType="string" value="test" events={events} />)
+        render(<EditorProvider componentType="string" value="test" events={events} />)
 
-        wrapper.find('input').first().simulate('focus')
+        fireEvent.focus(screen.getAllByRole('textbox')[0])
         expect(focusSpy).to.have.calledOnce
 
-        wrapper.find('input').first().simulate('blur')
+        fireEvent.blur(screen.getAllByRole('textbox')[0])
         expect(blurSpy).to.have.calledOnce
       })
     })
