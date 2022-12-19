@@ -1,5 +1,12 @@
 export {AdminLink, AdminNavLink} from './AdminLink'
-export {default as Button, StyledButton, RouterLinkButton, StyledLabelWrapper, ButtonContextProvider} from './Button'
+export {
+  default as Button,
+  BackButton,
+  StyledButton,
+  RouterLinkButton,
+  StyledLabelWrapper,
+  ButtonContextProvider
+} from './Button'
 export {default as Ball, StyledBall} from './Ball'
 export {default as Breadcrumbs} from './Breadcrumbs'
 export {default as ErrorBoundaryFallback} from './ErrorBoundaryFallback'
