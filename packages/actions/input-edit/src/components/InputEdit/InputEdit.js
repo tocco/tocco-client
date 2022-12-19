@@ -1,14 +1,21 @@
 import PropTypes from 'prop-types'
 import {useEffect, useState} from 'react'
 import {actions, notification, selection as selectionPropType} from 'tocco-app-extensions'
-import {SidepanelMainContent, GlobalStyles, Sidepanel, SidepanelContainer, SidepanelHeader} from 'tocco-ui'
+import {SidepanelMainContent, GlobalStyles, Sidepanel, SidepanelContainer, SidepanelHeader, BackButton} from 'tocco-ui'
 import {env} from 'tocco-util'
 
 import InputEditSearch from '../InputEditSearch'
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
 import {StyledActionsWrapper, StyledPaneWrapper, StyledListWrapper, StyledListView} from './StyledInputEdit'
 
-const InputEdit = ({selection, handleNotifications, initializeTable, initializeSearch, actionDefinitions}) => {
+const InputEdit = ({
+  selection,
+  onActionClick,
+  handleNotifications,
+  initializeTable,
+  initializeSearch,
+  actionDefinitions
+}) => {
   useEffect(() => {
     initializeTable()
     initializeSearch()
@@ -16,8 +23,19 @@ const InputEdit = ({selection, handleNotifications, initializeTable, initializeS
 
   const [isCollapsed, setIsCollapsed] = useState(false)
 
+  const customRenderedActions = {
+    cancel: definition => (
+      <BackButton onClick={() => onActionClick(definition)} icon={definition.icon} label={definition.label} />
+    )
+  }
+
   const Actions = actionDefinitions.map(definition => (
-    <actions.Action key={definition.id} definition={definition} selection={selection} />
+    <actions.Action
+      key={definition.id}
+      definition={definition}
+      selection={selection}
+      customRenderedActions={customRenderedActions}
+    />
   ))
 
   const embedType = env.getEmbedType()
@@ -63,6 +81,7 @@ InputEdit.propTypes = {
       id: PropTypes.string.isRequired
     })
   ),
+  onActionClick: PropTypes.func.isRequired,
   notify: PropTypes.func.isRequired
 }
 
