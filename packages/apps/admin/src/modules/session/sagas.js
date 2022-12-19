@@ -6,6 +6,7 @@ import {cache} from 'tocco-util'
 import * as actions from './actions'
 
 export const sessionSelector = state => state.session
+export const inputSelector = state => state.input
 
 export function* sessionHeartbeat(sessionTimeoutInMinutes) {
   const sessionHeartbeatTimeoutInMs = (sessionTimeoutInMinutes / 2) * 60 * 1000
@@ -29,6 +30,11 @@ export function* doLogoutRequest() {
   return yield call(login.doRequest, 'logout', {method: 'POST'})
 }
 
+export function* redirectToBaseRoute() {
+  const {baseRoute} = yield select(inputSelector)
+  window.location.href = baseRoute || '/'
+}
+
 export function* loginSuccessful({payload}) {
   const {sessionTimeout} = payload
   /**
@@ -48,6 +54,7 @@ export function* logout({payload}) {
   yield call(doLogoutRequest)
   yield put(login.setLoggedIn(false))
   yield put(notification.closeSocket())
+  yield call(redirectToBaseRoute)
 }
 
 export function* loadPrincipal() {
