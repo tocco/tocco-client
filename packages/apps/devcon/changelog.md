@@ -1,3 +1,6 @@
+1.0.100
+- enhance external events
+
 1.0.99
 - fix object cache
 

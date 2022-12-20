@@ -1,6 +1,6 @@
 {
   "name": "tocco-legacy-bundle",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "",
   "scripts": {
     "compile:prod": "cd ../../../ && npm run compile:prod -- --package=legacy-bundle",

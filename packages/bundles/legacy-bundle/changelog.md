@@ -1,3 +1,8 @@
+0.1.20
+- enhance external events
+- add states (list, detail, fullscreen-action)
+- add onStateChange event
+
 0.1.19
 - fix object cache
 
