@@ -1,3 +1,9 @@
+1.0.139
+- add widget states
+- enhance external events
+- add states (list, detail, fullscreen-action)
+- add onStateChange event
+
 1.0.138
 - fix object cache
 

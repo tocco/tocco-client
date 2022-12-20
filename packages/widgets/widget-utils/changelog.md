@@ -1,3 +1,6 @@
+0.1.32
+- add widget states
+
 0.1.31
 - fix object cache
 
