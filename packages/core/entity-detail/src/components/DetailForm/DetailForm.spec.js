@@ -1,5 +1,4 @@
 import {screen} from '@testing-library/react'
-import {Provider} from 'react-redux'
 import {MemoryRouter} from 'react-router-dom'
 import {createStore} from 'redux'
 import {IntlStub, testingLibrary} from 'tocco-test-util'
@@ -128,29 +127,28 @@ describe('entity-detail', () => {
           }
         }))
 
-        testingLibrary.renderWithIntl(
-          <Provider store={store}>
-            <MemoryRouter>
-              <DetailForm
-                submitting={false}
-                submitForm={EMPTY_FUNC}
-                formDefinition={formDefinition}
-                entity={entity}
-                formValues={formValues}
-                logError={EMPTY_FUNC}
-                loadRelationEntities={EMPTY_FUNC}
-                uploadDocument={EMPTY_FUNC}
-                openAdvancedSearch={EMPTY_FUNC}
-                changeFieldValue={EMPTY_FUNC}
-                relationEntities={{}}
-                form="detailForm"
-                intl={IntlStub}
-                touch={EMPTY_FUNC}
-                fireTouched={EMPTY_FUNC}
-                touchAllFields={EMPTY_FUNC}
-              />
-            </MemoryRouter>
-          </Provider>
+        testingLibrary.renderWithStore(
+          <MemoryRouter>
+            <DetailForm
+              submitting={false}
+              submitForm={EMPTY_FUNC}
+              formDefinition={formDefinition}
+              entity={entity}
+              formValues={formValues}
+              logError={EMPTY_FUNC}
+              loadRelationEntities={EMPTY_FUNC}
+              uploadDocument={EMPTY_FUNC}
+              openAdvancedSearch={EMPTY_FUNC}
+              changeFieldValue={EMPTY_FUNC}
+              relationEntities={{}}
+              form="detailForm"
+              intl={IntlStub}
+              touch={EMPTY_FUNC}
+              fireTouched={EMPTY_FUNC}
+              touchAllFields={EMPTY_FUNC}
+            />
+          </MemoryRouter>,
+          {store}
         )
 
         expect(screen.queryAllByRole('textbox')).to.have.length(2)
