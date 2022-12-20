@@ -1,5 +1,4 @@
 import {screen} from '@testing-library/react'
-import {IntlProvider} from 'react-intl'
 import {testingLibrary} from 'tocco-test-util'
 
 import ErrorItems from './ErrorItems'
@@ -43,11 +42,9 @@ describe('entity-detail', () => {
           }
         }
 
-        testingLibrary.renderWithIntl(
-          <IntlProvider locale="en" messages={messages}>
-            <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
-          </IntlProvider>
-        )
+        testingLibrary.renderWithIntl(<ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />, {
+          intlMessages: messages
+        })
 
         expect(screen.queryByText(messages['client.entity-detail.invalidRelationErrors'])).to.exist
         expect(screen.queryByText('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status, 3)')).to.exist
@@ -56,11 +53,9 @@ describe('entity-detail', () => {
 
       test('should show field', () => {
         const formErrors = {_error: {}, firstname: {mandatory: ['mandatory!']}}
-        testingLibrary.renderWithIntl(
-          <IntlProvider locale="en" messages={messages}>
-            <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
-          </IntlProvider>
-        )
+        testingLibrary.renderWithIntl(<ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />, {
+          intlMessages: messages
+        })
 
         expect(screen.queryByText(messages['client.entity-detail.invalidFieldsError'])).to.exist
       })
@@ -75,11 +70,9 @@ describe('entity-detail', () => {
           }
         }
 
-        testingLibrary.renderWithIntl(
-          <IntlProvider locale="en" messages={messages}>
-            <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
-          </IntlProvider>
-        )
+        testingLibrary.renderWithIntl(<ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />, {
+          intlMessages: messages
+        })
 
         expect(screen.queryByText(messages['client.entity-detail.validatorErrors'])).to.exist
         expect(screen.queryByText('AsciiValidatorError')).to.exist
@@ -99,11 +92,9 @@ describe('entity-detail', () => {
           }
         }
 
-        testingLibrary.renderWithIntl(
-          <IntlProvider locale="en" messages={messages}>
-            <ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />
-          </IntlProvider>
-        )
+        testingLibrary.renderWithIntl(<ErrorItems formErrors={{...formErrors}} showErrors={EMPTY_FUNC} />, {
+          intlMessages: messages
+        })
 
         expect(screen.queryAllByText(messages['client.entity-detail.outdatedErrorTitle'])).to.have.length(2)
       })
