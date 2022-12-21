@@ -1,3 +1,9 @@
+1.0.140
+- add back button
+- use core back button
+- use core back button for cancel
+- user now gets redirected to homepage after logout
+
 1.0.139
 - add widget states
 - enhance external events
