@@ -6,11 +6,11 @@ import {appContext as appContextPropType} from 'tocco-util'
 const PersonalDms = ({personalFolderKey, listLimit, backendUrl, businessUnit, appContext}) => {
   const getListFormName = (parent, keys) => {
     if (parent !== null) {
-      return 'DmsPublic_docs_list_item'
+      return 'PersonalDms_docs_list_item'
     } else if (keys !== null) {
-      return 'DmsPublic_root_docs_list_item_specific'
+      return 'PersonalDms_root_docs_list_item_specific'
     } else {
-      return 'DmsPublic_root_docs_list_item'
+      return 'PersonalDms_root_docs_list_item'
     }
   }
 
@@ -21,9 +21,9 @@ const PersonalDms = ({personalFolderKey, listLimit, backendUrl, businessUnit, ap
       <DocsBrowserApp
         searchFormType="none"
         embedded={true}
-        documentDetailFormName="DmsPublicResource"
-        domainDetailFormName="DmsPublicDomain"
-        folderDetailFormName="DmsPublicFolder"
+        documentDetailFormName="PersonalDmsResource"
+        domainDetailFormName="PersonalDmsDomain"
+        folderDetailFormName="PersonalDmsFolder"
         getListFormName={getListFormName}
         scrollBehaviour="none"
         sortable={false}
