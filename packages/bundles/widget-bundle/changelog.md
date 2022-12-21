@@ -1,3 +1,8 @@
+0.1.76
+- add back button
+- use core back button
+- use core back button for cancel
+
 0.1.75
 - enhance external events
 - add states (list, detail, fullscreen-action)
