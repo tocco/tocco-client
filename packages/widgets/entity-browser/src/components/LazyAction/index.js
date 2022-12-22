@@ -6,6 +6,7 @@ const actionMap = {
   delete: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Delete')),
   export: lazy(() => import(/* webpackChunkName: "actions" */ './actions/Export')),
   'input-edit': lazy(() => import(/* webpackChunkName: "actions" */ './actions/InputEdit')),
+  'input-edit-info': lazy(() => import(/* webpackChunkName: "actions" */ './actions/InputEditInfo')),
   'subscribe-calendar': lazy(() => import(/* webpackChunkName: "actions" */ './actions/SubscribeCalendar')),
   'mailing-list-mail-action': lazy(() => import(/* webpackChunkName: "actions" */ './actions/MailingListMailAction'))
 }

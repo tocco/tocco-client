@@ -59,7 +59,10 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
     const externalEventHandlers = getEventHandlers(container)
     const eventHandlers = {
       ...externalEventHandlers,
-      onStateChange: makeHandleStateChange(backendUrl, key, externalEventHandlers.onStateChange)
+      onStateChange: makeHandleStateChange(backendUrl, key, externalEventHandlers.onStateChange),
+      onWidgetSwitch: (widgetKey, additionalInput) => {
+        switchWidget(backendUrl, assetUrl, container, widgetKey, additionalInput)
+      }
     }
     const customTheme = getTheme()
     const input = {
@@ -72,6 +75,57 @@ const initializeWidget = async (backendUrl, assetUrl, container) => {
         widgetConfigKey: key
       },
       ...eventHandlers
+    }
+    const srcPath = `${assetUrl}/js/tocco-${packageName}/dist/`
+
+    try {
+      const methods = window.reactRegistry.render(appName, container, '', input, eventHandlers, srcPath)
+      attachMethods(container, methods)
+    } catch (error) {
+      remoteLogger.logException(backendUrl, `Could not render app '${appName}'.`, error)
+    }
+  }
+}
+
+const switchWidget = async (backendUrl, assetUrl, container, key, additionalInput) => {
+  const widgetConfig = await executeRequest(`${backendUrl}/nice2/rest/widget/configs/${key}`)
+    .then(enhanceExtractedBody)
+    .then(response => handleRequestError(backendUrl, response, key))
+    .then(response => response?.body)
+    .catch(error => {
+      remoteLogger.logException(backendUrl, `Could not fetch widget config '${key}'.`, error)
+    })
+
+  if (widgetConfig) {
+    const {appName, packageName, locale, config} = widgetConfig
+
+    try {
+      await utils.loadScriptAsync(`${assetUrl}${utils.getEntryFilePath(packageName, appName)}`)
+    } catch (error) {
+      remoteLogger.logException(backendUrl, `Could not fetch package 'tocco-${packageName}'.`, error)
+      return
+    }
+
+    const externalEventHandlers = getEventHandlers(container)
+    const eventHandlers = {
+      ...externalEventHandlers,
+      onStateChange: makeHandleStateChange(backendUrl, key, externalEventHandlers.onStateChange),
+      onWidgetSwitch: widgetKey => {
+        switchWidget(backendUrl, assetUrl, container, widgetKey)
+      }
+    }
+    const customTheme = getTheme()
+    const input = {
+      backendUrl,
+      ...(customTheme ? {customTheme} : {}),
+      locale,
+      ...config,
+      appContext: {
+        embedType: 'widget',
+        widgetConfigKey: key
+      },
+      ...eventHandlers,
+      ...additionalInput
     }
     const srcPath = `${assetUrl}/js/tocco-${packageName}/dist/`
 

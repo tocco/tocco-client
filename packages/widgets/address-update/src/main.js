@@ -41,6 +41,8 @@ const initApp = (id, input, events, publicPath) => {
   }))
   cache.addToStore(store)
 
+  events.onWidgetSwitch(272, {customInput: 'test value'})
+
   return appFactory.createApp(packageName, content, store, {
     input,
     events,
