@@ -33,8 +33,8 @@ const DetailForm = props => {
   const formEventProps = form.hooks.useFormEvents({submitForm})
 
   useEffect(() => {
-    fireTouched(dirty && anyTouched)
-  }, [dirty, anyTouched, fireTouched])
+    fireTouched(dirty)
+  }, [dirty, fireTouched])
 
   const allCustomRenderedActions = useMemo(
     () => ({
