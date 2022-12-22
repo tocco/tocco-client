@@ -1,3 +1,6 @@
+0.1.77
+- user now gets new widget forms for personal-dms
+
 0.1.76
 - add back button
 - use core back button
