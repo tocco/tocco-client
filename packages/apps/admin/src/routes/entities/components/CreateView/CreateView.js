@@ -1,12 +1,11 @@
 import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 import {useState} from 'react'
-import {Prompt} from 'react-router'
 import styled from 'styled-components'
 import DocsBrowserApp from 'tocco-docs-browser/src/main'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import EntityListApp from 'tocco-entity-list/src/main'
-import {theme, scale} from 'tocco-ui'
+import {theme, scale, Prompt} from 'tocco-ui'
 
 import navigationStrategy from '../../utils/navigationStrategy'
 import {currentViewPropType} from '../../utils/propTypes'
