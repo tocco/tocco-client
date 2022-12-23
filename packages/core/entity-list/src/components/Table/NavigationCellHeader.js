@@ -1,25 +1,33 @@
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-import {connect} from 'react-redux'
 import {BallMenu, MenuItem} from 'tocco-ui'
 
-import {displayColumnModal, resetSorting, resetPreferences, resetColumns} from '../../modules/preferences/actions'
-
-const NavigationCellHeader = props =>
-  !props.disablePreferencesMenu ? (
+const NavigationCellHeader = ({
+  disablePreferencesMenu,
+  displayColumnModal,
+  resetColumns,
+  sortable,
+  resetSorting,
+  resetPreferences,
+  displayTableRowsModal
+}) =>
+  !disablePreferencesMenu ? (
     <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
-      <MenuItem onClick={props.displayColumnModal}>
+      <MenuItem onClick={displayColumnModal}>
         <FormattedMessage id="client.entity-list.preferences.columns" />
       </MenuItem>
-      <MenuItem onClick={props.resetColumns}>
+      <MenuItem onClick={displayTableRowsModal}>
+        <FormattedMessage id="client.entity-list.preferences.numOfRows" />
+      </MenuItem>
+      <MenuItem onClick={resetColumns}>
         <FormattedMessage id="client.entity-list.preferences.columns.reset" />
       </MenuItem>
-      {props.sortable && (
-        <MenuItem onClick={props.resetSorting}>
+      {sortable && (
+        <MenuItem onClick={resetSorting}>
           <FormattedMessage id="client.entity-list.sorting.reset" />
         </MenuItem>
       )}
-      <MenuItem onClick={props.resetPreferences}>
+      <MenuItem onClick={resetPreferences}>
         <FormattedMessage id="client.entity-list.preferences.reset" />
       </MenuItem>
     </BallMenu>
@@ -31,19 +39,8 @@ NavigationCellHeader.propTypes = {
   resetPreferences: PropTypes.func.isRequired,
   resetColumns: PropTypes.func.isRequired,
   sortable: PropTypes.bool,
-  disablePreferencesMenu: PropTypes.bool
+  disablePreferencesMenu: PropTypes.bool,
+  displayTableRowsModal: PropTypes.func.isRequired
 }
 
-const mapActionCreators = {
-  displayColumnModal,
-  resetSorting,
-  resetPreferences,
-  resetColumns
-}
-
-const mapStateToProps = (state, props) => ({
-  sortable: state.input.sortable,
-  disablePreferencesMenu: state.list.disablePreferencesMenu
-})
-
-export default connect(mapStateToProps, mapActionCreators)(NavigationCellHeader)
+export default NavigationCellHeader

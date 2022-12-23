@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {Icon} from 'tocco-ui'
 
-import NavigationCellHeader from './NavigationCellHeader'
+import NavigationCellHeader from './NavigationCellHeaderContainer'
 
 const CellRenderer = ({showNavigation, rowData, navigationStrategy, parent}) =>
   showNavigation && navigationStrategy.DetailLinkRelative ? (

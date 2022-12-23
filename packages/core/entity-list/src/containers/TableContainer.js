@@ -25,7 +25,7 @@ const mapStateToProps = (state, props) => ({
   currentPage: state.list.currentPage,
   entities: state.list.entities,
   entityCount: state.list.entityCount,
-  limit: state.input.limit,
+  limit: state.preferences.numOfRows || state.input.limit,
   inProgress: state.list.inProgress,
   tableSelectionStyle: getTableSelectionStyle(state.input.selectionStyle, getSelectable(getFormDefinition(state))),
   clickable: getClickable(getFormDefinition(state)),

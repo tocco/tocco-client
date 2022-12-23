@@ -9,6 +9,8 @@ export const RESET_COLUMNS = 'preferences/RESET_COLUMNS'
 export const RESET_PREFERENCES = 'preferences/RESET_PREFERENCES'
 export const DISPLAY_COLUMN_MODAL = 'preferences/DISPLAY_COLUMN_MODAL'
 export const SET_PREFERENCES_LOADED = 'preferences/SET_PREFERENCES_LOADED'
+export const SET_NUMBER_OF_TABLE_ROWS = 'preferences/SET_NUMBER_OF_TABLE_ROWS'
+export const DISPLAY_TABLE_ROWS_MODAL = 'preferences/DISPLAY_TABLE_ROWS_MODAL'
 
 export const loadPreferences = () => ({
   type: LOAD_PREFERENCES
@@ -77,4 +79,13 @@ export const displayColumnModal = () => ({
 export const resetColumns = () => ({
   type: RESET_COLUMNS,
   payload: {}
+})
+
+export const displayTableRowsModal = () => ({
+  type: DISPLAY_TABLE_ROWS_MODAL
+})
+
+export const setNumberOfTableRows = numOfRows => ({
+  type: SET_NUMBER_OF_TABLE_ROWS,
+  payload: {numOfRows}
 })
