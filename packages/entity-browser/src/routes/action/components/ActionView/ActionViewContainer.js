@@ -6,8 +6,8 @@ import {queryString as queryStringUtil} from 'tocco-util'
 import ActionView from './ActionView'
 
 const mapStateToProps = (state, props) => {
-  const queryParams = queryStringUtil.fromQueryString(location.search)
-  const selection = _get(props.router.location, 'state.selection', queryParams.actionProperties)
+  const queryParams = queryStringUtil.fromQueryString(props.router.location.search)
+  const selection = _get(props.router.location, 'state.selection', queryParams.selection)
   const actionProperties = _get(props.router.location, 'state.definition.properties', queryParams.actionProperties)
 
   return {
