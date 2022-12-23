@@ -20,8 +20,7 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => {
   return {
     sortable: state.list.sortable,
-    disablePreferencesMenu: state.list.disablePreferencesMenu,
-    numOfRows: state.preferences.numOfRows
+    disablePreferencesMenu: state.list.disablePreferencesMenu
   }
 }
 

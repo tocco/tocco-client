@@ -35,7 +35,7 @@ export function* loadPreferences() {
   yield put(setPositions(util.getPositions(preferences)))
   yield put(setSorting(util.getSorting(preferences)))
   yield put(setColumns(util.getColumns(preferences)))
-  yield put(actions.setNumberOfTableRows(Number(preferences[`${formName}.numOfRows`])))
+  yield put(setNumberOfTableRows(Number(preferences[`${formName}.numOfRows`])))
   yield put(setPreferencesLoaded(true))
 }
 
@@ -82,10 +82,11 @@ export function* saveSorting() {
 export function* saveNumberOfTableRows(answerChannel) {
   const {numOfRows} = yield take(answerChannel)
   const inputState = yield select(inputSelector)
+  const formName = `${inputState.formName}_${inputState.scope}`
 
-  yield put(setNumberOfTableRows(Number(numOfRows)))
+  yield put(setNumberOfTableRows(numOfRows))
   yield call(listSagas.reloadData)
-  yield call(rest.savePreferences, {[`${inputState.formName}_${inputState.scope}.numOfRows`]: Number(numOfRows)})
+  yield call(rest.savePreferences, {[`${formName}.numOfRows`]: numOfRows})
 }
 
 export function* resetSorting() {

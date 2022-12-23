@@ -16,6 +16,7 @@ import {
   getSorting,
   splitFormId
 } from '../../util/api/forms'
+import {getActualLimit} from '../../util/preferences'
 import * as preferencesActions from '../preferences/actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
@@ -287,8 +288,8 @@ export function* setLazyDataMarked(entityName, markings) {
 
 export function* fetchEntitiesAndAddToStore(page) {
   const state = yield select(stateSelector)
-  const {entityName, scope, limit} = state.input
-  const {columns: columnPreferences, numOfRows} = state.preferences
+  const {entityName, scope} = state.input
+  const {columns: columnPreferences} = state.preferences
   const {entityStore, sorting} = state.list
   if (!entityStore[page]) {
     const basicQuery = yield call(getBasicQuery)
@@ -299,7 +300,7 @@ export function* fetchEntitiesAndAddToStore(page) {
       ...basicQuery,
       page,
       sorting,
-      limit: numOfRows || limit,
+      limit: getActualLimit(state),
       paths
     }
 
@@ -339,9 +340,8 @@ export function* delayedPreloadNextPage(page) {
 }
 
 export function* preloadNextPage(currentPage) {
-  const {limit} = yield select(inputSelector)
-  const {numOfRows} = yield select(preferencesSelector)
-  const actualLimit = numOfRows || limit
+  const state = yield select(stateSelector)
+  const actualLimit = getActualLimit(state)
   const list = yield select(listSelector)
   const {entityStore} = list
   let {entityCount} = list

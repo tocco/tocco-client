@@ -96,3 +96,5 @@ export const getColumnPreferencesToSave = (formName, columns) =>
     }),
     {}
   )
+
+export const getActualLimit = state => state.preferences.numOfRows || state.input.limit
