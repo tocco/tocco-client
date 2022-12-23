@@ -25,7 +25,7 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
   }
 
   const queryParams = queryStringUtil.fromQueryString(location.search)
-  const selection = _get(location, 'state.selection', queryParams.actionProperties)
+  const selection = _get(location, 'state.selection', queryParams.selection)
   const actionProperties = _get(location, 'state.definition.properties', queryParams.actionProperties)
 
   const navigateBack = () => {
