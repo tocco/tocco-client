@@ -6,6 +6,7 @@ import {changePage, refresh, initialize, onRowClick, setSortingInteractive} from
 import {changePosition, resetSorting, changeWidth} from '../modules/preferences/actions'
 import {onSelectChange, setSelection} from '../modules/selection/actions'
 import {getFormDefinition, getClickable, getDisablePreferencesMenu, getSelectable} from '../util/api/forms'
+import {getActualLimit} from '../util/preferences'
 import {getTableSelectionStyle} from '../util/selection'
 
 const mapActionCreators = {
@@ -25,7 +26,7 @@ const mapStateToProps = (state, props) => ({
   currentPage: state.list.currentPage,
   entities: state.list.entities,
   entityCount: state.list.entityCount,
-  limit: state.input.limit,
+  limit: getActualLimit(state),
   inProgress: state.list.inProgress,
   tableSelectionStyle: getTableSelectionStyle(state.input.selectionStyle, getSelectable(getFormDefinition(state))),
   clickable: getClickable(getFormDefinition(state)),

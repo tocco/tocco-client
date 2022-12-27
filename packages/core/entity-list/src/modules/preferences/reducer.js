@@ -25,7 +25,13 @@ const resetPreferences = state => ({
   ...state,
   positions: {},
   sorting: [],
-  columns: {}
+  columns: {},
+  numOfRows: undefined
+})
+
+const setNumberOfTableRows = (state, {payload: {numOfRows}}) => ({
+  ...state,
+  numOfRows
 })
 
 const ACTION_HANDLERS = {
@@ -36,7 +42,8 @@ const ACTION_HANDLERS = {
   [actions.SET_PREFERENCES_LOADED]: reducerUtil.singleTransferReducer('preferencesLoaded'),
   [actions.RESET_SORTING]: resetSorting,
   [actions.RESET_COLUMNS]: resetColumns,
-  [actions.RESET_PREFERENCES]: resetPreferences
+  [actions.RESET_PREFERENCES]: resetPreferences,
+  [actions.SET_NUMBER_OF_TABLE_ROWS]: setNumberOfTableRows
 }
 
 const initialState = {
@@ -44,6 +51,7 @@ const initialState = {
   sorting: [],
   columns: {},
   widths: {},
+  numOfRows: undefined,
   preferencesLoaded: false
 }
 
