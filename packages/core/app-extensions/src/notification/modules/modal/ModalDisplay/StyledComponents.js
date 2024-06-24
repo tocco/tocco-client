@@ -1,11 +1,11 @@
 import styled, {createGlobalStyle} from 'styled-components'
-import {Button, scale, StyledScrollbar, StyledTether, theme} from 'tocco-ui'
+import {Button, scale, StyledScrollbar, StyledTether, themeSelector} from 'tocco-ui'
 
 export const basePadding = scale.space(0.5)
 
 export const StyledModalContent = styled.div`
   position: relative;
-  background-color: ${theme.color('paper')};
+  background-color: ${themeSelector.color('paper')};
   padding: ${basePadding};
   display: grid;
   grid-template-rows: [header] auto [body] 1fr;
@@ -77,7 +77,6 @@ export const StyledTitleWrapper = styled.div`
 export const StyledModalBody = styled.div`
   grid-row-start: body;
   overflow: hidden auto;
-  padding-right: ${scale.space(0)};
   ${StyledScrollbar}
 `
 

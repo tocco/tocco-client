@@ -3,11 +3,12 @@ import {all, call, put, select, take, takeLatest} from 'redux-saga/effects'
 import {rest, notification} from 'tocco-app-extensions'
 
 import ColumnModal from '../../components/ColumnModal'
+import SelectNumRows from '../../components/Table/SelectRowNums'
 import {getTableColumns} from '../../util/api/forms'
 import * as util from '../../util/preferences'
 import * as listActions from '../list/actions'
 import * as listSagas from '../list/sagas'
-import {setPositions, setSorting, setColumns, setPreferencesLoaded} from './actions'
+import {setPositions, setSorting, setColumns, setPreferencesLoaded, setNumberOfTableRows} from './actions'
 import * as actions from './actions'
 
 export const inputSelector = state => state.input
@@ -22,7 +23,8 @@ export default function* sagas() {
     takeLatest(actions.RESET_SORTING, resetSorting),
     takeLatest(actions.RESET_COLUMNS, resetColumns),
     takeLatest(actions.RESET_PREFERENCES, resetPreferences),
-    takeLatest(actions.DISPLAY_COLUMN_MODAL, displayColumnModal)
+    takeLatest(actions.DISPLAY_COLUMN_MODAL, displayColumnModal),
+    takeLatest(actions.DISPLAY_TABLE_ROWS_MODAL, displayTableRowsModal)
   ])
 }
 
@@ -33,6 +35,7 @@ export function* loadPreferences() {
   yield put(setPositions(util.getPositions(preferences)))
   yield put(setSorting(util.getSorting(preferences)))
   yield put(setColumns(util.getColumns(preferences)))
+  yield put(setNumberOfTableRows(Number(preferences[`${formName}.numOfRows`])))
   yield put(setPreferencesLoaded(true))
 }
 
@@ -74,6 +77,16 @@ export function* saveSorting() {
       )
     yield call(rest.savePreferences, sortingPreferences)
   }
+}
+
+export function* saveNumberOfTableRows(answerChannel) {
+  const {numOfRows} = yield take(answerChannel)
+  const inputState = yield select(inputSelector)
+  const formName = `${inputState.formName}_${inputState.scope}`
+
+  yield put(setNumberOfTableRows(numOfRows))
+  yield call(listSagas.reloadData)
+  yield call(rest.savePreferences, {[`${formName}.numOfRows`]: numOfRows})
 }
 
 export function* resetSorting() {
@@ -118,6 +131,31 @@ export function* displayColumnModal() {
   )
 
   yield saveColumnPreferences(answerChannel, preferencesColumns, formDefinition)
+}
+
+export function* displayTableRowsModal() {
+  const {formDefinition} = yield select(listSagas.listSelector)
+  const answerChannel = yield call(channel)
+  const {numOfRows: preferencesNumOfRows} = yield select(preferencesSelector)
+
+  yield put(
+    notification.modal(
+      `${formDefinition.id}-numOfRows-setting`,
+      'client.entity-list.preferences.numOfRows',
+      null,
+      ({close}) => {
+        const onOk = numOfRows => {
+          close()
+          answerChannel.put({numOfRows})
+        }
+
+        return <SelectNumRows onOk={onOk} numOfRows={preferencesNumOfRows} />
+      },
+      true
+    )
+  )
+
+  yield call(saveNumberOfTableRows, answerChannel)
 }
 
 function* saveColumnPreferences(answerChannel, preferencesColumns, formDefinition) {
